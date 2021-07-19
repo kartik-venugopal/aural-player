@@ -51,9 +51,6 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     
     override func viewDidLoad() {
         
-        // Enable drag n drop
-        playlistView.enableDragDrop()
-        
         initSubscriptions()
         
         doApplyColorScheme(colorSchemesManager.systemScheme, false)
@@ -91,14 +88,14 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         messenger.subscribe(to: .playlist_moveTracksToTop, handler: moveTracksToTop, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_moveTracksToBottom, handler: moveTracksToBottom, filter: viewSelectionFilter)
         
-        messenger.subscribe(to: .playlist_clearSelection, handler: clearSelection, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_clearSelection, handler: playlistView.clearSelection, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_invertSelection, handler: invertSelection, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_cropSelection, handler: cropSelection, filter: viewSelectionFilter)
         
-        messenger.subscribe(to: .playlist_scrollToTop, handler: scrollToTop, filter: viewSelectionFilter)
-        messenger.subscribe(to: .playlist_scrollToBottom, handler: scrollToBottom, filter: viewSelectionFilter)
-        messenger.subscribe(to: .playlist_pageUp, handler: pageUp, filter: viewSelectionFilter)
-        messenger.subscribe(to: .playlist_pageDown, handler: pageDown, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_scrollToTop, handler: playlistView.scrollToTop, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_scrollToBottom, handler: playlistView.scrollToBottom, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_pageUp, handler: playlistView.pageUp, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_pageDown, handler: playlistView.pageDown, filter: viewSelectionFilter)
         
         messenger.subscribe(to: .playlist_expandSelectedGroups, handler: expandSelectedGroups, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_collapseSelectedItems, handler: collapseSelectedItems, filter: viewSelectionFilter)
@@ -144,10 +141,6 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     }
     
     private var selectedRows: IndexSet {playlistView.selectedRowIndexes}
-    
-    private var atLeastOneRow: Bool {playlistView.numberOfRows > 0}
-    
-    private var lastRow: Int {playlistView.numberOfRows - 1}
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
     @IBAction func playSelectedItemAction(_ sender: AnyObject) {
@@ -201,7 +194,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         
         let trackRowIndex = playlistView.row(forItem: groupedTrack.track)
 
-        playlistView.selectRowIndexes(IndexSet(integer: trackRowIndex), byExtendingSelection: false)
+        playlistView.selectRow(trackRowIndex)
         playlistView.scrollRowToVisible(trackRowIndex)
     }
     
@@ -255,10 +248,10 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     private func selectAllItems(_ items: [PlaylistItem]) {
         
         // Determine the row indexes for the items
-        let selIndexes: [Int] = items.map { playlistView.row(forItem: $0) }
+        let selIndexes: [Int] = items.map {playlistView.row(forItem: $0)}
         
         // Select the item indexes
-        playlistView.selectRowIndexes(IndexSet(selIndexes), byExtendingSelection: false)
+        playlistView.selectRows(selIndexes)
     }
     
     private func moveTracksUp() {
@@ -300,7 +293,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     }
     
     private func invertSelection() {
-        playlistView.selectRowIndexes(invertedSelection, byExtendingSelection: false)
+        playlistView.selectRows(invertedSelection)
     }
     
     private func isItemSelected(_ item: Any) -> Bool {
@@ -324,14 +317,10 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         return IndexSet(inversionItems.compactMap {playlistView.row(forItem: $0)}.filter {$0 >= 0})
     }
     
-    private func clearSelection() {
-        playlistView.selectRowIndexes(IndexSet(), byExtendingSelection: false)
-    }
-    
     private func cropSelection() {
         
         let rowsToDelete: IndexSet = invertedSelection
-        clearSelection()
+        playlistView.clearSelection()
         
         if rowsToDelete.count > 0 {
             
@@ -362,8 +351,8 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         let groupsToCollapse: Set<Group> = Set(selectedGroups + selectedTracksParentGroups)
         groupsToCollapse.forEach({playlistView.collapseItem($0, collapseChildren: false)})
         
-        let indices = IndexSet(groupsToCollapse.map {playlistView.row(forItem: $0)})
-        playlistView.selectRowIndexes(indices, byExtendingSelection: false)
+        let indices = groupsToCollapse.map {playlistView.row(forItem: $0)}
+        playlistView.selectRows(indices)
         playlistView.scrollRowToVisible(indices.min() ?? 0)
     }
     
@@ -373,30 +362,6 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     
     private func collapseAllGroups() {
         playlistView.collapseItem(nil, collapseChildren: true)
-    }
-    
-    // Scrolls the playlist view to the very top
-    private func scrollToTop() {
-        
-        if atLeastOneRow {
-            playlistView.scrollRowToVisible(0)
-        }
-    }
-    
-    // Scrolls the playlist view to the very bottom
-    private func scrollToBottom() {
-        
-        if atLeastOneRow {
-            playlistView.scrollRowToVisible(lastRow)
-        }
-    }
-    
-    private func pageUp() {
-        playlistView.pageUp()
-    }
-    
-    private func pageDown() {
-        playlistView.pageDown()
     }
     
     // Selects the currently playing track, within the playlist view
@@ -499,7 +464,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         
         // Check if there is a new track, and change the selection accordingly.
         if uiState.currentView.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist {
-            notification.endTrack != nil ? showPlayingTrack() : clearSelection()
+            notification.endTrack != nil ? showPlayingTrack() : playlistView.clearSelection()
         }
     }
     
@@ -546,10 +511,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {
-        
-        let selectedRows = self.selectedRows
-        playlistView.reloadData()
-        playlistView.selectRowIndexes(selectedRows, byExtendingSelection: false)
+        playlistView.reloadDataMaintainingSelection()
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
@@ -561,10 +523,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         changeBackgroundColor(scheme.general.backgroundColor)
         
         if mustReloadRows {
-            
-            let selectedRows = self.selectedRows
-            playlistView.reloadData()
-            playlistView.selectRowIndexes(selectedRows, byExtendingSelection: false)
+            playlistView.reloadDataMaintainingSelection()
         }
     }
     
@@ -579,50 +538,40 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         playlistView.backgroundColor = color.isOpaque ? color : NSColor.clear
     }
     
-    private var allRows: IndexSet {IndexSet(integersIn: 0..<playlistView.numberOfRows)}
-    
     private var allGroups: [Group] {playlist.allGroups(self.groupType)}
     
     private func changeTrackNameTextColor(_ color: NSColor) {
         
-        let trackRows = allRows.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Track})
-        playlistView.reloadData(forRowIndexes: trackRows, columnIndexes: IndexSet(integer: 0))
+        let trackRows = playlistView.allRowIndices.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Track})
+        playlistView.reloadRows(trackRows, columns: [0])
     }
     
     private func changeGroupNameTextColor(_ color: NSColor) {
-        allGroups.forEach({playlistView.reloadItem($0)})
+        allGroups.forEach {playlistView.reloadItem($0)}
     }
     
     private func changeDurationTextColor(_ color: NSColor) {
-        playlistView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet(integer: 1))
+        playlistView.reloadAllRows(columns: [1])
     }
     
     private func changeTrackNameSelectedTextColor(_ color: NSColor) {
         
         let selectedTrackRows = selectedRows.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Track})
-        playlistView.reloadData(forRowIndexes: selectedTrackRows, columnIndexes: IndexSet(integer: 0))
+        playlistView.reloadRows(selectedTrackRows, columns: [0])
     }
     
     private func changeGroupNameSelectedTextColor(_ color: NSColor) {
         
         let selectedGroupRows = selectedRows.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Group})
-        playlistView.reloadData(forRowIndexes: selectedGroupRows, columnIndexes: IndexSet(integer: 0))
+        playlistView.reloadRows(selectedGroupRows, columns: [0])
     }
     
     private func changeDurationSelectedTextColor(_ color: NSColor) {
-        playlistView.reloadData(forRowIndexes: selectedRows, columnIndexes: IndexSet(integer: 1))
+        playlistView.reloadRows(selectedRows, columns: [1])
     }
     
     private func changeSelectionBoxColor(_ color: NSColor) {
-        
-        // Note down the selected rows, clear the selection, and re-select the originally selected rows (to trigger a repaint of the selection boxes)
-        let selectedRows = self.selectedRows
-        
-        if !selectedRows.isEmpty {
-            
-            clearSelection()
-            playlistView.selectRowIndexes(selectedRows, byExtendingSelection: false)
-        }
+        playlistView.redoRowSelection()
     }
     
     private func changePlayingTrackIconColor(_ color: NSColor) {

@@ -27,13 +27,6 @@ extension NSView {
         self.isHidden = true
     }
     
-    func hideIfShown() {
-        
-        if !isHidden {
-            self.isHidden = true
-        }
-    }
-    
     func show() {
         self.isHidden = false
     }
@@ -108,16 +101,8 @@ extension NSView {
         frame.origin.y += distance
     }
     
-    func moveDown(distance: CGFloat) {
-        frame.origin.y -= distance
-    }
-    
     func moveLeft(distance: CGFloat) {
         frame.origin.x -= distance
-    }
-    
-    func moveRight(distance: CGFloat) {
-        frame.origin.x += distance
     }
     
     // MARK - Static functions
@@ -130,28 +115,10 @@ extension NSView {
         views.forEach({$0.hide()})
     }
     
-    func activateAndAddConstraints(_ constraints: NSLayoutConstraint...) {
-        
-        for constraint in constraints {
-            
-            constraint.isActive = true
-            self.addConstraint(constraint)
-        }
-    }
-    
     func activateAndAddConstraint(_ constraint: NSLayoutConstraint) {
         
         constraint.isActive = true
         self.addConstraint(constraint)
-    }
-    
-    func deactivateAndRemoveConstraints(_ constraints: NSLayoutConstraint...) {
-        
-        for constraint in constraints {
-            
-            constraint.isActive = false
-            self.removeConstraint(constraint)
-        }
     }
     
     func deactivateAndRemoveConstraint(_ constraint: NSLayoutConstraint) {

@@ -908,6 +908,8 @@
 		3EBF293526869A1200D87021 /* PreferencesPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */; };
 		3EBF293726869A9300D87021 /* EffectsUnitPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */; };
 		3EC9E66C26A5974900C17302 /* BookmarksNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E66B26A5974900C17302 /* BookmarksNotifications.swift */; };
+		3EC9E67126A5C62200C17302 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E67026A5C62200C17302 /* AppVersion.swift */; };
+		3EC9E67426A5E1EB00C17302 /* TableViewDragDropExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */; };
 		3ECA54F6268F9162002813E0 /* TimeStretchUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0BE26805C18008ECB8C /* TimeStretchUnitPersistentState.swift */; };
 		3ECA54F8268F9166002813E0 /* TimePresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110B25CEB98700BF0D07 /* TimePresets.swift */; };
 		3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */; };
@@ -1987,6 +1989,8 @@
 		3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPopupMenuCell.swift; sourceTree = "<group>"; };
 		3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitPopupMenuCell.swift; sourceTree = "<group>"; };
 		3EC9E66B26A5974900C17302 /* BookmarksNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksNotifications.swift; sourceTree = "<group>"; };
+		3EC9E67026A5C62200C17302 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
+		3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDragDropExtensions.swift; sourceTree = "<group>"; };
 		3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ragingredlotus-bb.regular.ttf"; sourceTree = "<group>"; };
 		3ECB54E725E552A1002259C4 /* shufen.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shufen.regular.ttf; sourceTree = "<group>"; };
 		3ECB54EC25E559DE002259C4 /* futura light bt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "futura light bt.ttf"; sourceTree = "<group>"; };
@@ -2878,11 +2882,11 @@
 				3E6C0F5425CEB98600BF0D07 /* Albums.xib */,
 				3E6C0F4F25CEB98600BF0D07 /* Genres.xib */,
 				3E6C0F4E25CEB98600BF0D07 /* GroupingPlaylistViewController.swift */,
-				3E6C0F5125CEB98600BF0D07 /* ArtistsPlaylistViewController.swift */,
+				3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewDelegates.swift */,
 				3E6C0F5225CEB98600BF0D07 /* GroupingPlaylistDataSources.swift */,
+				3E6C0F5125CEB98600BF0D07 /* ArtistsPlaylistViewController.swift */,
 				3E6C0F5325CEB98600BF0D07 /* AlbumsPlaylistViewController.swift */,
 				3E6C0F5525CEB98600BF0D07 /* GenresPlaylistViewController.swift */,
-				3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewDelegates.swift */,
 			);
 			path = GroupingPlaylists;
 			sourceTree = "<group>";
@@ -3624,6 +3628,7 @@
 				3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */,
 				3E53ACBD267FDE4C00B5AF52 /* TimeUtils.swift */,
 				3E5F3DF42681702000E826F0 /* MappedPresets.swift */,
+				3EC9E67026A5C62200C17302 /* AppVersion.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -4323,6 +4328,7 @@
 				3EE2CC3226811074002C1B29 /* NSTableViewExtensions.swift */,
 				3E5F3DF026813F2400E826F0 /* NSEventExtensions.swift */,
 				3E7C978C268BB8BE00287158 /* NSLayoutConstraintExtensions.swift */,
+				3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */,
 				3E0B9B41269E352100B4DED9 /* NSTableColumnExtensions.swift */,
 			);
 			path = Extensions;
@@ -5261,6 +5267,7 @@
 				3E6C12A625CEBE2700BF0D07 /* ToggleMenuItem.swift in Sources */,
 				3E6C12B825CEBE5800BF0D07 /* ViewMenuController.swift in Sources */,
 				3E50DE3226A0DA4000F49C39 /* MusicBrainzPreferences.swift in Sources */,
+				3EC9E67126A5C62200C17302 /* AppVersion.swift in Sources */,
 				3E6C122425CEBDE600BF0D07 /* TracksPlaylistViewDataSource.swift in Sources */,
 				3E6C12A125CEBE2700BF0D07 /* PopupMenuCells.swift in Sources */,
 				3EDB345C25E8B75D004DF7DE /* ITunesParser.swift in Sources */,
@@ -5323,6 +5330,7 @@
 				3E871A362698EAF700C626DC /* SortField.swift in Sources */,
 				3EAFB5E7267FEA4A00F0DC96 /* DateExtensions.swift in Sources */,
 				3E8C793B269C4307005E78D1 /* PlayerNotifications.swift in Sources */,
+				3EC9E67426A5E1EB00C17302 /* TableViewDragDropExtensions.swift in Sources */,
 				3EEC04192687A9E9004478CE /* WindowedModePlayerSequencingViewController.swift in Sources */,
 				3E6361F82685085C006F5A2A /* PlayerColorScheme.swift in Sources */,
 				3EDB346125E8B75D004DF7DE /* AVFFormatDescriptions.swift in Sources */,

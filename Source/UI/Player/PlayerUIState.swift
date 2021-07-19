@@ -75,7 +75,6 @@ struct PlayerUIDefaults {
     static let showCurrentChapter: Bool = true
     
     static let showTrackInfo: Bool = true
-    static let showSequenceInfo: Bool = true
     
     static let showPlayingTrackFunctions: Bool = true
     static let showControls: Bool = true

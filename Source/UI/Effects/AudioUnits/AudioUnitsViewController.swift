@@ -160,14 +160,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
         audioUnitsMenuIconItem.reTint()
         btnRemove.reTint()
         
-        let selectedRows = tableView.selectedRowIndexes
-        tableView.reloadData()
-        
-        if !selectedRows.isEmpty {
-            
-            tableView.selectRowIndexes(IndexSet(), byExtendingSelection: false)
-            tableView.selectRowIndexes(selectedRows, byExtendingSelection: false)
-        }
+        tableView.reloadDataMaintainingSelection()
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -220,15 +213,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     }
     
     private func changeSelectionBoxColor(_ color: NSColor) {
-        
-        // Note down the selected rows, clear the selection, and re-select the originally selected rows (to trigger a repaint of the selection boxes)
-        let selectedRows = tableView.selectedRowIndexes
-        
-        if !selectedRows.isEmpty {
-            
-            tableView.selectRowIndexes(IndexSet(), byExtendingSelection: false)
-            tableView.selectRowIndexes(selectedRows, byExtendingSelection: false)
-        }
+        tableView.redoRowSelection()
     }
     
     // MARK: Menu Delegate functions

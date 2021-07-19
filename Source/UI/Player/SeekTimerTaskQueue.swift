@@ -18,6 +18,8 @@ typealias SeekTimerTask = () -> Void
  */
 class SeekTimerTaskQueue {
     
+    // TODO: Revisit this class, make it a singleton.
+    
     // Mapping of task ID -> task
     private static var tasks: [String: SeekTimerTask] = [:]
     

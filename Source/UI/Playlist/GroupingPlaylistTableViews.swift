@@ -20,6 +20,11 @@ class AuralPlaylistOutlineView: NSOutlineView, Destroyable {
     
     static var disclosureButtons: [NSButton] = []
     
+    // Enable drag/drop.
+    override func awakeFromNib() {
+        self.registerForDraggedTypes([.data, .file_URL])
+    }
+    
     static func destroy() {
         disclosureButtons.removeAll()
     }

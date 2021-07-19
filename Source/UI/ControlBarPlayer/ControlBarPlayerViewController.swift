@@ -39,18 +39,11 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
     @IBOutlet weak var audioViewController: ControlBarPlayerAudioViewController!
     @IBOutlet weak var sequencingViewController: ControlBarPlayerSequencingViewController!
     
-    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
-    
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
     // Delegate that provides access to the Favorites track list.
     private lazy var favorites: FavoritesDelegateProtocol = objectGraph.favoritesDelegate
-    
-    // Delegate that retrieves playback sequencing info (previous/next track)
-    private let sequencer: SequencerDelegateProtocol = objectGraph.sequencerDelegate
-    
-    private var audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager

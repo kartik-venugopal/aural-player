@@ -20,36 +20,18 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
     
-    // Index set used to reload specific playlist rows
-    static let allColumnIndexes: IndexSet = IndexSet([0, 1, 2])
-    
     // Returns the total number of playlist rows
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return playlist.size
-    }
+    func numberOfRows(in tableView: NSTableView) -> Int {playlist.size}
     
     // MARK: Drag n drop
     
     // Writes source information to the pasteboard
-    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
+    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pasteboard: NSPasteboard) -> Bool {
         
         if playlist.isBeingModified {return false}
-        
-        let item = NSPasteboardItem()
-        item.setData(NSKeyedArchiver.archivedData(withRootObject: rowIndexes), forType: .data)
-        pboard.writeObjects([item])
+        pasteboard.sourceIndexes = rowIndexes
         
         return true
-    }
-    
-    // Helper function to retrieve source indexes from the NSDraggingInfo pasteboard
-    private func getSourceIndexes(_ draggingInfo: NSDraggingInfo) -> IndexSet? {
-        
-        if let data = draggingInfo.draggingPasteboard.pasteboardItems?.first?.data(forType: .data) {
-            return NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet
-        }
-        
-        return nil
     }
     
     // Validates the proposed drag/drop operation
@@ -61,7 +43,9 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         if info.draggingSource is NSTableView {
             
             // Reordering of tracks
-            if let sourceIndexSet = getSourceIndexes(info), validateReorderOperation(tableView, sourceIndexSet, row, dropOperation) {
+            if let sourceIndexSet = info.sourceIndexes,
+               validateReorderOperation(tableView, sourceIndexSet, row, dropOperation) {
+                
                 return .move
             }
             
@@ -88,7 +72,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         
         if info.draggingSource is NSTableView {
             
-            if let sourceIndices = getSourceIndexes(info),
+            if let sourceIndices = info.sourceIndexes,
                 let results = playlist.dropTracks(sourceIndices, row).results as? [TrackMoveResult] {
                 
                 let sortedMoves = results.filter({$0.movedDown}).sorted(by: ItemMoveResult.compareDescending) +
@@ -106,17 +90,18 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                     destinationIndices.append(move.destinationIndex)
                 }
                 
-                // Reload all source and destination rows, and all rows in between
-                let reloadIndices: IndexSet = IndexSet(allIndices.min()!...allIndices.max()!)
-                tableView.reloadData(forRowIndexes: reloadIndices, columnIndexes: Self.allColumnIndexes)
+                // Reload all source and destination rows, and all rows in between.
+                if let minReloadIndex = allIndices.min(), let maxReloadIndex = allIndices.max() {
+                    tableView.reloadRows(minReloadIndex...maxReloadIndex)
+                }
                 
-                // Select all the destination rows (the new locations of the moved tracks)
-                tableView.selectRowIndexes(IndexSet(destinationIndices), byExtendingSelection: false)
+                // Select all the destination rows (the new locations of the moved tracks).
+                tableView.selectRows(destinationIndices)
                 
                 return true
             }
             
-        } else if let files = info.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as? [URL] {
+        } else if let files = info.urls {
             
             // Files added from Finder, add them to the playlist as URLs
             playlist.addFiles(files)

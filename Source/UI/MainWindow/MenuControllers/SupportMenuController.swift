@@ -16,7 +16,7 @@ class SupportMenuController: NSObject {
     
     private lazy var updatesDialog: UpdatesDialogController = UpdatesDialogController()
     
-    private lazy var workspace: NSWorkspace = NSWorkspace.shared
+    private lazy var workspace: NSWorkspace = .shared
     
     private let httpClient: HTTPClient = .shared
     private let supportURL: URL = URL(string: "https://github.com/maculateConception/aural-player/wiki")!
@@ -64,48 +64,5 @@ class SupportMenuController: NSObject {
         DispatchQueue.main.async {
             self.updatesDialog.showError()
         }
-    }
-}
-
-///
-/// Abstraction for an application version with logic for comparison to another app version.
-///
-struct AppVersion: Comparable {
-    
-    let versionString: String
-    
-    let majorVersion: Int
-    let minorVersion: Int
-    let patchVersion: Int
-    
-    init?(versionString: String) {
-        
-        let components = versionString.split(separator: ".")
-        guard components.count == 3 else {return nil}
-        
-        // Ensure that the version string only contains numbers.
-        let numbers: [Int] = components.compactMap {Int($0)}
-        guard numbers.count == 3 else {return nil}
-        
-        self.versionString = versionString
-     
-        majorVersion = numbers[0]
-        minorVersion = numbers[1]
-        patchVersion = numbers[2]
-    }
-    
-    static func < (lhs: AppVersion, rhs: AppVersion) -> Bool {
-        
-        if lhs.majorVersion < rhs.majorVersion {return true}
-        else if lhs.majorVersion > rhs.majorVersion {return false}
-        
-        if lhs.minorVersion < rhs.minorVersion {return true}
-        else if lhs.minorVersion > rhs.minorVersion {return false}
-        
-        if lhs.patchVersion < rhs.patchVersion {return true}
-        else if lhs.patchVersion > rhs.patchVersion {return false}
-        
-        // They are exactly equal.
-        return false
     }
 }

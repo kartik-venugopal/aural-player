@@ -41,11 +41,6 @@ struct TrackTransitionNotification: NotificationPayload {
         endState == .playing
     }
     
-    // Whether or not playback has ended/stopped as a result of this transition.
-    var playbackEnded: Bool {
-        endState == .noTrack
-    }
-    
     // Whether or not the playback state has changed as a result of this transition.
     var stateChanged: Bool {
         beginState != endState

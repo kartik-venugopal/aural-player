@@ -51,7 +51,6 @@ fileprivate let key_duration: String = "length"
 ///
 class VorbisCommentParser: FFmpegMetadataParser {
     
-    private let key_encodingTime = "encodingtime"
     private let key_language = "language"
     private let key_compilation = "compilation"
     

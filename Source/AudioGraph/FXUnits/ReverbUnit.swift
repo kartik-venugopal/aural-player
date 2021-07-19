@@ -27,7 +27,7 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         presets = ReverbPresets(persistentState: persistentState)
         super.init(.reverb, persistentState?.state ?? AudioGraphDefaults.reverbState)
         
-        amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
+        amount = persistentState?.amount ?? AudioGraphDefaults.reverbAmount
     }
     
     override var avNodes: [AVAudioNode] {[node]}

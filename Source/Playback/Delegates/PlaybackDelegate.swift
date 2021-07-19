@@ -397,10 +397,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         }
     }
     
-    func playingTrackRemoved(_ playingTrack: Track) {
-        doStop(playingTrack)
-    }
-    
     // Continues playback when a track finishes playing.
     func doTrackPlaybackCompleted() {
         

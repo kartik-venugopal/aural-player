@@ -24,9 +24,6 @@ fileprivate let key_originalAlbum = "originalalbumtitle"
 fileprivate let key_genre = "genre"
 fileprivate let key_genreId = "genreid"
 
-fileprivate let key_duration = "duration"
-fileprivate let key_totalDuration = "totalduration"
-
 fileprivate let key_disc = "partofset"
 fileprivate let key_discTotal = "disctotal"
 
@@ -42,7 +39,6 @@ fileprivate let key_bpm = "beatsperminute"
 fileprivate let key_lyrics = "lyrics"
 fileprivate let key_syncLyrics = "lyrics_synchronised"
 
-fileprivate let key_encodingTime = "encodingtime"
 fileprivate let key_isVBR = "isvbr"
 fileprivate let key_isCompilation = "iscompilation"
 

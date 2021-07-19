@@ -107,6 +107,4 @@ class EffectsUnitTabButton: OnOffImageButton {
     func unSelect() {
         self.state = .off
     }
-    
-    var isSelected: Bool {self.state == .on}
 }

@@ -50,9 +50,6 @@ extension NSColor {
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = .white15Percent
     
-    // Color used to outline tab view buttons
-    static let tabViewButtonOutlineColor: NSColor = NSColor(white: 0.65)
-    
     // Color used for text in tab view buttons
     static let tabViewButtonTextColor: NSColor = .white90Percent
     

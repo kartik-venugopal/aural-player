@@ -11,10 +11,6 @@ import Cocoa
 
 extension NSTableView {
     
-    func enableDragDrop() {
-        self.registerForDraggedTypes([.data, .file_URL])
-    }
-    
     func selectRow(_ row: Int) {
         self.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
     }
@@ -23,8 +19,81 @@ extension NSTableView {
         self.selectRowIndexes(IndexSet(rows), byExtendingSelection: false)
     }
     
+    func selectRows(_ rows: IndexSet) {
+        self.selectRowIndexes(rows, byExtendingSelection: false)
+    }
+    
+    func redoRowSelection() {
+
+        // Note down the selected rows, clear the selection, and re-select the originally selected rows
+        // (to trigger a repaint of the selection boxes).
+        
+        let selRows = selectedRowIndexes
+        
+        if !selRows.isEmpty {
+            
+            selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+            selectRowIndexes(selRows, byExtendingSelection: false)
+        }
+    }
+    
+    func selectRows(_ rows: Range<Int>) {
+        self.selectRowIndexes(IndexSet(rows), byExtendingSelection: false)
+    }
+    
+    func selectRows(_ rows: ClosedRange<Int>) {
+        self.selectRowIndexes(IndexSet(rows), byExtendingSelection: false)
+    }
+    
     func clearSelection() {
         self.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+    }
+    
+    func invertSelection() {
+        selectRowIndexes(invertedSelection, byExtendingSelection: false)
+    }
+    
+    var invertedSelection: IndexSet {
+        IndexSet((0..<numberOfRows).filter {!selectedRowIndexes.contains($0)})
+    }
+    
+    var allRowIndices: IndexSet {IndexSet(0..<numberOfRows)}
+    
+    var allColumnIndices: IndexSet {IndexSet(0..<numberOfColumns)}
+    
+    func reloadRows(_ rows: [Int]) {
+        reloadData(forRowIndexes: IndexSet(rows), columnIndexes: allColumnIndices)
+    }
+    
+    func reloadRows(_ rows: Range<Int>) {
+        reloadData(forRowIndexes: IndexSet(rows), columnIndexes: allColumnIndices)
+    }
+    
+    func reloadRows(_ rows: ClosedRange<Int>) {
+        reloadData(forRowIndexes: IndexSet(rows), columnIndexes: allColumnIndices)
+    }
+    
+    func reloadRows(_ rows: IndexSet) {
+        reloadData(forRowIndexes: rows, columnIndexes: allColumnIndices)
+    }
+    
+    func reloadRows(_ rows: [Int], columns: [Int]) {
+        reloadData(forRowIndexes: IndexSet(rows), columnIndexes: IndexSet(columns))
+    }
+    
+    func reloadRows(_ rows: IndexSet, columns: [Int]) {
+        reloadData(forRowIndexes: rows, columnIndexes: IndexSet(columns))
+    }
+    
+    func reloadAllRows(columns: [Int]) {
+        reloadData(forRowIndexes: allRowIndices, columnIndexes: IndexSet(columns))
+    }
+    
+    func reloadDataMaintainingSelection() {
+        
+        let selectedRows = selectedRowIndexes
+        reloadData()
+        selectRowIndexes(selectedRows, byExtendingSelection: false)
     }
     
     func pageUp() {
@@ -84,6 +153,22 @@ extension NSTableView {
         }
     }
     
+    // Scrolls the playlist view to the very top
+    func scrollToTop() {
+        
+        if numberOfRows > 0 {
+            scrollRowToVisible(0)
+        }
+    }
+    
+    // Scrolls the playlist view to the very bottom
+    func scrollToBottom() {
+        
+        if numberOfRows > 0 {
+            scrollRowToVisible(numberOfRows - 1)
+        }
+    }
+    
     func customizeHeader<C>(heightIncrease: CGFloat, customCellType: C.Type) where C: NSTableHeaderCell {
         
         guard let header = self.headerView else {return}
@@ -108,13 +193,4 @@ extension NSTableView {
             col.headerCell = header
         }
     }
-}
-
-extension NSPasteboard.PasteboardType {
-
-    // Enables drag/drop reordering of playlist rows
-    static let data: NSPasteboard.PasteboardType = NSPasteboard.PasteboardType(rawValue: String(kUTTypeData))
-    
-    // Enables drag/drop adding of tracks into the playlist from Finder
-    static let file_URL: NSPasteboard.PasteboardType = NSPasteboard.PasteboardType(rawValue: String(kUTTypeFileURL))
 }

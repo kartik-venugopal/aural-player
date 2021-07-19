@@ -33,8 +33,6 @@ class MenuBarPlayerViewController: NSViewController, Destroyable {
     @IBOutlet weak var audioViewController: MenuBarPlayerAudioViewController!
     @IBOutlet weak var sequencingViewController: MenuBarPlayerSequencingViewController!
     
-    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
-    
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     

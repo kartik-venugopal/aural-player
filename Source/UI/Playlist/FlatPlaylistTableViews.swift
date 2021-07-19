@@ -14,6 +14,11 @@ import Cocoa
  */
 class AuralPlaylistTableView: NSTableView {
     
+    // Enable drag/drop.
+    override func awakeFromNib() {
+        self.registerForDraggedTypes([.data, .file_URL])
+    }
+    
     override func menu(for event: NSEvent) -> NSMenu? {
         return menuHandler(for: event)
     }

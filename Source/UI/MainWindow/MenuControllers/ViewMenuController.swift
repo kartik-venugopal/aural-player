@@ -50,8 +50,6 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     private lazy var fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private lazy var colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
-    private lazy var messenger = Messenger(for: self)
-    
     private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
     
     func menuNeedsUpdate(_ menu: NSMenu) {

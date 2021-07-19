@@ -23,10 +23,11 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     
     private lazy var uiState: TuneBrowserUIState = objectGraph.tuneBrowserUIState
     
+    // TODO: Where / when should this be called ?
     func initializeUI() {
         
         categories.forEach {sidebarView.expandItem($0)}
-        sidebarView.selectRowIndexes(IndexSet(integer: 1), byExtendingSelection: false)
+        sidebarView.selectRow(1)
     }
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {

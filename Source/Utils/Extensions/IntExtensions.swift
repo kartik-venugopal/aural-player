@@ -44,13 +44,6 @@ extension SignedInteger {
         return self
     }
     
-    mutating func getAndDecrement() -> Self {
-        
-        let returnValue = self
-        self -= 1
-        return returnValue
-    }
-    
     mutating func clamp(minValue: Self, maxValue: Self) {
         
         if self < minValue {

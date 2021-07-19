@@ -583,6 +583,4 @@ enum SnapToVisibleFrameType {
     }
 }
 
-fileprivate var computedScreen: NSRect {NSScreen.main!.frame}
-
 fileprivate var computedVisibleFrame: NSRect {NSScreen.main!.visibleFrame}

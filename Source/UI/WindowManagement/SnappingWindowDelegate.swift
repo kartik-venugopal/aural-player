@@ -65,27 +65,5 @@ class SnappingWindowDelegate: NSObject, NSWindowDelegate {
         }
         
         return otherWindows.sorted(by: {$0.snapLevel < $1.snapLevel})
-        
-//        let isShowingPlaylist = windowLayoutsManager.isShowingPlaylist
-//        let isShowingEffects = windowLayoutsManager.isShowingEffects
-        
-//        if isShowingPlaylist && movedWindow === _playlistWindow {
-//            return isShowingEffects ? [mainWindow, _effectsWindow] : [mainWindow]
-//
-//        } else if isShowingEffects && movedWindow === _effectsWindow {
-//            return isShowingPlaylist ? [mainWindow, _playlistWindow] : [mainWindow]
-//
-//        } else if isShowingChaptersList && movedWindow === _chaptersListWindow {
-//
-//            var candidates: [NSWindow] = [mainWindow]
-//
-//            if isShowingEffects {candidates.append(_effectsWindow)}
-//            if isShowingPlaylist {candidates.append(_playlistWindow)}
-//
-//            return candidates
-//        }
-        
-        // Main window
-//        return []
     }
 }

@@ -74,8 +74,6 @@ class RepeatingTaskExecutor {
         }
     }
     
-    var isRunning: Bool {state == .running}
-    
     func stop() {
         
         if state == .stopped {

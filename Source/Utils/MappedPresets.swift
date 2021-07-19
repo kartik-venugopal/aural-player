@@ -160,10 +160,4 @@ fileprivate class PresetsMap<P: MappedPreset> {
     var count: Int {array.count}
     
     var allPresets: [P] {array}
-    
-    func removeAllPresets() {
-        
-        array.removeAll()
-        map.removeAll()
-    }
 }

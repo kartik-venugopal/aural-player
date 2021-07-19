@@ -29,13 +29,6 @@ class PlaybackParams {
     // e.g. used for autoplay
     var interruptPlayback: Bool = true
     
-    // Builder pattern function to set a start position.
-    func withStartPosition(_ startPosition: Double) -> PlaybackParams {
-        
-        self.startPosition = startPosition
-        return self
-    }
-    
     // Builder pattern function to set a start/end position, i.e. a segment loop.
     func withStartAndEndPosition(_ startPosition: Double, _ endPosition: Double?) -> PlaybackParams {
         

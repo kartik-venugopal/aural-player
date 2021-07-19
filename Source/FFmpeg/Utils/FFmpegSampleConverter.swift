@@ -49,11 +49,6 @@ class FFmpegSampleConverter {
         outputData.initialize(to: nil)
     }
     
-    /// See **SampleConverterProtocol.supports()**.
-    func supports(inputFormat: FFmpegAudioFormat) -> Bool {
-        return true     // FFmpeg can handle all relevant format conversions.
-    }
-    
     /// See **SampleConverterProtocol.convert()**.
     func convert(samplesIn frameBuffer: FFmpegFrameBuffer, andCopyTo audioBuffer: AVAudioPCMBuffer) {
         

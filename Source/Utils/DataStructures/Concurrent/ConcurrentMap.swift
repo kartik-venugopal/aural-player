@@ -18,29 +18,6 @@ class ConcurrentMap<T: Hashable, U: Any> {
     
     private var map: [T: U] = [:]
     
-    var kvPairs: [T: U] {
-        
-        lock.produceValueAfterWait {
-            
-            let copy = map
-            return copy
-        }
-    }
-    
-    var keys: [T] {
-        
-        lock.produceValueAfterWait {
-            Array(map.keys)
-        }
-    }
-    
-    var values: [U] {
-        
-        lock.produceValueAfterWait {
-            Array(map.values)
-        }
-    }
-    
     subscript(_ key: T) -> U? {
         
         get {

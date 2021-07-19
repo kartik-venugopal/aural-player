@@ -122,10 +122,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         if reverbUnit.isActive {reverbUnit.reset()}
     }
     
-    func restartAudioEngine() {
-        audioEngine.restart()
-    }
-    
     func tearDown() {
         
         // Release the audio engine resources

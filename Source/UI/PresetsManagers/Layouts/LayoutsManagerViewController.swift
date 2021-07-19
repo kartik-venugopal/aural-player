@@ -20,8 +20,6 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     
     override var nibName: String? {"LayoutsManager"}
     
-    private lazy var messenger = Messenger(for: self)
-    
     override var numberOfPresets: Int {windowLayoutsManager.numberOfUserDefinedPresets}
     
     override func nameOfPreset(atIndex index: Int) -> String {windowLayoutsManager.userDefinedPresets[index].name}

@@ -73,14 +73,6 @@ struct Colors {
             return colorSchemesManager.systemScheme.player.trackInfoTertiaryTextColor
         }
         
-        static var trackTimesTextColor: NSColor {
-            return colorSchemesManager.systemScheme.player.sliderValueTextColor
-        }
-        
-        static var feedbackTextColor: NSColor {
-            return colorSchemesManager.systemScheme.player.sliderValueTextColor
-        }
-        
         // Updates the cached NSGradient objects used by the player's seek slider
         static func updateSliderColors() {
             

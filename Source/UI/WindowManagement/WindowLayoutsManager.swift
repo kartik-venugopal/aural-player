@@ -48,7 +48,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     private lazy var chaptersListWindowLoader: WindowLoader<ChaptersListWindowController> = initializeLoader(type: ChaptersListWindowController.self)
     
     private var _chaptersListWindow: NSWindow {chaptersListWindowLoader.window}
-    var chaptersListWindow: NSWindow? {chaptersListWindowLoaded ? _chaptersListWindow : nil}
     var chaptersListWindowLoaded: Bool {chaptersListWindowLoader.isWindowLoaded}
     
     // MARK: Visualizer window -------------------------------------------
@@ -56,7 +55,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     private lazy var visualizerWindowLoader: WindowLoader<VisualizerWindowController> = initializeLoader(type: VisualizerWindowController.self)
     
     private var _visualizerWindow: NSWindow {visualizerWindowLoader.window}
-    var visualizerWindow: NSWindow? {visualizerWindowLoader.isWindowLoaded ? _visualizerWindow : nil}
     
     // MARK: Tune browser window -------------------------------------------
     

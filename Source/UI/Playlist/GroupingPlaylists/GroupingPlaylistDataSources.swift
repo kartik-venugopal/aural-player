@@ -75,26 +75,10 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         
         if playlist.isBeingModified {return false}
         
-        let srcRows = items.map {outlineView.row(forItem: $0)}.filter {$0 >= 0}
-        
-        let data = NSKeyedArchiver.archivedData(withRootObject: IndexSet(srcRows))
-        let item = NSPasteboardItem()
-        item.setData(data, forType: .data)
-        pasteboard.writeObjects([item])
+        let srcRows = items.map {outlineView.row(forItem: $0)}
+        pasteboard.sourceIndexes = IndexSet(srcRows)
         
         return true
-    }
-    
-    // Helper function to retrieve source indexes from the NSDraggingInfo pasteboard
-    private func getSourceIndexes(_ draggingInfo: NSDraggingInfo) -> IndexSet? {
-        
-        if let data = draggingInfo.draggingPasteboard.pasteboardItems?.first?.data(forType: .data),
-            let sourceIndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet {
-            
-            return sourceIndexSet
-        }
-        
-        return nil
     }
     
     // Validates the drag/drop operation
@@ -105,7 +89,9 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         // If the source is the outlineView, that means playlist tracks/groups are being reordered
         if info.draggingSource is NSOutlineView {
             
-            if let sourceIndexSet = getSourceIndexes(info), validateReorderOperation(outlineView, sourceIndexSet, item, index) {
+            if let sourceIndexSet = info.draggingPasteboard.sourceIndexes,
+               validateReorderOperation(outlineView, sourceIndexSet, item, index) {
+                
                 return .move
             }
             
@@ -142,7 +128,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         if movingTracks {
             
             // Find out which group these tracks belong to, and categorize them
-            let parentGroups: Set<Group> = Set<Group>(tracks.compactMap { outlineView.parent(forItem: $0) as? Group })
+            let parentGroups: Set<Group> = Set<Group>(tracks.compactMap {outlineView.parent(forItem: $0) as? Group})
             
             // Cannot move tracks from different groups (all tracks being moved must belong to the same group)
             guard parentGroups.count == 1, let group = parentGroups.first else {return false}
@@ -158,7 +144,9 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
             }
             
             // Dropping on a selected track is not allowed
-            if childIndex < group.size, let parentGroup = parent as? Group, let childTrack = parentGroup.trackAtIndex(childIndex), tracks.contains(childTrack) {
+            if childIndex < group.size, let parentGroup = parent as? Group,
+               let childTrack = parentGroup.trackAtIndex(childIndex), tracks.contains(childTrack) {
+                
                 return false
             }
             
@@ -193,7 +181,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         
         if info.draggingSource is NSOutlineView {
             
-            if let sourceIndexSet = getSourceIndexes(info) {
+            if let sourceIndexSet = info.draggingPasteboard.sourceIndexes {
                 
                 // Collect the information needed to perform the reordering
                 let tracksAndGroups = collectTracksAndGroups(outlineView, sourceIndexSet)
@@ -207,7 +195,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
                 return true
             }
             
-        } else if let files = info.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: nil) as? [URL] {
+        } else if let files = info.urls {
             
             // Files added from Finder, add them to the playlist as URLs
             playlist.addFiles(files)

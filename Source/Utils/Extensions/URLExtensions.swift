@@ -14,7 +14,6 @@ typealias URLPath = String
 extension URL {
     
     static let ascendingPathComparator: (URL, URL) -> Bool = {$0.path < $1.path}
-    static let decendingPathComparator: (URL, URL) -> Bool = {$0.path > $1.path}
     
     private static let fileManager: FileManager = .default
     

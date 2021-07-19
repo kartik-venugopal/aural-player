@@ -220,7 +220,8 @@ class ChaptersListViewController: NSViewController, Destroyable {
             let hasResults: Bool = numResults > 0
             
             // Select the first result or no row if no results
-            chaptersListView.selectRowIndexes(IndexSet(hasResults ? [searchResults[0]] : []), byExtendingSelection: false)
+            chaptersListView.selectRows(hasResults ? [searchResults[0]] : [])
+            
             if hasResults {
                 chaptersListView.scrollRowToVisible(searchResults[0])
             }
@@ -273,7 +274,8 @@ class ChaptersListViewController: NSViewController, Destroyable {
         
         // Select the search result and scroll to make it visible
         let row = searchResults[index]
-        chaptersListView.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+        
+        chaptersListView.selectRow(row)
         chaptersListView.scrollRowToVisible(row)
         
         resultIndex = index
@@ -346,7 +348,7 @@ class ChaptersListViewController: NSViewController, Destroyable {
                 .compactMap {$0}.filter({$0 >= 0})
             
             if !refreshRows.isEmpty {
-                self.chaptersListView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
+                self.chaptersListView.reloadRows(refreshRows, columns: [0])
             }
         }
         
@@ -369,9 +371,7 @@ class ChaptersListViewController: NSViewController, Destroyable {
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
             
-            let selectedRows = chaptersListView.selectedRowIndexes
-            chaptersListView.reloadData()
-            chaptersListView.selectRowIndexes(selectedRows, byExtendingSelection: false)
+            chaptersListView.reloadDataMaintainingSelection()
             
             lblWindowTitle.font = fontSchemesManager.systemScheme.playlist.chaptersListCaptionFont
             lblSummary.font = fontSchemesManager.systemScheme.playlist.summaryFont
@@ -415,13 +415,9 @@ class ChaptersListViewController: NSViewController, Destroyable {
         header.redraw()
     }
     
-    private var allRows: IndexSet {
-        return IndexSet(integersIn: 0..<chaptersListView.numberOfRows)
-    }
-    
     private func changeTrackNameTextColor(_ color: NSColor) {
         
-        chaptersListView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet(integer: 1))
+        chaptersListView.reloadAllRows(columns: [1])
         redrawSearchField()
     }
     
@@ -444,33 +440,25 @@ class ChaptersListViewController: NSViewController, Destroyable {
     }
     
     private func changeIndexDurationTextColor(_ color: NSColor) {
-        chaptersListView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([0, 2, 3]))
+        chaptersListView.reloadAllRows(columns: [0, 2, 3])
     }
     
     private func changeTrackNameSelectedTextColor(_ color: NSColor) {
-        chaptersListView.reloadData(forRowIndexes: chaptersListView.selectedRowIndexes, columnIndexes: IndexSet(integer: 1))
+        chaptersListView.reloadRows(chaptersListView.selectedRowIndexes, columns: [1])
     }
     
     private func changeIndexDurationSelectedTextColor(_ color: NSColor) {
-        chaptersListView.reloadData(forRowIndexes: chaptersListView.selectedRowIndexes, columnIndexes: IndexSet([0, 2, 3]))
+        chaptersListView.reloadRows(chaptersListView.selectedRowIndexes, columns: [0, 2, 3])
     }
     
     private func changeSelectionBoxColor(_ color: NSColor) {
-        
-        // Note down the selected rows, clear the selection, and re-select the originally selected rows (to trigger a repaint of the selection boxes)
-        let selectedRows = chaptersListView.selectedRowIndexes
-        
-        if !selectedRows.isEmpty {
-            
-            chaptersListView.selectRowIndexes(IndexSet(), byExtendingSelection: false)
-            chaptersListView.selectRowIndexes(selectedRows, byExtendingSelection: false)
-        }
+        chaptersListView.redoRowSelection()
     }
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
         if let playingChapterIndex = player.playingChapter?.index {
-            chaptersListView.reloadData(forRowIndexes: IndexSet(integer: playingChapterIndex), columnIndexes: IndexSet(integer: 0))
+            chaptersListView.reloadRows([playingChapterIndex], columns: [0])
         }
     }
     

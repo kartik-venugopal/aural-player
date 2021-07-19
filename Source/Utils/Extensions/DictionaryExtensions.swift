@@ -122,10 +122,6 @@ extension NSDictionary {
         numberValue(forKey: key)?.floatValue
     }
     
-    func floatArrayValue(forKey key: Key) -> [Float]? {
-        numberArrayValue(forKey: key)?.map {$0.floatValue}
-    }
-    
     func doubleValue(forKey key: Key) -> Double? {
         numberValue(forKey: key)?.doubleValue
     }

@@ -253,8 +253,3 @@ class EffectsWindowController: NSWindowController, Destroyable {
         }
     }
 }
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
-	return NSControl.StateValue(rawValue: input)
-}

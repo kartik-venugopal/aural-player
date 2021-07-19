@@ -35,11 +35,6 @@ class LRUArray<T: Equatable> {
     func remove(_ element: T) {
         _ = array.removeItem(element)
     }
-    
-    // Retrieves the item at a given index. Returns nil if the given index is invalid.
-    func itemAt(_ index: Int) -> T? {
-        array.itemAtIndex(index)
-    }
  
     // Returns a copy of the underlying array, maintaining the order of its elements
     func toArray() -> [T] {

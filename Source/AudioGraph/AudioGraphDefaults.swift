@@ -47,9 +47,6 @@ struct AudioGraphDefaults {
     static let delayLowPassCutoff: Float = 15000
 
     static let filterState: EffectsUnitState = .bypassed
-    static let filterBandType: FilterBandType = .bandStop
-    static let filterBandMinFreq: Float = SoundConstants.audibleRangeMin
-    static let filterBandMaxFreq: Float = SoundConstants.subBass_max
     
     static let auState: EffectsUnitState = .active
 }
