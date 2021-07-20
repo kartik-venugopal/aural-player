@@ -23,13 +23,11 @@ class MenuBarVolumeSliderCell: VolumeSliderCell {
         let leftRect = NSRect(x: aRect.minX, y: aRect.minY,
                               width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: aRect.height)
         
-        NSColor.white70Percent.setFill()
-        leftRect.fill()
+        leftRect.fill(withColor: .white70Percent)
         
         let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY,
                                width: aRect.width - (knobFrame.maxX - halfKnobWidth), height: aRect.height)
         
-        NSColor.white30Percent.setFill()
-        rightRect.fill()
+        rightRect.fill(withColor: .white30Percent)
     }
 }

@@ -54,19 +54,18 @@ class SeekSliderCell: HorizontalSliderCell {
     func drawLeftRect(inRect rect: NSRect, knobFrame: NSRect) {
         
         let halfKnobWidth = knobFrame.width / 2
-        
         let leftRect = NSRect(x: rect.minX, y: rect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: rect.height)
-        let path = NSBezierPath(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
-        foregroundGradient.draw(in: path, angle: gradientDegrees)
+        
+        NSBezierPath.fillRoundedRect(leftRect, radius: barRadius, withGradient: foregroundGradient, angle: gradientDegrees)
     }
     
     func drawRightRect(inRect rect: NSRect, knobFrame: NSRect) {
         
         let halfKnobWidth = knobFrame.width / 2
+        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: rect.minY,
+                               width: rect.width - (knobFrame.maxX - halfKnobWidth), height: rect.height)
         
-        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: rect.minY, width: rect.width - (knobFrame.maxX - halfKnobWidth), height: rect.height)
-        let path = NSBezierPath(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
-        backgroundGradient.draw(in: path, angle: gradientDegrees)
+        NSBezierPath.fillRoundedRect(rightRect, radius: barRadius, withGradient: backgroundGradient, angle: gradientDegrees)
     }
     
     override func drawBar(inside aRect: NSRect, flipped: Bool) {
@@ -86,27 +85,26 @@ class SeekSliderCell: HorizontalSliderCell {
             let endX = loop.end ?? max(startX + 1, knobFrame.minX + halfKnobWidth)
             
             // Loop bar
-            let loopRect = NSRect(x: startX, y: aRect.minY, width: (endX - startX + 1), height: aRect.height)
-            var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
-            loopColor.setFill()
-            drawPath.fill()
+            
+            NSBezierPath.fillRoundedRect(NSRect(x: startX, y: aRect.minY, width: (endX - startX + 1), height: aRect.height),
+                                         radius: barRadius,
+                                         withColor: loopColor)
             
             let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
             let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar
             
             // Loop start marker
-            let loopStartMarker = NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
-            drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: knobRadius, yRadius: knobRadius)
-            loopColor.setFill()
-            drawPath.fill()
+            
+            NSBezierPath.fillRoundedRect(NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight),
+                                         radius: knobRadius,
+                                         withColor: loopColor)
             
             // Loop end marker
             if loop.end != nil {
-            
-                let loopEndMarker = NSRect(x: endX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
-                drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: knobRadius, yRadius: knobRadius)
-                loopColor.setFill()
-                drawPath.fill()
+                
+                NSBezierPath.fillRoundedRect(NSRect(x: endX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight),
+                                             radius: knobRadius,
+                                             withColor: loopColor)
             }
         }
     }
@@ -128,13 +126,11 @@ class SeekSliderCell: HorizontalSliderCell {
     override func drawKnob(_ knobRect: NSRect) {
         
         let bar = barRect(flipped: true)
-        
         let knobHeight: CGFloat = bar.height + knobHeightOutsideBar
         let knobMinX = knobRect.minX
-        let rect = NSRect(x: knobMinX, y: bar.minY - ((knobHeight - bar.height) / 2), width: knobWidth, height: knobHeight)
         
-        let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
-        knobColor.setFill()
-        knobPath.fill()
+        NSBezierPath.fillRoundedRect(NSRect(x: knobMinX, y: bar.minY - ((knobHeight - bar.height) / 2), width: knobWidth, height: knobHeight),
+                                     radius: knobRadius,
+                                     withColor: knobColor)
     }
 }

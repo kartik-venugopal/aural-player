@@ -70,18 +70,18 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_chapterIndex, owner: nil) as? ChaptersListTableCellView else {return nil}
         
-        cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
+        cell.unselectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         
-        cell.textColor = Colors.Playlist.indexDurationTextColor
+        cell.unselectedTextColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
         
         cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         
-        cell.textField?.stringValue = text
+        cell.text = text
         cell.textField?.showIf(!showCurrentChapterMarker)
         
-        cell.imageView?.image = showCurrentChapterMarker ? Images.imgPlayingTrack.filledWithColor(Colors.Playlist.playingTrackIconColor) : nil
+        cell.image = showCurrentChapterMarker ? Images.imgPlayingTrack.filledWithColor(Colors.Playlist.playingTrackIconColor) : nil
         cell.imageView?.showIf(showCurrentChapterMarker)
         
         return cell
@@ -91,13 +91,13 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_chapterTitle, owner: nil) as? ChaptersListTableCellView else {return nil}
         
-        cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
+        cell.unselectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         
-        cell.textColor = Colors.Playlist.trackNameTextColor
+        cell.unselectedTextColor = Colors.Playlist.trackNameTextColor
         cell.selectedTextColor = Colors.Playlist.trackNameSelectedTextColor
         
-        cell.textField?.stringValue = text
+        cell.text = text
         cell.textField?.show()
         
         cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
@@ -109,13 +109,13 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? ChaptersListTableCellView else {return nil}
         
-        cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
+        cell.unselectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         
-        cell.textColor = Colors.Playlist.indexDurationTextColor
+        cell.unselectedTextColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
         
-        cell.textField?.stringValue = text
+        cell.text = text
         cell.textField?.show()
         
         cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
@@ -126,7 +126,10 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     // Enables type selection, allowing the user to conveniently and efficiently find a chapter by typing its display name, which results in the chapter, if found, being selected within the list
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
-        if let track = playbackInfo.playingTrack, tableColumn?.identifier == .uid_chapterTitle, row < playbackInfo.chapterCount {
+        if let track = playbackInfo.playingTrack,
+           tableColumn?.identifier == .uid_chapterTitle,
+           row < playbackInfo.chapterCount {
+            
             return track.chapters[row].title
         }
         

@@ -18,9 +18,9 @@ extension NSTableView {
         for index in allRowIndices {
             
             if let keyCell = view(atColumn: 0, row: index, makeIfNecessary: true) as? NSTableCellView,
-               let key = keyCell.textField?.stringValue,
+               let key = keyCell.text,
                let valueCell = view(atColumn: 1, row: index, makeIfNecessary: true) as? NSTableCellView,
-               let value = valueCell.textField?.stringValue {
+               let value = valueCell.text {
                 
                 dict[key.prefix(key.count - 1) as NSString] = value as AnyObject
             }
@@ -35,16 +35,15 @@ extension NSTableView {
         
         for index in allRowIndices {
             
-            let keyCell = view(atColumn: 0, row: index, makeIfNecessary: true) as! NSTableCellView
-            if let key = keyCell.textField?.stringValue {
+            if let keyCell = view(atColumn: 0, row: index, makeIfNecessary: true) as? NSTableCellView,
+               let key = keyCell.text,
+               let valueCell = view(atColumn: 1, row: index, makeIfNecessary: true) as? NSTableCellView,
+               let value = valueCell.text {
                 
-                let valueCell = view(atColumn: 1, row: index, makeIfNecessary: true) as! NSTableCellView
-                if let value = valueCell.textField?.stringValue {
-                    
-                    let keyCol = HTMLText(text: String(key.prefix(key.count - 1)), underlined: true, bold: false, italic: false, width: 300)
-                    let valueCol = HTMLText(text: value, underlined: false, bold: false, italic: false, width: nil)
-                    grid.append([keyCol, valueCol])
-                }
+                let keyCol = HTMLText(text: String(key.prefix(key.count - 1)), underlined: true, bold: false, italic: false, width: 300)
+                let valueCol = HTMLText(text: value, underlined: false, bold: false, italic: false, width: nil)
+                
+                grid.append([keyCol, valueCol])
             }
         }
         

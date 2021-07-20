@@ -108,10 +108,9 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
         guard let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserSidebarName, owner: nil)
             as? NSTableCellView else {return nil}
         
-        cell.imageView?.image = nil
-
-        cell.textField?.stringValue = text
-        cell.textField?.font = size14
+        cell.image = nil
+        cell.text = text
+        cell.textFont = size14
         
         return cell
     }

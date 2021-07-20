@@ -10,6 +10,13 @@
 import Cocoa
 
 public extension NSBezierPath {
+    
+    convenience init(lineFrom pt1: NSPoint, to pt2: NSPoint) {
+        
+        self.init()
+        move(to: pt1)
+        line(to: pt2)
+    }
 
     var CGPath: CGPath {
 
@@ -31,6 +38,36 @@ public extension NSBezierPath {
                 NSLog("Encountered unknown CGPath element type:" + String(describing: type))
             }
         }
+        
         return path
+    }
+    
+    func fill(withColor color: NSColor) {
+        
+        color.setFill()
+        self.fill()
+    }
+    
+    func stroke(withColor color: NSColor, lineWidth: CGFloat? = nil) {
+        
+        color.setStroke()
+        
+        if let width = lineWidth {
+            self.lineWidth = width
+        }
+        
+        self.stroke()
+    }
+    
+    static func fillRoundedRect(_ rect: NSRect, radius: CGFloat, withColor color: NSColor) {
+        
+        let path = NSBezierPath(roundedRect: rect, xRadius: radius, yRadius: radius)
+        path.fill(withColor: color)
+    }
+    
+    static func fillRoundedRect(_ rect: NSRect, radius: CGFloat, withGradient gradient: NSGradient, angle: CGFloat) {
+        
+        let path = NSBezierPath(roundedRect: rect, xRadius: radius, yRadius: radius)
+        gradient.draw(in: path, angle: angle)
     }
 }

@@ -70,10 +70,8 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         let knobWidth: CGFloat = bar.width + knobWidthOutsideBar
         let knobMinY = yCenter - (knobHeight / 2)
         let rect = NSRect(x: bar.minX - ((knobWidth - bar.width) / 2), y: knobMinY, width: knobWidth, height: knobHeight)
-
-        let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
-        knobColor.setFill()
-        knobPath.fill()
+        
+        NSBezierPath.fillRoundedRect(rect, radius: knobRadius, withColor: knobColor)
     }
     
     override internal func drawBar(inside drawRect: NSRect, flipped: Bool) {
@@ -86,13 +84,10 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         let bottomRect = NSRect(x: drawRect.minX, y: knobFrame.maxY - halfKnobWidth, width: drawRect.width, height: drawRect.height - knobFrame.maxY + halfKnobWidth).insetBy(dx: barInsetX, dy: barInsetY)
         
         // Bottom rect
-        var drawPath = NSBezierPath.init(roundedRect: bottomRect, xRadius: barRadius, yRadius: barRadius)
-        
-        foregroundGradient.draw(in: drawPath, angle: -.verticalGradientDegrees)
+        NSBezierPath.fillRoundedRect(bottomRect, radius: barRadius, withGradient: foregroundGradient, angle: -.verticalGradientDegrees)
         
         // Top rect
-        drawPath = NSBezierPath.init(roundedRect: topRect, xRadius: barRadius, yRadius: barRadius)
-        backgroundGradient.draw(in: drawPath, angle: -.verticalGradientDegrees)
+        NSBezierPath.fillRoundedRect(topRect, radius: barRadius, withGradient: foregroundGradient, angle: -.verticalGradientDegrees)
         
         // Draw one tick across the center of the bar (marking 0dB)
         let tickMinX = drawRect.minX + 1.5

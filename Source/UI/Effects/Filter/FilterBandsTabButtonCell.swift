@@ -32,12 +32,11 @@ class FilterBandsTabButtonCell: TabGroupButtonCell {
             
             let underlineWidth = title.size(withFont: font).width
             let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.minY + 2, width: underlineWidth, height: 1)
-            selectionBoxColor.setFill()
-            selRect.fill()
+            selRect.fill(withColor: selectionBoxColor)
         }
         
         // Title
         let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
-        title.drawCentered(in: cellFrame, withFont: font, andColor: textColor, offset: yOffset - (isOn ? -1 : 0))
+        title.drawCentered(in: cellFrame, withFont: font, andColor: textColor, yOffset: yOffset - (isOn ? -1 : 0))
     }
 }

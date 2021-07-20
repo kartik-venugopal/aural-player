@@ -32,6 +32,12 @@ extension NSRect {
     }
     
     var corners: [NSPoint] {[origin, topLeftPoint, topRightPoint, bottomRightPoint]}
+    
+    func fill(withColor color: NSColor) {
+        
+        color.setFill()
+        self.fill()
+    }
 }
 
 extension NSPoint {

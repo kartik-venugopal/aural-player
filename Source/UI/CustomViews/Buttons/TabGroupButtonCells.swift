@@ -42,16 +42,14 @@ class TabGroupButtonCell: NSButtonCell {
         if isOn {
             
             drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
-            let roundedPath = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
-            selectionBoxColor.setFill()
-            roundedPath.fill()
+            NSBezierPath.fillRoundedRect(drawRect, radius: borderRadius, withColor: selectionBoxColor)
         }
      
         // Title
         let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
         let font = isOn ? boldTextFont : textFont
         
-        title.drawCentered(in: drawRect, withFont: font, andColor: textColor, offset: yOffset)
+        title.drawCentered(in: drawRect, withFont: font, andColor: textColor, yOffset: yOffset)
     }
 }
 

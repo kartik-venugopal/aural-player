@@ -59,8 +59,7 @@ class ControlBarSeekSliderCell: SeekSliderCell {
             leftRect = NSRect(x: aRect.minX, y: aRect.minY,
                                   width: max(1, scaledValue * aRect.width), height: aRect.height)
             
-            let leftRectPath = NSBezierPath.init(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
-            foregroundGradient.draw(in: leftRectPath, angle: gradientDegrees)
+            NSBezierPath.fillRoundedRect(leftRect, radius: barRadius, withGradient: foregroundGradient, angle: gradientDegrees)
         }
         
         if scaledValue < 100 {
@@ -68,8 +67,7 @@ class ControlBarSeekSliderCell: SeekSliderCell {
             let rightRect = NSRect(x: leftRect.maxX, y: aRect.minY,
                                    width: max(1, aRect.width - leftRect.width), height: aRect.height)
             
-            let rightRectPath = NSBezierPath.init(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
-            backgroundGradient.draw(in: rightRectPath, angle: gradientDegrees)
+            NSBezierPath.fillRoundedRect(rightRect, radius: barRadius, withGradient: backgroundGradient, angle: gradientDegrees)
         }
         
         // Render segment playback loop, if one is defined
@@ -90,15 +88,12 @@ class ControlBarSeekSliderCell: SeekSliderCell {
             
             // Loop bar
             let loopRect = NSRect(x: startX, y: aRect.minY, width: max(1, endX - startX), height: aRect.height)
-            var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
-            loopColor.setFill()
-            drawPath.fill()
+            NSBezierPath.fillRoundedRect(loopRect, radius: barRadius, withColor: loopColor)
             
             // Current position marker
             let markerStartX = max(aRect.minX, curSeekPos - halfLoopMarkerWidth)
             let markerRect = NSMakeRect(markerStartX, aRect.minY, loopMarkerWidth, aRect.height)
-            drawPath = NSBezierPath(rect: markerRect)
-            foregroundGradient.draw(in: drawPath, angle: gradientDegrees)
+            NSBezierPath.fillRoundedRect(markerRect, radius: knobRadius, withGradient: foregroundGradient, angle: gradientDegrees)
         }
     }
 }

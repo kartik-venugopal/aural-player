@@ -32,19 +32,13 @@ class ModalDialogButtonCell: NSButtonCell {
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY)
-        
         // Background
-        let borderPath = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
-        
-        if isEnabled {
-            backgroundFillGradient.draw(in: borderPath, angle: -.verticalGradientDegrees)
-        } else {
-            backgroundFillGradient_disabled.draw(in: borderPath, angle: -.verticalGradientDegrees)
-        }
+        let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY)
+        let gradient = isEnabled ? backgroundFillGradient : backgroundFillGradient_disabled
+        NSBezierPath.fillRoundedRect(drawRect, radius: borderRadius, withGradient: gradient, angle: -.verticalGradientDegrees)
         
         // Title
-        title.drawCentered(in: drawRect, withFont: textFont, andColor: isEnabled ? textColor : textColor_disabled, offset: yOffset)
+        title.drawCentered(in: drawRect, withFont: textFont, andColor: isEnabled ? textColor : textColor_disabled, yOffset: yOffset)
     }
 }
 

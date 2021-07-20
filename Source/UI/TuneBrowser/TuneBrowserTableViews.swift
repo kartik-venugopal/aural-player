@@ -71,15 +71,7 @@ class TuneBrowserItemNameCell: NSTableCellView {
     }
 }
 
-class TuneBrowserItemTextCell: NSTableCellView {
- 
-    var text: String? = nil {
-        
-        didSet {
-            textField?.stringValue = text ?? ""
-        }
-    }
-}
+class TuneBrowserItemTextCell: NSTableCellView {}
 
 class TuneBrowserItemTypeCell: NSTableCellView {
  

@@ -901,6 +901,7 @@
 		3EAFB617267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */; };
 		3EAFB619267FF68C00F0DC96 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */; };
 		3EAFD75F269B6C2B009B904F /* ParserUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFD75E269B6C2B009B904F /* ParserUtilsTests.swift */; };
+		3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3EB64DE0269275FC00E669D3 /* TimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53ACBD267FDE4C00B5AF52 /* TimeUtils.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
@@ -1993,6 +1994,7 @@
 		3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsSliderPreviewCell.swift; sourceTree = "<group>"; };
 		3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatExtensions.swift; sourceTree = "<group>"; };
 		3EAFD75E269B6C2B009B904F /* ParserUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserUtilsTests.swift; sourceTree = "<group>"; };
+		3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableCellViewExtensions.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerSettingsViewController.swift; sourceTree = "<group>"; };
@@ -4390,6 +4392,7 @@
 				3E7C978C268BB8BE00287158 /* NSLayoutConstraintExtensions.swift */,
 				3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */,
 				3E0B9B41269E352100B4DED9 /* NSTableColumnExtensions.swift */,
+				3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5147,6 +5150,7 @@
 				3EDB344D25E8B75D004DF7DE /* FFmpegMappedMetadata.swift in Sources */,
 				3E5F944025E5736F002DEF80 /* InternalDeviceList.swift in Sources */,
 				3E6C118025CEBD6D00BF0D07 /* PitchShiftUnitDelegate.swift in Sources */,
+				3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */,
 				3E6C12B425CEBE5800BF0D07 /* PlaybackMenuController.swift in Sources */,
 				3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */,
 				3E63620226850AED006F5A2A /* PlaylistFontScheme.swift in Sources */,

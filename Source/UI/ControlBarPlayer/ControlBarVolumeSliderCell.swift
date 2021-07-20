@@ -23,10 +23,9 @@ class ControlBarVolumeSliderCell: VolumeSliderCell {
         if scaledValue > 0 {
             
             leftRect = NSRect(x: aRect.minX, y: aRect.minY,
-                                  width: max(1, scaledValue * aRect.width), height: aRect.height)
+                              width: max(1, scaledValue * aRect.width), height: aRect.height)
             
-            let leftRectPath = NSBezierPath.init(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
-            foregroundGradient.draw(in: leftRectPath, angle: gradientDegrees)
+            NSBezierPath.fillRoundedRect(leftRect, radius: barRadius, withGradient: foregroundGradient, angle: gradientDegrees)
         }
         
         if scaledValue < 100 {
@@ -34,8 +33,7 @@ class ControlBarVolumeSliderCell: VolumeSliderCell {
             let rightRect = NSRect(x: leftRect.maxX, y: aRect.minY,
                                    width: max(1, aRect.width - leftRect.width), height: aRect.height)
             
-            let rightRectPath = NSBezierPath.init(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
-            backgroundGradient.draw(in: rightRectPath, angle: gradientDegrees)
+            NSBezierPath.fillRoundedRect(rightRect, radius: barRadius, withGradient: backgroundGradient, angle: gradientDegrees)
         }
     }
 }

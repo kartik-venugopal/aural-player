@@ -42,9 +42,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 30
-    }
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {30}
     
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {

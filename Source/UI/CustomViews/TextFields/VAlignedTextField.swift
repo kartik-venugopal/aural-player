@@ -105,21 +105,17 @@ class VALabelCell: NSTextFieldCell {
         if debug {
             
             let rect: NSRect = self.titleRect(forBounds: cellFrame)
-            NSColor.gray.setFill()
-            rect.fill()
+            rect.fill(withColor: .gray)
             
             let r2: NSRect = self.drawingRect(forBounds: cellFrame)
-            NSColor.red.setFill()
-            r2.fill()
+            r2.fill(withColor: .red)
             
             var drawPath = NSBezierPath.init(rect: rect)
-            NSColor.yellow.setStroke()
-            drawPath.stroke()
+            drawPath.stroke(withColor: .yellow)
             
             let halfRect: NSRect = NSRect(x: rect.origin.x, y: rect.origin.y, width: rect.width, height: rect.height / 2)
             drawPath = NSBezierPath.init(rect: halfRect)
-            NSColor.green.setStroke()
-            drawPath.stroke()
+            drawPath.stroke(withColor: .green)
         }
         
         super.drawInterior(withFrame: cellFrame, in: controlView)

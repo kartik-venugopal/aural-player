@@ -214,18 +214,14 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 //        shadow.shadowBlurRadius = 3
 //        var attributes = [ NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.shadow: shadow ]
         
-        var attributes = [ NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color]
+        var attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
         
         var str: String = text
         
         if let spacing = lineSpacing {
             
             // If lineSpacing is specified, add a paragraph style attribute and set its lineSpacing field.
-            
-            let paraStyle = NSMutableParagraphStyle()
-            paraStyle.lineSpacing = spacing
-            
-            attributes[.paragraphStyle] = paraStyle
+            attributes[.paragraphStyle] = NSMutableParagraphStyle(lineSpacing: spacing)
             
             // Add a newline character to the text to create a line break
             str += "\n"

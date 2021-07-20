@@ -28,16 +28,8 @@ class EffectsUnitPopupMenuCell: NicerPopupMenuCell {
     
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         
-        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        textStyle.alignment = NSTextAlignment.center
-        
-        // Compute size and origin
-        let size: CGSize = title.string.size(withFont: titleFont)
-        let sx = (withFrame.width - size.width) / 2
-        let sy = (withFrame.height - size.height) / 2 - 2
-        
-        title.string.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height),
-                          withFont: titleFont, andColor: titleColor, style: textStyle)
+        title.string.drawCentered(in: withFrame,
+                                  withFont: titleFont, andColor: titleColor)
         
         return withFrame
     }

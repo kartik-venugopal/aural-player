@@ -38,9 +38,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         if isOn {
             
             let drawRect = NSRect(x: cellFrame.centerX - (imgRect.width / 2), y: cellFrame.maxY - 2, width: imgRect.width, height: 2)
-            
-            selectionBoxColor.setFill()
-            drawRect.fill()
+            drawRect.fill(withColor: selectionBoxColor)
         }
     }
 }

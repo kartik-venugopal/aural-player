@@ -63,12 +63,12 @@ class TrackInfoViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegat
         
         case .uid_trackInfoKeyColumn:
             
-            cell.textField?.stringValue = "\(kvPair.key):"
+            cell.text = "\(kvPair.key):"
             return cell
             
         case .uid_trackInfoValueColumn:
             
-            cell.textField?.stringValue = "\(kvPair.value)"
+            cell.text = "\(kvPair.value)"
             return cell
             
         default:

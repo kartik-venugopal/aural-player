@@ -23,8 +23,7 @@ class PresetsManagerTableHeaderCell: NSTableHeaderCell {
         let pline = cellFrame.insetBy(dx: cw / 2 - 0.5, dy: 5).offsetBy(dx: cw / 2 - 3, dy: -3)
         
         let path = NSBezierPath.init(rect: pline)
-        Self.lineColor.setFill()
-        path.fill()
+        path.fill(withColor: Self.lineColor)
     }
 }
 

@@ -259,21 +259,27 @@ extension String {
         self.draw(in: rect, withAttributes: [.font: font, .foregroundColor: color])
     }
     
-    func draw(in rect: NSRect, withFont font: NSFont, andColor color: NSColor, style: NSParagraphStyle) {
-        self.draw(in: rect, withAttributes: [.font: font, .foregroundColor: color, .paragraphStyle: style])
+    func draw(in rect: NSRect, withFont font: NSFont, andColor color: NSColor, style: NSParagraphStyle?) {
+        
+        if let theStyle = style {
+            self.draw(in: rect, withAttributes: [.font: font, .foregroundColor: color, .paragraphStyle: theStyle])
+        } else {
+            self.draw(in: rect, withAttributes: [.font: font, .foregroundColor: color])
+        }
     }
     
     // Draws text, centered, within an NSRect, with a certain font and color
-    func drawCentered(in rect: NSRect, withFont font: NSFont, andColor color: NSColor, offset: CGFloat = 0) {
+    func drawCentered(in rect: NSRect, withFont font: NSFont, andColor color: NSColor, yOffset: CGFloat = 0, style: NSParagraphStyle? = nil) {
         
         // Compute size and origin
         let size: CGSize = self.size(withFont: font)
         let sx = (rect.width - size.width) / 2
         let sy = (rect.height - size.height) / 2 - 1
         
-        self.draw(in: NSRect(x: sx, y: sy + offset, width: size.width, height: size.height),
+        self.draw(in: NSRect(x: sx, y: sy + yOffset, width: size.width, height: size.height),
                   withFont: font,
-                  andColor: color)
+                  andColor: color,
+                  style: style)
     }
     
     /*
@@ -322,5 +328,24 @@ extension Substring.SubSequence {
     
     func trim() -> String {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+}
+
+extension NSParagraphStyle {
+    
+    static let centeredText: NSMutableParagraphStyle = {
+       
+        let textStyle = NSMutableParagraphStyle()
+        textStyle.alignment = .center
+        return textStyle
+    }()
+}
+
+extension NSMutableParagraphStyle {
+    
+    convenience init(lineSpacing: CGFloat) {
+
+        self.init()
+        self.lineSpacing = lineSpacing
     }
 }

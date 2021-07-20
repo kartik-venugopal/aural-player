@@ -17,13 +17,8 @@ class GraphicsUtils {
     // Draws a line between 2 points
     static func drawLine(_ color: NSColor, pt1: NSPoint, pt2: NSPoint, width: CGFloat) {
         
-        color.setStroke()
-        
-        let line = NSBezierPath() // container for line(s)
-        line.move(to: pt1) // start point
-        line.line(to: pt2) // destination
-        line.lineWidth = width  // hair line
-        line.stroke()
+        let line = NSBezierPath(lineFrom: pt1, to: pt2) // container for line(s)
+        line.stroke(withColor: color, lineWidth: width)
     }
     
     // Draws a line between 2 points

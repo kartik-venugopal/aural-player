@@ -109,8 +109,8 @@ class GroupedItemCellView: NSTableCellView {
     
     func updateText(_ font: NSFont, _ text: String) {
         
-        textField?.font = font
-        textField?.stringValue = text
+//        self.textFont = font
+        self.text = text
         textField?.show()
     }
     
@@ -132,11 +132,11 @@ class GroupedItemNameCellView: GroupedItemCellView {
         didSet {
             
             // Check if this row is selected
-            textField?.textColor = rowIsSelected ?
+            textColor = rowIsSelected ?
                 isGroup ? Colors.Playlist.groupNameSelectedTextColor : Colors.Playlist.trackNameSelectedTextColor :
                 isGroup ? Colors.Playlist.groupNameTextColor : Colors.Playlist.trackNameTextColor
-            
-            textField?.font = isGroup ? Fonts.Playlist.groupTextFont : Fonts.Playlist.trackTextFont
+
+            textFont = isGroup ? Fonts.Playlist.groupTextFont : Fonts.Playlist.trackTextFont
         }
     }
     
@@ -164,8 +164,8 @@ class GroupedItemDurationCellView: GroupedItemCellView {
             
             let isSelectedRow = rowIsSelected
             
-            textField?.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-            textField?.font = isGroup ? Fonts.Playlist.groupTextFont : Fonts.Playlist.trackTextFont
+            textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+            textFont = isGroup ? Fonts.Playlist.groupTextFont : Fonts.Playlist.trackTextFont
         }
     }
 }

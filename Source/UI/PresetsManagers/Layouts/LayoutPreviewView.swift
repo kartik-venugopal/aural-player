@@ -47,8 +47,7 @@ class LayoutPreviewView: NSView {
         
         // Draw screen
         var path = NSBezierPath.init(rect: dirtyRect)
-        NSColor.darkGray.setFill()
-        path.fill()
+        path.fill(withColor: .darkGray)
         
         let vx = visibleFrame.minX * drawRatio
         let vy = visibleFrame.minY * drawRatio
@@ -58,8 +57,7 @@ class LayoutPreviewView: NSView {
         // Draw visible frame
         let vRect = NSRect(x: vx, y: vy, width: vw, height: vh)
         path = NSBezierPath.init(rect: vRect)
-        NSColor.white.setFill()
-        path.fill()
+        path.fill(withColor: .white)
         
         // Draw window frames
         if let layout = self.layout {
@@ -86,12 +84,8 @@ class LayoutPreviewView: NSView {
         let drawRect = frame.shrink(scale)
         let path = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
         
-        NSColor.black.setFill()
-        path.fill()
-        
-        path.lineWidth = 2
-        NSColor.lightGray.setStroke()
-        path.stroke()
+        path.fill(withColor: .black)
+        path.stroke(withColor: .lightGray, lineWidth: 2)
         
         let imgWidth = drawRect.width > (idealImgSize * 1.2) ? idealImgSize : idealImgSize * 0.67
         let imgHeight = drawRect.height > (idealImgSize * 1.2) ? idealImgSize : idealImgSize * 0.67
@@ -102,7 +96,6 @@ class LayoutPreviewView: NSView {
         let yPadding = drawRect.height - imgSize
         
         let imgRect = NSRect(x: drawRect.minX + xPadding / 2, y: drawRect.minY + yPadding / 2, width: imgSize, height: imgSize)
-        
         image.draw(in: imgRect)
     }
 }

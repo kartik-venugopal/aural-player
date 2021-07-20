@@ -22,8 +22,7 @@ class PanSliderCell: TickedSliderCell {
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
-        var drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
-        backgroundGradient.draw(in: drawPath, angle: .horizontalGradientDegrees)
+        NSBezierPath.fillRoundedRect(aRect, radius: barRadius, withGradient: backgroundGradient, angle: .horizontalGradientDegrees)
         
         drawTicks(aRect)
         
@@ -36,13 +35,9 @@ class PanSliderCell: TickedSliderCell {
         if panRectWidth > 0 {
             
             let panRect = NSRect(x: panRectX, y: aRect.minY, width: panRectWidth, height: aRect.height)
-            drawPath = NSBezierPath.init(roundedRect: panRect, xRadius: barRadius, yRadius: barRadius)
+            let gradient = doubleValue > 0 ? foregroundGradient : foregroundGradient.reversed()
             
-            if doubleValue > 0 {
-                foregroundGradient.draw(in: drawPath, angle: -.horizontalGradientDegrees)
-            } else {
-                foregroundGradient.reversed().draw(in: drawPath, angle: -.horizontalGradientDegrees)
-            }
+            NSBezierPath.fillRoundedRect(panRect, radius: barRadius, withGradient: gradient, angle: -.horizontalGradientDegrees)
         }
     }
     

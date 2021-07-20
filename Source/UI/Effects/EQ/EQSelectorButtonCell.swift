@@ -35,14 +35,12 @@ class EQSelectorButtonCell: TabGroupButtonCell {
             let markerSize: CGFloat = 6
             let markerX = cellFrame.centerX - (textWidth / 2) - 5 - markerSize
             let markerRect = NSRect(x: markerX, y: cellFrame.centerY - (markerSize / 2) + yOffset + 1, width: markerSize, height: markerSize)
-            let roundedPath = NSBezierPath.init(roundedRect: markerRect, xRadius: borderRadius, yRadius: borderRadius)
             
-            selectionBoxColor.setFill()
-            roundedPath.fill()
+            NSBezierPath.fillRoundedRect(markerRect, radius: borderRadius, withColor: selectionBoxColor)
         }
         
         // Title
         let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
-        title.drawCentered(in: cellFrame, withFont: font, andColor: textColor, offset: yOffset)
+        title.drawCentered(in: cellFrame, withFont: font, andColor: textColor, yOffset: yOffset)
     }
 }

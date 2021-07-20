@@ -28,22 +28,14 @@ class PrettyScroller: NSScroller {
     override func drawKnob() {
         
         let knobRect = self.rect(for: .knob).insetBy(dx: knobInsetX, dy: knobInsetY)
-        
         if knobRect.height <= 0 || knobRect.width <= 0 {return}
-        
-        let drawPath = NSBezierPath.init(roundedRect: knobRect, xRadius: knobRadius, yRadius: knobRadius)
-        
-        NSColor.scrollerKnobColor.setFill()
-        drawPath.fill()
+        NSBezierPath.fillRoundedRect(knobRect, radius: knobRadius, withColor: .scrollerKnobColor)
     }
     
     override func draw(_ dirtyRect: NSRect) {
         
         let rect = dirtyRect.insetBy(dx: barInsetX, dy: barInsetY)
-        let drawPath = NSBezierPath.init(roundedRect: rect, xRadius: barRadius, yRadius: barRadius)
-        
-        NSColor.scrollerBarColor.setFill()
-        drawPath.fill()
+        NSBezierPath.fillRoundedRect(rect, radius: barRadius, withColor: .scrollerBarColor)
         
         self.drawKnob()
     }

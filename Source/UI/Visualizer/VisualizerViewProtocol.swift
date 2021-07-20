@@ -31,9 +31,7 @@ class AuralSCNView: SCNView {
     override func draw(_ dirtyRect: NSRect) {
         
         if self.scene == nil {
-            
-            NSColor.black.setFill()
-            dirtyRect.fill()
+            dirtyRect.fill(withColor: .black)
             
         } else {
             super.draw(dirtyRect)

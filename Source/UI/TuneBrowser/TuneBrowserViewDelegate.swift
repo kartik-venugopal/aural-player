@@ -109,7 +109,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
             as? TuneBrowserItemTypeCell else {return nil}
         
         cell.initializeForFile(item)
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -120,7 +120,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
                 as? TuneBrowserItemTextCell else {return nil}
         
         cell.text = item.metadata?.playlist?.title
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -132,7 +132,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
         
         let metadata = item.metadata?.playlist
         cell.text = metadata?.artist ?? metadata?.albumArtist ?? metadata?.performer
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -143,7 +143,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
                 as? TuneBrowserItemTextCell else {return nil}
         
         cell.text = item.metadata?.playlist?.album
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -154,7 +154,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
                 as? TuneBrowserItemTextCell else {return nil}
         
         cell.text = item.metadata?.playlist?.genre
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -171,7 +171,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
             cell.text = "\(trackNum)"
         }
         
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -188,7 +188,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
             cell.text = "\(discNum)"
         }
         
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -200,7 +200,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
               let year = item.metadata?.auxiliary?.year else {return nil}
         
         cell.text = "\(year)"
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -211,7 +211,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
                 as? TuneBrowserItemTextCell else {return nil}
         
         cell.text = ValueFormatter.formatSecondsToHMS(item.metadata?.playlist?.duration ?? 0)
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }
@@ -223,7 +223,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
         
         let metadata = item.metadata?.auxiliary?.audioInfo
         cell.text = metadata?.codec ?? metadata?.format
-        cell.textField?.font = textFont
+        cell.textFont = textFont
         
         return cell
     }

@@ -370,29 +370,26 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
         
         let startSliderPath = NSBezierPath(rect: startSliderFrame)
         let endSliderPath = NSBezierPath(rect: endSliderFrame)
-        
-        barBackgroundColor.setFill()
-        framePath.fill()
+        framePath.fill(withColor: barBackgroundColor)
         
         /*  Draw bar fill */
         if NSWidth(selectedRect) > 0.0 {
 
-            barFillColor.setFill()
-            selectedPath.fill()
+            selectedPath.fill(withColor: barFillColor)
             barFillStrokeColor.setStroke()
         }
         
-        barStrokeColor.setStroke()
-        framePath.stroke()
+        framePath.stroke(withColor: barStrokeColor)
         
         /*  Draw slider shadows */
         if let shadow = sliderShadow() {
+            
             NSGraphicsContext.saveGraphicsState()
             shadow.set()
 
-            NSColor.black.set()
-            startSliderPath.fill()
-            endSliderPath.fill()
+            startSliderPath.fill(withColor: .black)
+            endSliderPath.fill(withColor: .black)
+            
             NSGraphicsContext.restoreGraphicsState()
         }
         
@@ -403,9 +400,8 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
         sliderGradient.draw(in: startSliderPath, angle: .horizontalGradientDegrees)
         startSliderPath.stroke()
         
-        knobColor.setFill()
-        startSliderPath.fill()
-        endSliderPath.fill()
+        startSliderPath.fill(withColor: knobColor)
+        endSliderPath.fill(withColor: knobColor)
     }
 }
 

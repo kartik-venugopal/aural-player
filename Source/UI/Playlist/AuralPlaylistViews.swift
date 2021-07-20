@@ -51,13 +51,11 @@ class GenericTableRowView: NSTableRowView {
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {
         
-        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
+        if self.selectionHighlightStyle != .none {
             
-            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
-            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
-            
-            NSColor.playlistSelectionBoxColor.setFill()
-            selectionPath.fill()
+            NSBezierPath.fillRoundedRect(self.bounds.insetBy(dx: 1, dy: 0),
+                                         radius: 2,
+                                         withColor: .playlistSelectionBoxColor)
         }
     }
 }
@@ -66,10 +64,10 @@ class BasicTableCellView: NSTableCellView {
     
     var rowSelectionStateFunction: () -> Bool = {false}
     
-    var textFont: NSFont = standardFontSet.mainFont(size: 10)
+    var unselectedTextFont: NSFont = standardFontSet.mainFont(size: 10)
     var selectedTextFont: NSFont = standardFontSet.mainFont(size: 10)
     
-    var textColor: NSColor = .defaultLightTextColor
+    var unselectedTextColor: NSColor = .defaultLightTextColor
     var selectedTextColor: NSColor = .defaultSelectedLightTextColor
     
     var rowIsSelected: Bool {rowSelectionStateFunction()}
@@ -86,8 +84,8 @@ class BasicTableCellView: NSTableCellView {
         let isSelectedRow = rowIsSelected
         
         // Check if this row is selected, change font and color accordingly
-        textField?.textColor = isSelectedRow ?  selectedTextColor : textColor
-        textField?.font = isSelectedRow ? selectedTextFont : textFont
+        textColor = isSelectedRow ?  selectedTextColor : unselectedTextColor
+        textFont = isSelectedRow ? selectedTextFont : unselectedTextFont
     }
 }
 

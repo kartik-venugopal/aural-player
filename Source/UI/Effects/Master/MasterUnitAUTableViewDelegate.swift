@@ -84,23 +84,23 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             
             let audioUnit = audioGraph.audioUnits[row]
             
-            cell.textField?.stringValue = audioUnit.name
-            cell.textField?.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
+            cell.text = audioUnit.name
+            cell.textFont = fontSchemesManager.systemScheme.effects.unitFunctionFont
             cell.realignText(yOffset: fontSchemesManager.systemScheme.effects.auRowTextYOffset)
 
             switch audioUnit.state {
             
             case .active:
                 
-                cell.textField?.textColor = colorSchemesManager.systemScheme.effects.activeUnitStateColor
+                cell.textColor = colorSchemesManager.systemScheme.effects.activeUnitStateColor
                 
             case .bypassed:
                 
-                cell.textField?.textColor = colorSchemesManager.systemScheme.effects.bypassedUnitStateColor
+                cell.textColor = colorSchemesManager.systemScheme.effects.bypassedUnitStateColor
                 
             case .suppressed:
                 
-                cell.textField?.textColor = colorSchemesManager.systemScheme.effects.suppressedUnitStateColor
+                cell.textColor = colorSchemesManager.systemScheme.effects.suppressedUnitStateColor
             }
             
             return cell

@@ -13,8 +13,7 @@ class ChaptersListTableHeaderCell: NSTableHeaderCell {
     
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        Colors.windowBackgroundColor.setFill()
-        cellFrame.fill()
+        cellFrame.fill(withColor: Colors.windowBackgroundColor)
         
         let size: CGSize = stringValue.size(withFont: Fonts.Playlist.chaptersListHeaderFont)
         

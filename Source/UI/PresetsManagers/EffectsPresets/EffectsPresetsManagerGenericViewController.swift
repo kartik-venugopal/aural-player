@@ -138,7 +138,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         
         cell.row = row
         
-        cell.textField?.stringValue = text
+        cell.text = text
         cell.textField?.delegate = self
         
         return cell

@@ -80,8 +80,8 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
             
             let audioUnit = audioGraph.audioUnits[row]
             
-            cell.textField?.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
-            cell.textField?.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
+            cell.text = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
+            cell.textFont = fontSchemesManager.systemScheme.effects.unitFunctionFont
             cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
             cell.realignText(yOffset: fontSchemesManager.systemScheme.effects.auRowTextYOffset)
             
@@ -119,13 +119,10 @@ class AudioUnitsTableRowView: NSTableRowView {
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {
         
-        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
+        if self.selectionHighlightStyle != .none {
             
             let selectionRect = self.bounds.insetBy(dx: 30, dy: 0).offsetBy(dx: -5, dy: 0)
-            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
-            
-            Colors.Playlist.selectionBoxColor.setFill()
-            selectionPath.fill()
+            NSBezierPath.fillRoundedRect(selectionRect, radius: 2, withColor: Colors.Playlist.selectionBoxColor)
         }
     }
 }
@@ -134,7 +131,7 @@ class AudioUnitNameCellView: NSTableCellView {
     
     var rowSelectionStateFunction: () -> Bool = {false}
     
-    var textColor: NSColor {Colors.Playlist.trackNameTextColor}
+    var unselectedTextColor: NSColor {Colors.Playlist.trackNameTextColor}
     var selectedTextColor: NSColor {Colors.Playlist.trackNameSelectedTextColor}
     
     var rowIsSelected: Bool {rowSelectionStateFunction()}
@@ -151,7 +148,7 @@ class AudioUnitNameCellView: NSTableCellView {
     func backgroundStyleChanged() {
         
         // Check if this row is selected, change color accordingly.
-        textField?.textColor = rowIsSelected ?  selectedTextColor : textColor
+        textColor = rowIsSelected ?  selectedTextColor : unselectedTextColor
     }
     
     // Constraints

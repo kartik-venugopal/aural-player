@@ -85,8 +85,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     private func createTrackNameCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
-            let imgView = cell.imageView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil)
+                as? GroupedItemNameCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.isGroup = false
@@ -103,9 +103,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.trackTextYOffset)
         
         if track == playbackInfo.playingTrack {
-            imgView.image = Images.imgPlayingTrack.filledWithColor(Colors.Playlist.playingTrackIconColor)
+            cell.image = Images.imgPlayingTrack.filledWithColor(Colors.Playlist.playingTrackIconColor)
         } else {
-            imgView.image = nil
+            cell.image = nil
         }
         
         // Constraints
@@ -154,7 +154,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.updateText(fontSchemesManager.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
         cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.groupTextYOffset)
         cell.textField?.lineBreakMode = .byTruncatingMiddle
-        cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
+        cell.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         // Constraints
         cell.reActivateConstraints(imgViewCenterY: -1, imgViewLeading: 7, textFieldLeading: 5)

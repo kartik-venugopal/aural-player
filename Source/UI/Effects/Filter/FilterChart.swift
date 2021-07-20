@@ -44,8 +44,7 @@ class FilterChart: NSView {
         let unitState: EffectsUnitState = filterUnitStateFunction()
         
         var drawPath = NSBezierPath.init(rect: dirtyRect)
-        backgroundColor.setFill()
-        drawPath.fill()
+        drawPath.fill(withColor: backgroundColor)
         
         let offset: CGFloat = 5
         let width = self.width - 2 * offset
@@ -56,9 +55,7 @@ class FilterChart: NSView {
         let frameRect: NSRect = NSRect(x: offset, y: bottomMargin, width: width, height: height / 2)
         
         drawPath = NSBezierPath.init(rect: frameRect)
-        NSColor.lightGray.setStroke()
-        drawPath.lineWidth = 0.5
-        drawPath.stroke()
+        drawPath.stroke(withColor: .lightGray, lineWidth: 0.5)
         
         // Draw bands
         let bands = bandsDataFunction()

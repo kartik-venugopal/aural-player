@@ -37,9 +37,7 @@ class PopupMenuCell: NSPopUpButtonCell {
     override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY)
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: rectRadius, yRadius: rectRadius)
-        
-        menuGradient.draw(in: drawPath, angle: -.verticalGradientDegrees)
+        NSBezierPath.fillRoundedRect(drawRect, radius: rectRadius, withGradient: menuGradient, angle: -.verticalGradientDegrees)
         
         // Draw arrow
         let x = drawRect.maxX - arrowXMargin, y = drawRect.maxY - arrowYMargin
@@ -48,11 +46,8 @@ class PopupMenuCell: NSPopUpButtonCell {
     
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         
-        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        textStyle.alignment = NSTextAlignment.center
-        
         title.string.draw(in: withFrame.offsetBy(dx: textOffsetX, dy: textOffsetY), withFont: titleFont,
-                          andColor: titleColor, style: textStyle)
+                          andColor: titleColor, style: .centeredText)
         
         return withFrame
     }

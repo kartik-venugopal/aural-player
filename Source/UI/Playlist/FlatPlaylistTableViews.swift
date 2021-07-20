@@ -34,11 +34,9 @@ class PlaylistRowView: NSTableRowView {
         
         if self.selectionHighlightStyle != .none {
             
-            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
-            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
-            
-            Colors.Playlist.selectionBoxColor.setFill()
-            selectionPath.fill()
+            NSBezierPath.fillRoundedRect(self.bounds.insetBy(dx: 1, dy: 0),
+                                         radius: 2,
+                                         withColor: Colors.Playlist.selectionBoxColor)
         }
     }
 }
@@ -54,8 +52,8 @@ class BasicFlatPlaylistCellView: NSTableCellView {
     
     func updateText(_ font: NSFont, _ text: String) {
         
-        textField?.font = font
-        textField?.stringValue = text
+        textFont = font
+        self.text = text
         textField?.show()
         
         imageView?.hide()
@@ -63,7 +61,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
     
     func updateImage(_ image: NSImage) {
         
-        imageView?.image = image
+        self.image = image
         imageView?.show()
         
         textField?.hide()
@@ -83,8 +81,8 @@ class BasicFlatPlaylistCellView: NSTableCellView {
     // Check if this row is selected, change font and color accordingly
     func backgroundStyleChanged() {
         
-        textField?.textColor = rowIsSelected ? Colors.Playlist.trackNameSelectedTextColor : Colors.Playlist.trackNameTextColor
-        textField?.font = Fonts.Playlist.trackTextFont
+        textColor = rowIsSelected ? Colors.Playlist.trackNameSelectedTextColor : Colors.Playlist.trackNameTextColor
+        textFont = Fonts.Playlist.trackTextFont
     }
 }
 

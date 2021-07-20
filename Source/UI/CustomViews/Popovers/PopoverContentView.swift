@@ -37,9 +37,7 @@ class PopoverContentView: NSView {
 class PopoverBackgroundView: NSView {
     
     override func draw(_ dirtyRect: NSRect) {
-        
-        NSColor.popoverBackgroundColor.setFill()
-        self.bounds.fill()
+        self.bounds.fill(withColor: .popoverBackgroundColor)
     }
 }
 

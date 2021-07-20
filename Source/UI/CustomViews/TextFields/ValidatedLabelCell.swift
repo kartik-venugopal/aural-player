@@ -37,10 +37,7 @@ class ValidatedLabelCell: NSTextFieldCell {
             // Draw a red rectangular border around the cell, indicating an error state
             
             let rect = NSBezierPath(rect: cellFrame)
-            rect.lineWidth = 3
-            
-            NSColor.red.setStroke()
-            rect.stroke()
+            rect.stroke(withColor: .red, lineWidth: 3)
         }
     }
 }
