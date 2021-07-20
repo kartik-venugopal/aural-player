@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1124,6 +1124,7 @@
 		3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */; };
 		3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */; };
 		3EFB1C6025EFCFAC00EF7F0F /* AtomicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */; };
+		3EFB9EC526A683EA00EA8440 /* unused.rb in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB9EC426A683EA00EA8440 /* unused.rb */; };
 		3EFDA965268F71C600CFF785 /* EQType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF3750268F703F002EA77F /* EQType.swift */; };
 		3EFDA967268F722700CFF785 /* EffectsUnitPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633DD2685FAE5006A88ED /* EffectsUnitPresets.swift */; };
 		3EFDA969268F723900CFF785 /* SoundConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C522684FA320090BAF7 /* SoundConstants.swift */; };
@@ -1220,7 +1221,6 @@
 		3E0B9B41269E352100B4DED9 /* NSTableColumnExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableColumnExtensions.swift; sourceTree = "<group>"; };
 		3E0B9B45269E3D8800B4DED9 /* TuneBrowserUIPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TuneBrowserUIPersistentState.swift; path = Source/Persistence/Model/TuneBrowserUIPersistentState.swift; sourceTree = SOURCE_ROOT; };
 		3E0DF3CF267E6EE60035FE29 /* RemoteControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlManager.swift; sourceTree = "<group>"; };
-		3E0E0D2D2684BD6E005121A1 /* xml-copyright.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "xml-copyright.sh"; sourceTree = "<group>"; };
 		3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandManager.swift; sourceTree = "<group>"; };
 		3E12677026937A1300B4DBA5 /* PersistentModelObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentModelObject.swift; sourceTree = "<group>"; };
 		3E1267732693826000B4DBA5 /* NSRectPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRectPersistentState.swift; sourceTree = "<group>"; };
@@ -1894,7 +1894,6 @@
 		3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitDelegate.swift; sourceTree = "<group>"; };
 		3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitEditorDialog.xib; sourceTree = "<group>"; };
 		3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitEditorDialogController.swift; sourceTree = "<group>"; };
-		3E9E36232684958B008DAC00 /* copyright.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = copyright.sh; sourceTree = "<group>"; };
 		3E9E36242684A21C008DAC00 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
@@ -2155,6 +2154,7 @@
 		3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegScheduler.swift; sourceTree = "<group>"; };
 		3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegLoopScheduling.swift; sourceTree = "<group>"; };
 		3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCounter.swift; sourceTree = "<group>"; };
+		3EFB9EC426A683EA00EA8440 /* unused.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = unused.rb; sourceTree = "<group>"; };
 		3EFDA97A268F7F1200CFF785 /* PitchShiftUnitPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftUnitPersistenceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2720,6 +2720,7 @@
 				3E0B9B16269E2EC800B4DED9 /* TuneBrowser */,
 				3E6C0FDA25CEB98600BF0D07 /* AboutDialog */,
 				3E308D19268A333D00B0FD60 /* UpdatesDialog */,
+				3E6C103225CEB98600BF0D07 /* InfoPopup */,
 				3E6C0FB125CEB98600BF0D07 /* CustomViews */,
 				3EA89D952699F00C0021CDB9 /* Utils */,
 				3EAFB5EA267FEC4500F0DC96 /* Extensions */,
@@ -3335,15 +3336,12 @@
 			children = (
 				3E6C104225CEB98600BF0D07 /* Player.xib */,
 				3E6C103125CEB98600BF0D07 /* PlayerViewController.swift */,
-				3E6C101B25CEB98600BF0D07 /* PlayingTrackFunctions */,
+				3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */,
 				3E6C101F25CEB98600BF0D07 /* PlayerUIState.swift */,
+				3E6C101B25CEB98600BF0D07 /* PlayingTrackFunctions */,
 				3E6C102325CEB98600BF0D07 /* PlayingTrack */,
-				3E6C102D25CEB98600BF0D07 /* SeekTimerTaskQueue.swift */,
-				3E6C103225CEB98600BF0D07 /* InfoPopup */,
 				3E6C103625CEB98600BF0D07 /* DetailedTrackInfo */,
 				3E6C104325CEB98600BF0D07 /* Controls */,
-				3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */,
-				3E6C0FBD25CEB98600BF0D07 /* TrackPeekingButton.swift */,
 				3E6C104C25CEB98600BF0D07 /* JumpToTime */,
 			);
 			path = Player;
@@ -3403,6 +3401,7 @@
 				3EAFB606267FF24900F0DC96 /* SeekSliderCell.swift */,
 				3EAFB608267FF29300F0DC96 /* VolumeSliderCell.swift */,
 				3EAFB60C267FF2F300F0DC96 /* PanSliderCell.swift */,
+				3E6C0FBD25CEB98600BF0D07 /* TrackPeekingButton.swift */,
 				3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */,
 				3E6C104625CEB98600BF0D07 /* PlaybackView.swift */,
 				3E6C104725CEB98600BF0D07 /* PlaybackViewController.swift */,
@@ -3413,6 +3412,7 @@
 				3EEC041C2687AAAD004478CE /* WindowedModePlayerAudioViewController.swift */,
 				3EEC04202687AB45004478CE /* WindowedModePlaybackView.swift */,
 				3EEC04242687ABB5004478CE /* WindowedModeSeekSliderView.swift */,
+				3E6C102D25CEB98600BF0D07 /* SeekTimerTaskQueue.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -3819,11 +3819,9 @@
 		3E6C114C25CEB9C100BF0D07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E4590F22679433F00C5BFB7 /* releaseAutomation */,
+				3EFB9EC326A683A100EA8440 /* buildScripts */,
 				3E6C114D25CEB9C100BF0D07 /* ffmpeg */,
 				3E6C115325CEB9C100BF0D07 /* Assets.xcassets */,
-				3E9E36232684958B008DAC00 /* copyright.sh */,
-				3E0E0D2D2684BD6E005121A1 /* xml-copyright.sh */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -4671,6 +4669,15 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		3EFB9EC326A683A100EA8440 /* buildScripts */ = {
+			isa = PBXGroup;
+			children = (
+				3EFB9EC426A683EA00EA8440 /* unused.rb */,
+				3E4590F22679433F00C5BFB7 /* releaseAutomation */,
+			);
+			path = buildScripts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4679,6 +4686,7 @@
 			buildConfigurationList = 3E6C0ECD25CEB3EE00BF0D07 /* Build configuration list for PBXNativeTarget "Aural" */;
 			buildPhases = (
 				3E6C0EBB25CEB3ED00BF0D07 /* Sources */,
+				3EFB9EBE26A6819900EA8440 /* ShellScript */,
 				3E6C0EBC25CEB3ED00BF0D07 /* Frameworks */,
 				3E6C0EBD25CEB3ED00BF0D07 /* Resources */,
 				3EDB340725E8AEB3004DF7DE /* Embed Libraries */,
@@ -4766,6 +4774,7 @@
 				3E57AF8C262B2C8100678C16 /* ChicagoFLF.ttf in Resources */,
 				3ECB54F025E559E7002259C4 /* roundornoncommercial.regular.otf in Resources */,
 				3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */,
+				3EFB9EC526A683EA00EA8440 /* unused.rb in Resources */,
 				3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */,
 				3EA3CE7025E420DE00BC7D07 /* Papyrus.ttf in Resources */,
 				3EA3CE7325E420EC00BC7D07 /* AnironRegular.ttf in Resources */,
@@ -4859,6 +4868,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3EFB9EBE26A6819900EA8440 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/Resources/buildScripts/unused.rb xcode\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E6C0EBB25CEB3ED00BF0D07 /* Sources */ = {
