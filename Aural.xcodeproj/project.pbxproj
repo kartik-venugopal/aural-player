@@ -301,9 +301,9 @@
 		3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115325CEB9C100BF0D07 /* Assets.xcassets */; };
 		3E6C116325CEBD6000BF0D07 /* FilterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110225CEB98700BF0D07 /* FilterPresets.swift */; };
 		3E6C116425CEBD6000BF0D07 /* AudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110025CEB98700BF0D07 /* AudioGraph.swift */; };
-		3E6C116625CEBD6000BF0D07 /* TimePresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110B25CEB98700BF0D07 /* TimePresets.swift */; };
+		3E6C116625CEBD6000BF0D07 /* TimeStretchPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110B25CEB98700BF0D07 /* TimeStretchPresets.swift */; };
 		3E6C116725CEBD6000BF0D07 /* ObjectGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105725CEB98600BF0D07 /* ObjectGraph.swift */; };
-		3E6C116925CEBD6000BF0D07 /* PitchPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110A25CEB98700BF0D07 /* PitchPresets.swift */; };
+		3E6C116925CEBD6000BF0D07 /* PitchShiftPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110A25CEB98700BF0D07 /* PitchShiftPresets.swift */; };
 		3E6C116A25CEBD6000BF0D07 /* EQPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110525CEB98700BF0D07 /* EQPresets.swift */; };
 		3E6C116C25CEBD6000BF0D07 /* DelayPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110925CEB98700BF0D07 /* DelayPresets.swift */; };
 		3E6C117325CEBD6000BF0D07 /* ReverbPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110825CEB98700BF0D07 /* ReverbPresets.swift */; };
@@ -911,7 +911,7 @@
 		3EC9E67126A5C62200C17302 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E67026A5C62200C17302 /* AppVersion.swift */; };
 		3EC9E67426A5E1EB00C17302 /* TableViewDragDropExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */; };
 		3ECA54F6268F9162002813E0 /* TimeStretchUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0BE26805C18008ECB8C /* TimeStretchUnitPersistentState.swift */; };
-		3ECA54F8268F9166002813E0 /* TimePresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110B25CEB98700BF0D07 /* TimePresets.swift */; };
+		3ECA54F8268F9166002813E0 /* TimeStretchPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110B25CEB98700BF0D07 /* TimeStretchPresets.swift */; };
 		3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */; };
 		3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E725E552A1002259C4 /* shufen.regular.ttf */; };
 		3ECB54EE25E559E5002259C4 /* futura light bt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54EC25E559DE002259C4 /* futura light bt.ttf */; };
@@ -1136,7 +1136,7 @@
 		3EFDA978268F792A00CFF785 /* MirrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E145502268107910034056E /* MirrorExtensions.swift */; };
 		3EFDA97B268F7F1200CFF785 /* PitchShiftUnitPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFDA97A268F7F1200CFF785 /* PitchShiftUnitPersistenceTests.swift */; };
 		3EFDA97D268F7F5400CFF785 /* PitchShiftUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0BB26805C18008ECB8C /* PitchShiftUnitPersistentState.swift */; };
-		3EFDA97F268F7F5A00CFF785 /* PitchPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110A25CEB98700BF0D07 /* PitchPresets.swift */; };
+		3EFDA97F268F7F5A00CFF785 /* PitchShiftPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110A25CEB98700BF0D07 /* PitchShiftPresets.swift */; };
 		3EFDA981268F810400CFF785 /* ValueConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C542684FAD70090BAF7 /* ValueConversions.swift */; };
 /* End PBXBuildFile section */
 
@@ -1711,8 +1711,8 @@
 		3E6C110725CEB98700BF0D07 /* MasterPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresets.swift; sourceTree = "<group>"; };
 		3E6C110825CEB98700BF0D07 /* ReverbPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbPresets.swift; sourceTree = "<group>"; };
 		3E6C110925CEB98700BF0D07 /* DelayPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresets.swift; sourceTree = "<group>"; };
-		3E6C110A25CEB98700BF0D07 /* PitchPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchPresets.swift; sourceTree = "<group>"; };
-		3E6C110B25CEB98700BF0D07 /* TimePresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePresets.swift; sourceTree = "<group>"; };
+		3E6C110A25CEB98700BF0D07 /* PitchShiftPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftPresets.swift; sourceTree = "<group>"; };
+		3E6C110B25CEB98700BF0D07 /* TimeStretchPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchPresets.swift; sourceTree = "<group>"; };
 		3E6C110E25CEB98700BF0D07 /* AudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
 		3E6C110F25CEB98700BF0D07 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		3E6C111025CEB98700BF0D07 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
@@ -3711,8 +3711,8 @@
 				3E3633DD2685FAE5006A88ED /* EffectsUnitPresets.swift */,
 				3E6C110725CEB98700BF0D07 /* MasterPresets.swift */,
 				3E6C110525CEB98700BF0D07 /* EQPresets.swift */,
-				3E6C110A25CEB98700BF0D07 /* PitchPresets.swift */,
-				3E6C110B25CEB98700BF0D07 /* TimePresets.swift */,
+				3E6C110A25CEB98700BF0D07 /* PitchShiftPresets.swift */,
+				3E6C110B25CEB98700BF0D07 /* TimeStretchPresets.swift */,
 				3E6C110825CEB98700BF0D07 /* ReverbPresets.swift */,
 				3E6C110625CEB98700BF0D07 /* ReverbSpaces.swift */,
 				3E6C110925CEB98700BF0D07 /* DelayPresets.swift */,
@@ -5281,7 +5281,7 @@
 				3EFDA965268F71C600CFF785 /* EQType.swift in Sources */,
 				3E8C7915269C408B005E78D1 /* TrackAddedNotification.swift in Sources */,
 				3E21EC93268F457100731E4C /* PlaylistType.swift in Sources */,
-				3E6C116925CEBD6000BF0D07 /* PitchPresets.swift in Sources */,
+				3E6C116925CEBD6000BF0D07 /* PitchShiftPresets.swift in Sources */,
 				3E6C12C125CEBE6700BF0D07 /* PitchShiftViewController.swift in Sources */,
 				3E3633D92685FAD0006A88ED /* MasterUnit.swift in Sources */,
 				3E5563A0269D642B00864598 /* ChaptersListTableCellView.swift in Sources */,
@@ -5569,7 +5569,7 @@
 				3E6C12AA25CEBE2700BF0D07 /* AboutDialogController.swift in Sources */,
 				3E6C12A325CEBE2700BF0D07 /* StringInputPopoverViewController.swift in Sources */,
 				3E6C118125CEBD6D00BF0D07 /* ParametricEQNode.swift in Sources */,
-				3E6C116625CEBD6000BF0D07 /* TimePresets.swift in Sources */,
+				3E6C116625CEBD6000BF0D07 /* TimeStretchPresets.swift in Sources */,
 				3EAFB5DF267FE86000F0DC96 /* FileSystemInfo.swift in Sources */,
 				3E9C12132622216500D90EA4 /* ThemesManager.swift in Sources */,
 				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
@@ -5847,7 +5847,7 @@
 				3E871A492698FA4800C626DC /* EQUnitProtocol.swift in Sources */,
 				3EABDDAC26949052008066E8 /* NSPointPersistentState.swift in Sources */,
 				3EF28D942694D623005D5B43 /* PlaylistFontSchemePersistentState.swift in Sources */,
-				3ECA54F8268F9166002813E0 /* TimePresets.swift in Sources */,
+				3ECA54F8268F9166002813E0 /* TimeStretchPresets.swift in Sources */,
 				3EB64DE0269275FC00E669D3 /* TimeUtils.swift in Sources */,
 				3EABDDC52694B78B008066E8 /* PlaylistUIPersistenceTests.swift in Sources */,
 				3EA62F342693AEFE004A780A /* AudioDevicePersistenceTests.swift in Sources */,
@@ -5914,7 +5914,7 @@
 				3E871A532698FF6000C626DC /* PitchShiftUnit.swift in Sources */,
 				3EA62F522693D89E004A780A /* PlaybackProfilePersistentState.swift in Sources */,
 				3EABDE072694C9AD008066E8 /* GeneralColorScheme.swift in Sources */,
-				3EFDA97F268F7F5A00CFF785 /* PitchPresets.swift in Sources */,
+				3EFDA97F268F7F5A00CFF785 /* PitchShiftPresets.swift in Sources */,
 				3ED6D8F526925710007DA433 /* RemoteControlPreferencesTests.swift in Sources */,
 				3E21ECD7268F4A4600731E4C /* SearchResults.swift in Sources */,
 				3EF28DB22694DFC7005D5B43 /* ThemesPersistenceTests.swift in Sources */,
