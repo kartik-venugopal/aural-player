@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="CoverArtTrackInfoViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="artView" destination="Vod-w3-hfk" id="2ms-7x-tdF"/>
+                <outlet property="lblNoArt" destination="d00-kB-O0G" id="MZU-yx-TQN"/>
+                <outlet property="tableView" destination="C5J-tV-JbV" id="fcG-8A-y56"/>
+                <outlet property="tableViewDelegate" destination="z4A-h9-oAa" id="1qH-IC-FpQ"/>
+                <outlet property="view" destination="Ul4-Ea-95e" id="eEd-j4-paR"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="Ul4-Ea-95e">
+            <rect key="frame" x="0.0" y="0.0" width="525" height="265"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" horizontalLineScroll="200" horizontalPageScroll="10" verticalLineScroll="200" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWP-ca-fk8" userLabel="Cover Art Table">
+                    <rect key="frame" x="280" y="33" width="245" height="200"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="EDn-FI-Cp9">
+                        <rect key="frame" x="0.0" y="0.0" width="245" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="198" rowSizeStyle="automatic" viewBased="YES" id="C5J-tV-JbV" userLabel="Cover Art Table View">
+                                <rect key="frame" x="0.0" y="0.0" width="256" height="200"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <size key="intercellSpacing" width="3" height="2"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                <tableColumns>
+                                    <tableColumn identifier="cid_TrackInfoKey" width="85" minWidth="85" maxWidth="85" id="4qL-kD-A99" userLabel="Key">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" selectable="YES" editable="YES" title="Text Cell" id="YrO-GM-Q1s">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+                                            <tableCellView id="Gid-j2-rKf">
+                                                <rect key="frame" x="1" y="1" width="85" height="198"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LfE-3L-0si">
+                                                        <rect key="frame" x="-2" y="-1" width="85" height="200"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="TzG-2q-Tvy">
+                                                            <font key="font" size="13" name="Play-Regular"/>
+                                                            <color key="textColor" white="0.69837743910000005" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <connections>
+                                                    <outlet property="textField" destination="LfE-3L-0si" id="IVI-lr-7iY"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                    <tableColumn identifier="cid_TrackInfoValue" width="165" minWidth="165" maxWidth="165" id="asb-di-Skx" userLabel="Value">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" selectable="YES" editable="YES" title="Text Cell" id="yh3-GT-UQ8">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+                                            <tableCellView id="u36-Ho-wuG">
+                                                <rect key="frame" x="89" y="1" width="165" height="198"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8XZ-zb-MVL">
+                                                        <rect key="frame" x="0.0" y="-2" width="165" height="200"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="K6E-l3-bIU">
+                                                            <font key="font" size="13" name="Play-Regular"/>
+                                                            <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <connections>
+                                                    <outlet property="textField" destination="8XZ-zb-MVL" id="Hjh-xI-uBu"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                </tableColumns>
+                                <connections>
+                                    <outlet property="dataSource" destination="z4A-h9-oAa" id="3Bg-39-z3f"/>
+                                    <outlet property="delegate" destination="z4A-h9-oAa" id="sVy-c9-SVx"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.099406517619999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="va3-Em-wnv">
+                        <rect key="frame" x="-100" y="-100" width="0.0" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="nEO-39-Naa">
+                        <rect key="frame" x="-100" y="-100" width="16" height="282"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vod-w3-hfk" userLabel="Artwork" customClass="RoundedImageView" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="3" width="260" height="260"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="fwk-AN-HtG"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="roundingRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d00-kB-O0G">
+                    <rect key="frame" x="135" y="239" width="250" height="25"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="&lt; No cover art available for this track &gt;" id="XJ3-DE-sA3">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69598680899999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="-260" y="-180"/>
+        </view>
+        <customObject id="z4A-h9-oAa" customClass="CoverArtTrackInfoViewDelegate" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="table" destination="C5J-tV-JbV" id="hUH-L5-ayh"/>
+                <outlet property="virtualKeyField" destination="lZh-eN-2cr" id="Wub-NA-Lss"/>
+                <outlet property="virtualValueField" destination="O11-LL-V1Z" id="19G-rT-3BK"/>
+            </connections>
+        </customObject>
+        <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="lZh-eN-2cr" userLabel="Virtual Key Field">
+            <rect key="frame" x="0.0" y="0.0" width="135" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Nk6-II-JDJ">
+                <font key="font" size="13" name="Play-Regular"/>
+                <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="-87" y="-270"/>
+        </textField>
+        <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="O11-LL-V1Z" userLabel="Virtual Value Field">
+            <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="fgf-9U-MZ7">
+                <font key="font" size="13" name="Play-Regular"/>
+                <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="217" y="-289"/>
+        </textField>
+    </objects>
+</document>

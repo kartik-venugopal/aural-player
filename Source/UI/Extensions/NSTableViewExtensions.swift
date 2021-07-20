@@ -180,7 +180,7 @@ extension NSTableView {
         }
         
         header.wantsLayer = true
-        header.layer?.backgroundColor = NSColor.black.cgColor
+        header.layer?.backgroundColor = .black
         
         tableColumns.forEach {
             

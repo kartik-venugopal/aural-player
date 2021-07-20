@@ -48,46 +48,19 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     
     @IBOutlet weak var tabView: AuralTabView!
     
-    @IBOutlet weak var lblNoArt: NSTextField!
-    
-    // Displays track artwork
-    @IBOutlet weak var artView: NSImageView!
-    
     @IBOutlet weak var exportArtMenuItem: NSMenuItem!
     @IBOutlet weak var exportHTMLWithArtMenuItem: NSMenuItem!
     
-    @IBOutlet weak var lyricsView: NSTextView! {
-        
-        didSet {
-            
-            lyricsView.font = standardFontSet.mainFont(size: 13)
-            lyricsView.alignment = .center
-            lyricsView.backgroundColor = .popoverBackgroundColor
-            lyricsView.textColor = .boxTextColor
-            lyricsView.enclosingScrollView?.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
-            lyricsView.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: -9)
-        }
-    }
+    private let metadataViewController: MetadataTrackInfoViewController = MetadataTrackInfoViewController()
+    private let lyricsViewController: LyricsTrackInfoViewController = LyricsTrackInfoViewController()
+    private let coverArtViewController: CoverArtTrackInfoViewController = CoverArtTrackInfoViewController()
+    private let audioViewController: AudioTrackInfoViewController = AudioTrackInfoViewController()
+    private let fileSystemViewController: FileSystemTrackInfoViewController = FileSystemTrackInfoViewController()
     
-    // The table view that displays the track info
-    @IBOutlet weak var metadataTable: NSTableView! {
-        
-        didSet {
-            metadataTable.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 1)
-        }
-    }
-    
-    @IBOutlet weak var coverArtTable: NSTableView!
-    
-    // The table view that displays the track info
-    @IBOutlet weak var audioTable: NSTableView!
-    
-    // The table view that displays the track info
-    @IBOutlet weak var fileSystemTable: NSTableView!
+    private var viewControllers: [TrackInfoViewProtocol] = []
     
     // Temporary holder for the currently shown track
-    // TODO: Replace this static var with messaging: trackShown(track)
-    static var shownTrack: Track?
+    var displayedTrack: Track?
     
     // Whether or not this popover is currently displayed attached to the player (false if attached to playlist).
     var attachedToPlayer: Bool = true
@@ -95,28 +68,26 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
     
-    private lazy var dateFormatter: DateFormatter = {
-    
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm:ss a"
-        return formatter
-    }()
-    
-    private let noLyricsText: String = "< No lyrics available for this track >"
+    private lazy var dateFormatter: DateFormatter = DateFormatter(format: "MMMM dd, yyyy 'at' hh:mm:ss a")
     
     override var nibName: String? {"DetailedTrackInfo"}
     
-    private let horizHTMLTablePadding: Int = 20
-    private let vertHTMLTablePadding: Int = 5
-    
     private lazy var messenger = Messenger(for: self)
     
-    override func awakeFromNib() {
+    override func viewDidLoad() {
+        
+        viewControllers = [metadataViewController, lyricsViewController, coverArtViewController,
+                           audioViewController, fileSystemViewController]
+        
+        tabView.addViewsForTabs(viewControllers.map {$0.view})
+        tabView.selectTabViewItem(at: 0)
         
         // Only respond to these notifications when the popover is shown, the updated track matches the displayed track,
         // and the album art field of the track was updated.
-        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:),
-                                 filter: {[weak self] msg in (self?.popover.isShown ?? false) && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)})
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: coverArtViewController.trackInfoUpdated(_:),
+                                 filter: {[weak self] msg in (self?.popover.isShown ?? false) &&
+                                    msg.updatedTrack == self?.displayedTrack &&
+                                    msg.updatedFields.contains(.art)})
     }
     
     func destroy() {
@@ -139,17 +110,8 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             _ = self.view
         }
         
-        DetailedTrackInfoViewController.shownTrack = track
-        
-        [metadataTable, coverArtTable, audioTable, fileSystemTable].forEach({
-            $0?.reloadData()
-            $0?.scrollRowToVisible(0)
-        })
-        
-        artView?.image = track.art?.image
-        lblNoArt.showIf(artView?.image == nil)
-        
-        lyricsView?.string = track.lyrics ?? noLyricsText
+        displayedTrack = track
+        viewControllers.forEach {$0.refresh(forTrack: track)}
     }
     
     func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
@@ -180,7 +142,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     
     func menuWillOpen(_ menu: NSMenu) {
         
-        let hasImage: Bool = DetailedTrackInfoViewController.shownTrack?.art?.image != nil
+        let hasImage: Bool = displayedTrack?.art?.image != nil
         
         exportArtMenuItem.showIf(hasImage)
         exportHTMLWithArtMenuItem.showIf(hasImage)
@@ -196,166 +158,81 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     
     private func doExportArt(_ type: NSBitmapImageRep.FileType, _ fileExtension: String) {
         
-        if let track = DetailedTrackInfoViewController.shownTrack, let image = track.art?.image {
-            
-            let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-coverArt", fileExtension: fileExtension)
-            
-            if dialog.runModal() == .OK, let outFile = dialog.url {
-                    
-                do {
-                    try image.writeToFile(fileType: type, file: outFile)
-                    
-                } catch {
-                    
-                    _ = DialogsAndAlerts.genericErrorAlert("Image file not written", "Unable to export image", error.localizedDescription).showModal()
-                }
-            }
+        if let track = displayedTrack {
+            coverArtViewController.exportArt(forTrack: track, type: type, fileExtension: fileExtension)
         }
     }
     
     @IBAction func exportJSONAction(_ sender: AnyObject) {
         
-        if let track = DetailedTrackInfoViewController.shownTrack {
+        guard let track = displayedTrack else {return}
+        
+        let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-metadata", fileExtension: "json")
+        guard dialog.runModal() == .OK, let outFile = dialog.url else {return}
+        
+        var appDict = [NSString: AnyObject]()
+        appDict["version"] = NSApp.appVersion as AnyObject
+        appDict["exportDate"] = dateFormatter.string(from: Date()) as AnyObject
+
+        let dict: [NSString: AnyObject] = ["appInfo": appDict as NSDictionary,
+                                           "metadata": metadataViewController.jsonObject,
+                                           "coverArt": coverArtViewController.jsonObject,
+                                           "lyrics": lyricsViewController.jsonObject,
+                                           "audio": audioViewController.jsonObject,
+                                           "fileSystem": fileSystemViewController.jsonObject]
+        
+        do {
+            try JSONSerialization.writeObject(dict as NSDictionary, toFile: outFile)
             
-            let metadataDict = tableToJSON(metadataTable)
-            let audioDict = tableToJSON(audioTable)
-            let fileSystemDict = tableToJSON(fileSystemTable)
+        } catch {
             
-            var dict = [NSString: AnyObject]()
-            
-            var appDict = [NSString: AnyObject]()
-            
-            appDict["version"] = NSApp.appVersion as AnyObject
-            appDict["exportDate"] = dateFormatter.string(from: Date()) as AnyObject
-            
-            dict["appInfo"] = appDict as NSDictionary
-            dict["metadata"] = metadataDict
-            dict["lyrics"] = lyricsView.string as AnyObject
-            dict["audio"] = audioDict
-            dict["fileSystem"] = fileSystemDict
-            
-            let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-metadata", fileExtension: "json")
-            
-            if dialog.runModal() == .OK, let outFile = dialog.url {
-                
-                do {
-                    
-                    try JSONSerialization.writeObject(dict as NSDictionary, toFile: outFile)
-                    
-                } catch {
-                    
-                    if let error = error as? JSONWriteError {
-                        _ = DialogsAndAlerts.genericErrorAlert("JSON file not written", error.message, error.description).showModal()
-                    }
-                }
+            if let error = error as? JSONWriteError {
+                _ = DialogsAndAlerts.genericErrorAlert("JSON file not written", error.message, error.description).showModal()
             }
         }
-    }
-    
-    private func tableToJSON(_ table: NSTableView) -> NSDictionary {
-        
-        var dict: [NSString: AnyObject] = [:]
-        
-        for index in 0..<table.numberOfRows {
-            
-            if let keyCell = table.view(atColumn: 0, row: index, makeIfNecessary: true) as? NSTableCellView,
-               let key = keyCell.textField?.stringValue,
-               let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as? NSTableCellView,
-               let value = valueCell.textField?.stringValue {
-                
-                dict[key.prefix(key.count - 1) as NSString] = value as AnyObject
-            }
-        }
-        
-        return dict as NSDictionary
     }
     
     @IBAction func exportHTMLWithArtAction(_ sender: AnyObject) {
-        doExportHTML(true)
+        doExportHTML(withArt: true)
     }
     
     @IBAction func exportHTMLAction(_ sender: AnyObject) {
-        doExportHTML(false)
+        doExportHTML(withArt: false)
     }
         
-    private func doExportHTML(_ withArt: Bool) {
+    private func doExportHTML(withArt includeArt: Bool) {
         
-        if let track = DetailedTrackInfoViewController.shownTrack {
+        guard let track = displayedTrack else {return}
+        
+        let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-metadata", fileExtension: "html")
+        guard dialog.runModal() == .OK, let outFile = dialog.url else {return}
             
-            let metadataHTML = tableToHTML(metadataTable)
-            let audioHTML = tableToHTML(audioTable)
-            let fileSystemHTML = tableToHTML(fileSystemTable)
+        do {
+            let writer = HTMLWriter(outputFile: outFile)
             
-            let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-metadata", fileExtension: "html")
+            writer.addTitle(track.displayName)
+            writer.addHeading(track.displayName, 2, false)
             
-            if dialog.runModal() == .OK, let outFile = dialog.url {
-                
-                do {
-                    
-                    let html = HTMLWriter()
-                    
-                    html.addTitle(track.displayName)
-                    html.addHeading(track.displayName, 2, false)
-                    
-                    let text = String(format: "Metadata exported by Aural Player v%@ on: %@", NSApp.appVersion, dateFormatter.string(from: Date()))
-                    let exportDate = HTMLText(text: text, underlined: true, bold: false, italic: false, width: nil)
-                    html.addParagraph(exportDate)
-                    
-                    // Embed art in HTML
-                    if withArt, let image = track.art?.image, let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: .jpeg, properties: [:]) {
-                        
-                        let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.displayName + "-coverArt.jpg", isDirectory: false)
-                        
-                        do {
-                            
-                            try data.write(to: imgFile)
-                        } catch {}
-                        
-                        html.addImage(imgFile.lastPathComponent, "(Cover Art)")
-                    }
-                    
-                    html.addTable("Metadata:", 3, nil, metadataHTML, horizHTMLTablePadding, vertHTMLTablePadding)
-                    
-                    html.addHeading("Lyrics:", 3, true)
-                    
-                    let lyrics = HTMLText(text: lyricsView.string, underlined: false, bold: false, italic: false, width: nil)
-                    html.addParagraph(lyrics)
-                    
-                    html.addTable("Audio:", 3, nil, audioHTML, horizHTMLTablePadding, vertHTMLTablePadding)
-                    html.addTable("File System:", 3, nil, fileSystemHTML, horizHTMLTablePadding, vertHTMLTablePadding)
-                    
-                    try html.writeToFile(outFile)
-                    
-                } catch {
-                    
-                    if let error = error as? HTMLWriteError {
-                        _ = DialogsAndAlerts.genericErrorAlert("HTML file not written", error.message, error.description).showModal()
-                    }
-                }
+            let text = String(format: "Metadata exported by Aural Player v%@ on: %@", NSApp.appVersion, dateFormatter.string(from: Date()))
+            let exportDate = HTMLText(text: text, underlined: true, bold: false, italic: false, width: nil)
+            writer.addParagraph(exportDate)
+            
+            if includeArt {
+                coverArtViewController.writeHTML(forTrack: track, to: writer)
+            }
+            
+            ([metadataViewController, lyricsViewController, audioViewController, fileSystemViewController] as? [TrackInfoViewProtocol])?.forEach {
+                $0.writeHTML(forTrack: track, to: writer)
+            }
+            
+            try writer.writeToFile()
+            
+        } catch {
+            
+            if let error = error as? HTMLWriteError {
+                _ = DialogsAndAlerts.genericErrorAlert("HTML file not written", error.message, error.description).showModal()
             }
         }
-    }
-    
-    private func tableToHTML(_ table: NSTableView) -> [[HTMLText]] {
-        
-        var grid: [[HTMLText]] = [[]]
-        
-        for index in 0..<table.numberOfRows {
-            
-            let keyCell = table.view(atColumn: 0, row: index, makeIfNecessary: true) as! NSTableCellView
-            if let key = keyCell.textField?.stringValue {
-                
-                let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as! NSTableCellView
-                if let value = valueCell.textField?.stringValue {
-                    
-                    let keyCol = HTMLText(text: String(key.prefix(key.count - 1)), underlined: true, bold: false, italic: false, width: 300)
-                    let valueCol = HTMLText(text: value, underlined: false, bold: false, italic: false, width: nil)
-                    grid.append([keyCol, valueCol])
-                }
-            }
-        }
-        
-        return grid
     }
     
     @IBAction func previousTabAction(_ sender: Any) {
@@ -369,11 +246,15 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     @IBAction func closePopoverAction(_ sender: Any) {
         close()
     }
+}
+
+protocol TrackInfoViewProtocol {
     
-    func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
+    func refresh(forTrack track: Track)
     
-        artView?.image = notification.updatedTrack.art?.image
-        lblNoArt.showIf(artView?.image == nil)
-        coverArtTable?.reloadData()
-    }
+    var view: NSView {get}
+    
+    var jsonObject: AnyObject {get}
+    
+    func writeHTML(forTrack track: Track, to writer: HTMLWriter)
 }

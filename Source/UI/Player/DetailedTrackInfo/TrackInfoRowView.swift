@@ -1,5 +1,5 @@
 //
-//  DetailedTrackInfoRowView.swift
+//  TrackInfoRowView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -13,24 +13,24 @@
 
 import Cocoa
 
-class DetailedTrackInfoRowView: NSTableRowView {
+class TrackInfoRowView: NSTableRowView {
     
     // A single key-value pair
-    var key: String?
-    var value: String?
-    var tableId: TrackInfoTab?
+    var key: String!
+    var value: String!
+    var tableId: TrackInfoTab!
     
-    var keyTextAlignment: NSTextAlignment?
-    var valueTextAlignment: NSTextAlignment?
+    var keyTextAlignment: NSTextAlignment!
+    var valueTextAlignment: NSTextAlignment!
     
     // Track info view column identifiers (popover)
     static let trackInfoKeyColumnID: String = "cid_TrackInfoKey"
     static let trackInfoValueColumnID: String = "cid_TrackInfoValue"
     
     // Factory method
-    static func fromKeyAndValue(_ key: String, _ value: String, _ tableId: TrackInfoTab, _ keyTextAlignment: NSTextAlignment? = nil, _ valueTextAlignment: NSTextAlignment? = nil) -> DetailedTrackInfoRowView {
+    static func fromKeyAndValue(_ key: String, _ value: String, _ tableId: TrackInfoTab, _ keyTextAlignment: NSTextAlignment? = nil, _ valueTextAlignment: NSTextAlignment? = nil) -> TrackInfoRowView {
         
-        let view = DetailedTrackInfoRowView()
+        let view = TrackInfoRowView()
         view.key = key
         view.value = value
         view.tableId = tableId
@@ -42,21 +42,14 @@ class DetailedTrackInfoRowView: NSTableRowView {
     
     override func view(atColumn column: Int) -> Any? {
         
-        if (column == 0) {
-            
-            // Key
-            return createCell(Self.trackInfoKeyColumnID, key! + ":", keyTextAlignment)
-            
-        } else {
-            
-            // Value
-            return createCell(Self.trackInfoValueColumnID, value!, valueTextAlignment)
-        }
+        return column == 0 ?
+            createCell(Self.trackInfoKeyColumnID, key + ":", keyTextAlignment) : // Key
+            createCell(Self.trackInfoValueColumnID, value, valueTextAlignment)   // Value
     }
     
     private func createCell(_ id: String, _ text: String, _ alignment: NSTextAlignment?) -> NSTableCellView? {
         
-        if let cell = TrackInfoViewHolder.tablesMap[tableId!]?.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: id), owner: nil) as? NSTableCellView {
+        if let cell = TrackInfoViewHolder.tablesMap[tableId]?.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: id), owner: nil) as? NSTableCellView {
             
             cell.textField?.stringValue = text
             

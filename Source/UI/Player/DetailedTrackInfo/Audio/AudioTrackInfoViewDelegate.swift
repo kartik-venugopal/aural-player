@@ -1,5 +1,5 @@
 //
-//  AudioDataSource.swift
+//  AudioTrackInfoViewDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,15 +10,15 @@
 import Cocoa
 
 /*
- Data source and delegate for the Detailed Track Info popover view
+    Data source and delegate for the Detailed Track Info popover view
  */
-class AudioDataSource: TrackInfoDataSource {
+class AudioTrackInfoViewDelegate: TrackInfoViewDelegate {
     
-    override var tableId: TrackInfoTab {return .audio}
+    override var tableId: TrackInfoTab {.audio}
     
-    override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
+    override func infoForTrack(_ track: Track) -> [KeyValuePair] {
         
-        var trackInfo: [(key: String, value: String)] = []
+        var trackInfo: [KeyValuePair] = []
         
         trackInfo.append((key: "Format", value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
         

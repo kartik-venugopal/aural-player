@@ -129,7 +129,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
         if showSeekPosition {
             
             lblSeekPositionConstraints.removeAll(withAttributes: [.width, .trailing])
-            labelWidth = widthForSeekPosLabel() + 5 // Compute the required width and add some padding.
+            labelWidth = widthForSeekPosLabel + 5 // Compute the required width and add some padding.
             
             lblSeekPositionConstraints.setWidth(labelWidth)
             lblSeekPositionConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -distanceBetweenControlsAndInfo)
@@ -146,7 +146,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
     /// 1. the duration of the track currently playing, and
     /// 2. the current font scheme.
     ///
-    func widthForSeekPosLabel() -> CGFloat {
+    var widthForSeekPosLabel: CGFloat {
         
         guard let track = player.playingTrack else {return 0}
         

@@ -1,5 +1,5 @@
 //
-//  CoverArtDataSource.swift
+//  CoverArtTrackInfoViewDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,37 +10,17 @@
 import Cocoa
 
 /*
- Data source and delegate for the Detailed Track Info popover view
+    Data source and delegate for the Detailed Track Info popover view
  */
-class CoverArtDataSource: TrackInfoDataSource {
+class CoverArtTrackInfoViewDelegate: TrackInfoViewDelegate {
     
-    override var tableId: TrackInfoTab {return .coverArt}
+    override var tableId: TrackInfoTab {.coverArt}
     
-    // Overriden to force table refresh (needed because cover art may be refreshed after table has loaded once)
-    override func numberOfRows(in tableView: NSTableView) -> Int {
-        
-        // If no track is playing, no rows to display
-        
-        if let track = DetailedTrackInfoViewController.shownTrack {
-            
-            // A track is playing, add its info to the info array, as key-value pairs
-            
-            self.displayedTrack = track
-            
-            info.removeAll()
-            info.append(contentsOf: infoForTrack(track))
-            
-            return info.count
-        }
-        
-        return 0
-    }
-    
-    override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
+    override func infoForTrack(_ track: Track) -> [KeyValuePair] {
         
         guard let artInfo = track.art?.metadata else {return []}
         
-        var trackInfo: [(key: String, value: String)] = []
+        var trackInfo: [KeyValuePair] = []
         
         if let type = artInfo.type {
             trackInfo.append((key: "Type", value: type))

@@ -126,6 +126,15 @@ extension Date {
     }
 }
 
+extension DateFormatter {
+    
+    convenience init(format: String) {
+        
+        self.init()
+        self.dateFormat = format
+    }
+}
+
 // Enumerates time categories that can be used to group historical data, describing when an event occurred, based on its timestamp. For example, an item that was played 10 minutes ago falls into the category "Past hour".
 enum TimeElapsed: String {
     

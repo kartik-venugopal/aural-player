@@ -19,7 +19,7 @@ import Cocoa
 class TimeIntervalFormatter: Formatter {
     
     var minValue: Double = 0
-    var maxValue: Double = Double.greatestFiniteMagnitude
+    var maxValue: Double = .greatestFiniteMagnitude
     
     // Used to get the stepper value
     var valueFunction: (() -> String)?
@@ -31,22 +31,21 @@ class TimeIntervalFormatter: Formatter {
                                        newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?,
                                        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         
-        if partialString.isEmpty {
-            
-            if updateFunction != nil {
-                updateFunction!(0)
-            }
-            
+        if partialString.isEmpty, let updateFunction = updateFunction {
+
+            updateFunction(0)
             return true
         }
         
         if let num = Double(partialString) {
             
-            if num >= minValue && num <= maxValue && updateFunction != nil {
-                updateFunction!(num)
+            let numInRange = (minValue...maxValue).contains(num)
+            
+            if numInRange, let updateFunction = self.updateFunction {
+                updateFunction(num)
             }
             
-            return num >= minValue && num <= maxValue
+            return numInRange
             
         } else {
             
@@ -55,11 +54,11 @@ class TimeIntervalFormatter: Formatter {
     }
     
     override func string(for obj: Any?) -> String? {
-        return valueFunction != nil ? valueFunction!() : "0"
+        valueFunction?() ?? "0"
     }
     
     override func editingString(for obj: Any) -> String? {
-        return valueFunction != nil ? valueFunction!() : "0"
+        valueFunction?() ?? "0"
     }
     
     override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,

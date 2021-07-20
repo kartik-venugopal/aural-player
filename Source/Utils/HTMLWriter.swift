@@ -36,7 +36,23 @@ class HTMLWriter {
         
         ]
     
+    static let defaultHorizontalTablePadding: Int = 20
+    static let defaultVerticalTablePadding: Int = 5
+    
+    var horizontalTablePadding: Int
+    var verticalTablePadding: Int
+    
     private var data: String = "<html>\n"
+    
+    let outputFile: URL
+    
+    init(outputFile: URL) {
+        
+        self.outputFile = outputFile
+        
+        self.horizontalTablePadding = Self.defaultHorizontalTablePadding
+        self.verticalTablePadding = Self.defaultVerticalTablePadding
+    }
     
     func addTitle(_ title: String) {
         data.append(String(format: "\t<head><title>%@</title></head>\n", textToHTML(title)))
@@ -73,8 +89,7 @@ class HTMLWriter {
         return htmlString
     }
     
-    func addTable(_ heading: String, _ headingSize: Int, _ columnHeaders: [String]?, _ rows: [[HTMLText]],
-                  _ horizPadding: Int = 0, _ vertPadding: Int = 0) {
+    func addTable(_ heading: String, _ headingSize: Int, _ columnHeaders: [String]?, _ rows: [[HTMLText]]) {
 
         // Table heading
         data.append(String(format: "\t<h%d><u>%@</u></h%d>\n", headingSize, heading, headingSize))
@@ -101,8 +116,8 @@ class HTMLWriter {
             for column in row {
                 
                 let widthMarkup = column.width != nil ? String(format: "width:%dpx;", column.width!) : ""
-                let hPaddingMarkup = horizPadding > 0 ? String(format: "padding-right:%dpx;", horizPadding) : ""
-                let vPaddingMarkup = vertPadding > 0 ? String(format: "padding-bottom:%dpx", vertPadding) : ""
+                let hPaddingMarkup = horizontalTablePadding > 0 ? String(format: "padding-right:%dpx;", horizontalTablePadding) : ""
+                let vPaddingMarkup = verticalTablePadding > 0 ? String(format: "padding-bottom:%dpx", verticalTablePadding) : ""
                 
                 let tdMarkup = String(format: " style=\"%@%@%@\"", widthMarkup, hPaddingMarkup, vPaddingMarkup)
                 
@@ -115,13 +130,13 @@ class HTMLWriter {
         data.append(String(format: "\t</table>\n"))
     }
     
-    func writeToFile(_ file: URL, _ failSilently: Bool = false) throws {
+    func writeToFile(failSilently: Bool = false) throws {
         
         data.append("</html>")
         
         do {
             
-            try data.write(to: file, atomically: false, encoding: String.Encoding.utf8)
+            try data.write(to: outputFile, atomically: false, encoding: String.Encoding.utf8)
             
         } catch let error as NSError {
             

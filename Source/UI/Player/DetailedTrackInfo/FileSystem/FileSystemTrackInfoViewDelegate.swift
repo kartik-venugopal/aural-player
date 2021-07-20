@@ -1,5 +1,5 @@
 //
-//  FileSystemDataSource.swift
+//  FileSystemTrackInfoViewDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,23 +10,17 @@
 import Cocoa
 
 /*
- Data source and delegate for the Detailed Track Info popover view
+    Data source and delegate for the Detailed Track Info popover view
  */
-class FileSystemDataSource: TrackInfoDataSource {
+class FileSystemTrackInfoViewDelegate: TrackInfoViewDelegate {
     
     override var tableId: TrackInfoTab {return .fileSystem}
     
-    private let dateFormatter: DateFormatter = DateFormatter()
+    private lazy var dateFormatter: DateFormatter = DateFormatter(format: "MMMM dd, yyyy  'at'  hh:mm:ss a")
     
-    override func awakeFromNib() {
+    override func infoForTrack(_ track: Track) -> [KeyValuePair] {
         
-        // Store a reference to trackInfoView that is easily accessible
-        dateFormatter.dateFormat = "MMMM dd, yyyy  'at'  hh:mm:ss a"
-    }
-    
-    override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
-        
-        var trackInfo: [(key: String, value: String)] = []
+        var trackInfo: [KeyValuePair] = []
         
         trackInfo.append((key: "Location", value: track.file.path))
         
