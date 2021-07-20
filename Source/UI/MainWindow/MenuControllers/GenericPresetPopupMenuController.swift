@@ -12,10 +12,10 @@ import Cocoa
 /*
     Controller for the popup menu that lists the available color schemes and opens the color scheme editor panel.
  */
-class GenericPresetPopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
+class GenericPresetPopupMenuController: NSObject {
     
     @IBOutlet weak var theMenu: NSMenu!
-    private lazy var presetNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    private lazy var presetNamePopover: StringInputPopoverViewController = .create(self)
     
     var descriptionOfPreset: String {"preset"}
     var descriptionOfPreset_plural: String {"presets"}
@@ -26,6 +26,27 @@ class GenericPresetPopupMenuController: NSObject, NSMenuDelegate, StringInputRec
     func presetExists(named name: String) -> Bool {false}
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
+    
+    // Must be overriden by subclasses
+    @IBAction func applyPresetAction(_ sender: NSMenuItem) {
+        applyPreset(named: sender.title)
+    }
+    
+    @IBAction func savePresetAction(_ sender: NSMenuItem) {
+        
+        if let contentView = windowLayoutsManager.mainWindow.contentView {
+            presetNamePopover.show(contentView, .maxX)
+        }
+    }
+    
+    // Must be overriden by subclasses.
+    func addPreset(named name: String) {}
+    
+    // Must be overriden by subclasses.
+    func applyPreset(named name: String) {}
+}
+
+extension GenericPresetPopupMenuController: NSMenuDelegate {
     
     override func awakeFromNib() {
         
@@ -58,35 +79,28 @@ class GenericPresetPopupMenuController: NSObject, NSMenuDelegate, StringInputRec
             menu.item(at: index)?.showIf(numberOfUserDefinedPresets > 0)
         }
     }
-    
-    // Must be overriden by subclasses
-    @IBAction func applyPresetAction(_ sender: NSMenuItem) {
-        applyPreset(named: sender.title)
-    }
-    
-    @IBAction func savePresetAction(_ sender: NSMenuItem) {
-        
-        if let contentView = windowLayoutsManager.mainWindow.contentView {
-            presetNamePopover.show(contentView, .maxX)
-        }
-    }
+}
+
+extension GenericPresetPopupMenuController: StringInputReceiver {
     
     // MARK - StringInputReceiver functions (to receive the name of a new user-defined color scheme)
     
     var inputPrompt: String {
-        return "Enter a new \(descriptionOfPreset) name:"
+        "Enter a new \(descriptionOfPreset) name:"
     }
     
     var defaultValue: String? {
-        return "<New \(descriptionOfPreset)>"
+        "<New \(descriptionOfPreset)>"
     }
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
         if presetExists(named: string) {
             return (false, "\(descriptionOfPreset.capitalizingFirstLetter()) with this name already exists !")
-        } else if string.trim().isEmpty {
+            
+        } else if string.isEmptyAfterTrimming {
             return (false, "Name must have at least 1 character.")
+            
         } else {
             return (true, nil)
         }
@@ -95,13 +109,5 @@ class GenericPresetPopupMenuController: NSObject, NSMenuDelegate, StringInputRec
     // Receives a new preset name and saves the new scheme (must be overriden).
     func acceptInput(_ string: String) {
         addPreset(named: string)
-    }
-
-    // Must be overriden by subclasses.
-    func addPreset(named name: String) {
-    }
-    
-    // Must be overriden by subclasses.
-    func applyPreset(named name: String) {
     }
 }

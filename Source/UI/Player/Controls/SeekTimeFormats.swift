@@ -18,19 +18,6 @@ public enum TimeElapsedDisplayType: String, CaseIterable, Codable {
     
     // Displayed as "xyz %"
     case percentage
-
-    func toggle() -> TimeElapsedDisplayType {
-
-        switch self {
-
-        case .formatted:    return .seconds
-
-        case .seconds:      return .percentage
-
-        case .percentage:   return .formatted
-
-        }
-    }
 }
 
 // Enumeration of all possible formats in which the remaining seek time is displayed.
@@ -39,32 +26,15 @@ public enum TimeRemainingDisplayType: String, CaseIterable, Codable {
     // Remaining seek time is displayed as "- hh:mm:ss"
     case formatted
 
-    // Track duration is displayed as hh:mm:ss
-    case duration_formatted
-    
-    // Track duration is displayed as "xyz sec"
-    case duration_seconds
-    
     // Remaining seek time is displayed as "- xyz sec"
     case seconds
     
     // Remaining seek time is displayed as "- xyz %"
     case percentage
-
-    func toggle() -> TimeRemainingDisplayType {
-
-        switch self {
-
-        case .formatted:    return .seconds
-
-        case .seconds:      return .percentage
-
-        case .percentage:   return .duration_formatted
-
-        case .duration_formatted:     return .duration_seconds
-
-        case .duration_seconds:     return .formatted
-
-        }
-    }
+    
+    // Track duration is displayed as hh:mm:ss
+    case duration_formatted
+    
+    // Track duration is displayed as "xyz sec"
+    case duration_seconds
 }

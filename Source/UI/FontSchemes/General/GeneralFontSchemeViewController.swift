@@ -25,11 +25,7 @@ class GeneralFontSchemeViewController: NSViewController, FontSchemesViewProtocol
     @IBOutlet weak var lblTextPreview: NSTextField!
     @IBOutlet weak var lblHeadingPreview: NSTextField!
     
-    override var nibName: NSNib.Name? {return "GeneralFontScheme"}
-    
-    var fontSchemesView: NSView {
-        self.view
-    }
+    override var nibName: NSNib.Name? {"GeneralFontScheme"}
     
     var textFontName: String {
         (textFontMenuButton.selectedItem as! FontMenuItem).fontName

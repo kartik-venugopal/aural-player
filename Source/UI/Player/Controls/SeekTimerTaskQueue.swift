@@ -14,7 +14,7 @@ typealias SeekTimerTask = () -> Void
 /*
     Utility class for submitting tasks to the "seek timer" that acts as a clock and triggers regular periodic UI updates as the player seeks through a track.
  
-    This is needed by any external class wishing to synchronize its updates with the seek timer (so as not to create another timer instance which is resource-intensive).
+    This is needed by any external view wishing to synchronize its updates with the seek timer (so as not to create another timer instance which is resource-intensive).
  */
 class SeekTimerTaskQueue {
     

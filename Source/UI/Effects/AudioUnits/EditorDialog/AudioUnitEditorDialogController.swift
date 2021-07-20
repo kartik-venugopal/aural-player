@@ -23,7 +23,7 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     @IBOutlet weak var btnUserPresets: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     
-    lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
     
     override var windowNibName: String? {"AudioUnitEditorDialog"}
 

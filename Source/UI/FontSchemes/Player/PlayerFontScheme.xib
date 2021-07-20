@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    PlayerFontScheme.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,11 +13,6 @@
                 <outlet property="feedbackTextStepper" destination="f0z-dG-w8F" id="XWg-4b-3DE"/>
                 <outlet property="seekPositionStepper" destination="fFE-zc-mdF" id="hDJ-ax-LhO"/>
                 <outlet property="titleStepper" destination="sAa-s3-cuq" id="a9G-YA-VzS"/>
-                <outlet property="txtArtistAlbum" destination="R5j-cI-z46" id="Edb-xh-eoT"/>
-                <outlet property="txtChapterTitle" destination="iy0-An-iQH" id="g7u-gO-d8A"/>
-                <outlet property="txtFeedbackText" destination="Dy6-lk-xfK" id="d14-gw-UMQ"/>
-                <outlet property="txtSeekPosition" destination="xDb-08-kYE" id="zVl-74-uZP"/>
-                <outlet property="txtTitle" destination="uHM-Ht-fil" id="p7S-BT-fkg"/>
                 <outlet property="view" destination="c22-O7-iKe" id="BLm-lZ-38I"/>
             </connections>
         </customObject>
@@ -103,12 +87,12 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFE-zc-mdF">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFE-zc-mdF" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="71" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="VJX-Sf-DBf"/>
                                         <connections>
-                                            <action selector="seekPositionStepperAction:" target="-2" id="TBD-dc-7qP"/>
+                                            <outlet property="lblValue" destination="xDb-08-kYE" id="JgN-5p-VJN"/>
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHM-Ht-fil" userLabel="Track title">
@@ -120,12 +104,12 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAa-s3-cuq">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAa-s3-cuq" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="176" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="Zg8-kH-1pl"/>
                                         <connections>
-                                            <action selector="titleStepperAction:" target="-2" id="b8x-jG-6R9"/>
+                                            <outlet property="lblValue" destination="uHM-Ht-fil" id="MLS-1V-ex3"/>
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R5j-cI-z46" userLabel="Track title">
@@ -137,12 +121,12 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V37-W1-Svy">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V37-W1-Svy" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="141" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="SqP-Ks-mOx"/>
                                         <connections>
-                                            <action selector="artistAlbumStepperAction:" target="-2" id="NI1-mI-2Pi"/>
+                                            <outlet property="lblValue" destination="R5j-cI-z46" id="oaw-G1-A2o"/>
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iy0-An-iQH" userLabel="Track title">
@@ -154,12 +138,12 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fXz-sU-RQa">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fXz-sU-RQa" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="106" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="HRr-JT-gY2"/>
                                         <connections>
-                                            <action selector="chapterTitleStepperAction:" target="-2" id="gR8-1o-BH5"/>
+                                            <outlet property="lblValue" destination="iy0-An-iQH" id="RmE-wb-3Vq"/>
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dy6-lk-xfK" userLabel="Track title">
@@ -171,12 +155,12 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f0z-dG-w8F">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f0z-dG-w8F" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="36" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="Nva-6O-odM"/>
                                         <connections>
-                                            <action selector="feedbackTextStepperAction:" target="-2" id="Uaq-IN-vRm"/>
+                                            <outlet property="lblValue" destination="Dy6-lk-xfK" id="dGV-RK-VJI"/>
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="RSJ-nq-QIK" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">

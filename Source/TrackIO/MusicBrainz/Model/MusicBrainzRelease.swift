@@ -84,7 +84,7 @@ class MusicBrainzRelease {
     
     private func parseDateString(_ dateStr: String) -> Date? {
         
-        if dateStr.trim().isEmpty {
+        if dateStr.isEmptyAfterTrimming {
             return nil
         }
         

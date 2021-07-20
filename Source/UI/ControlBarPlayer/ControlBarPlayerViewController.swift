@@ -115,6 +115,24 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
         (view.window?.width ?? 0) >= minWindowWidthToShowSeekPosition
     }
     
+    ///
+    /// Computes the maximum required width for the seek position label, given
+    /// 1. the duration of the track currently playing, and
+    /// 2. the current font scheme.
+    ///
+    var widthForSeekPosLabel: CGFloat {
+        
+        guard let track = player.playingTrack else {return 0}
+        
+        let widthOfWidestNumber = String.widthOfWidestNumber(forFont: fontSchemesManager.systemScheme.player.trackTimesFont)
+        let duration = track.duration
+        
+        let trackTimes = ValueFormatter.formatTrackTimes(0, duration, 0)
+        let widthOfTimeRemainingString = CGFloat(trackTimes.remaining.count)
+
+        return widthOfTimeRemainingString * widthOfWidestNumber
+    }
+    
     func layoutTextView(forceChange: Bool = true) {
         
         let showSeekPosition: Bool = uiState.showSeekPosition && windowWideEnoughForSeekPosition
@@ -139,24 +157,6 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
         textViewConstraints.removeAll(withAttributes: [.trailing])
         textViewConstraints.setTrailing(relatedToLeadingOf: btnRepeat,
                                         offset: -(distanceBetweenControlsAndInfo + (showSeekPosition ? labelWidth : 1)))
-    }
-    
-    ///
-    /// Computes the maximum required width for the seek position label, given
-    /// 1. the duration of the track currently playing, and
-    /// 2. the current font scheme.
-    ///
-    var widthForSeekPosLabel: CGFloat {
-        
-        guard let track = player.playingTrack else {return 0}
-        
-        let widthOfWidestNumber = String.widthOfWidestNumber(forFont: fontSchemesManager.systemScheme.player.trackTimesFont)
-        let duration = track.duration
-        
-        let trackTimes = ValueFormatter.formatTrackTimes(0, duration, 0)
-        let widthOfTimeRemainingString = CGFloat(trackTimes.remaining.count)
-
-        return widthOfTimeRemainingString * widthOfWidestNumber
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------

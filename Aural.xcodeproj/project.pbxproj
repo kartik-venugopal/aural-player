@@ -904,6 +904,11 @@
 		3EB3A60726A73E720060487C /* NSPopoverExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60626A73E720060487C /* NSPopoverExtensions.swift */; };
 		3EB3A60B26A7425C0060487C /* SingletonWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60A26A7425C0060487C /* SingletonWindowController.swift */; };
 		3EB3A60E26A744C80060487C /* SingletonPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60D26A744C80060487C /* SingletonPopoverViewController.swift */; };
+		3EB3A61326A7561E0060487C /* EnumExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A61226A7561E0060487C /* EnumExtensions.swift */; };
+		3EB3A61626A762750060487C /* FontSchemesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A61526A762750060487C /* FontSchemesViewProtocol.swift */; };
+		3EB3A61926A763870060487C /* ColorSchemesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A61826A763870060487C /* ColorSchemesViewProtocol.swift */; };
+		3EB3A61E26A76F450060487C /* NSScrollViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A61D26A76F450060487C /* NSScrollViewExtensions.swift */; };
+		3EB3A62126A773350060487C /* FontSizeStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A62026A773350060487C /* FontSizeStepper.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3EB64DE0269275FC00E669D3 /* TimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53ACBD267FDE4C00B5AF52 /* TimeUtils.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
@@ -1999,6 +2004,11 @@
 		3EB3A60626A73E720060487C /* NSPopoverExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPopoverExtensions.swift; sourceTree = "<group>"; };
 		3EB3A60A26A7425C0060487C /* SingletonWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonWindowController.swift; sourceTree = "<group>"; };
 		3EB3A60D26A744C80060487C /* SingletonPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonPopoverViewController.swift; sourceTree = "<group>"; };
+		3EB3A61226A7561E0060487C /* EnumExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumExtensions.swift; sourceTree = "<group>"; };
+		3EB3A61526A762750060487C /* FontSchemesViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesViewProtocol.swift; sourceTree = "<group>"; };
+		3EB3A61826A763870060487C /* ColorSchemesViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesViewProtocol.swift; sourceTree = "<group>"; };
+		3EB3A61D26A76F450060487C /* NSScrollViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSScrollViewExtensions.swift; sourceTree = "<group>"; };
+		3EB3A62026A773350060487C /* FontSizeStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeStepper.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerSettingsViewController.swift; sourceTree = "<group>"; };
@@ -2370,6 +2380,8 @@
 			children = (
 				3E91932325E0CE2500F30F81 /* FontSchemes.xib */,
 				3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */,
+				3EB3A61526A762750060487C /* FontSchemesViewProtocol.swift */,
+				3EB3A62026A773350060487C /* FontSizeStepper.swift */,
 				3E91932725E0CF4200F30F81 /* General */,
 				3E45C03025E1261800C1519C /* Player */,
 				3EE7CB9325E21F890075F1DD /* Playlist */,
@@ -3124,6 +3136,7 @@
 			children = (
 				3E6C0F9B25CEB98600BF0D07 /* ColorSchemes.xib */,
 				3E6C0FA325CEB98600BF0D07 /* ColorSchemesWindowController.swift */,
+				3EB3A61826A763870060487C /* ColorSchemesViewProtocol.swift */,
 				3E6C0F9A25CEB98600BF0D07 /* ColorSchemeViewController.swift */,
 				3E6C0FA225CEB98600BF0D07 /* AuralColorPicker.swift */,
 				3E6C0FAD25CEB98600BF0D07 /* GradientOptionsRadioButtonGroup.swift */,
@@ -3731,6 +3744,7 @@
 				3E308D17268A2E4A00B0FD60 /* NSApplicationExtensions.swift */,
 				3E5ECA50268F4E2A000AE8B7 /* AVAudioFramePositionExtensions.swift */,
 				3E67877E26981B2B00408566 /* OptionSetExtensions.swift */,
+				3EB3A61226A7561E0060487C /* EnumExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4399,6 +4413,7 @@
 				3E0B9B41269E352100B4DED9 /* NSTableColumnExtensions.swift */,
 				3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */,
 				3EB3A60626A73E720060487C /* NSPopoverExtensions.swift */,
+				3EB3A61D26A76F450060487C /* NSScrollViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5058,6 +5073,7 @@
 				3EDB346025E8B75D004DF7DE /* CommonAVAssetParser.swift in Sources */,
 				3EDB33EA25E8AE09004DF7DE /* FFmpegAudioFormat.swift in Sources */,
 				3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */,
+				3EB3A61626A762750060487C /* FontSchemesViewProtocol.swift in Sources */,
 				3E6C130B25CEBE8F00BF0D07 /* FileSystemTrackInfoViewDelegate.swift in Sources */,
 				3E6C123A25CEBDF400BF0D07 /* ChaptersListWindowController.swift in Sources */,
 				3E3633EA2686281D006A88ED /* ReverbUnitDelegateProtocol.swift in Sources */,
@@ -5233,6 +5249,7 @@
 				3E6C12B525CEBE5800BF0D07 /* BookmarksMenuController.swift in Sources */,
 				3E1454FB2680F9DF0034056E /* GesturesControlsPreferences.swift in Sources */,
 				3E6C12EC25CEBE8100BF0D07 /* PlayingTrackView.swift in Sources */,
+				3EB3A61326A7561E0060487C /* EnumExtensions.swift in Sources */,
 				3E3633F826863077006A88ED /* PitchShiftUnitProtocol.swift in Sources */,
 				3EDB33F325E8AE09004DF7DE /* FFmpegErrors.swift in Sources */,
 				3E8C791E269C4196005E78D1 /* PlaylistViewSelector.swift in Sources */,
@@ -5300,6 +5317,7 @@
 				3E3633D62685FAD0006A88ED /* EQUnit.swift in Sources */,
 				3E6C11ED25CEBDD100BF0D07 /* FlatPlaylistProtocol.swift in Sources */,
 				3E3633D22685FAD0006A88ED /* HostedAudioUnit.swift in Sources */,
+				3EB3A61E26A76F450060487C /* NSScrollViewExtensions.swift in Sources */,
 				3E6C122925CEBDE600BF0D07 /* MainWindowController.swift in Sources */,
 				3E09D0CC26805C19008ECB8C /* UIPersistentState.swift in Sources */,
 				3E6C11CD25CEBDBE00BF0D07 /* ChapterPlayback.swift in Sources */,
@@ -5308,6 +5326,7 @@
 				3E6C12D125CEBE6700BF0D07 /* TimeStretchViewController.swift in Sources */,
 				3EE2CC3126810D6F002C1B29 /* ArrayExtensions.swift in Sources */,
 				3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */,
+				3EB3A62126A773350060487C /* FontSizeStepper.swift in Sources */,
 				3E6C119F25CEBD6D00BF0D07 /* AudioGraphProtocols.swift in Sources */,
 				3E53ACBE267FDE4C00B5AF52 /* TimeUtils.swift in Sources */,
 				3E47D317269F9928003D08A7 /* ImportedPlaylist.swift in Sources */,
@@ -5574,6 +5593,7 @@
 				3E6C12C625CEBE6700BF0D07 /* PitchShiftView.swift in Sources */,
 				3E3579D226837D3D009522A0 /* PresetsManagerViewController.swift in Sources */,
 				3E3633D52685FAD0006A88ED /* ReverbUnit.swift in Sources */,
+				3EB3A61926A763870060487C /* ColorSchemesViewProtocol.swift in Sources */,
 				3E5623CC2619FCB300D55E43 /* AudioUnitPresets.swift in Sources */,
 				3E3633DB2685FAD0006A88ED /* EffectsUnitProtocol.swift in Sources */,
 				3E6C12C025CEBE6700BF0D07 /* PresetsWrapper.swift in Sources */,

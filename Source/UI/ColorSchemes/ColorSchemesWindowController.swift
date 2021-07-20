@@ -12,7 +12,7 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system color scheme to be edited.
  */
-class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver {
+class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, ModalDialogDelegate {
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -37,7 +37,7 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
     private var subViews: [ColorSchemesViewProtocol] = []
     
     // Popover to collect user input (i.e. color scheme name) when saving new color schemes
-    lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    lazy var userSchemesPopover: StringInputPopoverViewController = .create(self)
     
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
@@ -59,7 +59,7 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
         
         // Add the subviews to the tab group
         subViews = [generalSchemeView, playerSchemeView, playlistSchemeView, effectsSchemeView]
-        tabView.addViewsForTabs(subViews.map {$0.colorSchemeView})
+        tabView.addViewsForTabs(subViews.map {$0.view})
         
         // Disable color transparency in the color chooser panel (for now)
         NSColorPanel.shared.showsAlpha = false
@@ -270,16 +270,17 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
             menu.insertItem(item, at: 1)
         })
     }
-    
-    // MARK - StringInputReceiver functions (for saving new color schemes)
-    // TODO: Refactor this into a common ColorSchemesStringInputReceiver class to avoid duplication
+}
+
+// StringInputReceiver functions (for saving new color schemes)
+extension ColorSchemesWindowController: StringInputReceiver {
     
     var inputPrompt: String {
-        return "Enter a new color scheme name:"
+        "Enter a new color scheme name:"
     }
     
     var defaultValue: String? {
-        return "<New color scheme>"
+        "<New color scheme>"
     }
     
     // Validates the name given by the user for the new color scheme that is to be saved.
@@ -287,12 +288,10 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
         
         // Name cannot match the name of an existing scheme.
         if colorSchemesManager.presetExists(named: string) {
-            
             return (false, "Color scheme with this name already exists !")
         }
         // Name cannot be empty
-        else if string.trim().isEmpty {
-            
+        else if string.isEmptyAfterTrimming {
             return (false, "Name must have at least 1 character.")
         }
         // Valid name
@@ -308,23 +307,4 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
         let newScheme: ColorScheme = ColorScheme(string, false, colorSchemesManager.systemScheme)
         colorSchemesManager.addPreset(newScheme)
     }
-}
-
-/*
-    Contract for all subviews that alter the color scheme, to facilitate communication between the window controller and subviews.
- */
-protocol ColorSchemesViewProtocol {
-    
-    // The view containing the color editing UI components
-    var colorSchemeView: NSView {get}
-    
-    // Reset all UI controls every time the dialog is shown or a new color scheme is applied.
-    // NOTE - the history and clipboard are shared across all views
-    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!)
-    
-    // If the last change was made to a control in this view, performs an undo operation and returns true. Otherwise, does nothing and returns false.
-    func undoChange(_ lastChange: ColorSchemeChange) -> Bool
-
-    // If the last undo was performed on a control in this view, performs a redo operation and returns true. Otherwise, does nothing and returns false.
-    func redoChange(_ lastChange: ColorSchemeChange) -> Bool
 }

@@ -48,7 +48,11 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     private lazy var messenger = Messenger(for: self)
     
-    override var nibName: NSNib.Name? {return "EffectsColorScheme"}
+    override var nibName: NSNib.Name? {"EffectsColorScheme"}
+    
+    private var effectsScheme: EffectsColorScheme {
+        colorSchemesManager.systemScheme.effects
+    }
     
     override func viewDidLoad() {
         
@@ -74,7 +78,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         actionsMap[suppressedUnitStateColorPicker.tag] = self.changeSuppressedUnitStateColor
     }
     
-    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
+    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard) {
         
         super.resetFields(scheme, history, clipboard)
         
@@ -108,31 +112,31 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func functionCaptionTextColorAction(_ sender: Any) {
         
-        history.noteChange(functionCaptionTextColorPicker.tag, colorSchemesManager.systemScheme.effects.functionCaptionTextColor, functionCaptionTextColorPicker.color, .changeColor)
+        history.noteChange(functionCaptionTextColorPicker.tag, effectsScheme.functionCaptionTextColor, functionCaptionTextColorPicker.color, .changeColor)
         changeFunctionCaptionTextColor()
     }
     
     private func changeFunctionCaptionTextColor() {
         
-        colorSchemesManager.systemScheme.effects.functionCaptionTextColor = functionCaptionTextColorPicker.color
+        effectsScheme.functionCaptionTextColor = functionCaptionTextColorPicker.color
         messenger.publish(.effects_changeFunctionCaptionTextColor, payload: functionCaptionTextColorPicker.color)
     }
     
     @IBAction func functionValueTextColorAction(_ sender: Any) {
         
-        history.noteChange(functionValueTextColorPicker.tag, colorSchemesManager.systemScheme.effects.functionValueTextColor, functionValueTextColorPicker.color, .changeColor)
+        history.noteChange(functionValueTextColorPicker.tag, effectsScheme.functionValueTextColor, functionValueTextColorPicker.color, .changeColor)
         changeFunctionValueTextColor()
     }
     
     private func changeFunctionValueTextColor() {
         
-        colorSchemesManager.systemScheme.effects.functionValueTextColor = functionValueTextColorPicker.color
+        effectsScheme.functionValueTextColor = functionValueTextColorPicker.color
         messenger.publish(.effects_changeFunctionValueTextColor, payload: functionValueTextColorPicker.color)
     }
     
     @IBAction func enableSliderForegroundGradientAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundGradientBtnGroup.tag, colorSchemesManager.systemScheme.effects.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(sliderForegroundGradientBtnGroup.tag, effectsScheme.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
         
         changeSliderForegroundGradient()
     }
@@ -140,9 +144,9 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderForegroundGradient() {
         
         if btnSliderForegroundGradientEnabled.isOn {
-            colorSchemesManager.systemScheme.effects.sliderForegroundGradientType = btnSliderForegroundGradientDarken.isOn ? .darken : .brighten
+            effectsScheme.sliderForegroundGradientType = btnSliderForegroundGradientDarken.isOn ? .darken : .brighten
         } else {
-            colorSchemesManager.systemScheme.effects.sliderForegroundGradientType = .none
+            effectsScheme.sliderForegroundGradientType = .none
         }
         
 //        [btnSliderForegroundGradientDarken, btnSliderForegroundGradientBrighten, sliderForegroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderForegroundGradientEnabled.isOn)})
@@ -152,21 +156,21 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderForegroundGradientBrightenOrDarkenAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundGradientBtnGroup.tag, colorSchemesManager.systemScheme.effects.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(sliderForegroundGradientBtnGroup.tag, effectsScheme.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
         
         changeSliderForegroundGradient()
     }
     
     @IBAction func sliderForegroundGradientAmountAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundGradientAmountStepper.tag, colorSchemesManager.systemScheme.effects.sliderForegroundGradientAmount, sliderForegroundGradientAmountStepper.integerValue, .setIntValue)
+        history.noteChange(sliderForegroundGradientAmountStepper.tag, effectsScheme.sliderForegroundGradientAmount, sliderForegroundGradientAmountStepper.integerValue, .setIntValue)
         
         changeSliderForegroundGradientAmount()
     }
     
     private func changeSliderForegroundGradientAmount() {
         
-        colorSchemesManager.systemScheme.effects.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
+        effectsScheme.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
         lblSliderForegroundGradientAmount.stringValue = String(format: "%d%%", sliderForegroundGradientAmountStepper.integerValue)
         
         sliderColorsChanged()
@@ -174,19 +178,19 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundColorPicker.tag, colorSchemesManager.systemScheme.effects.sliderBackgroundColor, sliderBackgroundColorPicker.color, .changeColor)
+        history.noteChange(sliderBackgroundColorPicker.tag, effectsScheme.sliderBackgroundColor, sliderBackgroundColorPicker.color, .changeColor)
         changeSliderBackgroundColor()
     }
     
     private func changeSliderBackgroundColor() {
         
-        colorSchemesManager.systemScheme.effects.sliderBackgroundColor = sliderBackgroundColorPicker.color
+        effectsScheme.sliderBackgroundColor = sliderBackgroundColorPicker.color
         sliderColorsChanged()
     }
     
     @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientBtnGroup.tag, colorSchemesManager.systemScheme.effects.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(sliderBackgroundGradientBtnGroup.tag, effectsScheme.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
         
         changeSliderBackgroundGradient()
     }
@@ -194,9 +198,9 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderBackgroundGradient() {
         
         if btnSliderBackgroundGradientEnabled.isOn {
-            colorSchemesManager.systemScheme.effects.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
+            effectsScheme.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
         } else {
-            colorSchemesManager.systemScheme.effects.sliderBackgroundGradientType = .none
+            effectsScheme.sliderBackgroundGradientType = .none
         }
         
 //        [btnSliderBackgroundGradientDarken, btnSliderBackgroundGradientBrighten, sliderBackgroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderBackgroundGradientEnabled.isOn)})
@@ -206,20 +210,20 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderBackgroundGradientBrightenOrDarkenAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientBtnGroup.tag, colorSchemesManager.systemScheme.effects.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(sliderBackgroundGradientBtnGroup.tag, effectsScheme.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
         
         changeSliderBackgroundGradient()
     }
     
     @IBAction func sliderBackgroundGradientAmountAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientAmountStepper.tag, colorSchemesManager.systemScheme.effects.sliderBackgroundGradientAmount, sliderBackgroundGradientAmountStepper.integerValue, .setIntValue)
+        history.noteChange(sliderBackgroundGradientAmountStepper.tag, effectsScheme.sliderBackgroundGradientAmount, sliderBackgroundGradientAmountStepper.integerValue, .setIntValue)
         changeSliderBackgroundGradientAmount()
     }
     
     private func changeSliderBackgroundGradientAmount() {
         
-        colorSchemesManager.systemScheme.effects.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
+        effectsScheme.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
         lblSliderBackgroundGradientAmount.stringValue = String(format: "%d%%", sliderBackgroundGradientAmountStepper.integerValue)
         
         sliderColorsChanged()
@@ -231,73 +235,73 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
         
-        history.noteChange(sliderKnobColorPicker.tag, colorSchemesManager.systemScheme.effects.sliderKnobColor, sliderKnobColorPicker.color, .changeColor)
+        history.noteChange(sliderKnobColorPicker.tag, effectsScheme.sliderKnobColor, sliderKnobColorPicker.color, .changeColor)
         changeSliderKnobColor()
     }
     
     private func changeSliderKnobColor() {
         
-        colorSchemesManager.systemScheme.effects.sliderKnobColor = sliderKnobColorPicker.color
+        effectsScheme.sliderKnobColor = sliderKnobColorPicker.color
         messenger.publish(.effects_changeSliderColors)
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
         
-        history.noteChange(btnSliderKnobColorSameAsForeground.tag, colorSchemesManager.systemScheme.effects.sliderKnobColorSameAsForeground, btnSliderKnobColorSameAsForeground.isOn, .toggle)
+        history.noteChange(btnSliderKnobColorSameAsForeground.tag, effectsScheme.sliderKnobColorSameAsForeground, btnSliderKnobColorSameAsForeground.isOn, .toggle)
         toggleKnobColorSameAsForeground()
     }
     
     private func toggleKnobColorSameAsForeground() {
         
-        colorSchemesManager.systemScheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
+        effectsScheme.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
         messenger.publish(.effects_changeSliderColors)
     }
     
     @IBAction func sliderTickColorAction(_ sender: Any) {
         
-        history.noteChange(sliderTickColorPicker.tag, colorSchemesManager.systemScheme.effects.sliderTickColor, sliderTickColorPicker.color, .changeColor)
+        history.noteChange(sliderTickColorPicker.tag, effectsScheme.sliderTickColor, sliderTickColorPicker.color, .changeColor)
         changeSliderTickColor()
     }
     
     private func changeSliderTickColor() {
         
-        colorSchemesManager.systemScheme.effects.sliderTickColor = sliderTickColorPicker.color
+        effectsScheme.sliderTickColor = sliderTickColorPicker.color
         messenger.publish(.effects_changeSliderColors)
     }
     
     @IBAction func activeUnitStateColorAction(_ sender: Any) {
         
-        history.noteChange(activeUnitStateColorPicker.tag, colorSchemesManager.systemScheme.effects.activeUnitStateColor, activeUnitStateColorPicker.color, .changeColor)
+        history.noteChange(activeUnitStateColorPicker.tag, effectsScheme.activeUnitStateColor, activeUnitStateColorPicker.color, .changeColor)
         changeActiveUnitStateColor()
     }
     
     private func changeActiveUnitStateColor() {
         
-        colorSchemesManager.systemScheme.effects.activeUnitStateColor = activeUnitStateColorPicker.color
+        effectsScheme.activeUnitStateColor = activeUnitStateColorPicker.color
         messenger.publish(.effects_changeActiveUnitStateColor, payload: activeUnitStateColorPicker.color)
     }
     
     @IBAction func bypassedUnitStateColorAction(_ sender: Any) {
         
-        history.noteChange(bypassedUnitStateColorPicker.tag, colorSchemesManager.systemScheme.effects.bypassedUnitStateColor, bypassedUnitStateColorPicker.color, .changeColor)
+        history.noteChange(bypassedUnitStateColorPicker.tag, effectsScheme.bypassedUnitStateColor, bypassedUnitStateColorPicker.color, .changeColor)
         changeBypassedUnitStateColor()
     }
     
     private func changeBypassedUnitStateColor() {
 
-        colorSchemesManager.systemScheme.effects.bypassedUnitStateColor = bypassedUnitStateColorPicker.color
+        effectsScheme.bypassedUnitStateColor = bypassedUnitStateColorPicker.color
         messenger.publish(.effects_changeBypassedUnitStateColor, payload: bypassedUnitStateColorPicker.color)
     }
     
     @IBAction func suppressedUnitStateColorAction(_ sender: Any) {
         
-        history.noteChange(suppressedUnitStateColorPicker.tag, colorSchemesManager.systemScheme.effects.suppressedUnitStateColor, suppressedUnitStateColorPicker.color, .changeColor)
+        history.noteChange(suppressedUnitStateColorPicker.tag, effectsScheme.suppressedUnitStateColor, suppressedUnitStateColorPicker.color, .changeColor)
         changeSuppressedUnitStateColor()
     }
     
     private func changeSuppressedUnitStateColor() {
         
-        colorSchemesManager.systemScheme.effects.suppressedUnitStateColor = suppressedUnitStateColorPicker.color
+        effectsScheme.suppressedUnitStateColor = suppressedUnitStateColorPicker.color
         messenger.publish(.effects_changeSuppressedUnitStateColor, payload: suppressedUnitStateColorPicker.color)
     }
 }

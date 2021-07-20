@@ -12,7 +12,7 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system font scheme to be edited.
  */
-class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver {
+class FontSchemesWindowController: SingletonWindowController, ModalDialogDelegate {
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -32,14 +32,14 @@ class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, Mo
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
     // Popover to collect user input (i.e. color scheme name) when saving new color schemes
-    lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    lazy var userSchemesPopover: StringInputPopoverViewController = .create(self)
     
     private var subViews: [FontSchemesViewProtocol] = []
     
     // Maintains a history of all changes made to the system color scheme since the dialog opened. Allows undo/redo.
     private var history: FontSchemeHistory = FontSchemeHistory()
     
-    override var windowNibName: NSNib.Name? {return "FontSchemes"}
+    override var windowNibName: NSNib.Name? {"FontSchemes"}
     
     var isModal: Bool {
         return self.window?.isVisible ?? false
@@ -51,7 +51,7 @@ class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, Mo
 
         // Add the subviews to the tab group
         subViews = [generalView, playerView, playlistView, effectsView]
-        tabView.addViewsForTabs(subViews.map {$0.fontSchemesView})
+        tabView.addViewsForTabs(subViews.map {$0.view})
         
         // Register an observer that updates undo/redo button states whenever the history changes.
         history.changeListener = {[weak self] in
@@ -168,8 +168,10 @@ class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, Mo
         btnRedo.enableIf(history.canRedo)
         btnRedoAll.enableIf(history.canRedo)
     }
-    
-    // MARK - MenuDelegate functions
+}
+
+// MARK: MenuDelegate functions
+extension FontSchemesWindowController: NSMenuDelegate {
     
     // When the menu is about to open, recreate the menu with to the currently available color schemes.
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -180,7 +182,7 @@ class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, Mo
         }
         
         // Recreate the user-defined scheme items
-        fontSchemesManager.userDefinedPresets.forEach({
+        fontSchemesManager.userDefinedPresets.forEach {
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.loadSchemeAction(_:)),
                                               keyEquivalent: "")
@@ -188,18 +190,19 @@ class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, Mo
             item.indentationLevel = 1
             
             menu.insertItem(item, at: 1)
-        })
+        }
     }
-    
-    // MARK - StringInputReceiver functions (for saving new color schemes)
-    // TODO: Refactor this into a common FontSchemesStringInputReceiver class to avoid duplication
+}
+
+// StringInputReceiver functions (for saving new font schemes).
+extension FontSchemesWindowController: StringInputReceiver {
     
     var inputPrompt: String {
-        return "Enter a new font scheme name:"
+        "Enter a new font scheme name:"
     }
     
     var defaultValue: String? {
-        return "<New font scheme>"
+        "<New font scheme>"
     }
     
     // Validates the name given by the user for the new font scheme that is to be saved.
@@ -211,7 +214,7 @@ class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, Mo
             return (false, "Font scheme with this name already exists !")
         }
         // Name cannot be empty
-        else if string.trim().isEmpty {
+        else if string.isEmptyAfterTrimming {
             
             return (false, "Name must have at least 1 character.")
         }
@@ -228,22 +231,4 @@ class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, Mo
         let newScheme: FontScheme = FontScheme(string, false, fontSchemesManager.systemScheme)
         fontSchemesManager.addPreset(newScheme)
     }
-}
-
-/*
-    Contract for all subviews that alter the color scheme, to facilitate communication between the window controller and subviews.
- */
-protocol FontSchemesViewProtocol {
-    
-    // The view containing the color editing UI components
-    var fontSchemesView: NSView {get}
-    
-    // Reset all UI controls every time the dialog is shown or a new color scheme is applied.
-    // NOTE - the history and clipboard are shared across all views
-    func resetFields(_ fontScheme: FontScheme)
-    
-    // Load values from a font scheme into the UI fields
-    func loadFontScheme(_ fontScheme: FontScheme)
-    
-    func applyFontScheme(_ context: FontSchemeChangeContext, to fontScheme: FontScheme)
 }

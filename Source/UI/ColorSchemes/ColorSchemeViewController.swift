@@ -32,35 +32,30 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
     // Identifies the color picker that most recently participated in a color clipboard copy operation (used to determine which color to copy to the clipboard). May be nil initially (when the panel is opened).
     var activeColorPicker: AuralColorPicker?
     
-    var colorSchemeView: NSView {
-        return self.view
-    }
+    private var controlClassNames: Set<String> = [AuralColorPicker.className(), NSButton.className(),
+                                                  NSStepper.className(), GradientOptionsRadioButtonGroup.className()]
     
     override func viewDidLoad() {
         
         // Map all the controls that participate in making changes to the system color scheme, based on their tags, so that undo/redo operations can be performed on these controls later.
-        for aView in containerView.subviews {
+        // Only map the relevant controls (ignore NSTextField, etc)
+        for control in containerView.subviews.compactMap({$0 as? NSControl}).filter({controlClassNames.contains($0.className)}) {
             
-            // Only map the relevant controls (ignore NSTextField, etc)
-            if let control = aView as? NSControl,
-                control is AuralColorPicker || control is NSButton || control is NSStepper || control is GradientOptionsRadioButtonGroup {
+            // Map the control to its tag
+            controlsMap[control.tag] = control
+            
+            // Set the context menu for all color pickers so that clipboard operations may be performed on them.
+            if let colorPicker = control as? AuralColorPicker {
                 
-                // Map the control to its tag
-                controlsMap[control.tag] = control
+                colorPicker.menu = colorPickerContextMenu
                 
-                // Set the context menu for all color pickers so that clipboard operations may be performed on them.
-                if let colorPicker = control as? AuralColorPicker {
-                    
-                    colorPicker.menu = colorPickerContextMenu
-                    
-                    // Whenever the context menu is invoked, note this color picker as the one that invoked the menu (used to determine which color picker is the source/target of a color clipboard copy/paste operation).
-                    colorPicker.menuInvocationCallback = {(picker: AuralColorPicker) -> Void in self.activeColorPicker = picker}
-                }
+                // Whenever the context menu is invoked, note this color picker as the one that invoked the menu (used to determine which color picker is the source/target of a color clipboard copy/paste operation).
+                colorPicker.menuInvocationCallback = {(picker: AuralColorPicker) -> Void in self.activeColorPicker = picker}
             }
         }
     }
     
-    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
+    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard) {
         
         self.history = history
         self.clipboard = clipboard

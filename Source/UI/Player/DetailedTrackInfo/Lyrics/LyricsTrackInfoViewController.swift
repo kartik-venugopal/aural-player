@@ -26,10 +26,6 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
         }
     }
     
-    var lyricsText: String {
-        textView.string
-    }
-    
     private let noLyricsText: String = "< No lyrics available for this track >"
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing

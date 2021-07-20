@@ -17,11 +17,4 @@ extension NSAlert {
         window.showCenteredOnScreen()
         return runModal()
     }
-    
-    func showNonModal() {
-        
-        showsHelp = false
-        showsSuppressionButton = false
-        window.showCenteredOnScreen()
-    }
 }

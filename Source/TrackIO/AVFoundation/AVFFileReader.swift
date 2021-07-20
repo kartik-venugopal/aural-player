@@ -287,7 +287,7 @@ class AVFFileReader: FileReaderProtocol {
             for index in 0..<chapters.count {
 
                 // If no title is available, create a default one using the chapter index
-                if chapters[index].title.trim().isEmpty {
+                if chapters[index].title.isEmptyAfterTrimming {
                     chapters[index].title = String(format: "Chapter %d", index + 1)
                 }
             }
@@ -342,7 +342,7 @@ class AVFFileReader: FileReaderProtocol {
             for index in 0..<chapters.count {
 
                 // If no title is available, create a default one using the chapter index
-                if chapters[index].title.trim().isEmpty {
+                if chapters[index].title.isEmptyAfterTrimming {
                     chapters[index].title = String(format: "Chapter %d", index + 1)
                 }
             }

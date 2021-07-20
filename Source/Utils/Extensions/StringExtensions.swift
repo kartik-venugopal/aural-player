@@ -159,7 +159,7 @@ extension String {
         trim().isEmpty
     }
     
-    func trim() -> String {
+    func trim() -> String { 
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     

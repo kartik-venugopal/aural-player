@@ -86,7 +86,7 @@
 //            let indentLevel = line.prefix(while: {$0 == " "}).count
 //
 //            // Terminate
-//            if !line.trim().isEmpty && indentLevel <= rootIndentLevel {
+//            if !line.isEmptyAfterTrimming && indentLevel <= rootIndentLevel {
 //                break
 //            }
 //

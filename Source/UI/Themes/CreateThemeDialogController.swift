@@ -158,7 +158,7 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
         
         if themesManager.presetExists(named: string) {
             return (false, "Theme with this name already exists !")
-        } else if string.trim().isEmpty {
+        } else if string.isEmptyAfterTrimming {
             return (false, "Name must have at least 1 character.")
         } else {
             return (true, nil)

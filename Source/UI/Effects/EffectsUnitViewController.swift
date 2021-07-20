@@ -25,7 +25,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var presetsMenuIconItem: TintedIconMenuItem!
     @IBOutlet weak var btnSavePreset: TintedImageButton!
-    lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
     
     let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
