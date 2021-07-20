@@ -23,35 +23,35 @@ class CoverArtTrackInfoViewDelegate: TrackInfoViewDelegate {
         var trackInfo: [KeyValuePair] = []
         
         if let type = artInfo.type {
-            trackInfo.append((key: "Type", value: type))
+            trackInfo.append(KeyValuePair(key: "Type", value: type))
         }
         
         if let dimensions = artInfo.dimensions {
             
             let dimStr = String(format: "%.0f x %.0f", round(dimensions.width), round(dimensions.height))
-            trackInfo.append((key: "Dimensions", value: dimStr))
+            trackInfo.append(KeyValuePair(key: "Dimensions", value: dimStr))
         }
         
         if let resolution = artInfo.resolution {
             
             let resStr = String(format: "%.0f x %.0f DPI", round(resolution.width), round(resolution.height))
-            trackInfo.append((key: "Resolution", value: resStr))
+            trackInfo.append(KeyValuePair(key: "Resolution", value: resStr))
         }
         
         if let colorSpace = artInfo.colorSpace {
-            trackInfo.append((key: "Color Space", value: colorSpace))
+            trackInfo.append(KeyValuePair(key: "Color Space", value: colorSpace))
         }
         
         if let colorProfile = artInfo.colorProfile {
-            trackInfo.append((key: "Color Profile", value: colorProfile))
+            trackInfo.append(KeyValuePair(key: "Color Profile", value: colorProfile))
         }
         
         if let bitDepth = artInfo.bitDepth {
-            trackInfo.append((key: "Bit Depth", value: String(format: "%d-bit", bitDepth)))
+            trackInfo.append(KeyValuePair(key: "Bit Depth", value: String(format: "%d-bit", bitDepth)))
         }
         
         if let hasAlpha = artInfo.hasAlpha {
-            trackInfo.append((key: "Has Alpha?", value: hasAlpha ? "Yes" : "No"))
+            trackInfo.append(KeyValuePair(key: "Has Alpha?", value: hasAlpha ? "Yes" : "No"))
         }
         
         return trackInfo

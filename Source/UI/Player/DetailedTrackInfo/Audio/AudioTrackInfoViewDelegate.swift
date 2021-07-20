@@ -20,53 +20,64 @@ class AudioTrackInfoViewDelegate: TrackInfoViewDelegate {
         
         var trackInfo: [KeyValuePair] = []
         
-        trackInfo.append((key: "Format", value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
+        trackInfo.append(KeyValuePair(key: "Format",
+                                      value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
         
         if let codec = track.audioInfo?.codec {
-            trackInfo.append((key: "Codec", value: codec))
+            trackInfo.append(KeyValuePair(key: "Codec", value: codec))
         }
         
-        trackInfo.append((key: "Duration", value: ValueFormatter.formatSecondsToHMS(track.duration)))
+        trackInfo.append(KeyValuePair(key: "Duration",
+                                      value: ValueFormatter.formatSecondsToHMS(track.duration)))
         
         if let bitRate = track.audioInfo?.bitRate {
             
             if bitRate < 1000 {
-                trackInfo.append((key: "Bit Rate", value: String(format: "%d kbps", bitRate)))
+                trackInfo.append(KeyValuePair(key: "Bit Rate",
+                                              value: String(format: "%d kbps", bitRate)))
             } else {
-                trackInfo.append((key: "Bit Rate", value: String(format: "%@ kbps", ValueFormatter.readableLongInteger(Int64(bitRate)))))
+                trackInfo.append(KeyValuePair(key: "Bit Rate",
+                                              value: String(format: "%@ kbps", ValueFormatter.readableLongInteger(Int64(bitRate)))))
             }
             
         } else {
-            trackInfo.append((key: "Bit Rate", value: value_unknown))
+            trackInfo.append(KeyValuePair(key: "Bit Rate", value: value_unknown))
         }
 
         if let sampleRate = track.audioInfo?.sampleRate {
-            trackInfo.append((key: "Sample Rate", value: String(format: "%@ Hz", ValueFormatter.readableLongInteger(Int64(sampleRate)))))
+            
+            trackInfo.append(KeyValuePair(key: "Sample Rate",
+                                          value: String(format: "%@ Hz", ValueFormatter.readableLongInteger(Int64(sampleRate)))))
+            
         } else {
-            trackInfo.append((key: "Sample Rate", value: value_unknown))
+            trackInfo.append(KeyValuePair(key: "Sample Rate", value: value_unknown))
         }
         
         if let sampleFormat = track.audioInfo?.sampleFormat {
-            trackInfo.append((key: "Sample Format", value: sampleFormat))
+            trackInfo.append(KeyValuePair(key: "Sample Format", value: sampleFormat))
         }
         
         if let layout = track.audioInfo?.channelLayout {
-            trackInfo.append((key: "Channel Layout", value: layout.capitalized))
+            trackInfo.append(KeyValuePair(key: "Channel Layout", value: layout.capitalized))
         } else {
             
             if let numChannels = track.audioInfo?.numChannels {
-                trackInfo.append((key: "Channel Layout", value: channelLayout(numChannels)))
+                
+                trackInfo.append(KeyValuePair(key: "Channel Layout",
+                                              value: channelLayout(numChannels)))
             } else {
-                trackInfo.append((key: "Channel Layout", value: value_unknown))
+                trackInfo.append(KeyValuePair(key: "Channel Layout", value: value_unknown))
             }
         }
         
         // TODO: If playback info is present (prepared for playback), frame count is exact. Otherwise, it is an estimate.
         // If it's an estimate, note it in the caption, i.e. "Frames (estimated)", OR actually calculate it.
         if let frameCount = track.audioInfo?.frames {
-            trackInfo.append((key: "Frames", value: ValueFormatter.readableLongInteger(frameCount)))
+            
+            trackInfo.append(KeyValuePair(key: "Frames",
+                                          value: ValueFormatter.readableLongInteger(frameCount)))
         } else {
-            trackInfo.append((key: "Frames", value: value_unknown))
+            trackInfo.append(KeyValuePair(key: "Frames", value: value_unknown))
         }
         
         return trackInfo

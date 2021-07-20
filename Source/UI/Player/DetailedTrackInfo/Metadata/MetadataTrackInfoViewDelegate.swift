@@ -17,26 +17,35 @@ class MetadataTrackInfoViewDelegate: TrackInfoViewDelegate {
         
         var trackInfo: [KeyValuePair] = []
         
-        trackInfo.append((key: "Title", value: track.title ?? value_unknown))
-        trackInfo.append((key: "Artist", value: track.artist ?? value_unknown))
-        trackInfo.append((key: "Album", value: track.album ?? value_unknown))
-        trackInfo.append((key: "Genre", value: track.genre ?? value_unknown))
+        trackInfo.append(KeyValuePair(key: "Title", value: track.title ?? value_unknown))
+        trackInfo.append(KeyValuePair(key: "Artist", value: track.artist ?? value_unknown))
+        trackInfo.append(KeyValuePair(key: "Album", value: track.album ?? value_unknown))
+        trackInfo.append(KeyValuePair(key: "Genre", value: track.genre ?? value_unknown))
 
         if let trackNum = track.trackNumber {
 
             if let totalTracks = track.totalTracks, totalTracks > 0 {
-                trackInfo.append((key: "Track#", value: String(format: "%d / %d", trackNum, totalTracks)))
+                
+                trackInfo.append(KeyValuePair(key: "Track#",
+                                              value: String(format: "%d / %d", trackNum, totalTracks)))
             } else if trackNum > 0 {
-                trackInfo.append((key: "Track#", value: String(trackNum)))
+                
+                trackInfo.append(KeyValuePair(key: "Track#",
+                                              value: String(trackNum)))
             }
         }
 
         if let discNum = track.discNumber {
 
             if let totalDiscs = track.totalDiscs, totalDiscs > 0 {
-                trackInfo.append((key: "Disc#", value: String(format: "%d / %d", discNum, totalDiscs)))
+                
+                trackInfo.append(KeyValuePair(key: "Disc#",
+                                              value: String(format: "%d / %d", discNum, totalDiscs)))
+                
             } else if discNum > 0 {
-                trackInfo.append((key: "Disc#", value: String(discNum)))
+                
+                trackInfo.append(KeyValuePair(key: "Disc#",
+                                              value: String(discNum)))
             }
         }
 
@@ -67,7 +76,7 @@ class MetadataTrackInfoViewDelegate: TrackInfoViewDelegate {
             let fKey = entry.key.trim()
 
             if !fKey.isEmpty {
-                trackInfo.append((key: fKey, value: entry.value.trim()))
+                trackInfo.append(KeyValuePair(key: fKey, value: entry.value.trim()))
             }
         }
         
