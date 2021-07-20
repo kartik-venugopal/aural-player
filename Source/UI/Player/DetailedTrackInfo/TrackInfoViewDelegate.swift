@@ -17,12 +17,7 @@ typealias KeyValuePair = (key: String, value: String)
 class TrackInfoViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
     // The table view that displays the track info
-    @IBOutlet weak var table: NSTableView! {
-        
-        didSet {
-            TrackInfoViewHolder.tablesMap[self.tableId] = table
-        }
-    }
+    @IBOutlet weak var table: NSTableView!
     
     // Used to measure table row height
     @IBOutlet var virtualKeyField: NSTextField!
@@ -33,8 +28,6 @@ class TrackInfoViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegat
     
     // Cached playing track instance (to avoid reloading the same data)
     var displayedTrack: Track?
-    
-    var tableId: TrackInfoTab {return .metadata}
     
     // Constants used to calculate row height
     
@@ -59,9 +52,29 @@ class TrackInfoViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegat
         return 0
     }
     
-    // Each track info view row contains one key-value pair
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        TrackInfoRowView.fromKeyAndValue(keyValuePairs[row].key, keyValuePairs[row].value, self.tableId)
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        guard let columnId = tableColumn?.identifier,
+              let cell = tableView.makeView(withIdentifier: columnId, owner: nil) as? NSTableCellView else {return nil}
+        
+        let kvPair = keyValuePairs[row]
+        
+        switch columnId {
+        
+        case .uid_trackInfoKeyColumn:
+            
+            cell.textField?.stringValue = "\(kvPair.key):"
+            return cell
+            
+        case .uid_trackInfoValueColumn:
+            
+            cell.textField?.stringValue = "\(kvPair.value)"
+            return cell
+            
+        default:
+            
+            return nil
+        }
     }
     
     // Adjust row height based on if the text wraps over to the next line
@@ -86,20 +99,9 @@ class TrackInfoViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegat
     func infoForTrack(_ track: Track) -> [KeyValuePair] {[]}
 }
 
-// Place to hold a reference to the trackInfoView object (used in DetailedTrackInfoRowView class)
-class TrackInfoViewHolder: Destroyable {
+extension NSUserInterfaceItemIdentifier {
     
-    static var tablesMap: [TrackInfoTab: NSTableView] = [:]
-    
-    static func destroy() {
-        tablesMap.removeAll()
-    }
-}
-
-enum TrackInfoTab {
-    
-    case metadata
-    case audio
-    case coverArt
-    case fileSystem
+    // Table view column identifiers
+    static let uid_trackInfoKeyColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_TrackInfoKey")
+    static let uid_trackInfoValueColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_TrackInfoValue")
 }

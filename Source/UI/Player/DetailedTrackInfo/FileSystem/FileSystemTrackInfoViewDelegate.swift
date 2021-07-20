@@ -14,8 +14,6 @@ import Cocoa
  */
 class FileSystemTrackInfoViewDelegate: TrackInfoViewDelegate {
     
-    override var tableId: TrackInfoTab {.fileSystem}
-    
     private lazy var dateFormatter: DateFormatter = DateFormatter(format: "MMMM dd, yyyy  'at'  hh:mm:ss a")
     
     override func infoForTrack(_ track: Track) -> [KeyValuePair] {

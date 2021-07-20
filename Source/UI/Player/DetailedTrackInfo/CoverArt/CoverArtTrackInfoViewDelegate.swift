@@ -14,8 +14,6 @@ import Cocoa
  */
 class CoverArtTrackInfoViewDelegate: TrackInfoViewDelegate {
     
-    override var tableId: TrackInfoTab {.coverArt}
-    
     override func infoForTrack(_ track: Track) -> [KeyValuePair] {
         
         guard let artInfo = track.art?.metadata else {return []}

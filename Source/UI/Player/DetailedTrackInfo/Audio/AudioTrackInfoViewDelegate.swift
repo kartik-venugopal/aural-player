@@ -14,8 +14,6 @@ import Cocoa
  */
 class AudioTrackInfoViewDelegate: TrackInfoViewDelegate {
     
-    override var tableId: TrackInfoTab {.audio}
-    
     override func infoForTrack(_ track: Track) -> [KeyValuePair] {
         
         var trackInfo: [KeyValuePair] = []

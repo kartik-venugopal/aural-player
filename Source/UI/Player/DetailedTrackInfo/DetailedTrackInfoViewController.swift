@@ -98,8 +98,6 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         popover.contentViewController = nil
         self.popover = nil
-        
-        TrackInfoViewHolder.destroy()
     }
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing

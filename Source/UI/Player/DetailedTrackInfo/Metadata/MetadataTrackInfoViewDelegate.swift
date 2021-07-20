@@ -11,8 +11,6 @@ import Cocoa
 
 class MetadataTrackInfoViewDelegate: TrackInfoViewDelegate {
     
-    override var tableId: TrackInfoTab {.metadata}
-    
     override func infoForTrack(_ track: Track) -> [KeyValuePair] {
         
         var trackInfo: [KeyValuePair] = []
