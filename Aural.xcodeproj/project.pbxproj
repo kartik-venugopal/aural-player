@@ -612,7 +612,6 @@
 		3E6C130425CEBE8F00BF0D07 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104725CEB98600BF0D07 /* PlaybackViewController.swift */; };
 		3E6C130525CEBE8F00BF0D07 /* WindowLayoutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105025CEB98600BF0D07 /* WindowLayoutsManager.swift */; };
 		3E6C130625CEBE8F00BF0D07 /* SeekSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104425CEB98600BF0D07 /* SeekSliderView.swift */; };
-		3E6C130725CEBE8F00BF0D07 /* InfoPopupProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103425CEB98600BF0D07 /* InfoPopupProtocol.swift */; };
 		3E6C130925CEBE8F00BF0D07 /* SeekTimeFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */; };
 		3E6C130B25CEBE8F00BF0D07 /* FileSystemTrackInfoViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103B25CEB98600BF0D07 /* FileSystemTrackInfoViewDelegate.swift */; };
 		3E6C130C25CEBE8F00BF0D07 /* WindowLayoutPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */; };
@@ -902,6 +901,9 @@
 		3EAFB619267FF68C00F0DC96 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */; };
 		3EAFD75F269B6C2B009B904F /* ParserUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFD75E269B6C2B009B904F /* ParserUtilsTests.swift */; };
 		3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */; };
+		3EB3A60726A73E720060487C /* NSPopoverExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60626A73E720060487C /* NSPopoverExtensions.swift */; };
+		3EB3A60B26A7425C0060487C /* SingletonWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60A26A7425C0060487C /* SingletonWindowController.swift */; };
+		3EB3A60E26A744C80060487C /* SingletonPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60D26A744C80060487C /* SingletonPopoverViewController.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3EB64DE0269275FC00E669D3 /* TimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53ACBD267FDE4C00B5AF52 /* TimeUtils.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
@@ -1629,7 +1631,6 @@
 		3E6C102D25CEB98600BF0D07 /* SeekTimerTaskQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekTimerTaskQueue.swift; sourceTree = "<group>"; };
 		3E6C103125CEB98600BF0D07 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3E6C103325CEB98600BF0D07 /* InfoPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPopupViewController.swift; sourceTree = "<group>"; };
-		3E6C103425CEB98600BF0D07 /* InfoPopupProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPopupProtocol.swift; sourceTree = "<group>"; };
 		3E6C103525CEB98600BF0D07 /* InfoPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoPopup.xib; sourceTree = "<group>"; };
 		3E6C103725CEB98600BF0D07 /* MetadataTrackInfoViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTrackInfoViewDelegate.swift; sourceTree = "<group>"; };
 		3E6C103825CEB98600BF0D07 /* PopoverContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverContentView.swift; sourceTree = "<group>"; };
@@ -1995,6 +1996,9 @@
 		3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatExtensions.swift; sourceTree = "<group>"; };
 		3EAFD75E269B6C2B009B904F /* ParserUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserUtilsTests.swift; sourceTree = "<group>"; };
 		3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableCellViewExtensions.swift; sourceTree = "<group>"; };
+		3EB3A60626A73E720060487C /* NSPopoverExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPopoverExtensions.swift; sourceTree = "<group>"; };
+		3EB3A60A26A7425C0060487C /* SingletonWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonWindowController.swift; sourceTree = "<group>"; };
+		3EB3A60D26A744C80060487C /* SingletonPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonPopoverViewController.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerSettingsViewController.swift; sourceTree = "<group>"; };
@@ -3218,8 +3222,8 @@
 		3E6C0FC125CEB98600BF0D07 /* StringInputPopover */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FC225CEB98600BF0D07 /* StringInputReceiver.swift */,
 				3E6C0FC325CEB98600BF0D07 /* StringInputPopover.xib */,
+				3E6C0FC225CEB98600BF0D07 /* StringInputReceiver.swift */,
 				3E6C0FC425CEB98600BF0D07 /* StringInputPopoverViewController.swift */,
 			);
 			path = StringInputPopover;
@@ -3434,9 +3438,8 @@
 		3E6C103225CEB98600BF0D07 /* InfoPopup */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C103325CEB98600BF0D07 /* InfoPopupViewController.swift */,
-				3E6C103425CEB98600BF0D07 /* InfoPopupProtocol.swift */,
 				3E6C103525CEB98600BF0D07 /* InfoPopup.xib */,
+				3E6C103325CEB98600BF0D07 /* InfoPopupViewController.swift */,
 			);
 			path = InfoPopup;
 			sourceTree = "<group>";
@@ -4330,6 +4333,8 @@
 				3EA89D9D2699F5270021CDB9 /* GestureDirection.swift */,
 				3E8C7917269C40FC005E78D1 /* UserInputMode.swift */,
 				3ECF275B26A5567000974120 /* FontSet.swift */,
+				3EB3A60A26A7425C0060487C /* SingletonWindowController.swift */,
+				3EB3A60D26A744C80060487C /* SingletonPopoverViewController.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -4393,6 +4398,7 @@
 				3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */,
 				3E0B9B41269E352100B4DED9 /* NSTableColumnExtensions.swift */,
 				3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */,
+				3EB3A60626A73E720060487C /* NSPopoverExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5027,7 +5033,6 @@
 				3EABDDE52694BC24008066E8 /* VisualizationType.swift in Sources */,
 				3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */,
 				3E8C794D269C477B005E78D1 /* VisualizerNotifications.swift in Sources */,
-				3E6C130725CEBE8F00BF0D07 /* InfoPopupProtocol.swift in Sources */,
 				3E6C12B725CEBE5800BF0D07 /* PlaylistMenuController.swift in Sources */,
 				3E97F68226A0B6C100984126 /* FileReader.swift in Sources */,
 				3E6C11F125CEBDD100BF0D07 /* Preferences.swift in Sources */,
@@ -5360,6 +5365,8 @@
 				3E6C129125CEBE1800BF0D07 /* ColorSchemeHistory.swift in Sources */,
 				3E6C11C025CEBDB400BF0D07 /* SequencerProtocol.swift in Sources */,
 				3EDB345F25E8B75D004DF7DE /* AVFMappedMetadata.swift in Sources */,
+				3EB3A60E26A744C80060487C /* SingletonPopoverViewController.swift in Sources */,
+				3EB3A60726A73E720060487C /* NSPopoverExtensions.swift in Sources */,
 				3E6C117625CEBD6000BF0D07 /* ReverbSpaces.swift in Sources */,
 				3E6C130925CEBE8F00BF0D07 /* SeekTimeFormats.swift in Sources */,
 				3E6C119525CEBD6D00BF0D07 /* FlexibleFilterNode.swift in Sources */,
@@ -5670,6 +5677,7 @@
 				3E9C12132622216500D90EA4 /* ThemesManager.swift in Sources */,
 				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
 				3E0B9B42269E352100B4DED9 /* NSTableColumnExtensions.swift in Sources */,
+				3EB3A60B26A7425C0060487C /* SingletonWindowController.swift in Sources */,
 				3E363404268636ED006A88ED /* TrackKeyedMap.swift in Sources */,
 				3E6C123225CEBDF400BF0D07 /* TracksPlaylistSortViewController.swift in Sources */,
 				3E6C12D625CEBE8100BF0D07 /* FilterViewController.swift in Sources */,

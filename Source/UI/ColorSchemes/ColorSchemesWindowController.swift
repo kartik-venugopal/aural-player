@@ -12,23 +12,7 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system color scheme to be edited.
  */
-class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver, Destroyable {
-    
-    private static var _instance: ColorSchemesWindowController?
-    static var instance: ColorSchemesWindowController {
-        
-        if _instance == nil {
-            _instance = ColorSchemesWindowController()
-        }
-        
-        return _instance!
-    }
-    
-    static func destroy() {
-        
-        _instance?.destroy()
-        _instance = nil
-    }
+class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver {
     
     @IBOutlet weak var tabView: AuralTabView!
     

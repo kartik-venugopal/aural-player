@@ -12,23 +12,7 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system font scheme to be edited.
  */
-class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver, Destroyable {
-    
-    private static var _instance: FontSchemesWindowController?
-    static var instance: FontSchemesWindowController {
-        
-        if _instance == nil {
-            _instance = FontSchemesWindowController()
-        }
-        
-        return _instance!
-    }
-    
-    static func destroy() {
-        
-        _instance?.destroy()
-        _instance = nil
-    }
+class FontSchemesWindowController: SingletonWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver {
     
     @IBOutlet weak var tabView: AuralTabView!
     

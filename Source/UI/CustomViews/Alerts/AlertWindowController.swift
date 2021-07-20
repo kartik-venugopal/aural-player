@@ -9,23 +9,7 @@
 //
 import Cocoa
 
-class AlertWindowController: NSWindowController, ModalComponentProtocol, Destroyable {
-    
-    private static var _instance: AlertWindowController?
-    static var instance: AlertWindowController {
-        
-        if _instance == nil {
-            _instance = AlertWindowController()
-        }
-        
-        return _instance!
-    }
-    
-    static func destroy() {
-        
-        _instance?.destroy()
-        _instance = nil
-    }
+class AlertWindowController: SingletonWindowController, ModalComponentProtocol {
     
     override var windowNibName: String? {"Alerts"}
     

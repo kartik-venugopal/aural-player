@@ -12,39 +12,7 @@ import Cocoa
 /*
     View controller for the "Detailed Track Info" popover
 */
-class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, Destroyable {
-    
-    private static var _instance: DetailedTrackInfoViewController?
-    static var instance: DetailedTrackInfoViewController {
-        
-        if _instance == nil {
-            _instance = create()
-        }
-        
-        return _instance!
-    }
-    
-    private static func create() -> DetailedTrackInfoViewController {
-        
-        let controller = DetailedTrackInfoViewController()
-        
-        let popover = NSPopover()
-        popover.behavior = .semitransient
-        popover.contentViewController = controller
-        
-        controller.popover = popover
-        
-        return controller
-    }
-    
-    static func destroy() {
-        
-        _instance?.destroy()
-        _instance = nil
-    }
-    
-    // The actual popover that is shown
-    private var popover: NSPopover!
+class DetailedTrackInfoViewController: SingletonPopoverViewController, NSMenuDelegate {
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -64,9 +32,6 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     
     // Whether or not this popover is currently displayed attached to the player (false if attached to playlist).
     var attachedToPlayer: Bool = true
-    
-    // Popover positioning parameters
-    private let positioningRect = NSZeroRect
     
     private lazy var dateFormatter: DateFormatter = DateFormatter(format: "MMMM dd, yyyy 'at' hh:mm:ss a")
     
@@ -90,14 +55,10 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                                     msg.updatedFields.contains(.art)})
     }
     
-    func destroy() {
-        
+    override func destroy() {
+
+        super.destroy()
         messenger.unsubscribeFromAll()
-        
-        close()
-        
-        popover.contentViewController = nil
-        self.popover = nil
     }
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
@@ -116,24 +77,13 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         refresh(track)
         
-        if !popover.isShown {
+        if !isShown {
             
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
             tabView.selectTabViewItem(at: 0)
         }
     }
-    
-    var isShown: Bool {
-        return popover.isShown
-    }
-    
-    func close() {
-        
-        if popover.isShown {
-            popover.performClose(self)
-        }
-    }
-    
+
     func toggle(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         popover.isShown ? close() : show(track, relativeToView, preferredEdge)
     }

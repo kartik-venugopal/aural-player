@@ -134,3 +134,13 @@ extension NSView {
         superview.constraints.filter {$0.firstItem === self && attributes?.contains($0.firstAttribute) ?? true}.forEach {superview.deactivateAndRemoveConstraint($0)}
     }
 }
+
+extension NSViewController {
+    
+    func forceLoadingOfView() {
+        
+        if !self.isViewLoaded {
+            _ = self.view
+        }
+    }
+}

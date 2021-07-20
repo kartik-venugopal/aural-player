@@ -9,23 +9,7 @@
 //
 import Cocoa
 
-class PresetsManagerWindowController: NSWindowController, ModalComponentProtocol, Destroyable {
-    
-    private static var _instance: PresetsManagerWindowController?
-    static var instance: PresetsManagerWindowController {
-        
-        if _instance == nil {
-            _instance = PresetsManagerWindowController()
-        }
-        
-        return _instance!
-    }
-    
-    static func destroy() {
-        
-        _instance?.destroy()
-        _instance = nil
-    }
+class PresetsManagerWindowController: SingletonWindowController, ModalComponentProtocol {
     
     private lazy var bookmarksManagerViewController: NSViewController = BookmarksManagerViewController()
     private lazy var bookmarksManagerView: NSView = bookmarksManagerViewController.view

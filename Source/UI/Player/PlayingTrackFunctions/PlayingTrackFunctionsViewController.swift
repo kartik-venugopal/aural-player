@@ -49,7 +49,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     private var detailedInfoPopoverLoaded: Bool = false
     
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
-    private lazy var infoPopup: InfoPopupProtocol = InfoPopupViewController.instance
+    private lazy var infoPopup: InfoPopupViewController = InfoPopupViewController.instance
     
     private lazy var bookmarkInputReceiver: BookmarkNameInputReceiver = BookmarkNameInputReceiver()
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(bookmarkInputReceiver)
@@ -231,12 +231,12 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
         }
     }
     
-    func trackAddedToFavorites(_ trackFile: URL) {
-        favoritesUpdated([trackFile], true)
+    func trackAddedToFavorites(_ favorite: Favorite) {
+        favoritesUpdated([favorite.file], true)
     }
     
-    func tracksRemovedFromFavorites(_ removedFavoritesFiles: Set<URL>) {
-        favoritesUpdated(removedFavoritesFiles, false)
+    func tracksRemovedFromFavorites(_ removedFavorites: Set<Favorite>) {
+        favoritesUpdated(Set(removedFavorites.map {$0.file}), false)
     }
     
     // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
@@ -254,11 +254,13 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
             
             if btnFavorite.isVisible && !autoHideIsOn {
                 
-                infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !", btnFavorite, NSRectEdge.maxX)
+                infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !",
+                                      btnFavorite, .maxX)
                 
             } else if let windowRootView = self.view.window?.contentView {
                 
-                infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !", windowRootView, NSRectEdge.maxX)
+                infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !",
+                                      windowRootView, .maxX)
             }
         }
     }

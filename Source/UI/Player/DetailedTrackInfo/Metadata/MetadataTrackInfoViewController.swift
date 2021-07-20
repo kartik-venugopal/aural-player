@@ -24,7 +24,6 @@ class MetadataTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     }
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
-    // FIXME: Need to set the displayedTrack var in data source.
     func refresh(forTrack track: Track) {
         
         tableViewDelegate.displayedTrack = track

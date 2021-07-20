@@ -45,12 +45,7 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
         
         let controller = StringInputPopoverViewController()
         controller.client = client
-        
-        let popover = NSPopover()
-        popover.behavior = .semitransient
-        popover.contentViewController = controller
-        
-        controller.popover = popover
+        controller.popover = NSPopover(controller: controller)
         createdInstances.append(controller)
         
         return controller

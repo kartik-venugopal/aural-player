@@ -277,6 +277,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         let playlistBeingModified = playlist.isBeingModified
         
         if playlistBeingModified {
+            
             alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
         }
         
