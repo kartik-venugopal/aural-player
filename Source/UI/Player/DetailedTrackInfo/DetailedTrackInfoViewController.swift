@@ -174,7 +174,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         appDict["version"] = NSApp.appVersion as AnyObject
         appDict["exportDate"] = dateFormatter.string(from: Date()) as AnyObject
 
-        let dict: [NSString: AnyObject] = ["appInfo": appDict as NSDictionary,
+        let dict: [NSString: AnyObject?] = ["appInfo": appDict as NSDictionary,
                                            "metadata": metadataViewController.jsonObject,
                                            "coverArt": coverArtViewController.jsonObject,
                                            "lyrics": lyricsViewController.jsonObject,
@@ -254,7 +254,7 @@ protocol TrackInfoViewProtocol {
     
     var view: NSView {get}
     
-    var jsonObject: AnyObject {get}
+    var jsonObject: AnyObject? {get}
     
     func writeHTML(forTrack track: Track, to writer: HTMLWriter)
 }

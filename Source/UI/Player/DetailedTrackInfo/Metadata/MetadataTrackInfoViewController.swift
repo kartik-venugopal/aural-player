@@ -31,7 +31,7 @@ class MetadataTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
         tableView.reloadData()
     }
     
-    var jsonObject: AnyObject {
+    var jsonObject: AnyObject? {
         tableView.jsonObject
     }
     

@@ -37,7 +37,7 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
         textView?.string = track.lyrics ?? noLyricsText
     }
     
-    var jsonObject: AnyObject {
+    var jsonObject: AnyObject? {
         textView.string as NSString
     }
     

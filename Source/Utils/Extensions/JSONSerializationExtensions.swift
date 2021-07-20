@@ -30,8 +30,16 @@ extension JSONSerialization {
                 return
             }
             
+            let writeOptions: WritingOptions
+            
+            if #available(OSX 10.13, *) {
+                writeOptions = [.prettyPrinted, .sortedKeys]
+            } else {
+                writeOptions = .prettyPrinted
+            }
+            
             var ioError: NSError?
-            let bytesWritten = Self.writeJSONObject(jsonObject, to: outputStream, options: Self.WritingOptions.prettyPrinted, error: &ioError)
+            let bytesWritten = Self.writeJSONObject(jsonObject, to: outputStream, options: writeOptions, error: &ioError)
             
             outputStream.close()
             

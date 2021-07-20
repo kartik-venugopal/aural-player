@@ -39,8 +39,8 @@ class CoverArtTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
         tableView.reloadData()
     }
     
-    var jsonObject: AnyObject {
-        tableView.jsonObject
+    var jsonObject: AnyObject? {
+        artView.image != nil ? tableView.jsonObject : nil
     }
     
     func writeHTML(forTrack track: Track, to writer: HTMLWriter) {
