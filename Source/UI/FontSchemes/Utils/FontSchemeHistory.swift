@@ -13,6 +13,9 @@ import Cocoa
     A utility that maintains a chronological record of all changes made to a font scheme (used by the font scheme editor panel), using LIFO stacks.
     Provides undo/redo capabilities.
  */
+
+// TODO: Factor out this class and ColorSchemeHistory into a common generic-typed class History<T>.
+
 class FontSchemeHistory {
     
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
