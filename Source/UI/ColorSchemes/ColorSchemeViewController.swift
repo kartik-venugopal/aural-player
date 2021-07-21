@@ -50,7 +50,7 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
                 colorPicker.menu = colorPickerContextMenu
                 
                 // Whenever the context menu is invoked, note this color picker as the one that invoked the menu (used to determine which color picker is the source/target of a color clipboard copy/paste operation).
-                colorPicker.menuInvocationCallback = {(picker: AuralColorPicker) -> Void in self.activeColorPicker = picker}
+                colorPicker.menuInvocationCallback = {[weak self] picker in self?.activeColorPicker = picker}
             }
         }
     }
@@ -62,15 +62,8 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
         
         // If the window is already visible, no need to scroll. Only scroll to top when the window is first opened.
         if !(self.view.window?.isVisible ?? false) {
-            scrollToTop()
+            scrollView.scrollToTop()
         }
-    }
-    
-    // Scrolls the scroll view to the top
-    func scrollToTop() {
-        
-        let contentView: NSClipView = scrollView.contentView
-        contentView.scroll(NSMakePoint(0, contentView.documentView!.height))
     }
     
     // If the last change that was made to the system color scheme was performed on a control in this view, then undo the change. Otherwise, do nothing.
@@ -78,37 +71,37 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
     func undoChange(_ lastChange: ColorSchemeChange) -> Bool {
         
         // Check if the change is associated with a control in this view (by using the tag as an identifier)
-        if let undoAction = actionsMap[lastChange.tag] {
-            
-            // Perform the undo operation on the relevant control, according to the control type
-            
-            if let colorPicker = controlsMap[lastChange.tag, NSColorWell.self], let undoColor = lastChange.undoValue as? NSColor {
-                
-                colorPicker.color = undoColor
-                
-            } else if let btnToggle = controlsMap[lastChange.tag, NSButton.self], let boolVal = lastChange.undoValue as? Bool {
-                
-                btnToggle.onIf(boolVal)
-                
-            } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self],
-                      let gradientType = lastChange.undoValue as? ColorSchemeGradientType {
-                
-                btnGroup.gradientType = gradientType
-                
-            } else if let stepper = controlsMap[lastChange.tag, NSStepper.self], let intVal = lastChange.undoValue as? Int {
-                
-                stepper.integerValue = intVal
-            }
-            
-            // Perform the system update and notification action
-            undoAction()
-            
-            // Let the caller know that this undo operation was successful.
-            return true
-        }
+        guard let undoAction = actionsMap[lastChange.tag] else {
 
-        // Let the caller know that this undo operation was unsuccessful, i.e. the change is not relevant to this view.
-        return false
+            // Let the caller know that this undo operation was unsuccessful, i.e. the change is not relevant to this view.
+            return false
+        }
+            
+        // Perform the undo operation on the relevant control, according to the control type
+        
+        if let colorPicker = controlsMap[lastChange.tag, NSColorWell.self], let undoColor = lastChange.undoValue as? NSColor {
+            
+            colorPicker.color = undoColor
+            
+        } else if let btnToggle = controlsMap[lastChange.tag, NSButton.self], let boolVal = lastChange.undoValue as? Bool {
+            
+            btnToggle.onIf(boolVal)
+            
+        } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self],
+                  let gradientType = lastChange.undoValue as? ColorSchemeGradientType {
+            
+            btnGroup.gradientType = gradientType
+            
+        } else if let stepper = controlsMap[lastChange.tag, NSStepper.self], let intVal = lastChange.undoValue as? Int {
+            
+            stepper.integerValue = intVal
+        }
+        
+        // Perform the system update and notification action
+        undoAction()
+        
+        // Let the caller know that this undo operation was successful.
+        return true
     }
     
     /* If the last undo operation that was performed on the system color scheme was performed on a control in this view, then redo the change.
@@ -120,37 +113,37 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
     func redoChange(_ lastChange: ColorSchemeChange) -> Bool {
         
         // Check if the change is associated with a control in this view (by using the tag as an identifier)
-        if let redoAction = actionsMap[lastChange.tag] {
+        guard let redoAction = actionsMap[lastChange.tag] else {
             
-            // Perform the redo operation on the relevant control, according to the control type
-            
-            if let colorPicker = controlsMap[lastChange.tag, NSColorWell.self], let redoColor = lastChange.redoValue as? NSColor {
-                
-                colorPicker.color = redoColor
-                
-            } else if let btnToggle = controlsMap[lastChange.tag, NSButton.self], let boolVal = lastChange.redoValue as? Bool {
-                
-                btnToggle.onIf(boolVal)
-                
-            } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self],
-                let gradientType = lastChange.redoValue as? ColorSchemeGradientType {
-                    
-                btnGroup.gradientType = gradientType
-                
-            } else if let stepper = controlsMap[lastChange.tag, NSStepper.self], let intVal = lastChange.redoValue as? Int {
-                
-                stepper.integerValue = intVal
-            }
-            
-            // Perform the system update and notification action
-            redoAction()
-            
-            // Let the caller know that this redo operation was successful.
-            return true
+            // Let the caller know that this redo operation was unsuccessful, i.e. the change is not relevant to this view.
+            return false
         }
         
-        // Let the caller know that this redo operation was unsuccessful, i.e. the change is not relevant to this view.
-        return false
+        // Perform the redo operation on the relevant control, according to the control type
+        
+        if let colorPicker = controlsMap[lastChange.tag, NSColorWell.self], let redoColor = lastChange.redoValue as? NSColor {
+            
+            colorPicker.color = redoColor
+            
+        } else if let btnToggle = controlsMap[lastChange.tag, NSButton.self], let boolVal = lastChange.redoValue as? Bool {
+            
+            btnToggle.onIf(boolVal)
+            
+        } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self],
+                  let gradientType = lastChange.redoValue as? ColorSchemeGradientType {
+            
+            btnGroup.gradientType = gradientType
+            
+        } else if let stepper = controlsMap[lastChange.tag, NSStepper.self], let intVal = lastChange.redoValue as? Int {
+            
+            stepper.integerValue = intVal
+        }
+        
+        // Perform the system update and notification action
+        redoAction()
+        
+        // Let the caller know that this redo operation was successful.
+        return true
     }
     
     // Copies a color from the selected color picker to the color clipboard.
@@ -166,22 +159,21 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
     // Pastes a previously copied color from the color clipboard to a target color picker.
     @IBAction func pasteColorAction(_ sender: Any) {
         
-        if let picker = activeColorPicker, let clipboardColor = clipboard.color {
-            
-            // Picker's current value is the undo (old) value, clipboard color is the redo (new) value.
-            history.noteChange(ColorSchemeChange(tag: picker.tag, undoValue: picker.color,
-                                                 redoValue: clipboardColor, changeType: .changeColor))
-            
-            // Paste color into the picker.
-            picker.pasteFromClipboard(clipboard)
-            
-            // Perform the appropriate update/notification action.
-            if let notifyAction = actionsMap[picker.tag] {
-                notifyAction()
-            }
-            
-            activeColorPicker = nil
+        guard let picker = activeColorPicker, let clipboardColor = clipboard.color else {return}
+        
+        // Picker's current value is the undo (old) value, clipboard color is the redo (new) value.
+        history.noteChange(ColorSchemeChange(tag: picker.tag, undoValue: picker.color,
+                                             redoValue: clipboardColor, changeType: .changeColor))
+        
+        // Paste color into the picker.
+        picker.pasteFromClipboard(clipboard)
+        
+        // Perform the appropriate update/notification action.
+        if let notifyAction = actionsMap[picker.tag] {
+            notifyAction()
         }
+        
+        activeColorPicker = nil
     }
     
     // MARK - MenuDelegate functions

@@ -127,9 +127,11 @@ class AuralPlayerNode: AVAudioPlayerNode {
         
         if #available(OSX 10.13, *), !useLegacyAPI {
             
-            scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil, completionCallbackType: completionCallbackType, completionHandler: {(callbackType: AVAudioPlayerNodeCompletionCallbackType) -> Void in
-                self.completionCallbackQueue.async {completionHandler(segment.session)}
-            })
+            scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil,
+                            completionCallbackType: completionCallbackType,
+                            completionHandler: {callbackType in
+                                self.completionCallbackQueue.async {completionHandler(segment.session)}
+                            })
 
         } else {
             
@@ -225,8 +227,8 @@ class AuralPlayerNode: AVAudioPlayerNode {
         }
 
         // If startFrame is specified, use it to calculate a precise start time.
-        let segmentStartTime: Double = startFrame == nil ? startTime : startFrame!.toTrackTime(sampleRate)
-
-        return PlaybackSegment(session, playingFile, firstFrame, lastFrame, AVAudioFrameCount(frameCount), segmentStartTime, segmentEndTime)
+        let segmentStartTime: Double = startFrame?.toTrackTime(sampleRate) ?? startTime
+        return PlaybackSegment(session, playingFile, firstFrame, lastFrame, AVAudioFrameCount(frameCount),
+                               segmentStartTime, segmentEndTime)
     }
 }

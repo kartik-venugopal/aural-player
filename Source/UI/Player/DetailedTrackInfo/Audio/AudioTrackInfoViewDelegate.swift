@@ -68,8 +68,6 @@ class AudioTrackInfoViewDelegate: TrackInfoViewDelegate {
             }
         }
         
-        // TODO: If playback info is present (prepared for playback), frame count is exact. Otherwise, it is an estimate.
-        // If it's an estimate, note it in the caption, i.e. "Frames (estimated)", OR actually calculate it.
         if let frameCount = track.audioInfo?.frames {
             
             trackInfo.append(KeyValuePair(key: "Frames",

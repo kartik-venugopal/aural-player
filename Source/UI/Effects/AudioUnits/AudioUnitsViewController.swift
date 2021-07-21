@@ -149,7 +149,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     func applyFontScheme(_ fontScheme: FontScheme) {
         
         lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
-        tableView.reloadData(forRowIndexes: IndexSet((0..<tableView.numberOfRows)), columnIndexes: [1])
+        tableView.reloadAllRows(columns: [1])
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {
@@ -175,33 +175,33 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     }
     
     func changeAURowTextColor(_ color: NSColor) {
-        tableView.reloadData(forRowIndexes: IndexSet((0..<tableView.numberOfRows)), columnIndexes: [1])
+        tableView.reloadAllRows(columns: [1])
     }
     
     func changeAURowSelectedTextColor(_ color: NSColor) {
-        tableView.reloadData(forRowIndexes: tableView.selectedRowIndexes, columnIndexes: [1])
+        tableView.reloadRows(tableView.selectedRowIndexes, columns: [1])
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {
         
-        let rowsForActiveUnits: [Int] = (0..<tableView.numberOfRows).filter {audioGraph.audioUnits[$0].state == .active}
-        tableView.reloadData(forRowIndexes: IndexSet(rowsForActiveUnits), columnIndexes: [0])
+        let rowsForActiveUnits: [Int] = tableView.allRowIndices.filter {audioGraph.audioUnits[$0].state == .active}
+        tableView.reloadRows(rowsForActiveUnits, columns: [0])
     }
     
     func changeBypassedUnitStateColor(_ color: NSColor) {
         
-        let rowsForBypassedUnits: [Int] = (0..<tableView.numberOfRows).filter {audioGraph.audioUnits[$0].state == .bypassed}
-        tableView.reloadData(forRowIndexes: IndexSet(rowsForBypassedUnits), columnIndexes: [0])
+        let rowsForBypassedUnits: [Int] = tableView.allRowIndices.filter {audioGraph.audioUnits[$0].state == .bypassed}
+        tableView.reloadRows(rowsForBypassedUnits, columns: [0])
     }
     
     func changeSuppressedUnitStateColor(_ color: NSColor) {
         
-        let rowsForSuppressedUnits: [Int] = (0..<tableView.numberOfRows).filter {audioGraph.audioUnits[$0].state == .suppressed}
-        tableView.reloadData(forRowIndexes: IndexSet(rowsForSuppressedUnits), columnIndexes: [0])
+        let rowsForSuppressedUnits: [Int] = tableView.allRowIndices.filter {audioGraph.audioUnits[$0].state == .suppressed}
+        tableView.reloadRows(rowsForSuppressedUnits, columns: [0])
     }
     
     func stateChanged() {
-        tableView.reloadData(forRowIndexes: IndexSet((0..<tableView.numberOfRows)), columnIndexes: [0])
+        tableView.reloadAllRows(columns: [0])
     }
     
     func changeFunctionButtonColor(_ color: NSColor) {
@@ -209,7 +209,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
         audioUnitsMenuIconItem.reTint()
         btnRemove.reTint()
         
-        tableView.reloadData(forRowIndexes: IndexSet((0..<tableView.numberOfRows)), columnIndexes: [2])
+        tableView.reloadAllRows(columns: [2])
     }
     
     private func changeSelectionBoxColor(_ color: NSColor) {

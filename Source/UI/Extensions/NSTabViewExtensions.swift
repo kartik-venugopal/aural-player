@@ -12,7 +12,12 @@ import Cocoa
 extension NSTabView {
     
     var selectedIndex: Int {
-        return indexOfTabViewItem(selectedTabViewItem!)
+        
+        if let selectedItem = selectedTabViewItem {
+            return indexOfTabViewItem(selectedItem)
+        }
+        
+        return 0
     }
     
     func previousTab(_ sender: Any) {

@@ -187,7 +187,7 @@ class MasterViewController: EffectsUnitViewController {
         
         presetsMenu.font = .menuFont
         
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet((0..<audioUnitsTable.numberOfRows)), columnIndexes: [1])
+        audioUnitsTable.reloadAllRows(columns: [1])
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {
@@ -213,8 +213,8 @@ class MasterViewController: EffectsUnitViewController {
         super.changeActiveUnitStateColor(color)
         masterView.changeActiveUnitStateColor(color)
         
-        let rowsForActiveUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .active}
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForActiveUnits), columnIndexes: [0, 1])
+        let rowsForActiveUnits: [Int] = audioUnitsTable.allRowIndices.filter {graph.audioUnits[$0].state == .active}
+        audioUnitsTable.reloadRows(rowsForActiveUnits, columns: [0, 1])
     }
     
     override func changeBypassedUnitStateColor(_ color: NSColor) {
@@ -222,8 +222,8 @@ class MasterViewController: EffectsUnitViewController {
         super.changeBypassedUnitStateColor(color)
         masterView.changeBypassedUnitStateColor(color)
         
-        let rowsForBypassedUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .bypassed}
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForBypassedUnits), columnIndexes: [0, 1])
+        let rowsForBypassedUnits: [Int] = audioUnitsTable.allRowIndices.filter {graph.audioUnits[$0].state == .bypassed}
+        audioUnitsTable.reloadRows(rowsForBypassedUnits, columns: [0, 1])
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
@@ -231,8 +231,8 @@ class MasterViewController: EffectsUnitViewController {
         // Master unit can never be suppressed, but update other unit state buttons
         masterView.changeSuppressedUnitStateColor(color)
         
-        let rowsForSuppressedUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .suppressed}
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForSuppressedUnits), columnIndexes: [0, 1])
+        let rowsForSuppressedUnits: [Int] = audioUnitsTable.allRowIndices.filter {graph.audioUnits[$0].state == .suppressed}
+        audioUnitsTable.reloadRows(rowsForSuppressedUnits, columns: [0, 1])
     }
     
     // MARK: Message handling
@@ -249,28 +249,3 @@ class MasterViewController: EffectsUnitViewController {
         audioUnitsTable.reloadData()
     }
 }
-
-//class AudioUnitsMenuDelegate: NSObject, NSMenuDelegate {
-//
-//    let audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
-//
-//    func menuNeedsUpdate(_ menu: NSMenu) {
-//
-//        // Remove all custom presets (all items before the first separator)
-//        while menu.items.count > 1 && !menu.item(at: 1)!.isSeparatorItem {
-//            menu.removeItem(at: 1)
-//        }
-//
-//        for unit in audioGraph.audioUnits.sorted(by: {$0.name < $1.name}) {
-//
-//            let item = NSMenuItem()
-//
-//            let itemView: AudioUnitMenuItemView = AudioUnitMenuItemViewController().view as! AudioUnitMenuItemView
-//            itemView.unitName = "\(unit.name) v\(unit.version) by \(unit.manufacturerName)"
-//
-//            item.view = itemView
-//
-//            menu.addItem(item)
-//        }
-//    }
-//}

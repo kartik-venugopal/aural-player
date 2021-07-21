@@ -23,7 +23,7 @@ class EffectsPresetsManagerViewController: NSViewController, Destroyable {
     
     @IBOutlet weak var tabView: NSTabView!
     
-    private var tabViewButtons: [NSButton]?
+    private var tabViewButtons: [NSButton] = []
     
     @IBOutlet weak var masterPresetsTabViewButton: NSButton!
     @IBOutlet weak var eqPresetsTabViewButton: NSButton!
@@ -80,7 +80,7 @@ class EffectsPresetsManagerViewController: NSViewController, Destroyable {
     @IBAction func tabViewAction(_ sender: NSButton) {
         
         // Set sender button state, reset all other button states
-        tabViewButtons!.forEach({$0.off()})
+        tabViewButtons.forEach {$0.off()}
         sender.on()
         
         // Button tag is the tab index
@@ -94,18 +94,18 @@ class EffectsPresetsManagerViewController: NSViewController, Destroyable {
         
         tabView.previousTab(self)
         
-        tabViewButtons!.forEach({
+        tabViewButtons.forEach {
             $0.onIf($0.tag == tabView.selectedIndex)
-        })
+        }
     }
     
     @IBAction func nextTabAction(_ sender: Any) {
         
         tabView.nextTab(self)
         
-        tabViewButtons!.forEach({
+        tabViewButtons.forEach {
             $0.onIf($0.tag == tabView.selectedIndex)
-        })
+        }
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
@@ -121,26 +121,23 @@ class EffectsPresetsManagerViewController: NSViewController, Destroyable {
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        self.view.window!.close()
+        self.view.window?.close()
     }
     
     private func updateButtonStates(_ selRows: Int) {
         
         btnDelete.enableIf(selRows > 0)
-        [btnApply, btnRename].forEach({$0.enableIf(selRows == 1)})
+        [btnApply, btnRename].forEach {$0.enableIf(selRows == 1)}
     }
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return GenericTableRowView()
+        GenericTableRowView()
     }
     
     private var effectsUnit: EffectsUnitType {
         
-        let id = tabView.selectedTabViewItem!.identifier as! String
-        let selItem = Int(id)
-        
-        switch selItem {
+        switch tabView.selectedIndex {
             
         case 0: return .master
             

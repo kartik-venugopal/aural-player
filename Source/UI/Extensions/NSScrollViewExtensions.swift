@@ -12,6 +12,6 @@ import Cocoa
 extension NSScrollView {
     
     func scrollToTop() {
-        contentView.scroll(NSMakePoint(0, contentView.documentView!.height))
+        contentView.scroll(NSMakePoint(.zero, contentView.documentView?.height ?? .zero))
     }
 }

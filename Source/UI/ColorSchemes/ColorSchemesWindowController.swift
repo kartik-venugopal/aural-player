@@ -166,29 +166,25 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
     @IBAction func undoLastChangeAction(_ sender: Any) {
         
         // Get details about the last change from the history.
-        if let lastChange = history.undoLastChange() {
+        guard let lastChange = history.undoLastChange() else {return}
+        
+        // Color scheme application can be handled here
+        if lastChange.changeType == .applyScheme {
             
-            // Color scheme application can be handled here
-            if lastChange.changeType == .applyScheme {
+            if let scheme = lastChange.undoValue as? ColorScheme {
+                applyScheme(scheme)
+            }
             
-                if let scheme = lastChange.undoValue as? ColorScheme {
-                    applyScheme(scheme)
-                }
+        } else {
+            
+            // Other change types (single color changes) need to be deferred to the relevant subview
+            
+            // Only one subview will perform the undo operation, i.e. the subview containing the
+            // color field that was previously changed.
+            if subViews.contains(where: {$0.undoChange(lastChange)}) {
                 
-            } else {
-                
-                // Other change types (single color changes) need to be deferred to the relevant subview
-                
-                for subView in subViews {
-                    
-                    // Only one subview will perform the undo operation, i.e. the subview containing the color field that was previously changed.
-                    if subView.undoChange(lastChange) {
-                        
-                        // Undo successful ... update undo/redo button states and exit the loop.
-                        updateButtonStates()
-                        break
-                    }
-                }
+                // Undo successful ... update undo/redo button states and exit the loop.
+                updateButtonStates()
             }
         }
     }
@@ -197,30 +193,25 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
     @IBAction func redoLastChangeAction(_ sender: Any) {
         
         // Get details about the last undone change from the history.
-        if let lastChange = history.redoLastChange() {
+        guard let lastChange = history.redoLastChange() else {return}
+        
+        // Color scheme application can be handled here
+        if lastChange.changeType == .applyScheme {
             
-            // Color scheme application can be handled here
-            if lastChange.changeType == .applyScheme {
+            if let scheme = lastChange.redoValue as? ColorScheme {
+                applyScheme(scheme)
+            }
+            
+        } else {
+            
+            // Other change types (single color changes) need to be deferred to the relevant subview
+            
+            // Only one subview will perform the redo operation, i.e. the subview containing the color field
+            // that was previously changed and then undone.
+            if subViews.contains(where: {$0.redoChange(lastChange)}) {
                 
-                if let scheme = lastChange.redoValue as? ColorScheme {
-                    applyScheme(scheme)
-                }
-                
-            } else {
-                
-                // Other change types (single color changes) need to be deferred to the relevant subview
-                
-                for subView in subViews {
-                
-                    // Only one subview will perform the redo operation, i.e. the subview containing the color field
-                    // that was previously changed and then undone.
-                    if subView.redoChange(lastChange) {
-                        
-                        // Redo successful ... update undo/redo button states and exit the loop.
-                        updateButtonStates()
-                        break
-                    }
-                }
+                // Redo successful ... update undo/redo button states and exit the loop.
+                updateButtonStates()
             }
         }
     }

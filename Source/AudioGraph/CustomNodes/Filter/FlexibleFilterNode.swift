@@ -101,28 +101,36 @@ class FlexibleFilterNode: AVAudioUnitEQ {
         
         case .bandPass, .bandStop:
             
+            guard let minFreq = minFreq, let maxFreq = maxFreq else {break}
+            
             // Frequency at the center of the band is the geometric mean of the min and max frequencies
-            let centerFrequency = sqrt(minFreq! * maxFreq!)
+            let centerFrequency = sqrt(minFreq * maxFreq)
             
             // Bandwidth in octaves is the log of the ratio of max to min
             // Ex: If min=200 and max=800, bandwidth = 2 octaves (200 to 400, and 400 to 800)
-            let bandwidth = log2(maxFreq! / minFreq!)
+            let bandwidth = log2(maxFreq / minFreq)
             
             params.frequency = centerFrequency
             params.bandwidth = bandwidth
             
         case .lowPass:
             
-            params.frequency = maxFreq!
+            if let freq = maxFreq {
+                params.frequency = freq
+            }
             
         case .highPass:
             
-            params.frequency = minFreq!
+            if let freq = minFreq {
+                params.frequency = freq
+            }
         }
         
         params.filterType = info.type.toAVFilterType()
         
-        if params.filterType == .parametric {params.gain = FlexibleFilterNode.bandStopGain}
+        if params.filterType == .parametric {
+            params.gain = FlexibleFilterNode.bandStopGain
+        }
     }
     
     func removeBands(_ indexSet: IndexSet) {
@@ -146,7 +154,8 @@ class FlexibleFilterNode: AVAudioUnitEQ {
     
     private func removeBand(_ info: FilterBand) {
         
-        let params = info.params!
+        guard let params = info.params else {return}
+        
         params.bypass = true
         inactiveBands.append(params)
     }

@@ -103,36 +103,36 @@ extension FFmpegScheduler {
     ///
     private func decodeAndScheduleOneLoopBuffer(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, from seekPosition: Double? = nil, maxSampleCount: Int32) {
         
-        if decoder.endOfLoop {return}
+        guard !decoder.endOfLoop, let loopEndTime = session.loop?.endTime else {return}
         
         // Ask the decoder to decode up to the given number of samples.
-        let frameBuffer: FFmpegFrameBuffer = decoder.decodeLoop(maxSampleCount: maxSampleCount, loopEndTime: session.loop!.endTime!)
+        let frameBuffer: FFmpegFrameBuffer = decoder.decodeLoop(maxSampleCount: maxSampleCount, loopEndTime: loopEndTime)
 
         // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
-        if let playbackBuffer = AVAudioPCMBuffer(pcmFormat: context.audioFormat, frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) {
+        guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: context.audioFormat, frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return}
+        
+        if frameBuffer.needsFormatConversion {
+            sampleConverter.convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
             
-            if frameBuffer.needsFormatConversion {
-                sampleConverter.convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
-                
-            } else {
-                frameBuffer.copySamples(to: playbackBuffer)
-            }
-
-            // Pass off the audio buffer to the audio engine. The completion handler is executed when
-            // the buffer has finished playing.
-            //
-            // Note that:
-            //
-            // 1 - the completion handler recursively triggers another decoding / scheduling task.
-            // 2 - the completion handler will be invoked by a background thread.
-            // 3 - the completion handler will execute even when the player is stopped, i.e. the buffer
-            //      has not really completed playback but has been removed from the playback queue.
-
-            playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.loopBufferCompletionHandler(session), seekPosition, seekPosition != nil)
-            
-            // Upon scheduling the buffer, increment the counter.
-            scheduledBufferCounts[session]?.increment()
+        } else {
+            frameBuffer.copySamples(to: playbackBuffer)
         }
+        
+        // Pass off the audio buffer to the audio engine. The completion handler is executed when
+        // the buffer has finished playing.
+        //
+        // Note that:
+        //
+        // 1 - the completion handler recursively triggers another decoding / scheduling task.
+        // 2 - the completion handler will be invoked by a background thread.
+        // 3 - the completion handler will execute even when the player is stopped, i.e. the buffer
+        //      has not really completed playback but has been removed from the playback queue.
+        
+        playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.loopBufferCompletionHandler(session),
+                                  seekPosition, seekPosition != nil)
+        
+        // Upon scheduling the buffer, increment the counter.
+        scheduledBufferCounts[session]?.increment()
     }
     
     func loopBufferCompleted(_ session: PlaybackSession) {
@@ -148,7 +148,8 @@ extension FFmpegScheduler {
         if !decoder.endOfLoop {
 
             // If EOF has not been reached, continue recursively decoding / scheduling.
-            self.decodeAndScheduleOneLoopBufferAsync(for: session, context: playbackCtx, decoder: decoder, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
+            self.decodeAndScheduleOneLoopBufferAsync(for: session, context: playbackCtx, decoder: decoder,
+                                                     maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
 
         } else if let bufferCount = scheduledBufferCounts[session], bufferCount.isZero {
             

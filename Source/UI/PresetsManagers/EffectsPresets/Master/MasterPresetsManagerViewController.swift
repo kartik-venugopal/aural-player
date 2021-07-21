@@ -137,7 +137,6 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         reverbSubPreview.applyPreset(preset.reverb)
         delaySubPreview.applyPreset(preset.delay)
         
-        // TODO: Implement applyPreset() in FilterView
         filterSubPreview.refresh()
         bandsTable.reloadData()
     }

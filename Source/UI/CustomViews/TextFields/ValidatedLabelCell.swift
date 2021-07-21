@@ -16,15 +16,14 @@ class ValidatedLabelCell: NSTextFieldCell {
     func markError(_ errorString: String) {
         
         errorState = true
-        textColor = NSColor.red
-        self.stringValue = errorString
+        textColor = .red
+        stringValue = errorString
     }
     
     func clearError() {
-        errorState = false
-        self.stringValue = ""
         
-        // TODO: Make this configurable/generic
+        errorState = false
+        stringValue = ""
         textColor = .boxTextColor
     }
     

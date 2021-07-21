@@ -134,7 +134,7 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
         }
         
         //        let itemIndex: Int = browserView.row(forItem: notif.file)
-//        browserView.reloadData(forRowIndexes: IndexSet([itemIndex]), columnIndexes: )
+//        browserView.reloadRows([itemIndex], columns: )
     }
         
     @IBAction func doubleClickAction(_ sender: Any) {

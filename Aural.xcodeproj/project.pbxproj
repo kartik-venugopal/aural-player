@@ -3391,13 +3391,13 @@
 			isa = PBXGroup;
 			children = (
 				3E6C101225CEB98600BF0D07 /* Filter.xib */,
+				3E6C101425CEB98600BF0D07 /* FilterViewController.swift */,
 				3E6C101325CEB98600BF0D07 /* FilterBand.xib */,
 				3E6C100E25CEB98600BF0D07 /* FilterBandViewController.swift */,
 				3E6C100F25CEB98600BF0D07 /* CutoffFrequencySlider.swift */,
 				3E6C101025CEB98600BF0D07 /* FilterView.swift */,
 				3E6C101125CEB98600BF0D07 /* FilterChart.swift */,
 				3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */,
-				3E6C101425CEB98600BF0D07 /* FilterViewController.swift */,
 				3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */,
 			);
 			path = Filter;

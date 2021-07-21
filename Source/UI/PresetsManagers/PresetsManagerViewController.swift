@@ -181,8 +181,6 @@ class PresetsManagerViewController: NSViewController, NSTableViewDataSource,  NS
         
         editedTextField.textColor = .defaultSelectedLightTextColor
         
-        // TODO: What if the string is too long ?
-        
         // Empty string is invalid, revert to old value
         if newPresetName.isEmptyAfterTrimming {
             

@@ -513,8 +513,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         // Also, ignore any swipe events that weren't performed over the playlist window
         // (they trigger other functions if performed over the main window)
         
-        // TODO: Enable top/bottom gestures for chapters list window too !!!
-        
         if event.type == .swipe,
            !windowLayoutsManager.isShowingModalComponent,
            let eventWindow = event.window, eventWindow == theWindow,

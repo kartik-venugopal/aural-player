@@ -55,7 +55,9 @@ class CoverArtTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
         
         writer.addImage(imgFile.lastPathComponent, "(Cover Art)")
         
-        // TODO: What about image metadata ?
+        if artView.image != nil {
+            writer.addTable("Cover Art Metadata:", 3, nil, tableView.htmlTable)
+        }
     }
     
     func exportArt(forTrack track: Track, type: NSBitmapImageRep.FileType, fileExtension: String) {
