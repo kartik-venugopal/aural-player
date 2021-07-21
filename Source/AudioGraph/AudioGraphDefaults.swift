@@ -16,7 +16,7 @@ import Foundation
 struct AudioGraphDefaults {
     
     static let volume: Float = 0.5
-    static let balance: Float = 0
+    static let pan: Float = 0
     static let muted: Bool = false
     
     static let masterState: EffectsUnitState = .active

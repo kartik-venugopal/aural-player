@@ -36,7 +36,7 @@ class ObjectGraph {
     var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {playlistDelegate}
     
     lazy var audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
-    private lazy var audioGraph: AudioGraph = AudioGraph(audioUnitsManager, persistentState.audioGraph)
+    private lazy var audioGraph: AudioGraph = AudioGraph(audioUnitsManager: audioUnitsManager, persistentState: persistentState.audioGraph)
     lazy var audioGraphDelegate: AudioGraphDelegateProtocol = AudioGraphDelegate(audioGraph, playbackDelegate,
                                                                                    preferences.soundPreferences, persistentState.audioGraph)
     

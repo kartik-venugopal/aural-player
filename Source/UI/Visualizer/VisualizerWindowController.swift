@@ -10,6 +10,7 @@
 import Cocoa
 import AVFoundation
 
+// TODO: Write a Visualizer class to handle the back-end logic so this controller can focus on the UI.
 class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGraphRenderObserverProtocol, Destroyable {
     
     override var windowNibName: String? {"Visualizer"}
@@ -72,7 +73,7 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
         super.showWindow(sender)
         
         normalDeviceBufferSize = audioGraph.outputDeviceBufferSize
-        audioGraph.outputDeviceBufferSize = visualizationAnalysisBufferSize
+        audioGraph.outputDeviceBufferSize = audioGraph.visualizationAnalysisBufferSize
         
         fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate), bufferSize: audioGraph.outputDeviceBufferSize)
      
@@ -152,8 +153,8 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
     
     func deviceChanged(newDeviceBufferSize: Int, newDeviceSampleRate: Double) {
         
-        if newDeviceBufferSize != visualizationAnalysisBufferSize {
-            audioGraph.outputDeviceBufferSize = visualizationAnalysisBufferSize
+        if newDeviceBufferSize != audioGraph.visualizationAnalysisBufferSize {
+            audioGraph.outputDeviceBufferSize = audioGraph.visualizationAnalysisBufferSize
         }
     }
     

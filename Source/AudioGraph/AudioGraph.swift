@@ -9,8 +9,6 @@
 //
 import AVFoundation
 
-let visualizationAnalysisBufferSize: Int = 2048
-
 ///
 /// The Audio Graph is one of the core components of the app and is responsible for all audio output. It serves as the infrastructure for playback,
 /// effects, and visualization.
@@ -52,13 +50,19 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     private lazy var messenger = Messenger(for: self)
     
+    let visualizationAnalysisBufferSize: Int = 2048
+    
+    // Used by callbacks
+    fileprivate lazy var unmanagedReferenceToSelf: UnsafeMutableRawPointer = Unmanaged.passUnretained(self).toOpaque()
+    fileprivate lazy var outputAudioUnit: AudioUnit = outputNode.audioUnit!
+    
     // Sets up the audio engine
-    init(_ audioUnitsManager: AudioUnitsManager, _ persistentState: AudioGraphPersistentState?) {
+    init(audioUnitsManager: AudioUnitsManager, persistentState: AudioGraphPersistentState?) {
         
         audioEngine = AudioEngine()
         
         let volume = persistentState?.volume ?? AudioGraphDefaults.volume
-        let pan = persistentState?.balance ?? AudioGraphDefaults.balance
+        let pan = persistentState?.pan ?? AudioGraphDefaults.pan
         
         // If running on 10.12 Sierra or older, use the legacy AVAudioPlayerNode APIs
         if #available(OSX 10.13, *) {
@@ -67,8 +71,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             playerNode = AuralPlayerNode(useLegacyAPI: true, volume: volume, pan: pan)
         }
         
-        muted = persistentState?.muted ?? AudioGraphDefaults.muted
-        auxMixer = AVAudioMixerNode(volume: muted ? 0 : 1)
+        let muted = persistentState?.muted ?? AudioGraphDefaults.muted
+        auxMixer = AVAudioMixerNode(muted: muted)
         
         outputNode = audioEngine.outputNode
         
@@ -83,24 +87,28 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         self.audioUnitsManager = audioUnitsManager
         audioUnits = []
+        
         for auState in persistentState?.audioUnits ?? [] {
             
             guard let componentType = auState.componentType,
-                  let componentSubType = auState.componentSubType else {continue}
+                  let componentSubType = auState.componentSubType,
+                  let component = audioUnitsManager.audioUnit(ofType: componentType,
+                                                              andSubType: componentSubType) else {continue}
             
-            if let component = audioUnitsManager.audioUnit(ofType: componentType, andSubType: componentSubType) {
-                audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState))
-            }
+            audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState))
         }
         
         let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit]
-        masterUnit = MasterUnit(persistentState: persistentState?.masterUnit, nativeSlaveUnits: nativeSlaveUnits, audioUnits: audioUnits)
+        masterUnit = MasterUnit(persistentState: persistentState?.masterUnit, nativeSlaveUnits: nativeSlaveUnits,
+                                audioUnits: audioUnits)
 
         let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
         let removableNodes = audioUnits.flatMap {$0.avNodes}
         audioEngine.connectNodes(permanentNodes: permanentNodes, removableNodes: removableNodes)
         
         soundProfiles = SoundProfiles(persistentState: persistentState?.soundProfiles)
+        
+        audioGraphInstance = self
         
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
         messenger.subscribe(to: .AVAudioEngineConfigurationChange, handler: outputDeviceChanged)
@@ -111,7 +119,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     // MARK: Audio engine functions ----------------------------------
     
-    func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
+    func reconnectPlayerNode(withFormat format: AVAudioFormat) {
         audioEngine.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
     }
     
@@ -136,14 +144,16 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         set {playerNode.volume = newValue}
     }
     
-    var balance: Float {
+    var pan: Float {
         
         get {playerNode.pan}
         set {playerNode.pan = newValue}
     }
     
     var muted: Bool {
-        didSet {auxMixer.volume = muted ? 0 : 1}
+        
+        get {auxMixer.muted}
+        set {auxMixer.muted = newValue}
     }
     
     // MARK: Device management ----------------------------------
@@ -198,11 +208,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     func removeAudioUnits(at indices: IndexSet) {
         
-        let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: Int.descendingIntComparator)
-        
-        for index in descendingIndices {
-            audioUnits.remove(at: index)
-        }
+        let descendingIndices = indices.sorted(by: Int.descendingIntComparator)
+        descendingIndices.forEach {audioUnits.remove(at: $0)}
         
         masterUnit.removeAudioUnits(descendingIndices)
         
@@ -218,10 +225,11 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
 
     var persistentState: AudioGraphPersistentState {
         
-        AudioGraphPersistentState(outputDevice: AudioDevicePersistentState(name: outputDevice.name, uid: outputDevice.uid),
+        AudioGraphPersistentState(outputDevice: AudioDevicePersistentState(name: outputDevice.name,
+                                                                           uid: outputDevice.uid),
                                   volume: volume,
                                   muted: muted,
-                                  balance: balance,
+                                  pan: pan,
                                   masterUnit: masterUnit.persistentState,
                                   eqUnit: eqUnit.persistentState,
                                   pitchUnit: pitchShiftUnit.persistentState,
@@ -230,31 +238,89 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
                                   delayUnit: delayUnit.persistentState,
                                   filterUnit: filterUnit.persistentState,
                                   audioUnits: audioUnits.map {$0.persistentState},
-                                  soundProfiles: self.soundProfiles.all().map {SoundProfilePersistentState(profile: $0)})
+                                  soundProfiles: soundProfiles.persistentState)
     }
 }
 
-class AudioGraphChangeContext {
+// MARK: Callbacks (render observer)
+
+///
+/// An **AudioGraph** extension providing functions to register / unregister observers in order to respond to audio graph render events,
+/// i.e. every time an audio buffer has been rendered to the audio output hardware device.
+///
+/// Example - The **Visualizer** uses the render callback notifications to receive the rendered audio samples, in order to
+/// render visualizations.
+///
+extension AudioGraph {
     
-    var playbackSession: PlaybackSession?
+    func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
+        
+        renderObserver = observer
+        
+        outputAudioUnit.registerRenderCallback(inProc: renderCallback, inProcUserData: unmanagedReferenceToSelf)
+        outputAudioUnit.registerDeviceChangeCallback(inProc: deviceChanged, inProcUserData: unmanagedReferenceToSelf)
+        outputAudioUnit.registerSampleRateChangeCallback(inProc: sampleRateChanged, inProcUserData: unmanagedReferenceToSelf)
+    }
     
-    // The player node's seek position captured before the audio graph change.
-    // This can be used by notification subscribers when responding to the change.
-    var seekPosition: Double?
-    
-    var isPlaying: Bool = true
+    func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
+        
+        outputAudioUnit.removeRenderCallback(inProc: renderCallback, inProcUserData: unmanagedReferenceToSelf)
+        outputAudioUnit.removeDeviceChangeCallback(inProc: deviceChanged, inProcUserData: unmanagedReferenceToSelf)
+        outputAudioUnit.removeSampleRateChangeCallback(inProc: sampleRateChanged, inProcUserData: unmanagedReferenceToSelf)
+        
+        renderObserver = nil
+    }
 }
 
-struct AudioGraphChangedNotification: NotificationPayload {
+fileprivate var audioGraphInstance: AudioGraph!
+
+// Currently, only one observer can be registered. Otherwise, this var will be a collection.
+fileprivate var renderObserver: AudioGraphRenderObserverProtocol?
+
+fileprivate let callbackQueue: DispatchQueue = .global(qos: .userInteractive)
+
+fileprivate func renderCallback(inRefCon: UnsafeMutableRawPointer,
+                                ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+                                inTimeStamp: UnsafePointer<AudioTimeStamp>,
+                                inBusNumber: UInt32,
+                                inNumberFrames: UInt32,
+                                ioData: UnsafeMutablePointer<AudioBufferList>?) -> OSStatus {
     
-    let notificationName: Notification.Name = .audioGraph_graphChanged
+    // We are only interested in the post-render event.
     
-    let context: AudioGraphChangeContext
+    guard ioActionFlags.pointee == .unitRenderAction_PostRender,
+          let bufferList = ioData?.pointee else {return noErr}
+    
+    callbackQueue.async {
+        
+        renderObserver?.rendered(timeStamp: inTimeStamp.pointee,
+                                 frameCount: inNumberFrames,
+                                 audioBuffer: bufferList)
+    }
+    
+    return noErr
 }
 
-struct PreAudioGraphChangeNotification: NotificationPayload {
+fileprivate func deviceChanged(inRefCon: UnsafeMutableRawPointer,
+                               inUnit: AudioUnit,
+                               inID: AudioUnitPropertyID,
+                               inScope: AudioUnitScope,
+                               inElement: AudioUnitElement) {
     
-    let notificationName: Notification.Name = .audioGraph_preGraphChange
+    callbackQueue.async {
+        
+        renderObserver?.deviceChanged(newDeviceBufferSize: audioGraphInstance.outputDeviceBufferSize,
+                                      newDeviceSampleRate: audioGraphInstance.outputDeviceSampleRate)
+    }
+}
 
-    let context: AudioGraphChangeContext
+fileprivate func sampleRateChanged(inRefCon: UnsafeMutableRawPointer,
+                                   inUnit: AudioUnit,
+                                   inID: AudioUnitPropertyID,
+                                   inScope: AudioUnitScope,
+                                   inElement: AudioUnitElement) {
+    
+    callbackQueue.async {
+        renderObserver?.deviceSampleRateChanged(newSampleRate: audioGraphInstance.outputDeviceSampleRate)
+    }
 }

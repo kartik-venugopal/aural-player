@@ -19,8 +19,9 @@ class SoundPreferences: PersistentPreferencesProtocol {
     var volumeDelta: Float
     
     private let scrollSensitiveVolumeDeltas: [ScrollSensitivity: Float] = [.low: 0.025, .medium: 0.05, .high: 0.1]
+    
     var volumeDelta_continuous: Float {
-        return scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity]!
+        scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity]!
     }
     
     var volumeOnStartupOption: VolumeStartupOptions

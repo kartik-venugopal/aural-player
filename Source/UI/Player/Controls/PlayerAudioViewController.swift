@@ -64,8 +64,8 @@ class PlayerAudioViewController: NSViewController, Destroyable {
         if showsPanControl {
             
             autoHidingPanLabel = AutoHidingView(lblPan, Self.feedbackLabelAutoHideIntervalSeconds)
-            panSlider.floatValue = audioGraph.balance
-            panChanged(audioGraph.balance, false)
+            panSlider.floatValue = audioGraph.pan
+            panChanged(audioGraph.pan, false)
         }
         
         initSubscriptions()
@@ -116,7 +116,7 @@ class PlayerAudioViewController: NSViewController, Destroyable {
             volumeSlider.floatValue = volume
         }
         
-        lblVolume.stringValue = ValueFormatter.formatVolume(volume)
+        lblVolume.stringValue = audioGraph.formattedVolume
         
         updateVolumeMuteButtonImage(volume, muted)
         
@@ -160,27 +160,27 @@ class PlayerAudioViewController: NSViewController, Destroyable {
     // Updates the stereo pan
     @IBAction func panAction(_ sender: AnyObject) {
         
-        audioGraph.balance = panSlider.floatValue
-        panChanged(audioGraph.balance)
+        audioGraph.pan = panSlider.floatValue
+        panChanged(audioGraph.pan)
     }
     
     // Pans the sound towards the left channel, by a certain preset value
     func panLeft() {
         
         panChanged(audioGraph.panLeft())
-        panSlider.floatValue = audioGraph.balance
+        panSlider.floatValue = audioGraph.pan
     }
     
     // Pans the sound towards the right channel, by a certain preset value
     func panRight() {
         
         panChanged(audioGraph.panRight())
-        panSlider.floatValue = audioGraph.balance
+        panSlider.floatValue = audioGraph.pan
     }
     
     func panChanged(_ pan: Float, _ showFeedback: Bool = true) {
         
-        lblPan.stringValue = ValueFormatter.formatPan(pan)
+        lblPan.stringValue = audioGraph.formattedPan
         
         // Shows and automatically hides the pan label after a preset time interval
         if showFeedback {
@@ -197,8 +197,8 @@ class PlayerAudioViewController: NSViewController, Destroyable {
             
             if showsPanControl {
                 
-                panChanged(audioGraph.balance)
-                panSlider.floatValue = audioGraph.balance
+                panChanged(audioGraph.pan)
+                panSlider.floatValue = audioGraph.pan
             }
         }
     }

@@ -23,13 +23,17 @@ class SoundProfiles: TrackKeyedMap<SoundProfile> {
         for profile in persistentState ?? [] {
             
             guard let path = profile.file, let volume = profile.volume,
-                  let balance = profile.balance, let effects = profile.effects,
+                  let pan = profile.pan, let effects = profile.effects,
                   let masterPreset = MasterPreset(persistentState: effects) else {continue}
             
             let url = URL(fileURLWithPath: path)
             self[url] = SoundProfile(file: url, volume: volume,
-                                     balance: balance, effects: masterPreset)
+                                     pan: pan, effects: masterPreset)
         }
+    }
+    
+    var persistentState: [SoundProfilePersistentState] {
+        all().map {SoundProfilePersistentState(profile: $0)}
     }
 }
 
@@ -46,7 +50,7 @@ struct SoundProfile {
     let file: URL
     
     let volume: Float
-    let balance: Float
+    let pan: Float
     
     let effects: MasterPreset
 }

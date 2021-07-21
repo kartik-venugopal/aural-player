@@ -18,7 +18,7 @@ import Cocoa
             - Default view
             - Expanded Art view
  
-        - Player controls (play/seek, next/previous track, repeat/shuffle, volume/balance)
+        - Player controls (play/seek, next/previous track, repeat/shuffle, volume/pan)
  
         - Functions toolbar (detailed track info / favorite / bookmark, etc)
  */

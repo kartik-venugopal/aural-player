@@ -20,7 +20,7 @@ struct AudioGraphPersistentState: Codable {
     
     let volume: Float?
     let muted: Bool?
-    let balance: Float?
+    let pan: Float?
     
     let masterUnit: MasterUnitPersistentState?
     let eqUnit: EQUnitPersistentState?

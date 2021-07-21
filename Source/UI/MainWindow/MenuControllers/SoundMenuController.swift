@@ -56,8 +56,13 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rememberSettingsMenuItem: ToggleMenuItem!
     
     // Delegate that alters the audio graph
-    private var graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
+    private lazy var graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     private let soundProfiles: SoundProfiles = objectGraph.audioGraphDelegate.soundProfiles
+    
+    private lazy var masterUnit: MasterUnitDelegateProtocol = graph.masterUnit
+    private lazy var eqUnit: EQUnitDelegateProtocol = graph.eqUnit
+    private lazy var pitchShiftUnit: PitchShiftUnitDelegateProtocol = graph.pitchShiftUnit
+    private lazy var timeStretchUnit: TimeStretchUnitDelegateProtocol = graph.timeStretchUnit
     
     private let player: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
@@ -101,7 +106,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(!windowLayoutsManager.isShowingModalComponent)})
+        [panLeftMenuItem, panRightMenuItem].forEach {$0?.enableIf(!windowLayoutsManager.isShowingModalComponent)}
         rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
     }
     
@@ -131,7 +136,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
+            masterBypassMenuItem.onIf(!masterUnit.isActive)
             rememberSettingsMenuItem.showIf(preferences.rememberEffectsSettingsOption == .individualTracks)
             
             if let playingTrack = player.playingTrack {
@@ -181,7 +186,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.masterEffectsUnit_toggleEffects)
         } else {
-            _ = graph.masterUnit.toggleState()
+            _ = masterUnit.toggleState()
         }
     }
     
@@ -195,7 +200,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.eqEffectsUnit_decreaseBass)
         } else {
-            _ = graph.eqUnit.decreaseBass()
+            _ = eqUnit.decreaseBass()
         }
     }
     
@@ -205,7 +210,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.eqEffectsUnit_increaseBass)
         } else {
-            _ = graph.eqUnit.increaseBass()
+            _ = eqUnit.increaseBass()
         }
     }
     
@@ -215,7 +220,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.eqEffectsUnit_decreaseMids)
         } else {
-            _ = graph.eqUnit.decreaseMids()
+            _ = eqUnit.decreaseMids()
         }
     }
     
@@ -225,7 +230,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.eqEffectsUnit_increaseMids)
         } else {
-            _ = graph.eqUnit.increaseMids()
+            _ = eqUnit.increaseMids()
         }
     }
     
@@ -235,7 +240,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.eqEffectsUnit_decreaseTreble)
         } else {
-            _ = graph.eqUnit.decreaseTreble()
+            _ = eqUnit.decreaseTreble()
         }
     }
     
@@ -245,7 +250,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.eqEffectsUnit_increaseTreble)
         } else {
-            _ = graph.eqUnit.increaseTreble()
+            _ = eqUnit.increaseTreble()
         }
     }
     
@@ -255,7 +260,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.pitchEffectsUnit_decreasePitch)
         } else {
-            _ = graph.pitchShiftUnit.decreasePitch()
+            _ = pitchShiftUnit.decreasePitch()
         }
     }
     
@@ -265,7 +270,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.pitchEffectsUnit_increasePitch)
         } else {
-            _ = graph.pitchShiftUnit.increasePitch()
+            _ = pitchShiftUnit.increasePitch()
         }
     }
     
@@ -280,8 +285,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            graph.pitchShiftUnit.pitch = pitch
-            graph.pitchShiftUnit.ensureActive()
+            pitchShiftUnit.pitch = pitch
+            pitchShiftUnit.ensureActive()
         }
     }
     
@@ -291,7 +296,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.timeEffectsUnit_decreaseRate)
         } else {
-            _ = graph.timeStretchUnit.decreaseRate()
+            _ = timeStretchUnit.decreaseRate()
         }
     }
     
@@ -301,7 +306,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             messenger.publish(.timeEffectsUnit_increaseRate)
         } else {
-            _ = graph.timeStretchUnit.increaseRate()
+            _ = timeStretchUnit.increaseRate()
         }
     }
     
@@ -316,13 +321,13 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            graph.timeStretchUnit.rate = rate
-            graph.timeStretchUnit.ensureActive()
+            timeStretchUnit.rate = rate
+            timeStretchUnit.ensureActive()
         }
     }
     
     @IBAction func rememberSettingsAction(_ sender: ToggleMenuItem) {
-        messenger.publish(!rememberSettingsMenuItem.isOn ? .effects_saveSoundProfile : .effects_deleteSoundProfile)
+        messenger.publish(rememberSettingsMenuItem.isOff ? .effects_saveSoundProfile : .effects_deleteSoundProfile)
     }
 }
 

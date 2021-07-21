@@ -25,7 +25,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var outputDeviceSampleRate: Double {get}
     
     var volume: Float {get set}
-    var balance: Float {get set}
+    var pan: Float {get set}
     var muted: Bool {get set}
     
     var masterUnit: MasterUnit {get}
@@ -37,7 +37,6 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var filterUnit: FilterUnit {get}
     
     var audioUnits: [HostedAudioUnit] {get}
-    
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)?
     func removeAudioUnits(at indices: IndexSet)
     
@@ -50,6 +49,8 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
+    
+    var visualizationAnalysisBufferSize: Int {get}
 }
 
 /*
@@ -61,7 +62,7 @@ protocol PlayerGraphProtocol {
     var playerNode: AuralPlayerNode {get}
     
     // Reconnects the player node to its output node, with a new audio format
-    func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat)
+    func reconnectPlayerNode(withFormat format: AVAudioFormat)
     
     // Clears reverb/delay sound tails. Suitable for use when stopping the player.
     func clearSoundTails()

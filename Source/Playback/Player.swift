@@ -60,7 +60,7 @@ class Player: PlayerProtocol {
         }
         
         // Disconnect player from audio graph and reconnect with the file's processing format
-        graph.reconnectPlayerNodeWithFormat(audioFormat)
+        graph.reconnectPlayerNode(withFormat: audioFormat)
 
         let session = PlaybackSession.start(track)
         self.scheduler = track.isNativelySupported ? avfScheduler : ffmpegScheduler

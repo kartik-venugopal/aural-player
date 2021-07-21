@@ -25,6 +25,8 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
     var rate: Float {
         
         get {unit.rate}
+        
+        // FIXME: Should call ensureActive() when setting rate ?
         set {unit.rate = newValue}
     }
     

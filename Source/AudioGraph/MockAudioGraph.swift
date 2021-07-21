@@ -58,7 +58,7 @@
 //        playerVolume = state.volume
 //        muted = state.muted
 //        playerNode.volume = muted ? 0 : playerVolume
-//        playerNode.pan = state.balance
+//        playerNode.pan = state.pan
 //        
 //        eqUnit = EQUnit(state)
 //        pitchShiftUnit = PitchUnit(state)
@@ -85,7 +85,7 @@
 //        }
 //    }
 //    
-//    var balance: Float {
+//    var pan: Float {
 //        
 //        get {playerNode.pan}
 //        set {playerNode.pan = newValue}
@@ -111,10 +111,10 @@
 //        
 //        let state: AudioGraphState = AudioGraphState()
 //        
-//        // Volume and pan (balance)
+//        // Volume and pan
 //        state.volume = playerVolume
 //        state.muted = muted
-//        state.balance = playerNode.pan
+//        state.pan = playerNode.pan
 //        
 //        state.masterUnit = masterUnit.persistentState
 //        state.eqUnit = eqUnit.persistentState

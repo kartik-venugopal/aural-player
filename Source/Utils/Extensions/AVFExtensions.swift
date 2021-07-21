@@ -11,10 +11,16 @@ import AVFoundation
 
 extension AVAudioMixerNode {
     
-    convenience init(volume: Float) {
+    convenience init(muted: Bool) {
         
         self.init()
-        self.volume = volume
+        self.volume = muted ? 0 : 1
+    }
+    
+    var muted: Bool {
+        
+        get {volume == 0}
+        set {volume = newValue ? 0 : 1}
     }
 }
 

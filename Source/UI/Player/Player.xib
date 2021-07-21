@@ -327,7 +327,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QRT-te-AGM">
+                                    <slider toolTip="Stereo Pan" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QRT-te-AGM">
                                         <rect key="frame" x="466" y="5" width="40" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" tickMarkPosition="below" numberOfTickMarks="1" sliderType="linear" id="StG-HM-O8x" customClass="PanSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -614,7 +614,7 @@ G1BhbiBTbGlkZXI
         <image name="Play" width="31" height="35"/>
         <image name="PlayingArt" width="237" height="237"/>
         <image name="PreviousTrack" width="21" height="23"/>
-        <image name="Repeat" width="30" height="30"/>
+        <image name="Repeat" width="18" height="18"/>
         <image name="SeekBackward" width="16" height="12"/>
         <image name="SeekForward" width="16" height="12"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>

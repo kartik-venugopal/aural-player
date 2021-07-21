@@ -129,7 +129,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         set {graph.volume = newValue * ValueConversions.volume_UIToAudioGraph}
     }
     
-    var formattedVolume: String {return ValueFormatter.formatVolume(volume)}
+    var formattedVolume: String {ValueFormatter.formatVolume(volume)}
     
     var muted: Bool {
         
@@ -137,13 +137,13 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         set {graph.muted = newValue}
     }
     
-    var balance: Float {
+    var pan: Float {
         
-        get {round(graph.balance * ValueConversions.pan_audioGraphToUI)}
-        set {graph.balance = newValue * ValueConversions.pan_UIToAudioGraph}
+        get {round(graph.pan * ValueConversions.pan_audioGraphToUI)}
+        set {graph.pan = newValue * ValueConversions.pan_UIToAudioGraph}
     }
     
-    var formattedBalance: String {return ValueFormatter.formatPan(balance)}
+    var formattedPan: String {ValueFormatter.formatPan(pan)}
     
     func increaseVolume(_ inputMode: UserInputMode) -> Float {
         
@@ -163,19 +163,21 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func panLeft() -> Float {
         
-        let newBalance = max(-1, graph.balance - preferences.panDelta)
-        graph.balance = graph.balance > 0 && newBalance < 0 ? 0 : newBalance
+        let newPan = max(-1, graph.pan - preferences.panDelta)
+        graph.pan = graph.pan > 0 && newPan < 0 ? 0 : newPan
         
-        return balance
+        return pan
     }
     
     func panRight() -> Float {
         
-        let newBalance = min(1, graph.balance + preferences.panDelta)
-        graph.balance = graph.balance < 0 && newBalance > 0 ? 0 : newBalance
+        let newPan = min(1, graph.pan + preferences.panDelta)
+        graph.pan = graph.pan < 0 && newPan > 0 ? 0 : newPan
         
-        return balance
+        return pan
     }
+    
+    var visualizationAnalysisBufferSize: Int {graph.visualizationAnalysisBufferSize}
     
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnitDelegateProtocol, index: Int)? {
         
@@ -213,7 +215,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         if let plTrack = player.playingTrack {
             soundProfiles[plTrack] = SoundProfile(file: plTrack.file, volume: graph.volume,
-                                                  balance: graph.balance, effects: graph.settingsAsMasterPreset)
+                                                  pan: graph.pan, effects: graph.settingsAsMasterPreset)
         }
     }
     
@@ -237,14 +239,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
             soundProfiles[theOldTrack] = SoundProfile(file: theOldTrack.file, volume: graph.volume,
-                                                        balance: graph.balance, effects: graph.settingsAsMasterPreset)
+                                                        pan: graph.pan, effects: graph.settingsAsMasterPreset)
         }
         
         // Apply sound profile if there is one for the new track and the preferences allow it
         if let theNewTrack = newTrack, let profile = soundProfiles[theNewTrack] {
             
             graph.volume = profile.volume
-            graph.balance = profile.balance
+            graph.pan = profile.pan
             masterUnit.applyPreset(profile.effects)
         }
     }
@@ -258,7 +260,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
             soundProfiles[plTrack] = SoundProfile(file: plTrack.file, volume: graph.volume,
-                                                    balance: graph.balance, effects: graph.settingsAsMasterPreset)
+                                                    pan: graph.pan, effects: graph.settingsAsMasterPreset)
         }
     }
 }

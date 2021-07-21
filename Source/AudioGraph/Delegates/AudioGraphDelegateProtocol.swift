@@ -50,32 +50,32 @@ protocol AudioGraphDelegateProtocol {
     
     var muted: Bool {get set}
     
-    var balance: Float {get set}
+    var pan: Float {get set}
     
-    var formattedBalance: String {get}
+    var formattedPan: String {get}
     
-    // Pans left by a small increment. Returns new balance value.
+    // Pans left by a small increment. Returns new pan value.
     func panLeft() -> Float
     
-    // Pans right by a small increment. Returns new balance value.
+    // Pans right by a small increment. Returns new pan value.
     func panRight() -> Float
     
-    var settingsAsMasterPreset: MasterPreset {get}
+    var masterUnit: MasterUnitDelegateProtocol {get}
+    var eqUnit: EQUnitDelegateProtocol {get}
+    var pitchShiftUnit: PitchShiftUnitDelegateProtocol {get}
+    var timeStretchUnit: TimeStretchUnitDelegateProtocol {get}
+    var reverbUnit: ReverbUnitDelegateProtocol {get}
+    var delayUnit: DelayUnitDelegateProtocol {get}
+    var filterUnit: FilterUnitDelegateProtocol {get}
     
-    var masterUnit: MasterUnitDelegateProtocol {get set}
-    var eqUnit: EQUnitDelegateProtocol {get set}
-    var pitchShiftUnit: PitchShiftUnitDelegateProtocol {get set}
-    var timeStretchUnit: TimeStretchUnitDelegateProtocol {get set}
-    var reverbUnit: ReverbUnitDelegateProtocol {get set}
-    var delayUnit: DelayUnitDelegateProtocol {get set}
-    var filterUnit: FilterUnitDelegateProtocol {get set}
     var audioUnits: [HostedAudioUnitDelegateProtocol] {get}
-    
-    var soundProfiles: SoundProfiles {get}
-    
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnitDelegateProtocol, index: Int)?
     func removeAudioUnits(at indices: IndexSet) -> [HostedAudioUnitDelegateProtocol]
     
+    var soundProfiles: SoundProfiles {get}
+    
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
+    
+    var visualizationAnalysisBufferSize: Int {get}
 }

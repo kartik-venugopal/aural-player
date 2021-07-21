@@ -89,7 +89,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         lblStartupVolume.enableIf(btnSpecifyVolume.isOn)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
-        // Balance increment / decrement
+        // Pan increment / decrement
         
         let panDelta = (soundPrefs.panDelta * ValueConversions.pan_audioGraphToUI).roundedInt
         panDeltaStepper.integerValue = panDelta
