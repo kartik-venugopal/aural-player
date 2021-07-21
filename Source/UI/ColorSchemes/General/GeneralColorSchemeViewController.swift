@@ -77,7 +77,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func appLogoColorAction(_ sender: Any) {
         
-        history.noteChange(appLogoColorPicker.tag, generalScheme.appLogoColor, appLogoColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: appLogoColorPicker.tag, undoValue: generalScheme.appLogoColor,
+                                             redoValue: appLogoColorPicker.color, changeType: .changeColor))
         changeAppLogoColor()
     }
     
@@ -89,7 +90,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func backgroundColorAction(_ sender: Any) {
         
-        history.noteChange(backgroundColorPicker.tag, generalScheme.backgroundColor, backgroundColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: backgroundColorPicker.tag, undoValue: generalScheme.backgroundColor,
+                                             redoValue: backgroundColorPicker.color, changeType: .changeColor))
         changeBackgroundColor()
     }
     
@@ -101,7 +103,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func functionButtonColorAction(_ sender: Any) {
         
-        history.noteChange(functionButtonColorPicker.tag, generalScheme.functionButtonColor, functionButtonColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: functionButtonColorPicker.tag, undoValue: generalScheme.functionButtonColor,
+                                             redoValue: functionButtonColorPicker.color, changeType: .changeColor))
         changeFunctionButtonColor()
     }
     
@@ -113,7 +116,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func textButtonMenuColorAction(_ sender: Any) {
         
-        history.noteChange(textButtonMenuColorPicker.tag, generalScheme.textButtonMenuColor, textButtonMenuColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: textButtonMenuColorPicker.tag, undoValue: generalScheme.textButtonMenuColor,
+                                             redoValue: textButtonMenuColorPicker.color, changeType: .changeColor))
         changeTextButtonMenuColor()
     }
     
@@ -125,7 +129,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func toggleButtonOffStateColorAction(_ sender: Any) {
         
-        history.noteChange(toggleButtonOffStateColorPicker.tag, generalScheme.toggleButtonOffStateColor, toggleButtonOffStateColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: toggleButtonOffStateColorPicker.tag, undoValue: generalScheme.toggleButtonOffStateColor,
+                                             redoValue: toggleButtonOffStateColorPicker.color, changeType: .changeColor))
         changeToggleButtonOffStateColor()
     }
     
@@ -137,7 +142,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func selectedTabButtonColorAction(_ sender: Any) {
         
-        history.noteChange(selectedTabButtonColorPicker.tag, generalScheme.selectedTabButtonColor, selectedTabButtonColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: selectedTabButtonColorPicker.tag, undoValue: generalScheme.selectedTabButtonColor,
+                                             redoValue: selectedTabButtonColorPicker.color, changeType: .changeColor))
         changeSelectedTabButtonColor()
     }
     
@@ -149,7 +155,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func mainCaptionTextColorAction(_ sender: Any) {
         
-        history.noteChange(mainCaptionTextColorPicker.tag, generalScheme.mainCaptionTextColor, mainCaptionTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: mainCaptionTextColorPicker.tag, undoValue: generalScheme.mainCaptionTextColor,
+                                             redoValue: mainCaptionTextColorPicker.color, changeType: .changeColor))
         changeMainCaptionTextColor()
     }
     
@@ -161,7 +168,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func tabButtonTextColorAction(_ sender: Any) {
         
-        history.noteChange(tabButtonTextColorPicker.tag, generalScheme.tabButtonTextColor, tabButtonTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: tabButtonTextColorPicker.tag, undoValue: generalScheme.tabButtonTextColor,
+                                             redoValue: tabButtonTextColorPicker.color, changeType: .changeColor))
         changeTabButtonTextColor()
     }
     
@@ -173,7 +181,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func selectedTabButtonTextColorAction(_ sender: Any) {
         
-        history.noteChange(selectedTabButtonTextColorPicker.tag, generalScheme.selectedTabButtonTextColor, selectedTabButtonTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: selectedTabButtonTextColorPicker.tag, undoValue: generalScheme.selectedTabButtonTextColor,
+                                             redoValue: selectedTabButtonTextColorPicker.color, changeType: .changeColor))
         changeSelectedTabButtonTextColor()
     }
     
@@ -185,7 +194,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func buttonMenuTextColorAction(_ sender: Any) {
         
-        history.noteChange(buttonMenuTextColorPicker.tag, generalScheme.buttonMenuTextColor, buttonMenuTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: buttonMenuTextColorPicker.tag, undoValue: generalScheme.buttonMenuTextColor,
+                                             redoValue: buttonMenuTextColorPicker.color, changeType: .changeColor))
         changeButtonMenuTextColor()
     }
     

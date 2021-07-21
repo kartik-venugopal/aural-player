@@ -115,7 +115,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func primaryTextColorAction(_ sender: Any) {
         
-        history.noteChange(trackInfoPrimaryTextColorPicker.tag, playerScheme.trackInfoPrimaryTextColor, trackInfoPrimaryTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: trackInfoPrimaryTextColorPicker.tag, undoValue: playerScheme.trackInfoPrimaryTextColor,
+                                             redoValue: trackInfoPrimaryTextColorPicker.color, changeType: .changeColor))
         changePrimaryTextColor()
     }
     
@@ -127,7 +128,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func secondaryTextColorAction(_ sender: Any) {
         
-        history.noteChange(trackInfoSecondaryTextColorPicker.tag, playerScheme.trackInfoSecondaryTextColor, trackInfoSecondaryTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: trackInfoSecondaryTextColorPicker.tag, undoValue: playerScheme.trackInfoSecondaryTextColor,
+                                             redoValue: trackInfoSecondaryTextColorPicker.color, changeType: .changeColor))
         changeSecondaryTextColor()
     }
     
@@ -139,7 +141,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func tertiaryTextColorAction(_ sender: Any) {
         
-        history.noteChange(trackInfoTertiaryTextColorPicker.tag, playerScheme.trackInfoTertiaryTextColor, trackInfoTertiaryTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: trackInfoTertiaryTextColorPicker.tag, undoValue: playerScheme.trackInfoTertiaryTextColor,
+                                             redoValue: trackInfoTertiaryTextColorPicker.color, changeType: .changeColor))
         changeTertiaryTextColor()
     }
     
@@ -151,7 +154,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderValueTextColorAction(_ sender: Any) {
         
-        history.noteChange(sliderValueTextColorPicker.tag, playerScheme.sliderValueTextColor, sliderValueTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: sliderValueTextColorPicker.tag, undoValue: playerScheme.sliderValueTextColor,
+                                             redoValue: sliderValueTextColorPicker.color, changeType: .changeColor))
         changeSliderValueTextColor()
     }
     
@@ -163,7 +167,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderForegroundColorAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundColorPicker.tag, playerScheme.sliderForegroundColor, sliderForegroundColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: sliderForegroundColorPicker.tag, undoValue: playerScheme.sliderForegroundColor,
+                                             redoValue: sliderForegroundColorPicker.color, changeType: .changeColor))
         changeSliderForegroundColor()
     }
     
@@ -175,7 +180,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func enableSliderForegroundGradientAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundGradientBtnGroup.tag, playerScheme.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(ColorSchemeChange(tag: sliderForegroundGradientBtnGroup.tag, undoValue: playerScheme.sliderForegroundGradientType,
+                                             redoValue: sliderForegroundGradientBtnGroup.gradientType, changeType: .changeGradient))
         
         changeSliderForegroundGradient()
     }
@@ -195,14 +201,17 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderForegroundGradientBrightenOrDarkenAction(_ sender: Any) {
 
-        history.noteChange(sliderForegroundGradientBtnGroup.tag, playerScheme.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(ColorSchemeChange(tag: sliderForegroundGradientBtnGroup.tag, undoValue: playerScheme.sliderForegroundGradientType,
+                                             redoValue: sliderForegroundGradientBtnGroup.gradientType, changeType: .changeGradient))
         
         changeSliderForegroundGradient()
     }
     
     @IBAction func sliderForegroundGradientAmountAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundGradientAmountStepper.tag, playerScheme.sliderForegroundGradientAmount, sliderForegroundGradientAmountStepper.integerValue, .setIntValue)
+        history.noteChange(ColorSchemeChange(tag: sliderForegroundGradientAmountStepper.tag, undoValue: playerScheme.sliderForegroundGradientAmount,
+                                             redoValue: sliderForegroundGradientAmountStepper.integerValue, changeType: .setIntValue))
+        
         changeSliderForegroundGradientAmount()
     }
     
@@ -222,7 +231,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundColorPicker.tag, playerScheme.sliderBackgroundColor, sliderBackgroundColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: sliderBackgroundColorPicker.tag, undoValue: playerScheme.sliderBackgroundColor,
+                                             redoValue: sliderBackgroundColorPicker.color, changeType: .changeColor))
         changeSliderBackgroundColor()
     }
     
@@ -234,7 +244,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientBtnGroup.tag, playerScheme.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(ColorSchemeChange(tag: sliderBackgroundGradientBtnGroup.tag, undoValue: playerScheme.sliderBackgroundGradientType,
+                                             redoValue: sliderBackgroundGradientBtnGroup.gradientType, changeType: .changeGradient))
         
         changeSliderBackgroundGradient()
     }
@@ -254,14 +265,17 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderBackgroundGradientBrightenOrDarkenAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientBtnGroup.tag, playerScheme.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(ColorSchemeChange(tag: sliderBackgroundGradientBtnGroup.tag, undoValue: playerScheme.sliderBackgroundGradientType,
+                                             redoValue: sliderBackgroundGradientBtnGroup.gradientType, changeType: .changeGradient))
         
         changeSliderBackgroundGradient()
     }
     
     @IBAction func sliderBackgroundGradientAmountAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientAmountStepper.tag, playerScheme.sliderBackgroundGradientAmount, sliderBackgroundGradientAmountStepper.integerValue, .setIntValue)
+        history.noteChange(ColorSchemeChange(tag: sliderBackgroundGradientAmountStepper.tag, undoValue: playerScheme.sliderBackgroundGradientAmount,
+                                             redoValue: sliderBackgroundGradientAmountStepper.integerValue, changeType: .setIntValue))
+        
         changeSliderBackgroundGradientAmount()
     }
     
@@ -281,7 +295,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
         
-        history.noteChange(sliderKnobColorPicker.tag, playerScheme.sliderKnobColor, sliderKnobColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: sliderKnobColorPicker.tag, undoValue: playerScheme.sliderKnobColor,
+                                             redoValue: sliderKnobColorPicker.color, changeType: .changeColor))
         changeSliderKnobColor()
     }
     
@@ -293,7 +308,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
         
-        history.noteChange(btnSliderKnobColorSameAsForeground.tag, playerScheme.sliderKnobColorSameAsForeground, btnSliderKnobColorSameAsForeground.isOn, .toggle)
+        history.noteChange(ColorSchemeChange(tag: btnSliderKnobColorSameAsForeground.tag, undoValue: playerScheme.sliderKnobColorSameAsForeground,
+                                             redoValue: btnSliderKnobColorSameAsForeground.isOn, changeType: .toggle))
         toggleKnobColorSameAsForeground()
     }
     
@@ -305,7 +321,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderLoopSegmentColorAction(_ sender: Any) {
         
-        history.noteChange(sliderLoopSegmentColorPicker.tag, playerScheme.sliderLoopSegmentColor, sliderLoopSegmentColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: sliderLoopSegmentColorPicker.tag, undoValue: playerScheme.sliderLoopSegmentColor,
+                                             redoValue: sliderLoopSegmentColorPicker.color, changeType: .changeColor))
         changeSliderLoopSegmentColor()
     }
     

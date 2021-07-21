@@ -90,7 +90,8 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
                 
                 btnToggle.onIf(boolVal)
                 
-            } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self], let gradientType = lastChange.undoValue as? ColorSchemeGradientType {
+            } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self],
+                      let gradientType = lastChange.undoValue as? ColorSchemeGradientType {
                 
                 btnGroup.gradientType = gradientType
                 
@@ -168,7 +169,8 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
         if let picker = activeColorPicker, let clipboardColor = clipboard.color {
             
             // Picker's current value is the undo (old) value, clipboard color is the redo (new) value.
-            history.noteChange(picker.tag, picker.color, clipboardColor, .changeColor)
+            history.noteChange(ColorSchemeChange(tag: picker.tag, undoValue: picker.color,
+                                                 redoValue: clipboardColor, changeType: .changeColor))
             
             // Paste color into the picker.
             picker.pasteFromClipboard(clipboard)
@@ -187,6 +189,6 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // A paste can only be performed if the clipboard has a color copied to it.
-        pasteColorMenuItem.enableIf(self.clipboard.hasColor)
+        pasteColorMenuItem.enableIf(clipboard.hasColor)
     }
 }

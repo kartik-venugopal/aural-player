@@ -89,7 +89,7 @@ class FontSchemesWindowController: SingletonWindowController, ModalDialogDelegat
         fontSchemesManager.applyScheme(newScheme)
         
         let redoValue: FontScheme = fontSchemesManager.systemScheme.clone()
-        history.noteChange(undoValue, redoValue)
+        history.noteChange(FontSchemeChange(undoValue: undoValue, redoValue: redoValue))
     }
     
     @IBAction func saveSchemeAction(_ sender: Any) {
@@ -138,7 +138,7 @@ class FontSchemesWindowController: SingletonWindowController, ModalDialogDelegat
         
         // Get details about the last change from the history.
         if let lastChange = history.undoLastChange() {
-            applyFontScheme(lastChange)
+            applyFontScheme(lastChange.undoValue)
         }
     }
     
@@ -146,7 +146,7 @@ class FontSchemesWindowController: SingletonWindowController, ModalDialogDelegat
     @IBAction func redoLastChangeAction(_ sender: Any) {
         
         if let lastChange = history.redoLastChange() {
-            applyFontScheme(lastChange)
+            applyFontScheme(lastChange.redoValue)
         }
     }
     

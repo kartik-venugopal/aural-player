@@ -88,7 +88,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func trackNameTextColorAction(_ sender: Any) {
         
-        history.noteChange(trackNameTextColorPicker.tag, playlistScheme.trackNameTextColor, trackNameTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: trackNameTextColorPicker.tag, undoValue: playlistScheme.trackNameTextColor,
+                                             redoValue: trackNameTextColorPicker.color, changeType: .changeColor))
         changeTrackNameTextColor()
     }
     
@@ -100,7 +101,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func groupNameTextColorAction(_ sender: Any) {
         
-        history.noteChange(groupNameTextColorPicker.tag, playlistScheme.groupNameTextColor, groupNameTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: groupNameTextColorPicker.tag, undoValue: playlistScheme.groupNameTextColor,
+                                             redoValue: groupNameTextColorPicker.color, changeType: .changeColor))
         changeGroupNameTextColor()
     }
     
@@ -112,7 +114,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func indexDurationTextColorAction(_ sender: Any) {
         
-        history.noteChange(indexDurationTextColorPicker.tag, playlistScheme.indexDurationTextColor, indexDurationTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: indexDurationTextColorPicker.tag, undoValue: playlistScheme.indexDurationTextColor,
+                                             redoValue: indexDurationTextColorPicker.color, changeType: .changeColor))
         changeIndexDurationTextColor()
     }
     
@@ -124,7 +127,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func trackNameSelectedTextColorAction(_ sender: Any) {
         
-        history.noteChange(trackNameSelectedTextColorPicker.tag, playlistScheme.trackNameSelectedTextColor, trackNameSelectedTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: trackNameSelectedTextColorPicker.tag, undoValue: playlistScheme.trackNameSelectedTextColor,
+                                             redoValue: trackNameSelectedTextColorPicker.color, changeType: .changeColor))
         changeTrackNameSelectedTextColor()
     }
     
@@ -136,7 +140,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func groupNameSelectedTextColorAction(_ sender: Any) {
         
-        history.noteChange(groupNameSelectedTextColorPicker.tag, playlistScheme.groupNameSelectedTextColor, groupNameSelectedTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: groupNameSelectedTextColorPicker.tag, undoValue: playlistScheme.groupNameSelectedTextColor,
+                                             redoValue: groupNameSelectedTextColorPicker.color, changeType: .changeColor))
         changeGroupNameSelectedTextColor()
     }
     
@@ -148,7 +153,9 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func indexDurationSelectedTextColorAction(_ sender: Any) {
         
-        history.noteChange(indexDurationSelectedTextColorPicker.tag, playlistScheme.indexDurationSelectedTextColor, indexDurationSelectedTextColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: indexDurationSelectedTextColorPicker.tag, undoValue: playlistScheme.indexDurationSelectedTextColor,
+                                             redoValue: indexDurationSelectedTextColorPicker.color, changeType: .changeColor))
+        
         changeIndexDurationSelectedTextColor()
     }
     
@@ -160,7 +167,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func groupIconColorAction(_ sender: Any) {
         
-        history.noteChange(groupIconColorPicker.tag, playlistScheme.groupIconColor, groupIconColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: groupIconColorPicker.tag, undoValue: playlistScheme.groupIconColor,
+                                             redoValue: groupIconColorPicker.color, changeType: .changeColor))
         changeGroupIconColor()
     }
     
@@ -174,7 +182,9 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func groupDisclosureTriangleColorAction(_ sender: Any) {
         
-        history.noteChange(groupDisclosureTriangleColorPicker.tag, playlistScheme.groupDisclosureTriangleColor, groupDisclosureTriangleColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: groupDisclosureTriangleColorPicker.tag, undoValue: playlistScheme.groupDisclosureTriangleColor,
+                                             redoValue: groupDisclosureTriangleColorPicker.color, changeType: .changeColor))
+        
         changeGroupDisclosureTriangleColor()
     }
     
@@ -188,7 +198,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func selectionBoxColorAction(_ sender: Any) {
         
-        history.noteChange(selectionBoxColorPicker.tag, playlistScheme.selectionBoxColor, selectionBoxColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: selectionBoxColorPicker.tag, undoValue: playlistScheme.selectionBoxColor,
+                                             redoValue: selectionBoxColorPicker.color, changeType: .changeColor))
         changeSelectionBoxColor()
     }
     
@@ -200,7 +211,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func playingTrackIconColorAction(_ sender: Any) {
         
-        history.noteChange(playingTrackIconColorPicker.tag, playlistScheme.playingTrackIconColor, playingTrackIconColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: playingTrackIconColorPicker.tag, undoValue: playlistScheme.playingTrackIconColor,
+                                             redoValue: playingTrackIconColorPicker.color, changeType: .changeColor))
         changePlayingTrackIconColor()
     }
     
@@ -212,7 +224,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func summaryInfoColorAction(_ sender: Any) {
         
-        history.noteChange(summaryInfoColorPicker.tag, playlistScheme.summaryInfoColor, summaryInfoColorPicker.color, .changeColor)
+        history.noteChange(ColorSchemeChange(tag: summaryInfoColorPicker.tag, undoValue: playlistScheme.summaryInfoColor,
+                                             redoValue: summaryInfoColorPicker.color, changeType: .changeColor))
         changeSummaryInfoColor()
     }
     

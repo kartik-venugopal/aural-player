@@ -29,7 +29,7 @@ class ColorClipboard {
     
     // Whether or not the clipboard currently holds a color.
     var hasColor: Bool {
-        return color != nil
+        color != nil
     }
     
     // Clears the clipboard.

@@ -118,7 +118,7 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
         // Capture the new scheme (for potentially redoing changes later)
         let newScheme = colorSchemesManager.systemScheme
         let redoValue: ColorScheme = newScheme.clone()
-        history.noteChange(1, undoValue, redoValue, .applyScheme)
+        history.noteChange(ColorSchemeChange(tag: 1, undoValue: undoValue, redoValue: redoValue, changeType: .applyScheme))
             
         // Notify UI components of the scheme change
         schemeUpdated(newScheme)
