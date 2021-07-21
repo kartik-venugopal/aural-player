@@ -54,7 +54,7 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
             cameraNode.camera = camera
 
             cameraNode.position = SCNVector3(0, 5, 4.5)
-            cameraNode.eulerAngles = SCNVector3Make(-(piOver180 * 45), 0, 0)
+            cameraNode.eulerAngles = SCNVector3Make(-(.piOver180 * 45), 0, 0)
 
             scene!.rootNode.addChildNode(cameraNode)
             
@@ -211,7 +211,7 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
         if magnitude >= minMagnitudeForRotation {
             
             rotationDegrees += magnitude * maxRotationDegrees
-            node.rotation = SCNVector4Make(0, 1, 0, rotationDegrees * piOver180)
+            node.rotation = SCNVector4Make(0, 1, 0, rotationDegrees * .piOver180)
         }
         
         SCNTransaction.commit()

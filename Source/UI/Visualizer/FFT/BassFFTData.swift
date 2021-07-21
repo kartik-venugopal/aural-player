@@ -27,6 +27,6 @@ class BassFFTData {
     func update(with fft: FFT) {
         
         vDSP_maxv(fft.normalizedMagnitudes, 1, &magnitude, numBassBands)
-        peakBassMagnitude = magnitude.clamp(to: fftMagnitudeRange)
+        peakBassMagnitude = magnitude.clamp(to: fft.magnitudeRange)
     }
 }

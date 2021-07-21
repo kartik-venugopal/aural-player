@@ -142,6 +142,8 @@
 		3E308D18268A2E4A00B0FD60 /* NSApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E308D17268A2E4A00B0FD60 /* NSApplicationExtensions.swift */; };
 		3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */; };
 		3E308D1D268A356300B0FD60 /* UpdatesDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */; };
+		3E30FC6326A866C800AE46C6 /* Visualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E30FC6226A866C800AE46C6 /* Visualizer.swift */; };
+		3E30FC6426A866C800AE46C6 /* Visualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E30FC6226A866C800AE46C6 /* Visualizer.swift */; };
 		3E3579D026835A6A009522A0 /* GenericPresetPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */; };
 		3E3579D226837D3D009522A0 /* PresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579D126837D3D009522A0 /* PresetsManagerViewController.swift */; };
 		3E35AC9F25E6254500EBCCEB /* VisualizerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */; };
@@ -267,7 +269,6 @@
 		3E5F942D25E57190002DEF80 /* SpectrogramFFTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F93F825E57081002DEF80 /* SpectrogramFFTData.swift */; };
 		3E5F942E25E57190002DEF80 /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F93F725E57081002DEF80 /* FFT.swift */; };
 		3E5F943025E571A6002DEF80 /* VisualizerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941925E570A9002DEF80 /* VisualizerViewProtocol.swift */; };
-		3E5F943125E571A6002DEF80 /* VisualizerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F93FA25E57081002DEF80 /* VisualizerUtils.swift */; };
 		3E5F943225E571A6002DEF80 /* VisualizerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941B25E570A9002DEF80 /* VisualizerWindowController.swift */; };
 		3E5F943325E571A6002DEF80 /* Spectrogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941C25E570A9002DEF80 /* Spectrogram.swift */; };
 		3E5F943425E571A6002DEF80 /* Visualizer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F941D25E570A9002DEF80 /* Visualizer.xib */; };
@@ -1272,6 +1273,7 @@
 		3E308D17268A2E4A00B0FD60 /* NSApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplicationExtensions.swift; sourceTree = "<group>"; };
 		3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatesDialog.xib; sourceTree = "<group>"; };
 		3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesDialogController.swift; sourceTree = "<group>"; };
+		3E30FC6226A866C800AE46C6 /* Visualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visualizer.swift; sourceTree = "<group>"; };
 		3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPresetPopupMenuController.swift; sourceTree = "<group>"; };
 		3E3579D126837D3D009522A0 /* PresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsManagerViewController.swift; sourceTree = "<group>"; };
 		3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerContainer.swift; sourceTree = "<group>"; };
@@ -1385,7 +1387,6 @@
 		3E5F93F725E57081002DEF80 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		3E5F93F825E57081002DEF80 /* SpectrogramFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrogramFFTData.swift; sourceTree = "<group>"; };
 		3E5F93F925E57081002DEF80 /* BassFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BassFFTData.swift; sourceTree = "<group>"; };
-		3E5F93FA25E57081002DEF80 /* VisualizerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualizerUtils.swift; sourceTree = "<group>"; };
 		3E5F941725E570A9002DEF80 /* Spectrogram3DBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spectrogram3DBar.swift; sourceTree = "<group>"; };
 		3E5F941825E570A9002DEF80 /* Spectrogram3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spectrogram3D.swift; sourceTree = "<group>"; };
 		3E5F941925E570A9002DEF80 /* VisualizerViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualizerViewProtocol.swift; sourceTree = "<group>"; };
@@ -2402,6 +2403,19 @@
 			path = UpdatesDialog;
 			sourceTree = "<group>";
 		};
+		3E30FC6626A86AC800AE46C6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3E5F941925E570A9002DEF80 /* VisualizerViewProtocol.swift */,
+				3E5F941C25E570A9002DEF80 /* Spectrogram.swift */,
+				3E5F941A25E570A9002DEF80 /* SpectrogramBar.swift */,
+				3E5F941F25E570A9002DEF80 /* Supernova.swift */,
+				3E5F941E25E570A9002DEF80 /* DiscoBall.swift */,
+				3E5F941625E570A9002DEF80 /* Experimental */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		3E3633C42685FAD0006A88ED /* FXUnits */ = {
 			isa = PBXGroup;
 			children = (
@@ -2604,20 +2618,15 @@
 		3E5F941525E570A9002DEF80 /* Visualizer */ = {
 			isa = PBXGroup;
 			children = (
+				3E30FC6626A86AC800AE46C6 /* Views */,
 				3E5F941D25E570A9002DEF80 /* Visualizer.xib */,
 				3E5F941B25E570A9002DEF80 /* VisualizerWindowController.swift */,
-				3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */,
-				3E5F941925E570A9002DEF80 /* VisualizerViewProtocol.swift */,
-				3E5F941A25E570A9002DEF80 /* SpectrogramBar.swift */,
-				3E5F941C25E570A9002DEF80 /* Spectrogram.swift */,
-				3E5F941F25E570A9002DEF80 /* Supernova.swift */,
-				3E5F941E25E570A9002DEF80 /* DiscoBall.swift */,
-				3E5F93FA25E57081002DEF80 /* VisualizerUtils.swift */,
-				3E5F93F625E57081002DEF80 /* FFT */,
-				3E5F941625E570A9002DEF80 /* Experimental */,
-				3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */,
+				3E30FC6226A866C800AE46C6 /* Visualizer.swift */,
 				3EABDDE22694BC1E008066E8 /* VisualizationType.swift */,
 				3EABDDE72694BC30008066E8 /* VisualizerViewOptions.swift */,
+				3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */,
+				3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */,
+				3E5F93F625E57081002DEF80 /* FFT */,
 			);
 			path = Visualizer;
 			sourceTree = "<group>";
@@ -5518,6 +5527,7 @@
 				3E6C117F25CEBD6D00BF0D07 /* Favorite.swift in Sources */,
 				3E6C131E25CEBEA000BF0D07 /* CollectionExtensions.swift in Sources */,
 				3E09D0E626805C19008ECB8C /* AudioUnitPersistentState.swift in Sources */,
+				3E30FC6326A866C800AE46C6 /* Visualizer.swift in Sources */,
 				3E6C11FB25CEBDD100BF0D07 /* PlaylistDelegate.swift in Sources */,
 				3E67878926981E4800408566 /* SearchFields.swift in Sources */,
 				3E6C118325CEBD6D00BF0D07 /* FavoritesDelegate.swift in Sources */,
@@ -5587,7 +5597,6 @@
 				3E7C978D268BB8BE00287158 /* NSLayoutConstraintExtensions.swift in Sources */,
 				3E6C11A725CEBD9E00BF0D07 /* HistoryDelegate.swift in Sources */,
 				3E6C12A225CEBE2700BF0D07 /* SnappingWindow.swift in Sources */,
-				3E5F943125E571A6002DEF80 /* VisualizerUtils.swift in Sources */,
 				3E43228B2687E313009E8ADB /* ControlBarSeekSliderView.swift in Sources */,
 				3EBF29292686947700D87021 /* FilterBandsTabButtonCell.swift in Sources */,
 				3E6C128B25CEBE1800BF0D07 /* PlayerColorSchemeViewController.swift in Sources */,
@@ -5751,6 +5760,7 @@
 				3ED5A14B269978A1007E5343 /* AudioDeviceList.swift in Sources */,
 				3EA1BE33268F6A6700A5D81B /* FlatPlaylistProtocol.swift in Sources */,
 				3ED5A15A26997A28007E5343 /* AVFPlaybackContext.swift in Sources */,
+				3E30FC6426A866C800AE46C6 /* Visualizer.swift in Sources */,
 				3ED6D905269268D6007DA433 /* MockTrack.swift in Sources */,
 				3EABDD8E26948258008066E8 /* BookmarksPersistenceTests.swift in Sources */,
 				3EA1BDF4268F509300A5D81B /* ConcurrentSet.swift in Sources */,

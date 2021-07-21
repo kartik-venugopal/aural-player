@@ -11,9 +11,13 @@ import Foundation
 import Accelerate
 import AVFoundation
 
-let fftMagnitudeRange: ClosedRange<Float> = 0...1
-
-class FFT {
+///
+/// Performs Fast Fourier Transform computations on rendered audio samples, that can be used for
+/// analysis / visualization.
+///
+class FFT: Destroyable {
+    
+    let magnitudeRange: ClosedRange<Float> = 0...1
     
     init() {}
     
@@ -42,9 +46,8 @@ class FFT {
     
     private var realp: [Float] = []
     private var imagp: [Float] = []
-    private var output: DSPSplitComplex!
     
-    private var transferBuffer: UnsafeMutablePointer<Float> = UnsafeMutablePointer<Float>.allocate(capacity: 0)
+    private var transferBuffer: UnsafeMutablePointer<Float> = .allocate(capacity: 0)
     private var window: [Float] = []
     private var windowSize: Int = 512
     private var windowSize_vDSPLength: vDSP_Length = 512
@@ -55,7 +58,7 @@ class FFT {
     private var zeroDBReference: Float = 0.1
     
     private var magnitudes: [Float] = []
-    private(set) var normalizedMagnitudes: UnsafeMutablePointer<Float> = UnsafeMutablePointer<Float>.allocate(capacity: 0)
+    private(set) var normalizedMagnitudes: UnsafeMutablePointer<Float> = .allocate(capacity: 0)
     
     func setUp(sampleRate: Float, bufferSize: Int) {
         
@@ -78,7 +81,6 @@ class FFT {
         
         realp = [Float](repeating: 0, count: halfBufferSize)
         imagp = [Float](repeating: 0, count: halfBufferSize)
-        output = DSPSplitComplex(realp: &realp, imagp: &imagp)
         
         windowSize = bufferSizePOT
         windowSize_vDSPLength = vDSP_Length(windowSize)
@@ -90,7 +92,7 @@ class FFT {
         normalizedMagnitudes = UnsafeMutablePointer<Float>.allocate(capacity: halfBufferSize)
     }
     
-    func analyze(_ buffer: AudioBufferList) {
+    func analyze(buffer: AudioBufferList) {
         
         let bufferPtr: UnsafePointer<Float> = UnsafePointer(buffer.mBuffers.mData!.assumingMemoryBound(to: Float.self))
         
@@ -98,22 +100,30 @@ class FFT {
         vDSP_hann_window(&window, windowSize_vDSPLength, vDSP_HANN_NORM_Int32)
         vDSP_vmul(bufferPtr, 1, window, 1, transferBuffer, 1, windowSize_vDSPLength)
         
-        transferBuffer.withMemoryRebound(to: DSPComplex.self, capacity: windowSize) {dspComplexStream in
-            vDSP_ctoz(dspComplexStream, 2, &output, 1, halfBufferSize_UInt)
+        realp.withUnsafeMutableBufferPointer {realPtr in
+            
+            imagp.withUnsafeMutableBufferPointer {imagPtr in
+                
+                var output: DSPSplitComplex = DSPSplitComplex(realp: realPtr.baseAddress!, imagp: imagPtr.baseAddress!)
+                
+                transferBuffer.withMemoryRebound(to: DSPComplex.self, capacity: windowSize) {dspComplexStream in
+                    vDSP_ctoz(dspComplexStream, 2, &output, 1, halfBufferSize_UInt)
+                }
+                
+                // Perform the FFT
+                vDSP_fft_zrip(fftSetup, &output, 1, log2n, fftDirection)
+                
+                // Convert FFT output to magnitudes
+                vDSP_zvmags(&output, 1, &magnitudes, 1, halfBufferSize_UInt)
+                
+                // Convert to dB and scale.
+                vDSP_vdbcon(&magnitudes, 1, &zeroDBReference, normalizedMagnitudes, 1, halfBufferSize_UInt, 1)
+                vDSP_vsmul(normalizedMagnitudes, 1, vsMulScalar, normalizedMagnitudes, 1, halfBufferSize_UInt)
+            }
         }
-        
-        // Perform the FFT
-        vDSP_fft_zrip(fftSetup, &output, 1, log2n, fftDirection)
-        
-        // Convert FFT output to magnitudes
-        vDSP_zvmags(&output, 1, &magnitudes, 1, halfBufferSize_UInt)
-        
-        // Convert to dB and scale.
-        vDSP_vdbcon(&magnitudes, 1, &zeroDBReference, normalizedMagnitudes, 1, halfBufferSize_UInt, 1)
-        vDSP_vsmul(normalizedMagnitudes, 1, vsMulScalar, normalizedMagnitudes, 1, halfBufferSize_UInt)
     }
     
-    func deallocate() {
+    func destroy() {
         
         if fftSetup != nil {
             vDSP_destroy_fftsetup(fftSetup)
@@ -127,9 +137,5 @@ class FFT {
         
         magnitudes.removeAll()
         normalizedMagnitudes.deallocate()
-    }
-    
-    deinit {
-        deallocate()
     }
 }

@@ -76,7 +76,7 @@ class Supernova: SKView, VisualizerViewProtocol {
     let updateActionDuration: TimeInterval = 0.05
     
     // 1 degree clockwise
-    let rotationAngle: CGFloat = -piOver180
+    let rotationAngle: CGFloat = -.piOver180
     
     func update(with fft: FFT) {
         

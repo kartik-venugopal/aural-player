@@ -21,7 +21,7 @@ class SpectrogramFFTData {
         self.lastBinIndex = fft.binCount - 1
         self.numberOfBands = numberOfBands
     }
-
+    
     // Temp variable used by update()
     private var maxVal: Float = 0
     
@@ -30,14 +30,14 @@ class SpectrogramFFTData {
         for band in bands {
             
             vDSP_maxv(fft.normalizedMagnitudes.advanced(by: band.minIndex), 1, &maxVal, band.indexCount)
-            band.maxVal = maxVal.clamp(to: fftMagnitudeRange)
+            band.maxVal = maxVal.clamp(to: fft.magnitudeRange)
         }
     }
     
     var numberOfBands: Int = 10 {
         
         didSet {
-//            bands = numberOfBands == 10 ? bands_10 : bands_31
+            //            bands = numberOfBands == 10 ? bands_10 : bands_31
             bands = bands_10
         }
     }
@@ -62,10 +62,34 @@ class SpectrogramFFTData {
             
             bands.append(Band(minF: minF, maxF: maxF, minIndex: minIndex, maxIndex: maxIndex))
         }
-
+        
         return bands
     }
     
+}
+
+class Band {
+    
+    let minF: Float
+    let maxF: Float
+    
+    let minIndex: Int
+    let maxIndex: Int
+    let indexCount: UInt
+    
+    var maxVal: Float = 0
+    
+    init(minF: Float, maxF: Float, minIndex: Int, maxIndex: Int) {
+        
+        self.minF = minF
+        self.maxF = maxF
+        
+        self.minIndex = minIndex
+        self.maxIndex = maxIndex
+        self.indexCount = UInt(maxIndex - minIndex + 1)
+    }
+}
+
 //    var bands_31: [Band] {
 //        
 //        // 20/25/31.5/40/50/63/80/100/125/160/200/250/315/400/500/630/800/1K/1.25K/1.6K/ 2K/ 2.5K/3.15K/4K/5K/6.3K/8K/10K/12.5K/16K/20K
@@ -105,26 +129,3 @@ class SpectrogramFFTData {
 //        
 //        return bands
 //    }
-}
-
-class Band {
-    
-    let minF: Float
-    let maxF: Float
-    
-    let minIndex: Int
-    let maxIndex: Int
-    let indexCount: UInt
-    
-    var maxVal: Float = 0
-    
-    init(minF: Float, maxF: Float, minIndex: Int, maxIndex: Int) {
-        
-        self.minF = minF
-        self.maxF = maxF
-        
-        self.minIndex = minIndex
-        self.maxIndex = maxIndex
-        self.indexCount = UInt(maxIndex - minIndex + 1)
-    }
-}

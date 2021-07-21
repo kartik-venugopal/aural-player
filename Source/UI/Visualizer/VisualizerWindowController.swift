@@ -10,8 +10,7 @@
 import Cocoa
 import AVFoundation
 
-// TODO: Write a Visualizer class to handle the back-end logic so this controller can focus on the UI.
-class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGraphRenderObserverProtocol, Destroyable {
+class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroyable {
     
     override var windowNibName: String? {"Visualizer"}
     
@@ -33,12 +32,10 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
     @IBOutlet weak var startColorPicker: NSColorWell!
     @IBOutlet weak var endColorPicker: NSColorWell!
     
-    var vizView: VisualizerViewProtocol!
+    var currentView: VisualizerViewProtocol!
     var allViews: [VisualizerViewProtocol] = []
-    private lazy var fft: FFT = FFT()
-    private var audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    private var normalDeviceBufferSize: Int = 0
+    private lazy var visualizer: Visualizer = Visualizer(renderCallback: updateCurrentView)
     
     private lazy var messenger = Messenger(for: self)
     
@@ -50,7 +47,7 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
         window?.isMovableByWindowBackground = true
         window?.aspectRatio = NSSize(width: 3.0, height: 2.0)
         
-        [spectrogram, supernova, discoBall].forEach {$0?.anchorToView($0!.superview!)}
+        [spectrogram, supernova, discoBall].forEach {$0?.anchorToSuperview()}
         
         spectrogramMenuItem.representedObject = VisualizationType.spectrogram
         supernovaMenuItem.representedObject = VisualizationType.supernova
@@ -58,55 +55,42 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
         
         allViews = [spectrogram, supernova, discoBall]
         
-        messenger.subscribe(to: .visualizer_showOptions, handler: showOptions)
-        messenger.subscribe(to: .visualizer_hideOptions, handler: hideOptions)
+        messenger.subscribe(to: .visualizer_showOptions, handler: optionsBox.show)
+        messenger.subscribe(to: .visualizer_hideOptions, handler: optionsBox.hide)
     }
     
     func destroy() {
         
         close()
+        visualizer.destroy()
         messenger.unsubscribeFromAll()
     }
     
     override func showWindow(_ sender: Any?) {
         
         super.showWindow(sender)
-        
-        normalDeviceBufferSize = audioGraph.outputDeviceBufferSize
-        audioGraph.outputDeviceBufferSize = audioGraph.visualizationAnalysisBufferSize
-        
-        fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate), bufferSize: audioGraph.outputDeviceBufferSize)
      
         containerBox.startTracking()
+        
         initUI(type: uiState.type, lowAmplitudeColor: uiState.options.lowAmplitudeColor,
                highAmplitudeColor: uiState.options.highAmplitudeColor)
         
-        audioGraph.registerRenderObserver(self)
+        visualizer.startAnalysis()
         
         window?.orderFront(self)
     }
     
     private func initUI(type: VisualizationType, lowAmplitudeColor: NSColor, highAmplitudeColor: NSColor) {
         
-        changeType(type)
-        vizView.setColors(startColor: lowAmplitudeColor, endColor: highAmplitudeColor)
-        
-        for item in typeMenu.items {
-            
-            if let representedType = item.representedObject as? VisualizationType, representedType == type {
-                typeMenuButton.select(item)
-            }
-        }
-        
         startColorPicker.color = lowAmplitudeColor
         endColorPicker.color = highAmplitudeColor
         
-        [spectrogram, supernova, discoBall].forEach {
-            
-            if $0 !== (vizView as! NSView) {
-                ($0 as? VisualizerViewProtocol)?.setColors(startColor: lowAmplitudeColor, endColor: highAmplitudeColor)
-            }
+        if let vizTypeItem = typeMenu.items.first(where: {type == ($0.representedObject as? VisualizationType)}) {
+            typeMenuButton.select(vizTypeItem)
         }
+        
+        changeType(type)
+        updateViewColors()
     }
     
     @IBAction func changeTypeAction(_ sender: NSPopUpButton) {
@@ -116,76 +100,60 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
         }
     }
     
-    func changeType(_ type: VisualizationType) {
+    private func changeType(_ type: VisualizationType) {
         
-        vizView?.dismissView()
-        vizView = nil
+        currentView?.dismissView()
+        currentView = nil
         
         uiState.type = type
         
         switch type {
 
-        case .spectrogram:      spectrogram.presentView(with: fft)
-                                vizView = spectrogram
+        case .spectrogram:      spectrogram.presentView(with: visualizer.fft)
+                                currentView = spectrogram
                                 tabView.selectTabViewItem(at: 0)
 
-        case .supernova:        supernova.presentView(with: fft)
-                                vizView = supernova
+        case .supernova:        supernova.presentView(with: visualizer.fft)
+                                currentView = supernova
                                 tabView.selectTabViewItem(at: 1)
 
-        case .discoBall:        discoBall.presentView(with: fft)
-                                vizView = discoBall
+        case .discoBall:        discoBall.presentView(with: visualizer.fft)
+                                currentView = discoBall
                                 tabView.selectTabViewItem(at: 2)
         }
     }
     
-    func rendered(timeStamp: AudioTimeStamp, frameCount: UInt32, audioBuffer: AudioBufferList) {
+    // Render callback function (updates the current view with the latest FFT data).
+    private func updateCurrentView() {
         
-        if let theVizView = vizView {
-            
-            fft.analyze(audioBuffer)
-            
-            DispatchQueue.main.async {
-                theVizView.update(with: self.fft)
-            }
-        }
-    }
-    
-    func deviceChanged(newDeviceBufferSize: Int, newDeviceSampleRate: Double) {
+        guard let theCurrentView = currentView else {return}
         
-        if newDeviceBufferSize != audioGraph.visualizationAnalysisBufferSize {
-            audioGraph.outputDeviceBufferSize = audioGraph.visualizationAnalysisBufferSize
+        DispatchQueue.main.async {
+            theCurrentView.update(with: self.visualizer.fft)
         }
-    }
-    
-    // TODO
-    func deviceSampleRateChanged(newSampleRate: Double) {
-//        NSLog("**** Device SR changed: \(newSampleRate)")
-    }
-    
-    private func showOptions() {
-        self.optionsBox.show()
-    }
-    
-    private func hideOptions() {
-        self.optionsBox.hide()
     }
     
     @IBAction func setColorsAction(_ sender: NSColorWell) {
         
-        vizView.setColors(startColor: startColorPicker.color, endColor: endColorPicker.color)
-        
-        [spectrogram, supernova, discoBall].forEach {
-            
-            if $0 !== (vizView as! NSView) {
-                
-                ($0 as? VisualizerViewProtocol)?.setColors(startColor: startColorPicker.color,
-                                                           endColor: endColorPicker.color)
-            }
-        }
+        updateViewColors()
         
         uiState.options.setColors(lowAmplitudeColor: startColorPicker.color,
                                   highAmplitudeColor: endColorPicker.color)
+    }
+    
+    private func updateViewColors() {
+        
+        currentView.setColors(startColor: startColorPicker.color, endColor: endColorPicker.color)
+        
+        DispatchQueue.main.async {
+            
+            // Do this for all views not equal to the current view.
+            self.allViews.filter {$0.type != self.currentView?.type}.forEach {
+                
+                $0.setColors(startColor: self.startColorPicker.color,
+                             endColor: self.endColorPicker.color)
+            }
+        }
     }
     
     @IBAction func closeWindowAction(_ sender: Any) {
@@ -196,12 +164,8 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
         
         super.close()
         
-        vizView = nil
-        
-        audioGraph.removeRenderObserver(self)
-        audioGraph.outputDeviceBufferSize = normalDeviceBufferSize
-        
-        fft.deallocate()
+        currentView = nil
+        visualizer.stopAnalysis()
 
         containerBox.stopTracking()
         optionsBox.hide()

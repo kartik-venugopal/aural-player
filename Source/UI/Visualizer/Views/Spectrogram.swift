@@ -25,6 +25,8 @@ class Spectrogram: SKView, VisualizerViewProtocol {
     let spacing_10Band: CGFloat = 10
     let spacing_31Band: CGFloat = 2
     
+    private let updateSemaphore: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
+    
     var numberOfBands: Int = 10 {
         
         didSet {
@@ -90,8 +92,6 @@ class Spectrogram: SKView, VisualizerViewProtocol {
     func setColors(startColor: NSColor, endColor: NSColor) {
         SpectrogramBar.setColors(startColor: startColor, endColor: endColor)
     }
-    
-    private let updateSemaphore: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     
     func update(with fft: FFT) {
         
