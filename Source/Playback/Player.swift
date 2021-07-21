@@ -271,7 +271,7 @@ class Player: PlayerProtocol {
         return PlaybackSession.currentLoop
     }
     
-    var playingTrackStartTime: TimeInterval? {return PlaybackSession.currentSession?.timestamp}
+    var playingTrackStartTime: TimeInterval? {PlaybackSession.currentSession?.timestamp}
     
     // MARK: Message handling
 

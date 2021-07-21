@@ -24,11 +24,11 @@ class FilterBand {
     
     var params: AVAudioUnitEQFilterParameters!
     
-    init(_ type: FilterBandType) {
+    init(type: FilterBandType) {
         self.type = type
     }
     
-    init(_ type: FilterBandType, _ minFreq: Float?, _ maxFreq: Float?) {
+    init(type: FilterBandType, minFreq: Float?, maxFreq: Float?) {
         
         self.type = type
         self.minFreq = minFreq
@@ -47,7 +47,7 @@ class FilterBand {
         
         case .bandPass, .bandStop:
             
-            guard self.minFreq != nil && self.maxFreq != nil else {return nil}
+            if self.minFreq == nil || self.maxFreq == nil {return nil}
             
         case .lowPass:
             
@@ -60,32 +60,41 @@ class FilterBand {
     }
     
     func withMinFreq(_ freq: Float) -> FilterBand {
+        
         self.minFreq = freq
         return self
     }
     
     func withMaxFreq(_ freq: Float) -> FilterBand {
+        
         self.maxFreq = freq
         return self
     }
     
+    func withFrequencyRange(_ range: ClosedRange<Float>) -> FilterBand {
+        
+        self.minFreq = range.lowerBound
+        self.maxFreq = range.upperBound
+        return self
+    }
+    
     func clone() -> FilterBand {
-        return FilterBand(self.type, self.minFreq, self.maxFreq)
+        return FilterBand(type: self.type, minFreq: self.minFreq, maxFreq: self.maxFreq)
     }
     
-    static func bandPassBand(_ minFreq: Float, _ maxFreq: Float) -> FilterBand {
-        return FilterBand(.bandPass, minFreq, maxFreq)
+    static func bandPassBand(minFreq: Float, maxFreq: Float) -> FilterBand {
+        return FilterBand(type: .bandPass, minFreq: minFreq, maxFreq: maxFreq)
     }
     
-    static func bandStopBand(_ minFreq: Float, _ maxFreq: Float) -> FilterBand {
-        return FilterBand(.bandStop, minFreq, maxFreq)
+    static func bandStopBand(minFreq: Float, maxFreq: Float) -> FilterBand {
+        return FilterBand(type: .bandStop, minFreq: minFreq, maxFreq: maxFreq)
     }
     
-    static func lowPassBand(_ maxFreq: Float) -> FilterBand {
-        return FilterBand(.lowPass, nil, maxFreq)
+    static func lowPassBand(maxFreq: Float) -> FilterBand {
+        return FilterBand(type: .lowPass, minFreq: nil, maxFreq: maxFreq)
     }
     
-    static func highPassBand(_ minFreq: Float) -> FilterBand {
-        return FilterBand(.highPass, minFreq, nil)
+    static func highPassBand(minFreq: Float) -> FilterBand {
+        return FilterBand(type: .highPass, minFreq: minFreq, maxFreq: nil)
     }
 }

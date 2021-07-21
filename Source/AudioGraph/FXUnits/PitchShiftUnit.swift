@@ -22,10 +22,10 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     init(persistentState: PitchShiftUnitPersistentState?) {
         
         presets = PitchShiftPresets(persistentState: persistentState)
-        super.init(unitType: .pitch, unitState: persistentState?.state ?? AudioGraphDefaults.pitchState)
+        super.init(unitType: .pitch, unitState: persistentState?.state ?? AudioGraphDefaults.pitchShiftState)
         
-        node.pitch = persistentState?.pitch ?? AudioGraphDefaults.pitch
-        node.overlap = persistentState?.overlap ?? AudioGraphDefaults.pitchOverlap
+        node.pitch = persistentState?.pitch ?? AudioGraphDefaults.pitchShift
+        node.overlap = persistentState?.overlap ?? AudioGraphDefaults.pitchShiftOverlap
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -49,7 +49,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     }
     
     override func savePreset(named presetName: String) {
-        presets.addPreset(PitchShiftPreset(presetName, .active, pitch, overlap, false))
+        presets.addPreset(PitchShiftPreset(name: presetName, state: .active, pitch: pitch, overlap: overlap, systemDefined: false))
     }
 
     override func applyPreset(named presetName: String) {
@@ -66,7 +66,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     }
     
     var settingsAsPreset: PitchShiftPreset {
-        PitchShiftPreset("pitchSettings", state, pitch, overlap, false)
+        PitchShiftPreset(name: "pitchSettings", state: state, pitch: pitch, overlap: overlap, systemDefined: false)
     }
     
     var persistentState: PitchShiftUnitPersistentState {

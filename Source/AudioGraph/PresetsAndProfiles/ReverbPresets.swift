@@ -29,11 +29,11 @@ class ReverbPreset: EffectsUnitPreset {
     let space: ReverbSpaces
     let amount: Float
     
-    init(_ name: String, _ state: EffectsUnitState, _ space: ReverbSpaces, _ amount: Float, _ systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, space: ReverbSpaces, amount: Float, systemDefined: Bool) {
         
         self.space = space
         self.amount = amount
-        super.init(name, state, systemDefined)
+        super.init(name: name, state: state, systemDefined: systemDefined)
     }
     
     init?(persistentState: ReverbPresetPersistentState) {
@@ -45,6 +45,6 @@ class ReverbPreset: EffectsUnitPreset {
         self.space = space
         self.amount = amount
         
-        super.init(name, unitState, false)
+        super.init(name: name, state: unitState, systemDefined: false)
     }
 }

@@ -22,10 +22,10 @@ class EQUnitDelegate: EffectsUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     
     let preferences: SoundPreferences
     
-    init(_ unit: EQUnit, _ preferences: SoundPreferences) {
+    init(for unit: EQUnit, preferences: SoundPreferences) {
         
         self.preferences = preferences
-        super.init(unit)
+        super.init(for: unit)
     }
     
     var type: EQType {

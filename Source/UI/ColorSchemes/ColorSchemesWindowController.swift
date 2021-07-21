@@ -47,7 +47,7 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
     // Stores a single color copied by the user for later use.
     private var clipboard: ColorClipboard = ColorClipboard()
     
-    override var windowNibName: NSNib.Name? {return "ColorSchemes"}
+    override var windowNibName: NSNib.Name? {"ColorSchemes"}
     
     var isModal: Bool {
         return self.window?.isVisible ?? false

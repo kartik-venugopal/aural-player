@@ -35,7 +35,7 @@ class TimeStretchPreset: EffectsUnitPreset {
     let shiftPitch: Bool
     let shiftedPitch: Float
     
-    init(_ name: String, _ state: EffectsUnitState, _ rate: Float, _ overlap: Float, _ shiftPitch: Bool, _ systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, rate: Float, overlap: Float, shiftPitch: Bool, systemDefined: Bool) {
         
         self.rate = rate
         self.overlap = overlap
@@ -43,7 +43,7 @@ class TimeStretchPreset: EffectsUnitPreset {
         
         self.shiftedPitch = (shiftPitch ? 1200 * log2(rate) : 0) * ValueConversions.pitch_audioGraphToUI
         
-        super.init(name, state, systemDefined)
+        super.init(name: name, state: state, systemDefined: systemDefined)
     }
     
     init?(persistentState: TimeStretchPresetPersistentState) {
@@ -52,12 +52,12 @@ class TimeStretchPreset: EffectsUnitPreset {
               let rate = persistentState.rate else {return nil}
         
         self.rate = rate
-        self.overlap = persistentState.overlap ?? AudioGraphDefaults.timeOverlap
-        self.shiftPitch = persistentState.shiftPitch ?? AudioGraphDefaults.timeShiftPitch
+        self.overlap = persistentState.overlap ?? AudioGraphDefaults.timeStretchOverlap
+        self.shiftPitch = persistentState.shiftPitch ?? AudioGraphDefaults.timeStretchShiftPitch
         
         self.shiftedPitch = (shiftPitch ? 1200 * log2(rate) : 0) * ValueConversions.pitch_audioGraphToUI
         
-        super.init(name, unitState, false)
+        super.init(name: name, state: unitState, systemDefined: false)
     }
 }
 
@@ -116,6 +116,6 @@ fileprivate enum SystemDefinedTimeStretchPresetParams: String, CaseIterable {
     }
     
     var preset: TimeStretchPreset {
-        TimeStretchPreset(rawValue, .active, rate, 8, true, true)
+        TimeStretchPreset(name: rawValue, state: .active, rate: rate, overlap: 8, shiftPitch: true, systemDefined: true)
     }
 }

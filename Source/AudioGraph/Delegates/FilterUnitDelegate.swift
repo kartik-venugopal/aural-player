@@ -20,7 +20,7 @@ import AVFoundation
 ///
 class FilterUnitDelegate: EffectsUnitDelegate<FilterUnit>, FilterUnitDelegateProtocol {
 
-    var presets: FilterPresets {return unit.presets}
+    var presets: FilterPresets {unit.presets}
     
     var bands: [FilterBand] {
         

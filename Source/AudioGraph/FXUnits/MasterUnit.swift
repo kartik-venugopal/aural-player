@@ -95,7 +95,10 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         filterPreset.name = "Filter settings for Master preset: '\(presetName)'"
         
         // Save the new preset
-        let masterPreset = MasterPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
+        let masterPreset = MasterPreset(name: presetName, eq: eqPreset, pitch: pitchPreset,
+                                        time: timePreset, reverb: reverbPreset, delay: delayPreset,
+                                        filter: filterPreset, systemDefined: false)
+        
         presets.addPreset(masterPreset)
     }
     
@@ -108,7 +111,9 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         let delayPreset = delayUnit.settingsAsPreset
         let filterPreset = filterUnit.settingsAsPreset
         
-        return MasterPreset("masterSettings", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
+        return MasterPreset(name: "masterSettings", eq: eqPreset, pitch: pitchPreset,
+                            time: timePreset, reverb: reverbPreset, delay: delayPreset,
+                            filter: filterPreset, systemDefined: false)
     }
     
     override func applyPreset(named presetName: String) {

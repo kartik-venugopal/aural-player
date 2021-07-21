@@ -12,12 +12,12 @@ import Cocoa
 // Cell for all preferences popup menus
 class PreferencesPopupMenuCell: PopupMenuCell {
     
-    override var cellInsetY: CGFloat {return 5}
-    override var rectRadius: CGFloat {return 2}
-    override var arrowXMargin: CGFloat {return 10}
-    override var arrowYMargin: CGFloat {return 6}
-    override var arrowHeight: CGFloat {return 4}
-    override var arrowColor: NSColor {return .lightPopupMenuArrowColor}
+    override var cellInsetY: CGFloat {5}
+    override var rectRadius: CGFloat {2}
+    override var arrowXMargin: CGFloat {10}
+    override var arrowYMargin: CGFloat {6}
+    override var arrowHeight: CGFloat {4}
+    override var arrowColor: NSColor {.lightPopupMenuArrowColor}
     
-    override var menuGradient: NSGradient {return .popupMenuGradient}
+    override var menuGradient: NSGradient {.popupMenuGradient}
 }

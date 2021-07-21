@@ -24,11 +24,12 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     
     let minPitch: Float = -2400
     let maxPitch: Float = 2400
+    private lazy var pitchRange: ClosedRange<Float> = minPitch...maxPitch
     
-    init(_ unit: PitchShiftUnit, _ preferences: SoundPreferences) {
+    init(for unit: PitchShiftUnit, preferences: SoundPreferences) {
         
         self.preferences = preferences
-        super.init(unit)
+        super.init(for: unit)
     }
     
     var pitch: Float {
@@ -56,13 +57,13 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     func increasePitch() -> (pitch: Float, pitchString: String) {
         
         ensureActiveAndResetPitch()
-        return setUnitPitch(min(maxPitch, unit.pitch + Float(preferences.pitchDelta)))
+        return setUnitPitch((unit.pitch + Float(preferences.pitchDelta)).clamp(to: pitchRange))
     }
     
     func decreasePitch() -> (pitch: Float, pitchString: String) {
         
         ensureActiveAndResetPitch()
-        return setUnitPitch(max(minPitch, unit.pitch - Float(preferences.pitchDelta)))
+        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta)).clamp(to: pitchRange))
     }
     
     private func setUnitPitch(_ value: Float) -> (pitch: Float, pitchString: String) {
@@ -77,7 +78,7 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
         if !unit.isActive {
             
             _ = unit.toggleState()
-            unit.pitch = AudioGraphDefaults.pitch
+            unit.pitch = AudioGraphDefaults.pitchShift
         }
     }
 }

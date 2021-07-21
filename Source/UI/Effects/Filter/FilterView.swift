@@ -28,10 +28,6 @@ class FilterView: NSView {
         chart.redraw()
     }
     
-    func bandsAddedOrRemoved() {
-        redrawChart()
-    }
-    
     func addBandView(_ view: NSView) {
         
         let numItems = bandsView.numberOfTabViewItems

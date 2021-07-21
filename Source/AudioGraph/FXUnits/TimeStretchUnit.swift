@@ -24,11 +24,11 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     init(persistentState: TimeStretchUnitPersistentState?) {
         
         presets = TimeStretchPresets(persistentState: persistentState)
-        super.init(unitType: .time, unitState: persistentState?.state ?? AudioGraphDefaults.timeState)
+        super.init(unitType: .time, unitState: persistentState?.state ?? AudioGraphDefaults.timeStretchState)
         
         rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
-        overlap = persistentState?.overlap ?? AudioGraphDefaults.timeOverlap
-        shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeShiftPitch
+        overlap = persistentState?.overlap ?? AudioGraphDefaults.timeStretchOverlap
+        shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeStretchShiftPitch
     }
     
     override var avNodes: [AVAudioNode] {node.avNodes}
@@ -62,7 +62,9 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     }
     
     override func savePreset(named presetName: String) {
-        presets.addPreset(TimeStretchPreset(presetName, .active, node.rate, node.overlap, node.shiftPitch, false))
+        
+        presets.addPreset(TimeStretchPreset(name: presetName, state: .active, rate: node.rate,
+                                            overlap: node.overlap, shiftPitch: node.shiftPitch, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
@@ -80,7 +82,9 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     }
     
     var settingsAsPreset: TimeStretchPreset {
-        TimeStretchPreset("timeSettings", state, rate, overlap, shiftPitch, false)
+        
+        TimeStretchPreset(name: "timeSettings", state: state, rate: rate, overlap: overlap,
+                          shiftPitch: shiftPitch, systemDefined: false)
     }
     
     var persistentState: TimeStretchUnitPersistentState {

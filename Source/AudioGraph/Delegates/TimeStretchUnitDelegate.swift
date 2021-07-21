@@ -24,6 +24,13 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
     
     let minRate: Float = 1.0/4
     let maxRate: Float = 4
+    private lazy var rateRange: ClosedRange<Float> = minRate...maxRate
+    
+    init(for unit: TimeStretchUnit, preferences: SoundPreferences) {
+        
+        self.preferences = preferences
+        super.init(for: unit)
+    }
     
     var rate: Float {
         
@@ -34,10 +41,12 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
     }
     
     var effectiveRate: Float {
-        return isActive ? rate : 1.0
+        isActive ? rate : 1.0
     }
     
-    var formattedRate: String {return ValueFormatter.formatTimeStretchRate(rate)}
+    var formattedRate: String {
+        ValueFormatter.formatTimeStretchRate(rate)
+    }
     
     var overlap: Float {
         
@@ -45,7 +54,9 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
         set {unit.overlap = newValue}
     }
     
-    var formattedOverlap: String {return ValueFormatter.formatOverlap(overlap)}
+    var formattedOverlap: String {
+        ValueFormatter.formatOverlap(overlap)
+    }
     
     var shiftPitch: Bool {
         
@@ -53,24 +64,20 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
         set {unit.shiftPitch = newValue}
     }
     
-    var pitch: Float {return unit.pitch}
+    var pitch: Float {unit.pitch}
     
-    var formattedPitch: String {return ValueFormatter.formatPitch(pitch * ValueConversions.pitch_audioGraphToUI)}
-    
-    var presets: TimeStretchPresets {return unit.presets}
-    
-    init(_ unit: TimeStretchUnit, _ preferences: SoundPreferences) {
-        
-        self.preferences = preferences
-        super.init(unit)
+    var formattedPitch: String {
+        ValueFormatter.formatPitch(pitch * ValueConversions.pitch_audioGraphToUI)
     }
+    
+    var presets: TimeStretchPresets {unit.presets}
     
     func increaseRate() -> (rate: Float, rateString: String) {
         
         ensureActiveAndResetRate()
         
         // Rate is increased by an amount set in the user preferences
-        rate = min(maxRate, rate + preferences.timeDelta)
+        rate = (rate + preferences.timeDelta).clamp(to: rateRange)
         
         return (rate, formattedRate)
     }
@@ -80,14 +87,14 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
         ensureActiveAndResetRate()
         
         // Rate is decreased by an amount set in the user preferences
-        rate = max(minRate, rate - preferences.timeDelta)
+        rate = (rate - preferences.timeDelta).clamp(to: rateRange)
         
         return (rate, formattedRate)
     }
     
     private func ensureActiveAndResetRate() {
         
-        if state != .active {
+        if !unit.isActive {
             
             _ = toggleState()
             

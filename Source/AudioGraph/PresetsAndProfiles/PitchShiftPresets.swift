@@ -33,11 +33,11 @@ class PitchShiftPreset: EffectsUnitPreset {
     let pitch: Float
     let overlap: Float
     
-    init(_ name: String, _ state: EffectsUnitState, _ pitch: Float, _ overlap: Float, _ systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, pitch: Float, overlap: Float, systemDefined: Bool) {
         
         self.pitch = pitch
         self.overlap = overlap
-        super.init(name, state, systemDefined)
+        super.init(name: name, state: state, systemDefined: systemDefined)
     }
     
     init?(persistentState: PitchShiftPresetPersistentState) {
@@ -46,9 +46,9 @@ class PitchShiftPreset: EffectsUnitPreset {
               let pitch = persistentState.pitch else {return nil}
         
         self.pitch = pitch
-        self.overlap = persistentState.overlap ?? AudioGraphDefaults.pitchOverlap
+        self.overlap = persistentState.overlap ?? AudioGraphDefaults.pitchShiftOverlap
         
-        super.init(name, unitState, false)
+        super.init(name: name, state: unitState, systemDefined: false)
     }
 }
 
@@ -99,6 +99,6 @@ fileprivate enum SystemDefinedPitchShiftPresetParams: String, CaseIterable {
     }
     
     var preset: PitchShiftPreset {
-        PitchShiftPreset(rawValue, .active, pitch, 8, true)
+        PitchShiftPreset(name: rawValue, state: .active, pitch: pitch, overlap: 8, systemDefined: true)
     }
 }

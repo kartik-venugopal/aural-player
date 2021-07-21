@@ -69,14 +69,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         self.player = player
         self.preferences = preferences
         
-        masterUnit = MasterUnitDelegate(graph.masterUnit)
-        eqUnit = EQUnitDelegate(graph.eqUnit, preferences)
-        pitchShiftUnit = PitchShiftUnitDelegate(graph.pitchShiftUnit, preferences)
-        timeStretchUnit = TimeStretchUnitDelegate(graph.timeStretchUnit, preferences)
-        reverbUnit = ReverbUnitDelegate(graph.reverbUnit)
-        delayUnit = DelayUnitDelegate(graph.delayUnit)
-        filterUnit = FilterUnitDelegate(graph.filterUnit)
-        audioUnits = graph.audioUnits.map {HostedAudioUnitDelegate($0)}
+        masterUnit = MasterUnitDelegate(for: graph.masterUnit)
+        eqUnit = EQUnitDelegate(for: graph.eqUnit, preferences: preferences)
+        pitchShiftUnit = PitchShiftUnitDelegate(for: graph.pitchShiftUnit, preferences: preferences)
+        timeStretchUnit = TimeStretchUnitDelegate(for: graph.timeStretchUnit, preferences: preferences)
+        reverbUnit = ReverbUnitDelegate(for: graph.reverbUnit)
+        delayUnit = DelayUnitDelegate(for: graph.delayUnit)
+        filterUnit = FilterUnitDelegate(for: graph.filterUnit)
+        audioUnits = graph.audioUnits.map {HostedAudioUnitDelegate(for: $0)}
         
         // Set output device based on user preference
         
@@ -193,7 +193,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         let audioUnit = result.0
         let index = result.1
         
-        self.audioUnits.append(HostedAudioUnitDelegate(audioUnit))
+        self.audioUnits.append(HostedAudioUnitDelegate(for: audioUnit))
         return (audioUnit: self.audioUnits.last!, index: index)
     }
     

@@ -14,35 +14,25 @@ import AVFoundation
 ///
 class AudioUnitsManager {
     
-    private let componentManager: AVAudioUnitComponentManager = AVAudioUnitComponentManager.shared()
+    private let componentManager: AVAudioUnitComponentManager = .shared()
     
-    private var components: [AVAudioUnitComponent] = []
+    let audioUnits: [AVAudioUnitComponent]
     
-    private let componentsBlackList: Set<String> = ["AUNewPitch", "AURoundTripAAC", "AUNetSend"]
-    private let acceptedComponentTypes: Set<OSType> = [kAudioUnitType_Effect,
-                                                       kAudioUnitType_MusicEffect, kAudioUnitType_Panner]
+    private static let componentsBlackList: Set<String> = ["AUNewPitch", "AURoundTripAAC", "AUNetSend"]
+    private static let acceptedComponentTypes: Set<OSType> = [kAudioUnitType_Effect, kAudioUnitType_MusicEffect, kAudioUnitType_Panner]
     
     init() {
-        refreshComponentsList()
-    }
-    
-    var audioUnits: [AVAudioUnitComponent] {components}
-    
-    func audioUnit(ofType type: OSType, andSubType subType: OSType) -> AVAudioUnitComponent? {
         
-        components.first(where: {$0.audioComponentDescription.componentType == type &&
-                            $0.audioComponentDescription.componentSubType == subType})
-    }
-    
-    // TODO: Should this be refreshed every time the components list is requested ???
-    func refreshComponentsList() {
-        
-        self.components = componentManager.components {component, _ in
+        self.audioUnits = componentManager.components {component, _ in
             
-            return self.acceptedComponentTypes.contains(component.audioComponentDescription.componentType) &&
+            Self.acceptedComponentTypes.contains(component.componentType) &&
                 component.hasCustomView &&
-                !self.componentsBlackList.contains(component.name)
+                !Self.componentsBlackList.contains(component.name)
             
         }.sorted(by: {$0.name < $1.name})
+    }
+    
+    func audioUnit(ofType type: OSType, andSubType subType: OSType) -> AVAudioUnitComponent? {
+        audioUnits.first(where: {$0.componentType == type && $0.componentSubType == subType})
     }
 }

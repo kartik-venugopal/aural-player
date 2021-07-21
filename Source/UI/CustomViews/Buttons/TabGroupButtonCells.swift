@@ -16,19 +16,19 @@ class TabGroupButtonCell: NSButtonCell {
     var shouldHighlight: Bool = false
     var highlightColor: NSColor = .tabViewButtonTextColor
     
-    var fillBeforeBorder: Bool {return true}
-    var borderInsetX: CGFloat {return 1}
-    var borderInsetY: CGFloat {return 1}
-    var borderRadius: CGFloat {return 1}
-    var borderLineWidth: CGFloat {return 2}
-    var selectionBoxColor: NSColor {return .tabViewSelectionBoxColor}
+    var fillBeforeBorder: Bool {true}
+    var borderInsetX: CGFloat {1}
+    var borderInsetY: CGFloat {1}
+    var borderRadius: CGFloat {1}
+    var borderLineWidth: CGFloat {2}
+    var selectionBoxColor: NSColor {.tabViewSelectionBoxColor}
     
-    var unselectedTextColor: NSColor {return .tabViewButtonTextColor}
-    var selectedTextColor: NSColor {return .defaultSelectedLightTextColor}
+    var unselectedTextColor: NSColor {.tabViewButtonTextColor}
+    var selectedTextColor: NSColor {.defaultSelectedLightTextColor}
     var textFont: NSFont {.tabViewButtonFont}
     var boldTextFont: NSFont {.tabViewButtonBoldFont}
     
-    var yOffset: CGFloat {return 0}
+    var yOffset: CGFloat {0}
     
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         drawInterior(withFrame: cellFrame, in: controlView)
@@ -55,9 +55,9 @@ class TabGroupButtonCell: NSButtonCell {
 
 class ModalDialogTabButtonCell: TabGroupButtonCell {
     
-    override var fillBeforeBorder: Bool {return false}
-    override var borderRadius: CGFloat {return 4}
-    override var borderLineWidth: CGFloat {return 1.5}
+    override var fillBeforeBorder: Bool {false}
+    override var borderRadius: CGFloat {4}
+    override var borderLineWidth: CGFloat {1.5}
     override var selectionBoxColor: NSColor {.black}
 }
 
@@ -68,5 +68,5 @@ class ContrastedModalDialogTabButtonCell: TabGroupButtonCell {
 }
 
 class EQPreviewTabButtonCell: TabGroupButtonCell {
-    override var selectionBoxColor: NSColor {return .white15Percent}
+    override var selectionBoxColor: NSColor {.white15Percent}
 }

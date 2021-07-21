@@ -35,14 +35,14 @@ class DelayPreset: EffectsUnitPreset {
     let feedback: Float
     let lowPassCutoff: Float
     
-    init(_ name: String, _ state: EffectsUnitState, _ amount: Float, _ time: Double, _ feedback: Float, _ cutoff: Float, _ systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, amount: Float, time: Double, feedback: Float, cutoff: Float, systemDefined: Bool) {
         
         self.amount = amount
         self.time = time
         self.feedback = feedback
         self.lowPassCutoff = cutoff
         
-        super.init(name, state, systemDefined)
+        super.init(name: name, state: state, systemDefined: systemDefined)
     }
     
     init?(persistentState: DelayPresetPersistentState) {
@@ -58,7 +58,7 @@ class DelayPreset: EffectsUnitPreset {
         self.feedback = feedback
         self.lowPassCutoff = lowPassCutoff
         
-        super.init(name, unitState, false)
+        super.init(name: name, state: unitState, systemDefined: false)
     }
 }
 
@@ -108,6 +108,6 @@ fileprivate enum SystemDefinedDelayPresetParams: String, CaseIterable {
     }
     
     var preset: DelayPreset {
-        DelayPreset(rawValue, .active, amount, time, feedback, 15000, true)
+        DelayPreset(name: rawValue, state: .active, amount: amount, time: time, feedback: feedback, cutoff: 15000, systemDefined: true)
     }
 }

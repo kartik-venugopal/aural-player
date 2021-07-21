@@ -25,7 +25,7 @@ class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
     
     var unit: T
     
-    init(_ unit: T) {
+    init(for unit: T) {
         self.unit = unit
     }
     

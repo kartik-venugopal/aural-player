@@ -59,7 +59,9 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     }
     
     override func savePreset(named presetName: String) {
-        presets.addPreset(ReverbPreset(presetName, .active, space, amount, false))
+        
+        presets.addPreset(ReverbPreset(name: presetName, state: .active,
+                                       space: space, amount: amount, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
@@ -76,7 +78,7 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     }
     
     var settingsAsPreset: ReverbPreset {
-        ReverbPreset("reverbSettings", state, space, amount, false)
+        ReverbPreset(name: "reverbSettings", state: state, space: space, amount: amount, systemDefined: false)
     }
     
     var persistentState: ReverbUnitPersistentState {

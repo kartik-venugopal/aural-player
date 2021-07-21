@@ -91,7 +91,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         theWindow.isMovableByWindowBackground = true
         
-        btnClose.tintFunction = {return Colors.functionButtonColor}
+        btnClose.tintFunction = {Colors.functionButtonColor}
         
         setUpTabGroup()
         

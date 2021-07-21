@@ -42,8 +42,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     
     override func viewDidLoad() {
         
-        audioUnitsMenuIconItem.tintFunction = {return Colors.functionButtonColor}
-        btnRemove.tintFunction = {return Colors.functionButtonColor}
+        audioUnitsMenuIconItem.tintFunction = {Colors.functionButtonColor}
+        btnRemove.tintFunction = {Colors.functionButtonColor}
         
         applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(colorSchemesManager.systemScheme)

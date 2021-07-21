@@ -11,17 +11,17 @@ import Cocoa
 
 class EffectsUnitPopupMenuCell: NicerPopupMenuCell {
     
-    override var cellInsetY: CGFloat {return 1}
-    override var rectRadius: CGFloat {return 2}
-    override var arrowXMargin: CGFloat {return 10}
-    override var arrowYMargin: CGFloat {return 7}
-    override var arrowColor: NSColor {return Colors.buttonMenuTextColor}
+    override var cellInsetY: CGFloat {1}
+    override var rectRadius: CGFloat {2}
+    override var arrowXMargin: CGFloat {10}
+    override var arrowYMargin: CGFloat {7}
+    override var arrowColor: NSColor {Colors.buttonMenuTextColor}
     
-    override var arrowWidth: CGFloat {return 3}
-    override var arrowHeight: CGFloat {return 4}
-    override var arrowLineWidth: CGFloat {return 1}
+    override var arrowWidth: CGFloat {3}
+    override var arrowHeight: CGFloat {4}
+    override var arrowLineWidth: CGFloat {1}
     
-    override var menuGradient: NSGradient {return Colors.textButtonMenuGradient}
+    override var menuGradient: NSGradient {Colors.textButtonMenuGradient}
     
     override var titleFont: NSFont {Fonts.Effects.unitFunctionFont}
     override var titleColor: NSColor {Colors.buttonMenuTextColor}

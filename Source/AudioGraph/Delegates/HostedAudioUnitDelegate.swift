@@ -42,10 +42,10 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     
     var viewController: AUViewController?
     
-    override init(_ unit: HostedAudioUnit) {
+    override init(for unit: HostedAudioUnit) {
         
         self.id = UUID().uuidString
-        super.init(unit)
+        super.init(for: unit)
     }
     
     func applyFactoryPreset(named presetName: String) {

@@ -33,11 +33,12 @@ class EQPreset: EffectsUnitPreset {
     let bands: [Float]
     let globalGain: Float
     
-    init(_ name: String, _ state: EffectsUnitState, _ bands: [Float], _ globalGain: Float, _ systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, bands: [Float],
+         globalGain: Float, systemDefined: Bool) {
         
         self.bands = bands
         self.globalGain = globalGain
-        super.init(name, state, systemDefined)
+        super.init(name: name, state: state, systemDefined: systemDefined)
     }
     
     init?(persistentState: EQPresetPersistentState) {
@@ -48,7 +49,7 @@ class EQPreset: EffectsUnitPreset {
         self.bands = bands
         self.globalGain = persistentState.globalGain ?? AudioGraphDefaults.eqGlobalGain
         
-        super.init(name, unitState, false)
+        super.init(name: name, state: unitState, systemDefined: false)
     }
 }
 
@@ -107,7 +108,7 @@ fileprivate enum SystemDefinedEQPresetParams: String, CaseIterable {
     }
     
     var preset: EQPreset {
-        EQPreset(rawValue, .active, bands, 0, true)
+        EQPreset(name: rawValue, state: .active, bands: bands, globalGain: 0, systemDefined: true)
     }
 }
 

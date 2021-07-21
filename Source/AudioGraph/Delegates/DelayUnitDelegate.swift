@@ -20,7 +20,7 @@ import Foundation
 ///
 class DelayUnitDelegate: EffectsUnitDelegate<DelayUnit>, DelayUnitDelegateProtocol {
     
-    var presets: DelayPresets {return unit.presets}
+    var presets: DelayPresets {unit.presets}
     
     var amount: Float {
         
@@ -28,7 +28,7 @@ class DelayUnitDelegate: EffectsUnitDelegate<DelayUnit>, DelayUnitDelegateProtoc
         set {unit.amount = newValue}
     }
     
-    var formattedAmount: String {return ValueFormatter.formatDelayAmount(amount)}
+    var formattedAmount: String {ValueFormatter.formatDelayAmount(amount)}
     
     var time: Double {
         
@@ -36,7 +36,7 @@ class DelayUnitDelegate: EffectsUnitDelegate<DelayUnit>, DelayUnitDelegateProtoc
         set {unit.time = newValue}
     }
     
-    var formattedTime: String {return ValueFormatter.formatDelayTime(time)}
+    var formattedTime: String {ValueFormatter.formatDelayTime(time)}
     
     var feedback: Float {
         
@@ -44,7 +44,7 @@ class DelayUnitDelegate: EffectsUnitDelegate<DelayUnit>, DelayUnitDelegateProtoc
         set {unit.feedback = newValue}
     }
     
-    var formattedFeedback: String {return ValueFormatter.formatDelayFeedback(feedback)}
+    var formattedFeedback: String {ValueFormatter.formatDelayFeedback(feedback)}
     
     var lowPassCutoff: Float {
         
@@ -52,6 +52,6 @@ class DelayUnitDelegate: EffectsUnitDelegate<DelayUnit>, DelayUnitDelegateProtoc
         set {unit.lowPassCutoff = newValue}
     }
     
-    var formattedLowPassCutoff: String {return ValueFormatter.formatDelayLowPassCutoff(lowPassCutoff)}
+    var formattedLowPassCutoff: String {ValueFormatter.formatDelayLowPassCutoff(lowPassCutoff)}
 }
 

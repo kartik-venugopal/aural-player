@@ -192,7 +192,7 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
     
     let _barBackgroundColor: NSColor = NSColor(white: 0.2, alpha: 1.0)
     
-    var barBackgroundColor: NSColor {return _barBackgroundColor}
+    var barBackgroundColor: NSColor {_barBackgroundColor}
     
     private lazy var sliderGradient: NSGradient = {
         let backgroundStart = NSColor(white: 0.92, alpha: 1.0)
@@ -204,7 +204,7 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
     }()
     
     // TODO: Change this to a computed color
-    var knobColor: NSColor {return .white50Percent}
+    var knobColor: NSColor {.white50Percent}
     
     var barFillColor: NSColor {
         

@@ -3836,10 +3836,10 @@
 			children = (
 				3E6C112125CEB98700BF0D07 /* AudioGraphDelegateProtocol.swift */,
 				3E6C112425CEB98700BF0D07 /* AudioGraphDelegate.swift */,
-				3E3633F1268628B1006A88ED /* MasterUnitDelegateProtocol.swift */,
-				3E6C112725CEB98700BF0D07 /* MasterUnitDelegate.swift */,
 				3E3633F3268628D6006A88ED /* EffectsUnitDelegateProtocol.swift */,
 				3E3633C12685FA9F006A88ED /* EffectsUnitDelegate.swift */,
+				3E3633F1268628B1006A88ED /* MasterUnitDelegateProtocol.swift */,
+				3E6C112725CEB98700BF0D07 /* MasterUnitDelegate.swift */,
 				3E3633E3268626D0006A88ED /* EQUnitDelegateProtocol.swift */,
 				3E6C112525CEB98700BF0D07 /* EQUnitDelegate.swift */,
 				3E3633E5268627D4006A88ED /* PitchShiftUnitDelegateProtocol.swift */,

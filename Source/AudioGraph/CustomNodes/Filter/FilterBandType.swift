@@ -51,7 +51,7 @@ enum FilterBandType: String, CaseIterable, Codable {
         }
     }
     
-    // Constructs a ReverPresets object from a description string
+    // Constructs a FilterBAndType object from a description string.
     static func fromDescription(_ description: String) -> FilterBandType {
         return FilterBandType(rawValue: description.camelCased()) ?? .bandStop
     }

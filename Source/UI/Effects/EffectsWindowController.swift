@@ -69,7 +69,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
         theWindow.isMovableByWindowBackground = true
 
-        btnClose.tintFunction = {return Colors.functionButtonColor}
+        btnClose.tintFunction = {Colors.functionButtonColor}
         
         applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = uiState.cornerRadius

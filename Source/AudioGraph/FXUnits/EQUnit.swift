@@ -95,7 +95,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     }
     
     override func savePreset(named presetName: String) {
-        presets.addPreset(EQPreset(presetName, .active, bands, globalGain, false))
+        presets.addPreset(EQPreset(name: presetName, state: .active, bands: bands, globalGain: globalGain, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
@@ -112,7 +112,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     }
     
     var settingsAsPreset: EQPreset {
-        EQPreset("eqSettings", state, bands, globalGain, false)
+        EQPreset(name: "eqSettings", state: state, bands: bands, globalGain: globalGain, systemDefined: false)
     }
     
     var persistentState: EQUnitPersistentState {

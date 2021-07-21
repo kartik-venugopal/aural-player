@@ -37,7 +37,7 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textFont: NSFont {.checkRadioButtonFont}
     
-    var textColor: NSColor {return isOff ? .boxTextColor : .defaultSelectedLightTextColor}
+    var textColor: NSColor {isOff ? .boxTextColor : .defaultSelectedLightTextColor}
     
     var xOffset: CGFloat {0}
     var yOffset: CGFloat {0}
@@ -67,5 +67,5 @@ class EffectsFunctionCheckRadioButtonCell: CheckRadioButtonCell {
 
 class ColorSchemesDialogCheckBoxCell: CheckRadioButtonCell {
     
-    override var textFont: NSFont {return standardFontSet.mainFont(size: 12)}
+    override var textFont: NSFont {standardFontSet.mainFont(size: 12)}
 }

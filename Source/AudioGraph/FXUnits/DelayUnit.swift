@@ -69,7 +69,9 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     }
     
     override func savePreset(named presetName: String) {
-        presets.addPreset(DelayPreset(presetName, .active, amount, time, feedback, lowPassCutoff, false))
+        
+        presets.addPreset(DelayPreset(name: presetName, state: .active, amount: amount,
+                                      time: time, feedback: feedback, cutoff: lowPassCutoff, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
@@ -88,7 +90,9 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     }
     
     var settingsAsPreset: DelayPreset {
-        DelayPreset("delaySettings", state, amount, time, feedback, lowPassCutoff, false)
+        
+        DelayPreset(name: "delaySettings", state: state, amount: amount, time: time,
+                    feedback: feedback, cutoff: lowPassCutoff, systemDefined: false)
     }
     
     var persistentState: DelayUnitPersistentState {

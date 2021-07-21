@@ -9,6 +9,17 @@
 //
 import AVFoundation
 
+extension AVAudioUnitComponent {
+    
+    var componentType: OSType {
+        audioComponentDescription.componentType
+    }
+    
+    var componentSubType: OSType {
+        audioComponentDescription.componentSubType
+    }
+}
+
 extension AVAudioMixerNode {
     
     convenience init(muted: Bool) {

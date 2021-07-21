@@ -14,8 +14,8 @@ import Cocoa
  */
 class AlbumsPlaylistViewController: GroupingPlaylistViewController {
     
-    override var groupType: GroupType {return .album}
-    override var playlistType: PlaylistType {return .albums}
+    override var groupType: GroupType {.album}
+    override var playlistType: PlaylistType {.albums}
     
     override var nibName: String? {"Albums"}
 }

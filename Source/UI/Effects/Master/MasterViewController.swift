@@ -20,13 +20,13 @@ class MasterViewController: EffectsUnitViewController {
     private let soundPreferences: SoundPreferences = objectGraph.preferences.soundPreferences
     private let playbackPreferences: PlaybackPreferences = objectGraph.preferences.playbackPreferences
     
-    private var masterUnit: MasterUnitDelegateProtocol {return graph.masterUnit}
-    private var eqUnit: EQUnitDelegateProtocol {return graph.eqUnit}
-    private var pitchShiftUnit: PitchShiftUnitDelegateProtocol {return graph.pitchShiftUnit}
-    private var timeStretchUnit: TimeStretchUnitDelegateProtocol {return graph.timeStretchUnit}
-    private var reverbUnit: ReverbUnitDelegateProtocol {return graph.reverbUnit}
-    private var delayUnit: DelayUnitDelegateProtocol {return graph.delayUnit}
-    private var filterUnit: FilterUnitDelegateProtocol {return graph.filterUnit}
+    private var masterUnit: MasterUnitDelegateProtocol {graph.masterUnit}
+    private var eqUnit: EQUnitDelegateProtocol {graph.eqUnit}
+    private var pitchShiftUnit: PitchShiftUnitDelegateProtocol {graph.pitchShiftUnit}
+    private var timeStretchUnit: TimeStretchUnitDelegateProtocol {graph.timeStretchUnit}
+    private var reverbUnit: ReverbUnitDelegateProtocol {graph.reverbUnit}
+    private var delayUnit: DelayUnitDelegateProtocol {graph.delayUnit}
+    private var filterUnit: FilterUnitDelegateProtocol {graph.filterUnit}
     
     private let soundProfiles: SoundProfiles = objectGraph.audioGraphDelegate.soundProfiles
     
@@ -61,7 +61,8 @@ class MasterViewController: EffectsUnitViewController {
             return .bypassed
         }
         
-        masterView.initialize(graph.eqUnit.stateFunction, graph.pitchShiftUnit.stateFunction, graph.timeStretchUnit.stateFunction, graph.reverbUnit.stateFunction, graph.delayUnit.stateFunction, graph.filterUnit.stateFunction, auStateFunction)
+        masterView.initialize(eqUnit.stateFunction, pitchShiftUnit.stateFunction, timeStretchUnit.stateFunction,
+                              reverbUnit.stateFunction, delayUnit.stateFunction, filterUnit.stateFunction, auStateFunction)
     }
     
     override func initSubscriptions() {
@@ -106,6 +107,7 @@ class MasterViewController: EffectsUnitViewController {
     }
     
     private func updateButtons() {
+        
         btnBypass.updateState()
         masterView.stateChanged()
     }

@@ -21,16 +21,16 @@ import Foundation
 ///
 func measureExecutionTime(_ task: () -> Void) -> Double {
     
-    let startTime = now()
+    let startTime = nowCFTime()
     task()
-    return (now() - startTime) * 1000
+    return (nowCFTime() - startTime) * 1000
 }
 
 func measureTimeTry(_ task: () throws -> Void) throws -> Double {
     
-    let startTime = now()
+    let startTime = nowCFTime()
     try task()
-    return (now() - startTime) * 1000
+    return (nowCFTime() - startTime) * 1000
 }
 
-func now() -> Double {CFAbsoluteTimeGetCurrent()}
+func nowCFTime() -> Double {CFAbsoluteTimeGetCurrent()}

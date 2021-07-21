@@ -27,14 +27,14 @@ struct AudioGraphDefaults {
     static let eqBands: [Float] = Array(repeating: Float(0), count: 10)
     static let eqBandGain: Float = 0
     
-    static let pitchState: EffectsUnitState = .bypassed
-    static let pitch: Float = 0
-    static let pitchOverlap: Float = 8
+    static let pitchShiftState: EffectsUnitState = .bypassed
+    static let pitchShift: Float = 0
+    static let pitchShiftOverlap: Float = 8
     
-    static let timeState: EffectsUnitState = .bypassed
+    static let timeStretchState: EffectsUnitState = .bypassed
     static let timeStretchRate: Float = 1
-    static let timeShiftPitch: Bool = false
-    static let timeOverlap: Float = 8
+    static let timeStretchShiftPitch: Bool = false
+    static let timeStretchOverlap: Float = 8
     
     static let reverbState: EffectsUnitState = .bypassed
     static let reverbSpace: ReverbSpaces = .mediumHall

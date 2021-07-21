@@ -32,10 +32,10 @@ class VariableRateNode {
         timePitchNode = AVAudioUnitTimePitch()
         varispeedNode = AVAudioUnitVarispeed()
         
-        bypass = AudioGraphDefaults.timeState != .active
+        bypass = AudioGraphDefaults.timeStretchState != .active
         rate = AudioGraphDefaults.timeStretchRate
-        shiftPitch = AudioGraphDefaults.timeShiftPitch
-        overlap = AudioGraphDefaults.timeOverlap
+        shiftPitch = AudioGraphDefaults.timeStretchShiftPitch
+        overlap = AudioGraphDefaults.timeStretchOverlap
     }
     
     var bypass: Bool {
@@ -43,10 +43,13 @@ class VariableRateNode {
         didSet {
             
             if self.bypass {
-                [timePitchNode, varispeedNode].forEach({$0.bypass = true})
+                
+                [timePitchNode, varispeedNode].forEach {$0.bypass = true}
+                
             } else {
-                timePitchNode.bypass = self.shiftPitch
-                varispeedNode.bypass = !self.shiftPitch
+                
+                timePitchNode.bypass = shiftPitch
+                varispeedNode.bypass = !shiftPitch
             }
         }
     }
@@ -55,8 +58,8 @@ class VariableRateNode {
         
         didSet {
             
-            timePitchNode.rate = self.rate
-            varispeedNode.rate = self.rate
+            timePitchNode.rate = rate
+            varispeedNode.rate = rate
         }
     }
     
@@ -66,17 +69,17 @@ class VariableRateNode {
             
             if !self.bypass {
                 
-                timePitchNode.bypass = self.shiftPitch
-                varispeedNode.bypass = !self.shiftPitch
+                timePitchNode.bypass = shiftPitch
+                varispeedNode.bypass = !shiftPitch
             }
         }
     }
     
     var pitch: Float {
-        return self.shiftPitch ? Self.octavesToCents * log2(self.rate) : 0
+        shiftPitch ? Self.octavesToCents * log2(rate) : 0
     }
     
     var overlap: Float {
-        didSet {timePitchNode.overlap = self.overlap}
+        didSet {timePitchNode.overlap = overlap}
     }
 }

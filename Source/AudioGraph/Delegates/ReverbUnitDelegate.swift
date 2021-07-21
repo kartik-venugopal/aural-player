@@ -20,7 +20,7 @@ import Foundation
 ///
 class ReverbUnitDelegate: EffectsUnitDelegate<ReverbUnit>, ReverbUnitDelegateProtocol {
     
-    var presets: ReverbPresets {return unit.presets}
+    var presets: ReverbPresets {unit.presets}
     
     var space: ReverbSpaces {
         
@@ -35,6 +35,6 @@ class ReverbUnitDelegate: EffectsUnitDelegate<ReverbUnit>, ReverbUnitDelegatePro
     }
     
     var formattedAmount: String {
-        return ValueFormatter.formatReverbAmount(amount)
+        ValueFormatter.formatReverbAmount(amount)
     }
 }

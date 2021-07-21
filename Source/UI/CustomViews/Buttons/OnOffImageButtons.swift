@@ -44,7 +44,7 @@ class OnOffImageButton: NSButton, Tintable {
     @IBInspectable var onStateTooltip: String?
     
     // Tint to be applied when the button is in an "Off" state.
-    var offStateTintFunction: () -> NSColor = {return Colors.toggleButtonOffStateColor} {
+    var offStateTintFunction: () -> NSColor = {Colors.toggleButtonOffStateColor} {
         
         didSet {
             
@@ -55,7 +55,7 @@ class OnOffImageButton: NSButton, Tintable {
     }
     
     // Tint to be applied when the button is in an "On" state.
-    var onStateTintFunction: () -> NSColor = {return Colors.functionButtonColor} {
+    var onStateTintFunction: () -> NSColor = {Colors.functionButtonColor} {
         
         didSet {
             
@@ -114,8 +114,8 @@ class EffectsUnitTriStateBypassPreviewButton: EffectsUnitTriStateBypassButton {
     
     override func awakeFromNib() {
         
-        offStateTintFunction = {return Colors.Effects.defaultBypassedUnitColor}
-        onStateTintFunction = {return Colors.Effects.defaultActiveUnitColor}
-        mixedStateTintFunction = {return Colors.Effects.defaultSuppressedUnitColor}
+        offStateTintFunction = {Colors.Effects.defaultBypassedUnitColor}
+        onStateTintFunction = {Colors.Effects.defaultActiveUnitColor}
+        mixedStateTintFunction = {Colors.Effects.defaultSuppressedUnitColor}
     }
 }

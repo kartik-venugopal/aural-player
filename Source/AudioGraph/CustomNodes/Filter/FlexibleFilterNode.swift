@@ -61,22 +61,20 @@ class FlexibleFilterNode: AVAudioUnitEQ {
             updatedBand.minFreq = newBand.minFreq
             updatedBand.maxFreq = newBand.maxFreq
             
-            setBandParameters(updatedBand)
+            setBandParameters(for: updatedBand)
         }
     }
     
     func addBand(_ band: FilterBand) -> Int {
         
         // Should never happen, but for safety
-        if inactiveBands.isEmpty {
-            return -1
-        }
+        guard inactiveBands.isNonEmpty else {return -1}
         
         band.params = inactiveBands.removeLast()
+        band.params.bypass = false
+        setBandParameters(for: band)
         
         bandInfos.append(band)
-        activateBand(band)
-        
         return bandInfos.lastIndex
     }
     
@@ -84,20 +82,14 @@ class FlexibleFilterNode: AVAudioUnitEQ {
         bands.forEach {_ = addBand($0)}
     }
     
-    private func activateBand(_ info: FilterBand) {
+    private func setBandParameters(for band: FilterBand) {
         
-        setBandParameters(info)
-        info.params.bypass = false
-    }
-    
-    private func setBandParameters(_ info: FilterBand) {
+        guard let params = band.params else {return}
         
-        let minFreq = info.minFreq
-        let maxFreq = info.maxFreq
+        let minFreq = band.minFreq
+        let maxFreq = band.maxFreq
         
-        let params = info.params!
-        
-        switch info.type {
+        switch band.type {
         
         case .bandPass, .bandStop:
             
@@ -126,18 +118,18 @@ class FlexibleFilterNode: AVAudioUnitEQ {
             }
         }
         
-        params.filterType = info.type.toAVFilterType()
+        params.filterType = band.type.toAVFilterType()
         
         if params.filterType == .parametric {
-            params.gain = FlexibleFilterNode.bandStopGain
+            params.gain = Self.bandStopGain
         }
     }
     
-    func removeBands(_ indexSet: IndexSet) {
+    func removeBands(atIndices indexSet: IndexSet) {
     
         // Descending order
         let sortedIndexes = indexSet.sorted(by: Int.descendingIntComparator)
-        sortedIndexes.forEach {removeBand($0)}
+        sortedIndexes.forEach {removeBand(at: $0)}
     }
     
     private func removeAllBands() {
@@ -146,15 +138,15 @@ class FlexibleFilterNode: AVAudioUnitEQ {
         bandInfos.removeAll()
     }
     
-    private func removeBand(_ index: Int) {
+    private func removeBand(at index: Int) {
         
         removeBand(bandInfos[index])
         bandInfos.remove(at: index)
     }
     
-    private func removeBand(_ info: FilterBand) {
+    private func removeBand(_ band: FilterBand) {
         
-        guard let params = info.params else {return}
+        guard let params = band.params else {return}
         
         params.bypass = true
         inactiveBands.append(params)

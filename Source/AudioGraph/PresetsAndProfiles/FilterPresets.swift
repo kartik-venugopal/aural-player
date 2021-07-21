@@ -32,10 +32,10 @@ class FilterPreset: EffectsUnitPreset {
     
     let bands: [FilterBand]
     
-    init(_ name: String, _ state: EffectsUnitState, _ bands: [FilterBand], _ systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, bands: [FilterBand], systemDefined: Bool) {
         
         self.bands = bands
-        super.init(name, state, systemDefined)
+        super.init(name: name, state: state, systemDefined: systemDefined)
     }
     
     init?(persistentState: FilterPresetPersistentState) {
@@ -44,7 +44,7 @@ class FilterPreset: EffectsUnitPreset {
               let bands = persistentState.bands else {return nil}
         
         self.bands = bands.compactMap {FilterBand(persistentState: $0)}
-        super.init(name, unitState, false)
+        super.init(name: name, state: unitState, systemDefined: false)
     }
 }
 
@@ -80,7 +80,7 @@ fileprivate enum SystemDefinedFilterPresetParams: String, CaseIterable {
     }
     
     var preset: FilterPreset {
-        FilterPreset(rawValue, .active, bands, true)
+        FilterPreset(name: rawValue, state: .active, bands: bands, systemDefined: true)
     }
     
     // Converts a user-friendly display name to an instance of FilterPresets
@@ -95,9 +95,9 @@ fileprivate enum SystemDefinedFilterPresetParams: String, CaseIterable {
 fileprivate struct FilterPresetsBands {
     
     static let passThrough: [FilterBand] = []
-    static let nothingButBass: [FilterBand] = [FilterBand.bandPassBand(SoundConstants.bass_min, SoundConstants.bass_max)]
-    static let emphasizedVocals: [FilterBand] = [FilterBand.bandPassBand(SoundConstants.mid_min, SoundConstants.mid_max)]
-    static let noBass: [FilterBand] = [FilterBand.bandStopBand(SoundConstants.bass_min, SoundConstants.bass_max)]
-    static let noSubBass: [FilterBand] = [FilterBand.bandStopBand(SoundConstants.subBass_min, SoundConstants.subBass_max)]
-    static let karaoke: [FilterBand] = [FilterBand.bandStopBand(SoundConstants.mid_min, SoundConstants.mid_max)]
+    static let nothingButBass: [FilterBand] = [FilterBand.lowPassBand(maxFreq: SoundConstants.bass_max)]
+    static let emphasizedVocals: [FilterBand] = [FilterBand.bandPassBand(minFreq: SoundConstants.mid_min, maxFreq: SoundConstants.mid_max)]
+    static let noBass: [FilterBand] = [FilterBand.highPassBand(minFreq: SoundConstants.bass_min)]
+    static let noSubBass: [FilterBand] = [FilterBand.highPassBand(minFreq: SoundConstants.subBass_max)]
+    static let karaoke: [FilterBand] = [FilterBand.bandStopBand(minFreq: SoundConstants.mid_min, maxFreq: SoundConstants.mid_max)]
 }

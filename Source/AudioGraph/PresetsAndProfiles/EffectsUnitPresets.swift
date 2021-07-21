@@ -57,7 +57,7 @@ class EffectsUnitPreset: MappedPreset {
     let systemDefined: Bool
     var state: EffectsUnitState
     
-    init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, systemDefined: Bool) {
         
         self.name = name
         self.state = state

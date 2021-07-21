@@ -16,19 +16,19 @@ import Cocoa
 // Base class for all popup menu cells
 class PopupMenuCell: NSPopUpButtonCell {
     
-    var cellInsetX: CGFloat {return 0}
-    var cellInsetY: CGFloat {return 0}
-    var rectRadius: CGFloat {return 1}
+    var cellInsetX: CGFloat {0}
+    var cellInsetY: CGFloat {0}
+    var rectRadius: CGFloat {1}
     var menuGradient: NSGradient {.sliderBarGradient}
     
     var titleFont: NSFont {.popupMenuFont}
-    var titleColor: NSColor {return Colors.Effects.defaultPopupMenuTextColor}
+    var titleColor: NSColor {Colors.Effects.defaultPopupMenuTextColor}
     
-    var arrowXMargin: CGFloat {return 5}
-    var arrowYMargin: CGFloat {return 5}
-    var arrowWidth: CGFloat {return 3}
-    var arrowHeight: CGFloat {return 3}
-    var arrowLineWidth: CGFloat {return 2}
+    var arrowXMargin: CGFloat {5}
+    var arrowYMargin: CGFloat {5}
+    var arrowWidth: CGFloat {3}
+    var arrowHeight: CGFloat {3}
+    var arrowLineWidth: CGFloat {2}
     var arrowColor: NSColor {.popupMenuArrowColor}
     
     var textOffsetX: CGFloat {0}
@@ -56,20 +56,20 @@ class PopupMenuCell: NSPopUpButtonCell {
 // Cell for reverb preset popup menu
 class NicerPopupMenuCell: PopupMenuCell {
     
-    override var cellInsetY: CGFloat {return 4}
-    override var rectRadius: CGFloat {return 2}
-    override var arrowXMargin: CGFloat {return 10}
-    override var arrowYMargin: CGFloat {return 4}
-    override var arrowHeight: CGFloat {return 4}
+    override var cellInsetY: CGFloat {4}
+    override var rectRadius: CGFloat {2}
+    override var arrowXMargin: CGFloat {10}
+    override var arrowYMargin: CGFloat {4}
+    override var arrowHeight: CGFloat {4}
 }
 
 class FontsPopupMenuCell: PopupMenuCell {
     
-    override var cellInsetY: CGFloat {return 2}
-    override var rectRadius: CGFloat {return 2}
-    override var arrowXMargin: CGFloat {return 10}
-    override var arrowYMargin: CGFloat {return 6}
-    override var arrowHeight: CGFloat {return 6}
+    override var cellInsetY: CGFloat {2}
+    override var rectRadius: CGFloat {2}
+    override var arrowXMargin: CGFloat {10}
+    override var arrowYMargin: CGFloat {6}
+    override var arrowHeight: CGFloat {6}
     override var arrowColor: NSColor {.lightPopupMenuArrowColor}
     
     override var menuGradient: NSGradient {.popupMenuGradient}
@@ -79,9 +79,9 @@ class FontsPopupMenuCell: PopupMenuCell {
 
 class EffectsPreviewPopupMenuCell: NicerPopupMenuCell {
     
-    override var menuGradient: NSGradient {return Colors.Effects.defaultPopupMenuGradient}
+    override var menuGradient: NSGradient {Colors.Effects.defaultPopupMenuGradient}
     
-    override var titleColor: NSColor {return Colors.Effects.defaultPopupMenuTextColor}
+    override var titleColor: NSColor {Colors.Effects.defaultPopupMenuTextColor}
     
-    override var arrowColor: NSColor {return titleColor}
+    override var arrowColor: NSColor {titleColor}
 }

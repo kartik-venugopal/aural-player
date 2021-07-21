@@ -42,10 +42,10 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     // Intended to be overriden by subclasses
     
     // Indicates the type of each parent group in this playlist view
-    var groupType: GroupType {return .artist}
+    var groupType: GroupType {.artist}
     
     // Indicates the type of playlist this view displays
-    var playlistType: PlaylistType {return .artists}
+    var playlistType: PlaylistType {.artists}
     
     private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
     

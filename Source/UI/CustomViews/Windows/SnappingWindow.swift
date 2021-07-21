@@ -454,7 +454,7 @@ class SnappingWindow: NoTitleBarWindow {
 
 class SnappingNonKeyWindow: SnappingWindow {
     
-    override var canBecomeKey: Bool {return false}
+    override var canBecomeKey: Bool {false}
 }
 
 enum SnapToWindowType {

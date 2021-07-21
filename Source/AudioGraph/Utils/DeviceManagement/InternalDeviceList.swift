@@ -40,7 +40,7 @@ class InternalDeviceList {
         rebuildList()
         
         // Devices list change listener
-        systemAudioObject.registerDevicesPropertyListener({self.rebuildList()}, queue: .global(qos: .utility))
+        systemAudioObject.registerDevicesPropertyListener({[weak self] in self?.rebuildList()}, queue: .global(qos: .utility))
     }
     
     private func rebuildList() {
@@ -51,7 +51,7 @@ class InternalDeviceList {
             // now and that timestamp is less than a threshold, return without doing anything.
             // This is necessary to prevent repeated (redundant) rebuilding of the list in response
             // to duplicate notifications.
-            let now = CFAbsoluteTimeGetCurrent()
+            let now = nowCFTime()
             if (now - self.lastRebuildTime) < Self.minRebuildTimeSeparation {return}
             
             let deviceIds: [AudioDeviceID] = systemAudioObject.devices

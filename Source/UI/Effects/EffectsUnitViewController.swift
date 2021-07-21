@@ -54,8 +54,8 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     func oneTimeSetup() {
         
         btnBypass.stateFunction = self.unitStateFunction
-        btnSavePreset.tintFunction = {return Colors.functionButtonColor}
-        presetsMenuIconItem.tintFunction = {return Colors.functionButtonColor}
+        btnSavePreset.tintFunction = {Colors.functionButtonColor}
+        presetsMenuIconItem.tintFunction = {Colors.functionButtonColor}
         
         initSubscriptions()
         

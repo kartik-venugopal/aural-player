@@ -23,7 +23,7 @@ class EffectsUnitTriStateBypassButton: OnOffImageButton {
     var mixedStateTooltip: String?
     
     // Tint to be applied when the button is in a "mixed" state (eg. when an effects unit is suppressed).
-    var mixedStateTintFunction: () -> NSColor = {return Colors.Effects.suppressedUnitStateColor} {
+    var mixedStateTintFunction: () -> NSColor = {Colors.Effects.suppressedUnitStateColor} {
         
         didSet {
             
@@ -38,8 +38,8 @@ class EffectsUnitTriStateBypassButton: OnOffImageButton {
         self.image = Images.imgSwitch
         
         // Override the tint functions from OnOffImageButton
-        offStateTintFunction = {return Colors.Effects.bypassedUnitStateColor}
-        onStateTintFunction = {return Colors.Effects.activeUnitStateColor}
+        offStateTintFunction = {Colors.Effects.bypassedUnitStateColor}
+        onStateTintFunction = {Colors.Effects.activeUnitStateColor}
         
         offStateTooltip = offStateTooltip ?? "Activate this effects unit"
         onStateTooltip = onStateTooltip ?? "Deactivate this effects unit"

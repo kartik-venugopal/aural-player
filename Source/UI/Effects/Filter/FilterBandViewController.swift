@@ -38,7 +38,7 @@ class FilterBandViewController: NSViewController {
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
-    var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(SoundConstants.audibleRangeMin).withMaxFreq(SoundConstants.subBass_max)
+    var band: FilterBand = .bandStopBand(minFreq: SoundConstants.subBass_min, maxFreq: SoundConstants.subBass_max)
     var bandIndex: Int!
     
     var bandChangedCallback: (() -> Void) = {() -> Void in
@@ -62,8 +62,8 @@ class FilterBandViewController: NSViewController {
         
         functionLabels = findFunctionLabels(self.view)
         
-        presetRangesIconMenuItem.tintFunction = {return Colors.functionButtonColor}
-        presetCutoffsIconMenuItem.tintFunction = {return Colors.functionButtonColor}
+        presetRangesIconMenuItem.tintFunction = {Colors.functionButtonColor}
+        presetCutoffsIconMenuItem.tintFunction = {Colors.functionButtonColor}
     }
     
     private func resetFields() {

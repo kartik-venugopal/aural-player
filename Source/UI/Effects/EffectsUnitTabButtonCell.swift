@@ -12,7 +12,7 @@ import Cocoa
 @IBDesignable
 class EffectsUnitTabButtonCell: NSButtonCell {
     
-    private var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
+    private var selectionBoxColor: NSColor {Colors.selectedTabButtonColor}
     
     var unitState: EffectsUnitState = .bypassed
 

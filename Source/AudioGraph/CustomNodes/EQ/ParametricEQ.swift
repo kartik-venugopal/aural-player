@@ -119,26 +119,22 @@ class ParametricEQ {
     // MARK: Static utility functions ----------------------------------
     
     static func map10BandsTo15Bands(_ srcBands: [Float]) -> [Float] {
-        
-        [srcBands[0], srcBands[0], srcBands[1], srcBands[2], srcBands[2], srcBands[3], srcBands[4],
-         srcBands[4], srcBands[5], srcBands[6], srcBands[6], srcBands[7], srcBands[8], srcBands[8], srcBands[9]]
+        [0, 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 8, 8, 9].map {srcBands[$0]}
     }
     
     static func map15BandsTo10Bands(_ srcBands: [Float]) -> [Float] {
         
-        var mappedBands: [Float] = []
-        
-        mappedBands.append((srcBands[0] + srcBands[1]) / 2)
-        mappedBands.append(srcBands[2])
-        mappedBands.append((srcBands[3] + srcBands[4]) / 2)
-        mappedBands.append(srcBands[5])
-        mappedBands.append((srcBands[6] + srcBands[7]) / 2)
-        mappedBands.append(srcBands[8])
-        mappedBands.append((srcBands[9] + srcBands[10]) / 2)
-        mappedBands.append(srcBands[11])
-        mappedBands.append((srcBands[12] + srcBands[13]) / 2)
-        mappedBands.append(srcBands[14])
-
-        return mappedBands
+        [
+            (srcBands[0] + srcBands[1]) / 2,
+            srcBands[2],
+            (srcBands[3] + srcBands[4]) / 2,
+            srcBands[5],
+            (srcBands[6] + srcBands[7]) / 2,
+            srcBands[8],
+            (srcBands[9] + srcBands[10]) / 2,
+            srcBands[11],
+            (srcBands[12] + srcBands[13]) / 2,
+            srcBands[14]
+        ]
     }
 }

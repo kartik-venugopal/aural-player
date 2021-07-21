@@ -36,13 +36,13 @@ class AudioUnitPreset: EffectsUnitPreset {
     
     var number: Int
     
-    init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool, componentType: OSType, componentSubType: OSType, number: Int) {
+    init(name: String, state: EffectsUnitState, systemDefined: Bool, componentType: OSType, componentSubType: OSType, number: Int) {
         
         self.componentType = componentType
         self.componentSubType = componentSubType
         self.number = number
         
-        super.init(name, state, systemDefined)
+        super.init(name: name, state: state, systemDefined: systemDefined)
     }
     
     init?(persistentState: AudioUnitPresetPersistentState) {
@@ -56,7 +56,7 @@ class AudioUnitPreset: EffectsUnitPreset {
         self.componentSubType = componentSubType
         self.number = number
         
-        super.init(name, unitState, false)
+        super.init(name: name, state: unitState, systemDefined: false)
     }
 }
 

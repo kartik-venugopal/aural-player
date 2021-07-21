@@ -25,7 +25,7 @@ class TintedImageButton: NSButton, Tintable {
     }
  
     // A function that produces a color used to tint the base image.
-    var tintFunction: () -> NSColor = {return Colors.functionButtonColor} {
+    var tintFunction: () -> NSColor = {Colors.functionButtonColor} {
         
         // Re-tint the image whenever the function is updated.
         didSet {

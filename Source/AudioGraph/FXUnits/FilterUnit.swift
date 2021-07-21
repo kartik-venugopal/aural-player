@@ -52,14 +52,14 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     }
     
     func removeBands(atIndices indexSet: IndexSet) {
-        node.removeBands(indexSet)
+        node.removeBands(atIndices: indexSet)
     }
     
     override func savePreset(named presetName: String) {
         
         // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
         let presetBands: [FilterBand] = bands.map {$0.clone()}
-        presets.addPreset(FilterPreset(presetName, .active, presetBands, false))
+        presets.addPreset(FilterPreset(name: presetName, state: .active, bands: presetBands, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
@@ -76,7 +76,7 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     }
     
     var settingsAsPreset: FilterPreset {
-        FilterPreset("filterSettings", state, bands, false)
+        FilterPreset(name: "filterSettings", state: state, bands: bands, systemDefined: false)
     }
     
     var persistentState: FilterUnitPersistentState {

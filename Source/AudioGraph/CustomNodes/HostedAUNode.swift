@@ -20,10 +20,10 @@ class HostedAUNode: AVAudioUnitEffect {
     
     private var avComponent: AVAudioUnitComponent!
     
-    var componentType: OSType {auAudioUnit.componentDescription.componentType}
-    var componentSubType: OSType {auAudioUnit.componentDescription.componentSubType}
+    var componentType: OSType {avComponent.componentType}
+    var componentSubType: OSType {avComponent.componentSubType}
     
-    var componentName: String {auAudioUnit.audioUnitName!}
+    var componentName: String {avComponent.name}
     var componentVersion: String {avComponent.versionString}
     var componentManufacturerName: String {avComponent.manufacturerName}
     
@@ -51,17 +51,20 @@ class HostedAUNode: AVAudioUnitEffect {
         }
     }
     
+    private let bypassPropertyKey: String = "shouldBypassEffect"
+    
     convenience init(forComponent component: AVAudioUnitComponent) {
         
         self.init(audioComponentDescription: component.audioComponentDescription)
         self.avComponent = component
 
-        auAudioUnit.addObserver(self, forKeyPath: "shouldBypassEffect", options: .init(), context: nil)
+        auAudioUnit.addObserver(self, forKeyPath: bypassPropertyKey, options: .init(), context: nil)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        if keyPath == "shouldBypassEffect" {
+        if keyPath == bypassPropertyKey {
             bypassStateObservers.forEach {$0.nodeBypassStateChanged(auAudioUnit.shouldBypassEffect)}
         }
     }
@@ -72,31 +75,33 @@ class HostedAUNode: AVAudioUnitEffect {
     
     func savePreset(named presetName: String) -> AUAudioUnitPreset? {
         
-        if #available(OSX 10.15, *), auAudioUnit.supportsUserPresets {
+        guard #available(OSX 10.15, *), auAudioUnit.supportsUserPresets else {
             
-            let preset = AUAudioUnitPreset()
-            preset.name = presetName
-            preset.number = -1 * (auAudioUnit.userPresets.count + 1)
-            
-            do {
-                
-                try auAudioUnit.saveUserPreset(preset)
-                return preset
-                
-            } catch {
-                NSLog("Failed to save user preset '\(presetName)'. Error: \(error)")
-            }
-            
-        } else {
             NSLog("User presets not supported for audio unit: \(name)")
+            return nil
         }
         
-        return nil
+        let preset = AUAudioUnitPreset()
+        preset.name = presetName
+        preset.number = -1 * (auAudioUnit.userPresets.count + 1)
+        
+        do {
+            
+            try auAudioUnit.saveUserPreset(preset)
+            return preset
+            
+        } catch {
+            
+            NSLog("Failed to save user preset '\(presetName)'. Error: \(error)")
+            return nil
+        }
     }
     
-    func applyPreset(_ number: Int) {
+    func applyPreset(number: Int) {
         
-        if #available(OSX 10.15, *), let preset = auAudioUnit.userPresets.first(where: {$0.number == number}) {
+        if #available(OSX 10.15, *),
+           let preset = auAudioUnit.userPresets.first(where: {$0.number == number}) {
+            
             auAudioUnit.currentPreset = preset
         }
     }

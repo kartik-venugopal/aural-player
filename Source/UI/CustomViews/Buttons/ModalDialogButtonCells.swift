@@ -21,14 +21,14 @@ class ModalDialogButtonCell: NSButtonCell {
     
     var backgroundFillGradient: NSGradient {.modalDialogButtonGradient}
     var backgroundFillGradient_disabled: NSGradient {.modalDialogButtonGradient_disabled}
-    var borderRadius: CGFloat {return 2}
+    var borderRadius: CGFloat {2}
     
     var textColor: NSColor {.modalDialogButtonTextColor}
     var textColor_disabled: NSColor {.modalDialogButtonTextColor_disabled}
     
     var textFont: NSFont {.modalDialogButtonFont}
     
-    var yOffset: CGFloat {return 0}
+    var yOffset: CGFloat {0}
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
@@ -59,8 +59,8 @@ class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
 // Cell for all response buttons (Save/Cancel, etc)
 class ModalDialogControlButtonCell: ModalDialogButtonCell {
     
-    override var cellInsetX: CGFloat {return 1}
-    override var cellInsetY: CGFloat {return 0}
+    override var cellInsetX: CGFloat {1}
+    override var cellInsetY: CGFloat {0}
     
     override var textFont: NSFont {.modalDialogControlButtonFont}
 }
@@ -68,19 +68,19 @@ class ModalDialogControlButtonCell: ModalDialogButtonCell {
 // Browse button in Playlist preferences
 class ModalDialogSmallControlButtonCell: ModalDialogButtonCell {
     
-    override var cellInsetX: CGFloat {return 1}
-    override var cellInsetY: CGFloat {return 0}
+    override var cellInsetX: CGFloat {1}
+    override var cellInsetY: CGFloat {0}
     
-    override var textFont: NSFont {return standardFontSet.mainFont(size: 10)}
+    override var textFont: NSFont {standardFontSet.mainFont(size: 10)}
 }
 
 // Cell for search results navigation buttons (next/previous)
 class ColoredNavigationButtonCell: ModalDialogButtonCell {
     
-    override var cellInsetX: CGFloat {return 1}
-    override var cellInsetY: CGFloat {return 1}
+    override var cellInsetX: CGFloat {1}
+    override var cellInsetY: CGFloat {1}
     
-    override var borderRadius: CGFloat {return 3}
+    override var borderRadius: CGFloat {3}
     
     override var textColor: NSColor {.modalDialogNavButtonTextColor}
     override var textFont: NSFont {.modalDialogNavButtonFont}
@@ -88,9 +88,9 @@ class ColoredNavigationButtonCell: ModalDialogButtonCell {
 
 class ColorAwareButtonCell: ModalDialogButtonCell {
     
-    override var textColor: NSColor {return Colors.buttonMenuTextColor}
-    override var textColor_disabled: NSColor {return Colors.buttonMenuTextColor}
+    override var textColor: NSColor {Colors.buttonMenuTextColor}
+    override var textColor_disabled: NSColor {Colors.buttonMenuTextColor}
     
-    override var backgroundFillGradient: NSGradient {return Colors.textButtonMenuGradient}
-    override var backgroundFillGradient_disabled: NSGradient {return Colors.textButtonMenuGradient}
+    override var backgroundFillGradient: NSGradient {Colors.textButtonMenuGradient}
+    override var backgroundFillGradient_disabled: NSGradient {Colors.textButtonMenuGradient}
 }

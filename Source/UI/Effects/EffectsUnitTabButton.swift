@@ -16,7 +16,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     @IBInspectable var mixedStateTooltip: String?
     
-    var mixedStateTintFunction: () -> NSColor = {return Colors.Effects.suppressedUnitStateColor} {
+    var mixedStateTintFunction: () -> NSColor = {Colors.Effects.suppressedUnitStateColor} {
         
         didSet {
             reTint()
@@ -26,8 +26,8 @@ class EffectsUnitTabButton: OnOffImageButton {
     override func awakeFromNib() {
         
         // Override the tint functions from OnOffImageButton
-        offStateTintFunction = {return Colors.Effects.bypassedUnitStateColor}
-        onStateTintFunction = {return Colors.Effects.activeUnitStateColor}
+        offStateTintFunction = {Colors.Effects.bypassedUnitStateColor}
+        onStateTintFunction = {Colors.Effects.activeUnitStateColor}
     }
     
     override func off() {

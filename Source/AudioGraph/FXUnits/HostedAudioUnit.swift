@@ -91,7 +91,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         
         // This will be true if and only if the state change occurred as a result of the user
         // using a bypass switch on an AU's custom view (i.e. not through Aural's UI).
-        if (nodeIsBypassed && self.state == .active) || ((!nodeIsBypassed) && self.state != .active) {
+        if (nodeIsBypassed && state == .active) || ((!nodeIsBypassed) && state != .active) {
             
             shouldUpdateNodeBypassState = false
             self.state = nodeIsBypassed ? .bypassed : .active
@@ -114,7 +114,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         
         if let preset = node.savePreset(named: presetName) {
             
-            presets.addPreset(AudioUnitPreset(presetName, .active, false, componentType: self.componentType,
+            presets.addPreset(AudioUnitPreset(name: presetName, state: .active, systemDefined: false, componentType: self.componentType,
                                               componentSubType: self.componentSubType, number: preset.number))
         }
     }
@@ -127,7 +127,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     }
 
     func applyPreset(_ preset: AudioUnitPreset) {
-        node.applyPreset(preset.number)
+        node.applyPreset(number: preset.number)
     }
     
     func applyFactoryPreset(_ preset: AudioUnitFactoryPreset) {
@@ -150,7 +150,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
 
     var settingsAsPreset: AudioUnitPreset {
         
-        AudioUnitPreset("au-\(name)-Settings", state, false, componentType: self.componentType,
+        AudioUnitPreset(name: "au-\(name)-Settings", state: state, systemDefined: false, componentType: self.componentType,
                         componentSubType: self.componentSubType, number: 0)
     }
     

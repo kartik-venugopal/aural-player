@@ -14,8 +14,8 @@ import Cocoa
  */
 class GenresPlaylistViewController: GroupingPlaylistViewController {
     
-    override var groupType: GroupType {return .genre}
-    override var playlistType: PlaylistType {return .genres}
+    override var groupType: GroupType {.genre}
+    override var playlistType: PlaylistType {.genres}
 
     override var nibName: String? {"Genres"}
 }

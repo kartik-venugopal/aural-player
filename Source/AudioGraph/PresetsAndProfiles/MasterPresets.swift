@@ -34,7 +34,8 @@ class MasterPreset: EffectsUnitPreset {
     let delay: DelayPreset
     let filter: FilterPreset
     
-    init(_ name: String, _ eq: EQPreset, _ pitch: PitchShiftPreset, _ time: TimeStretchPreset, _ reverb: ReverbPreset, _ delay: DelayPreset, _ filter: FilterPreset, _ systemDefined: Bool) {
+    init(name: String, eq: EQPreset, pitch: PitchShiftPreset, time: TimeStretchPreset,
+         reverb: ReverbPreset, delay: DelayPreset, filter: FilterPreset, systemDefined: Bool) {
         
         self.eq = eq
         self.pitch = pitch
@@ -43,7 +44,7 @@ class MasterPreset: EffectsUnitPreset {
         self.delay = delay
         self.filter = filter
         
-        super.init(name, .active, systemDefined)
+        super.init(name: name, state: .active, systemDefined: systemDefined)
     }
     
     init?(persistentState: MasterPresetPersistentState) {
@@ -64,6 +65,6 @@ class MasterPreset: EffectsUnitPreset {
         self.delay = delayPreset
         self.filter = filterPreset
         
-        super.init(name, unitState, false)
+        super.init(name: name, state: unitState, systemDefined: false)
     }
 }
