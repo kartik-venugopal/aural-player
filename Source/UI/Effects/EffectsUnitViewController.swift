@@ -135,8 +135,11 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     // Applies a preset to the effects unit
     @IBAction func presetsAction(_ sender: AnyObject) {
         
-        effectsUnit.applyPreset(presetsMenu.titleOfSelectedItem!)
-        initControls()
+        if let selectedPresetItem = presetsMenu.titleOfSelectedItem {
+            
+            effectsUnit.applyPreset(selectedPresetItem)
+            initControls()
+        }
     }
     
     // Displays a popover to allow the user to name the new custom preset

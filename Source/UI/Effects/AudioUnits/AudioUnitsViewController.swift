@@ -217,7 +217,6 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     }
     
     // MARK: Menu Delegate functions
-    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // Remove all dynamic items (all items after the first icon item).

@@ -20,17 +20,15 @@ class EffectsUnit {
     
     var unitType: EffectsUnitType
     
-    var state: EffectsUnitState {
-        didSet {stateChanged()}
-    }
+    var state: EffectsUnitState
     
     var stateFunction: EffectsUnitStateFunction {
-        return {return self.state}
+        {self.state}
     }
     
     var avNodes: [AVAudioNode] {return []}
     
-    var isActive: Bool {return state == .active}
+    var isActive: Bool {state == .active}
     
     lazy var messenger = Messenger(for: self)
     
@@ -52,13 +50,16 @@ class EffectsUnit {
     func toggleState() -> EffectsUnitState {
         
         state = state == .active ? .bypassed : .active
+        stateChanged()
+        
         return state
     }
     
-    // TODO: There is a feedback loop going from slaveUnit -> masterUnit that results in this function being called
-    // again a 2nd time from its first call. FIX IT !!!
     func ensureActive() {
-        if !isActive {_ = toggleState()}
+        
+        if !isActive {
+            _ = toggleState()
+        }
     }
     
     func suppress() {

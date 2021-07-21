@@ -65,8 +65,11 @@ class FFmpegSampleConverter {
         let sampleRate: Int64 = Int64(audioFormat.sampleRate)
         
         // Allocate the context used to perform the conversion.
-        // TODO: Throw an error from here ???
-        guard let resampleCtx = FFmpegResamplingContext() else {return}
+        guard let resampleCtx = FFmpegResamplingContext() else {
+            
+            NSLog("Unable to create a resampling context. Aborting sample conversion.")
+            return
+        }
         
         // Set the input / output channel layouts as options prior to resampling.
         // NOTE - Our output channel layout will be the same as that of the input, since we don't

@@ -81,8 +81,6 @@ struct FFmpegChannelLayoutsMapper {
         // MARK: The following mappings are not exact, but the closest possible matches.
         // NOTE - Some channels may be dropped entirely.
         
-        // TODO: Create custom AudioChannelLayouts and AVAudioChannelLayouts with exact channel mappings
-        
         // L R C Cs Ls Rs -> L R C Cs
         CH_LAYOUT_6POINT0: kAudioChannelLayoutTag_DVD_8,
         
