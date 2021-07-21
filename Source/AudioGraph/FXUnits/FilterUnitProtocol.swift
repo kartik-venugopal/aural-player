@@ -20,7 +20,5 @@ protocol FilterUnitProtocol: EffectsUnitProtocol {
     
     func addBand(_ band: FilterBand) -> Int
     
-    func removeBands(_ indexSet: IndexSet)
-    
-    func removeAllBands()
+    func removeBands(atIndices indexSet: IndexSet)
 }

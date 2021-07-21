@@ -26,16 +26,17 @@ class EffectsUnit {
         {self.state}
     }
     
-    var avNodes: [AVAudioNode] {return []}
+    // Intended to be overriden by subclasses.
+    var avNodes: [AVAudioNode] {[]}
     
     var isActive: Bool {state == .active}
     
     lazy var messenger = Messenger(for: self)
     
-    init(_ unitType: EffectsUnitType, _ state: EffectsUnitState) {
+    init(unitType: EffectsUnitType, unitState: EffectsUnitState) {
         
         self.unitType = unitType
-        self.state = state
+        self.state = unitState
         stateChanged()
     }
     
@@ -76,9 +77,12 @@ class EffectsUnit {
         }
     }
     
+    // Intended to be overriden by subclasses.
     func reset() {}
     
-    func savePreset(_ presetName: String) {}
+    // Intended to be overriden by subclasses.
+    func savePreset(named presetName: String) {}
     
-    func applyPreset(_ presetName: String) {}
+    // Intended to be overriden by subclasses.
+    func applyPreset(named presetName: String) {}
 }

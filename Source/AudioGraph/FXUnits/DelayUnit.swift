@@ -24,7 +24,7 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     init(persistentState: DelayUnitPersistentState?) {
         
         presets = DelayPresets(persistentState: persistentState)
-        super.init(.delay, persistentState?.state ?? AudioGraphDefaults.delayState)
+        super.init(unitType: .delay, unitState: persistentState?.state ?? AudioGraphDefaults.delayState)
         
         time = persistentState?.time ?? AudioGraphDefaults.delayTime
         amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
@@ -68,11 +68,11 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
         node.bypass = !isActive
     }
     
-    override func savePreset(_ presetName: String) {
+    override func savePreset(named presetName: String) {
         presets.addPreset(DelayPreset(presetName, .active, amount, time, feedback, lowPassCutoff, false))
     }
     
-    override func applyPreset(_ presetName: String) {
+    override func applyPreset(named presetName: String) {
         
         if let preset = presets.preset(named: presetName) {
             applyPreset(preset)

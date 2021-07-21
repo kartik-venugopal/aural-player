@@ -98,14 +98,14 @@ class PlayerAudioViewController: NSViewController, Destroyable {
     // Decreases the volume by a certain preset decrement
     func decreaseVolume(_ inputMode: UserInputMode) {
         
-        let newVolume = audioGraph.decreaseVolume(inputMode)
+        let newVolume = audioGraph.decreaseVolume(inputMode: inputMode)
         volumeChanged(newVolume, audioGraph.muted)
     }
     
     // Increases the volume by a certain preset increment
     func increaseVolume(_ inputMode: UserInputMode) {
         
-        let newVolume = audioGraph.increaseVolume(inputMode)
+        let newVolume = audioGraph.increaseVolume(inputMode: inputMode)
         volumeChanged(newVolume, audioGraph.muted)
     }
     

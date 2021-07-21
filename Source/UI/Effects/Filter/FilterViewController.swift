@@ -214,13 +214,6 @@ class FilterViewController: EffectsUnitViewController {
         tabButtons.forEach({$0.displaceRight($0.width)})
     }
     
-    @IBAction func removeAllBandsAction(_ sender: AnyObject) {
-        
-        filterUnit.removeAllBands()
-        filterView.bandsAddedOrRemoved()
-        updateCRUDButtonStates()
-    }
-    
     private func bandChanged() {
         filterView.redrawChart()
     }

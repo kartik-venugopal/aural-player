@@ -140,7 +140,7 @@ class FlexibleFilterNode: AVAudioUnitEQ {
         sortedIndexes.forEach {removeBand($0)}
     }
     
-    func removeAllBands() {
+    private func removeAllBands() {
         
         bandInfos.forEach {removeBand($0)}
         bandInfos.removeAll()

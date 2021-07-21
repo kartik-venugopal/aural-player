@@ -25,7 +25,7 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         
         avSpace = (persistentState?.space ?? AudioGraphDefaults.reverbSpace).avPreset
         presets = ReverbPresets(persistentState: persistentState)
-        super.init(.reverb, persistentState?.state ?? AudioGraphDefaults.reverbState)
+        super.init(unitType: .reverb, unitState: persistentState?.state ?? AudioGraphDefaults.reverbState)
         
         amount = persistentState?.amount ?? AudioGraphDefaults.reverbAmount
     }
@@ -58,11 +58,11 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         node.bypass = !isActive
     }
     
-    override func savePreset(_ presetName: String) {
+    override func savePreset(named presetName: String) {
         presets.addPreset(ReverbPreset(presetName, .active, space, amount, false))
     }
     
-    override func applyPreset(_ presetName: String) {
+    override func applyPreset(named presetName: String) {
         
         if let preset = presets.preset(named: presetName) {
             applyPreset(preset)

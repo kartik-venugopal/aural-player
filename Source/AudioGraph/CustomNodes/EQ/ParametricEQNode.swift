@@ -74,43 +74,43 @@ class ParametricEQNode: AVAudioUnitEQ {
         set {bands[index].gain = newValue}
     }
     
-    func increaseBass(_ increment: Float) -> [Float] {
+    func increaseBass(by increment: Float) -> [Float] {
         
-        increaseBandGains(bassBandIndexes, increment)
+        increaseBandGains(atIndices: bassBandIndexes, by: increment)
         return bandGains
     }
     
-    func decreaseBass(_ decrement: Float) -> [Float] {
+    func decreaseBass(by decrement: Float) -> [Float] {
         
-        decreaseBandGains(bassBandIndexes, decrement)
+        decreaseBandGains(atIndices: bassBandIndexes, by: decrement)
         return bandGains
     }
     
-    func increaseMids(_ increment: Float) -> [Float] {
+    func increaseMids(by increment: Float) -> [Float] {
         
-        increaseBandGains(midBandIndexes, increment)
+        increaseBandGains(atIndices: midBandIndexes, by: increment)
         return bandGains
     }
     
-    func decreaseMids(_ decrement: Float) -> [Float] {
+    func decreaseMids(by decrement: Float) -> [Float] {
         
-        decreaseBandGains(midBandIndexes, decrement)
+        decreaseBandGains(atIndices: midBandIndexes, by: decrement)
         return bandGains
     }
     
-    func increaseTreble(_ increment: Float) -> [Float] {
+    func increaseTreble(by increment: Float) -> [Float] {
         
-        increaseBandGains(trebleBandIndexes, increment)
+        increaseBandGains(atIndices: trebleBandIndexes, by: increment)
         return bandGains
     }
     
-    func decreaseTreble(_ decrement: Float) -> [Float] {
+    func decreaseTreble(by decrement: Float) -> [Float] {
         
-        decreaseBandGains(trebleBandIndexes, decrement)
+        decreaseBandGains(atIndices: trebleBandIndexes, by: decrement)
         return bandGains
     }
     
-    private func increaseBandGains(_ bandIndexes: [Int], _ increment: Float) {
+    private func increaseBandGains(atIndices bandIndexes: [Int], by increment: Float) {
         
         bandIndexes.forEach {
             
@@ -119,7 +119,7 @@ class ParametricEQNode: AVAudioUnitEQ {
         }
     }
     
-    private func decreaseBandGains(_ bandIndexes: [Int], _ decrement: Float) {
+    private func decreaseBandGains(atIndices bandIndexes: [Int], by decrement: Float) {
         
         bandIndexes.forEach {
             

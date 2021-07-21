@@ -21,20 +21,17 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     let node: VariableRateNode = VariableRateNode()
     let presets: TimeStretchPresets
     
-    static let minRate: Float = 1.0/4
-    static let maxRate: Float = 4
-    
     init(persistentState: TimeStretchUnitPersistentState?) {
         
         presets = TimeStretchPresets(persistentState: persistentState)
-        super.init(.time, persistentState?.state ?? AudioGraphDefaults.timeState)
+        super.init(unitType: .time, unitState: persistentState?.state ?? AudioGraphDefaults.timeState)
         
         rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
         overlap = persistentState?.overlap ?? AudioGraphDefaults.timeOverlap
         shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeShiftPitch
     }
     
-    override var avNodes: [AVAudioNode] {return [node.timePitchNode, node.variNode]}
+    override var avNodes: [AVAudioNode] {node.avNodes}
 
     var rate: Float {
         
@@ -55,7 +52,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     }
     
     var pitch: Float {
-        return node.pitch
+        node.pitch
     }
     
     override func stateChanged() {
@@ -64,11 +61,11 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         node.bypass = !isActive
     }
     
-    override func savePreset(_ presetName: String) {
+    override func savePreset(named presetName: String) {
         presets.addPreset(TimeStretchPreset(presetName, .active, node.rate, node.overlap, node.shiftPitch, false))
     }
     
-    override func applyPreset(_ presetName: String) {
+    override func applyPreset(named presetName: String) {
         
         if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
@@ -83,7 +80,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     }
     
     var settingsAsPreset: TimeStretchPreset {
-        return TimeStretchPreset("timeSettings", state, rate, overlap, shiftPitch, false)
+        TimeStretchPreset("timeSettings", state, rate, overlap, shiftPitch, false)
     }
     
     var persistentState: TimeStretchUnitPersistentState {

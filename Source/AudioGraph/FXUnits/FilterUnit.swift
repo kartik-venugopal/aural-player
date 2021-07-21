@@ -19,12 +19,12 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     let node: FlexibleFilterNode = FlexibleFilterNode()
     let presets: FilterPresets
     
-    override var avNodes: [AVAudioNode] {return [node]}
+    override var avNodes: [AVAudioNode] {[node]}
     
     init(persistentState: FilterUnitPersistentState?) {
         
         presets = FilterPresets(persistentState: persistentState)
-        super.init(.filter, persistentState?.state ?? AudioGraphDefaults.filterState)
+        super.init(unitType: .filter, unitState: persistentState?.state ?? AudioGraphDefaults.filterState)
         
         node.addBands((persistentState?.bands ?? []).compactMap {FilterBand(persistentState: $0)})
     }
@@ -51,24 +51,18 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         return node.addBand(band)
     }
     
-    func removeBands(_ indexSet: IndexSet) {
+    func removeBands(atIndices indexSet: IndexSet) {
         node.removeBands(indexSet)
     }
     
-    func removeAllBands() {
-        node.removeAllBands()
-    }
-    
-    override func savePreset(_ presetName: String) {
+    override func savePreset(named presetName: String) {
         
         // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
-        var presetBands: [FilterBand] = []
-        bands.forEach({presetBands.append($0.clone())})
-        
+        let presetBands: [FilterBand] = bands.map {$0.clone()}
         presets.addPreset(FilterPreset(presetName, .active, presetBands, false))
     }
     
-    override func applyPreset(_ presetName: String) {
+    override func applyPreset(named presetName: String) {
         
         if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
@@ -77,11 +71,8 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     
     func applyPreset(_ preset: FilterPreset) {
         
-        // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
-        var filterBands: [FilterBand] = []
-        preset.bands.forEach({filterBands.append($0.clone())})
-        
-        bands = filterBands
+        // Need to clone the preset's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
+        bands = preset.bands.map {$0.clone()}
     }
     
     var settingsAsPreset: FilterPreset {

@@ -25,7 +25,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         
         node = ParametricEQ(type: persistentState?.type ?? AudioGraphDefaults.eqType)
         presets = EQPresets(persistentState: persistentState)
-        super.init(.eq, persistentState?.state ?? AudioGraphDefaults.eqState)
+        super.init(unitType: .eq, unitState: persistentState?.state ?? AudioGraphDefaults.eqState)
 
         // TODO: Validate persistent bands array ... if not 10 or 15 values, fix it.
         bands = persistentState?.bands ?? AudioGraphDefaults.eqBands
@@ -41,7 +41,13 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     var type: EQType {
         
         get {node.type}
-        set(newType) {node.chooseType(newType)}
+        
+        set(newType) {
+            
+            if newType != node.type {
+                node.type = newType
+            }
+        }
     }
     
     var globalGain: Float {
@@ -56,46 +62,43 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         set(newBands) {node.bands = newBands}
     }
     
-    override var avNodes: [AVAudioNode] {
-        return node.allNodes
-    }
+    override var avNodes: [AVAudioNode] {node.allNodes}
     
-    /// Gets / sets the gain for the band at the given index.
     subscript(_ index: Int) -> Float {
         
         get {node[index]}
         set {node[index] = newValue}
     }
     
-    func increaseBass(_ increment: Float) -> [Float] {
-        return node.increaseBass(increment)
+    func increaseBass(by increment: Float) -> [Float] {
+        return node.increaseBass(by: increment)
     }
     
-    func decreaseBass(_ decrement: Float) -> [Float] {
-        return node.decreaseBass(decrement)
+    func decreaseBass(by decrement: Float) -> [Float] {
+        return node.decreaseBass(by: decrement)
     }
     
-    func increaseMids(_ increment: Float) -> [Float] {
-        return node.increaseMids(increment)
+    func increaseMids(by increment: Float) -> [Float] {
+        return node.increaseMids(by: increment)
     }
     
-    func decreaseMids(_ decrement: Float) -> [Float] {
-        return node.decreaseMids(decrement)
+    func decreaseMids(by decrement: Float) -> [Float] {
+        return node.decreaseMids(by: decrement)
     }
     
-    func increaseTreble(_ increment: Float) -> [Float] {
-        return node.increaseTreble(increment)
+    func increaseTreble(by increment: Float) -> [Float] {
+        return node.increaseTreble(by: increment)
     }
     
-    func decreaseTreble(_ decrement: Float) -> [Float] {
-        return node.decreaseTreble(decrement)
+    func decreaseTreble(by decrement: Float) -> [Float] {
+        return node.decreaseTreble(by: decrement)
     }
     
-    override func savePreset(_ presetName: String) {
+    override func savePreset(named presetName: String) {
         presets.addPreset(EQPreset(presetName, .active, bands, globalGain, false))
     }
     
-    override func applyPreset(_ presetName: String) {
+    override func applyPreset(named presetName: String) {
         
         if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
@@ -109,7 +112,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     }
     
     var settingsAsPreset: EQPreset {
-        return EQPreset("eqSettings", state, bands, globalGain, false)
+        EQPreset("eqSettings", state, bands, globalGain, false)
     }
     
     var persistentState: EQUnitPersistentState {

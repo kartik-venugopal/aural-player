@@ -48,8 +48,8 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
         super.init(unit)
     }
     
-    func applyFactoryPreset(_ presetName: String) {
-        unit.applyFactoryPreset(presetName)
+    func applyFactoryPreset(named presetName: String) {
+        unit.applyFactoryPreset(named: presetName)
     }
     
     func presentView(_ handler: @escaping (NSView) -> ()) {

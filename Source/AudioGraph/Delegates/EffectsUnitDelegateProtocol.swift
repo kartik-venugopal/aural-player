@@ -31,7 +31,7 @@ protocol EffectsUnitDelegateProtocol {
     
     func ensureActive()
     
-    func savePreset(_ presetName: String)
+    func savePreset(named presetName: String)
     
-    func applyPreset(_ presetName: String)
+    func applyPreset(named presetName: String)
 }

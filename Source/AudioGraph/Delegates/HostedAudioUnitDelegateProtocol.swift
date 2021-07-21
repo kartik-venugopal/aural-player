@@ -37,7 +37,7 @@ protocol HostedAudioUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var factoryPresets: [AudioUnitFactoryPreset] {get}
     
-    func applyFactoryPreset(_ presetName: String)
+    func applyFactoryPreset(named presetName: String)
     
     func presentView(_ handler: @escaping (NSView) -> ())
 }

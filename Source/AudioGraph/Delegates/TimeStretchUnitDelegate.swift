@@ -22,6 +22,9 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
     
     let preferences: SoundPreferences
     
+    let minRate: Float = 1.0/4
+    let maxRate: Float = 4
+    
     var rate: Float {
         
         get {unit.rate}
@@ -67,7 +70,7 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
         ensureActiveAndResetRate()
         
         // Rate is increased by an amount set in the user preferences
-        rate = min(TimeStretchUnit.maxRate, rate + preferences.timeDelta)
+        rate = min(maxRate, rate + preferences.timeDelta)
         
         return (rate, formattedRate)
     }
@@ -77,7 +80,7 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
         ensureActiveAndResetRate()
         
         // Rate is decreased by an amount set in the user preferences
-        rate = max(TimeStretchUnit.minRate, rate - preferences.timeDelta)
+        rate = max(minRate, rate - preferences.timeDelta)
         
         return (rate, formattedRate)
     }

@@ -28,7 +28,5 @@ protocol FilterUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     func removeBands(_ indexSet: IndexSet)
     
-    func removeAllBands()
-    
     var presets: FilterPresets {get}
 }

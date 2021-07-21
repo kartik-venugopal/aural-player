@@ -53,9 +53,9 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var visualizationAnalysisBufferSize: Int {get}
 }
 
-/*
-    Contract for a sub-graph of the audio graph, suitable for a player, that performs operations on only the player node of the graph.
- */
+///
+/// Contract for a sub-graph of the audio graph, suitable for a player, that performs operations on only the player node of the graph.
+///
 protocol PlayerGraphProtocol {
     
     // The audio graph node responsible for playback
@@ -68,6 +68,12 @@ protocol PlayerGraphProtocol {
     func clearSoundTails()
 }
 
+///
+/// Contract for a client that observes the rendering of audio data to an output device.
+///
+/// An example of such an observer is the **Visualizer**.
+/// - SeeAlso: `Visualizer`
+///
 protocol AudioGraphRenderObserverProtocol {
     
     func rendered(timeStamp: AudioTimeStamp, frameCount: UInt32, audioBuffer: AudioBufferList)

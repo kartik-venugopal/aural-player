@@ -46,7 +46,7 @@ class EQUnitDelegate: EffectsUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
         set {unit.bands = newValue}
     }
     
-    var presets: EQPresets {return unit.presets}
+    var presets: EQPresets {unit.presets}
     
     /// Gets / sets the gain for the band at the given index.
     subscript(_ index: Int) -> Float {
@@ -58,43 +58,43 @@ class EQUnitDelegate: EffectsUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     func increaseBass() -> [Float] {
         
         ensureEQActive()
-        return unit.increaseBass(preferences.eqDelta)
+        return unit.increaseBass(by: preferences.eqDelta)
     }
     
     func decreaseBass() -> [Float] {
         
         ensureEQActive()
-        return unit.decreaseBass(preferences.eqDelta)
+        return unit.decreaseBass(by: preferences.eqDelta)
     }
     
     func increaseMids() -> [Float] {
         
         ensureEQActive()
-        return unit.increaseMids(preferences.eqDelta)
+        return unit.increaseMids(by: preferences.eqDelta)
     }
     
     func decreaseMids() -> [Float] {
         
         ensureEQActive()
-        return unit.decreaseMids(preferences.eqDelta)
+        return unit.decreaseMids(by: preferences.eqDelta)
     }
     
     func increaseTreble() -> [Float] {
         
         ensureEQActive()
-        return unit.increaseTreble(preferences.eqDelta)
+        return unit.increaseTreble(by: preferences.eqDelta)
     }
     
     func decreaseTreble() -> [Float] {
         
         ensureEQActive()
-        return unit.decreaseTreble(preferences.eqDelta)
+        return unit.decreaseTreble(by: preferences.eqDelta)
     }
     
     private func ensureEQActive() {
         
         // If the EQ unit is currently inactive, activate it
-        if state != .active {
+        if !unit.isActive {
             
             _ = toggleState()
             

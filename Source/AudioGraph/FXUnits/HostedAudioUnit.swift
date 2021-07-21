@@ -53,9 +53,10 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         
         presets = AudioUnitPresets()
         self.node = HostedAUNode(forComponent: component)
-        self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
+        self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name,
+                                                                                           number: $0.number)} ?? []
         
-        super.init(.au, .active)
+        super.init(unitType: .au, unitState: .active)
         self.node.addBypassStateObserver(self)
     }
     
@@ -73,9 +74,10 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         }
         self.node.params = nodeParams
         
-        self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
+        self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name,
+                                                                                           number: $0.number)} ?? []
         
-        super.init(.au, persistentState.state ?? AudioGraphDefaults.auState)
+        super.init(unitType: .au, unitState: persistentState.state ?? AudioGraphDefaults.auState)
         self.node.addBypassStateObserver(self)
     }
     
@@ -108,14 +110,16 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         }
     }
 
-    override func savePreset(_ presetName: String) {
+    override func savePreset(named presetName: String) {
         
-        if let preset = node.savePreset(presetName) {
-            presets.addPreset(AudioUnitPreset(presetName, .active, false, componentType: self.componentType, componentSubType: self.componentSubType, number: preset.number))
+        if let preset = node.savePreset(named: presetName) {
+            
+            presets.addPreset(AudioUnitPreset(presetName, .active, false, componentType: self.componentType,
+                                              componentSubType: self.componentSubType, number: preset.number))
         }
     }
 
-    override func applyPreset(_ presetName: String) {
+    override func applyPreset(named presetName: String) {
 
         if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
@@ -135,7 +139,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         }
     }
     
-    func applyFactoryPreset(_ presetName: String) {
+    func applyFactoryPreset(named presetName: String) {
         
         if let auPresets = auAudioUnit.factoryPresets,
            let thePreset = auPresets.first(where: {$0.name == presetName}) {
@@ -144,9 +148,10 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         }
     }
 
-    // TODO: This is not meaningful
     var settingsAsPreset: AudioUnitPreset {
-        return AudioUnitPreset("au-\(name)-Settings", state, false, componentType: self.componentType, componentSubType: self.componentSubType, number: 0)
+        
+        AudioUnitPreset("au-\(name)-Settings", state, false, componentType: self.componentType,
+                        componentSubType: self.componentSubType, number: 0)
     }
     
     var persistentState: AudioUnitPersistentState {

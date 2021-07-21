@@ -62,7 +62,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphPersistentState?) {
+    init(graph: AudioGraphProtocol, persistentState: AudioGraphPersistentState?,
+         player: PlaybackInfoDelegateProtocol, preferences: SoundPreferences) {
         
         self.graph = graph
         self.player = player
@@ -79,37 +80,34 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         // Set output device based on user preference
         
-        if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch {
-
-            // Check if remembered device is available (based on name and UID)
-            if let prefDevice: AudioDevicePersistentState = graphState?.outputDevice,
-               let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDevice.name &&
-                                                                            $0.uid == prefDevice.uid}) {
-                
-                self.graph.outputDevice = foundDevice
-            }
-
-        } else if preferences.outputDeviceOnStartup.option == .specific,
-            let prefDeviceName = preferences.outputDeviceOnStartup.preferredDeviceName,
-            let prefDeviceUID = preferences.outputDeviceOnStartup.preferredDeviceUID {
-
-            // Check if preferred device is available (based on name and UID)
-            if let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDeviceName &&
-                                                                            $0.uid == prefDeviceUID}) {
-                self.graph.outputDevice = foundDevice
-            }
+        // Check if remembered device is available (based on name and UID).
+        if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch,
+           let prefDeviceUID = persistentState?.outputDevice?.uid,
+           let foundDevice = graph.availableDevices.find(byUID: prefDeviceUID) {
+            
+            self.graph.outputDevice = foundDevice
+            
+        } // Check if preferred device is available (based on name and UID).
+        else if preferences.outputDeviceOnStartup.option == .specific,
+           let prefDeviceName = preferences.outputDeviceOnStartup.preferredDeviceName,
+           let prefDeviceUID = preferences.outputDeviceOnStartup.preferredDeviceUID,
+           let foundDevice = graph.availableDevices.find(byName: prefDeviceName, andUID: prefDeviceUID) {
+            
+            self.graph.outputDevice = foundDevice
         }
         
         // Set volume and effects based on user preference
         
-        if (preferences.volumeOnStartupOption == .specific) {
+        if preferences.volumeOnStartupOption == .specific {
             
             self.graph.volume = preferences.startupVolumeValue
             self.muted = false
         }
         
-        if preferences.effectsSettingsOnStartupOption == .applyMasterPreset, let presetName = preferences.masterPresetOnStartup_name {
-            masterUnit.applyPreset(presetName)
+        if preferences.effectsSettingsOnStartupOption == .applyMasterPreset,
+           let presetName = preferences.masterPresetOnStartup_name {
+            
+            masterUnit.applyPreset(named: presetName)
         }
         
         messenger.subscribe(to: .application_willExit, handler: onAppExit)
@@ -120,8 +118,11 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     var settingsAsMasterPreset: MasterPreset {
-        return graph.settingsAsMasterPreset
+        graph.settingsAsMasterPreset
     }
+    
+    let minVolume: Float = 0
+    let maxVolume: Float = 1
     
     var volume: Float {
         
@@ -137,6 +138,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         set {graph.muted = newValue}
     }
     
+    let maxLeftPan: Float = -1
+    let maxRightPan: Float = -1
+    
     var pan: Float {
         
         get {round(graph.pan * ValueConversions.pan_audioGraphToUI)}
@@ -145,25 +149,28 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     var formattedPan: String {ValueFormatter.formatPan(pan)}
     
-    func increaseVolume(_ inputMode: UserInputMode) -> Float {
+    func increaseVolume(inputMode: UserInputMode) -> Float {
         
         let volumeDelta = inputMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
-        graph.volume = min(1, graph.volume + volumeDelta)
+        graph.volume = min(maxVolume, graph.volume + volumeDelta)
         
         return volume
     }
     
-    func decreaseVolume(_ inputMode: UserInputMode) -> Float {
+    func decreaseVolume(inputMode: UserInputMode) -> Float {
         
         let volumeDelta = inputMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
-        graph.volume = max(0, graph.volume - volumeDelta)
+        graph.volume = max(minVolume, graph.volume - volumeDelta)
         
         return volume
     }
     
     func panLeft() -> Float {
         
-        let newPan = max(-1, graph.pan - preferences.panDelta)
+        let newPan = max(maxLeftPan, graph.pan - preferences.panDelta)
+        
+        // If the pan caused the balance to switch from L->R or R->L,
+        // center the pan.
         graph.pan = graph.pan > 0 && newPan < 0 ? 0 : newPan
         
         return pan
@@ -171,7 +178,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func panRight() -> Float {
         
-        let newPan = min(1, graph.pan + preferences.panDelta)
+        let newPan = min(maxRightPan, graph.pan + preferences.panDelta)
         graph.pan = graph.pan < 0 && newPan > 0 ? 0 : newPan
         
         return pan
@@ -181,23 +188,20 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnitDelegateProtocol, index: Int)? {
         
-        if let result = graph.addAudioUnit(ofType: type, andSubType: subType) {
-            
-            let audioUnit = result.0
-            let index = result.1
-            
-            self.audioUnits.append(HostedAudioUnitDelegate(audioUnit))
-            return (audioUnit: self.audioUnits.last!, index: index)
-        }
+        guard let result = graph.addAudioUnit(ofType: type, andSubType: subType) else {return nil}
         
-        return nil
+        let audioUnit = result.0
+        let index = result.1
+        
+        self.audioUnits.append(HostedAudioUnitDelegate(audioUnit))
+        return (audioUnit: self.audioUnits.last!, index: index)
     }
     
     func removeAudioUnits(at indices: IndexSet) -> [HostedAudioUnitDelegateProtocol] {
         
         graph.removeAudioUnits(at: indices)
         
-        let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: Int.descendingIntComparator)
+        let descendingIndices = indices.sorted(by: Int.descendingIntComparator)
         return descendingIndices.map {audioUnits.remove(at: $0)}
     }
     
@@ -214,6 +218,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     private func saveSoundProfile() {
         
         if let plTrack = player.playingTrack {
+            
             soundProfiles[plTrack] = SoundProfile(file: plTrack.file, volume: graph.volume,
                                                   pan: graph.pan, effects: graph.settingsAsMasterPreset)
         }
@@ -233,14 +238,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     private func trackChanged(_ oldTrack: Track?, _ newTrack: Track?) {
         
         // Save/apply sound profile
-        
-        // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-        if let theOldTrack = oldTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theOldTrack) {
-            
-            // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-            soundProfiles[theOldTrack] = SoundProfile(file: theOldTrack.file, volume: graph.volume,
-                                                        pan: graph.pan, effects: graph.settingsAsMasterPreset)
-        }
+        saveProfile(forTrack: oldTrack)
         
         // Apply sound profile if there is one for the new track and the preferences allow it
         if let theNewTrack = newTrack, let profile = soundProfiles[theNewTrack] {
@@ -251,16 +249,24 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         }
     }
     
+    private func saveProfile(forTrack track: Track?) {
+        
+        // Save a profile if either:
+        // 1 - the preferences require profiles for all tracks, OR
+        // 2 - there is an existing profile for this track (chosen by the user) so it needs to be
+        // updated as the track is done playing.
+        
+        if let theTrack = track,
+           preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theTrack) {
+            
+            
+            soundProfiles[theTrack] = SoundProfile(file: theTrack.file, volume: graph.volume,
+                                                   pan: graph.pan, effects: graph.settingsAsMasterPreset)
+        }
+    }
+    
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
     func onAppExit() {
-        
-        // Apply sound profile if there is one for the new track and if the preferences allow it
-        if let plTrack = player.playingTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
-            
-            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
-            soundProfiles[plTrack] = SoundProfile(file: plTrack.file, volume: graph.volume,
-                                                    pan: graph.pan, effects: graph.settingsAsMasterPreset)
-        }
+        saveProfile(forTrack: player.playingTrack)
     }
 }

@@ -33,4 +33,12 @@ class AudioDeviceList {
         
         self.outputDevice = allDevices.first(where: {$0.id == outputDeviceId}) ?? systemDevice
     }
+    
+    func find(byName name: String, andUID uid: String) -> AudioDevice? {
+        allDevices.first(where: {$0.name == name && $0.uid == uid})
+    }
+    
+    func find(byUID uid: String) -> AudioDevice? {
+        allDevices.first(where: {$0.uid == uid})
+    }
 }

@@ -26,7 +26,22 @@ class ParametricEQ {
         didSet {activeNode.bypass = self.bypass}
     }
     
-    var type: EQType
+    var type: EQType {
+        
+        didSet {
+            
+            // Hand off properties from the inactive node to the active node.
+            
+            bands = inactiveNode.bandGains
+            globalGain = inactiveNode.globalGain
+            
+            if !self.bypass {
+                
+                eq10Node.bypass = type != .tenBand
+                eq15Node.bypass = type != .fifteenBand
+            }
+        }
+    }
     
     var globalGain: Float {
 
@@ -75,46 +90,30 @@ class ParametricEQ {
         set {activeNode[index] = newValue}
     }
     
-    func chooseType(_ type: EQType) {
-        
-        if self.type == type {return}
-        
-        self.type = type
-        
-        // Handoff band gains from the inactive node to the active node
-        bands = inactiveNode.bandGains
-        globalGain = inactiveNode.globalGain
-        
-        if !self.bypass {
-            eq10Node.bypass = type != .tenBand
-            eq15Node.bypass = type != .fifteenBand
-        }
-    }
-    
     // Pass-through functions
     
-    func increaseBass(_ increment: Float) -> [Float] {
-        return activeNode.increaseBass(increment)
+    func increaseBass(by increment: Float) -> [Float] {
+        return activeNode.increaseBass(by: increment)
     }
     
-    func decreaseBass(_ decrement: Float) -> [Float] {
-        return activeNode.decreaseBass(decrement)
+    func decreaseBass(by decrement: Float) -> [Float] {
+        return activeNode.decreaseBass(by: decrement)
     }
     
-    func increaseMids(_ increment: Float) -> [Float] {
-        return activeNode.increaseMids(increment)
+    func increaseMids(by increment: Float) -> [Float] {
+        return activeNode.increaseMids(by: increment)
     }
     
-    func decreaseMids(_ decrement: Float) -> [Float] {
-        return activeNode.decreaseMids(decrement)
+    func decreaseMids(by decrement: Float) -> [Float] {
+        return activeNode.decreaseMids(by: decrement)
     }
     
-    func increaseTreble(_ increment: Float) -> [Float] {
-        return activeNode.increaseTreble(increment)
+    func increaseTreble(by increment: Float) -> [Float] {
+        return activeNode.increaseTreble(by: increment)
     }
     
-    func decreaseTreble(_ decrement: Float) -> [Float] {
-        return activeNode.decreaseTreble(decrement)
+    func decreaseTreble(by decrement: Float) -> [Float] {
+        return activeNode.decreaseTreble(by: decrement)
     }
     
     // MARK: Static utility functions ----------------------------------

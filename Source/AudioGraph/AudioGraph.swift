@@ -104,7 +104,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
 
         let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
         let removableNodes = audioUnits.flatMap {$0.avNodes}
-        audioEngine.connectNodes(permanentNodes: permanentNodes, removableNodes: removableNodes)
+        audioEngine.addNodes(permanentNodes: permanentNodes, removableNodes: removableNodes)
         
         soundProfiles = SoundProfiles(persistentState: persistentState?.soundProfiles)
         
@@ -120,7 +120,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     // MARK: Audio engine functions ----------------------------------
     
     func reconnectPlayerNode(withFormat format: AVAudioFormat) {
-        audioEngine.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
+        audioEngine.reconnect(outputOf: playerNode, toInputOf: auxMixer, withFormat: format)
     }
     
     func clearSoundTails() {
@@ -211,11 +211,11 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         let descendingIndices = indices.sorted(by: Int.descendingIntComparator)
         descendingIndices.forEach {audioUnits.remove(at: $0)}
         
-        masterUnit.removeAudioUnits(descendingIndices)
+        masterUnit.removeAudioUnits(at: descendingIndices)
         
         let context = AudioGraphChangeContext()
         messenger.publish(PreAudioGraphChangeNotification(context: context))
-        audioEngine.removeNodes(descendingIndices)
+        audioEngine.removeNodes(at: descendingIndices)
         messenger.publish(AudioGraphChangedNotification(context: context))
     }
     

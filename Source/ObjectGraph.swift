@@ -37,8 +37,8 @@ class ObjectGraph {
     
     lazy var audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
     private lazy var audioGraph: AudioGraph = AudioGraph(audioUnitsManager: audioUnitsManager, persistentState: persistentState.audioGraph)
-    lazy var audioGraphDelegate: AudioGraphDelegateProtocol = AudioGraphDelegate(audioGraph, playbackDelegate,
-                                                                                   preferences.soundPreferences, persistentState.audioGraph)
+    lazy var audioGraphDelegate: AudioGraphDelegateProtocol = AudioGraphDelegate(graph: audioGraph, persistentState: persistentState.audioGraph,
+                                                                                 player: playbackDelegate, preferences: preferences.soundPreferences)
     
     private lazy var player: PlayerProtocol = Player(graph: audioGraph, avfScheduler: avfScheduler, ffmpegScheduler: ffmpegScheduler)
     private lazy var avfScheduler: PlaybackSchedulerProtocol = {

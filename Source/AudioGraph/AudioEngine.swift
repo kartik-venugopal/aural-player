@@ -20,7 +20,10 @@ class AudioEngine {
     
     private var permanentNodes: [AVAudioNode] = []
     private var removableNodes: [AVAudioNode] = []
-    private var allNodes: [AVAudioNode] = []
+    
+    private var allNodes: [AVAudioNode] {
+        permanentNodes + removableNodes
+    }
     
     private(set) lazy var outputNode: AVAudioOutputNode = engine.outputNode
     private(set) lazy var mainMixerNode: AVAudioMixerNode = engine.mainMixerNode
@@ -29,23 +32,17 @@ class AudioEngine {
         self.engine = AVAudioEngine()
     }
     
-    // Connects all nodes in sequence
-    func connectNodes(permanentNodes: [AVAudioNode], removableNodes: [AVAudioNode]) {
-        
-        addNodes(permanentNodes: permanentNodes, removableNodes: removableNodes)
-        connectNodes()
-    }
-    
-    private func addNodes(permanentNodes: [AVAudioNode], removableNodes: [AVAudioNode]) {
+    // Connects all nodes in sequence.
+    func addNodes(permanentNodes: [AVAudioNode], removableNodes: [AVAudioNode]) {
         
         self.permanentNodes = permanentNodes
         self.removableNodes = removableNodes
         
-        allNodes = permanentNodes + removableNodes
+        let allNodes = self.allNodes
+        
+        // Attach and connect the nodes, forming a chain.
+        
         allNodes.forEach {engine.attach($0)}
-    }
-    
-    private func connectNodes() {
         
         var input: AVAudioNode, output: AVAudioNode
         
@@ -72,8 +69,6 @@ class AudioEngine {
             engine.disconnectNodeOutput(lastNode)
             
             removableNodes.append(node)
-            allNodes = permanentNodes + removableNodes
-            
             engine.attach(node)
             
             engine.connect(lastNode, to: node, format: nil)
@@ -83,7 +78,7 @@ class AudioEngine {
     
     // Assume indices are valid and sorted in descending order.
     // NOTE - Indices are relative to the number of audio units, not actual node indices.
-    func removeNodes(_ descendingIndices: [Int]) {
+    func removeNodes(at descendingIndices: [Int]) {
         
         for index in descendingIndices {
         
@@ -127,15 +122,13 @@ class AudioEngine {
         for index in descendingIndices {
             engine.detach(removableNodes.remove(at: index))
         }
-        
-        self.allNodes = permanentNodes + removableNodes
     }
     
     // Reconnects two nodes with the given audio format (required when a track change occurs)
-    func reconnectNodes(_ inputNode: AVAudioNode, outputNode: AVAudioNode, format: AVAudioFormat) {
+    func reconnect(outputOf node1: AVAudioNode, toInputOf node2: AVAudioNode, withFormat format: AVAudioFormat) {
         
-        engine.disconnectNodeOutput(inputNode)
-        engine.connect(inputNode, to: outputNode, format: format)
+        engine.disconnectNodeOutput(node1)
+        engine.connect(node1, to: node2, format: format)
     }
     
     func start() {

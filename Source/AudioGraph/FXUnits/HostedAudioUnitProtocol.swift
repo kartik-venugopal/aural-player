@@ -30,5 +30,5 @@ protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
     
     func applyFactoryPreset(_ preset: AudioUnitFactoryPreset)
     
-    func applyFactoryPreset(_ presetName: String)
+    func applyFactoryPreset(named presetName: String)
 }

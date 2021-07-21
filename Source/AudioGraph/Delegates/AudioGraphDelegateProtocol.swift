@@ -25,6 +25,7 @@ protocol AudioGraphDelegateProtocol {
     
     var availableDevices: AudioDeviceList {get}
     var systemDevice: AudioDevice {get}
+    
     var outputDevice: AudioDevice {get set}
     var outputDeviceBufferSize: Int {get set}
     var outputDeviceSampleRate: Double {get}
@@ -39,14 +40,14 @@ protocol AudioGraphDelegateProtocol {
      
      The "inputMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The input mode will affect the amount by which the volume is increased.
      */
-    func increaseVolume(_ inputMode: UserInputMode) -> Float
+    func increaseVolume(inputMode: UserInputMode) -> Float
     
     /*
      Decreases the player volume by a small decrement. Returns the new player volume.
      
      The "inputMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The input mode will affect the amount by which the volume is decreased.
      */
-    func decreaseVolume(_ inputMode: UserInputMode) -> Float
+    func decreaseVolume(inputMode: UserInputMode) -> Float
     
     var muted: Bool {get set}
     

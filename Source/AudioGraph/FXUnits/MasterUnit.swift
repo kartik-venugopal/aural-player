@@ -47,7 +47,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         self.audioUnits = audioUnits
         presets = MasterPresets(persistentState: persistentState)
         
-        super.init(.master, persistentState?.state ?? AudioGraphDefaults.masterState)
+        super.init(unitType: .master, unitState: persistentState?.state ?? AudioGraphDefaults.masterState)
         
         messenger.subscribe(to: .effects_unitActivated, handler: ensureActive)
     }
@@ -57,13 +57,16 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         if super.toggleState() == .bypassed {
 
             // Active -> Inactive
-            // If a unit was active (i.e. not bypassed), mark it as now being suppressed by the master bypass
+            // If a unit was active (i.e. not bypassed), deactivate it (mark it as
+            // now being suppressed by the master bypass).
+            
             nativeSlaveUnits.forEach {$0.suppress()}
             audioUnits.forEach {$0.suppress()}
             
         } else {
             
             // Inactive -> Active
+            // If a unit was inactive (i.e. bypassed), activate it.
             nativeSlaveUnits.forEach {$0.unsuppress()}
             audioUnits.forEach {$0.unsuppress()}
         }
@@ -71,25 +74,25 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         return state
     }
     
-    override func savePreset(_ presetName: String) {
+    override func savePreset(named presetName: String) {
         
         let eqPreset = eqUnit.settingsAsPreset
-        eqPreset.name = String(format: "EQ settings for Master preset: '%@'", presetName)
+        eqPreset.name = "EQ settings for Master preset: '\(presetName)'"
         
         let pitchPreset = pitchShiftUnit.settingsAsPreset
-        pitchPreset.name = String(format: "Pitch settings for Master preset: '%@'", presetName)
+        pitchPreset.name = "Pitch settings for Master preset: '\(presetName)'"
         
         let timePreset = timeStretchUnit.settingsAsPreset
-        timePreset.name = String(format: "Time settings for Master preset: '%@'", presetName)
+        timePreset.name = "Time settings for Master preset: '\(presetName)'"
         
         let reverbPreset = reverbUnit.settingsAsPreset
-        reverbPreset.name = String(format: "Reverb settings for Master preset: '%@'", presetName)
+        reverbPreset.name = "Reverb settings for Master preset: '\(presetName)'"
         
         let delayPreset = delayUnit.settingsAsPreset
-        delayPreset.name = String(format: "Delay settings for Master preset: '%@'", presetName)
+        delayPreset.name = "Delay settings for Master preset: '\(presetName)'"
         
         let filterPreset = filterUnit.settingsAsPreset
-        filterPreset.name = String(format: "Filter settings for Master preset: '%@'", presetName)
+        filterPreset.name = "Filter settings for Master preset: '\(presetName)'"
         
         // Save the new preset
         let masterPreset = MasterPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
@@ -108,7 +111,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         return MasterPreset("masterSettings", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
     }
     
-    override func applyPreset(_ presetName: String) {
+    override func applyPreset(named presetName: String) {
         
         if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
@@ -140,7 +143,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         audioUnits.append(unit)
     }
     
-    func removeAudioUnits(_ descendingIndices: [Int]) {
+    func removeAudioUnits(at descendingIndices: [Int]) {
         descendingIndices.forEach {audioUnits.remove(at: $0)}
     }
     

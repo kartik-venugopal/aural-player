@@ -43,14 +43,14 @@ class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
         unit.ensureActive()
     }
     
-    func savePreset(_ presetName: String) {
-        unit.savePreset(presetName)
+    func savePreset(named presetName: String) {
+        unit.savePreset(named: presetName)
     }
     
     // FIXME: Ensure unit active.
-    func applyPreset(_ presetName: String) {
+    func applyPreset(named presetName: String) {
         
-        unit.applyPreset(presetName)
+        unit.applyPreset(named: presetName)
         unit.ensureActive()
     }
 }

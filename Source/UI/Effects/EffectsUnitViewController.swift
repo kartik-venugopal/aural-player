@@ -137,7 +137,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
         
         if let selectedPresetItem = presetsMenu.titleOfSelectedItem {
             
-            effectsUnit.applyPreset(selectedPresetItem)
+            effectsUnit.applyPreset(named: selectedPresetItem)
             initControls()
         }
     }
@@ -237,7 +237,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        effectsUnit.savePreset(string)
+        effectsUnit.savePreset(named: string)
     }
     
     // MARK: Menu delegate

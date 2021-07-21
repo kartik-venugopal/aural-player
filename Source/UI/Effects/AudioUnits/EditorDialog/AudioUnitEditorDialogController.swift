@@ -95,14 +95,14 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     @IBAction func applyFactoryPresetAction(_ sender: Any) {
         
         if let presetName = btnFactoryPresets.titleOfSelectedItem {
-            audioUnit.applyFactoryPreset(presetName)
+            audioUnit.applyFactoryPreset(named: presetName)
         }
     }
     
     @IBAction func applyUserPresetAction(_ sender: Any) {
         
         if let presetName = btnUserPresets.titleOfSelectedItem {
-            audioUnit.applyPreset(presetName)
+            audioUnit.applyPreset(named: presetName)
         }
     }
     
@@ -134,7 +134,7 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        audioUnit.savePreset(string)
+        audioUnit.savePreset(named: string)
     }
 }
 

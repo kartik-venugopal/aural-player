@@ -20,15 +20,17 @@ import AVFoundation
 ///
 class VariableRateNode {
  
-    let timePitchNode: AVAudioUnitTimePitch
-    let variNode: AVAudioUnitVarispeed
+    private let timePitchNode: AVAudioUnitTimePitch
+    private let varispeedNode: AVAudioUnitVarispeed
+    
+    var avNodes: [AVAudioNode] {[timePitchNode, varispeedNode]}
     
     private static let octavesToCents: Float = 1200
     
     init() {
         
         timePitchNode = AVAudioUnitTimePitch()
-        variNode = AVAudioUnitVarispeed()
+        varispeedNode = AVAudioUnitVarispeed()
         
         bypass = AudioGraphDefaults.timeState != .active
         rate = AudioGraphDefaults.timeStretchRate
@@ -41,10 +43,10 @@ class VariableRateNode {
         didSet {
             
             if self.bypass {
-                [timePitchNode, variNode].forEach({$0.bypass = true})
+                [timePitchNode, varispeedNode].forEach({$0.bypass = true})
             } else {
                 timePitchNode.bypass = self.shiftPitch
-                variNode.bypass = !self.shiftPitch
+                varispeedNode.bypass = !self.shiftPitch
             }
         }
     }
@@ -54,7 +56,7 @@ class VariableRateNode {
         didSet {
             
             timePitchNode.rate = self.rate
-            variNode.rate = self.rate
+            varispeedNode.rate = self.rate
         }
     }
     
@@ -65,7 +67,7 @@ class VariableRateNode {
             if !self.bypass {
                 
                 timePitchNode.bypass = self.shiftPitch
-                variNode.bypass = !self.shiftPitch
+                varispeedNode.bypass = !self.shiftPitch
             }
         }
     }

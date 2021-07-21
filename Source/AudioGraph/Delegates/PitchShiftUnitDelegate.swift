@@ -22,6 +22,15 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     
     let preferences: SoundPreferences
     
+    let minPitch: Float = -2400
+    let maxPitch: Float = 2400
+    
+    init(_ unit: PitchShiftUnit, _ preferences: SoundPreferences) {
+        
+        self.preferences = preferences
+        super.init(unit)
+    }
+    
     var pitch: Float {
         
         get {unit.pitch * ValueConversions.pitch_audioGraphToUI}
@@ -29,7 +38,7 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     }
     
     var formattedPitch: String {
-        return ValueFormatter.formatPitch(pitch)
+        ValueFormatter.formatPitch(pitch)
     }
     
     var overlap: Float {
@@ -39,28 +48,25 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     }
     
     var formattedOverlap: String {
-        return ValueFormatter.formatOverlap(overlap)
+        ValueFormatter.formatOverlap(overlap)
     }
     
-    var presets: PitchShiftPresets {return unit.presets}
-    
-    init(_ unit: PitchShiftUnit, _ preferences: SoundPreferences) {
-        
-        self.preferences = preferences
-        super.init(unit)
-    }
+    var presets: PitchShiftPresets {unit.presets}
     
     func increasePitch() -> (pitch: Float, pitchString: String) {
+        
         ensureActiveAndResetPitch()
-        return setUnitPitch(min(2400, unit.pitch + Float(preferences.pitchDelta)))
+        return setUnitPitch(min(maxPitch, unit.pitch + Float(preferences.pitchDelta)))
     }
     
     func decreasePitch() -> (pitch: Float, pitchString: String) {
+        
         ensureActiveAndResetPitch()
-        return setUnitPitch(max(-2400, unit.pitch - Float(preferences.pitchDelta)))
+        return setUnitPitch(max(minPitch, unit.pitch - Float(preferences.pitchDelta)))
     }
     
     private func setUnitPitch(_ value: Float) -> (pitch: Float, pitchString: String) {
+        
         unit.pitch = value
         return (pitch, formattedPitch)
     }
@@ -68,7 +74,7 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     private func ensureActiveAndResetPitch() {
         
         // If the pitch unit is currently inactive, start at default pitch offset, before the increase/decrease
-        if state != .active {
+        if !unit.isActive {
             
             _ = unit.toggleState()
             unit.pitch = AudioGraphDefaults.pitch

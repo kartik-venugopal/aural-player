@@ -22,6 +22,9 @@ protocol TimeStretchUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var rate: Float {get set}
     
+    var minRate: Float {get}
+    var maxRate: Float {get}
+    
     var effectiveRate: Float {get}
     
     var formattedRate: String {get}
