@@ -31,7 +31,7 @@ class FilterBandViewController: NSViewController {
     
     @IBOutlet weak var tabButton: NSButton!
     
-    private var functionLabels: [NSTextField] = []
+    private var functionCaptionLabels: [NSTextField] = []
     
     private var filterUnit: FilterUnitDelegateProtocol = objectGraph.audioGraphDelegate.filterUnit
     
@@ -60,7 +60,7 @@ class FilterBandViewController: NSViewController {
         freqRangeSlider.stateFunction = filterUnit.stateFunction
         cutoffSlider.stateFunction = filterUnit.stateFunction
         
-        functionLabels = findFunctionLabels(self.view)
+        functionCaptionLabels = findFunctionLabels(self.view)
         
         presetRangesIconMenuItem.tintFunction = {Colors.functionButtonColor}
         presetCutoffsIconMenuItem.tintFunction = {Colors.functionButtonColor}
@@ -72,10 +72,12 @@ class FilterBandViewController: NSViewController {
         
         filterTypeMenu.selectItem(withTitle: filterType.description)
         
-        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf(filterType == .bandPass || filterType == .bandStop)})
-        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf(filterType == .bandPass || filterType == .bandStop)})
+        let filterTypeIsBandPassOrStop: Bool = filterType.equalsOneOf(.bandStop, .bandPass)
         
-        if filterType == .bandPass || filterType == .bandStop {
+        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach {$0?.showIf(filterTypeIsBandPassOrStop)}
+        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach {$0?.hideIf(filterTypeIsBandPassOrStop)}
+        
+        if filterTypeIsBandPassOrStop {
             
             freqRangeSlider.filterType = filterType
             
@@ -107,10 +109,12 @@ class FilterBandViewController: NSViewController {
         let filterType = FilterBandType.fromDescription(filterTypeMenu.titleOfSelectedItem!)
         band.type = filterType
         
-        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf(filterType == .bandPass || filterType == .bandStop)})
-        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf(filterType == .bandPass || filterType == .bandStop)})
+        let filterTypeIsBandPassOrStop: Bool = filterType.equalsOneOf(.bandStop, .bandPass)
         
-        if filterType == .bandPass || filterType == .bandStop {
+        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach {$0?.showIf(filterTypeIsBandPassOrStop)}
+        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach {$0?.hideIf(filterTypeIsBandPassOrStop)}
+        
+        if filterTypeIsBandPassOrStop {
             
             freqRangeSlider.filterType = filterType
             freqRangeChanged()
@@ -196,7 +200,7 @@ class FilterBandViewController: NSViewController {
         
         tabButton.redraw()
         
-        functionLabels.forEach({$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont})
+        functionCaptionLabels.forEach({$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont})
         
         filterTypeMenu.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
         filterTypeMenu.redraw()
@@ -228,7 +232,7 @@ class FilterBandViewController: NSViewController {
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
-        functionLabels.forEach({$0.textColor = color})
+        functionCaptionLabels.forEach({$0.textColor = color})
     }
     
     func changeFunctionValueTextColor(_ color: NSColor) {

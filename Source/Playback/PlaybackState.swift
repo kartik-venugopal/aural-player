@@ -19,7 +19,7 @@ enum PlaybackState {
     case noTrack
     
     var isPlayingOrPaused: Bool {
-        self == .playing || self == .paused
+        self.equalsOneOf(.playing, .paused)
     }
     
     var isNotPlayingOrPaused: Bool {

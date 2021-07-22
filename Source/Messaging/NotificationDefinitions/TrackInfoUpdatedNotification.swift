@@ -38,13 +38,4 @@ enum UpdatedTrackInfoField: CaseIterable {
     
     // Track duration
     case duration
-    
-    // Any primary info, other than album art and duration, that is displayed in the app's main windows
-    // (eg. title / artist / album, etc)
-    // NOTE - This may not be a valid case because all display info (i.e. grouping info)
-    // is read before the track is added to the playlist
-    case displayInfo
-    
-    // Any info that is not essential for display in the app's main windows
-    case metadata
 }

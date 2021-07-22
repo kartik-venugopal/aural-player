@@ -71,7 +71,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         
         // Don't bother responding if only album art was updated
         messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:),
-                                 filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)})
+                                 filter: {msg in msg.updatedFields.contains(.duration)})
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         

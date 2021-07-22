@@ -175,7 +175,7 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
         if let folder = uiState.userFolder(forURL: fileSystem.rootURL) {
             sidebarView.selectRow(sidebarView.row(forItem: folder))
             
-        } else if fileSystem.rootURL == FilesAndPaths.musicDir || fileSystem.rootURL == tuneBrowserMusicFolderURL {
+        } else if fileSystem.rootURL.equalsOneOf(FilesAndPaths.musicDir, tuneBrowserMusicFolderURL) {
             selectMusicFolder()
             
         } else {

@@ -57,7 +57,7 @@ class RepeatingTaskExecutor {
     // Start/resume task execution
     func startOrResume() {
         
-        if state == .notStarted || state == .suspended {
+        if state.equalsOneOf(.notStarted, .suspended) {
             
             timer.resume()
             state = .running

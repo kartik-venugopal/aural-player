@@ -216,30 +216,16 @@ extension Array {
     }
 }
 
-// Unused code
-//extension Array where Element: FloatingPoint {
-//
-//    func fastMin() -> Float {
-//
-//        let floats = self as! [Float]
-//        var min: Float = 0
-//        vDSP_minv(floats, 1, &min, UInt(count))
-//        return min
-//    }
-//
-//    func fastMax() -> Float {
-//
-//        let floats = self as! [Float]
-//        var max: Float = 0
-//        vDSP_maxv(floats, 1, &max, UInt(count))
-//        return max
-//    }
-//
-//    func avg() -> Float {
-//
-//        let floats = self as! [Float]
-//        var mean: Float = 0
-//        vDSP_meanv(floats, 1, &mean, UInt(count))
-//        return mean
-//    }
-//}
+extension Sequence where Element: Equatable {
+    
+    func containsOneOf(_ options: Element?...) -> Bool {
+        self.contains(where: {options.contains($0)})
+    }
+}
+
+extension Equatable {
+    
+    func equalsOneOf(_ array: Self?...) -> Bool {
+        array.contains(self)
+    }
+}

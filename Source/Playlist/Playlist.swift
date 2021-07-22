@@ -88,7 +88,7 @@ class Playlist: PlaylistProtocol {
         var allResults: SearchResults = SearchResults([])
         
         // The flat playlist searches by name or title
-        if searchQuery.fields.contains(.name) || searchQuery.fields.contains(.title) {
+        if searchQuery.fields.containsOneOf(.name, .title) {
             
             allResults = flatPlaylist.search(searchQuery)
         }

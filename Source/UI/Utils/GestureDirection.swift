@@ -20,10 +20,10 @@ enum GestureDirection: String {
     case up
     
     var isHorizontal: Bool {
-        return self == .left || self == .right
+        self.equalsOneOf(.left, .right)
     }
     
     var isVertical: Bool {
-        return self == .up || self == .down
+        self.equalsOneOf(.up, .down)
     }
 }

@@ -59,27 +59,32 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
         
         initSubscriptions()
         
-        functionLabels = findFunctionLabels(self.view)
+        findFunctionLabels(under: self.view)
     }
     
-    func findFunctionLabels(_ view: NSView) -> [NSTextField] {
-        
-        var labels: [NSTextField] = []
+    func findFunctionLabels(under view: NSView) {
         
         for subview in view.subviews {
             
-            if let label = subview as? NSTextField, label != lblCaption {
+            if let label = subview as? NSTextField {
                 
-                labels.append(label)
-                label is FunctionValueLabel ? functionValueLabels.append(label) : functionCaptionLabels.append(label)
+                if label is FunctionLabel {
+                    functionLabels.append(label)
+                }
+                
+                if label is FunctionCaptionLabel {
+                    functionCaptionLabels.append(label)
+                    
+                } else if label is FunctionValueLabel {
+                    functionValueLabels.append(label)
+                }
+                
+            } else {
+                
+                // Recursive call
+                findFunctionLabels(under: subview)
             }
-            
-            // Recursive call
-            let subviewLabels = findFunctionLabels(subview)
-            labels.append(contentsOf: subviewLabels)
         }
-        
-        return labels
     }
     
     func initSubscriptions() {
@@ -87,8 +92,12 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
         // Subscribe to notifications
         messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
         
-        messenger.subscribe(to: .effects_updateEffectsUnitView, handler: {[weak self] (EffectsUnit) in self?.initControls()},
-                            filter: {[weak self] (unitType: EffectsUnitType) in unitType == .master || (unitType == self?.unitType)})
+        // FIXME: Revisit this filter logic.
+        messenger.subscribe(to: .effects_updateEffectsUnitView,
+                            handler: initControls,
+                            filter: {[weak self] (unitType: EffectsUnitType) in
+                                unitType.equalsOneOf(self?.unitType, .master)
+                            })
         
         messenger.subscribe(to: .effects_changeSliderColors, handler: changeSliderColors)
         
@@ -156,7 +165,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     func applyFontScheme(_ fontScheme: FontScheme) {
         
         lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
-        functionLabels.forEach({$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont})
+        functionLabels.forEach {$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont}
         presetsMenu.font = .menuFont
     }
     
@@ -178,11 +187,11 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
-        functionCaptionLabels.forEach({$0.textColor = color})
+        functionCaptionLabels.forEach {$0.textColor = color}
     }
     
     func changeFunctionValueTextColor(_ color: NSColor) {
-        functionValueLabels.forEach({$0.textColor = color})
+        functionValueLabels.forEach {$0.textColor = color}
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {
@@ -257,6 +266,3 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
         presetsMenu.selectItem(at: -1)
     }
 }
-
-// Marker class to differentiate between caption labels and their corresponding value labels
-class FunctionValueLabel: CenterTextLabel {}

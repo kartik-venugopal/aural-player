@@ -109,7 +109,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
     
     private func handleHybrid(_ mediaKey: MediaKey, _ event: KeyEvent) {
         
-        let isFwd: Bool = mediaKey == .fastForward || mediaKey == .next
+        let isFwd: Bool = mediaKey.equalsOneOf(.fastForward, .next)
         
         // Only do this on keyDown, if it is being repeated
         if event.keyPressed && event.keyRepeat {
@@ -143,7 +143,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
     
     private func handleTrackChangesOnly(_ mediaKey: MediaKey, _ event: KeyEvent) {
         
-        let isFwd: Bool = mediaKey == .fastForward || mediaKey == .next
+        let isFwd: Bool = mediaKey.equalsOneOf(.fastForward, .next)
         
         if event.keyPressed && !event.keyRepeat {
             
@@ -170,7 +170,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
     
     private func handleSeekingOnly(_ mediaKey: MediaKey, _ event: KeyEvent) {
         
-        let isFwd: Bool = mediaKey == .fastForward || mediaKey == .next
+        let isFwd: Bool = mediaKey.equalsOneOf(.fastForward, .next)
         
         if event.keyPressed && !event.keyRepeat {
             

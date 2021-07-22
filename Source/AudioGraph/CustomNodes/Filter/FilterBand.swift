@@ -59,25 +59,6 @@ class FilterBand {
         }
     }
     
-    func withMinFreq(_ freq: Float) -> FilterBand {
-        
-        self.minFreq = freq
-        return self
-    }
-    
-    func withMaxFreq(_ freq: Float) -> FilterBand {
-        
-        self.maxFreq = freq
-        return self
-    }
-    
-    func withFrequencyRange(_ range: ClosedRange<Float>) -> FilterBand {
-        
-        self.minFreq = range.lowerBound
-        self.maxFreq = range.upperBound
-        return self
-    }
-    
     func clone() -> FilterBand {
         return FilterBand(type: self.type, minFreq: self.minFreq, maxFreq: self.maxFreq)
     }

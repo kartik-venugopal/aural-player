@@ -96,7 +96,7 @@ extension HTTPURLResponse {
     ///
     /// Checks the statusCode to determine if the response indicates the successful processing of a request.
     ///
-    var succeeded: Bool {statusCode == 200 || statusCode == 307}
+    var succeeded: Bool {statusCode.equalsOneOf(200, 307)}
     
     ///
     /// Checks the statusCode to determine if the response indicates the failed processing of a request.

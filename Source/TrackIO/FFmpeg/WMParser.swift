@@ -375,8 +375,9 @@ class WMParser: FFmpegMetadataParser {
             
             // TODO: Check special fields (e.g. encoding time)
             
-            if key == key_isVBR || key == key_isCompilation, let boolVal = numericStringToBoolean(value) {
+            if key.equalsOneOf(key_isVBR, key_isCompilation), let boolVal = numericStringToBoolean(value) {
                 value = boolVal ? "Yes" : "No"
+                
             } else if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                 value = langName
             }

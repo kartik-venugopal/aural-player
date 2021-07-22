@@ -19,4 +19,8 @@ extension OptionSet {
             remove(newMember)
         }
     }
+    
+    func containsOneOf(_ members: Element...) -> Bool {
+        members.contains(where: {self.contains($0)})
+    }
 }

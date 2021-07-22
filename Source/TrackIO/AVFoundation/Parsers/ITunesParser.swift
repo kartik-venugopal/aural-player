@@ -175,7 +175,7 @@ class ITunesParser: AVFMetadataParser {
                 
                 value = langName
                 
-            } else if key == ITunesSpec.key_compilation || key == ITunesSpec.key_isPodcast, let numVal = item.numberValue {
+            } else if key.equalsOneOf(ITunesSpec.key_compilation, ITunesSpec.key_isPodcast), let numVal = item.numberValue {
                 
                 // Number to boolean
                 value = numVal == 0 ? "No" : "Yes"

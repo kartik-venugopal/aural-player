@@ -143,7 +143,8 @@ class EffectsWindowController: NSWindowController, Destroyable {
     
     func destroy() {
         
-        ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController] as? [Destroyable])?.forEach {$0.destroy()}
+        ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController,
+          delayViewController, filterViewController, auViewController] as? [Destroyable])?.forEach {$0.destroy()}
         
         close()
         messenger.unsubscribeFromAll()
@@ -175,7 +176,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
         changeBackgroundColor(scheme.general.backgroundColor)
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         
-        tabViewButtons.forEach({$0.reTint()})
+        tabViewButtons.forEach {$0.reTint()}
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
