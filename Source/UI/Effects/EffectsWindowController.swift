@@ -16,8 +16,6 @@ import Cocoa
 class EffectsWindowController: NSWindowController, Destroyable {
     
     @IBOutlet weak var rootContainerBox: NSBox!
-    @IBOutlet weak var effectsContainerBox: NSBox!
-    @IBOutlet weak var tabButtonsBox: NSBox!
 
     // The constituent sub-views, one for each effects unit
     
@@ -32,7 +30,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
     // Tab view and its buttons
 
-    @IBOutlet weak var effectsTabView: NSTabView!
+    @IBOutlet weak var tabView: NSTabView!
 
     @IBOutlet weak var masterTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var eqTabViewButton: EffectsUnitTabButton!
@@ -43,20 +41,20 @@ class EffectsWindowController: NSWindowController, Destroyable {
     @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var auTabViewButton: EffectsUnitTabButton!
 
-    private var effectsTabViewButtons: [EffectsUnitTabButton] = []
+    private var tabViewButtons: [EffectsUnitTabButton] = []
     
     @IBOutlet weak var btnClose: TintedImageButton!
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
-
     private let preferences: ViewPreferences = objectGraph.preferences.viewPreferences
 
     override var windowNibName: String? {"Effects"}
     
     private lazy var messenger = Messenger(for: self)
+    
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
@@ -83,10 +81,10 @@ class EffectsWindowController: NSWindowController, Destroyable {
         
         for (index, viewController) in [masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController].enumerated() {
             
-            effectsTabView.tabViewItem(at: index).view?.addSubview(viewController.view)
+            tabView.tabViewItem(at: index).view?.addSubview(viewController.view)
         }
 
-        effectsTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, auTabViewButton]
+        tabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, auTabViewButton]
         
         masterTabViewButton.stateFunction = graph.masterUnit.stateFunction
         eqTabViewButton.stateFunction = graph.eqUnit.stateFunction
@@ -114,7 +112,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     }
 
     private func initUnits() {
-        effectsTabViewButtons.forEach {$0.updateState()}
+        tabViewButtons.forEach {$0.updateState()}
     }
 
     private func initTabGroup() {
@@ -155,11 +153,11 @@ class EffectsWindowController: NSWindowController, Destroyable {
     @IBAction func tabViewAction(_ sender: EffectsUnitTabButton) {
 
         // Set sender button state, reset all other button states
-        effectsTabViewButtons.forEach {$0.unSelect()}
+        tabViewButtons.forEach {$0.unSelect()}
         sender.select()
 
         // Button tag is the tab index
-        effectsTabView.selectTabViewItem(at: sender.tag)
+        tabView.selectTabViewItem(at: sender.tag)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -177,15 +175,13 @@ class EffectsWindowController: NSWindowController, Destroyable {
         changeBackgroundColor(scheme.general.backgroundColor)
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         
-        effectsTabViewButtons.forEach({$0.reTint()})
+        tabViewButtons.forEach({$0.reTint()})
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
         
         rootContainerBox.fillColor = color
-        tabButtonsBox.fillColor = color
-        
-        effectsTabViewButtons.forEach {$0.redraw()}
+        tabViewButtons.forEach {$0.redraw()}
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {
@@ -194,27 +190,27 @@ class EffectsWindowController: NSWindowController, Destroyable {
     
     private func changeActiveUnitStateColor(_ color: NSColor) {
         
-        effectsTabViewButtons.filter {$0.unitState == .active}.forEach {
+        tabViewButtons.filter {$0.unitState == .active}.forEach {
             $0.reTint()
         }
     }
     
     private func changeBypassedUnitStateColor(_ color: NSColor) {
         
-        effectsTabViewButtons.filter {$0.unitState == .bypassed}.forEach {
+        tabViewButtons.filter {$0.unitState == .bypassed}.forEach {
             $0.reTint()
         }
     }
     
     private func changeSuppressedUnitStateColor(_ color: NSColor) {
         
-        effectsTabViewButtons.filter {$0.unitState == .suppressed}.forEach {
+        tabViewButtons.filter {$0.unitState == .suppressed}.forEach {
             $0.reTint()
         }
     }
     
     private func changeSelectedTabButtonColor(_ color: NSColor) {
-        effectsTabViewButtons[effectsTabView.selectedIndex].redraw()
+        tabViewButtons[tabView.selectedIndex].redraw()
     }
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
@@ -227,7 +223,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     func stateChanged() {
 
         // Update the tab button states
-        effectsTabViewButtons.forEach {$0.updateState()}
+        tabViewButtons.forEach {$0.updateState()}
     }
     
     func showTab(_ effectsUnitType: EffectsUnitType) {

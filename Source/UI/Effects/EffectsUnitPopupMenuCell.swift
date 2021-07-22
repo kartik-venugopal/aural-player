@@ -29,7 +29,7 @@ class EffectsUnitPopupMenuCell: NicerPopupMenuCell {
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         
         title.string.drawCentered(in: withFrame,
-                                  withFont: titleFont, andColor: titleColor)
+                                  withFont: titleFont, andColor: titleColor, yOffset: -1)
         
         return withFrame
     }

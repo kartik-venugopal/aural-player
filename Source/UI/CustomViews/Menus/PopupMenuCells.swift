@@ -84,4 +84,6 @@ class EffectsPreviewPopupMenuCell: NicerPopupMenuCell {
     override var titleColor: NSColor {Colors.Effects.defaultPopupMenuTextColor}
     
     override var arrowColor: NSColor {titleColor}
+    
+    override var textOffsetY: CGFloat {-1}
 }
