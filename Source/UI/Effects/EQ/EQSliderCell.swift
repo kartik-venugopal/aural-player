@@ -14,6 +14,10 @@ import Cocoa
  */
 class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Constants
+    
     private let barRadius: CGFloat = 0.75
     private let barInsetX: CGFloat = 0
     private let barInsetY: CGFloat = 0
@@ -24,6 +28,10 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     private let knobHeight: CGFloat = 10
     private let knobRadius: CGFloat = 1
     private let knobWidthOutsideBar: CGFloat = 1.5
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Properties
     
     var unitState: EffectsUnitState = .bypassed
     
@@ -47,6 +55,10 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     var knobColor: NSColor {
         Colors.Effects.sliderKnobColorForState(unitState)
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Rendering
     
     // Force knobRect and barRect to NOT be flipped
     

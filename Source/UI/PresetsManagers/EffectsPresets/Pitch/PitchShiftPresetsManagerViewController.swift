@@ -11,7 +11,7 @@ import Cocoa
 
 class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var pitchView: PitchShiftView!
+    @IBOutlet weak var pitchView: PitchShiftUnitView!
     
     override var nibName: String? {"PitchShiftPresetsManager"}
     

@@ -15,13 +15,19 @@ import Cocoa
 
 class EffectsWindowController: NSWindowController, Destroyable {
     
+    override var windowNibName: String? {"EffectsWindow"}
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
+    
     @IBOutlet weak var rootContainerBox: NSBox!
 
     // The constituent sub-views, one for each effects unit
     
     private let masterViewController: MasterUnitViewController = MasterUnitViewController()
     private let eqViewController: EQUnitViewController = EQUnitViewController()
-    private let pitchViewController: PitchShiftViewController = PitchShiftViewController()
+    private let pitchViewController: PitchShiftUnitViewController = PitchShiftUnitViewController()
     private let timeViewController: TimeStretchViewController = TimeStretchViewController()
     private let reverbViewController: ReverbViewController = ReverbViewController()
     private let delayViewController: DelayViewController = DelayViewController()
@@ -44,14 +50,16 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private var tabViewButtons: [EffectsUnitTabButton] = []
     
     @IBOutlet weak var btnClose: TintedImageButton!
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, and helper objects
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
     private let preferences: ViewPreferences = objectGraph.preferences.viewPreferences
 
-    override var windowNibName: String? {"Effects"}
-    
     private lazy var messenger = Messenger(for: self)
     
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
@@ -59,13 +67,17 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
 
     override func windowDidLoad() {
         
-        // Initialize all sub-views
-        addSubViews()
-
         theWindow.isMovableByWindowBackground = true
+        
+        // Initialize all sub-views
+        initTabGroup()
 
         btnClose.tintFunction = {Colors.functionButtonColor}
         
@@ -73,11 +85,10 @@ class EffectsWindowController: NSWindowController, Destroyable {
         rootContainerBox.cornerRadius = uiState.cornerRadius
         
         initUnits()
-        initTabGroup()
         initSubscriptions()
     }
 
-    private func addSubViews() {
+    private func initTabGroup() {
         
         for (index, viewController) in [masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController].enumerated() {
             
@@ -109,23 +120,18 @@ class EffectsWindowController: NSWindowController, Destroyable {
             
             return .bypassed
         }
+        
+        // Select Master tab view by default
+        tabViewAction(masterTabViewButton)
     }
 
     private func initUnits() {
         tabViewButtons.forEach {$0.updateState()}
     }
 
-    private func initTabGroup() {
-
-        // Select Master tab view by default
-        tabViewAction(masterTabViewButton)
-    }
-
     private func initSubscriptions() {
 
         messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
-        
-        // MARK: Commands ----------------------------------------------------------------------------------------
         
         messenger.subscribe(to: .effects_showEffectsUnitTab, handler: showTab(_:))
         
@@ -149,6 +155,10 @@ class EffectsWindowController: NSWindowController, Destroyable {
         close()
         messenger.unsubscribeFromAll()
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Actions
 
     // Switches the tab group to a particular tab
     @IBAction func tabViewAction(_ sender: EffectsUnitTabButton) {
@@ -164,6 +174,44 @@ class EffectsWindowController: NSWindowController, Destroyable {
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         windowLayoutsManager.hideEffectsWindow()
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Message handling
+
+    // Notification that an effect unit's state has changed (active/inactive)
+    private func stateChanged() {
+
+        // Update the tab button states
+        tabViewButtons.forEach {$0.updateState()}
+    }
+    
+    private func showTab(_ effectsUnitType: EffectsUnitType) {
+        
+        switch effectsUnitType {
+        
+        case .master: tabViewAction(masterTabViewButton)
+
+        case .eq: tabViewAction(eqTabViewButton)
+
+        case .pitch: tabViewAction(pitchTabViewButton)
+
+        case .time: tabViewAction(timeTabViewButton)
+
+        case .reverb: tabViewAction(reverbTabViewButton)
+
+        case .delay: tabViewAction(delayTabViewButton)
+
+        case .filter: tabViewAction(filterTabViewButton)
+            
+        case .au: tabViewAction(auTabViewButton)
+
+        }
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     private func applyTheme() {
         
@@ -216,37 +264,5 @@ class EffectsWindowController: NSWindowController, Destroyable {
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
         rootContainerBox.cornerRadius = radius
-    }
-
-    // MARK: Message handling
-
-    // Notification that an effect unit's state has changed (active/inactive)
-    func stateChanged() {
-
-        // Update the tab button states
-        tabViewButtons.forEach {$0.updateState()}
-    }
-    
-    func showTab(_ effectsUnitType: EffectsUnitType) {
-        
-        switch effectsUnitType {
-        
-        case .master: tabViewAction(masterTabViewButton)
-
-        case .eq: tabViewAction(eqTabViewButton)
-
-        case .pitch: tabViewAction(pitchTabViewButton)
-
-        case .time: tabViewAction(timeTabViewButton)
-
-        case .reverb: tabViewAction(reverbTabViewButton)
-
-        case .delay: tabViewAction(delayTabViewButton)
-
-        case .filter: tabViewAction(filterTabViewButton)
-            
-        case .au: tabViewAction(auTabViewButton)
-
-        }
     }
 }

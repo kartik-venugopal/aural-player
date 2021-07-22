@@ -593,7 +593,7 @@
             </connections>
             <point key="canvasLocation" x="-104" y="760"/>
         </customView>
-        <view id="C2E-kk-H0a" userLabel="Pitch Sub Preview" customClass="PitchShiftView" customModule="Aural" customModuleProvider="target">
+        <view id="C2E-kk-H0a" userLabel="Pitch Sub Preview" customClass="PitchShiftUnitView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="442" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>

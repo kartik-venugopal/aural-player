@@ -563,12 +563,12 @@
 		3E6C12BE25CEBE6700BF0D07 /* MasterUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100725CEB98600BF0D07 /* MasterUnitView.swift */; };
 		3E6C12BF25CEBE6700BF0D07 /* EQUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF825CEB98600BF0D07 /* EQUnitViewController.swift */; };
 		3E6C12C025CEBE6700BF0D07 /* PresetsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */; };
-		3E6C12C125CEBE6700BF0D07 /* PitchShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF025CEB98600BF0D07 /* PitchShiftViewController.swift */; };
+		3E6C12C125CEBE6700BF0D07 /* PitchShiftUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF025CEB98600BF0D07 /* PitchShiftUnitViewController.swift */; };
 		3E6C12C225CEBE6700BF0D07 /* MasterUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100625CEB98600BF0D07 /* MasterUnit.xib */; };
 		3E6C12C325CEBE6700BF0D07 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEB25CEB98600BF0D07 /* Images.swift */; };
 		3E6C12C425CEBE6700BF0D07 /* EQUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF925CEB98600BF0D07 /* EQUnitView.swift */; };
 		3E6C12C525CEBE6700BF0D07 /* ReverbViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100025CEB98600BF0D07 /* ReverbViewController.swift */; };
-		3E6C12C625CEBE6700BF0D07 /* PitchShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEF25CEB98600BF0D07 /* PitchShiftView.swift */; };
+		3E6C12C625CEBE6700BF0D07 /* PitchShiftUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEF25CEB98600BF0D07 /* PitchShiftUnitView.swift */; };
 		3E6C12C725CEBE6700BF0D07 /* TimeStretchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100325CEB98600BF0D07 /* TimeStretchView.swift */; };
 		3E6C12C825CEBE6700BF0D07 /* Reverb.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFE25CEB98600BF0D07 /* Reverb.xib */; };
 		3E6C12C925CEBE6700BF0D07 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEC25CEB98600BF0D07 /* Colors.swift */; };
@@ -576,7 +576,7 @@
 		3E6C12CB25CEBE6700BF0D07 /* TimeStretch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100225CEB98600BF0D07 /* TimeStretch.xib */; };
 		3E6C12CE25CEBE6700BF0D07 /* ReverbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFF25CEB98600BF0D07 /* ReverbView.swift */; };
 		3E6C12D125CEBE6700BF0D07 /* TimeStretchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100425CEB98600BF0D07 /* TimeStretchViewController.swift */; };
-		3E6C12D225CEBE6700BF0D07 /* PitchShift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF125CEB98600BF0D07 /* PitchShift.xib */; };
+		3E6C12D225CEBE6700BF0D07 /* PitchShiftUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF125CEB98600BF0D07 /* PitchShiftUnit.xib */; };
 		3E6C12D325CEBE6700BF0D07 /* EQUnitSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFB25CEB98600BF0D07 /* EQUnitSubview.swift */; };
 		3E6C12D425CEBE6700BF0D07 /* MasterUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100825CEB98600BF0D07 /* MasterUnitViewController.swift */; };
 		3E6C12D625CEBE8100BF0D07 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101425CEB98600BF0D07 /* FilterViewController.swift */; };
@@ -588,7 +588,7 @@
 		3E6C12DF25CEBE8100BF0D07 /* PlayingTrackTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C102725CEB98600BF0D07 /* PlayingTrackTextView.swift */; };
 		3E6C12E225CEBE8100BF0D07 /* PlayingTrackSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C102525CEB98600BF0D07 /* PlayingTrackSubview.swift */; };
 		3E6C12E425CEBE8100BF0D07 /* CutoffFrequencySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100F25CEB98600BF0D07 /* CutoffFrequencySlider.swift */; };
-		3E6C12E525CEBE8100BF0D07 /* Effects.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100925CEB98600BF0D07 /* Effects.xib */; };
+		3E6C12E525CEBE8100BF0D07 /* EffectsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100925CEB98600BF0D07 /* EffectsWindow.xib */; };
 		3E6C12E625CEBE8100BF0D07 /* FilterBandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100E25CEB98600BF0D07 /* FilterBandViewController.swift */; };
 		3E6C12E925CEBE8100BF0D07 /* PlayingTrackFunctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101E25CEB98600BF0D07 /* PlayingTrackFunctionsViewController.swift */; };
 		3E6C12EB25CEBE8100BF0D07 /* BookmarkNameInputReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101C25CEB98600BF0D07 /* BookmarkNameInputReceiver.swift */; };
@@ -1597,9 +1597,9 @@
 		3E6C0FEA25CEB98600BF0D07 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
 		3E6C0FEB25CEB98600BF0D07 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		3E6C0FEC25CEB98600BF0D07 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		3E6C0FEF25CEB98600BF0D07 /* PitchShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftView.swift; sourceTree = "<group>"; };
-		3E6C0FF025CEB98600BF0D07 /* PitchShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftViewController.swift; sourceTree = "<group>"; };
-		3E6C0FF125CEB98600BF0D07 /* PitchShift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PitchShift.xib; sourceTree = "<group>"; };
+		3E6C0FEF25CEB98600BF0D07 /* PitchShiftUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftUnitView.swift; sourceTree = "<group>"; };
+		3E6C0FF025CEB98600BF0D07 /* PitchShiftUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftUnitViewController.swift; sourceTree = "<group>"; };
+		3E6C0FF125CEB98600BF0D07 /* PitchShiftUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PitchShiftUnit.xib; sourceTree = "<group>"; };
 		3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsWindowController.swift; sourceTree = "<group>"; };
 		3E6C0FF825CEB98600BF0D07 /* EQUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitViewController.swift; sourceTree = "<group>"; };
 		3E6C0FF925CEB98600BF0D07 /* EQUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitView.swift; sourceTree = "<group>"; };
@@ -1615,7 +1615,7 @@
 		3E6C100625CEB98600BF0D07 /* MasterUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterUnit.xib; sourceTree = "<group>"; };
 		3E6C100725CEB98600BF0D07 /* MasterUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitView.swift; sourceTree = "<group>"; };
 		3E6C100825CEB98600BF0D07 /* MasterUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitViewController.swift; sourceTree = "<group>"; };
-		3E6C100925CEB98600BF0D07 /* Effects.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Effects.xib; sourceTree = "<group>"; };
+		3E6C100925CEB98600BF0D07 /* EffectsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsWindow.xib; sourceTree = "<group>"; };
 		3E6C100E25CEB98600BF0D07 /* FilterBandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandViewController.swift; sourceTree = "<group>"; };
 		3E6C100F25CEB98600BF0D07 /* CutoffFrequencySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutoffFrequencySlider.swift; sourceTree = "<group>"; };
 		3E6C101025CEB98600BF0D07 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -3342,7 +3342,7 @@
 		3E6C0FED25CEB98600BF0D07 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C100925CEB98600BF0D07 /* Effects.xib */,
+				3E6C100925CEB98600BF0D07 /* EffectsWindow.xib */,
 				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
 				3E3633E12685FB2C006A88ED /* EffectsUnitViewController.swift */,
 				3E6C100525CEB98600BF0D07 /* Master */,
@@ -3362,9 +3362,9 @@
 		3E6C0FEE25CEB98600BF0D07 /* PitchShift */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FF125CEB98600BF0D07 /* PitchShift.xib */,
-				3E6C0FF025CEB98600BF0D07 /* PitchShiftViewController.swift */,
-				3E6C0FEF25CEB98600BF0D07 /* PitchShiftView.swift */,
+				3E6C0FF125CEB98600BF0D07 /* PitchShiftUnit.xib */,
+				3E6C0FF025CEB98600BF0D07 /* PitchShiftUnitViewController.swift */,
+				3E6C0FEF25CEB98600BF0D07 /* PitchShiftUnitView.swift */,
 			);
 			path = PitchShift;
 			sourceTree = "<group>";
@@ -4970,7 +4970,7 @@
 				3E6C125425CEBE0600BF0D07 /* ColorSchemesManager.xib in Resources */,
 				3E6C122E25CEBDE600BF0D07 /* PlaybackPreferences.xib in Resources */,
 				3E6C121A25CEBDE600BF0D07 /* PlaylistPreferences.xib in Resources */,
-				3E6C12E525CEBE8100BF0D07 /* Effects.xib in Resources */,
+				3E6C12E525CEBE8100BF0D07 /* EffectsWindow.xib in Resources */,
 				3E6C126E25CEBE0600BF0D07 /* MasterPresetsManager.xib in Resources */,
 				3E6C129025CEBE1800BF0D07 /* PlaylistColorScheme.xib in Resources */,
 				3E6C126825CEBE0600BF0D07 /* PitchShiftPresetsManager.xib in Resources */,
@@ -4992,7 +4992,7 @@
 				3E6C121425CEBDE500BF0D07 /* MainWindow.xib in Resources */,
 				3E6C124325CEBDF400BF0D07 /* Albums.xib in Resources */,
 				3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */,
-				3E6C12D225CEBE6700BF0D07 /* PitchShift.xib in Resources */,
+				3E6C12D225CEBE6700BF0D07 /* PitchShiftUnit.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5480,8 +5480,8 @@
 				3E3633E6268627D4006A88ED /* PitchShiftUnitDelegateProtocol.swift in Sources */,
 				3E09D0E026805C19008ECB8C /* PitchShiftUnitPersistentState.swift in Sources */,
 				3E3633F826863077006A88ED /* PitchShiftUnitProtocol.swift in Sources */,
-				3E6C12C625CEBE6700BF0D07 /* PitchShiftView.swift in Sources */,
-				3E6C12C125CEBE6700BF0D07 /* PitchShiftViewController.swift in Sources */,
+				3E6C12C625CEBE6700BF0D07 /* PitchShiftUnitView.swift in Sources */,
+				3E6C12C125CEBE6700BF0D07 /* PitchShiftUnitViewController.swift in Sources */,
 				3E6C11EA25CEBDC400BF0D07 /* PlaybackChain.swift in Sources */,
 				3EDB346925E8B880004DF7DE /* PlaybackContextProtocol.swift in Sources */,
 				3E6C11C925CEBDBE00BF0D07 /* PlaybackDelegate.swift in Sources */,

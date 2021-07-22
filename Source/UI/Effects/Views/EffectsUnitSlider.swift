@@ -25,30 +25,30 @@ protocol EffectsUnitSliderCellProtocol {
 class EffectsUnitSlider: NSSlider, EffectsUnitSliderProtocol {
     
     private(set) var unitState: EffectsUnitState = .bypassed
-    var stateFunction: (() -> EffectsUnitState)?
+    
+    var stateFunction: (() -> EffectsUnitState)? {
+        didSet {updateState()}
+    }
+    
+    var effectsCell: EffectsUnitSliderCellProtocol!
+    
+    override func awakeFromNib() {
+        self.effectsCell = (self.cell as! EffectsUnitSliderCellProtocol)
+    }
     
     func updateState() {
         
-        if let function = stateFunction {
-            
-            unitState = function()
-            
-            if var cell = self.cell as? EffectsUnitSliderCellProtocol {
-                cell.unitState = unitState
-            }
-            
-            redraw()
-        }
+        guard let stateFunction = self.stateFunction else {return}
+        
+        unitState = stateFunction()
+        effectsCell.unitState = unitState
+        redraw()
     }
     
     func setUnitState(_ state: EffectsUnitState) {
         
         self.unitState = state
-        
-        if var cell = self.cell as? EffectsUnitSliderCellProtocol {
-            cell.unitState = unitState
-        }
-        
+        effectsCell.unitState = unitState
         redraw()
     }
 }

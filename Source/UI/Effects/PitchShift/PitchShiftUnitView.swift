@@ -1,5 +1,5 @@
 //
-//  PitchView.swift
+//  PitchShiftUnitView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,11 @@
 //
 import Cocoa
 
-class PitchShiftView: NSView {
+class PitchShiftUnitView: NSView {
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
 
     @IBOutlet weak var pitchSlider: EffectsUnitSlider!
     @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
@@ -18,43 +22,54 @@ class PitchShiftView: NSView {
     
     private var sliders: [EffectsUnitSlider] = []
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Properties
+    
     var pitch: Float {
-        return pitchSlider.floatValue
+        pitchSlider.floatValue
     }
     
     var overlap: Float {
-        return pitchOverlapSlider.floatValue
+        pitchOverlapSlider.floatValue
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: View initialization
     
     override func awakeFromNib() {
         sliders = [pitchSlider, pitchOverlapSlider]
     }
     
-    func initialize(_ stateFunction: @escaping () -> EffectsUnitState) {
+    func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
         
-        sliders.forEach({
+        sliders.forEach {
             $0.stateFunction = stateFunction
-            $0.updateState()
-        })
+        }
     }
     
-    func setState(_ pitch: Float, _ pitchString: String, _ overlap: Float, _ overlapString: String) {
+    // ------------------------------------------------------------------------
+    
+    // MARK: View update
+    
+    func setState(pitch: Float, pitchString: String, overlap: Float, overlapString: String) {
         
-        setPitch(pitch, pitchString)
-        setPitchOverlap(overlap, overlapString)
+        setPitch(pitch, pitchString: pitchString)
+        setPitchOverlap(overlap, overlapString: overlapString)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
         sliders.forEach {$0.setUnitState(state)}
     }
     
-    func setPitch(_ pitch: Float, _ pitchString: String) {
+    func setPitch(_ pitch: Float, pitchString: String) {
         
         pitchSlider.floatValue = pitch
         lblPitchValue.stringValue = pitchString
     }
     
-    func setPitchOverlap(_ overlap: Float, _ overlapString: String) {
+    func setPitchOverlap(_ overlap: Float, overlapString: String) {
         
         pitchOverlapSlider.floatValue = overlap
         lblPitchOverlapValue.stringValue = overlapString
@@ -67,12 +82,16 @@ class PitchShiftView: NSView {
     func applyPreset(_ preset: PitchShiftPreset) {
         
         let pitch = preset.pitch * ValueConversions.pitch_audioGraphToUI
-        setPitch(pitch, ValueFormatter.formatPitch(pitch))
-        setPitchOverlap(preset.overlap, ValueFormatter.formatOverlap(preset.overlap))
+        setPitch(pitch, pitchString: ValueFormatter.formatPitch(pitch))
+        setPitchOverlap(preset.overlap, overlapString: ValueFormatter.formatOverlap(preset.overlap))
         setUnitState(preset.state)
     }
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
+    
     func redrawSliders() {
-        [pitchSlider, pitchOverlapSlider].forEach {$0?.redraw()}
+        sliders.forEach {$0.redraw()}
     }
 }
