@@ -31,7 +31,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     // ------------------------------------------------------------------------
     
-    // MARK: Services, utilities, and helper objects
+    // MARK: Services, utilities, helpers, and properties
     
     let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
@@ -102,7 +102,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     func initControls() {
         
         stateChanged()
-        presetsMenuButton.selectItem(at: -1)
+        presetsMenuButton.deselect()
     }
     
     // ------------------------------------------------------------------------
@@ -290,6 +290,6 @@ extension EffectsUnitViewController: NSMenuDelegate {
         presetsMenuButton.recreateMenu(insertingItemsAt: 1, fromItems: presetsWrapper.userDefinedPresets)
         
         // Don't select any items from the EQ presets menu
-        presetsMenuButton.selectItem(at: -1)
+        presetsMenuButton.deselect()
     }
 }

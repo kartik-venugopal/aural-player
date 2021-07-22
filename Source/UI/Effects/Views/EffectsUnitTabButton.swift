@@ -12,7 +12,7 @@ import Cocoa
 @IBDesignable
 class EffectsUnitTabButton: OnOffImageButton {
     
-    var stateFunction: (() -> EffectsUnitState)?
+    var stateFunction: EffectsUnitStateFunction?
     
     @IBInspectable var mixedStateTooltip: String?
     

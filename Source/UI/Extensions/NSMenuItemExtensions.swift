@@ -71,6 +71,10 @@ extension NSPopUpButton {
                            action: action, target: target,
                            indentationLevel: indentationLevel)
     }
+    
+    func deselect() {
+        selectItem(at: -1)
+    }
 }
 
 extension NSMenuItem {

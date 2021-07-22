@@ -34,14 +34,6 @@ extension NSButton {
     @objc func toggle() {
         isOn ? off() : on()
     }
-    
-    @objc func displaceLeft(_ amount: CGFloat) {
-        self.frame.origin.x -= amount
-    }
-
-    @objc func displaceRight(_ amount: CGFloat) {
-        self.frame.origin.x += amount
-    }
 }
 
 extension NSButtonCell {

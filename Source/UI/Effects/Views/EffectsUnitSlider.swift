@@ -12,7 +12,7 @@ import Cocoa
 protocol EffectsUnitSliderProtocol {
     
     var unitState: EffectsUnitState {get}
-    var stateFunction: (() -> EffectsUnitState)? {get set}
+    var stateFunction: EffectsUnitStateFunction? {get set}
     
     func updateState()
 }
@@ -26,7 +26,7 @@ class EffectsUnitSlider: NSSlider, EffectsUnitSliderProtocol {
     
     private(set) var unitState: EffectsUnitState = .bypassed
     
-    var stateFunction: (() -> EffectsUnitState)? {
+    var stateFunction: EffectsUnitStateFunction? {
         didSet {updateState()}
     }
     

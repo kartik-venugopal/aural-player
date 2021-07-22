@@ -1,5 +1,5 @@
 //
-//  FilterView.swift
+//  FilterUnitView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,16 +9,29 @@
 //
 import Cocoa
 
-class FilterView: NSView {
+class FilterUnitView: NSView {
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
     
     @IBOutlet weak var chart: FilterChart!
     @IBOutlet weak var bandsView: NSTabView!
     
-    func initialize(_ stateFunction: @escaping () -> EffectsUnitState, _ bandsDataFunction: @escaping () -> [FilterBand], _ tableDataSource: FilterBandsDataSource, _ allowTableRowSelection: Bool = true) {
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
+    
+    func initialize(stateFunction: @escaping EffectsUnitStateFunction,
+                    bandsDataFunction: @escaping () -> [FilterBand]) {
         
         chart.filterUnitStateFunction = stateFunction
         chart.bandsDataFunction = bandsDataFunction
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: View update
     
     func refresh() {
         redrawChart()
@@ -31,26 +44,30 @@ class FilterView: NSView {
     func addBandView(_ view: NSView) {
         
         let numItems = bandsView.numberOfTabViewItems
-        let title = String(format: "Band %d", numItems)
+        let title = "Band \(numItems)"
+        
         let newItem = NSTabViewItem(identifier: title)
         newItem.label = title
         
         bandsView.addTabViewItem(newItem)
-        
         newItem.view?.addSubview(view)
     }
     
-    func selectTab(_ index: Int) {
+    func selectTab(at index: Int) {
         bandsView.selectTabViewItem(at: index)
     }
     
-    func removeTab(_ index: Int) {
+    func removeTab(at index: Int) {
         bandsView.removeTabViewItem(bandsView.tabViewItem(at: index))
     }
     
     func removeAllTabs() {
-        bandsView.tabViewItems.forEach {bandsView.removeTabViewItem($0)}
+        bandsView.tabViewItems.removeAll()
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         redrawChart()

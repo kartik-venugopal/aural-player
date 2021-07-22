@@ -1,5 +1,5 @@
 //
-//  FilterViewController.swift
+//  FilterUnitViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -12,9 +12,15 @@ import Cocoa
 /*
     View controller for the Filter effects unit
  */
-class FilterViewController: EffectsUnitViewController {
+class FilterUnitViewController: EffectsUnitViewController {
     
-    @IBOutlet weak var filterView: FilterView!
+    override var nibName: String? {"FilterUnit"}
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
+    
+    @IBOutlet weak var filterUnitView: FilterUnitView!
     
     @IBOutlet weak var btnAdd: NSButton!
     @IBOutlet weak var btnRemove: NSButton!
@@ -24,15 +30,20 @@ class FilterViewController: EffectsUnitViewController {
     @IBOutlet weak var tabsBox: NSBox!
     private var tabButtons: [NSButton] = []
     private var bandControllers: [FilterBandViewController] = []
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, helpers, and properties
+    
+    var filterUnit: FilterUnitDelegateProtocol = objectGraph.audioGraphDelegate.filterUnit
+    
     private var numTabs: Int {bandControllers.count}
-    
     private var selTab: Int = -1
+    private var tabsShown: ClosedRange<Int> = (-1)...(-1)
     
-    override var nibName: String? {"Filter"}
+    // ------------------------------------------------------------------------
     
-    var filterUnit: FilterUnitDelegateProtocol {graph.filterUnit}
-    
-    var tabsShown: ClosedRange<Int> = (-1)...(-1)
+    // MARK: UI initialization / life-cycle
     
     override func awakeFromNib() {
         
@@ -46,8 +57,8 @@ class FilterViewController: EffectsUnitViewController {
         
         super.oneTimeSetup()
 
-        let bandsDataFunction = {[weak self] () -> [FilterBand] in return self?.filterUnit.bands ?? []}
-        filterView.initialize(self.unitStateFunction, bandsDataFunction, AudioGraphFilterBandsDataSource(filterUnit))
+        let bandsDataFunction = {[weak self] in self?.filterUnit.bands ?? []}
+        filterUnitView.initialize(stateFunction: unitStateFunction, bandsDataFunction: bandsDataFunction)
     }
  
     override func initControls() {
@@ -58,11 +69,12 @@ class FilterViewController: EffectsUnitViewController {
         let numBands = filterUnit.bands.count
         
         for index in 0..<numBands {
-            addBandView(index)
+            addBandView(at: index)
         }
         
         if numBands > 0 {
-            selectTab(0)
+            
+            selectTab(at: 0)
             tabsShown = 0...(min(numTabs - 1, 6))
         }
         
@@ -81,55 +93,35 @@ class FilterViewController: EffectsUnitViewController {
         messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: changeSelectedTabButtonTextColor(_:))
     }
     
-    private func clearBands() {
-        
-        bandControllers.removeAll()
-        
-        tabButtons.forEach {$0.removeFromSuperview()}
-        tabButtons.removeAll()
-        
-        filterView.removeAllTabs()
-        selTab = -1
-        
-        updateCRUDButtonStates()
-        tabsShown = (-1)...(-1)
-    }
-    
-    private func updateCRUDButtonStates() {
-        
-        btnAdd.isEnabled = numTabs < 31
-        btnRemove.isEnabled = numTabs > 0
-        
-        [btnAdd, btnRemove].forEach {$0?.redraw()}
-        
-        btnScrollLeft.showIf(numTabs > 7 && tabsShown.lowerBound > 0)
-        btnScrollRight.showIf(numTabs > 7 && tabsShown.upperBound < numTabs - 1)
-    }
-    
     override func stateChanged() {
         
         super.stateChanged()
-        filterView.refresh()
+        
+        filterUnitView.refresh()
         bandControllers.forEach {$0.stateChanged()}
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Actions
     
     @IBAction func addBandAction(_ sender: AnyObject) {
         
         let bandCon = FilterBandViewController()
         let index = filterUnit.addBand(bandCon.band)
-        initBandController(bandCon, index)
+        initBandController(bandCon, at: index)
         
         let btnWidth = bandCon.tabButton.width
-        let prevBtnX = index == 0 ? 0 : tabButtons[index - 1].frame.origin.x + btnWidth
+        let prevBtnX = index == 0 ? 0 : tabButtons[index - 1].frame.minX + btnWidth
         bandCon.tabButton.setFrameOrigin(NSPoint(x: prevBtnX, y: 0))
         
         // Button tag is the tab index
-        selectTab(index)
-        filterView.redrawChart()
+        selectTab(at: index)
+        filterUnitView.redrawChart()
         updateCRUDButtonStates()
         
         // Show new tab
-        if index >= 7 {
+        if index >= maxShownBands {
             
             for _ in 0..<(index - tabsShown.upperBound) {
                 scrollRight()
@@ -140,50 +132,16 @@ class FilterViewController: EffectsUnitViewController {
         }
     }
     
-    private func addBandView(_ index: Int) {
-        
-        let bandCon = FilterBandViewController()
-        bandCon.band = filterUnit[index]
-        initBandController(bandCon, index)
-        
-        let btnWidth = bandCon.tabButton.width
-        bandCon.tabButton.setFrameOrigin(NSPoint(x: btnWidth * CGFloat(index), y: 0))
-        
-        // Button state
-        bandCon.tabButton.state = .off
-    }
-    
-    private func initBandController(_ bandCon: FilterBandViewController, _ index: Int) {
-        
-        bandCon.bandChangedCallback = {[weak self] () -> Void in self?.bandChanged()}
-        bandControllers.append(bandCon)
-        bandCon.bandIndex = index
-        
-        filterView.addBandView(bandCon.view)
-        bandCon.tabButton.title = String(format: "#%d", (index + 1))
-        
-        tabsBox.addSubview(bandCon.tabButton)
-        tabButtons.append(bandCon.tabButton)
-        
-        bandCon.tabButton.action = #selector(self.showBandAction(_:))
-        bandCon.tabButton.target = self
-        bandCon.tabButton.tag = index
-    }
-    
-    @IBAction func showBandAction(_ sender: NSButton) {
-        selectTab(sender.tag)
-    }
-    
     @IBAction func removeBandAction(_ sender: AnyObject) {
         
-        filterUnit.removeBands(IndexSet([selTab]))
+        filterUnit.removeBands(atIndices: IndexSet([selTab]))
         
         // Remove the selected band's controller and view
-        filterView.removeTab(selTab)
+        filterUnitView.removeTab(at: selTab)
         bandControllers.remove(at: selTab)
         
         // Remove the last tab button (bands count has decreased by 1)
-        tabButtons.remove(at: tabButtons.count - 1).removeFromSuperview()
+        tabButtons.remove(at: tabButtons.lastIndex).removeFromSuperview()
         
         for index in selTab..<numTabs {
             
@@ -194,27 +152,19 @@ class FilterViewController: EffectsUnitViewController {
             bandControllers[index].tabButton = tabButtons[index]
         }
         
-        selectTab(!bandControllers.isEmpty ? 0 : -1)
+        selectTab(at: !bandControllers.isEmpty ? 0 : -1)
         
         // Show tab 0
         for _ in 0..<tabsShown.lowerBound {
             scrollLeft()
         }
         
-        filterView.redrawChart()
+        filterUnitView.redrawChart()
         updateCRUDButtonStates()
     }
     
-    private func moveTabButtonsLeft() {
-        tabButtons.forEach {$0.displaceLeft($0.width)}
-    }
-    
-    private func moveTabButtonsRight() {
-        tabButtons.forEach {$0.displaceRight($0.width)}
-    }
-    
-    private func bandChanged() {
-        filterView.redrawChart()
+    @IBAction func showBandAction(_ sender: NSButton) {
+        selectTab(at: sender.tag)
     }
     
     @IBAction func scrollTabsLeftAction(_ sender: AnyObject) {
@@ -222,7 +172,7 @@ class FilterViewController: EffectsUnitViewController {
         scrollLeft()
         
         if !tabsShown.contains(selTab) {
-            selectTab(tabsShown.lowerBound)
+            selectTab(at: tabsShown.lowerBound)
         }
     }
     
@@ -231,13 +181,89 @@ class FilterViewController: EffectsUnitViewController {
         scrollRight()
         
         if !tabsShown.contains(selTab) {
-            selectTab(tabsShown.lowerBound)
+            selectTab(at: tabsShown.lowerBound)
         }
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Helper functions
+    
+    private let maxNumBands: Int = 31
+    private let maxShownBands: Int = 7
+    
+    private func clearBands() {
+        
+        bandControllers.removeAll()
+        
+        tabButtons.forEach {$0.removeFromSuperview()}
+        tabButtons.removeAll()
+        
+        filterUnitView.removeAllTabs()
+        selTab = -1
+        
+        updateCRUDButtonStates()
+        tabsShown = (-1)...(-1)
+    }
+    
+    private func updateCRUDButtonStates() {
+        
+        btnAdd.isEnabled = numTabs < maxNumBands
+        btnRemove.isEnabled = numTabs > 0
+        
+        [btnAdd, btnRemove].forEach {$0?.redraw()}
+        
+        let overflow: Bool = numTabs > maxShownBands
+        btnScrollLeft.showIf(overflow && tabsShown.lowerBound > 0)
+        btnScrollRight.showIf(overflow && tabsShown.upperBound < numTabs - 1)
+    }
+    
+    private func addBandView(at index: Int) {
+        
+        let bandCon = FilterBandViewController()
+        bandCon.band = filterUnit[index]
+        initBandController(bandCon, at: index)
+        
+        let btnWidth = bandCon.tabButton.width
+        bandCon.tabButton.setFrameOrigin(NSPoint(x: btnWidth * CGFloat(index), y: 0))
+        
+        // Button state
+        bandCon.tabButton.state = .off
+    }
+    
+    private func initBandController(_ bandCon: FilterBandViewController, at index: Int) {
+        
+        bandCon.bandChangedCallback = bandChanged
+        bandControllers.append(bandCon)
+        bandCon.bandIndex = index
+        
+        filterUnitView.addBandView(bandCon.view)
+        bandCon.tabButton.title = String(format: "#%d", (index + 1))
+        
+        tabsBox.addSubview(bandCon.tabButton)
+        tabButtons.append(bandCon.tabButton)
+        
+        bandCon.tabButton.action = #selector(self.showBandAction(_:))
+        bandCon.tabButton.target = self
+        bandCon.tabButton.tag = index
+    }
+    
+    private func moveTabButtonsLeft() {
+        tabButtons.forEach {$0.moveLeft(distance: $0.width)}
+    }
+    
+    private func moveTabButtonsRight() {
+        tabButtons.forEach {$0.moveRight(distance: $0.width)}
+    }
+    
+    private func bandChanged() {
+        filterUnitView.redrawChart()
     }
     
     private func scrollLeft() {
         
         if tabsShown.lowerBound > 0 {
+            
             moveTabButtonsRight()
             tabsShown = (tabsShown.lowerBound - 1)...(tabsShown.upperBound - 1)
             updateCRUDButtonStates()
@@ -247,21 +273,26 @@ class FilterViewController: EffectsUnitViewController {
     private func scrollRight() {
         
         if tabsShown.upperBound < numTabs - 1 {
+            
             moveTabButtonsLeft()
             tabsShown = (tabsShown.lowerBound + 1)...(tabsShown.upperBound + 1)
             updateCRUDButtonStates()
         }
     }
     
-    private func selectTab(_ index: Int) {
+    private func selectTab(at index: Int) {
         
         if index >= 0 {
             
             selTab = index
-            filterView.selectTab(index)
+            filterUnitView.selectTab(at: index)
             tabButtons.forEach {$0.state = $0.tag == selTab ? .on : .off}
         }
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
         
@@ -272,7 +303,7 @@ class FilterViewController: EffectsUnitViewController {
         btnRemove.redraw()
         
         // Redraw the frequency chart
-        filterView.applyFontScheme(fontScheme)
+        filterUnitView.applyFontScheme(fontScheme)
         
         super.applyFontScheme(fontScheme)
     }
@@ -291,7 +322,7 @@ class FilterViewController: EffectsUnitViewController {
         super.changeBypassedUnitStateColor(scheme.effects.bypassedUnitStateColor)
         super.changeSuppressedUnitStateColor(scheme.effects.suppressedUnitStateColor)
         
-        filterView.redrawChart()
+        filterUnitView.redrawChart()
         
         [btnAdd, btnRemove].forEach {$0?.redraw()}
         [btnScrollLeft, btnScrollRight].forEach {$0?.reTint()}
@@ -300,7 +331,7 @@ class FilterViewController: EffectsUnitViewController {
     }
     
     func changeBackgroundColor(_ color: NSColor) {
-        filterView.redrawChart()
+        filterUnitView.redrawChart()
     }
     
     override func changeSliderColors() {
@@ -311,21 +342,21 @@ class FilterViewController: EffectsUnitViewController {
         
         super.changeActiveUnitStateColor(color)
         bandControllers.forEach {$0.redrawSliders()}
-        filterView.redrawChart()
+        filterUnitView.redrawChart()
     }
     
     override func changeBypassedUnitStateColor(_ color: NSColor) {
         
         super.changeBypassedUnitStateColor(color)
         bandControllers.forEach {$0.redrawSliders()}
-        filterView.redrawChart()
+        filterUnitView.redrawChart()
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
         
         super.changeSuppressedUnitStateColor(color)
         bandControllers.forEach {$0.redrawSliders()}
-        filterView.redrawChart()
+        filterUnitView.redrawChart()
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
@@ -362,7 +393,7 @@ class FilterViewController: EffectsUnitViewController {
     
     func changeSelectedTabButtonColor(_ color: NSColor) {
         
-        if selTab >= 0 && selTab < numTabs {
+        if (0..<numTabs).contains(selTab) {
             tabButtons[selTab].redraw()
         }
     }
@@ -373,7 +404,7 @@ class FilterViewController: EffectsUnitViewController {
     
     func changeSelectedTabButtonTextColor(_ color: NSColor) {
         
-        if selTab >= 0 && selTab < numTabs {
+        if (0..<numTabs).contains(selTab) {
             tabButtons[selTab].redraw()
         }
     }

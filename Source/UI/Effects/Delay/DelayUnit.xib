@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="btnBypass" destination="0Oi-jb-bmq" id="dap-fq-cQl"/>
                 <outlet property="btnSavePreset" destination="RNY-r7-uAF" id="vu3-Em-haf"/>
+                <outlet property="delayUnitView" destination="tFM-tl-kaj" id="vJA-5O-k2M"/>
                 <outlet property="lblCaption" destination="Ggt-2P-zMC" id="QxB-2K-32b"/>
                 <outlet property="presetsMenuButton" destination="aWr-na-Gft" id="NtQ-RJ-K45"/>
                 <outlet property="presetsMenuIconItem" destination="yH6-SM-gen" id="fc8-1J-E4b"/>

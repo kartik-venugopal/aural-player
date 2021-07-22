@@ -11,7 +11,7 @@ import Cocoa
 
 class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var filterView: FilterView!
+    @IBOutlet weak var filterView: FilterUnitView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
     
     @IBOutlet weak var bandsTable: NSTableView!
@@ -34,9 +34,9 @@ class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         
         super.viewDidLoad()
         
-        let bandsDataFunction = {[weak self] () -> [FilterBand] in self?.filterChartBands ?? []}
+        let bandsDataFunction = {[weak self] in self?.filterChartBands ?? []}
         
-        filterView.initialize({() -> EffectsUnitState in .active}, bandsDataFunction, bandsDataSource, false)
+        filterView.initialize(stateFunction: {.active}, bandsDataFunction: bandsDataFunction)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false

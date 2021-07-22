@@ -15,7 +15,7 @@ import Cocoa
 @IBDesignable
 class EffectsUnitTriStateLabel: CenterTextLabel {
     
-    var stateFunction: (() -> EffectsUnitState)?
+    var stateFunction: EffectsUnitStateFunction?
     
     var unitState: EffectsUnitState {
         stateFunction?() ?? .bypassed

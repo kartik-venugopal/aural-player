@@ -1123,7 +1123,7 @@
             </connections>
             <point key="canvasLocation" x="636" y="828"/>
         </view>
-        <view id="aH6-oj-Cn9" userLabel="Filter Sub Preview" customClass="FilterView" customModule="Aural" customModuleProvider="target">
+        <view id="aH6-oj-Cn9" userLabel="Filter Sub Preview" customClass="FilterUnitView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="442" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>

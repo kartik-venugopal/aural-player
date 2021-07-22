@@ -13,6 +13,10 @@ class FilterBandViewController: NSViewController {
     
     override var nibName: String? {"FilterBand"}
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
+    
     @IBOutlet weak var filterTypeMenu: NSPopUpButton!
     
     @IBOutlet weak var freqRangeSlider: FilterBandSlider!
@@ -33,6 +37,10 @@ class FilterBandViewController: NSViewController {
     
     private var functionCaptionLabels: [NSTextField] = []
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, helpers, and properties
+    
     private var filterUnit: FilterUnitDelegateProtocol = objectGraph.audioGraphDelegate.filterUnit
     
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
@@ -41,9 +49,13 @@ class FilterBandViewController: NSViewController {
     var band: FilterBand = .bandStopBand(minFreq: SoundConstants.subBass_min, maxFreq: SoundConstants.subBass_max)
     var bandIndex: Int!
     
-    var bandChangedCallback: (() -> Void) = {() -> Void in
+    var bandChangedCallback: (() -> Void) = {
         // Do nothing
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
     
     override func viewDidLoad() {
         
@@ -56,11 +68,11 @@ class FilterBandViewController: NSViewController {
     
     private func oneTimeSetup() {
         
-        freqRangeSlider.onControlChanged = {[weak self] (slider: RangeSlider) -> Void in self?.freqRangeChanged()}
+        freqRangeSlider.onControlChanged = {[weak self] slider in self?.freqRangeChanged()}
         freqRangeSlider.stateFunction = filterUnit.stateFunction
         cutoffSlider.stateFunction = filterUnit.stateFunction
         
-        functionCaptionLabels = findFunctionLabels(self.view)
+        functionCaptionLabels = findFunctionCaptionLabels(under: self.view)
         
         presetRangesIconMenuItem.tintFunction = {Colors.functionButtonColor}
         presetCutoffsIconMenuItem.tintFunction = {Colors.functionButtonColor}
@@ -81,14 +93,22 @@ class FilterBandViewController: NSViewController {
             
             freqRangeSlider.filterType = filterType
             
-            freqRangeSlider.setFrequencyRange(band.minFreq!, band.maxFreq!)
-            lblFrequencies.stringValue = String(format: "[ %@ - %@ ]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
-            
-            cutoffSlider.setFrequency(SoundConstants.audibleRangeMin)
+            if let minFreq = band.minFreq, let maxFreq = band.maxFreq {
+                
+                freqRangeSlider.setFrequencyRange(minFreq, maxFreq)
+                lblFrequencies.stringValue = "[ \(formatFrequency(minFreq)) - \(formatFrequency(maxFreq)) ]"
+                
+                cutoffSlider.setFrequency(SoundConstants.audibleRangeMin)
+            }
             
         } else {
             
-            cutoffSlider.setFrequency(filterType == .lowPass ? band.maxFreq! : band.minFreq!)
+            if filterType == .lowPass, let maxFreq = band.maxFreq {
+                cutoffSlider.setFrequency(maxFreq)
+                
+            } else if filterType == .highPass, let minFreq = band.minFreq {
+                cutoffSlider.setFrequency(minFreq)
+            }
             
             cutoffSliderCell.filterType = filterType
             cutoffSlider.redraw()
@@ -100,13 +120,19 @@ class FilterBandViewController: NSViewController {
         freqRangeSlider.updateState()
         cutoffSlider.updateState()
         
-        presetCutoffsMenu.selectItem(at: -1)
-        presetRangesMenu.selectItem(at: -1)
+        presetCutoffsMenu.deselect()
+        presetRangesMenu.deselect()
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Actions
     
     @IBAction func bandTypeAction(_ sender: Any) {
         
-        let filterType = FilterBandType.fromDescription(filterTypeMenu.titleOfSelectedItem!)
+        guard let selectedItemTitle = filterTypeMenu.titleOfSelectedItem else {return}
+        
+        let filterType = FilterBandType.fromDescription(selectedItemTitle)
         band.type = filterType
         
         let filterTypeIsBandPassOrStop: Bool = filterType.equalsOneOf(.bandStop, .bandPass)
@@ -137,6 +163,7 @@ class FilterBandViewController: NSViewController {
         bandChangedCallback()
     }
     
+    // Action for the frequency range slider.
     private func freqRangeChanged() {
         
         band.minFreq = freqRangeSlider.startFrequency
@@ -163,21 +190,27 @@ class FilterBandViewController: NSViewController {
     
     @IBAction func presetRangeAction(_ sender: NSPopUpButton) {
         
-        if let range = sender.selectedItem as? FrequencyRangeMenuItem {
-            
-            freqRangeSlider.setFrequencyRange(range.minFreq, range.maxFreq)
-            freqRangeChanged()
-        }
+        guard let rangeItem = sender.selectedItem as? FrequencyRangeMenuItem else {return}
         
-        presetRangesMenu.selectItem(at: -1)
+        freqRangeSlider.setFrequencyRange(rangeItem.minFreq, rangeItem.maxFreq)
+        freqRangeChanged()
+        
+        presetRangesMenu.deselect()
     }
     
     @IBAction func presetCutoffAction(_ sender: NSPopUpButton) {
         
-        cutoffSlider.setFrequency(Float(sender.selectedItem!.tag))
+        guard let selectedItem = sender.selectedItem else {return}
+        
+        cutoffSlider.setFrequency(Float(selectedItem.tag))
         cutoffSliderAction(self)
-        presetCutoffsMenu.selectItem(at: -1)
+        
+        presetCutoffsMenu.deselect()
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Helper functions
     
     private func formatFrequency(_ freq: Float) -> String {
         
@@ -195,6 +228,30 @@ class FilterBandViewController: NSViewController {
         freqRangeSlider.updateState()
         cutoffSlider.updateState()
     }
+    
+    private func findFunctionCaptionLabels(under view: NSView) -> [NSTextField] {
+        
+        var labels: [NSTextField] = []
+        
+        for subview in view.subviews {
+            
+            if let label = subview as? NSTextField, !(label is FunctionValueLabel) {
+                
+                labels.append(label)
+                continue
+            }
+            
+            // Recursive call
+            let subviewLabels = findFunctionCaptionLabels(under: subview)
+            labels.append(contentsOf: subviewLabels)
+        }
+        
+        return labels
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
@@ -241,24 +298,6 @@ class FilterBandViewController: NSViewController {
     
     func redrawSliders() {
         [cutoffSlider, freqRangeSlider].forEach {$0?.redraw()}
-    }
-    
-    private func findFunctionLabels(_ view: NSView) -> [NSTextField] {
-        
-        var labels: [NSTextField] = []
-        
-        for subview in view.subviews {
-            
-            if let label = subview as? NSTextField, !(label is FunctionValueLabel) {
-                labels.append(label)
-            }
-            
-            // Recursive call
-            let subviewLabels = findFunctionLabels(subview)
-            labels.append(contentsOf: subviewLabels)
-        }
-        
-        return labels
     }
 }
 

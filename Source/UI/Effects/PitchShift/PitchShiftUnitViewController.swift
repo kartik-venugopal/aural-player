@@ -24,7 +24,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     
     // ------------------------------------------------------------------------
     
-    // MARK: Services, utilities, and helper objects
+    // MARK: Services, utilities, helpers, and properties
     
     private var pitchShiftUnit: PitchShiftUnitDelegateProtocol = objectGraph.audioGraphDelegate.pitchShiftUnit
     

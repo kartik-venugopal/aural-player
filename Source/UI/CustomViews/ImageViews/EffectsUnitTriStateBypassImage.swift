@@ -15,7 +15,7 @@ import Cocoa
 @IBDesignable
 class EffectsUnitTriStateBypassImage: NSImageView, Tintable {
     
-    var stateFunction: (() -> EffectsUnitState)?
+    var stateFunction: EffectsUnitStateFunction?
     
     var unitState: EffectsUnitState {
         stateFunction?() ?? .bypassed

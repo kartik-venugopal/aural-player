@@ -12,17 +12,16 @@ import Cocoa
 class FilterBandSlider: RangeSlider {
     
     var filterType: FilterBandType = .bandStop {
-        
-        didSet {
-            redraw()
-        }
+        didSet {redraw()}
     }
     
     override var barFillColor: NSColor {
         
         switch unitState {
             
-        case .active:   return filterType == .bandPass ? Colors.Effects.activeUnitStateColor : Colors.Effects.bypassedUnitStateColor
+        case .active:   return filterType == .bandPass ?
+                                Colors.Effects.activeUnitStateColor :
+                                Colors.Effects.bypassedUnitStateColor
             
         case .bypassed: return Colors.Effects.bypassedUnitStateColor
             
@@ -35,7 +34,9 @@ class FilterBandSlider: RangeSlider {
         
         switch unitState {
             
-        case .active:   return filterType == .bandPass ? Colors.Effects.activeUnitStateColor : Colors.Effects.bypassedUnitStateColor
+        case .active:   return filterType == .bandPass ?
+                                Colors.Effects.activeUnitStateColor :
+                                Colors.Effects.bypassedUnitStateColor
             
         case .bypassed: return Colors.Effects.bypassedUnitStateColor
             
@@ -49,11 +50,11 @@ class FilterBandSlider: RangeSlider {
     }
     
     var startFrequency: Float {
-        return Float(20 * pow(10, (start - 20) / 6660))
+        Float(20 * pow(10, (start - 20) / 6660))
     }
     
     var endFrequency: Float {
-        return Float(20 * pow(10, (end - 20) / 6660))
+        Float(20 * pow(10, (end - 20) / 6660))
     }
     
     func setFrequencyRange(_ min: Float, _ max: Float) {

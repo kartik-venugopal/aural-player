@@ -25,7 +25,7 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     // ------------------------------------------------------------------------
     
-    // MARK: Services, utilities, and helper objects
+    // MARK: Services, utilities, helpers, and properties
     
     private var masterUnit: MasterUnitDelegateProtocol {graph.masterUnit}
     private var eqUnit: EQUnitDelegateProtocol {graph.eqUnit}

@@ -31,7 +31,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private let timeViewController: TimeStretchUnitViewController = TimeStretchUnitViewController()
     private let reverbViewController: ReverbUnitViewController = ReverbUnitViewController()
     private let delayViewController: DelayUnitViewController = DelayUnitViewController()
-    private let filterViewController: FilterViewController = FilterViewController()
+    private let filterViewController: FilterUnitViewController = FilterUnitViewController()
     private let auViewController: AudioUnitsViewController = AudioUnitsViewController()
 
     // Tab view and its buttons
@@ -53,7 +53,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     
     // ------------------------------------------------------------------------
     
-    // MARK: Services, utilities, and helper objects
+    // MARK: Services, utilities, helpers, and properties
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate

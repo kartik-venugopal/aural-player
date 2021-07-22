@@ -22,7 +22,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     @IBOutlet weak var reverbSubPreview: ReverbUnitView!
     @IBOutlet weak var delaySubPreview: DelayUnitView!
 
-    @IBOutlet weak var filterSubPreview: FilterView!
+    @IBOutlet weak var filterSubPreview: FilterUnitView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
     @IBOutlet weak var bandsTable: NSTableView!
     @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
@@ -56,7 +56,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         eqSubPreview.chooseType(.tenBand)
         
         let bandsDataFunction = {[weak self] () -> [FilterBand] in self?.filterChartBands ?? []}
-        filterSubPreview.initialize({[weak self] () -> EffectsUnitState in self?.presetFilterUnitState ?? .active}, bandsDataFunction, bandsDataSource, false)
+        filterSubPreview.initialize(stateFunction: {[weak self] in self?.presetFilterUnitState ?? .active}, bandsDataFunction: bandsDataFunction)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false

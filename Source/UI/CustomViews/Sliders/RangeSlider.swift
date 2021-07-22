@@ -64,7 +64,7 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
         didSet {redraw()}
     }
     
-    var stateFunction: (() -> EffectsUnitState)?
+    var stateFunction: EffectsUnitStateFunction?
     
     func updateState() {
         

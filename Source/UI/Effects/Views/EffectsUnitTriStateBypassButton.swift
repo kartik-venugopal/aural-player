@@ -14,7 +14,7 @@ import Cocoa
  */
 class EffectsUnitTriStateBypassButton: OnOffImageButton {
     
-    var stateFunction: (() -> EffectsUnitState)?
+    var stateFunction: EffectsUnitStateFunction?
     
     var unitState: EffectsUnitState {
         stateFunction?() ?? .bypassed
