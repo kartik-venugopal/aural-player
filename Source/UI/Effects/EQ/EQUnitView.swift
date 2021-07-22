@@ -35,8 +35,8 @@ class EQUnitView: NSView {
         btn10Band.isOn ? eq10BandView : eq15BandView
     }
     
-    private var inactiveView: EQUnitSubview {
-        btn10Band.isOn ? eq15BandView : eq10BandView
+    private var activeViewTabIndex: Int {
+        btn10Band.isOn ? 0 : 1
     }
     
     var globalGain: Float {
@@ -84,8 +84,8 @@ class EQUnitView: NSView {
         
         activeView.stateChanged()
         activeView.updateBands(bands, globalGain: globalGain)
-        activeView.show()
-        inactiveView.hide()
+        
+        tabView.selectTabViewItem(at: activeViewTabIndex)
     }
     
     func bandsUpdated(_ bands: [Float], globalGain: Float) {
@@ -101,8 +101,7 @@ class EQUnitView: NSView {
         eqType == .tenBand ? btn10Band.on() : btn15Band.on()
         
         activeView.stateChanged()
-        activeView.show()
-        inactiveView.hide()
+        tabView.selectTabViewItem(at: activeViewTabIndex)
     }
     
     func applyPreset(_ preset: EQPreset) {

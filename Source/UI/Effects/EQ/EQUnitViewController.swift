@@ -36,7 +36,7 @@ class EQUnitViewController: EffectsUnitViewController {
         
         super.oneTimeSetup()
         eqUnitView.initialize(eqStateFunction: unitStateFunction,
-                          sliderAction: #selector(self.eqSliderAction(_:)), sliderActionTarget: self)
+                              sliderAction: #selector(self.eqSliderAction(_:)), sliderActionTarget: self)
     }
     
     override func initSubscriptions() {

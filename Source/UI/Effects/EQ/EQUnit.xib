@@ -618,6 +618,7 @@
                 <outlet property="btn15Band" destination="F0F-Za-5yR" id="6VE-KB-2ZW"/>
                 <outlet property="eq10BandView" destination="hxB-Ez-uZ4" id="s4H-Xd-11l"/>
                 <outlet property="eq15BandView" destination="roG-29-d9P" id="ScS-5b-QTw"/>
+                <outlet property="tabView" destination="OW6-o4-MZl" id="tGl-a9-GrZ"/>
             </connections>
             <point key="canvasLocation" x="93" y="454.5"/>
         </view>

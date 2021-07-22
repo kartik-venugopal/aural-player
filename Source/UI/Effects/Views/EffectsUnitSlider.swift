@@ -9,7 +9,20 @@
 //
 import Cocoa
 
-class EffectsUnitSlider: NSSlider {
+protocol EffectsUnitSliderProtocol {
+    
+    var unitState: EffectsUnitState {get}
+    var stateFunction: (() -> EffectsUnitState)? {get set}
+    
+    func updateState()
+}
+
+protocol EffectsUnitSliderCellProtocol {
+    
+    var unitState: EffectsUnitState {get set}
+}
+
+class EffectsUnitSlider: NSSlider, EffectsUnitSliderProtocol {
     
     private(set) var unitState: EffectsUnitState = .bypassed
     var stateFunction: (() -> EffectsUnitState)?
@@ -20,7 +33,7 @@ class EffectsUnitSlider: NSSlider {
             
             unitState = function()
             
-            if let cell = self.cell as? EffectsUnitSliderCell {
+            if var cell = self.cell as? EffectsUnitSliderCellProtocol {
                 cell.unitState = unitState
             }
             
@@ -32,7 +45,7 @@ class EffectsUnitSlider: NSSlider {
         
         self.unitState = state
         
-        if let cell = self.cell as? EffectsUnitSliderCell {
+        if var cell = self.cell as? EffectsUnitSliderCellProtocol {
             cell.unitState = unitState
         }
         

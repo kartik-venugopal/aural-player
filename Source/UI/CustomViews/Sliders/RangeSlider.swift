@@ -44,7 +44,7 @@ fileprivate let bypassedColor: NSColor = .white35Percent
 fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0)
 
 @IBDesignable
-class RangeSlider: NSControl {
+class RangeSlider: NSControl, EffectsUnitSliderProtocol {
     
     //****************************************************************************//
     //****************************************************************************//

@@ -12,7 +12,7 @@ import Cocoa
 /*
     Customizes the look and feel of the parametric EQ sliders
  */
-class EQSliderCell: NSSliderCell {
+class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
     private let barRadius: CGFloat = 0.75
     private let barInsetX: CGFloat = 0

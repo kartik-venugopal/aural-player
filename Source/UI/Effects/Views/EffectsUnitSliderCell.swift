@@ -10,7 +10,7 @@
 import Cocoa
 
 // Cell for all ticked effects sliders
-class EffectsUnitSliderCell: TickedSliderCell {
+class EffectsUnitSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
     override var barRadius: CGFloat {1.5}
     override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
