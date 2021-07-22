@@ -569,13 +569,13 @@
 		3E6C12C425CEBE6700BF0D07 /* EQUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF925CEB98600BF0D07 /* EQUnitView.swift */; };
 		3E6C12C525CEBE6700BF0D07 /* ReverbViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100025CEB98600BF0D07 /* ReverbViewController.swift */; };
 		3E6C12C625CEBE6700BF0D07 /* PitchShiftUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEF25CEB98600BF0D07 /* PitchShiftUnitView.swift */; };
-		3E6C12C725CEBE6700BF0D07 /* TimeStretchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100325CEB98600BF0D07 /* TimeStretchView.swift */; };
+		3E6C12C725CEBE6700BF0D07 /* TimeStretchUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100325CEB98600BF0D07 /* TimeStretchUnitView.swift */; };
 		3E6C12C825CEBE6700BF0D07 /* Reverb.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFE25CEB98600BF0D07 /* Reverb.xib */; };
 		3E6C12C925CEBE6700BF0D07 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEC25CEB98600BF0D07 /* Colors.swift */; };
 		3E6C12CA25CEBE6700BF0D07 /* EffectsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */; };
-		3E6C12CB25CEBE6700BF0D07 /* TimeStretch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100225CEB98600BF0D07 /* TimeStretch.xib */; };
+		3E6C12CB25CEBE6700BF0D07 /* TimeStretchUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100225CEB98600BF0D07 /* TimeStretchUnit.xib */; };
 		3E6C12CE25CEBE6700BF0D07 /* ReverbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFF25CEB98600BF0D07 /* ReverbView.swift */; };
-		3E6C12D125CEBE6700BF0D07 /* TimeStretchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100425CEB98600BF0D07 /* TimeStretchViewController.swift */; };
+		3E6C12D125CEBE6700BF0D07 /* TimeStretchUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100425CEB98600BF0D07 /* TimeStretchUnitViewController.swift */; };
 		3E6C12D225CEBE6700BF0D07 /* PitchShiftUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF125CEB98600BF0D07 /* PitchShiftUnit.xib */; };
 		3E6C12D325CEBE6700BF0D07 /* EQUnitSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFB25CEB98600BF0D07 /* EQUnitSubview.swift */; };
 		3E6C12D425CEBE6700BF0D07 /* MasterUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100825CEB98600BF0D07 /* MasterUnitViewController.swift */; };
@@ -1609,9 +1609,9 @@
 		3E6C0FFE25CEB98600BF0D07 /* Reverb.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Reverb.xib; sourceTree = "<group>"; };
 		3E6C0FFF25CEB98600BF0D07 /* ReverbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbView.swift; sourceTree = "<group>"; };
 		3E6C100025CEB98600BF0D07 /* ReverbViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbViewController.swift; sourceTree = "<group>"; };
-		3E6C100225CEB98600BF0D07 /* TimeStretch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeStretch.xib; sourceTree = "<group>"; };
-		3E6C100325CEB98600BF0D07 /* TimeStretchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchView.swift; sourceTree = "<group>"; };
-		3E6C100425CEB98600BF0D07 /* TimeStretchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchViewController.swift; sourceTree = "<group>"; };
+		3E6C100225CEB98600BF0D07 /* TimeStretchUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeStretchUnit.xib; sourceTree = "<group>"; };
+		3E6C100325CEB98600BF0D07 /* TimeStretchUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchUnitView.swift; sourceTree = "<group>"; };
+		3E6C100425CEB98600BF0D07 /* TimeStretchUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchUnitViewController.swift; sourceTree = "<group>"; };
 		3E6C100625CEB98600BF0D07 /* MasterUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterUnit.xib; sourceTree = "<group>"; };
 		3E6C100725CEB98600BF0D07 /* MasterUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitView.swift; sourceTree = "<group>"; };
 		3E6C100825CEB98600BF0D07 /* MasterUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitViewController.swift; sourceTree = "<group>"; };
@@ -3395,9 +3395,9 @@
 		3E6C100125CEB98600BF0D07 /* TimeStretch */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C100225CEB98600BF0D07 /* TimeStretch.xib */,
-				3E6C100425CEB98600BF0D07 /* TimeStretchViewController.swift */,
-				3E6C100325CEB98600BF0D07 /* TimeStretchView.swift */,
+				3E6C100225CEB98600BF0D07 /* TimeStretchUnit.xib */,
+				3E6C100425CEB98600BF0D07 /* TimeStretchUnitViewController.swift */,
+				3E6C100325CEB98600BF0D07 /* TimeStretchUnitView.swift */,
 			);
 			path = TimeStretch;
 			sourceTree = "<group>";
@@ -4927,7 +4927,7 @@
 				3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */,
 				3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */,
 				3EA3CE6725E3FD9E00BC7D07 /* FontSchemesManager.xib in Resources */,
-				3E6C12CB25CEBE6700BF0D07 /* TimeStretch.xib in Resources */,
+				3E6C12CB25CEBE6700BF0D07 /* TimeStretchUnit.xib in Resources */,
 				3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */,
 				3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */,
 				3E6C12C825CEBE6700BF0D07 /* Reverb.xib in Resources */,
@@ -5663,8 +5663,8 @@
 				3E3633E8268627F3006A88ED /* TimeStretchUnitDelegateProtocol.swift in Sources */,
 				3E09D0E326805C19008ECB8C /* TimeStretchUnitPersistentState.swift in Sources */,
 				3E3633FA268630CB006A88ED /* TimeStretchUnitProtocol.swift in Sources */,
-				3E6C12C725CEBE6700BF0D07 /* TimeStretchView.swift in Sources */,
-				3E6C12D125CEBE6700BF0D07 /* TimeStretchViewController.swift in Sources */,
+				3E6C12C725CEBE6700BF0D07 /* TimeStretchUnitView.swift in Sources */,
+				3E6C12D125CEBE6700BF0D07 /* TimeStretchUnitViewController.swift in Sources */,
 				3E53ACBE267FDE4C00B5AF52 /* TimeUtils.swift in Sources */,
 				3E6C129725CEBE2700BF0D07 /* TintedIconMenuItem.swift in Sources */,
 				3E6C128325CEBE1800BF0D07 /* TintedImageButton.swift in Sources */,

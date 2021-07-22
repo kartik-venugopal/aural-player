@@ -1,5 +1,5 @@
 //
-//  TimeViewController.swift
+//  TimeStretchUnitViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -12,26 +12,25 @@ import Cocoa
 /*
     View controller for the Time effects unit
  */
-class TimeStretchViewController: EffectsUnitViewController {
+class TimeStretchUnitViewController: EffectsUnitViewController {
     
-    @IBOutlet weak var timeStretchView: TimeStretchView!
+    override var nibName: String? {"TimeStretchUnit"}
     
-    @IBOutlet weak var lblRate: VALabel!
-    @IBOutlet weak var lblRateMin: VALabel!
-    @IBOutlet weak var lblRateMax: VALabel!
-    @IBOutlet weak var lblRateValue: VALabel!
+    // ------------------------------------------------------------------------
     
-    @IBOutlet weak var lblOverlap: VALabel!
-    @IBOutlet weak var lblOverlapMin: VALabel!
-    @IBOutlet weak var lblOverlapMax: VALabel!
-    @IBOutlet weak var lblOverlapValue: VALabel!
+    // MARK: UI fields
     
-    @IBOutlet weak var lblPitchShiftValue: VALabel!
-    @IBOutlet weak var btnShiftPitch: NSButton!
+    @IBOutlet weak var timeStretchView: TimeStretchUnitView!
     
-    override var nibName: String? {"TimeStretch"}
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, and helper objects
     
     var timeStretchUnit: TimeStretchUnitDelegateProtocol = objectGraph.audioGraphDelegate.timeStretchUnit
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
     
     override func awakeFromNib() {
         
@@ -41,32 +40,24 @@ class TimeStretchViewController: EffectsUnitViewController {
         presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeStretchUnit.presets)
     }
     
-    override func initSubscriptions() {
-        
-        super.initSubscriptions()
-        
-        messenger.subscribe(to: .timeEffectsUnit_decreaseRate, handler: decreaseRate)
-        messenger.subscribe(to: .timeEffectsUnit_increaseRate, handler: increaseRate)
-        messenger.subscribe(to: .timeEffectsUnit_setRate, handler: setRate(_:))
-    }
-    
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        timeStretchView.initialize(self.unitStateFunction)
+        timeStretchView.initialize(stateFunction: unitStateFunction)
     }
 
     override func initControls() {
 
         super.initControls()
-        timeStretchView.setState(timeStretchUnit.rate, timeStretchUnit.formattedRate, timeStretchUnit.overlap, timeStretchUnit.formattedOverlap, timeStretchUnit.shiftPitch, timeStretchUnit.formattedPitch)
+        
+        timeStretchView.setState(rate: timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                 overlap: timeStretchUnit.overlap, overlapString: timeStretchUnit.formattedOverlap,
+                                 shiftPitch: timeStretchUnit.shiftPitch, shiftPitchString: timeStretchUnit.formattedPitch)
     }
     
-    override func stateChanged() {
-        
-        super.stateChanged()
-        timeStretchView.stateChanged()
-    }
+    // ------------------------------------------------------------------------
+    
+    // MARK: Actions
 
     // Activates/deactivates the Time stretch effects unit
     @IBAction override func bypassAction(_ sender: AnyObject) {
@@ -77,23 +68,50 @@ class TimeStretchViewController: EffectsUnitViewController {
         messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
     }
 
-    // Toggles the "pitch shift" option of the Time stretch effects unit
-    @IBAction func shiftPitchAction(_ sender: AnyObject) {
-
-        timeStretchUnit.shiftPitch = timeStretchView.shiftPitch
-        updatePitchShift()
-    }
-
     // Updates the playback rate value
     @IBAction func timeStretchAction(_ sender: AnyObject) {
 
         timeStretchUnit.rate = timeStretchView.rate
-        timeStretchView.setRate(timeStretchUnit.rate, timeStretchUnit.formattedRate, timeStretchUnit.formattedPitch)
+        timeStretchView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
             messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
         }
+    }
+    
+    // Updates the Overlap parameter of the Time stretch effects unit
+    @IBAction func timeOverlapAction(_ sender: Any) {
+        
+        timeStretchUnit.overlap = timeStretchView.overlap
+        timeStretchView.setOverlap(timeStretchUnit.overlap, overlapString: timeStretchUnit.formattedOverlap)
+    }
+    
+    // Toggles the "Shift pitch" option of the Time stretch effects unit
+    @IBAction func shiftPitchAction(_ sender: AnyObject) {
+
+        timeStretchUnit.shiftPitch = timeStretchView.shiftPitch
+        timeStretchView.updatePitchShift(shiftPitchString: timeStretchUnit.formattedPitch)
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Message handling
+    
+    override func initSubscriptions() {
+        
+        super.initSubscriptions()
+        
+        messenger.subscribe(to: .timeEffectsUnit_decreaseRate, handler: decreaseRate)
+        messenger.subscribe(to: .timeEffectsUnit_increaseRate, handler: increaseRate)
+        messenger.subscribe(to: .timeEffectsUnit_setRate, handler: setRate(_:))
+    }
+    
+    override func stateChanged() {
+        
+        super.stateChanged()
+        timeStretchView.stateChanged()
     }
 
     // Sets the playback rate to a specific value
@@ -119,42 +137,29 @@ class TimeStretchViewController: EffectsUnitViewController {
 
         messenger.publish(.effects_unitStateChanged)
 
-        timeStretchView.setRate(rateInfo.rate, rateInfo.rateString, timeStretchUnit.formattedPitch)
+        timeStretchView.setRate(rateInfo.rate, rateString: rateInfo.rateString,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
         stateChanged()
 
         showThisTab()
 
         messenger.publish(.effects_playbackRateChanged, payload: rateInfo.rate)
     }
-
-    // Updates the Overlap parameter of the Time stretch effects unit
-    @IBAction func timeOverlapAction(_ sender: Any) {
-        
-        timeStretchUnit.overlap = timeStretchView.overlap
-        timeStretchView.setOverlap(timeStretchUnit.overlap, timeStretchUnit.formattedOverlap)
-    }
-
-    // Updates the label that displays the pitch shift value
-    private func updatePitchShift() {
-        timeStretchView.updatePitchShift(timeStretchUnit.formattedPitch)
-    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
         
         super.applyFontScheme(fontScheme)
-        btnShiftPitch.redraw()
+        timeStretchView.applyFontScheme(fontScheme)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
-        changeSliderColors()
-        
-        btnShiftPitch.attributedTitle = NSAttributedString(string: btnShiftPitch.title,
-                                                           attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])
-        
-        btnShiftPitch.attributedAlternateTitle = NSAttributedString(string: btnShiftPitch.title,
-                                                                    attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])
+        timeStretchView.applyColorScheme(scheme)
     }
     
     override func changeSliderColors() {

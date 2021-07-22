@@ -16,7 +16,15 @@ class EQUnitViewController: EffectsUnitViewController {
     
     override var nibName: String? {"EQUnit"}
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
+    
     @IBOutlet weak var eqUnitView: EQUnitView!
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, and helper objects
     
     private var eqUnit: EQUnitDelegateProtocol = objectGraph.audioGraphDelegate.eqUnit
     
@@ -37,24 +45,6 @@ class EQUnitViewController: EffectsUnitViewController {
         super.oneTimeSetup()
         eqUnitView.initialize(eqStateFunction: unitStateFunction,
                               sliderAction: #selector(self.eqSliderAction(_:)), sliderActionTarget: self)
-    }
-    
-    override func initSubscriptions() {
-        
-        super.initSubscriptions()
-        
-        messenger.subscribe(to: .eqEffectsUnit_decreaseBass, handler: decreaseBass)
-        messenger.subscribe(to: .eqEffectsUnit_increaseBass, handler: increaseBass)
-        
-        messenger.subscribe(to: .eqEffectsUnit_decreaseMids, handler: decreaseMids)
-        messenger.subscribe(to: .eqEffectsUnit_increaseMids, handler: increaseMids)
-        
-        messenger.subscribe(to: .eqEffectsUnit_decreaseTreble, handler: decreaseTreble)
-        messenger.subscribe(to: .eqEffectsUnit_increaseTreble, handler: increaseTreble)
-
-        messenger.subscribe(to: .changeTabButtonTextColor, handler: changeTabButtonTextColor(_:))
-        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
-        messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: changeSelectedTabButtonTextColor(_:))
     }
     
     override func initControls() {
@@ -85,6 +75,24 @@ class EQUnitViewController: EffectsUnitViewController {
     // ------------------------------------------------------------------------
     
     // MARK: Message handling
+    
+    override func initSubscriptions() {
+        
+        super.initSubscriptions()
+        
+        messenger.subscribe(to: .eqEffectsUnit_decreaseBass, handler: decreaseBass)
+        messenger.subscribe(to: .eqEffectsUnit_increaseBass, handler: increaseBass)
+        
+        messenger.subscribe(to: .eqEffectsUnit_decreaseMids, handler: decreaseMids)
+        messenger.subscribe(to: .eqEffectsUnit_increaseMids, handler: increaseMids)
+        
+        messenger.subscribe(to: .eqEffectsUnit_decreaseTreble, handler: decreaseTreble)
+        messenger.subscribe(to: .eqEffectsUnit_increaseTreble, handler: increaseTreble)
+
+        messenger.subscribe(to: .changeTabButtonTextColor, handler: changeTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: changeSelectedTabButtonTextColor(_:))
+    }
     
     override func stateChanged() {
         

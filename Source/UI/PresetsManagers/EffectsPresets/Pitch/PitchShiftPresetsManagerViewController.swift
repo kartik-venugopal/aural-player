@@ -29,7 +29,7 @@ class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewCo
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        pitchView.initialize({() -> EffectsUnitState in .active})
+        pitchView.initialize(stateFunction: {.active})
     }
     
     override func renderPreview(_ presetName: String) {

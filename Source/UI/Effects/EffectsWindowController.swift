@@ -28,7 +28,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private let masterViewController: MasterUnitViewController = MasterUnitViewController()
     private let eqViewController: EQUnitViewController = EQUnitViewController()
     private let pitchViewController: PitchShiftUnitViewController = PitchShiftUnitViewController()
-    private let timeViewController: TimeStretchViewController = TimeStretchViewController()
+    private let timeViewController: TimeStretchUnitViewController = TimeStretchUnitViewController()
     private let reverbViewController: ReverbViewController = ReverbViewController()
     private let delayViewController: DelayViewController = DelayViewController()
     private let filterViewController: FilterViewController = FilterViewController()
@@ -129,24 +129,6 @@ class EffectsWindowController: NSWindowController, Destroyable {
         tabViewButtons.forEach {$0.updateState()}
     }
 
-    private func initSubscriptions() {
-
-        messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
-        
-        messenger.subscribe(to: .effects_showEffectsUnitTab, handler: showTab(_:))
-        
-        messenger.subscribe(to: .applyTheme, handler: applyTheme)
-        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
-        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
-        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
-        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
-        messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
-        
-        messenger.subscribe(to: .effects_changeActiveUnitStateColor, handler: changeActiveUnitStateColor(_:))
-        messenger.subscribe(to: .effects_changeBypassedUnitStateColor, handler: changeBypassedUnitStateColor(_:))
-        messenger.subscribe(to: .effects_changeSuppressedUnitStateColor, handler: changeSuppressedUnitStateColor(_:))
-    }
-    
     func destroy() {
         
         ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController,
@@ -178,6 +160,24 @@ class EffectsWindowController: NSWindowController, Destroyable {
     // ------------------------------------------------------------------------
     
     // MARK: Message handling
+    
+    private func initSubscriptions() {
+
+        messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
+        
+        messenger.subscribe(to: .effects_showEffectsUnitTab, handler: showTab(_:))
+        
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
+        messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        
+        messenger.subscribe(to: .effects_changeActiveUnitStateColor, handler: changeActiveUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeBypassedUnitStateColor, handler: changeBypassedUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeSuppressedUnitStateColor, handler: changeSuppressedUnitStateColor(_:))
+    }
 
     // Notification that an effect unit's state has changed (active/inactive)
     private func stateChanged() {

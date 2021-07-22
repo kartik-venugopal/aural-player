@@ -40,15 +40,6 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
         presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchShiftUnit.presets)
     }
     
-    override func initSubscriptions() {
-        
-        super.initSubscriptions()
-        
-        messenger.subscribe(to: .pitchEffectsUnit_decreasePitch, handler: decreasePitch)
-        messenger.subscribe(to: .pitchEffectsUnit_increasePitch, handler: increasePitch)
-        messenger.subscribe(to: .pitchEffectsUnit_setPitch, handler: setPitch(_:))
-    }
-    
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
@@ -84,6 +75,15 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     // ------------------------------------------------------------------------
     
     // MARK: Message handling
+    
+    override func initSubscriptions() {
+        
+        super.initSubscriptions()
+        
+        messenger.subscribe(to: .pitchEffectsUnit_decreasePitch, handler: decreasePitch)
+        messenger.subscribe(to: .pitchEffectsUnit_increasePitch, handler: increasePitch)
+        messenger.subscribe(to: .pitchEffectsUnit_setPitch, handler: setPitch(_:))
+    }
     
     override func stateChanged() {
         

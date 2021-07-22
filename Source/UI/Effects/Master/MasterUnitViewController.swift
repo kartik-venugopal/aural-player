@@ -52,19 +52,6 @@ class MasterUnitViewController: EffectsUnitViewController {
         presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(masterUnit.presets)
     }
     
-    override func initSubscriptions() {
-        
-        super.initSubscriptions()
-        
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged(_:),
-                                 filter: {msg in msg.trackChanged})
-        
-        messenger.subscribe(to: .masterEffectsUnit_toggleEffects, handler: toggleEffects)
-        messenger.subscribe(to: .auEffectsUnit_audioUnitsAddedOrRemoved, handler: audioUnitsTable.reloadData)
-        
-        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
-    }
-    
     override func initControls() {
         
         super.initControls()
@@ -153,6 +140,19 @@ class MasterUnitViewController: EffectsUnitViewController {
     // ------------------------------------------------------------------------
     
     // MARK: Message handling
+    
+    override func initSubscriptions() {
+        
+        super.initSubscriptions()
+        
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged(_:),
+                                 filter: {msg in msg.trackChanged})
+        
+        messenger.subscribe(to: .masterEffectsUnit_toggleEffects, handler: toggleEffects)
+        messenger.subscribe(to: .auEffectsUnit_audioUnitsAddedOrRemoved, handler: audioUnitsTable.reloadData)
+        
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+    }
     
     override func stateChanged() {
         

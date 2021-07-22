@@ -18,7 +18,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     @IBOutlet weak var masterSubPreview: MasterUnitView!
     @IBOutlet weak var eqSubPreview: EQUnitView!
     @IBOutlet weak var pitchSubPreview: PitchShiftUnitView!
-    @IBOutlet weak var timeSubPreview: TimeStretchView!
+    @IBOutlet weak var timeSubPreview: TimeStretchUnitView!
     @IBOutlet weak var reverbSubPreview: ReverbView!
     @IBOutlet weak var delaySubPreview: DelayView!
 

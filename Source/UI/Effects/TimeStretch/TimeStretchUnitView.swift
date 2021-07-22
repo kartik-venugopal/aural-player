@@ -1,5 +1,5 @@
 //
-//  TimeView.swift
+//  TimeStretchUnitView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,11 @@
 //
 import Cocoa
 
-class TimeStretchView: NSView {
+class TimeStretchUnitView: NSView {
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
     
     @IBOutlet weak var timeSlider: EffectsUnitSlider!
     @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
@@ -22,29 +26,40 @@ class TimeStretchView: NSView {
     
     private var sliders: [EffectsUnitSlider] = []
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Properties
+    
     var rate: Float {
-        return timeSlider.floatValue
+        timeSlider.floatValue
     }
     
     var overlap: Float {
-        return timeOverlapSlider.floatValue
+        timeOverlapSlider.floatValue
     }
     
     var shiftPitch: Bool {
-        return btnShiftPitch.isOn
+        btnShiftPitch.isOn
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: View initialization
     
     override func awakeFromNib() {
         sliders = [timeSlider, timeOverlapSlider]
     }
     
-    func initialize(_ stateFunction: (() -> EffectsUnitState)?) {
+    func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
         
-        sliders.forEach({
+        sliders.forEach {
             $0.stateFunction = stateFunction
-            $0.updateState()
-        })
+        }
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: View update
     
     func setUnitState(_ state: EffectsUnitState) {
         sliders.forEach {$0.setUnitState(state)}
@@ -54,10 +69,12 @@ class TimeStretchView: NSView {
         sliders.forEach {$0.updateState()}
     }
     
-    func setState(_ rate: Float, _ rateString: String, _ overlap: Float, _ overlapString: String, _ shiftPitch: Bool, _ shiftPitchString: String) {
+    func setState(rate: Float, rateString: String,
+                  overlap: Float, overlapString: String,
+                  shiftPitch: Bool, shiftPitchString: String) {
         
         btnShiftPitch.onIf(shiftPitch)
-        updatePitchShift(shiftPitchString)
+        updatePitchShift(shiftPitchString: shiftPitchString)
         
         timeSlider.floatValue = rate
         lblTimeStretchRateValue.stringValue = rateString
@@ -67,19 +84,19 @@ class TimeStretchView: NSView {
     }
     
     // Updates the label that displays the pitch shift value
-    func updatePitchShift(_ shiftPitchString: String) {
+    func updatePitchShift(shiftPitchString: String) {
         lblPitchShiftValue.stringValue = shiftPitchString
     }
     
     // Sets the playback rate to a specific value
-    func setRate(_ rate: Float, _ rateString: String, _ shiftPitchString: String) {
+    func setRate(_ rate: Float, rateString: String, shiftPitchString: String) {
         
         lblTimeStretchRateValue.stringValue = rateString
         timeSlider.floatValue = rate
-        updatePitchShift(shiftPitchString)
+        updatePitchShift(shiftPitchString: shiftPitchString)
     }
     
-    func setOverlap(_ overlap: Float, _ overlapString: String) {
+    func setOverlap(_ overlap: Float, overlapString: String) {
         
         timeOverlapSlider.floatValue = overlap
         lblTimeOverlapValue.stringValue = overlapString
@@ -97,6 +114,25 @@ class TimeStretchView: NSView {
         
         timeOverlapSlider.floatValue = preset.overlap
         lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
+    
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        btnShiftPitch.redraw()
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        redrawSliders()
+        
+        btnShiftPitch.attributedTitle = NSAttributedString(string: btnShiftPitch.title,
+                                                           attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])
+        
+        btnShiftPitch.attributedAlternateTitle = NSAttributedString(string: btnShiftPitch.title,
+                                                                    attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])
     }
     
     func redrawSliders() {

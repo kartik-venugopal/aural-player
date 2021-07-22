@@ -688,7 +688,7 @@
             </connections>
             <point key="canvasLocation" x="553" y="-45"/>
         </view>
-        <view id="yVZ-ub-RLG" userLabel="Time Sub Preview" customClass="TimeStretchView" customModule="Aural" customModuleProvider="target">
+        <view id="yVZ-ub-RLG" userLabel="Time Sub Preview" customClass="TimeStretchUnitView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="442" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>

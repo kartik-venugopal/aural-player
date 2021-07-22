@@ -95,34 +95,6 @@ class EffectsUnitViewController: NSViewController, Destroyable {
         }
     }
     
-    func initSubscriptions() {
-        
-        // Subscribe to notifications
-        messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
-        
-        // FIXME: Revisit this filter logic.
-        messenger.subscribe(to: .effects_updateEffectsUnitView,
-                            handler: initControls,
-                            filter: {[weak self] (unitType: EffectsUnitType) in
-                                unitType.equalsOneOf(self?.unitType, .master)
-                            })
-        
-        messenger.subscribe(to: .effects_changeSliderColors, handler: changeSliderColors)
-        
-        messenger.subscribe(to: .applyTheme, handler: applyTheme)
-        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
-        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
-        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
-        messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
-        
-        messenger.subscribe(to: .effects_changeFunctionCaptionTextColor, handler: changeFunctionCaptionTextColor(_:))
-        messenger.subscribe(to: .effects_changeFunctionValueTextColor, handler: changeFunctionValueTextColor(_:))
-        
-        messenger.subscribe(to: .effects_changeActiveUnitStateColor, handler: changeActiveUnitStateColor(_:))
-        messenger.subscribe(to: .effects_changeBypassedUnitStateColor, handler: changeBypassedUnitStateColor(_:))
-        messenger.subscribe(to: .effects_changeSuppressedUnitStateColor, handler: changeSuppressedUnitStateColor(_:))
-    }
-    
     func destroy() {
         messenger.unsubscribeFromAll()
     }
@@ -162,11 +134,43 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     // ------------------------------------------------------------------------
     
-    // MARK: Helper functions
+    // MARK: Message handling
+    
+    func initSubscriptions() {
+        
+        // Subscribe to notifications
+        messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
+        
+        // FIXME: Revisit this filter logic.
+        messenger.subscribe(to: .effects_updateEffectsUnitView,
+                            handler: initControls,
+                            filter: {[weak self] (unitType: EffectsUnitType) in
+                                unitType.equalsOneOf(self?.unitType, .master)
+                            })
+        
+        messenger.subscribe(to: .effects_changeSliderColors, handler: changeSliderColors)
+        
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
+        
+        messenger.subscribe(to: .effects_changeFunctionCaptionTextColor, handler: changeFunctionCaptionTextColor(_:))
+        messenger.subscribe(to: .effects_changeFunctionValueTextColor, handler: changeFunctionValueTextColor(_:))
+        
+        messenger.subscribe(to: .effects_changeActiveUnitStateColor, handler: changeActiveUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeBypassedUnitStateColor, handler: changeBypassedUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeSuppressedUnitStateColor, handler: changeSuppressedUnitStateColor(_:))
+    }
     
     func stateChanged() {
         btnBypass.updateState()
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Helper functions
     
     func showThisTab() {
         messenger.publish(.effects_showEffectsUnitTab, payload: unitType)
