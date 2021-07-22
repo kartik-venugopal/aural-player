@@ -62,7 +62,7 @@ class DelayView: NSView {
     }
     
     func setUnitState(_ state: EffectsUnitState) {
-        sliders.forEach({$0.setUnitState(state)})
+        sliders.forEach {$0.setUnitState(state)}
     }
     
     func setTime(_ time: Double, _ timeString: String) {
@@ -90,7 +90,7 @@ class DelayView: NSView {
     }
     
     func stateChanged() {
-        sliders.forEach({$0.updateState()})
+        sliders.forEach {$0.updateState()}
     }
     
     func applyPreset(_ preset: DelayPreset) {
@@ -107,10 +107,10 @@ class DelayView: NSView {
         cutoffSlider.setFrequency(preset.lowPassCutoff)
         lblCutoff.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.lowPassCutoff)
         
-        sliders.forEach({$0.setUnitState(preset.state)})
+        sliders.forEach {$0.setUnitState(preset.state)}
     }
     
     func redrawSliders() {
-        sliders.forEach({$0.redraw()})
+        sliders.forEach {$0.redraw()}
     }
 }

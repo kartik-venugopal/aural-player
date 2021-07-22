@@ -17,10 +17,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     @IBInspectable var mixedStateTooltip: String?
     
     var mixedStateTintFunction: () -> NSColor = {Colors.Effects.suppressedUnitStateColor} {
-        
-        didSet {
-            reTint()
-        }
+        didSet {reTint()}
     }
     
     override func awakeFromNib() {
@@ -37,6 +34,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         _isOn = false
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
+            
             cell.unitState = .bypassed
             redraw()
         }
@@ -49,6 +47,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         _isOn = true
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
+            
             cell.unitState = .active
             redraw()
         }
@@ -60,6 +59,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         self.toolTip = mixedStateTooltip
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
+            
             cell.unitState = .suppressed
             redraw()
         }
@@ -67,15 +67,19 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     override func reTint() {
         
+        let tintColor: NSColor
+        
         switch unitState {
             
-        case .bypassed: self.image = self.image?.filledWithColor(offStateTintFunction())
+        case .bypassed: tintColor = offStateTintFunction()
             
-        case .active: self.image = self.image?.filledWithColor(onStateTintFunction())
+        case .active: tintColor = onStateTintFunction()
             
-        case .suppressed: self.image = self.image?.filledWithColor(mixedStateTintFunction())
+        case .suppressed: tintColor = mixedStateTintFunction()
             
         }
+        
+        self.image = self.image?.filledWithColor(tintColor)
         
         // Need to redraw because we are using a custom button cell which needs to render the updated image itself
         redraw()
@@ -97,7 +101,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     }
     
     var unitState: EffectsUnitState {
-        return stateFunction?() ?? .bypassed
+        stateFunction?() ?? .bypassed
     }
     
     func select() {

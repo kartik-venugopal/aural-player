@@ -47,11 +47,11 @@ class TimeStretchView: NSView {
     }
     
     func setUnitState(_ state: EffectsUnitState) {
-        sliders.forEach({$0.setUnitState(state)})
+        sliders.forEach {$0.setUnitState(state)}
     }
     
     func stateChanged() {
-        sliders.forEach({$0.updateState()})
+        sliders.forEach {$0.updateState()}
     }
     
     func setState(_ rate: Float, _ rateString: String, _ overlap: Float, _ overlapString: String, _ shiftPitch: Bool, _ shiftPitchString: String) {
@@ -100,7 +100,7 @@ class TimeStretchView: NSView {
     }
     
     func redrawSliders() {
-        [timeSlider, timeOverlapSlider].forEach({$0?.redraw()})
+        [timeSlider, timeOverlapSlider].forEach {$0?.redraw()}
     }
     
     func changeFunctionCaptionTextColor() {

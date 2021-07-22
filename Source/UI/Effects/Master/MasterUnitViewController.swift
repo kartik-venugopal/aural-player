@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  MasterUnitViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -11,14 +11,21 @@ import Cocoa
 
 class MasterUnitViewController: EffectsUnitViewController {
     
-    @IBOutlet weak var masterView: MasterUnitView!
+    override var nibName: String? {"MasterUnit"}
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
+    
+    @IBOutlet weak var masterUnitView: MasterUnitView!
     
     @IBOutlet weak var audioUnitsScrollView: NSScrollView!
     @IBOutlet weak var audioUnitsClipView: NSClipView!
     @IBOutlet weak var audioUnitsTable: NSTableView!
     
-    private let soundPreferences: SoundPreferences = objectGraph.preferences.soundPreferences
-    private let playbackPreferences: PlaybackPreferences = objectGraph.preferences.playbackPreferences
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, and helper objects
     
     private var masterUnit: MasterUnitDelegateProtocol {graph.masterUnit}
     private var eqUnit: EQUnitDelegateProtocol {graph.eqUnit}
@@ -30,7 +37,12 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     private let soundProfiles: SoundProfiles = objectGraph.audioGraphDelegate.soundProfiles
     
-    override var nibName: String? {"MasterUnit"}
+    private let soundPreferences: SoundPreferences = objectGraph.preferences.soundPreferences
+    private let playbackPreferences: PlaybackPreferences = objectGraph.preferences.playbackPreferences
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
     
     override func awakeFromNib() {
         
@@ -38,30 +50,6 @@ class MasterUnitViewController: EffectsUnitViewController {
         
         effectsUnit = masterUnit
         presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(masterUnit.presets)
-    }
-    
-    override func oneTimeSetup() {
-        
-        super.oneTimeSetup()
-        
-        let auStateFunction: EffectsUnitStateFunction = {[weak self] in
-            
-            for unit in self?.graph.audioUnits ?? [] {
-            
-                if unit.state == .active {
-                    return .active
-                }
-                
-                if unit.state == .suppressed {
-                    return .suppressed
-                }
-            }
-            
-            return .bypassed
-        }
-        
-        masterView.initialize(eqUnit.stateFunction, pitchShiftUnit.stateFunction, timeStretchUnit.stateFunction,
-                              reverbUnit.stateFunction, delayUnit.stateFunction, filterUnit.stateFunction, auStateFunction)
     }
     
     override func initSubscriptions() {
@@ -72,7 +60,7 @@ class MasterUnitViewController: EffectsUnitViewController {
                                  filter: {msg in msg.trackChanged})
         
         messenger.subscribe(to: .masterEffectsUnit_toggleEffects, handler: toggleEffects)
-        messenger.subscribe(to: .auEffectsUnit_audioUnitsAddedOrRemoved, handler: refreshAUTable)
+        messenger.subscribe(to: .auEffectsUnit_audioUnitsAddedOrRemoved, handler: audioUnitsTable.reloadData)
         
         messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
     }
@@ -80,9 +68,20 @@ class MasterUnitViewController: EffectsUnitViewController {
     override func initControls() {
         
         super.initControls()
+        
         updateButtons()
         broadcastStateChangeNotification()
     }
+    
+    private func updateButtons() {
+        
+        btnBypass.updateState()
+        masterUnitView.stateChanged()
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Actions
     
     @IBAction override func bypassAction(_ sender: AnyObject) {
         
@@ -95,25 +94,10 @@ class MasterUnitViewController: EffectsUnitViewController {
         audioUnitsTable.reloadData()
     }
     
-    private func toggleEffects() {
-        bypassAction(self)
-    }
-    
     @IBAction override func presetsAction(_ sender: AnyObject) {
         
         super.presetsAction(sender)
         messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
-    }
-    
-    private func updateButtons() {
-        
-        btnBypass.updateState()
-        masterView.stateChanged()
-    }
-    
-    private func broadcastStateChangeNotification() {
-        // Update the bypass buttons for the effects units
-        messenger.publish(.effects_unitStateChanged)
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
@@ -166,6 +150,22 @@ class MasterUnitViewController: EffectsUnitViewController {
         broadcastStateChangeNotification()
     }
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Message handling
+    
+    override func stateChanged() {
+        
+        updateButtons()
+        messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
+        
+        audioUnitsTable.reloadData()
+    }
+    
+    private func toggleEffects() {
+        bypassAction(self)
+    }
+    
     func trackChanged(_ notification: TrackTransitionNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
@@ -175,6 +175,20 @@ class MasterUnitViewController: EffectsUnitViewController {
             messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
         }
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Helper functions
+    
+    private func broadcastStateChangeNotification() {
+        
+        // Update the bypass buttons for the effects units
+        messenger.publish(.effects_unitStateChanged)
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
         
@@ -212,7 +226,7 @@ class MasterUnitViewController: EffectsUnitViewController {
     override func changeActiveUnitStateColor(_ color: NSColor) {
         
         super.changeActiveUnitStateColor(color)
-        masterView.changeActiveUnitStateColor(color)
+        masterUnitView.changeActiveUnitStateColor(color)
         
         let rowsForActiveUnits: [Int] = audioUnitsTable.allRowIndices.filter {graph.audioUnits[$0].state == .active}
         audioUnitsTable.reloadRows(rowsForActiveUnits, columns: [0, 1])
@@ -221,7 +235,7 @@ class MasterUnitViewController: EffectsUnitViewController {
     override func changeBypassedUnitStateColor(_ color: NSColor) {
         
         super.changeBypassedUnitStateColor(color)
-        masterView.changeBypassedUnitStateColor(color)
+        masterUnitView.changeBypassedUnitStateColor(color)
         
         let rowsForBypassedUnits: [Int] = audioUnitsTable.allRowIndices.filter {graph.audioUnits[$0].state == .bypassed}
         audioUnitsTable.reloadRows(rowsForBypassedUnits, columns: [0, 1])
@@ -230,23 +244,9 @@ class MasterUnitViewController: EffectsUnitViewController {
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
         
         // Master unit can never be suppressed, but update other unit state buttons
-        masterView.changeSuppressedUnitStateColor(color)
+        masterUnitView.changeSuppressedUnitStateColor(color)
         
         let rowsForSuppressedUnits: [Int] = audioUnitsTable.allRowIndices.filter {graph.audioUnits[$0].state == .suppressed}
         audioUnitsTable.reloadRows(rowsForSuppressedUnits, columns: [0, 1])
-    }
-    
-    // MARK: Message handling
-    
-    override func stateChanged() {
-        
-        updateButtons()
-        messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
-        
-        audioUnitsTable.reloadData()
-    }
-    
-    private func refreshAUTable() {
-        audioUnitsTable.reloadData()
     }
 }

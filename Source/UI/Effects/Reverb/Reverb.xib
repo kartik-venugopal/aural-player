@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -98,7 +97,7 @@
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flt-XK-mfg" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="145" y="19" width="230" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="Xxn-59-k0q" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="Xxn-59-k0q" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="reverbAmountAction:" target="-2" id="CCB-Ca-mSW"/>
                                 </connections>

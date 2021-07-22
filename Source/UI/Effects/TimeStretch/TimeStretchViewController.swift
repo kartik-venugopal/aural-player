@@ -37,7 +37,6 @@ class TimeStretchViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        unitType = .time
         effectsUnit = graph.timeStretchUnit
         presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeStretchUnit.presets)
     }

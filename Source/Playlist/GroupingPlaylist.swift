@@ -191,7 +191,7 @@ class GroupingPlaylist: GroupingPlaylistProtocol {
         let groupRemovedResults = groupsToRemove.map {GroupRemovalResult($0, indexOfGroup($0)!)}
             .sorted(by: GroupRemovalResult.compareDescending)
         
-        groupRemovedResults.forEach({removeGroupAtIndex($0.groupIndex)})
+        groupRemovedResults.forEach {removeGroupAtIndex($0.groupIndex)}
         
         // Remove tracks from their respective parent groups and note the track indexes (this does not have to be done in the order of group index)
         let trackRemovedResults: [GroupedTracksRemovalResult] = tracksByGroup.map {GroupedTracksRemovalResult($0, indexOfGroup($0)!, removeTracksFromGroup($1, $0))}
@@ -303,7 +303,7 @@ class GroupingPlaylist: GroupingPlaylistProtocol {
         if let tracksSort = sort.tracksSort {
             
             let parentGroups = tracksSort.scope == .allGroups ? self.groups : tracksSort.parentGroups
-            parentGroups.forEach({$0.sort(comparator.compareTracks)})
+            parentGroups.forEach {$0.sort(comparator.compareTracks)}
         }
     }
     

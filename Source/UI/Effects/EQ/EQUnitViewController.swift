@@ -1,5 +1,5 @@
 //
-//  EQViewController.swift
+//  EQUnitViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -14,11 +14,15 @@ import Cocoa
  */
 class EQUnitViewController: EffectsUnitViewController {
     
+    override var nibName: String? {"EQUnit"}
+    
     @IBOutlet weak var eqView: EQView!
     
     private var eqUnit: EQUnitDelegateProtocol = objectGraph.audioGraphDelegate.eqUnit
     
-    override var nibName: String? {"EQUnit"}
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
     
     override func awakeFromNib() {
         
@@ -58,16 +62,14 @@ class EQUnitViewController: EffectsUnitViewController {
         eqView.setState(eqUnit.type, eqUnit.bands, eqUnit.globalGain)
     }
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Actions
+    
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         eqUnit.type = eqView.type
         eqView.typeChanged(eqUnit.bands, eqUnit.globalGain)
-    }
-    
-    override func stateChanged() {
-        
-        super.stateChanged()
-        eqView.stateChanged()
     }
     
     @IBAction func eqGlobalGainAction(_ sender: EffectsUnitSlider) {
@@ -77,6 +79,16 @@ class EQUnitViewController: EffectsUnitViewController {
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
     @IBAction func eqSliderAction(_ sender: EffectsUnitSlider) {
         eqUnit[sender.tag] = sender.floatValue
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Message handling
+    
+    override func stateChanged() {
+        
+        super.stateChanged()
+        eqView.stateChanged()
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
@@ -117,6 +129,10 @@ class EQUnitViewController: EffectsUnitViewController {
         messenger.publish(.effects_unitStateChanged)
         showThisTab()
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
         

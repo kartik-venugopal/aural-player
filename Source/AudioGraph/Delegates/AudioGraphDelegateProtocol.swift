@@ -70,6 +70,8 @@ protocol AudioGraphDelegateProtocol {
     var filterUnit: FilterUnitDelegateProtocol {get}
     
     var audioUnits: [HostedAudioUnitDelegateProtocol] {get}
+    var audioUnitsStateFunction: EffectsUnitStateFunction {get}
+    
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnitDelegateProtocol, index: Int)?
     func removeAudioUnits(at indices: IndexSet) -> [HostedAudioUnitDelegateProtocol]
     

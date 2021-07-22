@@ -34,7 +34,5 @@ class EffectsUnitPopupMenuCell: NicerPopupMenuCell {
         return withFrame
     }
     
-    override func titleRect(forBounds cellFrame: NSRect) -> NSRect {
-        return cellFrame.offsetBy(dx: 0, dy: -1)
-    }
+    override func titleRect(forBounds cellFrame: NSRect) -> NSRect {cellFrame}
 }

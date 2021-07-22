@@ -38,7 +38,6 @@ class FilterViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        unitType = .filter
         effectsUnit = filterUnit
         presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(filterUnit.presets)
     }
@@ -86,7 +85,7 @@ class FilterViewController: EffectsUnitViewController {
         
         bandControllers.removeAll()
         
-        tabButtons.forEach({$0.removeFromSuperview()})
+        tabButtons.forEach {$0.removeFromSuperview()}
         tabButtons.removeAll()
         
         filterView.removeAllTabs()
@@ -101,7 +100,7 @@ class FilterViewController: EffectsUnitViewController {
         btnAdd.isEnabled = numTabs < 31
         btnRemove.isEnabled = numTabs > 0
         
-        [btnAdd, btnRemove].forEach({$0?.redraw()})
+        [btnAdd, btnRemove].forEach {$0?.redraw()}
         
         btnScrollLeft.showIf(numTabs > 7 && tabsShown.lowerBound > 0)
         btnScrollRight.showIf(numTabs > 7 && tabsShown.upperBound < numTabs - 1)
@@ -111,7 +110,7 @@ class FilterViewController: EffectsUnitViewController {
         
         super.stateChanged()
         filterView.refresh()
-        bandControllers.forEach({$0.stateChanged()})
+        bandControllers.forEach {$0.stateChanged()}
     }
     
     @IBAction func addBandAction(_ sender: AnyObject) {
@@ -207,11 +206,11 @@ class FilterViewController: EffectsUnitViewController {
     }
     
     private func moveTabButtonsLeft() {
-        tabButtons.forEach({$0.displaceLeft($0.width)})
+        tabButtons.forEach {$0.displaceLeft($0.width)}
     }
     
     private func moveTabButtonsRight() {
-        tabButtons.forEach({$0.displaceRight($0.width)})
+        tabButtons.forEach {$0.displaceRight($0.width)}
     }
     
     private func bandChanged() {
@@ -294,10 +293,10 @@ class FilterViewController: EffectsUnitViewController {
         
         filterView.redrawChart()
         
-        [btnAdd, btnRemove].forEach({$0?.redraw()})
-        [btnScrollLeft, btnScrollRight].forEach({$0?.reTint()})
+        [btnAdd, btnRemove].forEach {$0?.redraw()}
+        [btnScrollLeft, btnScrollRight].forEach {$0?.reTint()}
         
-        bandControllers.forEach({$0.applyColorScheme(scheme)})
+        bandControllers.forEach {$0.applyColorScheme(scheme)}
     }
     
     func changeBackgroundColor(_ color: NSColor) {
@@ -305,60 +304,60 @@ class FilterViewController: EffectsUnitViewController {
     }
     
     override func changeSliderColors() {
-        bandControllers.forEach({$0.redrawSliders()})
+        bandControllers.forEach {$0.redrawSliders()}
     }
     
     override func changeActiveUnitStateColor(_ color: NSColor) {
         
         super.changeActiveUnitStateColor(color)
-        bandControllers.forEach({$0.redrawSliders()})
+        bandControllers.forEach {$0.redrawSliders()}
         filterView.redrawChart()
     }
     
     override func changeBypassedUnitStateColor(_ color: NSColor) {
         
         super.changeBypassedUnitStateColor(color)
-        bandControllers.forEach({$0.redrawSliders()})
+        bandControllers.forEach {$0.redrawSliders()}
         filterView.redrawChart()
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
         
         super.changeSuppressedUnitStateColor(color)
-        bandControllers.forEach({$0.redrawSliders()})
+        bandControllers.forEach {$0.redrawSliders()}
         filterView.redrawChart()
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
         
         super.changeFunctionCaptionTextColor(color)
-        bandControllers.forEach({$0.changeFunctionCaptionTextColor(color)})
+        bandControllers.forEach {$0.changeFunctionCaptionTextColor(color)}
     }
     
     override func changeFunctionValueTextColor(_ color: NSColor) {
         
         super.changeFunctionValueTextColor(color)
-        bandControllers.forEach({$0.changeFunctionValueTextColor(color)})
+        bandControllers.forEach {$0.changeFunctionValueTextColor(color)}
     }
     
     override func changeFunctionButtonColor(_ color: NSColor) {
         
         super.changeFunctionButtonColor(color)
         
-        [btnScrollLeft, btnScrollRight].forEach({$0?.reTint()})
-        bandControllers.forEach({$0.changeFunctionButtonColor()})
+        [btnScrollLeft, btnScrollRight].forEach {$0?.reTint()}
+        bandControllers.forEach {$0.changeFunctionButtonColor()}
     }
     
     func changeTextButtonMenuColor(_ color: NSColor) {
         
-        [btnAdd, btnRemove].forEach({$0?.redraw()})
-        bandControllers.forEach({$0.changeTextButtonMenuColor()})
+        [btnAdd, btnRemove].forEach {$0?.redraw()}
+        bandControllers.forEach {$0.changeTextButtonMenuColor()}
     }
 
     func changeButtonMenuTextColor(_ color: NSColor) {
         
-        [btnAdd, btnRemove].forEach({$0?.redraw()})
-        bandControllers.forEach({$0.changeButtonMenuTextColor()})
+        [btnAdd, btnRemove].forEach {$0?.redraw()}
+        bandControllers.forEach {$0.changeButtonMenuTextColor()}
     }
     
     func changeSelectedTabButtonColor(_ color: NSColor) {
@@ -369,7 +368,7 @@ class FilterViewController: EffectsUnitViewController {
     }
     
     func changeTabButtonTextColor(_ color: NSColor) {
-        tabButtons.forEach({$0.redraw()})
+        tabButtons.forEach {$0.redraw()}
     }
     
     func changeSelectedTabButtonTextColor(_ color: NSColor) {

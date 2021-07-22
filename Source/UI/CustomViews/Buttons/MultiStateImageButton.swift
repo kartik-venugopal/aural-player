@@ -19,7 +19,7 @@ class MultiStateImageButton: NSButton, Tintable {
         
         didSet {
             // Each state value is converted to a String representation for storing in a lookup map (map keys needs to be Hashable)
-            stateImageMappings.forEach({map[String(describing: $0.state)] = $0.imageAndTintFunction})
+            stateImageMappings.forEach {map[String(describing: $0.state)] = $0.imageAndTintFunction}
         }
     }
     

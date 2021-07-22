@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class MasterPresetView: MasterView {
+class MasterPresetView: MasterUnitView {
     
     override func awakeFromNib() {
         

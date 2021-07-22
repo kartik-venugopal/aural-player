@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,7 +52,7 @@
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="thY-d8-36A" userLabel="Time Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="153" y="82" width="205" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="9" sliderType="linear" id="yVn-KM-fct" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="9" sliderType="linear" id="yVn-KM-fct" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="delayTimeAction:" target="-2" id="Ano-yp-D7h"/>
                                 </connections>
@@ -97,7 +96,7 @@
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="82T-N1-PUx" userLabel="Amount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="153" y="57" width="205" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" doubleValue="33.2801094890511" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="hyv-U7-Lry" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" doubleValue="33.2801094890511" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="hyv-U7-Lry" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="delayAmountAction:" target="-2" id="kcy-Ua-CJ1"/>
                                 </connections>
@@ -132,7 +131,7 @@
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Exm-O9-toy" userLabel="Feedback Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="153" y="32" width="205" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="neX-2v-H5U" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="neX-2v-H5U" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="delayFeedbackAction:" target="-2" id="yxI-iB-C8a"/>
                                 </connections>

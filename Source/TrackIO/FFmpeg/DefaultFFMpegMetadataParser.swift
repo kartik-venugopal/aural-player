@@ -46,7 +46,7 @@ class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
         let tokens = key.split(separator: "_")
         var fTokens = [String]()
         
-        tokens.forEach({fTokens.append(String($0).capitalizingFirstLetter())})
+        tokens.forEach {fTokens.append(String($0).capitalizingFirstLetter())}
         
         return fTokens.joined(separator: " ")
     }

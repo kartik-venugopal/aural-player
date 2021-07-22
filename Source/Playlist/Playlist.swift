@@ -27,7 +27,7 @@ class Playlist: PlaylistProtocol {
     init(_ flatPlaylist: FlatPlaylistProtocol, _ groupingPlaylists: [GroupingPlaylistProtocol]) {
         
         self.flatPlaylist = flatPlaylist
-        groupingPlaylists.forEach({self.groupingPlaylists[$0.playlistType] = $0})
+        groupingPlaylists.forEach {self.groupingPlaylists[$0.playlistType] = $0}
     }
     
     var tracks: [Track] {flatPlaylist.tracks}
@@ -66,7 +66,7 @@ class Playlist: PlaylistProtocol {
         
         // Add the track to each of the grouping playlists
         var groupingResults: [GroupType: GroupedTrackAddResult] = [:]
-        groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
+        groupingPlaylists.values.forEach {groupingResults[$0.typeOfGroups] = $0.addTrack(track)}
         
         return TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
     }
@@ -75,7 +75,7 @@ class Playlist: PlaylistProtocol {
         
         // Clear each of the playlists
         flatPlaylist.clear()
-        groupingPlaylists.values.forEach({$0.clear()})
+        groupingPlaylists.values.forEach {$0.clear()}
         
         // Remove all the file path mappings
         tracksByFile.removeAll()

@@ -58,7 +58,7 @@ extension NSView {
     }
     
     func addSubviews(_ subViews: NSView...) {
-        subViews.forEach({self.addSubview($0)})
+        subViews.forEach {self.addSubview($0)}
     }
     
     func positionAtZeroPoint() {
@@ -108,11 +108,11 @@ extension NSView {
     // MARK - Static functions
     
     static func showViews(_ views: NSView...) {
-        views.forEach({$0.show()})
+        views.forEach {$0.show()}
     }
 
     static func hideViews(_ views: NSView...) {
-        views.forEach({$0.hide()})
+        views.forEach {$0.hide()}
     }
     
     func activateAndAddConstraint(_ constraint: NSLayoutConstraint) {

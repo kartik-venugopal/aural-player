@@ -116,7 +116,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         let allViews = [tracksViewController, artistsViewController, albumsViewController, genresViewController].map {$0.view}
         
         tabGroup.addViewsForTabs(allViews)
-        [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
+        [1, 2, 3, 0].forEach {tabGroup.selectTabViewItem(at: $0)}
         
         allViews.forEach {$0.anchorToView($0.superview!)}
         

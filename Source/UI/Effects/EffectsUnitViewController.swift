@@ -9,23 +9,29 @@
 //
 import Cocoa
 
-class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, Destroyable {
+class EffectsUnitViewController: NSViewController, Destroyable {
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
+
+    @IBOutlet weak var lblCaption: VALabel!
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var lblCaption: VALabel!
-    
-    // Labels
-    var functionLabels: [NSTextField] = []
-    
-    var functionCaptionLabels: [NSTextField] = []
-    var functionValueLabels: [NSTextField] = []
-
     // Presets controls
     @IBOutlet weak var presetsMenuButton: NSPopUpButton!
     @IBOutlet weak var presetsMenuIconItem: TintedIconMenuItem!
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
+    
+    // Labels
+    var functionLabels: [NSTextField] = []
+    var functionCaptionLabels: [NSTextField] = []
+    var functionValueLabels: [NSTextField] = []
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, and helper objects
     
     let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
@@ -33,16 +39,18 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     var effectsUnit: EffectsUnitDelegateProtocol!
-    var unitStateFunction: EffectsUnitStateFunction!
+    var unitStateFunction: EffectsUnitStateFunction {effectsUnit.stateFunction}
     var presetsWrapper: PresetsWrapperProtocol!
     
-    var unitType: EffectsUnitType!
+    var unitType: EffectsUnitType {effectsUnit.unitType}
     
     lazy var messenger = Messenger(for: self)
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
+    
     override func viewDidLoad() {
-        
-        self.unitStateFunction = effectsUnit.stateFunction
         
         oneTimeSetup()
         initControls()
@@ -125,13 +133,9 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
         presetsMenuButton.selectItem(at: -1)
     }
     
-    func stateChanged() {
-        btnBypass.updateState()
-    }
+    // ------------------------------------------------------------------------
     
-    func showThisTab() {
-        messenger.publish(.effects_showEffectsUnitTab, payload: self.unitType!)
-    }
+    // MARK: Actions
     
     @IBAction func bypassAction(_ sender: AnyObject) {
 
@@ -156,7 +160,23 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
         userPresetsPopover.show(btnSavePreset, .minY)
     }
     
-    private func applyTheme() {
+    // ------------------------------------------------------------------------
+    
+    // MARK: Helper functions
+    
+    func stateChanged() {
+        btnBypass.updateState()
+    }
+    
+    func showThisTab() {
+        messenger.publish(.effects_showEffectsUnitTab, payload: unitType)
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
+    
+    func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(colorSchemesManager.systemScheme)
@@ -224,8 +244,13 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     func changeSliderColors() {
         // Do nothing. Meant to be overriden.
     }
-    
-    // MARK - StringInputReceiver functions
+}
+
+// ------------------------------------------------------------------------
+
+// MARK: StringInputReceiver
+
+extension EffectsUnitViewController: StringInputReceiver {
     
     var inputPrompt: String {
         "Enter a new preset name:"
@@ -248,8 +273,13 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     func acceptInput(_ string: String) {
         effectsUnit.savePreset(named: string)
     }
-    
-    // MARK: Menu delegate
+}
+
+// ------------------------------------------------------------------------
+
+// MARK: NSMenuDelegate
+
+extension EffectsUnitViewController: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         

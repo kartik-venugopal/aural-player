@@ -30,7 +30,7 @@ class EQSubview: NSView {
     
     func initialize(_ stateFunction: @escaping EffectsUnitStateFunction, _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
         
-        allSliders.forEach({$0.stateFunction = stateFunction})
+        allSliders.forEach {$0.stateFunction = stateFunction}
         
         bandSliders.forEach({
             $0.action = sliderAction
@@ -39,27 +39,27 @@ class EQSubview: NSView {
     }
     
     func stateChanged() {
-        allSliders.forEach({$0.updateState()})
+        allSliders.forEach {$0.updateState()}
     }
     
     func changeSliderColor() {
-        allSliders.forEach({$0.redraw()})
+        allSliders.forEach {$0.redraw()}
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {
-        allSliders.forEach({$0.redraw()})
+        allSliders.forEach {$0.redraw()}
     }
     
     func changeBypassedUnitStateColor(_ color: NSColor) {
-        allSliders.forEach({$0.redraw()})
+        allSliders.forEach {$0.redraw()}
     }
     
     func changeSuppressedUnitStateColor(_ color: NSColor) {
-        allSliders.forEach({$0.redraw()})
+        allSliders.forEach {$0.redraw()}
     }
     
     func setState(_ state: EffectsUnitState) {
-        allSliders.forEach({$0.setUnitState(state)})
+        allSliders.forEach {$0.setUnitState(state)}
     }
     
     func updateBands(_ bands: [Float], _ globalGain: Float) {

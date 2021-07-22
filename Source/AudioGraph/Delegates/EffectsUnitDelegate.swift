@@ -29,6 +29,8 @@ class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
         self.unit = unit
     }
     
+    var unitType: EffectsUnitType {unit.unitType}
+    
     var state: EffectsUnitState {unit.state}
     
     var stateFunction: EffectsUnitStateFunction {unit.stateFunction}

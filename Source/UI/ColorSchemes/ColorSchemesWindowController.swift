@@ -95,7 +95,7 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
         clipboard.clear()
         
         // Reset the subviews according to the current system color scheme, and show the first tab
-        subViews.forEach({$0.resetFields(colorSchemesManager.systemScheme, history, clipboard)})
+        subViews.forEach {$0.resetFields(colorSchemesManager.systemScheme, history, clipboard)}
         tabView.selectTabViewItem(at: 0)
         
         // Enable/disable function buttons

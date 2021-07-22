@@ -73,7 +73,7 @@ class ColorSchemePreviewView: NSView {
     override func awakeFromNib() {
         
         playerFunctionButtons = [btnPlay, btnPreviousTrack, btnNextTrack]
-        playerFunctionButtons.forEach({$0.tintFunction = {[weak self] in self?.scheme?.general.functionButtonColor ?? ColorSchemePreset.blackAttack.functionButtonColor}})
+        playerFunctionButtons.forEach {$0.tintFunction = {[weak self] in self?.scheme?.general.functionButtonColor ?? ColorSchemePreset.blackAttack.functionButtonColor}}
         
         playlistIndexDurationLabels = [lblPlaylistIndex_1, lblPlaylistIndex_3, lblPlaylistDuration_1, lblPlaylistDuration_3]
         playlistTrackTitleLabels = [lblPlaylistTitle_1, lblPlaylistTitle_3]
@@ -214,7 +214,7 @@ class ColorSchemePreviewView: NSView {
     var backgroundColor: NSColor = NSColor.black {
         
         didSet {
-            [playerBox, effectsBox, playlistBox].forEach({$0.fillColor = backgroundColor})
+            [playerBox, effectsBox, playlistBox].forEach {$0.fillColor = backgroundColor}
         }
     }
     
@@ -235,14 +235,14 @@ class ColorSchemePreviewView: NSView {
     var playlistTrackTitleColor: NSColor = .white70Percent {
         
         didSet {
-            playlistTrackTitleLabels.forEach({$0.textColor = playlistTrackTitleColor})
+            playlistTrackTitleLabels.forEach {$0.textColor = playlistTrackTitleColor}
         }
     }
     
     var playlistTrackIndexDurationColor: NSColor = NSColor.gray {
         
         didSet {
-            playlistIndexDurationLabels.forEach({$0.textColor = playlistTrackIndexDurationColor})
+            playlistIndexDurationLabels.forEach {$0.textColor = playlistTrackIndexDurationColor}
         }
     }
     
@@ -289,7 +289,7 @@ class ColorSchemePreviewView: NSView {
     }
     
     func clear() {
-        [playlistBox, playerBox, effectsBox].forEach({$0.hide()})
+        [playlistBox, playerBox, effectsBox].forEach {$0.hide()}
     }
 }
 

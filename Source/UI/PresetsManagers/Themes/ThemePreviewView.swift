@@ -141,7 +141,7 @@ class ThemePreviewView: NSView {
                 seekSliderCell._knobColor = colorScheme.player.sliderKnobColorSameAsForeground ? colorScheme.player.sliderForegroundColor : colorScheme.player.sliderKnobColor
                 
                 seekSlider.redraw()
-                playerFunctionButtons.forEach({$0.reTint()})
+                playerFunctionButtons.forEach {$0.reTint()}
                 
                 eqSliderCells.forEach({
                     
@@ -187,7 +187,7 @@ class ThemePreviewView: NSView {
                     $0._knobColor = colorScheme.effects.sliderKnobColorSameAsForeground ? colorScheme.effects.activeUnitStateColor : colorScheme.effects.sliderKnobColor
                 })
                 
-                eqSliders.forEach({$0.redraw()})
+                eqSliders.forEach {$0.redraw()}
                 
                 activeUnitColor = colorScheme.effects.activeUnitStateColor
                 effectsCaptionColor = colorScheme.general.mainCaptionTextColor
@@ -204,9 +204,9 @@ class ThemePreviewView: NSView {
                 
                 playlistTabButtonCell.tabButtonTextColor = colorScheme.general.tabButtonTextColor
                 
-                [playlistTabButton, playlistSelectedTabButton].forEach({$0?.redraw()})
+                [playlistTabButton, playlistSelectedTabButton].forEach {$0?.redraw()}
                 
-                [playlistBox, playerBox, effectsBox].forEach({$0.show()})
+                [playlistBox, playerBox, effectsBox].forEach {$0.show()}
                 
                 // MARK: Set fonts
                 
@@ -233,7 +233,7 @@ class ThemePreviewView: NSView {
     var backgroundColor: NSColor = NSColor.black {
         
         didSet {
-            [playerBox, effectsBox, playlistBox].forEach({$0.fillColor = backgroundColor})
+            [playerBox, effectsBox, playlistBox].forEach {$0.fillColor = backgroundColor}
         }
     }
     
@@ -254,14 +254,14 @@ class ThemePreviewView: NSView {
     var playlistTrackTitleColor: NSColor = .white70Percent {
         
         didSet {
-            playlistTrackTitleLabels.forEach({$0.textColor = playlistTrackTitleColor})
+            playlistTrackTitleLabels.forEach {$0.textColor = playlistTrackTitleColor}
         }
     }
     
     var playlistTrackIndexDurationColor: NSColor = NSColor.gray {
         
         didSet {
-            playlistIndexDurationLabels.forEach({$0.textColor = playlistTrackIndexDurationColor})
+            playlistIndexDurationLabels.forEach {$0.textColor = playlistTrackIndexDurationColor}
         }
     }
     

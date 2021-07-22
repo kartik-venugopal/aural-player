@@ -14,6 +14,8 @@ import AVFoundation
 ///
 protocol EffectsUnitProtocol {
     
+    var unitType: EffectsUnitType {get}
+    
     var state: EffectsUnitState {get}
     
     // Toggles the state of the effects unit, and returns its new state

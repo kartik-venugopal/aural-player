@@ -59,20 +59,20 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         let showingModalComponent: Bool = objectGraph.windowLayoutsManager.isShowingModalComponent
         
-        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
+        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
         manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedPresets > 0))
         
-        [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
+        [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
         manageFontSchemesMenuItem.enableIf(!showingModalComponent && (fontSchemesManager.numberOfUserDefinedPresets > 0))
         
-        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
+        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
         manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedPresets > 0))
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuWillOpen(_ menu: NSMenu) {
         
-        [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.show()})
+        [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach {$0?.show()}
         
         togglePlaylistMenuItem.onIf(windowLayoutsManager.isShowingPlaylist)
         toggleEffectsMenuItem.onIf(windowLayoutsManager.isShowingEffects)

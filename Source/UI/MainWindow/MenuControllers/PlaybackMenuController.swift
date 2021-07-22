@@ -89,16 +89,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
         
         showInPlaylistMenuItem.enableIf(isPlayingOrPaused && windowLayoutsManager.isShowingPlaylist)
-        [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused)})
+        [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach {$0.enableIf(isPlayingOrPaused)}
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
 
-        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(!noTrack && !showingModalComponent)})
+        [previousTrackMenuItem, nextTrackMenuItem].forEach {$0.enableIf(!noTrack && !showingModalComponent)}
         
         // These items should be enabled only if there is a playing track and it has chapter markings
-        [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem, loopChapterMenuItem].forEach({$0?.enableIf(playbackInfo.chapterCount > 0)})
+        [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem, loopChapterMenuItem].forEach {$0?.enableIf(playbackInfo.chapterCount > 0)}
         
-        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0?.enableIf(isPlayingOrPaused && !showingModalComponent)})
+        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach {$0?.enableIf(isPlayingOrPaused && !showingModalComponent)}
         
         rememberLastPositionMenuItem.enableIf(isPlayingOrPaused)
     }
@@ -251,17 +251,17 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         case .off:
             
             repeatOffMenuItem.on()
-            [repeatOneMenuItem, repeatAllMenuItem].forEach({$0?.off()})
+            [repeatOneMenuItem, repeatAllMenuItem].forEach {$0?.off()}
             
         case .one:
             
             repeatOneMenuItem.on()
-            [repeatOffMenuItem, repeatAllMenuItem].forEach({$0?.off()})
+            [repeatOffMenuItem, repeatAllMenuItem].forEach {$0?.off()}
             
         case .all:
             
             repeatAllMenuItem.on()
-            [repeatOffMenuItem, repeatOneMenuItem].forEach({$0?.off()})
+            [repeatOffMenuItem, repeatOneMenuItem].forEach {$0?.off()}
         }
     }
     

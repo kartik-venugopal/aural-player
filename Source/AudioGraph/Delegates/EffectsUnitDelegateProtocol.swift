@@ -20,6 +20,8 @@ import Foundation
 ///
 protocol EffectsUnitDelegateProtocol {
     
+    var unitType: EffectsUnitType {get}
+    
     var state: EffectsUnitState {get}
     
     var stateFunction: EffectsUnitStateFunction {get}

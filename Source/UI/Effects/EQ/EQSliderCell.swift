@@ -13,7 +13,7 @@
 
 import Cocoa
 
-class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
+class EQSliderCell: NSSliderCell {
     
     let barRadius: CGFloat = 0.75
     let barInsetX: CGFloat = 0

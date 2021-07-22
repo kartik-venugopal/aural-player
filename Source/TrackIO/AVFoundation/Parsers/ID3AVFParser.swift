@@ -56,8 +56,8 @@ class ID3AVFParser: AVFMetadataParser {
     private let auxiliaryFields: [String: String] = {
         
         var map: [String: String] = [:]
-        ID3_V22Spec.auxiliaryFields.forEach({(k,v) in map[k] = v})
-        ID3_V24Spec.auxiliaryFields.forEach({(k,v) in map[k] = v})
+        ID3_V22Spec.auxiliaryFields.forEach {(k,v) in map[k] = v}
+        ID3_V24Spec.auxiliaryFields.forEach {(k,v) in map[k] = v}
         
         return map
     }()

@@ -49,7 +49,7 @@ class FilterView: NSView {
     }
     
     func removeAllTabs() {
-        bandsView.tabViewItems.forEach({bandsView.removeTabViewItem($0)})
+        bandsView.tabViewItems.forEach {bandsView.removeTabViewItem($0)}
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

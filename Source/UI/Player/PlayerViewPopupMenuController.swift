@@ -72,7 +72,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         playerDefaultViewMenuItem.onIf(uiState.viewType == .defaultView)
         playerExpandedArtViewMenuItem.onIf(uiState.viewType == .expandedArt)
         
-        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf(uiState.viewType == .expandedArt)})
+        [showArtMenuItem, showMainControlsMenuItem].forEach {$0.hideIf(uiState.viewType == .expandedArt)}
         
         let trackInfoVisible: Bool = uiState.viewType == .defaultView || uiState.showTrackInfo
         
@@ -113,7 +113,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         
         if defaultViewAndShowingControls {
             
-            timeElapsedDisplayFormats.forEach({$0.off()})
+            timeElapsedDisplayFormats.forEach {$0.off()}
             
             switch uiState.timeElapsedDisplayType {
                 
@@ -125,7 +125,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
                 
             }
             
-            timeRemainingDisplayFormats.forEach({$0.off()})
+            timeRemainingDisplayFormats.forEach {$0.off()}
             
             switch uiState.timeRemainingDisplayType {
                 

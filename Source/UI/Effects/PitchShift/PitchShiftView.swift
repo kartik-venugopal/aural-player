@@ -45,7 +45,7 @@ class PitchShiftView: NSView {
     }
     
     func setUnitState(_ state: EffectsUnitState) {
-        sliders.forEach({$0.setUnitState(state)})
+        sliders.forEach {$0.setUnitState(state)}
     }
     
     func setPitch(_ pitch: Float, _ pitchString: String) {
@@ -61,7 +61,7 @@ class PitchShiftView: NSView {
     }
     
     func stateChanged() {
-        sliders.forEach({$0.updateState()})
+        sliders.forEach {$0.updateState()}
     }
     
     func applyPreset(_ preset: PitchShiftPreset) {
@@ -73,6 +73,6 @@ class PitchShiftView: NSView {
     }
     
     func redrawSliders() {
-        [pitchSlider, pitchOverlapSlider].forEach({$0?.redraw()})
+        [pitchSlider, pitchOverlapSlider].forEach {$0?.redraw()}
     }
 }

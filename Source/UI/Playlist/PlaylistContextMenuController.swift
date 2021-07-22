@@ -110,8 +110,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         case .index, .track:
             
             // Show all track-specific menu items, hide group-specific ones
-            trackMenuItems.forEach({$0.show()})
-            groupMenuItems.forEach({$0.hide()})
+            trackMenuItems.forEach {$0.show()}
+            groupMenuItems.forEach {$0.hide()}
             
             guard let theClickedTrack = clickedTrack else {return}
             
@@ -124,8 +124,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         case .group:
             
             // Show all group-specific menu items, hide track-specific ones
-            trackMenuItems.forEach({$0.hide()})
-            groupMenuItems.forEach({$0.show()})
+            trackMenuItems.forEach {$0.hide()}
+            groupMenuItems.forEach {$0.show()}
         }
     }
     

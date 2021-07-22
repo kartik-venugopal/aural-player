@@ -59,7 +59,7 @@ class EffectsPresetsManagerViewController: NSViewController, Destroyable {
     
     override func viewDidAppear() {
         
-        [btnApply, btnRename, btnDelete].forEach({$0.disable()})
+        [btnApply, btnRename, btnDelete].forEach {$0.disable()}
         tabViewAction(masterPresetsTabViewButton)
         
         for unitType: EffectsUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {

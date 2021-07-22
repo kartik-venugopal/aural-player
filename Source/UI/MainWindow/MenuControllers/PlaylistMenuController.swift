@@ -66,7 +66,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         if windowLayoutsManager.isChaptersListWindowKey {
 
             // If the chapters list window is key, most playlist menu items need to be disabled
-            menu.items.forEach({$0.disable()})
+            menu.items.forEach {$0.disable()}
 
             // Allow playing of selected item (chapter) if the chapters list is not modal (i.e. performing a search) and an item is selected
             let hasPlayableChapter: Bool = !showingModalComponent && uiState.hasSelectedChapter
@@ -80,7 +80,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         } else {
 
             // Re-enabled items that may have been disabled before
-            menu.items.forEach({$0.enable()})
+            menu.items.forEach {$0.enable()}
         }
 
         theMenu.enableIf(windowLayoutsManager.isShowingPlaylist)
@@ -97,19 +97,19 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
 
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
 
-        [moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.enableIf(!showingModalComponent && atLeastOneItemSelected)})
+        [moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach {$0?.enableIf(!showingModalComponent && atLeastOneItemSelected)}
 
-        [previousViewMenuItem, nextViewMenuItem].forEach({$0?.enableIf(!showingModalComponent)})
+        [previousViewMenuItem, nextViewMenuItem].forEach {$0?.enableIf(!showingModalComponent)}
         
         playSelectedItemMenuItem.enableIf(!showingModalComponent && numSelectedRows == 1)
 
         let onlyGroupsSelected: Bool = areOnlyGroupsSelected
 
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.enableIf(playlistNotEmpty)})
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach {$0?.enableIf(playlistNotEmpty)}
 
         // At least 2 tracks needed for these functions, and at least one track selected
-        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.enableIf(playlistSize > 1 && atLeastOneItemSelected)})
+        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach {$0?.enableIf(playlistSize > 1 && atLeastOneItemSelected)}
 
         clearSelectionMenuItem.enableIf(playlistNotEmpty && atLeastOneItemSelected)
 
@@ -126,7 +126,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         expandSelectedGroupsMenuItem.hideIf(uiState.currentView == .tracks)
         collapseSelectedItemsMenuItem.hideIf(uiState.currentView == .tracks)
         
-        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf(!(uiState.currentView != .tracks && playlistNotEmpty))})
+        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach {$0.hideIf(!(uiState.currentView != .tracks && playlistNotEmpty))}
     }
     
     private var areOnlyGroupsSelected: Bool {!uiState.selectedItems.contains(where: {$0.type != .group})}

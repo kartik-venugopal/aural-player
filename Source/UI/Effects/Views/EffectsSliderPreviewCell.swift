@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class EffectsSliderPreviewCell: EffectsSliderCell {
+class EffectsSliderPreviewCell: EffectsUnitSliderCell {
     
     override var knobColor: NSColor {
         
@@ -27,7 +27,7 @@ class EffectsSliderPreviewCell: EffectsSliderCell {
     override var tickColor: NSColor {Colors.Effects.defaultTickColor}
     
     override var backgroundGradient: NSGradient {
-        return Colors.Effects.defaultSliderBackgroundGradient
+        Colors.Effects.defaultSliderBackgroundGradient
     }
     
     override var foregroundGradient: NSGradient {

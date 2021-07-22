@@ -35,8 +35,6 @@ class PitchShiftViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        // TODO: Could some of this move to AudioGraphDelegate ??? e.g. graph.getUnit(self.unitType) OR graph.getStateFunction(self.unitTyp
-        unitType = .pitch
         effectsUnit = pitchShiftUnit
         presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchShiftUnit.presets)
     }

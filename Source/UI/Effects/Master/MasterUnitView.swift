@@ -1,5 +1,5 @@
 //
-//  MasterView.swift
+//  MasterUnitView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class MasterView: NSView {
+class MasterUnitView: NSView {
     
     @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
@@ -40,70 +40,61 @@ class MasterView: NSView {
     var labels: [EffectsUnitTriStateLabel] = []
     
     override func awakeFromNib() {
+        
+        let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
+        
         buttons = [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass]
         images = [imgEQBypass, imgPitchBypass, imgTimeBypass, imgReverbBypass, imgDelayBypass, imgFilterBypass, imgAUBypass]
         labels = [lblEQ, lblPitch, lblTime, lblReverb, lblDelay, lblFilter, lblAudioUnits]
-    }
-    
-    func initialize(_ eqStateFunction: @escaping EffectsUnitStateFunction, _ pitchStateFunction: @escaping EffectsUnitStateFunction, _ timeStateFunction: @escaping EffectsUnitStateFunction, _ reverbStateFunction: @escaping EffectsUnitStateFunction, _ delayStateFunction: @escaping EffectsUnitStateFunction, _ filterStateFunction: @escaping EffectsUnitStateFunction, _ auStateFunction: @escaping EffectsUnitStateFunction) {
         
-        btnEQBypass.stateFunction = eqStateFunction
-        btnPitchBypass.stateFunction = pitchStateFunction
-        btnTimeBypass.stateFunction = timeStateFunction
-        btnReverbBypass.stateFunction = reverbStateFunction
-        btnDelayBypass.stateFunction = delayStateFunction
-        btnFilterBypass.stateFunction = filterStateFunction
+        btnEQBypass.stateFunction = graph.eqUnit.stateFunction
+        btnPitchBypass.stateFunction = graph.pitchShiftUnit.stateFunction
+        btnTimeBypass.stateFunction = graph.timeStretchUnit.stateFunction
+        btnReverbBypass.stateFunction = graph.reverbUnit.stateFunction
+        btnDelayBypass.stateFunction = graph.delayUnit.stateFunction
+        btnFilterBypass.stateFunction = graph.filterUnit.stateFunction
         
-        imgEQBypass.stateFunction = eqStateFunction
-        imgPitchBypass.stateFunction = pitchStateFunction
-        imgTimeBypass.stateFunction = timeStateFunction
-        imgReverbBypass.stateFunction = reverbStateFunction
-        imgDelayBypass.stateFunction = delayStateFunction
-        imgFilterBypass.stateFunction = filterStateFunction
-        imgAUBypass.stateFunction = auStateFunction
+        imgEQBypass.stateFunction = graph.eqUnit.stateFunction
+        imgPitchBypass.stateFunction = graph.pitchShiftUnit.stateFunction
+        imgTimeBypass.stateFunction = graph.timeStretchUnit.stateFunction
+        imgReverbBypass.stateFunction = graph.reverbUnit.stateFunction
+        imgDelayBypass.stateFunction = graph.delayUnit.stateFunction
+        imgFilterBypass.stateFunction = graph.filterUnit.stateFunction
+        imgAUBypass.stateFunction = graph.audioUnitsStateFunction
         
-        lblEQ.stateFunction = eqStateFunction
-        lblPitch.stateFunction = pitchStateFunction
-        lblTime.stateFunction = timeStateFunction
-        lblReverb.stateFunction = reverbStateFunction
-        lblDelay.stateFunction = delayStateFunction
-        lblFilter.stateFunction = filterStateFunction
-        lblAudioUnits.stateFunction = auStateFunction
+        lblEQ.stateFunction = graph.eqUnit.stateFunction
+        lblPitch.stateFunction = graph.pitchShiftUnit.stateFunction
+        lblTime.stateFunction = graph.timeStretchUnit.stateFunction
+        lblReverb.stateFunction = graph.reverbUnit.stateFunction
+        lblDelay.stateFunction = graph.delayUnit.stateFunction
+        lblFilter.stateFunction = graph.filterUnit.stateFunction
+        lblAudioUnits.stateFunction = graph.audioUnitsStateFunction
         
-        buttons.forEach({$0.updateState()})
-        images.forEach({$0.updateState()})
-        labels.forEach({$0.updateState()})
+        buttons.forEach {$0.updateState()}
+        images.forEach {$0.updateState()}
+        labels.forEach {$0.updateState()}
     }
     
     func stateChanged() {
         
-        buttons.forEach({$0.updateState()})
-        images.forEach({$0.updateState()})
-        labels.forEach({$0.updateState()})
+        buttons.forEach {$0.updateState()}
+        images.forEach {$0.updateState()}
+        labels.forEach {$0.updateState()}
     }
     
     private func changeUnitStateColorForState(_ unitState: EffectsUnitState) {
         
-        buttons.forEach({
-            
-            if $0.unitState == unitState {
-                $0.reTint()
-            }
-        })
+        buttons.filter {$0.unitState == unitState}.forEach {
+            $0.reTint()
+        }
         
-        images.forEach({
-            
-            if $0.unitState == unitState {
-                $0.reTint()
-            }
-        })
+        images.filter {$0.unitState == unitState}.forEach {
+            $0.reTint()
+        }
         
-        labels.forEach({
-            
-            if $0.unitState == unitState {
-                $0.reTint()
-            }
-        })
+        labels.filter {$0.unitState == unitState}.forEach {
+            $0.reTint()
+        }
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {

@@ -15,7 +15,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     @IBOutlet weak var subPreviewMenu: NSPopUpButton!
     private var subPreviewViews: [NSView] = []
     
-    @IBOutlet weak var masterSubPreview: MasterView!
+    @IBOutlet weak var masterSubPreview: MasterUnitView!
     @IBOutlet weak var eqSubPreview: EQView!
     @IBOutlet weak var pitchSubPreview: PitchShiftView!
     @IBOutlet weak var timeSubPreview: TimeStretchView!
@@ -51,7 +51,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         super.viewDidLoad()
         
         subPreviewViews = [masterSubPreview, eqSubPreview, pitchSubPreview, timeSubPreview, reverbSubPreview, delaySubPreview, filterSubPreview]
-        subPreviewViews.forEach({subPreviewBox.addSubview($0)})
+        subPreviewViews.forEach {subPreviewBox.addSubview($0)}
         
         eqSubPreview.chooseType(.tenBand)
         

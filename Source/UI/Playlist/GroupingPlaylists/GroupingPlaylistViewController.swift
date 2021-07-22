@@ -345,7 +345,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         let selectedTracksParentGroups: [Group] = selectedTracksAndGroups.tracks.compactMap {playlistView.parent(forItem: $0) as? Group}
         
         let groupsToCollapse: Set<Group> = Set(selectedGroups + selectedTracksParentGroups)
-        groupsToCollapse.forEach({playlistView.collapseItem($0, collapseChildren: false)})
+        groupsToCollapse.forEach {playlistView.collapseItem($0, collapseChildren: false)}
         
         let indices = groupsToCollapse.map {playlistView.row(forItem: $0)}
         playlistView.selectRows(indices)

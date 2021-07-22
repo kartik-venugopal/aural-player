@@ -63,13 +63,13 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func enableAllGesturesAction(_ sender: Any) {
-        gestureButtons.forEach({$0.on()})
-        [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.enable()})
+        gestureButtons.forEach {$0.on()}
+        [volumeControlSensitivityMenu, seekSensitivityMenu].forEach {$0.enable()}
     }
     
     @IBAction func disableAllGesturesAction(_ sender: Any) {
-        gestureButtons.forEach({$0.off()})
-        [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.disable()})
+        gestureButtons.forEach {$0.off()}
+        [volumeControlSensitivityMenu, seekSensitivityMenu].forEach {$0.disable()}
     }
     
     func save(_ preferences: Preferences) throws {

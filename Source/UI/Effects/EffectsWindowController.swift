@@ -19,8 +19,8 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
     // The constituent sub-views, one for each effects unit
     
-    private let masterViewController: MasterViewController = MasterViewController()
-    private let eqViewController: EQViewController = EQViewController()
+    private let masterViewController: MasterUnitViewController = MasterUnitViewController()
+    private let eqViewController: EQUnitViewController = EQUnitViewController()
     private let pitchViewController: PitchShiftViewController = PitchShiftViewController()
     private let timeViewController: TimeStretchViewController = TimeStretchViewController()
     private let reverbViewController: ReverbViewController = ReverbViewController()

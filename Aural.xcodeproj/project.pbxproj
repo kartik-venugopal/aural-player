@@ -228,7 +228,7 @@
 		3E47D312269F8BF6003D08A7 /* SearchResultMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47D311269F8BF6003D08A7 /* SearchResultMatch.swift */; };
 		3E47D317269F9928003D08A7 /* ImportedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47D316269F9928003D08A7 /* ImportedPlaylist.swift */; };
 		3E47D31D269FA251003D08A7 /* IndexedChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47D31C269FA251003D08A7 /* IndexedChapter.swift */; };
-		3E4CC362261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */; };
+		3E4CC362261EBEEC00740333 /* MasterUnitViewController+AUTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CC361261EBEEC00740333 /* MasterUnitViewController+AUTableViewDelegate.swift */; };
 		3E50DE2E26A0D8D700F49C39 /* PersistentPreferencesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E50DE2D26A0D8D700F49C39 /* PersistentPreferencesProtocol.swift */; };
 		3E50DE2F26A0D8D700F49C39 /* PersistentPreferencesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E50DE2D26A0D8D700F49C39 /* PersistentPreferencesProtocol.swift */; };
 		3E50DE3226A0DA4000F49C39 /* MusicBrainzPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E50DE3126A0DA4000F49C39 /* MusicBrainzPreferences.swift */; };
@@ -304,6 +304,7 @@
 		3E67878226981BBF00408566 /* OptionSetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67877E26981B2B00408566 /* OptionSetExtensions.swift */; };
 		3E67878626981CA500408566 /* SearchFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67878526981CA500408566 /* SearchFields.swift */; };
 		3E67878926981E4800408566 /* SearchFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67878526981CA500408566 /* SearchFields.swift */; };
+		3E68726D26A9B24A00BD1057 /* LanguageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68726C26A9B24A00BD1057 /* LanguageExtensions.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */; };
 		3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115325CEB9C100BF0D07 /* Assets.xcassets */; };
@@ -558,12 +559,12 @@
 		3E6C12B925CEBE5800BF0D07 /* AuralMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE425CEB98600BF0D07 /* AuralMenuController.swift */; };
 		3E6C12BA25CEBE5800BF0D07 /* SupportMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE825CEB98600BF0D07 /* SupportMenuController.swift */; };
 		3E6C12BB25CEBE5800BF0D07 /* SoundMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE725CEB98600BF0D07 /* SoundMenuController.swift */; };
-		3E6C12BD25CEBE6700BF0D07 /* EQ.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFA25CEB98600BF0D07 /* EQ.xib */; };
-		3E6C12BE25CEBE6700BF0D07 /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100725CEB98600BF0D07 /* MasterView.swift */; };
-		3E6C12BF25CEBE6700BF0D07 /* EQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF825CEB98600BF0D07 /* EQViewController.swift */; };
+		3E6C12BD25CEBE6700BF0D07 /* EQUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFA25CEB98600BF0D07 /* EQUnit.xib */; };
+		3E6C12BE25CEBE6700BF0D07 /* MasterUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100725CEB98600BF0D07 /* MasterUnitView.swift */; };
+		3E6C12BF25CEBE6700BF0D07 /* EQUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF825CEB98600BF0D07 /* EQUnitViewController.swift */; };
 		3E6C12C025CEBE6700BF0D07 /* PresetsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */; };
 		3E6C12C125CEBE6700BF0D07 /* PitchShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF025CEB98600BF0D07 /* PitchShiftViewController.swift */; };
-		3E6C12C225CEBE6700BF0D07 /* Master.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100625CEB98600BF0D07 /* Master.xib */; };
+		3E6C12C225CEBE6700BF0D07 /* MasterUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100625CEB98600BF0D07 /* MasterUnit.xib */; };
 		3E6C12C325CEBE6700BF0D07 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEB25CEB98600BF0D07 /* Images.swift */; };
 		3E6C12C425CEBE6700BF0D07 /* EQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF925CEB98600BF0D07 /* EQView.swift */; };
 		3E6C12C525CEBE6700BF0D07 /* ReverbViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100025CEB98600BF0D07 /* ReverbViewController.swift */; };
@@ -577,7 +578,7 @@
 		3E6C12D125CEBE6700BF0D07 /* TimeStretchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100425CEB98600BF0D07 /* TimeStretchViewController.swift */; };
 		3E6C12D225CEBE6700BF0D07 /* PitchShift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF125CEB98600BF0D07 /* PitchShift.xib */; };
 		3E6C12D325CEBE6700BF0D07 /* EQSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFB25CEB98600BF0D07 /* EQSubview.swift */; };
-		3E6C12D425CEBE6700BF0D07 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100825CEB98600BF0D07 /* MasterViewController.swift */; };
+		3E6C12D425CEBE6700BF0D07 /* MasterUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100825CEB98600BF0D07 /* MasterUnitViewController.swift */; };
 		3E6C12D625CEBE8100BF0D07 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101425CEB98600BF0D07 /* FilterViewController.swift */; };
 		3E6C12D725CEBE8100BF0D07 /* PlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101F25CEB98600BF0D07 /* PlayerUIState.swift */; };
 		3E6C12D825CEBE8100BF0D07 /* SeekTimerTaskQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C102D25CEB98600BF0D07 /* SeekTimerTaskQueue.swift */; };
@@ -893,7 +894,7 @@
 		3EAFB609267FF29300F0DC96 /* VolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB608267FF29300F0DC96 /* VolumeSliderCell.swift */; };
 		3EAFB60B267FF2B900F0DC96 /* PreferencesSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB60A267FF2B900F0DC96 /* PreferencesSliderCell.swift */; };
 		3EAFB60D267FF2F300F0DC96 /* PanSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB60C267FF2F300F0DC96 /* PanSliderCell.swift */; };
-		3EAFB60F267FF35900F0DC96 /* EffectsSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB60E267FF35900F0DC96 /* EffectsSliderCell.swift */; };
+		3EAFB60F267FF35900F0DC96 /* EffectsUnitSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB60E267FF35900F0DC96 /* EffectsUnitSliderCell.swift */; };
 		3EAFB611267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB610267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift */; };
 		3EAFB613267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB612267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift */; };
 		3EAFB615267FF47200F0DC96 /* FilterBandSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */; };
@@ -1360,7 +1361,7 @@
 		3E47D311269F8BF6003D08A7 /* SearchResultMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultMatch.swift; sourceTree = "<group>"; };
 		3E47D316269F9928003D08A7 /* ImportedPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedPlaylist.swift; sourceTree = "<group>"; };
 		3E47D31C269FA251003D08A7 /* IndexedChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedChapter.swift; sourceTree = "<group>"; };
-		3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterUnitAUTableViewDelegate.swift; sourceTree = "<group>"; };
+		3E4CC361261EBEEC00740333 /* MasterUnitViewController+AUTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MasterUnitViewController+AUTableViewDelegate.swift"; sourceTree = "<group>"; };
 		3E50DE2D26A0D8D700F49C39 /* PersistentPreferencesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentPreferencesProtocol.swift; sourceTree = "<group>"; };
 		3E50DE3126A0DA4000F49C39 /* MusicBrainzPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzPreferences.swift; sourceTree = "<group>"; };
 		3E51F345262AFDCA0048452F /* ThemesManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemesManager.xib; sourceTree = "<group>"; };
@@ -1423,6 +1424,7 @@
 		3E6787762697CB2400408566 /* FlatPlaylistTests+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlatPlaylistTests+Search.swift"; sourceTree = "<group>"; };
 		3E67877E26981B2B00408566 /* OptionSetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSetExtensions.swift; sourceTree = "<group>"; };
 		3E67878526981CA500408566 /* SearchFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFields.swift; sourceTree = "<group>"; };
+		3E68726C26A9B24A00BD1057 /* LanguageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageExtensions.swift; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E6C0EC925CEB3EE00BF0D07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1599,9 +1601,9 @@
 		3E6C0FF025CEB98600BF0D07 /* PitchShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftViewController.swift; sourceTree = "<group>"; };
 		3E6C0FF125CEB98600BF0D07 /* PitchShift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PitchShift.xib; sourceTree = "<group>"; };
 		3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsWindowController.swift; sourceTree = "<group>"; };
-		3E6C0FF825CEB98600BF0D07 /* EQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQViewController.swift; sourceTree = "<group>"; };
+		3E6C0FF825CEB98600BF0D07 /* EQUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitViewController.swift; sourceTree = "<group>"; };
 		3E6C0FF925CEB98600BF0D07 /* EQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQView.swift; sourceTree = "<group>"; };
-		3E6C0FFA25CEB98600BF0D07 /* EQ.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQ.xib; sourceTree = "<group>"; };
+		3E6C0FFA25CEB98600BF0D07 /* EQUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQUnit.xib; sourceTree = "<group>"; };
 		3E6C0FFB25CEB98600BF0D07 /* EQSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSubview.swift; sourceTree = "<group>"; };
 		3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsWrapper.swift; sourceTree = "<group>"; };
 		3E6C0FFE25CEB98600BF0D07 /* Reverb.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Reverb.xib; sourceTree = "<group>"; };
@@ -1610,9 +1612,9 @@
 		3E6C100225CEB98600BF0D07 /* TimeStretch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeStretch.xib; sourceTree = "<group>"; };
 		3E6C100325CEB98600BF0D07 /* TimeStretchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchView.swift; sourceTree = "<group>"; };
 		3E6C100425CEB98600BF0D07 /* TimeStretchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchViewController.swift; sourceTree = "<group>"; };
-		3E6C100625CEB98600BF0D07 /* Master.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Master.xib; sourceTree = "<group>"; };
-		3E6C100725CEB98600BF0D07 /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
-		3E6C100825CEB98600BF0D07 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		3E6C100625CEB98600BF0D07 /* MasterUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterUnit.xib; sourceTree = "<group>"; };
+		3E6C100725CEB98600BF0D07 /* MasterUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitView.swift; sourceTree = "<group>"; };
+		3E6C100825CEB98600BF0D07 /* MasterUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitViewController.swift; sourceTree = "<group>"; };
 		3E6C100925CEB98600BF0D07 /* Effects.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Effects.xib; sourceTree = "<group>"; };
 		3E6C100E25CEB98600BF0D07 /* FilterBandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandViewController.swift; sourceTree = "<group>"; };
 		3E6C100F25CEB98600BF0D07 /* CutoffFrequencySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutoffFrequencySlider.swift; sourceTree = "<group>"; };
@@ -1992,7 +1994,7 @@
 		3EAFB608267FF29300F0DC96 /* VolumeSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB60A267FF2B900F0DC96 /* PreferencesSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB60C267FF2F300F0DC96 /* PanSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanSliderCell.swift; sourceTree = "<group>"; };
-		3EAFB60E267FF35900F0DC96 /* EffectsSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsSliderCell.swift; sourceTree = "<group>"; };
+		3EAFB60E267FF35900F0DC96 /* EffectsUnitSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB610267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarSeekSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB612267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarVolumeSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandSlider.swift; sourceTree = "<group>"; };
@@ -2680,6 +2682,30 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		3E68727226A9CC5900BD1057 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3EBF292C2686961300D87021 /* EffectsUnitTabButton.swift */,
+				3E6C0FB825CEB98600BF0D07 /* EffectsUnitTabButtonCell.swift */,
+				3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */,
+				3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */,
+				3E6C0FD525CEB98600BF0D07 /* EffectsUnitSlider.swift */,
+				3EAFB60E267FF35900F0DC96 /* EffectsUnitSliderCell.swift */,
+				3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */,
+				3EF172F426A989BA00BB4556 /* EffectsUnitLabels.swift */,
+				3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3E68727326A9CC6900BD1057 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		3E6C0EB625CEB3ED00BF0D07 = {
 			isa = PBXGroup;
 			children = (
@@ -3319,16 +3345,6 @@
 				3E6C100925CEB98600BF0D07 /* Effects.xib */,
 				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
 				3E3633E12685FB2C006A88ED /* EffectsUnitViewController.swift */,
-				3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */,
-				3EBF292C2686961300D87021 /* EffectsUnitTabButton.swift */,
-				3E6C0FB825CEB98600BF0D07 /* EffectsUnitTabButtonCell.swift */,
-				3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */,
-				3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */,
-				3E6C0FD525CEB98600BF0D07 /* EffectsUnitSlider.swift */,
-				3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */,
-				3EAFB60E267FF35900F0DC96 /* EffectsSliderCell.swift */,
-				3EF172F426A989BA00BB4556 /* EffectsUnitLabels.swift */,
-				3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */,
 				3E6C100525CEB98600BF0D07 /* Master */,
 				3E6C0FF725CEB98600BF0D07 /* EQ */,
 				3E6C0FEE25CEB98600BF0D07 /* PitchShift */,
@@ -3337,6 +3353,8 @@
 				3E6C101525CEB98600BF0D07 /* Delay */,
 				3E6C100D25CEB98600BF0D07 /* Filter */,
 				3ECBF3042619D55F00AD5C30 /* AudioUnits */,
+				3E68727226A9CC5900BD1057 /* Views */,
+				3E68727326A9CC6900BD1057 /* Utils */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -3345,8 +3363,8 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0FF125CEB98600BF0D07 /* PitchShift.xib */,
-				3E6C0FEF25CEB98600BF0D07 /* PitchShiftView.swift */,
 				3E6C0FF025CEB98600BF0D07 /* PitchShiftViewController.swift */,
+				3E6C0FEF25CEB98600BF0D07 /* PitchShiftView.swift */,
 			);
 			path = PitchShift;
 			sourceTree = "<group>";
@@ -3354,8 +3372,8 @@
 		3E6C0FF725CEB98600BF0D07 /* EQ */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FFA25CEB98600BF0D07 /* EQ.xib */,
-				3E6C0FF825CEB98600BF0D07 /* EQViewController.swift */,
+				3E6C0FFA25CEB98600BF0D07 /* EQUnit.xib */,
+				3E6C0FF825CEB98600BF0D07 /* EQUnitViewController.swift */,
 				3E6C0FF925CEB98600BF0D07 /* EQView.swift */,
 				3E6C0FFB25CEB98600BF0D07 /* EQSubview.swift */,
 				3EBF29242686940600D87021 /* EQSelectorButtonCell.swift */,
@@ -3368,8 +3386,8 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0FFE25CEB98600BF0D07 /* Reverb.xib */,
-				3E6C0FFF25CEB98600BF0D07 /* ReverbView.swift */,
 				3E6C100025CEB98600BF0D07 /* ReverbViewController.swift */,
+				3E6C0FFF25CEB98600BF0D07 /* ReverbView.swift */,
 			);
 			path = Reverb;
 			sourceTree = "<group>";
@@ -3378,8 +3396,8 @@
 			isa = PBXGroup;
 			children = (
 				3E6C100225CEB98600BF0D07 /* TimeStretch.xib */,
-				3E6C100325CEB98600BF0D07 /* TimeStretchView.swift */,
 				3E6C100425CEB98600BF0D07 /* TimeStretchViewController.swift */,
+				3E6C100325CEB98600BF0D07 /* TimeStretchView.swift */,
 			);
 			path = TimeStretch;
 			sourceTree = "<group>";
@@ -3387,10 +3405,10 @@
 		3E6C100525CEB98600BF0D07 /* Master */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C100625CEB98600BF0D07 /* Master.xib */,
-				3E6C100825CEB98600BF0D07 /* MasterViewController.swift */,
-				3E6C100725CEB98600BF0D07 /* MasterView.swift */,
-				3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */,
+				3E6C100625CEB98600BF0D07 /* MasterUnit.xib */,
+				3E6C100825CEB98600BF0D07 /* MasterUnitViewController.swift */,
+				3E4CC361261EBEEC00740333 /* MasterUnitViewController+AUTableViewDelegate.swift */,
+				3E6C100725CEB98600BF0D07 /* MasterUnitView.swift */,
 			);
 			path = Master;
 			sourceTree = "<group>";
@@ -3755,6 +3773,7 @@
 				3E5ECA50268F4E2A000AE8B7 /* AVAudioFramePositionExtensions.swift */,
 				3E67877E26981B2B00408566 /* OptionSetExtensions.swift */,
 				3EB3A61226A7561E0060487C /* EnumExtensions.swift */,
+				3E68726C26A9B24A00BD1057 /* LanguageExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4904,7 +4923,7 @@
 				3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */,
 				3E6C125A25CEBE0600BF0D07 /* EQPresetsManager.xib in Resources */,
 				3E36BD3126A68E9800B6E28B /* LyricsTrackInfo.xib in Resources */,
-				3E6C12BD25CEBE6700BF0D07 /* EQ.xib in Resources */,
+				3E6C12BD25CEBE6700BF0D07 /* EQUnit.xib in Resources */,
 				3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */,
 				3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */,
 				3EA3CE6725E3FD9E00BC7D07 /* FontSchemesManager.xib in Resources */,
@@ -4935,7 +4954,7 @@
 				3E6C126D25CEBE0600BF0D07 /* FavoritesManager.xib in Resources */,
 				3E824A4325DB74850089F217 /* MenuBarPlayer.xib in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* Player.xib in Resources */,
-				3E6C12C225CEBE6700BF0D07 /* Master.xib in Resources */,
+				3E6C12C225CEBE6700BF0D07 /* MasterUnit.xib in Resources */,
 				3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */,
 				3E6C127125CEBE0600BF0D07 /* FilterPresetsManager.xib in Resources */,
 				3E6C125625CEBE0600BF0D07 /* EffectsPresetsManager.xib in Resources */,
@@ -5091,6 +5110,7 @@
 				3EAFB5DB267FE81A00F0DC96 /* Chapter.swift in Sources */,
 				3E8C78FF269C3F04005E78D1 /* ChapterChangedNotification.swift in Sources */,
 				3E6C11CD25CEBDBE00BF0D07 /* ChapterPlayback.swift in Sources */,
+				3E68726D26A9B24A00BD1057 /* LanguageExtensions.swift in Sources */,
 				3E5563A0269D642B00864598 /* ChaptersListTableCellView.swift in Sources */,
 				3E6C123E25CEBDF400BF0D07 /* ChaptersListTableHeaderCell.swift in Sources */,
 				3E6C123825CEBDF400BF0D07 /* ChaptersListViewController.swift in Sources */,
@@ -5173,7 +5193,7 @@
 				3E8C7938269C42D9005E78D1 /* EffectsNotifications.swift in Sources */,
 				3E3633E02685FB10006A88ED /* EffectsPresetsManagerGenericViewController.swift in Sources */,
 				3E6C125F25CEBE0600BF0D07 /* EffectsPresetsManagerViewController.swift in Sources */,
-				3EAFB60F267FF35900F0DC96 /* EffectsSliderCell.swift in Sources */,
+				3EAFB60F267FF35900F0DC96 /* EffectsUnitSliderCell.swift in Sources */,
 				3EAFB617267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift in Sources */,
 				3EBF29332686979700D87021 /* EffectsTextButtonCell.swift in Sources */,
 				3E3633DA2685FAD0006A88ED /* EffectsUnit.swift in Sources */,
@@ -5205,7 +5225,7 @@
 				3E09D0E526805C19008ECB8C /* EQUnitPersistentState.swift in Sources */,
 				3E3633F626863048006A88ED /* EQUnitProtocol.swift in Sources */,
 				3E6C12C425CEBE6700BF0D07 /* EQView.swift in Sources */,
-				3E6C12BF25CEBE6700BF0D07 /* EQViewController.swift in Sources */,
+				3E6C12BF25CEBE6700BF0D07 /* EQUnitViewController.swift in Sources */,
 				3EA89D972699F0240021CDB9 /* EventMonitor.swift in Sources */,
 				3EEC04272687B397004478CE /* ExclusiveAccessSemaphore.swift in Sources */,
 				3E6C117F25CEBD6D00BF0D07 /* Favorite.swift in Sources */,
@@ -5370,12 +5390,12 @@
 				3E6C126925CEBE0600BF0D07 /* MasterPresetsManagerViewController.swift in Sources */,
 				3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */,
 				3E3633D92685FAD0006A88ED /* MasterUnit.swift in Sources */,
-				3E4CC362261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift in Sources */,
+				3E4CC362261EBEEC00740333 /* MasterUnitViewController+AUTableViewDelegate.swift in Sources */,
 				3E6C119925CEBD6D00BF0D07 /* MasterUnitDelegate.swift in Sources */,
 				3E3633F2268628B1006A88ED /* MasterUnitDelegateProtocol.swift in Sources */,
 				3E09D0DC26805C19008ECB8C /* MasterUnitPersistentState.swift in Sources */,
-				3E6C12BE25CEBE6700BF0D07 /* MasterView.swift in Sources */,
-				3E6C12D425CEBE6700BF0D07 /* MasterViewController.swift in Sources */,
+				3E6C12BE25CEBE6700BF0D07 /* MasterUnitView.swift in Sources */,
+				3E6C12D425CEBE6700BF0D07 /* MasterUnitViewController.swift in Sources */,
 				3E6C11B725CEBDA900BF0D07 /* MediaApplicationWatcher.swift in Sources */,
 				3E6C11B925CEBDAD00BF0D07 /* MediaKeyHandler.swift in Sources */,
 				3E1454F92680F9C50034056E /* MediaKeysControlsPreferences.swift in Sources */,

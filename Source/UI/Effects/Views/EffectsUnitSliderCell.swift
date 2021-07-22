@@ -1,5 +1,5 @@
 //
-//  EffectsSliderCell.swift
+//  EffectsUnitSliderCell.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -20,7 +20,7 @@ class EffectsUnitSliderCell: TickedSliderCell {
     override var knobHeightOutsideBar: CGFloat {1.5}
     
     override var knobColor: NSColor {
-        return Colors.Effects.sliderKnobColorForState(self.unitState)
+        Colors.Effects.sliderKnobColorForState(self.unitState)
     }
     
     override var tickColor: NSColor {Colors.Effects.sliderTickColor}
@@ -28,7 +28,7 @@ class EffectsUnitSliderCell: TickedSliderCell {
     override var tickVerticalSpacing: CGFloat {1}
     
     override var backgroundGradient: NSGradient {
-        return Colors.Effects.sliderBackgroundGradient
+        Colors.Effects.sliderBackgroundGradient
     }
     
     override var foregroundGradient: NSGradient {

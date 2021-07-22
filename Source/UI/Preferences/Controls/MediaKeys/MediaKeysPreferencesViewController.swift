@@ -36,7 +36,7 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
         btnRespondToMediaKeys.onIf(controlsPrefs.enabled)
         mediaKeyResponseAction(self)
         
-        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly].forEach({$0?.off()})
+        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly].forEach {$0?.off()}
         
         switch controlsPrefs.skipKeyBehavior {
             

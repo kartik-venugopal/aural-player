@@ -76,7 +76,7 @@ class ChaptersListViewController: NSViewController, Destroyable {
         btnLoopChapter.off()
         
         lblNumMatches.stringValue = ""
-        [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
+        [btnPreviousMatch, btnNextMatch].forEach {$0?.disable()}
     }
     
     private func initSubscriptions() {
@@ -237,7 +237,7 @@ class ChaptersListViewController: NSViewController, Destroyable {
             
             // No text or no track chapters
             lblNumMatches.stringValue = ""
-            [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
+            [btnPreviousMatch, btnNextMatch].forEach {$0?.disable()}
         }
     }
     
@@ -332,7 +332,7 @@ class ChaptersListViewController: NSViewController, Destroyable {
         btnLoopChapter.onIf(player.chapterLoopExists)
         txtSearch.stringValue = ""
         lblNumMatches.stringValue = ""
-        [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
+        [btnPreviousMatch, btnNextMatch].forEach {$0?.disable()}
         resultIndex = nil
         searchResults.removeAll()
     }

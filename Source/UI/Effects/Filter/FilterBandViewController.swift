@@ -200,7 +200,7 @@ class FilterBandViewController: NSViewController {
         
         tabButton.redraw()
         
-        functionCaptionLabels.forEach({$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont})
+        functionCaptionLabels.forEach {$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont}
         
         filterTypeMenu.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
         filterTypeMenu.redraw()
@@ -220,7 +220,7 @@ class FilterBandViewController: NSViewController {
     }
     
     func changeFunctionButtonColor() {
-        [presetCutoffsIconMenuItem, presetRangesIconMenuItem].forEach({$0?.reTint()})
+        [presetCutoffsIconMenuItem, presetRangesIconMenuItem].forEach {$0?.reTint()}
     }
 
     func changeTextButtonMenuColor() {
@@ -232,7 +232,7 @@ class FilterBandViewController: NSViewController {
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
-        functionCaptionLabels.forEach({$0.textColor = color})
+        functionCaptionLabels.forEach {$0.textColor = color}
     }
     
     func changeFunctionValueTextColor(_ color: NSColor) {
@@ -240,7 +240,7 @@ class FilterBandViewController: NSViewController {
     }
     
     func redrawSliders() {
-        [cutoffSlider, freqRangeSlider].forEach({$0?.redraw()})
+        [cutoffSlider, freqRangeSlider].forEach {$0?.redraw()}
     }
     
     private func findFunctionLabels(_ view: NSView) -> [NSTextField] {

@@ -86,7 +86,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
             btnPrimarySeekLengthPerc.on()
         }
         
-        primarySeekLengthConstantFields.forEach({$0.enableIf(prefs.primarySeekLengthOption == .constant)})
+        primarySeekLengthConstantFields.forEach {$0.enableIf(prefs.primarySeekLengthOption == .constant)}
         primarySeekLengthPercStepper.enableIf(prefs.primarySeekLengthOption == .percentage)
         
         // Secondary seek length
@@ -105,7 +105,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
             btnSecondarySeekLengthPerc.on()
         }
         
-        secondarySeekLengthConstantFields.forEach({$0.enableIf(prefs.secondarySeekLengthOption == .constant)})
+        secondarySeekLengthConstantFields.forEach {$0.enableIf(prefs.secondarySeekLengthOption == .constant)}
         secondarySeekLengthPercStepper.enableIf(prefs.secondarySeekLengthOption == .percentage)
         
         // Autoplay
@@ -127,13 +127,13 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
         
-        primarySeekLengthConstantFields.forEach({$0.enableIf(btnPrimarySeekLengthConstant.isOn)})
+        primarySeekLengthConstantFields.forEach {$0.enableIf(btnPrimarySeekLengthConstant.isOn)}
         primarySeekLengthPercStepper.enableIf(btnPrimarySeekLengthPerc.isOn)
     }
     
     @IBAction func secondarySeekLengthRadioButtonAction(_ sender: Any) {
         
-        secondarySeekLengthConstantFields.forEach({$0.enableIf(btnSecondarySeekLengthConstant.isOn)})
+        secondarySeekLengthConstantFields.forEach {$0.enableIf(btnSecondarySeekLengthConstant.isOn)}
         secondarySeekLengthPercStepper.enableIf(btnSecondarySeekLengthPerc.isOn)
     }
     

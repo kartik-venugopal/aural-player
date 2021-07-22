@@ -311,17 +311,17 @@ class DockMenuController: NSObject, NSMenuDelegate {
         case .off:
             
             repeatOffMenuItem.on()
-            [repeatOneMenuItem, repeatAllMenuItem].forEach({$0?.off()})
+            [repeatOneMenuItem, repeatAllMenuItem].forEach {$0?.off()}
             
         case .one:
             
             repeatOneMenuItem.on()
-            [repeatOffMenuItem, repeatAllMenuItem].forEach({$0?.off()})
+            [repeatOffMenuItem, repeatAllMenuItem].forEach {$0?.off()}
             
         case .all:
             
             repeatAllMenuItem.on()
-            [repeatOffMenuItem, repeatOneMenuItem].forEach({$0?.off()})
+            [repeatOffMenuItem, repeatOneMenuItem].forEach {$0?.off()}
         }
     }
     

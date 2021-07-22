@@ -24,7 +24,6 @@ class DelayViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        unitType = .delay
         effectsUnit = delayUnit
         presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
     }

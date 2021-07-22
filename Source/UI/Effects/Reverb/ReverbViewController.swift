@@ -24,7 +24,6 @@ class ReverbViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        unitType = .reverb
         effectsUnit = graph.reverbUnit
         presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(reverbUnit.presets)
     }

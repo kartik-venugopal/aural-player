@@ -51,6 +51,22 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     var filterUnit: FilterUnitDelegateProtocol
     var audioUnits: [HostedAudioUnitDelegateProtocol]
     
+    private(set) lazy var audioUnitsStateFunction: EffectsUnitStateFunction = {[weak self] in
+        
+        for unit in self?.audioUnits ?? [] {
+        
+            if unit.state == .active {
+                return .active
+            }
+            
+            if unit.state == .suppressed {
+                return .suppressed
+            }
+        }
+        
+        return .bypassed
+    }
+    
     // The actual underlying audio graph
     private var graph: AudioGraphProtocol
     private let player: PlaybackInfoDelegateProtocol

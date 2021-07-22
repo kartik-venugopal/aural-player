@@ -92,7 +92,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         btnSnapToWindows.onIf(viewPrefs.snapToWindows)
         gapStepper.floatValue = viewPrefs.windowGap
         lblWindowGap.stringValue = ValueFormatter.formatPixels(gapStepper.floatValue)
-        [lblWindowGap, gapStepper].forEach({$0!.enableIf(btnSnapToWindows.isOn)})
+        [lblWindowGap, gapStepper].forEach {$0!.enableIf(btnSnapToWindows.isOn)}
         
         btnSnapToScreen.onIf(viewPrefs.snapToScreen)
     }
@@ -128,7 +128,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     }
     
     @IBAction func snapToWindowsAction(_ sender: Any) {
-        [lblWindowGap, gapStepper].forEach({$0!.enableIf(btnSnapToWindows.isOn)})
+        [lblWindowGap, gapStepper].forEach {$0!.enableIf(btnSnapToWindows.isOn)}
     }
     
     @IBAction func gapStepperAction(_ sender: Any) {

@@ -48,9 +48,9 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         
         var map: [String: String] = [:]
         
-        ID3_V1Spec.auxiliaryFields.forEach({(k,v) in map[k.lowercased()] = v})
-        ID3_V22Spec.auxiliaryFields.forEach({(k,v) in map[k.lowercased()] = v})
-        ID3_V24Spec.auxiliaryFields.forEach({(k,v) in map[k.lowercased()] = v})
+        ID3_V1Spec.auxiliaryFields.forEach {(k,v) in map[k.lowercased()] = v}
+        ID3_V22Spec.auxiliaryFields.forEach {(k,v) in map[k.lowercased()] = v}
+        ID3_V24Spec.auxiliaryFields.forEach {(k,v) in map[k.lowercased()] = v}
         
         return map
     }()

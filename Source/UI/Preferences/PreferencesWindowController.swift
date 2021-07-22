@@ -62,7 +62,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
     }
     
     private func resetPreferencesFields() {
-        subViews.forEach({$0.resetFields(preferences)})
+        subViews.forEach {$0.resetFields(preferences)}
     }
     
     @IBAction func previousTabAction(_ sender: Any) {

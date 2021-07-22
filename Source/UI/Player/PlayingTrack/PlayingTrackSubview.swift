@@ -315,7 +315,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     override func changeBackgroundColor(_ color: NSColor) {
         
         let windowColorWithTransparency = color.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
-        [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColorWithTransparency})
+        [centerOverlayBox, overlayBox].forEach {$0?.fillColor = windowColorWithTransparency}
         
         artView.layer?.shadowColor = color.visibleShadowColor.cgColor
     }

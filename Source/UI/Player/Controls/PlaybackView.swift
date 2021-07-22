@@ -111,7 +111,7 @@ class PlaybackView: NSView {
         
         btnPlayPause.onIf(playbackState == .playing)
         btnLoop.switchState(loop != nil ? PlaybackLoopState.complete : PlaybackLoopState.none)
-        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
+        [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         
         sliderView.trackChanged(loop, newTrack)
     }

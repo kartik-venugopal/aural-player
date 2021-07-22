@@ -64,7 +64,7 @@ class AuralTabView: NSTabView {
         
         super.selectTabViewItem(at: index)
         
-        items.forEach({$0.tabButton.off()})
+        items.forEach {$0.tabButton.off()}
         (self.tabViewItem(at: index) as? AuralTabViewItem)?.tabButton.on()
         
         curIndex = index

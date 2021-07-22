@@ -173,7 +173,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         masterPresetsMenu.removeAllItems()
         
         // Initialize the menu with user-defined presets
-        masterPresets.userDefinedPresets.forEach({masterPresetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        masterPresets.userDefinedPresets.forEach {masterPresetsMenu.insertItem(withTitle: $0.name, at: 0)}
     }
     
     @IBAction func outputDeviceRadioButtonAction(_ sender: Any) {
@@ -202,7 +202,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
 
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
-        [startupVolumeSlider, lblStartupVolume].forEach({$0.enableIf(btnSpecifyVolume.isOn)})
+        [startupVolumeSlider, lblStartupVolume].forEach {$0.enableIf(btnSpecifyVolume.isOn)}
     }
     
     @IBAction func startupVolumeSliderAction(_ sender: Any) {

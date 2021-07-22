@@ -152,7 +152,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
             effectsScheme.sliderForegroundGradientType = .none
         }
         
-//        [btnSliderForegroundGradientDarken, btnSliderForegroundGradientBrighten, sliderForegroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderForegroundGradientEnabled.isOn)})
+//        [btnSliderForegroundGradientDarken, btnSliderForegroundGradientBrighten, sliderForegroundGradientAmountStepper].forEach {$0?.enableIf(btnSliderForegroundGradientEnabled.isOn)}
         
         sliderColorsChanged()
     }
@@ -210,7 +210,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
             effectsScheme.sliderBackgroundGradientType = .none
         }
         
-//        [btnSliderBackgroundGradientDarken, btnSliderBackgroundGradientBrighten, sliderBackgroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderBackgroundGradientEnabled.isOn)})
+//        [btnSliderBackgroundGradientDarken, btnSliderBackgroundGradientBrighten, sliderBackgroundGradientAmountStepper].forEach {$0?.enableIf(btnSliderBackgroundGradientEnabled.isOn)}
         
         sliderColorsChanged()
     }

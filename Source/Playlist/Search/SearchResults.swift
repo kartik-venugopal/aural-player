@@ -55,8 +55,8 @@ class SearchResults {
         var union = Set<SearchResult>()
         
         // Add results from the two sets into the union set (duplicates will be removed automatically by the union set)
-        self.results.forEach({union.insert($0)})
-        otherResults.results.forEach({union.insert($0)})
+        self.results.forEach {union.insert($0)}
+        otherResults.results.forEach {union.insert($0)}
         
         self.results = Array(union)
     }

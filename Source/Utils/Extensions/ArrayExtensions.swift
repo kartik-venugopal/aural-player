@@ -67,7 +67,7 @@ extension Array where Element: Equatable {
         let indices: [Int] = items.compactMap {self.firstIndex(of: ($0))}
                                     .sorted(by: Int.descendingIntComparator)
         
-        indices.forEach({self.remove(at: $0)})
+        indices.forEach {self.remove(at: $0)}
         
         return IndexSet(indices)
     }

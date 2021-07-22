@@ -17,7 +17,7 @@ class EffectsUnitTriStateBypassButton: OnOffImageButton {
     var stateFunction: (() -> EffectsUnitState)?
     
     var unitState: EffectsUnitState {
-        return stateFunction?() ?? .bypassed
+        stateFunction?() ?? .bypassed
     }
     
     var mixedStateTooltip: String?
