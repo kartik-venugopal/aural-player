@@ -1,5 +1,5 @@
 //
-//  ReverbView.swift
+//  ReverbUnitView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,30 +9,46 @@
 //
 import Cocoa
 
-class ReverbView: NSView {
+class ReverbUnitView: NSView {
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
     
     @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
     @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
-    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    // ------------------------------------------------------------------------
+    
+    // MARK: Properties
     
     var spaceString: String {
-        return reverbSpaceMenu.titleOfSelectedItem!
+        reverbSpaceMenu.titleOfSelectedItem!
     }
     
     var amount: Float {
-        return reverbAmountSlider.floatValue
+        reverbAmountSlider.floatValue
     }
     
-    func initialize(_ stateFunction: (() -> EffectsUnitState)?) {
+    // ------------------------------------------------------------------------
+    
+    // MARK: View initialization
+    
+    func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
+        
         reverbAmountSlider.stateFunction = stateFunction
         reverbAmountSlider.updateState()
     }
     
-    func setState(_ space: String , _ amount: Float, _ amountString: String) {
+    // ------------------------------------------------------------------------
+    
+    // MARK: View update
+    
+    func setState(space: String, amount: Float, amountString: String) {
+        
         setSpace(space)
-        setAmount(amount, amountString)
+        setAmount(amount, amountString: amountString)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
@@ -43,7 +59,8 @@ class ReverbView: NSView {
         reverbSpaceMenu.selectItem(withTitle: space)
     }
     
-    func setAmount(_ amount: Float, _ amountString: String) {
+    func setAmount(_ amount: Float, amountString: String) {
+        
         reverbAmountSlider.floatValue = amount
         lblReverbAmountValue.stringValue = amountString
     }
@@ -56,12 +73,16 @@ class ReverbView: NSView {
         
         setUnitState(preset.state)
         setSpace(preset.space.description)
-        setAmount(preset.amount, ValueFormatter.formatReverbAmount(preset.amount))
+        setAmount(preset.amount, amountString: ValueFormatter.formatReverbAmount(preset.amount))
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        reverbSpaceMenu.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
+        reverbSpaceMenu.font = fontScheme.effects.unitFunctionFont
         reverbSpaceMenu.redraw()
     }
     

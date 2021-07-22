@@ -11,7 +11,7 @@ import Cocoa
 
 class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var delayView: DelayView!
+    @IBOutlet weak var delayView: DelayUnitView!
     
     override var nibName: String? {"DelayPresetsManager"}
     
@@ -29,7 +29,7 @@ class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewControl
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        delayView.initialize({() -> EffectsUnitState in .active})
+        delayView.initialize(stateFunction: {.active})
     }
     
     override func renderPreview(_ presetName: String) {

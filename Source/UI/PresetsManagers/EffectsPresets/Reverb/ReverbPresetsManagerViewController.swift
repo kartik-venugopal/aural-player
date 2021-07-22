@@ -11,7 +11,7 @@ import Cocoa
 
 class ReverbPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var reverbView: ReverbView!
+    @IBOutlet weak var reverbView: ReverbUnitView!
     
     override var nibName: String? {"ReverbPresetsManager"}
     
@@ -29,7 +29,7 @@ class ReverbPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        reverbView.initialize({() -> EffectsUnitState in .active})
+        reverbView.initialize(stateFunction: {.active})
     }
     
     override func renderPreview(_ presetName: String) {

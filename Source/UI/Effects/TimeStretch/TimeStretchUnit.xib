@@ -13,7 +13,7 @@
                 <outlet property="lblCaption" destination="I1P-0Z-tiS" id="Jgi-pI-Who"/>
                 <outlet property="presetsMenuButton" destination="SzE-Ik-872" id="ud1-pS-ufy"/>
                 <outlet property="presetsMenuIconItem" destination="HQi-sq-AI8" id="zbw-Qt-GBa"/>
-                <outlet property="timeStretchView" destination="ux8-Uv-FBN" id="3Qh-04-Roz"/>
+                <outlet property="timeStretchUnitView" destination="ux8-Uv-FBN" id="3Qh-04-Roz"/>
                 <outlet property="view" destination="cWd-Fu-GJN" id="02m-Ap-0Qq"/>
             </connections>
         </customObject>

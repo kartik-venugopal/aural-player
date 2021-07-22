@@ -29,8 +29,8 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private let eqViewController: EQUnitViewController = EQUnitViewController()
     private let pitchViewController: PitchShiftUnitViewController = PitchShiftUnitViewController()
     private let timeViewController: TimeStretchUnitViewController = TimeStretchUnitViewController()
-    private let reverbViewController: ReverbViewController = ReverbViewController()
-    private let delayViewController: DelayViewController = DelayViewController()
+    private let reverbViewController: ReverbUnitViewController = ReverbUnitViewController()
+    private let delayViewController: DelayUnitViewController = DelayUnitViewController()
     private let filterViewController: FilterViewController = FilterViewController()
     private let auViewController: AudioUnitsViewController = AudioUnitsViewController()
 

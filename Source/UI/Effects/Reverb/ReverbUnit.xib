@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ReverbUnitViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnBypass" destination="II7-fY-0FS" id="ekP-WC-hYk"/>
+                <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
+                <outlet property="lblCaption" destination="kph-zk-qiX" id="9Mk-sp-PrY"/>
+                <outlet property="presetsMenuButton" destination="rrE-w8-gig" id="ZBc-UX-iGA"/>
+                <outlet property="presetsMenuIconItem" destination="8v4-M7-RfA" id="8c9-6g-DWY"/>
+                <outlet property="reverbUnitView" destination="elw-qF-nCD" id="MWM-Tn-dx8"/>
+                <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="txu-mA-r9M">
+            <rect key="frame" x="0.0" y="0.0" width="518" height="185"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="II7-fY-0FS" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="45" y="155" width="14" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="JTJ-vW-zLB">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="bypassAction:" target="-2" id="B8c-y1-3Y7"/>
+                    </connections>
+                </button>
+                <view id="elw-qF-nCD" customClass="ReverbUnitView" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="35" y="54" width="472" height="81"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cnv-IQ-PKn" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="43" y="51" width="70" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Space" id="5J3-aq-YnZ">
+                                <font key="font" size="11" name="Play-Regular"/>
+                                <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjF-HF-nkd" userLabel="Reverb Space Menu">
+                            <rect key="frame" x="145" y="50" width="192" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="6Ce-dA-PGI" id="tol-Pp-L9a" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" size="11" name="Play-Regular"/>
+                                <menu key="menu" id="k9O-pb-pdf">
+                                    <items>
+                                        <menuItem title="Placeholder" hidden="YES" enabled="NO" id="6Ce-dA-PGI" userLabel="Placeholder">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Small room" id="Ezq-Mr-kad">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Medium room" id="Hgq-Ne-SLg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Large room" id="JcF-6X-cFI">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Medium hall" id="29T-hU-jD5">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Large hall" id="4z6-HE-OpU">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Medium chamber" id="wca-ip-l4W">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Large chamber" id="Vrm-Pp-rFh">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Cathedral" id="71g-dg-EE8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Plate" id="MOi-mJ-rd7">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <action selector="reverbSpaceAction:" target="-2" id="glI-BL-JRf"/>
+                            </connections>
+                        </popUpButton>
+                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AnR-ZX-Wi0" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="145" y="19" width="230" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="dxj-RB-154" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
+                            <connections>
+                                <action selector="reverbAmountAction:" target="-2" id="R9O-Yg-pph"/>
+                            </connections>
+                        </slider>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CcZ-hi-Qeb" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="43" y="22" width="70" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Amount" id="DNt-HO-7aB">
+                                <font key="font" size="11" name="Play-Regular"/>
+                                <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="021-vo-3aU" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="105" y="22" width="38" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dry" id="KLz-0H-Fd0">
+                                <font key="font" size="11" name="Play-Regular"/>
+                                <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Pq-Zb-3y9" userLabel="Wet" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="377" y="22" width="40" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="rPE-D2-IdC">
+                                <font key="font" size="11" name="Play-Regular"/>
+                                <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iGc-Z1-9PZ" userLabel="Lbl Reverb Value" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="397" y="22" width="68" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="Z4x-02-2zl">
+                                <font key="font" size="11" name="Play-Regular"/>
+                                <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <connections>
+                        <outlet property="lblReverbAmountValue" destination="iGc-Z1-9PZ" id="Bi7-m5-Ehm"/>
+                        <outlet property="reverbAmountSlider" destination="AnR-ZX-Wi0" id="RNv-wc-kOe"/>
+                        <outlet property="reverbSpaceMenu" destination="ZjF-HF-nkd" id="lqu-9F-j2p"/>
+                    </connections>
+                </view>
+                <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rrE-w8-gig" userLabel="Presets Menu">
+                    <rect key="frame" x="464" y="3" width="27" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="aYW-ES-T3J">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <menu key="menu" showsStateColumn="NO" id="osr-0j-Bhu">
+                            <items>
+                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="8v4-M7-RfA" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                            </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="nJP-mt-Wue"/>
+                            </connections>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="presetsAction:" target="-2" id="obR-tF-WW6"/>
+                    </connections>
+                </popUpButton>
+                <button toolTip="Save new preset" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p1b-kR-qyw" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="490" y="3" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5le-E7-bTd">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SaveEQPreset"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="savePresetAction:" target="-2" id="XbU-jv-J9A"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kph-zk-qiX" userLabel="Master Desc">
+                    <rect key="frame" x="68" y="145" width="204" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Reverb" id="1xJ-xv-ZDN" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="16" name="AlegreyaSansSC-Regular"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="139" y="153.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="PresetsDisclosureTriangle" width="15" height="15"/>
+        <image name="SaveEQPreset" width="15" height="15"/>
+    </resources>
+</document>

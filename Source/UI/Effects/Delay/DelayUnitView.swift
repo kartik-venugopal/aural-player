@@ -1,5 +1,5 @@
 //
-//  DelayView.swift
+//  DelayUnitView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,11 @@
 //
 import Cocoa
 
-class DelayView: NSView {
+class DelayUnitView: NSView {
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
     
     @IBOutlet weak var timeSlider: EffectsUnitSlider!
     @IBOutlet weak var amountSlider: EffectsUnitSlider!
@@ -23,67 +27,81 @@ class DelayView: NSView {
     @IBOutlet weak var lblFeedback: NSTextField!
     @IBOutlet weak var lblCutoff: NSTextField!
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Properties
+    
     var time: Double {
-        return timeSlider.doubleValue
+        timeSlider.doubleValue
     }
     
     var amount: Float {
-        return amountSlider.floatValue
+        amountSlider.floatValue
     }
     
     var cutoff: Float {
-        return cutoffSlider.frequency
+        cutoffSlider.frequency
     }
     
     var feedback: Float {
-        return feedbackSlider.floatValue
+        feedbackSlider.floatValue
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: View initialization
     
     override func awakeFromNib() {
         sliders = [timeSlider, amountSlider, cutoffSlider, feedbackSlider]
     }
     
-    func initialize(_ stateFunction: (() -> EffectsUnitState)?) {
+    func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
         
-        sliders.forEach({
+        sliders.forEach {
             $0.stateFunction = stateFunction
-            $0.updateState()
-        })
+        }
         
         (cutoffSlider.cell as? CutoffFrequencySliderCell)?.filterType = .lowPass
     }
     
-    func setState(_ time: Double, _ timeString: String, _ amount: Float, _ amountString: String, _ feedback: Float, _ feedbackString: String, _ cutoff: Float, _ cutoffString: String) {
+    // ------------------------------------------------------------------------
+    
+    // MARK: View update
+    
+    func setState(time: Double, timeString: String,
+                  amount: Float, amountString: String,
+                  feedback: Float, feedbackString: String,
+                  cutoff: Float, cutoffString: String) {
         
-        setTime(time, timeString)
-        setAmount(amount, amountString)
-        setFeedback(feedback, feedbackString)
-        setCutoff(cutoff, cutoffString)
+        setTime(time, timeString: timeString)
+        setAmount(amount, amountString: amountString)
+        setFeedback(feedback, feedbackString: feedbackString)
+        setCutoff(cutoff, cutoffString: cutoffString)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
         sliders.forEach {$0.setUnitState(state)}
     }
     
-    func setTime(_ time: Double, _ timeString: String) {
+    func setTime(_ time: Double, timeString: String) {
         
         timeSlider.doubleValue = time
         lblTime.stringValue = timeString
     }
     
-    func setAmount(_ amount: Float, _ amountString: String) {
+    func setAmount(_ amount: Float, amountString: String) {
         
         amountSlider.floatValue = amount
         lblAmount.stringValue = amountString
     }
     
-    func setFeedback(_ feedback: Float, _ feedbackString: String) {
+    func setFeedback(_ feedback: Float, feedbackString: String) {
         
         feedbackSlider.floatValue = feedback
         lblFeedback.stringValue = feedbackString
     }
     
-    func setCutoff(_ cutoff: Float, _ cutoffString: String) {
+    func setCutoff(_ cutoff: Float, cutoffString: String) {
         
         cutoffSlider.setFrequency(cutoff)
         lblCutoff.stringValue = cutoffString
@@ -109,6 +127,10 @@ class DelayView: NSView {
         
         sliders.forEach {$0.setUnitState(preset.state)}
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     func redrawSliders() {
         sliders.forEach {$0.redraw()}

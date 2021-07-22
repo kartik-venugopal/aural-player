@@ -19,8 +19,8 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     @IBOutlet weak var eqSubPreview: EQUnitView!
     @IBOutlet weak var pitchSubPreview: PitchShiftUnitView!
     @IBOutlet weak var timeSubPreview: TimeStretchUnitView!
-    @IBOutlet weak var reverbSubPreview: ReverbView!
-    @IBOutlet weak var delaySubPreview: DelayView!
+    @IBOutlet weak var reverbSubPreview: ReverbUnitView!
+    @IBOutlet weak var delaySubPreview: DelayUnitView!
 
     @IBOutlet weak var filterSubPreview: FilterView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()

@@ -35,14 +35,14 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
-    let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
-    
     var effectsUnit: EffectsUnitDelegateProtocol!
+    var unitType: EffectsUnitType {effectsUnit.unitType}
     var unitStateFunction: EffectsUnitStateFunction {effectsUnit.stateFunction}
+    
     var presetsWrapper: PresetsWrapperProtocol!
     
-    var unitType: EffectsUnitType {effectsUnit.unitType}
+    let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     lazy var messenger = Messenger(for: self)
     
