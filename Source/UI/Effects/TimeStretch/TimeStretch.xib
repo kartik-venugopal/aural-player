@@ -21,7 +21,7 @@
                 <outlet property="lblRateMax" destination="eR7-mH-xUl" id="Ueg-eh-olI"/>
                 <outlet property="lblRateMin" destination="ekr-9J-FCS" id="m8R-ww-5bY"/>
                 <outlet property="lblRateValue" destination="4Bh-R6-0a8" id="U1T-EJ-1jn"/>
-                <outlet property="presetsMenu" destination="SzE-Ik-872" id="tm0-wO-1y1"/>
+                <outlet property="presetsMenuButton" destination="SzE-Ik-872" id="ud1-pS-ufy"/>
                 <outlet property="presetsMenuIconItem" destination="HQi-sq-AI8" id="zbw-Qt-GBa"/>
                 <outlet property="timeStretchView" destination="qyk-i5-HuE" id="2u0-6D-ArB"/>
                 <outlet property="view" destination="cWd-Fu-GJN" id="02m-Ap-0Qq"/>

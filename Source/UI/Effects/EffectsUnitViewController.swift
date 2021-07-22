@@ -22,7 +22,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     var functionValueLabels: [NSTextField] = []
 
     // Presets controls
-    @IBOutlet weak var presetsMenu: NSPopUpButton!
+    @IBOutlet weak var presetsMenuButton: NSPopUpButton!
     @IBOutlet weak var presetsMenuIconItem: TintedIconMenuItem!
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
@@ -122,7 +122,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     func initControls() {
         
         stateChanged()
-        presetsMenu.selectItem(at: -1)
+        presetsMenuButton.selectItem(at: -1)
     }
     
     func stateChanged() {
@@ -144,7 +144,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     // Applies a preset to the effects unit
     @IBAction func presetsAction(_ sender: AnyObject) {
         
-        if let selectedPresetItem = presetsMenu.titleOfSelectedItem {
+        if let selectedPresetItem = presetsMenuButton.titleOfSelectedItem {
             
             effectsUnit.applyPreset(named: selectedPresetItem)
             initControls()
@@ -153,7 +153,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     
     // Displays a popover to allow the user to name the new custom preset
     @IBAction func savePresetAction(_ sender: AnyObject) {
-        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
+        userPresetsPopover.show(btnSavePreset, .minY)
     }
     
     private func applyTheme() {
@@ -164,9 +164,9 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
-        functionLabels.forEach {$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont}
-        presetsMenu.font = .menuFont
+        lblCaption.font = fontScheme.effects.unitCaptionFont
+        functionLabels.forEach {$0.font = fontScheme.effects.unitFunctionFont}
+        presetsMenuButton.font = .menuFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {
@@ -228,11 +228,11 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     // MARK - StringInputReceiver functions
     
     var inputPrompt: String {
-        return "Enter a new preset name:"
+        "Enter a new preset name:"
     }
     
     var defaultValue: String? {
-        return "<New preset>"
+        "<New preset>"
     }
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
@@ -253,16 +253,9 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // Remove all custom presets (all items before the first separator)
-        while presetsMenu.itemArray.count > 1 && !presetsMenu.item(at: 1)!.isSeparatorItem {
-            presetsMenu.removeItem(at: 1)
-        }
-        
-        
-        // Re-initialize the menu with user-defined presets
-        presetsWrapper.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 1)})
+        presetsMenuButton.recreateMenu(insertingItemsAt: 1, fromItems: presetsWrapper.userDefinedPresets)
         
         // Don't select any items from the EQ presets menu
-        presetsMenu.selectItem(at: -1)
+        presetsMenuButton.selectItem(at: -1)
     }
 }

@@ -176,21 +176,9 @@ extension FontSchemesWindowController: NSMenuDelegate {
     // When the menu is about to open, recreate the menu with to the currently available color schemes.
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // Remove all user-defined scheme items
-        while let item = menu.item(at: 1), !item.isSeparatorItem {
-            menu.removeItem(at: 1)
-        }
-        
-        // Recreate the user-defined scheme items
-        fontSchemesManager.userDefinedPresets.forEach {
-            
-            let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.loadSchemeAction(_:)),
-                                              keyEquivalent: "")
-            item.target = self
-            item.indentationLevel = 1
-            
-            menu.insertItem(item, at: 1)
-        }
+        menu.recreateMenu(insertingItemsAt: 1, fromItems: fontSchemesManager.userDefinedPresets,
+                          action: #selector(self.loadSchemeAction(_:)), target: self,
+                          indentationLevel: 1)
     }
 }
 

@@ -74,45 +74,27 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
     
     private func initFontSchemesMenu() {
         
-        // Remove all user-defined scheme items (i.e. all items before the first separator)
-        while let item = fontSchemesMenu.item(at: 3), !item.isSeparatorItem {
-            fontSchemesMenu.removeItem(at: 3)
-        }
+        fontSchemesMenu.recreateMenu(insertingItemsAt: 3, fromItems: fontSchemesManager.userDefinedPresets,
+                                     indentationLevel: 1)
         
-        // Recreate the user-defined scheme items
-        fontSchemesManager.userDefinedPresets.forEach {
-
-            let item: NSMenuItem = NSMenuItem(title: $0.name)
-            item.indentationLevel = 1
-            fontSchemesMenu.insertItem(item, at: 3)
-        }
-        
-        let numberOfUserDefinedSchemes: Int = fontSchemesManager.numberOfUserDefinedPresets
+        let showDescriptors: Bool = fontSchemesManager.numberOfUserDefinedPresets > 0
         
         for index in 0...2 {
-            fontSchemesMenu.item(at: index)?.showIf(numberOfUserDefinedSchemes > 0)
+            fontSchemesMenu.item(at: index)?.showIf(showDescriptors)
         }
         
-        btnFontSchemesMenu.select(fontSchemesMenu.item(withTitle: FontSchemePreset.standard.name))
+        btnFontSchemesMenu.selectItem(withTitle: FontSchemePreset.standard.name)
     }
     
     private func initColorSchemesMenu() {
         
-        // Remove all user-defined scheme items (i.e. all items before the first separator)
-        while let item = colorSchemesMenu.item(at: 3), !item.isSeparatorItem {
-            colorSchemesMenu.removeItem(at: 3)
-        }
+        colorSchemesMenu.recreateMenu(insertingItemsAt: 3, fromItems: colorSchemesManager.userDefinedPresets,
+                                      indentationLevel: 1)
         
-        // Recreate the user-defined scheme items
-        colorSchemesManager.userDefinedPresets.forEach {
-            
-            let item: NSMenuItem = NSMenuItem(title: $0.name)
-            item.indentationLevel = 1
-            colorSchemesMenu.insertItem(item, at: 3)
-        }
+        let showDescriptors: Bool = colorSchemesManager.numberOfUserDefinedPresets > 0
         
         for index in 0...2 {
-            colorSchemesMenu.item(at: index)?.showIf(colorSchemesManager.numberOfUserDefinedPresets > 0)
+            colorSchemesMenu.item(at: index)?.showIf(showDescriptors)
         }
         
         btnColorSchemesMenu.select(colorSchemesMenu.item(withTitle: ColorSchemePreset.blackAttack.name))

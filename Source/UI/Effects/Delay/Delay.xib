@@ -12,7 +12,7 @@
                 <outlet property="btnSavePreset" destination="RNY-r7-uAF" id="vu3-Em-haf"/>
                 <outlet property="delayView" destination="sjB-aa-i0k" id="dXX-ZS-n8D"/>
                 <outlet property="lblCaption" destination="Ggt-2P-zMC" id="QxB-2K-32b"/>
-                <outlet property="presetsMenu" destination="aWr-na-Gft" id="EfJ-jw-pFN"/>
+                <outlet property="presetsMenuButton" destination="aWr-na-Gft" id="NtQ-RJ-K45"/>
                 <outlet property="presetsMenuIconItem" destination="yH6-SM-gen" id="fc8-1J-E4b"/>
                 <outlet property="view" destination="eXu-49-wDq" id="ENz-f9-LMp"/>
             </connections>

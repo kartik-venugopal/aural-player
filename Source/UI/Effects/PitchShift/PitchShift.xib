@@ -21,7 +21,7 @@
                 <outlet property="lblPitchOverlapValue" destination="dY7-MC-kOz" id="zg8-VX-jaa"/>
                 <outlet property="lblPitchValue" destination="bTO-XK-qFj" id="Vpv-PX-3hb"/>
                 <outlet property="pitchView" destination="dcu-Yh-pFz" id="pSd-Fr-VNU"/>
-                <outlet property="presetsMenu" destination="kLM-JQ-Lj4" id="TC2-PK-3je"/>
+                <outlet property="presetsMenuButton" destination="kLM-JQ-Lj4" id="gK0-FV-36c"/>
                 <outlet property="presetsMenuIconItem" destination="Oa1-cy-CFz" id="zQi-12-DxR"/>
                 <outlet property="view" destination="rBN-FU-dcW" id="36W-5X-XyO"/>
             </connections>

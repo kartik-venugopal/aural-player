@@ -12,7 +12,7 @@ import Foundation
 ///
 /// A contract for a generic preset that can be mapped to a key.
 ///
-protocol MappedPreset {
+protocol MappedPreset: MenuItemMappable {
     
     var key: String {get set}
     

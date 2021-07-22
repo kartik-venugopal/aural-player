@@ -15,7 +15,7 @@
                 <outlet property="btnSavePreset" destination="8or-Oa-uMa" id="X8Y-GB-CUL"/>
                 <outlet property="lblCaption" destination="9YV-Hs-xxh" id="wIf-P0-rXh"/>
                 <outlet property="masterView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
-                <outlet property="presetsMenu" destination="uqP-oj-xNY" id="xex-eb-edu"/>
+                <outlet property="presetsMenuButton" destination="uqP-oj-xNY" id="Fth-M5-zlm"/>
                 <outlet property="presetsMenuIconItem" destination="bE8-u7-FFo" id="Rba-vo-6zI"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>
             </connections>

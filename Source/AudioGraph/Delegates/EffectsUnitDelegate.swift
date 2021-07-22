@@ -51,6 +51,6 @@ class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
     func applyPreset(named presetName: String) {
         
         unit.applyPreset(named: presetName)
-        unit.ensureActive()
+//        unit.ensureActive()
     }
 }

@@ -11,7 +11,7 @@
                 <outlet property="btnBypass" destination="II7-fY-0FS" id="ekP-WC-hYk"/>
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
                 <outlet property="lblCaption" destination="kph-zk-qiX" id="9Mk-sp-PrY"/>
-                <outlet property="presetsMenu" destination="rrE-w8-gig" id="3X3-Si-Fza"/>
+                <outlet property="presetsMenuButton" destination="rrE-w8-gig" id="ZBc-UX-iGA"/>
                 <outlet property="presetsMenuIconItem" destination="8v4-M7-RfA" id="8c9-6g-DWY"/>
                 <outlet property="reverbView" destination="4DO-6d-OBI" id="4xZ-De-5Qd"/>
                 <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>

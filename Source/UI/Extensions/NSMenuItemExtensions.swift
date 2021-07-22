@@ -9,10 +9,67 @@
 //
 import Cocoa
 
+protocol MenuItemMappable {
+    
+    var name: String {get}
+    
+    var representedObject: Any? {get}
+}
+
+extension MenuItemMappable {
+    
+    var representedObject: Any? {nil}
+}
+
 extension NSMenu {
     
     func addItem(withTitle title: String) {
         addItem(withTitle: title, action: nil, keyEquivalent: "")
+    }
+    
+    func recreateMenu(insertingItemsAt index: Int, withTitles titles: [String],
+                      action: Selector? = nil, target: AnyObject? = nil,
+                      indentationLevel: Int? = nil) {
+        
+        // Remove all user-defined scheme items (i.e. all items before the first separator)
+        if index < items.count {
+            
+            while let item = item(at: index), !item.isSeparatorItem {
+                removeItem(at: index)
+            }
+        }
+        
+        // Recreate the user-defined color scheme items
+        titles.forEach {
+
+            let item: NSMenuItem = NSMenuItem(title: $0, action: action, keyEquivalent: "")
+            item.target = target
+            
+            if let level = indentationLevel {
+                item.indentationLevel = level
+            }
+
+            insertItem(item, at: index)
+        }
+    }
+    
+    func recreateMenu<T: MenuItemMappable>(insertingItemsAt index: Int, fromItems mappableItems: [T],
+                                             action: Selector? = nil, target: AnyObject? = nil,
+                                             indentationLevel: Int? = nil) {
+        
+        recreateMenu(insertingItemsAt: index, withTitles: mappableItems.map {$0.name},
+                     action: action, target: target, indentationLevel: indentationLevel)
+    }
+}
+
+extension NSPopUpButton {
+    
+    func recreateMenu<T: MenuItemMappable>(insertingItemsAt index: Int, fromItems mappableItems: [T],
+                                             indentationLevel: Int? = nil) {
+        
+        menu?.recreateMenu(insertingItemsAt: index, fromItems: mappableItems,
+                           action: action, target: target,
+                           indentationLevel: indentationLevel)
     }
 }
 

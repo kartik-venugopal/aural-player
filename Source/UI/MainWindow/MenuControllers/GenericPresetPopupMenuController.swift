@@ -60,23 +60,14 @@ extension GenericPresetPopupMenuController: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // Remove all user-defined scheme items (i.e. all items before the first separator)
-        while let item = menu.item(at: 3), !item.isSeparatorItem {
-            menu.removeItem(at: 3)
-        }
+        menu.recreateMenu(insertingItemsAt: 3, withTitles: userDefinedPresets.map {$0.name},
+                          action: #selector(self.applyPresetAction(_:)), target: self,
+                          indentationLevel: 1)
         
-        // Recreate the user-defined color scheme items
-        userDefinedPresets.forEach {
-
-            let item: NSMenuItem = NSMenuItem(title: $0.key, action: #selector(self.applyPresetAction(_:)))
-            item.target = self
-            item.indentationLevel = 1
-
-            menu.insertItem(item, at: 3)
-        }
+        let showDescriptors: Bool = numberOfUserDefinedPresets > 0
 
         for index in 0...2 {
-            menu.item(at: index)?.showIf(numberOfUserDefinedPresets > 0)
+            menu.item(at: index)?.showIf(showDescriptors)
         }
     }
 }

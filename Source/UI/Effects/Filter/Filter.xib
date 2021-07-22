@@ -16,7 +16,7 @@
                 <outlet property="btnScrollRight" destination="Z8Q-IY-snQ" id="Oxw-8y-ySK"/>
                 <outlet property="filterView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="lblCaption" destination="jRc-cy-UPp" id="RZj-Qv-kag"/>
-                <outlet property="presetsMenu" destination="JJo-gm-Pih" id="xDc-5d-zbH"/>
+                <outlet property="presetsMenuButton" destination="JJo-gm-Pih" id="YoC-TC-Lse"/>
                 <outlet property="presetsMenuIconItem" destination="FlK-G5-JPk" id="p1U-3G-y9J"/>
                 <outlet property="tabsBox" destination="pTF-TT-2rE" id="bmM-eh-E4A"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
