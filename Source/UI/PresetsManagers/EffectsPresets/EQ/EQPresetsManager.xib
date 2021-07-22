@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    EQPresetsManager.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,7 +24,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="ZGt-qp-9tV">
                         <rect key="frame" x="0.0" y="0.0" width="230" height="280"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="rHa-z3-7sV" userLabel="EQ Presets Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="230" height="275"/>
@@ -100,7 +88,7 @@
                 <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="z5r-ha-mKx" userLabel="Preview Box">
                     <rect key="frame" x="233" y="0.0" width="442" height="280"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" id="g0a-GU-cqu" customClass="EQView" customModule="Aural" customModuleProvider="target">
+                    <view key="contentView" id="g0a-GU-cqu" customClass="EQUnitView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="442" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -142,7 +130,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfL-f9-iM6" userLabel="10 band EQ" customClass="EQSubview" customModule="Aural" customModuleProvider="target">
+                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfL-f9-iM6" userLabel="10 band EQ" customClass="EQUnitSubview" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="-42" y="3" width="458" height="130"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -242,7 +230,7 @@
                                                 <outlet property="globalGainSlider" destination="kZU-9H-hTt" id="LMs-3t-FZ6"/>
                                             </connections>
                                         </view>
-                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zep-le-FyS" userLabel="15 band EQ" customClass="EQSubview" customModule="Aural" customModuleProvider="target">
+                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zep-le-FyS" userLabel="15 band EQ" customClass="EQUnitSubview" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="-42" y="3" width="458" height="130"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>

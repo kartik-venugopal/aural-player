@@ -16,7 +16,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     private var subPreviewViews: [NSView] = []
     
     @IBOutlet weak var masterSubPreview: MasterUnitView!
-    @IBOutlet weak var eqSubPreview: EQView!
+    @IBOutlet weak var eqSubPreview: EQUnitView!
     @IBOutlet weak var pitchSubPreview: PitchShiftView!
     @IBOutlet weak var timeSubPreview: TimeStretchView!
     @IBOutlet weak var reverbSubPreview: ReverbView!
@@ -124,7 +124,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
             let eqPreset = firstSelectedPreset.eq
             
             eqSubPreview.setUnitState(eqPreset.state)
-            eqSubPreview.typeChanged(eqPreset.bands, eqPreset.globalGain)
+            eqSubPreview.typeChanged(bands: eqPreset.bands, globalGain: eqPreset.globalGain)
         }
     }
     

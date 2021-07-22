@@ -1,5 +1,5 @@
 //
-//  EQView.swift
+//  EQUnitView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,66 +9,87 @@
 //
 import Cocoa
 
-class EQView: NSView {
+class EQUnitView: NSView {
     
-    @IBOutlet weak var container: NSBox!
+    // ------------------------------------------------------------------------
     
-    @IBOutlet weak var eq10BandView: EQSubview!
-    @IBOutlet weak var eq15BandView: EQSubview!
+    // MARK: UI fields
+    
+    @IBOutlet weak var tabView: NSTabView!
+    
+    @IBOutlet weak var eq10BandView: EQUnitSubview!
+    @IBOutlet weak var eq15BandView: EQUnitSubview!
     
     @IBOutlet weak var btn10Band: NSButton!
     @IBOutlet weak var btn15Band: NSButton!
     
+    // ------------------------------------------------------------------------
+    
+    // MARK: Properties
+    
     var type: EQType {
-        return btn10Band.isOn ? .tenBand : .fifteenBand
+        btn10Band.isOn ? .tenBand : .fifteenBand
     }
     
-    private var activeView: EQSubview {
-        return btn10Band.isOn ? eq10BandView : eq15BandView
+    private var activeView: EQUnitSubview {
+        btn10Band.isOn ? eq10BandView : eq15BandView
     }
     
-    private var inactiveView: EQSubview {
-        return btn10Band.isOn ? eq15BandView : eq10BandView
+    private var inactiveView: EQUnitSubview {
+        btn10Band.isOn ? eq15BandView : eq10BandView
     }
     
     var globalGain: Float {
-        return activeView.globalGainSlider.floatValue
+        activeView.globalGainSlider.floatValue
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: View initialization
     
     override func awakeFromNib() {
         
-        container.addSubviews(eq10BandView, eq15BandView)
-        
-        eq10BandView.positionAtZeroPoint()
-        eq15BandView.positionAtZeroPoint()
+        for (index, view) in [eq10BandView, eq15BandView].compactMap({$0}).enumerated() {
+            
+            tabView.tabViewItem(at: index).view?.addSubview(view)
+            view.positionAtZeroPoint()
+        }
     }
     
-    func initialize(_ sliderAction: Selector?, _ sliderActionTarget: AnyObject?, _ eqStateFunction: @escaping EffectsUnitStateFunction) {
+    func initialize(eqStateFunction: @escaping EffectsUnitStateFunction,
+                    sliderAction: Selector?, sliderActionTarget: AnyObject?) {
         
-        eq10BandView.initialize(eqStateFunction, sliderAction, sliderActionTarget)
-        eq15BandView.initialize(eqStateFunction, sliderAction, sliderActionTarget)
+        eq10BandView.initialize(stateFunction: eqStateFunction,
+                                sliderAction: sliderAction, sliderActionTarget: sliderActionTarget)
+        
+        eq15BandView.initialize(stateFunction: eqStateFunction,
+                                sliderAction: sliderAction, sliderActionTarget: sliderActionTarget)
     }
     
-    func setState(_ eqType: EQType, _ bands: [Float], _ globalGain: Float) {
+    // ------------------------------------------------------------------------
+    
+    // MARK: View update
+    
+    func setState(eqType: EQType, bands: [Float], globalGain: Float) {
 
-        chooseType(eqType)
-        bandsUpdated(bands, globalGain)
+        eqType == .tenBand ? btn10Band.on() : btn15Band.on()
+        typeChanged(bands: bands, globalGain: globalGain)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
         activeView.setState(state)
     }
-    
-    func typeChanged(_ bands: [Float], _ globalGain: Float) {
+
+    func typeChanged(bands: [Float], globalGain: Float) {
         
         activeView.stateChanged()
-        activeView.updateBands(bands, globalGain)
+        activeView.updateBands(bands, globalGain: globalGain)
         activeView.show()
         inactiveView.hide()
     }
     
-    func bandsUpdated(_ bands: [Float], _ globalGain: Float) {
-        activeView.updateBands(bands, globalGain)
+    func bandsUpdated(_ bands: [Float], globalGain: Float) {
+        activeView.updateBands(bands, globalGain: globalGain)
     }
     
     func stateChanged() {
@@ -87,8 +108,12 @@ class EQView: NSView {
     func applyPreset(_ preset: EQPreset) {
     
         setUnitState(preset.state)
-        bandsUpdated(preset.bands, preset.globalGain)
+        bandsUpdated(preset.bands, globalGain: preset.globalGain)
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Theming
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         

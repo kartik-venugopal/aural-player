@@ -82,7 +82,7 @@ class MasterUnitView: NSView {
         labels.forEach {$0.updateState()}
     }
     
-    private func changeUnitStateColorForState(_ unitState: EffectsUnitState) {
+    private func changeUnitStateColor(forState unitState: EffectsUnitState) {
         
         buttons.filter {$0.unitState == unitState}.forEach {
             $0.reTint()
@@ -98,15 +98,15 @@ class MasterUnitView: NSView {
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {
-        changeUnitStateColorForState(.active)
+        changeUnitStateColor(forState: .active)
     }
     
     func changeBypassedUnitStateColor(_ color: NSColor) {
-        changeUnitStateColorForState(.bypassed)
+        changeUnitStateColor(forState: .bypassed)
     }
     
     func changeSuppressedUnitStateColor(_ color: NSColor) {
-        changeUnitStateColorForState(.suppressed)
+        changeUnitStateColor(forState: .suppressed)
     }
     
     func applyPreset(_ preset: MasterPreset) {

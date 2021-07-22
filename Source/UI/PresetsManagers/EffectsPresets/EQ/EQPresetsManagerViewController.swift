@@ -11,7 +11,7 @@ import Cocoa
 
 class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var eqView: EQView!
+    @IBOutlet weak var eqView: EQUnitView!
     
     override var nibName: String? {"EQPresetsManager"}
     
@@ -29,14 +29,15 @@ class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        eqView.initialize(nil, nil, {() -> EffectsUnitState in .active})
+        
+        eqView.initialize(eqStateFunction: {.active}, sliderAction: nil, sliderActionTarget: nil)
         eqView.chooseType(.tenBand)
     }
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         if let preset = firstSelectedPreset as? EQPreset {
-            eqView.typeChanged(preset.bands, preset.globalGain)
+            eqView.typeChanged(bands: preset.bands, globalGain: preset.globalGain)
         }
     }
     

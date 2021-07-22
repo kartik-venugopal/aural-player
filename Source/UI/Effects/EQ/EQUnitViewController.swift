@@ -16,7 +16,7 @@ class EQUnitViewController: EffectsUnitViewController {
     
     override var nibName: String? {"EQUnit"}
     
-    @IBOutlet weak var eqView: EQView!
+    @IBOutlet weak var eqUnitView: EQUnitView!
     
     private var eqUnit: EQUnitDelegateProtocol = objectGraph.audioGraphDelegate.eqUnit
     
@@ -35,7 +35,8 @@ class EQUnitViewController: EffectsUnitViewController {
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        eqView.initialize(#selector(self.eqSliderAction(_:)), self, self.unitStateFunction)
+        eqUnitView.initialize(eqStateFunction: unitStateFunction,
+                          sliderAction: #selector(self.eqSliderAction(_:)), sliderActionTarget: self)
     }
     
     override func initSubscriptions() {
@@ -59,7 +60,7 @@ class EQUnitViewController: EffectsUnitViewController {
     override func initControls() {
         
         super.initControls()
-        eqView.setState(eqUnit.type, eqUnit.bands, eqUnit.globalGain)
+        eqUnitView.setState(eqType: eqUnit.type, bands: eqUnit.bands, globalGain: eqUnit.globalGain)
     }
     
     // ------------------------------------------------------------------------
@@ -68,8 +69,8 @@ class EQUnitViewController: EffectsUnitViewController {
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        eqUnit.type = eqView.type
-        eqView.typeChanged(eqUnit.bands, eqUnit.globalGain)
+        eqUnit.type = eqUnitView.type
+        eqUnitView.typeChanged(bands: eqUnit.bands, globalGain: eqUnit.globalGain)
     }
     
     @IBAction func eqGlobalGainAction(_ sender: EffectsUnitSlider) {
@@ -88,7 +89,7 @@ class EQUnitViewController: EffectsUnitViewController {
     override func stateChanged() {
         
         super.stateChanged()
-        eqView.stateChanged()
+        eqUnitView.stateChanged()
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
@@ -124,7 +125,7 @@ class EQUnitViewController: EffectsUnitViewController {
     private func bandsUpdated(_ bands: [Float]) {
         
         stateChanged()
-        eqView.bandsUpdated(bands, eqUnit.globalGain)
+        eqUnitView.bandsUpdated(bands, globalGain: eqUnit.globalGain)
         
         messenger.publish(.effects_unitStateChanged)
         showThisTab()
@@ -137,7 +138,7 @@ class EQUnitViewController: EffectsUnitViewController {
     override func applyFontScheme(_ fontScheme: FontScheme) {
         
         super.applyFontScheme(fontScheme)
-        eqView.applyFontScheme(fontScheme)
+        eqUnitView.applyFontScheme(fontScheme)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {
@@ -155,7 +156,7 @@ class EQUnitViewController: EffectsUnitViewController {
         super.changeActiveUnitStateColor(color)
         
         if eqUnit.state == .active {
-            eqView.changeActiveUnitStateColor(color)
+            eqUnitView.changeActiveUnitStateColor(color)
         }
     }
     
@@ -164,7 +165,7 @@ class EQUnitViewController: EffectsUnitViewController {
         super.changeBypassedUnitStateColor(color)
         
         if eqUnit.state == .bypassed {
-            eqView.changeBypassedUnitStateColor(color)
+            eqUnitView.changeBypassedUnitStateColor(color)
         }
     }
     
@@ -173,23 +174,23 @@ class EQUnitViewController: EffectsUnitViewController {
         super.changeSuppressedUnitStateColor(color)
         
         if eqUnit.state == .suppressed {
-            eqView.changeSuppressedUnitStateColor(color)
+            eqUnitView.changeSuppressedUnitStateColor(color)
         }
     }
     
     func changeSelectedTabButtonColor(_ color: NSColor) {
-        eqView.changeSelectedTabButtonColor()
+        eqUnitView.changeSelectedTabButtonColor()
     }
     
     func changeTabButtonTextColor(_ color: NSColor) {
-        eqView.changeTabButtonTextColor()
+        eqUnitView.changeTabButtonTextColor()
     }
     
     func changeSelectedTabButtonTextColor(_ color: NSColor) {
-        eqView.changeSelectedTabButtonTextColor()
+        eqUnitView.changeSelectedTabButtonTextColor()
     }
     
     override func changeSliderColors() {
-        eqView.changeSliderColor()
+        eqUnitView.changeSliderColor()
     }
 }
