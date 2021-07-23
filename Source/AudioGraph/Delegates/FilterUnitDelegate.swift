@@ -28,8 +28,10 @@ class FilterUnitDelegate: EffectsUnitDelegate<FilterUnit>, FilterUnitDelegatePro
         set {unit.bands = newValue}
     }
     
-    func addBand(_ band: FilterBand) -> Int {
-        return unit.addBand(band)
+    func addBand() -> (band: FilterBand, index: Int) {
+        
+        let newBand: FilterBand = .bandStopBand(minFreq: SoundConstants.subBass_min, maxFreq: SoundConstants.subBass_max)
+        return (newBand, unit.addBand(newBand))
     }
     
     subscript(_ index: Int) -> FilterBand {

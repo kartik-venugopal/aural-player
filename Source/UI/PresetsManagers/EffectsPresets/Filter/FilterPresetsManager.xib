@@ -107,7 +107,7 @@
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wMl-kt-ewH" userLabel="Controls Box">
                                 <rect key="frame" x="0.0" y="10" width="442" height="239"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" id="Fl5-cz-GI5" customClass="FilterUnitView" customModule="Aural" customModuleProvider="target">
+                                <view key="contentView" id="Fl5-cz-GI5" customClass="FilterPresetView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="442" height="239"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>

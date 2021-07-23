@@ -8,24 +8,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FilterBandViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="cutoffSlider" destination="wYO-9x-wjI" id="Z9k-oy-3og"/>
-                <outlet property="cutoffSliderCell" destination="wfe-Er-w3H" id="eqd-97-cz4"/>
-                <outlet property="filterTypeMenu" destination="x6P-iJ-bBt" id="4Qw-5x-5nO"/>
-                <outlet property="freqRangeSlider" destination="eIm-fO-zcJ" id="yRD-YI-5BD"/>
-                <outlet property="lblCutoffCaption" destination="wzh-Oc-HHf" id="LmC-IF-ZPK"/>
-                <outlet property="lblFrequencies" destination="O34-nB-lgF" id="Len-tm-9Wp"/>
-                <outlet property="lblRangeCaption" destination="b5A-Za-rhh" id="AtI-5f-Ox8"/>
-                <outlet property="presetCutoffsIconMenuItem" destination="Or6-wJ-wKd" id="tTq-cp-fh8"/>
-                <outlet property="presetCutoffsMenu" destination="mMe-NV-oeX" id="Iif-o0-lE0"/>
-                <outlet property="presetRangesIconMenuItem" destination="i3Y-Fd-PwN" id="pFh-cY-LYD"/>
-                <outlet property="presetRangesMenu" destination="un4-fE-JSB" id="TOZ-gm-6J0"/>
-                <outlet property="tabButton" destination="beO-bx-CUM" id="1fs-Cd-jEp"/>
+                <outlet property="bandView" destination="jGK-0m-f8s" id="Xab-9m-qUv"/>
                 <outlet property="view" destination="jGK-0m-f8s" id="54P-Hg-fUH"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view wantsLayer="YES" id="jGK-0m-f8s" userLabel="Band Editor">
+        <view wantsLayer="YES" id="jGK-0m-f8s" userLabel="Band Editor" customClass="FilterBandView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="350" height="76"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -331,6 +320,20 @@
                     </connections>
                 </popUpButton>
             </subviews>
+            <connections>
+                <outlet property="cutoffSlider" destination="wYO-9x-wjI" id="Icv-ac-c2w"/>
+                <outlet property="cutoffSliderCell" destination="wfe-Er-w3H" id="E6p-eI-kRy"/>
+                <outlet property="filterTypeMenu" destination="x6P-iJ-bBt" id="9iU-rs-Zmg"/>
+                <outlet property="freqRangeSlider" destination="eIm-fO-zcJ" id="72Z-uw-uL1"/>
+                <outlet property="lblCutoffCaption" destination="wzh-Oc-HHf" id="Y7a-Er-xTv"/>
+                <outlet property="lblFrequencies" destination="O34-nB-lgF" id="fc0-3c-ujy"/>
+                <outlet property="lblRangeCaption" destination="b5A-Za-rhh" id="fCi-CL-z0f"/>
+                <outlet property="presetCutoffsIconMenuItem" destination="Or6-wJ-wKd" id="Uzs-gR-ZEa"/>
+                <outlet property="presetCutoffsMenu" destination="mMe-NV-oeX" id="Rdi-nU-b9L"/>
+                <outlet property="presetRangesIconMenuItem" destination="i3Y-Fd-PwN" id="OcK-es-bfA"/>
+                <outlet property="presetRangesMenu" destination="un4-fE-JSB" id="EHu-ct-csy"/>
+                <outlet property="tabButton" destination="beO-bx-CUM" id="4eN-bA-BXo"/>
+            </connections>
             <point key="canvasLocation" x="161" y="-393"/>
         </view>
         <button verticalHuggingPriority="750" id="beO-bx-CUM" userLabel="Tab button">

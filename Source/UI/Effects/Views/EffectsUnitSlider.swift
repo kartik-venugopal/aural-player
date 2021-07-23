@@ -30,11 +30,7 @@ class EffectsUnitSlider: NSSlider, EffectsUnitSliderProtocol {
         didSet {updateState()}
     }
     
-    var effectsCell: EffectsUnitSliderCellProtocol!
-    
-    override func awakeFromNib() {
-        self.effectsCell = (self.cell as! EffectsUnitSliderCellProtocol)
-    }
+    lazy var effectsCell: EffectsUnitSliderCellProtocol = (self.cell as! EffectsUnitSliderCellProtocol)
     
     func updateState() {
         

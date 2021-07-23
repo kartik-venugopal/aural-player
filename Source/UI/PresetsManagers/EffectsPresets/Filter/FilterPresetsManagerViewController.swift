@@ -11,7 +11,7 @@ import Cocoa
 
 class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var filterView: FilterUnitView!
+    @IBOutlet weak var filterView: FilterPresetView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
     
     @IBOutlet weak var bandsTable: NSTableView!

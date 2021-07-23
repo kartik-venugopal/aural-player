@@ -8,17 +8,12 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FilterUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnAdd" destination="dAC-v2-fWg" id="VOu-IG-4yP"/>
                 <outlet property="btnBypass" destination="N6p-bI-VWV" id="5UH-co-PWL"/>
-                <outlet property="btnRemove" destination="obx-WP-Bye" id="rcz-eP-s0O"/>
                 <outlet property="btnSavePreset" destination="wvD-pf-0wI" id="dAC-QY-SQi"/>
-                <outlet property="btnScrollLeft" destination="ix6-8B-1a4" id="5ZO-st-Qev"/>
-                <outlet property="btnScrollRight" destination="Z8Q-IY-snQ" id="Oxw-8y-ySK"/>
                 <outlet property="filterUnitView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="lblCaption" destination="jRc-cy-UPp" id="RZj-Qv-kag"/>
                 <outlet property="presetsMenuButton" destination="JJo-gm-Pih" id="YoC-TC-Lse"/>
                 <outlet property="presetsMenuIconItem" destination="FlK-G5-JPk" id="p1U-3G-y9J"/>
-                <outlet property="tabsBox" destination="pTF-TT-2rE" id="bmM-eh-E4A"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
             </connections>
         </customObject>
@@ -171,8 +166,13 @@
                 </textField>
             </subviews>
             <connections>
-                <outlet property="bandsView" destination="jYE-vo-rzA" id="Ubp-ja-tHw"/>
+                <outlet property="btnAdd" destination="dAC-v2-fWg" id="RUN-oU-rFg"/>
+                <outlet property="btnRemove" destination="obx-WP-Bye" id="LhZ-91-QDC"/>
+                <outlet property="btnScrollLeft" destination="ix6-8B-1a4" id="odn-fH-Ukk"/>
+                <outlet property="btnScrollRight" destination="Z8Q-IY-snQ" id="6Hn-4e-oWZ"/>
                 <outlet property="chart" destination="WKo-oZ-DDd" id="vQF-Xg-8dy"/>
+                <outlet property="tabView" destination="jYE-vo-rzA" id="Ubp-ja-tHw"/>
+                <outlet property="tabsBox" destination="pTF-TT-2rE" id="KgN-hU-aNW"/>
             </connections>
             <point key="canvasLocation" x="175" y="-81.5"/>
         </view>
