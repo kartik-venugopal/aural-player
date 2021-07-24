@@ -89,13 +89,12 @@ class FilterUnitViewController: EffectsUnitViewController {
     }
     
     @IBAction func scrollTabsLeftAction(_ sender: AnyObject) {
-        
-//        scrollLeft()
+        filterUnitView.scrollLeft()
     }
     
     @IBAction func scrollTabsRightAction(_ sender: AnyObject) {
         
-//        scrollRight()
+        filterUnitView.scrollRight()
     }
     
     // ------------------------------------------------------------------------

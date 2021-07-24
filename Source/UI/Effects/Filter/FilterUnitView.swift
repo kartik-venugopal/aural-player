@@ -35,7 +35,15 @@ class FilterUnitView: NSView {
     
     private var numTabs: Int {tabView.numberOfTabViewItems}
     var selectedTab: Int {tabView.numberOfTabViewItems == 0 ? -1 : tabView.selectedIndex}
-    private var tabsShown: ClosedRange<Int> = (-1)...(-1)
+    private var tabsShown: ClosedRange<Int> {
+        
+        if numTabs == 0 {return (-1)...(-1)}
+        
+        let shownButtons = tabButtons.filter { (0..<tabsBox.width).contains($0.frame.minX)}
+        let shownIndices = shownButtons.map {$0.tag}
+        
+        return shownIndices.min()!...shownIndices.max()!
+    }
     
     // ------------------------------------------------------------------------
     
@@ -57,9 +65,7 @@ class FilterUnitView: NSView {
         }
         
         if numTabs > 0 {
-            
             selectTab(at: 0)
-            tabsShown = 0...(min(numTabs - 1, maxShownBands - 1))
         }
         
         updateCRUDButtonStates()
@@ -90,44 +96,49 @@ class FilterUnitView: NSView {
         updateCRUDButtonStates()
         
         // Button tag is the tab index
-        guard selectNewTab else {return}
         
-        selectTab(at: index)
+        if selectNewTab {
+            selectTab(at: index)
+        }
         
         // Show new tab
-        if index >= maxShownBands {
+        if index >= maxShownBands, selectNewTab {
             
             for _ in 0..<(index - tabsShown.upperBound) {
-                scrollRight()
+                scrollRight(adjustTabSelection: false)
             }
-            
-        } else {
-            tabsShown = 0...index
         }
     }
     
     func removeSelectedBand() {
         
-        // Remove the selected band's controller and view
-        removeTab(at: selectedTab)
-
-        // Remove the last tab button (bands count has decreased by 1)
-        tabButtons.remove(at: tabButtons.lastIndex).removeFromSuperview()
+        let removedBandIndex = selectedTab
         
-        for index in selectedTab..<numTabs {
+        // Remove the band view and its associated tab and tab button.
+        
+        tabView.removeTabViewItem(tabView.tabViewItem(at: removedBandIndex))
+        tabButtons.removeLast().removeFromSuperview()
+        bandViews.remove(at: removedBandIndex)
+        
+        // Update band indices.
+        
+        for index in removedBandIndex..<bandViews.count {
 
-            // Reassign band indexes to controllers
+            // Reassign indexes and tab buttons.
             bandViews[index].bandIndex = index
-
-            // Reassign tab buttons to controllers
             bandViews[index].tabButton = tabButtons[index]
         }
-
-        selectTab(at: numTabs > 0 ? 0 : -1)
-
-        // Show tab 0
-        for _ in 0..<tabsShown.lowerBound {
-            scrollLeft()
+        
+        // Show tab 0.
+        
+        if numTabs > 0 {
+            
+            selectTab(at: 0)
+            
+            // Scroll all the way left.
+            while tabsShown.lowerBound > 0 {
+                scrollLeft(adjustTabSelection: false)
+            }
         }
 
         redrawChart()
@@ -152,10 +163,9 @@ class FilterUnitView: NSView {
         tabButtons.forEach {$0.removeFromSuperview()}
         tabButtons.removeAll()
 
-        removeAllTabs()
+        tabView.tabViewItems.removeAll()
 
         updateCRUDButtonStates()
-        tabsShown = (-1)...(-1)
     }
     
     private func updateCRUDButtonStates() {
@@ -170,35 +180,29 @@ class FilterUnitView: NSView {
         btnScrollRight.showIf(overflow && tabsShown.upperBound < numTabs - 1)
     }
     
-    private func moveTabButtonsLeft() {
-        tabButtons.forEach {$0.moveLeft(distance: $0.width)}
-    }
-    
-    private func moveTabButtonsRight() {
-        tabButtons.forEach {$0.moveRight(distance: $0.width)}
-    }
-    
-    private func scrollLeft() {
+    func scrollLeft(adjustTabSelection: Bool = true) {
         
         if tabsShown.lowerBound > 0 {
             
-            moveTabButtonsRight()
-            tabsShown = (tabsShown.lowerBound - 1)...(tabsShown.upperBound - 1)
+            tabButtons.forEach {$0.moveRight(distance: $0.width)}
             updateCRUDButtonStates()
         }
         
-        if !tabsShown.contains(selectedTab) {
+        if adjustTabSelection, !tabsShown.contains(selectedTab) {
             selectTab(at: tabsShown.lowerBound)
         }
     }
     
-    private func scrollRight() {
+    func scrollRight(adjustTabSelection: Bool = true) {
         
         if tabsShown.upperBound < numTabs - 1 {
             
-            moveTabButtonsLeft()
-            tabsShown = (tabsShown.lowerBound + 1)...(tabsShown.upperBound + 1)
+            tabButtons.forEach {$0.moveLeft(distance: $0.width)}
             updateCRUDButtonStates()
+        }
+        
+        if adjustTabSelection, !tabsShown.contains(selectedTab) {
+            selectTab(at: tabsShown.lowerBound)
         }
     }
     
@@ -209,26 +213,10 @@ class FilterUnitView: NSView {
             tabView.selectTabViewItem(at: index)
             tabButtons.forEach {$0.state = $0.tag == selectedTab ? .on : .off}
         }
-        
-//        if !tabsShown.contains(selTab) {
-//            selectTab(at: tabsShown.lowerBound)
-//        }
     }
     
     func redrawChart() {
         chart.redraw()
-    }
-    
-//    func selectTab(at index: Int) {
-//        tabView.selectTabViewItem(at: index)
-//    }
-    
-    func removeTab(at index: Int) {
-        tabView.removeTabViewItem(tabView.tabViewItem(at: index))
-    }
-    
-    func removeAllTabs() {
-        tabView.tabViewItems.removeAll()
     }
     
     // ------------------------------------------------------------------------
