@@ -12,13 +12,10 @@ import Cocoa
 /*
     Data source for the NSTableView that displays the "Tracks" (flat) playlist view.
  */
-class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
-    
-    // Delegate that relays accessor operations to the playlist
-    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
+extension TracksPlaylistViewController: NSTableViewDataSource {
     
     // Signifies an invalid drag/drop operation
-    private let invalidDragOperation: NSDragOperation = []
+    private static let invalidDragOperation: NSDragOperation = []
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {playlist.size}
@@ -37,7 +34,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Validates the proposed drag/drop operation
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         
-        if playlist.isBeingModified {return invalidDragOperation}
+        if playlist.isBeingModified {return Self.invalidDragOperation}
         
         // If the source is the tableView, that means playlist tracks are being reordered
         if info.draggingSource is NSTableView {
@@ -49,7 +46,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 return .move
             }
             
-            return invalidDragOperation
+            return Self.invalidDragOperation
         }
         
         // TODO: What about items added from apps other than Finder ??? From VOX or other audio players ???

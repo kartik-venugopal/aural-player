@@ -12,28 +12,23 @@ import Cocoa
 /*
     Delegate for the NSTableView that displays the "Tracks" (flat) playlist view.
  */
-class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
+extension TracksPlaylistViewController: NSTableViewDelegate {
     
-    @IBOutlet weak var playlistView: NSTableView!
+    private static let rowHeight: CGFloat = 30
     
-    // Delegate that relays accessor operations to the playlist
-    private let playlist: PlaylistAccessorDelegateProtocol = objectGraph.playlistAccessorDelegate
-    
-    // Used to determine the currently playing track
-    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
-    
-    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private var fontScheme: PlaylistFontScheme {fontSchemesManager.systemScheme.playlist}
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return PlaylistRowView()
+        PlaylistRowView()
     }
     
     // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the track name column is used for type selection
-        guard tableColumn?.identifier == .cid_trackName, let displayName = playlist.trackAtIndex(row)?.displayName else {return nil}
+        guard tableColumn?.identifier == .cid_trackName,
+              let displayName = playlist.trackAtIndex(row)?.displayName else {return nil}
         
         if !(displayName.starts(with: "<") || displayName.starts(with: ">")) {
             return displayName
@@ -42,7 +37,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {30}
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {Self.rowHeight}
     
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -69,8 +64,9 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
             return createDurationCell(tableView, ValueFormatter.formatSecondsToHMS(track.duration), row)
             
-        default: return nil // Impossible
+        default:
             
+            return nil // Impossible
         }
     }
     
@@ -78,9 +74,9 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
      
         guard let cell = tableView.makeView(withIdentifier: .cid_index, owner: nil) as? IndexCellView else {return nil}
         
-        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
-        cell.updateText(fontSchemesManager.systemScheme.playlist.trackTextFont, text)
-        cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.trackTextYOffset)
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
+        cell.updateText(fontScheme.trackTextFont, text)
+        cell.realignText(yOffset: fontScheme.trackTextYOffset)
         
         return cell
     }
@@ -89,7 +85,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .cid_index, owner: nil) as? IndexCellView else {return nil}
             
-        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
         cell.updateImage(image)
         
         return cell
@@ -99,9 +95,9 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .cid_trackName, owner: nil) as? TrackNameCellView else {return nil}
             
-        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
-        cell.updateText(fontSchemesManager.systemScheme.playlist.trackTextFont, text)
-        cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.trackTextYOffset)
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
+        cell.updateText(fontScheme.trackTextFont, text)
+        cell.realignText(yOffset: fontScheme.trackTextYOffset)
         
         return cell
     }
@@ -110,9 +106,9 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .cid_duration, owner: nil) as? DurationCellView else {return nil}
         
-        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
-        cell.updateText(fontSchemesManager.systemScheme.playlist.trackTextFont, text)
-        cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.trackTextYOffset)
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
+        cell.updateText(fontScheme.trackTextFont, text)
+        cell.realignText(yOffset: fontScheme.trackTextYOffset)
         
         return cell
     }

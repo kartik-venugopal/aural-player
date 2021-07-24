@@ -11,6 +11,10 @@ import Cocoa
 
 extension NSTableView {
     
+    func isRowSelected(_ row: Int) -> Bool {
+        self.selectedRowIndexes.contains(row)
+    }
+    
     func selectRow(_ row: Int) {
         self.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
     }
@@ -192,5 +196,12 @@ extension NSTableView {
             
             col.headerCell = header
         }
+    }
+}
+
+extension NSOutlineView {
+    
+    func isItemSelected(_ item: Any) -> Bool {
+        self.selectedRowIndexes.contains(row(forItem: item))
     }
 }

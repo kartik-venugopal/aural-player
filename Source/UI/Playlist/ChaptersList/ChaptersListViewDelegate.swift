@@ -76,7 +76,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         cell.unselectedTextColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
         
-        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
         
         cell.text = text
         cell.textField?.showIf(!showCurrentChapterMarker)
@@ -100,7 +100,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         cell.text = text
         cell.textField?.show()
         
-        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
         
         return cell
     }
@@ -118,7 +118,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         cell.text = text
         cell.textField?.show()
         
-        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
         
         return cell
     }

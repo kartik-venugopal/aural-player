@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Genres.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
@@ -21,14 +10,12 @@
             <connections>
                 <outlet property="clipView" destination="bf5-Po-lKe" id="OTb-f2-UyL"/>
                 <outlet property="playlistView" destination="Qtd-u6-247" id="1ae-ua-1ho"/>
-                <outlet property="playlistViewDelegate" destination="h4x-jt-yfz" id="IdZ-Q5-129"/>
                 <outlet property="scrollView" destination="7Ht-SU-dHw" id="r9K-ij-fD6"/>
                 <outlet property="view" destination="ghI-Sf-LvB" id="Q4B-cW-Tm8"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="UpC-cd-CvY" userLabel="Data Source" customClass="GenresPlaylistDataSource" customModule="Aural" customModuleProvider="target"/>
         <view misplaced="YES" id="ghI-Sf-LvB">
             <rect key="frame" x="0.0" y="0.0" width="448" height="177"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -138,8 +125,8 @@
                                 </tableColumns>
                                 <connections>
                                     <action trigger="doubleAction" selector="playSelectedItemAction:" target="-2" id="CNF-RW-OTu"/>
-                                    <outlet property="dataSource" destination="UpC-cd-CvY" id="PGI-8u-QhD"/>
-                                    <outlet property="delegate" destination="h4x-jt-yfz" id="N3X-by-kLy"/>
+                                    <outlet property="dataSource" destination="-2" id="emj-rP-a08"/>
+                                    <outlet property="delegate" destination="-2" id="E98-bu-rOg"/>
                                 </connections>
                             </outlineView>
                         </subviews>
@@ -163,10 +150,5 @@
             </constraints>
             <point key="canvasLocation" x="140" y="155"/>
         </view>
-        <customObject id="h4x-jt-yfz" userLabel="Delegate" customClass="GenresPlaylistViewDelegate" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="playlistView" destination="Qtd-u6-247" id="psv-Wt-NCB"/>
-            </connections>
-        </customObject>
     </objects>
 </document>

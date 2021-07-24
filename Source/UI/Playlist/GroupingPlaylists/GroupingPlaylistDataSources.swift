@@ -12,20 +12,10 @@ import Cocoa
 /*
     Data source base class for the NSOutlineView instances that display the "Artists", "Albums", and "Genres" (hierarchical/grouping) playlist views.
  */
-class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
-    
-    // Delegate that relays CRUD operations to the playlist
-    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
-    
-    // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
-    fileprivate var groupType: GroupType
+extension GroupingPlaylistViewController: NSOutlineViewDataSource {
     
     // Signifies an invalid drag/drop operation
-    private let invalidDragOperation: NSDragOperation = []
-    
-    init(_ groupType: GroupType) {
-        self.groupType = groupType
-    }
+    private static let invalidDragOperation: NSDragOperation = []
     
     // Returns the number of children for a given item
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
@@ -65,7 +55,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     
     // Determines if a given item is expandable (only groups are expandable)
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        return item is Group
+        item is Group
     }
     
     // MARK: Drag n Drop
@@ -84,7 +74,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     // Validates the drag/drop operation
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
         
-        if playlist.isBeingModified {return invalidDragOperation}
+        if playlist.isBeingModified {return Self.invalidDragOperation}
         
         // If the source is the outlineView, that means playlist tracks/groups are being reordered
         if info.draggingSource is NSOutlineView {
@@ -95,7 +85,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
                 return .move
             }
             
-            return invalidDragOperation
+            return Self.invalidDragOperation
         }
         
         // TODO: What about items added from apps other than Finder ??? From VOX or other audio players ???
@@ -235,35 +225,5 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
                 outlineView.moveItem(at: groupMoveResult.sourceIndex, inParent: nil, to: groupMoveResult.destinationIndex, inParent: nil)
             }
         }
-    }
-}
-
-/*
-    Data source and view delegate subclass for the "Artists" (hierarchical/grouping) playlist view
- */
-class ArtistsPlaylistDataSource: GroupingPlaylistDataSource {
-    
-    @objc init() {
-        super.init(.artist)
-    }
-}
-
-/*
-    Data source and view delegate subclass for the "Albums" (hierarchical/grouping) playlist view
- */
-class AlbumsPlaylistDataSource: GroupingPlaylistDataSource {
-    
-    @objc init() {
-        super.init(.album)
-    }
-}
-
-/*
-    Data source and view delegate subclass for the "Genres" (hierarchical/grouping) playlist view
- */
-class GenresPlaylistDataSource: GroupingPlaylistDataSource {
-    
-    @objc init() {
-        super.init(.genre)
     }
 }

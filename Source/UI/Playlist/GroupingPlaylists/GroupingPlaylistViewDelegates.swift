@@ -12,33 +12,18 @@ import Cocoa
 /*
     Delegate base class for the NSOutlineView instances that display the "Artists", "Albums", and "Genres" (hierarchical/grouping) playlist views.
  */
-class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
+extension GroupingPlaylistViewController: NSOutlineViewDelegate {
+    
+    private static let rowHeight: CGFloat = 30
  
-    @IBOutlet weak var playlistView: NSOutlineView!
-    
-    // Delegate that relays accessor operations to the playlist
-    private let playlist: PlaylistAccessorDelegateProtocol = objectGraph.playlistAccessorDelegate
-    
-    // Used to determine the currently playing track
-    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
-    
-    // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
-    fileprivate var playlistType: PlaylistType
-    
-    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
-    
-    init(_ playlistType: PlaylistType) {
-        self.playlistType = playlistType
-    }
-    
     // Returns a view for a single row
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        return GroupingPlaylistRowView()
+        GroupingPlaylistRowView()
     }
     
     // Determines the height of a single row
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        30
+        Self.rowHeight
     }
     
     // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
@@ -92,8 +77,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = false
         cell.rowSelectionStateFunction = {[weak outlineView, weak track] in
 
-            if let theOutlineView = outlineView {
-                return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: track))
+            if let theOutlineView = outlineView, let theTrack = track {
+                return theOutlineView.isItemSelected(theTrack)
             }
 
             return false
@@ -121,9 +106,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.playlistType = self.playlistType
         cell.isGroup = false
         cell.rowSelectionStateFunction = {[weak outlineView, weak track] in
-
-            if let theOutlineView = outlineView {
-                return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: track))
+            
+            if let theOutlineView = outlineView, let theTrack = track {
+                return theOutlineView.isItemSelected(theTrack)
             }
 
             return false
@@ -144,8 +129,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = true
         cell.rowSelectionStateFunction = {[weak outlineView, weak group] in
 
-            if let theOutlineView = outlineView {
-                return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: group))
+            if let theOutlineView = outlineView, let theGroup = group {
+                return theOutlineView.isItemSelected(theGroup)
             }
 
             return false
@@ -170,8 +155,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = true
         cell.rowSelectionStateFunction = {[weak outlineView, weak group] in
 
-            if let theOutlineView = outlineView {
-                return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: group))
+            if let theOutlineView = outlineView, let theGroup = group {
+                return theOutlineView.isItemSelected(theGroup)
             }
 
             return false
@@ -181,26 +166,5 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.groupTextYOffset)
         
         return cell
-    }
-}
-
-class ArtistsPlaylistViewDelegate: GroupingPlaylistViewDelegate {
-    
-    @objc init() {
-        super.init(.artists)
-    }
-}
-
-class AlbumsPlaylistViewDelegate: GroupingPlaylistViewDelegate {
-    
-    @objc init() {
-        super.init(.albums)
-    }
-}
-
-class GenresPlaylistViewDelegate: GroupingPlaylistViewDelegate {
-    
-    @objc init() {
-        super.init(.genres)
     }
 }

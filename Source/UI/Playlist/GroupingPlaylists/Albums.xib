@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Albums.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
@@ -21,7 +10,6 @@
             <connections>
                 <outlet property="clipView" destination="L4D-0W-akw" id="fp0-aA-DE8"/>
                 <outlet property="playlistView" destination="zOt-gt-mXm" id="aXC-GX-6lZ"/>
-                <outlet property="playlistViewDelegate" destination="Xtt-So-uZm" id="x1c-Hm-2h6"/>
                 <outlet property="scrollView" destination="K58-n2-zaU" id="BgT-0v-b9b"/>
                 <outlet property="view" destination="Oyc-CU-03C" id="iF8-Nj-LYW"/>
             </connections>
@@ -137,8 +125,8 @@
                                 </tableColumns>
                                 <connections>
                                     <action trigger="doubleAction" selector="playSelectedItemAction:" target="-2" id="Qvc-vW-8gE"/>
-                                    <outlet property="dataSource" destination="iJj-aD-bEy" id="MwM-Ae-0dj"/>
-                                    <outlet property="delegate" destination="Xtt-So-uZm" id="8ep-ml-ojq"/>
+                                    <outlet property="dataSource" destination="-2" id="Nra-hm-viP"/>
+                                    <outlet property="delegate" destination="-2" id="kYJ-Ri-7Bh"/>
                                 </connections>
                             </outlineView>
                         </subviews>
@@ -162,11 +150,5 @@
             </constraints>
             <point key="canvasLocation" x="140" y="154"/>
         </view>
-        <customObject id="iJj-aD-bEy" userLabel="Data Source" customClass="AlbumsPlaylistDataSource" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="Xtt-So-uZm" userLabel="Delegate" customClass="AlbumsPlaylistViewDelegate" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="playlistView" destination="zOt-gt-mXm" id="0IL-bc-xxx"/>
-            </connections>
-        </customObject>
     </objects>
 </document>

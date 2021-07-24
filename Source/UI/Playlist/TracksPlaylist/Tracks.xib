@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Tracks.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
@@ -21,7 +10,6 @@
             <connections>
                 <outlet property="clipView" destination="fxA-zZ-X3P" id="Aqh-dW-7pC"/>
                 <outlet property="playlistView" destination="yfe-8c-y7Q" id="TvH-l8-2RB"/>
-                <outlet property="playlistViewDelegate" destination="fxO-kG-Bir" id="kFi-aW-e04"/>
                 <outlet property="scrollView" destination="gzJ-2a-yOb" id="BwM-b0-0L4"/>
                 <outlet property="view" destination="bnY-X4-HPZ" id="67h-Q5-R0r"/>
             </connections>
@@ -58,7 +46,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="Nr9-vb-v1E" customClass="IndexCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="41" height="30"/>
+                                                <rect key="frame" x="1" y="2" width="35" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-Os-Qiu" userLabel="Index">
@@ -108,7 +96,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="Aqb-5g-rsj" customClass="TrackNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="44" y="2" width="398" height="30"/>
+                                                <rect key="frame" x="39" y="2" width="395" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-mo-oiW" userLabel="Track Name">
@@ -147,7 +135,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="Nxn-ZH-ZX3" customClass="DurationCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="442" y="2" width="72" height="30"/>
+                                                <rect key="frame" x="437" y="2" width="66" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pY7-8Q-lam" userLabel="Duration">
@@ -176,8 +164,8 @@
                                 </tableColumns>
                                 <connections>
                                     <action trigger="doubleAction" selector="playSelectedTrackAction:" target="-2" id="kEj-HT-bsP"/>
-                                    <outlet property="dataSource" destination="vH7-ho-Ykd" id="rfp-o9-RCK"/>
-                                    <outlet property="delegate" destination="fxO-kG-Bir" id="JYQ-SW-wPL"/>
+                                    <outlet property="dataSource" destination="-2" id="Iaq-et-LTb"/>
+                                    <outlet property="delegate" destination="-2" id="kz2-fy-MyH"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -201,7 +189,5 @@
             </constraints>
             <point key="canvasLocation" x="146" y="193"/>
         </view>
-        <customObject id="vH7-ho-Ykd" userLabel="Data Source" customClass="TracksPlaylistViewDataSource" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="fxO-kG-Bir" userLabel="Delegate" customClass="TracksPlaylistViewDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
 </document>

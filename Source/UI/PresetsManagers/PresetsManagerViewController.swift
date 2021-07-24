@@ -123,8 +123,8 @@ class PresetsManagerViewController: NSViewController, NSTableViewDataSource,  NS
         guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? PresetsManagerTableCellView,
               let textField = cell.textField else {return nil}
         
-        cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
-            self?.tableView.selectedRowIndexes.contains(row) ?? false
+        cell.isSelectedFunction = {[weak tableView] row in
+            tableView?.isRowSelected(row) ?? false
         }
         
         textField.stringValue = text

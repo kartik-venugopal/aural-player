@@ -85,7 +85,7 @@ extension AudioUnitsViewController: NSTableViewDelegate {
         
         cell.text = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
         cell.textFont = fontSchemesManager.systemScheme.effects.unitFunctionFont
-        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        cell.rowSelectionStateFunction = {tableView.isRowSelected(row)}
         cell.realignText(yOffset: fontSchemesManager.systemScheme.effects.auRowTextYOffset)
         
         return cell

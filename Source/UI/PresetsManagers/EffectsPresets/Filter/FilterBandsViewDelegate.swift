@@ -78,7 +78,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
         cell.text = text
         cell.unselectedTextFont = standardFontSet.mainFont(size: 10)
         cell.selectedTextFont = standardFontSet.mainFont(size: 10)
-        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
         
         return cell
     }

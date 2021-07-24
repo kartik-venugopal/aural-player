@@ -132,8 +132,8 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? PresetsManagerTableCellView
         else {return nil}
         
-        cell.isSelectedFunction = {[weak self] row in
-            self?.tableView.selectedRowIndexes.contains(row) ?? false
+        cell.isSelectedFunction = {[weak tableView] row in
+            tableView?.isRowSelected(row) ?? false
         }
         
         cell.row = row

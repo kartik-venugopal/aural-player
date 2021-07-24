@@ -15,7 +15,6 @@ import Cocoa
 class TracksPlaylistViewController: NSViewController, Destroyable {
     
     @IBOutlet weak var playlistView: NSTableView!
-    @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
     
     var contextMenu: NSMenu! {
         
@@ -28,13 +27,13 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
     @IBOutlet weak var clipView: NSClipView!
     
     // Delegate that relays CRUD actions to the playlist
-    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
+    let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
+    let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
+    let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private let preferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
     
