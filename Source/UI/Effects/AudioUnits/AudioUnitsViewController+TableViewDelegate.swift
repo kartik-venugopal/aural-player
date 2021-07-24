@@ -1,5 +1,5 @@
 //
-//  AudioUnitsTableViewDelegate.swift
+//  AudioUnitsViewController+TableViewDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.

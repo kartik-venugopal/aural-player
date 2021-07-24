@@ -47,10 +47,10 @@ class ChaptersListViewController: NSViewController, Destroyable {
     // Will be nil if no results available or no chapters available.
     private var resultIndex: Int?
     
-    private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
+    let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
-    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
+    let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var messenger = Messenger(for: self)
     

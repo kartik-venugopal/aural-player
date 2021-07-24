@@ -438,7 +438,7 @@
 		3E6C123325CEBDF400BF0D07 /* PlaylistWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */; };
 		3E6C123425CEBDF400BF0D07 /* GenresPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4625CEB98600BF0D07 /* GenresPlaylistSort.xib */; };
 		3E6C123525CEBDF400BF0D07 /* ChaptersList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6025CEB98600BF0D07 /* ChaptersList.xib */; };
-		3E6C123625CEBDF400BF0D07 /* GroupingPlaylistDataSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5225CEB98600BF0D07 /* GroupingPlaylistDataSources.swift */; };
+		3E6C123625CEBDF400BF0D07 /* GroupingPlaylistViewController+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5225CEB98600BF0D07 /* GroupingPlaylistViewController+TableViewDataSource.swift */; };
 		3E6C123725CEBDF400BF0D07 /* AuralPlaylistViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5C25CEB98600BF0D07 /* AuralPlaylistViews.swift */; };
 		3E6C123825CEBDF400BF0D07 /* ChaptersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6125CEB98600BF0D07 /* ChaptersListViewController.swift */; };
 		3E6C123925CEBDF400BF0D07 /* PlaylistSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5A25CEB98600BF0D07 /* PlaylistSearch.xib */; };
@@ -447,7 +447,7 @@
 		3E6C123C25CEBDF400BF0D07 /* ArtistsPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4425CEB98600BF0D07 /* ArtistsPlaylistSortViewController.swift */; };
 		3E6C123D25CEBDF400BF0D07 /* Artists.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5025CEB98600BF0D07 /* Artists.xib */; };
 		3E6C123E25CEBDF400BF0D07 /* ChaptersListTableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6325CEB98600BF0D07 /* ChaptersListTableHeaderCell.swift */; };
-		3E6C123F25CEBDF400BF0D07 /* ChaptersListViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6425CEB98600BF0D07 /* ChaptersListViewDelegate.swift */; };
+		3E6C123F25CEBDF400BF0D07 /* ChaptersListViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6425CEB98600BF0D07 /* ChaptersListViewController+TableViewDelegate.swift */; };
 		3E6C124025CEBDF400BF0D07 /* FlatPlaylistTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6625CEB98600BF0D07 /* FlatPlaylistTableViews.swift */; };
 		3E6C124125CEBDF400BF0D07 /* ArtistsPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5125CEB98600BF0D07 /* ArtistsPlaylistViewController.swift */; };
 		3E6C124225CEBDF400BF0D07 /* ArtistsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4725CEB98600BF0D07 /* ArtistsPlaylistSort.xib */; };
@@ -464,7 +464,7 @@
 		3E6C124F25CEBDF400BF0D07 /* AlbumsPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4925CEB98600BF0D07 /* AlbumsPlaylistSortViewController.swift */; };
 		3E6C125025CEBDF400BF0D07 /* TracksPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4A25CEB98600BF0D07 /* TracksPlaylistSort.xib */; };
 		3E6C125125CEBDF400BF0D07 /* PlaylistUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6725CEB98600BF0D07 /* PlaylistUIState.swift */; };
-		3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewDelegates.swift */; };
+		3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewController+TableViewDelegate.swift */; };
 		3E6C125425CEBE0600BF0D07 /* ColorSchemesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9125CEB98600BF0D07 /* ColorSchemesManager.xib */; };
 		3E6C125525CEBE0600BF0D07 /* ColorSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9325CEB98600BF0D07 /* ColorSchemePreviewView.swift */; };
 		3E6C125625CEBE0600BF0D07 /* EffectsPresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7525CEB98600BF0D07 /* EffectsPresetsManager.xib */; };
@@ -1486,11 +1486,11 @@
 		3E6C0F4F25CEB98600BF0D07 /* Genres.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Genres.xib; sourceTree = "<group>"; };
 		3E6C0F5025CEB98600BF0D07 /* Artists.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Artists.xib; sourceTree = "<group>"; };
 		3E6C0F5125CEB98600BF0D07 /* ArtistsPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsPlaylistViewController.swift; sourceTree = "<group>"; };
-		3E6C0F5225CEB98600BF0D07 /* GroupingPlaylistDataSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistDataSources.swift; sourceTree = "<group>"; };
+		3E6C0F5225CEB98600BF0D07 /* GroupingPlaylistViewController+TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupingPlaylistViewController+TableViewDataSource.swift"; sourceTree = "<group>"; };
 		3E6C0F5325CEB98600BF0D07 /* AlbumsPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsPlaylistViewController.swift; sourceTree = "<group>"; };
 		3E6C0F5425CEB98600BF0D07 /* Albums.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Albums.xib; sourceTree = "<group>"; };
 		3E6C0F5525CEB98600BF0D07 /* GenresPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresPlaylistViewController.swift; sourceTree = "<group>"; };
-		3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistViewDelegates.swift; sourceTree = "<group>"; };
+		3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupingPlaylistViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistWindowController.swift; sourceTree = "<group>"; };
 		3E6C0F5825CEB98600BF0D07 /* Playlist.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Playlist.xib; sourceTree = "<group>"; };
 		3E6C0F5A25CEB98600BF0D07 /* PlaylistSearch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistSearch.xib; sourceTree = "<group>"; };
@@ -1502,7 +1502,7 @@
 		3E6C0F6125CEB98600BF0D07 /* ChaptersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListViewController.swift; sourceTree = "<group>"; };
 		3E6C0F6225CEB98600BF0D07 /* ChaptersListWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListWindowController.swift; sourceTree = "<group>"; };
 		3E6C0F6325CEB98600BF0D07 /* ChaptersListTableHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListTableHeaderCell.swift; sourceTree = "<group>"; };
-		3E6C0F6425CEB98600BF0D07 /* ChaptersListViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListViewDelegate.swift; sourceTree = "<group>"; };
+		3E6C0F6425CEB98600BF0D07 /* ChaptersListViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChaptersListViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		3E6C0F6625CEB98600BF0D07 /* FlatPlaylistTableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatPlaylistTableViews.swift; sourceTree = "<group>"; };
 		3E6C0F6725CEB98600BF0D07 /* PlaylistUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistUIState.swift; sourceTree = "<group>"; };
 		3E6C0F6B25CEB98600BF0D07 /* FavoritesManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManagerViewController.swift; sourceTree = "<group>"; };
@@ -3007,8 +3007,8 @@
 				3E6C0F5425CEB98600BF0D07 /* Albums.xib */,
 				3E6C0F4F25CEB98600BF0D07 /* Genres.xib */,
 				3E6C0F4E25CEB98600BF0D07 /* GroupingPlaylistViewController.swift */,
-				3E6C0F5225CEB98600BF0D07 /* GroupingPlaylistDataSources.swift */,
-				3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewDelegates.swift */,
+				3E6C0F5225CEB98600BF0D07 /* GroupingPlaylistViewController+TableViewDataSource.swift */,
+				3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewController+TableViewDelegate.swift */,
 				3E6C0F5125CEB98600BF0D07 /* ArtistsPlaylistViewController.swift */,
 				3E6C0F5325CEB98600BF0D07 /* AlbumsPlaylistViewController.swift */,
 				3E6C0F5525CEB98600BF0D07 /* GenresPlaylistViewController.swift */,
@@ -3031,7 +3031,7 @@
 				3E6C0F6025CEB98600BF0D07 /* ChaptersList.xib */,
 				3E6C0F6225CEB98600BF0D07 /* ChaptersListWindowController.swift */,
 				3E6C0F6125CEB98600BF0D07 /* ChaptersListViewController.swift */,
-				3E6C0F6425CEB98600BF0D07 /* ChaptersListViewDelegate.swift */,
+				3E6C0F6425CEB98600BF0D07 /* ChaptersListViewController+TableViewDelegate.swift */,
 				3E6C0F6325CEB98600BF0D07 /* ChaptersListTableHeaderCell.swift */,
 				3E55639F269D642B00864598 /* ChaptersListTableCellView.swift */,
 			);
@@ -5129,7 +5129,7 @@
 				3E5563A0269D642B00864598 /* ChaptersListTableCellView.swift in Sources */,
 				3E6C123E25CEBDF400BF0D07 /* ChaptersListTableHeaderCell.swift in Sources */,
 				3E6C123825CEBDF400BF0D07 /* ChaptersListViewController.swift in Sources */,
-				3E6C123F25CEBDF400BF0D07 /* ChaptersListViewDelegate.swift in Sources */,
+				3E6C123F25CEBDF400BF0D07 /* ChaptersListViewController+TableViewDelegate.swift in Sources */,
 				3E6C123A25CEBDF400BF0D07 /* ChaptersListWindowController.swift in Sources */,
 				3E6C128F25CEBE1800BF0D07 /* CheckRadioButtonCell.swift in Sources */,
 				3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */,
@@ -5348,12 +5348,12 @@
 				3E47D2F9269F8296003D08A7 /* GroupedTrackAddResult.swift in Sources */,
 				3E47D305269F8332003D08A7 /* GroupedTracksRemovalResult.swift in Sources */,
 				3E6C120F25CEBDD100BF0D07 /* GroupingPlaylist.swift in Sources */,
-				3E6C123625CEBDF400BF0D07 /* GroupingPlaylistDataSources.swift in Sources */,
+				3E6C123625CEBDF400BF0D07 /* GroupingPlaylistViewController+TableViewDataSource.swift in Sources */,
 				3E21ECDE268F4AA600731E4C /* GroupingPlaylistPersistentState.swift in Sources */,
 				3E6C120825CEBDD100BF0D07 /* GroupingPlaylistProtocol.swift in Sources */,
 				3E6C123125CEBDF400BF0D07 /* GroupingPlaylistTableViews.swift in Sources */,
 				3E6C124525CEBDF400BF0D07 /* GroupingPlaylistViewController.swift in Sources */,
-				3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewDelegates.swift in Sources */,
+				3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewController+TableViewDelegate.swift in Sources */,
 				3E47D30B269F83B9003D08A7 /* GroupMoveResult.swift in Sources */,
 				3E47D302269F82ED003D08A7 /* GroupRemovalResult.swift in Sources */,
 				3E871A282698EA0500C626DC /* GroupsSort.swift in Sources */,

@@ -109,7 +109,7 @@ class GroupedItemCellView: NSTableCellView {
     
     func updateText(_ font: NSFont, _ text: String) {
         
-//        self.textFont = font
+        self.textFont = font
         self.text = text
         textField?.show()
     }
