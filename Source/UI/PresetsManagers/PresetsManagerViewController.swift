@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class PresetsManagerViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate, NSTextFieldDelegate {
+class PresetsManagerViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
     
     @IBOutlet weak var tableView: NSTableView!
     

@@ -23,18 +23,18 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     
     override func viewDidLoad() {
         
-        let unitTypeFilter: (EffectsUnitType) -> Bool = {[weak self] (unit: EffectsUnitType) in unit == self?.unitType}
+        let unitTypeFilter: (EffectsUnitType) -> Bool = {[weak self] unit in unit == self?.unitType}
         
-        messenger.subscribe(to: .effectsPresetsManager_reload, handler: {[weak self] (EffectsUnit) in self?.doViewDidAppear()},
+        messenger.subscribe(to: .effectsPresetsManager_reload, handler: {[weak self] in self?.doViewDidAppear()},
                             filter: unitTypeFilter)
         
-        messenger.subscribe(to: .effectsPresetsManager_apply, handler: {[weak self] (EffectsUnit) in self?.applySelectedPreset()},
+        messenger.subscribe(to: .effectsPresetsManager_apply, handler: {[weak self] in self?.applySelectedPreset()},
                             filter: unitTypeFilter)
         
-        messenger.subscribe(to: .effectsPresetsManager_rename, handler: {[weak self] (EffectsUnit) in self?.renameSelectedPreset()},
+        messenger.subscribe(to: .effectsPresetsManager_rename, handler: {[weak self] in self?.renameSelectedPreset()},
                             filter: unitTypeFilter)
         
-        messenger.subscribe(to: .effectsPresetsManager_delete, handler: {[weak self] (EffectsUnit) in self?.deleteSelectedPresets()},
+        messenger.subscribe(to: .effectsPresetsManager_delete, handler: {[weak self] in self?.deleteSelectedPresets()},
                             filter: unitTypeFilter)
     }
     
