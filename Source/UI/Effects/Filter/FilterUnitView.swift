@@ -281,6 +281,8 @@ class FilterUnitView: NSView {
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
+        
+        redrawChart()
         bandViews.forEach {$0.changeFunctionCaptionTextColor(color)}
     }
     

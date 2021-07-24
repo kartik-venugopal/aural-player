@@ -37,11 +37,12 @@ class FilterChart: NSView {
     }
     
     var textColor: NSColor {
-        Colors.filterChartTextColor
+        Colors.Effects.functionCaptionTextColor
     }
     
     private let offset: CGFloat = 5
     private let bottomMargin: CGFloat = 5
+    private let lineWidth: CGFloat = 2
     
     private let xMarks: [CGFloat] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
     
@@ -90,7 +91,6 @@ class FilterChart: NSView {
                 guard let f = band.maxFreq else {continue}
                 
                 let x = log10(f/2) - 1
-                let lineWidth: CGFloat = 2
                 let rx = min(offset + CGFloat(x) * scale, frameRect.maxX - lineWidth / 2)
                 
                 if unitState == .active {
@@ -109,7 +109,6 @@ class FilterChart: NSView {
                 guard let f = band.minFreq else {continue}
                 
                 let x = log10(f/2) - 1
-                let lineWidth: CGFloat = 2
                 let rx = min(offset + CGFloat(x) * scale, frameRect.maxX - lineWidth / 2)
                 
                 if unitState == .active {

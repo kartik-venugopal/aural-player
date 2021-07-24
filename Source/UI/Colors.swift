@@ -401,8 +401,4 @@ struct Colors {
         
         static let defaultTickColor: NSColor = NSColor.black
     }
-    
-    static var filterChartTextColor: NSColor {
-        return Effects.functionValueTextColor
-    }
 }
