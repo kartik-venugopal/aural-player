@@ -71,7 +71,13 @@ class FilterUnitViewController: EffectsUnitViewController {
     @IBAction func addBandAction(_ sender: AnyObject) {
         
         let newBandInfo: (band: FilterBand, index: Int) = filterUnit.addBand()
-        addBandView(for: newBandInfo.band, at: newBandInfo.index)
+        
+        let bandController = FilterBandViewController.create(band: newBandInfo.band, at: newBandInfo.index,
+                                                      withButtonAction: #selector(self.showBandAction(_:)),
+                                                      andTarget: self)
+
+        bandControllers.append(bandController)
+        filterUnitView.addBand(bandController.bandView, selectNewTab: true)
     }
     
     @IBAction func removeBandAction(_ sender: AnyObject) {
@@ -93,22 +99,7 @@ class FilterUnitViewController: EffectsUnitViewController {
     }
     
     @IBAction func scrollTabsRightAction(_ sender: AnyObject) {
-        
         filterUnitView.scrollRight()
-    }
-    
-    // ------------------------------------------------------------------------
-    
-    // MARK: Helper functions
-    
-    private func addBandView(for band: FilterBand, at index: Int) {
-        
-        let bandCon = FilterBandViewController.create(band: band, at: index,
-                                                      withButtonAction: #selector(self.showBandAction(_:)),
-                                                      andTarget: self)
-        
-        filterUnitView.addBand(bandCon.bandView, selectNewTab: true)
-        bandControllers.append(bandCon)
     }
     
     // ------------------------------------------------------------------------
@@ -119,12 +110,12 @@ class FilterUnitViewController: EffectsUnitViewController {
         
         super.initSubscriptions()
         
-        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
-        messenger.subscribe(to: .changeTextButtonMenuColor, handler: changeTextButtonMenuColor(_:))
-        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
-        messenger.subscribe(to: .changeTabButtonTextColor, handler: changeTabButtonTextColor(_:))
-        messenger.subscribe(to: .changeButtonMenuTextColor, handler: changeButtonMenuTextColor(_:))
-        messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: changeSelectedTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: filterUnitView.changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeTextButtonMenuColor, handler: filterUnitView.changeTextButtonMenuColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: filterUnitView.changeSelectedTabButtonColor(_:))
+        messenger.subscribe(to: .changeTabButtonTextColor, handler: filterUnitView.changeTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeButtonMenuTextColor, handler: filterUnitView.changeButtonMenuTextColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: filterUnitView.changeSelectedTabButtonTextColor(_:))
     }
     
     override func stateChanged() {
@@ -138,13 +129,9 @@ class FilterUnitViewController: EffectsUnitViewController {
     // MARK: Theming
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
-        
-//        bandControllers.forEach {$0.applyFontScheme(fontScheme)}
-      
-        // Redraw the frequency chart
-        filterUnitView.applyFontScheme(fontScheme)
-        
+
         super.applyFontScheme(fontScheme)
+        filterUnitView.applyFontScheme(fontScheme)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {
@@ -161,86 +148,46 @@ class FilterUnitViewController: EffectsUnitViewController {
         super.changeBypassedUnitStateColor(scheme.effects.bypassedUnitStateColor)
         super.changeSuppressedUnitStateColor(scheme.effects.suppressedUnitStateColor)
         
-        filterUnitView.redrawChart()
-//        bandControllers.forEach {$0.applyColorScheme(scheme)}
-    }
-    
-    func changeBackgroundColor(_ color: NSColor) {
-        filterUnitView.redrawChart()
+        filterUnitView.applyColorScheme(scheme)
     }
     
     override func changeSliderColors() {
-//        bandControllers.forEach {$0.redrawSliders()}
+        filterUnitView.changeSliderColors()
     }
     
     override func changeActiveUnitStateColor(_ color: NSColor) {
         
         super.changeActiveUnitStateColor(color)
-//        bandControllers.forEach {$0.redrawSliders()}
-        filterUnitView.redrawChart()
+        filterUnitView.changeActiveUnitStateColor(color)
     }
     
     override func changeBypassedUnitStateColor(_ color: NSColor) {
         
         super.changeBypassedUnitStateColor(color)
-//        bandControllers.forEach {$0.redrawSliders()}
-        filterUnitView.redrawChart()
+        filterUnitView.changeBypassedUnitStateColor(color)
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
         
         super.changeSuppressedUnitStateColor(color)
-//        bandControllers.forEach {$0.redrawSliders()}
-        filterUnitView.redrawChart()
+        filterUnitView.changeSuppressedUnitStateColor(color)
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
         
         super.changeFunctionCaptionTextColor(color)
-//        bandControllers.forEach {$0.changeFunctionCaptionTextColor(color)}
+        filterUnitView.changeFunctionCaptionTextColor(color)
     }
     
     override func changeFunctionValueTextColor(_ color: NSColor) {
         
         super.changeFunctionValueTextColor(color)
-//        bandControllers.forEach {$0.changeFunctionValueTextColor(color)}
+        filterUnitView.changeFunctionValueTextColor(color)
     }
     
     override func changeFunctionButtonColor(_ color: NSColor) {
         
         super.changeFunctionButtonColor(color)
-        
-//        [btnScrollLeft, btnScrollRight].forEach {$0?.reTint()}
-//        bandControllers.forEach {$0.changeFunctionButtonColor()}
-    }
-    
-    func changeTextButtonMenuColor(_ color: NSColor) {
-        
-//        [btnAdd, btnRemove].forEach {$0?.redraw()}
-//        bandControllers.forEach {$0.changeTextButtonMenuColor()}
-    }
-
-    func changeButtonMenuTextColor(_ color: NSColor) {
-        
-//        [btnAdd, btnRemove].forEach {$0?.redraw()}
-//        bandControllers.forEach {$0.changeButtonMenuTextColor()}
-    }
-    
-    func changeSelectedTabButtonColor(_ color: NSColor) {
-        
-//        if (0..<numTabs).contains(selTab) {
-//            tabButtons[selTab].redraw()
-//        }
-    }
-    
-    func changeTabButtonTextColor(_ color: NSColor) {
-//        tabButtons.forEach {$0.redraw()}
-    }
-    
-    func changeSelectedTabButtonTextColor(_ color: NSColor) {
-        
-//        if (0..<numTabs).contains(selTab) {
-//            tabButtons[selTab].redraw()
-//        }
+        filterUnitView.changeFunctionButtonColor(color)
     }
 }

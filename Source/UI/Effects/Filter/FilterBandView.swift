@@ -56,10 +56,6 @@ class FilterBandView: NSView {
         // Do nothing
     }
     
-    var buttonWidth: CGFloat {
-        tabButton.width
-    }
-    
     var buttonPosition: NSPoint {
         
         get {tabButton.frame.origin}

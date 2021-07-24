@@ -45,7 +45,7 @@
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ix6-8B-1a4" userLabel="Bands-Left" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="55" y="82" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Left" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5x5-sf-fJc">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Left" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="5x5-sf-fJc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -59,7 +59,7 @@
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8Q-IY-snQ" userLabel="Bands-Right" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="424" y="82" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Right" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Bmb-za-MqI">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Right" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="Bmb-za-MqI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

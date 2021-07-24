@@ -31,15 +31,23 @@ class FilterUnitView: NSView {
     
     // MARK: Services, utilities, helpers, and properties
     
+    private static let noTabsShown: ClosedRange<Int> = (-1)...(-1)
+    
     var filterUnit: FilterUnitDelegateProtocol = objectGraph.audioGraphDelegate.filterUnit
     
     private var numTabs: Int {tabView.numberOfTabViewItems}
+    
     var selectedTab: Int {tabView.numberOfTabViewItems == 0 ? -1 : tabView.selectedIndex}
+    
+    var selectedTabButton: NSButton? {tabView.numberOfTabViewItems == 0 ? nil : tabButtons[tabView.selectedIndex]}
+    
     private var tabsShown: ClosedRange<Int> {
         
-        if numTabs == 0 {return (-1)...(-1)}
+        if numTabs == 0 {return Self.noTabsShown}
         
         let shownButtons = tabButtons.filter { (0..<tabsBox.width).contains($0.frame.minX)}
+        if shownButtons.isEmpty {return Self.noTabsShown}
+        
         let shownIndices = shownButtons.map {$0.tag}
         
         return shownIndices.min()!...shownIndices.max()!
@@ -83,8 +91,8 @@ class FilterUnitView: NSView {
         let prevBtnMaxX = index == 0 ? 0 : tabButtons[index - 1].frame.maxX
         
         bandView.bandChangedCallback = redrawChart
-        
         bandView.buttonPosition = NSMakePoint(prevBtnMaxX, 0)
+        
         tabsBox.addSubview(bandView.tabButton)
         tabButtons.append(bandView.tabButton)
         
@@ -95,18 +103,13 @@ class FilterUnitView: NSView {
         redrawChart()
         updateCRUDButtonStates()
         
-        // Button tag is the tab index
+        guard selectNewTab else {return}
         
-        if selectNewTab {
-            selectTab(at: index)
-        }
+        selectTab(at: index)
         
         // Show new tab
-        if index >= maxShownBands, selectNewTab {
-            
-            for _ in 0..<(index - tabsShown.upperBound) {
-                scrollRight(adjustTabSelection: false)
-            }
+        while !tabsShown.contains(index) {
+            scrollRight(adjustTabSelection: false)
         }
     }
     
@@ -129,18 +132,17 @@ class FilterUnitView: NSView {
             bandViews[index].tabButton = tabButtons[index]
         }
         
-        // Show tab 0.
-        
         if numTabs > 0 {
             
-            selectTab(at: 0)
+            let newSelectedTab = removedBandIndex > bandViews.lastIndex ? removedBandIndex - 1 : removedBandIndex
             
-            // Scroll all the way left.
-            while tabsShown.lowerBound > 0 {
+            selectTab(at: newSelectedTab)
+            
+            if tabsShown.count < maxShownBands {
                 scrollLeft(adjustTabSelection: false)
             }
         }
-
+            
         redrawChart()
         updateCRUDButtonStates()
     }
@@ -188,8 +190,12 @@ class FilterUnitView: NSView {
             updateCRUDButtonStates()
         }
         
-        if adjustTabSelection, !tabsShown.contains(selectedTab) {
-            selectTab(at: tabsShown.lowerBound)
+        guard adjustTabSelection else {return}
+        
+        let tabsShown = self.tabsShown
+        
+        if !tabsShown.contains(selectedTab) {
+            selectTab(at: tabsShown.upperBound)
         }
     }
     
@@ -201,7 +207,11 @@ class FilterUnitView: NSView {
             updateCRUDButtonStates()
         }
         
-        if adjustTabSelection, !tabsShown.contains(selectedTab) {
+        guard adjustTabSelection else {return}
+        
+        let tabsShown = self.tabsShown
+        
+        if !tabsShown.contains(selectedTab) {
             selectTab(at: tabsShown.lowerBound)
         }
     }
@@ -225,106 +235,79 @@ class FilterUnitView: NSView {
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-//        redrawChart()
-//
-//        bandControllers.forEach {$0.applyFontScheme(fontScheme)}
-//
-//        // Redraw the add/remove band buttons
-//        btnAdd.redraw()
-//        btnRemove.redraw()
-//
-//        // Redraw the frequency chart
-//        filterUnitView.applyFontScheme(fontScheme)
+        redrawChart()
+
+        bandViews.forEach {$0.applyFontScheme(fontScheme)}
+
+        // Redraw the add/remove band buttons
+        btnAdd.redraw()
+        btnRemove.redraw()
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {
         
-        // Need to do this to avoid multiple redundant redraw() calls
-        
-//        changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
-//
-//        super.changeFunctionButtonColor(scheme.general.functionButtonColor)
-//        super.changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
-//        super.changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
-//
-//        super.changeActiveUnitStateColor(scheme.effects.activeUnitStateColor)
-//        super.changeBypassedUnitStateColor(scheme.effects.bypassedUnitStateColor)
-//        super.changeSuppressedUnitStateColor(scheme.effects.suppressedUnitStateColor)
-//
-//        filterUnitView.redrawChart()
-//
-//        [btnAdd, btnRemove].forEach {$0?.redraw()}
-//        [btnScrollLeft, btnScrollRight].forEach {$0?.reTint()}
-//
-//        bandControllers.forEach {$0.applyColorScheme(scheme)}
+        redrawChart()
+
+        [btnAdd, btnRemove].forEach {$0?.redraw()}
+        [btnScrollLeft, btnScrollRight].forEach {$0?.reTint()}
+
+        bandViews.forEach {$0.applyColorScheme(scheme)}
     }
     
     func changeBackgroundColor(_ color: NSColor) {
-//        filterUnitView.redrawChart()
+        redrawChart()
     }
     
     func changeSliderColors() {
-//        bandControllers.forEach {$0.redrawSliders()}
+        bandViews.forEach {$0.redrawSliders()}
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {
         
-//        super.changeActiveUnitStateColor(color)
-//        bandControllers.forEach {$0.redrawSliders()}
-//        filterUnitView.redrawChart()
+        bandViews.forEach {$0.redrawSliders()}
+        redrawChart()
     }
     
     func changeBypassedUnitStateColor(_ color: NSColor) {
         
-//        super.changeBypassedUnitStateColor(color)
-//        bandControllers.forEach {$0.redrawSliders()}
-//        filterUnitView.redrawChart()
+        bandViews.forEach {$0.redrawSliders()}
+        redrawChart()
     }
     
     func changeSuppressedUnitStateColor(_ color: NSColor) {
         
-//        super.changeSuppressedUnitStateColor(color)
-//        bandControllers.forEach {$0.redrawSliders()}
-//        filterUnitView.redrawChart()
+        bandViews.forEach {$0.redrawSliders()}
+        redrawChart()
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
-        
-//        super.changeFunctionCaptionTextColor(color)
-//        bandControllers.forEach {$0.changeFunctionCaptionTextColor(color)}
+        bandViews.forEach {$0.changeFunctionCaptionTextColor(color)}
     }
     
     func changeFunctionValueTextColor(_ color: NSColor) {
-        
-//        super.changeFunctionValueTextColor(color)
-//        bandControllers.forEach {$0.changeFunctionValueTextColor(color)}
+        bandViews.forEach {$0.changeFunctionValueTextColor(color)}
     }
     
     func changeFunctionButtonColor(_ color: NSColor) {
         
-//        super.changeFunctionButtonColor(color)
-//
-//        [btnScrollLeft, btnScrollRight].forEach {$0?.reTint()}
-//        bandControllers.forEach {$0.changeFunctionButtonColor()}
+        [btnScrollLeft, btnScrollRight].forEach {$0?.reTint()}
+        bandViews.forEach {$0.changeFunctionButtonColor()}
     }
     
     func changeTextButtonMenuColor(_ color: NSColor) {
         
-//        [btnAdd, btnRemove].forEach {$0?.redraw()}
-//        bandControllers.forEach {$0.changeTextButtonMenuColor()}
+        [btnAdd, btnRemove].forEach {$0?.redraw()}
+        bandViews.forEach {$0.changeTextButtonMenuColor()}
     }
 
     func changeButtonMenuTextColor(_ color: NSColor) {
         
-//        [btnAdd, btnRemove].forEach {$0?.redraw()}
-//        bandControllers.forEach {$0.changeButtonMenuTextColor()}
+        [btnAdd, btnRemove].forEach {$0?.redraw()}
+        bandViews.forEach {$0.changeButtonMenuTextColor()}
     }
     
     func changeSelectedTabButtonColor(_ color: NSColor) {
-        
-        if (0..<numTabs).contains(selectedTab) {
-            tabButtons[selectedTab].redraw()
-        }
+        selectedTabButton?.redraw()
     }
     
     func changeTabButtonTextColor(_ color: NSColor) {
@@ -332,9 +315,6 @@ class FilterUnitView: NSView {
     }
     
     func changeSelectedTabButtonTextColor(_ color: NSColor) {
-        
-        if (0..<numTabs).contains(selectedTab) {
-            tabButtons[selectedTab].redraw()
-        }
+        selectedTabButton?.redraw()
     }
 }
