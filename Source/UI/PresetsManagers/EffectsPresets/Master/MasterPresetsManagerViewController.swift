@@ -22,7 +22,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     @IBOutlet weak var reverbSubPreview: ReverbUnitView!
     @IBOutlet weak var delaySubPreview: DelayUnitView!
 
-    @IBOutlet weak var filterSubPreview: FilterUnitView!
+    @IBOutlet weak var filterSubPreview: FilterPresetView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
     @IBOutlet weak var bandsTable: NSTableView!
     @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
@@ -55,29 +55,20 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         
         eqSubPreview.chooseType(.tenBand)
         
-        let bandsDataFunction = {[weak self] () -> [FilterBand] in self?.filterChartBands ?? []}
-        filterSubPreview.initialize(stateFunction: {[weak self] in self?.presetFilterUnitState ?? .active}, bandsDataFunction: bandsDataFunction)
+        let bandsDataFunction = {[weak self] in self?.filterChartBands ?? []}
+        filterSubPreview.initialize(stateFunction: {[weak self] in self?.presetFilterUnitState ?? .active},
+                                    bandsDataFunction: bandsDataFunction)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false
     }
     
     private var filterChartBands: [FilterBand] {
-        
-        if let preset = firstSelectedPreset as? MasterPreset {
-            return preset.filter.bands
-        }
-        
-        return []
+        (firstSelectedPreset as? MasterPreset)?.filter.bands ?? []
     }
     
     private var presetFilterUnitState: EffectsUnitState {
-        
-        if let preset = firstSelectedPreset {
-            return masterPresets.preset(named: preset.name)?.state ?? .active
-        }
-        
-        return .active
+        (firstSelectedPreset as? MasterPreset)?.state ?? .active
     }
     
     override func viewDidAppear() {

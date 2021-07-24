@@ -16,7 +16,6 @@ class FilterPresetView: NSView {
     // MARK: UI fields
     
     @IBOutlet weak var chart: FilterChart!
-    @IBOutlet weak var bandsView: NSTabView!
     
     // ------------------------------------------------------------------------
     
@@ -39,30 +38,6 @@ class FilterPresetView: NSView {
     
     func redrawChart() {
         chart.redraw()
-    }
-    
-    func addBandView(_ view: NSView) {
-        
-        let numItems = bandsView.numberOfTabViewItems
-        let title = "Band \(numItems)"
-        
-        let newItem = NSTabViewItem(identifier: title)
-        newItem.label = title
-        
-        bandsView.addTabViewItem(newItem)
-        newItem.view?.addSubview(view)
-    }
-    
-    func selectTab(at index: Int) {
-        bandsView.selectTabViewItem(at: index)
-    }
-    
-    func removeTab(at index: Int) {
-        bandsView.removeTabViewItem(bandsView.tabViewItem(at: index))
-    }
-    
-    func removeAllTabs() {
-        bandsView.tabViewItems.removeAll()
     }
     
     // ------------------------------------------------------------------------

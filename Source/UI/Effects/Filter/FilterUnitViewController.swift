@@ -30,8 +30,6 @@ class FilterUnitViewController: EffectsUnitViewController {
     
     var filterUnit: FilterUnitDelegateProtocol = objectGraph.audioGraphDelegate.filterUnit
     
-    private var numBands: Int {bandControllers.count}
-    
     // ------------------------------------------------------------------------
     
     // MARK: UI initialization / life-cycle
@@ -56,21 +54,14 @@ class FilterUnitViewController: EffectsUnitViewController {
 
         super.initControls()
         
-        bandControllers.removeAll()
-        
-        var bandViews: [FilterBandView] = []
-        
-        for (index, band) in filterUnit.bands.enumerated() {
-          
-            let bandCon = FilterBandViewController.create(band: band, at: index,
-                                                          withButtonAction: #selector(self.showBandAction(_:)),
-                                                          andTarget: self)
+        bandControllers = filterUnit.bands.enumerated().map {
             
-            bandViews.append(bandCon.bandView)
-            bandControllers.append(bandCon)
+            FilterBandViewController.create(band: $1, at: $0,
+                                            withButtonAction: #selector(self.showBandAction(_:)),
+                                            andTarget: self)
         }
         
-        filterUnitView.initBands(bandViews)
+        filterUnitView.setBands(bandControllers.map {$0.bandView})
     }
     
     // ------------------------------------------------------------------------
@@ -85,33 +76,12 @@ class FilterUnitViewController: EffectsUnitViewController {
     
     @IBAction func removeBandAction(_ sender: AnyObject) {
         
-//        filterUnit.removeBands(atIndices: IndexSet([selTab]))
+        let selectedTab = filterUnitView.selectedTab
+        filterUnit.removeBands(atIndices: IndexSet([selectedTab]))
         
-//        // Remove the selected band's controller and view
-//        filterUnitView.removeTab(at: selTab)
-//        bandControllers.remove(at: selTab)
-//
-//        // Remove the last tab button (bands count has decreased by 1)
-//        tabButtons.remove(at: tabButtons.lastIndex).removeFromSuperview()
-//
-//        for index in selTab..<numTabs {
-//
-//            // Reassign band indexes to controllers
-//            bandControllers[index].bandIndex = index
-//
-//            // Reassign tab buttons to controllers
-//            bandControllers[index].tabButton = tabButtons[index]
-//        }
-//
-//        selectTab(at: !bandControllers.isEmpty ? 0 : -1)
-//
-//        // Show tab 0
-//        for _ in 0..<tabsShown.lowerBound {
-//            scrollLeft()
-//        }
-//
-//        filterUnitView.redrawChart()
-//        updateCRUDButtonStates()
+        // Remove the selected band's controller and view
+        filterUnitView.removeSelectedBand()
+        bandControllers.remove(at: selectedTab)
     }
     
     @IBAction func showBandAction(_ sender: NSButton) {
@@ -138,7 +108,7 @@ class FilterUnitViewController: EffectsUnitViewController {
                                                       withButtonAction: #selector(self.showBandAction(_:)),
                                                       andTarget: self)
         
-        filterUnitView.addBand(bandCon.bandView, selectNewTab: false)
+        filterUnitView.addBand(bandCon.bandView, selectNewTab: true)
         bandControllers.append(bandCon)
     }
     
@@ -161,9 +131,7 @@ class FilterUnitViewController: EffectsUnitViewController {
     override func stateChanged() {
         
         super.stateChanged()
-        
-        filterUnitView.refresh()
-//        bandControllers.forEach {$0.stateChanged()}
+        filterUnitView.stateChanged()
     }
     
     // ------------------------------------------------------------------------

@@ -50,7 +50,7 @@ class FilterBandView: NSView {
         didSet {updateFields()}
     }
     
-    private(set) var bandIndex: Int = -1
+    var bandIndex: Int = -1
     
     var bandChangedCallback: (() -> Void) = {
         // Do nothing
