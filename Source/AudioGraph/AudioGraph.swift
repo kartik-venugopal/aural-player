@@ -57,9 +57,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     fileprivate lazy var outputAudioUnit: AudioUnit = outputNode.audioUnit!
     
     // Sets up the audio engine
-    init(audioUnitsManager: AudioUnitsManager, persistentState: AudioGraphPersistentState?) {
+    init(audioEngine: AudioEngine, audioUnitsManager: AudioUnitsManager, persistentState: AudioGraphPersistentState?) {
         
-        audioEngine = AudioEngine()
+        self.audioEngine = audioEngine
         
         let volume = persistentState?.volume ?? AudioGraphDefaults.volume
         let pan = persistentState?.pan ?? AudioGraphDefaults.pan

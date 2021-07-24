@@ -64,16 +64,15 @@ class AudioEngine {
     
     func insertNode(_ node: AVAudioNode) {
         
-        if let lastNode = allNodes.last {
-            
-            engine.disconnectNodeOutput(lastNode)
-            
-            removableNodes.append(node)
-            engine.attach(node)
-            
-            engine.connect(lastNode, to: node, format: nil)
-            engine.connect(node, to: mainMixerNode, format: nil)
-        }
+        guard let lastNode = allNodes.last else {return}
+        
+        engine.disconnectNodeOutput(lastNode)
+        
+        removableNodes.append(node)
+        engine.attach(node)
+        
+        engine.connect(lastNode, to: node, format: nil)
+        engine.connect(node, to: mainMixerNode, format: nil)
     }
     
     // Assume indices are valid and sorted in descending order.

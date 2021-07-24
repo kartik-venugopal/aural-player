@@ -133,10 +133,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         messenger.subscribe(to: .effects_deleteSoundProfile, handler: deleteSoundProfile)
     }
     
-    var settingsAsMasterPreset: MasterPreset {
-        graph.settingsAsMasterPreset
-    }
-    
     let minVolume: Float = 0
     let maxVolume: Float = 1
     

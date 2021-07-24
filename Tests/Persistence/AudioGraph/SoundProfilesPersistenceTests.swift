@@ -25,7 +25,7 @@ class SoundProfilesPersistenceTests: AudioGraphTestCase {
                 
                 SoundProfilePersistentState(file: randomAudioFile(),
                                             volume: randomVolume(),
-                                            pan: randomBalance(),
+                                            pan: randomPan(),
                                             effects: randomMasterPresets(count: 1)[0])
             }
             

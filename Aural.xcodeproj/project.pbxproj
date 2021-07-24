@@ -690,6 +690,7 @@
 		3E82A2C226ACB5980013AB8E /* NSColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5FB267FEF1C00F0DC96 /* NSColorExtensions.swift */; };
 		3E82A2C826ACB7790013AB8E /* FontConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF28DA72694DDC8005D5B43 /* FontConstants.swift */; };
 		3E82A2CA26ACB7A30013AB8E /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF275B26A5567000974120 /* FontSet.swift */; };
+		3E82A2CF26ACC8670013AB8E /* MockAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E82A2CE26ACC8670013AB8E /* MockAudioEngine.swift */; };
 		3E8719FD2698BD0D00C626DC /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8719FC2698BD0D00C626DC /* Library.swift */; };
 		3E871A002698BDC500C626DC /* library.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E8719FF2698BDC500C626DC /* library.txt */; };
 		3E871A052698E60300C626DC /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A042698E60300C626DC /* SearchOptions.swift */; };
@@ -985,7 +986,7 @@
 		3ED5A13726996E67007E5343 /* HostedAudioUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36340126863150006A88ED /* HostedAudioUnitProtocol.swift */; };
 		3ED5A13926996E6A007E5343 /* HostedAUNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBF3022619CD4500AD5C30 /* HostedAUNode.swift */; };
 		3ED5A13C26996F3B007E5343 /* MockAVAudioUnitComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5A13B26996F3B007E5343 /* MockAVAudioUnitComponent.swift */; };
-		3ED5A13F269973A1007E5343 /* AudioGraphUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5A13E269973A1007E5343 /* AudioGraphUnitTests.swift */; };
+		3ED5A13F269973A1007E5343 /* AudioGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5A13E269973A1007E5343 /* AudioGraphTests.swift */; };
 		3ED5A14126997886007E5343 /* AudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110025CEB98700BF0D07 /* AudioGraph.swift */; };
 		3ED5A14326997890007E5343 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110F25CEB98700BF0D07 /* AudioEngine.swift */; };
 		3ED5A14526997898007E5343 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C111025CEB98700BF0D07 /* DeviceManager.swift */; };
@@ -1814,6 +1815,7 @@
 		3E803E22260A228200B705AA /* MusicBrainzCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCache.swift; sourceTree = "<group>"; };
 		3E824A4125DB74840089F217 /* MenuBarPlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuBarPlayer.xib; sourceTree = "<group>"; };
 		3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewController.swift; sourceTree = "<group>"; };
+		3E82A2CE26ACC8670013AB8E /* MockAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioEngine.swift; sourceTree = "<group>"; };
 		3E836B5225DD3ABC00B9E303 /* monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = monaco.ttf; sourceTree = "<group>"; };
 		3E8719FC2698BD0D00C626DC /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		3E8719FF2698BDC500C626DC /* library.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = library.txt; sourceTree = "<group>"; };
@@ -2081,7 +2083,7 @@
 		3ECF275B26A5567000974120 /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
 		3ED5A13026996E12007E5343 /* HostedAudioUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitTests.swift; sourceTree = "<group>"; };
 		3ED5A13B26996F3B007E5343 /* MockAVAudioUnitComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVAudioUnitComponent.swift; sourceTree = "<group>"; };
-		3ED5A13E269973A1007E5343 /* AudioGraphUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphUnitTests.swift; sourceTree = "<group>"; };
+		3ED5A13E269973A1007E5343 /* AudioGraphTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphTests.swift; sourceTree = "<group>"; };
 		3ED5A15D26997AA0007E5343 /* AVAudioFormatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioFormatExtensions.swift; sourceTree = "<group>"; };
 		3ED6D8EE26924FDC007DA433 /* HistoryPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPreferencesTests.swift; sourceTree = "<group>"; };
 		3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeysControlsPreferencesTests.swift; sourceTree = "<group>"; };
@@ -4021,7 +4023,7 @@
 		3E871A3B2698F10800C626DC /* AudioGraph */ = {
 			isa = PBXGroup;
 			children = (
-				3ED5A13E269973A1007E5343 /* AudioGraphUnitTests.swift */,
+				3ED5A13E269973A1007E5343 /* AudioGraphTests.swift */,
 				3E871A3C2698F13900C626DC /* EQUnitTests.swift */,
 				3E871A4F2698FF0B00C626DC /* PitchShiftUnitTests.swift */,
 				3E871A572699029D00C626DC /* TimeStretchUnitTests.swift */,
@@ -4030,6 +4032,7 @@
 				3E871A6E26990D2C00C626DC /* FilterUnitTests.swift */,
 				3ED5A13026996E12007E5343 /* HostedAudioUnitTests.swift */,
 				3ED5A13B26996F3B007E5343 /* MockAVAudioUnitComponent.swift */,
+				3E82A2CE26ACC8670013AB8E /* MockAudioEngine.swift */,
 			);
 			path = "\U0010AudioGraph";
 			sourceTree = "<group>";
@@ -5961,6 +5964,7 @@
 				3E82A29E26ACB1900013AB8E /* PlaylistNotifications.swift in Sources */,
 				3E871A1A2698E8BB00C626DC /* GroupedTrack.swift in Sources */,
 				3EE4B848268F95A7006BDEB2 /* ReverbPresets.swift in Sources */,
+				3E82A2CF26ACC8670013AB8E /* MockAudioEngine.swift in Sources */,
 				3E871A4D2698FAA500C626DC /* ParametricEQ.swift in Sources */,
 				3E871A65269907EB00C626DC /* ReverbUnitProtocol.swift in Sources */,
 				3E21ECB5268F498A00731E4C /* PlaylistType.swift in Sources */,
@@ -6021,7 +6025,7 @@
 				3EEF3748268F6D5D002EA77F /* SequencerIteration_Group_Tests.swift in Sources */,
 				3E67876D2697B0BF00408566 /* FlatPlaylistTests+MoveTracksDown.swift in Sources */,
 				3EF28DC22694EDC1005D5B43 /* AppStatePersistenceTests.swift in Sources */,
-				3ED5A13F269973A1007E5343 /* AudioGraphUnitTests.swift in Sources */,
+				3ED5A13F269973A1007E5343 /* AudioGraphTests.swift in Sources */,
 				3EA62F462693BE3D004A780A /* AudioGraphPersistentState.swift in Sources */,
 				3EEF3743268F6D5D002EA77F /* SequencerPlaylistReorderingTests.swift in Sources */,
 				3EEF373D268F6B83002EA77F /* SequencerPersistenceTests.swift in Sources */,

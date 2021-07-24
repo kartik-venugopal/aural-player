@@ -1,5 +1,5 @@
 //
-//  AudioGraphUnitTests.swift
+//  AudioGraphTests.swift
 //  Tests
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class AudioGraphUnitTests: AudioGraphTestCase {
+class AudioGraphTests: AudioGraphTestCase {
     
     func testInit() {
         
@@ -51,14 +51,14 @@ class AudioGraphUnitTests: AudioGraphTestCase {
             let numProfiles = Int.random(in: 0..<20)
             let soundProfiles: [SoundProfilePersistentState]? = numProfiles == 0 ? [] : (0..<numProfiles).map {_ in
                 
-                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), pan: randomBalance(),
+                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), pan: randomPan(),
                                             effects: randomMasterPresets(count: 1)[0])
             }
             
             let persistentState = AudioGraphPersistentState(outputDevice: nil,
                                                             volume: randomVolume(),
                                                             muted: .random(),
-                                                            pan: randomBalance(),
+                                                            pan: randomPan(),
                                                             masterUnit: master, eqUnit: eq, pitchUnit: pitchShift, timeUnit: timeStretch, reverbUnit: reverb, delayUnit: delay, filterUnit: filter, audioUnits: [], soundProfiles: soundProfiles)
             
             doTestInit(persistentState: persistentState)
@@ -67,7 +67,7 @@ class AudioGraphUnitTests: AudioGraphTestCase {
     
     private func doTestInit(persistentState: AudioGraphPersistentState) {
         
-        let audioGraph = AudioGraph(audioUnitsManager: AudioUnitsManager(), persistentState: persistentState)
+        let audioGraph = AudioGraph(audioEngine: MockAudioEngine(), audioUnitsManager: AudioUnitsManager(), persistentState: persistentState)
         
         XCTAssertEqual(audioGraph.volume, persistentState.volume!, accuracy: 0.001)
         XCTAssertEqual(audioGraph.pan, persistentState.pan!, accuracy: 0.001)
@@ -104,8 +104,104 @@ class AudioGraphUnitTests: AudioGraphTestCase {
         
         let expectedSoundProfiles = SoundProfiles(persistentState: persistentState.soundProfiles)
         XCTAssertEqual(Set(audioGraph.soundProfiles.all()), Set(expectedSoundProfiles.all()))
+    }
+    
+    func testVolume() {
         
-        audioGraph.tearDown()
+        let audioGraph = AudioGraph(audioEngine: MockAudioEngine(), audioUnitsManager: AudioUnitsManager(), persistentState: nil)
+        
+        for _ in 1...1000 {
+            
+            let volume = randomVolume()
+            audioGraph.volume = volume
+            
+            XCTAssertEqual(audioGraph.volume, volume, accuracy: 0.001)
+            XCTAssertEqual(audioGraph.playerNode.volume, volume, accuracy: 0.001)
+        }
+    }
+    
+    func testPan() {
+        
+        let audioGraph = AudioGraph(audioEngine: MockAudioEngine(), audioUnitsManager: AudioUnitsManager(), persistentState: nil)
+        
+        for _ in 1...1000 {
+            
+            let pan = randomPan()
+            audioGraph.pan = pan
+            
+            XCTAssertEqual(audioGraph.pan, pan, accuracy: 0.001)
+            XCTAssertEqual(audioGraph.playerNode.pan, pan, accuracy: 0.001)
+        }
+    }
+    
+    func testMuted() {
+        
+        let audioGraph = AudioGraph(audioEngine: MockAudioEngine(), audioUnitsManager: AudioUnitsManager(), persistentState: nil)
+        
+        for _ in 1...1000 {
+            
+            let muted = Bool.random()
+            audioGraph.muted = muted
+            
+            XCTAssertEqual(audioGraph.muted, muted)
+            XCTAssertEqual(audioGraph.auxMixer.muted, muted)
+            XCTAssertEqual(audioGraph.auxMixer.volume, muted ? 0 : 1, accuracy: 0.001)
+        }
+    }
+    
+    func testAddAndRemoveAudioUnits() {
+        
+        let auManager = AudioUnitsManager()
+        let audioEngine = MockAudioEngine()
+        let audioUnits = auManager.audioUnits
+        
+        for _ in 1...100 {
+            
+            let audioGraph = AudioGraph(audioEngine: audioEngine, audioUnitsManager: auManager, persistentState: nil)
+            let numAudioUnits = Int.random(in: 1...10)
+            
+            for index in 0..<numAudioUnits {
+                
+                let audioUnit = audioUnits.randomElement()
+                
+                guard let addResult = audioGraph.addAudioUnit(ofType: audioUnit.componentType, andSubType: audioUnit.componentSubType) else {
+                    
+                    XCTFail("Audio Graph failed to add an audio unit.")
+                    continue
+                }
+                
+                let addedAudioUnit = addResult.audioUnit
+                
+                XCTAssertEqual(addedAudioUnit.componentType, audioUnit.componentType)
+                XCTAssertEqual(addedAudioUnit.componentSubType, audioUnit.componentSubType)
+                XCTAssertEqual(addResult.index, index)
+                
+                XCTAssertTrue(audioGraph.audioUnits[index] === addResult.audioUnit)
+                XCTAssertEqual(audioGraph.audioUnits.count, index + 1)
+            }
+            
+            while audioGraph.audioUnits.count > 0 {
+                
+                let countBeforeRemove = audioGraph.audioUnits.count
+                
+                let numUnitsToRemove = Int.random(in: 1...countBeforeRemove)
+                let randomIndices = Set((1...numUnitsToRemove).map {_ in Int.random(in: 0..<countBeforeRemove)})
+                
+                let removedAudioUnits = randomIndices.map {audioGraph.audioUnits[$0]}
+                
+                audioGraph.removeAudioUnits(at: IndexSet(randomIndices))
+                XCTAssertEqual(audioGraph.audioUnits.count, countBeforeRemove - randomIndices.count)
+                
+                for audioUnit in removedAudioUnits {
+                    XCTAssertFalse(audioGraph.audioUnits.contains(where: {$0 === audioUnit}))
+                }
+            }
+        }
+    }
+    
+    // TODO
+    func testSettingsAsMasterPreset() {
+        
     }
 }
 

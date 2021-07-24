@@ -20,7 +20,7 @@ class AudioGraphPersistenceTests: AudioGraphTestCase {
             
             let volume: Float? = randomVolume()
             let muted: Bool? = .random()
-            let balance: Float? = randomBalance()
+            let balance: Float? = randomPan()
             
             let masterUnit: MasterUnitPersistentState? = MasterUnitPersistentState(state: Bool.random() ? .active : .bypassed,
                                                                                    userPresets: randomMasterPresets())
@@ -72,7 +72,7 @@ class AudioGraphPersistenceTests: AudioGraphTestCase {
             let numProfiles = Int.random(in: 0..<20)
             let soundProfiles: [SoundProfilePersistentState]? = numProfiles == 0 ? [] : (0..<numProfiles).map {_ in
                 
-                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), pan: randomBalance(),
+                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), pan: randomPan(),
                                             effects: randomMasterPresets(count: 1)[0])
             }
             

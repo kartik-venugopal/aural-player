@@ -532,7 +532,7 @@ class AudioGraphTestCase: PersistenceTestCase {
         Float.random(in: 0...1)
     }
     
-    func randomBalance() -> Float {
+    func randomPan() -> Float {
         Float.random(in: -1...1)
     }
 }
