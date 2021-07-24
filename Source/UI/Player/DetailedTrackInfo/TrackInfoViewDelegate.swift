@@ -61,12 +61,12 @@ class TrackInfoViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegat
         
         switch columnId {
         
-        case .uid_trackInfoKeyColumn:
+        case .cid_trackInfoKeyColumn:
             
             cell.text = "\(kvPair.key):"
             return cell
             
-        case .uid_trackInfoValueColumn:
+        case .cid_trackInfoValueColumn:
             
             cell.text = "\(kvPair.value)"
             return cell
@@ -102,6 +102,6 @@ class TrackInfoViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegat
 extension NSUserInterfaceItemIdentifier {
     
     // Table view column identifiers
-    static let uid_trackInfoKeyColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_TrackInfoKey")
-    static let uid_trackInfoValueColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_TrackInfoValue")
+    static let cid_trackInfoKeyColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_TrackInfoKey")
+    static let cid_trackInfoValueColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_TrackInfoValue")
 }

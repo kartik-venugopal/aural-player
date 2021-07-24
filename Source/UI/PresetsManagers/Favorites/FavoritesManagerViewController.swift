@@ -58,12 +58,12 @@ class FavoritesManagerViewController: PresetsManagerViewController {
         let colID = column.identifier
         let favorite = favorites.getFavoriteAtIndex(row)
         
-        return createTextCell(tableView, column, row, colID == .uid_favoriteNameColumn ? favorite.name : favorite.file.path, false)
+        return createTextCell(tableView, column, row, colID == .cid_favoriteNameColumn ? favorite.name : favorite.file.path, false)
     }
 }
 
 extension NSUserInterfaceItemIdentifier {
     
     // Table view column identifiers
-    static let uid_favoriteNameColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_FavoriteName")
+    static let cid_favoriteNameColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_FavoriteName")
 }

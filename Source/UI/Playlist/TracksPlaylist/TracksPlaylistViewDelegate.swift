@@ -33,7 +33,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the track name column is used for type selection
-        guard tableColumn?.identifier == .uid_trackName, let displayName = playlist.trackAtIndex(row)?.displayName else {return nil}
+        guard tableColumn?.identifier == .cid_trackName, let displayName = playlist.trackAtIndex(row)?.displayName else {return nil}
         
         if !(displayName.starts(with: "<") || displayName.starts(with: ">")) {
             return displayName
@@ -51,7 +51,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
         switch columnId {
             
-        case .uid_index:
+        case .cid_index:
             
             // Check if there is a track currently playing, and if this row matches that track.
             if track == playbackInfo.playingTrack {
@@ -61,11 +61,11 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             // Otherwise, create a text cell with the track index
             return createIndexTextCell(tableView, String(row + 1), row)
             
-        case .uid_trackName:
+        case .cid_trackName:
             
             return createTrackNameCell(tableView, track.displayName, row)
             
-        case .uid_duration:
+        case .cid_duration:
             
             return createDurationCell(tableView, ValueFormatter.formatSecondsToHMS(track.duration), row)
             
@@ -76,7 +76,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     
     private func createIndexTextCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> IndexCellView? {
      
-        guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: .cid_index, owner: nil) as? IndexCellView else {return nil}
         
         cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         cell.updateText(fontSchemesManager.systemScheme.playlist.trackTextFont, text)
@@ -87,7 +87,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     
     private func createIndexImageCell(_ tableView: NSTableView, _ row: Int, _ image: NSImage) -> IndexCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: .cid_index, owner: nil) as? IndexCellView else {return nil}
             
         cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         cell.updateImage(image)
@@ -97,7 +97,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     
     private func createTrackNameCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> TrackNameCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: .uid_trackName, owner: nil) as? TrackNameCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: .cid_trackName, owner: nil) as? TrackNameCellView else {return nil}
             
         cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         cell.updateText(fontSchemesManager.systemScheme.playlist.trackTextFont, text)
@@ -108,7 +108,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     
     private func createDurationCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> DurationCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: .uid_duration, owner: nil) as? DurationCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: .cid_duration, owner: nil) as? DurationCellView else {return nil}
         
         cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         cell.updateText(fontSchemesManager.systemScheme.playlist.trackTextFont, text)

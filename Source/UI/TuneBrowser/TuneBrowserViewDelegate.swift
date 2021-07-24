@@ -23,7 +23,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     func outlineView(_ outlineView: NSOutlineView, typeSelectStringFor tableColumn: NSTableColumn?, item: Any) -> String? {
         
-        guard tableColumn?.identifier == .uid_tuneBrowserName, let fsItem = item as? FileSystemItem else {return nil}
+        guard tableColumn?.identifier == .cid_tuneBrowserName, let fsItem = item as? FileSystemItem else {return nil}
         return fsItem.name
     }
     
@@ -65,27 +65,27 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
         
         switch colID {
         
-        case .uid_tuneBrowserName:      return createNameCell(outlineView, fsItem)
+        case .cid_tuneBrowserName:      return createNameCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserType:      return createTypeCell(outlineView, fsItem)
+        case .cid_tuneBrowserType:      return createTypeCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserTitle:     return createTitleCell(outlineView, fsItem)
+        case .cid_tuneBrowserTitle:     return createTitleCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserArtist:    return createArtistCell(outlineView, fsItem)
+        case .cid_tuneBrowserArtist:    return createArtistCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserAlbum:    return createAlbumCell(outlineView, fsItem)
+        case .cid_tuneBrowserAlbum:    return createAlbumCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserGenre:    return createGenreCell(outlineView, fsItem)
+        case .cid_tuneBrowserGenre:    return createGenreCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserTrackNum:    return createTrackNumberCell(outlineView, fsItem)
+        case .cid_tuneBrowserTrackNum:    return createTrackNumberCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserDiscNum:    return createDiscNumberCell(outlineView, fsItem)
+        case .cid_tuneBrowserDiscNum:    return createDiscNumberCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserYear:    return createYearCell(outlineView, fsItem)
+        case .cid_tuneBrowserYear:    return createYearCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserDuration:    return createDurationCell(outlineView, fsItem)
+        case .cid_tuneBrowserDuration:    return createDurationCell(outlineView, fsItem)
             
-        case .uid_tuneBrowserFormat:    return createFormatCell(outlineView, fsItem)
+        case .cid_tuneBrowserFormat:    return createFormatCell(outlineView, fsItem)
             
         default:                        return nil
             
@@ -94,7 +94,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createNameCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemNameCell? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserName, owner: nil)
+        guard let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserName, owner: nil)
             as? TuneBrowserItemNameCell else {return nil}
         
         cell.initializeForFile(item)
@@ -105,7 +105,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createTypeCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTypeCell? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserType, owner: nil)
+        guard let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserType, owner: nil)
             as? TuneBrowserItemTypeCell else {return nil}
         
         cell.initializeForFile(item)
@@ -116,7 +116,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createTitleCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
-        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserTitle, owner: nil)
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserTitle, owner: nil)
                 as? TuneBrowserItemTextCell else {return nil}
         
         cell.text = item.metadata?.playlist?.title
@@ -127,7 +127,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createArtistCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
-        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserArtist, owner: nil)
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserArtist, owner: nil)
                 as? TuneBrowserItemTextCell else {return nil}
         
         let metadata = item.metadata?.playlist
@@ -139,7 +139,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createAlbumCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
-        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserAlbum, owner: nil)
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserAlbum, owner: nil)
                 as? TuneBrowserItemTextCell else {return nil}
         
         cell.text = item.metadata?.playlist?.album
@@ -150,7 +150,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createGenreCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
-        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserGenre, owner: nil)
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserGenre, owner: nil)
                 as? TuneBrowserItemTextCell else {return nil}
         
         cell.text = item.metadata?.playlist?.genre
@@ -162,7 +162,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     private func createTrackNumberCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
         guard item.isTrack,
-              let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserTrackNum, owner: nil) as? TuneBrowserItemTextCell,
+              let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserTrackNum, owner: nil) as? TuneBrowserItemTextCell,
               let trackNum = item.metadata?.playlist?.trackNumber else {return nil}
         
         if let totalTracks = item.metadata?.playlist?.totalTracks {
@@ -179,7 +179,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     private func createDiscNumberCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
         guard item.isTrack,
-              let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserDiscNum, owner: nil) as? TuneBrowserItemTextCell,
+              let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserDiscNum, owner: nil) as? TuneBrowserItemTextCell,
               let discNum = item.metadata?.playlist?.discNumber else {return nil}
         
         if let totalDiscs = item.metadata?.playlist?.totalDiscs {
@@ -196,7 +196,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     private func createYearCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
         guard item.isTrack,
-              let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserYear, owner: nil) as? TuneBrowserItemTextCell,
+              let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserYear, owner: nil) as? TuneBrowserItemTextCell,
               let year = item.metadata?.auxiliary?.year else {return nil}
         
         cell.text = "\(year)"
@@ -207,7 +207,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createDurationCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
-        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserDuration, owner: nil)
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserDuration, owner: nil)
                 as? TuneBrowserItemTextCell else {return nil}
         
         cell.text = ValueFormatter.formatSecondsToHMS(item.metadata?.playlist?.duration ?? 0)
@@ -218,7 +218,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createFormatCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
         
-        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserFormat, owner: nil)
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserFormat, owner: nil)
                 as? TuneBrowserItemTextCell else {return nil}
         
         let metadata = item.metadata?.auxiliary?.audioInfo
@@ -282,19 +282,19 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
 
 extension NSUserInterfaceItemIdentifier {
     
-    static let uid_tuneBrowserName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_name")
-    static let uid_tuneBrowserType: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_type")
+    static let cid_tuneBrowserName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_name")
+    static let cid_tuneBrowserType: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_type")
     
-    static let uid_tuneBrowserTitle: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_title")
-    static let uid_tuneBrowserArtist: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_artist")
-    static let uid_tuneBrowserAlbum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_album")
-    static let uid_tuneBrowserGenre: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_genre")
+    static let cid_tuneBrowserTitle: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_title")
+    static let cid_tuneBrowserArtist: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_artist")
+    static let cid_tuneBrowserAlbum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_album")
+    static let cid_tuneBrowserGenre: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_genre")
     
-    static let uid_tuneBrowserDuration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_duration")
-    static let uid_tuneBrowserFormat: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_format")
+    static let cid_tuneBrowserDuration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_duration")
+    static let cid_tuneBrowserFormat: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_format")
     
-    static let uid_tuneBrowserYear: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_year")
+    static let cid_tuneBrowserYear: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_year")
     
-    static let uid_tuneBrowserTrackNum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_trackNum")
-    static let uid_tuneBrowserDiscNum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_discNum")
+    static let cid_tuneBrowserTrackNum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_trackNum")
+    static let cid_tuneBrowserDiscNum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_discNum")
 }

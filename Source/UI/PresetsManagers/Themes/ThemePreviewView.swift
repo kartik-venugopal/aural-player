@@ -73,7 +73,7 @@ class ThemePreviewView: NSView {
     override func awakeFromNib() {
         
         playerFunctionButtons = [btnPlay, btnPreviousTrack, btnNextTrack]
-        playerFunctionButtons.forEach {$0.tintFunction = {[weak self] in self?.theme?.colorScheme.general.functionButtonColor ?? NSColor.white}}
+        playerFunctionButtons.forEach {$0.tintFunction = {[weak self] in self?.theme?.colorScheme.general.functionButtonColor ?? ColorSchemePreset.blackAttack.functionButtonColor}}
         
         playlistIndexDurationLabels = [lblPlaylistIndex_1, lblPlaylistIndex_3, lblPlaylistDuration_1, lblPlaylistDuration_3]
         playlistTrackTitleLabels = [lblPlaylistTitle_1, lblPlaylistTitle_3]

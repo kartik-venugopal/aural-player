@@ -23,6 +23,8 @@ class FilterBandsTabButtonCell: TabGroupButtonCell {
     override var unselectedTextColor: NSColor {Colors.tabButtonTextColor}
     override var selectedTextColor: NSColor {Colors.selectedTabButtonTextColor}
     
+    private static let underlineHeight: CGFloat = 1
+    
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let font = isOn ? boldTextFont : textFont
@@ -31,7 +33,9 @@ class FilterBandsTabButtonCell: TabGroupButtonCell {
         if isOn {
             
             let underlineWidth = title.size(withFont: font).width
-            let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.minY + 2, width: underlineWidth, height: 1)
+            let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.minY + 2,
+                                 width: underlineWidth, height: Self.underlineHeight)
+            
             selRect.fill(withColor: selectionBoxColor)
         }
         

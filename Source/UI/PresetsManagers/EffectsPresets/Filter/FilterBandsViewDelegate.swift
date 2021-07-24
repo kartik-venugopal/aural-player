@@ -9,51 +9,31 @@
 //
 import Cocoa
 
-protocol FilterBandsDataSource {
-    
-    func countFilterBands() -> Int
-    
-    func getFilterBand(_ index: Int) -> FilterBand
-}
-
-class AudioGraphFilterBandsDataSource: FilterBandsDataSource {
-    
-    private var filterUnit: FilterUnitDelegateProtocol = objectGraph.audioGraphDelegate.filterUnit
-    
-    init(_ filterUnit: FilterUnitDelegateProtocol) {
-        self.filterUnit = filterUnit
-    }
-    
-    func countFilterBands() -> Int {filterUnit.bands.count}
-    
-    func getFilterBand(_ index: Int) -> FilterBand {filterUnit.bands[index]}
-}
-
 class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    var dataSource: FilterBandsDataSource?
+    var preset: FilterPreset?
     
     var allowSelection: Bool = true
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        dataSource?.countFilterBands() ?? 0
+        preset?.bands.count ?? 0
     }
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return GenericTableRowView()
+        GenericTableRowView()
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         guard let colID = tableColumn?.identifier,
-              let band = dataSource?.getFilterBand(row) else {return nil}
+              let band = preset?.bands[row] else {return nil}
         
         var cellText: String
         
         switch colID {
             
-        case .uid_filterBandsFreqColumn:
+        case .cid_filterBandsFreqColumn:
             
             switch band.type {
                 
@@ -70,7 +50,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
                 cellText = String(format: "> %@", formatFreqNumber(band.minFreq!))
             }
             
-        case .uid_filterBandsTypeColumn:
+        case .cid_filterBandsTypeColumn:
             
             cellText = band.type.description
             
@@ -112,6 +92,6 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
 extension NSUserInterfaceItemIdentifier {
     
     // Table view column identifiers
-    static let uid_filterBandsFreqColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Frequencies")
-    static let uid_filterBandsTypeColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Type")
+    static let cid_filterBandsFreqColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Frequencies")
+    static let cid_filterBandsTypeColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Type")
 }

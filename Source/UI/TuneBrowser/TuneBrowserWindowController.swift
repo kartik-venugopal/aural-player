@@ -45,7 +45,7 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
         
         // Show default columns if none have been selected (eg. first time app is launched).
         if displayedColumnIds.isEmpty {
-            displayedColumnIds = [NSUserInterfaceItemIdentifier.uid_tuneBrowserName.rawValue]
+            displayedColumnIds = [NSUserInterfaceItemIdentifier.cid_tuneBrowserName.rawValue]
         }
         
         for column in browserView.tableColumns {

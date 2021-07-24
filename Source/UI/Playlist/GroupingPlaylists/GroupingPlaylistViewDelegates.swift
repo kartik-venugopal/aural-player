@@ -45,7 +45,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, typeSelectStringFor tableColumn: NSTableColumn?, item: Any) -> String? {
         
         // Only the track name column is used for type selection
-        guard tableColumn?.identifier == .uid_trackName, let displayName = (item as? Track)?.displayName ?? (item as? Group)?.name else {return nil}
+        guard tableColumn?.identifier == .cid_trackName, let displayName = (item as? Track)?.displayName ?? (item as? Group)?.name else {return nil}
         
         if !(displayName.starts(with: "<") || displayName.starts(with: ">")) {
             return displayName
@@ -60,7 +60,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         guard let columnId = tableColumn?.identifier else {return nil}
         
         // Track / Group name
-        if columnId == .uid_trackName {
+        if columnId == .cid_trackName {
 
             if let group = item as? Group {
                 return createGroupNameCell(outlineView, group)
@@ -70,7 +70,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
             
         } // Duration
-        else if columnId == .uid_duration {
+        else if columnId == .cid_duration {
             
             if let group = item as? Group {
                 return createGroupDurationCell(outlineView, group)
@@ -85,7 +85,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     private func createTrackNameCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil)
+        guard let cell = outlineView.makeView(withIdentifier: .cid_trackName, owner: nil)
                 as? GroupedItemNameCellView else {return nil}
         
         cell.playlistType = self.playlistType
@@ -116,7 +116,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     private func createTrackDurationCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemDurationCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_duration, owner: nil) as? GroupedItemDurationCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .cid_duration, owner: nil) as? GroupedItemDurationCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.isGroup = false
@@ -138,7 +138,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
     private func createGroupNameCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .cid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.isGroup = true
@@ -164,7 +164,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     private func createGroupDurationCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedItemDurationCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_duration, owner: nil) as? GroupedItemDurationCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .cid_duration, owner: nil) as? GroupedItemDurationCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.isGroup = true

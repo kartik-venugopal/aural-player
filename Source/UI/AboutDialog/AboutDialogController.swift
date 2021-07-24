@@ -23,8 +23,6 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
     }
     
     override func showWindow(_ sender: Any?) {
-
-        forceLoadingOfWindow()
         theWindow.showCentered(relativeTo: windowLayoutsManager.mainWindow)
     }
     

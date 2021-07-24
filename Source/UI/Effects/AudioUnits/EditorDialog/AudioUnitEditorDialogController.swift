@@ -9,7 +9,13 @@
 //
 import Cocoa
 
-class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
+class AudioUnitEditorDialogController: NSWindowController {
+    
+    override var windowNibName: String? {"AudioUnitEditorDialog"}
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
     
     @IBOutlet weak var rootContainer: NSBox!
     
@@ -25,12 +31,18 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
     
-    override var windowNibName: String? {"AudioUnitEditorDialog"}
-
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, helpers, and properties
+    
     var audioUnit: HostedAudioUnitDelegateProtocol!
     
     var factoryPresetsMenuDelegate: AudioUnitFactoryPresetsMenuDelegate!
     var userPresetsMenuDelegate: AudioUnitUserPresetsMenuDelegate!
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
     
     convenience init(for audioUnit: HostedAudioUnitDelegateProtocol) {
         
@@ -46,32 +58,28 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         window?.isMovableByWindowBackground = true
         rootContainer.anchorToSuperview()
         
-        audioUnit.presentView {auView in
+        audioUnit.presentView {[weak self] auView in
             
-            self.viewContainer.addSubview(auView)
+            guard let strongSelf = self else {return}
+            
+            strongSelf.viewContainer.addSubview(auView)
             auView.anchorToSuperview()
             
             // Resize the window to exactly contain the audio unit's view.
             
-            let curWindowSize: NSSize = self.theWindow.size
-            let viewContainerSize: NSSize = self.viewContainer.size
+            let curWindowSize: NSSize = strongSelf.theWindow.size
+            let viewContainerSize: NSSize = strongSelf.viewContainer.size
             
             let widthDelta = viewContainerSize.width - auView.width
             let heightDelta = viewContainerSize.height - auView.height
             
-            self.window?.resize(curWindowSize.width - widthDelta, curWindowSize.height - heightDelta)
+            strongSelf.theWindow.resize(curWindowSize.width - widthDelta, curWindowSize.height - heightDelta)
         }
         
         lblTitle.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
         
         initFactoryPresets()
         initUserPresets()
-    }
-    
-    func showDialog() {
-        
-        forceLoadingOfWindow()
-        theWindow.showCenteredOnScreen()
     }
     
     private func initFactoryPresets() {
@@ -88,8 +96,12 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         btnUserPresets.menu?.delegate = self.userPresetsMenuDelegate
     }
     
-    @IBAction func closeAction(_ sender: Any) {
-        theWindow.close()
+    // ------------------------------------------------------------------------
+    
+    // MARK: Actions
+    
+    override func showWindow(_ sender: Any?) {
+        theWindow.showCenteredOnScreen()
     }
     
     @IBAction func applyFactoryPresetAction(_ sender: Any) {
@@ -111,14 +123,23 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
     }
     
-    // MARK - StringInputReceiver functions
+    @IBAction func closeAction(_ sender: Any) {
+        theWindow.close()
+    }
+}
+
+// ------------------------------------------------------------------------
+
+// MARK: StringInputReceiver
+
+extension AudioUnitEditorDialogController: StringInputReceiver {
     
     var inputPrompt: String {
         return "Enter a new preset name:"
     }
     
     var defaultValue: String? {
-        return "<New \(audioUnit.name) preset>"
+        return "<New preset>"
     }
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {

@@ -40,7 +40,7 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     
     var factoryPresets: [AudioUnitFactoryPreset] {unit.factoryPresets}
     
-    var viewController: AUViewController?
+    private var viewController: NSViewController?
     
     override init(for unit: HostedAudioUnit) {
         
@@ -52,7 +52,7 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
         unit.applyFactoryPreset(named: presetName)
     }
     
-    func presentView(_ handler: @escaping (NSView) -> ()) {
+    func presentView(_ handler: @escaping (NSView) -> Void) {
         
         if let viewController = self.viewController {
             
@@ -60,9 +60,9 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
             return
         }
         
-        unit.auAudioUnit.requestViewController(completionHandler: {viewCon in
+        unit.auAudioUnit.requestViewController(completionHandler: {controller in
             
-            if let theViewController = viewCon as? AUViewController {
+            if let theViewController = controller {
                 
                 self.viewController = theViewController
                 handler(theViewController.view)

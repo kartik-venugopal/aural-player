@@ -13,9 +13,13 @@ import AVFoundation
 /*
     View controller for the Audio Units view.
  */
-class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
+class AudioUnitsViewController: NSViewController, Destroyable {
     
     override var nibName: String? {"AudioUnits"}
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI fields
     
     @IBOutlet weak var lblCaption: NSTextField!
     
@@ -26,19 +30,27 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     // Audio Unit ID -> Dialog
     private var editorDialogs: [String: AudioUnitEditorDialogController] = [:]
     
-    private let audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
-    
-    private let audioUnitsManager: AudioUnitsManager = objectGraph.audioUnitsManager
-    
-    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
-    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
-    
     @IBOutlet weak var btnAudioUnitsMenu: NSPopUpButton!
     @IBOutlet weak var audioUnitsMenuIconItem: TintedIconMenuItem!
     @IBOutlet weak var btnRemove: TintedImageButton!
     
-    private lazy var messenger = Messenger(for: self)
+    // ------------------------------------------------------------------------
+    
+    // MARK: Services, utilities, helpers, and properties
+    
+    let audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
+    
+    private let audioUnitsManager: AudioUnitsManager = objectGraph.audioUnitsManager
+    
+    let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
+    
+    private(set) lazy var messenger = Messenger(for: self)
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: UI initialization / life-cycle
     
     override func viewDidLoad() {
         
@@ -50,7 +62,6 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
         
         // Subscribe to notifications
         messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
-        messenger.subscribe(to: .auEffectsUnit_showEditor, handler: {[weak self] (notif: ShowAudioUnitEditorCommandNotification) in self?.doEditAudioUnit(notif.audioUnit)})
         
         messenger.subscribe(to: .applyTheme, handler: applyTheme)
         messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
@@ -73,6 +84,10 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     func destroy() {
         messenger.unsubscribeFromAll()
     }
+    
+    // ------------------------------------------------------------------------
+    
+    // MARK: Actions
 
     @IBAction func addAudioUnitAction(_ sender: Any) {
         
@@ -109,7 +124,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
         }
     }
     
-    private func doEditAudioUnit(_ audioUnit: HostedAudioUnitDelegateProtocol) {
+    func doEditAudioUnit(_ audioUnit: HostedAudioUnitDelegateProtocol) {
         
         if editorDialogs[audioUnit.id] == nil {
             editorDialogs[audioUnit.id] = AudioUnitEditorDialogController(for: audioUnit)
@@ -118,7 +133,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
         if let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window {
             
             windowLayoutsManager.addChildWindow(dialogWindow)
-            dialog.showDialog()
+            dialog.showWindow(self)
         }
     }
     
@@ -215,8 +230,14 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     private func changeSelectionBoxColor(_ color: NSColor) {
         tableView.redoRowSelection()
     }
+}
+
+// ------------------------------------------------------------------------
+
+// MARK: NSMenuDelegate
+
+extension AudioUnitsViewController: NSMenuDelegate {
     
-    // MARK: Menu Delegate functions
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // Remove all dynamic items (all items after the first icon item).

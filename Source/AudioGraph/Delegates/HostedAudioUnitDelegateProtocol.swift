@@ -39,5 +39,5 @@ protocol HostedAudioUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     func applyFactoryPreset(named presetName: String)
     
-    func presentView(_ handler: @escaping (NSView) -> ())
+    func presentView(_ handler: @escaping (NSView) -> Void)
 }

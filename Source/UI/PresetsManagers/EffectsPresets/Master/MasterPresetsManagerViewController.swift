@@ -23,9 +23,8 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     @IBOutlet weak var delaySubPreview: DelayUnitView!
 
     @IBOutlet weak var filterSubPreview: FilterPresetView!
-    private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
-    @IBOutlet weak var bandsTable: NSTableView!
-    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
+    @IBOutlet weak var filterBandsTable: NSTableView!
+    @IBOutlet weak var filterBandsTableViewDelegate: FilterBandsViewDelegate!
     
     private lazy var preferences: Preferences = objectGraph.preferences
     
@@ -59,8 +58,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         filterSubPreview.initialize(stateFunction: {[weak self] in self?.presetFilterUnitState ?? .active},
                                     bandsDataFunction: bandsDataFunction)
         
-        tableViewDelegate.dataSource = bandsDataSource
-        tableViewDelegate.allowSelection = false
+        filterBandsTableViewDelegate.allowSelection = false
     }
     
     private var filterChartBands: [FilterBand] {
@@ -129,7 +127,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         delaySubPreview.applyPreset(preset.delay)
         
         filterSubPreview.refresh()
-        bandsTable.reloadData()
+        filterBandsTable.reloadData()
     }
     
     override func deleteSelectedPresets() {
@@ -157,7 +155,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         
         if numRows == 1, let masterPreset = firstSelectedPreset as? MasterPreset {
             
-            bandsDataSource.preset = masterPreset.filter
+            filterBandsTableViewDelegate.preset = masterPreset.filter
             renderPreview(masterPreset)
         }
         

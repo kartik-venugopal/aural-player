@@ -12,12 +12,20 @@ import AVFoundation
 
 fileprivate let auTableRowHeight: CGFloat = 24
 
+// ------------------------------------------------------------------------
+
+// MARK: NSTableViewDataSource
+
 extension MasterUnitViewController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         graph.audioUnits.count
     }
 }
+
+// ------------------------------------------------------------------------
+
+// MARK: NSTableViewDelegate
 
 extension MasterUnitViewController: NSTableViewDelegate {
     
@@ -36,11 +44,11 @@ extension MasterUnitViewController: NSTableViewDelegate {
         
         switch colID {
         
-        case .uid_audioUnitSwitch:
+        case .cid_audioUnitSwitch:
             
             return createSwitchCell(tableView, colID, row)
             
-        case .uid_audioUnitName:
+        case .cid_audioUnitName:
             
             return createNameCell(tableView, colID, row)
             

@@ -41,20 +41,20 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         switch columnId {
             
-        case .uid_chapterIndex:
+        case .cid_chapterIndex:
             
             // Display a marker icon if this chapter is currently playing
             cell = createIndexCell(tableView, String(row + 1), row, row == playbackInfo.playingChapter?.index)
             
-        case .uid_chapterTitle:
+        case .cid_chapterTitle:
             
             cell = createTitleCell(tableView, chapter.title, row)
             
-        case .uid_chapterStartTime:
+        case .cid_chapterStartTime:
             
             cell = createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.startTime), row)
             
-        case .uid_chapterDuration:
+        case .cid_chapterDuration:
             
             cell = createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.duration), row)
             
@@ -68,7 +68,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     
     private func createIndexCell(_ tableView: NSTableView, _ text: String, _ row: Int, _ showCurrentChapterMarker: Bool) -> ChaptersListTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: .uid_chapterIndex, owner: nil) as? ChaptersListTableCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: .cid_chapterIndex, owner: nil) as? ChaptersListTableCellView else {return nil}
         
         cell.unselectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
@@ -89,7 +89,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     
     private func createTitleCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> ChaptersListTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: .uid_chapterTitle, owner: nil) as? ChaptersListTableCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: .cid_chapterTitle, owner: nil) as? ChaptersListTableCellView else {return nil}
         
         cell.unselectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
@@ -127,7 +127,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         if let track = playbackInfo.playingTrack,
-           tableColumn?.identifier == .uid_chapterTitle,
+           tableColumn?.identifier == .cid_chapterTitle,
            row < playbackInfo.chapterCount {
             
             return track.chapters[row].title

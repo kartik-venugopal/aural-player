@@ -154,8 +154,8 @@
                                 </tableColumns>
                                 <connections>
                                     <action trigger="doubleAction" selector="editAudioUnitAction:" target="-2" id="aoL-1D-Ukn"/>
-                                    <outlet property="dataSource" destination="pml-Sk-YmX" id="jeo-CY-4lV"/>
-                                    <outlet property="delegate" destination="pml-Sk-YmX" id="jly-tS-Dw1"/>
+                                    <outlet property="dataSource" destination="-2" id="mqb-M5-jLQ"/>
+                                    <outlet property="delegate" destination="-2" id="RPo-Da-KTv"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -210,7 +210,6 @@
             </subviews>
             <point key="canvasLocation" x="-203" y="160.5"/>
         </customView>
-        <customObject id="pml-Sk-YmX" customClass="AudioUnitsTableViewDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
         <image name="Add-AU" width="10" height="10"/>

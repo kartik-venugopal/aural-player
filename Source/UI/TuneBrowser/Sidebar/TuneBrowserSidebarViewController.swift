@@ -105,7 +105,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     
     private func createNameCell(_ outlineView: NSOutlineView, _ text: String) -> NSTableCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserSidebarName, owner: nil)
+        guard let cell = outlineView.makeView(withIdentifier: .cid_tuneBrowserSidebarName, owner: nil)
             as? NSTableCellView else {return nil}
         
         cell.image = nil
@@ -135,5 +135,5 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
 
 extension NSUserInterfaceItemIdentifier {
     
-    static let uid_tuneBrowserSidebarName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowserSidebar_name")
+    static let cid_tuneBrowserSidebarName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowserSidebar_name")
 }

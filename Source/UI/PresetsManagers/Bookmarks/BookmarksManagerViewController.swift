@@ -66,20 +66,20 @@ class BookmarksManagerViewController: PresetsManagerViewController {
         
         switch colID {
             
-        case .uid_bookmarkNameColumn:
+        case .cid_bookmarkNameColumn:
             
             return createTextCell(tableView, tableColumn!, row, bookmark.name, true)
             
-        case .uid_bookmarkTrackColumn:
+        case .cid_bookmarkTrackColumn:
             
             return createTextCell(tableView, tableColumn!, row, bookmark.file.path, false)
             
-        case .uid_bookmarkStartPositionColumn:
+        case .cid_bookmarkStartPositionColumn:
             
             let formattedPosition = ValueFormatter.formatSecondsToHMS(bookmark.startPosition)
             return createTextCell(tableView, tableColumn!, row, formattedPosition, false)
             
-        case .uid_bookmarkEndPositionColumn:
+        case .cid_bookmarkEndPositionColumn:
             
             var formattedPosition: String = ""
             
@@ -101,8 +101,8 @@ extension NSUserInterfaceItemIdentifier {
     
     // Table view column identifiers
     
-    static let uid_bookmarkNameColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkName")
-    static let uid_bookmarkTrackColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkTrack")
-    static let uid_bookmarkStartPositionColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkStartPosition")
-    static let uid_bookmarkEndPositionColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkEndPosition")
+    static let cid_bookmarkNameColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkName")
+    static let cid_bookmarkTrackColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkTrack")
+    static let cid_bookmarkStartPositionColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkStartPosition")
+    static let cid_bookmarkEndPositionColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkEndPosition")
 }
