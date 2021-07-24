@@ -25,7 +25,7 @@ class SoundProfilesPersistenceTests: AudioGraphTestCase {
                 
                 SoundProfilePersistentState(file: randomAudioFile(),
                                             volume: randomVolume(),
-                                            balance: randomBalance(),
+                                            pan: randomBalance(),
                                             effects: randomMasterPresets(count: 1)[0])
             }
             
@@ -41,7 +41,7 @@ extension SoundProfilePersistentState: Equatable {
     static func == (lhs: SoundProfilePersistentState, rhs: SoundProfilePersistentState) -> Bool {
         
         lhs.file == rhs.file && Float.approxEquals(lhs.volume, rhs.volume, accuracy: 0.001) &&
-            Float.approxEquals(lhs.balance, rhs.balance, accuracy: 0.001)
+            Float.approxEquals(lhs.pan, rhs.pan, accuracy: 0.001)
             && lhs.effects == rhs.effects
     }
 }

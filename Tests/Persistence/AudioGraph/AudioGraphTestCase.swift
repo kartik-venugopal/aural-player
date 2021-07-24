@@ -27,13 +27,13 @@ class AudioGraphTestCase: PersistenceTestCase {
         
         return (0..<numPresets).map {index in
             
-            let preset = MasterPreset("preset-\(index + 1)", eqPresets[index],
-                                      pitchShiftPresets[index],
-                                      timeStretchPresets[index],
-                                      reverbPresets[index],
-                                      delayPresets[index],
-                                      filterPresets[index],
-                                      false)
+            let preset = MasterPreset(name: "preset-\(index + 1)", eq: eqPresets[index],
+                                      pitch: pitchShiftPresets[index],
+                                      time: timeStretchPresets[index],
+                                      reverb: reverbPresets[index],
+                                      delay: delayPresets[index],
+                                      filter: filterPresets[index],
+                                      systemDefined: false)
             
             return MasterPresetPersistentState(preset: preset)
         }
@@ -72,9 +72,9 @@ class AudioGraphTestCase: PersistenceTestCase {
         
         return numPresets == 0 ? [] : (1...numPresets).map {index in
             
-            EQPresetPersistentState(preset: EQPreset("preset-\(index)", unitState ?? randomUnitState(),
-                                                     randomEQ15Bands(), randomEQGlobalGain(),
-                                                     false))
+            EQPresetPersistentState(preset: EQPreset(name: "preset-\(index)", state: unitState ?? randomUnitState(),
+                                                     bands: randomEQ15Bands(), globalGain: randomEQGlobalGain(),
+                                                     systemDefined: false))
         }
     }
     
@@ -135,9 +135,9 @@ class AudioGraphTestCase: PersistenceTestCase {
         
         return numPresets == 0 ? [] : (1...numPresets).map {index in
             
-            PitchShiftPresetPersistentState(preset: PitchShiftPreset("preset-\(index)", unitState ?? randomUnitState(),
-                                                                randomPitch(), randomOverlap(),
-                                                                false))
+            PitchShiftPresetPersistentState(preset: PitchShiftPreset(name: "preset-\(index)", state: unitState ?? randomUnitState(),
+                                                                     pitch: randomPitch(), overlap: randomOverlap(),
+                                                                     systemDefined: false))
         }
     }
     
@@ -166,12 +166,12 @@ class AudioGraphTestCase: PersistenceTestCase {
         
         XCTAssertEqual(timeStretchUnit.shiftPitch, persistentState.shiftPitch!)
         
-        XCTAssertEqual(timeStretchUnit.node.variNode.bypass, timeStretchUnit.state != .active || (!timeStretchUnit.shiftPitch))
+        XCTAssertEqual(timeStretchUnit.node.varispeedNode.bypass, timeStretchUnit.state != .active || (!timeStretchUnit.shiftPitch))
         XCTAssertEqual(timeStretchUnit.node.timePitchNode.bypass, timeStretchUnit.state != .active || timeStretchUnit.shiftPitch)
         
         XCTAssertEqual(timeStretchUnit.rate, persistentState.rate!, accuracy: 0.001)
         XCTAssertEqual(timeStretchUnit.node.rate, persistentState.rate!, accuracy: 0.001)
-        XCTAssertEqual(timeStretchUnit.node.variNode.rate, persistentState.rate!, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.varispeedNode.rate, persistentState.rate!, accuracy: 0.001)
         XCTAssertEqual(timeStretchUnit.node.timePitchNode.rate, persistentState.rate!, accuracy: 0.001)
         
         XCTAssertEqual(timeStretchUnit.overlap, persistentState.overlap!, accuracy: 0.001)
@@ -192,9 +192,9 @@ class AudioGraphTestCase: PersistenceTestCase {
         
         return numPresets == 0 ? [] : (1...numPresets).map {index in
             
-            TimeStretchPresetPersistentState(preset: TimeStretchPreset("preset-\(index)", unitState ?? randomUnitState(),
-                                                                randomTimeStretchRate(), randomOverlap(),
-                                                                .random(), false))
+            TimeStretchPresetPersistentState(preset: TimeStretchPreset(name: "preset-\(index)", state: unitState ?? randomUnitState(),
+                                                                       rate: randomTimeStretchRate(), overlap: randomOverlap(),
+                                                                       shiftPitch: .random(), systemDefined: false))
         }
     }
     
@@ -239,9 +239,9 @@ class AudioGraphTestCase: PersistenceTestCase {
         
         return numPresets == 0 ? [] : (1...numPresets).map {index in
             
-            ReverbPresetPersistentState(preset: ReverbPreset("preset-\(index)", unitState ?? randomUnitState(),
-                                                             randomReverbSpace(), randomReverbAmount(),
-                                                             false))
+            ReverbPresetPersistentState(preset: ReverbPreset(name: "preset-\(index)", state: unitState ?? randomUnitState(),
+                                                             space: randomReverbSpace(), amount: randomReverbAmount(),
+                                                             systemDefined: false))
         }
     }
     
@@ -290,10 +290,10 @@ class AudioGraphTestCase: PersistenceTestCase {
         
         return numPresets == 0 ? [] : (1...numPresets).map {index in
             
-            DelayPresetPersistentState(preset: DelayPreset("preset-\(index)", unitState ?? randomUnitState(),
-                                                           randomDelayAmount(), randomDelayTime(),
-                                                           randomDelayFeedback(), randomDelayLowPassCutoff(),
-                                                           false))
+            DelayPresetPersistentState(preset: DelayPreset(name: "preset-\(index)", state: unitState ?? randomUnitState(),
+                                                           amount: randomDelayAmount(), time: randomDelayTime(),
+                                                           feedback: randomDelayFeedback(), cutoff: randomDelayLowPassCutoff(),
+                                                           systemDefined: false))
         }
     }
     
@@ -395,22 +395,22 @@ class AudioGraphTestCase: PersistenceTestCase {
                 let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
                 let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
                 
-                return FilterBandPersistentState(band: FilterBand.bandStopBand(minFreq, maxFreq))
+                return FilterBandPersistentState(band: FilterBand.bandStopBand(minFreq: minFreq, maxFreq: maxFreq))
                 
             case .bandPass:
                 
                 let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
                 let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
                 
-                return FilterBandPersistentState(band: FilterBand.bandPassBand(minFreq, maxFreq))
+                return FilterBandPersistentState(band: FilterBand.bandPassBand(minFreq: minFreq, maxFreq: maxFreq))
                 
             case .lowPass:
                 
-                return FilterBandPersistentState(band: FilterBand.lowPassBand(randomFilterFrequency()))
+                return FilterBandPersistentState(band: FilterBand.lowPassBand(maxFreq: randomFilterFrequency()))
                 
             case .highPass:
                 
-                return FilterBandPersistentState(band: FilterBand.highPassBand(randomFilterFrequency()))
+                return FilterBandPersistentState(band: FilterBand.highPassBand(minFreq: randomFilterFrequency()))
             }
         }
     }
@@ -437,26 +437,26 @@ class AudioGraphTestCase: PersistenceTestCase {
                     let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
                     let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
                     
-                    return FilterBand.bandStopBand(minFreq, maxFreq)
+                    return FilterBand.bandStopBand(minFreq: minFreq, maxFreq: maxFreq)
                     
                 case .bandPass:
                     
                     let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
                     let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
                     
-                    return FilterBand.bandPassBand(minFreq, maxFreq)
+                    return FilterBand.bandPassBand(minFreq: minFreq, maxFreq: maxFreq)
                     
                 case .lowPass:
                     
-                    return FilterBand.lowPassBand(randomFilterFrequency())
+                    return FilterBand.lowPassBand(maxFreq: randomFilterFrequency())
                     
                 case .highPass:
                     
-                    return FilterBand.highPassBand(randomFilterFrequency())
+                    return FilterBand.highPassBand(minFreq: randomFilterFrequency())
                 }
             }
             
-            return FilterPresetPersistentState(preset: FilterPreset("preset-\(index)", unitState ?? randomUnitState(), bands, false))
+            return FilterPresetPersistentState(preset: FilterPreset(name: "preset-\(index)", state: unitState ?? randomUnitState(), bands: bands, systemDefined: false))
         }
     }
     
@@ -509,7 +509,7 @@ class AudioGraphTestCase: PersistenceTestCase {
         
         return numPresets == 0 ? [] : (1...numPresets).map {index in
 
-            AudioUnitPresetPersistentState(preset: AudioUnitPreset("preset-\(index)", .active, false,
+            AudioUnitPresetPersistentState(preset: AudioUnitPreset(name: "preset-\(index)", state: .active, systemDefined: false,
                                                                  componentType: randomAUOSType(),
                                                                  componentSubType: randomAUOSType(),
                                                                  number: randomAUPresetNumber()))

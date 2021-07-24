@@ -169,3 +169,24 @@ class FlatPlaylistTests_Search: FlatPlaylistTestCase {
         }
     }
 }
+
+extension SearchQuery {
+
+    func withText(_ text: String) -> SearchQuery {
+        
+        self.text = text
+        return self
+    }
+    
+    func withFields(_ fields: SearchFields) -> SearchQuery {
+        
+        self.fields = fields
+        return self
+    }
+    
+    func withType(_ type: SearchType) -> SearchQuery {
+        
+        self.type = type
+        return self
+    }
+}

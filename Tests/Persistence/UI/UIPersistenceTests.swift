@@ -58,7 +58,7 @@ class UIPersistenceTests: PersistenceTestCase {
                 
                 // Playlist
                 
-                let playlist = PlaylistUIPersistentState(view: .randomCase())
+                let playlist = PlaylistUIPersistentState(view: PlaylistType.randomCase().rawValue)
                 
                 // Visualizer
                 
@@ -70,7 +70,7 @@ class UIPersistenceTests: PersistenceTestCase {
                 
                 // Window appearance
                 
-                let windowAppearance = WindowUIPersistentState(cornerRadius: CGFloat.random(in: 0...25))
+                let windowAppearance = WindowAppearancePersistentState(cornerRadius: CGFloat.random(in: 0...25))
                 
                 // Menu Bar Player
                 
@@ -97,7 +97,8 @@ class UIPersistenceTests: PersistenceTestCase {
                                               visualizer: visualizer,
                                               windowAppearance: windowAppearance,
                                               menuBarPlayer: menuBarPlayer,
-                                              controlBarPlayer: controlBarPlayer)
+                                              controlBarPlayer: controlBarPlayer,
+                                              tuneBrowser: nil)
                 
                 doTestPersistence(serializedState: state)
             }

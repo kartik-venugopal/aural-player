@@ -348,7 +348,7 @@ func randomTheme(named name: String) -> ThemePersistentState {
     return ThemePersistentState(name: name,
                                 fontScheme: fontScheme,
                                 colorScheme: colorScheme,
-                                windowAppearance: WindowUIPersistentState(cornerRadius: windowCornerRadius))
+                                windowAppearance: WindowAppearancePersistentState(cornerRadius: windowCornerRadius))
                                 
 }
 
@@ -498,7 +498,7 @@ func randomRecentlyAddedItemFilePath() -> URLPath {
 
 func fileMetadata(_ title: String?, _ artist: String?, _ album: String?, _ genre: String?, _ duration: Double) -> FileMetadata {
     
-    let fileMetadata: FileMetadata = FileMetadata()
+    var fileMetadata: FileMetadata = FileMetadata()
     var playlistMetadata: PlaylistMetadata = PlaylistMetadata()
     
     playlistMetadata.title = title

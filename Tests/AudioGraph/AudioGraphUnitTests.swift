@@ -51,14 +51,14 @@ class AudioGraphUnitTests: AudioGraphTestCase {
             let numProfiles = Int.random(in: 0..<20)
             let soundProfiles: [SoundProfilePersistentState]? = numProfiles == 0 ? [] : (0..<numProfiles).map {_ in
                 
-                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), balance: randomBalance(),
+                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), pan: randomBalance(),
                                             effects: randomMasterPresets(count: 1)[0])
             }
             
             let persistentState = AudioGraphPersistentState(outputDevice: nil,
                                                             volume: randomVolume(),
                                                             muted: .random(),
-                                                            balance: randomBalance(),
+                                                            pan: randomBalance(),
                                                             masterUnit: master, eqUnit: eq, pitchUnit: pitchShift, timeUnit: timeStretch, reverbUnit: reverb, delayUnit: delay, filterUnit: filter, audioUnits: [], soundProfiles: soundProfiles)
             
             doTestInit(persistentState: persistentState)
@@ -67,10 +67,10 @@ class AudioGraphUnitTests: AudioGraphTestCase {
     
     private func doTestInit(persistentState: AudioGraphPersistentState) {
         
-        let audioGraph = AudioGraph(AudioUnitsManager(), persistentState)
+        let audioGraph = AudioGraph(audioUnitsManager: AudioUnitsManager(), persistentState: persistentState)
         
         XCTAssertEqual(audioGraph.volume, persistentState.volume!, accuracy: 0.001)
-        XCTAssertEqual(audioGraph.balance, persistentState.balance!, accuracy: 0.001)
+        XCTAssertEqual(audioGraph.pan, persistentState.pan!, accuracy: 0.001)
         XCTAssertEqual(audioGraph.muted, persistentState.muted!)
         
         let masterUnit = audioGraph.masterUnit
@@ -82,11 +82,11 @@ class AudioGraphUnitTests: AudioGraphTestCase {
         let eqState = persistentState.eqUnit!
         validate(eqUnit, persistentState: eqState)
         
-        let pitchShiftUnit = audioGraph.pitchUnit
+        let pitchShiftUnit = audioGraph.pitchShiftUnit
         let pitchShiftState = persistentState.pitchUnit!
         validate(pitchShiftUnit, persistentState: pitchShiftState)
         
-        let timeStretchUnit = audioGraph.timeUnit
+        let timeStretchUnit = audioGraph.timeStretchUnit
         let timeStretchState = persistentState.timeUnit!
         validate(timeStretchUnit, persistentState: timeStretchState)
         
@@ -120,7 +120,7 @@ extension SoundProfile: Equatable, Hashable {
     static func == (lhs: SoundProfile, rhs: SoundProfile) -> Bool {
         
         lhs.file == rhs.file && Float.approxEquals(lhs.volume, rhs.volume, accuracy: 0.001) &&
-            Float.approxEquals(lhs.balance, rhs.balance, accuracy: 0.001)
+            Float.approxEquals(lhs.pan, rhs.pan, accuracy: 0.001)
             && lhs.effects == rhs.effects
     }
 }

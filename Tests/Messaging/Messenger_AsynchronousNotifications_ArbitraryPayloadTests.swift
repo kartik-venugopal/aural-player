@@ -9,14 +9,12 @@
 //
 import XCTest
 
-class Messenger_AsynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, NotificationSubscriber {
+class Messenger_AsynchronousNotifications_ArbitraryPayloadTests: AuralTestCase {
 
-    override func setUp() {
-        Messenger.unsubscribeAll(for: self)
-    }
+    private lazy var messenger: Messenger = Messenger(for: self)
     
     override func tearDown() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
 
     func testAsynchronousNotification_IntPayload() {
@@ -103,19 +101,19 @@ class Messenger_AsynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, 
         let sentPayloads: ConcurrentSet<P> = ConcurrentSet()
         let receivedPayloads: ConcurrentSet<P> = ConcurrentSet()
         
-        Messenger.subscribeAsync(self, notifName, {(thePayload: P) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: P) in
             
             receivedNotifCount.increment()
             receivedPayloads.insert(thePayload)
             
-        }, queue: .global(qos: .userInteractive))
+        })
         
         for _ in 1...repetitionCount {
             
             let payload = valueProducer()
             sentPayloads.insert(payload)
             
-            Messenger.publish(notifName, payload: payload)
+            messenger.publish(notifName, payload: payload)
         }
         
         executeAfter(5) {

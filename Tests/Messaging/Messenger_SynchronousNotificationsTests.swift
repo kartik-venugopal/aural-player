@@ -9,14 +9,12 @@
 //
 import XCTest
 
-class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscriber {
+class Messenger_SynchronousNotificationsTests: AuralTestCase {
 
-    override func setUp() {
-        Messenger.unsubscribeAll(for: self)
-    }
+    private lazy var messenger: Messenger = Messenger(for: self)
     
     override func tearDown() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
 
     func testSynchronousNotification_noPayload_noFilter() {
@@ -26,7 +24,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_noPayload_noFilter")
         
-        Messenger.subscribe(self, notifName, {
+        messenger.subscribe(to: notifName, handler: {
             
             receivedNotif = true
             
@@ -41,7 +39,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             receivedNotif = false
             
             publisherIsBlocked = true
-            Messenger.publish(notifName)
+            messenger.publish(notifName)
             publisherIsBlocked = false
             
             XCTAssertTrue(receivedNotif)
@@ -56,7 +54,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let neverReceiveFilter: () -> Bool = {return false}
         
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_noPayload_withFilter_neverReceive")
-        Messenger.subscribe(self, notifName, {
+        messenger.subscribe(to: notifName, handler: {
             
             receivedNotif = true
             
@@ -72,7 +70,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             receivedNotif = false
             
             publisherIsBlocked = true
-            Messenger.publish(notifName)
+            messenger.publish(notifName)
             publisherIsBlocked = false
             
             // Notification should never be received (filter always returns false)
@@ -88,7 +86,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let alwaysReceiveFilter: () -> Bool = {return true}
         
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_noPayload_withFilter_alwaysReceive")
-        Messenger.subscribe(self, notifName, {
+        messenger.subscribe(to: notifName, handler: {
             
             receivedNotif = true
             
@@ -104,7 +102,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             receivedNotif = false
             
             publisherIsBlocked = true
-            Messenger.publish(notifName)
+            messenger.publish(notifName)
             publisherIsBlocked = false
             
             // Notification should always be received (filter always returns true)
@@ -121,7 +119,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let conditionalFilter: () -> Bool = {return filterCondition}
         
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_noPayload_withFilter_conditional")
-        Messenger.subscribe(self, notifName, {
+        messenger.subscribe(to: notifName, handler: {
             
             receivedNotif = true
             
@@ -138,52 +136,11 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             filterCondition = .random()
             
             publisherIsBlocked = true
-            Messenger.publish(notifName)
+            messenger.publish(notifName)
             publisherIsBlocked = false
             
             // Notification should be received if and only if filterCondition is true
             XCTAssertEqual(receivedNotif, filterCondition)
-        }
-    }
-    
-    func testSynchronousNotification_noPayload_receiveOnOpQueue() {
-        
-        var receivedNotif: Bool = false
-        var publisherIsBlocked: Bool = true
-        
-        var receiptThreadQOS: QualityOfService = .background
-        var receiptThreadIsMainThread: Bool = false
-        
-        let opQueue = OperationQueue()
-        opQueue.underlyingQueue = DispatchQueue.global(qos: .background)
-        opQueue.qualityOfService = .background
-        
-        let notifName: Notification.Name = Notification.Name("testSynchronousNotification_noPayload_receiveOnOpQueue")
-        Messenger.subscribe(self, notifName, {
-            
-            receivedNotif = true
-            receiptThreadQOS = Thread.current.qualityOfService
-            receiptThreadIsMainThread = Thread.current.isMainThread
-            
-            // Simulate some work being done
-            usleep(UInt32.random(in: 1000...100000))
-
-            XCTAssertTrue(publisherIsBlocked)
-            
-        }, opQueue: opQueue)
-        
-        for _ in 1...(runLongRunningTests ? 1000 : 100) {
-            
-            receivedNotif = false
-            
-            publisherIsBlocked = true
-            Messenger.publish(notifName)
-            publisherIsBlocked = false
-            
-            // Notification should be received on the specified opQueue
-            XCTAssertTrue(receivedNotif)
-            XCTAssertEqual(receiptThreadQOS, opQueue.qualityOfService)
-            XCTAssertFalse(receiptThreadIsMainThread)
         }
     }
     
@@ -203,7 +160,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withPayload_noFilter")
         var receivedFloatVal: Float = 0
 
-        Messenger.subscribe(self, notifName, {(thePayload: TestPayload<Float>) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: TestPayload<Float>) in
             
             receivedNotif = true
             receivedFloatVal = thePayload.equatableValue
@@ -222,7 +179,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             let payload = TestPayload<Float>(notificationName: notifName, equatableValue: sentFloatVal)
             
             publisherIsBlocked = true
-            Messenger.publish(payload)
+            messenger.publish(payload)
             publisherIsBlocked = false
             
             XCTAssertTrue(receivedNotif)
@@ -239,7 +196,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let neverReceiveFilter: (TestPayload<Float>) -> Bool = {(payload: TestPayload<Float>) in return false}
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withPayload_withFilter_neverReceive")
         
-        Messenger.subscribe(self, notifName, {(thePayload: TestPayload<Float>) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: TestPayload<Float>) in
             
             receivedNotif = true
             receivedFloatVal = thePayload.equatableValue
@@ -259,7 +216,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             let payload = TestPayload<Float>(notificationName: notifName, equatableValue: sentFloatVal)
             
             publisherIsBlocked = true
-            Messenger.publish(payload)
+            messenger.publish(payload)
             publisherIsBlocked = false
             
             // Notification should never be received (filter always returns false)
@@ -277,7 +234,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let alwaysReceiveFilter: (TestPayload<Float>) -> Bool = {(payload: TestPayload<Float>) in return true}
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withPayload_withFilter_alwaysReceive")
         
-        Messenger.subscribe(self, notifName, {(thePayload: TestPayload<Float>) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: TestPayload<Float>) in
             
             receivedNotif = true
             receivedFloatVal = thePayload.equatableValue
@@ -297,7 +254,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             let payload = TestPayload<Float>(notificationName: notifName, equatableValue: sentFloatVal)
             
             publisherIsBlocked = true
-            Messenger.publish(payload)
+            messenger.publish(payload)
             publisherIsBlocked = false
             
             // Notification should always be received (filter always returns true)
@@ -317,7 +274,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let conditionalFilter: (TestPayload<Float>) -> Bool = {(payload: TestPayload<Float>) in return filterCondition}
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withPayload_withFilter_alwaysReceive")
         
-        Messenger.subscribe(self, notifName, {(thePayload: TestPayload<Float>) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: TestPayload<Float>) in
             
             receivedNotif = true
             receivedFloatVal = thePayload.equatableValue
@@ -340,63 +297,12 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             receivedFloatVal = -1
             
             publisherIsBlocked = true
-            Messenger.publish(payload)
+            messenger.publish(payload)
             publisherIsBlocked = false
             
             // Notification should be received if and only if filterCondition is true
             XCTAssertEqual(receivedNotif, filterCondition)
             XCTAssertEqual(receivedFloatVal, filterCondition ? sentFloatVal : -1, accuracy: 0.001)
-        }
-    }
-    
-    func testSynchronousNotification_withPayload_receiveOnOpQueue() {
-
-        var receivedNotif: Bool = false
-        var publisherIsBlocked: Bool = true
-
-        var receiptThreadQOS: QualityOfService = .background
-        var receiptThreadIsMainThread: Bool = false
-
-        let opQueue = OperationQueue()
-        opQueue.underlyingQueue = DispatchQueue.global(qos: .background)
-        opQueue.qualityOfService = .background
-
-        let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withPayload_receiveOnOpQueue")
-        var receivedFloatVal: Float = -1
-        
-        Messenger.subscribe(self, notifName, {(thePayload: TestPayload<Float>) in
-
-            receivedNotif = true
-            receiptThreadQOS = Thread.current.qualityOfService
-            receiptThreadIsMainThread = Thread.current.isMainThread
-            
-            receivedFloatVal = thePayload.equatableValue
-
-            // Simulate some work being done
-            usleep(UInt32.random(in: 1000...100000))
-
-            XCTAssertTrue(publisherIsBlocked)
-
-        }, opQueue: opQueue)
-
-        for _ in 1...(runLongRunningTests ? 1000 : 100) {
-
-            receivedNotif = false
-            
-            let sentFloatVal: Float = Float.random(in: 0...3600000)
-            let payload = TestPayload<Float>(notificationName: notifName, equatableValue: sentFloatVal)
-            
-            receivedFloatVal = -1
-
-            publisherIsBlocked = true
-            Messenger.publish(payload)
-            publisherIsBlocked = false
-
-            // Notification should be received on the specified opQueue
-            XCTAssertTrue(receivedNotif)
-            XCTAssertEqual(receiptThreadQOS, opQueue.qualityOfService)
-            XCTAssertFalse(receiptThreadIsMainThread)
-            XCTAssertEqual(receivedFloatVal, sentFloatVal, accuracy: 0.001)
         }
     }
     
@@ -410,7 +316,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withArbitraryPayload_noFilter")
         var receivedFloatVal: Float = 0
 
-        Messenger.subscribe(self, notifName, {(thePayload: Float) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: Float) in
             
             receivedNotif = true
             receivedFloatVal = thePayload
@@ -428,7 +334,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             let sentFloatVal: Float = Float.random(in: 0...3600000)
             
             publisherIsBlocked = true
-            Messenger.publish(notifName, payload: sentFloatVal)
+            messenger.publish(notifName, payload: sentFloatVal)
             publisherIsBlocked = false
             
             XCTAssertTrue(receivedNotif)
@@ -445,7 +351,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let neverReceiveFilter: (Float) -> Bool = {(payload: Float) in return false}
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withArbitraryPayload_withFilter_neverReceive")
         
-        Messenger.subscribe(self, notifName, {(thePayload: Float) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: Float) in
             
             receivedNotif = true
             receivedFloatVal = thePayload
@@ -464,7 +370,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             let sentFloatVal: Float = Float.random(in: 0...3600000)
             
             publisherIsBlocked = true
-            Messenger.publish(notifName, payload: sentFloatVal)
+            messenger.publish(notifName, payload: sentFloatVal)
             publisherIsBlocked = false
             
             // Notification should never be received (filter always returns false)
@@ -482,7 +388,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let alwaysReceiveFilter: (Float) -> Bool = {(payload: Float) in return true}
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withArbitraryPayload_withFilter_alwaysReceive")
         
-        Messenger.subscribe(self, notifName, {(thePayload: Float) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: Float) in
             
             receivedNotif = true
             receivedFloatVal = thePayload
@@ -501,7 +407,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             let sentFloatVal: Float = Float.random(in: 0...3600000)
             
             publisherIsBlocked = true
-            Messenger.publish(notifName, payload: sentFloatVal)
+            messenger.publish(notifName, payload: sentFloatVal)
             publisherIsBlocked = false
             
             // Notification should always be received (filter always returns true)
@@ -521,7 +427,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let conditionalFilter: (Float) -> Bool = {(payload: Float) in return filterCondition}
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withArbitraryPayload_withFilter_alwaysReceive")
         
-        Messenger.subscribe(self, notifName, {(thePayload: Float) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: Float) in
             
             receivedNotif = true
             receivedFloatVal = thePayload
@@ -543,62 +449,12 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             receivedFloatVal = -1
             
             publisherIsBlocked = true
-            Messenger.publish(notifName, payload: sentFloatVal)
+            messenger.publish(notifName, payload: sentFloatVal)
             publisherIsBlocked = false
             
             // Notification should be received if and only if filterCondition is true
             XCTAssertEqual(receivedNotif, filterCondition)
             XCTAssertEqual(receivedFloatVal, filterCondition ? sentFloatVal : -1, accuracy: 0.001)
-        }
-    }
-    
-    func testSynchronousNotification_withArbitraryPayload_receiveOnOpQueue() {
-
-        var receivedNotif: Bool = false
-        var publisherIsBlocked: Bool = true
-
-        var receiptThreadQOS: QualityOfService = .background
-        var receiptThreadIsMainThread: Bool = false
-
-        let opQueue = OperationQueue()
-        opQueue.underlyingQueue = DispatchQueue.global(qos: .background)
-        opQueue.qualityOfService = .background
-
-        let notifName: Notification.Name = Notification.Name("testSynchronousNotification_withArbitraryPayload_receiveOnOpQueue")
-        var receivedFloatVal: Float = -1
-        
-        Messenger.subscribe(self, notifName, {(thePayload: Float) in
-
-            receivedNotif = true
-            receiptThreadQOS = Thread.current.qualityOfService
-            receiptThreadIsMainThread = Thread.current.isMainThread
-            
-            receivedFloatVal = thePayload
-
-            // Simulate some work being done
-            usleep(UInt32.random(in: 1000...100000))
-
-            XCTAssertTrue(publisherIsBlocked)
-
-        }, opQueue: opQueue)
-
-        for _ in 1...(runLongRunningTests ? 1000 : 100) {
-
-            receivedNotif = false
-            
-            let sentFloatVal: Float = Float.random(in: 0...3600000)
-            
-            receivedFloatVal = -1
-
-            publisherIsBlocked = true
-            Messenger.publish(notifName, payload: sentFloatVal)
-            publisherIsBlocked = false
-
-            // Notification should be received on the specified opQueue
-            XCTAssertTrue(receivedNotif)
-            XCTAssertEqual(receiptThreadQOS, opQueue.qualityOfService)
-            XCTAssertFalse(receiptThreadIsMainThread)
-            XCTAssertEqual(receivedFloatVal, sentFloatVal, accuracy: 0.001)
         }
     }
     
@@ -610,12 +466,12 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_payloadExpected_payloadTypeMismatch")
         
-        Messenger.subscribe(self, notifName, {(thePayload: Double) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: Double) in
             receivedNotif = true
         })
         
         // Subscriber is expecting a Double, but send a Float
-        Messenger.publish(notifName, payload: Float(234.435364))
+        messenger.publish(notifName, payload: Float(234.435364))
         
         XCTAssertFalse(receivedNotif)
     }
@@ -626,12 +482,12 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_payloadExpected_noPayloadProvided")
         
-        Messenger.subscribe(self, notifName, {(thePayload: Double) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: Double) in
             receivedNotif = true
         })
         
         // Subscriber is expecting a Double, but don't send a payload
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
         
         XCTAssertFalse(receivedNotif)
     }
@@ -642,12 +498,12 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_noPayloadExpected_payloadProvided_payloadIgnored")
         
-        Messenger.subscribe(self, notifName, {
+        messenger.subscribe(to: notifName, handler: {
             receivedNotif = true
         })
         
         // Subscriber is expecting no payload, but send a Float
-        Messenger.publish(notifName, payload: Float(234.435364))
+        messenger.publish(notifName, payload: Float(234.435364))
         
         XCTAssertTrue(receivedNotif)
     }
@@ -659,12 +515,12 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         let notifName: Notification.Name = Notification.Name("testSynchronousNotification_notificationNameMismatch")
         let wrongNotifName: Notification.Name = Notification.Name("testSynchronousNotification_notificationNameMismatch_xyz")
         
-        Messenger.subscribe(self, wrongNotifName, {
+        messenger.subscribe(to: wrongNotifName, handler: {
             receivedNotif = true
         })
         
         // Subscriber is subscribed to the wrong notification name, so this notification should not be received.
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
         
         XCTAssertFalse(receivedNotif)
     }

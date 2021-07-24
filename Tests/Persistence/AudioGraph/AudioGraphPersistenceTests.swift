@@ -72,14 +72,14 @@ class AudioGraphPersistenceTests: AudioGraphTestCase {
             let numProfiles = Int.random(in: 0..<20)
             let soundProfiles: [SoundProfilePersistentState]? = numProfiles == 0 ? [] : (0..<numProfiles).map {_ in
                 
-                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), balance: randomBalance(),
+                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), pan: randomBalance(),
                                             effects: randomMasterPresets(count: 1)[0])
             }
             
             let serializedState = AudioGraphPersistentState(outputDevice: outputDevice,
                                                             volume: volume,
                                                             muted: muted,
-                                                            balance: balance,
+                                                            pan: balance,
                                                             masterUnit: masterUnit,
                                                             eqUnit: eqUnit,
                                                             pitchUnit: pitchUnit,
@@ -105,7 +105,7 @@ extension AudioGraphPersistentState: Equatable {
         lhs.outputDevice == rhs.outputDevice &&
         Float.approxEquals(lhs.volume, rhs.volume, accuracy: 0.001) &&
             lhs.muted == rhs.muted &&
-            Float.approxEquals(lhs.balance, rhs.balance, accuracy: 0.001) &&
+            Float.approxEquals(lhs.pan, rhs.pan, accuracy: 0.001) &&
             lhs.masterUnit == rhs.masterUnit &&
             lhs.pitchUnit == rhs.pitchUnit &&
             lhs.timeUnit == rhs.timeUnit &&

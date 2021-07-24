@@ -60,7 +60,6 @@ extension GeneralColorSchemePersistentState: Equatable {
         
         self.appLogoColor = appLogoColor
         self.backgroundColor = backgroundColor
-        self.viewControlButtonColor = viewControlButtonColor
         self.functionButtonColor = functionButtonColor
         self.textButtonMenuColor = textButtonMenuColor
         self.toggleButtonOffStateColor = toggleButtonOffStateColor
@@ -82,8 +81,7 @@ extension GeneralColorSchemePersistentState: Equatable {
             lhs.selectedTabButtonTextColor == rhs.selectedTabButtonTextColor &&
             lhs.tabButtonTextColor == rhs.tabButtonTextColor &&
             lhs.textButtonMenuColor == rhs.textButtonMenuColor &&
-            lhs.toggleButtonOffStateColor == rhs.toggleButtonOffStateColor &&
-            lhs.viewControlButtonColor == rhs.viewControlButtonColor
+            lhs.toggleButtonOffStateColor == rhs.toggleButtonOffStateColor
     }
 }
 

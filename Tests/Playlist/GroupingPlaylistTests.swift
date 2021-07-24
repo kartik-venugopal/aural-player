@@ -26,7 +26,7 @@ class GroupingPlaylistTests: AuralTestCase {
 
             let track = Track(URL(fileURLWithPath: String(format: "/Dummy/%@.mp3", title)))
             
-            let fileMetadata: FileMetadata = FileMetadata()
+            var fileMetadata: FileMetadata = FileMetadata()
             var playlistMetadata: PlaylistMetadata = PlaylistMetadata()
             
             playlistMetadata.artist = theArtist

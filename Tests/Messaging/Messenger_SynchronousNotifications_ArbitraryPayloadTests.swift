@@ -9,14 +9,12 @@
 //
 import XCTest
 
-class Messenger_SynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, NotificationSubscriber {
+class Messenger_SynchronousNotifications_ArbitraryPayloadTests: AuralTestCase {
     
-    override func setUp() {
-        Messenger.unsubscribeAll(for: self)
-    }
+    private lazy var messenger: Messenger = Messenger(for: self)
     
     override func tearDown() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
 
     func testSynchronousNotification_IntPayload() {
@@ -98,7 +96,7 @@ class Messenger_SynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, N
         
         var payload: P = valueProducer()
         
-        Messenger.subscribe(self, notifName, {(thePayload: P) in
+        messenger.subscribe(to: notifName, handler: {(thePayload: P) in
             
             receivedNotif = true
             XCTAssertEqual(thePayload, payload)
@@ -109,7 +107,7 @@ class Messenger_SynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, N
             receivedNotif = false
             payload = valueProducer()
             
-            Messenger.publish(notifName, payload: payload)
+            messenger.publish(notifName, payload: payload)
             
             XCTAssertTrue(receivedNotif)
         }

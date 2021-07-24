@@ -38,11 +38,6 @@
                BlueprintName = "Tests"
                ReferencedContainer = "container:Aural.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "AudioGraphPersistenceTestCase">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

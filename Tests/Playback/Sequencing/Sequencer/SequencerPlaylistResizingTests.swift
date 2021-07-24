@@ -1052,6 +1052,6 @@ class SequencerPlaylistResizingTests: SequencerTests {
 extension TrackRemovalResults {
     
     static var empty: TrackRemovalResults {
-        return TrackRemovalResults(groupingPlaylistResults: [:], flatPlaylistResults: IndexSet([]), tracks: [])
+        return TrackRemovalResults(tracks: [], flatPlaylistResults: IndexSet([]), groupingPlaylistResults: [:])
     }
 }

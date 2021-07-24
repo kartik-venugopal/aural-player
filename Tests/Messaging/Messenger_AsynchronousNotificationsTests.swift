@@ -9,14 +9,12 @@
 //
 import XCTest
 
-class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubscriber {
+class Messenger_AsynchronousNotificationsTests: AuralTestCase {
 
-    override func setUp() {
-        Messenger.unsubscribeAll(for: self)
-    }
+    private lazy var messenger: Messenger = Messenger(for: self, asyncNotificationQueue: .global(qos: .userInteractive))
     
     override func tearDown() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
 
     func testAsynchronousNotification_noPayload_noFilter() {
@@ -27,7 +25,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_noPayload_noFilter")
 
-        Messenger.subscribeAsync(self, notifName, {
+        messenger.subscribeAsync(to: notifName, handler: {
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
 
@@ -36,12 +34,12 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
 
         for producerIndex in 0..<100 {
 
             publisherIsBlocked.append(true)
-            Messenger.publish(notifName)
+            messenger.publish(notifName)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -57,18 +55,17 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let receivedNotifCount: AtomicCounter<Int> = AtomicCounter()
 
-        Messenger.subscribeAsync(self, notifName, {
+        messenger.subscribeAsync(to: notifName, handler: {
 
             receivedNotifCount.increment()
 
             // Simulate some work being done
             usleep(UInt32.random(in: 1000...10000))
 
-        }, filter: neverReceiveFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: neverReceiveFilter)
 
         for _ in 1...(runLongRunningTests ? 1000 : 100) {
-            Messenger.publish(notifName)
+            messenger.publish(notifName)
         }
 
         executeAfter(1) {
@@ -87,7 +84,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_noPayload_withFilter_alwaysReceive")
 
-        Messenger.subscribeAsync(self, notifName, {
+        messenger.subscribeAsync(to: notifName, handler: {
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
 
@@ -96,13 +93,12 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, filter: alwaysReceiveFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: alwaysReceiveFilter)
 
         for producerIndex in 0..<100 {
 
             publisherIsBlocked.append(true)
-            Messenger.publish(notifName)
+            messenger.publish(notifName)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -122,7 +118,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_noPayload_withFilter_conditional")
 
-        Messenger.subscribeAsync(self, notifName, {
+        messenger.subscribeAsync(to: notifName, handler: {
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
 
@@ -131,8 +127,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, filter: conditionalFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: conditionalFilter)
 
         var expectedReceiptCount: Int = 0
 
@@ -143,7 +138,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             expectedReceiptCount += filterAllowsReceipt ? 1 : 0
 
             publisherIsBlocked.append(true)
-            Messenger.publish(notifName)
+            messenger.publish(notifName)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -171,7 +166,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_noPayload_withFilter_alwaysReceive")
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: TestPayload<Double>) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: TestPayload<Double>) in
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
             receivedValues.insert(thePayload.equatableValue)
@@ -181,7 +176,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
 
         for producerIndex in 0..<100 {
 
@@ -190,7 +185,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             sentValues.insert(sentVal)
 
             publisherIsBlocked.append(true)
-            Messenger.publish(payload)
+            messenger.publish(payload)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -212,7 +207,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_withPayload_withFilter_alwaysReceive")
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: TestPayload<Double>) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: TestPayload<Double>) in
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
             receivedValues.insert(thePayload.equatableValue)
@@ -222,8 +217,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, filter: alwaysReceiveFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: alwaysReceiveFilter)
 
         for producerIndex in 0..<100 {
 
@@ -232,7 +226,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             sentValues.insert(sentVal)
 
             publisherIsBlocked.append(true)
-            Messenger.publish(payload)
+            messenger.publish(payload)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -251,7 +245,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_withPayload_withFilter_neverReceive")
         let neverReceiveFilter: (TestPayload<Double>) -> Bool = {(thePayload: TestPayload<Double>) in return false}
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: TestPayload<Double>) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: TestPayload<Double>) in
 
             receivedNotifCount.increment()
             receivedValues.insert(thePayload.equatableValue)
@@ -259,15 +253,14 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             // Simulate some work being done
             usleep(UInt32.random(in: 1000...10000))
 
-        }, filter: neverReceiveFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: neverReceiveFilter)
 
         for _ in 1...(runLongRunningTests ? 1000 : 100) {
 
             let sentVal: Double = Double.random(in: 0...3600000)
             let payload = TestPayload<Double>(notificationName: notifName, equatableValue: sentVal)
 
-            Messenger.publish(payload)
+            messenger.publish(payload)
         }
 
         executeAfter(1) {
@@ -288,7 +281,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_withPayload_withFilter_conditional")
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: TestPayload<Double>) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: TestPayload<Double>) in
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
             receivedValues.insert(thePayload.equatableValue)
@@ -298,8 +291,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, filter: conditionalFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: conditionalFilter)
 
         var expectedReceiptCount: Int = 0
 
@@ -316,7 +308,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             }
 
             publisherIsBlocked.append(true)
-            Messenger.publish(payload)
+            messenger.publish(payload)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -339,7 +331,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_noPayload_withFilter_alwaysReceive")
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: Double) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: Double) in
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
             receivedValues.insert(thePayload)
@@ -349,7 +341,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
 
         for producerIndex in 0..<100 {
 
@@ -357,7 +349,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             sentValues.insert(sentVal)
 
             publisherIsBlocked.append(true)
-            Messenger.publish(notifName, payload: sentVal)
+            messenger.publish(notifName, payload: sentVal)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -379,7 +371,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_withArbitraryPayload_withFilter_alwaysReceive")
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: Double) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: Double) in
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
             receivedValues.insert(thePayload)
@@ -389,8 +381,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, filter: alwaysReceiveFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: alwaysReceiveFilter)
 
         for producerIndex in 0..<100 {
 
@@ -398,7 +389,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             sentValues.insert(sentVal)
 
             publisherIsBlocked.append(true)
-            Messenger.publish(notifName, payload: sentVal)
+            messenger.publish(notifName, payload: sentVal)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -417,7 +408,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_withArbitraryPayload_withFilter_neverReceive")
         let neverReceiveFilter: (Double) -> Bool = {(thePayload: Double) in return false}
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: Double) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: Double) in
 
             receivedNotifCount.increment()
             receivedValues.insert(thePayload)
@@ -425,13 +416,12 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             // Simulate some work being done
             usleep(UInt32.random(in: 1000...10000))
 
-        }, filter: neverReceiveFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: neverReceiveFilter)
 
         for _ in 1...(runLongRunningTests ? 1000 : 100) {
 
             let sentVal: Double = Double.random(in: 0...3600000)
-            Messenger.publish(notifName, payload: sentVal)
+            messenger.publish(notifName, payload: sentVal)
         }
 
         executeAfter(1) {
@@ -452,7 +442,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_withArbitraryPayload_withFilter_conditional")
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: Double) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: Double) in
 
             let notifIndex: Int = receivedNotifCount.getAndIncrement()
             receivedValues.insert(thePayload)
@@ -462,8 +452,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
             XCTAssertFalse(publisherIsBlocked[notifIndex])
 
-        }, filter: conditionalFilter,
-           queue: DispatchQueue.global(qos: .userInteractive))
+        }, filter: conditionalFilter)
 
         var expectedReceiptCount: Int = 0
 
@@ -478,7 +467,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
             }
 
             publisherIsBlocked.append(true)
-            Messenger.publish(notifName, payload: sentVal)
+            messenger.publish(notifName, payload: sentVal)
             publisherIsBlocked[producerIndex] = false
         }
 
@@ -498,13 +487,13 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_payloadExpected_payloadTypeMismatch")
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: Double) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: Double) in
             receivedNotif = true
 
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
 
         // Subscriber is expecting a Double, but send a Float
-        Messenger.publish(notifName, payload: Float(234.435364))
+        messenger.publish(notifName, payload: Float(234.435364))
 
         executeAfter(0.2) {
             XCTAssertFalse(receivedNotif)
@@ -517,13 +506,13 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_payloadExpected_noPayloadProvided")
 
-        Messenger.subscribeAsync(self, notifName, {(thePayload: Double) in
+        messenger.subscribeAsync(to: notifName, handler: {(thePayload: Double) in
             receivedNotif = true
 
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
 
         // Subscriber is expecting a Double, but don't send a payload
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
 
         executeAfter(0.2) {
             XCTAssertFalse(receivedNotif)
@@ -536,13 +525,13 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
 
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_noPayloadExpected_payloadProvided_payloadIgnored")
 
-        Messenger.subscribeAsync(self, notifName, {
+        messenger.subscribeAsync(to: notifName, handler: {
             receivedNotif = true
 
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
 
         // Subscriber is expecting no payload, but send a Float
-        Messenger.publish(notifName, payload: Float(234.435364))
+        messenger.publish(notifName, payload: Float(234.435364))
 
         executeAfter(0.2) {
             XCTAssertTrue(receivedNotif)
@@ -556,13 +545,13 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
         let notifName: Notification.Name = Notification.Name("testAsynchronousNotification_notificationNameMismatch")
         let wrongNotifName: Notification.Name = Notification.Name("testAsynchronousNotification_notificationNameMismatch_xyz")
 
-        Messenger.subscribeAsync(self, wrongNotifName, {
+        messenger.subscribeAsync(to: wrongNotifName, handler: {
             receivedNotif = true
 
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
 
         // Subscriber is subscribed to the wrong notification name, so this notification should not be received.
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
 
         executeAfter(0.2) {
             XCTAssertFalse(receivedNotif)

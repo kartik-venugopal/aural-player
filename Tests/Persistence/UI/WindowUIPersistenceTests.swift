@@ -14,16 +14,16 @@ class WindowUIPersistenceTests: PersistenceTestCase {
     func testPersistence() {
         
         for cornerRadius in 0...25 {
-            doTestPersistence(serializedState: WindowUIPersistentState(cornerRadius: CGFloat(cornerRadius)))
+            doTestPersistence(serializedState: WindowAppearancePersistentState(cornerRadius: CGFloat(cornerRadius)))
         }
     }
 }
 
 // MARK: Equality comparison for model objects -----------------------------
 
-extension WindowUIPersistentState: Equatable {
+extension WindowAppearancePersistentState: Equatable {
     
-    static func == (lhs: WindowUIPersistentState, rhs: WindowUIPersistentState) -> Bool {
+    static func == (lhs: WindowAppearancePersistentState, rhs: WindowAppearancePersistentState) -> Bool {
         CGFloat.approxEquals(lhs.cornerRadius, rhs.cornerRadius, accuracy: 0.001)
     }
 }

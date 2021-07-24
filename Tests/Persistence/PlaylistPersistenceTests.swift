@@ -95,7 +95,7 @@ class PlaylistPersistenceTests: PersistenceTestCase {
             
             genreGroups[genre]!.append(track)
             
-            let fileMetadata: FileMetadata = FileMetadata()
+            var fileMetadata: FileMetadata = FileMetadata()
             var playlistMetadata: PlaylistMetadata = PlaylistMetadata()
             
             playlistMetadata.artist = artist

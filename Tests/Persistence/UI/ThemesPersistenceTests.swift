@@ -31,7 +31,7 @@ extension ThemesPersistentState: Equatable {
 extension ThemePersistentState: Equatable {
     
     internal init(name: String?, fontScheme: FontSchemePersistentState?, colorScheme: ColorSchemePersistentState?,
-                  windowAppearance: WindowUIPersistentState?) {
+                  windowAppearance: WindowAppearancePersistentState?) {
         
         self.name = name
         self.fontScheme = fontScheme

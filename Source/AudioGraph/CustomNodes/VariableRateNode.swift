@@ -20,8 +20,8 @@ import AVFoundation
 ///
 class VariableRateNode {
  
-    private let timePitchNode: AVAudioUnitTimePitch
-    private let varispeedNode: AVAudioUnitVarispeed
+    let timePitchNode: AVAudioUnitTimePitch
+    let varispeedNode: AVAudioUnitVarispeed
     
     var avNodes: [AVAudioNode] {[timePitchNode, varispeedNode]}
     

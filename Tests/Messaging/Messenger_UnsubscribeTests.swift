@@ -9,14 +9,12 @@
 //
 import XCTest
 
-class Messenger_UnsubscribeTests: AuralTestCase, NotificationSubscriber {
+class Messenger_UnsubscribeTests: AuralTestCase {
 
-    override func setUp() {
-        Messenger.unsubscribeAll(for: self)
-    }
+    private lazy var messenger: Messenger = Messenger(for: self)
     
     override func tearDown() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     func testUnsubscribe_syncNotification() {
@@ -24,17 +22,17 @@ class Messenger_UnsubscribeTests: AuralTestCase, NotificationSubscriber {
         var receivedNotif: Bool = false
         let notifName: Notification.Name = Notification.Name("testUnsubscribe")
         
-        Messenger.subscribe(self, notifName, {
+        messenger.subscribe(to: notifName, handler: {
             receivedNotif = true
         })
         
         receivedNotif = false
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
         XCTAssertTrue(receivedNotif)
         
-        Messenger.unsubscribe(self, notifName)
+        messenger.unsubscribe(from: notifName)
         receivedNotif = false
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
         XCTAssertFalse(receivedNotif)
     }
     
@@ -43,21 +41,21 @@ class Messenger_UnsubscribeTests: AuralTestCase, NotificationSubscriber {
         var receivedNotif: Bool = false
         let notifName: Notification.Name = Notification.Name("testUnsubscribe")
         
-        Messenger.subscribeAsync(self, notifName, {
+        messenger.subscribeAsync(to: notifName, handler: {
             receivedNotif = true
             
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
         
         receivedNotif = false
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
         
         executeAfter(0.2) {
             XCTAssertTrue(receivedNotif)
         }
         
-        Messenger.unsubscribe(self, notifName)
+        messenger.unsubscribe(from: notifName)
         receivedNotif = false
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
         
         executeAfter(0.2) {
             XCTAssertFalse(receivedNotif)
@@ -72,34 +70,34 @@ class Messenger_UnsubscribeTests: AuralTestCase, NotificationSubscriber {
         let notifName: Notification.Name = Notification.Name("testUnsubscribe")
         let notifName2: Notification.Name = Notification.Name("testUnsubscribe_2")
         
-        Messenger.subscribe(self, notifName, {
+        messenger.subscribe(to: notifName, handler: {
             receivedNotif = true
         })
         
-        Messenger.subscribeAsync(self, notifName2, {
+        messenger.subscribeAsync(to: notifName2, handler: {
             receivedNotif2 = true
             
-        }, queue: DispatchQueue.global(qos: .userInteractive))
+        })
         
         receivedNotif = false
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
         XCTAssertTrue(receivedNotif)
         
         receivedNotif2 = false
-        Messenger.publish(notifName2)
+        messenger.publish(notifName2)
         
         executeAfter(0.2) {
             XCTAssertTrue(receivedNotif2)
         }
         
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
         
         receivedNotif = false
-        Messenger.publish(notifName)
+        messenger.publish(notifName)
         XCTAssertFalse(receivedNotif)
         
         receivedNotif2 = false
-        Messenger.publish(notifName2)
+        messenger.publish(notifName2)
         
         executeAfter(0.2) {
             XCTAssertFalse(receivedNotif2)

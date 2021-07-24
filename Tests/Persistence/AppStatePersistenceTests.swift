@@ -72,7 +72,7 @@ class AppStatePersistenceTests: AudioGraphTestCase {
             
             // Window appearance
             
-            let windowAppearance = WindowUIPersistentState(cornerRadius: CGFloat.random(in: 0...25))
+            let windowAppearance = WindowAppearancePersistentState(cornerRadius: CGFloat.random(in: 0...25))
             
             // Menu Bar Player
             
@@ -99,7 +99,8 @@ class AppStatePersistenceTests: AudioGraphTestCase {
                                           visualizer: visualizer,
                                           windowAppearance: windowAppearance,
                                           menuBarPlayer: menuBarPlayer,
-                                          controlBarPlayer: controlBarPlayer)
+                                          controlBarPlayer: controlBarPlayer,
+                                          tuneBrowser: nil)
             
             // Playlist
             
@@ -190,14 +191,14 @@ class AppStatePersistenceTests: AudioGraphTestCase {
             let numProfiles = Int.random(in: 0..<20)
             let soundProfiles: [SoundProfilePersistentState]? = numProfiles == 0 ? [] : (0..<numProfiles).map {_ in
                 
-                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), balance: randomBalance(),
+                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), pan: randomBalance(),
                                             effects: randomMasterPresets(count: 1)[0])
             }
             
             let audioGraph = AudioGraphPersistentState(outputDevice: outputDevice,
                                                             volume: volume,
                                                             muted: muted,
-                                                            balance: balance,
+                                                            pan: balance,
                                                             masterUnit: masterUnit,
                                                             eqUnit: eqUnit,
                                                             pitchUnit: pitchUnit,
@@ -275,7 +276,7 @@ class AppStatePersistenceTests: AudioGraphTestCase {
             
             let musicBrainzCache = MusicBrainzCachePersistentState(releases: releases, recordings: recordings)
             
-            let appState = PersistentAppState(appVersion: appVersion,
+            let appState = AppPersistentState(appVersion: appVersion,
                                               ui: ui,
                                               playlist: playlist,
                                               audioGraph: audioGraph,
@@ -335,7 +336,7 @@ class AppStatePersistenceTests: AudioGraphTestCase {
             
             genreGroups[genre]!.append(track)
             
-            let fileMetadata: FileMetadata = FileMetadata()
+            var fileMetadata: FileMetadata = FileMetadata()
             var playlistMetadata: PlaylistMetadata = PlaylistMetadata()
             
             playlistMetadata.artist = artist
@@ -355,7 +356,7 @@ class AppStatePersistenceTests: AudioGraphTestCase {
 
 // MARK: Equality comparison for model objects -----------------------------
 
-extension PersistentAppState: Equatable {
+extension AppPersistentState: Equatable {
     
     init(appVersion: String? = nil, ui: UIPersistentState? = nil, playlist: PlaylistPersistentState? = nil, audioGraph: AudioGraphPersistentState? = nil, playbackSequence: PlaybackSequencePersistentState? = nil, playbackProfiles: [PlaybackProfilePersistentState]? = nil, history: HistoryPersistentState? = nil, favorites: [FavoritePersistentState]? = nil, bookmarks: [BookmarkPersistentState]? = nil, musicBrainzCache: MusicBrainzCachePersistentState? = nil) {
         
@@ -371,7 +372,7 @@ extension PersistentAppState: Equatable {
         self.musicBrainzCache = musicBrainzCache
     }
     
-    static func == (lhs: PersistentAppState, rhs: PersistentAppState) -> Bool {
+    static func == (lhs: AppPersistentState, rhs: AppPersistentState) -> Bool {
         
         lhs.appVersion == rhs.appVersion &&
             lhs.audioGraph == rhs.audioGraph &&
