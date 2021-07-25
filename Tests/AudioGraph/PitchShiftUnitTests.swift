@@ -196,6 +196,7 @@ class PitchShiftUnitTests: AudioGraphTestCase {
             
             let pitchShiftUnit = PitchShiftUnit(persistentState: persistentState)
             XCTAssertEqual(pitchShiftUnit.state, .active)
+            XCTAssertEqual(pitchShiftUnit.presets.numberOfUserDefinedPresets, persistentPresets.count)
             
             pitchShiftUnit.pitch = randomPitch()
             pitchShiftUnit.overlap = randomOverlap()
@@ -256,6 +257,7 @@ class PitchShiftUnitTests: AudioGraphTestCase {
             
             let pitchShiftUnit = PitchShiftUnit(persistentState: persistentState)
             XCTAssertEqual(pitchShiftUnit.state, .active)
+            XCTAssertEqual(pitchShiftUnit.presets.numberOfUserDefinedPresets, persistentPresets.count)
             
             pitchShiftUnit.pitch = randomPitch()
             pitchShiftUnit.overlap = randomOverlap()

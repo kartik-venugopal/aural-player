@@ -238,6 +238,7 @@ class EQUnitTests: AudioGraphTestCase {
             
             let eqUnit = EQUnit(persistentState: persistentState)
             XCTAssertEqual(eqUnit.state, .active)
+            XCTAssertEqual(eqUnit.presets.numberOfUserDefinedPresets, persistentPresets.count)
             
             eqUnit.bands = randomEQBands(forType: eqType)
             eqUnit.globalGain = randomEQGlobalGain()
@@ -305,6 +306,7 @@ class EQUnitTests: AudioGraphTestCase {
             
             let eqUnit = EQUnit(persistentState: persistentState)
             XCTAssertEqual(eqUnit.state, .active)
+            XCTAssertEqual(eqUnit.presets.numberOfUserDefinedPresets, persistentPresets.count)
             
             eqUnit.bands = randomEQBands(forType: eqType)
             eqUnit.globalGain = randomEQGlobalGain()

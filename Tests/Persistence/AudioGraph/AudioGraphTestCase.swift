@@ -210,9 +210,7 @@ class AudioGraphTestCase: PersistenceTestCase {
         randomNillableValue {self.randomTimeStretchRate()}
     }
     
-    func randomTimeStretchShiftPitch() -> Bool {
-        .random()
-    }
+    func randomTimeStretchShiftPitch() -> Bool {.random()}
     
     func randomNillableTimeStretchShiftPitch() -> Bool? {
         randomNillableValue {self.randomTimeStretchShiftPitch()}
