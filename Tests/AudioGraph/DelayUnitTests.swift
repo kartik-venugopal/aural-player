@@ -348,6 +348,102 @@ class DelayUnitTests: AudioGraphTestCase {
             XCTAssertEqual(settingsAsPreset.lowPassCutoff, delayUnit.lowPassCutoff, accuracy: 0.001)
         }
     }
+    
+    func testAmount() {
+        
+        let delayUnit = DelayUnit(persistentState: nil)
+        
+        for _ in 1...1000 {
+            
+            let amount = randomDelayAmount()
+            doTestAmount(amount, withUnit: delayUnit)
+        }
+        
+        // Special values
+        for amount: Float in [0, 25, 50, 75, 100] {
+            doTestAmount(amount, withUnit: delayUnit)
+        }
+    }
+    
+    private func doTestAmount(_ amount: Float, withUnit delayUnit: DelayUnit) {
+        
+        delayUnit.amount = amount
+        
+        XCTAssertEqual(delayUnit.amount, amount, accuracy: 0.001)
+        XCTAssertEqual(delayUnit.node.wetDryMix, amount, accuracy: 0.001)
+    }
+    
+    func testTime() {
+        
+        let delayUnit = DelayUnit(persistentState: nil)
+        
+        for _ in 1...1000 {
+            
+            let time = randomDelayTime()
+            doTestTime(time, withUnit: delayUnit)
+        }
+        
+        // Special values
+        for time: Double in [0, 0.5, 1, 1.5, 2] {
+            doTestTime(time, withUnit: delayUnit)
+        }
+    }
+    
+    private func doTestTime(_ time: Double, withUnit delayUnit: DelayUnit) {
+        
+        delayUnit.time = time
+        
+        XCTAssertEqual(delayUnit.time, time, accuracy: 0.001)
+        XCTAssertEqual(delayUnit.node.delayTime, time, accuracy: 0.001)
+    }
+    
+    func testFeedback() {
+        
+        let delayUnit = DelayUnit(persistentState: nil)
+        
+        for _ in 1...1000 {
+            
+            let feedback = randomDelayFeedback()
+            doTestFeedback(feedback, withUnit: delayUnit)
+        }
+        
+        // Special values
+        for feedback: Float in [-100, -50, 0, 50, 100] {
+            doTestFeedback(feedback, withUnit: delayUnit)
+        }
+    }
+    
+    private func doTestFeedback(_ feedback: Float, withUnit delayUnit: DelayUnit) {
+        
+        delayUnit.feedback = feedback
+        
+        XCTAssertEqual(delayUnit.feedback, feedback, accuracy: 0.001)
+        XCTAssertEqual(delayUnit.node.feedback, feedback, accuracy: 0.001)
+    }
+    
+    func testLowPassCutoff() {
+        
+        let delayUnit = DelayUnit(persistentState: nil)
+        
+        for _ in 1...1000 {
+            
+            let cutoff = randomDelayLowPassCutoff()
+            doTestLowPassCutoff(cutoff, withUnit: delayUnit)
+        }
+        
+        // Special values
+        for cutoff: Float in [20, 15000, 20000] {
+            doTestLowPassCutoff(cutoff, withUnit: delayUnit)
+        }
+    }
+    
+    private func doTestLowPassCutoff(_ cutoff: Float, withUnit delayUnit: DelayUnit) {
+        
+        delayUnit.lowPassCutoff = cutoff
+        
+        XCTAssertEqual(delayUnit.lowPassCutoff, cutoff, accuracy: 0.001)
+        XCTAssertEqual(delayUnit.node.lowPassCutoff, cutoff, accuracy: 0.001)
+    }
 }
 
 // MARK: Equality comparison for model objects -----------------------------

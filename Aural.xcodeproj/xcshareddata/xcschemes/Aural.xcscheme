@@ -76,22 +76,13 @@
                   Identifier = "DelayUnitPersistenceTests">
                </Test>
                <Test
-                  Identifier = "DelayUnitTests">
-               </Test>
-               <Test
                   Identifier = "EQUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "EQUnitTests">
                </Test>
                <Test
                   Identifier = "FavoritesPersistenceTests">
                </Test>
                <Test
                   Identifier = "FilterUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "FilterUnitTests">
                </Test>
                <Test
                   Identifier = "FlatPlaylistTestCase">
@@ -134,9 +125,6 @@
                </Test>
                <Test
                   Identifier = "HistoryPreferencesTests">
-               </Test>
-               <Test
-                  Identifier = "HostedAudioUnitTests">
                </Test>
                <Test
                   Identifier = "MasterUnitPersistenceTests">
@@ -182,9 +170,6 @@
                </Test>
                <Test
                   Identifier = "PitchShiftUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "PitchShiftUnitTests">
                </Test>
                <Test
                   Identifier = "PlaybackLoopTests">
@@ -247,9 +232,6 @@
                   Identifier = "ReverbUnitPersistenceTests">
                </Test>
                <Test
-                  Identifier = "ReverbUnitTests">
-               </Test>
-               <Test
                   Identifier = "SequencerBeginAndEndTests">
                </Test>
                <Test
@@ -308,9 +290,6 @@
                </Test>
                <Test
                   Identifier = "TimeStretchUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "TimeStretchUnitTests">
                </Test>
                <Test
                   Identifier = "UIPersistenceTests">

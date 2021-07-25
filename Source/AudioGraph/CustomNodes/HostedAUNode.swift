@@ -27,7 +27,7 @@ class HostedAUNode: AVAudioUnitEffect {
     var componentVersion: String {avComponent.versionString}
     var componentManufacturerName: String {avComponent.manufacturerName}
     
-    var paramsTree: AUParameterTree? {auAudioUnit.parameterTree}
+    var parameterTree: AUParameterTree? {auAudioUnit.parameterTree}
     private var bypassStateObservers: [AUNodeBypassStateObserver] = []
     
     var params: [AUParameterAddress: Float] {
@@ -36,7 +36,7 @@ class HostedAUNode: AVAudioUnitEffect {
             
             var dict: [AUParameterAddress: Float] = [:]
             
-            for param in paramsTree?.allParameters ?? [] {
+            for param in parameterTree?.allParameters ?? [] {
                 dict[param.address] = param.value
             }
             
@@ -46,7 +46,7 @@ class HostedAUNode: AVAudioUnitEffect {
         set(newParams) {
             
             for (address, value) in newParams {
-                paramsTree?.parameter(withAddress: address)?.value = value
+                parameterTree?.parameter(withAddress: address)?.value = value
             }
         }
     }

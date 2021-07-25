@@ -18,6 +18,8 @@ import AVFoundation
 protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
     
     var name: String {get}
+    var version: String {get}
+    var manufacturerName: String {get}
     
     var componentType: OSType {get}
     var componentSubType: OSType {get}
