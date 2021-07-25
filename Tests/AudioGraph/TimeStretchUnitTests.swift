@@ -339,15 +339,20 @@ class TimeStretchUnitTests: AudioGraphTestCase {
         for _ in 1...1000 {
             
             let rate = randomTimeStretchRate()
-            timeStretchUnit.rate = rate
-            timeStretchUnit.shiftPitch = .random()
-            
-            XCTAssertEqual(timeStretchUnit.rate, rate, accuracy: 0.001)
-            XCTAssertEqual(timeStretchUnit.node.rate, rate, accuracy: 0.001)
-            
-            XCTAssertEqual(timeStretchUnit.node.varispeedNode.rate, rate, accuracy: 0.001)
-            XCTAssertEqual(timeStretchUnit.node.timePitchNode.rate, rate, accuracy: 0.001)
+            doTestRate(rate, withUnit: timeStretchUnit)
         }
+    }
+    
+    private func doTestRate(_ rate: Float, withUnit timeStretchUnit: TimeStretchUnit) {
+        
+        timeStretchUnit.rate = rate
+        timeStretchUnit.shiftPitch = .random()
+        
+        XCTAssertEqual(timeStretchUnit.rate, rate, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.rate, rate, accuracy: 0.001)
+        
+        XCTAssertEqual(timeStretchUnit.node.varispeedNode.rate, rate, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.timePitchNode.rate, rate, accuracy: 0.001)
     }
     
     func testOverlap() {
@@ -357,12 +362,17 @@ class TimeStretchUnitTests: AudioGraphTestCase {
         for _ in 1...1000 {
             
             let overlap = randomOverlap()
-            timeStretchUnit.overlap = overlap
-            
-            XCTAssertEqual(timeStretchUnit.overlap, overlap, accuracy: 0.001)
-            XCTAssertEqual(timeStretchUnit.node.overlap, overlap, accuracy: 0.001)
-            XCTAssertEqual(timeStretchUnit.node.timePitchNode.overlap, overlap, accuracy: 0.001)
+            doTestOverlap(overlap, withUnit: timeStretchUnit)
         }
+    }
+    
+    private func doTestOverlap(_ overlap: Float, withUnit timeStretchUnit: TimeStretchUnit) {
+        
+        timeStretchUnit.overlap = overlap
+        
+        XCTAssertEqual(timeStretchUnit.overlap, overlap, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.overlap, overlap, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.timePitchNode.overlap, overlap, accuracy: 0.001)
     }
     
     func testShiftPitch() {
@@ -403,19 +413,37 @@ class TimeStretchUnitTests: AudioGraphTestCase {
                 XCTAssertEqual(timeStretchUnit.state, startingState)
                 
                 let rate = randomTimeStretchRate()
-                timeStretchUnit.rate = rate
-                
                 let shiftPitch = randomTimeStretchShiftPitch()
-                timeStretchUnit.shiftPitch = shiftPitch
                 
-                XCTAssertEqual(timeStretchUnit.rate, rate, accuracy: 0.001)
-                XCTAssertEqual(timeStretchUnit.shiftPitch, shiftPitch)
-                XCTAssertEqual(timeStretchUnit.node.shiftPitch, shiftPitch)
-                
-                XCTAssertEqual(timeStretchUnit.pitch, shiftPitch ? Self.octavesToCents * log2(rate) : 0, accuracy: 0.001)
-                XCTAssertEqual(timeStretchUnit.node.pitch, shiftPitch ? Self.octavesToCents * log2(rate) : 0, accuracy: 0.001)
+                doTestPitch(rate: rate, shiftPitch: shiftPitch, withUnit: timeStretchUnit)
             }
         }
+        
+        for startingState in EffectsUnitState.allCases {
+            
+            let timeStretchUnit = TimeStretchUnit(persistentState: TimeStretchUnitPersistentState(state: startingState,
+                                                                                                  userPresets: nil, rate: nil, shiftPitch: nil, overlap: nil))
+            
+            XCTAssertEqual(timeStretchUnit.state, startingState)
+            
+            for (rate, shiftPitch): (Float, Bool) in zip([0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 3.5, 4], [false, true]) {
+                doTestPitch(rate: rate, shiftPitch: shiftPitch, withUnit: timeStretchUnit)
+            }
+        }
+    }
+    
+    private func doTestPitch(rate: Float, shiftPitch: Bool, withUnit timeStretchUnit: TimeStretchUnit) {
+        
+        timeStretchUnit.rate = rate
+        timeStretchUnit.shiftPitch = shiftPitch
+        
+        XCTAssertEqual(timeStretchUnit.rate, rate, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.shiftPitch, shiftPitch)
+        XCTAssertEqual(timeStretchUnit.node.shiftPitch, shiftPitch)
+        
+        let expectedPitch = shiftPitch ? Self.octavesToCents * log2(rate) : 0
+        XCTAssertEqual(timeStretchUnit.pitch, expectedPitch, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.pitch, expectedPitch, accuracy: 0.001)
     }
 }
 

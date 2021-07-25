@@ -300,11 +300,21 @@ class PitchShiftUnitTests: AudioGraphTestCase {
         for _ in 1...1000 {
             
             let pitch = randomPitch()
-            pitchShiftUnit.pitch = pitch
-            
-            XCTAssertEqual(pitchShiftUnit.pitch, pitch, accuracy: 0.001)
-            XCTAssertEqual(pitchShiftUnit.node.pitch, pitch, accuracy: 0.001)
+            doTestPitch(pitch, withUnit: pitchShiftUnit)
         }
+        
+        // Special values
+        for pitch: Float in [-2400, -1200, 0, 1200, 2400] {
+            doTestPitch(pitch, withUnit: pitchShiftUnit)
+        }
+    }
+    
+    private func doTestPitch(_ pitch: Float, withUnit pitchShiftUnit: PitchShiftUnit) {
+        
+        pitchShiftUnit.pitch = pitch
+        
+        XCTAssertEqual(pitchShiftUnit.pitch, pitch, accuracy: 0.001)
+        XCTAssertEqual(pitchShiftUnit.node.pitch, pitch, accuracy: 0.001)
     }
     
     func testOverlap() {
@@ -314,11 +324,21 @@ class PitchShiftUnitTests: AudioGraphTestCase {
         for _ in 1...1000 {
             
             let overlap = randomOverlap()
-            pitchShiftUnit.overlap = overlap
-            
-            XCTAssertEqual(pitchShiftUnit.overlap, overlap, accuracy: 0.001)
-            XCTAssertEqual(pitchShiftUnit.node.overlap, overlap, accuracy: 0.001)
+            doTestOverlap(overlap, withUnit: pitchShiftUnit)
         }
+        
+        // Special values
+        for overlap: Float in [3, 8, 32] {
+            doTestOverlap(overlap, withUnit: pitchShiftUnit)
+        }
+    }
+    
+    private func doTestOverlap(_ overlap: Float, withUnit pitchShiftUnit: PitchShiftUnit) {
+        
+        pitchShiftUnit.overlap = overlap
+        
+        XCTAssertEqual(pitchShiftUnit.overlap, overlap, accuracy: 0.001)
+        XCTAssertEqual(pitchShiftUnit.node.overlap, overlap, accuracy: 0.001)
     }
 }
 
