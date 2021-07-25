@@ -165,4 +165,32 @@ extension XCTestCase {
             XCTAssertEqual(elm1, elm2, accuracy: accuracy)
         }
     }
+    
+    func AssertNotEqual(_ arr1: [Float]?, _ arr2: [Float]?) {
+
+        if arr1 == nil && arr2 == nil {
+            
+            XCTFail("Both [Float] values are nil so they are equal.")
+            return
+        }
+
+        // One of them is nil. Pass.
+        if (arr1 == nil) != (arr2 == nil) {
+            return
+        }
+
+        guard let theArr1 = arr1, let theArr2 = arr2 else {
+
+            XCTFail("Something went wrong. One of the [Float] values is nil but shouldn't be.")
+            return
+        }
+        
+        if theArr1.count != theArr2.count {
+            return
+        }
+        
+        for (elm1, elm2) in zip(theArr1, theArr2) {
+            XCTAssertNotEqual(elm1, elm2)
+        }
+    }
 }

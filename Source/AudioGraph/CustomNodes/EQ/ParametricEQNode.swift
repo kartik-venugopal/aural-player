@@ -33,7 +33,7 @@ class ParametricEQNode: AVAudioUnitEQ {
     
     var numberOfBands: Int {bands.count}
 
-    private static let validGainRange: ClosedRange<Float> = -20...20
+    static let validGainRange: ClosedRange<Float> = -20...20
     
     override private init() {super.init()}
     
