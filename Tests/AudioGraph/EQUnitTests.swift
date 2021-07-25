@@ -19,7 +19,7 @@ class EQUnitTests: AudioGraphTestCase {
                 
                 let persistentState = EQUnitPersistentState(state: state,
                                                             userPresets: randomEQPresets(unitState: .active),
-                                                            type: .tenBand, globalGain: randomEQGlobalGain(),
+                                                            type: .tenBand, globalGain: randomEQGain(),
                                                             bands: randomEQ10Bands())
                 
                 doTestInit(persistentState: persistentState)
@@ -35,7 +35,7 @@ class EQUnitTests: AudioGraphTestCase {
                 
                 let persistentState = EQUnitPersistentState(state: state,
                                                             userPresets: randomEQPresets(unitState: .active),
-                                                            type: .fifteenBand, globalGain: randomEQGlobalGain(),
+                                                            type: .fifteenBand, globalGain: randomEQGain(),
                                                             bands: randomEQ15Bands())
                 
                 doTestInit(persistentState: persistentState)
@@ -171,7 +171,7 @@ class EQUnitTests: AudioGraphTestCase {
             
             eqUnit.type = eqType
             eqUnit.bands = randomEQBands(forType: eqType)
-            eqUnit.globalGain = randomEQGlobalGain()
+            eqUnit.globalGain = randomEQGain()
             
             let presetName = "TestEQPreset-1"
             eqUnit.savePreset(named: presetName)
@@ -202,7 +202,7 @@ class EQUnitTests: AudioGraphTestCase {
             
             eqUnit.type = eqType
             eqUnit.bands = randomEQBands(forType: eqType)
-            eqUnit.globalGain = randomEQGlobalGain()
+            eqUnit.globalGain = randomEQGain()
             
             let presetName = "TestEQPreset-1"
             eqUnit.savePreset(named: presetName)
@@ -213,7 +213,7 @@ class EQUnitTests: AudioGraphTestCase {
                 continue
             }
             
-            eqUnit.globalGain = randomEQGlobalGain()
+            eqUnit.globalGain = randomEQGain()
             eqUnit.bands = randomEQBands(forType: eqType)
             
             XCTAssertNotEqual(eqUnit.globalGain, savedPreset.globalGain)
@@ -241,7 +241,7 @@ class EQUnitTests: AudioGraphTestCase {
             XCTAssertEqual(eqUnit.presets.numberOfUserDefinedPresets, persistentPresets.count)
             
             eqUnit.bands = randomEQBands(forType: eqType)
-            eqUnit.globalGain = randomEQGlobalGain()
+            eqUnit.globalGain = randomEQGain()
             
             let presetToApply = eqUnit.presets.userDefinedPresets.randomElement()
             let presetName = presetToApply.name
@@ -270,7 +270,7 @@ class EQUnitTests: AudioGraphTestCase {
             
             eqUnit.type = eqType
             eqUnit.bands = randomEQBands(forType: eqType)
-            eqUnit.globalGain = randomEQGlobalGain()
+            eqUnit.globalGain = randomEQGain()
             
             let presetName = "TestEQPreset-1"
             eqUnit.savePreset(named: presetName)
@@ -281,7 +281,7 @@ class EQUnitTests: AudioGraphTestCase {
                 continue
             }
             
-            eqUnit.globalGain = randomEQGlobalGain()
+            eqUnit.globalGain = randomEQGain()
             eqUnit.bands = randomEQBands(forType: eqType)
             
             XCTAssertNotEqual(eqUnit.globalGain, savedPreset.globalGain)
@@ -309,7 +309,7 @@ class EQUnitTests: AudioGraphTestCase {
             XCTAssertEqual(eqUnit.presets.numberOfUserDefinedPresets, persistentPresets.count)
             
             eqUnit.bands = randomEQBands(forType: eqType)
-            eqUnit.globalGain = randomEQGlobalGain()
+            eqUnit.globalGain = randomEQGain()
             
             let presetToApply = eqUnit.presets.userDefinedPresets.randomElement()
             
@@ -337,7 +337,7 @@ class EQUnitTests: AudioGraphTestCase {
             
             eqUnit.type = eqType
             eqUnit.bands = randomEQBands(forType: eqType)
-            eqUnit.globalGain = randomEQGlobalGain()
+            eqUnit.globalGain = randomEQGain()
             
             let settingsAsPreset: EQPreset = eqUnit.settingsAsPreset
             
@@ -381,19 +381,32 @@ class EQUnitTests: AudioGraphTestCase {
         }
     }
     
+    private let minGain = ParametricEQNode.validGainRange.lowerBound
+    private let maxGain = ParametricEQNode.validGainRange.upperBound
+    
     func testGlobalGain() {
         
         let eqUnit = EQUnit(persistentState: nil)
         
         for _ in 1...1000 {
             
-            let gain = randomEQGlobalGain()
-            eqUnit.globalGain = gain
-            
-            XCTAssertEqual(eqUnit.globalGain, gain, accuracy: 0.001)
-            XCTAssertEqual(eqUnit.node.globalGain, gain, accuracy: 0.001)
-            XCTAssertEqual(eqUnit.node.activeNode.globalGain, gain, accuracy: 0.001)
+            let gain = randomEQGain()
+            doTestGlobalGain(gain, withUnit: eqUnit)
         }
+        
+        // Special values
+        for gain in [0, minGain, maxGain] {
+            doTestGlobalGain(gain, withUnit: eqUnit)
+        }
+    }
+    
+    private func doTestGlobalGain(_ gain: Float, withUnit eqUnit: EQUnit) {
+        
+        eqUnit.globalGain = gain
+        
+        XCTAssertEqual(eqUnit.globalGain, gain, accuracy: 0.001)
+        XCTAssertEqual(eqUnit.node.globalGain, gain, accuracy: 0.001)
+        XCTAssertEqual(eqUnit.node.activeNode.globalGain, gain, accuracy: 0.001)
     }
     
     func testBands_10Bands() {
@@ -404,13 +417,13 @@ class EQUnitTests: AudioGraphTestCase {
         for _ in 1...1000 {
             
             let bands: [Float] = randomEQ10Bands()
-            eqUnit.bands = bands
-            
-            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
-            AssertEqual(eqUnit.node.bands, bands, accuracy: 0.001)
-            AssertEqual(eqUnit.node.activeNode.bandGains, bands, accuracy: 0.001)
-            AssertEqual(eqUnit.node.eq10Node.bandGains, bands, accuracy: 0.001)
+            doTestBands(bands, withUnit: eqUnit)
         }
+        
+        // Special values
+        doTestBands(Array(repeating: 0, count: 10), withUnit: eqUnit)
+        doTestBands(Array(repeating: minGain, count: 10), withUnit: eqUnit)
+        doTestBands(Array(repeating: maxGain, count: 10), withUnit: eqUnit)
     }
     
     func testBands_15Bands() {
@@ -421,11 +434,26 @@ class EQUnitTests: AudioGraphTestCase {
         for _ in 1...1000 {
             
             let bands: [Float] = randomEQ15Bands()
-            eqUnit.bands = bands
-            
-            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
-            AssertEqual(eqUnit.node.bands, bands, accuracy: 0.001)
-            AssertEqual(eqUnit.node.activeNode.bandGains, bands, accuracy: 0.001)
+            doTestBands(bands, withUnit: eqUnit)
+        }
+        
+        // Special values
+        doTestBands(Array(repeating: 0, count: 15), withUnit: eqUnit)
+        doTestBands(Array(repeating: minGain, count: 15), withUnit: eqUnit)
+        doTestBands(Array(repeating: maxGain, count: 15), withUnit: eqUnit)
+    }
+    
+    private func doTestBands(_ bands: [Float], withUnit eqUnit: EQUnit) {
+        
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        AssertEqual(eqUnit.node.bands, bands, accuracy: 0.001)
+        AssertEqual(eqUnit.node.activeNode.bandGains, bands, accuracy: 0.001)
+        
+        if bands.count == 10 {
+            AssertEqual(eqUnit.node.eq10Node.bandGains, bands, accuracy: 0.001)
+        } else {
             AssertEqual(eqUnit.node.eq15Node.bandGains, bands, accuracy: 0.001)
         }
     }
@@ -438,16 +466,25 @@ class EQUnitTests: AudioGraphTestCase {
         for _ in 1...1000 {
             
             let bands: [Float] = randomEQ10Bands()
+            doTestSubscript(bands, type: .tenBand, withUnit: eqUnit)
+        }
+    }
+    
+    private func doTestSubscript(_ bands: [Float], type: EQType, withUnit eqUnit: EQUnit) {
+        
+        for index in 0..<(type == .tenBand ? 10 : 15) {
             
-            for index in 0..<10 {
-                
-                eqUnit[index] = bands[index]
-                
-                XCTAssertEqual(eqUnit[index], bands[index], accuracy: 0.001)
-                XCTAssertEqual(eqUnit.bands[index], bands[index], accuracy: 0.001)
-                
-                XCTAssertEqual(eqUnit.node.activeNode.bandGains[index], bands[index], accuracy: 0.001)
+            eqUnit[index] = bands[index]
+            
+            XCTAssertEqual(eqUnit[index], bands[index], accuracy: 0.001)
+            XCTAssertEqual(eqUnit.bands[index], bands[index], accuracy: 0.001)
+            
+            XCTAssertEqual(eqUnit.node.activeNode.bandGains[index], bands[index], accuracy: 0.001)
+            
+            if type == .tenBand {
                 XCTAssertEqual(eqUnit.node.eq10Node.bandGains[index], bands[index], accuracy: 0.001)
+            } else {
+                XCTAssertEqual(eqUnit.node.eq15Node.bandGains[index], bands[index], accuracy: 0.001)
             }
         }
     }
@@ -460,17 +497,7 @@ class EQUnitTests: AudioGraphTestCase {
         for _ in 1...1000 {
             
             let bands: [Float] = randomEQ15Bands()
-            
-            for index in 0..<15 {
-                
-                eqUnit[index] = bands[index]
-                
-                XCTAssertEqual(eqUnit[index], bands[index], accuracy: 0.001)
-                XCTAssertEqual(eqUnit.bands[index], bands[index], accuracy: 0.001)
-                
-                XCTAssertEqual(eqUnit.node.activeNode.bandGains[index], bands[index], accuracy: 0.001)
-                XCTAssertEqual(eqUnit.node.eq15Node.bandGains[index], bands[index], accuracy: 0.001)
-            }
+            doTestSubscript(bands, type: .fifteenBand, withUnit: eqUnit)
         }
     }
     
@@ -482,12 +509,123 @@ class EQUnitTests: AudioGraphTestCase {
                                           eqType: .tenBand, changedBands: Array(0...2), unchangedBands: Array(3..<10))
     }
     
+    func testIncreaseBass_10Bands_alreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands = Array(repeating: maxGain, count: 10)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseBass(by: increment)
+        
+            // Verify that the bands are unchaged by the increaseBass() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterIncrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testIncreaseBass_10Bands_someBandsAlreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands: [Float] = [randomEQGain(), maxGain, randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeIncrease = eqUnit.bands
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseBass(by: increment)
+        
+            let expectedBands = bandsBeforeIncrease.enumerated().map {(index, gain) -> Float in
+                
+                if index < 3 {
+                    return (gain + increment).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 0...2 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterIncrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
+    }
+    
     func testIncreaseBass_15Bands() {
         
         let eqUnit = EQUnit(persistentState: nil)
         
         doTestIncreaseOrDecreaseBandGains(eqUnit: eqUnit, testFunction: eqUnit.increaseBass(by:), deltaMultiplier: 1,
                                           eqType: .fifteenBand, changedBands: Array(0...4), unchangedBands: Array(5..<15))
+    }
+    
+    func testIncreaseBass_15Bands_alreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands = Array(repeating: maxGain, count: 15)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseBass(by: increment)
+        
+            // Verify that the bands are unchaged by the increaseBass() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterIncrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testIncreaseBass_15Bands_someBandsAlreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands: [Float] = [randomEQGain(), maxGain, randomEQGain(), maxGain, randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeIncrease = eqUnit.bands
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseBass(by: increment)
+        
+            let expectedBands = bandsBeforeIncrease.enumerated().map {(index, gain) -> Float in
+                
+                if index < 5 {
+                    return (gain + increment).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 0...4 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterIncrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
     }
     
     func testIncreaseMids_10Bands() {
@@ -498,12 +636,123 @@ class EQUnitTests: AudioGraphTestCase {
                                           eqType: .tenBand, changedBands: Array(3...6), unchangedBands: Array(0...2) + Array(7..<10))
     }
     
+    func testIncreaseMids_10Bands_alreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands = Array(repeating: maxGain, count: 10)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseMids(by: increment)
+        
+            // Verify that the bands are unchaged by the increaseMids() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterIncrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testIncreaseMids_10Bands_someBandsAlreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands: [Float] = [randomEQGain(), randomEQGain(), randomEQGain(), maxGain, randomEQGain(),
+                              randomEQGain(), maxGain, randomEQGain(), randomEQGain(), randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeIncrease = eqUnit.bands
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseMids(by: increment)
+        
+            let expectedBands = bandsBeforeIncrease.enumerated().map {(index, gain) -> Float in
+                
+                if (3...6).contains(index) {
+                    return (gain + increment).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 3...6 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterIncrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
+    }
+    
     func testIncreaseMids_15Bands() {
         
         let eqUnit = EQUnit(persistentState: nil)
         
         doTestIncreaseOrDecreaseBandGains(eqUnit: eqUnit, testFunction: eqUnit.increaseMids(by:), deltaMultiplier: 1,
                                           eqType: .fifteenBand, changedBands: Array(5...10), unchangedBands: Array(0...4) + Array(11..<15))
+    }
+    
+    func testIncreaseMids_15Bands_alreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands = Array(repeating: maxGain, count: 15)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseMids(by: increment)
+        
+            // Verify that the bands are unchaged by the increaseMids() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterIncrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testIncreaseMids_15Bands_someBandsAlreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands: [Float] = [randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              maxGain, maxGain, randomEQGain(), maxGain, randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeIncrease = eqUnit.bands
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseMids(by: increment)
+        
+            let expectedBands = bandsBeforeIncrease.enumerated().map {(index, gain) -> Float in
+                
+                if (5...10).contains(index) {
+                    return (gain + increment).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 5...10 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterIncrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
     }
     
     func testIncreaseTreble_10Bands() {
@@ -514,12 +763,123 @@ class EQUnitTests: AudioGraphTestCase {
                                           eqType: .tenBand, changedBands: Array(7..<10), unchangedBands: Array(0...6))
     }
     
+    func testIncreaseTreble_10Bands_alreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands = Array(repeating: maxGain, count: 10)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseTreble(by: increment)
+        
+            // Verify that the bands are unchaged by the increaseTreble() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterIncrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testIncreaseTreble_10Bands_someBandsAlreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands: [Float] = [randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), maxGain, randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeIncrease = eqUnit.bands
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseTreble(by: increment)
+        
+            let expectedBands = bandsBeforeIncrease.enumerated().map {(index, gain) -> Float in
+                
+                if (7...9).contains(index) {
+                    return (gain + increment).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 7...9 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterIncrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
+    }
+    
     func testIncreaseTreble_15Bands() {
         
         let eqUnit = EQUnit(persistentState: nil)
         
         doTestIncreaseOrDecreaseBandGains(eqUnit: eqUnit, testFunction: eqUnit.increaseTreble(by:), deltaMultiplier: 1,
                                           eqType: .fifteenBand, changedBands: Array(11..<15), unchangedBands: Array(0...10))
+    }
+    
+    func testIncreaseTreble_15Bands_alreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands = Array(repeating: maxGain, count: 15)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseTreble(by: increment)
+        
+            // Verify that the bands are unchaged by the increaseTreble() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterIncrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testIncreaseTreble_15Bands_someBandsAlreadyAtMaxGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands: [Float] = [randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), maxGain, randomEQGain(), maxGain]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeIncrease = eqUnit.bands
+            let increment = Float.random(in: 0.1...5)
+            let bandsAfterIncrease = eqUnit.increaseTreble(by: increment)
+        
+            let expectedBands = bandsBeforeIncrease.enumerated().map {(index, gain) -> Float in
+                
+                if (11...14).contains(index) {
+                    return (gain + increment).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 11...14 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterIncrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
     }
     
     func testDecreaseBass_10Bands() {
@@ -530,12 +890,123 @@ class EQUnitTests: AudioGraphTestCase {
                                           eqType: .tenBand, changedBands: Array(0...2), unchangedBands: Array(3..<10))
     }
     
+    func testDecreaseBass_10Bands_alreadyAtMinBass() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands = Array(repeating: minGain, count: 10)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseBass(by: decrement)
+        
+            // Verify that the bands are unchaged by the decreaseBass() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterDecrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testDecreaseBass_10Bands_someBandsAlreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands: [Float] = [randomEQGain(), minGain, randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeDecrease = eqUnit.bands
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseBass(by: decrement)
+        
+            let expectedBands = bandsBeforeDecrease.enumerated().map {(index, gain) -> Float in
+                
+                if index < 3 {
+                    return (gain - decrement).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 0...2 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterDecrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
+    }
+    
     func testDecreaseBass_15Bands() {
         
         let eqUnit = EQUnit(persistentState: nil)
         
         doTestIncreaseOrDecreaseBandGains(eqUnit: eqUnit, testFunction: eqUnit.decreaseBass(by:), deltaMultiplier: -1,
                                           eqType: .fifteenBand, changedBands: Array(0...4), unchangedBands: Array(5..<15))
+    }
+    
+    func testDecreaseBass_15Bands_alreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands = Array(repeating: minGain, count: 15)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseBass(by: decrement)
+        
+            // Verify that the bands are unchaged by the decreaseBass() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterDecrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testDecreaseBass_15Bands_someBandsAlreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands: [Float] = [randomEQGain(), minGain, randomEQGain(), minGain, randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeDecrease = eqUnit.bands
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseBass(by: decrement)
+        
+            let expectedBands = bandsBeforeDecrease.enumerated().map {(index, gain) -> Float in
+                
+                if index < 5 {
+                    return (gain - decrement).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 0...4 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterDecrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
     }
     
     func testDecreaseMids_10Bands() {
@@ -546,12 +1017,123 @@ class EQUnitTests: AudioGraphTestCase {
                                           eqType: .tenBand, changedBands: Array(3...6), unchangedBands: Array(0...2) + Array(7..<10))
     }
     
+    func testDecreaseMids_10Bands_alreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands = Array(repeating: minGain, count: 10)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseMids(by: decrement)
+        
+            // Verify that the bands are unchaged by the decreaseMids() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterDecrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testDecreaseMids_10Bands_someBandsAlreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands: [Float] = [randomEQGain(), randomEQGain(), randomEQGain(), minGain, randomEQGain(),
+                              randomEQGain(), minGain, randomEQGain(), randomEQGain(), randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeDecrease = eqUnit.bands
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseMids(by: decrement)
+        
+            let expectedBands = bandsBeforeDecrease.enumerated().map {(index, gain) -> Float in
+                
+                if (3...6).contains(index) {
+                    return (gain - decrement).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 3...6 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterDecrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
+    }
+    
     func testDecreaseMids_15Bands() {
         
         let eqUnit = EQUnit(persistentState: nil)
         
         doTestIncreaseOrDecreaseBandGains(eqUnit: eqUnit, testFunction: eqUnit.decreaseMids(by:), deltaMultiplier: -1,
                                           eqType: .fifteenBand, changedBands: Array(5...10), unchangedBands: Array(0...4) + Array(11..<15))
+    }
+    
+    func testDecreaseMids_15Bands_alreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands = Array(repeating: minGain, count: 15)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseMids(by: decrement)
+        
+            // Verify that the bands are unchaged by the decreaseMids() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterDecrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testDecreaseMids_15Bands_someBandsAlreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands: [Float] = [randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), minGain, randomEQGain(), minGain, randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeDecrease = eqUnit.bands
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseMids(by: decrement)
+        
+            let expectedBands = bandsBeforeDecrease.enumerated().map {(index, gain) -> Float in
+                
+                if (5...10).contains(index) {
+                    return (gain - decrement).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 5...10 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterDecrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
     }
     
     func testDecreaseTreble_10Bands() {
@@ -562,12 +1144,123 @@ class EQUnitTests: AudioGraphTestCase {
                                           eqType: .tenBand, changedBands: Array(7..<10), unchangedBands: Array(0...6))
     }
     
+    func testDecreaseTreble_10Bands_alreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands = Array(repeating: minGain, count: 10)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseTreble(by: decrement)
+        
+            // Verify that the bands are unchaged by the decreaseTreble() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterDecrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testDecreaseTreble_10Bands_someBandsAlreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .tenBand
+        
+        let bands: [Float] = [randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), maxGain, randomEQGain()]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeDecrease = eqUnit.bands
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseTreble(by: decrement)
+        
+            let expectedBands = bandsBeforeDecrease.enumerated().map {(index, gain) -> Float in
+                
+                if (7...9).contains(index) {
+                    return (gain - decrement).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 7...9 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterDecrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
+    }
+    
     func testDecreaseTreble_15Bands() {
         
         let eqUnit = EQUnit(persistentState: nil)
         
         doTestIncreaseOrDecreaseBandGains(eqUnit: eqUnit, testFunction: eqUnit.decreaseTreble(by:), deltaMultiplier: -1,
                                           eqType: .fifteenBand, changedBands: Array(11..<15), unchangedBands: Array(0...10))
+    }
+    
+    func testDecreaseTreble_15Bands_alreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands = Array(repeating: minGain, count: 15)
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseTreble(by: decrement)
+        
+            // Verify that the bands are unchaged by the decreaseTreble() call.
+            AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+            AssertEqual(bandsAfterDecrease, bands, accuracy: 0.001)
+        }
+    }
+    
+    func testDecreaseTreble_15Bands_someBandsAlreadyAtMinGain() {
+        
+        let eqUnit = EQUnit(persistentState: nil)
+        eqUnit.type = .fifteenBand
+        
+        let bands: [Float] = [randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(), randomEQGain(),
+                              randomEQGain(), randomEQGain(), minGain, randomEQGain(), minGain]
+        eqUnit.bands = bands
+        
+        AssertEqual(eqUnit.bands, bands, accuracy: 0.001)
+        
+        for _ in 1...100 {
+            
+            let bandsBeforeDecrease = eqUnit.bands
+            let decrement = Float.random(in: 0.1...5)
+            let bandsAfterDecrease = eqUnit.decreaseTreble(by: decrement)
+        
+            let expectedBands = bandsBeforeDecrease.enumerated().map {(index, gain) -> Float in
+                
+                if (11...14).contains(index) {
+                    return (gain - decrement).clamp(to: ParametricEQNode.validGainRange)
+                }
+                
+                return gain
+            }
+            
+            for index in 11...14 {
+                
+                XCTAssertEqual(eqUnit.bands[index], expectedBands[index], accuracy: 0.001)
+                XCTAssertEqual(bandsAfterDecrease[index], expectedBands[index], accuracy: 0.001)
+            }
+        }
     }
     
     ///

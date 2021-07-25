@@ -22,7 +22,7 @@ class EQUnitPersistenceTests: AudioGraphTestCase {
                 
                 let serializedState = EQUnitPersistentState(state: state,
                                                             userPresets: randomEQPresets(unitState: .active),
-                                                            type: .tenBand, globalGain: randomEQGlobalGain(),
+                                                            type: .tenBand, globalGain: randomEQGain(),
                                                             bands: randomEQ10Bands())
                 
                 doTestPersistence(serializedState: serializedState)
@@ -38,7 +38,7 @@ class EQUnitPersistenceTests: AudioGraphTestCase {
                 
                 let serializedState = EQUnitPersistentState(state: state,
                                                             userPresets: randomEQPresets(unitState: .active),
-                                                            type: .fifteenBand, globalGain: randomEQGlobalGain(),
+                                                            type: .fifteenBand, globalGain: randomEQGain(),
                                                             bands: randomEQ15Bands())
                 
                 doTestPersistence(serializedState: serializedState)

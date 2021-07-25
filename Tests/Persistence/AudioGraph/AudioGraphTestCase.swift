@@ -75,7 +75,7 @@ class AudioGraphTestCase: PersistenceTestCase {
             let bands = randomEQBands(forType: type ?? .randomCase())
             
             return EQPresetPersistentState(preset: EQPreset(name: "preset-\(index)", state: unitState ?? randomUnitState(),
-                                                     bands: bands, globalGain: randomEQGlobalGain(),
+                                                     bands: bands, globalGain: randomEQGain(),
                                                      systemDefined: false))
         }
     }
@@ -87,7 +87,7 @@ class AudioGraphTestCase: PersistenceTestCase {
     }
     
     func randomNillableEQGlobalGain() -> Float? {
-        randomNillableValue {self.randomEQGlobalGain()}
+        randomNillableValue {self.randomEQGain()}
     }
     
     func randomNillableEQ10Bands() -> [Float]? {
@@ -100,7 +100,7 @@ class AudioGraphTestCase: PersistenceTestCase {
     
     let validEQGainRange: ClosedRange<Float> = -20...20
     
-    func randomEQGlobalGain() -> Float {Float.random(in: validEQGainRange)}
+    func randomEQGain() -> Float {Float.random(in: validEQGainRange)}
     
     func randomEQBands(forType type: EQType) -> [Float] {
         type == .tenBand ? randomEQ10Bands() : randomEQ15Bands()

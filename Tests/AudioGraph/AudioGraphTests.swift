@@ -19,7 +19,7 @@ class AudioGraphTests: AudioGraphTestCase {
             
             let eq = EQUnitPersistentState(state: randomUnitState(),
                                            userPresets: randomEQPresets(unitState: .active),
-                                           type: .tenBand, globalGain: randomEQGlobalGain(),
+                                           type: .tenBand, globalGain: randomEQGain(),
                                            bands: randomEQ10Bands())
             
             let pitchShift = PitchShiftUnitPersistentState(state: randomUnitState(),
