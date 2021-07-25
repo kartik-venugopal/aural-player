@@ -20,11 +20,15 @@ class EffectsUnit {
     
     var unitType: EffectsUnitType
     
-    var state: EffectsUnitState
+    var state: EffectsUnitState {
+        didSet {stateChanged()}
+    }
     
     var stateFunction: EffectsUnitStateFunction {
         {self.state}
     }
+    
+    private var stateChangeRequiresNotification: Bool = true
     
     // Intended to be overriden by subclasses.
     var avNodes: [AVAudioNode] {[]}
@@ -42,7 +46,7 @@ class EffectsUnit {
     
     func stateChanged() {
         
-        if isActive && unitType != .master {
+        if stateChangeRequiresNotification, isActive, unitType != .master {
             messenger.publish(.effects_unitActivated)
         }
     }
@@ -51,8 +55,6 @@ class EffectsUnit {
     func toggleState() -> EffectsUnitState {
         
         state = state == .active ? .bypassed : .active
-        stateChanged()
-        
         return state
     }
     
@@ -66,15 +68,28 @@ class EffectsUnit {
     func suppress() {
         
         if state == .active {
-            state = .suppressed
+            
+            // FIXME - Must call stateChanged() here, but somehow prevent the message
+            // from being published.
+            changeStateWithoutNotifying(to: .suppressed)
         }
     }
     
     func unsuppress() {
         
         if state == .suppressed {
-            state = .active
+            
+            // FIXME - Must call stateChanged() here, but somehow prevent the message
+            // from being published.
+            changeStateWithoutNotifying(to: .active)
         }
+    }
+    
+    private func changeStateWithoutNotifying(to newState: EffectsUnitState) {
+        
+        stateChangeRequiresNotification = false
+        state = newState
+        stateChangeRequiresNotification = true
     }
     
     // Intended to be overriden by subclasses.
