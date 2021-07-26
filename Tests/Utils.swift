@@ -559,9 +559,7 @@ func randomPlaybackPosition() -> Double {
 extension Array {
     
     func randomElement() -> Element {
-        
-        let randomIndex: Int = Int.random(in: self.indices)
-        return self[randomIndex]
+        self[.random(in: self.indices)]
     }
 }
 
