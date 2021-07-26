@@ -16,7 +16,7 @@ import AVFoundation
 ///
 class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateObserver {
     
-    private let node: HostedAUNode
+    let node: HostedAUNode
     
     var name: String {node.componentName}
     var version: String {node.componentVersion}

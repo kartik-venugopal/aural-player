@@ -379,15 +379,15 @@ class AudioGraphTestCase: PersistenceTestCase {
         XCTAssertEqual(Set(filterUnit.presets.userDefinedPresets), expectedPresets)
     }
     
-    func randomFilterBandType() -> FilterBandType {FilterBandType.randomCase()}
+    func randomFilterBandType() -> FilterBandType {.randomCase()}
     
     func randomFilterFrequency() -> Float {
-        Float.random(in: SoundConstants.audibleRangeMin...SoundConstants.audibleRangeMax)
+        .random(in: SoundConstants.audibleRangeMin...SoundConstants.audibleRangeMax)
     }
     
     func randomFilterBands() -> [FilterBandPersistentState] {
         
-        let numBands = Int.random(in: 1...10)
+        let numBands = Int.random(in: 0...31)
         return (0..<numBands).map {_ in
             
             let type = randomFilterBandType()

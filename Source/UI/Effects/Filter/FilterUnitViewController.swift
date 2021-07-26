@@ -83,7 +83,7 @@ class FilterUnitViewController: EffectsUnitViewController {
     @IBAction func removeBandAction(_ sender: AnyObject) {
         
         let selectedTab = filterUnitView.selectedTab
-        filterUnit.removeBands(atIndices: IndexSet([selectedTab]))
+        filterUnit.removeBand(at: selectedTab)
         
         // Remove the selected band's controller and view
         filterUnitView.removeSelectedBand()

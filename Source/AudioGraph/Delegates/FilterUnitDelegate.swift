@@ -40,7 +40,7 @@ class FilterUnitDelegate: EffectsUnitDelegate<FilterUnit>, FilterUnitDelegatePro
         set(newBand) {unit[index] = newBand}
     }
     
-    func removeBands(atIndices indexSet: IndexSet) {
-        unit.removeBands(atIndices: indexSet)
+    func removeBand(at index: Int) {
+        unit.removeBand(at: index)
     }
 }

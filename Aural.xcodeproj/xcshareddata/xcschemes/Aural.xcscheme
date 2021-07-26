@@ -40,51 +40,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "AVAudioExtensionsTests">
-               </Test>
-               <Test
-                  Identifier = "AppStatePersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "AudioDevicePersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "AudioGraphPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "AudioGraphTestCase">
-               </Test>
-               <Test
-                  Identifier = "AudioUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "AuralTestCase">
-               </Test>
-               <Test
-                  Identifier = "BookmarksPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "ColorSchemesPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "ControlBarPlayerUIPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "ControlsPreferencesTests">
-               </Test>
-               <Test
-                  Identifier = "DelayUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "EQUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "FavoritesPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "FilterUnitPersistenceTests">
-               </Test>
-               <Test
                   Identifier = "FlatPlaylistTestCase">
                </Test>
                <Test
@@ -112,31 +67,19 @@
                   Identifier = "FlatPlaylistTests_TrackAccessByIndex">
                </Test>
                <Test
-                  Identifier = "FontSchemesPersistenceTests">
-               </Test>
-               <Test
                   Identifier = "GesturesControlsPreferencesTests">
                </Test>
                <Test
                   Identifier = "GroupingPlaylistTests">
                </Test>
                <Test
-                  Identifier = "HistoryPersistenceTests">
-               </Test>
-               <Test
                   Identifier = "HistoryPreferencesTests">
-               </Test>
-               <Test
-                  Identifier = "MasterUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "MathUtilsTests">
                </Test>
                <Test
                   Identifier = "MediaKeysControlsPreferencesTests">
-               </Test>
-               <Test
-                  Identifier = "MenuBarPlayerUIPersistenceTests">
                </Test>
                <Test
                   Identifier = "Messenger_AsynchronousNotificationsTests">
@@ -157,9 +100,6 @@
                   Identifier = "MetadataPreferencesTests">
                </Test>
                <Test
-                  Identifier = "MusicBrainzCachePersistenceTests">
-               </Test>
-               <Test
                   Identifier = "MusicBrainzPreferencesTests">
                </Test>
                <Test
@@ -169,16 +109,10 @@
                   Identifier = "PersistenceTestCase">
                </Test>
                <Test
-                  Identifier = "PitchShiftUnitPersistenceTests">
-               </Test>
-               <Test
                   Identifier = "PlaybackLoopTests">
                </Test>
                <Test
                   Identifier = "PlaybackPreferencesTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackProfilesPersistenceTests">
                </Test>
                <Test
                   Identifier = "PlaybackSequenceCreationTests">
@@ -190,9 +124,6 @@
                   Identifier = "PlaybackSequencePeekingTests">
                </Test>
                <Test
-                  Identifier = "PlaybackSequencePersistenceTests">
-               </Test>
-               <Test
                   Identifier = "PlaybackSequenceRepeatAndShuffleTests">
                </Test>
                <Test
@@ -202,22 +133,13 @@
                   Identifier = "PlaybackSessionTests">
                </Test>
                <Test
-                  Identifier = "PlayerUIPersistenceTests">
-               </Test>
-               <Test
                   Identifier = "PlaylistItemArrayTests">
-               </Test>
-               <Test
-                  Identifier = "PlaylistPersistenceTests">
                </Test>
                <Test
                   Identifier = "PlaylistPreferencesTests">
                </Test>
                <Test
                   Identifier = "PlaylistTestCase">
-               </Test>
-               <Test
-                  Identifier = "PlaylistUIPersistenceTests">
                </Test>
                <Test
                   Identifier = "PreferencesTestCase">
@@ -227,9 +149,6 @@
                </Test>
                <Test
                   Identifier = "RemoteControlPreferencesTests">
-               </Test>
-               <Test
-                  Identifier = "ReverbUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "SequencerBeginAndEndTests">
@@ -251,9 +170,6 @@
                </Test>
                <Test
                   Identifier = "SequencerPeeking_TracksPlaylist_Tests">
-               </Test>
-               <Test
-                  Identifier = "SequencerPersistenceTests">
                </Test>
                <Test
                   Identifier = "SequencerPlaylistReorderingTests">
@@ -283,31 +199,10 @@
                   Identifier = "SoundPreferencesTests">
                </Test>
                <Test
-                  Identifier = "SoundProfilesPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "ThemesPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "TimeStretchUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "UIPersistenceTests">
-               </Test>
-               <Test
                   Identifier = "ValueFormatterTests">
                </Test>
                <Test
                   Identifier = "ViewPreferencesTests">
-               </Test>
-               <Test
-                  Identifier = "VisualizerUIPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "WindowLayoutsPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "WindowUIPersistenceTests">
                </Test>
             </SkippedTests>
          </TestableReference>

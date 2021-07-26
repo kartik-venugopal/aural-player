@@ -51,8 +51,8 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         return node.addBand(band)
     }
     
-    func removeBands(atIndices indexSet: IndexSet) {
-        node.removeBands(atIndices: indexSet)
+    func removeBand(at index: Int) {
+        node.removeBands(atIndices: IndexSet([index]))
     }
     
     override func savePreset(named presetName: String) {

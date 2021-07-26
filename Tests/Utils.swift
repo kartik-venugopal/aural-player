@@ -36,7 +36,7 @@ func randomString(length: Int) -> String {
 extension CaseIterable where Self: RawRepresentable, AllCases == [Self] {
     
     static func randomCase() -> Self {
-        return allCases[Int.random(in: allCases.indices)]
+        allCases.randomElement()
     }
 }
 

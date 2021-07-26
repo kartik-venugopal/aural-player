@@ -128,6 +128,28 @@ extension XCTestCase {
         XCTAssertEqual(theVal1, theVal2, accuracy: accuracy)
     }
     
+    func AssertNotEqual(_ val1: Float?, _ val2: Float?) {
+
+        if val1 == nil && val2 == nil {
+            
+            XCTFail("Both Float values are nil.")
+            return
+        }
+        
+        // Pass
+        if (val1 == nil) != (val2 == nil) {
+            return
+        }
+        
+        guard let f1 = val1, let f2 = val2 else {
+            
+            XCTFail("Both Float values expected to be non-nil.")
+            return
+        }
+
+        XCTAssertNotEqual(f1, f2)
+    }
+    
     func AssertEqual(_ val1: Double?, _ val2: Double?, accuracy: Double) {
         
         guard let theVal1 = val1, let theVal2 = val2 else {
@@ -193,4 +215,6 @@ extension XCTestCase {
             XCTAssertNotEqual(elm1, elm2)
         }
     }
+    
+   
 }

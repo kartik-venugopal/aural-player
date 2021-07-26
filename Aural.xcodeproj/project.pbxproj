@@ -124,6 +124,7 @@
 		3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */; };
 		3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */; };
 		3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E836B5225DD3ABC00B9E303 /* monaco.ttf */; };
+		3E2779E226AEF21D00291244 /* HostedAudioUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2779E126AEF21D00291244 /* HostedAudioUnitTests.swift */; };
 		3E2976132629473500459272 /* WindowCornerRadiusMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */; };
 		3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontScheme.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */; };
@@ -980,12 +981,10 @@
 		3ECE4BF526961ECB0017DD25 /* MetadataPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF426961ECB0017DD25 /* MetadataPreferencesTests.swift */; };
 		3ECE4BF8269620F70017DD25 /* ControlsPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF7269620F70017DD25 /* ControlsPreferencesTests.swift */; };
 		3ECF275C26A5567000974120 /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF275B26A5567000974120 /* FontSet.swift */; };
-		3ED5A13126996E12007E5343 /* HostedAudioUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5A13026996E12007E5343 /* HostedAudioUnitTests.swift */; };
 		3ED5A13326996E53007E5343 /* HostedAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633C62685FAD0006A88ED /* HostedAudioUnit.swift */; };
 		3ED5A13526996E5A007E5343 /* AudioUnitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */; };
 		3ED5A13726996E67007E5343 /* HostedAudioUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36340126863150006A88ED /* HostedAudioUnitProtocol.swift */; };
 		3ED5A13926996E6A007E5343 /* HostedAUNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBF3022619CD4500AD5C30 /* HostedAUNode.swift */; };
-		3ED5A13C26996F3B007E5343 /* MockAVAudioUnitComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5A13B26996F3B007E5343 /* MockAVAudioUnitComponent.swift */; };
 		3ED5A13F269973A1007E5343 /* AudioGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5A13E269973A1007E5343 /* AudioGraphTests.swift */; };
 		3ED5A14126997886007E5343 /* AudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110025CEB98700BF0D07 /* AudioGraph.swift */; };
 		3ED5A14326997890007E5343 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110F25CEB98700BF0D07 /* AudioEngine.swift */; };
@@ -1300,6 +1299,7 @@
 		3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo-Medium.ttf"; sourceTree = "<group>"; };
 		3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CarroisGothicSC-Regular.ttf"; sourceTree = "<group>"; };
 		3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metamorphous-Regular.ttf"; sourceTree = "<group>"; };
+		3E2779E126AEF21D00291244 /* HostedAudioUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitTests.swift; sourceTree = "<group>"; };
 		3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCornerRadiusMenuItemView.swift; sourceTree = "<group>"; };
 		3E2ED4A425DBAD8400732E79 /* FontScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontScheme.swift; sourceTree = "<group>"; };
 		3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreset.swift; sourceTree = "<group>"; };
@@ -2081,8 +2081,6 @@
 		3ECE4BF426961ECB0017DD25 /* MetadataPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesTests.swift; sourceTree = "<group>"; };
 		3ECE4BF7269620F70017DD25 /* ControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsPreferencesTests.swift; sourceTree = "<group>"; };
 		3ECF275B26A5567000974120 /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
-		3ED5A13026996E12007E5343 /* HostedAudioUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitTests.swift; sourceTree = "<group>"; };
-		3ED5A13B26996F3B007E5343 /* MockAVAudioUnitComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVAudioUnitComponent.swift; sourceTree = "<group>"; };
 		3ED5A13E269973A1007E5343 /* AudioGraphTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphTests.swift; sourceTree = "<group>"; };
 		3ED5A15D26997AA0007E5343 /* AVAudioFormatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioFormatExtensions.swift; sourceTree = "<group>"; };
 		3ED6D8EE26924FDC007DA433 /* HistoryPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPreferencesTests.swift; sourceTree = "<group>"; };
@@ -4030,8 +4028,7 @@
 				3E871A60269905AA00C626DC /* ReverbUnitTests.swift */,
 				3E871A6726990B6800C626DC /* DelayUnitTests.swift */,
 				3E871A6E26990D2C00C626DC /* FilterUnitTests.swift */,
-				3ED5A13026996E12007E5343 /* HostedAudioUnitTests.swift */,
-				3ED5A13B26996F3B007E5343 /* MockAVAudioUnitComponent.swift */,
+				3E2779E126AEF21D00291244 /* HostedAudioUnitTests.swift */,
 				3E82A2CE26ACC8670013AB8E /* MockAudioEngine.swift */,
 			);
 			path = "\U0010AudioGraph";
@@ -5991,7 +5988,6 @@
 				3EA1BDF8268F50B900A5D81B /* Utils.swift in Sources */,
 				3EF28DAF2694DF95005D5B43 /* ThemesPersistentState.swift in Sources */,
 				3E871A202698E9C500C626DC /* TracksSort.swift in Sources */,
-				3ED5A13126996E12007E5343 /* HostedAudioUnitTests.swift in Sources */,
 				3EA1BE1C268F629100A5D81B /* PlaybackSessionTests.swift in Sources */,
 				3E6787702697B60300408566 /* FlatPlaylistTests+MoveTracksToTop.swift in Sources */,
 				3EA1BDFB268F50F800A5D81B /* ExclusiveAccessSemaphore.swift in Sources */,
@@ -6027,6 +6023,7 @@
 				3EF28DC22694EDC1005D5B43 /* AppStatePersistenceTests.swift in Sources */,
 				3ED5A13F269973A1007E5343 /* AudioGraphTests.swift in Sources */,
 				3EA62F462693BE3D004A780A /* AudioGraphPersistentState.swift in Sources */,
+				3E2779E226AEF21D00291244 /* HostedAudioUnitTests.swift in Sources */,
 				3EEF3743268F6D5D002EA77F /* SequencerPlaylistReorderingTests.swift in Sources */,
 				3EEF373D268F6B83002EA77F /* SequencerPersistenceTests.swift in Sources */,
 				3EEF3747268F6D5D002EA77F /* SequencerIteration_GroupingPlaylists_Tests.swift in Sources */,
@@ -6070,7 +6067,6 @@
 				3EE4B875268FD5A9006BDEB2 /* EQUnitPersistenceTests.swift in Sources */,
 				3E5ECA4E268F4DCC000AE8B7 /* FloatingPointExtensions.swift in Sources */,
 				3E871A3D2698F13900C626DC /* EQUnitTests.swift in Sources */,
-				3ED5A13C26996F3B007E5343 /* MockAVAudioUnitComponent.swift in Sources */,
 				3EFDA97B268F7F1200CFF785 /* PitchShiftUnitPersistenceTests.swift in Sources */,
 				3E871A492698FA4800C626DC /* EQUnitProtocol.swift in Sources */,
 				3EABDDAC26949052008066E8 /* NSPointPersistentState.swift in Sources */,
