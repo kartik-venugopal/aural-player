@@ -105,7 +105,9 @@ class AVFFileReader: FileReaderProtocol {
     }
     
     func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
-        return try AVFPlaybackContext(for: file)
+        
+        let audioFile: AVAudioFile = try AVAudioFile(forReading: file)
+        return try AVFPlaybackContext(for: audioFile)
     }
     
     func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
@@ -148,7 +150,9 @@ class AVFFileReader: FileReaderProtocol {
         if optionalPlaybackContext == nil {
             
             do {
-                optionalPlaybackContext = try AVFPlaybackContext(for: file)
+                
+                let audioFile: AVAudioFile = try AVAudioFile(forReading: file)
+                optionalPlaybackContext = AVFPlaybackContext(for: audioFile)
             } catch {}
         }
         

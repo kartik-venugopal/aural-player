@@ -9,32 +9,19 @@
 //  
 import AVFoundation
 
-class MockAVFPlaybackContext: PlaybackContextProtocol {
+class MockAVFPlaybackContext: AVFPlaybackContext {
     
-    var file: URL
-    
-    var duration: Double
-    
-    var audioFormat: AVAudioFormat
-    
-    var sampleRate: Double
-    
-    var frameCount: Int64
-    
-    init(file: URL, duration: Double, audioFormat: AVAudioFormat, sampleRate: Double = 44100) {
+    init(file: URL, duration: Double, audioFormat: AVAudioFormat) {
         
-        self.file = file
-        self.duration = duration
-        self.audioFormat = audioFormat
-        self.sampleRate = sampleRate
-        self.frameCount = AVAudioFramePosition.fromTrackTime(duration, sampleRate)
+        let audioFile = MockAVAudioFile(url: file, processingFormat: audioFormat, duration: duration)
+        super.init(for: audioFile)
     }
     
-    func open() throws {
+    override func open() throws {
         
     }
     
-    func close() {
+    override func close() {
         
     }
 }

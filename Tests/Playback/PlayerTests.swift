@@ -57,8 +57,7 @@ class PlayerTests: AuralTestCase {
         let format: AVAudioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2)!
 
         track.duration = duration
-        let ctx = MockAVFPlaybackContext(file: track.file, duration: duration, audioFormat: format, sampleRate: sampleRate)
-        track.playbackContext = ctx
+        track.playbackContext = MockAVFPlaybackContext(file: track.file, duration: duration, audioFormat: format)
     }
 
     func testPlay_noPlaybackContext() {

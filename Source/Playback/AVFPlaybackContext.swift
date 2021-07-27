@@ -25,14 +25,14 @@ class AVFPlaybackContext: PlaybackContextProtocol {
     
     var duration: Double {computedDuration}
     
-    init(for file: URL) throws {
+    init(for audioFile: AVAudioFile) {
 
-        self.file = file
-        self.audioFile = try AVAudioFile(forReading: file)
+        self.audioFile = audioFile
+        self.file = audioFile.url
 
-        self.audioFormat = audioFile!.processingFormat
+        self.audioFormat = audioFile.processingFormat
         self.sampleRate = audioFormat.sampleRate
-        self.frameCount = audioFile!.length
+        self.frameCount = audioFile.length
         self.computedDuration = Double(frameCount) / sampleRate
     }
     
