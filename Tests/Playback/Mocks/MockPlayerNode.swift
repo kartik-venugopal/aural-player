@@ -48,7 +48,10 @@ class MockPlayerNode: AuralPlayerNode {
         scheduleSegment_endTime = nil
     }
     
-    override func scheduleSegment(_ session: PlaybackSession, _ completionHandler: @escaping SessionCompletionHandler, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil, _ immediatePlayback: Bool = true) -> PlaybackSegment? {
+    override func scheduleSegment(session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler,
+                                  startTime: Double, endTime: Double? = nil,
+                                  playingFile: AVAudioFile, startFrame: AVAudioFramePosition? = nil,
+                                  immediatePlayback: Bool = true) -> PlaybackSegment? {
 
         scheduleSegment_callCount += 1
         

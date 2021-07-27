@@ -103,9 +103,12 @@ class AuralPlayerNode: AVAudioPlayerNode {
         super.pause()
     }
     
-    func scheduleSegment(_ session: PlaybackSession, _ completionHandler: @escaping SessionCompletionHandler, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil, _ immediatePlayback: Bool = true) -> PlaybackSegment? {
+    func scheduleSegment(session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler,
+                         startTime: Double, endTime: Double? = nil,
+                         playingFile: AVAudioFile, startFrame: AVAudioFramePosition? = nil,
+                         immediatePlayback: Bool = true) -> PlaybackSegment? {
 
-        guard let segment = computeSegment(session, startTime, endTime, startFrame) else {return nil}
+        guard let segment = computeSegment(session, startTime, endTime, playingFile, startFrame) else {return nil}
         
         scheduleSegment(segment, completionHandler, immediatePlayback)
         return segment
@@ -183,11 +186,10 @@ class AuralPlayerNode: AVAudioPlayerNode {
     }
     
     // Computes an audio file segment. Given seek times, computes the corresponding audio frames.
-    func computeSegment(_ session: PlaybackSession, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil) -> PlaybackSegment? {
+    func computeSegment(_ session: PlaybackSession, _ startTime: Double, _ endTime: Double? = nil,
+                        _ playingFile: AVAudioFile, _ startFrame: AVAudioFramePosition? = nil) -> PlaybackSegment? {
         
-        guard let playbackCtx = session.track.playbackContext as? AVFPlaybackContext, areStartAndEndTimeValid(startTime, endTime),
-              let playingFile: AVAudioFile = playbackCtx.audioFile else {
-            
+        guard let playbackCtx = session.track.playbackContext, areStartAndEndTimeValid(startTime, endTime) else {
             return nil
         }
         

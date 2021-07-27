@@ -14,7 +14,7 @@ import XCTest
  */
 class PlaybackSessionTests: XCTestCase {
     
-    private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path"))
+    private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path/song.mp3"))
     
     override func setUp() {
         _ = PlaybackSession.endCurrent()

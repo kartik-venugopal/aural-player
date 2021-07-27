@@ -13,7 +13,8 @@ import AVFoundation
 class AuralPlayerNodeTests: AuralTestCase {
 
     private var playerNode: TestableAuralPlayerNode = TestableAuralPlayerNode(useLegacyAPI: false, volume: 1, pan: 0)
-    private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path"))
+    private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path/song.mp3"))
+    private var audioFile: AVAudioFile!
 
     override func setUp() {
 
@@ -26,7 +27,11 @@ class AuralPlayerNodeTests: AuralTestCase {
         let format: AVAudioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2)!
 
         track.duration = duration
-        track.playbackContext = MockAVFPlaybackContext(file: track.file, duration: duration, audioFormat: format)
+        
+        let ctx = MockAVFPlaybackContext(file: track.file, duration: duration, audioFormat: format)
+        audioFile = ctx.audioFile
+        track.playbackContext = ctx
+        
     }
 
     func testSeekPosition_playing_startedAt0() {
@@ -66,24 +71,8 @@ class AuralPlayerNodeTests: AuralTestCase {
     // MARK: scheduleSegment(session) tests ------------------------------------------------------------------------------------------------------------
     // NOTE - These tests also exercise computeSegment() so there is no need to test it separately.
 
-    func testScheduleSegmentWithSession_startTimeOnly_noPlaybackInfo() {
-
-        // If no playback info is present within the track, no scheduling should take place.
-        track.playbackContext = nil
-
-        let session = PlaybackSession.start(track)
-        let segment = playerNode.scheduleSegment(session, {(PlaybackSession) -> Void in }, 0)
-
-        // A nil segment means no scheduling took place
-        XCTAssertNil(segment)
-
-        XCTAssertEqual(playerNode.scheduleSegment_callCount, 0)
-        XCTAssertNil(playerNode.scheduleSegment_startFrame)
-        XCTAssertNil(playerNode.scheduleSegment_frameCount)
-    }
-
     func testScheduleSegmentWithSession_startTimeOnly_validPlaybackInfo_0startTime() {
-
+        
         doScheduleSegmentWithSession(300, 44100, 0, nil, nil, 1)
         doScheduleSegmentWithSession(60, 48000, 0, nil, nil, 2)
         doScheduleSegmentWithSession(3.54645, 96000, 0, nil, nil, 3)
@@ -186,13 +175,15 @@ class AuralPlayerNodeTests: AuralTestCase {
         doScheduleSegmentWithSession(59.324253322, 192000, 59.324253322, nil, AVAudioFramePosition.fromTrackTime(59.33333, 192000), 4)
     }
 
-    private func doScheduleSegmentWithSession(_ trackDuration: Double, _ sampleRate: Double, _ startTime: Double, _ endTime: Double?, _ firstFrame: AVAudioFramePosition?, _ expectedCallCount: Int) {
+    private func doScheduleSegmentWithSession(_ trackDuration: Double, _ sampleRate: Double, _ startTime: Double, _ endTime: Double?,
+                                              _ firstFrame: AVAudioFramePosition?, _ expectedCallCount: Int) {
 
         // Set up the track with valid playback info (duration of 5 minutes and a sample rate of 44100 Hz).
         initTrack(trackDuration, sampleRate)
 
         let session = PlaybackSession.start(track)
-        let segment = playerNode.scheduleSegment(session, {(PlaybackSession) -> Void in }, startTime, endTime, firstFrame)
+        let segment = playerNode.scheduleSegment(session: session, completionHandler: {(PlaybackSession) -> Void in },
+                                                 startTime: startTime, endTime: endTime, playingFile: audioFile, startFrame: firstFrame)
 
         // A nil segment means no scheduling took place.
         XCTAssertNotNil(segment)
@@ -332,35 +323,38 @@ class AuralPlayerNodeTests: AuralTestCase {
 
         let session = PlaybackSession.start(track)
 
-        if let segment = playerNode.computeSegment(session, startTime, endTime) {
-
-            playerNode.scheduleSegment(segment, {(PlaybackSession) -> Void in }, immediatePlayback)
-
-            if immediatePlayback {
-
-                XCTAssertEqual(playerNode.startFrame, segment.firstFrame)
-                XCTAssertEqual(playerNode.cachedSeekPosn, segment.startTime)
-
-            } else {
-
-                XCTAssertEqual(playerNode.startFrame, nodeStartFrameBeforeScheduling)
-                XCTAssertEqual(playerNode.cachedSeekPosn, nodeCachedSeekPosnBeforeScheduling)
-            }
-
-            XCTAssertEqual(segment.session, session)
-
-            XCTAssertEqual(segment.startTime, startTime, accuracy: 0.001)
-            XCTAssertEqual(segment.endTime, endTime ?? trackDuration, accuracy: 0.001)
-
-            XCTAssertEqual(playerNode.scheduleSegment_audioFile?.url, track.playbackContext!.file)
-            XCTAssertEqual(segment.playingFile.url, track.playbackContext!.file)
-
-            XCTAssertEqual(playerNode.scheduleSegment_callCount, expectedCallCount)
-            XCTAssertEqual(playerNode.scheduleSegment_legacyAPI_callCount, useLegacyAPI ? expectedCallCount : 0)
-
-            XCTAssertEqual(playerNode.scheduleSegment_startFrame, segment.firstFrame)
-            XCTAssertEqual(playerNode.scheduleSegment_lastFrame, segment.lastFrame)
-            XCTAssertEqual(playerNode.scheduleSegment_frameCount, segment.frameCount)
+        guard let segment = playerNode.computeSegment(session, startTime, endTime, audioFile) else {
+            
+            XCTFail("Segment is supposed to be non-nil.")
+            return
         }
+
+        playerNode.scheduleSegment(segment, {(PlaybackSession) -> Void in }, immediatePlayback)
+        
+        if immediatePlayback {
+            
+            XCTAssertEqual(playerNode.startFrame, segment.firstFrame)
+            XCTAssertEqual(playerNode.cachedSeekPosn, segment.startTime)
+            
+        } else {
+            
+            XCTAssertEqual(playerNode.startFrame, nodeStartFrameBeforeScheduling)
+            XCTAssertEqual(playerNode.cachedSeekPosn, nodeCachedSeekPosnBeforeScheduling)
+        }
+        
+        XCTAssertEqual(segment.session, session)
+        
+        XCTAssertEqual(segment.startTime, startTime, accuracy: 0.001)
+        XCTAssertEqual(segment.endTime, endTime ?? trackDuration, accuracy: 0.001)
+        
+        XCTAssertEqual(playerNode.scheduleSegment_audioFile?.url, track.playbackContext!.file)
+        XCTAssertEqual(segment.playingFile.url, track.playbackContext!.file)
+        
+        XCTAssertEqual(playerNode.scheduleSegment_callCount, expectedCallCount)
+        XCTAssertEqual(playerNode.scheduleSegment_legacyAPI_callCount, useLegacyAPI ? expectedCallCount : 0)
+        
+        XCTAssertEqual(playerNode.scheduleSegment_startFrame, segment.firstFrame)
+        XCTAssertEqual(playerNode.scheduleSegment_lastFrame, segment.lastFrame)
+        XCTAssertEqual(playerNode.scheduleSegment_frameCount, segment.frameCount)
     }
 }

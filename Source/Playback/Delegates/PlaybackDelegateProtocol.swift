@@ -133,15 +133,15 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
 // Default function implementations
 extension PlaybackDelegateProtocol {
 
-    func play(_ index: Int, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+    func play(_ index: Int, _ params: PlaybackParams = .defaultParams()) {
         play(index, params)
     }
     
-    func play(_ track: Track, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+    func play(_ track: Track, _ params: PlaybackParams = .defaultParams()) {
         play(track, params)
     }
     
-    func play(_ group: Group, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+    func play(_ group: Group, _ params: PlaybackParams = .defaultParams()) {
         play(group, params)
     }
 }

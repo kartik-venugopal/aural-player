@@ -82,7 +82,13 @@ class AVFScheduler: PlaybackSchedulerProtocol {
         // Halt current playback
         stop()
         
-        _ = playerNode.scheduleSegment(session, segmentCompletionHandler(session), startTime)
+        guard let playbackCtx = session.track.playbackContext as? AVFPlaybackContext,
+              let audioFile = playbackCtx.audioFile else {
+            return
+        }
+        
+        _ = playerNode.scheduleSegment(session: session, completionHandler: segmentCompletionHandler(session),
+                                       startTime: startTime, playingFile: audioFile)
 
         // Don't start playing if player is paused
         if beginPlayback {
@@ -131,10 +137,13 @@ class AVFScheduler: PlaybackSchedulerProtocol {
         stop()
 
         // Validate the loop before proceeding
-        guard let loop = session.loop, let loopEndTime = loop.endTime, loop.containsPosition(startTime) else {return}
+        guard let loop = session.loop, let loopEndTime = loop.endTime, loop.containsPosition(startTime),
+              let playbackCtx = session.track.playbackContext as? AVFPlaybackContext,
+              let audioFile = playbackCtx.audioFile else {return}
 
         // Define the initial segment (which may not constitute the entire portion of the loop segment)
-        let segment = playerNode.scheduleSegment(session, loopCompletionHandler(session), startTime, loopEndTime)
+        let segment = playerNode.scheduleSegment(session: session, completionHandler: loopCompletionHandler(session),
+                                                 startTime: startTime, endTime: loopEndTime, playingFile: audioFile)
         
         // If this segment constitutes the entire loop segment, cache it for reuse later when restarting the loop.
         self.loopingSegment = loop.startTime == startTime ? segment : nil
@@ -159,10 +168,14 @@ class AVFScheduler: PlaybackSchedulerProtocol {
         }
         
         // Schedule a new segment starting from the loop's end time, up to the end of the track.
+        
+        guard let playbackCtx = session.track.playbackContext as? AVFPlaybackContext,
+              let audioFile = playbackCtx.audioFile else {return}
 
         // nil parameter indicates no specific end time (i.e. end of track is implied).
-        // false parameter value indicates this segment is not for immediate playback.
-        _ = playerNode.scheduleSegment(session, segmentCompletionHandler(session), loopEndTime, nil, newSegmentStartFrame, false)
+        _ = playerNode.scheduleSegment(session: session, completionHandler: segmentCompletionHandler(session),
+                                       startTime: loopEndTime, endTime: nil, playingFile: audioFile,
+                                       startFrame: newSegmentStartFrame, immediatePlayback: false)
     }
     
     // MARK: Completion handler functions -------------------------------------------------------
@@ -203,7 +216,14 @@ class AVFScheduler: PlaybackSchedulerProtocol {
         // Check if a loop segment was cached previously.
         // The very first time (i.e. the first restart of the loop), this may be nil, so compute it.
         if self.loopingSegment == nil {
-            self.loopingSegment = playerNode.scheduleSegment(session, loopCompletionHandler(session), startTime, endTime)
+            
+            guard let playbackCtx = session.track.playbackContext as? AVFPlaybackContext,
+                  let audioFile = playbackCtx.audioFile else {return}
+            
+            self.loopingSegment = playerNode.scheduleSegment(session: session,
+                                                             completionHandler: loopCompletionHandler(session),
+                                                             startTime: startTime, endTime: endTime,
+                                                             playingFile: audioFile)
             
         } else if let loopSegment = self.loopingSegment {
             

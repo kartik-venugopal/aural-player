@@ -21,7 +21,7 @@ class PlayerTests: AuralTestCase {
     private var mockScheduler: MockScheduler!
     private var mockPlayerNode: MockPlayerNode!
 
-    private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path"))
+    private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path/song.mp3"))
 
     override func setUp() {
         

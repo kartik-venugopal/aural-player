@@ -15,13 +15,13 @@ import Foundation
 class TrackReader {
     
     // The delegate object that this object defers all read operations to.
-    private var fileReader: FileReader
+    private var fileReader: FileReaderProtocol
     
-    private var coverArtReader: CoverArtReader
+    private var coverArtReader: CoverArtReaderProtocol
     
     private lazy var messenger = Messenger(for: self)
     
-    init(_ fileReader: FileReader, _ coverArtReader: CoverArtReader) {
+    init(_ fileReader: FileReaderProtocol, _ coverArtReader: CoverArtReaderProtocol) {
         
         self.fileReader = fileReader
         self.coverArtReader = coverArtReader
