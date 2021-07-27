@@ -22,9 +22,7 @@ class MockPlayerNode: AuralPlayerNode {
     }
     
     var _seekPosition: Double = 0
-    override var seekPosition: Double {
-        return _seekPosition
-    }
+    override var seekPosition: Double {_seekPosition}
     
     var scheduleSegment_callCount: Int = 0
     

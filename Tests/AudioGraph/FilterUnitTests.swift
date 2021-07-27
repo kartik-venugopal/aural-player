@@ -26,6 +26,12 @@ class FilterUnitTests: AudioGraphTestCase {
         }
     }
     
+    private func doTestInit(persistentState: FilterUnitPersistentState) {
+        
+        let filterUnit = FilterUnit(persistentState: persistentState)
+        validate(filterUnit, persistentState: persistentState)
+    }
+    
     private func randomBand() -> FilterBand {
         
         let type = randomFilterBandType()
@@ -60,12 +66,6 @@ class FilterUnitTests: AudioGraphTestCase {
         
         let numBands = allowZeroBands ? Int.random(in: 0...31) : Int.random(in: 1...31)
         return (0..<numBands).map {_ in randomBand()}
-    }
-    
-    private func doTestInit(persistentState: FilterUnitPersistentState) {
-        
-        let filterUnit = FilterUnit(persistentState: persistentState)
-        validate(filterUnit, persistentState: persistentState)
     }
     
     func testToggleState() {

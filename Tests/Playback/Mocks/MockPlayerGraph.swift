@@ -16,18 +16,12 @@ class MockPlayerGraph: PlayerGraphProtocol {
     var reconnectedPlayerNodeWithFormat: Bool = false
     var playerConnectionFormat: AVAudioFormat? = nil
     
-    func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
+    func reconnectPlayerNode(withFormat format: AVAudioFormat) {
         
         reconnectedPlayerNodeWithFormat = true
         playerConnectionFormat = format
     }
     
     func clearSoundTails() {
-    }
-    
-    var audioEngineRestarted: Bool = false
-    
-    func restartAudioEngine() {
-        audioEngineRestarted = true
     }
 }

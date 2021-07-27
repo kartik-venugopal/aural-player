@@ -31,7 +31,7 @@ class Player: PlayerProtocol {
     private let avfScheduler: PlaybackSchedulerProtocol
     private let ffmpegScheduler: PlaybackSchedulerProtocol
     
-    private lazy var messenger = Messenger(for: self)
+    private(set) lazy var messenger = Messenger(for: self)
     
     private(set) var state: PlaybackState = .noTrack {
         didSet {messenger.publish(.player_playbackStateChanged)}
