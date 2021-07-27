@@ -143,7 +143,7 @@ import XCTest
 //    
 //    func testStartPlayback_noRequestedTrack() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, nil, PlaybackParams.defaultParams())
 //        
@@ -154,7 +154,7 @@ import XCTest
 //    
 //    func testStartPlayback_requestedTrackInvalid() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestedTrack = createTrack("Silene", 420, isValid: false)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
@@ -169,8 +169,8 @@ import XCTest
 //    
 //    func testStartPlayback() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Silene", 420)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Silene", duration: 420)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //        
@@ -181,8 +181,8 @@ import XCTest
 //    
 //    func testStartPlayback_currentTrackIsTranscoding_transcodingCancelled() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Silene", 420)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Silene", duration: 420)
 //        
 //        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
 //        
@@ -196,7 +196,7 @@ import XCTest
 //    
 //    func testStartPlayback_currentTrackIsWaiting_oldContextInvalidated() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        
 //        let oldRequestParams = PlaybackParams.defaultParams().withDelay(3)
 //        let oldContext = PlaybackRequestContext(.noTrack, nil, 0, currentTrack, oldRequestParams)
@@ -207,7 +207,7 @@ import XCTest
 //        XCTAssertEqual(player.state, .waiting)
 //        XCTAssertTrue(PlaybackRequestContext.isCurrent(oldContext))
 //        
-//        let requestedTrack = createTrack("Silene", 420)
+//        let requestedTrack = createTrack(title: "Silene", duration: 420)
 //        let context = PlaybackRequestContext(.waiting, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
 //        
 //        chain.execute(context)
@@ -227,12 +227,12 @@ import XCTest
 //    
 //    func testStartPlayback_currentTrackhasPlaybackProfile_profileSaved() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Silene", 420)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Silene", duration: 420)
 //        
 //        let oldProfile = PlaybackProfile(currentTrack, 125.324235346746)
-//        profiles.add(currentTrack, oldProfile)
-//        XCTAssertNotNil(profiles.get(currentTrack))
+//        profiles[currentTrack] = oldProfile
+//        XCTAssertNotNil(profiles[currentTrack])
 //        
 //        preferences.rememberLastPosition = true
 //        preferences.rememberLastPositionOption = .individualTracks
@@ -242,7 +242,7 @@ import XCTest
 //        chain.execute(context)
 //        
 //        // Ensure profile was updated
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.lastPosition, context.currentSeekPosition)
 //        
 //        assertTrackChange(currentTrack, .playing, requestedTrack, 1)
@@ -250,12 +250,12 @@ import XCTest
 //    
 //    func testStartPlayback_currentTrackHasPlaybackProfile_profilePositionResetTo0() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Silene", 420)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Silene", duration: 420)
 //        
 //        let oldProfile = PlaybackProfile(currentTrack, 125.324235346746)
-//        profiles.add(currentTrack, oldProfile)
-//        XCTAssertNotNil(profiles.get(currentTrack))
+//        profiles[currentTrack] = oldProfile
+//        XCTAssertNotNil(profiles[currentTrack])
 //        
 //        preferences.rememberLastPosition = true
 //        preferences.rememberLastPositionOption = .individualTracks
@@ -265,7 +265,7 @@ import XCTest
 //        chain.execute(context)
 //        
 //        // Ensure profile was reset to 0
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.lastPosition, 0)
 //        
 //        assertTrackChange(currentTrack, .playing, requestedTrack, 1)
@@ -273,8 +273,8 @@ import XCTest
 //    
 //    func testStartPlayback_delayBeforeRequestedTrack() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Silene", 420)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Silene", duration: 420)
 //        
 //        let requestParams = PlaybackParams.defaultParams().withDelay(3)
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, requestParams)
@@ -290,7 +290,7 @@ import XCTest
 //    
 //    func testStartPlayback_delayBeforeRequestedTrack_requestedTrackInvalid() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestedTrack = createTrack("Silene", 420, isValid: false)
 //        
 //        let requestParams = PlaybackParams.defaultParams().withDelay(3)
@@ -307,8 +307,8 @@ import XCTest
 //    
 //    func testStartPlayback_gapBeforeRequestedTrack() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Silene", 420)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Silene", duration: 420)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //        
@@ -327,8 +327,8 @@ import XCTest
 //    
 //    func testStartPlayback_requestedTrackNeedsTranscoding() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Silene", "ogg", 420)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Silene", "ogg", duration: 420)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //        
@@ -352,8 +352,8 @@ import XCTest
 //    
 //    func testStartPlayback_requestedTrackNeedsTranscoding_transcodingFailed() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Silene", "ogg", 420)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Silene", "ogg", duration: 420)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //        

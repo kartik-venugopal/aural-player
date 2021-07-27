@@ -83,10 +83,10 @@ class PlaybackDelegateTests: AuralTestCase {
     }
 
     override func tearDown() {
-
-//        Messenger.unsubscribeAll(for: self)
-//        Messenger.unsubscribeAll(for: delegate)
-//        Messenger.unsubscribeAll(for: startPlaybackChain)
+        
+        messenger.unsubscribeFromAll()
+        delegate.stopListeningForMessages()
+        startPlaybackChain.stopListeningForMessages()
     }
 
     func verifyRequestContext_startPlaybackChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track, _ requestParams: PlaybackParams, _ cancelTranscoding: Bool) {
@@ -101,39 +101,35 @@ class PlaybackDelegateTests: AuralTestCase {
         XCTAssertEqual(startPlaybackChain.executedContext!.requestParams.startPosition, requestParams.startPosition)
         XCTAssertEqual(startPlaybackChain.executedContext!.requestParams.endPosition, requestParams.endPosition)
     }
-//
-//    func verifyRequestContext_stopPlaybackChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double) {
-//
-//        XCTAssertEqual(stopPlaybackChain.executedContext!.currentState, currentState)
-//        XCTAssertEqual(stopPlaybackChain.executedContext!.currentTrack, currentTrack)
-//        XCTAssertEqual(stopPlaybackChain.executedContext!.currentSeekPosition, currentSeekPosition, accuracy: 0.001)
-//
-//        XCTAssertNil(stopPlaybackChain.executedContext!.requestedTrack)
-//
-//        let requestParams = PlaybackParams.defaultParams()
-//
-//        XCTAssertEqual(stopPlaybackChain.executedContext!.requestParams.interruptPlayback, requestParams.interruptPlayback)
-//        XCTAssertEqual(stopPlaybackChain.executedContext!.requestParams.allowDelay, requestParams.allowDelay)
-//        XCTAssertEqual(stopPlaybackChain.executedContext!.requestParams.delay, requestParams.delay)
-//        XCTAssertEqual(stopPlaybackChain.executedContext!.requestParams.startPosition, requestParams.startPosition)
-//        XCTAssertEqual(stopPlaybackChain.executedContext!.requestParams.endPosition, requestParams.endPosition)
-//    }
-//
-//    func verifyRequestContext_trackPlaybackCompletedChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double) {
-//
-//        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.currentState, currentState)
-//        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.currentTrack, currentTrack)
-//        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.currentSeekPosition, currentSeekPosition, accuracy: 0.001)
-//
-//        let requestParams = PlaybackParams.defaultParams()
-//
-//        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.requestParams.interruptPlayback, requestParams.interruptPlayback)
-//        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.requestParams.allowDelay, requestParams.allowDelay)
-//        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.requestParams.delay, requestParams.delay)
-//        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.requestParams.startPosition, requestParams.startPosition)
-//        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.requestParams.endPosition, requestParams.endPosition)
-//    }
-//
+
+    func verifyRequestContext_stopPlaybackChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double) {
+
+        XCTAssertEqual(stopPlaybackChain.executedContext!.currentState, currentState)
+        XCTAssertEqual(stopPlaybackChain.executedContext!.currentTrack, currentTrack)
+        XCTAssertEqual(stopPlaybackChain.executedContext!.currentSeekPosition, currentSeekPosition, accuracy: 0.001)
+
+        XCTAssertNil(stopPlaybackChain.executedContext!.requestedTrack)
+
+        let requestParams = PlaybackParams.defaultParams()
+
+        XCTAssertEqual(stopPlaybackChain.executedContext!.requestParams.interruptPlayback, requestParams.interruptPlayback)
+        XCTAssertEqual(stopPlaybackChain.executedContext!.requestParams.startPosition, requestParams.startPosition)
+        XCTAssertEqual(stopPlaybackChain.executedContext!.requestParams.endPosition, requestParams.endPosition)
+    }
+
+    func verifyRequestContext_trackPlaybackCompletedChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double) {
+
+        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.currentState, currentState)
+        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.currentTrack, currentTrack)
+        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.currentSeekPosition, currentSeekPosition, accuracy: 0.001)
+
+        let requestParams = PlaybackParams.defaultParams()
+
+        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.requestParams.interruptPlayback, requestParams.interruptPlayback)
+        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.requestParams.startPosition, requestParams.startPosition)
+        XCTAssertEqual(trackPlaybackCompletedChain.executedContext!.requestParams.endPosition, requestParams.endPosition)
+    }
+
     func assertNoTrack() {
 
         XCTAssertEqual(delegate.state, PlaybackState.noTrack)
@@ -296,4 +292,18 @@ class PlaybackDelegateTests: AuralTestCase {
 //    func randomGenre() -> String {
 //        return genres[Int.random(in: 0..<genres.count)]
 //    }
+}
+
+extension PlaybackDelegate {
+    
+    func stopListeningForMessages() {
+        messenger.unsubscribeFromAll()
+    }
+}
+
+extension StartPlaybackChain {
+    
+    func stopListeningForMessages() {
+        messenger.unsubscribeFromAll()
+    }
 }

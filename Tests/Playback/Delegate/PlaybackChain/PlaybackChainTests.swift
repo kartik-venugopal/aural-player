@@ -26,8 +26,8 @@ import XCTest
 //
 //    func testExecute() {
 //
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //
 //        for numActions in [0, 1, 2, 3, 5, 10, 25, 50, 100] {
 //
@@ -64,8 +64,8 @@ import XCTest
 //
 //    func testProceed() {
 //
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //
 //        for numActions in [0, 1, 2, 3, 5, 10, 25, 50, 100] {
 //
@@ -119,8 +119,8 @@ import XCTest
 //
 //    func testComplete_noCurrentContext() {
 //
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //
 //        // No current context
@@ -135,8 +135,8 @@ import XCTest
 //
 //    func testComplete_hasCurrentContext() {
 //
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //
@@ -153,8 +153,8 @@ import XCTest
 //
 //    func testTerminate_noCurrentContext() {
 //
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //
@@ -170,8 +170,8 @@ import XCTest
 //
 //    func testTerminate_hasCurrentContext() {
 //
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //

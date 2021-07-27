@@ -45,7 +45,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     let stopPlaybackChain: StopPlaybackChain
     let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
-    private lazy var messenger = Messenger(for: self)
+    private(set) lazy var messenger = Messenger(for: self)
     
     init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
          _ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ trackPlaybackCompletedChain: TrackPlaybackCompletedChain) {

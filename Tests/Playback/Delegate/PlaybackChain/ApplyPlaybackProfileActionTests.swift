@@ -30,11 +30,11 @@ import XCTest
 //
 //        preferences.rememberLastPosition = false
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
-//        profiles.add(requestedTrack, PlaybackProfile(requestedTrack, 101.2131234))
-//        XCTAssertNotNil(profiles.get(requestedTrack))
+//        profiles[requestedTrack, PlaybackProfile(requestedTrack] = 101.2131234)
+//        XCTAssertNotNil(profiles[requestedTrack])
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -54,11 +54,11 @@ import XCTest
 //
 //        preferences.rememberLastPosition = true
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
 //        // Assert no profile exists for requested track
-//        XCTAssertNil(profiles.get(requestedTrack))
+//        XCTAssertNil(profiles[requestedTrack])
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -78,12 +78,12 @@ import XCTest
 //
 //        preferences.rememberLastPosition = true
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
 //        // Create a profile for the requested track
-//        profiles.add(requestedTrack, PlaybackProfile(requestedTrack, 101.2131234))
-//        XCTAssertNotNil(profiles.get(requestedTrack))
+//        profiles[requestedTrack, PlaybackProfile(requestedTrack] = 101.2131234)
+//        XCTAssertNotNil(profiles[requestedTrack])
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams().withStartPosition(55.6789))
 //
@@ -104,13 +104,13 @@ import XCTest
 //
 //        preferences.rememberLastPosition = true
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
 //        // Create a profile for the requested track
 //        let profile = PlaybackProfile(requestedTrack, requestedTrack.duration)
-//        profiles.add(requestedTrack, profile)
-//        XCTAssertEqual(profiles.get(requestedTrack)!.lastPosition, profile.lastPosition)
+//        profiles[requestedTrack] = profile
+//        XCTAssertEqual(profiles[requestedTrack]!.lastPosition, profile.lastPosition)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -130,13 +130,13 @@ import XCTest
 //
 //        preferences.rememberLastPosition = true
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
 //        // Create a profile for the requested track
 //        let profile = PlaybackProfile(requestedTrack, 101.2131234)
-//        profiles.add(requestedTrack, profile)
-//        XCTAssertEqual(profiles.get(requestedTrack)!.lastPosition, profile.lastPosition)
+//        profiles[requestedTrack] = profile
+//        XCTAssertEqual(profiles[requestedTrack]!.lastPosition, profile.lastPosition)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //

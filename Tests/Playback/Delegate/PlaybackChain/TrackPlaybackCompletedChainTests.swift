@@ -120,12 +120,12 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_noSubsequentTrack() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        sequencer.subsequentTrack = nil
 //        
 //        let oldProfile = PlaybackProfile(completedTrack, 125.324235346746)
-//        profiles.add(completedTrack, oldProfile)
-//        XCTAssertNotNil(profiles.get(completedTrack))
+//        profiles[completedTrack] = oldProfile
+//        XCTAssertNotNil(profiles[completedTrack])
 //        
 //        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nil, PlaybackParams.defaultParams())
 //        
@@ -135,7 +135,7 @@ import XCTest
 //        chain.execute(context)
 //        
 //        // Ensure profile was reset to 0
-//        let newProfile = profiles.get(completedTrack)!
+//        let newProfile = profiles[completedTrack]!
 //        XCTAssertEqual(newProfile.lastPosition, 0)
 //        
 //        assertTrackChange(completedTrack, .playing, nil)
@@ -143,7 +143,7 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_noSubsequentTrack_gapAfterCompletedTrack_noDelay() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        sequencer.subsequentTrack = nil
 //        
 //        playlist.setGapsForTrack(completedTrack, nil, PlaybackGap(3, .afterTrack))
@@ -163,7 +163,7 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_noSubsequentTrack_gapBetweenTracks_noDelay() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        sequencer.subsequentTrack = nil
 //        
 //        preferences.gapBetweenTracks = true
@@ -183,7 +183,7 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_subsequentTrackInvalid() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let subsequentTrack = createTrack("Silene", 420, isValid: false)
 //        sequencer.subsequentTrack = subsequentTrack
 //        
@@ -198,8 +198,8 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_hasSubsequentTrack() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let subsequentTrack = createTrack("Silene", 420)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let subsequentTrack = createTrack(title: "Silene", duration: 420)
 //        sequencer.subsequentTrack = subsequentTrack
 //        
 //        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nil, PlaybackParams.defaultParams())
@@ -213,13 +213,13 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_hasSubsequentTrack_completedTrackHasPlaybackProfile_resetTo0() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let subsequentTrack = createTrack("Silene", 420)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let subsequentTrack = createTrack(title: "Silene", duration: 420)
 //        sequencer.subsequentTrack = subsequentTrack
 //        
 //        let oldProfile = PlaybackProfile(completedTrack, 125.324235346746)
-//        profiles.add(completedTrack, oldProfile)
-//        XCTAssertNotNil(profiles.get(completedTrack))
+//        profiles[completedTrack] = oldProfile
+//        XCTAssertNotNil(profiles[completedTrack])
 //        
 //        preferences.rememberLastPosition = true
 //        preferences.rememberLastPositionOption = .individualTracks
@@ -231,7 +231,7 @@ import XCTest
 //        XCTAssertEqual(context.requestedTrack!, subsequentTrack)
 //        
 //        // Ensure profile was reset to 0
-//        let newProfile = profiles.get(completedTrack)!
+//        let newProfile = profiles[completedTrack]!
 //        XCTAssertEqual(newProfile.lastPosition, 0)
 //        
 //        assertTrackChange(completedTrack, .playing, subsequentTrack)
@@ -239,8 +239,8 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_gapAfterCompletedTrack_hasSubsequentTrack() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let subsequentTrack = createTrack("Silene", 420)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let subsequentTrack = createTrack(title: "Silene", duration: 420)
 //        sequencer.subsequentTrack = subsequentTrack
 //        
 //        playlist.setGapsForTrack(completedTrack, nil, PlaybackGap(3, .afterTrack))
@@ -262,7 +262,7 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_gapAfterCompletedTrack_invalidSubsequentTrack() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let subsequentTrack = createTrack("Silene", 420, isValid: false)
 //        sequencer.subsequentTrack = subsequentTrack
 //        
@@ -283,8 +283,8 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_gapBetweenTracks_hasSubsequentTrack() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let subsequentTrack = createTrack("Silene", 420)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let subsequentTrack = createTrack(title: "Silene", duration: 420)
 //        sequencer.subsequentTrack = subsequentTrack
 //        
 //        preferences.gapBetweenTracks = true
@@ -306,8 +306,8 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_subsequentTrackNeedsTranscoding() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let subsequentTrack = createTrack("Silene", "ogg", 420)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let subsequentTrack = createTrack(title: "Silene", "ogg", duration: 420)
 //        sequencer.subsequentTrack = subsequentTrack
 //        
 //        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nil, PlaybackParams.defaultParams())
@@ -335,8 +335,8 @@ import XCTest
 //    
 //    func testTrackPlaybackCompleted_subsequentTrackNeedsTranscoding_transcodingFailed() {
 //        
-//        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let subsequentTrack = createTrack("Silene", "ogg", 420)
+//        let completedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let subsequentTrack = createTrack(title: "Silene", "ogg", duration: 420)
 //        sequencer.subsequentTrack = subsequentTrack
 //        
 //        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nil, PlaybackParams.defaultParams())

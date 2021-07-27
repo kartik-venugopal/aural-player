@@ -78,7 +78,7 @@ class TestablePlayer: Player {
         defineLoopCallCount.increment()
         defineLoop_startTime = loopStartPosition
         defineLoop_endTime = loopEndPosition
-
+        
         super.defineLoop(loopStartPosition, loopEndPosition)
     }
 

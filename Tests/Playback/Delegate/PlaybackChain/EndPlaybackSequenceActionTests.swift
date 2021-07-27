@@ -75,7 +75,7 @@ import XCTest
 //    
 //    func testEndPlaybackSequenceAction_trackPlaying() {
 //     
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context = PlaybackRequestContext(.playing, currentTrack, 125.353435, nil, PlaybackParams.defaultParams())
 //        
 //        action.execute(context, chain)
@@ -90,7 +90,7 @@ import XCTest
 //    
 //    func testEndPlaybackSequenceAction_trackPaused() {
 //     
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context = PlaybackRequestContext(.paused, currentTrack, 125.353435, nil, PlaybackParams.defaultParams())
 //        
 //        action.execute(context, chain)
@@ -105,7 +105,7 @@ import XCTest
 //    
 //    func testEndPlaybackSequenceAction_trackWaiting() {
 //     
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context = PlaybackRequestContext(.waiting, currentTrack, 0, nil, PlaybackParams.defaultParams())
 //        
 //        action.execute(context, chain)
@@ -120,7 +120,7 @@ import XCTest
 //    
 //    func testEndPlaybackSequenceAction_trackTranscoding() {
 //     
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, nil, PlaybackParams.defaultParams())
 //        
 //        action.execute(context, chain)

@@ -81,7 +81,7 @@ import XCTest
 //    
 //    func testStartPlaybackAction_noStartOrEndPosition() {
 //
-//        let requestedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let requestedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context = PlaybackRequestContext(.noTrack, nil, 0, requestedTrack, PlaybackParams.defaultParams())
 //
 //        action.execute(context, chain)
@@ -97,7 +97,7 @@ import XCTest
 //    
 //    func testStartPlaybackAction_withStartPosition() {
 //
-//        let requestedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let requestedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestParams = PlaybackParams.defaultParams().withStartPosition(105.234234244)
 //        
 //        let context = PlaybackRequestContext(.noTrack, nil, 0, requestedTrack, requestParams)
@@ -115,7 +115,7 @@ import XCTest
 //    
 //    func testStartPlaybackAction_withStartAndEndPosition() {
 //
-//        let requestedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let requestedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestParams = PlaybackParams.defaultParams().withStartAndEndPosition(105.234234244, 236.33535366775)
 //        
 //        let context = PlaybackRequestContext(.noTrack, nil, 0, requestedTrack, requestParams)
@@ -133,8 +133,8 @@ import XCTest
 //    
 //    func testStartPlaybackAction_trackPlaying() {
 //
-//        let currentTrack = createTrack("Brothers in Arms", 302.34534535)
-//        let requestedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
+//        let requestedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, 279.2213475675, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -151,8 +151,8 @@ import XCTest
 //    
 //    func testStartPlaybackAction_trackPaused() {
 //
-//        let currentTrack = createTrack("Brothers in Arms", 302.34534535)
-//        let requestedTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
+//        let requestedTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        
 //        let context = PlaybackRequestContext(.paused, currentTrack, 279.2213475675, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -167,45 +167,9 @@ import XCTest
 //        assertChainCompleted(context)
 //    }
 //    
-//    func testStartPlaybackAction_trackWaiting() {
-//
-//        let currentTrack = createTrack("Brothers in Arms", 302.34534535)
-//        let requestedTrack = createTrack("Hydropoetry Cathedra", 597)
-//        
-//        let context = PlaybackRequestContext(.waiting, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
-//
-//        action.execute(context, chain)
-//
-//        XCTAssertEqual(player.playCallCount, 1)
-//        XCTAssertEqual(player.play_track!, requestedTrack)
-//        XCTAssertEqual(player.play_startPosition!, 0)
-//        XCTAssertEqual(player.play_endPosition, nil)
-//        
-//        assertTrackChange(context)
-//        assertChainCompleted(context)
-//    }
-//    
-//    func testStartPlaybackAction_trackTranscoding() {
-//
-//        let currentTrack = createTrack("Brothers in Arms", 302.34534535)
-//        let requestedTrack = createTrack("Hydropoetry Cathedra", 597)
-//        
-//        let context = PlaybackRequestContext(.transcoding, currentTrack, 279.2213475675, requestedTrack, PlaybackParams.defaultParams())
-//
-//        action.execute(context, chain)
-//
-//        XCTAssertEqual(player.playCallCount, 1)
-//        XCTAssertEqual(player.play_track!, requestedTrack)
-//        XCTAssertEqual(player.play_startPosition!, 0)
-//        XCTAssertEqual(player.play_endPosition, nil)
-//        
-//        assertTrackChange(context)
-//        assertChainCompleted(context)
-//    }
-//    
 //    func testStartPlaybackAction_sameTrackRequested() {
 //
-//        let currentTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, 279.2213475675, currentTrack, PlaybackParams.defaultParams())
 //

@@ -30,7 +30,7 @@ class PlaybackParams {
     var interruptPlayback: Bool = true
     
     // Builder pattern function to set a start/end position, i.e. a segment loop.
-    func withStartAndEndPosition(_ startPosition: Double, _ endPosition: Double?) -> PlaybackParams {
+    func withStartAndEndPosition(_ startPosition: Double, _ endPosition: Double? = nil) -> PlaybackParams {
         
         self.startPosition = startPosition
         self.endPosition = endPosition

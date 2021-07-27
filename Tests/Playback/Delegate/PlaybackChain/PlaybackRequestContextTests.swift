@@ -13,13 +13,13 @@ import XCTest
 //    
 //    func testBegun() {
 //        
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, PlaybackParams.defaultParams())
 //        
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams().withDelay(5))
 //        
-//        let track3 = createTrack("LSD", 250)
+//        let track3 = createTrack(title: "LSD", duration: 250)
 //        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
 //        
 //        PlaybackRequestContext.begun(context1)
@@ -55,13 +55,13 @@ import XCTest
 //    
 //    func testCompleted() {
 //        
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, PlaybackParams.defaultParams())
 //        
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams().withDelay(5))
 //        
-//        let track3 = createTrack("LSD", 250)
+//        let track3 = createTrack(title: "LSD", duration: 250)
 //        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
 //        
 //        // ------------------------
@@ -94,13 +94,13 @@ import XCTest
 //    
 //    func testCompleted_nonCurrentContextCompleted() {
 //        
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, PlaybackParams.defaultParams())
 //        
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams().withDelay(5))
 //        
-//        let track3 = createTrack("LSD", 250)
+//        let track3 = createTrack(title: "LSD", duration: 250)
 //        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
 //        
 //        // ------------------------
@@ -162,8 +162,8 @@ import XCTest
 //        
 //        let implicitGap: PlaybackGap = PlaybackGap(10, .afterTrack, .implicit)
 //        
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //        
@@ -182,8 +182,8 @@ import XCTest
 //        
 //        let implicitGap: PlaybackGap = PlaybackGap(10, .afterTrack, .implicit)
 //        
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //        
@@ -194,8 +194,8 @@ import XCTest
 //    
 //    func testRemoveAllGaps_noGapsDefined() {
 //        
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //        
@@ -210,8 +210,8 @@ import XCTest
 //        let nonImplicitGap1: PlaybackGap = PlaybackGap(5, .afterTrack)
 //        let nonImplicitGap2: PlaybackGap = PlaybackGap(3, .beforeTrack)
 //        
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //        
@@ -229,8 +229,8 @@ import XCTest
 //        
 //        let implicitGap: PlaybackGap = PlaybackGap(10, .afterTrack, .implicit)
 //        
-//        let track1 = createTrack("Hydropoetry Cathedra", 597)
-//        let track2 = createTrack("Sub-Sea Engineering", 360)
+//        let track1 = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let track2 = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        
 //        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
 //        
@@ -251,7 +251,7 @@ import XCTest
 //    
 //    func testClearContext_hasCurrentContext() {
 //        
-//        let track = createTrack("Hydropoetry Cathedra", 597)
+//        let track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context = PlaybackRequestContext(.noTrack, nil, 0, track, PlaybackParams.defaultParams())
 //        
 //        PlaybackRequestContext.begun(context)

@@ -28,7 +28,7 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_noTrackPlaying() {
 //
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.noTrack, nil, 0, requestedTrack, PlaybackParams.defaultParams())
 //
 //        XCTAssertEqual(profiles.size, 0)
@@ -41,8 +41,8 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackWaiting_noProfile() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.waiting, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
 //
 //        XCTAssertEqual(profiles.size, 0)
@@ -55,15 +55,15 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackWaiting_hasProfile_unchanged() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.waiting, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // Add a profile for the current track
 //        let oldProfile = PlaybackProfile(currentTrack, 137.9327973429)
-//        profiles.add(currentTrack, oldProfile)
+//        profiles[currentTrack] = oldProfile
 //
-//        XCTAssertTrue(profiles.get(currentTrack)! === oldProfile)
+//        XCTAssertTrue(profiles[currentTrack]! === oldProfile)
 //        XCTAssertEqual(profiles.size, 1)
 //
 //        // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
@@ -73,7 +73,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that the old profile is unchanged (because the track was in a waiting state).
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.file, currentTrack.file)
 //        XCTAssertEqual(newProfile.lastPosition, oldProfile.lastPosition, accuracy: 0.001)
 //
@@ -84,8 +84,8 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackTranscoding_noProfile() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
 //
 //        XCTAssertEqual(profiles.size, 0)
@@ -98,15 +98,15 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackTranscoding_hasProfile_unchanged() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // Add a profile for the current track
 //        let oldProfile = PlaybackProfile(currentTrack, 137.9327973429)
-//        profiles.add(currentTrack, oldProfile)
+//        profiles[currentTrack] = oldProfile
 //
-//        XCTAssertTrue(profiles.get(currentTrack)! === oldProfile)
+//        XCTAssertTrue(profiles[currentTrack]! === oldProfile)
 //        XCTAssertEqual(profiles.size, 1)
 //
 //        // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
@@ -116,7 +116,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that the old profile is unchanged (because the track was in a waiting state).
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.file, currentTrack.file)
 //        XCTAssertEqual(newProfile.lastPosition, oldProfile.lastPosition, accuracy: 0.001)
 //
@@ -127,15 +127,15 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackPlaying_rememberLastPositionOptionOff() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.playing, currentTrack, 185.234234, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // Add a profile for the current track
 //        let oldProfile = PlaybackProfile(currentTrack, 137.9327973429)
-//        profiles.add(currentTrack, oldProfile)
+//        profiles[currentTrack] = oldProfile
 //
-//        XCTAssertTrue(profiles.get(currentTrack)! === oldProfile)
+//        XCTAssertTrue(profiles[currentTrack]! === oldProfile)
 //        XCTAssertEqual(profiles.size, 1)
 //
 //        // Set this option to false to disable saving of playback profiles
@@ -144,7 +144,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that the old profile is unchanged (because the remember last position option was set to an off state).
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.file, currentTrack.file)
 //        XCTAssertEqual(newProfile.lastPosition, oldProfile.lastPosition, accuracy: 0.001)
 //
@@ -155,12 +155,12 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackPlaying_rememberLastPositionForAllTracks_noProfileForPlayingTrack() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.playing, currentTrack, 185.234234, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // No profile for the current track
-//        XCTAssertNil(profiles.get(currentTrack))
+//        XCTAssertNil(profiles[currentTrack])
 //        XCTAssertEqual(profiles.size, 0)
 //
 //        // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
@@ -170,7 +170,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that a new profile is created
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.file, currentTrack.file)
 //        XCTAssertEqual(newProfile.lastPosition, context.currentSeekPosition, accuracy: 0.001)
 //
@@ -181,15 +181,15 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackPlaying_rememberLastPositionForAllTracks_playingTrackHasProfile() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.playing, currentTrack, 185.234234, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // Add a profile for the current track
 //        let oldProfile = PlaybackProfile(currentTrack, 137.9327973429)
-//        profiles.add(currentTrack, oldProfile)
+//        profiles[currentTrack] = oldProfile
 //
-//        XCTAssertTrue(profiles.get(currentTrack)! === oldProfile)
+//        XCTAssertTrue(profiles[currentTrack]! === oldProfile)
 //        XCTAssertEqual(profiles.size, 1)
 //
 //        // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
@@ -199,7 +199,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that a new profile is created
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.file, currentTrack.file)
 //        XCTAssertEqual(newProfile.lastPosition, context.currentSeekPosition, accuracy: 0.001)
 //
@@ -210,12 +210,12 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackPlaying_rememberLastPositionForIndividualTracks_noProfileForPlayingTrack() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.playing, currentTrack, 185.234234, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // No profile for the current track
-//        XCTAssertNil(profiles.get(currentTrack))
+//        XCTAssertNil(profiles[currentTrack])
 //        XCTAssertEqual(profiles.size, 0)
 //
 //        // Set this option to true for individual tracks so only tracks with profiles will remember their last playback positions.
@@ -225,7 +225,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that no profile is created for the current track (because it doesn't already have a profile)
-//        XCTAssertNil(profiles.get(currentTrack))
+//        XCTAssertNil(profiles[currentTrack])
 //        XCTAssertEqual(profiles.size, 0)
 //
 //        assertChainProceeded(context)
@@ -233,15 +233,15 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackPlaying_rememberLastPositionForIndividualTracks_playingTrackHasProfile() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.playing, currentTrack, 185.234234, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // Add a profile for the current track
 //        let oldProfile = PlaybackProfile(currentTrack, 137.9327973429)
-//        profiles.add(currentTrack, oldProfile)
+//        profiles[currentTrack] = oldProfile
 //
-//        XCTAssertTrue(profiles.get(currentTrack)! === oldProfile)
+//        XCTAssertTrue(profiles[currentTrack]! === oldProfile)
 //        XCTAssertEqual(profiles.size, 1)
 //
 //        // Set this option to true for individual tracks so only tracks with profiles will remember their last playback positions.
@@ -251,7 +251,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that a new profile is created
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.file, currentTrack.file)
 //        XCTAssertEqual(newProfile.lastPosition, context.currentSeekPosition, accuracy: 0.001)
 //
@@ -262,15 +262,15 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_currentPositionEqualToTrackDuration_resetTo0() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // Add a profile for the current track
 //        let oldProfile = PlaybackProfile(currentTrack, 137.9327973429)
-//        profiles.add(currentTrack, oldProfile)
+//        profiles[currentTrack] = oldProfile
 //
-//        XCTAssertTrue(profiles.get(currentTrack)! === oldProfile)
+//        XCTAssertTrue(profiles[currentTrack]! === oldProfile)
 //        XCTAssertEqual(profiles.size, 1)
 //
 //        // Set this option to true for individual tracks so only tracks with profiles will remember their last playback positions.
@@ -280,7 +280,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that a new profile is created
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.file, currentTrack.file)
 //
 //        // Last position should have been reset to 0 since the track finished playing (i.e. seek position reached track duration)
@@ -293,15 +293,15 @@ import XCTest
 //
 //    func testSavePlaybackProfileAction_trackPaused() {
 //
-//        let currentTrack: Track = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack: Track = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //        let context = PlaybackRequestContext(.paused, currentTrack, 185.234234, requestedTrack, PlaybackParams.defaultParams())
 //
 //        // Add a profile for the current track
 //        let oldProfile = PlaybackProfile(currentTrack, 137.9327973429)
-//        profiles.add(currentTrack, oldProfile)
+//        profiles[currentTrack] = oldProfile
 //
-//        XCTAssertTrue(profiles.get(currentTrack)! === oldProfile)
+//        XCTAssertTrue(profiles[currentTrack]! === oldProfile)
 //        XCTAssertEqual(profiles.size, 1)
 //
 //        // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
@@ -311,7 +311,7 @@ import XCTest
 //        action.execute(context, chain)
 //
 //        // Verify that a new profile is created
-//        let newProfile = profiles.get(currentTrack)!
+//        let newProfile = profiles[currentTrack]!
 //        XCTAssertEqual(newProfile.file, currentTrack.file)
 //        XCTAssertEqual(newProfile.lastPosition, context.currentSeekPosition, accuracy: 0.001)
 //

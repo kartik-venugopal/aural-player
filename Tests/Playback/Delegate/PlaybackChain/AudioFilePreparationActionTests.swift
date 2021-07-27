@@ -70,8 +70,8 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_dontAllowDelay() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams().withAllowDelay(false))
 //
@@ -90,8 +90,8 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_noDelayDefined() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -109,7 +109,7 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_noDelayDefined_invalidTrack() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestedTrack = createTrack("Brothers in Arms", 302.34534535, isValid: false)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
@@ -129,8 +129,8 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_delayDefined() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -157,7 +157,7 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_delayDefined_invalidTrack() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestedTrack = createTrack("Brothers in Arms", 302.34534535, isValid: false)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
@@ -185,8 +185,8 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_delayDefined_contextNoLongerCurrentAfterDelay() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", duration: 302.34534535)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -208,7 +208,7 @@ import XCTest
 //        assertGapStarted(currentTrack, requestedTrack)
 //
 //        // Begin a new context to simulate a new playback request that invalidates the first context
-//        let newRequestedTrack = createTrack("So Far Away", 275.11498984)
+//        let newRequestedTrack = createTrack(title: "So Far Away", duration: 275.11498984)
 //        let newContext = PlaybackRequestContext(.waiting, requestedTrack, 0, newRequestedTrack, PlaybackParams.defaultParams())
 //
 //        PlaybackRequestContext.begun(newContext)
@@ -220,8 +220,8 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_delayDefined_trackNeedsTranscoding_delayLongerThanTranscodingTime() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", "wma", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", "wma", duration: 302.34534535)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -259,8 +259,8 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_delayDefined_trackNeedsTranscoding_transcodingTimeLongerThanDelay() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", "wma", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", "wma", duration: 302.34534535)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -306,7 +306,7 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_delayDefined_trackNeedsTranscoding_invalidTrack() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestedTrack = createTrack("Brothers in Arms", "wma", 302.34534535, isValid: false)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
@@ -335,8 +335,8 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_noDelayDefined_trackNeedsTranscoding() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let requestedTrack = createTrack("Brothers in Arms", "wma", 302.34534535)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let requestedTrack = createTrack(title: "Brothers in Arms", "wma", duration: 302.34534535)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())
 //
@@ -357,7 +357,7 @@ import XCTest
 //
 //    func testAudioFilePreparationAction_noDelayDefined_trackNeedsTranscoding_invalidTrack() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestedTrack = createTrack("Brothers in Arms", "wma", 302.34534535, isValid: false)
 //
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, requestedTrack, PlaybackParams.defaultParams())

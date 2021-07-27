@@ -22,7 +22,7 @@ import XCTest
 //    
 //    func testValidateNewTrackAction_noRequestedTrack() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context = PlaybackRequestContext(.playing, currentTrack, 0, nil, PlaybackParams.defaultParams())
 //        
 //        // Begin the context
@@ -38,7 +38,7 @@ import XCTest
 //    
 //    func testValidateNewTrackAction_trackIsValid() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestedTrack = createTrack("Brothers in Arms", 302.34534535, isValid: true)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
@@ -57,7 +57,7 @@ import XCTest
 //    
 //    func testValidateNewTrackAction_trackIsInvalid() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let requestedTrack = createTrack("Brothers in Arms", 302.34534535, isValid: false)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())

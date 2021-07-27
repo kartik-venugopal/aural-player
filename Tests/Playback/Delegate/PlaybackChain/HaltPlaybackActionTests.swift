@@ -33,7 +33,7 @@ import XCTest
 //
 //    func testHaltPlaybackAction_noTrack() {
 //        
-//        let newTrack = createTrack("Hydropoetry Cathedra", 597)
+//        let newTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
 //        let context = PlaybackRequestContext(.noTrack, nil, 0, newTrack, PlaybackParams.defaultParams())
 //        
 //        doTestHaltPlaybackAction(context, 0)
@@ -41,8 +41,8 @@ import XCTest
 //    
 //    func testHaltPlaybackAction_playing() {
 //        
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let newTrack = createTrack("Sub-Sea Engineering", 360)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let newTrack = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        
 //        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, newTrack, PlaybackParams.defaultParams())
 //        
@@ -51,30 +51,10 @@ import XCTest
 //    
 //    func testHaltPlaybackAction_paused() {
 //
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let newTrack = createTrack("Sub-Sea Engineering", 360)
+//        let currentTrack = createTrack(title: "Hydropoetry Cathedra", duration: 597)
+//        let newTrack = createTrack(title: "Sub-Sea Engineering", duration: 360)
 //        
 //        let context = PlaybackRequestContext(.paused, currentTrack, 101.327623, newTrack, PlaybackParams.defaultParams())
-//        
-//        doTestHaltPlaybackAction(context, 1)
-//    }
-//    
-//    func testHaltPlaybackAction_waiting() {
-//
-//        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-//        let newTrack = createTrack("Sub-Sea Engineering", 360)
-//        
-//        let context = PlaybackRequestContext(.waiting, currentTrack, 0, newTrack, PlaybackParams.defaultParams())
-//        
-//        doTestHaltPlaybackAction(context, 1)
-//    }
-//    
-//    func testHaltPlaybackAction_transcoding() {
-//
-//        let currentTrack = createTrack("Hydropoetry Cathedra", "ogg", 597)
-//        let newTrack = createTrack("Sub-Sea Engineering", 360)
-//        
-//        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, newTrack, PlaybackParams.defaultParams())
 //        
 //        doTestHaltPlaybackAction(context, 1)
 //    }

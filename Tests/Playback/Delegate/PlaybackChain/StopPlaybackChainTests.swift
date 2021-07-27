@@ -95,7 +95,7 @@ import XCTest
 //
 //    func testStop_trackPlaying() {
 //
-//        let playingTrack = createTrack("Silene", 420)
+//        let playingTrack = createTrack(title: "Silene", duration: 420)
 //        playingTrack.prepareForPlayback()
 //        XCTAssertTrue(playingTrack.lazyLoadingInfo.preparedForPlayback)
 //
@@ -105,7 +105,7 @@ import XCTest
 //        preferences.rememberLastPosition = true
 //        preferences.rememberLastPositionOption = .individualTracks
 //
-//        profiles.add(playingTrack, PlaybackProfile(playingTrack, 105.3242323))
+//        profiles[playingTrack, PlaybackProfile(playingTrack] = 105.3242323)
 //
 //        let context = PlaybackRequestContext(.playing, playingTrack, 203.34242434, nil, PlaybackParams.defaultParams())
 //        chain.execute(context)
@@ -115,12 +115,12 @@ import XCTest
 //        XCTAssertEqual(player.stopCallCount, 1)
 //        assertTrackChange(playingTrack, .playing)
 //
-//        XCTAssertEqual(profiles.get(playingTrack)!.lastPosition, context.currentSeekPosition)
+//        XCTAssertEqual(profiles[playingTrack]!.lastPosition, context.currentSeekPosition)
 //    }
 //
 //    func testStop_trackPaused() {
 //
-//        let playingTrack = createTrack("Silene", 420)
+//        let playingTrack = createTrack(title: "Silene", duration: 420)
 //        playingTrack.prepareForPlayback()
 //        XCTAssertTrue(playingTrack.lazyLoadingInfo.preparedForPlayback)
 //
@@ -131,7 +131,7 @@ import XCTest
 //        preferences.rememberLastPosition = true
 //        preferences.rememberLastPositionOption = .individualTracks
 //
-//        profiles.add(playingTrack, PlaybackProfile(playingTrack, 105.3242323))
+//        profiles[playingTrack, PlaybackProfile(playingTrack] = 105.3242323)
 //
 //        let context = PlaybackRequestContext(.paused, playingTrack, 203.34242434, nil, PlaybackParams.defaultParams())
 //        chain.execute(context)
@@ -141,12 +141,12 @@ import XCTest
 //        XCTAssertEqual(player.stopCallCount, 1)
 //        assertTrackChange(playingTrack, .paused)
 //
-//        XCTAssertEqual(profiles.get(playingTrack)!.lastPosition, context.currentSeekPosition)
+//        XCTAssertEqual(profiles[playingTrack]!.lastPosition, context.currentSeekPosition)
 //    }
 //
 //    func testStop_trackWaiting() {
 //
-//        let waitingTrack = createTrack("Silene", 420)
+//        let waitingTrack = createTrack(title: "Silene", duration: 420)
 //        player.waiting()
 //        XCTAssertEqual(player.state, PlaybackState.waiting)
 //
@@ -162,7 +162,7 @@ import XCTest
 //
 //    func testStop_trackTranscoding() {
 //
-//        let transcodingTrack = createTrack("Silene", 420)
+//        let transcodingTrack = createTrack(title: "Silene", duration: 420)
 //        player.transcoding()
 //        XCTAssertEqual(player.state, PlaybackState.transcoding)
 //
