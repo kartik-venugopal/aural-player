@@ -53,7 +53,7 @@ import XCTest
 //        mockPlayerNode = (mockPlayerGraph.playerNode as! MockPlayerNode)
 //        mockScheduler = MockScheduler(mockPlayerNode)
 //        
-//        player = TestablePlayer(mockPlayerGraph, mockScheduler)
+//        player = TestablePlayer(graph: mockPlayerGraph, avfScheduler: mockScheduler, ffmpegScheduler: mockScheduler)
 //        sequencer = MockSequencer()
 //        transcoder = MockTranscoder()
 //        
@@ -72,14 +72,14 @@ import XCTest
 //        
 //        chain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
 //        
-//        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:))
-//        Messenger.subscribe(self, .player_trackTransitioned, self.trackTransitioned(_:))
-//        Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
+//        messenger.subscribe(to: player_preTrackChange, self.preTrackChange(_:))
+//        messenger.subscribe(to: player_trackTransitioned, self.trackTransitioned(_:))
+//        messenger.subscribe(to: player_trackNotPlayed, self.trackNotPlayed(_:))
 //    }
 //    
 //    override func tearDown() {
-//        Messenger.unsubscribeAll(for: self)
-//        Messenger.unsubscribeAll(for: startPlaybackChain)
+//        messenger.unsubscribeFromAll()
+//        messenger.unsubscribeAll(for: startPlaybackChain)
 //    }
 //    
 //    func trackTransitioned(_ notif: TrackTransitionNotification) {
@@ -327,7 +327,7 @@ import XCTest
 //        
 //        // Simulate transcoding finished
 //        subsequentTrack.prepareWithAudioFile(URL(fileURLWithPath: "/Dummy/AudioFile.m4a"))
-//        Messenger.publish(TranscodingFinishedNotification(track: subsequentTrack, success: true))
+//        messenger.publish(TranscodingFinishedNotification(track: subsequentTrack, success: true))
 //        justWait(0.2)
 //        
 //        assertTrackChange(subsequentTrack, .transcoding, subsequentTrack)
@@ -356,7 +356,7 @@ import XCTest
 //        
 //        // Simulate transcoding failed
 //        subsequentTrack.lazyLoadingInfo.preparationFailed(NoAudioTracksError(subsequentTrack))
-//        Messenger.publish(TranscodingFinishedNotification(track: subsequentTrack, success: false))
+//        messenger.publish(TranscodingFinishedNotification(track: subsequentTrack, success: false))
 //        justWait(0.2)
 //        
 //        assertTrackNotPlayed(subsequentTrack, subsequentTrack)

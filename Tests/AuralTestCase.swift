@@ -55,18 +55,17 @@ class AuralTestCase: XCTestCase {
         wait(for: [theExpectation], timeout: timeSeconds + 1)
     }
     
-    func createTrack(title: String, duration: Double, artist: String? = nil, album: String? = nil, genre: String? = nil,
-                     isValid: Bool = true) -> Track {
+    func createTrack(title: String, duration: Double, artist: String? = nil, album: String? = nil, genre: String? = nil) -> Track {
         
-        return createTrack(title: title, fileExtension: "mp3", duration: duration, artist: artist, album: album, genre: genre, isValid: isValid)
+        return createTrack(title: title, fileExtension: "mp3", duration: duration, artist: artist, album: album, genre: genre)
     }
 
     func createTrack(title: String, fileExtension: String, duration: Double,
-                     artist: String? = nil, album: String? = nil, genre: String? = nil, isValid: Bool = true) -> Track {
+                     artist: String? = nil, album: String? = nil, genre: String? = nil) -> Track {
         
         let parentFolder = randomFolder()
 
-        let track = MockTrack(URL(fileURLWithPath: String(format: "%@/%@.%@", parentFolder, title, fileExtension)), isValid)
+        let track = MockTrack(URL(fileURLWithPath: String(format: "%@/%@.%@", parentFolder, title, fileExtension)))
         let metadata = fileMetadata(title, artist, album, genre, duration)
         track.setPlaylistMetadata(from: metadata)
         

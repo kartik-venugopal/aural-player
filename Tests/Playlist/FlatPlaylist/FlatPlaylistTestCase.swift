@@ -30,7 +30,7 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         
         let fileExt = randomAudioFileExtension()
         
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", name, fileExt)), true)
+        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", name, fileExt)))
         
         let metadata = fileMetadata(nil, nil, nil, nil, randomDuration())
         track.setPlaylistMetadata(from: metadata)
@@ -46,7 +46,7 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         
         let fileExt = randomAudioFileExtension()
         
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", title, fileExt)), true)
+        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", title, fileExt)))
         
         let metadata = fileMetadata(title, nil, nil, nil, randomDuration())
         track.setPlaylistMetadata(from: metadata)
@@ -62,7 +62,7 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         
         let fileExt = randomAudioFileExtension()
         
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@ - %@.%@", artist, title, fileExt)), true)
+        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@ - %@.%@", artist, title, fileExt)))
         
         let metadata = fileMetadata(title, artist, nil, nil, randomDuration())
         track.setPlaylistMetadata(from: metadata)

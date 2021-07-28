@@ -86,6 +86,7 @@ class PlaybackDelegateTests: AuralTestCase {
         
         messenger.unsubscribeFromAll()
         delegate.stopListeningForMessages()
+        player.stopListeningForMessages()
         startPlaybackChain.stopListeningForMessages()
     }
 

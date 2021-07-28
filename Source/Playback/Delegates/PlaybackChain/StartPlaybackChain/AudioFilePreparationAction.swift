@@ -40,7 +40,7 @@ class AudioFilePreparationAction: PlaybackChainAction {
             NSLog("Unable to prepare track \(newTrack.file.lastPathComponent) for playback: \(error)")
             
             // Track preparation failed, terminate the chain.
-            chain.terminate(context, newTrack.preparationError ?? TrackNotPlayableError(newTrack.file))
+            chain.terminate(context, error as? DisplayableError ?? TrackNotPlayableError(newTrack.file))
         }
     }
 }

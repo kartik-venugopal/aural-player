@@ -11,13 +11,20 @@ import AVFoundation
 
 class MockTrackReader: TrackReader {
     
+    var preparationError: DisplayableError?
+    
     convenience init() {
         self.init(FileReader(), MockCoverArtReader())
     }
     
     override func prepareForPlayback(track: Track, immediate: Bool = true) throws {
         
+        if let error = preparationError {
+            throw error
+        }
+        
         track.playbackContext = MockAVFPlaybackContext(file: track.file, duration: track.duration,
-                                                       audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!)
+                                                       audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100,
+                                                                                  channels: 2)!)
     }
 }

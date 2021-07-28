@@ -21,6 +21,7 @@ class TestablePlaybackChain: PlaybackChain {
     var completedContext: PlaybackRequestContext?
     
     var terminationCount: Int = 0
+    var terminationError: DisplayableError?
     var terminatedContext: PlaybackRequestContext?
     
     override func execute(_ context: PlaybackRequestContext) {
@@ -66,6 +67,8 @@ class TestablePlaybackChain: PlaybackChain {
         terminatedContext = nil
         proceededContext = nil
         completedContext = nil
+        
+        terminationError = nil
     }
 }
 
@@ -81,6 +84,7 @@ class MockPlaybackChain: PlaybackChain {
     var completedContext: PlaybackRequestContext?
     
     var terminationCount: Int = 0
+    var terminationError: DisplayableError?
     var terminatedContext: PlaybackRequestContext?
     
     override func execute(_ context: PlaybackRequestContext) {
@@ -104,6 +108,7 @@ class MockPlaybackChain: PlaybackChain {
     override func terminate(_ context: PlaybackRequestContext, _ error: DisplayableError) {
         
         terminatedContext = context
+        terminationError = error
         terminationCount.increment()
     }
 }
@@ -166,6 +171,7 @@ class TestableStopPlaybackChain: StopPlaybackChain {
     var completedContext: PlaybackRequestContext?
     
     var terminationCount: Int = 0
+    var terminationError: DisplayableError?
     var terminatedContext: PlaybackRequestContext?
     
     override func execute(_ context: PlaybackRequestContext) {
@@ -195,6 +201,7 @@ class TestableStopPlaybackChain: StopPlaybackChain {
     override func terminate(_ context: PlaybackRequestContext, _ error: DisplayableError) {
         
         terminatedContext = context
+        terminationError = error
         terminationCount.increment()
         
         super.terminate(context, error)
@@ -211,6 +218,8 @@ class TestableStopPlaybackChain: StopPlaybackChain {
         terminatedContext = nil
         proceededContext = nil
         completedContext = nil
+        
+        terminationError = nil
     }
 }
 
@@ -227,6 +236,7 @@ class TestableTrackPlaybackCompletedChain: TrackPlaybackCompletedChain {
     }
     
     func reset() {
+        
         executionCount = 0
         executedContext = nil
     }

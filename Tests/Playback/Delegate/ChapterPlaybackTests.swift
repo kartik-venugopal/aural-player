@@ -33,6 +33,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         assertNoTrack()
 
+        player.reset()
         delegate.playChapter(0)
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -48,6 +49,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
 
+        player.reset()
         delegate.playChapter(0)
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -60,6 +62,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         let chapterCount = 10
         track.chapters = createChapters(chapterCount)
+        
+        player.reset()
         delegate.play(track)
 
         // Valid indices
@@ -86,6 +90,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         for chapterIndex in chapterCount...(chapterCount + 5) {
 
+            player.reset()
             delegate.playChapter(chapterIndex)
 
             XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -103,6 +108,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPausedTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
 
+        player.reset()
         delegate.playChapter(0)
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -147,6 +153,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         for chapterIndex in chapterCount...(chapterCount + 5) {
 
+            player.reset()
             delegate.playChapter(chapterIndex)
 
             XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -160,6 +167,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         assertNoTrack()
 
+        player.reset()
         delegate.previousChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -184,6 +192,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
 
+        player.reset()
         delegate.previousChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -208,6 +217,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position before the first chapter
         mockPlayerNode._seekPosition = 5
 
+        player.reset()
         delegate.previousChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -225,6 +235,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         seekToChapter(0)
 
+        player.reset()
         delegate.previousChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -280,6 +291,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         let lastChapterIndex = track.chapters.count - 1
         seekToChapter(lastChapterIndex)
 
+        player.reset()
         doPreviousChapter(lastChapterIndex - 1)
     }
 
@@ -360,6 +372,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         seekToChapter(0)
 
+        player.reset()
         delegate.previousChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -448,6 +461,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
     }
 
     private func doPreviousChapter(_ expectedChapterIndex: Int) {
+        
+        player.reset()
 
         let track = delegate.playingTrack!
 
@@ -467,6 +482,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         assertNoTrack()
 
+        player.reset()
         delegate.nextChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -482,6 +498,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
 
+        player.reset()
         delegate.nextChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -572,6 +589,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         let lastChapterIndex = track.chapters.count - 1
         seekToChapter(lastChapterIndex)
 
+        player.reset()
         delegate.nextChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -596,6 +614,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position after the last chapter
         mockPlayerNode._seekPosition = 550
 
+        player.reset()
         delegate.nextChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -613,6 +632,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPausedTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
 
+        player.reset()
         delegate.nextChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -713,6 +733,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         let lastChapterIndex = track.chapters.count - 1
         seekToChapter(lastChapterIndex)
 
+        player.reset()
         delegate.nextChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -739,6 +760,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position after the last chapter
         mockPlayerNode._seekPosition = 550
 
+        player.reset()
         delegate.nextChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -746,6 +768,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
     }
 
     private func doNextChapter(_ expectedChapterIndex: Int) {
+        
+        player.reset()
 
         let track = delegate.playingTrack!
 
@@ -765,6 +789,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         assertNoTrack()
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -780,6 +805,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -804,6 +830,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position before the first chapter
         mockPlayerNode._seekPosition = 5
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -828,6 +855,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position between chapter 1 and 2
         mockPlayerNode._seekPosition = 245
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -852,6 +880,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position after the last chapter
         mockPlayerNode._seekPosition = 550
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -914,6 +943,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPausedTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -940,6 +970,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position before the first chapter
         mockPlayerNode._seekPosition = 5
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -966,6 +997,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position between chapter 1 and 2
         mockPlayerNode._seekPosition = 245
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -992,6 +1024,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position after the last chapter
         mockPlayerNode._seekPosition = 550
 
+        player.reset()
         delegate.replayChapter()
 
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
@@ -1050,6 +1083,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
     }
 
     private func doReplayChapter(_ chapterIndex: Int) {
+        
+        player.reset()
 
         let track = delegate.playingTrack!
 
@@ -1068,6 +1103,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
     func testToggleChapterLoop_noTrackPlaying() {
 
         assertNoTrack()
+        player.reset()
 
         let loopExists = delegate.toggleChapterLoop()
         XCTAssertFalse(loopExists)
@@ -1085,6 +1121,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         delegate.play(track)
         assertPlayingTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
+        player.reset()
 
         let loopExists = delegate.toggleChapterLoop()
         XCTAssertFalse(loopExists)
@@ -1111,6 +1148,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         // Seek to a position between chapter 1 and 2
         mockPlayerNode._seekPosition = 245
+        player.reset()
 
         let loopExists = delegate.toggleChapterLoop()
         XCTAssertFalse(loopExists)
@@ -1218,6 +1256,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPausedTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
 
+        player.reset()
         let loopExists = delegate.toggleChapterLoop()
         XCTAssertFalse(loopExists)
 
@@ -1245,6 +1284,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
 
         // Seek to a position between chapter 1 and 2
         mockPlayerNode._seekPosition = 245
+        player.reset()
 
         let loopExists = delegate.toggleChapterLoop()
         XCTAssertFalse(loopExists)
