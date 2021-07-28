@@ -11,23 +11,7 @@ import XCTest
 
 class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
     
-    func test_noFieldsSpecified() {
-        
-        assertEmptyPlaylist()
-        
-        _ = addTrack(title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
-        _ = addTrack(title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
-        _ = addTrack(title: "Time", artist: "Pink Floyd", album: "Dark Side of the Moon")
-
-        let query = SearchQuery(text: "Pink", type: .contains, fields: [], options: [])
-        let results = playlist.search(query)
-
-        XCTAssertTrue(results.results.isEmpty)
-        XCTAssertEqual(results.count, 0)
-        XCTAssertFalse(results.hasResults)
-    }
-    
-    func test_byName_noResults() {
+    func test_noResults() {
         
         assertEmptyPlaylist()
         
@@ -47,7 +31,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
     
     // MARK: Tests with search type = .contains
     
-    func test_byName_matchContainsText_fileNameMatch() {
+    func test_matchContainsText_fileNameMatch() {
         
         assertEmptyPlaylist()
         
@@ -71,7 +55,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchContainsText_titleMatch() {
+    func test_matchContainsText_titleMatch() {
         
         assertEmptyPlaylist()
         
@@ -95,7 +79,32 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchContainsText_artistMatch() {
+    func test_matchContainsText_fileNameAndTitleMatch() {
+        
+        assertEmptyPlaylist()
+        
+        let match1 = addTrack(fileName: "04 - Endless Dream")
+        let match2 = addTrack(fileName: "Track04", title: "Endless Dream", artist: "Conjure One", album: "Exilarch")
+        
+        _ = addTrack(title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Time", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        
+        let match3 = addTrack(fileName: "Track07", title: "Dream Fortress", artist: "Grimes", album: "Visions")
+        
+        let expectedResultFieldValues = [match1.fileSystemInfo.fileName] + [match2, match3].compactMap {$0.displayName}
+        let expectedResultTrackIndexes = [match1, match2, match3].compactMap {playlist.indexOfTrack($0)}
+
+        let query = SearchQuery(text: "dream", type: .contains, fields: .name, options: [])
+        
+        doTest(query: query,
+               expectedResultCount: 3,
+               expectedResultFieldKeys: ["filename", "name"],
+               expectedResultFieldValues: expectedResultFieldValues,
+               expectedResultTrackIndexes: expectedResultTrackIndexes)
+    }
+    
+    func test_matchContainsText_artistMatch() {
         
         assertEmptyPlaylist()
         
@@ -119,7 +128,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchContainsText_fileNameMatch_caseSensitive() {
+    func test_matchContainsText_fileNameMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -143,7 +152,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchContainsText_titleMatch_caseSensitive() {
+    func test_matchContainsText_titleMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -167,7 +176,33 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchContainsText_artistMatch_caseSensitive() {
+    func test_matchContainsText_fileNameAndTitleMatch_caseSensitive() {
+        
+        assertEmptyPlaylist()
+        
+        _ = addTrack(fileName: "04 - Endless Dream")
+        let match1 = addTrack(fileName: "04 - Endless dream")
+        let match2 = addTrack(fileName: "Track04", title: "Endless dream", artist: "Conjure One", album: "Exilarch")
+        
+        _ = addTrack(title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Time", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        
+        let match3 = addTrack(fileName: "Track07", title: "dream fortress", artist: "Grimes", album: "Visions")
+        
+        let expectedResultFieldValues = [match1.fileSystemInfo.fileName] + [match2, match3].compactMap {$0.displayName}
+        let expectedResultTrackIndexes = [match1, match2, match3].compactMap {playlist.indexOfTrack($0)}
+
+        let query = SearchQuery(text: "dream", type: .contains, fields: .name, options: .caseSensitive)
+        
+        doTest(query: query,
+               expectedResultCount: 3,
+               expectedResultFieldKeys: ["filename", "name"],
+               expectedResultFieldValues: expectedResultFieldValues,
+               expectedResultTrackIndexes: expectedResultTrackIndexes)
+    }
+    
+    func test_matchContainsText_artistMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -197,7 +232,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
     
     // MARK: Tests with search type = .beginsWith
     
-    func test_byName_matchBeginsWithText_fileNameMatch() {
+    func test_matchBeginsWithText_fileNameMatch() {
         
         assertEmptyPlaylist()
         
@@ -221,7 +256,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchBeginsWithText_titleMatch() {
+    func test_matchBeginsWithText_titleMatch() {
         
         assertEmptyPlaylist()
         
@@ -245,7 +280,32 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchBeginsWithText_artistMatch() {
+    func test_matchBeginsWithText_fileNameAndTitleMatch() {
+        
+        assertEmptyPlaylist()
+        
+        let match1 = addTrack(fileName: "Track7", title: "dreams_of_reality", artist: nil, album: nil)
+        _ = addTrack(fileName: "Endless Dream", title: "Endless Dream", artist: "Conjure One", album: "Exilarch")
+        
+        _ = addTrack(title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Time", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        
+        let match2 = addTrack(fileName: "DreamFortress", title: "Dream Fortress", artist: "Grimes", album: "Visions")
+        
+        let expectedResultFieldValues = [match1.title!, match2.fileSystemInfo.fileName]
+        let expectedResultTrackIndexes = [match1, match2].compactMap {playlist.indexOfTrack($0)}
+
+        let query = SearchQuery(text: "dream", type: .beginsWith, fields: .name, options: [])
+        
+        doTest(query: query,
+               expectedResultCount: 2,
+               expectedResultFieldKeys: ["filename", "name"],
+               expectedResultFieldValues: expectedResultFieldValues,
+               expectedResultTrackIndexes: expectedResultTrackIndexes)
+    }
+    
+    func test_matchBeginsWithText_artistMatch() {
         
         assertEmptyPlaylist()
         
@@ -269,7 +329,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchBeginsWithText_fileNameMatch_caseSensitive() {
+    func test_matchBeginsWithText_fileNameMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -293,7 +353,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchBeginsWithText_titleMatch_caseSensitive() {
+    func test_matchBeginsWithText_titleMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -317,7 +377,33 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchBeginsWithText_artistMatch_caseSensitive() {
+    func test_matchBeginsWithText_fileNameAndTitleMatch_caseSensitive() {
+        
+        assertEmptyPlaylist()
+        
+        let match1 = addTrack(fileName: "dreams_of_reality")
+        _ = addTrack(fileName: "Endless Dream", title: "Endless Dream", artist: "Conjure One", album: "Exilarch")
+        
+        _ = addTrack(title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Time", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        
+        _ = addTrack(fileName: "DreamFortress", title: "Dream Fortress", artist: "Grimes", album: "Visions")
+        let match2 = addTrack(fileName: "Track09", title: "dream fortress", artist: nil, album: "Visions")
+        
+        let expectedResultFieldValues = [match1.fileSystemInfo.fileName, match2.title!]
+        let expectedResultTrackIndexes = [match1, match2].compactMap {playlist.indexOfTrack($0)}
+
+        let query = SearchQuery(text: "dream", type: .beginsWith, fields: .name, options: .caseSensitive)
+        
+        doTest(query: query,
+               expectedResultCount: 2,
+               expectedResultFieldKeys: ["filename", "name"],
+               expectedResultFieldValues: expectedResultFieldValues,
+               expectedResultTrackIndexes: expectedResultTrackIndexes)
+    }
+    
+    func test_matchBeginsWithText_artistMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -347,7 +433,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
     
     // MARK: Tests with search type = .endsWith
     
-    func test_byName_matchEndsWithText_fileNameMatch() {
+    func test_matchEndsWithText_fileNameMatch() {
         
         assertEmptyPlaylist()
         
@@ -371,7 +457,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchEndsWithText_titleMatch() {
+    func test_matchEndsWithText_titleMatch() {
         
         assertEmptyPlaylist()
         
@@ -395,7 +481,32 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchEndsWithText_fileNameMatch_caseSensitive() {
+    func test_matchEndsWithText_fileNameAndTitleMatch() {
+        
+        assertEmptyPlaylist()
+        
+        let match1 = addTrack(fileName: "Volatile dream")
+        let match2 = addTrack(fileName: "Track04", title: "Endless Dream", artist: "Conjure One", album: "Exilarch")
+        
+        _ = addTrack(title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Time", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        
+        _ = addTrack(fileName: "Track07", title: "Dream Fortress", artist: nil, album: "Visions")
+        
+        let expectedResultFieldValues = [match1.fileSystemInfo.fileName, match2.displayName]
+        let expectedResultTrackIndexes = [match1, match2].compactMap {playlist.indexOfTrack($0)}
+
+        let query = SearchQuery(text: "dream", type: .endsWith, fields: .name, options: [])
+        
+        doTest(query: query,
+               expectedResultCount: 2,
+               expectedResultFieldKeys: ["filename", "name"],
+               expectedResultFieldValues: expectedResultFieldValues,
+               expectedResultTrackIndexes: expectedResultTrackIndexes)
+    }
+    
+    func test_matchEndsWithText_fileNameMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -421,7 +532,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchEndsWithText_titleMatch_caseSensitive() {
+    func test_matchEndsWithText_titleMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -447,11 +558,38 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
+    func test_matchEndsWithText_fileNameAndTitleMatch_caseSensitive() {
+        
+        assertEmptyPlaylist()
+        
+        _ = addTrack(fileName: "Volatile Dream")
+        let match1 = addTrack(fileName: "Volatile dream")
+        _ = addTrack(fileName: "Track04", title: "Endless Dream", artist: "Conjure One", album: "Exilarch")
+        let match2 = addTrack(fileName: "Track04", title: "Endless dream", artist: "Conjure One", album: "Exilarch")
+        
+        _ = addTrack(title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(title: "Time", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        
+        _ = addTrack(fileName: "Track07", title: "Dream Fortress", artist: nil, album: "Visions")
+        
+        let expectedResultFieldValues = [match1.fileSystemInfo.fileName, match2.displayName]
+        let expectedResultTrackIndexes = [match1, match2].compactMap {playlist.indexOfTrack($0)}
+
+        let query = SearchQuery(text: "dream", type: .endsWith, fields: .name, options: .caseSensitive)
+        
+        doTest(query: query,
+               expectedResultCount: 2,
+               expectedResultFieldKeys: ["filename", "name"],
+               expectedResultFieldValues: expectedResultFieldValues,
+               expectedResultTrackIndexes: expectedResultTrackIndexes)
+    }
+    
     // ------------------------------------------------------------------------------------
     
     // MARK: Tests with search type = .equals
     
-    func test_byName_matchEqualsText_fileNameMatch() {
+    func test_matchEqualsText_fileNameMatch() {
         
         assertEmptyPlaylist()
         
@@ -481,7 +619,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchEqualsText_fileNameMatch_caseSensitive() {
+    func test_matchEqualsText_fileNameMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -511,7 +649,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchEqualsText_displayNameMatch() {
+    func test_matchEqualsText_displayNameMatch() {
         
         assertEmptyPlaylist()
         
@@ -539,7 +677,7 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }
     
-    func test_byName_matchEqualsText_displayNameMatch_caseSensitive() {
+    func test_matchEqualsText_displayNameMatch_caseSensitive() {
         
         assertEmptyPlaylist()
         
@@ -562,6 +700,62 @@ class FlatPlaylistTests_SearchByName: FlatPlaylistTestCase {
         doTest(query: query,
                expectedResultCount: 1,
                expectedResultFieldKeys: ["name"],
+               expectedResultFieldValues: expectedResultFieldValues,
+               expectedResultTrackIndexes: expectedResultTrackIndexes)
+    }
+    
+    func test_matchEqualsText_fileNameAndDisplayNameMatch() {
+        
+        assertEmptyPlaylist()
+        
+        let match1 = addTrack(fileName: "Conjure One - Endless Dream")
+        let match2 = addTrack(fileName: "track2 copy2", title: "Endless dream", artist: "Conjure one", album: "Exilarch")
+        
+        _ = addTrack(fileName: "Track06", title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(fileName: "Track01", title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        
+        _ = addTrack(fileName: "Track03", title: "Time", artist: "pink floyd", album: "Dark Side of the Moon")
+        _ = addTrack(fileName: "Track08", title: "Us and them", artist: "pink floyd", album: "Dark Side of the Moon")
+        
+        _ = addTrack(title: "Dream Fortress", artist: "Grimes", album: "Visions")
+        
+        let expectedResultFieldValues = [match1.fileSystemInfo.fileName, match2.displayName]
+        let expectedResultTrackIndexes = [match1, match2].compactMap {playlist.indexOfTrack($0)!}
+
+        let query = SearchQuery(text: "conjure one - endless dream", type: .equals, fields: .name, options: [])
+        
+        doTest(query: query,
+               expectedResultCount: 2,
+               expectedResultFieldKeys: ["filename", "name"],
+               expectedResultFieldValues: expectedResultFieldValues,
+               expectedResultTrackIndexes: expectedResultTrackIndexes)
+    }
+    
+    func test_matchEqualsText_fileNameAndDisplayNameMatch_caseSensitive() {
+        
+        assertEmptyPlaylist()
+        
+        let match1 = addTrack(fileName: "Conjure one - Endless dream")
+        _ = addTrack(fileName: "Conjure One - Endless Dream")
+        let match2 = addTrack(fileName: "track2 copy2", title: "Endless dream", artist: "Conjure one", album: "Exilarch")
+        _ = addTrack(fileName: "track2 copy2", title: "Endless Dream", artist: "Conjure One", album: "Exilarch")
+        
+        _ = addTrack(fileName: "Track06", title: "Money", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        _ = addTrack(fileName: "Track01", title: "Breathe", artist: "Pink Floyd", album: "Dark Side of the Moon")
+        
+        _ = addTrack(fileName: "Track03", title: "Time", artist: "pink floyd", album: "Dark Side of the Moon")
+        _ = addTrack(fileName: "Track08", title: "Us and them", artist: "pink floyd", album: "Dark Side of the Moon")
+        
+        _ = addTrack(title: "Dream Fortress", artist: "Grimes", album: "Visions")
+        
+        let expectedResultFieldValues = [match1.fileSystemInfo.fileName, match2.displayName]
+        let expectedResultTrackIndexes = [match1, match2].compactMap {playlist.indexOfTrack($0)!}
+
+        let query = SearchQuery(text: "Conjure one - Endless dream", type: .equals, fields: .name, options: .caseSensitive)
+        
+        doTest(query: query,
+               expectedResultCount: 2,
+               expectedResultFieldKeys: ["filename", "name"],
                expectedResultFieldValues: expectedResultFieldValues,
                expectedResultTrackIndexes: expectedResultTrackIndexes)
     }

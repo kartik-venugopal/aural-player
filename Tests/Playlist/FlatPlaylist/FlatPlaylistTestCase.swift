@@ -72,7 +72,7 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)
     }
     
-    func addTrack(title: String, artist: String?, album: String) -> Track {
+    func addTrack(title: String, artist: String?, album: String?) -> Track {
         
         let playlistSizeBeforeAdd = playlist.size
 
@@ -91,7 +91,7 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         return track
     }
     
-    func addTrack(fileName: String, title: String, artist: String?, album: String) -> Track {
+    func addTrack(fileName: String, title: String, artist: String?, album: String?) -> Track {
         
         let playlistSizeBeforeAdd = playlist.size
         
