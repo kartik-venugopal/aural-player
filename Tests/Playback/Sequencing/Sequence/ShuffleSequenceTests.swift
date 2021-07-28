@@ -391,7 +391,7 @@ class ShuffleSequenceTests: AuralTestCase {
         // The larger the size of the sequence, the lesser the expected failure rate should be.
         
         doTestReshuffle_consecutiveSequenceUniqueness(3, 100, 50)
-        doTestReshuffle_consecutiveSequenceUniqueness(5, 100, 5)
+        doTestReshuffle_consecutiveSequenceUniqueness(5, 100, 10)
         doTestReshuffle_consecutiveSequenceUniqueness(10, 100, 2)
         doTestReshuffle_consecutiveSequenceUniqueness(100, 100, 1)
         doTestReshuffle_consecutiveSequenceUniqueness(1000, 1000, 1)

@@ -34,37 +34,34 @@ class PlaybackDelegateTests: AuralTestCase {
 
     override func setUp() {
 
-        if delegate == nil {
-
-            mockPlayerGraph = MockPlayerGraph()
-            mockPlayerNode = (mockPlayerGraph.playerNode as! MockPlayerNode)
-            mockScheduler = MockScheduler(mockPlayerNode)
-
-            player = TestablePlayer(graph: mockPlayerGraph, avfScheduler: mockScheduler, ffmpegScheduler: mockScheduler)
-
-            let flatPlaylist = FlatPlaylist()
-            let artistsPlaylist = GroupingPlaylist(.artists)
-            let albumsPlaylist = GroupingPlaylist(.albums)
-            let genresPlaylist = GroupingPlaylist(.genres)
-
-            playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
-            sequencer = MockSequencer()
-
-            controlsPreferences = GesturesControlsPreferences([:])
-            preferences = PlaybackPreferences([:], controlsPreferences)
-            
-            trackReader = MockTrackReader()
-
-            let profiles = PlaybackProfiles([])
-            
-            startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, trackReader: trackReader, profiles, preferences)
-            
-            stopPlaybackChain = TestableStopPlaybackChain(player, playlist, sequencer, profiles, preferences)
-            trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer)
-
-            delegate = PlaybackDelegate(player, sequencer, profiles, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
-        }
-
+        mockPlayerGraph = MockPlayerGraph()
+        mockPlayerNode = (mockPlayerGraph.playerNode as! MockPlayerNode)
+        mockScheduler = MockScheduler(mockPlayerNode)
+        
+        player = TestablePlayer(graph: mockPlayerGraph, avfScheduler: mockScheduler, ffmpegScheduler: mockScheduler)
+        
+        let flatPlaylist = FlatPlaylist()
+        let artistsPlaylist = GroupingPlaylist(.artists)
+        let albumsPlaylist = GroupingPlaylist(.albums)
+        let genresPlaylist = GroupingPlaylist(.genres)
+        
+        playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
+        sequencer = MockSequencer()
+        
+        controlsPreferences = GesturesControlsPreferences([:])
+        preferences = PlaybackPreferences([:], controlsPreferences)
+        
+        trackReader = MockTrackReader()
+        
+        let profiles = PlaybackProfiles([])
+        
+        startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, trackReader: trackReader, profiles, preferences)
+        
+        stopPlaybackChain = TestableStopPlaybackChain(player, playlist, sequencer, profiles, preferences)
+        trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer)
+        
+        delegate = PlaybackDelegate(player, sequencer, profiles, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
+        
         sequencer.reset()
         delegate.stop()
         _ = PlaybackSession.endCurrent()
@@ -275,24 +272,6 @@ class PlaybackDelegateTests: AuralTestCase {
         XCTAssertEqual(delegate.state, PlaybackState.noTrack)
         XCTAssertNil(delegate.playingTrack)
     }
-
-//    let artists: [String] = ["Conjure One", "Grimes", "Madonna", "Pink Floyd", "Dire Straits", "Ace of Base", "Delerium", "Blue Stone", "Jaia", "Paul Van Dyk"]
-//
-//    let albums: [String] = ["Exilarch", "Halfaxa", "Vogue", "The Wall", "Brothers in Arms", "The Sign", "Music Box Opera", "Messages", "Mai Mai", "Reflections"]
-//
-//    let genres: [String] = ["Electronica", "Pop", "Rock", "Dance", "International", "Jazz", "Ambient", "House", "Trance", "Techno", "Psybient", "PsyTrance", "Classical", "Opera"]
-//
-//    func randomArtist() -> String {
-//        return artists[Int.random(in: 0..<artists.count)]
-//    }
-//
-//    func randomAlbum() -> String {
-//        return albums[Int.random(in: 0..<albums.count)]
-//    }
-//
-//    func randomGenre() -> String {
-//        return genres[Int.random(in: 0..<genres.count)]
-//    }
 }
 
 extension PlaybackDelegate {
