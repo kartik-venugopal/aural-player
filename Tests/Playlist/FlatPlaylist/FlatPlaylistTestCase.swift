@@ -56,33 +56,24 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)
     }
     
-    func addTrack(title: String, artist: String) {
+    func createTrack(title: String, artist: String? = nil, album: String? = nil, duration: Double? = nil) -> Track {
         
-        let playlistSizeBeforeAdd = playlist.size
-        
-        let fileExt = randomAudioFileExtension()
-        
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@ - %@.%@", artist, title, fileExt)))
-        
-        let metadata = fileMetadata(title, artist, nil, nil, randomDuration())
-        track.setPlaylistMetadata(from: metadata)
-        
-        _ = playlist.addTrack(track)
-        
-        XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)
-    }
-    
-    func addTrack(title: String, artist: String?, album: String?) -> Track {
-        
-        let playlistSizeBeforeAdd = playlist.size
-
         let fileName = artist == nil ? title : "\(artist!) - \(title)"
         let fileExt = randomAudioFileExtension()
         
         let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", fileName, fileExt)))
         
-        let metadata = fileMetadata(title, artist, album, nil, randomDuration())
+        let metadata = fileMetadata(title, artist, album, nil, duration ?? randomDuration())
         track.setPlaylistMetadata(from: metadata)
+        
+        return track
+    }
+    
+    func addTrack(title: String, artist: String? = nil, album: String? = nil) -> Track {
+        
+        let playlistSizeBeforeAdd = playlist.size
+
+        let track = createTrack(title: title, artist: artist, album: album)
         
         _ = playlist.addTrack(track)
         
@@ -109,17 +100,23 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         return track
     }
     
-    func addTrack(fileName: String) -> Track {
-        
-        let playlistSizeBeforeAdd = playlist.size
+    func createTrack(fileName: String, duration: Double? = nil) -> Track {
         
         let fileExt = randomAudioFileExtension()
         
         let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", fileName, fileExt)))
         
-        let metadata = fileMetadata(nil, nil, nil, nil, randomDuration())
+        let metadata = fileMetadata(nil, nil, nil, nil, duration ?? randomDuration())
         track.setPlaylistMetadata(from: metadata)
         
+        return track
+    }
+    
+    func addTrack(fileName: String) -> Track {
+        
+        let playlistSizeBeforeAdd = playlist.size
+        
+        let track = createTrack(fileName: fileName)
         _ = playlist.addTrack(track)
         
         XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)

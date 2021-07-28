@@ -28,7 +28,9 @@ class PlaylistTestCase: AuralTestCase {
     }
     
     func createRandomTrack() -> Track {
-        return createTrack(title: randomTitle(), duration: randomDuration())
+        
+        createTrack(title: randomTitle(), duration: randomDuration(),
+                    artist: randomArtist(), album: randomAlbum())
     }
     
     func createNRandomTracks(count: Int) -> [Track] {
