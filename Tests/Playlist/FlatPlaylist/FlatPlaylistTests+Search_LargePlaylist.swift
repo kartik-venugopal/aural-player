@@ -1,5 +1,5 @@
 //
-//  FlatPlaylistTests+Search.swift
+//  FlatPlaylistTests+Search_LargePlaylist.swift
 //  Tests
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class FlatPlaylistTests_Search: FlatPlaylistTestCase {
+class FlatPlaylistTests_Search_LargePlaylist: FlatPlaylistTestCase {
     
     private var library: Library = Library()
     
@@ -130,7 +130,7 @@ class FlatPlaylistTests_Search: FlatPlaylistTestCase {
         let artists = Array(library.uniqueArtists())
         
         let correctedCount = min(artists.count, count)
-        return Set((0..<correctedCount).map {_ in artists[Int.random(in: artists.indices)]})
+        return Set((0..<correctedCount).map {_ in artists.randomElement()})
     }
     
     func test_byName_partialTextMatch() {
@@ -160,33 +160,7 @@ class FlatPlaylistTests_Search: FlatPlaylistTestCase {
             let results = playlist.search(query)
             
             XCTAssertEqual(results.count, expectedResultsCount)
-            
-            if expectedResultsCount > 0 {
-                XCTAssertTrue(results.hasResults)
-            } else {
-                XCTAssertFalse(results.hasResults)
-            }
+            XCTAssertEqual(results.hasResults, expectedResultsCount > 0)
         }
-    }
-}
-
-extension SearchQuery {
-
-    func withText(_ text: String) -> SearchQuery {
-        
-        self.text = text
-        return self
-    }
-    
-    func withFields(_ fields: SearchFields) -> SearchQuery {
-        
-        self.fields = fields
-        return self
-    }
-    
-    func withType(_ type: SearchType) -> SearchQuery {
-        
-        self.type = type
-        return self
     }
 }

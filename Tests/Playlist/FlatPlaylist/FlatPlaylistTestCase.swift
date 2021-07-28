@@ -72,6 +72,61 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)
     }
     
+    func addTrack(title: String, artist: String?, album: String) -> Track {
+        
+        let playlistSizeBeforeAdd = playlist.size
+
+        let fileName = artist == nil ? title : "\(artist!) - \(title)"
+        let fileExt = randomAudioFileExtension()
+        
+        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", fileName, fileExt)))
+        
+        let metadata = fileMetadata(title, artist, album, nil, randomDuration())
+        track.setPlaylistMetadata(from: metadata)
+        
+        _ = playlist.addTrack(track)
+        
+        XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)
+        
+        return track
+    }
+    
+    func addTrack(fileName: String, title: String, artist: String?, album: String) -> Track {
+        
+        let playlistSizeBeforeAdd = playlist.size
+        
+        let fileExt = randomAudioFileExtension()
+        
+        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", fileName, fileExt)))
+        
+        let metadata = fileMetadata(title, artist, album, nil, randomDuration())
+        track.setPlaylistMetadata(from: metadata)
+        
+        _ = playlist.addTrack(track)
+        
+        XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)
+        
+        return track
+    }
+    
+    func addTrack(fileName: String) -> Track {
+        
+        let playlistSizeBeforeAdd = playlist.size
+        
+        let fileExt = randomAudioFileExtension()
+        
+        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", fileName, fileExt)))
+        
+        let metadata = fileMetadata(nil, nil, nil, nil, randomDuration())
+        track.setPlaylistMetadata(from: metadata)
+        
+        _ = playlist.addTrack(track)
+        
+        XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)
+        
+        return track
+    }
+    
     func assertEmptyPlaylist() {
         
         XCTAssertEqual(playlist.size, 0)
@@ -82,4 +137,41 @@ class FlatPlaylistTestCase: PlaylistTestCase {
 //    func randomPlaylistSize() -> Int {
 //        .random(in: 10...10000)
 //    }
+}
+
+extension SearchQuery {
+    
+    convenience init(text: String, type: SearchType = .contains, fields: SearchFields = .all, options: SearchOptions = .none) {
+        
+        self.init()
+        
+        self.text = text
+        self.type = type
+        self.fields = fields
+        self.options = options
+    }
+
+    func withText(_ text: String) -> SearchQuery {
+        
+        self.text = text
+        return self
+    }
+    
+    func withFields(_ fields: SearchFields) -> SearchQuery {
+        
+        self.fields = fields
+        return self
+    }
+    
+    func withType(_ type: SearchType) -> SearchQuery {
+        
+        self.type = type
+        return self
+    }
+    
+    func withOptions(_ options: SearchOptions) -> SearchQuery {
+        
+        self.options = options
+        return self
+    }
 }
