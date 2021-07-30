@@ -138,6 +138,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         
         XCTAssertEqual(theGroup.name, expectedGroupName)
         XCTAssertEqual(theGroup.size, 1)
+        XCTAssertEqual(theGroup.duration, track.duration, accuracy: 0.001)
         XCTAssertEqual(theGroup.trackAtIndex(0), track)
         
         XCTAssertTrue(addResult.groupCreated)
@@ -154,12 +155,14 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         
         let numberOfGroupsBeforeAdd = playlist.numberOfGroups
         let groupSizeBeforeAdd = group.size
+        let groupDurationBeforeAdd = group.duration
         
         let addResult = playlist.addTrack(track)
         
         XCTAssertEqual(playlist.numberOfGroups, numberOfGroupsBeforeAdd)
         
         XCTAssertEqual(group.size, groupSizeBeforeAdd + 1)
+        XCTAssertEqual(group.duration, groupDurationBeforeAdd + track.duration, accuracy: 0.001)
         XCTAssertEqual(group.trackAtIndex(groupSizeBeforeAdd), track)
         
         XCTAssertFalse(addResult.groupCreated)
@@ -197,6 +200,9 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         XCTAssertEqual(madonnaGroup.size, 5)
         XCTAssertEqual(grimesGroup.size, 2)
         XCTAssertEqual(biosphereGroup.size, 10)
+        
+        let madonnaGroupDurationBeforeRemove = madonnaGroup.duration
+        let biosphereGroupDurationBeforeRemove = biosphereGroup.duration
 
         let groupsToRemove = [grimesGroup]
         let tracksToRemove = [madonnaTracks[1], madonnaTracks[3], biosphereTracks[4]]
@@ -209,6 +215,11 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         XCTAssertTrue(playlist.groups.contains(biosphereGroup))
         
         XCTAssertEqual(madonnaGroup.size, 3)
+        
+        XCTAssertEqual(madonnaGroup.duration,
+                       madonnaGroupDurationBeforeRemove - (madonnaTracks[1].duration + madonnaTracks[3].duration),
+                       accuracy: 0.001)
+        
         XCTAssertFalse(madonnaGroup.tracks.contains(madonnaTracks[1]))
         XCTAssertFalse(madonnaGroup.tracks.contains(madonnaTracks[3]))
         
@@ -217,6 +228,11 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         }
         
         XCTAssertEqual(biosphereGroup.size, 9)
+        
+        XCTAssertEqual(biosphereGroup.duration,
+                       biosphereGroupDurationBeforeRemove - biosphereTracks[4].duration,
+                       accuracy: 0.001)
+        
         XCTAssertFalse(biosphereGroup.tracks.contains(biosphereTracks[4]))
         
         for index in [0, 1, 2, 3, 5, 6, 7, 8, 9] {
@@ -366,6 +382,9 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         XCTAssertEqual(halfaxaGroup.size, 5)
         XCTAssertEqual(visionsGroup.size, 2)
         XCTAssertEqual(substrataGroup.size, 10)
+        
+        let halfaxaGroupDurationBeforeRemove = halfaxaGroup.duration
+        let substrataGroupDurationBeforeRemove = substrataGroup.duration
 
         let groupsToRemove = [visionsGroup]
         let tracksToRemove = [halfaxaTracks[1], halfaxaTracks[3], substrataTracks[4]]
@@ -378,6 +397,11 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         XCTAssertTrue(playlist.groups.contains(substrataGroup))
         
         XCTAssertEqual(halfaxaGroup.size, 3)
+        
+        XCTAssertEqual(halfaxaGroup.duration,
+                       halfaxaGroupDurationBeforeRemove - (halfaxaTracks[1].duration + halfaxaTracks[3].duration),
+                       accuracy: 0.001)
+        
         XCTAssertFalse(halfaxaGroup.tracks.contains(halfaxaTracks[1]))
         XCTAssertFalse(halfaxaGroup.tracks.contains(halfaxaTracks[3]))
         
@@ -386,6 +410,11 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         }
         
         XCTAssertEqual(substrataGroup.size, 9)
+        
+        XCTAssertEqual(substrataGroup.duration,
+                       substrataGroupDurationBeforeRemove - substrataTracks[4].duration,
+                       accuracy: 0.001)
+        
         XCTAssertFalse(substrataGroup.tracks.contains(substrataTracks[4]))
         
         for index in [0, 1, 2, 3, 5, 6, 7, 8, 9] {
@@ -546,6 +575,9 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         XCTAssertEqual(popGroup.size, 5)
         XCTAssertEqual(electronicaGroup.size, 2)
         XCTAssertEqual(ambientGroup.size, 10)
+        
+        let popGroupDurationBeforeRemove = popGroup.duration
+        let ambientGroupDurationBeforeRemove = ambientGroup.duration
 
         let groupsToRemove = [electronicaGroup]
         let tracksToRemove = [popTracks[1], popTracks[3], ambientTracks[4]]
@@ -558,6 +590,11 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         XCTAssertTrue(playlist.groups.contains(ambientGroup))
         
         XCTAssertEqual(popGroup.size, 3)
+        
+        XCTAssertEqual(popGroup.duration,
+                       popGroupDurationBeforeRemove - (popTracks[1].duration + popTracks[3].duration),
+                       accuracy: 0.001)
+        
         XCTAssertFalse(popGroup.tracks.contains(popTracks[1]))
         XCTAssertFalse(popGroup.tracks.contains(popTracks[3]))
         
@@ -566,6 +603,11 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         }
         
         XCTAssertEqual(ambientGroup.size, 9)
+        
+        XCTAssertEqual(ambientGroup.duration,
+                       ambientGroupDurationBeforeRemove - ambientTracks[4].duration,
+                       accuracy: 0.001)
+        
         XCTAssertFalse(ambientGroup.tracks.contains(ambientTracks[4]))
         
         for index in [0, 1, 2, 3, 5, 6, 7, 8, 9] {
