@@ -1,5 +1,5 @@
 //
-//  SpecificTrackPlaybackTests.swift
+//  PlaybackDelegateTests+SpecificTrackPlayback.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class SpecificTrackPlaybackTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_SpecificTrackPlayback: PlaybackDelegateTestCase {
     
     // MARK: play(index) tests ------------------------------------------------------------------------------------
 

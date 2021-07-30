@@ -1,5 +1,5 @@
 //
-//  PlaybackParamsTests.swift
+//  PlaybackDelegateTests+PlaybackParams.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class PlaybackParamsTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_PlaybackParams: PlaybackDelegateTestCase {
     
     // Bookmark playback
     func testParams_noStartPosition_startAt0() {

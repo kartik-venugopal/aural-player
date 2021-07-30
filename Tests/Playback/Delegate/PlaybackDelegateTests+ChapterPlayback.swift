@@ -1,5 +1,5 @@
 //
-//  ChapterPlaybackTests.swift
+//  PlaybackDelegateTests+ChapterPlayback.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class ChapterPlaybackTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_ChapterPlayback: PlaybackDelegateTestCase {
 
     private func createChapters(_ count: Int) -> [Chapter] {
 

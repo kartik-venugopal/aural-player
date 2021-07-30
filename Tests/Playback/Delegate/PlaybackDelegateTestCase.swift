@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class PlaybackDelegateTests: AuralTestCase {
+class PlaybackDelegateTestCase: AuralTestCase {
 
     var delegate: PlaybackDelegate!
 

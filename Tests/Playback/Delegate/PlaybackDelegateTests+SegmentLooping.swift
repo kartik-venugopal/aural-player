@@ -1,5 +1,5 @@
 //
-//  LoopTests.swift
+//  PlaybackDelegateTests+SegmentLooping.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class LoopTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_SegmentLooping: PlaybackDelegateTestCase {
     
     func testToggleLoop_noTrackPlaying() {
         

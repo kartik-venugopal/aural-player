@@ -19,7 +19,7 @@ class StopPlaybackChainTests: AuralTestCase {
     var mockScheduler: MockScheduler!
     var mockPlayerNode: MockPlayerNode!
     
-    var playlist: TestablePlaylist!
+    var playlist: Playlist!
 
     var sequencer: MockSequencer!
     var preferences: PlaybackPreferences!
@@ -52,7 +52,7 @@ class StopPlaybackChainTests: AuralTestCase {
         let albumsPlaylist = GroupingPlaylist(.albums)
         let genresPlaylist = GroupingPlaylist(.genres)
         
-        playlist = TestablePlaylist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
+        playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
 
         preferences = PlaybackPreferences([:])
         profiles = PlaybackProfiles([])

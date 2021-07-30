@@ -32,6 +32,33 @@ class PlaybackSequencePersistenceTests: PersistenceTestCase {
             doTestPersistence(serializedState: state)
         }
     }
+    
+    func testPersistentState() {
+        
+        let flatPlaylist = FlatPlaylist()
+        let artistsPlaylist = GroupingPlaylist(.artists)
+        let albumsPlaylist = GroupingPlaylist(.albums)
+        let genresPlaylist = GroupingPlaylist(.genres)
+        
+        let playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
+        
+        let persistentState = PlaybackSequencePersistentState(repeatMode: .off, shuffleMode: .off)
+        let sequencer = Sequencer(persistentState: persistentState, playlist, .tracks)
+        
+        for (repeatMode, shuffleMode) in repeatShufflePermutations {
+            
+            _ = sequencer.setRepeatMode(repeatMode)
+            _ = sequencer.setShuffleMode(shuffleMode)
+            
+            let modes = sequencer.repeatAndShuffleModes
+            XCTAssertEqual(modes.repeatMode, repeatMode)
+            XCTAssertEqual(modes.shuffleMode, shuffleMode)
+            
+            let persistentState = sequencer.persistentState
+            XCTAssertEqual(persistentState.repeatMode, modes.repeatMode)
+            XCTAssertEqual(persistentState.shuffleMode, modes.shuffleMode)
+        }
+    }
 }
 
 // MARK: Equality comparison for model objects -----------------------------

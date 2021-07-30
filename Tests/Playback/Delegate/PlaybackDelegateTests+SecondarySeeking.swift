@@ -1,5 +1,5 @@
 //
-//  SecondarySeekingTests.swift
+//  PlaybackDelegateTests+SecondarySeeking.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class SecondarySeekingTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_SecondarySeeking: PlaybackDelegateTestCase {
     
     // MARK: seekBackwardSecondary() tests ------------------------------------------------------------------------
     

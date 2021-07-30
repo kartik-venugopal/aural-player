@@ -1,5 +1,5 @@
 //
-//  Init_PlaybackProfilesTests.swift
+//  PlaybackDelegateTests+InitPlaybackProfiles.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -33,15 +33,10 @@ class PlaybackDelegateTests_InitPlaybackProfiles: PlaybackDelegateTestCase {
         let track1 = createTrack(title: "Strangelove", duration: 300)
         let track2 = createTrack(title: "Money for Nothing", duration: 420)
 
-        let profile1 = PlaybackProfile(track1.file, 102.25345345)
-        let profile2 = PlaybackProfile(track2.file, 257.93487834)
+        let profile1 = PlaybackProfile(track1, 102.25345345)
+        let profile2 = PlaybackProfile(track2, 257.93487834)
 
-        let profiles = PlaybackProfiles([])
-        let profilesArr: [PlaybackProfile] = [profile1, profile2]
-
-        for profile in profilesArr {
-            profiles[profile.file] = profile
-        }
+        let profiles = PlaybackProfiles([profile1, profile2])
 
         startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, trackReader: trackReader, profiles, preferences)
         stopPlaybackChain = TestableStopPlaybackChain(player, playlist, sequencer, profiles, preferences)

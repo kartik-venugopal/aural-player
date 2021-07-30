@@ -59,6 +59,10 @@ func randomNillableBool() -> Bool? {
     randomNillableValue {.random()}
 }
 
+let repeatShufflePermutations: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] = zip(RepeatMode.allCases, ShuffleMode.allCases).filter {
+    $0 != (.one, .on)
+}
+
 extension Float {
     
     static func approxEquals(_ op1: Float?, _ op2: Float?, accuracy: Float) -> Bool {

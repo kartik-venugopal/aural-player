@@ -1,5 +1,5 @@
 //
-//  StopTests.swift
+//  PlaybackDelegateTests+StopPlayback.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class StopTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_StopPlayback: PlaybackDelegateTestCase {
 
     func testStop_noPlayingTrack() {
 

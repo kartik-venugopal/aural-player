@@ -1,5 +1,5 @@
 //
-//  TogglePlayPauseTests.swift
+//  PlaybackDelegateTests+TogglePlayPause.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class TogglePlayPauseTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_TogglePlayPause: PlaybackDelegateTestCase {
 
     func testTogglePlayPause_noTrackPlaying_emptyPlaylist() {
         doBeginPlayback(nil)

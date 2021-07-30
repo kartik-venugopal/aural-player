@@ -1,5 +1,5 @@
 //
-//  ReplayTests.swift
+//  PlaybackDelegateTests_ReplayTrack.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class ReplayTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_ReplayTrack: PlaybackDelegateTestCase {
 
     func testReplay_noPlayingTrack() {
 

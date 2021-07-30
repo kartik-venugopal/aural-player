@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class PlaybackRequestContextTests: PlaybackDelegateTests {
+class PlaybackRequestContextTests: PlaybackDelegateTestCase {
     
     func testBegun() {
         

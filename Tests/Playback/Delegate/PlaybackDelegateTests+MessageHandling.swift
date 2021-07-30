@@ -1,5 +1,5 @@
 //
-//  MessageHandlingTests.swift
+//  PlaybackDelegateTests+MessageHandling.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class MessageHandlingTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_MessageHandling: PlaybackDelegateTestCase {
     
     var trackNotPlayedMsgCount: Int = 0
     var trackNotPlayedMsg_oldTrack: Track?

@@ -1,5 +1,5 @@
 //
-//  IterationTests.swift
+//  PlaybackDelegateTests+TrackIteration.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class IterationTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_TrackIteration: PlaybackDelegateTestCase {
 
     // MARK: previousTrack() tests ------------------------------------------------------------------------------------------
 

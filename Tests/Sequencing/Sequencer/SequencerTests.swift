@@ -38,25 +38,6 @@ class SequencerTests: AuralTestCase {
         return runLongRunningTests ? 10 : 3
     }
     
-    let repeatShufflePermutations: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] = {
-        
-        var array: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] = []
-        
-        for repeatMode in RepeatMode.allCases {
-        
-            for shuffleMode in ShuffleMode.allCases {
-                
-                // Repeat One / Shuffle On is not a valid permutation
-                if (repeatMode, shuffleMode) != (.one, .on) {
-                    array.append((repeatMode, shuffleMode))
-                }
-            }
-        }
-        
-        return array
-        
-    }()
-
     override func setUp() {
         
         if sequencer == nil {

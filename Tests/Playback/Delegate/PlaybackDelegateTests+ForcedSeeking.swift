@@ -1,5 +1,5 @@
 //
-//  ForcedSeekingTests.swift
+//  PlaybackDelegateTests+ForcedSeeking.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class ForcedSeekingTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_ForcedSeeking: PlaybackDelegateTestCase {
     
     // MARK: seekToPercentage() tests ------------------------------------------------------------------------
     

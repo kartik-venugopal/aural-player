@@ -23,7 +23,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase {
     
     var trackReader: MockTrackReader!
     
-    var playlist: TestablePlaylist!
+    var playlist: Playlist!
     
     var sequencer: MockSequencer!
     var preferences: PlaybackPreferences!
@@ -62,7 +62,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase {
         let albumsPlaylist = GroupingPlaylist(.albums)
         let genresPlaylist = GroupingPlaylist(.genres)
         
-        playlist = TestablePlaylist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
+        playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         
         trackReader = MockTrackReader()
         

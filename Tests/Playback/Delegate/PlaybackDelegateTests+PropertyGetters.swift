@@ -1,5 +1,5 @@
 //
-//  PropertyGettersTests.swift
+//  PlaybackDelegateTests+PropertyGetters.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class PropertyGettersTests: PlaybackDelegateTests {
+class PlaybackDelegateTests_PropertyGetters: PlaybackDelegateTestCase {
 
     // MARK: state tests -------------------------------------------------------------------------------------
 
