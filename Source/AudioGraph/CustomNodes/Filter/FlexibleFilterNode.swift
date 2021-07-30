@@ -128,7 +128,7 @@ class FlexibleFilterNode: AVAudioUnitEQ {
     func removeBands(atIndices indexSet: IndexSet) {
     
         // Descending order
-        let sortedIndexes = indexSet.sorted(by: Int.descendingIntComparator)
+        let sortedIndexes = indexSet.sortedDescending()
         sortedIndexes.forEach {removeBand(at: $0)}
     }
     

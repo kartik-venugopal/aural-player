@@ -70,7 +70,7 @@ class MappedPresets<P: MappedPreset> {
     
     func deletePresets(atIndices indices: IndexSet) -> [P] {
         
-        return indices.sorted(by: Int.descendingIntComparator).map {
+        return indices.sortedDescending().map {
             userDefinedPresetsMap.removePresetAtIndex($0)
         }
     }

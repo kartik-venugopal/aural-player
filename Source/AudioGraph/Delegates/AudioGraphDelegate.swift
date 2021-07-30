@@ -213,7 +213,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         graph.removeAudioUnits(at: indices)
         
-        let descendingIndices = indices.sorted(by: Int.descendingIntComparator)
+        let descendingIndices = indices.sortedDescending()
         return descendingIndices.map {audioUnits.remove(at: $0)}
     }
     
