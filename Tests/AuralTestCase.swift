@@ -182,7 +182,7 @@ extension XCTestCase {
         
         XCTAssertEqual(theArr1.count, theArr2.count)
         
-        for (elm1, elm2) in zip(theArr1, theArr2) {
+        for (elm1, elm2) in permute(theArr1, theArr2) {
             XCTAssertEqual(elm1, elm2, accuracy: accuracy)
         }
     }
@@ -210,7 +210,7 @@ extension XCTestCase {
             return
         }
         
-        for (elm1, elm2) in zip(theArr1, theArr2) {
+        for (elm1, elm2) in permute(theArr1, theArr2) {
             XCTAssertNotEqual(elm1, elm2)
         }
     }

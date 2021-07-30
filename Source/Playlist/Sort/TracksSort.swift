@@ -27,6 +27,11 @@ class TracksSort {
         return self
     }
     
+    func withFields(_ fields: [SortField]) -> TracksSort {
+        self.fields = fields
+        return self
+    }
+    
     func withOrder(_ order: SortOrder) -> TracksSort {
         self.order = order
         return self

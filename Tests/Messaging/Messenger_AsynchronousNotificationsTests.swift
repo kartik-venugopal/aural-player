@@ -112,7 +112,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase {
         let filterConditionValues: ConcurrentQueue<Bool> = ConcurrentQueue<Bool>("testAsynchronousNotification_noPayload_withFilter_conditional")
 
         let receivedNotifCount: AtomicCounter<Int> = AtomicCounter()
-        let conditionalFilter: () -> Bool = {return filterConditionValues.dequeue() ?? false}
+        let conditionalFilter: () -> Bool = {filterConditionValues.dequeue() ?? false}
 
         var publisherIsBlocked: [Bool] = []
 

@@ -18,66 +18,21 @@ class FlatPlaylistTests_Sort_LargePlaylist: FlatPlaylistTestCase {
             (1...3).map {_ in Int.random(in: 1001...10000)}
     }
     
-    func test_byName_ascending() {
-        
-        for playlistSize in playlistSizes {
-            
-            playlist.clear()
-            assertEmptyPlaylist()
-            
-            let tracks = createNRandomTracks(count: playlistSize).shuffled()
-            tracks.forEach {_ = self.playlist.addTrack($0)}
-            
-            let tracksSort = TracksSort().withFields(.name).withOrder(.ascending)
-            let sort = Sort().withTracksSort(tracksSort)
-            
-            playlist.sort(sort)
-            
-            XCTAssertTrue(isPlaylistSortedByName(ascending: true))
-        }
+    func test_byName() {
+        doTest(fields: .name, verificationFunction: isPlaylistSortedByName(ascending:))
     }
     
-    func test_byName_descending() {
-        
-        for playlistSize in playlistSizes {
-            
-            playlist.clear()
-            assertEmptyPlaylist()
-            
-            let tracks = createNRandomTracks(count: playlistSize).shuffled()
-            tracks.forEach {_ = self.playlist.addTrack($0)}
-            
-            let tracksSort = TracksSort().withFields(.name).withOrder(.descending)
-            let sort = Sort().withTracksSort(tracksSort)
-            
-            playlist.sort(sort)
-            
-            XCTAssertTrue(isPlaylistSortedByName(ascending: false))
-        }
+    func test_byDuration() {
+        doTest(fields: .duration, verificationFunction: isPlaylistSortedByDuration(ascending:))
     }
     
-    func test_byDuration_ascending() {
-        
-        for playlistSize in playlistSizes {
-            
-            playlist.clear()
-            assertEmptyPlaylist()
-            
-            let tracks = createNRandomTracks(count: playlistSize).shuffled()
-            tracks.forEach {_ = self.playlist.addTrack($0)}
-            
-            let tracksSort = TracksSort().withFields(.duration).withOrder(.ascending)
-            let sort = Sort().withTracksSort(tracksSort)
-            
-            playlist.sort(sort)
-            
-            XCTAssertTrue(isPlaylistSortedByDuration(ascending: true))
-        }
+    func test_byArtistAndName() {
+        doTest(fields: .artist, .name, verificationFunction: isPlaylistSortedByArtistAndName(ascending:))
     }
     
-    func test_byDuration_descending() {
+    private func doTest(fields: SortField..., verificationFunction: @escaping (Bool) -> Bool) {
         
-        for playlistSize in playlistSizes {
+        for (playlistSize, ascending) in permute(playlistSizes, [true, false]) {
             
             playlist.clear()
             assertEmptyPlaylist()
@@ -85,50 +40,12 @@ class FlatPlaylistTests_Sort_LargePlaylist: FlatPlaylistTestCase {
             let tracks = createNRandomTracks(count: playlistSize).shuffled()
             tracks.forEach {_ = self.playlist.addTrack($0)}
             
-            let tracksSort = TracksSort().withFields(.duration).withOrder(.descending)
+            let tracksSort = TracksSort().withFields(fields).withOrder(ascending ? .ascending : .descending)
             let sort = Sort().withTracksSort(tracksSort)
             
             playlist.sort(sort)
             
-            XCTAssertTrue(isPlaylistSortedByDuration(ascending: false))
-        }
-    }
-    
-    func test_byArtistAndName_ascending() {
-        
-        for playlistSize in playlistSizes {
-            
-            playlist.clear()
-            assertEmptyPlaylist()
-            
-            let tracks = createNRandomTracks(count: playlistSize).shuffled()
-            tracks.forEach {_ = self.playlist.addTrack($0)}
-            
-            let tracksSort = TracksSort().withFields(.artist, .name).withOrder(.ascending)
-            let sort = Sort().withTracksSort(tracksSort)
-            
-            playlist.sort(sort)
-            
-            XCTAssertTrue(isPlaylistSortedByArtistAndName(ascending: true))
-        }
-    }
-    
-    func test_byArtistAndName_descending() {
-        
-        for playlistSize in playlistSizes {
-            
-            playlist.clear()
-            assertEmptyPlaylist()
-            
-            let tracks = createNRandomTracks(count: playlistSize).shuffled()
-            tracks.forEach {_ = self.playlist.addTrack($0)}
-            
-            let tracksSort = TracksSort().withFields(.artist, .name).withOrder(.descending)
-            let sort = Sort().withTracksSort(tracksSort)
-            
-            playlist.sort(sort)
-            
-            XCTAssertTrue(isPlaylistSortedByArtistAndName(ascending: false))
+            XCTAssertTrue(verificationFunction(ascending))
         }
     }
     

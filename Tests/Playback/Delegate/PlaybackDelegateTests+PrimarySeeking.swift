@@ -51,7 +51,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(.random(in: 0...trackDuration))
             }
 
-            for (startPosition, seekLength) in zip(startPositions, seekLengths) {
+            for (startPosition, seekLength) in permute(startPositions, seekLengths) {
                 
                 delegate.play(track)
                 doSeekBackward_constantSeekLength(track, startPosition, seekLength)
@@ -112,7 +112,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, seekLength) in zip(startPositions, seekLengths) {
+            for (startPosition, seekLength) in permute(startPositions, seekLengths) {
                 
                 delegate.play(track)
                 
@@ -173,7 +173,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, seekPercentage) in zip(startPositions, seekPercentages) {
+            for (startPosition, seekPercentage) in permute(startPositions, seekPercentages) {
                 
                 delegate.play(track)
                 doSeekBackward_trackDurationPercentage(track, startPosition, seekPercentage)
@@ -231,7 +231,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, seekPercentage) in zip(startPositions, seekPercentages) {
+            for (startPosition, seekPercentage) in permute(startPositions, seekPercentages) {
                 
                 delegate.play(track)
                 
@@ -287,7 +287,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, sensitivity) in zip(startPositions, ScrollSensitivity.allCases) {
+            for (startPosition, sensitivity) in permute(startPositions, ScrollSensitivity.allCases) {
                 
                 delegate.play(track)
                 doSeekBackward_continuousActionMode(track, startPosition, sensitivity)
@@ -336,7 +336,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, sensitivity) in zip(startPositions, ScrollSensitivity.allCases) {
+            for (startPosition, sensitivity) in permute(startPositions, ScrollSensitivity.allCases) {
                 
                 delegate.play(track)
                 
@@ -410,7 +410,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, seekLength) in zip(startPositions, seekLengths) {
+            for (startPosition, seekLength) in permute(startPositions, seekLengths) {
                 
                 delegate.play(track)
                 doSeekForward_constantSeekLength(track, startPosition, seekLength)
@@ -474,7 +474,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, seekLength) in zip(startPositions, seekLengths) {
+            for (startPosition, seekLength) in permute(startPositions, seekLengths) {
                 
                 delegate.play(track)
                 
@@ -534,7 +534,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, seekPercentage) in zip(startPositions, seekPercentages) {
+            for (startPosition, seekPercentage) in permute(startPositions, seekPercentages) {
                 
                 delegate.play(track)
                 doSeekForward_trackDurationPercentage(track, startPosition, seekPercentage)
@@ -595,7 +595,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, seekPercentage) in zip(startPositions, seekPercentages) {
+            for (startPosition, seekPercentage) in permute(startPositions, seekPercentages) {
                 
                 delegate.play(track)
                 
@@ -651,7 +651,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, sensitivity) in zip(startPositions, ScrollSensitivity.allCases) {
+            for (startPosition, sensitivity) in permute(startPositions, ScrollSensitivity.allCases) {
                 
                 delegate.play(track)
                 doSeekForward_continuousActionMode(track, startPosition, sensitivity)
@@ -703,7 +703,7 @@ class PlaybackDelegateTests_PrimarySeeking: PlaybackDelegateTestCase {
                 startPositions.insert(Double.random(in: 0...trackDuration))
             }
 
-            for (startPosition, sensitivity) in zip(startPositions, ScrollSensitivity.allCases) {
+            for (startPosition, sensitivity) in permute(startPositions, ScrollSensitivity.allCases) {
                 
                 delegate.play(track)
                 

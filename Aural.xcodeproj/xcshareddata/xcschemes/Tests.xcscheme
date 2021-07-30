@@ -17,19 +17,28 @@
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Playlist/FlatPlaylistTests.xctestplan">
+            reference = "container:Tests/Playback/Playback.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Playlist/Persistence.xctestplan">
+            reference = "container:Tests/Sequencer/Sequencer.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/Playlist/FlatPlaylist/FlatPlaylist.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/Persistence/Persistence.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:Tests/Preferences/Preferences.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Sequencing/Sequencer.xctestplan">
+            reference = "container:Tests/Playlist/Playlist.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Playback/Playback.xctestplan">
+            reference = "container:Tests/Messaging/Messaging.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/Utils/Utils.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>

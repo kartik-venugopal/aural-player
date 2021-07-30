@@ -39,7 +39,7 @@ class PlaybackDelegateTests_ForcedSeeking: PlaybackDelegateTestCase {
             seekPercentages.insert(.random(in: 0...100))
         }
         
-        for (trackDuration, seekPercentage) in zip(trackDurations, seekPercentages) {
+        for (trackDuration, seekPercentage) in permute(trackDurations, seekPercentages) {
             
             let track = createTrack(title: "Like a Virgin", duration: trackDuration)
             
@@ -85,7 +85,7 @@ class PlaybackDelegateTests_ForcedSeeking: PlaybackDelegateTestCase {
             seekPercentages.insert(.random(in: 0...100))
         }
         
-        for (trackDuration, seekPercentage) in zip(trackDurations, seekPercentages) {
+        for (trackDuration, seekPercentage) in permute(trackDurations, seekPercentages) {
             
             let track = createTrack(title: "Like a Virgin", duration: trackDuration)
             

@@ -251,3 +251,17 @@ extension Equatable {
         array.contains(self)
     }
 }
+
+func permute<S: Sequence, T: Sequence>(_ seq1: S, _ seq2: T) -> [(S.Element, T.Element)] {
+    
+    var permutations: [(S.Element, T.Element)] = []
+    
+    for elm1 in seq1 {
+        
+        for elm2 in seq2 {
+            permutations.append((elm1, elm2))
+        }
+    }
+    
+    return permutations
+}

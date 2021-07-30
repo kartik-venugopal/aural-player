@@ -1,5 +1,5 @@
 //
-//  PlaylistItemArrayTests.swift
+//  ArrayExtensionsTests.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class PlaylistItemArrayTests: AuralTestCase {
+class ArrayExtensionsTests: AuralTestCase {
     
     // TODO: Tests with large arrays (~ 10,000 elements) and arbitrary indices.
     

@@ -11,7 +11,7 @@ import XCTest
 
 class GroupingPlaylistTests: AuralTestCase {
     
-    var plst = GroupingPlaylist(.artists)
+    var playlist = GroupingPlaylist(.artists)
 
     func createNTracks(_ numTracks: Int, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> [Track] {
 
@@ -50,12 +50,12 @@ class GroupingPlaylistTests: AuralTestCase {
         let biosphereTracks = createNTracks(10, "Biosphere")
 
         for track in madonnaTracks + grimesTracks + biosphereTracks {
-            _ = plst.addTrack(track)
+            _ = playlist.addTrack(track)
         }
 
-        XCTAssertEqual(plst.numberOfGroups, 3)
+        XCTAssertEqual(playlist.numberOfGroups, 3)
 
-        let allGroups = plst.groups
+        let allGroups = playlist.groups
         XCTAssertEqual(allGroups.count, 3)
 
         let madonnaGroup = allGroups.first(where: {$0.name == "Madonna"})!
@@ -69,9 +69,15 @@ class GroupingPlaylistTests: AuralTestCase {
         let groupsToRemove = [grimesGroup]
         let tracksToRemove = [madonnaTracks[1], madonnaTracks[3], biosphereTracks[4]]
 
-        _ = plst.removeTracksAndGroups(tracksToRemove, groupsToRemove)
-        XCTAssertFalse(plst.groups.contains(grimesGroup))
+        _ = playlist.removeTracksAndGroups(tracksToRemove, groupsToRemove)
+        
+        XCTAssertFalse(playlist.groups.contains(grimesGroup))
+        
         XCTAssertEqual(madonnaGroup.size, 3)
+        XCTAssertFalse(madonnaGroup.tracks.contains(madonnaTracks[1]))
+        XCTAssertFalse(madonnaGroup.tracks.contains(madonnaTracks[3]))
+        
         XCTAssertEqual(biosphereGroup.size, 9)
+        XCTAssertFalse(biosphereGroup.tracks.contains(biosphereTracks[4]))
     }
 }

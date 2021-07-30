@@ -56,14 +56,14 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         XCTAssertEqual(playlist.size, playlistSizeBeforeAdd + 1)
     }
     
-    func createTrack(title: String, artist: String? = nil, album: String? = nil, duration: Double? = nil) -> Track {
+    func createTrack(title: String, artist: String? = nil, album: String? = nil, discNum: Int? = nil, trackNum: Int? = nil, duration: Double? = nil) -> Track {
         
         let fileName = artist == nil ? title : "\(artist!) - \(title)"
         let fileExt = randomAudioFileExtension()
         
         let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", fileName, fileExt)))
         
-        let metadata = fileMetadata(title, artist, album, nil, duration ?? randomDuration())
+        let metadata = fileMetadata(title, artist, album, nil, discNum: discNum, trackNum: trackNum, duration ?? randomDuration())
         track.setPlaylistMetadata(from: metadata)
         
         return track

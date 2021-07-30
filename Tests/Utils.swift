@@ -59,7 +59,7 @@ func randomNillableBool() -> Bool? {
     randomNillableValue {.random()}
 }
 
-let repeatShufflePermutations: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] = zip(RepeatMode.allCases, ShuffleMode.allCases).filter {
+let repeatShufflePermutations: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] = permute(RepeatMode.allCases, ShuffleMode.allCases).filter {
     $0 != (.one, .on)
 }
 
@@ -500,7 +500,8 @@ func randomRecentlyAddedItemFilePath() -> URLPath {
     }
 }
 
-func fileMetadata(_ title: String?, _ artist: String?, _ album: String?, _ genre: String?, _ duration: Double) -> FileMetadata {
+func fileMetadata(_ title: String?, _ artist: String?, _ album: String?, _ genre: String?, discNum: Int? = nil, trackNum: Int? = nil,
+                  _ duration: Double) -> FileMetadata {
     
     var fileMetadata: FileMetadata = FileMetadata()
     var playlistMetadata: PlaylistMetadata = PlaylistMetadata()
@@ -509,6 +510,10 @@ func fileMetadata(_ title: String?, _ artist: String?, _ album: String?, _ genre
     playlistMetadata.artist = artist
     playlistMetadata.album = album
     playlistMetadata.genre = genre
+    
+    playlistMetadata.discNumber = discNum
+    playlistMetadata.trackNumber = trackNum
+    
     playlistMetadata.duration = duration
     
     fileMetadata.playlist = playlistMetadata
