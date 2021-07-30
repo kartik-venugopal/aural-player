@@ -137,10 +137,9 @@ class MainWindowController: NSWindowController, Destroyable {
         close()
         messenger.unsubscribeFromAll()
         
-        InfoPopupViewController.destroy()
-        AlertWindowController.destroy()
+        SingletonPopoverViewController.destroy()
         StringInputPopoverViewController.destroy()
-        PresetsManagerWindowController.destroy()
+        SingletonWindowController.destroy()
         
         mainMenu.items.forEach {$0.hide()}
         

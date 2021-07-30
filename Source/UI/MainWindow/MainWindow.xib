@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    MainWindow.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
@@ -41,7 +30,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="530" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="W7v-UI-tl4">
@@ -1655,12 +1644,12 @@ CA
                                     <action selector="toggleChaptersListAction:" target="7y7-Z8-Sp0" id="Fjd-12-28q"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Tune Browser window" image="ToggleVisualizer-Small" keyEquivalent="4" id="sLP-gV-qpW">
+                            <menuItem title=" Tune Browser window" image="ToggleVisualizer-Small" hidden="YES" enabled="NO" keyEquivalent="4" id="sLP-gV-qpW">
                                 <connections>
                                     <action selector="toggleTuneBrowserAction:" target="7y7-Z8-Sp0" id="mP8-C4-8xm"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="5" id="nCv-Bk-9yW">
+                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="4" id="nCv-Bk-9yW">
                                 <connections>
                                     <action selector="toggleVisualizerAction:" target="7y7-Z8-Sp0" id="UFV-3t-NrU"/>
                                 </connections>

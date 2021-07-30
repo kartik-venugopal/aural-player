@@ -67,6 +67,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
             
             // Inactive -> Active
             // If a unit was inactive (i.e. bypassed), activate it.
+            
             nativeSlaveUnits.forEach {$0.unsuppress()}
             audioUnits.forEach {$0.unsuppress()}
         }
