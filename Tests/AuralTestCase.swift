@@ -55,9 +55,10 @@ class AuralTestCase: XCTestCase {
         wait(for: [theExpectation], timeout: timeSeconds + 1)
     }
     
-    func createTrack(title: String, duration: Double, artist: String? = nil, album: String? = nil, genre: String? = nil) -> Track {
+    func createTrack(title: String, duration: Double? = nil, artist: String? = nil, album: String? = nil, genre: String? = nil) -> Track {
         
-        return createTrack(title: title, fileExtension: "mp3", duration: duration, artist: artist, album: album, genre: genre)
+        return createTrack(title: title, fileExtension: "mp3", duration: duration ?? .random(in: 60...600),
+                           artist: artist, album: album, genre: genre)
     }
 
     func createTrack(title: String, fileExtension: String, duration: Double,

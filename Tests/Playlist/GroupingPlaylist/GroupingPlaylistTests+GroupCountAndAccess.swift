@@ -66,9 +66,8 @@ class GroupingPlaylistTests_GroupCountAndAccess: GroupingPlaylistTestCase {
             
             XCTAssertEqual(playlist.groupAtIndex(groupIndex), group)
             XCTAssertEqual(playlist.indexOfGroup(group), groupIndex)
+            XCTAssertEqual(playlist.numberOfGroups, expectedGroupCount)
         }
-        
-        XCTAssertEqual(playlist.numberOfGroups, expectedGroupCount)
     }
     
     private func removeAllGroups(from playlist: GroupingPlaylist) {

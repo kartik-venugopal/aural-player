@@ -834,6 +834,7 @@
 		3E82A2CA26ACB7A30013AB8E /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF275B26A5567000974120 /* FontSet.swift */; };
 		3E82A2CF26ACC8670013AB8E /* MockAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E82A2CE26ACC8670013AB8E /* MockAudioEngine.swift */; };
 		3E84AFF626B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E84AFF526B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift */; };
+		3E84AFFA26B5DC5B00B5F0B7 /* GroupingPlaylistTests+TrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E84AFF926B5DC5B00B5F0B7 /* GroupingPlaylistTests+TrackInfo.swift */; };
 		3E8719FD2698BD0D00C626DC /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8719FC2698BD0D00C626DC /* Library.swift */; };
 		3E871A002698BDC500C626DC /* library.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E8719FF2698BDC500C626DC /* library.txt */; };
 		3E871A052698E60300C626DC /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A042698E60300C626DC /* SearchOptions.swift */; };
@@ -1987,6 +1988,7 @@
 		3E84AFF526B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupingPlaylistTests+GroupCountAndAccess.swift"; sourceTree = "<group>"; };
 		3E84AFF726B5D8C400B5F0B7 /* AllTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AllTests.xctestplan; sourceTree = "<group>"; };
 		3E84AFF826B5D97700B5F0B7 /* GroupingPlaylist.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GroupingPlaylist.xctestplan; sourceTree = "<group>"; };
+		3E84AFF926B5DC5B00B5F0B7 /* GroupingPlaylistTests+TrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupingPlaylistTests+TrackInfo.swift"; sourceTree = "<group>"; };
 		3E8719FC2698BD0D00C626DC /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		3E8719FF2698BDC500C626DC /* library.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = library.txt; sourceTree = "<group>"; };
 		3E871A042698E60300C626DC /* SearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptions.swift; sourceTree = "<group>"; };
@@ -4953,6 +4955,7 @@
 				3E6C249526B4A684008F8475 /* GroupingPlaylistTestCase.swift */,
 				3E9025AE268E830800C5A1C5 /* GroupingPlaylistTests+AddAndRemoveTracks.swift */,
 				3E84AFF526B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift */,
+				3E84AFF926B5DC5B00B5F0B7 /* GroupingPlaylistTests+TrackInfo.swift */,
 			);
 			path = GroupingPlaylist;
 			sourceTree = "<group>";
@@ -6354,6 +6357,7 @@
 				3E2EADD726B1795300A95119 /* SavePlaybackProfileActionTests.swift in Sources */,
 				3EA1BE10268F60DA00A5D81B /* PlaybackSequenceRepeatAndShuffleTests.swift in Sources */,
 				3EA62F392693B964004A780A /* SoundProfilesPersistenceTests.swift in Sources */,
+				3E84AFFA26B5DC5B00B5F0B7 /* GroupingPlaylistTests+TrackInfo.swift in Sources */,
 				3EE4B858268FA463006BDEB2 /* FilterBand.swift in Sources */,
 				3E60C9F626B081CD00D9404C /* FFmpegStreamProtocol.swift in Sources */,
 				3EEF373F268F6B96002EA77F /* SequencerTrackSelectionTests.swift in Sources */,

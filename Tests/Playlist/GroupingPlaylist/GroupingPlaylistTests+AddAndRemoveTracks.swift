@@ -19,7 +19,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         // Add the first track, which will result in a new group being created.
         
         let track = createTrack(fileName: "Grimes - Visions", artist: "Grimes")
-        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: track.artist!)!
+        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: track.artist!)
         
         // Add a second track to the same group.
         
@@ -40,7 +40,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         // Add the first track, which will result in a new group being created.
         
         let track = createTrack(fileName: "Grimes - Visions", artist: nil)
-        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: "<Unknown>")!
+        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: "<Unknown>")
         
         // Add a second track to the same group.
         
@@ -56,7 +56,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         // Add the first track, which will result in a new group being created.
         
         let track = createTrack(fileName: "Grimes - Visions", artist: "Grimes", album: "Visions")
-        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: track.album!)!
+        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: track.album!)
         
         // Add a second track to the same group.
         
@@ -77,7 +77,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         // Add the first track, which will result in a new group being created.
         
         let track = createTrack(fileName: "Grimes - Visions", artist: "Grimes", album: nil)
-        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: "<Unknown>")!
+        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: "<Unknown>")
         
         // Add a second track to the same group.
         
@@ -93,7 +93,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         // Add the first track, which will result in a new group being created.
         
         let track = createTrack(fileName: "Grimes - Visions", artist: "Grimes", album: "Visions", genre: "Electronica")
-        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: track.genre!)!
+        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: track.genre!)
         
         // Add a second track to the same group.
         
@@ -114,7 +114,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         // Add the first track, which will result in a new group being created.
         
         let track = createTrack(fileName: "Grimes - Visions", artist: "Grimes", album: "Visions", genre: nil)
-        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: "<Unknown>")!
+        let theGroup = doTestAddTrack_groupDoesntExist(track: track, playlist: playlist, expectedGroupName: "<Unknown>")
         
         // Add a second track to the same group.
         
@@ -122,7 +122,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         doTestAddTrack_groupExists(track: track2, group: theGroup, playlist: playlist)
     }
     
-    private func doTestAddTrack_groupDoesntExist(track: Track, playlist: GroupingPlaylist, expectedGroupName: String) -> Group? {
+    private func doTestAddTrack_groupDoesntExist(track: Track, playlist: GroupingPlaylist, expectedGroupName: String) -> Group {
         
         let numberOfGroupsBeforeAdd = playlist.numberOfGroups
         
@@ -130,11 +130,7 @@ class GroupingPlaylistTests_AddAndRemoveTracks: GroupingPlaylistTestCase {
         
         XCTAssertEqual(playlist.numberOfGroups, numberOfGroupsBeforeAdd + 1)
         
-        guard let theGroup = playlist.groupAtIndex(playlist.groups.lastIndex) else {
-            
-            XCTFail("Group was expected to be non-nil.")
-            return nil
-        }
+        let theGroup = addResult.track.group
         
         XCTAssertEqual(theGroup.name, expectedGroupName)
         XCTAssertEqual(theGroup.size, 1)

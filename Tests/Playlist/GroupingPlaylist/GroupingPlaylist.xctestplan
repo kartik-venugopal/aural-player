@@ -31,7 +31,15 @@
         "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_genresPlaylist_tracksFromGroupAndGroup_groupRemoved()",
         "GroupingPlaylistTests_GroupCountAndAccess\/test_albumsPlaylist()",
         "GroupingPlaylistTests_GroupCountAndAccess\/test_artistsPlaylist()",
-        "GroupingPlaylistTests_GroupCountAndAccess\/test_genresPlaylist()"
+        "GroupingPlaylistTests_GroupCountAndAccess\/test_genresPlaylist()",
+        "GroupingPlaylistTests_TrackInfo\/test_albumsPlaylist_tracksDontHaveTitle()",
+        "GroupingPlaylistTests_TrackInfo\/test_albumsPlaylist_tracksHaveTitle()",
+        "GroupingPlaylistTests_TrackInfo\/test_artistsPlaylist_tracksDontHaveTitle()",
+        "GroupingPlaylistTests_TrackInfo\/test_artistsPlaylist_tracksHaveTitle()",
+        "GroupingPlaylistTests_TrackInfo\/test_genresPlaylist_artistAndTitleMetadata()",
+        "GroupingPlaylistTests_TrackInfo\/test_genresPlaylist_artistMetadataOnly()",
+        "GroupingPlaylistTests_TrackInfo\/test_genresPlaylist_noArtistOrTitleMetadata()",
+        "GroupingPlaylistTests_TrackInfo\/test_genresPlaylist_titleMetadataOnly()"
       ],
       "target" : {
         "containerPath" : "container:Aural.xcodeproj",
