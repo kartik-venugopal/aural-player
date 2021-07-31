@@ -15,7 +15,7 @@ class GroupingPlaylistTestCase: AuralTestCase {
 
         return (1...numTracks).map {index in
 
-            let title = "Track-" + String(index)
+            let title = "\(artist ?? "")-\(album ?? "")-Track-" + String(index)
             return createTrack(fileName: title, artist: artist, album: album, genre: genre)
         }
     }
