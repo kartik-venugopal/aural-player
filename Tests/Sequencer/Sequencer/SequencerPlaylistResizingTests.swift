@@ -55,7 +55,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             _ = createAndAddNTracks(25)
             
             let lastGroup = playlist.allGroups(groupType).last!
-            let lastTrack = lastGroup.allTracks().last!
+            let lastTrack = lastGroup.tracks.last!
             let playingTrack = sequencer.select(lastTrack)
             XCTAssertEqual(playingTrack!, lastTrack)
             
@@ -256,7 +256,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         var scopeTracks: [Track] = []
         
         let groups = playlist.allGroups(playlistType.toGroupType()!)
-        groups.forEach({scopeTracks.append(contentsOf: $0.allTracks())})
+        groups.forEach({scopeTracks.append(contentsOf: $0.tracks)})
 
         return scopeTracks.firstIndex(of: track)!
     }
@@ -530,8 +530,8 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             sequencer.tracksAdded(trackAdd)
             
-            let secondLastTrack = lastGroup.allTracks()[lastGroup.size - 2]
-            let lastTrack = lastGroup.allTracks().last!
+            let secondLastTrack = lastGroup.tracks[lastGroup.size - 2]
+            let lastTrack = lastGroup.tracks.last!
             
             // Select the second-last track for playback
             
@@ -732,7 +732,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 var scopeTracks: [Track] = []
                 
                 let groups = playlist.allGroups(playlistType.toGroupType()!)
-                groups.forEach({scopeTracks.append(contentsOf: $0.allTracks())})
+                groups.forEach({scopeTracks.append(contentsOf: $0.tracks)})
                 
                 // Select some random tracks for removal
                 var tracksToRemove: Set<Track> = Set()
@@ -776,7 +776,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
             let tracksToRemoveFromMadonnaGroup: [Track] = [1, 9, 17].compactMap {madonnaArtistGroup.trackAtIndex($0)}
-            doTestTracksRemoved_groupPlaying(madonnaArtistGroup, tracksToRemoveFromMadonnaGroup + Array(grimesArtistGroup.allTracks().suffix(5)), [])
+            doTestTracksRemoved_groupPlaying(madonnaArtistGroup, tracksToRemoveFromMadonnaGroup + Array(grimesArtistGroup.tracks.suffix(5)), [])
         }
     }
     
@@ -799,7 +799,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             let grimesArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == "Grimes"}).first!
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
-            doTestTracksRemoved_groupPlaying(madonnaArtistGroup, Array(grimesArtistGroup.allTracks().prefix(5)), [])
+            doTestTracksRemoved_groupPlaying(madonnaArtistGroup, Array(grimesArtistGroup.tracks.prefix(5)), [])
         }
     }
 
@@ -915,7 +915,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         
         // Compute how many of the removed tracks belonged to the group that is the current sequencer scope.
         // Use this count to validate the group size after the remove operation.
-        let groupTracks = group.allTracks()
+        let groupTracks = group.tracks
         let numTracksRemovedFromScopeGroup: Int = filteredTracksToRemove.filter({groupTracks.contains($0)}).count
         
         let removalResults = playlist.removeTracksAndGroups(filteredTracksToRemove, groupsToRemove, group.type)

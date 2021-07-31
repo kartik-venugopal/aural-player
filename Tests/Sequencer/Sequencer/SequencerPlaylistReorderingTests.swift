@@ -20,7 +20,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
         var scopeTracks: [Track] = []
         
         let groups = playlist.allGroups(playlistType.toGroupType()!)
-        groups.forEach({scopeTracks.append(contentsOf: $0.allTracks())})
+        groups.forEach({scopeTracks.append(contentsOf: $0.tracks)})
 
         return scopeTracks.firstIndex(of: track)!
     }

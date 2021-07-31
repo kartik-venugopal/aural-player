@@ -19,7 +19,7 @@ class SequencerIteration_GroupingPlaylists_Tests: SequencerTests {
         scopeTracks.removeAll()
         
         let groups = playlist.allGroups(playlistType.toGroupType()!)
-        groups.forEach({scopeTracks.append(contentsOf: $0.allTracks())})
+        groups.forEach({scopeTracks.append(contentsOf: $0.tracks)})
         
         XCTAssertEqual(scopeSize, playlist.size)
     }

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "2F709723-F801-4C00-BB5A-3A01C441D000",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Aural.xcodeproj",
+        "identifier" : "3E90260F268ED91B00C5A1C5",
+        "name" : "Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

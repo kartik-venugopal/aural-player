@@ -156,7 +156,7 @@ class SequencerBeginAndEndTests: SequencerTests {
             let groups = playlist.allGroups(scope.type.toGroupType()!)
             
             var tracks: [Track] = []
-            groups.forEach({tracks.append(contentsOf: $0.allTracks())})
+            groups.forEach({tracks.append(contentsOf: $0.tracks)})
             
             return tracks
         }

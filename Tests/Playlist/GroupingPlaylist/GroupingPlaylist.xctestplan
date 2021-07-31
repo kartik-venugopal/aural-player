@@ -1,0 +1,44 @@
+{
+  "configurations" : [
+    {
+      "id" : "EE7787B9-AADF-46EB-AA4B-BF292D3F2DAF",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testAddTrack_albumsPlaylist()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testAddTrack_albumsPlaylist_noAlbumMetadata()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testAddTrack_artistsPlaylist()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testAddTrack_artistsPlaylist_noArtistMetadata()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testAddTrack_genresPlaylist()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testAddTrack_genresPlaylist_noGenreMetadata()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_albumsPlaylist()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_albumsPlaylist_allTracksFromGroup_groupRemoved()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_albumsPlaylist_tracksFromGroupAndGroup_groupRemoved()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_artistsPlaylist()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_artistsPlaylist_allTracksFromGroup_groupRemoved()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_artistsPlaylist_tracksFromGroupAndGroup_groupRemoved()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_genresPlaylist()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_genresPlaylist_allTracksFromGroup_groupRemoved()",
+        "GroupingPlaylistTests_AddAndRemoveTracks\/testRemoveTracksAndGroups_genresPlaylist_tracksFromGroupAndGroup_groupRemoved()",
+        "GroupingPlaylistTests_GroupCountAndAccess\/test_albumsPlaylist()",
+        "GroupingPlaylistTests_GroupCountAndAccess\/test_artistsPlaylist()",
+        "GroupingPlaylistTests_GroupCountAndAccess\/test_genresPlaylist()"
+      ],
+      "target" : {
+        "containerPath" : "container:Aural.xcodeproj",
+        "identifier" : "3E90260F268ED91B00C5A1C5",
+        "name" : "Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

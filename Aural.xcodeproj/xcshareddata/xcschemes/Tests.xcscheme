@@ -13,8 +13,11 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/AudioGraph/AudioGraph.xctestplan"
+            reference = "container:Tests/AllTests.xctestplan"
             default = "YES">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/AudioGraph/AudioGraph.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:Tests/Playback/Playback.xctestplan">
@@ -23,7 +26,16 @@
             reference = "container:Tests/Sequencer/Sequencer.xctestplan">
          </TestPlanReference>
          <TestPlanReference
+            reference = "container:Tests/Playlist/Playlist.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
             reference = "container:Tests/Playlist/FlatPlaylist/FlatPlaylist.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/Playlist/GroupingPlaylist/GroupingPlaylist.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/Messaging/Messaging.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:Tests/Persistence/Persistence.xctestplan">
@@ -32,16 +44,70 @@
             reference = "container:Tests/Preferences/Preferences.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Playlist/Playlist.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:Tests/Messaging/Messaging.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
             reference = "container:Tests/Utils/Utils.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3E90260F268ED91B00C5A1C5"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:Aural.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3E90260F268ED91B00C5A1C5"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:Aural.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3E90260F268ED91B00C5A1C5"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:Aural.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3E90260F268ED91B00C5A1C5"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:Aural.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3E90260F268ED91B00C5A1C5"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:Aural.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3E90260F268ED91B00C5A1C5"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:Aural.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference

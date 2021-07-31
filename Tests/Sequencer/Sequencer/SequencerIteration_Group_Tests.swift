@@ -17,7 +17,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
     private func scopeUpdated(_ group: Group) {
         
         scopeTracks.removeAll()
-        scopeTracks.append(contentsOf: group.allTracks())
+        scopeTracks.append(contentsOf: group.tracks)
         
         XCTAssertEqual(scopeSize, group.size)
     }
@@ -778,7 +778,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
                     scopeUpdated(group)
                     
                     // Start the sequence and iterate to the end.
-                    _ = sequencer.select(group.allTracks().last!)
+                    _ = sequencer.select(group.tracks.last!)
                     
                     let sequence = sequencer.sequenceInfo
                     XCTAssertEqual(sequence.scope.type, group.type.toScopeType())

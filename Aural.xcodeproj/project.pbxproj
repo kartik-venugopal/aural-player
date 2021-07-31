@@ -833,6 +833,7 @@
 		3E82A2C826ACB7790013AB8E /* FontConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF28DA72694DDC8005D5B43 /* FontConstants.swift */; };
 		3E82A2CA26ACB7A30013AB8E /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF275B26A5567000974120 /* FontSet.swift */; };
 		3E82A2CF26ACC8670013AB8E /* MockAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E82A2CE26ACC8670013AB8E /* MockAudioEngine.swift */; };
+		3E84AFF626B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E84AFF526B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift */; };
 		3E8719FD2698BD0D00C626DC /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8719FC2698BD0D00C626DC /* Library.swift */; };
 		3E871A002698BDC500C626DC /* library.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E8719FF2698BDC500C626DC /* library.txt */; };
 		3E871A052698E60300C626DC /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A042698E60300C626DC /* SearchOptions.swift */; };
@@ -1983,6 +1984,9 @@
 		3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewController.swift; sourceTree = "<group>"; };
 		3E82A2CE26ACC8670013AB8E /* MockAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioEngine.swift; sourceTree = "<group>"; };
 		3E836B5225DD3ABC00B9E303 /* monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = monaco.ttf; sourceTree = "<group>"; };
+		3E84AFF526B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupingPlaylistTests+GroupCountAndAccess.swift"; sourceTree = "<group>"; };
+		3E84AFF726B5D8C400B5F0B7 /* AllTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AllTests.xctestplan; sourceTree = "<group>"; };
+		3E84AFF826B5D97700B5F0B7 /* GroupingPlaylist.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GroupingPlaylist.xctestplan; sourceTree = "<group>"; };
 		3E8719FC2698BD0D00C626DC /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		3E8719FF2698BDC500C626DC /* library.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = library.txt; sourceTree = "<group>"; };
 		3E871A042698E60300C626DC /* SearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptions.swift; sourceTree = "<group>"; };
@@ -4265,6 +4269,7 @@
 		3E9025AB268E830800C5A1C5 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3E84AFF726B5D8C400B5F0B7 /* AllTests.xctestplan */,
 				3E871A3B2698F10800C626DC /* AudioGraph */,
 				3E9025B5268E830800C5A1C5 /* Playback */,
 				3E9025BF268E830800C5A1C5 /* Sequencer */,
@@ -4944,8 +4949,10 @@
 		3EDC529926B482E4001CCCE8 /* GroupingPlaylist */ = {
 			isa = PBXGroup;
 			children = (
+				3E84AFF826B5D97700B5F0B7 /* GroupingPlaylist.xctestplan */,
 				3E6C249526B4A684008F8475 /* GroupingPlaylistTestCase.swift */,
 				3E9025AE268E830800C5A1C5 /* GroupingPlaylistTests+AddAndRemoveTracks.swift */,
+				3E84AFF526B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift */,
 			);
 			path = GroupingPlaylist;
 			sourceTree = "<group>";
@@ -6312,6 +6319,7 @@
 				3E65198E26955D4500BD5AAD /* SoundPreferencesTests.swift in Sources */,
 				3E65198926953F7E00BD5AAD /* PlaylistPreferencesTests.swift in Sources */,
 				3E475BC2269649880065FD53 /* FlatPlaylistTests+TrackAccessByIndex.swift in Sources */,
+				3E84AFF626B5CA5F00B5F0B7 /* GroupingPlaylistTests+GroupCountAndAccess.swift in Sources */,
 				3EEF3753268F706D002EA77F /* EffectsUnitState.swift in Sources */,
 				3EF28D922694D620005D5B43 /* PlayerFontSchemePersistentState.swift in Sources */,
 				3E60CA1926B0873B00D9404C /* MockCoverArtReader.swift in Sources */,

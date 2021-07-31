@@ -137,7 +137,7 @@ class SequencerTrackSelectionTests: SequencerTests {
             if let parentGroup = group {
                 
                 XCTAssertEqual(sequence.scope.group, parentGroup)
-                XCTAssertTrue(parentGroup.allTracks().contains(track))
+                XCTAssertTrue(parentGroup.tracks.contains(track))
                 
                 XCTAssertEqual(parentGroup.name, expectedParentGroupName)
                 XCTAssertEqual(sequence.trackIndex, parentGroup.indexOfTrack(track)! + 1)
