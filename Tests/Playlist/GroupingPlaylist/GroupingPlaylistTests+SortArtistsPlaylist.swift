@@ -13,13 +13,6 @@ class GroupingPlaylistTests_SortArtistsPlaylist: GroupingPlaylistTestCase {
     
     let playlist = GroupingPlaylist(.artists)
     
-    lazy var madonnaTracks = createNTracks(5, artist: "Madonna")
-    lazy var grimesTracks = createNTracks(2, artist: "Grimes")
-    lazy var biosphereTracks = createNTracks(10, artist: "Biosphere")
-    
-    lazy var pinkTracks = createNTracks(5, artist: "Pink")
-    lazy var pinkFloydTracks = createNTracks(10, artist: "Pink Floyd")
-    
     lazy var tracks = [createTrack(fileName: "track09", duration: 255.456456),
                        createTrack(fileName: "track11", duration: 187.24342),
                        createTrack(fileName: "04 - Endless Dream", duration: 139.835345),
