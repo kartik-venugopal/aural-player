@@ -15,3 +15,10 @@ class MockTrack: Track {
         super.init(file)
     }
 }
+
+extension Track: CustomStringConvertible {
+    
+    var description: String {
+        self.displayName
+    }
+}

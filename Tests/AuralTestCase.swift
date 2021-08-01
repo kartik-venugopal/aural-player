@@ -55,19 +55,33 @@ class AuralTestCase: XCTestCase {
         wait(for: [theExpectation], timeout: timeSeconds + 1)
     }
     
-    func createTrack(title: String, duration: Double? = nil, artist: String? = nil, album: String? = nil, genre: String? = nil) -> Track {
+    func createTrack(fileName: String, duration: Double? = nil) -> Track {
+        
+        let parentFolder = randomFolder()
+
+        let track = MockTrack(URL(fileURLWithPath: String(format: "%@/%@.%@", parentFolder, fileName, randomAudioFileExtension())))
+        let metadata = fileMetadata(nil, nil, nil, nil, duration ?? .random(in: 60...600))
+        track.setPlaylistMetadata(from: metadata)
+        
+        return track
+    }
+    
+    func createTrack(title: String, duration: Double? = nil,
+                     artist: String? = nil, album: String? = nil, genre: String? = nil,
+                     discNum: Int? = nil, trackNum: Int? = nil) -> Track {
         
         return createTrack(title: title, fileExtension: "mp3", duration: duration ?? .random(in: 60...600),
-                           artist: artist, album: album, genre: genre)
+                           artist: artist, album: album, genre: genre, discNum: discNum, trackNum: trackNum)
     }
 
     func createTrack(title: String, fileExtension: String, duration: Double,
-                     artist: String? = nil, album: String? = nil, genre: String? = nil) -> Track {
+                     artist: String? = nil, album: String? = nil, genre: String? = nil,
+                     discNum: Int? = nil, trackNum: Int? = nil) -> Track {
         
         let parentFolder = randomFolder()
 
         let track = MockTrack(URL(fileURLWithPath: String(format: "%@/%@.%@", parentFolder, title, fileExtension)))
-        let metadata = fileMetadata(title, artist, album, genre, duration)
+        let metadata = fileMetadata(title, artist, album, genre, discNum: discNum, trackNum: trackNum, duration)
         track.setPlaylistMetadata(from: metadata)
         
         return track

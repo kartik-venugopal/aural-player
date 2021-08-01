@@ -100,18 +100,6 @@ class FlatPlaylistTestCase: PlaylistTestCase {
         return track
     }
     
-    func createTrack(fileName: String, duration: Double? = nil) -> Track {
-        
-        let fileExt = randomAudioFileExtension()
-        
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Users/MyUsername/Music/%@.%@", fileName, fileExt)))
-        
-        let metadata = fileMetadata(nil, nil, nil, nil, duration ?? randomDuration())
-        track.setPlaylistMetadata(from: metadata)
-        
-        return track
-    }
-    
     func addTrack(fileName: String) -> Track {
         
         let playlistSizeBeforeAdd = playlist.size

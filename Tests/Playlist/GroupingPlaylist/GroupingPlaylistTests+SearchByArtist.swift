@@ -287,7 +287,7 @@ class GroupingPlaylistTests_SearchByArtist: GroupingPlaylistTestCase {
         for queryText in ["p", "P",
                           "pi", "Pi", "PI",
                           "pin", "Pin", "PIN",
-                          "pink", "Pink"] {
+                          "pink", "Pink", "PINK"] {
             
             let query = SearchQuery(text: queryText, type: .beginsWith, fields: .artist, options: .none)
             doSearch(query, expectedResultTracks: pinkTracks + pinkFloydTracks, expectedFieldValueFunction: {$0.artist!})
@@ -340,10 +340,7 @@ class GroupingPlaylistTests_SearchByArtist: GroupingPlaylistTestCase {
                                                          "gr", "gri", "grim", "grime", "grimes",
                                                          "bio", "bios", "biosphere",
                                                          "BIO", "BIOS", "BIOSPHERE",
-                                                         "Madi", "Gra", "Bia", "sphier", "donni", "rymes",
-                                                         "ado", "Ado", "ADO", "donna", "Donna", "DONNA",
-                                                         "rim", "Rim", "RIM", "mes", "Mes", "MES",
-                                                         "osp", "Osp", "OSP", "sphere", "Sphere", "SPHERE"] {
+                                                         "Madi", "Gra", "Bia"] {
             
             let query = SearchQuery(text: queryText, type: .beginsWith, fields: .artist, options: .caseSensitive)
             assertNoResults(for: query)
