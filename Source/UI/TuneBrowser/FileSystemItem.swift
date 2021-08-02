@@ -76,7 +76,7 @@ class FileSystemItem {
             .sorted(by: {$0.name.lowercased() < $1.name.lowercased()})
     }
     
-    func sort(by sortField: FileSystemSortField, ascending: Bool) {
+    func sortChildren(by sortField: FileSystemSortField, ascending: Bool) {
         
         switch sortField {
         

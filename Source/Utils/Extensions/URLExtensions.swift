@@ -256,6 +256,23 @@ extension URL {
         self.resolvingSymlinksInPath().resolvingAlias()
     }
     
+    var isAliasOrSymLink: Bool {
+        
+        guard self.exists else {return false}
+        
+        let values = try? resourceValues(forKeys: [.isSymbolicLinkKey, .isAliasFileKey])
+        
+        if let alias = values?.isAliasFile, alias {
+            return true
+        }
+           
+        if let symbolicLink = values?.isSymbolicLink, symbolicLink {
+            return true
+        }
+        
+        return false
+    }
+    
     func lastPathComponents(count: Int) -> String {
         
         let actualComponents = self.pathComponents

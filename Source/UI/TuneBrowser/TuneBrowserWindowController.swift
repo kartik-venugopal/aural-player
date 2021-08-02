@@ -130,7 +130,13 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
     private func fileMetadataLoaded(_ file: FileSystemItem) {
         
         DispatchQueue.main.async {
+            
+            print("\n\n")
+            
+            NSLog("Reloaded item: \(file.path)")
             self.browserView.reloadItem(file)
+            
+            print("\n\n")
         }
         
         //        let itemIndex: Int = browserView.row(forItem: notif.file)
@@ -144,7 +150,7 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
             if fsItem.isDirectory {
                 openFolder(item: fsItem)
             } else {
-                doAddBrowserItemsToPlaylist(indexes: IndexSet([browserView.selectedRow]), beginPlayback: true)
+                doAddBrowserItemsToPlaylist(indexes: browserView.selectedRowIndexes, beginPlayback: true)
             }
         }
     }

@@ -151,7 +151,7 @@ class FileSystem {
     }
     
     func sort(by sortField: FileSystemSortField, ascending: Bool) {
-        root.sort(by: sortField, ascending: ascending)
+        root.sortChildren(by: sortField, ascending: ascending)
     }
 }
 
