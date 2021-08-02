@@ -1096,6 +1096,7 @@
 		3EBF29332686979700D87021 /* EffectsTextButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */; };
 		3EBF293526869A1200D87021 /* PreferencesPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */; };
 		3EBF293726869A9300D87021 /* EffectsUnitPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */; };
+		3EC22DCF26B8B0620014F9DD /* OperationQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC22DCE26B8B0620014F9DD /* OperationQueueExtensions.swift */; };
 		3EC9E66C26A5974900C17302 /* BookmarksNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E66B26A5974900C17302 /* BookmarksNotifications.swift */; };
 		3EC9E67126A5C62200C17302 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E67026A5C62200C17302 /* AppVersion.swift */; };
 		3EC9E67426A5E1EB00C17302 /* TableViewDragDropExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */; };
@@ -2216,6 +2217,7 @@
 		3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsTextButtonCell.swift; sourceTree = "<group>"; };
 		3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPopupMenuCell.swift; sourceTree = "<group>"; };
 		3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitPopupMenuCell.swift; sourceTree = "<group>"; };
+		3EC22DCE26B8B0620014F9DD /* OperationQueueExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationQueueExtensions.swift; sourceTree = "<group>"; };
 		3EC9E66B26A5974900C17302 /* BookmarksNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksNotifications.swift; sourceTree = "<group>"; };
 		3EC9E67026A5C62200C17302 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
 		3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDragDropExtensions.swift; sourceTree = "<group>"; };
@@ -3953,6 +3955,7 @@
 				3E67877E26981B2B00408566 /* OptionSetExtensions.swift */,
 				3EB3A61226A7561E0060487C /* EnumExtensions.swift */,
 				3E68726C26A9B24A00BD1057 /* LanguageExtensions.swift */,
+				3EC22DCE26B8B0620014F9DD /* OperationQueueExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5407,6 +5410,7 @@
 				3E3633FE26863109006A88ED /* DelayUnitProtocol.swift in Sources */,
 				3E6C12EF25CEBE8100BF0D07 /* DelayUnitView.swift in Sources */,
 				3E6C12F025CEBE8100BF0D07 /* DelayUnitViewController.swift in Sources */,
+				3EC22DCF26B8B0620014F9DD /* OperationQueueExtensions.swift in Sources */,
 				3E62979A26A3CD3800C96AB8 /* Destroyable.swift in Sources */,
 				3E6C131225CEBE8F00BF0D07 /* DetailedTrackInfoViewController.swift in Sources */,
 				3E6C119B25CEBD6D00BF0D07 /* DeviceManager.swift in Sources */,

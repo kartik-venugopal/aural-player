@@ -49,15 +49,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///
     /// 3. Scheduling tasks for *immediate* playback will **not** be enqueued on this queue. They will be run immediately on the main thread.
     ///
-    lazy var schedulingOpQueue: OperationQueue = {
-        
-        let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
-        queue.qualityOfService = .userInitiated
-        queue.maxConcurrentOperationCount = 1
-        
-        return queue
-    }()
+    lazy var schedulingOpQueue: OperationQueue = OperationQueue(opCount: 1, qos: .userInitiated)
     
     lazy var messenger = Messenger(for: self)
     

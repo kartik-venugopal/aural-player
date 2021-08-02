@@ -32,14 +32,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
-    fileprivate lazy var artLoadingQueue: OperationQueue = {
-        
-        let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        queue.maxConcurrentOperationCount = max(SystemUtils.numberOfActiveCores / 2, 2)
-        
-        return queue
-    }()
+    fileprivate lazy var artLoadingQueue: OperationQueue = OperationQueue(opCount: max(SystemUtils.numberOfActiveCores / 2, 2),
+                                                                          qos: .userInteractive)
     
     // Before the menu opens, re-create the menu items from the model
     func menuNeedsUpdate(_ menu: NSMenu) {

@@ -24,23 +24,11 @@ class HistoryMenuController: NSObject {
     }
 }
 
-fileprivate let addedItemsArtLoadingQueue: OperationQueue = {
+fileprivate let addedItemsArtLoadingQueue: OperationQueue = OperationQueue(opCount: max(SystemUtils.numberOfActiveCores / 2, 2),
+                                                                           qos: .userInteractive)
 
-    let queue = OperationQueue()
-    queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-    queue.maxConcurrentOperationCount = max(SystemUtils.numberOfActiveCores / 2, 2)
-    
-    return queue
-}()
-
-fileprivate let playedItemsArtLoadingQueue: OperationQueue = {
-    
-    let queue = OperationQueue()
-    queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-    queue.maxConcurrentOperationCount = max(SystemUtils.numberOfActiveCores / 2, 2)
-    
-    return queue
-}()
+fileprivate let playedItemsArtLoadingQueue: OperationQueue = OperationQueue(opCount: max(SystemUtils.numberOfActiveCores / 2, 2),
+                                                                            qos: .userInteractive)
 
 // A menu item that stores an associated history item (used when executing the menu item action)
 class HistoryMenuItem: NSMenuItem {

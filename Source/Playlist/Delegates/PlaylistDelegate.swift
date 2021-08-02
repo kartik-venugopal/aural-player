@@ -23,7 +23,9 @@ import Foundation
 class PlaylistDelegate: PlaylistDelegateProtocol {
     
     // The actual playlist
-    private let playlist: PlaylistProtocol
+    private var playlist: PlaylistProtocol {playlistsManager.currentPlaylist}
+    
+    private let playlistsManager: PlaylistsManager
     
     private let trackReader: TrackReader
     
@@ -36,8 +38,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     private var playlistPreferences: PlaylistPreferences {preferences.playlistPreferences}
     private var playbackPreferences: PlaybackPreferences {preferences.playbackPreferences}
     
-    private let trackAddQueue: OperationQueue = OperationQueue()
-    private let trackUpdateQueue: OperationQueue = OperationQueue()
+    private let trackAddQueue: OperationQueue
+    private let trackUpdateQueue: OperationQueue
     
     private var addSession: TrackAddSession!
     
@@ -53,22 +55,17 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(persistentState: PlaylistsPersistentState?, _ playlist: PlaylistProtocol,
+    init(playlistsManager: PlaylistsManager, persistentState: PlaylistsPersistentState?, _ playlist: PlaylistProtocol,
          _ trackReader: TrackReader, _ preferences: Preferences) {
         
-        self.playlist = playlist
+        self.playlistsManager = playlistsManager
         self.trackReader = trackReader
         
         self.persistentState = persistentState
         self.preferences = preferences
         
-        trackAddQueue.maxConcurrentOperationCount = concurrentAddOpCount
-        trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        trackAddQueue.qualityOfService = .userInteractive
-        
-        trackUpdateQueue.maxConcurrentOperationCount = concurrentAddOpCount
-        trackUpdateQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
-        trackUpdateQueue.qualityOfService = .utility
+        trackAddQueue = OperationQueue(opCount: concurrentAddOpCount, qos: .userInteractive)
+        trackUpdateQueue = OperationQueue(opCount: concurrentAddOpCount, qos: .utility)
         
         // Subscribe to notifications
         messenger.subscribe(to: .application_launched, handler: appLaunched(_:))

@@ -292,15 +292,7 @@ class Playlist: PlaylistProtocol, UserManagedObject {
         return groupingPlaylists[groupType.toPlaylistType()]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
     }
     
-    private let opQueue: OperationQueue = {
-
-        let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        queue.maxConcurrentOperationCount = 3
-        queue.qualityOfService = .userInteractive
-        
-        return queue
-    }()
+    private let opQueue: OperationQueue = OperationQueue(opCount: 3, qos: .userInteractive)
     
     func reOrder(accordingTo state: PlaylistsPersistentState) {
         

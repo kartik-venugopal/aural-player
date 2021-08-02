@@ -29,14 +29,8 @@ class MusicBrainzCache: PersistentModelObject {
     
     private let baseDir: URL = FilesAndPaths.subDirectory(named: "musicBrainzCache")
     
-    private let diskIOOpQueue: OperationQueue = {
-
-        let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue.global(qos: .utility)
-        queue.maxConcurrentOperationCount = SystemUtils.numberOfPhysicalCores
-        
-        return queue
-    }()
+    private let diskIOOpQueue: OperationQueue = OperationQueue(opCount: SystemUtils.numberOfPhysicalCores,
+                                                               qos: .utility)
     
     private lazy var messenger = Messenger(for: self)
     

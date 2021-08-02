@@ -42,8 +42,9 @@ class ObjectGraph {
                                 })
     }()
     
-    lazy var playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist,
-                                                                             trackReader, preferences)
+    lazy var playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(playlistsManager: playlistsManager,
+                                                                           persistentState: persistentState.playlist, playlist,
+                                                                           trackReader, preferences)
     
     var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {playlistDelegate}
     
@@ -172,15 +173,7 @@ class ObjectGraph {
         }
     }
     
-    private lazy var tearDownOpQueue: OperationQueue = {
-
-        let queue = OperationQueue()
-        queue.underlyingQueue = .global(qos: .userInteractive)
-        queue.qualityOfService = .userInteractive
-        queue.maxConcurrentOperationCount = 2
-        
-        return queue
-    }()
+    private lazy var tearDownOpQueue: OperationQueue = OperationQueue(opCount: 2, qos: .userInteractive)
     
     // Called when app exits
     func tearDown() {

@@ -20,7 +20,7 @@ struct PlaylistsPersistentState: Codable {
     let tracks: [URLPath]?
     let groupingPlaylists: [String: GroupingPlaylistPersistentState]?
     
-    let userPlaylists: [PlaylistPersistentState]
+    let userPlaylists: [PlaylistPersistentState]?
 }
 
 ///

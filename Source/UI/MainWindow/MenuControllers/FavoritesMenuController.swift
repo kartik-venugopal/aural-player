@@ -30,14 +30,8 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    fileprivate lazy var artLoadingQueue: OperationQueue = {
-        
-        let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        queue.maxConcurrentOperationCount = max(SystemUtils.numberOfActiveCores / 2, 2)
-        
-        return queue
-    }()
+    fileprivate lazy var artLoadingQueue: OperationQueue = OperationQueue(opCount: max(SystemUtils.numberOfActiveCores / 2, 2),
+                                                                          qos: .userInteractive)
     
     // One-time setup, when the menu loads
     override func awakeFromNib() {
