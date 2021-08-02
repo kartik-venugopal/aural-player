@@ -97,8 +97,7 @@ class UIPersistenceTests: PersistenceTestCase {
                                               visualizer: visualizer,
                                               windowAppearance: windowAppearance,
                                               menuBarPlayer: menuBarPlayer,
-                                              controlBarPlayer: controlBarPlayer,
-                                              tuneBrowser: nil)
+                                              controlBarPlayer: controlBarPlayer)
                 
                 doTestPersistence(serializedState: state)
             }

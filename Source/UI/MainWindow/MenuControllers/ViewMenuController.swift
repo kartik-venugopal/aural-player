@@ -103,8 +103,4 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
         windowLayoutsManager.toggleVisualizerWindow()
     }
-    
-    @IBAction func toggleTuneBrowserAction(_ sender: AnyObject) {
-        windowLayoutsManager.toggleTuneBrowserWindow()
-    }
 }

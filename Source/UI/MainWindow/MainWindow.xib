@@ -715,7 +715,7 @@
                 <outlet property="toggleChaptersListMenuItem" destination="noi-da-YlA" id="eWn-LG-God"/>
                 <outlet property="toggleEffectsMenuItem" destination="pfz-PQ-tht" id="r6y-Q3-Pdf"/>
                 <outlet property="togglePlaylistMenuItem" destination="IY9-9c-uYd" id="jdR-qo-Iy7"/>
-                <outlet property="toggleVisualizerMenuItem" destination="sLP-gV-qpW" id="zG5-Og-5Y0"/>
+                <outlet property="toggleVisualizerMenuItem" destination="nCv-Bk-9yW" id="aY0-oY-meL"/>
             </connections>
         </customObject>
         <customObject id="EaI-8U-RaS" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
@@ -1644,12 +1644,7 @@ CA
                                     <action selector="toggleChaptersListAction:" target="7y7-Z8-Sp0" id="Fjd-12-28q"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Tune Browser window" image="ToggleVisualizer-Small" keyEquivalent="4" id="sLP-gV-qpW">
-                                <connections>
-                                    <action selector="toggleTuneBrowserAction:" target="7y7-Z8-Sp0" id="mP8-C4-8xm"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="5" id="nCv-Bk-9yW">
+                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="4" id="nCv-Bk-9yW">
                                 <connections>
                                     <action selector="toggleVisualizerAction:" target="7y7-Z8-Sp0" id="UFV-3t-NrU"/>
                                 </connections>

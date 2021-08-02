@@ -123,9 +123,6 @@ class ObjectGraph {
     lazy var visualizerUIState: VisualizerUIState = VisualizerUIState(persistentState: persistentState.ui?.visualizer)
     lazy var windowAppearanceState: WindowAppearanceState = WindowAppearanceState(persistentState: persistentState.ui?.windowAppearance)
     
-    lazy var fileSystem: FileSystem = FileSystem()
-    lazy var tuneBrowserUIState: TuneBrowserUIState = TuneBrowserUIState(persistentState: persistentState.ui?.tuneBrowser)
-    
     let mediaKeyHandler: MediaKeyHandler
     
     @available(OSX 10.12.2, *)
@@ -196,8 +193,7 @@ class ObjectGraph {
                                                visualizer: visualizerUIState.persistentState,
                                                windowAppearance: windowAppearanceState.persistentState,
                                                menuBarPlayer: menuBarPlayerUIState.persistentState,
-                                               controlBarPlayer: controlBarPlayerUIState.persistentState,
-                                               tuneBrowser: tuneBrowserUIState.persistentState)
+                                               controlBarPlayer: controlBarPlayerUIState.persistentState)
         
         persistentState.history = _historyDelegate.persistentState
         persistentState.favorites = _favoritesDelegate.persistentState

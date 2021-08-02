@@ -99,8 +99,7 @@ class AppStatePersistenceTests: AudioGraphTestCase {
                                           visualizer: visualizer,
                                           windowAppearance: windowAppearance,
                                           menuBarPlayer: menuBarPlayer,
-                                          controlBarPlayer: controlBarPlayer,
-                                          tuneBrowser: nil)
+                                          controlBarPlayer: controlBarPlayer)
             
             // Playlist
             

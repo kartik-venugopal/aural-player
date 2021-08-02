@@ -58,11 +58,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     private var _visualizerWindow: NSWindow {visualizerWindowLoader.window}
     
-    // MARK: Tune browser window -------------------------------------------
-    
-    private lazy var tuneBrowserWindowLoader: WindowLoader<TuneBrowserWindowController> = initializeLoader(type: TuneBrowserWindowController.self)
-    private var _tuneBrowserWindow: NSWindow {tuneBrowserWindowLoader.window}
-    
     private var initializedLoaders: [DestroyableAndRestorable] = []
     
     private lazy var messenger = Messenger(for: self)
@@ -212,10 +207,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         return visualizerWindowLoader.isWindowLoaded && _visualizerWindow.isVisible
     }
     
-    var isShowingTuneBrowser: Bool {
-        return tuneBrowserWindowLoader.isWindowLoaded && _tuneBrowserWindow.isVisible
-    }
-    
     var mainWindowFrame: NSRect {
         return mainWindow.frame
     }
@@ -309,23 +300,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     private func hideVisualizerWindow() {
         visualizerWindowLoader.close()
-    }
-    
-    func toggleTuneBrowserWindow() {
-        isShowingTuneBrowser ? hideTuneBrowserWindow() : showTuneBrowserWindow()
-    }
-    
-    private func showTuneBrowserWindow() {
-        
-        mainWindow.addChildWindow(_tuneBrowserWindow, ordered: .above)
-        _tuneBrowserWindow.makeKeyAndOrderFront(self)
-    }
-    
-    private func hideTuneBrowserWindow() {
-        
-        if tuneBrowserWindowLoader.isWindowLoaded {
-            _tuneBrowserWindow.hide()
-        }
     }
     
     // MARK: Miscellaneous functions ------------------------------------
