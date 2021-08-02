@@ -13,7 +13,17 @@ import Foundation
 /// A facade for all operations pertaining to the playlist. Delegates operations to the underlying
 /// playlists (flat and grouping/hierarchical), and aggregates results from those operations.
 ///
-class Playlist: PlaylistProtocol {
+class Playlist: PlaylistProtocol, UserManagedObject {
+    
+    var key: String {
+        
+        get {name}
+        set {name = newValue}
+    }
+    
+    let userDefined: Bool
+    
+    var name: String
     
     // Flat playlist
     private var flatPlaylist: FlatPlaylistProtocol
@@ -24,7 +34,10 @@ class Playlist: PlaylistProtocol {
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFile: [URL: Track] = [:]
     
-    init(_ flatPlaylist: FlatPlaylistProtocol, _ groupingPlaylists: [GroupingPlaylistProtocol]) {
+    init(name: String, userDefined: Bool, _ flatPlaylist: FlatPlaylistProtocol, _ groupingPlaylists: [GroupingPlaylistProtocol]) {
+        
+        self.name = name
+        self.userDefined = userDefined
         
         self.flatPlaylist = flatPlaylist
         groupingPlaylists.forEach {self.groupingPlaylists[$0.playlistType] = $0}
@@ -289,7 +302,7 @@ class Playlist: PlaylistProtocol {
         return queue
     }()
     
-    func reOrder(accordingTo state: PlaylistPersistentState) {
+    func reOrder(accordingTo state: PlaylistsPersistentState) {
         
         // Re-order each of the grouping playlists.
         // NOTE - The flat playlist does not need to be reordered,
@@ -325,7 +338,8 @@ extension Playlist: PersistentModelObject {
             groupingPlaylists[type.rawValue] = (playlist as! GroupingPlaylist).persistentState
         }
         
-        return PlaylistPersistentState(tracks: self.tracks.map {$0.file.path},
+        return PlaylistPersistentState(name: self.name,
+                                       tracks: self.tracks.map {$0.file.path},
                                        groupingPlaylists: groupingPlaylists)
     }
 }

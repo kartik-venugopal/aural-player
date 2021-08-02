@@ -27,8 +27,20 @@ class ObjectGraph {
     lazy var appModeManager: AppModeManager = AppModeManager(persistentState: persistentState.ui,
                                                              preferences: preferences.viewPreferences)
     
-    private lazy var playlist: Playlist = Playlist(FlatPlaylist(),
-                                                                 [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
+    private lazy var playlist: Playlist = Playlist(name: "Playlist", userDefined: false, FlatPlaylist(),
+                                                   [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
+    
+    lazy var playlistsManager: PlaylistsManager = {
+       
+        let userPlaylistNames = (persistentState.playlist?.userPlaylists ?? []).compactMap {$0.name}
+        
+        return PlaylistsManager(systemPlaylist: self.playlist,
+                                userPlaylists: userPlaylistNames.map {
+                                    
+                                    Playlist(name: $0, userDefined: true, FlatPlaylist(),
+                                             [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
+                                })
+    }()
     
     lazy var playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist,
                                                                              trackReader, preferences)
@@ -179,7 +191,7 @@ class ObjectGraph {
         persistentState.appVersion = NSApp.appVersion
         
         persistentState.audioGraph = audioGraph.persistentState
-        persistentState.playlist = playlist.persistentState
+        persistentState.playlist = playlistsManager.persistentState
         persistentState.playbackSequence = sequencer.persistentState
         persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
         

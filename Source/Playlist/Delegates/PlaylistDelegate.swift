@@ -28,7 +28,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     private let trackReader: TrackReader
     
     // Persistent playlist state (used upon app startup)
-    private let persistentState: PlaylistPersistentState?
+    private let persistentState: PlaylistsPersistentState?
     
     // User preferences (used for autoplay)
     private let preferences: Preferences
@@ -53,7 +53,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistProtocol,
+    init(persistentState: PlaylistsPersistentState?, _ playlist: PlaylistProtocol,
          _ trackReader: TrackReader, _ preferences: Preferences) {
         
         self.playlist = playlist

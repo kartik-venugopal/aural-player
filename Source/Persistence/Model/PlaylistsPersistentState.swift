@@ -10,11 +10,27 @@
 import Foundation
 
 ///
-/// Persistent state for the playlist.
+/// Persistent state for all playlists.
+///
+/// - SeeAlso:  `PlaylistsManager`
+///
+struct PlaylistsPersistentState: Codable {
+    
+    // List of track files (as URL paths).
+    let tracks: [URLPath]?
+    let groupingPlaylists: [String: GroupingPlaylistPersistentState]?
+    
+    let userPlaylists: [PlaylistPersistentState]
+}
+
+///
+/// Persistent state for a single playlist.
 ///
 /// - SeeAlso:  `Playlist`
 ///
 struct PlaylistPersistentState: Codable {
+    
+    let name: String?
     
     // List of track files (as URL paths).
     let tracks: [URLPath]?
