@@ -16,13 +16,13 @@ import AVFoundation
 class AudioUnitPresets: EffectsUnitPresets<AudioUnitPreset> {
     
     init() {
-        super.init(systemDefinedPresets: [], userDefinedPresets: [])
+        super.init(systemDefinedObjects: [], userDefinedObjects: [])
     }
     
     init(persistentState: AudioUnitPersistentState?) {
         
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {AudioUnitPreset(persistentState: $0)}
-        super.init(systemDefinedPresets: [], userDefinedPresets: userDefinedPresets)
+        super.init(systemDefinedObjects: [], userDefinedObjects: userDefinedPresets)
     }
 }
 

@@ -19,7 +19,7 @@ import Foundation
 ///
 class FavoritesDelegate: FavoritesDelegateProtocol {
     
-    private typealias Favorites = MappedPresets<Favorite>
+    private typealias Favorites = UserManagedObjects<Favorite>
     
     private let favorites: Favorites
     
@@ -37,13 +37,13 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         self.playlist = playlist
         
         let allFavorites = persistentState?.compactMap {Favorite(persistentState: $0)} ?? []
-        self.favorites = Favorites(systemDefinedPresets: [], userDefinedPresets: allFavorites)
+        self.favorites = Favorites(systemDefinedObjects: [], userDefinedObjects: allFavorites)
     }
     
     func addFavorite(_ track: Track) -> Favorite {
         
         let favorite = Favorite(track.file, track.displayName)
-        favorites.addPreset(favorite)
+        favorites.addObject(favorite)
         messenger.publish(.favoritesList_trackAdded, payload: favorite)
         
         return favorite
@@ -52,39 +52,39 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     func addFavorite(_ file: URL, _ name: String) -> Favorite {
         
         let favorite = Favorite(file, name)
-        favorites.addPreset(favorite)
+        favorites.addObject(favorite)
         messenger.publish(.favoritesList_trackAdded, payload: favorite)
         
         return favorite
     }
     
-    var allFavorites: [Favorite] {favorites.userDefinedPresets}
+    var allFavorites: [Favorite] {favorites.userDefinedObjects}
     
-    var count: Int {favorites.numberOfUserDefinedPresets}
+    var count: Int {favorites.numberOfUserDefinedObjects}
     
     func getFavoriteWithFile(_ file: URL) -> Favorite? {
-        favorites.userDefinedPreset(named: file.path)
+        favorites.userDefinedObject(named: file.path)
     }
     
     func getFavoriteAtIndex(_ index: Int) -> Favorite {
-        favorites.userDefinedPresets[index]
+        favorites.userDefinedObjects[index]
     }
     
     func deleteFavorites(atIndices indices: IndexSet) {
         
-        let deletedFavorites = favorites.deletePresets(atIndices: indices)
+        let deletedFavorites = favorites.deleteObjects(atIndices: indices)
         messenger.publish(.favoritesList_tracksRemoved, payload: Set(deletedFavorites))
     }
     
     func deleteFavoriteWithFile(_ file: URL) {
         
-        if let favorite = favorites.deletePreset(named: file.path) {
+        if let favorite = favorites.deleteObject(named: file.path) {
             messenger.publish(.favoritesList_tracksRemoved, payload: Set([favorite]))
         }
     }
     
     func favoriteWithFileExists(_ file: URL) -> Bool {
-        favorites.userDefinedPresetExists(named: file.path)
+        favorites.userDefinedObjectExists(named: file.path)
     }
     
     func playFavorite(_ favorite: Favorite) throws {

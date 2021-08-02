@@ -32,25 +32,25 @@ class PresetsWrapper<T: EffectsUnitPreset, U: EffectsUnitPresets<T>>: PresetsWra
     }
     
     var userDefinedPresets: [EffectsUnitPreset] {
-        return presets.userDefinedPresets
+        return presets.userDefinedObjects
     }
     var systemDefinedPresets: [EffectsUnitPreset] {
-        return presets.systemDefinedPresets
+        return presets.systemDefinedObjects
     }
     
     func preset(named name: String) -> EffectsUnitPreset? {
-        return presets.preset(named: name)
+        return presets.object(named: name)
     }
     
     func deletePresets(atIndices indices: IndexSet) {
-        _ = presets.deletePresets(atIndices: indices)
+        _ = presets.deleteObjects(atIndices: indices)
     }
     
     func renamePreset(named oldName: String, to newName: String) {
-        presets.renamePreset(named: oldName, to: newName)
+        presets.renameObject(named: oldName, to: newName)
     }
     
     func presetExists(named name: String) -> Bool {
-        return presets.presetExists(named: name)
+        return presets.objectExists(named: name)
     }
 }

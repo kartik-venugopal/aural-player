@@ -12,7 +12,7 @@ import Cocoa
 /*
     Utility class that manages all color schemes, including user-defined schemes, system-defined presets, and the current system color scheme.
  */
-class ColorSchemesManager: MappedPresets<ColorScheme> {
+class ColorSchemesManager: UserManagedObjects<ColorScheme> {
     
     // The current system color scheme. It is initialized with the default scheme.
     private(set) var systemScheme: ColorScheme = ColorScheme("_system_", ColorSchemePreset.defaultScheme) {
@@ -36,7 +36,7 @@ class ColorSchemesManager: MappedPresets<ColorScheme> {
                 ColorScheme("_system_", ColorSchemePreset.defaultScheme)
         }
         
-        super.init(systemDefinedPresets: systemDefinedSchemes, userDefinedPresets: userDefinedSchemes)
+        super.init(systemDefinedObjects: systemDefinedSchemes, userDefinedObjects: userDefinedSchemes)
     }
     
     private func systemSchemeChanged() {
@@ -58,7 +58,7 @@ class ColorSchemesManager: MappedPresets<ColorScheme> {
     // Attempts to apply a color scheme to the system color scheme, looking up the scheme by the given display name, and if found, returns the modified system scheme.
     func applyScheme(named name: String) {
         
-        if let scheme = preset(named: name) {
+        if let scheme = object(named: name) {
             applyScheme(scheme)
         }
     }
@@ -67,6 +67,6 @@ class ColorSchemesManager: MappedPresets<ColorScheme> {
     var persistentState: ColorSchemesPersistentState {
         
         ColorSchemesPersistentState(systemScheme: ColorSchemePersistentState(systemScheme),
-                                    userSchemes: userDefinedPresets.map {ColorSchemePersistentState($0)})
+                                    userSchemes: userDefinedObjects.map {ColorSchemePersistentState($0)})
     }
 }

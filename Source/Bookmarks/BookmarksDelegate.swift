@@ -19,7 +19,7 @@ import Foundation
 ///
 class BookmarksDelegate: BookmarksDelegateProtocol {
     
-    private typealias Bookmarks = MappedPresets<Bookmark>
+    private typealias Bookmarks = UserManagedObjects<Bookmark>
     
     private let bookmarks: Bookmarks
     
@@ -38,32 +38,32 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         
         // Restore the bookmarks model object from persistent state
         let allBookmarks: [Bookmark] = persistentState?.compactMap {Bookmark(persistentState: $0)} ?? []
-        self.bookmarks = Bookmarks(systemDefinedPresets: [], userDefinedPresets: allBookmarks)
+        self.bookmarks = Bookmarks(systemDefinedObjects: [], userDefinedObjects: allBookmarks)
     }
     
     func addBookmark(_ name: String, _ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) -> Bookmark {
         
         let newBookmark = Bookmark(name, track.file, startPosition, endPosition)
-        bookmarks.addPreset(newBookmark)
+        bookmarks.addObject(newBookmark)
         
         messenger.publish(.bookmarksList_trackAdded, payload: newBookmark)
         return newBookmark
     }
     
-    var allBookmarks: [Bookmark] {bookmarks.userDefinedPresets}
+    var allBookmarks: [Bookmark] {bookmarks.userDefinedObjects}
     
-    var count: Int {bookmarks.numberOfUserDefinedPresets}
+    var count: Int {bookmarks.numberOfUserDefinedObjects}
     
     func getBookmark(named name: String) -> Bookmark? {
-        bookmarks.userDefinedPreset(named: name)
+        bookmarks.userDefinedObject(named: name)
     }
     
     func getBookmarkAtIndex(_ index: Int) -> Bookmark {
-        bookmarks.userDefinedPresets[index]
+        bookmarks.userDefinedObjects[index]
     }
     
     func bookmarkWithNameExists(_ name: String) -> Bool {
-        bookmarks.userDefinedPresetExists(named: name)
+        bookmarks.userDefinedObjectExists(named: name)
     }
     
     func playBookmark(_ bookmark: Bookmark) throws {
@@ -89,18 +89,18 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     }
     
     func renameBookmark(named name: String, to newName: String) {
-        bookmarks.renamePreset(named: name, to: newName)
+        bookmarks.renameObject(named: name, to: newName)
     }
     
     func deleteBookmarks(atIndices indices: IndexSet) {
         
-        let deletedBookmarks = bookmarks.deletePresets(atIndices: indices)
+        let deletedBookmarks = bookmarks.deleteObjects(atIndices: indices)
         messenger.publish(.bookmarksList_tracksRemoved, payload: Set(deletedBookmarks))
     }
     
     func deleteBookmarkWithName(_ name: String) {
         
-        if let deletedBookmark = bookmarks.deletePreset(named: name) {
+        if let deletedBookmark = bookmarks.deleteObject(named: name) {
             messenger.publish(.bookmarksList_tracksRemoved, payload: Set([deletedBookmark]))
         }
     }

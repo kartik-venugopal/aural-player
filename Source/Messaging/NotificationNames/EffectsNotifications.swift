@@ -102,10 +102,6 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Audio Units effects unit commands
-    
-    static let auEffectsUnit_showEditor = Notification.Name("auEffectsUnit_showEditor")
-    
     // MARK: Color scheme commands sent to the Effects UI
     
     // Commands all Effects views to change the text color of their function caption labels.

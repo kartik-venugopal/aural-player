@@ -21,12 +21,12 @@ class ColorSchemesManagerViewController: PresetsManagerViewController {
     
     override var nibName: String? {"ColorSchemesManager"}
     
-    override var numberOfPresets: Int {colorSchemesManager.numberOfUserDefinedPresets}
+    override var numberOfPresets: Int {colorSchemesManager.numberOfUserDefinedObjects}
     
-    override func nameOfPreset(atIndex index: Int) -> String {colorSchemesManager.userDefinedPresets[index].name}
+    override func nameOfPreset(atIndex index: Int) -> String {colorSchemesManager.userDefinedObjects[index].name}
     
     override func presetExists(named name: String) -> Bool {
-        colorSchemesManager.presetExists(named: name)
+        colorSchemesManager.objectExists(named: name)
     }
     
     override func viewDidAppear() {
@@ -39,26 +39,26 @@ class ColorSchemesManagerViewController: PresetsManagerViewController {
     
     override func deletePresets(atIndices indices: IndexSet) {
         
-        _ = colorSchemesManager.deletePresets(atIndices: indices)
+        _ = colorSchemesManager.deleteObjects(atIndices: indices)
         previewView.clear()
     }
     
     // Applies the selected font scheme to the system.
     override func applyPreset(atIndex index: Int) {
         
-        let selScheme = colorSchemesManager.userDefinedPresets[index]
+        let selScheme = colorSchemesManager.userDefinedObjects[index]
         colorSchemesManager.applyScheme(selScheme)
     }
     
     override func renamePreset(named name: String, to newName: String) {
-        colorSchemesManager.renamePreset(named: name, to: newName)
+        colorSchemesManager.renameObject(named: name, to: newName)
     }
 
     // Updates the visual preview.
     private func updatePreview() {
         
         if tableView.numberOfSelectedRows == 1 {
-            previewView.scheme = colorSchemesManager.userDefinedPresets[tableView.selectedRow]
+            previewView.scheme = colorSchemesManager.userDefinedObjects[tableView.selectedRow]
             
         } else {
             previewView.clear()
@@ -77,7 +77,7 @@ class ColorSchemesManagerViewController: PresetsManagerViewController {
     // Returns a view for a single column
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let scheme = colorSchemesManager.userDefinedPresets[row]
+        let scheme = colorSchemesManager.userDefinedObjects[row]
         return createTextCell(tableView, tableColumn!, row, scheme.name, true)
     }
 }

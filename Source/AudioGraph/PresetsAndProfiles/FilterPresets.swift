@@ -19,10 +19,10 @@ class FilterPresets: EffectsUnitPresets<FilterPreset> {
         let systemDefinedPresets = SystemDefinedFilterPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {FilterPreset(persistentState: $0)}
         
-        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
+        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
-    override var defaultPreset: FilterPreset {systemDefinedPreset(named: SystemDefinedFilterPresetParams.passThrough.rawValue)!}
+    override var defaultPreset: FilterPreset {systemDefinedObject(named: SystemDefinedFilterPresetParams.passThrough.rawValue)!}
 }
 
 ///

@@ -11,9 +11,6 @@ import Cocoa
 
 class FilterPreviewChart: FilterChart {
     
-    let bandStopColor: NSColor = Colors.Effects.defaultBypassedUnitColor
-    let bandPassColor: NSColor = Colors.Effects.defaultActiveUnitColor
-    
     override var inactiveUnitGradient: NSGradient {
         Colors.Effects.defaultSliderBackgroundGradient
     }

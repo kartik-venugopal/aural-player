@@ -12,7 +12,7 @@ import Cocoa
 /*
     Utility class that manages all themes, including user-defined schemes, system-defined presets, and the current system theme.
  */
-class ThemesManager: MappedPresets<Theme> {
+class ThemesManager: UserManagedObjects<Theme> {
     
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
@@ -27,7 +27,7 @@ class ThemesManager: MappedPresets<Theme> {
         
         let userDefinedThemes: [Theme] = (persistentState?.userThemes ?? []).compactMap {Theme(persistentState: $0, systemDefined: false)}
         
-        super.init(systemDefinedPresets: systemDefinedThemes, userDefinedPresets: userDefinedThemes)
+        super.init(systemDefinedObjects: systemDefinedThemes, userDefinedObjects: userDefinedThemes)
     }
     
     // Applies a theme to the system theme and returns the modified system scheme.
@@ -43,13 +43,13 @@ class ThemesManager: MappedPresets<Theme> {
     // Attempts to apply a theme to the system theme, looking up the scheme by the given display name, and if found, returns the modified system scheme.
     func applyTheme(named name: String) {
         
-        if let theme = preset(named: name) {
+        if let theme = object(named: name) {
             applyTheme(theme)
         }
     }
     
     // State to be persisted to disk.
     var persistentState: ThemesPersistentState {
-        ThemesPersistentState(userThemes: userDefinedPresets.map {ThemePersistentState($0)})
+        ThemesPersistentState(userThemes: userDefinedObjects.map {ThemePersistentState($0)})
     }
 }

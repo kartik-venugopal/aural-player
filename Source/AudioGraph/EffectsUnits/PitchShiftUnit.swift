@@ -49,12 +49,12 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     }
     
     override func savePreset(named presetName: String) {
-        presets.addPreset(PitchShiftPreset(name: presetName, state: .active, pitch: pitch, overlap: overlap, systemDefined: false))
+        presets.addObject(PitchShiftPreset(name: presetName, state: .active, pitch: pitch, overlap: overlap, systemDefined: false))
     }
 
     override func applyPreset(named presetName: String) {
 
-        if let preset = presets.preset(named: presetName) {
+        if let preset = presets.object(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -72,7 +72,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     var persistentState: PitchShiftUnitPersistentState {
         
         PitchShiftUnitPersistentState(state: state,
-                                      userPresets: presets.userDefinedPresets.map {PitchShiftPresetPersistentState(preset: $0)},
+                                      userPresets: presets.userDefinedObjects.map {PitchShiftPresetPersistentState(preset: $0)},
                                       pitch: pitch,
                                       overlap: overlap)
     }

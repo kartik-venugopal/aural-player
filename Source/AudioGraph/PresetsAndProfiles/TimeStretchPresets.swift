@@ -19,10 +19,10 @@ class TimeStretchPresets: EffectsUnitPresets<TimeStretchPreset> {
         let systemDefinedPresets = SystemDefinedTimeStretchPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {TimeStretchPreset(persistentState: $0)}
         
-        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
+        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
-    override var defaultPreset: TimeStretchPreset {systemDefinedPreset(named: SystemDefinedTimeStretchPresetParams.normal.rawValue)!}
+    override var defaultPreset: TimeStretchPreset {systemDefinedObject(named: SystemDefinedTimeStretchPresetParams.normal.rawValue)!}
 }
 
 ///

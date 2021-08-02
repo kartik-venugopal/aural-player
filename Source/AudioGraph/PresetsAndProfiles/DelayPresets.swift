@@ -19,10 +19,10 @@ class DelayPresets: EffectsUnitPresets<DelayPreset> {
         let systemDefinedPresets = SystemDefinedDelayPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {DelayPreset(persistentState: $0)}
         
-        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
+        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
-    override var defaultPreset: DelayPreset {systemDefinedPreset(named: SystemDefinedDelayPresetParams.oneSecond.rawValue)!}
+    override var defaultPreset: DelayPreset {systemDefinedObject(named: SystemDefinedDelayPresetParams.oneSecond.rawValue)!}
 }
 
 ///

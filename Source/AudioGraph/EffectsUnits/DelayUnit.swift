@@ -70,13 +70,13 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
     override func savePreset(named presetName: String) {
         
-        presets.addPreset(DelayPreset(name: presetName, state: .active, amount: amount,
+        presets.addObject(DelayPreset(name: presetName, state: .active, amount: amount,
                                       time: time, feedback: feedback, cutoff: lowPassCutoff, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
         
-        if let preset = presets.preset(named: presetName) {
+        if let preset = presets.object(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -98,7 +98,7 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     var persistentState: DelayUnitPersistentState {
 
         DelayUnitPersistentState(state: state,
-                                 userPresets: presets.userDefinedPresets.map {DelayPresetPersistentState(preset: $0)},
+                                 userPresets: presets.userDefinedObjects.map {DelayPresetPersistentState(preset: $0)},
                                  amount: amount,
                                  time: time,
                                  feedback: feedback,

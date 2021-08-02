@@ -17,7 +17,7 @@ class ReverbPresets: EffectsUnitPresets<ReverbPreset> {
     init(persistentState: ReverbUnitPersistentState?) {
         
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {ReverbPreset(persistentState: $0)}
-        super.init(systemDefinedPresets: [], userDefinedPresets: userDefinedPresets)
+        super.init(systemDefinedObjects: [], userDefinedObjects: userDefinedPresets)
     }
 }
 

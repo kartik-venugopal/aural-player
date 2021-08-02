@@ -59,12 +59,12 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         
         // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
         let presetBands: [FilterBand] = bands.map {$0.clone()}
-        presets.addPreset(FilterPreset(name: presetName, state: .active, bands: presetBands, systemDefined: false))
+        presets.addObject(FilterPreset(name: presetName, state: .active, bands: presetBands, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
         
-        if let preset = presets.preset(named: presetName) {
+        if let preset = presets.object(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -82,7 +82,7 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     var persistentState: FilterUnitPersistentState {
         
         FilterUnitPersistentState(state: state,
-                                  userPresets: presets.userDefinedPresets.map {FilterPresetPersistentState(preset: $0)},
+                                  userPresets: presets.userDefinedObjects.map {FilterPresetPersistentState(preset: $0)},
                                   bands: bands.map {FilterBandPersistentState(band: $0)})
     }
 }

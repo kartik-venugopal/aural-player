@@ -21,12 +21,12 @@ class FontSchemesManagerViewController: PresetsManagerViewController {
     
     override var nibName: String? {"FontSchemesManager"}
     
-    override var numberOfPresets: Int {fontSchemesManager.numberOfUserDefinedPresets}
+    override var numberOfPresets: Int {fontSchemesManager.numberOfUserDefinedObjects}
     
-    override func nameOfPreset(atIndex index: Int) -> String {fontSchemesManager.userDefinedPresets[index].name}
+    override func nameOfPreset(atIndex index: Int) -> String {fontSchemesManager.userDefinedObjects[index].name}
     
     override func presetExists(named name: String) -> Bool {
-        fontSchemesManager.presetExists(named: name)
+        fontSchemesManager.objectExists(named: name)
     }
     
     override func viewDidAppear() {
@@ -39,26 +39,26 @@ class FontSchemesManagerViewController: PresetsManagerViewController {
     
     override func deletePresets(atIndices indices: IndexSet) {
         
-        _ = fontSchemesManager.deletePresets(atIndices: indices)
+        _ = fontSchemesManager.deleteObjects(atIndices: indices)
         previewView.clear()
     }
     
     // Applies the selected font scheme to the system.
     override func applyPreset(atIndex index: Int) {
         
-        let selScheme = fontSchemesManager.userDefinedPresets[index]
+        let selScheme = fontSchemesManager.userDefinedObjects[index]
         fontSchemesManager.applyScheme(selScheme)
     }
     
     override func renamePreset(named name: String, to newName: String) {
-        fontSchemesManager.renamePreset(named: name, to: newName)
+        fontSchemesManager.renameObject(named: name, to: newName)
     }
 
     // Updates the visual preview.
     private func updatePreview() {
         
         if tableView.numberOfSelectedRows == 1 {
-            previewView.scheme = fontSchemesManager.userDefinedPresets[tableView.selectedRow]
+            previewView.scheme = fontSchemesManager.userDefinedObjects[tableView.selectedRow]
             
         } else {
             previewView.clear()
@@ -77,7 +77,7 @@ class FontSchemesManagerViewController: PresetsManagerViewController {
     // Returns a view for a single column
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let scheme = fontSchemesManager.userDefinedPresets[row]
+        let scheme = fontSchemesManager.userDefinedObjects[row]
         return createTextCell(tableView, tableColumn!, row, scheme.name, true)
     }
 }

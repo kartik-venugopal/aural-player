@@ -34,7 +34,7 @@ class TimeStretchPresetsManagerViewController: EffectsPresetsManagerGenericViewC
     
     override func renderPreview(_ presetName: String) {
 
-        if let preset = timeStretchUnit.presets.preset(named: presetName) {
+        if let preset = timeStretchUnit.presets.object(named: presetName) {
             renderPreview(preset)
         }
     }

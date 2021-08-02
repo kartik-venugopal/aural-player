@@ -19,10 +19,10 @@ class PitchShiftPresets: EffectsUnitPresets<PitchShiftPreset> {
         let systemDefinedPresets = SystemDefinedPitchShiftPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {PitchShiftPreset(persistentState: $0)}
         
-        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
+        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
-    override var defaultPreset: PitchShiftPreset {systemDefinedPreset(named: SystemDefinedPitchShiftPresetParams.normal.rawValue)!}
+    override var defaultPreset: PitchShiftPreset {systemDefinedObject(named: SystemDefinedPitchShiftPresetParams.normal.rawValue)!}
 }
 
 ///

@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable {
+class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Restorable {
     
     private let preferences: ViewPreferences
     
@@ -72,10 +72,10 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         let userDefinedLayouts: [WindowLayout] = persistentState?.userLayouts?.compactMap
         {WindowLayout(persistentState: $0)} ?? []
         
-        super.init(systemDefinedPresets: systemDefinedLayouts, userDefinedPresets: userDefinedLayouts)
+        super.init(systemDefinedObjects: systemDefinedLayouts, userDefinedObjects: userDefinedLayouts)
         
         if preferences.layoutOnStartup.option == .specific, let layoutName = preferences.layoutOnStartup.layoutName {
-            self.savedLayout = preset(named: layoutName)
+            self.savedLayout = object(named: layoutName)
             
         } else {
             self.savedLayout = WindowLayout(systemLayoutFrom: persistentState)
@@ -83,11 +83,11 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     }
     
     var defaultLayout: WindowLayout {
-        systemDefinedPreset(named: WindowLayoutPresets.verticalFullStack.name)!
+        systemDefinedObject(named: WindowLayoutPresets.verticalFullStack.name)!
     }
     
     func recomputeSystemDefinedLayouts() {
-        systemDefinedPresets.forEach {WindowLayoutPresets.recompute(layout: $0, gap: CGFloat(preferences.windowGap))}
+        systemDefinedObjects.forEach {WindowLayoutPresets.recompute(layout: $0, gap: CGFloat(preferences.windowGap))}
     }
     
     var isShowingModalComponent: Bool {
@@ -137,7 +137,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     func applyLayout(named name: String) {
         
-        if let layout = preset(named: name) {
+        if let layout = object(named: name) {
             applyLayout(layout)
         }
     }
@@ -313,7 +313,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         var effectsWindowOrigin: NSPointPersistentState? = nil
         var playlistWindowFrame: NSRectPersistentState? = nil
         
-        let userLayouts = userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)}
+        let userLayouts = userDefinedObjects.map {UserWindowLayoutPersistentState(layout: $0)}
         
         let currentAppMode = objectGraph.appModeManager.currentMode
         

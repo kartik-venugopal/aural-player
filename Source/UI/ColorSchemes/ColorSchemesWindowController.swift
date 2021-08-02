@@ -246,7 +246,7 @@ class ColorSchemesWindowController: SingletonWindowController, NSMenuDelegate, M
     // When the menu is about to open, recreate the menu with to the currently available color schemes.
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        menu.recreateMenu(insertingItemsAt: 1, fromItems: colorSchemesManager.userDefinedPresets,
+        menu.recreateMenu(insertingItemsAt: 1, fromItems: colorSchemesManager.userDefinedObjects,
                           action: #selector(self.applySchemeAction(_:)), target: self,
                           indentationLevel: 1)
     }
@@ -267,7 +267,7 @@ extension ColorSchemesWindowController: StringInputReceiver {
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
         // Name cannot match the name of an existing scheme.
-        if colorSchemesManager.presetExists(named: string) {
+        if colorSchemesManager.objectExists(named: string) {
             return (false, "Color scheme with this name already exists !")
         }
         // Name cannot be empty
@@ -285,6 +285,6 @@ extension ColorSchemesWindowController: StringInputReceiver {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
         let newScheme: ColorScheme = ColorScheme(string, false, colorSchemesManager.systemScheme)
-        colorSchemesManager.addPreset(newScheme)
+        colorSchemesManager.addObject(newScheme)
     }
 }

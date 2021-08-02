@@ -20,12 +20,12 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     
     override var nibName: String? {"LayoutsManager"}
     
-    override var numberOfPresets: Int {windowLayoutsManager.numberOfUserDefinedPresets}
+    override var numberOfPresets: Int {windowLayoutsManager.numberOfUserDefinedObjects}
     
-    override func nameOfPreset(atIndex index: Int) -> String {windowLayoutsManager.userDefinedPresets[index].name}
+    override func nameOfPreset(atIndex index: Int) -> String {windowLayoutsManager.userDefinedObjects[index].name}
     
     override func presetExists(named name: String) -> Bool {
-        windowLayoutsManager.presetExists(named: name)
+        windowLayoutsManager.objectExists(named: name)
     }
     
     override func viewDidAppear() {
@@ -38,20 +38,20 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     
     override func deletePresets(atIndices indices: IndexSet) {
         
-        _ = windowLayoutsManager.deletePresets(atIndices: indices)
+        _ = windowLayoutsManager.deleteObjects(atIndices: indices)
         previewView.clear()
     }
     
     override func applyPreset(atIndex index: Int) {
         
-        let selLayout = windowLayoutsManager.userDefinedPresets[index]
+        let selLayout = windowLayoutsManager.userDefinedObjects[index]
         windowLayoutsManager.applyLayout(selLayout)
     }
     
     override func renamePreset(named name: String, to newName: String) {
         
         // Update the layout name.
-        windowLayoutsManager.renamePreset(named: name, to: newName)
+        windowLayoutsManager.renameObject(named: name, to: newName)
         
         // Also update the view preference, if the chosen startup layout was this edited one.
         let prefLayout = preferences.viewPreferences.layoutOnStartup.layoutName
@@ -67,7 +67,7 @@ class LayoutsManagerViewController: PresetsManagerViewController {
         
         if tableView.numberOfSelectedRows == 1 {
             
-            let layout = windowLayoutsManager.userDefinedPresets[tableView.selectedRow]
+            let layout = windowLayoutsManager.userDefinedObjects[tableView.selectedRow]
             previewView.drawPreviewForLayout(layout)
             
         } else {
@@ -87,7 +87,7 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     // Returns a view for a single column
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let layout = windowLayoutsManager.userDefinedPresets[row]
+        let layout = windowLayoutsManager.userDefinedObjects[row]
         return createTextCell(tableView, tableColumn!, row, layout.name, true)
     }
 }

@@ -16,18 +16,18 @@ protocol EffectsUnitPresetsProtocol {
     
     associatedtype T: EffectsUnitPreset
     
-    var userDefinedPresets: [T] {get}
-    var systemDefinedPresets: [T] {get}
+    var userDefinedObjects: [T] {get}
+    var systemDefinedObjects: [T] {get}
     
-    func preset(named name: String) -> T?
+    func object(named name: String) -> T?
     
-    func deletePresets(named presetNames: [String]) -> [T]
+    func deleteObjects(named presetNames: [String]) -> [T]
     
-    func renamePreset(named oldName: String, to newName: String)
+    func renameObject(named oldName: String, to newName: String)
     
-    func addPreset(_ preset: T)
+    func addObject(_ preset: T)
     
-    func presetExists(named name: String) -> Bool
+    func objectExists(named name: String) -> Bool
 }
 
 ///
@@ -36,13 +36,13 @@ protocol EffectsUnitPresetsProtocol {
 /// No instances of this type are to be used directly, as this class is only intended to be used as a base
 /// class for concrete effects unit presets collections.
 ///
-class EffectsUnitPresets<T: EffectsUnitPreset>: MappedPresets<T>, EffectsUnitPresetsProtocol {
+class EffectsUnitPresets<T: EffectsUnitPreset>: UserManagedObjects<T>, EffectsUnitPresetsProtocol {
 }
 
 ///
 /// A base class for a single preset that can be applied to an effects unit.
 ///
-class EffectsUnitPreset: MappedPreset {
+class EffectsUnitPreset: UserManagedObject {
     
     var name: String
     

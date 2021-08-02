@@ -34,7 +34,7 @@ class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewCo
     
     override func renderPreview(_ presetName: String) {
         
-        if let preset = pitchShiftUnit.presets.preset(named: presetName) {
+        if let preset = pitchShiftUnit.presets.object(named: presetName) {
             renderPreview(preset)
         }
     }

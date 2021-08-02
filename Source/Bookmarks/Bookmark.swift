@@ -12,7 +12,7 @@ import Cocoa
 ///
 /// Encapsulates a user-defined bookmark (i.e. a remembered playback position(s) within a track).
 ///
-class Bookmark: MappedPreset, Hashable {
+class Bookmark: UserManagedObject, Hashable {
     
     // A name or description (e.g. "2nd chapter of audiobook")
     private var _name: String

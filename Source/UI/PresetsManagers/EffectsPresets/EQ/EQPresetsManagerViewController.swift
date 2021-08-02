@@ -43,7 +43,7 @@ class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController
     
     override func renderPreview(_ presetName: String) {
         
-        if let preset = eqUnit.presets.preset(named: presetName) {
+        if let preset = eqUnit.presets.object(named: presetName) {
             renderPreview(preset)
         }
     }

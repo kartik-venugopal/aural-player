@@ -12,7 +12,7 @@ import Cocoa
 /*
     Encapsulates all colors that determine a color scheme that can be appplied to the entire application.
  */
-class ColorScheme: MappedPreset {
+class ColorScheme: UserManagedObject {
     
     // Default color scheme (uses colors from the default system-defined preset)
     static let defaultScheme: ColorScheme = ColorScheme("_default_", ColorSchemePreset.defaultScheme)

@@ -22,11 +22,11 @@ class ColorSchemePopupMenuController: GenericPresetPopupMenuController {
     override var descriptionOfPreset: String {"color scheme"}
     override var descriptionOfPreset_plural: String {"color schemes"}
     
-    override var userDefinedPresets: [MappedPreset] {colorSchemesManager.userDefinedPresets}
-    override var numberOfUserDefinedPresets: Int {colorSchemesManager.numberOfUserDefinedPresets}
+    override var userDefinedPresets: [UserManagedObject] {colorSchemesManager.userDefinedObjects}
+    override var numberOfUserDefinedPresets: Int {colorSchemesManager.numberOfUserDefinedObjects}
     
     override func presetExists(named name: String) -> Bool {
-        colorSchemesManager.presetExists(named: name)
+        colorSchemesManager.objectExists(named: name)
     }
     
     // Receives a new color scheme name and saves the new scheme.
@@ -34,7 +34,7 @@ class ColorSchemePopupMenuController: GenericPresetPopupMenuController {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
         let newScheme: ColorScheme = ColorScheme(name, false, colorSchemesManager.systemScheme)
-        colorSchemesManager.addPreset(newScheme)
+        colorSchemesManager.addObject(newScheme)
     }
     
     override func applyPreset(named name: String) {

@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class Theme: MappedPreset, PersistentModelObject {
+class Theme: UserManagedObject, PersistentModelObject {
     
     var name: String
     

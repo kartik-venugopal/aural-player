@@ -114,14 +114,14 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         
         if let preset = node.savePreset(named: presetName) {
             
-            presets.addPreset(AudioUnitPreset(name: presetName, state: .active, systemDefined: false, componentType: self.componentType,
+            presets.addObject(AudioUnitPreset(name: presetName, state: .active, systemDefined: false, componentType: self.componentType,
                                               componentSubType: self.componentSubType, number: preset.number))
         }
     }
 
     override func applyPreset(named presetName: String) {
 
-        if let preset = presets.preset(named: presetName) {
+        if let preset = presets.object(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -157,7 +157,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     var persistentState: AudioUnitPersistentState {
 
         AudioUnitPersistentState(state: self.state,
-                                 userPresets: presets.userDefinedPresets.map {AudioUnitPresetPersistentState(preset: $0)},
+                                 userPresets: presets.userDefinedObjects.map {AudioUnitPresetPersistentState(preset: $0)},
                                  componentType: self.componentType,
                                  componentSubType: self.componentSubType,
                                  params: self.params.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)})

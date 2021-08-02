@@ -12,7 +12,7 @@ import Cocoa
 ///
 /// Encapsulates a user-defined favorite (a track marked as such).
 ///
-class Favorite: MappedPreset, Hashable {
+class Favorite: UserManagedObject, Hashable {
     
     // The file of the track being favorited
     let file: URL

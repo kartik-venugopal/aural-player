@@ -17,11 +17,11 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
     override var descriptionOfPreset: String {"layout"}
     override var descriptionOfPreset_plural: String {"layouts"}
     
-    override var userDefinedPresets: [MappedPreset] {windowLayoutsManager.userDefinedPresets}
-    override var numberOfUserDefinedPresets: Int {windowLayoutsManager.numberOfUserDefinedPresets}
+    override var userDefinedPresets: [UserManagedObject] {windowLayoutsManager.userDefinedObjects}
+    override var numberOfUserDefinedPresets: Int {windowLayoutsManager.numberOfUserDefinedObjects}
     
     override func presetExists(named name: String) -> Bool {
-        windowLayoutsManager.presetExists(named: name)
+        windowLayoutsManager.objectExists(named: name)
     }
     
     // Receives a new layout name and saves the new layout.
@@ -31,7 +31,7 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
         newLayout.name = name
         newLayout.systemDefined = false
         
-        windowLayoutsManager.addPreset(newLayout)
+        windowLayoutsManager.addObject(newLayout)
     }
     
     override func applyPreset(named name: String) {

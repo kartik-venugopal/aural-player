@@ -146,7 +146,7 @@ extension AudioUnitEditorDialogController: StringInputReceiver {
         
         let presets = audioUnit.presets
         
-        if presets.presetExists(named: string) {
+        if presets.objectExists(named: string) {
             return (false, "Preset with this name already exists !")
         } else {
             return (true, nil)
@@ -177,7 +177,7 @@ class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
         
         if let userPresets = audioUnit?.presets {
             
-            for preset in userPresets.userDefinedPresets.sorted(by: {$0.name < $1.name}) {
+            for preset in userPresets.userDefinedObjects.sorted(by: {$0.name < $1.name}) {
                 menu.addItem(withTitle: preset.name)
             }
         }

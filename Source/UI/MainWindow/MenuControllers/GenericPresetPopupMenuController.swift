@@ -20,7 +20,7 @@ class GenericPresetPopupMenuController: NSObject {
     var descriptionOfPreset: String {"preset"}
     var descriptionOfPreset_plural: String {"presets"}
     
-    var userDefinedPresets: [MappedPreset] {[]}
+    var userDefinedPresets: [UserManagedObject] {[]}
     var numberOfUserDefinedPresets: Int {0}
     
     func presetExists(named name: String) -> Bool {false}

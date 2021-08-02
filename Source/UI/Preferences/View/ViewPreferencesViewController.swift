@@ -114,7 +114,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         }
         
         // Reinsert the custom layouts
-        windowLayoutsManager.userDefinedPresets.forEach {
+        windowLayoutsManager.userDefinedObjects.forEach {
             self.layoutMenu.insertItem(withTitle: $0.name, at: 0)
         }
     }

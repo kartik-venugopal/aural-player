@@ -34,7 +34,7 @@ class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewControl
     
     override func renderPreview(_ presetName: String) {
         
-        if let preset = delayUnit.presets.preset(named: presetName) {
+        if let preset = delayUnit.presets.object(named: presetName) {
             renderPreview(preset)
         }
     }

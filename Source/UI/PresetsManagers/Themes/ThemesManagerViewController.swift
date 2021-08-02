@@ -21,12 +21,12 @@ class ThemesManagerViewController: PresetsManagerViewController {
     
     override var nibName: String? {"ThemesManager"}
     
-    override var numberOfPresets: Int {themesManager.numberOfUserDefinedPresets}
+    override var numberOfPresets: Int {themesManager.numberOfUserDefinedObjects}
     
-    override func nameOfPreset(atIndex index: Int) -> String {themesManager.userDefinedPresets[index].name}
+    override func nameOfPreset(atIndex index: Int) -> String {themesManager.userDefinedObjects[index].name}
     
     override func presetExists(named name: String) -> Bool {
-        themesManager.presetExists(named: name)
+        themesManager.objectExists(named: name)
     }
     
     override func viewDidAppear() {
@@ -39,25 +39,25 @@ class ThemesManagerViewController: PresetsManagerViewController {
     
     override func deletePresets(atIndices indices: IndexSet) {
         
-        _ = themesManager.deletePresets(atIndices: indices)
+        _ = themesManager.deleteObjects(atIndices: indices)
         previewView.clear()
     }
     
     override func applyPreset(atIndex index: Int) {
         
-        let selTheme = themesManager.userDefinedPresets[index]
+        let selTheme = themesManager.userDefinedObjects[index]
         themesManager.applyTheme(selTheme)
     }
     
     override func renamePreset(named name: String, to newName: String) {
-        themesManager.renamePreset(named: name, to: newName)
+        themesManager.renameObject(named: name, to: newName)
     }
     
     // Updates the visual preview.
     private func updatePreview() {
         
         if tableView.numberOfSelectedRows == 1 {
-            previewView.theme = themesManager.userDefinedPresets[tableView.selectedRow]
+            previewView.theme = themesManager.userDefinedObjects[tableView.selectedRow]
             
         } else {
             previewView.clear()
@@ -76,7 +76,7 @@ class ThemesManagerViewController: PresetsManagerViewController {
     // Returns a view for a single column
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let theme = themesManager.userDefinedPresets[row]
+        let theme = themesManager.userDefinedObjects[row]
         return createTextCell(tableView, tableColumn!, row, theme.name, true)
     }
 }

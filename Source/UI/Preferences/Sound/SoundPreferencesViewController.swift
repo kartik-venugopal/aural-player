@@ -173,7 +173,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         masterPresetsMenu.removeAllItems()
         
         // Initialize the menu with user-defined presets
-        masterPresets.userDefinedPresets.forEach {masterPresetsMenu.insertItem(withTitle: $0.name, at: 0)}
+        masterPresets.userDefinedObjects.forEach {masterPresetsMenu.insertItem(withTitle: $0.name, at: 0)}
     }
     
     @IBAction func outputDeviceRadioButtonAction(_ sender: Any) {

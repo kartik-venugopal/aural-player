@@ -74,10 +74,10 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
     
     private func initFontSchemesMenu() {
         
-        fontSchemesMenu.recreateMenu(insertingItemsAt: 3, fromItems: fontSchemesManager.userDefinedPresets,
+        fontSchemesMenu.recreateMenu(insertingItemsAt: 3, fromItems: fontSchemesManager.userDefinedObjects,
                                      indentationLevel: 1)
         
-        let showDescriptors: Bool = fontSchemesManager.numberOfUserDefinedPresets > 0
+        let showDescriptors: Bool = fontSchemesManager.numberOfUserDefinedObjects > 0
         
         for index in 0...2 {
             fontSchemesMenu.item(at: index)?.showIf(showDescriptors)
@@ -88,10 +88,10 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
     
     private func initColorSchemesMenu() {
         
-        colorSchemesMenu.recreateMenu(insertingItemsAt: 3, fromItems: colorSchemesManager.userDefinedPresets,
+        colorSchemesMenu.recreateMenu(insertingItemsAt: 3, fromItems: colorSchemesManager.userDefinedObjects,
                                       indentationLevel: 1)
         
-        let showDescriptors: Bool = colorSchemesManager.numberOfUserDefinedPresets > 0
+        let showDescriptors: Bool = colorSchemesManager.numberOfUserDefinedObjects > 0
         
         for index in 0...2 {
             colorSchemesMenu.item(at: index)?.showIf(showDescriptors)
@@ -138,7 +138,7 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        if themesManager.presetExists(named: string) {
+        if themesManager.objectExists(named: string) {
             return (false, "Theme with this name already exists !")
         } else if string.isEmptyAfterTrimming {
             return (false, "Name must have at least 1 character.")
@@ -151,9 +151,9 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
     func acceptInput(_ string: String) {
         
         guard let fontSchemeName = btnFontSchemesMenu.titleOfSelectedItem,
-              let fontScheme = fontSchemesManager.preset(named: fontSchemeName),
+              let fontScheme = fontSchemesManager.object(named: fontSchemeName),
               let colorSchemeName = btnColorSchemesMenu.titleOfSelectedItem,
-              let colorScheme = colorSchemesManager.preset(named: colorSchemeName) else {
+              let colorScheme = colorSchemesManager.object(named: colorSchemeName) else {
             
             NSLog("Don't have all the required information ... can't create theme with name '\(string)'.")
             return
@@ -165,7 +165,7 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
         
         let windowAppearance: WindowAppearance = WindowAppearance(cornerRadius: CGFloat(windowCornerRadiusStepper.integerValue))
         
-        themesManager.addPreset(Theme(name: string, fontScheme: themeFontScheme, colorScheme: themeColorScheme,
+        themesManager.addObject(Theme(name: string, fontScheme: themeFontScheme, colorScheme: themeColorScheme,
                                       windowAppearance: windowAppearance, userDefined: true))
     }
 }

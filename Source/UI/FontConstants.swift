@@ -49,9 +49,6 @@ let poolsideFMFontSet: FontSet = FontSet(mainFontName: poolsideFMFontName, capti
 
 extension NSFont {
     
-    // Font used in modal dialogs and utility windows.
-    static let auxiliary_size13: NSFont = NSFont(name: auxiliaryFontName, size: 13)!
-    
     static let menuFont: NSFont = standardFontSet.mainFont(size: 11)
     
     static let stringInputPopoverFont: NSFont = standardFontSet.mainFont(size: 12.5)

@@ -100,7 +100,7 @@ class FontSchemesWindowController: SingletonWindowController, ModalDialogDelegat
     
     @IBAction func loadSchemeAction(_ sender: NSMenuItem) {
         
-        if let scheme = fontSchemesManager.preset(named: sender.title) {
+        if let scheme = fontSchemesManager.object(named: sender.title) {
             subViews.forEach {$0.loadFontScheme(scheme)}
         }
     }
@@ -176,7 +176,7 @@ extension FontSchemesWindowController: NSMenuDelegate {
     // When the menu is about to open, recreate the menu with to the currently available color schemes.
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        menu.recreateMenu(insertingItemsAt: 1, fromItems: fontSchemesManager.userDefinedPresets,
+        menu.recreateMenu(insertingItemsAt: 1, fromItems: fontSchemesManager.userDefinedObjects,
                           action: #selector(self.loadSchemeAction(_:)), target: self,
                           indentationLevel: 1)
     }
@@ -197,7 +197,7 @@ extension FontSchemesWindowController: StringInputReceiver {
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
         // Name cannot match the name of an existing scheme.
-        if fontSchemesManager.presetExists(named: string) {
+        if fontSchemesManager.objectExists(named: string) {
             
             return (false, "Font scheme with this name already exists !")
         }
@@ -217,6 +217,6 @@ extension FontSchemesWindowController: StringInputReceiver {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
         let newScheme: FontScheme = FontScheme(string, false, fontSchemesManager.systemScheme)
-        fontSchemesManager.addPreset(newScheme)
+        fontSchemesManager.addObject(newScheme)
     }
 }

@@ -60,13 +60,13 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     
     override func savePreset(named presetName: String) {
         
-        presets.addPreset(ReverbPreset(name: presetName, state: .active,
+        presets.addObject(ReverbPreset(name: presetName, state: .active,
                                        space: space, amount: amount, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
         
-        if let preset = presets.preset(named: presetName) {
+        if let preset = presets.object(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -84,7 +84,7 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     var persistentState: ReverbUnitPersistentState {
         
         ReverbUnitPersistentState(state: state,
-                                  userPresets: presets.userDefinedPresets.map {ReverbPresetPersistentState(preset: $0)},
+                                  userPresets: presets.userDefinedObjects.map {ReverbPresetPersistentState(preset: $0)},
                                   space: space,
                                   amount: amount)
     }

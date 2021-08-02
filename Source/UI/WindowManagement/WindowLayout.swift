@@ -89,7 +89,7 @@ class WindowLayout {
     }
 }
 
-extension WindowLayout: MappedPreset {
+extension WindowLayout: UserManagedObject {
     
     var key: String {
         

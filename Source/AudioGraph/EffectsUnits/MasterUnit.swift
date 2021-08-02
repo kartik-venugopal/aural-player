@@ -100,7 +100,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
                                         time: timePreset, reverb: reverbPreset, delay: delayPreset,
                                         filter: filterPreset, systemDefined: false)
         
-        presets.addPreset(masterPreset)
+        presets.addObject(masterPreset)
     }
     
     var settingsAsPreset: MasterPreset {
@@ -119,7 +119,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     
     override func applyPreset(named presetName: String) {
         
-        if let preset = presets.preset(named: presetName) {
+        if let preset = presets.object(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -156,6 +156,6 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     var persistentState: MasterUnitPersistentState {
 
         MasterUnitPersistentState(state: state,
-                                  userPresets: presets.userDefinedPresets.map {MasterPresetPersistentState(preset: $0)})
+                                  userPresets: presets.userDefinedObjects.map {MasterPresetPersistentState(preset: $0)})
     }
 }

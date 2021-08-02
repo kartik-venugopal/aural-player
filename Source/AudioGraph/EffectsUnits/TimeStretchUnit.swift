@@ -63,13 +63,13 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     
     override func savePreset(named presetName: String) {
         
-        presets.addPreset(TimeStretchPreset(name: presetName, state: .active, rate: node.rate,
+        presets.addObject(TimeStretchPreset(name: presetName, state: .active, rate: node.rate,
                                             overlap: node.overlap, shiftPitch: node.shiftPitch, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
         
-        if let preset = presets.preset(named: presetName) {
+        if let preset = presets.object(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -90,7 +90,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     var persistentState: TimeStretchUnitPersistentState {
 
         TimeStretchUnitPersistentState(state: state,
-                                       userPresets: presets.userDefinedPresets.map {TimeStretchPresetPersistentState(preset: $0)},
+                                       userPresets: presets.userDefinedObjects.map {TimeStretchPresetPersistentState(preset: $0)},
                                        rate: rate,
                                        shiftPitch: shiftPitch,
                                        overlap: overlap)

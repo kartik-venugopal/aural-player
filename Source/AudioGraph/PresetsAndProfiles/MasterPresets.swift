@@ -16,8 +16,8 @@ class MasterPresets: EffectsUnitPresets<MasterPreset> {
     
     init(persistentState: MasterUnitPersistentState?) {
         
-        super.init(systemDefinedPresets: [],
-                   userDefinedPresets: (persistentState?.userPresets ?? []).compactMap {MasterPreset(persistentState: $0)})
+        super.init(systemDefinedObjects: [],
+                   userDefinedObjects: (persistentState?.userPresets ?? []).compactMap {MasterPreset(persistentState: $0)})
     }
 }
 

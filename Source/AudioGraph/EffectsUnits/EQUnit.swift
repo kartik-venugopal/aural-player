@@ -95,12 +95,12 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     }
     
     override func savePreset(named presetName: String) {
-        presets.addPreset(EQPreset(name: presetName, state: .active, bands: bands, globalGain: globalGain, systemDefined: false))
+        presets.addObject(EQPreset(name: presetName, state: .active, bands: bands, globalGain: globalGain, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
         
-        if let preset = presets.preset(named: presetName) {
+        if let preset = presets.object(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -118,7 +118,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     var persistentState: EQUnitPersistentState {
 
         EQUnitPersistentState(state: state,
-                              userPresets: presets.userDefinedPresets.map {EQPresetPersistentState(preset: $0)},
+                              userPresets: presets.userDefinedObjects.map {EQPresetPersistentState(preset: $0)},
                               type: type,
                               globalGain: globalGain,
                               bands: bands)

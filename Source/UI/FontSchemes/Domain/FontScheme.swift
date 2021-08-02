@@ -12,7 +12,7 @@ import Cocoa
 /*
     Container for fonts used by the UI
  */
-class FontScheme: MappedPreset {
+class FontScheme: UserManagedObject {
     
     // Displayed name
     var name: String

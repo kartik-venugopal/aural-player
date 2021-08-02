@@ -42,7 +42,7 @@ class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     
     override func renderPreview(_ presetName: String) {
         
-        if let preset = filterUnit.presets.preset(named: presetName) {
+        if let preset = filterUnit.presets.object(named: presetName) {
             
             tableViewDelegate.preset = preset
             filterView.refresh()

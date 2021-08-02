@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class FontSchemesManager: MappedPresets<FontScheme> {
+class FontSchemesManager: UserManagedObjects<FontScheme> {
     
     // The current system color scheme. It is initialized with the default scheme.
     private(set) var systemScheme: FontScheme
@@ -31,12 +31,12 @@ class FontSchemesManager: MappedPresets<FontScheme> {
                 FontScheme("_system_", FontSchemePreset.standard)
         }
         
-        super.init(systemDefinedPresets: systemDefinedSchemes, userDefinedPresets: userDefinedSchemes)
+        super.init(systemDefinedObjects: systemDefinedSchemes, userDefinedObjects: userDefinedSchemes)
     }
     
     func applyScheme(named name: String) {
         
-        if let scheme = preset(named: name) {
+        if let scheme = object(named: name) {
             applyScheme(scheme)
         }
     }
@@ -51,6 +51,6 @@ class FontSchemesManager: MappedPresets<FontScheme> {
     var persistentState: FontSchemesPersistentState {
         
         FontSchemesPersistentState(systemScheme: FontSchemePersistentState(systemScheme),
-                                   userSchemes: userDefinedPresets.map {FontSchemePersistentState($0)})
+                                   userSchemes: userDefinedObjects.map {FontSchemePersistentState($0)})
     }
 }

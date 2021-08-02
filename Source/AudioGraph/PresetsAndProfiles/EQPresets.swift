@@ -19,10 +19,10 @@ class EQPresets: EffectsUnitPresets<EQPreset> {
         let systemDefinedPresets = SystemDefinedEQPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {EQPreset(persistentState: $0)}
         
-        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
+        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
-    override var defaultPreset: EQPreset {systemDefinedPreset(named: SystemDefinedEQPresetParams.flat.rawValue)!}
+    override var defaultPreset: EQPreset {systemDefinedObject(named: SystemDefinedEQPresetParams.flat.rawValue)!}
 }
 
 ///
