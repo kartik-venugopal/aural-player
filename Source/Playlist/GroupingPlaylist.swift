@@ -93,29 +93,25 @@ class GroupingPlaylist: GroupingPlaylistProtocol {
             
         case .artist:   if let trackArtist = track.artist {
                             
-                            if unknownArtistStrings.contains(trackArtist.lowercased().trim()) {
+                            if unknownArtistStrings.contains(trackArtist.lowerCasedAndTrimmed()) {
                                 return "<Unknown>"
                             } else {
                                 return trackArtist
                             }
                         }
             
-                        return "<Unknown>"
-            
         case .album:    if let trackAlbum = track.album {
                             
-                            if unknownAlbumStrings.contains(trackAlbum.lowercased().trim()) {
+                            if unknownAlbumStrings.contains(trackAlbum.lowerCasedAndTrimmed()) {
                                 return "<Unknown>"
                             } else {
                                 return trackAlbum
                             }
                         }
-
-                        return "<Unknown>"
             
         case .genre:    if let trackGenre = track.genre {
             
-                            if unknownGenreStrings.contains(trackGenre.lowercased().trim()) {
+                            if unknownGenreStrings.contains(trackGenre.lowerCasedAndTrimmed()) {
                                 return "<Unknown>"
                             } else if !trackGenre.isAcronym {
                                 return trackGenre.lowercased().capitalized
@@ -123,10 +119,10 @@ class GroupingPlaylist: GroupingPlaylistProtocol {
                                 return trackGenre
                             }
                         }
-
-                        return "<Unknown>"
             
         }
+        
+        return "<Unknown>"
     }
     
     private func getGroupForTrack(_ track: Track) -> Group? {
