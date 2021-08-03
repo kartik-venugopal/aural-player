@@ -45,6 +45,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     private let concurrentAddOpCount = (Double(SystemUtils.numberOfActiveCores) * 1.5).roundedInt
     
+    var name: String {playlist.name}
+    
     var isBeingModified: Bool {addSession != nil}
     
     var tracks: [Track] {playlist.tracks}
@@ -452,7 +454,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     private func currentPlaylistChanged() {
         
         guard playlist.needsLoadingFromPersistentState,
-              let persistentStateForPlaylist = persistentState?.userPlaylistsByName[playlist.name],
+              let persistentStateForPlaylist = persistentState?.userPlaylistByName(playlist.name),
               let tracks = persistentStateForPlaylist.tracks?.map({URL(fileURLWithPath: $0)}) else {return}
 
         addFiles_async(tracks, AutoplayOptions(false), userAction: false, reorderGroupingPlaylists: true)

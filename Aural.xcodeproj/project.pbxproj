@@ -569,7 +569,7 @@
 		3E6C124225CEBDF400BF0D07 /* ArtistsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4725CEB98600BF0D07 /* ArtistsPlaylistSort.xib */; };
 		3E6C124325CEBDF400BF0D07 /* Albums.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5425CEB98600BF0D07 /* Albums.xib */; };
 		3E6C124525CEBDF400BF0D07 /* GroupingPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4E25CEB98600BF0D07 /* GroupingPlaylistViewController.swift */; };
-		3E6C124625CEBDF400BF0D07 /* Playlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5825CEB98600BF0D07 /* Playlist.xib */; };
+		3E6C124625CEBDF400BF0D07 /* PlaylistWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5825CEB98600BF0D07 /* PlaylistWindow.xib */; };
 		3E6C124825CEBDF400BF0D07 /* GenresPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5525CEB98600BF0D07 /* GenresPlaylistViewController.swift */; };
 		3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4C25CEB98600BF0D07 /* PlaylistSortDialog.xib */; };
 		3E6C124A25CEBDF400BF0D07 /* AlbumsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4B25CEB98600BF0D07 /* AlbumsPlaylistSort.xib */; };
@@ -1666,7 +1666,7 @@
 		3E6C0F5525CEB98600BF0D07 /* GenresPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresPlaylistViewController.swift; sourceTree = "<group>"; };
 		3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupingPlaylistViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistWindowController.swift; sourceTree = "<group>"; };
-		3E6C0F5825CEB98600BF0D07 /* Playlist.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Playlist.xib; sourceTree = "<group>"; };
+		3E6C0F5825CEB98600BF0D07 /* PlaylistWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistWindow.xib; sourceTree = "<group>"; };
 		3E6C0F5A25CEB98600BF0D07 /* PlaylistSearch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistSearch.xib; sourceTree = "<group>"; };
 		3E6C0F5B25CEB98600BF0D07 /* PlaylistSearchWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistSearchWindowController.swift; sourceTree = "<group>"; };
 		3E6C0F5C25CEB98600BF0D07 /* AuralPlaylistViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuralPlaylistViews.swift; sourceTree = "<group>"; };
@@ -3113,7 +3113,7 @@
 		3E6C0F3B25CEB98600BF0D07 /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F5825CEB98600BF0D07 /* Playlist.xib */,
+				3E6C0F5825CEB98600BF0D07 /* PlaylistWindow.xib */,
 				3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */,
 				3E6C0F3C25CEB98600BF0D07 /* TracksPlaylist */,
 				3E6C0F4D25CEB98600BF0D07 /* GroupingPlaylists */,
@@ -5208,7 +5208,7 @@
 				3E6C126E25CEBE0600BF0D07 /* MasterPresetsManager.xib in Resources */,
 				3E6C129025CEBE1800BF0D07 /* PlaylistColorScheme.xib in Resources */,
 				3E6C126825CEBE0600BF0D07 /* PitchShiftPresetsManager.xib in Resources */,
-				3E6C124625CEBDF400BF0D07 /* Playlist.xib in Resources */,
+				3E6C124625CEBDF400BF0D07 /* PlaylistWindow.xib in Resources */,
 				3E6C125925CEBE0600BF0D07 /* BookmarksManager.xib in Resources */,
 				3E6C121F25CEBDE600BF0D07 /* ControlsPreferences.xib in Resources */,
 				3EE7CB9525E21F9F0075F1DD /* PlaylistFontScheme.xib in Resources */,

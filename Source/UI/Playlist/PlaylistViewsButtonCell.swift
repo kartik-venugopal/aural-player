@@ -18,28 +18,31 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     override var borderRadius: CGFloat {3}
     override var selectionBoxColor: NSColor {Colors.selectedTabButtonColor}
     
-    override var textFont: NSFont {Fonts.Playlist.tabButtonTextFont}
-    override var boldTextFont: NSFont {Fonts.Playlist.tabButtonTextFont}
+    @IBInspectable var imgWidth: Int = 14
+    @IBInspectable var imgHeight: Int = 14
     
-    override var borderInsetY: CGFloat {0}
-    
-    override var yOffset: CGFloat {0}
+    override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
+        drawInterior(withFrame: cellFrame, in: controlView)
+    }
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        let font = isOn ? boldTextFont : textFont
+        // Draw image (left aligned)
+        let rectWidth: CGFloat = cellFrame.width, rectHeight: CGFloat = cellFrame.height
+        let xInset = (rectWidth - CGFloat(imgWidth)) / 2
+        let yInset = (rectHeight - CGFloat(imgHeight)) / 2
+        
+        // Raise the selected tab image by a few pixels so it is prominent
+        let imgRect = cellFrame.insetBy(dx: xInset, dy: yInset).offsetBy(dx: 0, dy: isOn ? -2 : 0)
+        self.image?.filledWithColor(isOn ? selectedTextColor : unselectedTextColor).draw(in: imgRect)
         
         // Selection underline
         if isOn {
             
-            let underlineWidth = title.size(withFont: font).width
-            let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.maxY - 2, width: underlineWidth, height: 2)
+            let drawRect = NSRect(x: cellFrame.centerX - (imgRect.width / 2), y: cellFrame.maxY - 2,
+                                  width: imgRect.width, height: 2)
             
-            selRect.fill(withColor: selectionBoxColor)
+            drawRect.fill(withColor: selectionBoxColor)
         }
-        
-        // Title
-        let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
-        title.drawCentered(in: cellFrame, withFont: font, andColor: textColor, yOffset: yOffset - (isOn ? 2 : 0))
     }
 }

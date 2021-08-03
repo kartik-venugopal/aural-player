@@ -17,6 +17,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
     
+    @IBOutlet weak var lblPlaylistName: VALabel!
+    
     @IBOutlet weak var tabButtonsBox: NSBox!
     @IBOutlet weak var btnTracksTab: NSButton!
     @IBOutlet weak var btnArtistsTab: NSButton!
@@ -73,7 +75,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
-    override var windowNibName: String? {"Playlist"}
+    override var windowNibName: String? {"PlaylistWindow"}
     
     private var childContainerBoxes: [NSBox] = []
     private var functionButtons: [TintedImageButton] = []
@@ -94,6 +96,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         btnClose.tintFunction = {Colors.functionButtonColor}
         
         setUpTabGroup()
+        
+        lblPlaylistName.stringValue = playlist.name
         
         childContainerBoxes = [playlistContainerBox, tabButtonsBox, controlsBox]
         
@@ -157,6 +161,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackChanged)
         
         messenger.subscribe(to: .playlist_viewChanged, handler: playlistTypeChanged)
+        messenger.subscribe(to: .playlist_currentPlaylistChanged, handler: playlistChanged)
         
         // MARK: Commands -------------------------------------------------------------------------------------
         
@@ -423,8 +428,10 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblTracksSummary.font = fontSchemesManager.systemScheme.playlist.summaryFont
-        lblDurationSummary.font = fontSchemesManager.systemScheme.playlist.summaryFont
+        lblPlaylistName.font = fontScheme.playlist.tabButtonTextFont
+        
+        lblTracksSummary.font = fontScheme.playlist.summaryFont
+        lblDurationSummary.font = fontScheme.playlist.summaryFont
         
         redrawTabButtons()
     }
@@ -434,6 +441,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         changeBackgroundColor(scheme.general.backgroundColor)
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         changeSummaryInfoColor(scheme.playlist.summaryInfoColor)
+        
+        lblPlaylistName.textColor = scheme.general.selectedTabButtonTextColor
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -470,7 +479,9 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     }
     
     private func changeSelectedTabButtonTextColor(_ color: NSColor) {
+        
         redrawSelectedTabButton()
+        lblPlaylistName.textColor = color
     }
     
     private func redrawSelectedTabButton() {
@@ -499,8 +510,12 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     
     // MARK: Message handling
     
+    private func playlistChanged() {
+        lblPlaylistName.stringValue = playlist.name
+    }
+    
     // Updates the summary in response to a change in the tab group selected tab
-    func playlistTypeChanged() {
+    private func playlistTypeChanged() {
         updatePlaylistSummary()
     }
     

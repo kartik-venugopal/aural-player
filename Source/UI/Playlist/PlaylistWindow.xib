@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Playlist.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,6 +21,7 @@
                 <outlet property="controlButtonsSuperview" destination="wWy-mP-FPA" id="Utv-PF-0Fk"/>
                 <outlet property="controlsBox" destination="4ZZ-7d-wdS" id="IQj-6b-tmO"/>
                 <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="WZd-Es-pDr"/>
+                <outlet property="lblPlaylistName" destination="mM6-33-HXh" id="ahz-T8-9zh"/>
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
                 <outlet property="playlistContainerBox" destination="Syt-ea-ETd" id="Vz1-0Q-UEr"/>
                 <outlet property="progressSpinner" destination="TgI-fO-gfa" id="aSy-nq-kDL"/>
@@ -48,7 +38,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="132" width="530" height="277"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="530" height="210"/>
             <view key="contentView" id="eVi-5y-Ide">
                 <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
@@ -74,45 +64,54 @@
                                         <action selector="closeWindowAction:" target="-2" id="1Wc-kJ-i8h"/>
                                     </connections>
                                 </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mM6-33-HXh" userLabel="Playlist Name Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="51" y="247" width="315" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Playlist" id="cf4-Sb-EzP">
+                                        <font key="font" size="13" name="Play-Regular"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </box>
                     <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-L2-HsW" userLabel="Tab Buttons Box">
-                        <rect key="frame" x="113" y="241" width="305" height="30"/>
+                        <rect key="frame" x="395" y="241" width="130" height="30"/>
                         <view key="contentView" id="bsS-nD-sNb">
-                            <rect key="frame" x="0.0" y="0.0" width="305" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRy-40-ayp" userLabel="Tracks Button">
-                                    <rect key="frame" x="10" y="2" width="70" height="27"/>
+                                    <rect key="frame" x="2" y="2" width="30" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Tracks" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zgx-eE-HPM" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Tracks" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zgx-eE-HPM" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" size="13" name="AlegreyaSansSC-Regular"/>
                                     </buttonCell>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gd5-Z1-IPv" userLabel="Artists Button">
-                                    <rect key="frame" x="82" y="2" width="70" height="27"/>
+                                    <rect key="frame" x="33" y="2" width="30" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Artists" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji9-rd-q2F" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Artists" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji9-rd-q2F" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" size="13" name="AlegreyaSansSC-Regular"/>
                                     </buttonCell>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-Se-Yie" userLabel="Albums Button">
-                                    <rect key="frame" x="154" y="2" width="70" height="27"/>
+                                    <rect key="frame" x="65" y="2" width="30" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Albums" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OyZ-cR-V6J" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Albums" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OyZ-cR-V6J" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="13" name="AlegreyaSansSC-Regular"/>
                                     </buttonCell>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-oc-eXx" userLabel="Genres Button">
-                                    <rect key="frame" x="226" y="2" width="70" height="27"/>
+                                    <rect key="frame" x="97" y="2" width="30" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Genres" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YnV-Ql-KcB" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Genres" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YnV-Ql-KcB" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" size="13" name="AlegreyaSansSC-Regular"/>
                                     </buttonCell>
@@ -120,7 +119,7 @@
                             </subviews>
                         </view>
                         <constraints>
-                            <constraint firstAttribute="width" constant="305" id="OfB-pd-o5B"/>
+                            <constraint firstAttribute="width" constant="130" id="OfB-pd-o5B"/>
                             <constraint firstAttribute="height" constant="30" id="w9x-TB-TBq"/>
                         </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -473,7 +472,7 @@
                     <constraint firstItem="hbJ-4L-vUS" firstAttribute="trailing" secondItem="eVi-5y-Ide" secondAttribute="trailing" constant="-4" id="0NT-Pg-tSh"/>
                     <constraint firstAttribute="trailing" secondItem="MyO-C3-Vvb" secondAttribute="trailing" constant="4" id="1N6-A7-yil"/>
                     <constraint firstItem="aRU-Xs-Jom" firstAttribute="top" secondItem="hbJ-4L-vUS" secondAttribute="bottom" constant="2" id="5ms-X5-gjU"/>
-                    <constraint firstItem="rbs-L2-HsW" firstAttribute="centerX" secondItem="Syt-ea-ETd" secondAttribute="centerX" id="6nc-vt-Y7x"/>
+                    <constraint firstItem="rbs-L2-HsW" firstAttribute="trailing" secondItem="Syt-ea-ETd" secondAttribute="trailing" constant="10" id="6nc-vt-Y7x"/>
                     <constraint firstItem="rbs-L2-HsW" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" constant="6" id="842-Pc-uWj"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="trailing" secondItem="hbJ-4L-vUS" secondAttribute="trailing" id="8WN-QB-OhY"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="leading" secondItem="MyO-C3-Vvb" secondAttribute="leading" id="99A-ST-JJ1"/>
@@ -642,11 +641,14 @@
     </objects>
     <resources>
         <image name="Add" width="25" height="25"/>
+        <image name="Albums" width="32" height="32"/>
+        <image name="Artists" width="32" height="32"/>
         <image name="Clear" width="26" height="30"/>
         <image name="Close" width="18" height="18"/>
         <image name="Down" width="25" height="35"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="Favorites" width="15" height="15"/>
+        <image name="Genres" width="32" height="32"/>
         <image name="MoreInfo-Padded-Small" width="15" height="15"/>
         <image name="PageDown" width="28" height="17"/>
         <image name="PageUp" width="28" height="17"/>
@@ -660,6 +662,7 @@
         <image name="ShowInFinder" width="15" height="15"/>
         <image name="Sort" width="32" height="27"/>
         <image name="ToggleChaptersList-Small" width="14" height="11"/>
+        <image name="Tracks" width="32" height="32"/>
         <image name="Up" width="25" height="35"/>
         <image name="Up-Small" width="10" height="14"/>
     </resources>

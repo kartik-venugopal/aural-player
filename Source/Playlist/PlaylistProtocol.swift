@@ -20,7 +20,7 @@ protocol PlaylistProtocol: PlaylistAccessorProtocol, PlaylistMutatorProtocol {
 ///
 protocol PlaylistAccessorProtocol {
     
-    var name: String
+    var name: String {get set}
     
     // Retrieves all tracks, in the same order as in the flat playlist
     var tracks: [Track] {get}

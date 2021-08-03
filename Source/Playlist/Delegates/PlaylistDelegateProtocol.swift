@@ -30,6 +30,8 @@ protocol PlaylistDelegateProtocol: PlaylistAccessorDelegateProtocol, PlaylistMut
 ///
 protocol PlaylistAccessorDelegateProtocol {
     
+    var name: String {get}
+    
     // Searches for a track by file. If it is found, its information is returned. If not, nil is returned.
     func findFile(_ file: URL) -> Track?
     
