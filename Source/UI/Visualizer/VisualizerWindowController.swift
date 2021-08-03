@@ -37,8 +37,6 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
     
     private lazy var visualizer: Visualizer = Visualizer(renderCallback: updateCurrentView)
     
-    private lazy var messenger = Messenger(for: self)
-    
     private lazy var uiState: VisualizerUIState = objectGraph.visualizerUIState
     
     override func awakeFromNib() {
@@ -54,16 +52,12 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
         discoBallMenuItem.representedObject = VisualizationType.discoBall
         
         allViews = [spectrogram, supernova, discoBall]
-        
-        messenger.subscribe(to: .visualizer_showOptions, handler: optionsBox.show)
-        messenger.subscribe(to: .visualizer_hideOptions, handler: optionsBox.hide)
     }
     
     func destroy() {
         
         close()
         visualizer.destroy()
-        messenger.unsubscribeFromAll()
     }
     
     override func showWindow(_ sender: Any?) {

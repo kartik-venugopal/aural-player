@@ -1,5 +1,5 @@
 //
-//  VisualizerContainer.swift
+//  PlaylistContainer.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,9 +9,12 @@
 //
 import Cocoa
 
-class VisualizerContainer: NSBox {
+class PlaylistContainer: NSBox {
     
-    @IBOutlet weak var optionsBox: NSBox!
+    @IBOutlet weak var controlsBox: NSBox!
+    
+    @IBOutlet weak var lblTracksSummary: NSTextField!
+    @IBOutlet weak var lblDurationSummary: NSTextField!
     
     override func viewDidEndLiveResize() {
         
@@ -20,7 +23,8 @@ class VisualizerContainer: NSBox {
         self.removeAllTrackingAreas()
         self.updateTrackingAreas()
 
-        optionsBox.hide()
+        controlsBox.hide()
+        [lblTracksSummary, lblDurationSummary].forEach {$0?.show()}
     }
     
     // Signals the view to start tracking mouse movements.
@@ -45,10 +49,14 @@ class VisualizerContainer: NSBox {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        optionsBox.show()
+        
+        controlsBox.show()
+        [lblTracksSummary, lblDurationSummary].forEach {$0?.hide()}
     }
     
     override func mouseExited(with event: NSEvent) {
-        optionsBox.hide()
+        
+        controlsBox.hide()
+        [lblTracksSummary, lblDurationSummary].forEach {$0?.show()}
     }
 }
