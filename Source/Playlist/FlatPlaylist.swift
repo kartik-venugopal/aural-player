@@ -50,18 +50,18 @@ class FlatPlaylist: FlatPlaylistProtocol {
         // Check both the filename and the display name
         if query.fields.contains(.name) {
             
-            let filename = track.fileSystemInfo.fileName
-            if query.compare(filename) {
-
-                return SearchResult(location: SearchResultLocation(track: track, trackIndex: index, groupInfo: nil),
-                                    match: SearchResultMatch(fieldKey: "filename", fieldValue: filename))
-            }
-            
             let displayName = track.displayName
             if query.compare(displayName) {
                 
                 return SearchResult(location: SearchResultLocation(track: track, trackIndex: index, groupInfo: nil),
                                     match: SearchResultMatch(fieldKey: "name", fieldValue: displayName))
+            }
+            
+            let filename = track.fileSystemInfo.fileName
+            if query.compare(filename) {
+
+                return SearchResult(location: SearchResultLocation(track: track, trackIndex: index, groupInfo: nil),
+                                    match: SearchResultMatch(fieldKey: "filename", fieldValue: filename))
             }
         }
         
