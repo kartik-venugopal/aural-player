@@ -68,6 +68,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         messenger.subscribeAsync(to: .player_autoplay, handler: autoplay(_:))
         messenger.subscribe(to: .player_savePlaybackProfile, handler: savePlaybackProfile)
         messenger.subscribe(to: .player_deletePlaybackProfile, handler: deletePlaybackProfile)
+        messenger.subscribe(to: .playlist_currentPlaylistChanged, handler: stop)
     }
     
     // MARK: play()

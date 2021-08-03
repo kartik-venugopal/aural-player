@@ -13,7 +13,7 @@ extension Array {
     
     var isNonEmpty: Bool {!isEmpty}
     
-    func categorizeBy<C>(_ categorizingFunction: (Element) -> C) -> [C: [Element]] where C: Hashable {
+    func categorizeOneToManyBy<C>(_ categorizingFunction: (Element) -> C) -> [C: [Element]] where C: Hashable {
         
         var map: [C: [Element]] = [:]
         
@@ -22,6 +22,17 @@ extension Array {
             let category: C = categorizingFunction(item)
             map[category] = map[category] ?? []
             map[category]!.append(item)
+        }
+        
+        return map
+    }
+    
+    func categorizeOneToOneBy<C>(_ categorizingFunction: (Element) -> C) -> [C: Element] where C: Hashable {
+        
+        var map: [C: Element] = [:]
+        
+        for item in self {
+            map[categorizingFunction(item)] = item
         }
         
         return map

@@ -31,21 +31,23 @@ class Sequencer: SequencerProtocol {
     // The current playlist view type selected by the user (this is used to determine the scope)
     private(set) var playlistType: PlaylistType = .tracks
     
+    private let playlistsManager: PlaylistsManager
+    
     // Used to access the playlist's tracks/groups
-    private let playlist: PlaylistAccessorProtocol
+    private var playlist: PlaylistAccessorProtocol {playlistsManager.currentPlaylist}
     
     // Stores the currently playing track, if there is one
     private(set) var currentTrack: Track?
     
     private lazy var messenger = Messenger(for: self)
     
-    init(persistentState: PlaybackSequencePersistentState?, _ playlist: PlaylistAccessorProtocol, _ playlistType: PlaylistType) {
+    init(persistentState: PlaybackSequencePersistentState?, _ playlistsManager: PlaylistsManager, _ playlistType: PlaylistType) {
         
         let repeatMode = persistentState?.repeatMode ?? .defaultMode
         let shuffleMode = persistentState?.shuffleMode ?? .defaultMode
         
         self.sequence = PlaybackSequence(repeatMode, shuffleMode)
-        self.playlist = playlist
+        self.playlistsManager = playlistsManager
         
         self.playlistType = playlistType
         self.scope = SequenceScope(playlistType.toPlaylistScopeType())

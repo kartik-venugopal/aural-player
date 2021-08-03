@@ -15,7 +15,15 @@ import Foundation
 class PlaylistsManager: UserManagedObjects<Playlist>, PersistentModelObject {
     
     let systemPlaylist: Playlist
-    var currentPlaylist: Playlist
+    
+    var currentPlaylist: Playlist {
+        
+        didSet {
+            messenger.publish(.playlist_currentPlaylistChanged)
+        }
+    }
+    
+    private lazy var messenger = Messenger(for: self)
     
     init(systemPlaylist: Playlist, userPlaylists: [Playlist]) {
         
@@ -27,10 +35,12 @@ class PlaylistsManager: UserManagedObjects<Playlist>, PersistentModelObject {
     
     func createNewPlaylist(named name: String) {
         
-        let playlist = Playlist(name: name, userDefined: true, FlatPlaylist(),
+        let playlist = Playlist(name: name, userDefined: true, needsLoadingFromPersistentState: false, FlatPlaylist(),
                                 [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
         
         addObject(playlist)
+        
+        currentPlaylist = playlist
     }
     
     var persistentState: PlaylistsPersistentState {

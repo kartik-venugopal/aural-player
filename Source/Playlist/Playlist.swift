@@ -25,6 +25,8 @@ class Playlist: PlaylistProtocol, UserManagedObject {
     
     var name: String
     
+    var needsLoadingFromPersistentState: Bool
+    
     // Flat playlist
     private var flatPlaylist: FlatPlaylistProtocol
     
@@ -34,10 +36,12 @@ class Playlist: PlaylistProtocol, UserManagedObject {
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFile: [URL: Track] = [:]
     
-    init(name: String, userDefined: Bool, _ flatPlaylist: FlatPlaylistProtocol, _ groupingPlaylists: [GroupingPlaylistProtocol]) {
+    init(name: String, userDefined: Bool, needsLoadingFromPersistentState: Bool,
+         _ flatPlaylist: FlatPlaylistProtocol, _ groupingPlaylists: [GroupingPlaylistProtocol]) {
         
         self.name = name
         self.userDefined = userDefined
+        self.needsLoadingFromPersistentState = needsLoadingFromPersistentState
         
         self.flatPlaylist = flatPlaylist
         groupingPlaylists.forEach {self.groupingPlaylists[$0.playlistType] = $0}

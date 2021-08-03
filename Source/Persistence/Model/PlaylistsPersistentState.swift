@@ -20,7 +20,17 @@ struct PlaylistsPersistentState: Codable {
     let tracks: [URLPath]?
     let groupingPlaylists: [String: GroupingPlaylistPersistentState]?
     
-    let userPlaylists: [PlaylistPersistentState]?
+    var userPlaylists: [PlaylistPersistentState]? {
+        
+        didSet {
+            
+            if let thePlaylists = userPlaylists {
+                userPlaylistsByName = thePlaylists.categorizeOneToOneBy {$0.name ?? ""}
+            }
+        }
+    }
+    
+    var userPlaylistsByName: [String: PlaylistPersistentState] = [:]
 }
 
 ///

@@ -70,6 +70,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         // Subscribe to notifications
         messenger.subscribe(to: .application_launched, handler: appLaunched(_:))
         messenger.subscribe(to: .application_reopened, handler: appReopened(_:))
+        messenger.subscribe(to: .playlist_currentPlaylistChanged, handler: currentPlaylistChanged)
     }
     
     func indexOfTrack(_ track: Track) -> Int? {
@@ -446,6 +447,15 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             
             addFiles_async([folder], AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false)
         }
+    }
+    
+    private func currentPlaylistChanged() {
+        
+        guard playlist.needsLoadingFromPersistentState,
+              let persistentStateForPlaylist = persistentState?.userPlaylistsByName[playlist.name],
+              let tracks = persistentStateForPlaylist.tracks?.map({URL(fileURLWithPath: $0)}) else {return}
+
+        addFiles_async(tracks, AutoplayOptions(false), userAction: false, reorderGroupingPlaylists: true)
     }
     
     func appReopened(_ notification: AppReopenedNotification) {

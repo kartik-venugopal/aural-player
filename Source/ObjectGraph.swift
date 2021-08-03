@@ -27,7 +27,7 @@ class ObjectGraph {
     lazy var appModeManager: AppModeManager = AppModeManager(persistentState: persistentState.ui,
                                                              preferences: preferences.viewPreferences)
     
-    private lazy var playlist: Playlist = Playlist(name: "Playlist", userDefined: false, FlatPlaylist(),
+    private lazy var playlist: Playlist = Playlist(name: "Playlist", userDefined: false, needsLoadingFromPersistentState: true, FlatPlaylist(),
                                                    [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
     
     lazy var playlistsManager: PlaylistsManager = {
@@ -37,7 +37,7 @@ class ObjectGraph {
         return PlaylistsManager(systemPlaylist: self.playlist,
                                 userPlaylists: userPlaylistNames.map {
                                     
-                                    Playlist(name: $0, userDefined: true, FlatPlaylist(),
+                                    Playlist(name: $0, userDefined: true, needsLoadingFromPersistentState: true, FlatPlaylist(),
                                              [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
                                 })
     }()
@@ -79,7 +79,7 @@ class ObjectGraph {
             playlistType = view
         }
         
-        return Sequencer(persistentState: persistentState.playbackSequence, playlist, playlistType)
+        return Sequencer(persistentState: persistentState.playbackSequence, playlistsManager, playlistType)
     }()
     
     lazy var sequencerDelegate: SequencerDelegateProtocol = SequencerDelegate(sequencer)

@@ -177,7 +177,7 @@ class GroupingPlaylist: GroupingPlaylistProtocol {
     func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> [GroupedItemRemovalResult] {
         
         var groupsToRemove = removedGroups
-        var tracksByGroup: [Group: [Track]] = tracks.categorizeBy({getGroupForTrack($0)!}).filter({!groupsToRemove.contains($0.key)})
+        var tracksByGroup: [Group: [Track]] = tracks.categorizeOneToManyBy {getGroupForTrack($0)!}.filter {!groupsToRemove.contains($0.key)}
         
         // If all tracks in a group were removed, just remove the group instead of its individual tracks.
         tracksByGroup.filter({$0.size == $1.count}).forEach({
