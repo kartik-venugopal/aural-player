@@ -16,6 +16,20 @@ class PlaylistContainer: NSBox {
     @IBOutlet weak var lblTracksSummary: NSTextField!
     @IBOutlet weak var lblDurationSummary: NSTextField!
     
+    @IBOutlet weak var btnPageUp: TintedImageButton!
+    @IBOutlet weak var btnPageDown: TintedImageButton!
+    @IBOutlet weak var btnScrollToTop: TintedImageButton!
+    @IBOutlet weak var btnScrollToBottom: TintedImageButton!
+    
+    private var viewsToShowOnMouseOver: [NSView] = []
+    private var viewsToHideOnMouseOver: [NSView] = []
+    
+    override func awakeFromNib() {
+        
+        viewsToShowOnMouseOver = [controlsBox, btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom]
+        viewsToHideOnMouseOver = [lblTracksSummary, lblDurationSummary]
+    }
+    
     override func viewDidEndLiveResize() {
         
         super.viewDidEndLiveResize()
@@ -23,8 +37,8 @@ class PlaylistContainer: NSBox {
         self.removeAllTrackingAreas()
         self.updateTrackingAreas()
 
-        controlsBox.hide()
-        [lblTracksSummary, lblDurationSummary].forEach {$0?.show()}
+        viewsToShowOnMouseOver.forEach {$0.hide()}
+        viewsToHideOnMouseOver.forEach {$0.show()}
     }
     
     // Signals the view to start tracking mouse movements.
@@ -50,13 +64,13 @@ class PlaylistContainer: NSBox {
     
     override func mouseEntered(with event: NSEvent) {
         
-        controlsBox.show()
-        [lblTracksSummary, lblDurationSummary].forEach {$0?.hide()}
+        viewsToShowOnMouseOver.forEach {$0.show()}
+        viewsToHideOnMouseOver.forEach {$0.hide()}
     }
     
     override func mouseExited(with event: NSEvent) {
         
-        controlsBox.hide()
-        [lblTracksSummary, lblDurationSummary].forEach {$0?.show()}
+        viewsToShowOnMouseOver.forEach {$0.hide()}
+        viewsToHideOnMouseOver.forEach {$0.show()}
     }
 }
