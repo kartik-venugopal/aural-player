@@ -45,6 +45,10 @@ class EQUnitSubview: NSView {
         }
     }
     
+    var functionCaptionLabels: [NSTextField] {
+        self.subviews.compactMap {$0 as? NSTextField}
+    }
+    
     // ------------------------------------------------------------------------
     
     // MARK: View update

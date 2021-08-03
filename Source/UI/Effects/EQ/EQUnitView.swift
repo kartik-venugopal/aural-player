@@ -43,6 +43,10 @@ class EQUnitView: NSView {
         activeView.globalGainSlider.floatValue
     }
     
+    var functionCaptionLabels: [NSTextField] {
+        eq10BandView.functionCaptionLabels + eq15BandView.functionCaptionLabels
+    }
+    
     // ------------------------------------------------------------------------
     
     // MARK: View initialization

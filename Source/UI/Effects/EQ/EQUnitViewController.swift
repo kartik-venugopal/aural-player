@@ -53,6 +53,15 @@ class EQUnitViewController: EffectsUnitViewController {
         eqUnitView.setState(eqType: eqUnit.type, bands: eqUnit.bands, globalGain: eqUnit.globalGain)
     }
     
+    override func findFunctionLabels(under view: NSView) {
+        
+        let captionLabels = eqUnitView.functionCaptionLabels
+        
+        functionLabels = captionLabels
+        functionCaptionLabels = captionLabels
+        functionValueLabels = []
+    }
+    
     // ------------------------------------------------------------------------
     
     // MARK: Actions
