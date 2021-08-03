@@ -8,18 +8,26 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnAddTracks" destination="69P-I6-ESe" id="nRv-wg-SVn"/>
                 <outlet property="btnAlbumsTab" destination="Icf-Se-Yie" id="fzm-zb-WgA"/>
                 <outlet property="btnArtistsTab" destination="Gd5-Z1-IPv" id="UYS-iP-JS2"/>
+                <outlet property="btnClear" destination="6wk-oD-sAb" id="weD-7z-uPH"/>
                 <outlet property="btnClose" destination="vdc-Y5-FXG" id="SB6-vr-t8P"/>
+                <outlet property="btnCreatePlaylist" destination="jJV-JM-APU" id="5Ky-c2-61p"/>
+                <outlet property="btnExportPlaylist" destination="gX9-U6-3fw" id="V00-yR-ifj"/>
                 <outlet property="btnGenresTab" destination="WM5-oc-eXx" id="GTC-Jb-4Ps"/>
+                <outlet property="btnLoadPlaylist" destination="RCM-6E-7Tz" id="MHd-TD-Knm"/>
+                <outlet property="btnMoveTracksDown" destination="XMf-ei-tjw" id="FMS-hL-gjR"/>
+                <outlet property="btnMoveTracksUp" destination="2cB-rC-TAd" id="0DF-Or-InP"/>
                 <outlet property="btnPageDown" destination="MyO-C3-Vvb" id="N0H-Kd-QCi"/>
                 <outlet property="btnPageUp" destination="aRU-Xs-Jom" id="huo-nz-VZN"/>
+                <outlet property="btnRemoveTracks" destination="8bh-90-Ye2" id="XBD-ff-Zfu"/>
                 <outlet property="btnScrollToBottom" destination="B7I-KW-j8r" id="MGG-kZ-Nix"/>
                 <outlet property="btnScrollToTop" destination="hbJ-4L-vUS" id="aVX-bU-dkO"/>
+                <outlet property="btnSearch" destination="k4F-AY-e2O" id="wns-Z3-IBZ"/>
+                <outlet property="btnSort" destination="1a0-k6-zjf" id="qWy-R5-exF"/>
                 <outlet property="btnTracksTab" destination="HRy-40-ayp" id="vh1-lE-8lZ"/>
                 <outlet property="contextMenu" destination="5mK-N5-S6w" id="MXz-2o-VC4"/>
-                <outlet property="controlButtonsSuperview" destination="wWy-mP-FPA" id="Utv-PF-0Fk"/>
-                <outlet property="controlsBox" destination="4ZZ-7d-wdS" id="IQj-6b-tmO"/>
                 <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="WZd-Es-pDr"/>
                 <outlet property="lblPlaylistName" destination="mM6-33-HXh" id="ahz-T8-9zh"/>
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
@@ -50,6 +58,15 @@
                             <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mM6-33-HXh" userLabel="Playlist Name Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="50" y="247" width="335" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Playlist" id="cf4-Sb-EzP">
+                                        <font key="font" size="13" name="Play-Regular"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                                 <button toolTip="Hide the playlist" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdc-Y5-FXG" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="15" y="252" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -64,25 +81,25 @@
                                         <action selector="closeWindowAction:" target="-2" id="1Wc-kJ-i8h"/>
                                     </connections>
                                 </button>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mM6-33-HXh" userLabel="Playlist Name Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="50" y="247" width="335" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Playlist" id="cf4-Sb-EzP">
-                                        <font key="font" size="13" name="Play-Regular"/>
-                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <connections>
+                            <outlet property="btnAddTracks" destination="69P-I6-ESe" id="p3t-Yb-EgO"/>
+                            <outlet property="btnClear" destination="6wk-oD-sAb" id="F71-N5-Opm"/>
+                            <outlet property="btnCreatePlaylist" destination="jJV-JM-APU" id="CiL-ab-Smc"/>
+                            <outlet property="btnExportPlaylist" destination="gX9-U6-3fw" id="qwq-KN-0lz"/>
+                            <outlet property="btnLoadPlaylist" destination="RCM-6E-7Tz" id="QR9-12-3kN"/>
+                            <outlet property="btnMoveTracksDown" destination="XMf-ei-tjw" id="SlI-8f-fIH"/>
+                            <outlet property="btnMoveTracksUp" destination="2cB-rC-TAd" id="Ykq-h1-HzN"/>
                             <outlet property="btnPageDown" destination="MyO-C3-Vvb" id="FlY-Bh-buF"/>
                             <outlet property="btnPageUp" destination="aRU-Xs-Jom" id="AwD-dB-Kaz"/>
+                            <outlet property="btnRemoveTracks" destination="8bh-90-Ye2" id="dRU-Ge-5Nx"/>
                             <outlet property="btnScrollToBottom" destination="B7I-KW-j8r" id="QHD-Zt-YHk"/>
                             <outlet property="btnScrollToTop" destination="hbJ-4L-vUS" id="O3d-XT-xsm"/>
-                            <outlet property="controlsBox" destination="4ZZ-7d-wdS" id="64l-LB-0ak"/>
+                            <outlet property="btnSearch" destination="k4F-AY-e2O" id="L4K-rw-2w0"/>
+                            <outlet property="btnSort" destination="1a0-k6-zjf" id="PlE-o0-1Z0"/>
                             <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="jfx-4i-V42"/>
                             <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="r6i-YR-zhZ"/>
                         </connections>
@@ -239,212 +256,6 @@
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                     </box>
-                    <box hidden="YES" focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4ZZ-7d-wdS" userLabel="Controls box">
-                        <rect key="frame" x="18" y="8" width="490" height="22"/>
-                        <view key="contentView" id="wWy-mP-FPA">
-                            <rect key="frame" x="0.0" y="0.0" width="490" height="22"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button toolTip="Create new playlist" translatesAutoresizingMaskIntoConstraints="NO" id="xFt-Ua-bs4" userLabel="CreatePlaylist" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="5" y="0.0" width="20" height="20"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="HGt-Fs-dvg"/>
-                                        <constraint firstAttribute="width" constant="20" id="Rkf-PX-UkB"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="CreatePlaylist" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0SR-dy-hZg">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="CreatePlaylist"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="addTracksAction:" target="-2" id="1Nn-B0-Cyf"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Load playlist" translatesAutoresizingMaskIntoConstraints="NO" id="B0f-oW-ZSl" userLabel="LoadPlaylist" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="30" y="0.0" width="20" height="20"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="20" id="JcL-9h-arI"/>
-                                        <constraint firstAttribute="height" constant="20" id="aSq-wm-eeY"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoadPlaylist" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="E5W-jM-OKk">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="LoadPlaylist"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="addTracksAction:" target="-2" id="CQo-Gn-DeU"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Export current playlist to file" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-I4-fro" userLabel="ExportPlaylist" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="59" y="4" width="12" height="12"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="12" id="Cf2-uf-ZBs"/>
-                                        <constraint firstAttribute="height" constant="12" id="D8t-hE-Wah"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ExportMetadata" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ppZ-c9-Uez">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="ExportMetadata"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="savePlaylistAction:" target="-2" id="30W-hg-2Z7"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-e2-yVa" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="339" y="5" width="10" height="9"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="10" id="Gsk-oE-I67"/>
-                                        <constraint firstAttribute="height" constant="9" id="Jm6-7q-Js6"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ipi-km-LoY">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Add"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="addTracksAction:" target="-2" id="IPP-Wz-cog"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8sm-w3-Gbf" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="355" y="5" width="10" height="9"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="10" id="D7m-Dm-CG2"/>
-                                        <constraint firstAttribute="height" constant="9" id="ihf-rB-5IC"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="G0x-qe-uJA">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Remove"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="removeTracksAction:" target="-2" id="NSE-Uf-IDo"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Rcf-sJ-PsH" userLabel="Clear" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="371" y="4" width="11" height="11"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="11" id="Geq-bs-kJ7"/>
-                                        <constraint firstAttribute="height" constant="11" id="y0v-El-0wF"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="QQk-jC-cXl">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Clear"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="clearPlaylistAction:" target="-2" id="THu-ud-htL"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="Qk9-zq-mea" userLabel="Up" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="406" y="4" width="12" height="12"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="12" id="Q5B-Xt-Wnq"/>
-                                        <constraint firstAttribute="height" constant="12" id="zV8-PS-IZL"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="S1R-Bm-DZW">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Up"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="moveTracksUpAction:" target="-2" id="yBm-na-XPi"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="9Cd-oK-b1c" userLabel="Down" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="421" y="3" width="12" height="12"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="12" id="VP8-VV-4Ga"/>
-                                        <constraint firstAttribute="height" constant="12" id="ZV6-zL-OPj"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="XIH-oW-vdK">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Down"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="moveTracksDownAction:" target="-2" id="qZV-wX-e6s"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="APX-AI-8pn" userLabel="Search" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="457" y="4" width="10" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="Lbq-1d-8DS"/>
-                                        <constraint firstAttribute="width" constant="10" id="ixN-fc-tcV"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yas-8d-Byn">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Search"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="searchAction:" target="-2" id="Uzw-sg-lVl"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Fch-nI-JUY" userLabel="Sort" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="475" y="3" width="14" height="14"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="14" id="g1n-xy-5Gh"/>
-                                        <constraint firstAttribute="height" constant="14" id="nfG-kV-Zuk"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="by7-bV-CfC">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Sort"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="sortAction:" target="-2" id="4qm-Ij-CvB"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="Qk9-zq-mea" firstAttribute="bottom" secondItem="ypp-e2-yVa" secondAttribute="bottom" constant="1" id="921-a4-5da"/>
-                                <constraint firstAttribute="bottom" secondItem="B0f-oW-ZSl" secondAttribute="bottom" id="B2u-eT-v8E"/>
-                                <constraint firstAttribute="bottom" secondItem="mCM-I4-fro" secondAttribute="bottom" constant="4" id="Beg-Nv-vQj"/>
-                                <constraint firstItem="B0f-oW-ZSl" firstAttribute="leading" secondItem="xFt-Ua-bs4" secondAttribute="trailing" constant="5" id="FEo-XW-cRl"/>
-                                <constraint firstItem="9Cd-oK-b1c" firstAttribute="bottom" secondItem="Qk9-zq-mea" secondAttribute="bottom" constant="1" id="FN9-xB-GS5"/>
-                                <constraint firstItem="Fch-nI-JUY" firstAttribute="leading" secondItem="APX-AI-8pn" secondAttribute="trailing" constant="8" id="Loo-JS-tbB"/>
-                                <constraint firstItem="8sm-w3-Gbf" firstAttribute="bottom" secondItem="ypp-e2-yVa" secondAttribute="bottom" id="NEh-mV-CUI"/>
-                                <constraint firstItem="Rcf-sJ-PsH" firstAttribute="leading" secondItem="8sm-w3-Gbf" secondAttribute="trailing" constant="6" id="Pq8-lF-ZOo"/>
-                                <constraint firstItem="xFt-Ua-bs4" firstAttribute="leading" secondItem="wWy-mP-FPA" secondAttribute="leading" constant="5" id="QaB-cz-4UC"/>
-                                <constraint firstItem="APX-AI-8pn" firstAttribute="bottom" secondItem="9Cd-oK-b1c" secondAttribute="bottom" constant="-1" id="SFU-7c-xth"/>
-                                <constraint firstItem="8sm-w3-Gbf" firstAttribute="leading" secondItem="ypp-e2-yVa" secondAttribute="trailing" constant="6" id="XSq-pu-iU3"/>
-                                <constraint firstItem="9Cd-oK-b1c" firstAttribute="leading" secondItem="Qk9-zq-mea" secondAttribute="trailing" constant="3" id="Ydl-lQ-Q97"/>
-                                <constraint firstItem="Fch-nI-JUY" firstAttribute="bottom" secondItem="APX-AI-8pn" secondAttribute="bottom" constant="1" id="cA1-eL-P63"/>
-                                <constraint firstAttribute="bottom" secondItem="Rcf-sJ-PsH" secondAttribute="bottom" constant="4" id="mg9-lg-3wP"/>
-                                <constraint firstItem="Qk9-zq-mea" firstAttribute="leading" secondItem="Rcf-sJ-PsH" secondAttribute="trailing" constant="24" id="qWp-Fd-IfO"/>
-                                <constraint firstAttribute="bottom" secondItem="xFt-Ua-bs4" secondAttribute="bottom" id="qqf-dd-dGq"/>
-                                <constraint firstAttribute="trailing" secondItem="Fch-nI-JUY" secondAttribute="trailing" constant="1" id="raU-0Q-vmQ"/>
-                                <constraint firstItem="APX-AI-8pn" firstAttribute="leading" secondItem="9Cd-oK-b1c" secondAttribute="trailing" constant="24" id="tCN-e9-czd"/>
-                                <constraint firstItem="mCM-I4-fro" firstAttribute="leading" secondItem="B0f-oW-ZSl" secondAttribute="trailing" constant="9" id="tFl-bR-3DN"/>
-                                <constraint firstAttribute="bottom" secondItem="ypp-e2-yVa" secondAttribute="bottom" constant="5" id="wqu-dE-1f7"/>
-                            </constraints>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="22" id="Zax-NV-pDV"/>
-                        </constraints>
-                        <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </box>
                     <button hidden="YES" toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="hbJ-4L-vUS" userLabel="Scroll To Top Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="517" y="217" width="10" height="10"/>
                         <constraints>
@@ -513,10 +324,180 @@
                             <action selector="pageDownAction:" target="-2" id="XcS-3y-RUh"/>
                         </connections>
                     </button>
+                    <button hidden="YES" toolTip="Create new playlist" translatesAutoresizingMaskIntoConstraints="NO" id="jJV-JM-APU" userLabel="CreatePlaylist" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="22" y="8" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="W56-NA-aI3"/>
+                            <constraint firstAttribute="height" constant="20" id="kEA-CR-r0c"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="CreatePlaylist" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jdR-1B-zqe">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="CreatePlaylist"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="addTracksAction:" target="-2" id="tbN-tY-vWV"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Load playlist" translatesAutoresizingMaskIntoConstraints="NO" id="RCM-6E-7Tz" userLabel="LoadPlaylist" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="48" y="8" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="UiB-Dq-DPD"/>
+                            <constraint firstAttribute="height" constant="20" id="nyh-gV-baX"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoadPlaylist" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="pDv-HP-FXu">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="LoadPlaylist"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="addTracksAction:" target="-2" id="MOI-6W-cZi"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Export current playlist to file" translatesAutoresizingMaskIntoConstraints="NO" id="gX9-U6-3fw" userLabel="ExportPlaylist" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="77" y="12" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="7Q9-YU-fej"/>
+                            <constraint firstAttribute="height" constant="12" id="rM9-rA-TpJ"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ExportMetadata" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0jI-Pj-eYA">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="ExportMetadata"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="savePlaylistAction:" target="-2" id="I2f-PR-b9Y"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="69P-I6-ESe" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="357" y="13" width="10" height="9"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="Oc7-sz-mom"/>
+                            <constraint firstAttribute="height" constant="9" id="bQp-Rd-5uh"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="sdI-Ho-9Cs">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Add"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="addTracksAction:" target="-2" id="yHV-Oz-dq9"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8bh-90-Ye2" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="373" y="13" width="10" height="9"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="489-Gv-K2e"/>
+                            <constraint firstAttribute="height" constant="9" id="VcT-5g-JU0"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Qty-rk-e43">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Remove"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="removeTracksAction:" target="-2" id="r86-Yn-P8V"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="6wk-oD-sAb" userLabel="Clear" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="389" y="12" width="11" height="11"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="11" id="4pG-DK-BL1"/>
+                            <constraint firstAttribute="width" constant="11" id="9io-Xn-5d8"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="LeH-iN-tle">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Clear"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="clearPlaylistAction:" target="-2" id="l0Z-2l-hUM"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="2cB-rC-TAd" userLabel="Up" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="424" y="12" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="bqI-nB-yBM"/>
+                            <constraint firstAttribute="height" constant="12" id="eyd-9c-yNX"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="bnv-vN-JOg">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Up"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="moveTracksUpAction:" target="-2" id="SiI-8R-bZI"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="XMf-ei-tjw" userLabel="Down" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="439" y="11" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="3RV-cn-oBr"/>
+                            <constraint firstAttribute="height" constant="12" id="tO8-Sw-zHb"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="wtF-Lc-AT2">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Down"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="moveTracksDownAction:" target="-2" id="uFd-ph-czc"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="k4F-AY-e2O" userLabel="Search" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="475" y="12" width="10" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="3OB-bV-J45"/>
+                            <constraint firstAttribute="height" constant="10" id="UG7-XR-QC2"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="N5i-LK-1nP">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Search"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="searchAction:" target="-2" id="F9C-kE-tqc"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="1a0-k6-zjf" userLabel="Sort" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="493" y="11" width="14" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="14" id="b4n-Z0-9w7"/>
+                            <constraint firstAttribute="height" constant="14" id="eeu-gf-YdT"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bUY-qk-aHo">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Sort"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="sortAction:" target="-2" id="idA-3N-g2O"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="4ZZ-7d-wdS" secondAttribute="trailing" constant="22" id="04m-pZ-WAd"/>
                     <constraint firstItem="hbJ-4L-vUS" firstAttribute="trailing" secondItem="eVi-5y-Ide" secondAttribute="trailing" constant="-3" id="0NT-Pg-tSh"/>
+                    <constraint firstItem="k4F-AY-e2O" firstAttribute="bottom" secondItem="XMf-ei-tjw" secondAttribute="bottom" constant="-1" id="2Lh-pN-0xc"/>
                     <constraint firstItem="aRU-Xs-Jom" firstAttribute="trailing" secondItem="hbJ-4L-vUS" secondAttribute="trailing" id="4dM-zl-KoT"/>
                     <constraint firstItem="aRU-Xs-Jom" firstAttribute="top" secondItem="hbJ-4L-vUS" secondAttribute="bottom" constant="2" id="5ms-X5-gjU"/>
                     <constraint firstItem="rbs-L2-HsW" firstAttribute="trailing" secondItem="Syt-ea-ETd" secondAttribute="trailing" id="6nc-vt-Y7x"/>
@@ -526,15 +507,33 @@
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="15" id="Cbd-FA-MF9"/>
                     <constraint firstAttribute="bottom" secondItem="B7I-KW-j8r" secondAttribute="bottom" constant="48" id="F9w-fj-3f1"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="trailing" secondItem="hbJ-4L-vUS" secondAttribute="trailing" id="GTn-IE-B6j"/>
+                    <constraint firstItem="8bh-90-Ye2" firstAttribute="bottom" secondItem="69P-I6-ESe" secondAttribute="bottom" id="JBj-da-xY2"/>
                     <constraint firstItem="2Bk-G6-skT" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" id="NBY-k6-E0H"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="top" secondItem="MyO-C3-Vvb" secondAttribute="bottom" constant="2" id="NLi-mu-Y8Q"/>
+                    <constraint firstItem="RCM-6E-7Tz" firstAttribute="bottom" secondItem="gX9-U6-3fw" secondAttribute="bottom" constant="4" id="NrU-Cw-Bsa"/>
+                    <constraint firstItem="XMf-ei-tjw" firstAttribute="leading" secondItem="2cB-rC-TAd" secondAttribute="trailing" constant="3" id="P7W-8v-Ws3"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="top" secondItem="rbs-L2-HsW" secondAttribute="bottom" constant="10" id="PZe-f0-XGl"/>
+                    <constraint firstItem="jJV-JM-APU" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="22" id="UrU-te-Zvg"/>
+                    <constraint firstAttribute="bottom" secondItem="1a0-k6-zjf" secondAttribute="bottom" constant="11" id="WHg-Mu-SyH"/>
+                    <constraint firstItem="jJV-JM-APU" firstAttribute="bottom" secondItem="RCM-6E-7Tz" secondAttribute="bottom" id="X84-q4-Z1Z"/>
+                    <constraint firstItem="2cB-rC-TAd" firstAttribute="leading" secondItem="6wk-oD-sAb" secondAttribute="trailing" constant="24" id="Ymt-0A-k0x"/>
+                    <constraint firstItem="XMf-ei-tjw" firstAttribute="bottom" secondItem="2cB-rC-TAd" secondAttribute="bottom" constant="1" id="a82-bP-AJI"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="trailing" secondItem="eVi-5y-Ide" secondAttribute="trailing" constant="-15" id="aax-dN-msO"/>
                     <constraint firstAttribute="trailing" secondItem="2Bk-G6-skT" secondAttribute="trailing" id="fGP-uy-1P0"/>
-                    <constraint firstItem="4ZZ-7d-wdS" firstAttribute="bottom" secondItem="eVi-5y-Ide" secondAttribute="bottom" constant="-8" id="gpM-dE-1sO"/>
-                    <constraint firstItem="4ZZ-7d-wdS" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="18" id="n9G-4O-64f"/>
+                    <constraint firstItem="gX9-U6-3fw" firstAttribute="leading" secondItem="RCM-6E-7Tz" secondAttribute="trailing" constant="9" id="jAs-lx-NMM"/>
+                    <constraint firstItem="2cB-rC-TAd" firstAttribute="bottom" secondItem="69P-I6-ESe" secondAttribute="bottom" constant="1" id="kwE-br-6Ck"/>
+                    <constraint firstItem="gX9-U6-3fw" firstAttribute="leading" secondItem="RCM-6E-7Tz" secondAttribute="trailing" constant="9" id="lI7-QS-oQx"/>
                     <constraint firstItem="2Bk-G6-skT" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" id="nMo-Fj-gnF"/>
+                    <constraint firstAttribute="bottom" secondItem="jJV-JM-APU" secondAttribute="bottom" constant="8" id="oyh-dV-Yij"/>
+                    <constraint firstAttribute="trailing" secondItem="1a0-k6-zjf" secondAttribute="trailing" constant="23" id="pSk-72-ahu"/>
+                    <constraint firstItem="1a0-k6-zjf" firstAttribute="leading" secondItem="k4F-AY-e2O" secondAttribute="trailing" constant="8" id="qH6-wD-MsX"/>
                     <constraint firstAttribute="bottom" secondItem="2Bk-G6-skT" secondAttribute="bottom" id="qrM-m4-Lt5"/>
+                    <constraint firstItem="RCM-6E-7Tz" firstAttribute="leading" secondItem="jJV-JM-APU" secondAttribute="trailing" constant="6" id="tnC-3d-hZY"/>
+                    <constraint firstItem="6wk-oD-sAb" firstAttribute="leading" secondItem="8bh-90-Ye2" secondAttribute="trailing" constant="6" id="vbm-1b-Zeo"/>
+                    <constraint firstItem="8bh-90-Ye2" firstAttribute="bottom" secondItem="6wk-oD-sAb" secondAttribute="bottom" constant="-1" id="x32-nq-Z4I"/>
+                    <constraint firstItem="k4F-AY-e2O" firstAttribute="leading" secondItem="XMf-ei-tjw" secondAttribute="trailing" constant="24" id="x4f-3H-O3s"/>
+                    <constraint firstItem="8bh-90-Ye2" firstAttribute="leading" secondItem="69P-I6-ESe" secondAttribute="trailing" constant="6" id="xsI-r6-FoX"/>
+                    <constraint firstItem="1a0-k6-zjf" firstAttribute="bottom" secondItem="k4F-AY-e2O" secondAttribute="bottom" constant="1" id="ye8-w6-XYN"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="bottom" secondItem="eVi-5y-Ide" secondAttribute="bottom" constant="-10" id="z8f-8g-mSh"/>
                 </constraints>
             </view>

@@ -3117,12 +3117,12 @@
 			children = (
 				3E6C0F5825CEB98600BF0D07 /* PlaylistWindow.xib */,
 				3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */,
+				3E9F692126B9CE26001FAFA3 /* PlaylistContainer.swift */,
 				3E6C0F3C25CEB98600BF0D07 /* TracksPlaylist */,
 				3E6C0F4D25CEB98600BF0D07 /* GroupingPlaylists */,
 				3E6C0F5925CEB98600BF0D07 /* Search */,
 				3E6C0F4125CEB98600BF0D07 /* Sort */,
 				3E6C0F5F25CEB98600BF0D07 /* ChaptersList */,
-				3E9F692126B9CE26001FAFA3 /* PlaylistContainer.swift */,
 				3E6C0F5C25CEB98600BF0D07 /* AuralPlaylistViews.swift */,
 				3E6C0F5D25CEB98600BF0D07 /* GroupingPlaylistTableViews.swift */,
 				3E6C0F5E25CEB98600BF0D07 /* PlaylistContextMenuController.swift */,

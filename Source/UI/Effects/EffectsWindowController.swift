@@ -122,7 +122,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
         }
         
         // Select Master tab view by default
-        tabViewAction(filterTabViewButton)
+        tabViewAction(masterTabViewButton)
     }
 
     private func initUnits() {

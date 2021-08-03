@@ -14,6 +14,8 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyable {
     
+    override var windowNibName: String? {"PlaylistWindow"}
+    
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
     
@@ -25,10 +27,22 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     @IBOutlet weak var btnAlbumsTab: NSButton!
     @IBOutlet weak var btnGenresTab: NSButton!
     
-    @IBOutlet weak var controlsBox: NSBox!
-    @IBOutlet weak var controlButtonsSuperview: NSView!
-    
     @IBOutlet weak var btnClose: TintedImageButton!
+    
+    @IBOutlet weak var btnCreatePlaylist: TintedImageButton!
+    @IBOutlet weak var btnLoadPlaylist: TintedImageButton!
+    @IBOutlet weak var btnExportPlaylist: TintedImageButton!
+    
+    @IBOutlet weak var btnAddTracks: TintedImageButton!
+    @IBOutlet weak var btnRemoveTracks: TintedImageButton!
+    @IBOutlet weak var btnClear: TintedImageButton!
+    
+    @IBOutlet weak var btnMoveTracksUp: TintedImageButton!
+    @IBOutlet weak var btnMoveTracksDown: TintedImageButton!
+    
+    @IBOutlet weak var btnSearch: TintedImageButton!
+    @IBOutlet weak var btnSort: TintedImageButton!
+    
     @IBOutlet weak var btnPageUp: TintedImageButton!
     @IBOutlet weak var btnPageDown: TintedImageButton!
     @IBOutlet weak var btnScrollToTop: TintedImageButton!
@@ -75,8 +89,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
-    override var windowNibName: String? {"PlaylistWindow"}
-    
     private var childContainerBoxes: [NSBox] = []
     private var functionButtons: [TintedImageButton] = []
     private var tabButtons: [NSButton] = []
@@ -99,10 +111,11 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         lblPlaylistName.stringValue = playlist.name
         
-        childContainerBoxes = [playlistContainerBox, tabButtonsBox, controlsBox]
+        childContainerBoxes = [playlistContainerBox, tabButtonsBox]
         
-        functionButtons = [btnClose, btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom] +
-            controlButtonsSuperview.subviews.compactMap {$0 as? TintedImageButton}
+        functionButtons = [btnClose, btnCreatePlaylist, btnLoadPlaylist, btnExportPlaylist, btnAddTracks,
+                           btnRemoveTracks, btnClear, btnMoveTracksUp, btnMoveTracksDown, btnSearch, btnSort,
+                           btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom]
         
         tabButtons = [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab]
 
