@@ -14,8 +14,6 @@ class PlaylistContainer: NSBox {
     @IBOutlet weak var lblTracksSummary: NSTextField!
     @IBOutlet weak var lblDurationSummary: NSTextField!
     
-    @IBOutlet weak var btnCreatePlaylist: TintedImageButton!
-    @IBOutlet weak var btnLoadPlaylist: TintedImageButton!
     @IBOutlet weak var btnExportPlaylist: TintedImageButton!
     
     @IBOutlet weak var btnAddTracks: TintedImageButton!
@@ -38,7 +36,7 @@ class PlaylistContainer: NSBox {
     
     override func awakeFromNib() {
         
-        viewsToShowOnMouseOver = [btnCreatePlaylist, btnLoadPlaylist, btnExportPlaylist, btnAddTracks,
+        viewsToShowOnMouseOver = [btnExportPlaylist, btnAddTracks,
                                   btnRemoveTracks, btnClear, btnMoveTracksUp, btnMoveTracksDown, btnSearch, btnSort,
                                   btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom]
         

@@ -29,8 +29,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     
     @IBOutlet weak var btnClose: TintedImageButton!
     
-    @IBOutlet weak var btnCreatePlaylist: TintedImageButton!
-    @IBOutlet weak var btnLoadPlaylist: TintedImageButton!
     @IBOutlet weak var btnExportPlaylist: TintedImageButton!
     
     @IBOutlet weak var btnAddTracks: TintedImageButton!
@@ -111,7 +109,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         childContainerBoxes = [playlistContainerBox, tabButtonsBox]
         
-        functionButtons = [btnClose, btnCreatePlaylist, btnLoadPlaylist, btnExportPlaylist, btnAddTracks,
+        functionButtons = [btnClose, btnExportPlaylist, btnAddTracks,
                            btnRemoveTracks, btnClear, btnMoveTracksUp, btnMoveTracksDown, btnSearch, btnSort,
                            btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom]
         
