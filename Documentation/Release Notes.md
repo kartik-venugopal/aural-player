@@ -8,5 +8,7 @@
 
 These shortcuts were requested by [peking84](https://github.com/peking84) in [issue #30](https://github.com/maculateConception/aural-player/issues/30).
 
+See [the complete list of handy keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts). 
+
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.4.1)
