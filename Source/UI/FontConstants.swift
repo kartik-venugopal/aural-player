@@ -49,7 +49,7 @@ let poolsideFMFontSet: FontSet = FontSet(mainFontName: poolsideFMFontName, capti
 
 extension NSFont {
     
-    static let menuFont: NSFont = standardFontSet.mainFont(size: 11)
+    static let menuFont: NSFont = NSFont(name: auxiliaryFontName, size: 11)!
     
     static let stringInputPopoverFont: NSFont = standardFontSet.mainFont(size: 12.5)
     static let stringInputPopoverErrorFont: NSFont = standardFontSet.mainFont(size: 11.5)

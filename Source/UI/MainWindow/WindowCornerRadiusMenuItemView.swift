@@ -12,11 +12,20 @@ import Cocoa
 class WindowCornerRadiusMenuItemView: NSView {
     
     @IBOutlet weak var cornerRadiusStepper: NSStepper!
+    
+    @IBOutlet weak var lblCornerRadiusCaption: NSTextField!
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
     private lazy var messenger = Messenger(for: self)
     
     private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
+    
+    override func awakeFromNib() {
+        
+        if lblCornerRadiusCaption != nil {
+            [lblCornerRadius, lblCornerRadiusCaption].forEach {$0.font = .menuFont}
+        }
+    }
     
     @IBAction func cornerRadiusStepperAction(_ sender: NSStepper) {
         
