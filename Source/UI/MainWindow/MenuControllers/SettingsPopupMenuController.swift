@@ -37,7 +37,5 @@ class SettingsPopupMenuController: NSObject, NSMenuDelegate {
         
         cornerRadiusStepper.integerValue = uiState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
-        
-        menu.font = .menuFont
     }
 }
