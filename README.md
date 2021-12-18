@@ -167,6 +167,10 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ![Player view](/Documentation/Demos/playerView.gif?raw=true)
 
+### Customized window corner radius (up to 25px)
+
+![Window corner radius screenshot](/Documentation/Screenshots/CustomizedWindowRadius.png?raw=true)
+
 ### Enabling and disabling effects
 
 ![Enabling and disabling effects demo](/Documentation/Demos/UsingFXUnit.gif?raw=true)
