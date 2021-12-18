@@ -141,6 +141,10 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ![Vertical full stack window layout screenshot](/Documentation/Screenshots/FullStack.png?raw=true)
 
+### Expanded Art player view
+
+![Expanded Art player view demo](/Documentation/Demos/expandedArtView.gif?raw=true)
+
 ### Hosting Audio Units (AU) plug-in "TDR Nova" Equalizer by Tokyo Dawn Labs
 
 ![Audio Units demo GIF](/Documentation/Demos/AU-Demo.gif?raw=true)
