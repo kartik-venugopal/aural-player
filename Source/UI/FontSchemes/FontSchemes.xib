@@ -190,7 +190,7 @@ Gw
                         <rect key="frame" x="120" y="381" width="240" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Customize font scheme" id="Y8d-09-319">
-                            <font key="font" metaFont="system"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
