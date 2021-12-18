@@ -147,10 +147,6 @@
                                             <action selector="loadSchemeAction:" target="-2" id="jDo-3g-W9j"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem isSeparatorItem="YES" id="KG3-tH-5Sj"/>
-                                    <menuItem title="Customize ..." indentationLevel="1" id="X83-5H-lmQ">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
                                 </items>
                                 <connections>
                                     <outlet property="delegate" destination="-2" id="P9A-fd-mQN"/>

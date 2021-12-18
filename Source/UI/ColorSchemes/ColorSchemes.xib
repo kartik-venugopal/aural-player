@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    ColorSchemes.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -37,7 +26,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="480" height="412"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="412"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -118,6 +107,12 @@
                                             <action selector="applySchemeAction:" target="-2" id="gzT-Yd-2oi"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Lava" indentationLevel="1" id="FfB-bM-tqP">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="EWv-DQ-G3z"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="White blight" indentationLevel="1" id="LSM-ny-IFJ">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
@@ -142,9 +137,11 @@
                                             <action selector="applySchemeAction:" target="-2" id="cVX-2a-l5k"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem isSeparatorItem="YES" id="xpY-pX-kmu"/>
-                                    <menuItem title="Customize ..." indentationLevel="1" id="EHM-Fz-uz3">
+                                    <menuItem title="Poolside.fm" indentationLevel="1" id="Oak-jK-tFu">
                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="gme-gR-ksX"/>
+                                        </connections>
                                     </menuItem>
                                 </items>
                                 <connections>
