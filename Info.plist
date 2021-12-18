@@ -4,11 +4,6 @@
 <dict>
 	<key>ATSApplicationFontsPath</key>
 	<string>.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Exo-Medium.ttf</string>
-		<string>Play-Regular.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDocumentTypes</key>
@@ -221,7 +216,7 @@
 				<string>ape</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Monkey&apos;s Audio</string>
+			<string>Monkey's Audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -383,5 +378,10 @@
 	<string>Application</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Exo-Medium.ttf</string>
+		<string>Play-Regular.ttf</string>
+	</array>
 </dict>
 </plist>

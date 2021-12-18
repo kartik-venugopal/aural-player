@@ -147,8 +147,14 @@ extension Notification.Name {
     // Commands the player to set the repeat mode (to a specific value)
     static let player_setRepeatMode = Notification.Name("player_setRepeatMode")
     
+    // Commands the player to toggle the repeat mode.
+    static let player_toggleRepeatMode = Notification.Name("player_toggleRepeatMode")
+    
     // Commands the player to set the shuffle mode (to a specific value)
     static let player_setShuffleMode = Notification.Name("player_setShuffleMode")
+    
+    // Commands the player to toggle the shuffle mode.
+    static let player_toggleShuffleMode = Notification.Name("player_toggleShuffleMode")
     
     // ----------------------------------------------------------------------------------------
     

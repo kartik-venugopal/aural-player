@@ -212,6 +212,11 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         messenger.publish(.player_setRepeatMode, payload: RepeatMode.all)
     }
     
+    // Toggles the repeat mode.
+    @IBAction func toggleRepeatModeAction(_ sender: AnyObject) {
+        messenger.publish(.player_toggleRepeatMode)
+    }
+    
     // Sets the shuffle mode to "Off"
     @IBAction func shuffleOffAction(_ sender: AnyObject) {
         messenger.publish(.player_setShuffleMode, payload: ShuffleMode.off)
@@ -220,6 +225,11 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Sets the shuffle mode to "On"
     @IBAction func shuffleOnAction(_ sender: AnyObject) {
         messenger.publish(.player_setShuffleMode, payload: ShuffleMode.on)
+    }
+    
+    // Toggles the shuffle mode.
+    @IBAction func toggleShuffleModeAction(_ sender: AnyObject) {
+        messenger.publish(.player_toggleShuffleMode)
     }
     
     // MARK: Miscellaneous playing track functions

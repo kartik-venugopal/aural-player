@@ -26,7 +26,9 @@ class WindowedModePlayerSequencingViewController: PlayerSequencingViewController
     override func initSubscriptions() {
         
         messenger.subscribe(to: .player_setRepeatMode, handler: setRepeatMode(_:))
+        messenger.subscribe(to: .player_toggleRepeatMode, handler: toggleRepeatMode)
         messenger.subscribe(to: .player_setShuffleMode, handler: setShuffleMode(_:))
+        messenger.subscribe(to: .player_toggleShuffleMode, handler: toggleShuffleMode)
         
         messenger.subscribe(to: .applyTheme, handler: applyTheme)
         messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))

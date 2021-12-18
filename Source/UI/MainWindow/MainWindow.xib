@@ -1305,6 +1305,12 @@ CA
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="   Toggle Repeat Mode" keyEquivalent="r" indentationLevel="1" id="deB-HN-lVn" userLabel="Toggle Repeat Mode">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="toggleRepeatModeAction:" target="xhs-xH-OCR" id="jtP-xc-FTt"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title=" Shuffle Mode" image="ShuffleOn-Small" id="PwI-uV-iPc" userLabel="Shuffle Mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Shuffle Mode" id="SSv-6J-SHr">
@@ -1323,6 +1329,12 @@ CA
                                         </menuItem>
                                     </items>
                                 </menu>
+                            </menuItem>
+                            <menuItem title="   Toggle Shuffle Mode" keyEquivalent="s" indentationLevel="1" id="klQ-DD-Ped" userLabel="Toggle Shuffle Mode">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="toggleShuffleModeAction:" target="xhs-xH-OCR" id="noh-zy-27Q"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="C7N-S2-p14"/>
                             <menuItem title=" Detailed playing track info" image="MoreInfo-Small" enabled="NO" keyEquivalent="i" id="Z5g-6o-hKT" userLabel="Detailed info">

@@ -50,11 +50,19 @@ class PlayerSequencingViewController: NSViewController, Destroyable {
     
     // Toggles the repeat mode
     @IBAction func repeatAction(_ sender: AnyObject) {
+        toggleRepeatMode()
+    }
+    
+    func toggleRepeatMode() {
         updateRepeatAndShuffleControls(sequencer.toggleRepeatMode())
     }
     
     // Toggles the shuffle mode
     @IBAction func shuffleAction(_ sender: AnyObject) {
+        toggleShuffleMode()
+    }
+    
+    func toggleShuffleMode() {
         updateRepeatAndShuffleControls(sequencer.toggleShuffleMode())
     }
     
