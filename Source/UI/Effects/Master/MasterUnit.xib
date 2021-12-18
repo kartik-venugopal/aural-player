@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +30,7 @@
                     <rect key="frame" x="111" y="114" width="114" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Equalizer" id="Yv4-sC-ZVG" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" white="0.70435334847007003" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -146,7 +146,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="Tg0-YE-4cH">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
+                        <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" showsStateColumn="NO" id="wAk-l0-VwJ">
                             <items>
                                 <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="bE8-u7-FFo" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
@@ -171,7 +171,7 @@
                     <rect key="frame" x="111" y="92" width="114" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Pitch  Shift" id="Xv7-9A-6ZW" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" white="0.69909178706961617" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -180,7 +180,7 @@
                     <rect key="frame" x="111" y="70" width="114" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Time  Stretch" id="KFS-DA-Wij" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" white="0.69909178706961617" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -189,7 +189,7 @@
                     <rect key="frame" x="269" y="114" width="110" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Audio  Units" id="Ku1-cj-V3G" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" white="0.69909178709999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -198,7 +198,7 @@
                     <rect key="frame" x="111" y="48" width="114" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Reverb" id="Xwn-UJ-w9f" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" white="0.69909178706961617" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -207,7 +207,7 @@
                     <rect key="frame" x="111" y="26" width="114" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Delay" id="ZCO-gE-FUZ" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" white="0.69909178706961617" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -216,7 +216,7 @@
                     <rect key="frame" x="111" y="4" width="114" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Filter" id="gqK-Ia-Ktc" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" white="0.69909178706961617" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -239,7 +239,7 @@
                     <rect key="frame" x="68" y="145" width="204" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Master" id="yqN-ad-rgB" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="16" name="AlegreyaSansSC-Regular"/>
+                        <font key="font" metaFont="system" size="16"/>
                         <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

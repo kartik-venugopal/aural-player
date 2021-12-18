@@ -66,6 +66,31 @@ class MasterUnitViewController: EffectsUnitViewController {
         masterUnitView.stateChanged()
     }
     
+    override func findFunctionLabels(under view: NSView) {
+        
+        for subview in view.subviews {
+            
+            if let label = subview as? NSTextField {
+                
+                if label is FunctionLabel || label is EffectsUnitTriStateLabel {
+                    functionLabels.append(label)
+                }
+                
+                if label is FunctionCaptionLabel {
+                    functionCaptionLabels.append(label)
+                    
+                } else if label is FunctionValueLabel {
+                    functionValueLabels.append(label)
+                }
+                
+            } else {
+                
+                // Recursive call
+                findFunctionLabels(under: subview)
+            }
+        }
+    }
+    
     // ------------------------------------------------------------------------
     
     // MARK: Actions
