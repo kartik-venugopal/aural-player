@@ -92,7 +92,11 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 | macOS 11.x (Big Sur)  | [2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)    |
 | macOS 12.x (Monterey)  | [2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)    |
 
-**NOTE:** Version 3.0.0 and all subsequent releases are universal binaries, i.e. capable of running on both Intel and M1 Macs.
+**NOTES:** 
+
+* Version 3.0.0 and all subsequent releases are universal binaries, i.e. capable of running on both Intel and M1 Macs.
+
+* Due to limited time, I can only officially support macOS Big Sur and Monterey going forward. The app should still work on older systems (going back to Sierra), but I can no longer make guarantees or troubleshoot issues on older systems.
 
 ### Installation
 
