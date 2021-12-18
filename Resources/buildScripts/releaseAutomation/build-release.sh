@@ -29,7 +29,7 @@
 #
 
 # Directory containing the Aural Player Xcode project.
-export projectDir="../.."
+export projectDir="../../.."
 
 echo "Reading build version from Aural Player project ..."
 
@@ -43,8 +43,8 @@ export releaseDir="./Aural Player ${releaseVersion}"
 export archive="${releaseDir}/Aural.xcarchive"
 export bundle="${releaseDir}/Aural.app"
 export installer="./AuralPlayer-${releaseVersion}.dmg"
-export releaseNotesFile="../../Documentation/Release Notes.md"
-export licenseFile="../../LICENSE"
+export releaseNotesFile="${projectDir}/Documentation/Release Notes.md"
+export licenseFile="${projectDir}/LICENSE"
 
 function buildAppBundle {
 
