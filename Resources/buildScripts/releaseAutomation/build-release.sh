@@ -84,7 +84,7 @@ function buildDMG {
       --volicon "assets/appIcon.icns" \
       --background "assets/dmg-background.png" \
       --window-pos 200 120 \
-      --window-size 800 400 \
+      --window-size 800 450 \
       --icon-size 70 \
       --icon "Aural.app" 230 150 \
       --hide-extension "Aural.app" \
