@@ -171,9 +171,9 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ![Player view](/Documentation/Demos/playerView.gif?raw=true)
 
-### Customized window corner radius (up to 25px)
+### Customizing the window corner radius (up to 25px)
 
-![Window corner radius screenshot](/Documentation/Screenshots/CustomizedWindowRadius.png?raw=true)
+![Window corner radius demo](/Documentation/Demos/customCornerRadius.gif?raw=true)
 
 ### Enabling and disabling effects
 
