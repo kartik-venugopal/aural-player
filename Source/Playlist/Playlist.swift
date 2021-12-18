@@ -13,19 +13,19 @@ import Foundation
 /// A facade for all operations pertaining to the playlist. Delegates operations to the underlying
 /// playlists (flat and grouping/hierarchical), and aggregates results from those operations.
 ///
-class Playlist: PlaylistProtocol, UserManagedObject {
+class Playlist: PlaylistProtocol {
     
-    var key: String {
-        
-        get {name}
-        set {name = newValue}
-    }
-    
-    let userDefined: Bool
-    
-    var name: String
-    
-    var needsLoadingFromPersistentState: Bool
+//    var key: String {
+//
+//        get {name}
+//        set {name = newValue}
+//    }
+//
+//    let userDefined: Bool
+//
+//    var name: String
+//
+//    var needsLoadingFromPersistentState: Bool
     
     // Flat playlist
     private var flatPlaylist: FlatPlaylistProtocol
@@ -36,12 +36,11 @@ class Playlist: PlaylistProtocol, UserManagedObject {
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFile: [URL: Track] = [:]
     
-    init(name: String, userDefined: Bool, needsLoadingFromPersistentState: Bool,
-         _ flatPlaylist: FlatPlaylistProtocol, _ groupingPlaylists: [GroupingPlaylistProtocol]) {
+    init(_ flatPlaylist: FlatPlaylistProtocol, _ groupingPlaylists: [GroupingPlaylistProtocol]) {
         
-        self.name = name
-        self.userDefined = userDefined
-        self.needsLoadingFromPersistentState = needsLoadingFromPersistentState
+//        self.name = name
+//        self.userDefined = userDefined
+//        self.needsLoadingFromPersistentState = needsLoadingFromPersistentState
         
         self.flatPlaylist = flatPlaylist
         groupingPlaylists.forEach {self.groupingPlaylists[$0.playlistType] = $0}
@@ -298,7 +297,7 @@ class Playlist: PlaylistProtocol, UserManagedObject {
     
     private let opQueue: OperationQueue = OperationQueue(opCount: 3, qos: .userInteractive)
     
-    func reOrder(accordingTo state: PlaylistsPersistentState) {
+    func reOrder(accordingTo state: PlaylistPersistentState) {
         
         // Re-order each of the grouping playlists.
         // NOTE - The flat playlist does not need to be reordered,
@@ -334,8 +333,7 @@ extension Playlist: PersistentModelObject {
             groupingPlaylists[type.rawValue] = (playlist as! GroupingPlaylist).persistentState
         }
         
-        return PlaylistPersistentState(name: self.name,
-                                       tracks: self.tracks.map {$0.file.path},
+        return PlaylistPersistentState(tracks: self.tracks.map {$0.file.path},
                                        groupingPlaylists: groupingPlaylists)
     }
 }

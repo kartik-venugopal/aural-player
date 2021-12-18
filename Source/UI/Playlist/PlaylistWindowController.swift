@@ -109,8 +109,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         setUpTabGroup()
         
-        lblPlaylistName.stringValue = playlist.name
-        
         childContainerBoxes = [playlistContainerBox, tabButtonsBox]
         
         functionButtons = [btnClose, btnCreatePlaylist, btnLoadPlaylist, btnExportPlaylist, btnAddTracks,
@@ -173,8 +171,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged)
         messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackChanged)
         
-        messenger.subscribe(to: .playlist_viewChanged, handler: playlistTypeChanged)
-        messenger.subscribe(to: .playlist_currentPlaylistChanged, handler: playlistChanged)
+        messenger.subscribe(to: .playlist_viewChanged, handler: playlistTypeChanged(_:))
+//        messenger.subscribe(to: .playlist_currentPlaylistChanged, handler: playlistChanged)
         
         // MARK: Commands -------------------------------------------------------------------------------------
         
@@ -522,13 +520,12 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     }
     
     // MARK: Message handling
-    
-    private func playlistChanged() {
-        lblPlaylistName.stringValue = playlist.name
-    }
-    
+
     // Updates the summary in response to a change in the tab group selected tab
-    private func playlistTypeChanged() {
+    private func playlistTypeChanged(_ newPlaylistType: PlaylistType) {
+        
+        // Updates the instance variable playlistType, with the new playlistType value
+        lblPlaylistName.stringValue = newPlaylistType.rawValue.capitalizingFirstLetter()
         updatePlaylistSummary()
     }
     

@@ -23,14 +23,15 @@ import Foundation
 class PlaylistDelegate: PlaylistDelegateProtocol {
     
     // The actual playlist
-    private var playlist: PlaylistProtocol {playlistsManager.currentPlaylist}
+//    private var playlist: PlaylistProtocol {playlistsManager.currentPlaylist}
+    private let playlist: PlaylistProtocol
     
-    private let playlistsManager: PlaylistsManager
+//    private let playlistsManager: PlaylistsManager
     
     private let trackReader: TrackReader
     
     // Persistent playlist state (used upon app startup)
-    private let persistentState: PlaylistsPersistentState?
+    private let persistentState: PlaylistPersistentState?
     
     // User preferences (used for autoplay)
     private let preferences: Preferences
@@ -45,7 +46,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     private let concurrentAddOpCount = (Double(SystemUtils.numberOfActiveCores) * 1.5).roundedInt
     
-    var name: String {playlist.name}
+//    var name: String {playlist.name}
     
     var isBeingModified: Bool {addSession != nil}
     
@@ -57,10 +58,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(playlistsManager: PlaylistsManager, persistentState: PlaylistsPersistentState?, _ playlist: PlaylistProtocol,
+    init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistProtocol,
          _ trackReader: TrackReader, _ preferences: Preferences) {
         
-        self.playlistsManager = playlistsManager
+        self.playlist = playlist
+//        self.playlistsManager = playlistsManager
         self.trackReader = trackReader
         
         self.persistentState = persistentState
@@ -72,7 +74,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         // Subscribe to notifications
         messenger.subscribe(to: .application_launched, handler: appLaunched(_:))
         messenger.subscribe(to: .application_reopened, handler: appReopened(_:))
-        messenger.subscribe(to: .playlist_currentPlaylistChanged, handler: currentPlaylistChanged)
+//        messenger.subscribe(to: .playlist_currentPlaylistChanged, handler: currentPlaylistChanged)
     }
     
     func indexOfTrack(_ track: Track) -> Int? {
@@ -451,14 +453,14 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         }
     }
     
-    private func currentPlaylistChanged() {
-        
-        guard playlist.needsLoadingFromPersistentState,
-              let persistentStateForPlaylist = persistentState?.userPlaylistByName(playlist.name),
-              let tracks = persistentStateForPlaylist.tracks?.map({URL(fileURLWithPath: $0)}) else {return}
-
-        addFiles_async(tracks, AutoplayOptions(false), userAction: false, reorderGroupingPlaylists: true)
-    }
+//    private func currentPlaylistChanged() {
+//        
+//        guard playlist.needsLoadingFromPersistentState,
+//              let persistentStateForPlaylist = persistentState?.userPlaylistByName(playlist.name),
+//              let tracks = persistentStateForPlaylist.tracks?.map({URL(fileURLWithPath: $0)}) else {return}
+//
+//        addFiles_async(tracks, AutoplayOptions(false), userAction: false, reorderGroupingPlaylists: true)
+//    }
     
     func appReopened(_ notification: AppReopenedNotification) {
         

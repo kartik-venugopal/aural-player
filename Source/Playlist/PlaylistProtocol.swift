@@ -20,7 +20,7 @@ protocol PlaylistProtocol: PlaylistAccessorProtocol, PlaylistMutatorProtocol {
 ///
 protocol PlaylistAccessorProtocol {
     
-    var name: String {get set}
+//    var name: String {get set}
     
     // Retrieves all tracks, in the same order as in the flat playlist
     var tracks: [Track] {get}
@@ -31,8 +31,8 @@ protocol PlaylistAccessorProtocol {
     // Returns the total duration of the playlist tracks
     var duration: Double {get}
     
-    // Whether or not the tracks in the playlist have been loaded into the playlist (from persistent state).
-    var needsLoadingFromPersistentState: Bool {get}
+//    // Whether or not the tracks in the playlist have been loaded into the playlist (from persistent state).
+//    var needsLoadingFromPersistentState: Bool {get}
     
     /*
         Determines the index of a given track, within the flat playlist. Returns nil if the track doesn't exist within the playlist.
@@ -214,7 +214,7 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     /// - Parameter state:  Application state persisted from the last app launch, including playlist sort order.
     ///                     This will determine how the playlist is reordered.
     ///
-    func reOrder(accordingTo state: PlaylistsPersistentState)
+    func reOrder(accordingTo state: PlaylistPersistentState)
 }
 
 ///

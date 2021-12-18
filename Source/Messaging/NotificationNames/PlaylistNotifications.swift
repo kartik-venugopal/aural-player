@@ -16,8 +16,8 @@ extension Notification.Name {
     
     // MARK: Notifications published by the playlist.
     
-    // Signifies that the current playlist has changed.
-    static let playlist_currentPlaylistChanged = Notification.Name("playlist_currentPlaylistChanged")
+//    // Signifies that the current playlist has changed.
+//    static let playlist_currentPlaylistChanged = Notification.Name("playlist_currentPlaylistChanged")
 
     // Signifies that the playlist has begun adding a set of tracks.
     static let playlist_startedAddingTracks = Notification.Name("playlist_startedAddingTracks")
