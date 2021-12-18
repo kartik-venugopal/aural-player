@@ -1204,6 +1204,8 @@
 		3EDB346C25E8BABC004DF7DE /* FFmpegPlaybackContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB346A25E8BABC004DF7DE /* FFmpegPlaybackContext.swift */; };
 		3EDB346D25E8BABC004DF7DE /* AVFPlaybackContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB346B25E8BABC004DF7DE /* AVFPlaybackContext.swift */; };
 		3EDB346F25E8BB00004DF7DE /* FFmpegDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB346E25E8BB00004DF7DE /* FFmpegDecoder.swift */; };
+		3EDBF38F276E0E580001C4DD /* OperationQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC22DCE26B8B0620014F9DD /* OperationQueueExtensions.swift */; };
+		3EDBF391276E0ED50001C4DD /* EffectsUnitPresets+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBF390276E0ED50001C4DD /* EffectsUnitPresets+Extensions.swift */; };
 		3EDD2C4F2684DC3D0090BAF7 /* SupportedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C4E2684DC3D0090BAF7 /* SupportedTypes.swift */; };
 		3EDD2C512684DE2E0090BAF7 /* FilesAndPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C502684DE2E0090BAF7 /* FilesAndPaths.swift */; };
 		3EDD2C532684FA320090BAF7 /* SoundConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C522684FA320090BAF7 /* SoundConstants.swift */; };
@@ -2336,6 +2338,7 @@
 		3EDB346A25E8BABC004DF7DE /* FFmpegPlaybackContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegPlaybackContext.swift; sourceTree = "<group>"; };
 		3EDB346B25E8BABC004DF7DE /* AVFPlaybackContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVFPlaybackContext.swift; sourceTree = "<group>"; };
 		3EDB346E25E8BB00004DF7DE /* FFmpegDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegDecoder.swift; sourceTree = "<group>"; };
+		3EDBF390276E0ED50001C4DD /* EffectsUnitPresets+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EffectsUnitPresets+Extensions.swift"; sourceTree = "<group>"; };
 		3EDC529326B4764C001CCCE8 /* Preferences.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Preferences.xctestplan; sourceTree = "<group>"; };
 		3EDC529426B4769A001CCCE8 /* Sequencer.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Sequencer.xctestplan; sourceTree = "<group>"; };
 		3EDC529526B478FF001CCCE8 /* Playback.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Playback.xctestplan; sourceTree = "<group>"; };
@@ -4176,6 +4179,7 @@
 				3E871A6E26990D2C00C626DC /* FilterUnitTests.swift */,
 				3E2779E126AEF21D00291244 /* HostedAudioUnitTests.swift */,
 				3E82A2CE26ACC8670013AB8E /* MockAudioEngine.swift */,
+				3EDBF390276E0ED50001C4DD /* EffectsUnitPresets+Extensions.swift */,
 			);
 			path = "\U0010AudioGraph";
 			sourceTree = "<group>";
@@ -6104,6 +6108,7 @@
 				3EF28DB62694E410005D5B43 /* UIPersistentState.swift in Sources */,
 				3E60C9EF26B0817C00D9404C /* FFmpegMetadataReader.swift in Sources */,
 				3E82A2A826ACB1990013AB8E /* ChapterChangedNotification.swift in Sources */,
+				3EDBF391276E0ED50001C4DD /* EffectsUnitPresets+Extensions.swift in Sources */,
 				3E82A2A526ACB1900013AB8E /* HistoryNotifications.swift in Sources */,
 				3E21ECB9268F49AA00731E4C /* Group.swift in Sources */,
 				3E60CA1B26B08DCB00D9404C /* PlaybackDelegateTests+MessageHandling.swift in Sources */,
@@ -6308,6 +6313,7 @@
 				3EDDEFCD26916BFA00219BDA /* AudioUnitPersistentState.swift in Sources */,
 				3EA1BE29268F6A3200A5D81B /* SequencerTests.swift in Sources */,
 				3EABDE032694C9A2008066E8 /* ColorSchemesPersistentState.swift in Sources */,
+				3EDBF38F276E0E580001C4DD /* OperationQueueExtensions.swift in Sources */,
 				3E5ECA38268F4B96000AE8B7 /* FileSizeUnit.swift in Sources */,
 				3EABDDCA2694B8B6008066E8 /* WindowAppearancePersistentState.swift in Sources */,
 				3E2EADD726B1795300A95119 /* SavePlaybackProfileActionTests.swift in Sources */,
