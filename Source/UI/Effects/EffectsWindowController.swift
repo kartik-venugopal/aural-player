@@ -37,6 +37,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     // Tab view and its buttons
 
     @IBOutlet weak var tabView: NSTabView!
+    @IBOutlet weak var lblDisplayedUnit: NSTextField!
 
     @IBOutlet weak var masterTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var eqTabViewButton: EffectsUnitTabButton!
@@ -62,6 +63,8 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
     private lazy var messenger = Messenger(for: self)
     
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
@@ -81,8 +84,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
         btnClose.tintFunction = {Colors.functionButtonColor}
         
-        applyColorScheme(colorSchemesManager.systemScheme)
-        rootContainerBox.cornerRadius = uiState.cornerRadius
+        applyTheme()
         
         initUnits()
         initSubscriptions()
@@ -151,6 +153,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
         // Button tag is the tab index
         tabView.selectTabViewItem(at: sender.tag)
+        lblDisplayedUnit.stringValue = EffectsUnitType(rawValue: sender.tag)!.caption
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -168,6 +171,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
         messenger.subscribe(to: .effects_showEffectsUnitTab, handler: showTab(_:))
         
         messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
         messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
         messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
         messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
@@ -215,8 +219,13 @@ class EffectsWindowController: NSWindowController, Destroyable {
     
     private func applyTheme() {
         
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(colorSchemesManager.systemScheme)
         changeWindowCornerRadius(uiState.cornerRadius)
+    }
+    
+    private func applyFontScheme(_ scheme: FontScheme) {
+        lblDisplayedUnit.font = scheme.effects.unitCaptionFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
@@ -225,6 +234,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         
         tabViewButtons.forEach {$0.reTint()}
+        lblDisplayedUnit.textColor = scheme.general.mainCaptionTextColor
     }
     
     private func changeBackgroundColor(_ color: NSColor) {

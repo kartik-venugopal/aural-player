@@ -12,7 +12,7 @@ import Foundation
 ///
 /// An enumeration of all the effects unit types.
 ///
-enum EffectsUnitType {
+enum EffectsUnitType: Int {
 
     case master
     case eq
@@ -22,4 +22,27 @@ enum EffectsUnitType {
     case delay
     case filter
     case au
+    
+    var caption: String {
+        
+        switch self {
+            
+        case .master:   return "Master"
+            
+        case .eq:       return "Equalizer"
+            
+        case .pitch:    return "Pitch  Shift"
+            
+        case .time:     return "Time  Stretch"
+            
+        case .reverb:   return "Reverb"
+            
+        case .delay:    return "Delay"
+            
+        case .filter:   return "Filter"
+            
+        case .au:       return "Audio  Units"
+            
+        }
+    }
 }

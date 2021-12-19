@@ -437,7 +437,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblPlaylistName.font = fontScheme.playlist.tabButtonTextFont
+        lblPlaylistName.font = fontScheme.effects.unitCaptionFont
         
         lblTracksSummary.font = fontScheme.playlist.summaryFont
         lblDurationSummary.font = fontScheme.playlist.summaryFont
@@ -451,7 +451,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         changeSummaryInfoColor(scheme.playlist.summaryInfoColor)
         
-        lblPlaylistName.textColor = scheme.general.selectedTabButtonTextColor
+        lblPlaylistName.textColor = scheme.general.mainCaptionTextColor
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
