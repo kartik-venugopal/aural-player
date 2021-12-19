@@ -50,7 +50,7 @@ Read more about it [here](https://github.com/maculateConception/aural-player/wik
 * Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: (including FLAC, Vorbis, Monkey's Audio (APE) & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
 * Supports M3U / M3U8 playlists
 * **Playback:** Bookmarking, segment looping, custom seek intervals, last position memory, chapters support, autoplay.
-* **Effects:** Built-in effects (incl. equalizer), Audio Units (AU) plug-ins support, built-in / custom presets, per-track settings memory.
+* **Effects:** Built-in effects (incl. equalizer), Audio Unit (AU) plug-in support, built-in / custom presets, per-track settings memory.
 * **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection.
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, etc. Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
