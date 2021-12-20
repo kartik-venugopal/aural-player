@@ -49,9 +49,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     override func initControls() {
         
         super.initControls()
-        
-        pitchShiftUnitView.setState(pitch: pitchShiftUnit.pitch, pitchString: pitchShiftUnit.formattedPitch,
-                                    overlap: pitchShiftUnit.overlap, overlapString: pitchShiftUnit.formattedOverlap)
+        pitchShiftUnitView.pitch = pitchShiftUnit.pitch
     }
     
     // ------------------------------------------------------------------------
@@ -62,14 +60,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     @IBAction func pitchAction(_ sender: AnyObject) {
         
         pitchShiftUnit.pitch = pitchShiftUnitView.pitch
-        pitchShiftUnitView.setPitch(pitchShiftUnit.pitch, pitchString: pitchShiftUnit.formattedPitch)
-    }
-    
-    // Updates the pitch overlap parameter of the Pitch shift effects unit
-    @IBAction func pitchOverlapAction(_ sender: AnyObject) {
-
-        pitchShiftUnit.overlap = pitchShiftUnitView.overlap
-        pitchShiftUnitView.setPitchOverlap(pitchShiftUnit.overlap, overlapString: pitchShiftUnit.formattedOverlap)
+        pitchShiftUnitView.pitchUpdated()
     }
     
     // ------------------------------------------------------------------------
@@ -94,10 +85,11 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     // Sets the pitch to a specific value
     private func setPitch(_ pitch: Float) {
         
-        pitchShiftUnit.pitch = pitch
+        let pitchShift = PitchShift(fromCents: pitch.roundedInt)
+        pitchShiftUnit.pitch = pitchShift
         pitchShiftUnit.ensureActive()
         
-        pitchShiftUnitView.setPitch(pitch, pitchString: pitchShiftUnit.formattedPitch)
+        pitchShiftUnitView.pitch = pitchShift
         
         btnBypass.updateState()
         pitchShiftUnitView.stateChanged()
@@ -110,24 +102,20 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     
     // Increases the overall pitch by a certain preset increment
     private func increasePitch() {
-        
-        let newPitch = pitchShiftUnit.increasePitch()
-        pitchChange(newPitch.pitch, pitchString: newPitch.pitchString)
+        pitchChange(pitchShiftUnit.increasePitch())
     }
     
     // Decreases the overall pitch by a certain preset decrement
     private func decreasePitch() {
-        
-        let newPitch = pitchShiftUnit.decreasePitch()
-        pitchChange(newPitch.pitch, pitchString: newPitch.pitchString)
+        pitchChange(pitchShiftUnit.decreasePitch())
     }
     
     // Changes the pitch to a specified value
-    private func pitchChange(_ pitch: Float, pitchString: String) {
+    private func pitchChange(_ pitch: PitchShift) {
         
         messenger.publish(.effects_unitStateChanged)
         
-        pitchShiftUnitView.setPitch(pitch, pitchString: pitchString)
+        pitchShiftUnitView.pitch = pitch
         pitchShiftUnitView.stateChanged()
         
         // Show the Pitch tab if the Effects panel is shown

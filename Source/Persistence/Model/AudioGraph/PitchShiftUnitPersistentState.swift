@@ -20,7 +20,6 @@ struct PitchShiftUnitPersistentState: Codable {
     let userPresets: [PitchShiftPresetPersistentState]?
     
     let pitch: Float?
-    let overlap: Float?
 }
 
 ///
@@ -34,7 +33,6 @@ struct PitchShiftPresetPersistentState: Codable {
     let state: EffectsUnitState?
     
     let pitch: Float?
-    let overlap: Float?
     
     init(preset: PitchShiftPreset) {
         
@@ -42,6 +40,5 @@ struct PitchShiftPresetPersistentState: Codable {
         self.state = preset.state
         
         self.pitch = preset.pitch
-        self.overlap = preset.overlap
     }
 }

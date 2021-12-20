@@ -285,7 +285,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            pitchShiftUnit.pitch = pitch
+            pitchShiftUnit.pitch = PitchShift(fromCents: pitch.roundedInt)
             pitchShiftUnit.ensureActive()
         }
     }

@@ -28,48 +28,38 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     
     init(for unit: PitchShiftUnit, preferences: SoundPreferences) {
         
+        self.pitch = PitchShift(fromCents: unit.pitch.roundedInt)
         self.preferences = preferences
         super.init(for: unit)
     }
     
-    var pitch: Float {
+    var pitch: PitchShift {
         
-        get {unit.pitch * ValueConversions.pitch_audioGraphToUI}
-        set {unit.pitch = newValue * ValueConversions.pitch_UIToAudioGraph}
+        didSet {
+            unit.pitch = Float(pitch.asCents)
+        }
     }
     
     var formattedPitch: String {
-        ValueFormatter.formatPitch(pitch)
-    }
-    
-    var overlap: Float {
-        
-        get {unit.overlap}
-        set {unit.overlap = newValue}
-    }
-    
-    var formattedOverlap: String {
-        ValueFormatter.formatOverlap(overlap)
+        ValueFormatter.formatPitch(Float(pitch.asCents))
     }
     
     var presets: PitchShiftPresets {unit.presets}
     
-    func increasePitch() -> (pitch: Float, pitchString: String) {
+    func increasePitch() -> PitchShift {
         
         ensureActiveAndResetPitch()
-        return setUnitPitch((unit.pitch + Float(preferences.pitchDelta)).clamp(to: pitchRange))
+        self.pitch = PitchShift(fromCents: (self.pitch.asCents + preferences.pitchDelta).clamped(to: SoundConstants.pitchRange))
+        
+        return self.pitch
     }
     
-    func decreasePitch() -> (pitch: Float, pitchString: String) {
+    func decreasePitch() -> PitchShift {
         
         ensureActiveAndResetPitch()
-        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta)).clamp(to: pitchRange))
-    }
-    
-    private func setUnitPitch(_ value: Float) -> (pitch: Float, pitchString: String) {
+        self.pitch = PitchShift(fromCents: (self.pitch.asCents - preferences.pitchDelta).clamped(to: SoundConstants.pitchRange))
         
-        unit.pitch = value
-        return (pitch, formattedPitch)
+        return self.pitch
     }
     
     private func ensureActiveAndResetPitch() {
