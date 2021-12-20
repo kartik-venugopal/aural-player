@@ -25,7 +25,6 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         super.init(unitType: .pitch, unitState: persistentState?.state ?? AudioGraphDefaults.pitchShiftState)
         
         node.pitch = persistentState?.pitch ?? AudioGraphDefaults.pitchShift
-        node.overlap = persistentState?.overlap ?? AudioGraphDefaults.pitchShiftOverlap
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -36,12 +35,6 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         set {node.pitch = newValue}
     }
     
-    var overlap: Float {
-        
-        get {node.overlap}
-        set {node.overlap = newValue}
-    }
-    
     override func stateChanged() {
         
         super.stateChanged()
@@ -49,7 +42,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     }
     
     override func savePreset(named presetName: String) {
-        presets.addObject(PitchShiftPreset(name: presetName, state: .active, pitch: pitch, overlap: overlap, systemDefined: false))
+        presets.addObject(PitchShiftPreset(name: presetName, state: .active, pitch: pitch, systemDefined: false))
     }
 
     override func applyPreset(named presetName: String) {
@@ -60,20 +53,17 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     }
     
     func applyPreset(_ preset: PitchShiftPreset) {
-        
         pitch = preset.pitch
-        overlap = preset.overlap
     }
     
     var settingsAsPreset: PitchShiftPreset {
-        PitchShiftPreset(name: "pitchSettings", state: state, pitch: pitch, overlap: overlap, systemDefined: false)
+        PitchShiftPreset(name: "pitchSettings", state: state, pitch: pitch, systemDefined: false)
     }
     
     var persistentState: PitchShiftUnitPersistentState {
         
         PitchShiftUnitPersistentState(state: state,
                                       userPresets: presets.userDefinedObjects.map {PitchShiftPresetPersistentState(preset: $0)},
-                                      pitch: pitch,
-                                      overlap: overlap)
+                                      pitch: pitch)
     }
 }

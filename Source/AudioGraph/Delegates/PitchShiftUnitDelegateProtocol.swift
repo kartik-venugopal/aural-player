@@ -28,11 +28,6 @@ protocol PitchShiftUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var formattedPitch: String {get}
     
-    // the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
-    var overlap: Float {get set}
-    
-    var formattedOverlap: String {get}
-    
     // Increases the pitch shift by a small increment. Returns the new pitch shift value.
     func increasePitch() -> (pitch: Float, pitchString: String)
     

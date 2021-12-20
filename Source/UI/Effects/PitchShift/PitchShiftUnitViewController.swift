@@ -49,9 +49,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     override func initControls() {
         
         super.initControls()
-        
-        pitchShiftUnitView.setState(pitch: pitchShiftUnit.pitch, pitchString: pitchShiftUnit.formattedPitch,
-                                    overlap: pitchShiftUnit.overlap, overlapString: pitchShiftUnit.formattedOverlap)
+        pitchShiftUnitView.setState(pitch: pitchShiftUnit.pitch, pitchString: pitchShiftUnit.formattedPitch)
     }
     
     // ------------------------------------------------------------------------
@@ -63,13 +61,6 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
         
         pitchShiftUnit.pitch = pitchShiftUnitView.pitch
         pitchShiftUnitView.setPitch(pitchShiftUnit.pitch, pitchString: pitchShiftUnit.formattedPitch)
-    }
-    
-    // Updates the pitch overlap parameter of the Pitch shift effects unit
-    @IBAction func pitchOverlapAction(_ sender: AnyObject) {
-
-        pitchShiftUnit.overlap = pitchShiftUnitView.overlap
-        pitchShiftUnitView.setPitchOverlap(pitchShiftUnit.overlap, overlapString: pitchShiftUnit.formattedOverlap)
     }
     
     // ------------------------------------------------------------------------

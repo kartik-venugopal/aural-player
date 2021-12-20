@@ -16,9 +16,7 @@ class PitchShiftUnitView: NSView {
     // MARK: UI fields
 
     @IBOutlet weak var pitchSlider: EffectsUnitSlider!
-    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
     @IBOutlet weak var lblPitchValue: NSTextField!
-    @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
     private var sliders: [EffectsUnitSlider] = []
     
@@ -30,16 +28,12 @@ class PitchShiftUnitView: NSView {
         pitchSlider.floatValue
     }
     
-    var overlap: Float {
-        pitchOverlapSlider.floatValue
-    }
-    
     // ------------------------------------------------------------------------
     
     // MARK: View initialization
     
     override func awakeFromNib() {
-        sliders = [pitchSlider, pitchOverlapSlider]
+        sliders = [pitchSlider]
     }
     
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
@@ -53,10 +47,8 @@ class PitchShiftUnitView: NSView {
     
     // MARK: View update
     
-    func setState(pitch: Float, pitchString: String, overlap: Float, overlapString: String) {
-        
+    func setState(pitch: Float, pitchString: String) {
         setPitch(pitch, pitchString: pitchString)
-        setPitchOverlap(overlap, overlapString: overlapString)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
@@ -69,12 +61,6 @@ class PitchShiftUnitView: NSView {
         lblPitchValue.stringValue = pitchString
     }
     
-    func setPitchOverlap(_ overlap: Float, overlapString: String) {
-        
-        pitchOverlapSlider.floatValue = overlap
-        lblPitchOverlapValue.stringValue = overlapString
-    }
-    
     func stateChanged() {
         sliders.forEach {$0.updateState()}
     }
@@ -83,7 +69,6 @@ class PitchShiftUnitView: NSView {
         
         let pitch = preset.pitch * ValueConversions.pitch_audioGraphToUI
         setPitch(pitch, pitchString: ValueFormatter.formatPitch(pitch))
-        setPitchOverlap(preset.overlap, overlapString: ValueFormatter.formatOverlap(preset.overlap))
         setUnitState(preset.state)
     }
     

@@ -42,16 +42,6 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
         ValueFormatter.formatPitch(pitch)
     }
     
-    var overlap: Float {
-        
-        get {unit.overlap}
-        set {unit.overlap = newValue}
-    }
-    
-    var formattedOverlap: String {
-        ValueFormatter.formatOverlap(overlap)
-    }
-    
     var presets: PitchShiftPresets {unit.presets}
     
     func increasePitch() -> (pitch: Float, pitchString: String) {
