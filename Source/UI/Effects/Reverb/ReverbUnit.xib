@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="II7-fY-0FS" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="3" y="145" width="16" height="16"/>
+                    <rect key="frame" x="28" y="145" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="JTJ-vW-zLB">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -34,11 +34,11 @@
                     </connections>
                 </button>
                 <view id="elw-qF-nCD" customClass="ReverbUnitView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="35" y="51" width="472" height="99"/>
+                    <rect key="frame" x="38" y="61" width="472" height="99"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cnv-IQ-PKn" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="20" y="64" width="70" height="24"/>
+                            <rect key="frame" x="35" y="64" width="70" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Space" id="5J3-aq-YnZ">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -47,7 +47,7 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjF-HF-nkd" userLabel="Reverb Space Menu">
-                            <rect key="frame" x="122" y="63" width="192" height="22"/>
+                            <rect key="frame" x="114" y="63" width="342" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="6Ce-dA-PGI" id="tol-Pp-L9a" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -92,7 +92,7 @@
                             </connections>
                         </popUpButton>
                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AnR-ZX-Wi0" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="122" y="17" width="230" height="18"/>
+                            <rect key="frame" x="137" y="17" width="230" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="dxj-RB-154" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
@@ -100,7 +100,7 @@
                             </connections>
                         </slider>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CcZ-hi-Qeb" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="20" y="20" width="70" height="24"/>
+                            <rect key="frame" x="35" y="20" width="70" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Amount" id="DNt-HO-7aB">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -109,7 +109,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="021-vo-3aU" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="82" y="20" width="38" height="24"/>
+                            <rect key="frame" x="97" y="20" width="38" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dry" id="KLz-0H-Fd0">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -118,7 +118,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Pq-Zb-3y9" userLabel="Wet" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="354" y="20" width="40" height="24"/>
+                            <rect key="frame" x="369" y="20" width="40" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="rPE-D2-IdC">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -127,7 +127,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iGc-Z1-9PZ" userLabel="Lbl Reverb Value" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="374" y="20" width="68" height="24"/>
+                            <rect key="frame" x="389" y="20" width="68" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="Z4x-02-2zl">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -143,7 +143,7 @@
                     </connections>
                 </view>
                 <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rrE-w8-gig" userLabel="Presets Menu">
-                    <rect key="frame" x="464" y="8" width="27" height="15"/>
+                    <rect key="frame" x="454" y="3" width="27" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="aYW-ES-T3J">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -167,7 +167,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p1b-kR-qyw" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="490" y="8" width="15" height="15"/>
+                    <rect key="frame" x="480" y="3" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5le-E7-bTd">
                         <behavior key="behavior" lightByContents="YES"/>

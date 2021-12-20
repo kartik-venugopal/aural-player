@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Oi-jb-bmq" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="3" y="145" width="16" height="16"/>
+                    <rect key="frame" x="28" y="145" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ss8-tX-h53">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -34,7 +34,7 @@
                     </connections>
                 </button>
                 <view id="tFM-tl-kaj" customClass="DelayUnitView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="35" y="8" width="476" height="153"/>
+                    <rect key="frame" x="53" y="8" width="476" height="153"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hg3-vg-aV6" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
@@ -226,7 +226,7 @@
                     </connections>
                 </view>
                 <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aWr-na-Gft" userLabel="Presets Menu">
-                    <rect key="frame" x="464" y="8" width="27" height="15"/>
+                    <rect key="frame" x="454" y="3" width="27" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="oaL-ik-rVa">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -267,7 +267,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RNY-r7-uAF" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="490" y="8" width="15" height="15"/>
+                    <rect key="frame" x="480" y="3" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="xNb-ed-5xY">
                         <behavior key="behavior" lightByContents="YES"/>

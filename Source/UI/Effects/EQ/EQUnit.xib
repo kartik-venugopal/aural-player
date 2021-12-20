@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button toolTip="Save new preset" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udy-ev-aXo" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="475" y="13" width="15" height="15"/>
+                    <rect key="frame" x="480" y="3" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Wjw-fK-3PP">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -37,7 +37,7 @@
                     </connections>
                 </button>
                 <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q15-iZ-G8V" userLabel="Presets Menu">
-                    <rect key="frame" x="449" y="13" width="27" height="15"/>
+                    <rect key="frame" x="454" y="3" width="27" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="WlN-df-qI3">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -109,7 +109,7 @@
                     </connections>
                 </popUpButton>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QbA-Na-sMq">
-                    <rect key="frame" x="421" y="109.5" width="79" height="24"/>
+                    <rect key="frame" x="426" y="109.5" width="79" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="10 bands" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Va7-mP-5X5" customClass="EQSelectorButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -120,7 +120,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F0F-Za-5yR">
-                    <rect key="frame" x="421" y="85.5" width="79" height="24"/>
+                    <rect key="frame" x="426" y="85.5" width="79" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="15 bands" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="f1t-rH-fIk" customClass="EQSelectorButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -131,7 +131,7 @@
                     </connections>
                 </button>
                 <tabView fixedFrame="YES" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="OW6-o4-MZl" userLabel="Tab group">
-                    <rect key="frame" x="57" y="16" width="355" height="150"/>
+                    <rect key="frame" x="67" y="16" width="355" height="150"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
@@ -592,7 +592,7 @@
                     </tabViewItems>
                 </tabView>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lmp-7m-bHA" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="3" y="145" width="16" height="16"/>
+                    <rect key="frame" x="28" y="145" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="fO0-0Q-ndW">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

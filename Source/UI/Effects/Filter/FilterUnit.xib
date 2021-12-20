@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6p-bI-VWV" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="3" y="145" width="16" height="16"/>
+                    <rect key="frame" x="28" y="145" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="FVo-JD-Fe2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -34,7 +34,7 @@
                     </connections>
                 </button>
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pTF-TT-2rE">
-                    <rect key="frame" x="51" y="100" width="350" height="21"/>
+                    <rect key="frame" x="68" y="100" width="350" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" id="zP9-SS-Z40">
                         <rect key="frame" x="0.0" y="0.0" width="350" height="21"/>
@@ -42,7 +42,7 @@
                     </view>
                 </box>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ix6-8B-1a4" userLabel="Bands-Left" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="34" y="102" width="14" height="14"/>
+                    <rect key="frame" x="51" y="102" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Left" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="5x5-sf-fJc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -56,7 +56,7 @@
                     </connections>
                 </button>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8Q-IY-snQ" userLabel="Bands-Right" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="403" y="102" width="14" height="14"/>
+                    <rect key="frame" x="420" y="102" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Right" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="Bmb-za-MqI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -70,16 +70,16 @@
                     </connections>
                 </button>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WKo-oZ-DDd" customClass="FilterChart" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="47" y="128" width="434" height="38"/>
+                    <rect key="frame" x="64" y="128" width="434" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
                 <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="jYE-vo-rzA" userLabel="Bands">
-                    <rect key="frame" x="51" y="0.0" width="350" height="95"/>
+                    <rect key="frame" x="68" y="0.0" width="350" height="95"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                 </tabView>
                 <button toolTip="Add band" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAC-v2-fWg" userLabel="Add button">
-                    <rect key="frame" x="411" y="75" width="65" height="19"/>
+                    <rect key="frame" x="428" y="75" width="65" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="+  Band" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2bl-kU-qiq" customClass="EffectsTextButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -90,7 +90,7 @@
                     </connections>
                 </button>
                 <button toolTip="Remove band" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obx-WP-Bye" userLabel="Remove button">
-                    <rect key="frame" x="411" y="53" width="65" height="19"/>
+                    <rect key="frame" x="428" y="53" width="65" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="-  Band" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CJv-7G-f4Q" customClass="EffectsTextButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -101,7 +101,7 @@
                     </connections>
                 </button>
                 <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJo-gm-Pih" userLabel="Presets Menu">
-                    <rect key="frame" x="434" y="23" width="27" height="15"/>
+                    <rect key="frame" x="454" y="3" width="27" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="NtI-XW-9Gl">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -141,7 +141,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvD-pf-0wI" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="460" y="23" width="15" height="15"/>
+                    <rect key="frame" x="480" y="3" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="xih-Aq-sD3">
                         <behavior key="behavior" lightByContents="YES"/>
