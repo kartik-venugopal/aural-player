@@ -21,7 +21,7 @@ class AudioUnitsViewController: NSViewController, Destroyable {
     
     // MARK: UI fields
     
-    @IBOutlet weak var lblCaption: NSTextField!
+//    @IBOutlet weak var lblCaption: NSTextField!
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var tableScrollView: NSScrollView!
@@ -163,7 +163,7 @@ class AudioUnitsViewController: NSViewController, Destroyable {
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
+//        lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
         tableView.reloadAllRows(columns: [1])
     }
     
@@ -186,7 +186,7 @@ class AudioUnitsViewController: NSViewController, Destroyable {
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {
-        lblCaption.textColor = color
+//        lblCaption.textColor = color
     }
     
     func changeAURowTextColor(_ color: NSColor) {

@@ -217,7 +217,7 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
+//        lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
         
         functionLabels.forEach {
             

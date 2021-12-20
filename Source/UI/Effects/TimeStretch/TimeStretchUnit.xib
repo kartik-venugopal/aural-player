@@ -10,7 +10,6 @@
             <connections>
                 <outlet property="btnBypass" destination="0b3-aI-4fr" id="b9o-1J-3tO"/>
                 <outlet property="btnSavePreset" destination="Zcn-3u-MVb" id="RZL-Xa-E1E"/>
-                <outlet property="lblCaption" destination="I1P-0Z-tiS" id="Jgi-pI-Who"/>
                 <outlet property="presetsMenuButton" destination="SzE-Ik-872" id="ud1-pS-ufy"/>
                 <outlet property="presetsMenuIconItem" destination="HQi-sq-AI8" id="zbw-Qt-GBa"/>
                 <outlet property="timeStretchUnitView" destination="ux8-Uv-FBN" id="3Qh-04-Roz"/>
@@ -24,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0b3-aI-4fr" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="45" y="155" width="14" height="14"/>
+                    <rect key="frame" x="3" y="145" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7I7-lU-uWx">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -35,7 +34,7 @@
                     </connections>
                 </button>
                 <view id="ux8-Uv-FBN" customClass="TimeStretchUnitView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="50" y="38" width="468" height="97"/>
+                    <rect key="frame" x="25" y="59" width="468" height="97"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lz7-cD-T5L" userLabel="Rate" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
@@ -157,7 +156,7 @@
                     </connections>
                 </view>
                 <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SzE-Ik-872" userLabel="Presets Menu">
-                    <rect key="frame" x="464" y="3" width="27" height="15"/>
+                    <rect key="frame" x="464" y="8" width="27" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="p1L-4Q-opX">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -216,7 +215,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zcn-3u-MVb" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="490" y="3" width="15" height="15"/>
+                    <rect key="frame" x="490" y="8" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="AuI-Kj-Dx9">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -229,15 +228,6 @@
                         <action selector="savePresetAction:" target="-2" id="v2v-uN-Tea"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1P-0Z-tiS" userLabel="Master Desc">
-                    <rect key="frame" x="68" y="145" width="204" height="35"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Time  Stretch" id="I45-xC-CT9" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" metaFont="system" size="16"/>
-                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
             </subviews>
             <point key="canvasLocation" x="141" y="153.5"/>
         </view>

@@ -15,7 +15,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     // MARK: UI fields
 
-    @IBOutlet weak var lblCaption: VALabel!
+//    @IBOutlet weak var lblCaption: VALabel!
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
     // Presets controls
@@ -188,7 +188,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = fontScheme.effects.unitCaptionFont
+//        lblCaption.font = fontScheme.effects.unitCaptionFont
         functionLabels.forEach {$0.font = fontScheme.effects.unitFunctionFont}
         presetsMenuButton.font = .menuFont
     }
@@ -207,7 +207,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {
-        lblCaption.textColor = color
+//        lblCaption.textColor = color
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
