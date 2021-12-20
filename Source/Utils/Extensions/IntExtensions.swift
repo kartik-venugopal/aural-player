@@ -13,21 +13,6 @@ extension Int {
     
     static let ascendingIntComparator: (Int, Int) -> Bool = {$0 < $1}
     static let descendingIntComparator: (Int, Int) -> Bool = {$0 > $1}
-    
-    func clamped(to range: ClosedRange<Self>) -> Self {
-        
-        if range.contains(self) {return self}
-        
-        if self < range.lowerBound {
-            return range.lowerBound
-        }
-        
-        if self > range.upperBound {
-            return range.upperBound
-        }
-        
-        return self
-    }
 }
 
 extension SignedInteger {

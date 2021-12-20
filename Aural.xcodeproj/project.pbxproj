@@ -773,7 +773,6 @@
 		3E7C35FE26AADD2A00B3552D /* FilterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */; };
 		3E7C360126AADFA000B3552D /* FilterBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C360026AADFA000B3552D /* FilterBandView.swift */; };
 		3E7C978D268BB8BE00287158 /* NSLayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C978C268BB8BE00287158 /* NSLayoutConstraintExtensions.swift */; };
-		3E7DC44B2770F73500515BAB /* TickedCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DC44A2770F73500515BAB /* TickedCircularSlider.swift */; };
 		3E803E23260A228200B705AA /* MusicBrainzCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E803E22260A228200B705AA /* MusicBrainzCache.swift */; };
 		3E824A4325DB74850089F217 /* MenuBarPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E824A4125DB74840089F217 /* MenuBarPlayer.xib */; };
 		3E824A4425DB74850089F217 /* MenuBarPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */; };
@@ -1966,7 +1965,6 @@
 		3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetView.swift; sourceTree = "<group>"; };
 		3E7C360026AADFA000B3552D /* FilterBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandView.swift; sourceTree = "<group>"; };
 		3E7C978C268BB8BE00287158 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
-		3E7DC44A2770F73500515BAB /* TickedCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickedCircularSlider.swift; sourceTree = "<group>"; };
 		3E803E22260A228200B705AA /* MusicBrainzCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCache.swift; sourceTree = "<group>"; };
 		3E824A4125DB74840089F217 /* MenuBarPlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuBarPlayer.xib; sourceTree = "<group>"; };
 		3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewController.swift; sourceTree = "<group>"; };
@@ -3491,7 +3489,6 @@
 				3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCell.swift */,
 				3E6C0FD325CEB98600BF0D07 /* TickedSliderCell.swift */,
 				3E6C0FD425CEB98600BF0D07 /* RangeSlider.swift */,
-				3E7DC44A2770F73500515BAB /* TickedCircularSlider.swift */,
 			);
 			path = Sliders;
 			sourceTree = "<group>";
@@ -5664,7 +5661,6 @@
 				3EAFB5E1267FE88700F0DC96 /* MetadataEntry.swift in Sources */,
 				3EDB345225E8B75D004DF7DE /* MetadataFormat.swift in Sources */,
 				3E3DFFD0260D9E3F0092F0BF /* MetadataPreferences.swift in Sources */,
-				3E7DC44B2770F73500515BAB /* TickedCircularSlider.swift in Sources */,
 				3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */,
 				3EFB9ED626A68B1F00EA8440 /* MetadataTrackInfoViewController.swift in Sources */,
 				3E6C130325CEBE8F00BF0D07 /* MetadataTrackInfoViewDelegate.swift in Sources */,

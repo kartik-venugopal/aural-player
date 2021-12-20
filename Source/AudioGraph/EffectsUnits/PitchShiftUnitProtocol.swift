@@ -16,4 +16,7 @@ protocol PitchShiftUnitProtocol: EffectsUnitProtocol {
     
     // The pitch shift value, in cents, specified as a value between -2400 and 2400
     var pitch: Float {get set}
+    
+    // the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
+    var overlap: Float {get set}
 }

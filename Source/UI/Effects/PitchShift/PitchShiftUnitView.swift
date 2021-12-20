@@ -14,94 +14,24 @@ class PitchShiftUnitView: NSView {
     // ------------------------------------------------------------------------
     
     // MARK: UI fields
-    
-    @IBOutlet weak var octavesSlider: TickedCircularSlider!
-    @IBOutlet weak var semitonesSlider: TickedCircularSlider!
-    @IBOutlet weak var centsSlider: TickedCircularSlider!
-    
-    @IBOutlet weak var lblOctaves: NSTextField!
-    @IBOutlet weak var lblSemitones: NSTextField!
-    @IBOutlet weak var lblCents: NSTextField!
 
-    private var sliders: [TickedCircularSlider] = []
-    private var labels: [NSTextField] = []
+    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
+    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
+    @IBOutlet weak var lblPitchValue: NSTextField!
+    @IBOutlet weak var lblPitchOverlapValue: NSTextField!
+    
+    private var sliders: [EffectsUnitSlider] = []
     
     // ------------------------------------------------------------------------
     
     // MARK: Properties
     
-    var pitch: PitchShift {
-        
-        get {
-        
-            applyCorrection()
-            
-            return PitchShift(octaves: octavesSlider.integerValue,
-                              semitones: semitonesSlider.integerValue,
-                              cents: centsSlider.integerValue)
-        }
-        
-        set {
-            
-            octavesSlider.setValue(newValue.octaves)
-            semitonesSlider.setValue(newValue.semitones)
-            centsSlider.setValue(newValue.cents)
-            
-            applyCorrection()
-            pitchUpdated()
-        }
+    var pitch: Float {
+        pitchSlider.floatValue
     }
     
-    private func applyCorrection() {
-        
-        let octaves = octavesSlider.integerValue
-        let semitones = semitonesSlider.integerValue
-        
-        switch octaves {
-            
-        case -2:
-            
-            // Semitones can only be non-negative
-            semitonesSlider.allowedValues = 0...12
-            
-            if semitonesSlider.integerValue == 0 {
-                centsSlider.allowedValues = 0...100
-            }
-            
-        case -1:
-            
-            semitonesSlider.allowedValues = -12...12
-            centsSlider.allowedValues = semitones == -12 ? 0...100 : -100...100
-            
-        case 1:
-            
-            semitonesSlider.allowedValues = -12...12
-            centsSlider.allowedValues = semitones == 12 ? -100...0 : -100...100
-
-        case 2:
-            
-            semitonesSlider.allowedValues = -12...0
-            
-            if semitonesSlider.integerValue == 0 {
-                centsSlider.allowedValues = -100...0
-            }
-
-        default:
-            
-            semitonesSlider.allowedValues = -12...12
-            centsSlider.allowedValues = -100...100
-        }
-    }
-    
-    func setUnitState(_ state: EffectsUnitState) {
-        sliders.forEach {$0.unitState = state}
-    }
-    
-    func pitchUpdated() {
-        
-        lblOctaves.stringValue = String(octavesSlider.integerValue)
-        lblSemitones.stringValue = String(semitonesSlider.integerValue)
-        lblCents.stringValue = String(centsSlider.integerValue)
+    var overlap: Float {
+        pitchOverlapSlider.floatValue
     }
     
     // ------------------------------------------------------------------------
@@ -109,7 +39,7 @@ class PitchShiftUnitView: NSView {
     // MARK: View initialization
     
     override func awakeFromNib() {
-        sliders = [octavesSlider, semitonesSlider, centsSlider]
+        sliders = [pitchSlider, pitchOverlapSlider]
     }
     
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
@@ -123,13 +53,37 @@ class PitchShiftUnitView: NSView {
     
     // MARK: View update
     
+    func setState(pitch: Float, pitchString: String, overlap: Float, overlapString: String) {
+        
+        setPitch(pitch, pitchString: pitchString)
+        setPitchOverlap(overlap, overlapString: overlapString)
+    }
+    
+    func setUnitState(_ state: EffectsUnitState) {
+        sliders.forEach {$0.setUnitState(state)}
+    }
+    
+    func setPitch(_ pitch: Float, pitchString: String) {
+        
+        pitchSlider.floatValue = pitch
+        lblPitchValue.stringValue = pitchString
+    }
+    
+    func setPitchOverlap(_ overlap: Float, overlapString: String) {
+        
+        pitchOverlapSlider.floatValue = overlap
+        lblPitchOverlapValue.stringValue = overlapString
+    }
+    
     func stateChanged() {
         sliders.forEach {$0.updateState()}
     }
     
     func applyPreset(_ preset: PitchShiftPreset) {
         
-//        self.pitch = preset.pitch * ValueConversions.pitch_audioGraphToUI
+        let pitch = preset.pitch * ValueConversions.pitch_audioGraphToUI
+        setPitch(pitch, pitchString: ValueFormatter.formatPitch(pitch))
+        setPitchOverlap(preset.overlap, overlapString: ValueFormatter.formatOverlap(preset.overlap))
         setUnitState(preset.state)
     }
     

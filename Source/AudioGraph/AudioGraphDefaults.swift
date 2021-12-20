@@ -29,6 +29,7 @@ struct AudioGraphDefaults {
     
     static let pitchShiftState: EffectsUnitState = .bypassed
     static let pitchShift: Float = 0
+    static let pitchShiftOverlap: Float = 8
     
     static let timeStretchState: EffectsUnitState = .bypassed
     static let timeStretchRate: Float = 1

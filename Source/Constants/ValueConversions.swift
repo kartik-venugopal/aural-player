@@ -27,7 +27,4 @@ struct ValueConversions {
     
     static let pitch_UIToAudioGraph: Float = 1200     // Multiply by 1200
     static let pitch_audioGraphToUI: Float = (1/1200) // Divide by 1200
-    
-    static let pitch_octaveToCents: Int = 1200     // Multiply by 1200
-    static let pitch_semitoneToCents: Int = 100     // Multiply by 1200
 }

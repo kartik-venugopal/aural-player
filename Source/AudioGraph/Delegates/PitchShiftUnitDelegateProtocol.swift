@@ -21,52 +21,23 @@ import Foundation
 protocol PitchShiftUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     // The pitch shift value, in cents, specified as a value between -2400 and 2400
-    var pitch: PitchShift {get set}
+    var pitch: Float {get set}
     
     var minPitch: Float {get}
     var maxPitch: Float {get}
     
     var formattedPitch: String {get}
     
+    // the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
+    var overlap: Float {get set}
+    
+    var formattedOverlap: String {get}
+    
     // Increases the pitch shift by a small increment. Returns the new pitch shift value.
-    func increasePitch() -> PitchShift
+    func increasePitch() -> (pitch: Float, pitchString: String)
     
     // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
-    func decreasePitch() -> PitchShift
+    func decreasePitch() -> (pitch: Float, pitchString: String)
     
     var presets: PitchShiftPresets {get}
-}
-
-struct PitchShift {
-    
-    let octaves: Int
-    let semitones: Int
-    let cents: Int
-    
-    var asCents: Int {
-        
-        octaves * ValueConversions.pitch_octaveToCents +
-        semitones * ValueConversions.pitch_semitoneToCents
-        + cents
-    }
-    
-    init(octaves: Int, semitones: Int, cents: Int) {
-        
-        self.octaves = octaves
-        self.semitones = semitones
-        self.cents = cents
-    }
-    
-    init(fromCents pitchCents: Int) {
-        
-        var cents = pitchCents
-        
-        self.octaves = cents / ValueConversions.pitch_octaveToCents
-        cents -= octaves * ValueConversions.pitch_octaveToCents
-        
-        self.semitones = cents / ValueConversions.pitch_semitoneToCents
-        cents -= semitones * ValueConversions.pitch_semitoneToCents
-        
-        self.cents = cents
-    }
 }

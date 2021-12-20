@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,7 +34,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="vdp-if-TVN">
                         <rect key="frame" x="0.0" y="0.0" width="230" height="280"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="Oib-QJ-T7y" userLabel="Master Presets Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="230" height="275"/>
@@ -249,7 +249,7 @@
                     <rect key="frame" x="142" y="194" width="86" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Equalizer" id="YPX-TE-dvD" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" metaFont="cellTitle"/>
+                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.70435334849999998" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -258,7 +258,7 @@
                     <rect key="frame" x="142" y="163" width="90" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Pitch  Shift" id="33Y-LL-yrO" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" metaFont="cellTitle"/>
+                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.69909178709999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -267,7 +267,7 @@
                     <rect key="frame" x="142" y="132" width="90" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Time  Stretch" id="YlM-AN-KCj" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" metaFont="cellTitle"/>
+                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.69909178709999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -276,7 +276,7 @@
                     <rect key="frame" x="281" y="194" width="87" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Reverb" id="1ZS-5S-9SL" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" metaFont="cellTitle"/>
+                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.69909178709999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -285,7 +285,7 @@
                     <rect key="frame" x="281" y="163" width="96" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Delay" id="Pfw-Ro-iGX" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" metaFont="cellTitle"/>
+                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.69909178709999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -294,7 +294,7 @@
                     <rect key="frame" x="281" y="132" width="81" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Filter" id="Nta-Mk-Rla" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" metaFont="cellTitle"/>
+                        <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.69909178709999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -1159,7 +1159,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="tKY-ts-d08">
                         <rect key="frame" x="0.0" y="0.0" width="264" height="133"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" id="8Va-j5-dTq" userLabel="Bands Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="264" height="131"/>

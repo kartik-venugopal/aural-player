@@ -31,9 +31,4 @@ struct SoundConstants {
     
     static let mid_min: Float = bass_max
     static let mid_max: Float = 4000
-    
-    static let pitchOctavesRange: ClosedRange<Int> = -2...2
-    static let pitchSemitonesRange: ClosedRange<Int> = -12...12
-    static let pitchCentsRange: ClosedRange<Int> = -100...100
-    static let pitchRange: ClosedRange<Int> = -2400...2400
 }

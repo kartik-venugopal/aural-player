@@ -45,7 +45,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O2c-Jt-xCL" userLabel="Unit Description" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="40" y="200" width="150" height="25"/>
+                                    <rect key="frame" x="40" y="200" width="160" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Time  Stretch" id="WyW-VO-mbt">
                                         <font key="font" metaFont="system" size="16"/>
@@ -109,7 +109,7 @@
                                     </tabViewItems>
                                 </tabView>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j0D-uE-fqF" userLabel="Master button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="195" y="195" width="30" height="28"/>
+                                    <rect key="frame" x="216" y="195" width="30" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MasterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="C73-6p-sLz" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -124,7 +124,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="O5c-8Q-17s" userLabel="EQ button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="236" y="195" width="30" height="28"/>
+                                    <rect key="frame" x="254" y="195" width="30" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EQTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tEe-Wd-Gev" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -140,7 +140,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="eay-EC-eK5" userLabel="Pitch button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="277" y="195" width="30" height="28"/>
+                                    <rect key="frame" x="292" y="195" width="30" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PitchTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="imh-UR-2or" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -156,7 +156,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="ehI-IS-owi" userLabel="Time button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="318" y="195" width="30" height="28"/>
+                                    <rect key="frame" x="330" y="195" width="30" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="TimeTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9go-o2-cqo" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -172,7 +172,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="i8m-M9-uNi" userLabel="Reverb button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="359" y="195" width="30" height="28"/>
+                                    <rect key="frame" x="368" y="195" width="30" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ReverbTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="w4M-7l-YDn" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -188,7 +188,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="mw3-FF-9td" userLabel="Delay button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="400" y="195" width="30" height="28"/>
+                                    <rect key="frame" x="406" y="195" width="30" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DelayTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Zyg-mN-HAD" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -204,7 +204,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="gOm-fK-Gv0" userLabel="Filter button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="441" y="195" width="30" height="28"/>
+                                    <rect key="frame" x="444" y="195" width="30" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Vh0-wm-3dk" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
