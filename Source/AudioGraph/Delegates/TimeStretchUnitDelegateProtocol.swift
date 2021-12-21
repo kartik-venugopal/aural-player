@@ -38,8 +38,14 @@ protocol TimeStretchUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     // Increases the playback rate by a small increment. Returns the new playback rate value.
     func increaseRate() -> (rate: Float, rateString: String)
     
+    // Increases the playback rate by a small increment. Returns the new playback rate value.
+    func increaseRate(by increment: Float) -> (rate: Float, rateString: String)
+    
     // Decreases the playback rate by a small decrement. Returns the new playback rate value.
     func decreaseRate() -> (rate: Float, rateString: String)
+    
+    // Decreases the playback rate by a small decrement. Returns the new playback rate value.
+    func decreaseRate(by decrement: Float) -> (rate: Float, rateString: String)
     
     var presets: TimeStretchPresets {get}
 }

@@ -15,21 +15,19 @@ class TimeStretchUnitView: NSView {
     
     // MARK: UI fields
     
-    @IBOutlet weak var timeSlider: EffectsUnitSlider!
+    @IBOutlet weak var timeSlider: TimeStretchSlider!
     
     @IBOutlet weak var btnShiftPitch: NSButton!
     
     @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
     
-    private var sliders: [EffectsUnitSlider] = []
-    
     // ------------------------------------------------------------------------
     
     // MARK: Properties
     
     var rate: Float {
-        timeSlider.floatValue
+        timeSlider.rate
     }
     
     var shiftPitch: Bool {
@@ -40,15 +38,8 @@ class TimeStretchUnitView: NSView {
     
     // MARK: View initialization
     
-    override func awakeFromNib() {
-        sliders = [timeSlider]
-    }
-    
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
-        
-        sliders.forEach {
-            $0.stateFunction = stateFunction
-        }
+        timeSlider.stateFunction = stateFunction
     }
     
     // ------------------------------------------------------------------------
@@ -56,11 +47,11 @@ class TimeStretchUnitView: NSView {
     // MARK: View update
     
     func setUnitState(_ state: EffectsUnitState) {
-        sliders.forEach {$0.setUnitState(state)}
+        timeSlider.setUnitState(state)
     }
     
     func stateChanged() {
-        sliders.forEach {$0.updateState()}
+        timeSlider.updateState()
     }
     
     func setState(rate: Float, rateString: String,
@@ -69,7 +60,7 @@ class TimeStretchUnitView: NSView {
         btnShiftPitch.onIf(shiftPitch)
         updatePitchShift(shiftPitchString: shiftPitchString)
         
-        timeSlider.floatValue = rate
+        timeSlider.rate = rate
         lblTimeStretchRateValue.stringValue = rateString
     }
     
@@ -82,7 +73,7 @@ class TimeStretchUnitView: NSView {
     func setRate(_ rate: Float, rateString: String, shiftPitchString: String) {
         
         lblTimeStretchRateValue.stringValue = rateString
-        timeSlider.floatValue = rate
+        timeSlider.rate = rate
         updatePitchShift(shiftPitchString: shiftPitchString)
     }
     
@@ -93,7 +84,7 @@ class TimeStretchUnitView: NSView {
         
         lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(preset.shiftedPitch)
         
-        timeSlider.floatValue = preset.rate
+        timeSlider.rate = preset.rate
         lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)
     }
     

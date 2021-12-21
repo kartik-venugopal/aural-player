@@ -93,4 +93,50 @@ struct PitchShift {
     init(fromCents pitchCents: Float) {
         self.init(fromCents: pitchCents.roundedInt)
     }
+    
+    var formattedString: String {
+        
+        if octaves != 0 {
+            
+            if semitones != 0 {
+                
+                return cents != 0 ?
+                "\(octavesString) \(semitonesString) \(centsString)" :
+                "\(octavesString) \(semitonesString)"
+                
+            } else {
+                
+                return cents != 0 ?
+                "\(octavesString) \(centsString)" :
+                "\(octavesString)"
+            }
+            
+        } else {
+            
+            if semitones != 0 {
+                
+                return cents != 0 ?
+                "\(semitonesString) \(centsString)" :
+                "\(semitonesString)"
+                
+            } else {
+                
+                return cents != 0 ?
+                "\(centsString)" :
+                "0"
+            }
+        }
+    }
+    
+    var octavesString: String {
+        "\(octaves.signedString) \(abs(octaves) == 1 ? "octave" : "octaves")"
+    }
+    
+    var semitonesString: String {
+        "\(semitones.signedString) \(abs(semitones) == 1 ? "semitone" : "semitones")"
+    }
+    
+    var centsString: String {
+        "\(cents.signedString) \(abs(cents) == 1 ? "cent" : "cents")"
+    }
 }

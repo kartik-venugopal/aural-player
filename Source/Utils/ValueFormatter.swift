@@ -168,11 +168,7 @@ class ValueFormatter {
     }
     
     static func formatPitch(_ value: Float) -> String {
-        return formatValueWithUnits(NSNumber(value: value), 1, Units.pitchOctaves, true)
-    }
-    
-    static func formatOverlap(_ value: Float) -> String {
-        return ValueFormatter.formatValue(NSNumber(value: value), 1)
+        PitchShift(fromCents: value).formattedString
     }
     
     static func formatTimeStretchRate(_ value: Float) -> String {
@@ -296,6 +292,7 @@ class ValueFormatter {
         // Units for different effects parameters
         
         static let pitchOctaves: String = "8ve"
+        static let pitchCents: String = "cents"
         static let timeStretchRate: String = "x"
         static let reverbWetAmount: String = "wet"
         static let reverbDryAmount: String = "dry"

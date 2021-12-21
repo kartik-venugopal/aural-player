@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view wantsLayer="YES" id="Nbf-AE-zAG" customClass="PitchShiftUnitView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="38" y="28" width="460" height="129"/>
+                    <rect key="frame" x="38" y="44" width="460" height="129"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C8W-3u-TUd" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">

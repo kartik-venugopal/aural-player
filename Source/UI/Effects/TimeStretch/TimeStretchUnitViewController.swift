@@ -80,6 +80,57 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         }
     }
     
+    private let oneTenth: Float = 1.0 / 10.0
+    private let oneHundredth: Float = 1.0 / 100.0
+    
+    @IBAction func increaseRateByTenthAction(_ sender: AnyObject) {
+        
+        _ = timeStretchUnit.increaseRate(by: oneTenth)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
+
+        // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
+        if timeStretchUnit.isActive {
+            messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
+        }
+    }
+    
+    @IBAction func increaseRateByHundredthAction(_ sender: AnyObject) {
+        
+        _ = timeStretchUnit.increaseRate(by: oneHundredth)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
+
+        // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
+        if timeStretchUnit.isActive {
+            messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
+        }
+    }
+    
+    @IBAction func decreaseRateByTenthAction(_ sender: AnyObject) {
+        
+        _ = timeStretchUnit.decreaseRate(by: oneTenth)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
+
+        // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
+        if timeStretchUnit.isActive {
+            messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
+        }
+    }
+    
+    @IBAction func decreaseRateByHundredthAction(_ sender: AnyObject) {
+        
+        _ = timeStretchUnit.decreaseRate(by: oneHundredth)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
+
+        // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
+        if timeStretchUnit.isActive {
+            messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
+        }
+    }
+    
     // Toggles the "Shift pitch" option of the Time stretch effects unit
     @IBAction func shiftPitchAction(_ sender: AnyObject) {
 

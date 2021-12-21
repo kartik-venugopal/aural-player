@@ -1316,6 +1316,7 @@
 		3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */; };
 		3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */; };
 		3EFB1C6025EFCFAC00EF7F0F /* AtomicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */; };
+		3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */; };
 		3EFB9ECF26A689D800EA8440 /* MetadataTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB9ECE26A689D800EA8440 /* MetadataTrackInfo.xib */; };
 		3EFB9ED326A68A2400EA8440 /* TrackInfoViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB9ED226A68A2400EA8440 /* TrackInfoViewDelegate.swift */; };
 		3EFB9ED626A68B1F00EA8440 /* MetadataTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB9ED526A68B1F00EA8440 /* MetadataTrackInfoViewController.swift */; };
@@ -2397,6 +2398,7 @@
 		3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegScheduler.swift; sourceTree = "<group>"; };
 		3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegLoopScheduling.swift; sourceTree = "<group>"; };
 		3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCounter.swift; sourceTree = "<group>"; };
+		3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchSliderCell.swift; sourceTree = "<group>"; };
 		3EFB9EC426A683EA00EA8440 /* unused.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = unused.rb; sourceTree = "<group>"; };
 		3EFB9ECE26A689D800EA8440 /* MetadataTrackInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataTrackInfo.xib; sourceTree = "<group>"; };
 		3EFB9ED226A68A2400EA8440 /* TrackInfoViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoViewDelegate.swift; sourceTree = "<group>"; };
@@ -3587,6 +3589,7 @@
 				3E6C100225CEB98600BF0D07 /* TimeStretchUnit.xib */,
 				3E6C100425CEB98600BF0D07 /* TimeStretchUnitViewController.swift */,
 				3E6C100325CEB98600BF0D07 /* TimeStretchUnitView.swift */,
+				3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */,
 			);
 			path = TimeStretch;
 			sourceTree = "<group>";
@@ -5344,6 +5347,7 @@
 				3E6C119E25CEBD6D00BF0D07 /* Bookmark.swift in Sources */,
 				3E6C12EB25CEBE8100BF0D07 /* BookmarkNameInputReceiver.swift in Sources */,
 				3E09D0DB26805C19008ECB8C /* BookmarkPersistentState.swift in Sources */,
+				3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */,
 				3E6C119025CEBD6D00BF0D07 /* BookmarksDelegate.swift in Sources */,
 				3E6C119725CEBD6D00BF0D07 /* BookmarksDelegateProtocol.swift in Sources */,
 				3E6C126B25CEBE0600BF0D07 /* BookmarksManagerViewController.swift in Sources */,

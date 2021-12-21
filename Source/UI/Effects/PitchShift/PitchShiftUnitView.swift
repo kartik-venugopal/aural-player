@@ -50,22 +50,9 @@ class PitchShiftUnitView: NSView {
     
     private func updateLabels(pitch: PitchShift) {
         
-        lblOctaves.stringValue = "\(integerWithSign(pitch.octaves))"
-        lblSemitones.stringValue = "\(integerWithSign(pitch.semitones))"
-        lblCents.stringValue = "\(integerWithSign(pitch.cents))"
-    }
-    
-    private func integerWithSign(_ integer: Int) -> String {
-        
-        if integer > 0 {
-            return "+\(integer)"
-        }
-        
-        if integer == 0 {
-            return "0"
-        }
-        
-        return "\(integer)"
+        lblOctaves.stringValue = "\(pitch.octaves.signedString)"
+        lblSemitones.stringValue = "\(pitch.semitones.signedString)"
+        lblCents.stringValue = "\(pitch.cents.signedString)"
     }
     
     // ------------------------------------------------------------------------

@@ -57,7 +57,7 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
     var pitch: Float {unit.pitch}
     
     var formattedPitch: String {
-        ValueFormatter.formatPitch(pitch * ValueConversions.pitch_audioGraphToUI)
+        ValueFormatter.formatPitch(pitch)
     }
     
     var presets: TimeStretchPresets {unit.presets}
@@ -72,12 +72,28 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
         return (rate, formattedRate)
     }
     
+    func increaseRate(by increment: Float) -> (rate: Float, rateString: String) {
+
+        // Rate is increased by an amount set in the user preferences
+        rate = (rate + increment).clamp(to: rateRange)
+        
+        return (rate, formattedRate)
+    }
+    
     func decreaseRate() -> (rate: Float, rateString: String) {
         
         ensureActiveAndResetRate()
         
         // Rate is decreased by an amount set in the user preferences
         rate = (rate - preferences.timeDelta).clamp(to: rateRange)
+        
+        return (rate, formattedRate)
+    }
+    
+    func decreaseRate(by decrement: Float) -> (rate: Float, rateString: String) {
+        
+        // Rate is decreased by an amount set in the user preferences
+        rate = (rate - decrement).clamp(to: rateRange)
         
         return (rate, formattedRate)
     }

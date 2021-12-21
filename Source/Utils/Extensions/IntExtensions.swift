@@ -13,6 +13,10 @@ extension Int {
     
     static let ascendingIntComparator: (Int, Int) -> Bool = {$0 < $1}
     static let descendingIntComparator: (Int, Int) -> Bool = {$0 > $1}
+    
+    var signedString: String {
+        self > 0 ? "+\(self)" : "\(self)"
+    }
 }
 
 extension SignedInteger {
