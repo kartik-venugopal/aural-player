@@ -22,6 +22,16 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     
     @IBOutlet weak var pitchShiftUnitView: PitchShiftUnitView!
     
+    @IBOutlet weak var btnIncreaseByOctave: TintedImageButton!
+    @IBOutlet weak var btnIncreaseBySemitone: TintedImageButton!
+    @IBOutlet weak var btnIncreaseByCent: TintedImageButton!
+    
+    @IBOutlet weak var btnDecreaseByOctave: TintedImageButton!
+    @IBOutlet weak var btnDecreaseBySemitone: TintedImageButton!
+    @IBOutlet weak var btnDecreaseByCent: TintedImageButton!
+    
+    private var functionButtons: [TintedImageButton] = []
+    
     // ------------------------------------------------------------------------
     
     // MARK: Services, utilities, helpers, and properties
@@ -44,6 +54,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
         
         super.oneTimeSetup()
         pitchShiftUnitView.initialize(stateFunction: unitStateFunction)
+        functionButtons = [btnIncreaseByOctave, btnIncreaseBySemitone, btnIncreaseByCent, btnDecreaseByOctave, btnDecreaseBySemitone, btnDecreaseByCent]
     }
     
     override func initControls() {
@@ -153,10 +164,17 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
         
         super.applyColorScheme(scheme)
         changeSliderColors()
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
     }
     
     override func changeSliderColors() {
         pitchShiftUnitView.redrawSliders()
+    }
+    
+    override func changeFunctionButtonColor(_ color: NSColor) {
+        
+        super.changeFunctionButtonColor(color)
+        functionButtons.forEach {$0.reTint()}
     }
     
     override func changeActiveUnitStateColor(_ color: NSColor) {

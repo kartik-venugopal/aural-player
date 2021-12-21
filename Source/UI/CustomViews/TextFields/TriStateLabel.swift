@@ -13,7 +13,7 @@ import Cocoa
  An image button that can be toggled On/Off and displays different images depending on its state
  */
 @IBDesignable
-class EffectsUnitTriStateLabel: CenterTextLabel {
+class EffectsUnitTriStateLabel: CenterTextLabel, FunctionLabel {
     
     var stateFunction: EffectsUnitStateFunction?
     
