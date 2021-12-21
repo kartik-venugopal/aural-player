@@ -17,7 +17,7 @@ class TimeStretchUnitView: NSView {
     
     @IBOutlet weak var timeSlider: TimeStretchSlider!
     
-    @IBOutlet weak var btnShiftPitch: NSButton!
+    @IBOutlet weak var btnShiftPitch: EffectsUnitTriStateCheckButton!
     
     @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
@@ -39,7 +39,10 @@ class TimeStretchUnitView: NSView {
     // MARK: View initialization
     
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
+        
         timeSlider.stateFunction = stateFunction
+//        btnShiftPitch.stateFunction = stateFunction
+//        btnShiftPitch.stateChanged()
     }
     
     // ------------------------------------------------------------------------
@@ -47,17 +50,21 @@ class TimeStretchUnitView: NSView {
     // MARK: View update
     
     func setUnitState(_ state: EffectsUnitState) {
+        
         timeSlider.setUnitState(state)
+//        btnShiftPitch.reTint()
     }
     
     func stateChanged() {
+        
         timeSlider.updateState()
+//        btnShiftPitch.stateChanged()
     }
     
     func setState(rate: Float, rateString: String,
                   shiftPitch: Bool, shiftPitchString: String) {
         
-        btnShiftPitch.onIf(shiftPitch)
+//        btnShiftPitch.onIf(shiftPitch)
         updatePitchShift(shiftPitchString: shiftPitchString)
         
         timeSlider.rate = rate
@@ -80,7 +87,7 @@ class TimeStretchUnitView: NSView {
     func applyPreset(_ preset: TimeStretchPreset) {
         
         setUnitState(preset.state)
-        btnShiftPitch.onIf(preset.shiftPitch)
+//        btnShiftPitch.onIf(preset.shiftPitch)
         
         lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(preset.shiftedPitch)
         
@@ -92,16 +99,11 @@ class TimeStretchUnitView: NSView {
     
     // MARK: Theming
     
-    func applyFontScheme(_ fontScheme: FontScheme) {
-        btnShiftPitch.redraw()
-    }
-    
     func applyColorScheme(_ scheme: ColorScheme) {
         
         redrawSliders()
         
-        btnShiftPitch.attributedTitle = NSAttributedString(string: btnShiftPitch.title,
-                                                           attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])
+//        btnShiftPitch.reTint()
         
         btnShiftPitch.attributedAlternateTitle = NSAttributedString(string: btnShiftPitch.title,
                                                                     attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])
@@ -111,11 +113,34 @@ class TimeStretchUnitView: NSView {
         timeSlider.redraw()
     }
     
-    func changeFunctionCaptionTextColor() {
+    func changeActiveUnitStateColor(_ color: NSColor) {
         
-        btnShiftPitch.image = btnShiftPitch.image?.filledWithColor(Colors.Effects.functionCaptionTextColor)
-        btnShiftPitch.alternateImage = btnShiftPitch.alternateImage?.filledWithColor(Colors.Effects.functionCaptionTextColor)
+        redrawSliders()
         
-        btnShiftPitch.redraw()
+//        if btnShiftPitch.isOn {
+//            btnShiftPitch.reTint()
+//        }
+    }
+    
+    func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        let isBypassed: Bool = timeSlider.unitState == .bypassed
+        
+        if isBypassed {
+            redrawSliders()
+        }
+        
+//        if btnShiftPitch.isOff || isBypassed {
+//            btnShiftPitch.reTint()
+//        }
+    }
+    
+    func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        redrawSliders()
+        
+//        if btnShiftPitch.isOn {
+//            btnShiftPitch.reTint()
+//        }
     }
 }

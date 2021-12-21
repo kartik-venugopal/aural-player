@@ -34,11 +34,22 @@
                     </connections>
                 </button>
                 <view id="ux8-Uv-FBN" customClass="TimeStretchUnitView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="22" y="35" width="468" height="136"/>
+                    <rect key="frame" x="22" y="21" width="468" height="149"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ncL-8f-vJF" customClass="EffectsUnitTriStateCheckButton" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="106" y="15" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NotChecked" imagePosition="left" alignment="left" alternateImage="Checked" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="IKv-Kd-Exk">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="shiftPitchAction:" target="-2" id="UAT-xK-yr2"/>
+                            </connections>
+                        </button>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mj8-FV-QPw" userLabel="1/4 Rate" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="64" y="107" width="35" height="24"/>
+                            <rect key="frame" x="64" y="120" width="35" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1/4" id="Rs1-6o-0tZ">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -46,8 +57,17 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eaF-QF-nuR" userLabel="1/4 Rate" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="24" y="20" width="75" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Shift Pitch" id="lFv-gg-Jpf">
+                                <font key="font" size="11" name="Play-Regular"/>
+                                <color key="textColor" white="0.40263488479999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sTh-re-1EM" userLabel="4 Rate" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="363" y="107" width="25" height="24"/>
+                            <rect key="frame" x="363" y="120" width="25" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="4" id="2Bh-sl-NsX">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -56,7 +76,7 @@
                             </textFieldCell>
                         </textField>
                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZrQ-re-04h" userLabel="Time Slider" customClass="TimeStretchSlider" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="104" y="105" width="254" height="20"/>
+                            <rect key="frame" x="104" y="119" width="254" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="4" doubleValue="2" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="dwC-c1-k4c" customClass="TimeStretchSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
@@ -64,7 +84,7 @@
                             </connections>
                         </slider>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9IV-G1-qdp" userLabel="Lbl Rate Value" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="381" y="107" width="52" height="24"/>
+                            <rect key="frame" x="381" y="120" width="52" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="f86-3M-tjl">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -73,7 +93,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wfQ-8f-44I" userLabel="Pitch shift value" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="283" y="7" width="152" height="24"/>
+                            <rect key="frame" x="283" y="20" width="152" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="x6R-ZZ-iAN">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -82,7 +102,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EHy-7S-R1b" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="193" y="67" width="80" height="24"/>
+                            <rect key="frame" x="193" y="80" width="80" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1/10" id="u5J-uR-qnf">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -91,7 +111,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ONO-YX-tOW" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="193" y="38" width="80" height="24"/>
+                            <rect key="frame" x="193" y="51" width="80" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1/100" id="9fr-Nf-zXM">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -100,7 +120,7 @@
                             </textFieldCell>
                         </textField>
                         <button toolTip="Decrease rate by one tenth" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISN-h2-7JL" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="188" y="71" width="12" height="12"/>
+                            <rect key="frame" x="188" y="84" width="12" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="ph6-A8-tae">
                                 <behavior key="behavior" lightByContents="YES"/>
@@ -114,7 +134,7 @@
                             </connections>
                         </button>
                         <button toolTip="Decrease rate by one hundredth" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-Cm-Ib7" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="188" y="42" width="12" height="12"/>
+                            <rect key="frame" x="188" y="55" width="12" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="e3e-W2-P7S">
                                 <behavior key="behavior" lightByContents="YES"/>
@@ -128,7 +148,7 @@
                             </connections>
                         </button>
                         <button toolTip="Increase rate by one tenth" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7rk-Dt-Iib" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="263" y="71" width="12" height="12"/>
+                            <rect key="frame" x="263" y="84" width="12" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="lxr-B2-2uj">
                                 <behavior key="behavior" lightByContents="YES"/>
@@ -142,7 +162,7 @@
                             </connections>
                         </button>
                         <button toolTip="Increase rate by one hundredth" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saL-tl-5xS" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="263" y="42" width="12" height="12"/>
+                            <rect key="frame" x="263" y="55" width="12" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="jMq-fr-asY">
                                 <behavior key="behavior" lightByContents="YES"/>
@@ -155,20 +175,9 @@
                                 <action selector="increaseRateByHundredthAction:" target="-2" id="Qy5-H5-OqN"/>
                             </connections>
                         </button>
-                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j98-HC-blR" userLabel="Shift Pitch">
-                            <rect key="frame" x="30" y="12" width="196" height="18"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="bevel" title="Shift pitch" bezelStyle="regularSquare" image="NotChecked" imagePosition="left" alignment="left" alternateImage="Checked" controlSize="mini" state="on" inset="2" id="ZrD-7L-zBQ" customClass="EffectsFunctionCheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" size="11" name="Play-Regular"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="shiftPitchAction:" target="-2" id="IXy-dq-rXI"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <connections>
-                        <outlet property="btnShiftPitch" destination="j98-HC-blR" id="7Hq-FS-jTr"/>
+                        <outlet property="btnShiftPitch" destination="ncL-8f-vJF" id="2ED-X8-IE6"/>
                         <outlet property="lblPitchShiftValue" destination="wfQ-8f-44I" id="JVI-zy-dKn"/>
                         <outlet property="lblTimeStretchRateValue" destination="9IV-G1-qdp" id="oyI-aL-B59"/>
                         <outlet property="timeSlider" destination="ZrQ-re-04h" id="220-SK-88J"/>
@@ -253,8 +262,8 @@
     </objects>
     <resources>
         <image name="Add" width="25" height="25"/>
-        <image name="Checked" width="12" height="12"/>
-        <image name="NotChecked" width="12" height="12"/>
+        <image name="Checked" width="200" height="200"/>
+        <image name="NotChecked" width="200" height="200"/>
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="Remove" width="27" height="27"/>
         <image name="SaveEQPreset" width="15" height="15"/>

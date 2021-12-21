@@ -1317,6 +1317,7 @@
 		3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */; };
 		3EFB1C6025EFCFAC00EF7F0F /* AtomicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */; };
 		3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */; };
+		3EFB64952772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */; };
 		3EFB9ECF26A689D800EA8440 /* MetadataTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB9ECE26A689D800EA8440 /* MetadataTrackInfo.xib */; };
 		3EFB9ED326A68A2400EA8440 /* TrackInfoViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB9ED226A68A2400EA8440 /* TrackInfoViewDelegate.swift */; };
 		3EFB9ED626A68B1F00EA8440 /* MetadataTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB9ED526A68B1F00EA8440 /* MetadataTrackInfoViewController.swift */; };
@@ -2399,6 +2400,7 @@
 		3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegLoopScheduling.swift; sourceTree = "<group>"; };
 		3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCounter.swift; sourceTree = "<group>"; };
 		3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchSliderCell.swift; sourceTree = "<group>"; };
+		3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateCheckButton.swift; sourceTree = "<group>"; };
 		3EFB9EC426A683EA00EA8440 /* unused.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = unused.rb; sourceTree = "<group>"; };
 		3EFB9ECE26A689D800EA8440 /* MetadataTrackInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataTrackInfo.xib; sourceTree = "<group>"; };
 		3EFB9ED226A68A2400EA8440 /* TrackInfoViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoViewDelegate.swift; sourceTree = "<group>"; };
@@ -3448,6 +3450,7 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0FB625CEB98600BF0D07 /* ModalDialogButtonCells.swift */,
+				3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */,
 				3E6C0FB725CEB98600BF0D07 /* MultiStateImageButton.swift */,
 				3E6C0FB925CEB98600BF0D07 /* OnOffImageButtons.swift */,
 				3E6C0FBA25CEB98600BF0D07 /* TabGroupButtonCells.swift */,
@@ -5657,6 +5660,7 @@
 				3EEC04132687A8E1004478CE /* MenuBarPlaybackViewController.swift in Sources */,
 				3EEC041B2687AA36004478CE /* MenuBarPlayerAudioViewController.swift in Sources */,
 				3EEC04172687A982004478CE /* MenuBarPlayerSequencingViewController.swift in Sources */,
+				3EFB64952772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift in Sources */,
 				3EBABCBE262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift in Sources */,
 				3E09D0D326805C19008ECB8C /* MenuBarPlayerUIPersistentState.swift in Sources */,
 				3E987ECC2630088600E6836D /* MenuBarPlayerUIState.swift in Sources */,

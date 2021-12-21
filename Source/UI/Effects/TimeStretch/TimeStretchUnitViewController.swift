@@ -193,12 +193,6 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     
     // MARK: Theming
     
-    override func applyFontScheme(_ fontScheme: FontScheme) {
-        
-        super.applyFontScheme(fontScheme)
-        timeStretchUnitView.applyFontScheme(fontScheme)
-    }
-    
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
@@ -214,7 +208,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         super.changeActiveUnitStateColor(color)
         
         if timeStretchUnit.isActive {
-            timeStretchUnitView.redrawSliders()
+            timeStretchUnitView.changeActiveUnitStateColor(color)
         }
     }
     
@@ -223,7 +217,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         super.changeBypassedUnitStateColor(color)
         
         if timeStretchUnit.state == .bypassed {
-            timeStretchUnitView.redrawSliders()
+            timeStretchUnitView.changeBypassedUnitStateColor(color)
         }
     }
     
@@ -232,13 +226,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         super.changeSuppressedUnitStateColor(color)
         
         if timeStretchUnit.state == .suppressed {
-            timeStretchUnitView.redrawSliders()
+            timeStretchUnitView.changeSuppressedUnitStateColor(color    )
         }
-    }
-    
-    override func changeFunctionCaptionTextColor(_ color: NSColor) {
-        
-        super.changeFunctionCaptionTextColor(color)
-        timeStretchUnitView.changeFunctionCaptionTextColor()
     }
 }
