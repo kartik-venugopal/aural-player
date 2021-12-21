@@ -17,7 +17,7 @@ class EffectsUnitSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
     override var knobWidth: CGFloat {10}
     override var knobRadius: CGFloat {1}
-    override var knobHeightOutsideBar: CGFloat {1.5}
+    override var knobHeightOutsideBar: CGFloat {2}
     
     override var knobColor: NSColor {
         Colors.Effects.sliderKnobColorForState(self.unitState)

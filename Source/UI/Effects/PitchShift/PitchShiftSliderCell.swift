@@ -17,9 +17,9 @@ class PitchShiftSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     override var barRadius: CGFloat {1}
     override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
     
-    override var knobWidth: CGFloat {6}
+    override var knobWidth: CGFloat {10}
     override var knobRadius: CGFloat {0.5}
-    override var knobHeightOutsideBar: CGFloat {1.5}
+    override var knobHeightOutsideBar: CGFloat {2}
     
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
