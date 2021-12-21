@@ -17,7 +17,7 @@ import Cocoa
 ///
 class ObjectGraph {
     
-    static let instance: ObjectGraph = ObjectGraph()
+    static let instance: ObjectGraph = .init()
     
     private let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
     lazy var persistentState: AppPersistentState = persistenceManager.load(type: AppPersistentState.self) ?? .defaults

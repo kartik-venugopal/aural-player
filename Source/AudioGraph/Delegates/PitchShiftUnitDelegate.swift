@@ -32,34 +32,52 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
         super.init(for: unit)
     }
     
-    var pitch: Float {
+    var pitch: PitchShift {
         
-        get {unit.pitch * ValueConversions.pitch_audioGraphToUI}
-        set {unit.pitch = newValue * ValueConversions.pitch_UIToAudioGraph}
-    }
-    
-    var formattedPitch: String {
-        ValueFormatter.formatPitch(pitch)
+        get {PitchShift(fromCents: unit.pitch)}
+        set {unit.pitch = newValue.asCentsFloat}
     }
     
     var presets: PitchShiftPresets {unit.presets}
     
-    func increasePitch() -> (pitch: Float, pitchString: String) {
+    func increasePitch() -> PitchShift {
         
         ensureActiveAndResetPitch()
         return setUnitPitch((unit.pitch + Float(preferences.pitchDelta)).clamp(to: pitchRange))
     }
     
-    func decreasePitch() -> (pitch: Float, pitchString: String) {
-        
-        ensureActiveAndResetPitch()
-        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta)).clamp(to: pitchRange))
+    func increasePitchOneOctave() -> PitchShift {
+        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_octaveToCents)).clamp(to: pitchRange))
     }
     
-    private func setUnitPitch(_ value: Float) -> (pitch: Float, pitchString: String) {
+    func increasePitchOneSemitone() -> PitchShift {
+        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_semitoneToCents)).clamp(to: pitchRange))
+    }
+    
+    func increasePitchOneCent() -> PitchShift {
+        setUnitPitch((unit.pitch + Float(1)).clamp(to: pitchRange))
+    }
+    
+    func decreasePitch() -> PitchShift {
+        setUnitPitch((unit.pitch - Float(preferences.pitchDelta)).clamp(to: pitchRange))
+    }
+    
+    func decreasePitchOneOctave() -> PitchShift {
+        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_octaveToCents)).clamp(to: pitchRange))
+    }
+    
+    func decreasePitchOneSemitone() -> PitchShift {
+        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_semitoneToCents)).clamp(to: pitchRange))
+    }
+    
+    func decreasePitchOneCent() -> PitchShift {
+        setUnitPitch((unit.pitch - Float(1)).clamp(to: pitchRange))
+    }
+    
+    private func setUnitPitch(_ value: Float) -> PitchShift {
         
         unit.pitch = value
-        return (pitch, formattedPitch)
+        return pitch
     }
     
     private func ensureActiveAndResetPitch() {

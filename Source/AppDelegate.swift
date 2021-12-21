@@ -104,4 +104,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-let objectGraph: ObjectGraph = ObjectGraph.instance
+let objectGraph: ObjectGraph = .instance
