@@ -16,13 +16,11 @@ class TimeStretchUnitView: NSView {
     // MARK: UI fields
     
     @IBOutlet weak var timeSlider: EffectsUnitSlider!
-    @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
     
     @IBOutlet weak var btnShiftPitch: NSButton!
     
     @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
-    @IBOutlet weak var lblTimeOverlapValue: NSTextField!
     
     private var sliders: [EffectsUnitSlider] = []
     
@@ -34,10 +32,6 @@ class TimeStretchUnitView: NSView {
         timeSlider.floatValue
     }
     
-    var overlap: Float {
-        timeOverlapSlider.floatValue
-    }
-    
     var shiftPitch: Bool {
         btnShiftPitch.isOn
     }
@@ -47,7 +41,7 @@ class TimeStretchUnitView: NSView {
     // MARK: View initialization
     
     override func awakeFromNib() {
-        sliders = [timeSlider, timeOverlapSlider]
+        sliders = [timeSlider]
     }
     
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
@@ -70,7 +64,6 @@ class TimeStretchUnitView: NSView {
     }
     
     func setState(rate: Float, rateString: String,
-                  overlap: Float, overlapString: String,
                   shiftPitch: Bool, shiftPitchString: String) {
         
         btnShiftPitch.onIf(shiftPitch)
@@ -78,9 +71,6 @@ class TimeStretchUnitView: NSView {
         
         timeSlider.floatValue = rate
         lblTimeStretchRateValue.stringValue = rateString
-        
-        timeOverlapSlider.floatValue = overlap
-        lblTimeOverlapValue.stringValue = overlapString
     }
     
     // Updates the label that displays the pitch shift value
@@ -96,12 +86,6 @@ class TimeStretchUnitView: NSView {
         updatePitchShift(shiftPitchString: shiftPitchString)
     }
     
-    func setOverlap(_ overlap: Float, overlapString: String) {
-        
-        timeOverlapSlider.floatValue = overlap
-        lblTimeOverlapValue.stringValue = overlapString
-    }
-    
     func applyPreset(_ preset: TimeStretchPreset) {
         
         setUnitState(preset.state)
@@ -111,9 +95,6 @@ class TimeStretchUnitView: NSView {
         
         timeSlider.floatValue = preset.rate
         lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)
-        
-        timeOverlapSlider.floatValue = preset.overlap
-        lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
     }
     
     // ------------------------------------------------------------------------
@@ -136,7 +117,7 @@ class TimeStretchUnitView: NSView {
     }
     
     func redrawSliders() {
-        [timeSlider, timeOverlapSlider].forEach {$0?.redraw()}
+        timeSlider.redraw()
     }
     
     func changeFunctionCaptionTextColor() {

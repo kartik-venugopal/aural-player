@@ -21,7 +21,6 @@ struct TimeStretchUnitPersistentState: Codable {
     
     let rate: Float?
     let shiftPitch: Bool?
-    let overlap: Float?
 }
 
 ///
@@ -35,7 +34,6 @@ struct TimeStretchPresetPersistentState: Codable {
     let state: EffectsUnitState?
     
     let rate: Float?
-    let overlap: Float?
     let shiftPitch: Bool?
     
     init(preset: TimeStretchPreset) {
@@ -44,7 +42,6 @@ struct TimeStretchPresetPersistentState: Codable {
         self.state = preset.state
         
         self.rate = preset.rate
-        self.overlap = preset.overlap
         self.shiftPitch = preset.shiftPitch
     }
 }

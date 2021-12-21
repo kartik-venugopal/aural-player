@@ -27,7 +27,6 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         super.init(unitType: .time, unitState: persistentState?.state ?? AudioGraphDefaults.timeStretchState)
         
         rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
-        overlap = persistentState?.overlap ?? AudioGraphDefaults.timeStretchOverlap
         shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeStretchShiftPitch
     }
     
@@ -37,12 +36,6 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         
         get {node.rate}
         set {node.rate = newValue}
-    }
-    
-    var overlap: Float {
-        
-        get {node.overlap}
-        set {node.overlap = newValue}
     }
     
     var shiftPitch: Bool {
@@ -64,7 +57,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     override func savePreset(named presetName: String) {
         
         presets.addObject(TimeStretchPreset(name: presetName, state: .active, rate: node.rate,
-                                            overlap: node.overlap, shiftPitch: node.shiftPitch, systemDefined: false))
+                                            shiftPitch: node.shiftPitch, systemDefined: false))
     }
     
     override func applyPreset(named presetName: String) {
@@ -77,13 +70,12 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     func applyPreset(_ preset: TimeStretchPreset) {
         
         rate = preset.rate
-        overlap = preset.overlap
         shiftPitch = preset.shiftPitch
     }
     
     var settingsAsPreset: TimeStretchPreset {
         
-        TimeStretchPreset(name: "timeSettings", state: state, rate: rate, overlap: overlap,
+        TimeStretchPreset(name: "timeSettings", state: state, rate: rate,
                           shiftPitch: shiftPitch, systemDefined: false)
     }
     
@@ -92,7 +84,6 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         TimeStretchUnitPersistentState(state: state,
                                        userPresets: presets.userDefinedObjects.map {TimeStretchPresetPersistentState(preset: $0)},
                                        rate: rate,
-                                       shiftPitch: shiftPitch,
-                                       overlap: overlap)
+                                       shiftPitch: shiftPitch)
     }
 }

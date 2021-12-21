@@ -51,7 +51,6 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         super.initControls()
         
         timeStretchUnitView.setState(rate: timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
-                                 overlap: timeStretchUnit.overlap, overlapString: timeStretchUnit.formattedOverlap,
                                  shiftPitch: timeStretchUnit.shiftPitch, shiftPitchString: timeStretchUnit.formattedPitch)
     }
     
@@ -79,13 +78,6 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         if timeStretchUnit.isActive {
             messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
         }
-    }
-    
-    // Updates the Overlap parameter of the Time stretch effects unit
-    @IBAction func timeOverlapAction(_ sender: Any) {
-        
-        timeStretchUnit.overlap = timeStretchUnitView.overlap
-        timeStretchUnitView.setOverlap(timeStretchUnit.overlap, overlapString: timeStretchUnit.formattedOverlap)
     }
     
     // Toggles the "Shift pitch" option of the Time stretch effects unit

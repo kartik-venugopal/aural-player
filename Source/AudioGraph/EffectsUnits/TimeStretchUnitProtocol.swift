@@ -19,9 +19,6 @@ protocol TimeStretchUnitProtocol: EffectsUnitProtocol {
     // The playback rate, specified as a value between 1/32 and 32
     var rate: Float {get set}
     
-    // The amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
-    var overlap: Float {get set}
-    
     // An option to alter the pitch of the sound, along with the rate
     var shiftPitch: Bool {get set}
     

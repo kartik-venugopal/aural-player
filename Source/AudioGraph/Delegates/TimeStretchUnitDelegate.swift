@@ -48,16 +48,6 @@ class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretch
         ValueFormatter.formatTimeStretchRate(rate)
     }
     
-    var overlap: Float {
-        
-        get {unit.overlap}
-        set {unit.overlap = newValue}
-    }
-    
-    var formattedOverlap: String {
-        ValueFormatter.formatOverlap(overlap)
-    }
-    
     var shiftPitch: Bool {
         
         get {unit.shiftPitch}
