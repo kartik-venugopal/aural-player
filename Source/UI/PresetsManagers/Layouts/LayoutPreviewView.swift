@@ -99,16 +99,3 @@ class LayoutPreviewView: NSView {
         image.draw(in: imgRect)
     }
 }
-
-extension NSRect {
-    
-    func shrink(_ factor: CGFloat) -> NSRect {
-        
-        let nx = self.minX * factor
-        let ny = self.minY * factor
-        let nw = self.width * factor
-        let nh = self.height * factor
-        
-        return NSRect(x: nx, y: ny, width: nw, height: nh)
-    }
-}

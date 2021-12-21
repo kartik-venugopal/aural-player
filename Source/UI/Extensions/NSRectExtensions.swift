@@ -38,6 +38,24 @@ extension NSRect {
         color.setFill()
         self.fill()
     }
+    
+    func shrink(_ factor: CGFloat) -> NSRect {
+        
+        let nx = self.minX * factor
+        let ny = self.minY * factor
+        let nw = self.width * factor
+        let nh = self.height * factor
+        
+        return NSRect(x: nx, y: ny, width: nw, height: nh)
+    }
+    
+    var leftHalf: NSRect {
+        NSRect(x: minX, y: minY, width: width / 2, height: height)
+    }
+    
+    var rightHalf: NSRect {
+        NSRect(x: centerX, y: minY, width: width / 2, height: height)
+    }
 }
 
 extension NSPoint {
