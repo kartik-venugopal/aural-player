@@ -21,7 +21,15 @@ class PitchShiftUnitView: NSView {
     @IBOutlet weak var lblSemitones: NSTextField!
     @IBOutlet weak var lblCents: NSTextField!
     
-    private var sliders: [EffectsUnitSlider] = []
+    @IBOutlet weak var btnIncreaseByOctave: TintedImageButton!
+    @IBOutlet weak var btnIncreaseBySemitone: TintedImageButton!
+    @IBOutlet weak var btnIncreaseByCent: TintedImageButton!
+    
+    @IBOutlet weak var btnDecreaseByOctave: TintedImageButton!
+    @IBOutlet weak var btnDecreaseBySemitone: TintedImageButton!
+    @IBOutlet weak var btnDecreaseByCent: TintedImageButton!
+    
+    private var functionButtons: [TintedImageButton] = []
     
     // ------------------------------------------------------------------------
     
@@ -65,14 +73,13 @@ class PitchShiftUnitView: NSView {
     // MARK: View initialization
     
     override func awakeFromNib() {
-        sliders = [pitchSlider]
+        
+        super.awakeFromNib()
+        functionButtons = [btnIncreaseByOctave, btnIncreaseBySemitone, btnIncreaseByCent, btnDecreaseByOctave, btnDecreaseBySemitone, btnDecreaseByCent]
     }
     
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
-        
-        sliders.forEach {
-            $0.stateFunction = stateFunction
-        }
+        pitchSlider.stateFunction = stateFunction
     }
     
     // ------------------------------------------------------------------------
@@ -80,7 +87,7 @@ class PitchShiftUnitView: NSView {
     // MARK: View update
     
     func setUnitState(_ state: EffectsUnitState) {
-        sliders.forEach {$0.setUnitState(state)}
+        pitchSlider.setUnitState(state)
     }
     
     func pitchUpdated() -> PitchShift {
@@ -91,7 +98,7 @@ class PitchShiftUnitView: NSView {
     }
     
     func stateChanged() {
-        sliders.forEach {$0.updateState()}
+        pitchSlider.updateState()
     }
     
     func applyPreset(_ preset: PitchShiftPreset) {
@@ -105,6 +112,16 @@ class PitchShiftUnitView: NSView {
     // MARK: Theming
     
     func redrawSliders() {
-        sliders.forEach {$0.redraw()}
+        pitchSlider.redraw()
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        redrawSliders()
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
+    }
+    
+    func changeFunctionButtonColor(_ color: NSColor) {
+        functionButtons.forEach {$0.reTint()}
     }
 }

@@ -9,12 +9,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PitchShiftUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="0Wm-Yf-mhU" id="lt6-Dr-xyx"/>
-                <outlet property="btnDecreaseByCent" destination="iBd-9i-f1s" id="Lvd-Xm-fYc"/>
-                <outlet property="btnDecreaseByOctave" destination="RQA-L4-epa" id="Svr-sV-6Fg"/>
-                <outlet property="btnDecreaseBySemitone" destination="eom-m7-tJ1" id="tQe-ou-a7Y"/>
-                <outlet property="btnIncreaseByCent" destination="hjS-Te-fwb" id="4pv-sz-uHz"/>
-                <outlet property="btnIncreaseByOctave" destination="mv3-7U-JqJ" id="R8x-6f-pqW"/>
-                <outlet property="btnIncreaseBySemitone" destination="tNi-4E-OGo" id="4gB-Y0-qFc"/>
                 <outlet property="btnSavePreset" destination="TzI-w2-CP3" id="7Hi-dh-gy2"/>
                 <outlet property="pitchShiftUnitView" destination="Nbf-AE-zAG" id="UXG-p7-MF7"/>
                 <outlet property="presetsMenuButton" destination="kLM-JQ-Lj4" id="gK0-FV-36c"/>
@@ -198,6 +192,12 @@
                         </textField>
                     </subviews>
                     <connections>
+                        <outlet property="btnDecreaseByCent" destination="iBd-9i-f1s" id="Fek-fa-EGX"/>
+                        <outlet property="btnDecreaseByOctave" destination="RQA-L4-epa" id="MH1-Gu-gvW"/>
+                        <outlet property="btnDecreaseBySemitone" destination="eom-m7-tJ1" id="je6-Xb-Xqu"/>
+                        <outlet property="btnIncreaseByCent" destination="hjS-Te-fwb" id="gBW-JD-kXG"/>
+                        <outlet property="btnIncreaseByOctave" destination="mv3-7U-JqJ" id="t1q-zn-4Ob"/>
+                        <outlet property="btnIncreaseBySemitone" destination="tNi-4E-OGo" id="BKy-oF-lEE"/>
                         <outlet property="lblCents" destination="NUl-Dd-8pD" id="4Gc-ej-Nou"/>
                         <outlet property="lblOctaves" destination="xCr-wj-fUa" id="hfQ-57-MPh"/>
                         <outlet property="lblSemitones" destination="x2g-QP-TBH" id="bxz-pt-d2R"/>
