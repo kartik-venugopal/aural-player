@@ -41,8 +41,7 @@ class TimeStretchUnitView: NSView {
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
         
         timeSlider.stateFunction = stateFunction
-//        btnShiftPitch.stateFunction = stateFunction
-//        btnShiftPitch.stateChanged()
+        btnShiftPitch.stateFunction = stateFunction
     }
     
     // ------------------------------------------------------------------------
@@ -52,19 +51,19 @@ class TimeStretchUnitView: NSView {
     func setUnitState(_ state: EffectsUnitState) {
         
         timeSlider.setUnitState(state)
-//        btnShiftPitch.reTint()
+        btnShiftPitch.reTint()
     }
     
     func stateChanged() {
         
         timeSlider.updateState()
-//        btnShiftPitch.stateChanged()
+        btnShiftPitch.stateChanged()
     }
     
     func setState(rate: Float, rateString: String,
                   shiftPitch: Bool, shiftPitchString: String) {
         
-//        btnShiftPitch.onIf(shiftPitch)
+        btnShiftPitch.onIf(shiftPitch)
         updatePitchShift(shiftPitchString: shiftPitchString)
         
         timeSlider.rate = rate
@@ -87,7 +86,7 @@ class TimeStretchUnitView: NSView {
     func applyPreset(_ preset: TimeStretchPreset) {
         
         setUnitState(preset.state)
-//        btnShiftPitch.onIf(preset.shiftPitch)
+        btnShiftPitch.onIf(preset.shiftPitch)
         
         lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(preset.shiftedPitch)
         
@@ -103,7 +102,7 @@ class TimeStretchUnitView: NSView {
         
         redrawSliders()
         
-//        btnShiftPitch.reTint()
+        btnShiftPitch.reTint()
         
         btnShiftPitch.attributedAlternateTitle = NSAttributedString(string: btnShiftPitch.title,
                                                                     attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])

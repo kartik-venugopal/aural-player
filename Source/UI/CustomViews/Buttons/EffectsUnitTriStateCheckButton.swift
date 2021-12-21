@@ -28,41 +28,63 @@ class EffectsUnitTriStateCheckButton: NSButton {
     var suppressedStateColor: NSColor {Colors.Effects.suppressedUnitStateColor}
         
     func stateChanged() {
-     
+        
         switch unitState {
 
         case .bypassed:
 
-            alternateImage = alternateImage?.tintedWithColor(bypassedStateColor)
+            image = image?.applyingTint(bypassedStateColor)
+            alternateImage = alternateImage?.applyingTint(bypassedStateColor)
 
         case .active:
 
-            alternateImage = alternateImage?.tintedWithColor(activeStateColor)
+            image = image?.applyingTint(activeStateColor)
+            alternateImage = alternateImage?.applyingTint(activeStateColor)
 
         case .suppressed:
 
-            alternateImage = alternateImage?.tintedWithColor(suppressedStateColor)
+            image = image?.applyingTint(suppressedStateColor)
+            alternateImage = alternateImage?.applyingTint(suppressedStateColor)
         }
     }
     
     func reTint() {
         
-        image = image?.tintedWithColor(bypassedStateColor)
-
         switch unitState {
 
         case .bypassed:
-            
-            alternateImage = alternateImage?.tintedWithColor(bypassedStateColor)
+
+            image = image?.applyingTint(bypassedStateColor)
+            alternateImage = alternateImage?.applyingTint(bypassedStateColor)
 
         case .active:
-            
-            alternateImage = alternateImage?.tintedWithColor(activeStateColor)
+
+            image = image?.applyingTint(activeStateColor)
+            alternateImage = alternateImage?.applyingTint(activeStateColor)
 
         case .suppressed:
 
-            alternateImage = alternateImage?.tintedWithColor(suppressedStateColor)
+            image = image?.applyingTint(suppressedStateColor)
+            alternateImage = alternateImage?.applyingTint(suppressedStateColor)
         }
     }
 }
 
+extension NSImage {
+    
+    // Returns a copy of this image tinted with a given color. Used by several UI components for system color scheme conformance.
+    func applyingTint(_ color: NSColor) -> NSImage {
+        
+        let image = self.copy() as! NSImage
+        image.lockFocus()
+        
+        color.set()
+        
+        let imageRect = NSRect(origin: NSZeroPoint, size: image.size)
+        imageRect.fill(using: .sourceAtop)
+        
+        image.unlockFocus()
+        
+        return image
+    }
+}
