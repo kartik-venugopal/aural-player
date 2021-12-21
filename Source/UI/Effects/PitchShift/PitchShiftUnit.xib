@@ -65,7 +65,7 @@
                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SSK-tR-2tT" userLabel="Pitch Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="88" y="97" width="254" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-2400" maxValue="2400" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="8Gk-cd-tre" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
+                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-2400" maxValue="2400" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="8Gk-cd-tre" customClass="PitchShiftSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
                                 <action selector="pitchAction:" target="-2" id="toU-eQ-b1i"/>
                             </connections>
