@@ -137,7 +137,7 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
      
 ## Screenshots
 
-### "Lava" color scheme, "Futuristic" font scheme, "Vertical Full Stack" window layout w/ main controls hidden
+### Custom color scheme, "Futuristic" font scheme, "Vertical Full Stack" window layout w/ main controls hidden
 
 ![Vertical full stack window layout screenshot](/Documentation/Screenshots/FullStack.png?raw=true)
 
