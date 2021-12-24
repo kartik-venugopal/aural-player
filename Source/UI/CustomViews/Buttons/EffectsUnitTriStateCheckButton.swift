@@ -28,24 +28,7 @@ class EffectsUnitTriStateCheckButton: NSButton {
     var suppressedStateColor: NSColor {Colors.Effects.suppressedUnitStateColor}
         
     func stateChanged() {
-        
-        switch unitState {
-
-        case .bypassed:
-
-            image = image?.tintedWithColor(bypassedStateColor)
-            alternateImage = alternateImage?.tintedWithColor(bypassedStateColor)
-
-        case .active:
-
-            image = image?.tintedWithColor(activeStateColor)
-            alternateImage = alternateImage?.tintedWithColor(activeStateColor)
-
-        case .suppressed:
-
-            image = image?.tintedWithColor(suppressedStateColor)
-            alternateImage = alternateImage?.tintedWithColor(suppressedStateColor)
-        }
+        reTint()
     }
     
     func reTint() {
@@ -77,4 +60,8 @@ class EffectsUnitTriStatePreviewCheckButton: EffectsUnitTriStateCheckButton {
     override var bypassedStateColor: NSColor {Colors.Effects.defaultBypassedUnitColor}
     
     override var suppressedStateColor: NSColor {Colors.Effects.defaultSuppressedUnitColor}
+    
+    override func awakeFromNib() {
+        stateChanged()
+    }
 }

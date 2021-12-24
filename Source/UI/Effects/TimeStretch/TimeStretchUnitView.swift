@@ -87,6 +87,7 @@ class TimeStretchUnitView: NSView {
         
         setUnitState(preset.state)
         btnShiftPitch.onIf(preset.shiftPitch)
+        btnShiftPitch.stateChanged()
         
         lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(preset.shiftedPitch)
         

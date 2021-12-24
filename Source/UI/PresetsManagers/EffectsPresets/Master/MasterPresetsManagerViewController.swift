@@ -122,7 +122,10 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         masterSubPreview.applyPreset(preset)
         eqSubPreview.applyPreset(preset.eq)
         pitchSubPreview.applyPreset(preset.pitch)
+        
         timeSubPreview.applyPreset(preset.time)
+        timeSubPreview.initialize(stateFunction: {preset.time.state})
+        
         reverbSubPreview.applyPreset(preset.reverb)
         delaySubPreview.applyPreset(preset.delay)
         
