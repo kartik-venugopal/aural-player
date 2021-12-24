@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PitchShiftPresetsManagerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="pitchView" destination="d7S-3W-NMI" id="fuG-vp-0pA"/>
+                <outlet property="pitchView" destination="qdx-fF-2bY" id="H4p-ti-aWG"/>
                 <outlet property="previewBox" destination="dva-Wp-792" id="BAn-TR-G16"/>
                 <outlet property="tableView" destination="onz-EZ-0an" id="gUK-XK-qCE"/>
                 <outlet property="view" destination="NT4-Xq-zih" id="9fR-Lf-o5Z"/>
@@ -102,106 +102,167 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TYy-DX-glm" userLabel="Controls Box">
-                                <rect key="frame" x="43" y="171" width="388" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" id="d7S-3W-NMI" customClass="PitchShiftUnitView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="388" height="68"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xck-41-h8h">
-                                            <rect key="frame" x="6" y="38" width="33" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Pitch" id="qpM-Jj-AV2">
-                                                <font key="font" size="11" name="Play-Regular"/>
-                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6N6-Zo-GVC">
-                                            <rect key="frame" x="312" y="40" width="49" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="z51-dX-3Mf">
-                                                <font key="font" size="10" name="Play-Regular"/>
-                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7KV-ge-hxO" userLabel="Pitch Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                            <rect key="frame" x="68" y="36" width="230" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="Zge-eG-7dm" customClass="EffectsSliderPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                        </slider>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P7A-WO-i2T" userLabel="-2 Octaves">
-                                            <rect key="frame" x="46" y="40" width="20" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-2" id="Pse-Ve-qru">
-                                                <font key="font" size="10" name="Play-Regular"/>
-                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qcY-ls-f1L" userLabel="2 Octaves">
-                                            <rect key="frame" x="300" y="40" width="20" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2" id="ieb-NY-FBx">
-                                                <font key="font" size="10" name="Play-Regular"/>
-                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v0T-T0-ZsC" userLabel="Overlap">
-                                            <rect key="frame" x="6" y="9" width="50" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Overlap" id="ZfU-mw-L7B">
-                                                <font key="font" size="11" name="Play-Regular"/>
-                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddv-Yn-8xS" userLabel="Overlap Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                            <rect key="frame" x="68" y="7" width="230" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" minValue="3" maxValue="32" doubleValue="8" tickMarkPosition="below" numberOfTickMarks="2" sliderType="linear" id="U4E-rP-qqk" customClass="EffectsSliderPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                        </slider>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVO-0P-dOQ" userLabel="3 Overlap values">
-                                            <rect key="frame" x="46" y="11" width="20" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="3" id="bHE-Fl-AeJ">
-                                                <font key="font" size="10" name="Play-Regular"/>
-                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TOn-bG-WdU" userLabel="Lbl Overlap Value">
-                                            <rect key="frame" x="335" y="11" width="26" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="vXg-Zv-jKo">
-                                                <font key="font" size="10" name="Play-Regular"/>
-                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gmh-1j-Prr" userLabel="32 Overlap values">
-                                            <rect key="frame" x="300" y="11" width="20" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="32" id="9Vj-jC-S0a">
-                                                <font key="font" size="10" name="Play-Regular"/>
-                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                    </subviews>
-                                    <connections>
-                                        <outlet property="lblPitchOverlapValue" destination="TOn-bG-WdU" id="sMT-jQ-Hkv"/>
-                                        <outlet property="lblPitchValue" destination="6N6-Zo-GVC" id="lQA-IN-bpl"/>
-                                        <outlet property="pitchOverlapSlider" destination="ddv-Yn-8xS" id="mBF-Kh-GrP"/>
-                                        <outlet property="pitchSlider" destination="7KV-ge-hxO" id="SgT-ng-vtb"/>
-                                    </connections>
-                                </view>
-                                <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
-                                <color key="fillColor" white="0.20445421010000001" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </box>
+                            <view wantsLayer="YES" id="qdx-fF-2bY" customClass="PitchShiftUnitView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="23" y="120" width="396" height="129"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WJd-Be-UFo" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="145" y="59" width="80" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Octaves" id="pFX-xD-uX0">
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                            <color key="textColor" white="0.39721565069999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cou-gY-R3r" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="145" y="30" width="80" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Semitones" id="2i4-Mj-5Fq">
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                            <color key="textColor" white="0.39721565069999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQu-Rh-nGZ" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="145" y="1" width="80" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Cents" id="Nqw-1U-bDT">
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                            <color key="textColor" white="0.39721565069999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DEh-tL-sqo" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="296" y="59" width="60" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="xKR-JT-0ji">
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                            <color key="textColor" white="0.39721565069999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <slider wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t1e-45-UTS" userLabel="Pitch Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="58" y="97" width="254" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-2400" maxValue="2400" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="vf5-qa-cBu" customClass="PitchShiftSliderPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                                    </slider>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bbn-JG-Yuw" userLabel="-2 Octaves" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="2" y="97" width="52" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-2 8ve" id="RFv-wA-Fph">
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                            <color key="textColor" white="0.39721565069999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXw-Of-hEy" userLabel="2 Octaves" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="316" y="97" width="49" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="+2 8ve" id="YeA-T0-KIE">
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                            <color key="textColor" white="0.39721565069999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button toolTip="Decrease pitch by one octave" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ik9-Oc-we0" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="125" y="63" width="12" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="NbK-bF-Qkh">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Remove"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button toolTip="Decrease pitch by one semitone" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q59-J0-Xpi" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="125" y="34" width="12" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" continuous="YES" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="Mdz-wM-dvd">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Remove"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button toolTip="Decrease pitch by one cent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PGd-2T-mlL" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="125" y="5" width="12" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" continuous="YES" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="50b-Bh-Sna">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Remove"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button toolTip="Increase pitch by one octave" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ECa-xi-2dZ" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="230" y="63" width="12" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="AOb-zd-KcF">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Add"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button toolTip="Increase pitch by one semitone" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ojL-Mh-r1O" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="230" y="34" width="12" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" continuous="YES" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="p25-nJ-H7y">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Add"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button toolTip="Increase pitch by one cent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UlW-NO-EDp" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="230" y="5" width="12" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" continuous="YES" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="rNP-c4-sbI">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Add"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JG7-na-cp1" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="296" y="30" width="60" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="9MK-DO-hsC">
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                            <color key="textColor" white="0.39721565069999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="URw-Of-hMU" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="296" y="1" width="60" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="8iK-Ge-qan">
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                            <color key="textColor" white="0.39721565069999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <connections>
+                                    <outlet property="btnDecreaseByCent" destination="PGd-2T-mlL" id="W0E-y1-LSv"/>
+                                    <outlet property="btnDecreaseByOctave" destination="ik9-Oc-we0" id="P6V-Et-XHW"/>
+                                    <outlet property="btnDecreaseBySemitone" destination="Q59-J0-Xpi" id="siN-Gr-o13"/>
+                                    <outlet property="btnIncreaseByCent" destination="UlW-NO-EDp" id="Ycf-Id-Ney"/>
+                                    <outlet property="btnIncreaseByOctave" destination="ECa-xi-2dZ" id="ZOt-Sq-aWJ"/>
+                                    <outlet property="btnIncreaseBySemitone" destination="ojL-Mh-r1O" id="kFd-6P-Fhw"/>
+                                    <outlet property="lblCents" destination="URw-Of-hMU" id="8tm-sJ-JQY"/>
+                                    <outlet property="lblOctaves" destination="DEh-tL-sqo" id="S7n-en-cpK"/>
+                                    <outlet property="lblSemitones" destination="JG7-na-cp1" id="wVk-Om-ckl"/>
+                                    <outlet property="pitchSlider" destination="t1e-45-UTS" id="H6d-D1-Y1g"/>
+                                </connections>
+                            </view>
                         </subviews>
                     </view>
                     <color key="borderColor" white="0.35150669639999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -211,4 +272,8 @@
             <point key="canvasLocation" x="243.5" y="240"/>
         </customView>
     </objects>
+    <resources>
+        <image name="Add" width="25" height="25"/>
+        <image name="Remove" width="27" height="27"/>
+    </resources>
 </document>

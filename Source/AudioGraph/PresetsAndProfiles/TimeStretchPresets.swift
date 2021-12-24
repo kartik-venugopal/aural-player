@@ -39,7 +39,7 @@ class TimeStretchPreset: EffectsUnitPreset {
         self.rate = rate
         self.shiftPitch = shiftPitch
         
-        self.shiftedPitch = (shiftPitch ? 1200 * log2(rate) : 0) * ValueConversions.pitch_audioGraphToUI
+        self.shiftedPitch = shiftPitch ? 1200 * log2(rate) : 0
         
         super.init(name: name, state: state, systemDefined: systemDefined)
     }
@@ -52,7 +52,7 @@ class TimeStretchPreset: EffectsUnitPreset {
         self.rate = rate
         self.shiftPitch = persistentState.shiftPitch ?? AudioGraphDefaults.timeStretchShiftPitch
         
-        self.shiftedPitch = (shiftPitch ? 1200 * log2(rate) : 0) * ValueConversions.pitch_audioGraphToUI
+        self.shiftedPitch = shiftPitch ? 1200 * log2(rate) : 0
         
         super.init(name: name, state: unitState, systemDefined: false)
     }

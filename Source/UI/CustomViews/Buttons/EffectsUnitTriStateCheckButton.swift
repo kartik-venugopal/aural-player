@@ -33,18 +33,18 @@ class EffectsUnitTriStateCheckButton: NSButton {
 
         case .bypassed:
 
-            image = image?.applyingTint(bypassedStateColor)
-            alternateImage = alternateImage?.applyingTint(bypassedStateColor)
+            image = image?.tintedWithColor(bypassedStateColor)
+            alternateImage = alternateImage?.tintedWithColor(bypassedStateColor)
 
         case .active:
 
-            image = image?.applyingTint(activeStateColor)
-            alternateImage = alternateImage?.applyingTint(activeStateColor)
+            image = image?.tintedWithColor(activeStateColor)
+            alternateImage = alternateImage?.tintedWithColor(activeStateColor)
 
         case .suppressed:
 
-            image = image?.applyingTint(suppressedStateColor)
-            alternateImage = alternateImage?.applyingTint(suppressedStateColor)
+            image = image?.tintedWithColor(suppressedStateColor)
+            alternateImage = alternateImage?.tintedWithColor(suppressedStateColor)
         }
     }
     
@@ -54,37 +54,27 @@ class EffectsUnitTriStateCheckButton: NSButton {
 
         case .bypassed:
 
-            image = image?.applyingTint(bypassedStateColor)
-            alternateImage = alternateImage?.applyingTint(bypassedStateColor)
+            image = image?.tintedWithColor(bypassedStateColor)
+            alternateImage = alternateImage?.tintedWithColor(bypassedStateColor)
 
         case .active:
 
-            image = image?.applyingTint(activeStateColor)
-            alternateImage = alternateImage?.applyingTint(activeStateColor)
+            image = image?.tintedWithColor(activeStateColor)
+            alternateImage = alternateImage?.tintedWithColor(activeStateColor)
 
         case .suppressed:
 
-            image = image?.applyingTint(suppressedStateColor)
-            alternateImage = alternateImage?.applyingTint(suppressedStateColor)
+            image = image?.tintedWithColor(suppressedStateColor)
+            alternateImage = alternateImage?.tintedWithColor(suppressedStateColor)
         }
     }
 }
 
-extension NSImage {
+class EffectsUnitTriStatePreviewCheckButton: EffectsUnitTriStateCheckButton {
     
-    // Returns a copy of this image tinted with a given color. Used by several UI components for system color scheme conformance.
-    func applyingTint(_ color: NSColor) -> NSImage {
-        
-        let image = self.copy() as! NSImage
-        image.lockFocus()
-        
-        color.set()
-        
-        let imageRect = NSRect(origin: NSZeroPoint, size: image.size)
-        imageRect.fill(using: .sourceAtop)
-        
-        image.unlockFocus()
-        
-        return image
-    }
+    override var activeStateColor: NSColor {Colors.Effects.defaultActiveUnitColor}
+    
+    override var bypassedStateColor: NSColor {Colors.Effects.defaultBypassedUnitColor}
+    
+    override var suppressedStateColor: NSColor {Colors.Effects.defaultSuppressedUnitColor}
 }
