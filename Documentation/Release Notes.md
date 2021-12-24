@@ -22,6 +22,8 @@ There are now also 2 additional controls to increment / decrement playback rate 
 The main slider control's time stretch indication coloring now originates from the neutral value in the center (1x rate) to make reading its
 indication more intuitive.
 
+Replaced check box with a iOS-style toggle switch.
+
 ### Title bar area
 
 The caption of the currently displayed effects unit has been moved up to the effects panel's title bar area. It is now consistent with the playlist 
