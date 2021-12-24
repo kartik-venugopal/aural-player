@@ -190,6 +190,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
         messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
         messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
         messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
         
         messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
@@ -448,10 +449,9 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
+        changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         changeSummaryInfoColor(scheme.playlist.summaryInfoColor)
-        
-        lblPlaylistName.textColor = scheme.general.mainCaptionTextColor
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -465,6 +465,10 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         }
         
         redrawTabButtons()
+    }
+    
+    private func changeMainCaptionTextColor(_ color: NSColor) {
+        lblPlaylistName.textColor = color
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {

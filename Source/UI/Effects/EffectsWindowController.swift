@@ -174,6 +174,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
         messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
         messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
         messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
         messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
         messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
         messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
@@ -231,16 +232,20 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
+        changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         
         tabViewButtons.forEach {$0.reTint()}
-        lblDisplayedUnit.textColor = scheme.general.mainCaptionTextColor
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
         
         rootContainerBox.fillColor = color
         tabViewButtons.forEach {$0.redraw()}
+    }
+    
+    private func changeMainCaptionTextColor(_ color: NSColor) {
+        lblDisplayedUnit.textColor = color
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {
