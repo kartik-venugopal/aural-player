@@ -11,7 +11,6 @@
     + [Compatibility](#compatibility)
     + [Installation](#installation)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
-    + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
   * [Building the app](#building-the-app)
   * [Documentation](#documentation)
   * [Screenshots](#screenshots)
@@ -110,10 +109,6 @@ NOTE - Please ***don't*** run the app directly from within the image. Copy it ou
 ### Enabling media keys support (optional)
 
 Follow the steps listed [here](https://github.com/maculateConception/aural-player/wiki/Enabling-media-keys-support).
-
-### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
-
-Please read [this important note](https://github.com/maculateConception/aural-player/wiki/Important-note-for-anyone-upgrading-from-v2.2.0-(or-older)-to-v2.3.0-or-newer-app-versions), otherwise you will lose your previous app settings.
 
 ## Building the app
 
