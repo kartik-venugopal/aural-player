@@ -226,7 +226,13 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         super.changeSuppressedUnitStateColor(color)
         
         if timeStretchUnit.state == .suppressed {
-            timeStretchUnitView.changeSuppressedUnitStateColor(color    )
+            timeStretchUnitView.changeSuppressedUnitStateColor(color)
         }
+    }
+    
+    override func changeFunctionButtonColor(_ color: NSColor) {
+        
+        super.changeFunctionButtonColor(color)
+        timeStretchUnitView.changeFunctionButtonColor(color)
     }
 }

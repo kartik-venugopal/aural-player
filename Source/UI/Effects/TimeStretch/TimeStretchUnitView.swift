@@ -22,6 +22,13 @@ class TimeStretchUnitView: NSView {
     @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
     
+    @IBOutlet weak var btnIncreaseRateTenth: TintedImageButton!
+    @IBOutlet weak var btnDecreaseRateTenth: TintedImageButton!
+    @IBOutlet weak var btnIncreaseRateHundredth: TintedImageButton!
+    @IBOutlet weak var btnDecreaseRateHundredth: TintedImageButton!
+    
+    private var functionButtons: [TintedImageButton] = []
+    
     // ------------------------------------------------------------------------
     
     // MARK: Properties
@@ -42,6 +49,8 @@ class TimeStretchUnitView: NSView {
         
         timeSlider.stateFunction = stateFunction
         btnShiftPitch.stateFunction = stateFunction
+        
+        functionButtons = [btnIncreaseRateTenth, btnDecreaseRateTenth, btnIncreaseRateHundredth, btnDecreaseRateHundredth]
     }
     
     // ------------------------------------------------------------------------
@@ -117,9 +126,9 @@ class TimeStretchUnitView: NSView {
         
         redrawSliders()
         
-//        if btnShiftPitch.isOn {
-//            btnShiftPitch.reTint()
-//        }
+        if btnShiftPitch.isOn {
+            btnShiftPitch.reTint()
+        }
     }
     
     func changeBypassedUnitStateColor(_ color: NSColor) {
@@ -130,17 +139,21 @@ class TimeStretchUnitView: NSView {
             redrawSliders()
         }
         
-//        if btnShiftPitch.isOff || isBypassed {
-//            btnShiftPitch.reTint()
-//        }
+        if btnShiftPitch.isOff || isBypassed {
+            btnShiftPitch.reTint()
+        }
     }
     
     func changeSuppressedUnitStateColor(_ color: NSColor) {
         
         redrawSliders()
         
-//        if btnShiftPitch.isOn {
-//            btnShiftPitch.reTint()
-//        }
+        if btnShiftPitch.isOn {
+            btnShiftPitch.reTint()
+        }
+    }
+    
+    func changeFunctionButtonColor(_ color: NSColor) {
+        functionButtons.forEach {$0.reTint()}
     }
 }

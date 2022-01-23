@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -177,6 +177,10 @@
                         </button>
                     </subviews>
                     <connections>
+                        <outlet property="btnDecreaseRateHundredth" destination="Muc-Cm-Ib7" id="tWF-Sx-oDc"/>
+                        <outlet property="btnDecreaseRateTenth" destination="ISN-h2-7JL" id="O4n-Nx-24c"/>
+                        <outlet property="btnIncreaseRateHundredth" destination="saL-tl-5xS" id="8My-D4-yGy"/>
+                        <outlet property="btnIncreaseRateTenth" destination="7rk-Dt-Iib" id="Dj9-Cc-Ld9"/>
                         <outlet property="btnShiftPitch" destination="ncL-8f-vJF" id="2ED-X8-IE6"/>
                         <outlet property="lblPitchShiftValue" destination="wfQ-8f-44I" id="JVI-zy-dKn"/>
                         <outlet property="lblTimeStretchRateValue" destination="9IV-G1-qdp" id="oyI-aL-B59"/>
