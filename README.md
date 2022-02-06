@@ -74,9 +74,11 @@ Read more about it [here](https://github.com/maculateConception/aural-player/wik
 - Use of newer AppKit APIs
 - Tons of source code improvements (including the use of newer APIs)
 
-NOTE - Version 4.0 will only support macOS 11.0 (Big Sur) and newer versions, because of its use of newer AppKit APIs, which are only available in the newer macOS versions.
+**NOTE - Version 4.0 will only support macOS 11.0 (Big Sur) and newer versions, because of its use of newer AppKit APIs, which are only available in the newer macOS versions.**
 
-The following features ***may be*** implemented in the future:
+------------------------------------------------------
+
+In addition to v4.0, the following features ***may be*** implemented in the future:
 
 - A file browser.
 - Allow for multiple playlists.
