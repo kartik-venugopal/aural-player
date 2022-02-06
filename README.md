@@ -82,8 +82,6 @@ In addition to v4.0, the following features ***may be*** implemented in the futu
 
 - A file browser.
 - Allow for multiple playlists.
-- A single window "Unified" user interface mode.
-- A nicer playlist UI with customizable columns and a "tiles" view.
 - Replay gain.
 - Crossfading between tracks.
 - Gapless playback.
