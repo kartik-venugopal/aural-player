@@ -67,6 +67,7 @@ Read more about it [here](https://github.com/maculateConception/aural-player/wik
 - More playlist-related features such as multiple playlists ... TBD
 - Improved usability / controls
 - Simplified color scheming
+- More tool tips and help
 - More Apple-recommended user interface elements and styling
 - Use of more Apple-recommended SF symbols for icons
 - A new app setup screen on first app launch
