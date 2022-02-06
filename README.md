@@ -59,6 +59,22 @@ Read more about it [here](https://github.com/maculateConception/aural-player/wik
 
 ### Roadmap
 
+**As of Feb 6, 2022, version 4.0 is in active development, and may bring several improvements:**
+
+- An app version for iOS (may only support iPadOS) ... TBD
+- A new single-window "Unified" app mode on macOS
+- Improved UI aesthetics
+- More playlist-related features such as multiple playlists ... TBD
+- Improved usability / controls
+- Simplified color scheming
+- More Apple-recommended user interface elements and styling
+- Use of more Apple-recommended SF symbols for icons
+- A new app setup screen on first app launch
+- Use of newer AppKit APIs
+- Tons of source code improvements (including the use of newer APIs)
+
+NOTE - Version 4.0 will only support macOS 11.0 (Big Sur) and newer versions, because of its use of newer AppKit APIs, which are only available in the newer macOS versions.
+
 The following features ***may be*** implemented in the future:
 
 - A file browser.
