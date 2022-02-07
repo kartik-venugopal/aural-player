@@ -1,4 +1,4 @@
-<img width="225" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
+<img width="225" src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
@@ -27,27 +27,27 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 | Flexibility  | Personalization |
 | :-- | --: |
-|  <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Modularity.gif" width="500" />| <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Customization.gif" width="300" /> |
+|  <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Modularity.gif" width="500" />| <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Customization.gif" width="300" /> |
 | With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace or tuck it away in the macOS menu bar. | Personalize Aural Player with exactly the colors and fonts that define your creative tastes. |
 
 | Extensive Audio Formats Support  | Sound tuning and monitoring |
 | :-- | --: |
-|  <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="700" /> |
+|  <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="700" /> |
 | By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats. | With several built-in effects and support for Audio Units (AU) plug-ins, sound tuning and monitoring possibilities are endless. |
 
 ### How it works (under the hood)
 
 Aural Player is written entirely in Swift (approximately 100,000 lines of code). It uses **AVFoundation's AVAudioEngine** framework (and some low-level **Core Audio**) for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
 
-<img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Diagrams/UnderTheHood.png" alt="How it works screenshot" width="850" />
+<img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Diagrams/UnderTheHood.png" alt="How it works screenshot" width="850" />
 
-Read more about it [here](https://github.com/maculateConception/aural-player/wiki/Developer-reference).
+Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/Developer-reference).
 
 ## Key features
 
-(Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
+(Comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features))
 
-* Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: (including FLAC, Vorbis, Monkey's Audio (APE), Opus, & [many more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
+* Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: (including FLAC, Vorbis, Monkey's Audio (APE), Opus, & [many more](https://github.com/kartik-venugopal/aural-player/wiki/Features#audio-formats))
 * Supports M3U / M3U8 playlists
 * **Playback:** Bookmarking, segment looping, custom seek intervals, last position memory, chapters support, autoplay.
 * **Effects:** Built-in effects (incl. equalizer), Audio Unit (AU) plug-in support, built-in / custom presets, per-track settings memory.
@@ -95,19 +95,19 @@ In addition to v4.0, the following features ***may be*** implemented in the futu
 
 ## Download
 
-[Latest release](https://github.com/maculateConception/aural-player/releases/latest)
+[Latest release](https://github.com/kartik-venugopal/aural-player/releases/latest)
 
-[See all releases](https://github.com/maculateConception/aural-player/releases)
+[See all releases](https://github.com/kartik-venugopal/aural-player/releases)
 
 ### Compatibility
 
-This table lists the ***minimum*** required Aural Player version for your hardware and macOS version. It is always recommended to use the [latest](https://github.com/maculateConception/aural-player/releases/latest) app version, regardless of your hardware / macOS version.
+This table lists the ***minimum*** required Aural Player version for your hardware and macOS version. It is always recommended to use the [latest](https://github.com/kartik-venugopal/aural-player/releases/latest) app version, regardless of your hardware / macOS version.
 
 |              | Intel (x86_64)  | Apple silicon (arm64)|
 | :---:        | :-:             | :-:       |
-| macOS 10.12 - 10.15 | [1.0.0](https://github.com/maculateConception/aural-player/releases/tag/v1.0.0)           | (N/A)     |
-| macOS 11.x (Big Sur)  | [2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)    |
-| macOS 12.x (Monterey)  | [2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)    |
+| macOS 10.12 - 10.15 | [1.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v1.0.0)           | (N/A)     |
+| macOS 11.x (Big Sur)  | [2.3.0](https://github.com/kartik-venugopal/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/3.0.0)    |
+| macOS 12.x (Monterey)  | [2.3.0](https://github.com/kartik-venugopal/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/3.0.0)    |
 
 **NOTES:** 
 
@@ -126,27 +126,27 @@ NOTE - Please ***don't*** run the app directly from within the image. Copy it ou
 
 ### Enabling media keys support (optional)
 
-Follow the steps listed [here](https://github.com/maculateConception/aural-player/wiki/Enabling-media-keys-support).
+Follow the steps listed [here](https://github.com/kartik-venugopal/aural-player/wiki/Enabling-media-keys-support).
 
 ## Building the app
 
-All you need is Xcode 12.2+ and the [source code](https://github.com/maculateConception/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
+All you need is Xcode 12.2+ and the [source code](https://github.com/kartik-venugopal/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
 
-Read the [quick start guide](https://github.com/maculateConception/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide)) for more details.
+Read the [quick start guide](https://github.com/kartik-venugopal/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide)) for more details.
 
 ## Documentation
 
-All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
+All the documentation can be found on the [wiki](https://github.com/kartik-venugopal/aural-player/wiki).
 
 #### Some pages to get you started
 
-[How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
+[How To's](https://github.com/kartik-venugopal/aural-player/wiki/How-To's)
 
-[Handy keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts)
+[Handy keyboard shortcuts](https://github.com/kartik-venugopal/aural-player/wiki/Handy-keyboard-shortcuts)
 
-[Building and running Aural Player (quick start guide)](https://github.com/maculateConception/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide))
+[Building and running Aural Player (quick start guide)](https://github.com/kartik-venugopal/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide))
 
-[Developer reference](https://github.com/maculateConception/aural-player/wiki/Developer-reference)
+[Developer reference](https://github.com/kartik-venugopal/aural-player/wiki/Developer-reference)
      
 ## Screenshots
 
@@ -172,9 +172,9 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ### Control Center integration (macOS Big Sur)
 
-<img width="700" src="https://raw.githubusercontent.com/maculateConception/aural-player/master//Documentation/Screenshots/ControlCenter1.png" alt="Control Center integration 1 screenshot"/>
+<img width="700" src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master//Documentation/Screenshots/ControlCenter1.png" alt="Control Center integration 1 screenshot"/>
 
-<img width="700" src="https://raw.githubusercontent.com/maculateConception/aural-player/master//Documentation/Screenshots/ControlCenter2.png" alt="Control Center integration 2 screenshot"/>
+<img width="700" src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master//Documentation/Screenshots/ControlCenter2.png" alt="Control Center integration 2 screenshot"/>
 
 ### Font schemes
 
@@ -210,15 +210,15 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ### Visualizer
 
-<img width="530" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Visualizer.gif"/>
+<img width="530" src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Visualizer.gif"/>
 
 ## Known issues (and solutions)
 
-* [The text is too small on my Mac screen.](https://github.com/maculateConception/aural-player/wiki/App-text-is-too-small-on-my-Mac-screen)
+* [The text is too small on my Mac screen.](https://github.com/kartik-venugopal/aural-player/wiki/App-text-is-too-small-on-my-Mac-screen)
 
-* [Poor audio quality when using Bluetooth headsets.](https://github.com/maculateConception/aural-player/wiki/Poor-audio-quality-when-using-Bluetooth-headsets)
+* [Poor audio quality when using Bluetooth headsets.](https://github.com/kartik-venugopal/aural-player/wiki/Poor-audio-quality-when-using-Bluetooth-headsets)
 
-* [My media keys don't work with Aural Player](https://github.com/maculateConception/aural-player/wiki/My-media-keys-don't-work-with-Aural-Player)
+* [My media keys don't work with Aural Player](https://github.com/kartik-venugopal/aural-player/wiki/My-media-keys-don't-work-with-Aural-Player)
 
 ## Contact and conversation
 
@@ -226,7 +226,7 @@ I encourage you to provide feedback or start a conversation about features you'd
 
 **Email:** [aural.student@gmail.com](mailto:aural.student@gmail.com)
 
-**GitHub Issues** https://github.com/maculateConception/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
+**GitHub Issues** https://github.com/kartik-venugopal/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
 
 ## How to contribute
 
@@ -252,4 +252,4 @@ Fellow GitHub member [dun198](https://github.com/dun198) made significant contri
 
 ## License
 
-Aural Player (in both forms - source code and binary) is available for use under the [MIT license](https://github.com/maculateConception/aural-player/blob/master/LICENSE).
+Aural Player (in both forms - source code and binary) is available for use under the [MIT license](https://github.com/kartik-venugopal/aural-player/blob/master/LICENSE).
