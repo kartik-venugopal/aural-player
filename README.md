@@ -236,6 +236,8 @@ I would love to localize Aural Player so that it is more comfortable to use for 
 
 Please [email me](mailto:aural.student@gmail.com) if you're interested in helping with this !
 
+NOTE - I am ***not*** looking for help with app development at the moment, but if this changes, I will post an update.
+
 ## Third party code attributions
 
 * [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
