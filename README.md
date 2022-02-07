@@ -224,7 +224,7 @@ All the documentation can be found on the [wiki](https://github.com/kartik-venug
 
 I encourage you to provide feedback or start a conversation about features you'd like to see implemented, bugs you've encountered, or suggestions for improvement.
 
-**Email:** [aural.student@gmail.com](mailto:aural.student@gmail.com)
+**Email:** [kartikv2017@gmail.com](mailto:kartikv2017@gmail.com)
 
 **GitHub Issues** https://github.com/kartik-venugopal/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
 
@@ -234,7 +234,7 @@ Interested in contributing to this awesome project ?!
 
 I would love to localize Aural Player so that it is more comfortable to use for users who prefer other languages. I could definitely use help translating Aural Player's text into languages such as German, French, Spanish, Italian, Chinese, Japanese, etc (and any others that you can help with).
 
-Please [email me](mailto:aural.student@gmail.com) if you're interested in helping with this !
+Please [email me](mailto:kartikv2017@gmail.com) if you're interested in helping with this !
 
 NOTE - I am ***not*** looking for help with app development at the moment, but if this changes, I will post an update.
 
