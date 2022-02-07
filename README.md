@@ -232,7 +232,7 @@ I encourage you to provide feedback or start a conversation about features you'd
 
 Interested in contributing to this awesome project ?!
 
-I would love to localize Aural Player so that it is more comfortable to use for users who prefer other languages. I could definitely use help translating Aural Player text into languages such as German, French, Spanish, Italian, Chinese, Japanese, etc (and any others that you can help with).
+I would love to localize Aural Player so that it is more comfortable to use for users who prefer other languages. I could definitely use help translating Aural Player's text into languages such as German, French, Spanish, Italian, Chinese, Japanese, etc (and any others that you can help with).
 
 Please [email me](mailto:aural.student@gmail.com) if you're interested in helping with this !
 
