@@ -16,8 +16,8 @@
   * [Screenshots](#screenshots)
   * [Known issues (and solutions)](#known-issues-and-solutions)
   * [Contact and conversation](#contact-and-conversation)
-  * [Third party code attributions](#third-party-code-attributions)
   * [How to contribute](#how-to-contribute)
+  * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
   * [License](#license)
 
@@ -228,12 +228,6 @@ I encourage you to provide feedback or start a conversation about features you'd
 
 **GitHub Issues** https://github.com/maculateConception/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
 
-## Third party code attributions
-
-* [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
-* [MediaKeyTap](https://github.com/nhurden/MediaKeyTap) (used to respond to media keys)
-* [RangeSlider](https://github.com/matthewreagan/RangeSlider) (used in the Filter effects unit to specify frequency ranges)
-
 ## How to contribute
 
 Interested in contributing to this awesome project ?!
@@ -241,6 +235,12 @@ Interested in contributing to this awesome project ?!
 I would love to localize Aural Player so that it is more comfortable to use for users who prefer other languages. I could definitely use help translating Aural Player text into languages such as German, French, Spanish, Italian, Chinese, Japanese, etc (and any others that you can help with).
 
 Please [email me](mailto:aural.student@gmail.com) if you're interested in helping with this !
+
+## Third party code attributions
+
+* [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
+* [MediaKeyTap](https://github.com/nhurden/MediaKeyTap) (used to respond to media keys)
+* [RangeSlider](https://github.com/matthewreagan/RangeSlider) (used in the Filter effects unit to specify frequency ranges)
 
 ## Contributor attributions
 
