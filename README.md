@@ -64,14 +64,13 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 
 - An app version for iOS (may only support iPadOS) ... TBD
 - A new single-window "Unified" app mode on macOS
+- A new app setup screen on first app launch
 - Improved UI aesthetics
+- More Apple-recommended user interface elements and styling
 - More playlist-related features such as multiple playlists ... TBD
 - Improved usability / controls
 - Simplified color scheming
 - More tool tips and help
-- More Apple-recommended user interface elements and styling
-- Use of more Apple-recommended SF symbols for icons
-- A new app setup screen on first app launch
 - Use of newer AppKit APIs
 - Tons of source code improvements (including the use of newer APIs)
 
