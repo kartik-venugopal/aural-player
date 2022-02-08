@@ -56,7 +56,7 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizer:** 3 different visualizations that dance to the music, with customizable colors.
 * **UI:** Modular interface, fully customizable fonts and colors (with gradients), built-in / custom window layouts, menu bar mode, control bar (widget) mode.
-* **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, media control devices / apps).
+* **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, and media control devices / apps.
 
 ### Roadmap
 
