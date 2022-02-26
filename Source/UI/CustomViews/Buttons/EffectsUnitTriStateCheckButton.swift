@@ -37,18 +37,18 @@ class EffectsUnitTriStateCheckButton: NSButton {
 
         case .bypassed:
 
-            image = image?.tintedWithColor(bypassedStateColor)
-            alternateImage = alternateImage?.tintedWithColor(bypassedStateColor)
+            image = image?.simplyTintedWithColor(bypassedStateColor)
+            alternateImage = alternateImage?.simplyTintedWithColor(bypassedStateColor)
 
         case .active:
 
-            image = image?.tintedWithColor(activeStateColor)
-            alternateImage = alternateImage?.tintedWithColor(activeStateColor)
+            image = image?.simplyTintedWithColor(activeStateColor)
+            alternateImage = alternateImage?.simplyTintedWithColor(activeStateColor)
 
         case .suppressed:
 
-            image = image?.tintedWithColor(suppressedStateColor)
-            alternateImage = alternateImage?.tintedWithColor(suppressedStateColor)
+            image = image?.simplyTintedWithColor(suppressedStateColor)
+            alternateImage = alternateImage?.simplyTintedWithColor(suppressedStateColor)
         }
     }
 }

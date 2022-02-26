@@ -1,8 +1,8 @@
-#  What's New in Version 3.5.2
+#  What's New in Version 3.5.3
 
-## Fixed FX presets editor crash
+## Fixed Disco Ball visualization
 
-When the menu item **Sound > Manage effects presets** was clicked, v3.5.1 would crash because of some *nil* references.  
+The Disco Ball visualization's texture image was not being displayed for the past few app versions. This has been fixed.  
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.5.2)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.5.3)
