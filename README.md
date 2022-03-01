@@ -65,6 +65,7 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 - An app version for iOS (may only support iPadOS) ... TBD
 - A new single-window "Unified" app mode on macOS
 - Ability to play online streams ? ... TBD
+- Plug-in architecture for visualizations (enabling developers to use / share custom visualizations) ? ... TBD
 - A new app setup screen on first app launch
 - Improved UI aesthetics
 - More Apple-recommended user interface elements and styling
