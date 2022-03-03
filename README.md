@@ -5,6 +5,7 @@
 ## Table of Contents
   * [Overview](#overview)
     + [How it works (under the hood)](#how-it-works-under-the-hood)
+    + [Limitations](#limitations)
   * [Key features](#key-features)
     + [Roadmap](#roadmap)
   * [Download](#download)
@@ -42,6 +43,11 @@ Aural Player is written entirely in Swift (approximately 100,000 lines of code).
 <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Diagrams/UnderTheHood.png" alt="How it works screenshot" width="850" />
 
 Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/Developer-reference).
+
+### Limitations
+
+* Currently, Aural does not play online streams. However, this feature has been requested and I am strongly considering implementing it for version 4.x.
+* Aural does not play protected content (for example, Apple's M4P or Audible's AAX). There are no plans to implement this.
 
 ## Key features
 
