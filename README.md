@@ -12,7 +12,7 @@
   * [Download](#download)
     + [Compatibility](#compatibility)
     + [Installation](#installation)
-    + [Enabling media keys support](#enabling-media-keys-support-optional)
+    + [Media keys support](#media-keys-support)
   * [Building the app](#building-the-app)
   * [Documentation](#documentation)
   * [Screenshots](#screenshots)
@@ -135,7 +135,7 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 
 NOTE - Please ***don't*** run the app directly from within the image. Copy it outside and run the copy.
 
-### Enabling media keys support (optional)
+### Media keys support
 
 Your Mac media keys should work with Aural right out of the box (assuming you granted Aural Accessibility permissions on first app launch), but if for some reason the media keys don't work, follow the steps listed [here](https://github.com/kartik-venugopal/aural-player/wiki/Enabling-media-keys-support).
 
