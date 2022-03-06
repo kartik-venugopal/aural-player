@@ -137,7 +137,7 @@ NOTE - Please ***don't*** run the app directly from within the image. Copy it ou
 
 ### Enabling media keys support (optional)
 
-Follow the steps listed [here](https://github.com/kartik-venugopal/aural-player/wiki/Enabling-media-keys-support).
+Your Mac media keys should work with Aural right out of the box (assuming you granted Aural Accessibility permissions on first app launch), but if for some reason the media keys don't work, follow the steps listed [here](https://github.com/kartik-venugopal/aural-player/wiki/Enabling-media-keys-support).
 
 ## Building the app
 
