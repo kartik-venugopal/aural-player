@@ -8,6 +8,7 @@
     + [Limitations](#limitations)
   * [Key features](#key-features)
     + [Roadmap](#roadmap)
+    + [Version 4.0](#version-40)
   * [Download](#download)
     + [Compatibility](#compatibility)
     + [Installation](#installation)
@@ -65,6 +66,8 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, and media control devices / apps.
 
 ### Roadmap
+
+#### Version 4.0
 
 **As of Feb 6, 2022, version 4.0 is in active development, and may bring several improvements:**
 
