@@ -69,7 +69,7 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 
 #### Version 4.0
 
-**As of Feb 6, 2022, version 4.0 is in active development, and may bring several improvements:**
+As of Feb 6, 2022, version 4.0 is in active development, and may bring several improvements:
 
 - An app version for iOS (may only support iPadOS) ... TBD
 - A new single-window "Unified" app mode on macOS
