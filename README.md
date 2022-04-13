@@ -89,6 +89,8 @@ As of Feb 6, 2022, version 4.0 is in active development, and may bring several i
 
 **NOTE - Version 4.0 will only support macOS 11.0 (Big Sur) and newer versions, because of its use of newer AppKit APIs, which are only available in the newer macOS versions.**
 
+Interested in seeing what's going with the development of v4.0 ? Check out [the v4.0 branch](https://github.com/kartik-venugopal/aural-player/tree/v4.0)!
+
 ------------------------------------------------------
 
 In addition to v4.0, the following features ***may be*** implemented in the future:
