@@ -1,8 +1,8 @@
-#  What's New in Version 3.5.3
+#  What's New in Version 3.5.4
 
-## Fixed Disco Ball visualization
+## Fixed Control Center track info display (Now Playing Info)
 
-The Disco Ball visualization's texture image was not being displayed in the past few app versions. This has been fixed.  
+For tracks without title metadata, macOS Control Center would not display a title. This bug has been fixed so Control Center now displays the default display name of the track.  
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.5.3)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.5.4)
