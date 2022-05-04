@@ -166,6 +166,8 @@ class FilterUnitView: NSView {
         tabButtons.removeAll()
 
         tabView.tabViewItems.removeAll()
+        
+        bandViews.removeAll()
 
         updateCRUDButtonStates()
     }
