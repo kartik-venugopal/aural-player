@@ -1,8 +1,8 @@
-#  What's New in Version 3.5.4
+#  What's New in Version 3.5.5
 
-## Fixed Control Center track info display (Now Playing Info)
+## Fixed Filter unit preset
 
-For tracks without title metadata, macOS Control Center would not display a title. This bug has been fixed so Control Center now displays the default display name of the track.  
+The Filter effects unit's "No bass" preset was incorrectly configured, allowing all frequencies through. This bug has been fixed so that this preset now eliminates bass frequencies from the audio output.  
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.5.4)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.5.5)

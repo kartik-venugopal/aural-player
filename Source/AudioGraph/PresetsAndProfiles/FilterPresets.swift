@@ -97,7 +97,7 @@ fileprivate struct FilterPresetsBands {
     static let passThrough: [FilterBand] = []
     static let nothingButBass: [FilterBand] = [FilterBand.lowPassBand(maxFreq: SoundConstants.bass_max)]
     static let emphasizedVocals: [FilterBand] = [FilterBand.bandPassBand(minFreq: SoundConstants.mid_min, maxFreq: SoundConstants.mid_max)]
-    static let noBass: [FilterBand] = [FilterBand.highPassBand(minFreq: SoundConstants.bass_min)]
+    static let noBass: [FilterBand] = [FilterBand.highPassBand(minFreq: SoundConstants.bass_max)]
     static let noSubBass: [FilterBand] = [FilterBand.highPassBand(minFreq: SoundConstants.subBass_max)]
     static let karaoke: [FilterBand] = [FilterBand.bandStopBand(minFreq: SoundConstants.mid_min, maxFreq: SoundConstants.mid_max)]
 }
