@@ -151,7 +151,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     let maxLeftPan: Float = -1
-    let maxRightPan: Float = -1
+    let maxRightPan: Float = 1
     
     var pan: Float {
         
