@@ -238,11 +238,9 @@ All the documentation can be found on the [wiki](https://github.com/kartik-venug
 
 ## Contact and conversation
 
-I encourage you to provide feedback or start a conversation about features you'd like to see implemented, bugs you've encountered, or suggestions for improvement.
-
 **Email:** [kartikv2017@gmail.com](mailto:kartikv2017@gmail.com)
 
-**GitHub Issues** https://github.com/kartik-venugopal/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
+**GitHub Issues** https://github.com/kartik-venugopal/aural-player/issues.
 
 ## How to contribute
 
