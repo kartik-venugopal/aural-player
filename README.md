@@ -71,25 +71,7 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 
 #### Version 4.0
 
-As of Feb 6, 2022, version 4.0 is in active development, and may bring several improvements:
-
-- An app version for iOS (may only support iPadOS) ... TBD
-- A new single-window "Unified" app mode on macOS
-- Gapless queueing of tracks (to eliminate audible gaps)
-- Ability to play online streams ? ... TBD
-- Plug-in architecture for visualizations (enabling developers to use / share custom visualizations) ? ... TBD
-- A new app setup screen on first app launch
-- Better support for multi-screen setups (window layouts)
-- Improved UI aesthetics
-- More Apple-recommended user interface elements and styling
-- More playlist-related features such as multiple playlists ... TBD
-- Improved usability / controls
-- Simplified color scheming
-- More tool tips and help
-- Use of newer AppKit APIs
-- Tons of source code improvements (including the use of newer APIs)
-
-**NOTE - Version 4.0 will only support macOS 11.0 (Big Sur) and newer versions, because of its use of newer AppKit APIs, which are only available in the newer macOS versions.**
+As of May 21, 2022, version 4.0 is in active development, and may bring several improvements.
 
 Interested in seeing what's going with the development of v4.0 ? Check out [the v4.0 branch](https://github.com/kartik-venugopal/aural-player/tree/v4.0)!
 
@@ -97,8 +79,6 @@ Interested in seeing what's going with the development of v4.0 ? Check out [the 
 
 In addition to v4.0, the following features ***may be*** implemented in the future:
 
-- A file browser.
-- Allow for multiple playlists.
 - Replay gain.
 - Crossfading between tracks.
 - Gapless playback.
