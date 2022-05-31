@@ -73,7 +73,7 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 
 As of May 21, 2022, version 4.0 is in active development, and may bring several improvements.
 
-Interested in seeing what's going with the development of v4.0 ? Check out [the v4.0 branch](https://github.com/kartik-venugopal/aural-player/tree/v4.0)!
+Interested in seeing what's going on with the development of v4.0 ? Check out [the v4.0 branch](https://github.com/kartik-venugopal/aural-player/tree/v4.0)!
 
 ------------------------------------------------------
 
