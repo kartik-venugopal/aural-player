@@ -222,6 +222,8 @@ All the documentation can be found on the [wiki](https://github.com/kartik-venug
 
 **GitHub Issues** https://github.com/kartik-venugopal/aural-player/issues.
 
+The app is what it is today largely thanks to the numerous bug reports and valuable feedback of users over the years. I urge you to file issues for any bugs you encounter or for features / behavior you would like to see implemented. I am generally pretty good at responding to issues, and at the very least, I will read, contemplate, and respond.
+
 ## How to contribute
 
 Interested in contributing to this awesome project ?!
@@ -243,6 +245,8 @@ NOTE - I am ***not*** looking for help with app development at the moment, but i
 App user [yougotwill](https://github.com/yougotwill) made numerous suggestions for improvements and features, provided a lot of valuable feedback, and designed the Poolside.fm theme.
 
 Fellow GitHub member [dun198](https://github.com/dun198) made significant contributions towards this project - performance optimizations, UX improvements, etc.
+
+I am also hugely grateful to all the app users who have filed bug reports and feature requests, and provided valuable feedback.
 
 ## License
 
