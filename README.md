@@ -148,7 +148,7 @@ All the documentation can be found on the [wiki](https://github.com/kartik-venug
      
 ## Screenshots
 
-### Custom color scheme w/ main controls hidden
+### Default window layout
 
 ![Vertical full stack window layout screenshot](/Documentation/Screenshots/FullStack.png?raw=true)
 
