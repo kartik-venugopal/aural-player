@@ -132,38 +132,15 @@ class FFmpegFrameBuffer {
         // The audio buffer will always be filled to capacity.
         audioBuffer.frameLength = audioBuffer.frameCapacity
         
-        // Get pointers to the audio buffer's internal Float data buffers.
-        guard let audioBufferChannels = audioBuffer.floatChannelData else {return}
-        
-        let channelCount: Int = Int(audioFormat.channelCount)
-        
         // Keeps track of how many samples have been copied over so far.
         // This will be used as an offset when performing each copy operation.
         var sampleCountSoFar: Int = 0
         
         for frame in frames {
-            
-            let intSampleCount: Int = Int(frame.sampleCount)
-            let intFirstSampleIndex: Int = Int(frame.firstSampleIndex)
-            
-            for channelIndex in 0..<channelCount {
-                
-                // Get the pointers to the source and destination buffers for the copy operation.
-                guard let srcBytesForChannel = frame.dataPointers[channelIndex] else {break}
-                let destFloatsForChannel = audioBufferChannels[channelIndex]
-                
-                // Re-bind this frame's bytes to Float for the copy operation.
-                srcBytesForChannel.withMemoryRebound(to: Float.self, capacity: intSampleCount) {
-                    
-                    (srcFloatsForChannel: UnsafeMutablePointer<Float>) in
-                    
-                    // Use Accelerate to perform the copy optimally, starting at the given offset.
-                    cblas_scopy(frame.sampleCount, srcFloatsForChannel.advanced(by: intFirstSampleIndex), 1, destFloatsForChannel.advanced(by: sampleCountSoFar), 1)
-                }
-            }
-            
-            // Update the sample counter.
-            sampleCountSoFar += intSampleCount
+
+            // Copy the frame and update the sample counter.
+            audioBuffer.copy(frame: frame, startOffset: sampleCountSoFar, audioFormat: audioFormat)
+            sampleCountSoFar += Int(frame.sampleCount)
         }
     }
     

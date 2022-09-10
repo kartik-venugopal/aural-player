@@ -57,6 +57,8 @@ class FFmpegFrame {
     ///
     var sampleCount: Int32 {truncatedSampleCount ?? avFrame.nb_samples}
     
+    lazy var intSampleCount: Int = Int(sampleCount)
+    
     var actualSampleCount: Int32 {avFrame.nb_samples}
     
     ///

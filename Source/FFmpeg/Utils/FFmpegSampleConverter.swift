@@ -63,41 +63,18 @@ class FFmpegSampleConverter {
         let channelCount: Int = Int(audioFormat.channelCount)
         let channelLayout: Int64 = audioFormat.channelLayout
         let sampleRate: Int64 = Int64(audioFormat.sampleRate)
+        let inputSampleFormat: AVSampleFormat = audioFormat.sampleFormat.avFormat
         
         // Allocate the context used to perform the conversion.
-        guard let resampleCtx = FFmpegResamplingContext() else {
+        guard let resampleCtx = FFmpegAVAEResamplingContext(channelLayout: channelLayout,
+                                                            sampleRate: sampleRate,
+                                                            inputSampleFormat: inputSampleFormat) else {
             
             NSLog("Unable to create a resampling context. Aborting sample conversion.")
             return
         }
         
-        // Set the input / output channel layouts as options prior to resampling.
-        // NOTE - Our output channel layout will be the same as that of the input, since we don't
-        // need to do any upmixing / downmixing here.
-        
-        resampleCtx.inputChannelLayout = channelLayout
-        resampleCtx.outputChannelLayout = channelLayout
-        
-        // Set the input / output sample rates as options prior to resampling.
-        // NOTE - Our output sample rate will be the same as that of the input, since we don't
-        // need to do any upsampling / downsampling here.
-        
-        resampleCtx.inputSampleRate = sampleRate
-        resampleCtx.outputSampleRate = sampleRate
-        
-        // Set the input / output sample formats as options prior to resampling.
-        // NOTE - Our input sample format will be the format of the audio file being played,
-        // and our output sample format will always be 32-bit floating point non-interleaved (aka planar).
-        
-        resampleCtx.inputSampleFormat = audioFormat.sampleFormat.avFormat
-        resampleCtx.outputSampleFormat = Self.standardSampleFormat
-        
         // --------------------- Step 3: Perform the conversion (and copy), frame by frame ---------------------
-        
-        resampleCtx.initialize()
-        
-        // Get a pointer to the audio buffer's internal data buffer.
-        guard let audioBufferChannels = audioBuffer.floatChannelData else {return}
         
         // Convert one frame at a time.
         for frame in frameBuffer.frames {
@@ -113,30 +90,8 @@ class FFmpegSampleConverter {
                                     outputSampleCount: frame.sampleCount)
             }
             
-            // Finally, copy the output samples to the given audio buffer.
-            
-            let intSampleCount: Int = Int(frame.sampleCount)
-            let intFirstSampleIndex: Int = Int(frame.firstSampleIndex)
-            
-            // NOTE - The following copy operation assumes a non-interleaved output format (i.e. the standard Core Audio format).
-            
-            // Iterate through all the channels.
-            for channelIndex in 0..<channelCount {
-                
-                // Obtain pointers to the input and output data.
-                guard let bytesForChannel = outputData[channelIndex] else {break}
-                let audioBufferChannel = audioBufferChannels[channelIndex]
-                
-                // Temporarily bind the output sample buffers as floating point numbers, and perform the copy.
-                bytesForChannel.withMemoryRebound(to: Float.self, capacity: intSampleCount) {
-                    (outputDataPointer: UnsafeMutablePointer<Float>) in
-                    
-                    // Use Accelerate to perform the copy optimally, starting at the given offset.
-                    cblas_scopy(frame.sampleCount, outputDataPointer.advanced(by: intFirstSampleIndex), 1, audioBufferChannel.advanced(by: sampleCountSoFar), 1)
-                }
-            }
-            
-            sampleCountSoFar += intSampleCount
+            audioBuffer.copy(frame: frame, from: outputData, startOffset: sampleCountSoFar, audioFormat: audioFormat)
+            sampleCountSoFar += frame.intSampleCount
         }
         
         audioBuffer.frameLength = AVAudioFrameCount(frameBuffer.sampleCount)
