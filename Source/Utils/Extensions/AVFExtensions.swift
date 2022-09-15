@@ -12,15 +12,15 @@ import Accelerate
 
 extension AVAudioPCMBuffer {
     
-    func copy(frame: FFmpegFrame, from dataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>? = nil, startOffset: Int, audioFormat: FFmpegAudioFormat) {
+    func copy(frame: FFmpegFrame, from dataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>? = nil, startOffset: Int) {
         
         guard let floatChannelData = self.floatChannelData else {return}
         
         let srcData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = dataPointers ?? frame.dataPointers
         
-        let channelCount: Int = Int(audioFormat.channelCount)
-        let intSampleCount: Int = frame.intSampleCount
-        let intFirstSampleIndex: Int = Int(frame.firstSampleIndex)
+        let channelCount: Int = frame.intChannelCount
+        let sampleCount: Int = frame.intSampleCount
+        let firstSampleIndex: Int = Int(frame.firstSampleIndex)
         
         // NOTE - The following copy operation assumes a non-interleaved output format (i.e. the standard Core Audio format).
         
@@ -32,36 +32,16 @@ extension AVAudioPCMBuffer {
             let audioBufferChannel = floatChannelData[channelIndex]
             
             // Temporarily bind the output sample buffers as floating point numbers, and perform the copy.
-            bytesForChannel.withMemoryRebound(to: Float.self, capacity: intSampleCount) {
+            bytesForChannel.withMemoryRebound(to: Float.self, capacity: sampleCount) {
                 (outputDataPointer: UnsafeMutablePointer<Float>) in
                 
                 // Use Accelerate to perform the copy optimally, starting at the given offset.
-                cblas_scopy(frame.sampleCount, outputDataPointer.advanced(by: intFirstSampleIndex), 1, audioBufferChannel.advanced(by: startOffset), 1)
+                cblas_scopy(frame.sampleCount,
+                            outputDataPointer.advanced(by: firstSampleIndex), 1,
+                            audioBufferChannel.advanced(by: startOffset), 1)
             }
         }
     }
-    
-//    func resample(frame: FFmpegFrame, with ctx: FFmpegResamplingContext) {
-//        
-//        let channelCount = Int(format.channelCount)
-//        
-//        floatChannelData?.withMemoryRebound(to: UnsafeMutablePointer<UInt8>?.self, capacity: channelCount) {
-//            (channelPtr: UnsafePointer<UnsafeMutablePointer<UInt8>?>) in
-//            
-//            var mutArr: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = .init(mutating: channelPtr)
-//            
-//            // Access the input data as pointers from the frame being resampled.
-//            frame.dataPointers.withMemoryRebound(to: UnsafePointer<UInt8>?.self, capacity: channelCount) {
-//                
-//                (inputDataPointer: UnsafeMutablePointer<UnsafePointer<UInt8>?>) in
-//                
-//                ctx.convert(inputDataPointer: inputDataPointer,
-//                            inputSampleCount: frame.sampleCount,
-//                            outputDataPointer: mutArr,
-//                            outputSampleCount: frame.sampleCount)
-//            }
-//        }
-//    }
 }
 
 extension AVAudioUnitComponent {

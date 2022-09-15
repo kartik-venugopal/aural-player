@@ -36,6 +36,8 @@ class FFmpegFrame {
     /// Number of channels of audio data.
     ///
     var channelCount: Int32 {avFrame.channels}
+    
+    lazy var intChannelCount: Int = Int(channelCount)
 
     ///
     /// PCM format of the samples.

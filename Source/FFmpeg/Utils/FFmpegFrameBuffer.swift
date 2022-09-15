@@ -139,8 +139,8 @@ class FFmpegFrameBuffer {
         for frame in frames {
 
             // Copy the frame and update the sample counter.
-            audioBuffer.copy(frame: frame, startOffset: sampleCountSoFar, audioFormat: audioFormat)
-            sampleCountSoFar += Int(frame.sampleCount)
+            audioBuffer.copy(frame: frame, startOffset: sampleCountSoFar)
+            sampleCountSoFar += frame.intSampleCount
         }
     }
     

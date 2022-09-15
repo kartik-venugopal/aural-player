@@ -194,30 +194,29 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         let frameBuffer: FFmpegFrameBuffer = decoder.decode(maxSampleCount: maxSampleCount)
 
         // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
-        if let playbackBuffer = AVAudioPCMBuffer(pcmFormat: context.audioFormat, frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) {
+        guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: context.audioFormat, frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return}
+        
+        if frameBuffer.needsFormatConversion {
+            sampleConverter.convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
             
-            if frameBuffer.needsFormatConversion {
-                sampleConverter.convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
-                
-            } else {
-                frameBuffer.copySamples(to: playbackBuffer)
-            }
-
-            // Pass off the audio buffer to the audio engine for playback. The completion handler is executed when
-            // the buffer has finished playing.
-            //
-            // Note that:
-            //
-            // 1 - the completion handler recursively triggers another decoding / scheduling task.
-            // 2 - the completion handler will be invoked by a background thread.
-            // 3 - the completion handler will execute even when the player is stopped, i.e. the buffer
-            //      has not really completed playback but has been removed from the playback queue.
-
-            playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.bufferCompletionHandler(session), seekPosition, immediatePlayback)
-
-            // Upon scheduling the buffer, increment the counter.
-            scheduledBufferCounts[session]?.increment()
+        } else {
+            frameBuffer.copySamples(to: playbackBuffer)
         }
+        
+        // Pass off the audio buffer to the audio engine for playback. The completion handler is executed when
+        // the buffer has finished playing.
+        //
+        // Note that:
+        //
+        // 1 - the completion handler recursively triggers another decoding / scheduling task.
+        // 2 - the completion handler will be invoked by a background thread.
+        // 3 - the completion handler will execute even when the player is stopped, i.e. the buffer
+        //      has not really completed playback but has been removed from the playback queue.
+        
+        playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.bufferCompletionHandler(session), seekPosition, immediatePlayback)
+        
+        // Upon scheduling the buffer, increment the counter.
+        scheduledBufferCounts[session]?.increment()
     }
     
     func bufferCompleted(_ session: PlaybackSession) {

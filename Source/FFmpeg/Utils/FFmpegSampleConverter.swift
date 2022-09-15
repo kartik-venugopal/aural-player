@@ -59,16 +59,10 @@ class FFmpegSampleConverter {
         
         // --------------------- Step 2: Create a context and set options for the conversion ---------------------
         
-        var sampleCountSoFar: Int = 0
-        let channelCount: Int = Int(audioFormat.channelCount)
-        let channelLayout: Int64 = audioFormat.channelLayout
-        let sampleRate: Int64 = Int64(audioFormat.sampleRate)
-        let inputSampleFormat: AVSampleFormat = audioFormat.sampleFormat.avFormat
-        
         // Allocate the context used to perform the conversion.
-        guard let resampleCtx = FFmpegAVAEResamplingContext(channelLayout: channelLayout,
-                                                            sampleRate: sampleRate,
-                                                            inputSampleFormat: inputSampleFormat) else {
+        guard let resampleCtx = FFmpegAVAEResamplingContext(channelLayout: audioFormat.channelLayout,
+                                                            sampleRate: Int64(audioFormat.sampleRate),
+                                                            inputSampleFormat: audioFormat.avSampleFormat) else {
             
             NSLog("Unable to create a resampling context. Aborting sample conversion.")
             return
@@ -76,21 +70,13 @@ class FFmpegSampleConverter {
         
         // --------------------- Step 3: Perform the conversion (and copy), frame by frame ---------------------
         
+        var sampleCountSoFar: Int = 0
+        
         // Convert one frame at a time.
         for frame in frameBuffer.frames {
             
-            // Access the input data as pointers from the frame being resampled.
-            frame.dataPointers.withMemoryRebound(to: UnsafePointer<UInt8>?.self, capacity: channelCount) {
-                
-                (inputDataPointer: UnsafeMutablePointer<UnsafePointer<UInt8>?>) in
-                
-                resampleCtx.convert(inputDataPointer: inputDataPointer,
-                                    inputSampleCount: frame.sampleCount,
-                                    outputDataPointer: outputData,
-                                    outputSampleCount: frame.sampleCount)
-            }
-            
-            audioBuffer.copy(frame: frame, from: outputData, startOffset: sampleCountSoFar, audioFormat: audioFormat)
+            resampleCtx.convertFrame(frame, andStoreIn: outputData)
+            audioBuffer.copy(frame: frame, from: outputData, startOffset: sampleCountSoFar)
             sampleCountSoFar += frame.intSampleCount
         }
         
@@ -116,20 +102,19 @@ class FFmpegSampleConverter {
         
         // Check if we already have enough allocated space for the given
         // channel count and sample count.
-        if channelCount > allocatedChannelCount || sampleCount > allocatedSampleCount {
-            
-            // Not enough space already allocated. Need to re-allocate space.
-            
-            // First, deallocate any previously allocated space, if required.
-            deallocate()
-            
-            // Allocate space.
-            av_samples_alloc(outputData, nil, channelCount, sampleCount, Self.standardSampleFormat, 0)
-            
-            // Update these variables to keep track of allocated space.
-            self.allocatedChannelCount = channelCount
-            self.allocatedSampleCount = sampleCount
-        }
+        guard channelCount > allocatedChannelCount || sampleCount > allocatedSampleCount else {return}
+        
+        // Not enough space already allocated. Need to re-allocate space.
+        
+        // First, deallocate any previously allocated space, if required.
+        deallocate()
+        
+        // Allocate space.
+        av_samples_alloc(outputData, nil, channelCount, sampleCount, Self.standardSampleFormat, 0)
+        
+        // Update these variables to keep track of allocated space.
+        self.allocatedChannelCount = channelCount
+        self.allocatedSampleCount = sampleCount
     }
     
     ///
@@ -137,12 +122,11 @@ class FFmpegSampleConverter {
     ///
     func deallocate() {
         
-        if allocatedChannelCount > 0 && allocatedSampleCount > 0 {
-            
-            av_freep(&outputData[0])
-            
-            self.allocatedChannelCount = 0
-            self.allocatedSampleCount = 0
-        }
+        guard allocatedChannelCount > 0 && allocatedSampleCount > 0 else {return}
+        
+        av_freep(&outputData[0])
+        
+        self.allocatedChannelCount = 0
+        self.allocatedSampleCount = 0
     }
 }

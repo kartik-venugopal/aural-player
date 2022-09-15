@@ -23,7 +23,7 @@ class FFmpegResamplingContext {
     ///
     /// Pointer to the encapsulated SwrContext struct.
     ///
-    private var resampleCtx: OpaquePointer?
+    fileprivate var resampleCtx: OpaquePointer?
     
     ///
     /// An UnsafeMutableRawPointer to **resampleCtx**.
@@ -208,5 +208,16 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
         self.outputSampleFormat = Self.standardSampleFormat
         
         initialize()
+    }
+    
+    func convertFrame(_ frame: FFmpegFrame,
+                      andStoreIn outputDataPointer: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>) {
+     
+        // Access the input data as pointers from the frame being resampled.
+        _ = frame.dataPointers.withMemoryRebound(to: UnsafePointer<UInt8>?.self, capacity: frame.intChannelCount) {
+            (inputDataPointer: UnsafeMutablePointer<UnsafePointer<UInt8>?>) in
+            
+            swr_convert(resampleCtx, outputDataPointer, frame.sampleCount, inputDataPointer, frame.sampleCount)
+        }
     }
 }
