@@ -14,10 +14,22 @@ let menuItemCoverArtImageSize: NSSize = NSSize(width: 22, height: 22)
 /*
     Manages and provides actions for the History menu that displays historical information about the usage of the app.
  */
-class HistoryMenuController: NSObject {
+class HistoryMenuController: NSObject, NSMenuDelegate {
+    
+    @IBOutlet weak var resumeLastPlayedTrackItem: NSMenuItem!
 
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = objectGraph.historyDelegate
+    
+    private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        resumeLastPlayedTrackItem.enableIf(player.state == .noTrack && history.lastPlaybackPosition > 0)
+    }
+    
+    @IBAction fileprivate func resumeLastPlayedTrackAction(_ sender: NSMenuItem) {
+        player.resumeLastPlayedTrack()
+    }
     
     @IBAction fileprivate func clearHistoryAction(_ sender: NSMenuItem) {
         history.clearAllHistory()

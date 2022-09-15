@@ -17,13 +17,15 @@ import Foundation
 ///
 class StopPlaybackChain: PlaybackChain {
     
-    init(_ player: PlayerProtocol, _ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
+    init(_ player: PlayerProtocol, _ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles,
+         _ preferences: PlaybackPreferences) {
         
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
-        .withAction(HaltPlaybackAction(player))
-        .withAction(EndPlaybackSequenceAction(sequencer))
-        .withAction(CloseFileHandlesAction(playlist: playlist))
+            .withAction(MarkLastPlaybackPositionAction())
+            .withAction(HaltPlaybackAction(player))
+            .withAction(EndPlaybackSequenceAction(sequencer))
+            .withAction(CloseFileHandlesAction(playlist: playlist))
     }
 }

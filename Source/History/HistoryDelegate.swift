@@ -29,6 +29,12 @@ class HistoryDelegate: HistoryDelegateProtocol {
     // Recently played items
     var recentlyPlayedItems: FixedSizeLRUArray<PlayedItem>
     
+    var lastPlaybackPosition: Double = 0
+    
+    var lastPlayedTrack: Track? {
+        recentlyPlayedItems.toArray().first?.track
+    }
+    
     // Delegate used to perform CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol
     
@@ -74,6 +80,8 @@ class HistoryDelegate: HistoryDelegateProtocol {
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackPlayed(_:),
                                  filter: {msg in msg.playbackStarted})
+        
+        messenger.subscribe(to: .application_willExit, handler: appWillExit)
     }
     
     func allRecentlyAddedItems() -> [AddedItem] {
@@ -141,6 +149,23 @@ class HistoryDelegate: HistoryDelegateProtocol {
         recentlyPlayedItems.clear()
     }
     
+    func markLastPlaybackPosition(_ position: Double) {
+        self.lastPlaybackPosition = position
+    }
+    
+    // MARK: Event handling ------------------------------------------------------------------------------------------
+    
+    private func appWillExit() {
+        
+        if player.state == .noTrack {return}
+        
+        let playerPosition = player.seekPosition.timeElapsed
+        
+        if playerPosition > 0 {
+            self.lastPlaybackPosition = playerPosition
+        }
+    }
+    
     // Whenever a track is played by the player, add an entry in the "Recently played" list
     func trackPlayed(_ notification: TrackTransitionNotification) {
         
@@ -178,6 +203,6 @@ class HistoryDelegate: HistoryDelegateProtocol {
         let recentlyAdded = allRecentlyAddedItems().map {HistoryItemPersistentState(item: $0)}
         let recentlyPlayed = allRecentlyPlayedItems().map {HistoryItemPersistentState(item: $0)}
         
-        return HistoryPersistentState(recentlyAdded: recentlyAdded, recentlyPlayed: recentlyPlayed)
+        return HistoryPersistentState(recentlyAdded: recentlyAdded, recentlyPlayed: recentlyPlayed, lastPlaybackPosition: lastPlaybackPosition)
     }
 }

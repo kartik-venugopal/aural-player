@@ -20,6 +20,7 @@ struct HistoryPersistentState: Codable {
     
     let recentlyAdded: [HistoryItemPersistentState]?
     let recentlyPlayed: [HistoryItemPersistentState]?
+    let lastPlaybackPosition: Double?
 }
 
 ///

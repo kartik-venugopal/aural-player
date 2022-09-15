@@ -42,4 +42,10 @@ protocol HistoryDelegateProtocol {
     func deleteItem(_ item: PlayedItem)
 
     func deleteItem(_ item: AddedItem)
+    
+    func markLastPlaybackPosition(_ position: Double)
+    
+    var lastPlaybackPosition: Double {get}
+    
+    var lastPlayedTrack: Track? {get}
 }

@@ -183,6 +183,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         }
     }
     
+    func resumeLastPlayedTrack() {
+        
+    }
+    
     private func pause() {
         player.pause()
     }

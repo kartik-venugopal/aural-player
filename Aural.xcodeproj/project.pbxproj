@@ -957,6 +957,8 @@
 		3EA1BE2D268F6A4200A5D81B /* SequencerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106225CEB98600BF0D07 /* SequencerProtocol.swift */; };
 		3EA1BE31268F6A5B00A5D81B /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F0B25CEB98500BF0D07 /* Playlist.swift */; };
 		3EA1BE33268F6A6700A5D81B /* FlatPlaylistProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1125CEB98500BF0D07 /* FlatPlaylistProtocol.swift */; };
+		3EA2966228D3A30D00AAAB27 /* MarkLastPlaybackPositionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2966128D3A30D00AAAB27 /* MarkLastPlaybackPositionAction.swift */; };
+		3EA2966328D3A30D00AAAB27 /* MarkLastPlaybackPositionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2966128D3A30D00AAAB27 /* MarkLastPlaybackPositionAction.swift */; };
 		3EA3ADAF26921E3E0066A918 /* MasterUnitPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3ADAE26921E3E0066A918 /* MasterUnitPersistenceTests.swift */; };
 		3EA3ADB226921F4A0066A918 /* MasterUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0B726805C18008ECB8C /* MasterUnitPersistentState.swift */; };
 		3EA3ADB5269221D00066A918 /* AudioGraphTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3ADB4269221D00066A918 /* AudioGraphTestCase.swift */; };
@@ -2129,6 +2131,7 @@
 		3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeHistory.swift; sourceTree = "<group>"; };
 		3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeChangeContext.swift; sourceTree = "<group>"; };
 		3EA1BDE4268F4FAE00A5D81B /* NotificationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayload.swift; sourceTree = "<group>"; };
+		3EA2966128D3A30D00AAAB27 /* MarkLastPlaybackPositionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkLastPlaybackPositionAction.swift; sourceTree = "<group>"; };
 		3EA3ADAE26921E3E0066A918 /* MasterUnitPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitPersistenceTests.swift; sourceTree = "<group>"; };
 		3EA3ADB4269221D00066A918 /* AudioGraphTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphTestCase.swift; sourceTree = "<group>"; };
 		3EA3CE6625E3FD9E00BC7D07 /* FontSchemesManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemesManager.xib; sourceTree = "<group>"; };
@@ -3824,6 +3827,7 @@
 		3E6C107925CEB98600BF0D07 /* StopPlaybackChain */ = {
 			isa = PBXGroup;
 			children = (
+				3EA2966128D3A30D00AAAB27 /* MarkLastPlaybackPositionAction.swift */,
 				3E6C107A25CEB98600BF0D07 /* StopPlaybackChain.swift */,
 				3E6C107B25CEB98600BF0D07 /* EndPlaybackSequenceAction.swift */,
 				3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */,
@@ -5491,6 +5495,7 @@
 				3EDB33F025E8AE09004DF7DE /* FFmpegAudioCodec.swift in Sources */,
 				3EDB33EA25E8AE09004DF7DE /* FFmpegAudioFormat.swift in Sources */,
 				3EDB33E825E8AE09004DF7DE /* FFmpegAudioStream.swift in Sources */,
+				3EA2966228D3A30D00AAAB27 /* MarkLastPlaybackPositionAction.swift in Sources */,
 				3EDB33FF25E8AE09004DF7DE /* FFmpegChannelLayoutsMapper.swift in Sources */,
 				3EDB33F225E8AE09004DF7DE /* FFmpegChapter.swift in Sources */,
 				3EDB33F725E8AE09004DF7DE /* FFmpegCodec.swift in Sources */,
@@ -6443,6 +6448,7 @@
 				3E60C9B826B07B2C00D9404C /* ITunesParser.swift in Sources */,
 				3EA62F592693DB69004A780A /* HistoryPersistentState.swift in Sources */,
 				3EA1BE20268F62C100A5D81B /* PlaybackLoopTests.swift in Sources */,
+				3EA2966328D3A30D00AAAB27 /* MarkLastPlaybackPositionAction.swift in Sources */,
 				3ED5A13726996E67007E5343 /* HostedAudioUnitProtocol.swift in Sources */,
 				3E871A5A269902F200C626DC /* TimeStretchUnit.swift in Sources */,
 				3E60C99726B07A7200D9404C /* SavePlaybackProfileAction.swift in Sources */,

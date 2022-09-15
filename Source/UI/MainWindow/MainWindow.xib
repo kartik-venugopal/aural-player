@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -586,7 +586,11 @@
             <point key="canvasLocation" x="155" y="-58"/>
         </window>
         <customObject id="dFu-9T-Cey" customClass="AuralMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="pHc-NF-AW0" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="pHc-NF-AW0" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="resumeLastPlayedTrackItem" destination="AeE-b6-1mq" id="phm-lt-GZr"/>
+            </connections>
+        </customObject>
         <customObject id="T4A-WO-uwg" userLabel="Played Items Menu Controller" customClass="RecentlyPlayedMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="recentlyPlayedMenu" destination="6Gf-Zr-6SR" id="pq6-TE-nmk"/>
@@ -949,6 +953,13 @@
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="qdc-LS-Puc"/>
+                            <menuItem title="Resume last played track" image="RecentlyPlayed" id="AeE-b6-1mq">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="resumeLastPlayedTrackAction:" target="pHc-NF-AW0" id="wo8-bN-4qH"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="geM-vw-NRo"/>
                             <menuItem title=" Clear all history" image="Clear-Small" id="Pdh-X6-b61" userLabel="Clear history">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
