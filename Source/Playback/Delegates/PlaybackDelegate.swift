@@ -183,10 +183,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         }
     }
     
-    func resumeLastPlayedTrack() {
-        
-    }
-    
     private func pause() {
         player.pause()
     }
@@ -405,9 +401,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         let trackBeforeChange = playingTrack
         let stateBeforeChange = state
-        let seekPositionBeforeChange = seekPosition.timeElapsed
         
-        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
+        // NOTE - Seek position should always be 0 here because the track finished playing.
+        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, 0, nil, PlaybackParams.defaultParams())
         
         trackPlaybackCompletedChain.execute(requestContext)
     }

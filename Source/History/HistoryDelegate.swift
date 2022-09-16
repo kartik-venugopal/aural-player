@@ -31,8 +31,8 @@ class HistoryDelegate: HistoryDelegateProtocol {
     
     var lastPlaybackPosition: Double = 0
     
-    var lastPlayedTrack: Track? {
-        recentlyPlayedItems.toArray().first?.track
+    var lastPlayedItem: PlayedItem? {
+        recentlyPlayedItems.last
     }
     
     // Delegate used to perform CRUD on the playlist
@@ -50,6 +50,7 @@ class HistoryDelegate: HistoryDelegateProtocol {
         
         recentlyAddedItems = FixedSizeLRUArray<AddedItem>(size: preferences.recentlyAddedListSize)
         recentlyPlayedItems = FixedSizeLRUArray<PlayedItem>(size: preferences.recentlyPlayedListSize)
+        lastPlaybackPosition = persistentState?.lastPlaybackPosition ?? 0
         
         self.playlist = playlist
         self.player = player
@@ -87,13 +88,13 @@ class HistoryDelegate: HistoryDelegateProtocol {
     func allRecentlyAddedItems() -> [AddedItem] {
         
         // Reverse the array for chronological order (most recent items first)
-        recentlyAddedItems.toArray().reversed()
+        recentlyAddedItems.reversed()
     }
     
     func allRecentlyPlayedItems() -> [PlayedItem] {
         
         // Reverse the array for chronological order (most recent items first)
-        recentlyPlayedItems.toArray().reversed()
+        recentlyPlayedItems.reversed()
     }
     
     func addItem(_ item: URL) throws {
@@ -105,14 +106,17 @@ class HistoryDelegate: HistoryDelegateProtocol {
         playlist.addFiles([item])
     }
     
-    func playItem(_ item: URL, _ playlistType: PlaylistType) throws {
+    func playItem(_ item: URL, fromPosition startPosition: Double? = nil) throws {
         
         do {
             
             // First, find or add the given file
-            if let newTrack = try playlist.findOrAddFile(item) {
+            guard let newTrack = try playlist.findOrAddFile(item) else {return}
             
-                // Play it
+            // Play it
+            if let startPosition = startPosition {
+                player.play(newTrack, PlaybackParams.defaultParams().withStartAndEndPosition(startPosition))
+            } else {
                 player.play(newTrack)
             }
             
@@ -151,6 +155,13 @@ class HistoryDelegate: HistoryDelegateProtocol {
     
     func markLastPlaybackPosition(_ position: Double) {
         self.lastPlaybackPosition = position
+    }
+    
+    func resumeLastPlayedTrack() throws {
+        
+        if let lastPlayedItem = lastPlayedItem, lastPlaybackPosition > 0 {
+            try playItem(lastPlayedItem.file, fromPosition: lastPlaybackPosition)
+        }
     }
     
     // MARK: Event handling ------------------------------------------------------------------------------------------

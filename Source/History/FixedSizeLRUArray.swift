@@ -19,6 +19,8 @@ class FixedSizeLRUArray<T: Equatable>: LRUArray<T> {
     
     private var size: Int
     
+    var count: Int {size}
+    
     init(size: Int) {
         self.size = size
     }

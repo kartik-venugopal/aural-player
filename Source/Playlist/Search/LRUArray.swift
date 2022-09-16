@@ -37,10 +37,22 @@ class LRUArray<T: Equatable> {
     }
  
     // Returns a copy of the underlying array, maintaining the order of its elements
-    func toArray() -> [T] {
-        
-        let arrayCopy = array
-        return arrayCopy
+//    func toArray() -> [T] {
+//
+//        let arrayCopy = array
+//        return arrayCopy
+//    }
+    
+    var first: T? {
+        array.first
+    }
+    
+    var last: T? {
+        array.last
+    }
+    
+    func reversed() -> [T] {
+        array.reversed()
     }
  
     // Checks if the array contains a particular element.

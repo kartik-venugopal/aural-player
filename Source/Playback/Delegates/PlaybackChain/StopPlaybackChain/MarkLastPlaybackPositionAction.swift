@@ -17,7 +17,12 @@ class MarkLastPlaybackPositionAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        history.markLastPlaybackPosition(context.currentSeekPosition)
+        if let stoppedTrack = context.currentTrack {
+            
+            // If the track finished playing, then mark the position as 0 (resume from beginning).
+            history.markLastPlaybackPosition(context.currentSeekPosition >= stoppedTrack.duration ? 0 : context.currentSeekPosition)
+        }
+        
         chain.proceed(context)
     }
 }

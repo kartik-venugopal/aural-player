@@ -28,7 +28,24 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction fileprivate func resumeLastPlayedTrackAction(_ sender: NSMenuItem) {
-        player.resumeLastPlayedTrack()
+        
+        do {
+            
+            try history.resumeLastPlayedTrack()
+            
+        } catch {
+            
+            if let lastPlayedItem = history.lastPlayedItem, let fnfError = error as? FileNotFoundError {
+                
+                // This needs to be done async. Otherwise, other open dialogs could hang.
+                DispatchQueue.main.async {
+                    
+                    // Position and display an alert with error info
+                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item").showModal()
+                    self.history.deleteItem(lastPlayedItem)
+                }
+            }
+        }
     }
     
     @IBAction fileprivate func clearHistoryAction(_ sender: NSMenuItem) {
@@ -217,7 +234,7 @@ class RecentlyPlayedMenuController: NSObject, NSMenuDelegate {
             
             do {
                 
-                try history.playItem(item.file, playlistUIState.currentView)
+                try history.playItem(item.file)
                 
             } catch {
                 

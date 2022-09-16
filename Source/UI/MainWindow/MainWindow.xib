@@ -967,6 +967,9 @@
                                 </connections>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="pHc-NF-AW0" id="h8x-8N-Ayc"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="Favorites" id="IUr-H1-UhQ">

@@ -64,8 +64,6 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // Plays (and returns) the previous track, if there is one. Throws an error if the previous track cannot be played back
     func previousTrack()
     
-    func resumeLastPlayedTrack()
-    
     /*
         Seeks forward by a preset time interval, within the current track.
      

@@ -160,7 +160,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
             
             do {
                 
-                try history.playItem(item.file, playlistUIState.currentView)
+                try history.playItem(item.file)
                 
             } catch {
                 
