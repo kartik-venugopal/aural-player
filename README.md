@@ -62,7 +62,7 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 
 * Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: FLAC, Vorbis, Monkey's Audio (APE), Opus, & [many more](https://github.com/kartik-venugopal/aural-player/wiki/Features#audio-formats)
 * Supports M3U / M3U8 playlists
-* **Playback:** Bookmarking, segment looping, custom seek intervals, last position memory, chapters support, autoplay.
+* **Playback:** Bookmarking, segment looping, custom seek intervals, per-track last position memory, chapters support, autoplay, resume last played track.
 * **Effects:** Built-in effects (incl. equalizer), Audio Unit (AU) plug-in support, built-in / custom presets, per-track settings memory.
 * **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection.
 * **Track information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, etc. Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export.
