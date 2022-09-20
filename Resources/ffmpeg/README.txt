@@ -28,7 +28,7 @@ Steps:
     
 5 - (Optional) Using the lipo command, verify that the dylibs inside the XCFrameworks are indeed universal, supporting both x86_64 and arm64 architectures.
 
-    Example command:    "lipo -info sharedLibs/libavcodec.58.dylib"
-    Example output:     "Architectures in the fat file: sharedLibs/libavcodec.58.dylib are: x86_64 arm64"
+    Example command:    "lipo -info xcframeworks/libavcodec.xcframework/macos-arm64_x86_64/libavcodec.58.dylib"
+    Example output:     "Architectures in the fat file: xcframeworks/libavcodec.xcframework/macos-arm64_x86_64//libavcodec.58.dylib are: x86_64 arm64"
     
 6 - Copy (and replace if necessary) the XCFrameworks into the "Frameworks" group in the Aural Xcode project.
