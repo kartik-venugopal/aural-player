@@ -31,12 +31,12 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 | Flexible UI  | Personalization |
 | :-- | --: |
-|  <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Modularity.gif" width="500" />| <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Customization.gif" width="300" /> |
+|  <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Modularity.gif" width="450" />| <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Customization.gif" width="250" /> |
 | With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace, reduce it to a tiny widget, or tuck it away in the macOS menu bar. | Personalize Aural Player with exactly the colors and fonts that define your creative tastes. |
 
 | Extensive audio formats support  | Sound tuning and monitoring |
 | :-- | --: |
-|  <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="700" /> |
+|  <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="550" /> |
 | By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats. | With several built-in effects and support for Audio Unit (AU) plug-ins, sound tuning and monitoring possibilities are endless. |
 
 ### How it works (under the hood)
