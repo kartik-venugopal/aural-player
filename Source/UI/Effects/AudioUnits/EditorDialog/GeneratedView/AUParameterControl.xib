@@ -33,9 +33,9 @@
                     </textFieldCell>
                 </textField>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MKq-J9-0Ow" userLabel="Value Slider">
-                    <rect key="frame" x="292" y="12" width="207" height="28"/>
+                    <rect key="frame" x="292" y="8" width="207" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="lQr-qN-BAo"/>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="lQr-qN-BAo" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
                         <action selector="updateParamValueAction:" target="-2" id="wrq-fL-0K5"/>
                     </connections>

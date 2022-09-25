@@ -377,6 +377,10 @@ struct Colors {
             return NSGradient(starting: .white40Percent, ending: .white20Percent)!
         }
         
+        static var defaultSliderForegroundGradient: NSGradient {
+            return NSGradient(starting: .white80Percent, ending: .white60Percent)!
+        }
+        
         // Fill color of all slider knobs
         static let defaultActiveUnitColor: NSColor = NSColor(red: 0, green: 0.8, blue: 0)
         static let defaultBypassedUnitColor: NSColor = .white60Percent

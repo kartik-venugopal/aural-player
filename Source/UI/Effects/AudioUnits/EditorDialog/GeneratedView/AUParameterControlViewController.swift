@@ -22,6 +22,11 @@ class AUParameterControlViewController: NSViewController {
     @IBOutlet weak var lblUnit: NSTextField!
     @IBOutlet weak var valueSlider: NSSlider!
     
+    var useLogScale: Bool = false
+    lazy var maxMinusMin: Double = valueSlider.maxValue - valueSlider.minValue
+    lazy var maxDivMin: Double = valueSlider.minValue == 0 ? 0 : valueSlider.maxValue / valueSlider.minValue
+    lazy var numIntervals: Double = log10(maxDivMin)
+    
     var paramControlDelegate: AUParameterControlViewDelegate! {
         
         didSet {
@@ -31,19 +36,58 @@ class AUParameterControlViewController: NSViewController {
             lblName.stringValue = delegate.name
             lblMinValue.stringValue = String(delegate.minValue)
             lblMaxValue.stringValue = String(delegate.maxValue)
-            lblCurrentValue.stringValue = String(delegate.currentValue)
+            lblCurrentValue.stringValue = String(format: "%.4f", delegate.currentValue)
             lblUnit.stringValue = delegate.unitName
+            useLogScale = delegate.unitName.lowerCasedAndTrimmed() == "hz"
             
             valueSlider.minValue = Double(delegate.minValue)
             valueSlider.maxValue = Double(delegate.maxValue)
-            valueSlider.floatValue = delegate.currentValue
+            
+            if useLogScale {
+                logScaleValue = delegate.currentValue
+                
+            } else {
+                valueSlider.floatValue = delegate.currentValue
+            }
         }
     }
     
     @IBAction func updateParamValueAction(_ sender: NSSlider) {
         
-        paramControlDelegate.setValue(valueSlider.floatValue)
-        lblCurrentValue.stringValue = String(paramControlDelegate.currentValue)
+        paramControlDelegate.setValue(useLogScale ? logScaleValue : valueSlider.floatValue)
+        lblCurrentValue.stringValue = String(format: "%.4f", paramControlDelegate.currentValue)
+    }
+    
+    /// Called when a preset has been applied.
+    func refreshControls() {
+        
+        if useLogScale {
+            logScaleValue = paramControlDelegate.currentValue
+            
+        } else {
+            valueSlider.floatValue = paramControlDelegate.currentValue
+        }
+
+        lblCurrentValue.stringValue = String(format: "%.4f", paramControlDelegate.currentValue)
+    }
+    
+    private var logScaleValue: Float {
+        
+        get {
+            
+            let min = valueSlider.minValue == 0 ? 0.0001 : valueSlider.minValue
+            let cur = valueSlider.doubleValue
+            
+            let power = numIntervals * (cur - min) / maxMinusMin
+            return Float(min * (pow(10, power)))
+        }
+        
+        set {
+            
+            let min = valueSlider.minValue
+            let logV = log10(Double(newValue) / min)
+            valueSlider.doubleValue = (maxMinusMin * logV / numIntervals) + min
+        }
     }
 }
 

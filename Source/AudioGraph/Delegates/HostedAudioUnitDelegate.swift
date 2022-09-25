@@ -54,7 +54,9 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     }
     
     func applyFactoryPreset(named presetName: String) {
+        
         unit.applyFactoryPreset(named: presetName)
+        (viewController as? AUControlViewController)?.refreshControls()
     }
     
     func presentView(_ handler: @escaping (NSView) -> Void) {

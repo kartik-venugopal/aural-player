@@ -60,4 +60,8 @@ class AUControlViewController: NSViewController {
         
         scrollView.scrollToTop()
     }
+    
+    func refreshControls() {
+        paramControlVCs.forEach {$0.refreshControls()}
+    }
 }
