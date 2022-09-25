@@ -25,6 +25,8 @@ protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
     var componentSubType: OSType {get}
     
     var params: [AUParameterAddress: Float] {get}
+    var parameterTree: AUParameterTree? {get}
+    func setValue(_ value: Float, forParameterWithAddress address: AUParameterAddress)
     
     var auAudioUnit: AUAudioUnit {get}
     

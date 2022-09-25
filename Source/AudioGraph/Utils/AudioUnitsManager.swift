@@ -26,7 +26,6 @@ class AudioUnitsManager {
         self.audioUnits = componentManager.components {component, _ in
             
             Self.acceptedComponentTypes.contains(component.componentType) &&
-                component.hasCustomView &&
                 !Self.componentsBlackList.contains(component.name)
             
         }.sorted(by: {$0.name < $1.name})

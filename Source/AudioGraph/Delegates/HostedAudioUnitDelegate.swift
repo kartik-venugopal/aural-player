@@ -33,7 +33,10 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     var componentType: OSType {unit.componentType}
     var componentSubType: OSType {unit.componentSubType}
     
+    var hasCustomView: Bool {unit.hasCustomView}
+    
     var params: [AUParameterAddress: Float] {unit.params}
+    var parameterTree: AUParameterTree? {unit.parameterTree}
     
     var presets: AudioUnitPresets {unit.presets}
     var supportsUserPresets: Bool {unit.supportsUserPresets}
@@ -41,6 +44,8 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     var factoryPresets: [AudioUnitFactoryPreset] {unit.factoryPresets}
     
     private var viewController: NSViewController?
+    
+    private var generatedView: NSView?
     
     override init(for unit: HostedAudioUnit) {
         
@@ -53,6 +58,19 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     }
     
     func presentView(_ handler: @escaping (NSView) -> Void) {
+        
+        if !hasCustomView {
+            
+            if let theGeneratedView = generatedView {
+                handler(theGeneratedView)
+            }
+            
+            let generatedView = generateView()
+            self.generatedView = generatedView
+            handler(generatedView)
+            
+            return
+        }
         
         if let viewController = self.viewController {
             
@@ -68,5 +86,18 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
                 handler(theViewController.view)
             }
         })
+    }
+    
+    private func generateView() -> NSView {
+        
+        let viewController = AUControlViewController()
+        viewController.generateControlsForAudioUnit(self)
+        self.viewController = viewController
+        
+        return viewController.view
+    }
+    
+    func setValue(_ value: Float, forParameterWithAddress address: AUParameterAddress) {
+        unit.setValue(value, forParameterWithAddress: address)
     }
 }

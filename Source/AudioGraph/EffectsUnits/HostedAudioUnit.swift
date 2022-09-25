@@ -27,6 +27,8 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     
     var auAudioUnit: AUAudioUnit {node.auAudioUnit}
     
+    var hasCustomView: Bool {node.hasCustomView}
+    
     let presets: AudioUnitPresets
     
     var supportsUserPresets: Bool {
@@ -45,6 +47,8 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         get {node.params}
         set(newParams) {node.params = newParams}
     }
+    
+    var parameterTree: AUParameterTree? {node.parameterTree}
     
     override var avNodes: [AVAudioNode] {[node]}
     
@@ -146,6 +150,10 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
             
             auAudioUnit.currentPreset = thePreset
         }
+    }
+    
+    func setValue(_ value: Float, forParameterWithAddress address: AUParameterAddress) {
+        node.setValue(value, forParameterWithAddress: address)
     }
 
     var settingsAsPreset: AudioUnitPreset {

@@ -12,7 +12,7 @@ import CoreAudioKit
 import Cocoa
 
 ///
-/// A specialized subclass of **AVAudioUnitEffect** that represents an Audio Units (AU) plug-in.
+/// A specialized subclass of **AVAudioUnitEffect** that represents an Audio Unit (AU) plug-in.
 ///
 /// Provides convenient access to various properties / functions of the plug-in (eg. name, version, manufacturer).
 ///
@@ -26,6 +26,8 @@ class HostedAUNode: AVAudioUnitEffect {
     var componentName: String {avComponent.name}
     var componentVersion: String {avComponent.versionString}
     var componentManufacturerName: String {avComponent.manufacturerName}
+    
+    var hasCustomView: Bool {avComponent.hasCustomView}
     
     var parameterTree: AUParameterTree? {auAudioUnit.parameterTree}
     private var bypassStateObservers: [AUNodeBypassStateObserver] = []
@@ -104,6 +106,10 @@ class HostedAUNode: AVAudioUnitEffect {
             
             auAudioUnit.currentPreset = preset
         }
+    }
+    
+    func setValue(_ value: Float, forParameterWithAddress address: AUParameterAddress) {
+        parameterTree?.parameter(withAddress: address)?.value = value
     }
 }
 

@@ -1241,6 +1241,10 @@
 		3EE4B87B268FD734006BDEB2 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A825CEB98700BF0D07 /* PersistenceManager.swift */; };
 		3EE4B87D268FD73C006BDEB2 /* FilesAndPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C502684DE2E0090BAF7 /* FilesAndPaths.swift */; };
 		3EE4B87F268FDAA1006BDEB2 /* JSONSerializationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE2CC3426811814002C1B29 /* JSONSerializationExtensions.swift */; };
+		3EE7917A28E0E05200F41E9E /* AUParameterControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7917928E0E05200F41E9E /* AUParameterControlViewController.swift */; };
+		3EE7917D28E0E0AB00F41E9E /* AUParameterControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7917C28E0E0AB00F41E9E /* AUParameterControl.xib */; };
+		3EE7917F28E0E8DC00F41E9E /* AUControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7917E28E0E8DC00F41E9E /* AUControl.xib */; };
+		3EE7918128E0E8EF00F41E9E /* AUControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7918028E0E8EF00F41E9E /* AUControlViewController.swift */; };
 		3EE7A43826B2643300851F5B /* MasterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7A43726B2643300851F5B /* MasterUnitTests.swift */; };
 		3EE7CB9525E21F9F0075F1DD /* PlaylistFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9425E21F9F0075F1DD /* PlaylistFontScheme.xib */; };
 		3EE7CB9825E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */; };
@@ -2315,6 +2319,10 @@
 		3EE4B851268FA40B006BDEB2 /* FilterUnitPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitPersistenceTests.swift; sourceTree = "<group>"; };
 		3EE4B85C268FBD7C006BDEB2 /* PlaybackPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPreferencesTests.swift; sourceTree = "<group>"; };
 		3EE4B874268FD5A9006BDEB2 /* EQUnitPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitPersistenceTests.swift; sourceTree = "<group>"; };
+		3EE7917928E0E05200F41E9E /* AUParameterControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AUParameterControlViewController.swift; sourceTree = "<group>"; };
+		3EE7917C28E0E0AB00F41E9E /* AUParameterControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AUParameterControl.xib; sourceTree = "<group>"; };
+		3EE7917E28E0E8DC00F41E9E /* AUControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AUControl.xib; sourceTree = "<group>"; };
+		3EE7918028E0E8EF00F41E9E /* AUControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AUControlViewController.swift; sourceTree = "<group>"; };
 		3EE7A43626B2607300851F5B /* AudioGraph.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AudioGraph.xctestplan; sourceTree = "<group>"; };
 		3EE7A43726B2643300851F5B /* MasterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitTests.swift; sourceTree = "<group>"; };
 		3EE7CB9425E21F9F0075F1DD /* PlaylistFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistFontScheme.xib; sourceTree = "<group>"; };
@@ -4414,6 +4422,7 @@
 			children = (
 				3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */,
 				3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */,
+				3EE7917B28E0E06E00F41E9E /* GeneratedView */,
 			);
 			path = EditorDialog;
 			sourceTree = "<group>";
@@ -4863,6 +4872,17 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
+		3EE7917B28E0E06E00F41E9E /* GeneratedView */ = {
+			isa = PBXGroup;
+			children = (
+				3EE7917E28E0E8DC00F41E9E /* AUControl.xib */,
+				3EE7918028E0E8EF00F41E9E /* AUControlViewController.swift */,
+				3EE7917C28E0E0AB00F41E9E /* AUParameterControl.xib */,
+				3EE7917928E0E05200F41E9E /* AUParameterControlViewController.swift */,
+			);
+			path = GeneratedView;
+			sourceTree = "<group>";
+		};
 		3EE7CB9325E21F890075F1DD /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
@@ -5039,6 +5059,7 @@
 				3EA3CE7325E420EC00BC7D07 /* AnironRegular.ttf in Resources */,
 				3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */,
 				3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */,
+				3EE7917D28E0E0AB00F41E9E /* AUParameterControl.xib in Resources */,
 				3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */,
 				3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */,
 				3E6C136B25CEBFB900BF0D07 /* Application.xib in Resources */,
@@ -5047,6 +5068,7 @@
 				3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */,
 				3E6C125025CEBDF400BF0D07 /* TracksPlaylistSort.xib in Resources */,
 				3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */,
+				3EE7917F28E0E8DC00F41E9E /* AUControl.xib in Resources */,
 				3E6C125A25CEBE0600BF0D07 /* EQPresetsManager.xib in Resources */,
 				3E36BD3126A68E9800B6E28B /* LyricsTrackInfo.xib in Resources */,
 				3E6C12BD25CEBE6700BF0D07 /* EQUnit.xib in Resources */,
@@ -5229,6 +5251,7 @@
 				3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */,
 				3E6C119025CEBD6D00BF0D07 /* BookmarksDelegate.swift in Sources */,
 				3E6C119725CEBD6D00BF0D07 /* BookmarksDelegateProtocol.swift in Sources */,
+				3EE7918128E0E8EF00F41E9E /* AUControlViewController.swift in Sources */,
 				3E6C126B25CEBE0600BF0D07 /* BookmarksManagerViewController.swift in Sources */,
 				3E6C12B525CEBE5800BF0D07 /* BookmarksMenuController.swift in Sources */,
 				3EC9E66C26A5974900C17302 /* BookmarksNotifications.swift in Sources */,
@@ -5662,6 +5685,7 @@
 				3E6C127B25CEBE1800BF0D07 /* PlaylistColorSchemeViewController.swift in Sources */,
 				3E8C7921269C41AD005E78D1 /* PlaylistCommandNotification.swift in Sources */,
 				3E6C124E25CEBDF400BF0D07 /* PlaylistContextMenuController.swift in Sources */,
+				3EE7917A28E0E05200F41E9E /* AUParameterControlViewController.swift in Sources */,
 				3E8F31AA26AC9623009C58B5 /* AudioUnitsTableViews.swift in Sources */,
 				3E6C11FB25CEBDD100BF0D07 /* PlaylistDelegate.swift in Sources */,
 				3E6C120525CEBDD100BF0D07 /* PlaylistDelegateProtocol.swift in Sources */,
@@ -6538,7 +6562,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.8.0;
+				CURRENT_PROJECT_VERSION = 3.9.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = (
@@ -6552,7 +6576,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.8.0;
+				MARKETING_VERSION = 3.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;
@@ -6572,7 +6596,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.8.0;
+				CURRENT_PROJECT_VERSION = 3.9.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = (
@@ -6586,7 +6610,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.8.0;
+				MARKETING_VERSION = 3.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;
