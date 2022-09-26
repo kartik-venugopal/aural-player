@@ -93,7 +93,7 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     private func generateView() -> NSView {
         
         let viewController = AUControlViewController()
-        viewController.generateControlsForAudioUnit(self)
+        viewController.audioUnit = self
         self.viewController = viewController
         
         return viewController.view

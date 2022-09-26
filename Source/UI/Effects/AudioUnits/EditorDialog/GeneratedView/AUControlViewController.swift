@@ -16,49 +16,104 @@ class AUControlViewController: NSViewController {
     override var nibName: String? {"AUControl"}
     
     @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var containerView: NSView!
     
-    var paramControlVCs: [AUParameterControlViewController] = []
+    private var paramControlVCs: [AUParameterControlViewController] = []
     
-    func generateControlsForAudioUnit(_ audioUnit: HostedAudioUnitDelegateProtocol) {
+    private static let auParamControlViewWidth: CGFloat = 750
+    private var totalHeight: CGFloat = 0
+    
+    var audioUnit: HostedAudioUnitDelegateProtocol! {
+        
+        didSet {
+            generateControlsForAudioUnit()
+        }
+    }
+    
+    private func generateControlsForAudioUnit() {
         
         forceLoadingOfView()
         
-        guard let paramTree = audioUnit.parameterTree else {return}
+        guard let paramTree = audioUnit.parameterTree,
+        let containerView = scrollView.documentView else {return}
         
-        let allParams = paramTree.allParameters
-        var totalHeight: CGFloat = 0
+        traverseParameterGroup(paramTree)
         
-        for param in allParams.reversed() {
-            
-            let viewDelegate = AUParameterControlViewDelegate(audioUnit: audioUnit, parameter: param)
-            let viewController = AUParameterControlViewController()
-            paramControlVCs.append(viewController)
-            
-            let theView = viewController.view
-            viewController.paramControlDelegate = viewDelegate
-            scrollView.documentView?.addSubview(theView)
-            
-            totalHeight += theView.height
+        if totalHeight > containerView.height {
+            containerView.setFrameSize(NSMakeSize(Self.auParamControlViewWidth, totalHeight))
         }
         
-        scrollView.documentView?.setFrameSize(NSMakeSize(750, totalHeight))
+        let h1 = NSLayoutConstraint(item: containerView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: .none, attribute: .notAnAttribute, multiplier: 1, constant: containerView.height)
+        containerView.superview?.activateAndAddConstraint(h1)
         
-        totalHeight = 0
-        for vc in paramControlVCs {
+        var heightSoFar: CGFloat = 0
+        var viewAbove: NSView? = nil
+        for view in containerView.subviews {
             
-            let view = vc.view
-            view.setFrameOrigin(NSMakePoint(0, totalHeight))
+            view.setFrameOrigin(NSMakePoint(0, containerView.height - heightSoFar - view.height))
             
-            let c1 = NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: view.superview!, attribute: .leading, multiplier: 1, constant: 0)
-            let c2 = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: view.superview!, attribute: .bottom, multiplier: 1, constant: totalHeight)
-            let c3 = NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: view.superview!, attribute: .trailing, multiplier: 1, constant: 0)
-            let c4 = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: view.height)
+            let c1 = NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: containerView, attribute: .leading, multiplier: 1, constant: 0)
+            let c2 = NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: containerView, attribute: .trailing, multiplier: 1, constant: 0)
             
-            view.superview?.activateAndAddConstraints(c1, c2, c3, c4)
-            totalHeight += view.height
+            containerView.activateAndAddConstraints(c1, c2)
+            
+            if let theViewAbove = viewAbove {
+                
+                let c3 = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: theViewAbove, attribute: .bottom, multiplier: 1, constant: 0)
+                containerView.activateAndAddConstraint(c3)
+                
+            } else {
+                
+                let c3 = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .top, multiplier: 1, constant: 0)
+                containerView.activateAndAddConstraint(c3)
+            }
+            
+            heightSoFar += view.height
+            viewAbove = view
         }
         
         scrollView.scrollToTop()
+    }
+    
+    private func traverseParameterGroup(_ group: AUParameterGroup) {
+        
+        let children = group.children
+        
+        if children.contains(where: {$0 is AUParameter}) {
+            
+            let label = BottomTextLabel(frame: NSMakeRect(0, 0, Self.auParamControlViewWidth, 28))
+            label.isEditable = false
+            label.stringValue = "    " + group.displayName.capitalizingFirstLetter()
+            label.textColor = .white50Percent
+            label.font = .auxCaptionFont
+            label.forceAlignment()
+            
+            label.drawsBackground = true
+            label.backgroundColor = .black
+            label.translatesAutoresizingMaskIntoConstraints = false
+            
+            containerView.addSubview(label)
+            totalHeight += label.height
+        }
+        
+        for child in group.children {
+            
+            if let param = child as? AUParameter {
+                
+                let viewDelegate = AUParameterControlViewDelegate(audioUnit: audioUnit, parameter: param)
+                let viewController = AUParameterControlViewController()
+                paramControlVCs.append(viewController)
+                
+                let theView = viewController.view
+                viewController.paramControlDelegate = viewDelegate
+                containerView.addSubview(theView)
+                
+                totalHeight += theView.height
+                
+            } else if let subGroup = child as? AUParameterGroup {
+                traverseParameterGroup(subGroup)
+            }
+        }
     }
     
     func refreshControls() {

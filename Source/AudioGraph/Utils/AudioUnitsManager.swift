@@ -18,7 +18,7 @@ class AudioUnitsManager {
     
     let audioUnits: [AVAudioUnitComponent]
     
-    private static let componentsBlackList: Set<String> = ["AUNewPitch", "AURoundTripAAC", "AUNetSend"]
+    private static let componentsBlackList: Set<String> = ["AURoundTripAAC", "AUNetSend"]
     private static let acceptedComponentTypes: Set<OSType> = [kAudioUnitType_Effect, kAudioUnitType_MusicEffect, kAudioUnitType_Panner]
     
     init() {

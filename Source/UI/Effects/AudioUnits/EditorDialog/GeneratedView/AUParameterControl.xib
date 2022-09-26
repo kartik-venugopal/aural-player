@@ -20,20 +20,20 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" userLabel="Parameter Control View">
-            <rect key="frame" x="0.0" y="0.0" width="737" height="55"/>
+            <rect key="frame" x="0.0" y="0.0" width="737" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pup-Ti-Wgh" userLabel="Parameter Name">
-                    <rect key="frame" x="8" y="13" width="194" height="22"/>
+                    <rect key="frame" x="8" y="8" width="194" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Small HiFreq Absorption" id="C47-Fg-RaY">
                         <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.59765858736072541" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MKq-J9-0Ow" userLabel="Value Slider">
-                    <rect key="frame" x="292" y="8" width="207" height="28"/>
+                    <rect key="frame" x="292" y="3" width="207" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="lQr-qN-BAo" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
@@ -41,43 +41,43 @@
                     </connections>
                 </slider>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YEQ-Wa-VCl" userLabel="Min Value">
-                    <rect key="frame" x="213" y="13" width="70" height="22"/>
+                    <rect key="frame" x="213" y="8" width="70" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="0.0001" id="3oS-uP-RcX">
                         <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.60310576745346567" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fig-7c-3Jv" userLabel="Max Value">
-                    <rect key="frame" x="509" y="13" width="70" height="22"/>
+                    <rect key="frame" x="509" y="8" width="70" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="0.0001" id="3KG-jn-7Oi">
                         <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.60310576745346567" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HN3-Tj-1pB" userLabel="Current Value">
-                    <rect key="frame" x="593" y="13" width="67" height="22"/>
+                    <rect key="frame" x="593" y="8" width="67" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="0.0001" id="DOr-Ns-Ats">
                         <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.9041544095665609" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UWI-eC-8CG" userLabel="Unit">
-                    <rect key="frame" x="664" y="13" width="60" height="22"/>
+                    <rect key="frame" x="664" y="8" width="60" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Secs" id="mUw-xe-SC4">
                         <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.9041544095665609" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="275.5" y="46.5"/>
+            <point key="canvasLocation" x="275.5" y="50"/>
         </customView>
     </objects>
 </document>

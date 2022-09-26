@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AUControlViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="containerView" destination="jHn-GD-wcQ" id="hs8-Xq-ph9"/>
                 <outlet property="scrollView" destination="mFo-YC-R3X" id="MOq-Ut-7lW"/>
                 <outlet property="view" destination="mFo-YC-R3X" id="yF8-y2-4gM"/>
             </connections>

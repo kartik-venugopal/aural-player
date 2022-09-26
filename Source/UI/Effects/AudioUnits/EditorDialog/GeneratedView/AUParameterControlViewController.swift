@@ -36,7 +36,7 @@ class AUParameterControlViewController: NSViewController {
             lblName.stringValue = delegate.name
             lblMinValue.stringValue = String(delegate.minValue)
             lblMaxValue.stringValue = String(delegate.maxValue)
-            lblCurrentValue.stringValue = String(format: "%.4f", delegate.currentValue)
+            lblCurrentValue.stringValue = String(format: "%.3f", delegate.currentValue)
             lblUnit.stringValue = delegate.unitName
             useLogScale = delegate.unitName.lowerCasedAndTrimmed() == "hz"
             
@@ -55,7 +55,7 @@ class AUParameterControlViewController: NSViewController {
     @IBAction func updateParamValueAction(_ sender: NSSlider) {
         
         paramControlDelegate.setValue(useLogScale ? logScaleValue : valueSlider.floatValue)
-        lblCurrentValue.stringValue = String(format: "%.4f", paramControlDelegate.currentValue)
+        lblCurrentValue.stringValue = String(format: "%.3f", paramControlDelegate.currentValue)
     }
     
     /// Called when a preset has been applied.
@@ -68,7 +68,7 @@ class AUParameterControlViewController: NSViewController {
             valueSlider.floatValue = paramControlDelegate.currentValue
         }
 
-        lblCurrentValue.stringValue = String(format: "%.4f", paramControlDelegate.currentValue)
+        lblCurrentValue.stringValue = String(format: "%.3f", paramControlDelegate.currentValue)
     }
     
     private var logScaleValue: Float {
