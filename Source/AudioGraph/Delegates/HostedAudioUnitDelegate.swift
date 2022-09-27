@@ -35,7 +35,7 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     
     var hasCustomView: Bool {unit.hasCustomView}
     
-    var params: [AUParameterAddress: Float] {unit.params}
+    var parameterValues: [AUParameterAddress: Float] {unit.parameterValues}
     var parameterTree: AUParameterTree? {unit.parameterTree}
     
     var presets: AudioUnitPresets {unit.presets}
@@ -97,6 +97,10 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
         self.viewController = viewController
         
         return viewController.view
+    }
+    
+    func forceViewRedraw() {
+        (viewController as? AUControlViewController)?.refreshControls()
     }
     
     func setValue(_ value: Float, forParameterWithAddress address: AUParameterAddress) {

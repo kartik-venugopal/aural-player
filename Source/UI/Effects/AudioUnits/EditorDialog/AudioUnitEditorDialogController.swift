@@ -90,9 +90,6 @@ class AudioUnitEditorDialogController: NSWindowController {
     }
     
     private func initUserPresets() {
-        
-        let shouldShowUserPresets: Bool = self.audioUnit?.supportsUserPresets ?? false
-        [lblUserPresets, btnUserPresets, btnSavePreset].forEach {$0?.showIf(shouldShowUserPresets)}
         btnUserPresets.menu?.delegate = self.userPresetsMenuDelegate
     }
     
@@ -114,7 +111,23 @@ class AudioUnitEditorDialogController: NSWindowController {
     @IBAction func applyUserPresetAction(_ sender: Any) {
         
         if let presetName = btnUserPresets.titleOfSelectedItem {
+            
             audioUnit.applyPreset(named: presetName)
+            forceAUViewRedraw()
+        }
+    }
+    
+    private func forceAUViewRedraw() {
+        
+        if audioUnit.hasCustomView {
+            
+            // HACK: To force the AU view to redraw
+            let cur = theWindow.frame.size
+            theWindow.resize(cur.width + 1, cur.height)
+            theWindow.resize(cur.width, cur.height)
+            
+        } else {
+            audioUnit.forceViewRedraw()
         }
     }
     

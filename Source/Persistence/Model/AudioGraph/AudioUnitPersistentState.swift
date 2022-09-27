@@ -8,6 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 import Foundation
+import AudioToolbox
 
 ///
 /// Persistent state for an effects unit that hosts an Audio Units (AU) plug-in.
@@ -17,8 +18,7 @@ import Foundation
 struct AudioUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
-    let userPresets: [AudioUnitPresetPersistentState]?
-    
+
     let componentType: OSType?
     let componentSubType: OSType?
     let params: [AudioUnitParameterPersistentState]?
@@ -45,7 +45,8 @@ struct AudioUnitPresetPersistentState: Codable {
     
     let componentType: OSType?
     let componentSubType: OSType?
-    let number: Int?
+    
+    let parameterValues: [AUParameterAddress: Float]?
     
     init(preset: AudioUnitPreset) {
         
@@ -54,6 +55,12 @@ struct AudioUnitPresetPersistentState: Codable {
         
         self.componentType = preset.componentType
         self.componentSubType = preset.componentSubType
-        self.number = preset.number
+        
+        self.parameterValues = preset.parameterValues
     }
+}
+
+struct AudioUnitPresetsPersistentState: Codable {
+    
+    let presets: [OSType: [OSType: [AudioUnitPresetPersistentState]]]?
 }

@@ -30,7 +30,9 @@ protocol HostedAudioUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     var componentType: OSType {get}
     var componentSubType: OSType {get}
     
-    var params: [AUParameterAddress: Float] {get}
+    var hasCustomView: Bool {get}
+    
+    var parameterValues: [AUParameterAddress: Float] {get}
     var parameterTree: AUParameterTree? {get}
     func setValue(_ value: Float, forParameterWithAddress address: AUParameterAddress)
     
@@ -42,4 +44,6 @@ protocol HostedAudioUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     func applyFactoryPreset(named presetName: String)
     
     func presentView(_ handler: @escaping (NSView) -> Void)
+    
+    func forceViewRedraw()
 }

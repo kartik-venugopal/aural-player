@@ -32,7 +32,7 @@ class HostedAUNode: AVAudioUnitEffect {
     var parameterTree: AUParameterTree? {auAudioUnit.parameterTree}
     private var bypassStateObservers: [AUNodeBypassStateObserver] = []
     
-    var params: [AUParameterAddress: Float] {
+    var parameterValues: [AUParameterAddress: Float] {
         
         get {
             

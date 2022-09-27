@@ -29,8 +29,6 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     
     var hasCustomView: Bool {node.hasCustomView}
     
-    let presets: AudioUnitPresets
-    
     var supportsUserPresets: Bool {
         
         if #available(OSX 10.15, *) {
@@ -42,21 +40,23 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     
     let factoryPresets: [AudioUnitFactoryPreset]
     
-    var params: [AUParameterAddress: Float] {
+    var parameterValues: [AUParameterAddress: Float] {
         
-        get {node.params}
-        set(newParams) {node.params = newParams}
+        get {node.parameterValues}
+        set(newParams) {node.parameterValues = newParams}
     }
+    
+    let presets: AudioUnitPresets
     
     var parameterTree: AUParameterTree? {node.parameterTree}
     
     override var avNodes: [AVAudioNode] {[node]}
     
     // Called when the user adds a new audio unit.
-    init(forComponent component: AVAudioUnitComponent) {
+    init(forComponent component: AVAudioUnitComponent, presets: AudioUnitPresets) {
         
-        presets = AudioUnitPresets()
         self.node = HostedAUNode(forComponent: component)
+        self.presets = presets
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name,
                                                                                            number: $0.number)} ?? []
         
@@ -65,10 +65,10 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     }
     
     // Called upon app startup when restoring from persisted state.
-    init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitPersistentState) {
+    init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitPersistentState, presets: AudioUnitPresets) {
         
-        self.presets = AudioUnitPresets(persistentState: persistentState)
         self.node = HostedAUNode(forComponent: component)
+        self.presets = presets
         
         var nodeParams: [AUParameterAddress: Float] = [:]
         for param in persistentState.params ?? [] {
@@ -76,7 +76,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
             guard let address = param.address, let value = param.value else {continue}
             nodeParams[address] = value
         }
-        self.node.params = nodeParams
+        self.node.parameterValues = nodeParams
         
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name,
                                                                                            number: $0.number)} ?? []
@@ -116,11 +116,8 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
 
     override func savePreset(named presetName: String) {
         
-        if let preset = node.savePreset(named: presetName) {
-            
-            presets.addObject(AudioUnitPreset(name: presetName, state: .active, systemDefined: false, componentType: self.componentType,
-                                              componentSubType: self.componentSubType, number: preset.number))
-        }
+        presets.addObject(AudioUnitPreset(name: presetName, state: .active, systemDefined: false, componentType: self.componentType,
+                                          componentSubType: self.componentSubType, parameterValues: self.parameterValues))
     }
 
     override func applyPreset(named presetName: String) {
@@ -131,7 +128,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     }
 
     func applyPreset(_ preset: AudioUnitPreset) {
-        node.applyPreset(number: preset.number)
+        node.parameterValues = preset.parameterValues
     }
     
     func applyFactoryPreset(_ preset: AudioUnitFactoryPreset) {
@@ -159,15 +156,14 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     var settingsAsPreset: AudioUnitPreset {
         
         AudioUnitPreset(name: "au-\(name)-Settings", state: state, systemDefined: false, componentType: self.componentType,
-                        componentSubType: self.componentSubType, number: 0)
+                        componentSubType: self.componentSubType, parameterValues: self.parameterValues)
     }
     
     var persistentState: AudioUnitPersistentState {
 
         AudioUnitPersistentState(state: self.state,
-                                 userPresets: presets.userDefinedObjects.map {AudioUnitPresetPersistentState(preset: $0)},
                                  componentType: self.componentType,
                                  componentSubType: self.componentSubType,
-                                 params: self.params.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)})
+                                 params: self.parameterValues.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)})
     }
 }

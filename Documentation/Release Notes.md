@@ -1,10 +1,12 @@
-#  What's New in Version 3.9.0
+#  What's New in Version 3.10.0
 
-## Support for Audio Unit (AU) plug-ins that don't provide a custom UI
+## User presets for Audio Unit (AU) plug-ins
 
-As requested by [cesss](https://github.com/cesss), this release brings support for Audio Unit (AU) plug-ins that don't provide a custom GUI (knobs and sliders) - ex. AUMatrixReverb, AUSphericalHeadPanner, etc.
+Users can now save custom presets for AU plug-ins.
 
-For such plug-ins, Aural Player will now dynamically generate a user interface with sliders and labels that the user can manipulate to control the plug-in.
+### More factory presets for built-in Reverb effects unit
+
+Added 4 more factory presets to the built-in Reverb effects unit. 
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.9.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.10.0)

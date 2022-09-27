@@ -48,6 +48,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var soundProfiles: SoundProfiles
     
+    var audioUnitPresets: AudioUnitPresetsMap
+    
     private lazy var messenger = Messenger(for: self)
     
     let visualizationAnalysisBufferSize: Int = 2048
@@ -88,6 +90,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         self.audioUnitsManager = audioUnitsManager
         audioUnits = []
         
+        audioUnitPresets = AudioUnitPresetsMap(persistentState: persistentState?.audioUnitPresets)
+        
         for auState in persistentState?.audioUnits ?? [] {
             
             guard let componentType = auState.componentType,
@@ -95,7 +99,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
                   let component = audioUnitsManager.audioUnit(ofType: componentType,
                                                               andSubType: componentSubType) else {continue}
             
-            audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState))
+            let presets = audioUnitPresets.getPresetsForAU(componentType: componentType, componentSubType: componentSubType)
+            audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState, presets: presets))
         }
         
         let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit]
@@ -189,21 +194,20 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)? {
         
-        if let auComponent = audioUnitsManager.audioUnit(ofType: type, andSubType: subType) {
-            
-            let newUnit: HostedAudioUnit = HostedAudioUnit(forComponent: auComponent)
-            audioUnits.append(newUnit)
-            masterUnit.addAudioUnit(newUnit)
-            
-            let context = AudioGraphChangeContext()
-            messenger.publish(PreAudioGraphChangeNotification(context: context))
-            audioEngine.insertNode(newUnit.avNodes[0])
-            messenger.publish(AudioGraphChangedNotification(context: context))
-            
-            return (audioUnit: newUnit, index: audioUnits.lastIndex)
-        }
+        guard let auComponent = audioUnitsManager.audioUnit(ofType: type, andSubType: subType) else {return nil}
         
-        return nil
+        let newUnit: HostedAudioUnit = HostedAudioUnit(forComponent: auComponent,
+                                                       presets: audioUnitPresets.getPresetsForAU(componentType: type, componentSubType: subType))
+        
+        audioUnits.append(newUnit)
+        masterUnit.addAudioUnit(newUnit)
+        
+        let context = AudioGraphChangeContext()
+        messenger.publish(PreAudioGraphChangeNotification(context: context))
+        audioEngine.insertNode(newUnit.avNodes[0])
+        messenger.publish(AudioGraphChangedNotification(context: context))
+        
+        return (audioUnit: newUnit, index: audioUnits.lastIndex)
     }
     
     func removeAudioUnits(at indices: IndexSet) {
@@ -238,7 +242,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
                                   delayUnit: delayUnit.persistentState,
                                   filterUnit: filterUnit.persistentState,
                                   audioUnits: audioUnits.map {$0.persistentState},
-                                  soundProfiles: soundProfiles.persistentState)
+                                  soundProfiles: soundProfiles.persistentState,
+                                  audioUnitPresets: audioUnitPresets.persistentState)
     }
 }
 

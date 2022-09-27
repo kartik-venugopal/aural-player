@@ -21,9 +21,17 @@ enum ReverbSpaces: String, CaseIterable, Codable {
     
     case largeRoom
     
+    case largeRoom2
+    
     case mediumHall
     
+    case mediumHall2
+
+    case mediumHall3
+    
     case largeHall
+    
+    case largeHall2
     
     case mediumChamber
     
@@ -40,10 +48,16 @@ enum ReverbSpaces: String, CaseIterable, Codable {
             
         case .smallRoom: return .smallRoom
         case .mediumRoom: return .mediumRoom
+            
         case .largeRoom: return .largeRoom
+        case .largeRoom2: return .largeRoom2
             
         case .mediumHall: return .mediumHall
+        case .mediumHall2: return .mediumHall2
+        case .mediumHall3: return .mediumHall3
+            
         case .largeHall: return .largeHall
+        case .largeHall2: return .largeHall2
             
         case .mediumChamber: return .mediumChamber
         case .largeChamber: return .largeChamber
@@ -61,10 +75,16 @@ enum ReverbSpaces: String, CaseIterable, Codable {
             
         case .smallRoom: return .smallRoom
         case .mediumRoom: return .mediumRoom
+            
         case .largeRoom: return .largeRoom
+        case .largeRoom2: return .largeRoom2
             
         case .mediumHall: return .mediumHall
+        case .mediumHall2: return .mediumHall2
+        case .mediumHall3: return .mediumHall3
+            
         case .largeHall: return .largeHall
+        case .largeHall2: return .largeHall2
             
         case .mediumChamber: return .mediumChamber
         case .largeChamber: return .largeChamber
@@ -72,8 +92,7 @@ enum ReverbSpaces: String, CaseIterable, Codable {
         case .cathedral: return .cathedral
         case .plate: return .plate
             
-        // This should never happen
-        default: return ReverbSpaces.smallRoom
+        @unknown default: return .smallRoom
             
         }
     }
