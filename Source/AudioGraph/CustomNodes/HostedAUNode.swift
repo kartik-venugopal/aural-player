@@ -53,20 +53,20 @@ class HostedAUNode: AVAudioUnitEffect {
         }
     }
     
-    private let bypassPropertyKey: String = "shouldBypassEffect"
+    private static let bypassPropertyKey: String = "shouldBypassEffect"
     
     convenience init(forComponent component: AVAudioUnitComponent) {
         
         self.init(audioComponentDescription: component.audioComponentDescription)
         self.avComponent = component
 
-        auAudioUnit.addObserver(self, forKeyPath: bypassPropertyKey, options: .init(), context: nil)
+        auAudioUnit.addObserver(self, forKeyPath: Self.bypassPropertyKey, options: .init(), context: nil)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?,
                                change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        if keyPath == bypassPropertyKey {
+        if keyPath == Self.bypassPropertyKey {
             bypassStateObservers.forEach {$0.nodeBypassStateChanged(auAudioUnit.shouldBypassEffect)}
         }
     }
