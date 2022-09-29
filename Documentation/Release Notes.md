@@ -1,12 +1,8 @@
-#  What's New in Version 3.10.0
+#  What's New in Version 3.9.1
 
-## User presets for Audio Unit (AU) plug-ins
+## Fix for light mode appearance of generated AU control views
 
-Users can now save custom presets for AU plug-ins.
-
-### More factory presets for built-in Reverb effects unit
-
-Added 4 more factory presets to the built-in Reverb effects unit. 
+In v3.9.0, dynamically generated views for AU plug-ins without a custom view showed up with a light background, obscuring the text labels. This issue has been fixed.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.10.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.9.1)
