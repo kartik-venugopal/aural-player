@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    AudioUnitEditorDialog.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -37,7 +26,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="630" height="580"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" wantsLayer="YES" id="yWQ-0G-xPL">
                 <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -115,7 +104,7 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton toolTip="Load user preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoa-Kv-Cdv" userLabel="User Presets Menu">
+                    <popUpButton hidden="YES" toolTip="Load user preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoa-Kv-Cdv" userLabel="User Presets Menu">
                         <rect key="frame" x="572" y="525" width="27" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="22" id="BwC-vJ-cgz"/>
@@ -136,7 +125,7 @@ Gw
                             <action selector="applyUserPresetAction:" target="-2" id="4pQ-H3-t1f"/>
                         </connections>
                     </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uYN-5k-nw5" userLabel="User Presets Label">
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uYN-5k-nw5" userLabel="User Presets Label">
                         <rect key="frame" x="484" y="525" width="94" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Yjd-VZ-7ig"/>
@@ -148,7 +137,7 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button toolTip="Save new preset" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AlZ-mk-WMx" userLabel="Save">
+                    <button hidden="YES" toolTip="Save new preset" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AlZ-mk-WMx" userLabel="Save">
                         <rect key="frame" x="597" y="525" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="I0K-ha-gSJ"/>
