@@ -19,7 +19,7 @@ class FFmpegAudioCodec: FFmpegCodec {
     ///
     /// This should equal the number of physical CPU cores in the system.
     ///
-    static let threadCount: Int32 = Int32(SystemUtils.numberOfPhysicalCores)
+    static let threadCount: Int32 = Int32(max(2, System.physicalCores / 2))
     
     ///
     /// The type of multithreading used by **FFmpeg** when decoding.
@@ -87,6 +87,9 @@ class FFmpegAudioCodec: FFmpegCodec {
         self.sampleFormat = FFmpegSampleFormat(encapsulating: context.sample_fmt)
     }
     
+    var sendTime: Double = 0
+    var rcvTime: Double = 0
+    
     ///
     /// Decodes a single packet and produces (potentially) multiple frames.
     ///
@@ -98,8 +101,13 @@ class FFmpegAudioCodec: FFmpegCodec {
     ///
     func decode(packet: FFmpegPacket) throws -> FFmpegPacketFrames {
         
+        var st = CFAbsoluteTimeGetCurrent()
         // Send the packet to the decoder for decoding.
         let resultCode: ResultCode = avcodec_send_packet(contextPointer, packet.pointer)
+        
+        var end = CFAbsoluteTimeGetCurrent()
+        
+        sendTime += end - st
         
         // If the packet send failed, log a message and throw an error.
         if resultCode.isNegative {
@@ -111,11 +119,16 @@ class FFmpegAudioCodec: FFmpegCodec {
         // Collect the received frames in an array.
         let packetFrames: FFmpegPacketFrames = FFmpegPacketFrames()
         
+        st = CFAbsoluteTimeGetCurrent()
         // Keep receiving decoded frames while no errors are encountered
         while let frame = FFmpegFrame(readingFrom: contextPointer, withSampleFormat: self.sampleFormat) {
             packetFrames.appendFrame(frame)
         }
         
+        end = CFAbsoluteTimeGetCurrent()
+        rcvTime += end - st
+        
+//        print("Sending back \(packetFrames.frames.count) frames ...")
         return packetFrames
     }
     
