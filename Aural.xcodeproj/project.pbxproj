@@ -351,7 +351,7 @@
 		3E60C9E426B0817600D9404C /* FFmpegPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB336425E8AE08004DF7DE /* FFmpegPacket.swift */; };
 		3E60C9E526B0817600D9404C /* FFmpegFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB335C25E8AE08004DF7DE /* FFmpegFrame.swift */; };
 		3E60C9E626B0817600D9404C /* FFmpegImageStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB336125E8AE08004DF7DE /* FFmpegImageStream.swift */; };
-		3E60C9E826B0817C00D9404C /* FFmpegDecoder+SampleConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB33C525E8AE08004DF7DE /* FFmpegDecoder+SampleConversion.swift */; };
+		3E60C9E826B0817C00D9404C /* FFmpegDecoder+PCMBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB33C525E8AE08004DF7DE /* FFmpegDecoder+PCMBuffer.swift */; };
 		3E60C9E926B0817C00D9404C /* FFmpegErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB336325E8AE08004DF7DE /* FFmpegErrors.swift */; };
 		3E60C9EB26B0817C00D9404C /* FFmpegPacketFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB336525E8AE08004DF7DE /* FFmpegPacketFrames.swift */; };
 		3E60C9EC26B0817C00D9404C /* FFmpegDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB346E25E8BB00004DF7DE /* FFmpegDecoder.swift */; };
@@ -1163,7 +1163,7 @@
 		3EDB33F525E8AE09004DF7DE /* FFmpegPacketFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB336525E8AE08004DF7DE /* FFmpegPacketFrames.swift */; };
 		3EDB33F625E8AE09004DF7DE /* FFmpegStreamProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB336625E8AE08004DF7DE /* FFmpegStreamProtocol.swift */; };
 		3EDB33F725E8AE09004DF7DE /* FFmpegCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB336725E8AE08004DF7DE /* FFmpegCodec.swift */; };
-		3EDB33F925E8AE09004DF7DE /* FFmpegDecoder+SampleConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB33C525E8AE08004DF7DE /* FFmpegDecoder+SampleConversion.swift */; };
+		3EDB33F925E8AE09004DF7DE /* FFmpegDecoder+PCMBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB33C525E8AE08004DF7DE /* FFmpegDecoder+PCMBuffer.swift */; };
 		3EDB33FA25E8AE09004DF7DE /* FFmpegPacketTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB33C625E8AE08004DF7DE /* FFmpegPacketTable.swift */; };
 		3EDB33FB25E8AE09004DF7DE /* FFmpegFrameBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB33C725E8AE08004DF7DE /* FFmpegFrameBuffer.swift */; };
 		3EDB33FF25E8AE09004DF7DE /* FFmpegChannelLayoutsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB33CB25E8AE08004DF7DE /* FFmpegChannelLayoutsMapper.swift */; };
@@ -2264,7 +2264,7 @@
 		3EDB336525E8AE08004DF7DE /* FFmpegPacketFrames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegPacketFrames.swift; sourceTree = "<group>"; };
 		3EDB336625E8AE08004DF7DE /* FFmpegStreamProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegStreamProtocol.swift; sourceTree = "<group>"; };
 		3EDB336725E8AE08004DF7DE /* FFmpegCodec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegCodec.swift; sourceTree = "<group>"; };
-		3EDB33C525E8AE08004DF7DE /* FFmpegDecoder+SampleConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FFmpegDecoder+SampleConversion.swift"; sourceTree = "<group>"; };
+		3EDB33C525E8AE08004DF7DE /* FFmpegDecoder+PCMBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FFmpegDecoder+PCMBuffer.swift"; sourceTree = "<group>"; };
 		3EDB33C625E8AE08004DF7DE /* FFmpegPacketTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegPacketTable.swift; sourceTree = "<group>"; };
 		3EDB33C725E8AE08004DF7DE /* FFmpegFrameBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegFrameBuffer.swift; sourceTree = "<group>"; };
 		3EDB33CB25E8AE08004DF7DE /* FFmpegChannelLayoutsMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegChannelLayoutsMapper.swift; sourceTree = "<group>"; };
@@ -4711,7 +4711,7 @@
 			children = (
 				3EDB346E25E8BB00004DF7DE /* FFmpegDecoder.swift */,
 				3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */,
-				3EDB33C525E8AE08004DF7DE /* FFmpegDecoder+SampleConversion.swift */,
+				3EDB33C525E8AE08004DF7DE /* FFmpegDecoder+PCMBuffer.swift */,
 				3EDB336325E8AE08004DF7DE /* FFmpegErrors.swift */,
 				3EDB335B25E8AE08004DF7DE /* FFmpegMetadataReader.swift */,
 				3EDB33C625E8AE08004DF7DE /* FFmpegPacketTable.swift */,
@@ -5416,7 +5416,7 @@
 				3EDB33FA25E8AE09004DF7DE /* FFmpegPacketTable.swift in Sources */,
 				3EDB346C25E8BABC004DF7DE /* FFmpegPlaybackContext.swift in Sources */,
 				3EDB33EE25E8AE09004DF7DE /* FFmpegResamplingContext.swift in Sources */,
-				3EDB33F925E8AE09004DF7DE /* FFmpegDecoder+SampleConversion.swift in Sources */,
+				3EDB33F925E8AE09004DF7DE /* FFmpegDecoder+PCMBuffer.swift in Sources */,
 				3EDB33EF25E8AE09004DF7DE /* FFmpegSampleFormat.swift in Sources */,
 				3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */,
 				3EDB33F625E8AE09004DF7DE /* FFmpegStreamProtocol.swift in Sources */,
@@ -5977,7 +5977,7 @@
 				3E60C97426B078B900D9404C /* PlaybackDelegateTestCase.swift in Sources */,
 				3E871A7126990DC400C626DC /* FilterUnit.swift in Sources */,
 				3EFDA978268F792A00CFF785 /* MirrorExtensions.swift in Sources */,
-				3E60C9E826B0817C00D9404C /* FFmpegDecoder+SampleConversion.swift in Sources */,
+				3E60C9E826B0817C00D9404C /* FFmpegDecoder+PCMBuffer.swift in Sources */,
 				3E60C9D726B07EDB00D9404C /* UserInputMode.swift in Sources */,
 				3E6C249626B4A684008F8475 /* GroupingPlaylistTestCase.swift in Sources */,
 				3EABDDBE2694B5B3008066E8 /* PlayerUIPersistenceTests.swift in Sources */,

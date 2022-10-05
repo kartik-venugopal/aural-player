@@ -128,14 +128,6 @@ class FFmpegDecoder {
     ///
     func decode(maxSampleCount: Int32, intoFormat outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
         
-        readTime = 0
-        decodeTime = 0
-        
-        codec.sendTime = 0
-        codec.rcvTime = 0
-        
-        let st = CFAbsoluteTimeGetCurrent()
-        
         let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount,
                                                                channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
         
@@ -203,18 +195,8 @@ class FFmpegDecoder {
             buffer.appendTerminalFrames(terminalFrames)
         }
         
-        let end = CFAbsoluteTimeGetCurrent()
-        
-        print("\nreadTime = \(readTime * 1000) msecs, decodeTime = \(decodeTime * 1000) msecs")
-        
-//        print("\nDecoding time: \((end - st) * 1000) msecs for \(buffer.frames.count) frames, readTime = \(readTime * 1000) msecs, decodeTime = \(decodeTime * 1000) msecs")
-//        print("SendTime: \(codec.sendTime * 1000) msec, RcvTime: \(codec.rcvTime * 1000) msec")
-        
-        return transferSamplesToPCMBuffer(frameBuffer: buffer, outputFormat: outputFormat)
+        return transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat)
     }
-    
-    var readTime: Double = 0
-    var decodeTime: Double = 0
     
     ///
     /// Decodes the next available packet in the stream, if required, to produce a single frame.
@@ -239,30 +221,15 @@ class FFmpegDecoder {
         
         while frameQueue.isEmpty {
         
-            var st = CFAbsoluteTimeGetCurrent()
-            if let packet = try fileCtx.readPacket(from: stream) {
-                var end = CFAbsoluteTimeGetCurrent()
-                
-                readTime += end - st
-                
-//                print("Read packet with duration=\(packet.duration), size=\(packet.size), PTS=\(packet.pts)")
-                
-                st = CFAbsoluteTimeGetCurrent()
-                let frames = try codec.decode(packet: packet).frames
-                end = CFAbsoluteTimeGetCurrent()
-                
-                decodeTime += end - st
-                
-                if framesNeedTimestamps.value {
-                    setTimestampsInFrames(frames)
-                }
-                
-//                frames.forEach {
-//                    print("Decoded frame with duration=\($0.sampleCount)")
-//                }
-                
-                frames.forEach {frameQueue.enqueue($0)}
+            guard let packet = try fileCtx.readPacket(from: stream) else {continue}
+            
+            let frames = try codec.decode(packet: packet).frames
+            
+            if framesNeedTimestamps.value {
+                setTimestampsInFrames(frames)
             }
+            
+            frames.forEach {frameQueue.enqueue($0)}
         }
         
         return frameQueue.peek()!
@@ -384,30 +351,30 @@ class FFmpegDecoder {
         
         if frames.isEmpty {return}
         
-        let sampleRate = codec.sampleRate
+        let sampleRate = Double(codec.sampleRate)
         
         // The timestamp of the first frame will serve as a base timestamp
-        let frame0PTS: Double = Double(frames[0].pts) * stream.timeBase.ratio
-        frames[0].startTimestampSeconds = frame0PTS
-        frames[0].endTimestampSeconds = frame0PTS + (Double(frames[0].actualSampleCount) / Double(sampleRate))
+        let frame0 = frames[0]
+        let frame0PTS: Double = Double(frame0.pts) * stream.timeBase.ratio
+        frame0.startTimestampSeconds = frame0PTS
+        frame0.endTimestampSeconds = frame0PTS + (Double(frame0.actualSampleCount) / sampleRate)
         
         // More than 1 frame in packet
-        if frames.count > 1 {
-
-            // Use sample count and sample rate to calculate timestamps
-            // for each of the subsequent (after the first) frames.
+        guard frames.count > 1 else {return}
+        
+        // Use sample count and sample rate to calculate timestamps
+        // for each of the subsequent (after the first) frames.
+        
+        var currentSampleCount: Int32 = frame0.sampleCount
+        
+        for index in (1..<frames.count) {
             
-            var currentSampleCount: Int32 = frames[0].sampleCount
+            let frame = frames[index]
             
-            for index in (1..<frames.count) {
-                
-                let frame = frames[index]
-                
-                frame.startTimestampSeconds = frames[index - 1].endTimestampSeconds
-                frame.endTimestampSeconds = frame.startTimestampSeconds + (Double(frame.actualSampleCount) / Double(sampleRate))
-                
-                currentSampleCount += frame.actualSampleCount
-            }
+            frame.startTimestampSeconds = frames[index - 1].endTimestampSeconds
+            frame.endTimestampSeconds = frame.startTimestampSeconds + (Double(frame.actualSampleCount) / sampleRate)
+            
+            currentSampleCount += frame.actualSampleCount
         }
     }
     

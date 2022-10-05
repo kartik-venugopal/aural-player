@@ -23,7 +23,7 @@ extension FFmpegDecoder {
     ///
     /// Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
     ///
-    func transferSamplesToPCMBuffer(frameBuffer: FFmpegFrameBuffer, outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
+    func transferSamplesToPCMBuffer(from frameBuffer: FFmpegFrameBuffer, outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
         
         // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
         guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat,

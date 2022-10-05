@@ -110,7 +110,7 @@ extension FFmpegDecoder {
             buffer.appendTerminalFrames(terminalFrames)
         }
         
-        return transferSamplesToPCMBuffer(frameBuffer: buffer, outputFormat: outputFormat)
+        return transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat)
     }
     
     ///
