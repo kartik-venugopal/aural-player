@@ -8,41 +8,6 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 import AVFoundation
-import Accelerate
-
-extension AVAudioPCMBuffer {
-    
-    func copy(frame: FFmpegFrame, from dataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>? = nil, startOffset: Int) {
-        
-        guard let floatChannelData = self.floatChannelData else {return}
-        
-        let srcData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = dataPointers ?? frame.dataPointers
-        
-        let channelCount: Int = frame.intChannelCount
-        let sampleCount: Int = frame.intSampleCount
-        let firstSampleIndex: Int = Int(frame.firstSampleIndex)
-        
-        // NOTE - The following copy operation assumes a non-interleaved output format (i.e. the standard Core Audio format).
-        
-        // Iterate through all the channels.
-        for channelIndex in 0..<channelCount {
-            
-            // Obtain pointers to the input and output data.
-            guard let bytesForChannel = srcData[channelIndex] else {break}
-            let audioBufferChannel = floatChannelData[channelIndex]
-            
-            // Temporarily bind the output sample buffers as floating point numbers, and perform the copy.
-            bytesForChannel.withMemoryRebound(to: Float.self, capacity: sampleCount) {
-                (outputDataPointer: UnsafeMutablePointer<Float>) in
-                
-                // Use Accelerate to perform the copy optimally, starting at the given offset.
-                cblas_scopy(frame.sampleCount,
-                            outputDataPointer.advanced(by: firstSampleIndex), 1,
-                            audioBufferChannel.advanced(by: startOffset), 1)
-            }
-        }
-    }
-}
 
 extension AVAudioUnitComponent {
     

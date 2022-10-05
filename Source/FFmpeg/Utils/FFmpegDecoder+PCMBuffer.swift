@@ -29,6 +29,9 @@ extension FFmpegDecoder {
         guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat,
                                                     frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return nil}
         
+        // The audio buffer will always be filled to capacity.
+        playbackBuffer.frameLength = AVAudioFrameCount(frameBuffer.sampleCount)
+        
         if frameBuffer.needsFormatConversion {
             convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
             
@@ -43,9 +46,6 @@ extension FFmpegDecoder {
         
         guard let floatChannelData = audioBuffer.floatChannelData else {return}
         
-        // The audio buffer will always be filled to capacity.
-        audioBuffer.frameLength = audioBuffer.frameCapacity
-        
         let channelCount: Int = Int(frameBuffer.audioFormat.channelCount)
         
         // Keeps track of how many samples have been copied over so far.
@@ -55,27 +55,20 @@ extension FFmpegDecoder {
         for frame in frameBuffer.frames {
             
             guard let srcData = frame.dataPointers else {return}
-            
-            let sampleCount: Int = frame.intSampleCount
             let firstSampleIndex: Int = Int(frame.firstSampleIndex)
             
             // NOTE - The following copy operation assumes a non-interleaved output format (i.e. the standard Core Audio format).
             
-            // Iterate through all the channels.
-            for channelIndex in 0..<channelCount {
+            // Temporarily bind the input sample buffers as floating point numbers, and perform the copy.
+            srcData.withMemoryRebound(to: UnsafeMutablePointer<Float>.self, capacity: channelCount) {srcPointers in
                 
-                // Obtain pointers to the input and output data.
-                guard let bytesForChannel = srcData[channelIndex] else {break}
-                let outputDataPointer = floatChannelData[channelIndex]
-                
-                // Temporarily bind the output sample buffers as floating point numbers, and perform the copy.
-                bytesForChannel.withMemoryRebound(to: Float.self, capacity: sampleCount) {
-                    (inputDataPointer: UnsafeMutablePointer<Float>) in
+                // Iterate through all the channels.
+                for channelIndex in 0..<channelCount {
                     
                     // Use Accelerate to perform the copy optimally, starting at the given offset.
                     cblas_scopy(frame.sampleCount,
-                                inputDataPointer.advanced(by: firstSampleIndex), 1,
-                                outputDataPointer.advanced(by: sampleCountSoFar), 1)
+                                srcPointers[channelIndex].advanced(by: firstSampleIndex), 1,
+                                floatChannelData[channelIndex].advanced(by: sampleCountSoFar), 1)
                 }
             }
             
@@ -105,7 +98,5 @@ extension FFmpegDecoder {
                 sampleCountSoFar += frame.intSampleCount
             }
         }
-        
-        audioBuffer.frameLength = AVAudioFrameCount(frameBuffer.sampleCount)
     }
 }
