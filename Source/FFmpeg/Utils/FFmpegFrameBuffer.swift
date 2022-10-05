@@ -116,34 +116,6 @@ class FFmpegFrameBuffer {
         }
     }
     
-    ///
-    /// Copies this buffer's samples, as non-interleaved (aka planar) 32-bit floats, to a given (playable) audio buffer.
-    ///
-    /// - Parameter audioBuffer: The playable audio buffer that will hold the samples contained in this buffer.
-    ///
-    /// # Note #
-    ///
-    /// The caller of this function must first verify that this buffer's samples are indeed of the required (playable) standard
-    /// Core Audio format. In other words, this function does not do any kind of sample format conversion. It copies
-    /// the samples as is.
-    ///
-    func copySamples(to audioBuffer: AVAudioPCMBuffer) {
-        
-        // The audio buffer will always be filled to capacity.
-        audioBuffer.frameLength = audioBuffer.frameCapacity
-        
-        // Keeps track of how many samples have been copied over so far.
-        // This will be used as an offset when performing each copy operation.
-        var sampleCountSoFar: Int = 0
-        
-        for frame in frames {
-
-            // Copy the frame and update the sample counter.
-            audioBuffer.copy(frame: frame, startOffset: sampleCountSoFar)
-            sampleCountSoFar += frame.intSampleCount
-        }
-    }
-    
     /// Indicates whether or not this object has already been destroyed.
     private var destroyed: Bool = false
     

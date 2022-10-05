@@ -213,25 +213,6 @@ class FFmpegDecoder {
         return transferSamplesToPCMBuffer(frameBuffer: buffer, outputFormat: outputFormat)
     }
     
-    ///
-    /// Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
-    /// 
-    func transferSamplesToPCMBuffer(frameBuffer: FFmpegFrameBuffer, outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
-        
-        // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
-        guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat,
-                                                    frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return nil}
-        
-        if frameBuffer.needsFormatConversion {
-            convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
-            
-        } else {
-            frameBuffer.copySamples(to: playbackBuffer)
-        }
-        
-        return playbackBuffer
-    }
-    
     var readTime: Double = 0
     var decodeTime: Double = 0
     
