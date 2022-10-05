@@ -11,7 +11,7 @@ import Cocoa
 
 class ControlBarSeekSliderCell: SeekSliderCell {
     
-    override var barInsetY: CGFloat {SystemUtils.isBigSur ? -0.5 : 0}
+    override var barInsetY: CGFloat {System.isBigSur ? -0.5 : 0}
     override var barRadius: CGFloat {1}
     
     private let loopMarkerWidth: CGFloat = 8
@@ -43,7 +43,7 @@ class ControlBarSeekSliderCell: SeekSliderCell {
     override func barRect(flipped: Bool) -> NSRect {
         
         let superRect = super.barRect(flipped: false)
-        let isBigSur: Bool = SystemUtils.isBigSur
+        let isBigSur: Bool = System.isBigSur
         
         return NSMakeRect(superRect.minX, isBigSur ? 6 : 2, superRect.width, superRect.height)
     }

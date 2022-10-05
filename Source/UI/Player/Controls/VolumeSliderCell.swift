@@ -12,7 +12,7 @@ import Cocoa
 // Cell for volume slider
 class VolumeSliderCell: HorizontalSliderCell {
     
-    override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
+    override var barInsetY: CGFloat {System.isBigSur ? 0 : 0.5}
     
     override var knobWidth: CGFloat {6}
     override var knobRadius: CGFloat {0.5}

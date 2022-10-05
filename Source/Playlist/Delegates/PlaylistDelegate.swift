@@ -44,7 +44,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     private var addSession: TrackAddSession!
     
-    private let concurrentAddOpCount = (Double(SystemUtils.numberOfActiveCores) * 1.5).roundedInt
+    private let concurrentAddOpCount = (Double(System.numberOfActiveCores) * 1.5).roundedInt
     
 //    var name: String {playlist.name}
     

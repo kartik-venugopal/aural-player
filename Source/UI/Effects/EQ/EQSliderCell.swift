@@ -63,12 +63,12 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     // Force knobRect and barRect to NOT be flipped
     
     override func knobRect(flipped: Bool) -> NSRect {
-        super.knobRect(flipped: SystemUtils.isBigSur)
+        super.knobRect(flipped: System.isBigSur)
     }
     
     override func barRect(flipped: Bool) -> NSRect {
         
-        if SystemUtils.isBigSur {
+        if System.isBigSur {
             return NSRect(x: 10, y: 2, width: 4, height: super.barRect(flipped: false).height)
         } else {
             return super.barRect(flipped: false)

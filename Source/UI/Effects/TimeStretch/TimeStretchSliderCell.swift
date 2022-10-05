@@ -31,7 +31,7 @@ class TimeStretchSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     var unitState: EffectsUnitState = .bypassed
     
     override var barRadius: CGFloat {1}
-    override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
+    override var barInsetY: CGFloat {System.isBigSur ? 0 : 0.5}
     
     override var knobWidth: CGFloat {10}
     override var knobRadius: CGFloat {0.5}

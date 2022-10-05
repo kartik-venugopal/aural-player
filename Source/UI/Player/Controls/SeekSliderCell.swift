@@ -21,7 +21,7 @@ struct PlaybackLoopRange {
 // Cell for seek position slider
 class SeekSliderCell: HorizontalSliderCell {
     
-    override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
+    override var barInsetY: CGFloat {System.isBigSur ? 0 : 0.5}
     
     override var knobRadius: CGFloat {1}
     override var knobWidth: CGFloat {10}

@@ -53,7 +53,7 @@ class PlayerAudioViewController: NSViewController, Destroyable {
     override func viewDidLoad() {
         
         // Ugly hack to properly align pan slider on Big Sur.
-        if SystemUtils.isBigSur, showsPanControl {
+        if System.isBigSur, showsPanControl {
             panSlider.moveUp(distance: 3)
         }
         

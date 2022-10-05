@@ -254,7 +254,7 @@ class AVFFileReader: FileReaderProtocol {
         // On older systems (Sierra/HighSierra), the end times are not properly read by **AVFoundation**
         // So, use start times to compute end times / duration
         let fileExtension = file.lowerCasedExtension
-        let useAlternativeComputation = SystemUtils.osVersion.minorVersion < 14 && !["m4a", "m4b"].contains(fileExtension)
+        let useAlternativeComputation = System.osVersion.minorVersion < 14 && !["m4a", "m4b"].contains(fileExtension)
 
         if useAlternativeComputation {
             return getChapters_olderSystems(for: file, from: asset)

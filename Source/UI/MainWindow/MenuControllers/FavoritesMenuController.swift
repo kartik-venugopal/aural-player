@@ -30,7 +30,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    fileprivate lazy var artLoadingQueue: OperationQueue = OperationQueue(opCount: max(SystemUtils.numberOfActiveCores / 2, 2),
+    fileprivate lazy var artLoadingQueue: OperationQueue = OperationQueue(opCount: max(System.numberOfActiveCores / 2, 2),
                                                                           qos: .userInteractive)
     
     // One-time setup, when the menu loads

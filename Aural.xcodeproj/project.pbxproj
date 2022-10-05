@@ -121,6 +121,7 @@
 		3E2779F126AF326800291244 /* PlayerSeekResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC040E268773B4004478CE /* PlayerSeekResult.swift */; };
 		3E2779F426AF33B100291244 /* MockAVFPlaybackContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2779F326AF33B100291244 /* MockAVFPlaybackContext.swift */; };
 		3E28691628E2538500478AC4 /* AudioUnitPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28691528E2538400478AC4 /* AudioUnitPresets.swift */; };
+		3E28DEE528EE21200093336B /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28DEE428EE21200093336B /* System.swift */; };
 		3E2976132629473500459272 /* WindowCornerRadiusMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */; };
 		3E2EADD326B16EBF00A95119 /* HaltPlaybackActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025F0268E830900C5A1C5 /* HaltPlaybackActionTests.swift */; };
 		3E2EADD426B16F1200A95119 /* StartPlaybackActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025F1268E830900C5A1C5 /* StartPlaybackActionTests.swift */; };
@@ -361,7 +362,6 @@
 		3E60C9F326B081B900D9404C /* AtomicBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DEE2681260700E826F0 /* AtomicBool.swift */; };
 		3E60C9F426B081C200D9404C /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C325CEB98700BF0D07 /* Queue.swift */; };
 		3E60C9F626B081CD00D9404C /* FFmpegStreamProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB336625E8AE08004DF7DE /* FFmpegStreamProtocol.swift */; };
-		3E60C9F826B081EF00D9404C /* SystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5E4267FE9B300F0DC96 /* SystemUtils.swift */; };
 		3E60C9FA26B081FA00D9404C /* ConcurrentCompositeKeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC04292687B727004478CE /* ConcurrentCompositeKeyMap.swift */; };
 		3E60C9FC26B081FD00D9404C /* CompositeKeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */; };
 		3E60C9FE26B0822200D9404C /* NSImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5F9267FEEEA00F0DC96 /* NSImageExtensions.swift */; };
@@ -1051,7 +1051,6 @@
 		3EAFB5DF267FE86000F0DC96 /* FileSystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5DE267FE86000F0DC96 /* FileSystemInfo.swift */; };
 		3EAFB5E1267FE88700F0DC96 /* MetadataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5E0267FE88700F0DC96 /* MetadataEntry.swift */; };
 		3EAFB5E3267FE99500F0DC96 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5E2267FE99500F0DC96 /* URLExtensions.swift */; };
-		3EAFB5E5267FE9B300F0DC96 /* SystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5E4267FE9B300F0DC96 /* SystemUtils.swift */; };
 		3EAFB5E7267FEA4A00F0DC96 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5E6267FEA4A00F0DC96 /* DateExtensions.swift */; };
 		3EAFB5E9267FEBB200F0DC96 /* FloatingPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5E8267FEBB200F0DC96 /* FloatingPointExtensions.swift */; };
 		3EAFB5EC267FEC5C00F0DC96 /* NSViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5EB267FEC5C00F0DC96 /* NSViewExtensions.swift */; };
@@ -1444,6 +1443,7 @@
 		3E2779E126AEF21D00291244 /* HostedAudioUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitTests.swift; sourceTree = "<group>"; };
 		3E2779F326AF33B100291244 /* MockAVFPlaybackContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVFPlaybackContext.swift; sourceTree = "<group>"; };
 		3E28691528E2538400478AC4 /* AudioUnitPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnitPresets.swift; sourceTree = "<group>"; };
+		3E28DEE428EE21200093336B /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCornerRadiusMenuItemView.swift; sourceTree = "<group>"; };
 		3E2ED4A425DBAD8400732E79 /* FontScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontScheme.swift; sourceTree = "<group>"; };
 		3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreset.swift; sourceTree = "<group>"; };
@@ -2173,7 +2173,6 @@
 		3EAFB5DE267FE86000F0DC96 /* FileSystemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemInfo.swift; sourceTree = "<group>"; };
 		3EAFB5E0267FE88700F0DC96 /* MetadataEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataEntry.swift; sourceTree = "<group>"; };
 		3EAFB5E2267FE99500F0DC96 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
-		3EAFB5E4267FE9B300F0DC96 /* SystemUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemUtils.swift; sourceTree = "<group>"; };
 		3EAFB5E6267FEA4A00F0DC96 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		3EAFB5E8267FEBB200F0DC96 /* FloatingPointExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPointExtensions.swift; sourceTree = "<group>"; };
 		3EAFB5EB267FEC5C00F0DC96 /* NSViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSViewExtensions.swift; sourceTree = "<group>"; };
@@ -2522,6 +2521,14 @@
 				3E7572EB2609E82300CA3F85 /* Model */,
 			);
 			path = MusicBrainz;
+			sourceTree = "<group>";
+		};
+		3E28DEE328EE21140093336B /* SystemKit */ = {
+			isa = PBXGroup;
+			children = (
+				3E28DEE428EE21200093336B /* System.swift */,
+			);
+			path = SystemKit;
 			sourceTree = "<group>";
 		};
 		3E2ED4A325DBAD6200732E79 /* FontSchemes */ = {
@@ -3864,6 +3871,7 @@
 		3E6C10B725CEB98700BF0D07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3E28DEE328EE21140093336B /* SystemKit */,
 				3E6C10CF25CEB98700BF0D07 /* FileSize.swift */,
 				3E6C10BD25CEB98700BF0D07 /* FileSizeUnit.swift */,
 				3E6C10BF25CEB98700BF0D07 /* DataStructures */,
@@ -3873,7 +3881,6 @@
 				3E7572F82609E89300CA3F85 /* HTTP */,
 				3E6C10D425CEB98700BF0D07 /* RepeatingTaskExecutor.swift */,
 				3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */,
-				3EAFB5E4267FE9B300F0DC96 /* SystemUtils.swift */,
 				3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */,
 				3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */,
 				3E53ACBD267FDE4C00B5AF52 /* TimeUtils.swift */,
@@ -5610,6 +5617,7 @@
 				3EB3A61E26A76F450060487C /* NSScrollViewExtensions.swift in Sources */,
 				3E12677A269382D300B4DBA5 /* NSSizePersistentState.swift in Sources */,
 				3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */,
+				3E28DEE528EE21200093336B /* System.swift in Sources */,
 				3EE2CC3326811074002C1B29 /* NSTableViewExtensions.swift in Sources */,
 				3EAFB5F4267FEE6400F0DC96 /* NSTabViewExtensions.swift in Sources */,
 				3EAFB5EC267FEC5C00F0DC96 /* NSViewExtensions.swift in Sources */,
@@ -5799,7 +5807,6 @@
 				3E5F943525E571A6002DEF80 /* Supernova.swift in Sources */,
 				3EDD2C4F2684DC3D0090BAF7 /* SupportedTypes.swift in Sources */,
 				3E6C12BA25CEBE5800BF0D07 /* SupportMenuController.swift in Sources */,
-				3EAFB5E5267FE9B300F0DC96 /* SystemUtils.swift in Sources */,
 				3E6C128725CEBE1800BF0D07 /* TabGroupButtonCells.swift in Sources */,
 				3EC9E67426A5E1EB00C17302 /* TableViewDragDropExtensions.swift in Sources */,
 				3E36BD4E26A6AA5A00B6E28B /* TableViewRepresentations.swift in Sources */,
@@ -6313,7 +6320,6 @@
 				3E60C97626B078CE00D9404C /* PlaybackDelegate.swift in Sources */,
 				3E871A582699029D00C626DC /* TimeStretchUnitTests.swift in Sources */,
 				3EE4B864268FBE5F006BDEB2 /* UserDefaultsExtensions.swift in Sources */,
-				3E60C9F826B081EF00D9404C /* SystemUtils.swift in Sources */,
 				3EA1BDF0268F507D00A5D81B /* Messenger_AsynchronousNotifications_ArbitraryPayloadTests.swift in Sources */,
 				3E60C9F026B0817C00D9404C /* FFmpegFrameBuffer.swift in Sources */,
 				3E475BCA2696527A0065FD53 /* FlatPlaylistTestCase.swift in Sources */,

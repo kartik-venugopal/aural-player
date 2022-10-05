@@ -13,7 +13,7 @@ import Cocoa
 class PanSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {1}
-    override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
+    override var barInsetY: CGFloat {System.isBigSur ? 0 : 0.5}
     
     override var knobWidth: CGFloat {6}
     override var knobRadius: CGFloat {0.5}

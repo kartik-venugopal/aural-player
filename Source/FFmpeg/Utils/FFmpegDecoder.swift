@@ -264,6 +264,8 @@ class FFmpegDecoder {
                 
                 readTime += end - st
                 
+//                print("Read packet with duration=\(packet.duration), size=\(packet.size), PTS=\(packet.pts)")
+                
                 st = CFAbsoluteTimeGetCurrent()
                 let frames = try codec.decode(packet: packet).frames
                 end = CFAbsoluteTimeGetCurrent()
@@ -273,6 +275,10 @@ class FFmpegDecoder {
                 if framesNeedTimestamps.value {
                     setTimestampsInFrames(frames)
                 }
+                
+//                frames.forEach {
+//                    print("Decoded frame with duration=\($0.sampleCount)")
+//                }
                 
                 frames.forEach {frameQueue.enqueue($0)}
             }
