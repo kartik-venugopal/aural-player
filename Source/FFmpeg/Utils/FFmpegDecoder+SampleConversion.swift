@@ -8,7 +8,6 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 import AVFoundation
-import Accelerate
 
 fileprivate let bytesInAFloat: Int = MemoryLayout<Float>.size / MemoryLayout<UInt8>.size
 
@@ -18,32 +17,15 @@ fileprivate let bytesInAFloat: Int = MemoryLayout<Float>.size / MemoryLayout<UIn
 ///
 /// Uses **libswresample** to do the actual conversion.
 ///
-class FFmpegSampleConverter {
+extension FFmpegDecoder {
     
-    /// See **SampleConverterProtocol.convert()**.
     func convert(samplesIn frameBuffer: FFmpegFrameBuffer, andCopyTo audioBuffer: AVAudioPCMBuffer) {
-        
-        // --------------------- Step 1: Allocate space for the conversion ---------------------
         
         let audioFormat: FFmpegAudioFormat = frameBuffer.audioFormat
         
-        // --------------------- Step 2: Create a context and set options for the conversion ---------------------
-        
-        // Allocate the context used to perform the conversion.
-        guard let resampleCtx = FFmpegAVAEResamplingContext(channelLayout: audioFormat.channelLayout,
-                                                            sampleRate: Int64(audioFormat.sampleRate),
-                                                            inputSampleFormat: audioFormat.avSampleFormat) else {
-            
-            NSLog("Unable to create a resampling context. Aborting sample conversion.")
-            return
-        }
-        
-        // --------------------- Step 3: Perform the conversion, frame by frame ---------------------
+        guard let resampleCtx = self.resampleCtx, let floatChannelData = audioBuffer.floatChannelData else {return}
         
         var sampleCountSoFar: Int = 0
-        
-        guard let floatChannelData = audioBuffer.floatChannelData else {return}
-        
         let channelCount: Int = Int(audioFormat.channelCount)
         let outputData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = .allocate(capacity: channelCount)
         defer {outputData.deallocate()}

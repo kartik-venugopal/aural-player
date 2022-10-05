@@ -68,8 +68,7 @@ class ObjectGraph {
         }
     }()
     
-    private lazy var ffmpegScheduler: PlaybackSchedulerProtocol = FFmpegScheduler(playerNode: audioGraph.playerNode,
-                                                                                    sampleConverter: FFmpegSampleConverter())
+    private lazy var ffmpegScheduler: PlaybackSchedulerProtocol = FFmpegScheduler(playerNode: audioGraph.playerNode)
     private lazy var sequencer: Sequencer = {
         
         var playlistType: PlaylistType = .tracks

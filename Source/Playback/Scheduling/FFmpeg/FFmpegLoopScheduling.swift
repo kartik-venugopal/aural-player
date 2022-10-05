@@ -106,17 +106,7 @@ extension FFmpegScheduler {
         guard !decoder.endOfLoop, let loopEndTime = session.loop?.endTime else {return}
         
         // Ask the decoder to decode up to the given number of samples.
-        let frameBuffer: FFmpegFrameBuffer = decoder.decodeLoop(maxSampleCount: maxSampleCount, loopEndTime: loopEndTime)
-
-        // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
-        guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: context.audioFormat, frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return}
-        
-        if frameBuffer.needsFormatConversion {
-            sampleConverter.convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
-            
-        } else {
-            frameBuffer.copySamples(to: playbackBuffer)
-        }
+        guard let playbackBuffer = decoder.decodeLoop(maxSampleCount: maxSampleCount, loopEndTime: loopEndTime, intoFormat: context.audioFormat) else {return}
         
         // Pass off the audio buffer to the audio engine. The completion handler is executed when
         // the buffer has finished playing.

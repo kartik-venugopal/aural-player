@@ -111,3 +111,12 @@ class CodecInitializationError: Error {
         self.description = description
     }
 }
+
+class ResamplerInitializationError: Error {
+    
+    let description: String
+    
+    init(description: String) {
+        self.description = description
+    }
+}

@@ -8,6 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 import Foundation
+import AVFAudio
 
 ///
 /// Uses an ffmpeg codec to decode a non-native track. Used by the ffmpeg scheduler in regular intervals
@@ -69,7 +70,9 @@ class FFmpegDecoder {
     /// During a decoding loop, in the event that a FrameBuffer fills up, this queue will hold the overflow (excess) frames that can be passed off to the next
     /// FrameBuffer in the next decoding loop.
     ///
-    var frameQueue: Queue<FFmpegFrame> = Queue<FFmpegFrame>()
+    let frameQueue: Queue<FFmpegFrame> = Queue<FFmpegFrame>()
+    
+    let resampleCtx: FFmpegAVAEResamplingContext?
     
     ///
     /// Given ffmpeg context for a file, initializes an appropriate codec to perform decoding.
@@ -92,6 +95,22 @@ class FFmpegDecoder {
         self.stream = theAudioStream
         self.codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
         try codec.open()
+        
+        if codec.sampleFormat.needsFormatConversion {
+            
+            guard let resampleCtx = FFmpegAVAEResamplingContext(channelLayout: codec.channelLayout,
+                                                                sampleRate: Int64(codec.sampleRate),
+                                                                inputSampleFormat: codec.sampleFormat.avFormat) else {
+                
+                NSLog("Unable to create a resampling context. Aborting sample conversion.")
+                throw ResamplerInitializationError(description: "Unable to create a resampling context. Cannot decode file.")
+            }
+            
+            self.resampleCtx = resampleCtx
+            
+        } else {
+            self.resampleCtx = nil
+        }
     }
     
     ///
@@ -107,9 +126,18 @@ class FFmpegDecoder {
     /// because upon reaching EOF, the decoder will drain the codec's internal buffers which may result in a few additional samples that will be
     /// allowed as this is the terminal buffer.
     ///
-    func decode(maxSampleCount: Int32) -> FFmpegFrameBuffer {
+    func decode(maxSampleCount: Int32, intoFormat outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
         
-        let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount, channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
+        readTime = 0
+        decodeTime = 0
+        
+        codec.sendTime = 0
+        codec.rcvTime = 0
+        
+        let st = CFAbsoluteTimeGetCurrent()
+        
+        let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount,
+                                                               channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
         
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: maxSampleCount)
@@ -175,7 +203,82 @@ class FFmpegDecoder {
             buffer.appendTerminalFrames(terminalFrames)
         }
         
-        return buffer
+        let end = CFAbsoluteTimeGetCurrent()
+        
+        print("\nreadTime = \(readTime * 1000) msecs, decodeTime = \(decodeTime * 1000) msecs")
+        
+//        print("\nDecoding time: \((end - st) * 1000) msecs for \(buffer.frames.count) frames, readTime = \(readTime * 1000) msecs, decodeTime = \(decodeTime * 1000) msecs")
+//        print("SendTime: \(codec.sendTime * 1000) msec, RcvTime: \(codec.rcvTime * 1000) msec")
+        
+        return transferSamplesToPCMBuffer(frameBuffer: buffer, outputFormat: outputFormat)
+    }
+    
+    ///
+    /// Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
+    /// 
+    func transferSamplesToPCMBuffer(frameBuffer: FFmpegFrameBuffer, outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
+        
+        // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
+        guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat,
+                                                    frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return nil}
+        
+        if frameBuffer.needsFormatConversion {
+            convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
+            
+        } else {
+            frameBuffer.copySamples(to: playbackBuffer)
+        }
+        
+        return playbackBuffer
+    }
+    
+    var readTime: Double = 0
+    var decodeTime: Double = 0
+    
+    ///
+    /// Decodes the next available packet in the stream, if required, to produce a single frame.
+    ///
+    /// - returns:  A single frame containing PCM samples.
+    ///
+    /// - throws:   A **PacketReadError** if the next packet in the stream cannot be read, OR
+    ///             A **DecoderError** if a packet was read but unable to be decoded by the codec.
+    ///
+    /// # Notes #
+    ///
+    /// 1. If there are already frames in the frame queue, that were produced by a previous call to this function, no
+    /// packets will be read / decoded. The first frame from the queue will simply be returned.
+    ///
+    /// 2. If more than one frame is produced by the decoding of a packet, the first such frame will be returned, and any
+    /// excess frames will remain in the frame queue to be consumed by the next call to this function.
+    ///
+    /// 3. The returned frame will not be dequeued (removed from the queue) by this function. It is the responsibility of the caller
+    /// to do so, upon consuming the frame.
+    ///
+    func nextFrame() throws -> FFmpegFrame {
+        
+        while frameQueue.isEmpty {
+        
+            var st = CFAbsoluteTimeGetCurrent()
+            if let packet = try fileCtx.readPacket(from: stream) {
+                var end = CFAbsoluteTimeGetCurrent()
+                
+                readTime += end - st
+                
+                st = CFAbsoluteTimeGetCurrent()
+                let frames = try codec.decode(packet: packet).frames
+                end = CFAbsoluteTimeGetCurrent()
+                
+                decodeTime += end - st
+                
+                if framesNeedTimestamps.value {
+                    setTimestampsInFrames(frames)
+                }
+                
+                frames.forEach {frameQueue.enqueue($0)}
+            }
+        }
+        
+        return frameQueue.peek()!
     }
     
     ///
@@ -319,44 +422,6 @@ class FFmpegDecoder {
                 currentSampleCount += frame.actualSampleCount
             }
         }
-    }
-    
-    ///
-    /// Decodes the next available packet in the stream, if required, to produce a single frame.
-    ///
-    /// - returns:  A single frame containing PCM samples.
-    ///
-    /// - throws:   A **PacketReadError** if the next packet in the stream cannot be read, OR
-    ///             A **DecoderError** if a packet was read but unable to be decoded by the codec.
-    ///
-    /// # Notes #
-    ///
-    /// 1. If there are already frames in the frame queue, that were produced by a previous call to this function, no
-    /// packets will be read / decoded. The first frame from the queue will simply be returned.
-    ///
-    /// 2. If more than one frame is produced by the decoding of a packet, the first such frame will be returned, and any
-    /// excess frames will remain in the frame queue to be consumed by the next call to this function.
-    ///
-    /// 3. The returned frame will not be dequeued (removed from the queue) by this function. It is the responsibility of the caller
-    /// to do so, upon consuming the frame.
-    ///
-    func nextFrame() throws -> FFmpegFrame {
-        
-        while frameQueue.isEmpty {
-        
-            if let packet = try fileCtx.readPacket(from: stream) {
-                
-                let frames = try codec.decode(packet: packet).frames
-                
-                if framesNeedTimestamps.value {
-                    setTimestampsInFrames(frames)
-                }
-                
-                frames.forEach {frameQueue.enqueue($0)}
-            }
-        }
-        
-        return frameQueue.peek()!
     }
     
     ///

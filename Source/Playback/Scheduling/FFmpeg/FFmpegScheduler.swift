@@ -32,8 +32,6 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     // This is required because, in rare cases, some file segments may complete when they've reached close to the end, even if the last frame has not played yet.
     var trackCompletedWhilePaused: Bool = false
     
-    let sampleConverter: FFmpegSampleConverter
-    
     ///
     /// A **serial** operation queue on which all *deferred* scheduling tasks are enqueued, i.e. tasks scheduling buffers that will be played back at a later time.
     ///
@@ -53,10 +51,8 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     
     lazy var messenger = Messenger(for: self)
     
-    init(playerNode: AuralPlayerNode, sampleConverter: FFmpegSampleConverter) {
-        
+    init(playerNode: AuralPlayerNode) {
         self.playerNode = playerNode
-        self.sampleConverter = sampleConverter
     }
     
     func playTrack(_ session: PlaybackSession, _ startPosition: Double) {
@@ -191,17 +187,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         if decoder.eof {return}
         
         // Ask the decoder to decode up to the given number of samples.
-        let frameBuffer: FFmpegFrameBuffer = decoder.decode(maxSampleCount: maxSampleCount)
-
-        // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
-        guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: context.audioFormat, frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return}
-        
-        if frameBuffer.needsFormatConversion {
-            sampleConverter.convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
-            
-        } else {
-            frameBuffer.copySamples(to: playbackBuffer)
-        }
+        guard let playbackBuffer = decoder.decode(maxSampleCount: maxSampleCount, intoFormat: context.audioFormat) else {return}
         
         // Pass off the audio buffer to the audio engine for playback. The completion handler is executed when
         // the buffer has finished playing.

@@ -8,6 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 import Foundation
+import AVFoundation
 
 ///
 /// Handles decoding for segment loop playback of non-native tracks.
@@ -23,7 +24,7 @@ extension FFmpegDecoder {
     ///
     /// - returns: a frame buffer containing the decoded samples, ready to be scheduled for playback.
     ///
-    func decodeLoop(maxSampleCount: Int32, loopEndTime: Double) -> FFmpegFrameBuffer {
+    func decodeLoop(maxSampleCount: Int32, loopEndTime: Double, intoFormat outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
         
         let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount, channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
         
@@ -109,7 +110,7 @@ extension FFmpegDecoder {
             buffer.appendTerminalFrames(terminalFrames)
         }
         
-        return buffer
+        return transferSamplesToPCMBuffer(frameBuffer: buffer, outputFormat: outputFormat)
     }
     
     ///
