@@ -181,7 +181,7 @@ class FFmpegFileContext {
         }
         
         // Try to open the audio file so that it can be read.
-        var resultCode: ResultCode = avformat_open_input(&pointer, file.path, nil, nil)
+        var resultCode: ResultCode = avformat_open_input(&pointer, filePath, nil, nil)
         
         // If the file open failed, log a message and return nil.
         guard resultCode.isNonNegative, pointer?.pointee != nil else {
@@ -195,7 +195,7 @@ class FFmpegFileContext {
         
         // If the read failed, log a message and return nil.
         guard resultCode.isNonNegative, let avStreamsArrayPointer = pointer.pointee.streams else {
-            throw FormatContextInitializationError(description: "Unable to find stream info for file '\(file.path)'. Error: \(resultCode.errorDescription)")
+            throw FormatContextInitializationError(description: "Unable to find stream info for file '\(filePath)'. Error: \(resultCode.errorDescription)")
         }
         
         self.avStreamPointers = (0..<pointer.pointee.nb_streams).compactMap {avStreamsArrayPointer.advanced(by: Int($0)).pointee}
@@ -206,60 +206,6 @@ class FFmpegFileContext {
         
         self.duration = (bestAudioStream?.duration ?? estimatedDuration) ?? 0
         if self.bitRate == 0 {self.bitRate = duration == 0 ? 0 : Int64(round(Double(fileSize) / duration))}
-    }
-    
-    ///
-    /// Copy constructor.
-    ///
-    /// - Parameter fileContext: The file context whose copy is to be made.
-    ///
-    /// Fails (returns nil) if:
-    ///
-    /// - An error occurs while opening the file or reading (demuxing) its streams.
-    /// - No audio stream is found in the file.
-    ///
-    init(copying fileContext: FFmpegFileContext) throws {
-        
-        self.file = fileContext.file
-        self.filePath = file.path
-        
-        // MARK: Open the file ----------------------------------------------------------------------------------
-        
-        // Allocate memory for this format context.
-        self.pointer = avformat_alloc_context()
-        
-        guard self.pointer != nil else {
-            throw FormatContextInitializationError(description: "Unable to allocate memory for format context for file '\(filePath)'.")
-        }
-        
-        // Try to open the audio file so that it can be read.
-        var resultCode: ResultCode = avformat_open_input(&pointer, file.path, nil, nil)
-        
-        // If the file open failed, log a message and return nil.
-        guard resultCode.isNonNegative, pointer?.pointee != nil else {
-            throw FormatContextInitializationError(description: "Unable to open file '\(filePath)'. Error: \(resultCode.errorDescription)")
-        }
-        
-        // MARK: Read the streams ----------------------------------------------------------------------------------
-        
-        // Try to read information about the streams contained in this file.
-        resultCode = avformat_find_stream_info(pointer, nil)
-        
-        // If the read failed, log a message and return nil.
-        guard resultCode.isNonNegative, let avStreamsArrayPointer = pointer.pointee.streams else {
-            throw FormatContextInitializationError(description: "Unable to find stream info for file '\(file.path)'. Error: \(resultCode.errorDescription)")
-        }
-        
-        self.avStreamPointers = (0..<pointer.pointee.nb_streams).compactMap {avStreamsArrayPointer.advanced(by: Int($0)).pointee}
-        
-        // Compute the duration of the audio stream, trying various methods. See documentation of **duration**
-        // for a detailed description.
-        
-        self.bitRate = fileContext.bitRate
-        self.duration = fileContext.duration
-
-        self.bestAudioStream = fileContext.bestAudioStream
-        self.packetTable = fileContext.packetTable
     }
     
     func findBestStream(ofType mediaType: AVMediaType) -> FFmpegStreamProtocol? {

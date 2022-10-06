@@ -101,6 +101,8 @@ class FFmpegAudioStream: FFmpegStreamProtocol {
         self.duration = pointer.pointee.duration > 0 ? Double(pointer.pointee.duration) * pointer.pointee.time_base.ratio : nil
     }
     
+#if DEBUG
+    
     ///
     /// Print some stream info to the console.
     /// May be used to verify that the stream was properly read / initialized.
@@ -117,4 +119,7 @@ class FFmpegAudioStream: FFmpegStreamProtocol {
         
         print("---------------------------------\n")
     }
+    
+#endif
+    
 }

@@ -182,6 +182,8 @@ class FFmpegAudioCodec: FFmpegCodec {
         avcodec_flush_buffers(contextPointer)
     }
     
+#if DEBUG
+    
     ///
     /// Print some codec info to the console.
     /// May be used to verify that the codec was properly read / initialized.
@@ -200,4 +202,7 @@ class FFmpegAudioCodec: FFmpegCodec {
         
         print("---------------------------------\n")
     }
+    
+#endif
+    
 }

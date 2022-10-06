@@ -59,14 +59,14 @@ class FFmpegPacket {
     ///
     /// The raw data encapsulated in a byte buffer, if there is any raw data. Nil if there is no raw data.
     ///
-    var data: Data? {
+    private(set) lazy var data: Data? = {
         
         if let theData = rawDataPointer, size > 0 {
             return Data(bytes: theData, count: Int(size))
         }
         
         return nil
-    }
+    }()
     
     ///
     /// Instantiates a Packet from a format context (container), if it can be read. Returns nil otherwise.

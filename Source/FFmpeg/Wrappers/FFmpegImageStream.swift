@@ -25,7 +25,7 @@ class FFmpegImageStream: FFmpegStreamProtocol {
     ///
     /// The encapsulated AVStream object.
     ///
-    var avStream: AVStream {pointer.pointee}
+    lazy var avStream: AVStream = pointer.pointee
     
     ///
     /// The media type of data contained within this stream (e.g. audio, video, etc)
@@ -41,11 +41,7 @@ class FFmpegImageStream: FFmpegStreamProtocol {
     /// The packet (optionally) containing an attached picture.
     /// This can be used to read cover art.
     ///
-    lazy var attachedPic: FFmpegPacket = {
-        
-        var attachedPicPacket = avStream.attached_pic
-        return FFmpegPacket(encapsulating: &attachedPicPacket)
-    }()
+    lazy var attachedPic: FFmpegPacket = FFmpegPacket(encapsulating: &avStream.attached_pic)
     
     ///
     /// All metadata key / value pairs available for this stream.
@@ -65,6 +61,8 @@ class FFmpegImageStream: FFmpegStreamProtocol {
         self.index = pointer.pointee.index
     }
     
+#if DEBUG
+    
     ///
     /// Print some stream info to the console.
     /// May be used to verify that the stream was properly read / initialized.
@@ -79,4 +77,7 @@ class FFmpegImageStream: FFmpegStreamProtocol {
         
         print("---------------------------------\n")
     }
+    
+#endif
+    
 }

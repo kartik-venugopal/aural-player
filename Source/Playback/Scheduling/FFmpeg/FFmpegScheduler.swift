@@ -102,41 +102,38 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///
     func initiateDecodingAndScheduling(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, from seekPosition: Double? = nil) {
         
-        do {
+        // If a seek position was specified, ask the decoder to seek
+        // within the stream.
+        if let theSeekPosition = seekPosition {
             
-            // If a seek position was specified, ask the decoder to seek
-            // within the stream.
-            if let theSeekPosition = seekPosition {
-                
+            do {
                 try decoder.seek(to: theSeekPosition)
-                
-                // If the seek took the decoder to EOF, signal completion of playback
-                // and don't do any scheduling.
-                if decoder.eof {
-                    
-                    if playerNode.isPlaying {
-                        trackCompleted(session)
-                        
-                    } else {
-                        
-                        playerNode.seekToEndOfTrack(session, frameCount: context.frameCount)
-                        trackCompletedWhilePaused = true
-                    }
-                    
-                    return
-                }
+            } catch {
+                NSLog("Decoder threw error: \(error) while seeking to position \(seekPosition ?? 0) for track \(session.track.displayName) ... cannot initiate scheduling.")
             }
             
-            // Schedule one buffer for immediate playback
-            decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, from: seekPosition ?? 0, immediatePlayback: true, maxSampleCount: context.sampleCountForImmediatePlayback)
-            
-            // Schedule a second buffer asynchronously, for later, to avoid a gap in playback.
-            decodeAndScheduleOneBufferAsync(for: session, context: context, decoder: decoder, maxSampleCount: context.sampleCountForDeferredPlayback)
-            
-        } catch {
-            
-            NSLog("Decoder threw error: \(error) while seeking to position \(seekPosition ?? 0) for track \(session.track.displayName) ... cannot initiate scheduling.")
+            // If the seek took the decoder to EOF, signal completion of playback
+            // and don't do any scheduling.
+            if decoder.eof {
+                
+                if playerNode.isPlaying {
+                    trackCompleted(session)
+                    
+                } else {
+                    
+                    playerNode.seekToEndOfTrack(session, frameCount: context.frameCount)
+                    trackCompletedWhilePaused = true
+                }
+                
+                return
+            }
         }
+        
+        // Schedule one buffer for immediate playback
+        decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, from: seekPosition ?? 0, immediatePlayback: true, maxSampleCount: context.sampleCountForImmediatePlayback)
+        
+        // Schedule a second buffer asynchronously, for later, to avoid a gap in playback.
+        decodeAndScheduleOneBufferAsync(for: session, context: context, decoder: decoder, maxSampleCount: context.sampleCountForDeferredPlayback)
     }
     
     ///
@@ -199,7 +196,8 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         // 3 - the completion handler will execute even when the player is stopped, i.e. the buffer
         //      has not really completed playback but has been removed from the playback queue.
         
-        playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.bufferCompletionHandler(session), seekPosition, immediatePlayback)
+        playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.bufferCompletionHandler(session),
+                                  seekPosition, immediatePlayback)
         
         // Upon scheduling the buffer, increment the counter.
         scheduledBufferCounts[session]?.increment()
