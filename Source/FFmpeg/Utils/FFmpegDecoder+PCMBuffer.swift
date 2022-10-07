@@ -30,7 +30,7 @@ extension FFmpegDecoder {
                                                     frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return nil}
         
         // The audio buffer will always be filled to capacity.
-        playbackBuffer.frameLength = AVAudioFrameCount(frameBuffer.sampleCount)
+        playbackBuffer.frameLength = playbackBuffer.frameCapacity
         
         if frameBuffer.needsFormatConversion {
             convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
@@ -46,27 +46,25 @@ extension FFmpegDecoder {
         
         guard let floatChannelData = audioBuffer.floatChannelData else {return}
         
-        let channelCount: Int = Int(frameBuffer.audioFormat.channelCount)
-        
         // Keeps track of how many samples have been copied over so far.
         // This will be used as an offset when performing each copy operation.
         var sampleCountSoFar: Int = 0
         
         for frame in frameBuffer.frames {
             
-            guard let srcData = frame.dataPointers else {return}
-            let firstSampleIndex: Int = Int(frame.firstSampleIndex)
+            let sampleCount = frame.sampleCount
+            let firstSampleIndex = Int(frame.firstSampleIndex)
             
             // NOTE - The following copy operation assumes a non-interleaved output format (i.e. the standard Core Audio format).
             
             // Temporarily bind the input sample buffers as floating point numbers, and perform the copy.
-            srcData.withMemoryRebound(to: UnsafeMutablePointer<Float>.self, capacity: channelCount) {srcPointers in
+            frame.dataPointers.withMemoryRebound(to: UnsafeMutablePointer<Float>.self, capacity: channelCount) {srcPointers in
                 
                 // Iterate through all the channels.
                 for channelIndex in 0..<channelCount {
                     
                     // Use Accelerate to perform the copy optimally, starting at the given offset.
-                    cblas_scopy(frame.sampleCount,
+                    cblas_scopy(sampleCount,
                                 srcPointers[channelIndex].advanced(by: firstSampleIndex), 1,
                                 floatChannelData[channelIndex].advanced(by: sampleCountSoFar), 1)
                 }
@@ -81,7 +79,6 @@ extension FFmpegDecoder {
         guard let resampleCtx = self.resampleCtx, let floatChannelData = audioBuffer.floatChannelData else {return}
         
         var sampleCountSoFar: Int = 0
-        let channelCount: Int = Int(frameBuffer.audioFormat.channelCount)
         let outputData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = .allocate(capacity: channelCount)
         defer {outputData.deallocate()}
         

@@ -96,14 +96,14 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
             // 96 / 192 KHz stereo
 
             sampleCountForImmediatePlayback = 3 * sampleRate    // 3 seconds of audio
-            sampleCountForDeferredPlayback = 10 * sampleRate    // 10 seconds of audio
+            sampleCountForDeferredPlayback = 7 * sampleRate    // 7 seconds of audio
 
         default:
 
             // 96 KHz surround and higher sample rates
 
             sampleCountForImmediatePlayback = 2 * sampleRate    // 2 seconds of audio
-            sampleCountForDeferredPlayback = 7 * sampleRate     // 7 seconds of audio
+            sampleCountForDeferredPlayback = 5 * sampleRate     // 5 seconds of audio
         }
     }
     

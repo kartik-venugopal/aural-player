@@ -74,6 +74,10 @@ class FFmpegDecoder {
     
     let resampleCtx: FFmpegAVAEResamplingContext?
     
+    lazy var audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount, channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
+    
+    lazy var channelCount: Int = Int(audioFormat.channelCount)
+    
     ///
     /// Given ffmpeg context for a file, initializes an appropriate codec to perform decoding.
     ///
@@ -127,9 +131,6 @@ class FFmpegDecoder {
     /// allowed as this is the terminal buffer.
     ///
     func decode(maxSampleCount: Int32, intoFormat outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
-        
-        let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount,
-                                                               channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
         
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: maxSampleCount)
