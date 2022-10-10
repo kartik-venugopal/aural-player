@@ -93,7 +93,7 @@ class FFmpegDecoder {
         self.fileCtx = fileContext
         
         guard let theAudioStream = fileContext.bestAudioStream else {
-            throw FormatContextInitializationError(description: "\nUnable to find audio stream in file: '\(fileContext.file.path)'")
+            throw FormatContextInitializationError(description: "\nUnable to find audio stream in file: '\(fileContext.filePath)'")
         }
         
         self.stream = theAudioStream
@@ -106,8 +106,7 @@ class FFmpegDecoder {
                                                                 sampleRate: Int64(codec.sampleRate),
                                                                 inputSampleFormat: codec.sampleFormat.avFormat) else {
                 
-                NSLog("Unable to create a resampling context. Aborting sample conversion.")
-                throw ResamplerInitializationError(description: "Unable to create a resampling context. Cannot decode file.")
+                throw ResamplerInitializationError(description: "Unable to create a resampling context. Cannot decode file: '\(fileContext.filePath)'")
             }
             
             self.resampleCtx = resampleCtx

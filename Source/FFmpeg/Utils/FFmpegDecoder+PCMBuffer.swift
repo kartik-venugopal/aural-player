@@ -87,8 +87,10 @@ extension FFmpegDecoder {
             // Convert one frame at a time.
             for frame in frameBuffer.frames {
                 
+                let offset = sampleCountSoFar * bytesInAFloat
+                
                 for ch in 0..<channelCount {
-                    outputData[ch] = outChannelPointers[ch].advanced(by: sampleCountSoFar * bytesInAFloat)
+                    outputData[ch] = outChannelPointers[ch].advanced(by: offset)
                 }
                 
                 resampleCtx.convertFrame(frame, andStoreIn: outputData)
