@@ -1,8 +1,8 @@
-#  What's New in Version 3.9.1
+#  What's New in Version 3.10.0
 
-## Fix for light mode appearance of generated AU control views
+## Performance improvements
 
-In v3.9.0, when the macOS appearance was set to "Light" mode, dynamically generated views for AU plug-ins without a custom view showed up with a light background, obscuring the text labels. This issue has been fixed.
+The way that non-natively-supported tracks are decoded using FFmpeg has been optimized, resulting in better performance. 
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.9.1)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.10.0)

@@ -38,17 +38,6 @@ class FFmpegFrameBuffer {
     var sampleCount: Int32 = 0
     
     ///
-    /// Computes the maximum of the sample counts of all the contained frames.
-    ///
-    /// ```
-    /// This value is useful when allocating reusable memory space for
-    /// a sample format conversion, i.e. space large enough to accomodate
-    /// any of the frames contained in this buffer.
-    /// ```
-    ///
-    var maxFrameSampleCount: Int32 {frames.map{$0.sampleCount}.max() ?? 0}
-    
-    ///
     /// Whether or not samples in this buffer require conversion before they can be fed into AVAudioEngine for playback.
     ///
     /// Will be true unless the sample format is 32-bit float non-interleaved (i.e. the standard Core Audio format).
