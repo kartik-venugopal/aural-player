@@ -66,7 +66,7 @@ class ReverbUnitViewController: EffectsUnitViewController {
     @IBAction func reverbAmountAction(_ sender: AnyObject) {
         
         reverbUnit.amount = reverbUnitView.amount
-        reverbUnitView.setAmount(reverbUnit.amount, amountString: reverbUnit.formattedAmount)
+        reverbUnitView.setAmountString(reverbUnit.formattedAmount)
     }
     
     // ------------------------------------------------------------------------

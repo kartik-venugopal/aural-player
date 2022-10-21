@@ -24,6 +24,8 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
     
+    @IBOutlet weak var renderQualityMenu: NSMenu!
+    
     // Labels
     var functionLabels: [NSTextField] = []
     var functionCaptionLabels: [NSTextField] = []
@@ -35,7 +37,16 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    var effectsUnit: EffectsUnitDelegateProtocol!
+    var effectsUnit: EffectsUnitDelegateProtocol! {
+        
+        didSet {
+            
+            if #available(macOS 10.13, *), let renderQualityMenuController = renderQualityMenu?.delegate as? RenderQualityMenuController {
+                renderQualityMenuController.effectsUnit = effectsUnit
+            }
+        }
+    }
+    
     var unitType: EffectsUnitType {effectsUnit.unitType}
     var unitStateFunction: EffectsUnitStateFunction {effectsUnit.stateFunction}
     
@@ -291,5 +302,26 @@ extension EffectsUnitViewController: NSMenuDelegate {
         
         // Don't select any items from the EQ presets menu
         presetsMenuButton.deselect()
+    }
+}
+
+@available(macOS 10.13, *)
+class RenderQualityMenuController: NSObject, NSMenuDelegate {
+    
+    @IBOutlet weak var renderQualitySlider: EffectsUnitSlider!
+    @IBOutlet weak var lblRenderQuality: NSTextField!
+    
+    var effectsUnit: EffectsUnitDelegateProtocol!
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        guard let effectsUnit = self.effectsUnit else {return}
+        
+        renderQualitySlider.integerValue = effectsUnit.renderQuality
+        lblRenderQuality.stringValue = "\(effectsUnit.renderQuality)"
+    }
+    
+    @IBAction func renderQualityAction(_ sender: AnyObject) {
+        effectsUnit.renderQuality = renderQualitySlider.integerValue
     }
 }

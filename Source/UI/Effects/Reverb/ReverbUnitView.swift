@@ -24,11 +24,15 @@ class ReverbUnitView: NSView {
     // MARK: Properties
     
     var spaceString: String {
-        reverbSpaceMenu.titleOfSelectedItem!
+        
+        get {reverbSpaceMenu.titleOfSelectedItem!}
+        set {reverbSpaceMenu.selectItem(withTitle: newValue)}
     }
     
     var amount: Float {
-        reverbAmountSlider.floatValue
+        
+        get {reverbAmountSlider.floatValue}
+        set {reverbAmountSlider.floatValue = newValue}
     }
     
     // ------------------------------------------------------------------------
@@ -47,21 +51,16 @@ class ReverbUnitView: NSView {
     
     func setState(space: String, amount: Float, amountString: String) {
         
-        setSpace(space)
-        setAmount(amount, amountString: amountString)
+        self.spaceString = space
+        self.amount = amount
+        setAmountString(amountString)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
         reverbAmountSlider.setUnitState(state)
     }
     
-    func setSpace(_ space: String) {
-        reverbSpaceMenu.selectItem(withTitle: space)
-    }
-    
-    func setAmount(_ amount: Float, amountString: String) {
-        
-        reverbAmountSlider.floatValue = amount
+    func setAmountString(_ amountString: String) {
         lblReverbAmountValue.stringValue = amountString
     }
     
@@ -72,8 +71,9 @@ class ReverbUnitView: NSView {
     func applyPreset(_ preset: ReverbPreset) {
         
         setUnitState(preset.state)
-        setSpace(preset.space.description)
-        setAmount(preset.amount, amountString: ValueFormatter.formatReverbAmount(preset.amount))
+        self.spaceString = preset.space.description
+        self.amount = preset.amount
+        setAmountString(ValueFormatter.formatReverbAmount(preset.amount))
     }
     
     // ------------------------------------------------------------------------

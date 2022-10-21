@@ -25,6 +25,9 @@ protocol EffectsUnitProtocol {
     
     func unsuppress()
     
+    @available(macOS 10.13, *)
+    var renderQuality: Int {get set}
+    
     var avNodes: [AVAudioNode] {get}
     
     associatedtype PresetType: EffectsUnitPreset

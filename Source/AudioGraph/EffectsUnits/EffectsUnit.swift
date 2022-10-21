@@ -33,6 +33,13 @@ class EffectsUnit {
     // Intended to be overriden by subclasses.
     var avNodes: [AVAudioNode] {[]}
     
+    @available(macOS 10.13, *)
+    var renderQuality: Int {
+        
+        get {avNodes.first?.auAudioUnit.renderQuality ?? 0}
+        set {avNodes.first?.auAudioUnit.renderQuality = newValue}
+    }
+    
     var isActive: Bool {state == .active}
     
     lazy var messenger = Messenger(for: self)
@@ -42,6 +49,10 @@ class EffectsUnit {
         self.unitType = unitType
         self.state = unitState
         stateChanged()
+        
+        if #available(macOS 10.13, *), let au = avNodes.first?.auAudioUnit {
+            print("\n\(unitType.caption) RQ = \(au.renderQuality)\n")
+        }
     }
     
     func stateChanged() {

@@ -12,6 +12,7 @@
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
                 <outlet property="presetsMenuButton" destination="rrE-w8-gig" id="ZBc-UX-iGA"/>
                 <outlet property="presetsMenuIconItem" destination="8v4-M7-RfA" id="8c9-6g-DWY"/>
+                <outlet property="renderQualityMenu" destination="tPn-L1-mcO" id="2iw-5p-g1n"/>
                 <outlet property="reverbUnitView" destination="elw-qF-nCD" id="MWM-Tn-dx8"/>
                 <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>
             </connections>
@@ -150,6 +151,7 @@
                     </subviews>
                     <connections>
                         <outlet property="lblReverbAmountValue" destination="iGc-Z1-9PZ" id="Bi7-m5-Ehm"/>
+                        <outlet property="renderQualitySlider" destination="J8r-7z-reO" id="Uag-a1-NHJ"/>
                         <outlet property="reverbAmountSlider" destination="AnR-ZX-Wi0" id="RNv-wc-kOe"/>
                         <outlet property="reverbSpaceMenu" destination="ZjF-HF-nkd" id="lqu-9F-j2p"/>
                     </connections>
@@ -178,6 +180,36 @@
                         <action selector="presetsAction:" target="-2" id="obR-tF-WW6"/>
                     </connections>
                 </popUpButton>
+                <popUpButton toolTip="Render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwo-3g-EZp" userLabel="Render Quality Menu">
+                    <rect key="frame" x="434" y="3" width="27" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="ROb-KN-Jw1">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <menu key="menu" showsStateColumn="NO" id="tPn-L1-mcO">
+                            <items>
+                                <menuItem image="cpu" catalog="system" hidden="YES" id="1rM-0J-HhQ" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="cpu" catalog="system"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Render Quality" id="SmK-TP-zco">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <connections>
+                                        <outlet property="view" destination="HMB-Kt-gTS" id="aNB-jd-yLb"/>
+                                    </connections>
+                                </menuItem>
+                            </items>
+                            <connections>
+                                <outlet property="delegate" destination="yl4-Ca-MzV" id="OyR-a8-nJI"/>
+                            </connections>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="presetsAction:" target="-2" id="50z-kR-r0W"/>
+                    </connections>
+                </popUpButton>
                 <button toolTip="Save new preset" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p1b-kR-qyw" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="480" y="3" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -195,9 +227,67 @@
             </subviews>
             <point key="canvasLocation" x="139" y="153.5"/>
         </view>
+        <customView id="HMB-Kt-gTS">
+            <rect key="frame" x="0.0" y="0.0" width="380" height="37"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J8r-7z-reO" userLabel="Render Quality Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="130" y="5" width="163" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="127" doubleValue="127" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="HMR-OK-p21" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <connections>
+                        <action selector="renderQualityAction:" target="yl4-Ca-MzV" id="qw5-iG-KzH"/>
+                    </connections>
+                </slider>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JCq-mf-WXM" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="13" y="7" width="92" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Render Quality" id="bUJ-x0-59r">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5lm-QT-Vbg" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="90" y="8" width="38" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="2jW-z0-jCA">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="75d-yz-Cxk" userLabel="Wet" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="297" y="8" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="127" id="RF9-Z0-AbL">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P1p-Se-Gxi" userLabel="Wet" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="329" y="8" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="127" id="aiZ-xR-rg8">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="21" y="-161.5"/>
+        </customView>
+        <customObject id="yl4-Ca-MzV" customClass="RenderQualityMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="lblRenderQuality" destination="P1p-Se-Gxi" id="jq1-hh-XFG"/>
+                <outlet property="renderQualitySlider" destination="J8r-7z-reO" id="6Nm-jh-lPc"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="SaveEQPreset" width="15" height="15"/>
+        <image name="cpu" catalog="system" width="17" height="16"/>
     </resources>
 </document>

@@ -45,6 +45,13 @@ class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
         unit.ensureActive()
     }
     
+    @available(macOS 10.13, *)
+    var renderQuality: Int {
+        
+        get {unit.renderQuality}
+        set {unit.renderQuality = newValue}
+    }
+    
     func savePreset(named presetName: String) {
         unit.savePreset(named: presetName)
     }
