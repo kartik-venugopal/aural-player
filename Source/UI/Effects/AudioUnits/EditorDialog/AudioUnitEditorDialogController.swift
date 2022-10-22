@@ -29,6 +29,9 @@ class AudioUnitEditorDialogController: NSWindowController {
     @IBOutlet weak var btnUserPresets: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     
+    @IBOutlet weak var renderQualitySlider: NSSlider!
+    @IBOutlet weak var lblRenderQuality: NSTextField!
+    
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
     
     // ------------------------------------------------------------------------
@@ -80,6 +83,15 @@ class AudioUnitEditorDialogController: NSWindowController {
         
         initFactoryPresets()
         initUserPresets()
+        
+        if #available(macOS 10.13, *) {
+            
+            renderQualitySlider.integerValue = audioUnit.renderQuality
+            lblRenderQuality.stringValue = "\(audioUnit.renderQuality)"
+            
+        } else {
+            [renderQualitySlider, lblRenderQuality].forEach {$0?.hide()}
+        }
     }
     
     private func initFactoryPresets() {
@@ -134,6 +146,13 @@ class AudioUnitEditorDialogController: NSWindowController {
     // Displays a popover to allow the user to name the new custom preset.
     @IBAction func saveUserPresetAction(_ sender: AnyObject) {
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
+    }
+    
+    @available(macOS 10.13, *)
+    @IBAction func renderQualityAction(_ sender: AnyObject) {
+        
+        audioUnit.renderQuality = renderQualitySlider.integerValue
+        lblRenderQuality.stringValue = "\(audioUnit.renderQuality)"
     }
     
     @IBAction func closeAction(_ sender: Any) {

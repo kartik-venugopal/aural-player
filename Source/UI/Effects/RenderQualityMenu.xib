@@ -19,10 +19,10 @@
             <rect key="frame" x="0.0" y="0.0" width="380" height="37"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kfl-79-ASb" userLabel="Render Quality Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="130" y="5" width="163" height="18"/>
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kfl-79-ASb" userLabel="Render Quality Slider">
+                    <rect key="frame" x="130" y="7" width="163" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="127" doubleValue="127" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="Lgr-Wn-JLW" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="127" doubleValue="127" tickMarkPosition="below" sliderType="linear" id="Lgr-Wn-JLW" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
                         <action selector="renderQualityAction:" target="-2" id="eN6-vX-TVt"/>
                     </connections>
@@ -32,7 +32,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Render Quality" id="TSX-Hp-9Tm">
                         <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.79933641016109047" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -41,7 +41,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="0vd-ZK-EhI">
                         <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.79933641016109047" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -50,7 +50,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="127" id="yFl-AD-mkr">
                         <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.79933641016109047" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -59,7 +59,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="127" id="eG2-qn-WlD">
                         <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.79933641016109047" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>

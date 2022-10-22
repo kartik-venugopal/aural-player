@@ -12,8 +12,10 @@
                 <outlet property="btnSavePreset" destination="AlZ-mk-WMx" id="oY9-ar-yqN"/>
                 <outlet property="btnUserPresets" destination="xoa-Kv-Cdv" id="iEb-mo-dsy"/>
                 <outlet property="lblFactoryPresets" destination="lF8-Ap-UiM" id="xcg-Oj-rSC"/>
+                <outlet property="lblRenderQuality" destination="j98-lO-C0D" id="xSp-Ex-9Zt"/>
                 <outlet property="lblTitle" destination="LAn-Sl-fSv" id="AML-EE-2ml"/>
                 <outlet property="lblUserPresets" destination="uYN-5k-nw5" id="DU8-2M-Rd0"/>
+                <outlet property="renderQualitySlider" destination="KWm-NV-CEa" id="vHP-iP-iBZ"/>
                 <outlet property="rootContainer" destination="zM8-Mm-Hhs" id="xEO-6Q-XOQ"/>
                 <outlet property="viewContainer" destination="cer-qR-hth" id="EcQ-Lz-v4Q"/>
                 <outlet property="window" destination="Qil-RJ-vDn" id="QUv-DB-VyP"/>
@@ -38,13 +40,16 @@
                             <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KWm-NV-CEa" userLabel="Render Quality Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="149" y="491" width="163" height="18"/>
+                                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KWm-NV-CEa" userLabel="Render Quality Slider">
+                                    <rect key="frame" x="149" y="493" width="163" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="A7w-tj-2eb"/>
                                         <constraint firstAttribute="width" constant="159" id="d9x-Ca-fES"/>
                                     </constraints>
-                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="127" doubleValue="127" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="o1j-w5-ex6" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="127" doubleValue="127" tickMarkPosition="below" sliderType="linear" id="o1j-w5-ex6" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                    <connections>
+                                        <action selector="renderQualityAction:" target="-2" id="6ge-LK-bOO"/>
+                                    </connections>
                                 </slider>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sqj-B1-EwO" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="109" y="494" width="38" height="20"/>
@@ -54,7 +59,7 @@
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="2Yx-ZN-GXF">
                                         <font key="font" size="12" name="Play-Regular"/>
-                                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="0.70264722593223339" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
@@ -66,7 +71,7 @@
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="127" id="hSi-kQ-bAR">
                                         <font key="font" size="12" name="Play-Regular"/>
-                                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="0.70264722593223339" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
@@ -78,7 +83,7 @@
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="127" id="gYu-qb-l2P">
                                         <font key="font" size="12" name="Play-Regular"/>
-                                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="0.70264722593223339" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
@@ -88,7 +93,7 @@
                                 <constraint firstItem="E4J-fa-von" firstAttribute="leading" secondItem="KWm-NV-CEa" secondAttribute="trailing" constant="8" symbolic="YES" id="6Qt-9a-i6X"/>
                                 <constraint firstItem="j98-lO-C0D" firstAttribute="leading" secondItem="KWm-NV-CEa" secondAttribute="trailing" constant="40" id="E9U-2p-oSM"/>
                                 <constraint firstItem="KWm-NV-CEa" firstAttribute="leading" secondItem="sqj-B1-EwO" secondAttribute="trailing" constant="6" id="bTP-eG-Llm"/>
-                                <constraint firstItem="KWm-NV-CEa" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="73" id="dYc-qw-C1b"/>
+                                <constraint firstItem="KWm-NV-CEa" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="71" id="dYc-qw-C1b"/>
                                 <constraint firstItem="j98-lO-C0D" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="66" id="dZJ-5I-QNd"/>
                                 <constraint firstItem="E4J-fa-von" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="66" id="lEp-Ls-V9g"/>
                                 <constraint firstItem="sqj-B1-EwO" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="66" id="m32-OO-ZGJ"/>

@@ -15,7 +15,7 @@ class RenderQualityMenuViewController: NSViewController {
     
     override var nibName: String? {"RenderQualityMenu"}
     
-    @IBOutlet weak var renderQualitySlider: EffectsUnitSlider!
+    @IBOutlet weak var renderQualitySlider: NSSlider!
     @IBOutlet weak var lblRenderQuality: NSTextField!
     
     var effectsUnit: EffectsUnitDelegateProtocol!
