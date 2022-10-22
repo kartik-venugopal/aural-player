@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +13,7 @@
                 <outlet property="filterUnitView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="presetsMenuButton" destination="JJo-gm-Pih" id="YoC-TC-Lse"/>
                 <outlet property="presetsMenuIconItem" destination="FlK-G5-JPk" id="p1U-3G-y9J"/>
+                <outlet property="renderQualityMenu" destination="8T8-eo-S9n" id="35d-Qt-Li6"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
             </connections>
         </customObject>
@@ -154,6 +155,27 @@
                         <action selector="savePresetAction:" target="-2" id="6M3-Oa-JfU"/>
                     </connections>
                 </button>
+                <popUpButton toolTip="Adjust render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q1i-qH-GyP" userLabel="Render Quality Menu">
+                    <rect key="frame" x="24" y="122" width="24" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="YBz-go-3Uz" id="vIG-0Q-B82">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <menu key="menu" showsStateColumn="NO" id="8T8-eo-S9n">
+                            <items>
+                                <menuItem image="cpu" catalog="system" hidden="YES" id="YBz-go-3Uz" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="cpu" catalog="system"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Render Quality" id="bBA-WH-S54">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
             </subviews>
             <connections>
                 <outlet property="btnAdd" destination="dAC-v2-fWg" id="RUN-oU-rFg"/>
@@ -173,5 +195,6 @@
         <image name="FilterBandsTabs-Right" width="24" height="32"/>
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="SaveEQPreset" width="15" height="15"/>
+        <image name="cpu" catalog="system" width="17" height="16"/>
     </resources>
 </document>

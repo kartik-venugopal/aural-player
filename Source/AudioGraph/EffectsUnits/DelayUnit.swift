@@ -24,7 +24,7 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     init(persistentState: DelayUnitPersistentState?) {
         
         presets = DelayPresets(persistentState: persistentState)
-        super.init(unitType: .delay, unitState: persistentState?.state ?? AudioGraphDefaults.delayState)
+        super.init(unitType: .delay, unitState: persistentState?.state ?? AudioGraphDefaults.delayState, renderQuality: persistentState?.renderQuality)
         
         time = persistentState?.time ?? AudioGraphDefaults.delayTime
         amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount

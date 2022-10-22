@@ -12,6 +12,7 @@
                 <outlet property="btnSavePreset" destination="Zcn-3u-MVb" id="RZL-Xa-E1E"/>
                 <outlet property="presetsMenuButton" destination="SzE-Ik-872" id="ud1-pS-ufy"/>
                 <outlet property="presetsMenuIconItem" destination="HQi-sq-AI8" id="zbw-Qt-GBa"/>
+                <outlet property="renderQualityMenu" destination="Dub-Gt-wxo" id="4ha-lG-5Cj"/>
                 <outlet property="timeStretchUnitView" destination="ux8-Uv-FBN" id="3Qh-04-Roz"/>
                 <outlet property="view" destination="cWd-Fu-GJN" id="02m-Ap-0Qq"/>
             </connections>
@@ -260,6 +261,27 @@
                         <action selector="savePresetAction:" target="-2" id="v2v-uN-Tea"/>
                     </connections>
                 </button>
+                <popUpButton toolTip="Adjust render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Wn-dd-cRJ" userLabel="Render Quality Menu">
+                    <rect key="frame" x="24" y="122" width="24" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="4M4-ic-XJJ" id="z3i-se-D5v">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <menu key="menu" showsStateColumn="NO" id="Dub-Gt-wxo">
+                            <items>
+                                <menuItem image="cpu" catalog="system" hidden="YES" id="4M4-ic-XJJ" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="cpu" catalog="system"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Render Quality" id="ICd-ba-Vcp">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="141" y="153.5"/>
         </view>
@@ -271,5 +293,6 @@
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="Remove" width="27" height="27"/>
         <image name="SaveEQPreset" width="15" height="15"/>
+        <image name="cpu" catalog="system" width="17" height="16"/>
     </resources>
 </document>
