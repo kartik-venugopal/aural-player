@@ -37,6 +37,62 @@
                         <view key="contentView" id="16A-Bz-VXK">
                             <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KWm-NV-CEa" userLabel="Render Quality Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="149" y="491" width="163" height="18"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="14" id="A7w-tj-2eb"/>
+                                        <constraint firstAttribute="width" constant="159" id="d9x-Ca-fES"/>
+                                    </constraints>
+                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="127" doubleValue="127" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="o1j-w5-ex6" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                </slider>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sqj-B1-EwO" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="109" y="494" width="38" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="Ard-UK-4vP"/>
+                                        <constraint firstAttribute="width" constant="34" id="DjV-8i-hUr"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="2Yx-ZN-GXF">
+                                        <font key="font" size="12" name="Play-Regular"/>
+                                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E4J-fa-von" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="316" y="494" width="40" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="2Nv-Uv-7Cf"/>
+                                        <constraint firstAttribute="width" constant="36" id="c12-Jr-62S"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="127" id="hSi-kQ-bAR">
+                                        <font key="font" size="12" name="Play-Regular"/>
+                                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j98-lO-C0D" userLabel="Value Label" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="348" y="494" width="40" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="5hR-wk-x6X"/>
+                                        <constraint firstAttribute="width" constant="36" id="816-MB-jCb"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="127" id="gYu-qb-l2P">
+                                        <font key="font" size="12" name="Play-Regular"/>
+                                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="sqj-B1-EwO" firstAttribute="leading" secondItem="16A-Bz-VXK" secondAttribute="leading" constant="111" id="57R-WR-i1T"/>
+                                <constraint firstItem="E4J-fa-von" firstAttribute="leading" secondItem="KWm-NV-CEa" secondAttribute="trailing" constant="8" symbolic="YES" id="6Qt-9a-i6X"/>
+                                <constraint firstItem="j98-lO-C0D" firstAttribute="leading" secondItem="KWm-NV-CEa" secondAttribute="trailing" constant="40" id="E9U-2p-oSM"/>
+                                <constraint firstItem="KWm-NV-CEa" firstAttribute="leading" secondItem="sqj-B1-EwO" secondAttribute="trailing" constant="6" id="bTP-eG-Llm"/>
+                                <constraint firstItem="KWm-NV-CEa" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="73" id="dYc-qw-C1b"/>
+                                <constraint firstItem="j98-lO-C0D" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="66" id="dZJ-5I-QNd"/>
+                                <constraint firstItem="E4J-fa-von" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="66" id="lEp-Ls-V9g"/>
+                                <constraint firstItem="sqj-B1-EwO" firstAttribute="top" secondItem="16A-Bz-VXK" secondAttribute="top" constant="66" id="m32-OO-ZGJ"/>
+                            </constraints>
                         </view>
                         <color key="fillColor" white="0.20140029958911709" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </box>
@@ -53,9 +109,9 @@
                         </textFieldCell>
                     </textField>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="cer-qR-hth" userLabel="Container">
-                        <rect key="frame" x="15" y="15" width="600" height="500"/>
+                        <rect key="frame" x="15" y="15" width="600" height="470"/>
                         <view key="contentView" id="1ii-lT-xnk">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="470"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -95,10 +151,25 @@ Gw
                             <action selector="applyFactoryPresetAction:" target="-2" id="OF8-Wq-GuI"/>
                         </connections>
                     </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lF8-Ap-UiM" userLabel="Factory Presets Label">
-                        <rect key="frame" x="15" y="525" width="109" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lF8-Ap-UiM" userLabel="Factory Presets Label">
+                        <rect key="frame" x="15" y="525" width="102" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="98" id="km6-Y2-DED"/>
+                            <constraint firstAttribute="height" constant="20" id="r2a-d8-6b6"/>
+                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Factory Presets:" id="CeW-wh-nlf">
+                            <font key="font" size="13" name="Play-Regular"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hb3-jf-wbJ" userLabel="Factory Presets Label">
+                        <rect key="frame" x="15" y="495" width="109" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="5Fo-xG-qo4"/>
+                            <constraint firstAttribute="width" constant="105" id="aBz-O2-6hW"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Render Quality:" id="87o-Re-8FI">
                             <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -163,18 +234,22 @@ Gw
                 <constraints>
                     <constraint firstItem="uYN-5k-nw5" firstAttribute="top" secondItem="LAn-Sl-fSv" secondAttribute="bottom" constant="2" id="2Mc-LY-Mdt"/>
                     <constraint firstAttribute="trailing" secondItem="xoa-Kv-Cdv" secondAttribute="trailing" constant="31" id="F72-bY-emg"/>
+                    <constraint firstItem="Hb3-jf-wbJ" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="17" id="GDY-FE-XWy"/>
                     <constraint firstAttribute="trailing" secondItem="cer-qR-hth" secondAttribute="trailing" constant="15" id="Gzl-Mn-7il"/>
                     <constraint firstItem="LAn-Sl-fSv" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" constant="8" id="HIe-IZ-qfO"/>
                     <constraint firstItem="3Q3-wo-olL" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" constant="13" id="JTh-B7-gn0"/>
+                    <constraint firstItem="Hb3-jf-wbJ" firstAttribute="leading" secondItem="lF8-Ap-UiM" secondAttribute="leading" id="MzG-nL-ECF"/>
                     <constraint firstItem="cer-qR-hth" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="15" id="Ous-cn-Cn2"/>
                     <constraint firstAttribute="bottom" secondItem="cer-qR-hth" secondAttribute="bottom" constant="15" id="QCS-mf-oPA"/>
                     <constraint firstAttribute="trailing" secondItem="A8R-cR-URx" secondAttribute="trailing" constant="1" id="VoI-ma-rUC"/>
+                    <constraint firstItem="Hb3-jf-wbJ" firstAttribute="top" secondItem="lF8-Ap-UiM" secondAttribute="bottom" constant="10" id="YSx-md-2NI"/>
+                    <constraint firstItem="lF8-Ap-UiM" firstAttribute="top" secondItem="3Q3-wo-olL" secondAttribute="bottom" constant="12" id="ZU0-5b-5Lx"/>
+                    <constraint firstItem="cer-qR-hth" firstAttribute="top" secondItem="Hb3-jf-wbJ" secondAttribute="bottom" constant="10" id="afL-uX-9hR"/>
                     <constraint firstItem="LAn-Sl-fSv" firstAttribute="centerX" secondItem="yWQ-0G-xPL" secondAttribute="centerX" id="dFg-fQ-9mg"/>
                     <constraint firstItem="3Q3-wo-olL" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="7" id="fVB-Fc-grk"/>
                     <constraint firstItem="xoa-Kv-Cdv" firstAttribute="leading" secondItem="uYN-5k-nw5" secondAttribute="trailing" constant="1" id="kCI-WH-bvS"/>
                     <constraint firstItem="xoa-Kv-Cdv" firstAttribute="top" secondItem="LAn-Sl-fSv" secondAttribute="bottom" constant="7" id="ozG-uc-Cac"/>
                     <constraint firstAttribute="trailing" secondItem="AlZ-mk-WMx" secondAttribute="trailing" constant="18" id="pcn-2Z-NZD"/>
-                    <constraint firstItem="cer-qR-hth" firstAttribute="top" secondItem="uYN-5k-nw5" secondAttribute="bottom" constant="10" id="rVx-6F-zrA"/>
                     <constraint firstAttribute="bottom" secondItem="A8R-cR-URx" secondAttribute="bottom" constant="1" id="rtW-qv-8Yr"/>
                     <constraint firstItem="AlZ-mk-WMx" firstAttribute="top" secondItem="xoa-Kv-Cdv" secondAttribute="top" id="zVn-ec-vH7"/>
                 </constraints>

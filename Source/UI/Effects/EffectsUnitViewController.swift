@@ -67,6 +67,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
         btnBypass.stateFunction = self.unitStateFunction
         btnSavePreset.tintFunction = {Colors.functionButtonColor}
         presetsMenuIconItem.tintFunction = {Colors.functionButtonColor}
+        (renderQualityMenu?.items[0] as? TintedIconMenuItem)?.tintFunction = {Colors.functionButtonColor}
         
         if #available(macOS 10.13, *), let renderQualityMenu = self.renderQualityMenu {
             
@@ -257,6 +258,9 @@ class EffectsUnitViewController: NSViewController, Destroyable {
         
         btnSavePreset.reTint()
         presetsMenuIconItem.reTint()
+        
+        print("\n\(className): \(renderQualityMenu?.items[0])")
+        (renderQualityMenu?.items[0] as? TintedIconMenuItem)?.reTint()
     }
     
     func changeSliderColors() {
