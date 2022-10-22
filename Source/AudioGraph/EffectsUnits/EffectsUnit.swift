@@ -37,21 +37,36 @@ class EffectsUnit {
     var renderQuality: Int {
         
         get {avNodes.first?.auAudioUnit.renderQuality ?? 0}
-        set {avNodes.first?.auAudioUnit.renderQuality = newValue}
+        
+        set {
+            
+            avNodes.compactMap {$0.auAudioUnit}.forEach {
+                $0.renderQuality = newValue
+            }
+        }
+    }
+    
+    var renderQualityPersistentState: Int? {
+        
+        if #available(macOS 10.13, *) {
+            return self.renderQuality
+        } else {
+            return nil
+        }
     }
     
     var isActive: Bool {state == .active}
     
     lazy var messenger = Messenger(for: self)
     
-    init(unitType: EffectsUnitType, unitState: EffectsUnitState) {
+    init(unitType: EffectsUnitType, unitState: EffectsUnitState, renderQuality: Int? = nil) {
         
         self.unitType = unitType
         self.state = unitState
         stateChanged()
         
-        if #available(macOS 10.13, *), let au = avNodes.first?.auAudioUnit {
-            print("\n\(unitType.caption) RQ = \(au.renderQuality)\n")
+        if #available(macOS 10.13, *) {
+            self.renderQuality = renderQuality ?? AudioGraphDefaults.renderQuality
         }
     }
     

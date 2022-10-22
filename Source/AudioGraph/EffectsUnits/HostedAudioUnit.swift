@@ -81,7 +81,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name,
                                                                                            number: $0.number)} ?? []
         
-        super.init(unitType: .au, unitState: persistentState.state ?? AudioGraphDefaults.auState)
+        super.init(unitType: .au, unitState: persistentState.state ?? AudioGraphDefaults.auState, renderQuality: persistentState.renderQuality)
         self.node.addBypassStateObserver(self)
     }
     
@@ -162,6 +162,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     var persistentState: AudioUnitPersistentState {
 
         AudioUnitPersistentState(state: self.state,
+                                 renderQuality: renderQualityPersistentState,
                                  componentType: self.componentType,
                                  componentSubType: self.componentSubType,
                                  params: self.parameterValues.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)})

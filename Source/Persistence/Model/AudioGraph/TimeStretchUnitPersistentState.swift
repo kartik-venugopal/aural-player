@@ -18,6 +18,7 @@ struct TimeStretchUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [TimeStretchPresetPersistentState]?
+    let renderQuality: Int?
     
     let rate: Float?
     let shiftPitch: Bool?

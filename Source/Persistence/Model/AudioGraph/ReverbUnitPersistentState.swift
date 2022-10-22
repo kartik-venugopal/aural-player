@@ -18,6 +18,7 @@ struct ReverbUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [ReverbPresetPersistentState]?
+    let renderQuality: Int?
     
     let space: ReverbSpaces?
     let amount: Float?

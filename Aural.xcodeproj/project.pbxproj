@@ -199,6 +199,8 @@
 		3E397548268900C60055887E /* ControlBarVolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E397547268900C60055887E /* ControlBarVolumeSliderCell.swift */; };
 		3E39754A268924110055887E /* ControlBarPlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E397549268924110055887E /* ControlBarPlayerUIPersistentState.swift */; };
 		3E39754E26892C890055887E /* ControlBarPlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39754D26892C890055887E /* ControlBarPlayerUIState.swift */; };
+		3E3DA7A92903FA2F00FE864E /* RenderQualityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DA7A82903FA2F00FE864E /* RenderQualityMenuViewController.swift */; };
+		3E3DA7AB2903FAB400FE864E /* RenderQualityMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DA7AA2903FAB400FE864E /* RenderQualityMenu.xib */; };
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
 		3E3DFFD0260D9E3F0092F0BF /* MetadataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */; };
 		3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */; };
@@ -1505,6 +1507,8 @@
 		3E397547268900C60055887E /* ControlBarVolumeSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarVolumeSliderCell.swift; sourceTree = "<group>"; };
 		3E397549268924110055887E /* ControlBarPlayerUIPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarPlayerUIPersistentState.swift; sourceTree = "<group>"; };
 		3E39754D26892C890055887E /* ControlBarPlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarPlayerUIState.swift; sourceTree = "<group>"; };
+		3E3DA7A82903FA2F00FE864E /* RenderQualityMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderQualityMenuViewController.swift; sourceTree = "<group>"; };
+		3E3DA7AA2903FAB400FE864E /* RenderQualityMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenderQualityMenu.xib; sourceTree = "<group>"; };
 		3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataPreferences.xib; sourceTree = "<group>"; };
 		3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferences.swift; sourceTree = "<group>"; };
 		3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -3490,6 +3494,8 @@
 				3E6C100925CEB98600BF0D07 /* EffectsWindow.xib */,
 				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
 				3E3633E12685FB2C006A88ED /* EffectsUnitViewController.swift */,
+				3E3DA7AA2903FAB400FE864E /* RenderQualityMenu.xib */,
+				3E3DA7A82903FA2F00FE864E /* RenderQualityMenuViewController.swift */,
 				3E6C100525CEB98600BF0D07 /* Master */,
 				3E6C0FF725CEB98600BF0D07 /* EQ */,
 				3E6C0FEE25CEB98600BF0D07 /* PitchShift */,
@@ -5052,6 +5058,7 @@
 				3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */,
 				3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */,
+				3E3DA7AB2903FAB400FE864E /* RenderQualityMenu.xib in Resources */,
 				3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */,
 				3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */,
 				3E645A0A25E39337006C6981 /* coming-soon.regular.ttf in Resources */,
@@ -5355,6 +5362,7 @@
 				3E3633DA2685FAD0006A88ED /* EffectsUnit.swift in Sources */,
 				3E3633C22685FA9F006A88ED /* EffectsUnitDelegate.swift in Sources */,
 				3E3633F4268628D6006A88ED /* EffectsUnitDelegateProtocol.swift in Sources */,
+				3E3DA7A92903FA2F00FE864E /* RenderQualityMenuViewController.swift in Sources */,
 				3EBF293726869A9300D87021 /* EffectsUnitPopupMenuCell.swift in Sources */,
 				3E3633DE2685FAE5006A88ED /* EffectsUnitPresets.swift in Sources */,
 				3E3633DB2685FAD0006A88ED /* EffectsUnitProtocol.swift in Sources */,

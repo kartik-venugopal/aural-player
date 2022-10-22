@@ -44,7 +44,7 @@ extension FFmpegDecoder {
     
     func copy(samplesIn frameBuffer: FFmpegFrameBuffer, into audioBuffer: AVAudioPCMBuffer) {
         
-        guard let floatChannelData = audioBuffer.floatChannelData else {return}
+        guard let destPointers = audioBuffer.floatChannelData else {return}
         
         // Keeps track of how many samples have been copied over so far.
         // This will be used as an offset when performing each copy operation.
@@ -66,7 +66,7 @@ extension FFmpegDecoder {
                     // Use Accelerate to perform the copy optimally, starting at the given offset.
                     cblas_scopy(sampleCount,
                                 srcPointers[channelIndex].advanced(by: firstSampleIndex), 1,
-                                floatChannelData[channelIndex].advanced(by: sampleCountSoFar), 1)
+                                destPointers[channelIndex].advanced(by: sampleCountSoFar), 1)
                 }
             }
             

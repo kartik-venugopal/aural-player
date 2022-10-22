@@ -24,7 +24,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     init(persistentState: TimeStretchUnitPersistentState?) {
         
         presets = TimeStretchPresets(persistentState: persistentState)
-        super.init(unitType: .time, unitState: persistentState?.state ?? AudioGraphDefaults.timeStretchState)
+        super.init(unitType: .time, unitState: persistentState?.state ?? AudioGraphDefaults.timeStretchState, renderQuality: persistentState?.renderQuality)
         
         rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
         shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeStretchShiftPitch
@@ -83,6 +83,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
 
         TimeStretchUnitPersistentState(state: state,
                                        userPresets: presets.userDefinedObjects.map {TimeStretchPresetPersistentState(preset: $0)},
+                                       renderQuality: renderQualityPersistentState,
                                        rate: rate,
                                        shiftPitch: shiftPitch)
     }

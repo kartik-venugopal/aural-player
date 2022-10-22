@@ -18,6 +18,7 @@ struct PitchShiftUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [PitchShiftPresetPersistentState]?
+    let renderQuality: Int?
     
     let pitch: Float?
 }

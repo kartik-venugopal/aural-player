@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="RenderQualityMenuViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="lblRenderQuality" destination="f83-bX-C5G" id="fAs-Yi-Wgc"/>
+                <outlet property="renderQualitySlider" destination="Kfl-79-ASb" id="lL4-3Q-tdr"/>
+                <outlet property="view" destination="wEM-Fg-Nih" id="sEY-rx-Nvm"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="wEM-Fg-Nih" userLabel="Render Quality View">
+            <rect key="frame" x="0.0" y="0.0" width="380" height="37"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kfl-79-ASb" userLabel="Render Quality Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="130" y="5" width="163" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="127" doubleValue="127" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="Lgr-Wn-JLW" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <connections>
+                        <action selector="renderQualityAction:" target="-2" id="eN6-vX-TVt"/>
+                    </connections>
+                </slider>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o6U-d0-yg2" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="13" y="7" width="92" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Render Quality" id="TSX-Hp-9Tm">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9xb-Xz-PpG" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="90" y="8" width="38" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="0vd-ZK-EhI">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DY2-tg-4V2" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="297" y="8" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="127" id="yFl-AD-mkr">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f83-bX-C5G" userLabel="Value Label" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="329" y="8" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="127" id="eG2-qn-WlD">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.3992788109" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="21" y="-161.5"/>
+        </customView>
+    </objects>
+</document>

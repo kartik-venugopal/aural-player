@@ -22,7 +22,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     init(persistentState: PitchShiftUnitPersistentState?) {
         
         presets = PitchShiftPresets(persistentState: persistentState)
-        super.init(unitType: .pitch, unitState: persistentState?.state ?? AudioGraphDefaults.pitchShiftState)
+        super.init(unitType: .pitch, unitState: persistentState?.state ?? AudioGraphDefaults.pitchShiftState, renderQuality: persistentState?.renderQuality)
         
         node.pitch = persistentState?.pitch ?? AudioGraphDefaults.pitchShift
     }
@@ -64,6 +64,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         
         PitchShiftUnitPersistentState(state: state,
                                       userPresets: presets.userDefinedObjects.map {PitchShiftPresetPersistentState(preset: $0)},
+                                      renderQuality: renderQualityPersistentState,
                                       pitch: pitch)
     }
 }

@@ -19,6 +19,8 @@ struct AudioGraphDefaults {
     static let pan: Float = 0
     static let muted: Bool = false
     
+    static let renderQuality: Int = 127
+    
     static let masterState: EffectsUnitState = .active
     
     static let eqState: EffectsUnitState = .bypassed

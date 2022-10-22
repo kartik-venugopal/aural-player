@@ -212,10 +212,12 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
     
     func convertFrame(_ frame: FFmpegFrame,
                       andStoreIn outputDataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>) {
+        
+        let sampleCount = frame.sampleCount
      
         // Access the input data as pointers from the frame being resampled.
         _ = frame.dataPointers.withMemoryRebound(to: UnsafePointer<UInt8>?.self, capacity: frame.intChannelCount) {inputDataPointers in
-            swr_convert(resampleCtx, outputDataPointers, frame.sampleCount, inputDataPointers, frame.sampleCount)
+            swr_convert(resampleCtx, outputDataPointers, sampleCount, inputDataPointers, sampleCount)
         }
     }
 }

@@ -18,6 +18,7 @@ import AudioToolbox
 struct AudioUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
+    let renderQuality: Int?
 
     let componentType: OSType?
     let componentSubType: OSType?

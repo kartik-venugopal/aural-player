@@ -24,7 +24,7 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     init(persistentState: FilterUnitPersistentState?) {
         
         presets = FilterPresets(persistentState: persistentState)
-        super.init(unitType: .filter, unitState: persistentState?.state ?? AudioGraphDefaults.filterState)
+        super.init(unitType: .filter, unitState: persistentState?.state ?? AudioGraphDefaults.filterState, renderQuality: persistentState?.renderQuality)
         
         node.addBands((persistentState?.bands ?? []).compactMap {FilterBand(persistentState: $0)})
     }
@@ -83,6 +83,7 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         
         FilterUnitPersistentState(state: state,
                                   userPresets: presets.userDefinedObjects.map {FilterPresetPersistentState(preset: $0)},
+                                  renderQuality: renderQualityPersistentState,
                                   bands: bands.map {FilterBandPersistentState(band: $0)})
     }
 }

@@ -15,7 +15,6 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     // MARK: UI fields
 
-//    @IBOutlet weak var lblCaption: VALabel!
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
     // Presets controls
@@ -25,6 +24,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
     
     @IBOutlet weak var renderQualityMenu: NSMenu!
+    var renderQualityMenuViewController: NSViewController!
     
     // Labels
     var functionLabels: [NSTextField] = []
@@ -37,15 +37,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    var effectsUnit: EffectsUnitDelegateProtocol! {
-        
-        didSet {
-            
-            if #available(macOS 10.13, *), let renderQualityMenuController = renderQualityMenu?.delegate as? RenderQualityMenuController {
-                renderQualityMenuController.effectsUnit = effectsUnit
-            }
-        }
-    }
+    var effectsUnit: EffectsUnitDelegateProtocol!
     
     var unitType: EffectsUnitType {effectsUnit.unitType}
     var unitStateFunction: EffectsUnitStateFunction {effectsUnit.stateFunction}
@@ -75,6 +67,17 @@ class EffectsUnitViewController: NSViewController, Destroyable {
         btnBypass.stateFunction = self.unitStateFunction
         btnSavePreset.tintFunction = {Colors.functionButtonColor}
         presetsMenuIconItem.tintFunction = {Colors.functionButtonColor}
+        
+        if #available(macOS 10.13, *), let renderQualityMenu = self.renderQualityMenu {
+            
+            let renderQualityMenuViewController = RenderQualityMenuViewController()
+            renderQualityMenuViewController.effectsUnit = effectsUnit
+            
+            renderQualityMenu.items[1].view = renderQualityMenuViewController.view
+            renderQualityMenu.delegate = renderQualityMenuViewController
+            
+            self.renderQualityMenuViewController = renderQualityMenuViewController
+        }
         
         initSubscriptions()
         
@@ -302,26 +305,5 @@ extension EffectsUnitViewController: NSMenuDelegate {
         
         // Don't select any items from the EQ presets menu
         presetsMenuButton.deselect()
-    }
-}
-
-@available(macOS 10.13, *)
-class RenderQualityMenuController: NSObject, NSMenuDelegate {
-    
-    @IBOutlet weak var renderQualitySlider: EffectsUnitSlider!
-    @IBOutlet weak var lblRenderQuality: NSTextField!
-    
-    var effectsUnit: EffectsUnitDelegateProtocol!
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        guard let effectsUnit = self.effectsUnit else {return}
-        
-        renderQualitySlider.integerValue = effectsUnit.renderQuality
-        lblRenderQuality.stringValue = "\(effectsUnit.renderQuality)"
-    }
-    
-    @IBAction func renderQualityAction(_ sender: AnyObject) {
-        effectsUnit.renderQuality = renderQualitySlider.integerValue
     }
 }

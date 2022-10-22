@@ -99,6 +99,7 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
 
         DelayUnitPersistentState(state: state,
                                  userPresets: presets.userDefinedObjects.map {DelayPresetPersistentState(preset: $0)},
+                                 renderQuality: renderQualityPersistentState,
                                  amount: amount,
                                  time: time,
                                  feedback: feedback,

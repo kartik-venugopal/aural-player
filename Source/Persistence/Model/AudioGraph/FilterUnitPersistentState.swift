@@ -18,6 +18,7 @@ struct FilterUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [FilterPresetPersistentState]?
+    let renderQuality: Int?
     
     let bands: [FilterBandPersistentState]?
 }

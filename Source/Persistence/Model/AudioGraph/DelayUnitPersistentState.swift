@@ -18,6 +18,7 @@ struct DelayUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [DelayPresetPersistentState]?
+    let renderQuality: Int?
     
     let amount: Float?
     let time: Double?

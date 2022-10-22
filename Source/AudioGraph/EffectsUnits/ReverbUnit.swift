@@ -25,7 +25,8 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         
         avSpace = (persistentState?.space ?? AudioGraphDefaults.reverbSpace).avPreset
         presets = ReverbPresets(persistentState: persistentState)
-        super.init(unitType: .reverb, unitState: persistentState?.state ?? AudioGraphDefaults.reverbState)
+        
+        super.init(unitType: .reverb, unitState: persistentState?.state ?? AudioGraphDefaults.reverbState, renderQuality: persistentState?.renderQuality)
         
         amount = persistentState?.amount ?? AudioGraphDefaults.reverbAmount
     }
@@ -85,6 +86,7 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         
         ReverbUnitPersistentState(state: state,
                                   userPresets: presets.userDefinedObjects.map {ReverbPresetPersistentState(preset: $0)},
+                                  renderQuality: renderQualityPersistentState,
                                   space: space,
                                   amount: amount)
     }
