@@ -130,7 +130,26 @@ function configureAndMake {
     --enable-hardcoded-tables \
     --enable-pthreads \
     --disable-doc \
-    --disable-debug
+    --disable-debug \
+    --disable-all \
+    --enable-avcodec \
+    --enable-avformat \
+    --enable-swresample \
+    --enable-avfoundation \
+    --enable-audiotoolbox \
+    --enable-coreimage \
+    --enable-zlib \
+    --disable-everything \
+    --disable-appkit \
+    --disable-iconv \
+    --disable-bzlib \
+    --disable-sdl2 \
+    --disable-videotoolbox \
+    --disable-securetransport \
+    --enable-demuxer=ape,asf,asf_o,dsf,flac,iff,matroska,mpc,mpc8,ogg,rm,tak,tta,wv \
+    --enable-parser=bmp,cook,flac,gif,jpeg2000,mjpeg,mpegaudio,opus,png,sipr,tak,vorbis,webp \
+    --enable-decoder=ape,cook,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,flac,mpc7,mpc8,musepack7,musepack8,opus,ra_144,ra_288,ralf,sipr,tta,tak,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice \
+    --enable-protocol=file
     
     # Build FFmpeg (use multithreading).
     tokens=$(sysctl hw.physicalcpu)
