@@ -107,7 +107,10 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     private func renderPreview(_ preset: MasterPreset) {
         
         masterSubPreview.applyPreset(preset)
+        
+        eqSubPreview.initialize(eqStateFunction: {.active}, sliderAction: nil, sliderActionTarget: nil)
         eqSubPreview.applyPreset(preset.eq)
+        
         pitchSubPreview.applyPreset(preset.pitch)
         
         timeSubPreview.applyPreset(preset.time)

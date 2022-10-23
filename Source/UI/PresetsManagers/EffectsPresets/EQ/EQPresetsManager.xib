@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -102,283 +102,125 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aI2-fa-bQZ">
-                                <rect key="frame" x="155" y="223" width="65" height="20"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3oT-nj-3Ql" userLabel="Frequencies">
+                                <rect key="frame" x="80" y="196" width="324" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="10 bands" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" state="on" inset="2" id="ud2-ly-AHi" customClass="EQPreviewTabButtonCell" customModule="Aural" customModuleProvider="target">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="25     40     63    100   160    250   400    630    1k    1.6k   2.5k    4k    6.3k   10k   16k" id="yno-oY-JYY">
+                                    <font key="font" size="9" name="Play-Regular"/>
+                                    <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ytQ-sK-ESW" userLabel="EQGlobalGain" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="34" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="rox-q0-yGe" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="10" translatesAutoresizingMaskIntoConstraints="NO" id="glD-9l-3Xw" userLabel="Eq Slider1k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="294" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="y5F-dN-aZ7" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="nAl-Sc-CFs" userLabel="Eq Slider1k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="184" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Bbn-Hv-02G" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IR3-dh-4lB">
+                                <rect key="frame" x="54" y="174" width="20" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="JtM-Bz-kzb">
                                     <font key="font" size="10" name="Play-Regular"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="chooseEQTypeAction:" target="-2" id="2RU-a6-YgP"/>
-                                </connections>
-                            </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAC-zP-FcH">
-                                <rect key="frame" x="225" y="223" width="65" height="20"/>
+                                    <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="cyY-w6-l28" userLabel="Eq Slider4k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="338" y="86" width="18" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="15 bands" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="JDo-DU-cC9" customClass="EQPreviewTabButtonCell" customModule="Aural" customModuleProvider="target">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="tci-so-V1e" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="zv8-c8-1ss" userLabel="Eq Slider4k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="228" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="JSR-gE-4gk" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tsf-IA-TlA">
+                                <rect key="frame" x="54" y="79" width="20" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="MHl-my-cqR">
                                     <font key="font" size="10" name="Play-Regular"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="chooseEQTypeAction:" target="-2" id="rs5-KF-nHa"/>
-                                </connections>
-                            </button>
-                            <tabView type="noTabsNoBorder" id="bGW-a2-czF" userLabel="TabView">
-                                <rect key="frame" x="33" y="72" width="375" height="136"/>
+                                    <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="9" translatesAutoresizingMaskIntoConstraints="NO" id="VYx-zV-Y5Q" userLabel="Eq Slider16k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="272" y="86" width="18" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <font key="font" metaFont="system"/>
-                                <tabViewItems>
-                                    <tabViewItem label="Tab" identifier="" id="n1X-9w-rH9" userLabel="10Band">
-                                        <view key="view" id="gq2-nB-h8M">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfL-f9-iM6" userLabel="10 band EQ" customClass="EQUnitSubview" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="-42" y="3" width="458" height="130"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oag-yg-gi2" userLabel="Frequencies">
-                                                            <rect key="frame" x="88" y="110" width="247" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="31     63    125    250    500    1k      2k     4k      8k    16k" id="wca-w8-j0o">
-                                                                <font key="font" size="10" name="Play-Regular"/>
-                                                                <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kZU-9H-hTt" userLabel="EQGlobalGain" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="43" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="S4J-dK-dJS" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="9" translatesAutoresizingMaskIntoConstraints="NO" id="Q5s-Bk-Yk0" userLabel="Eq Slider16k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="308" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="tFM-dr-zIV" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="8" translatesAutoresizingMaskIntoConstraints="NO" id="sL9-T7-Z3D" userLabel="Eq Slider8k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="283" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="WtF-yF-s5m" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="wNF-2G-kH6" userLabel="Eq Slider4k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="258" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="RSM-xu-suI" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="X5c-NV-2eG" userLabel="Eq Slider2k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="233" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="0IZ-iQ-Tum" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="rHu-Ow-yaW" userLabel="Eq Slider1k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="208" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Rag-IR-6nd" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="5fj-vC-yyM" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="183" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="5i7-yi-fW4" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="ndg-NQ-1qG" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="158" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Tbx-WW-v29" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="nBd-Xn-wMS" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="133" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="PbO-ny-DXj" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hmd-Iq-Ipy" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="108" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="poo-hv-xNQ" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Auv-cd-AkM" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="83" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Wlm-T0-YN2" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1c-7F-hKy">
-                                                            <rect key="frame" x="63" y="88" width="20" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="OqT-2e-kKj">
-                                                                <font key="font" size="10" name="Play-Regular"/>
-                                                                <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lux-1T-FhM">
-                                                            <rect key="frame" x="63" y="-7" width="20" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="PvT-ah-rOQ">
-                                                                <font key="font" size="10" name="Play-Regular"/>
-                                                                <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FYE-aX-P0Q">
-                                                            <rect key="frame" x="68" y="46" width="15" height="16"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="pfg-yq-cpi">
-                                                                <font key="font" size="10" name="Play-Regular"/>
-                                                                <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                    </subviews>
-                                                    <connections>
-                                                        <outlet property="globalGainSlider" destination="kZU-9H-hTt" id="LMs-3t-FZ6"/>
-                                                    </connections>
-                                                </view>
-                                            </subviews>
-                                        </view>
-                                    </tabViewItem>
-                                    <tabViewItem label="View" identifier="" id="YCw-NG-0yk" userLabel="15Band">
-                                        <view key="view" id="0oJ-A3-bWk">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zep-le-FyS" userLabel="15 band EQ" customClass="EQUnitSubview" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="-42" y="3" width="458" height="130"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dj6-K3-mmD" userLabel="Frequencies">
-                                                            <rect key="frame" x="51" y="110" width="324" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="25     40     63    100   160    250   400    630    1k    1.6k   2.5k    4k    6.3k   10k   16k" id="I3R-u8-dKr">
-                                                                <font key="font" size="9" name="Play-Regular"/>
-                                                                <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7x8-UT-v4i" userLabel="EQGlobalGain" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="5" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="NIj-JP-yxS" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="9" translatesAutoresizingMaskIntoConstraints="NO" id="FJJ-fi-ST2" userLabel="Eq Slider16k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="243" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="LBX-57-u28" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="8" translatesAutoresizingMaskIntoConstraints="NO" id="arH-ns-DS6" userLabel="Eq Slider8k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="221" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="HJE-Z7-Dcv" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="zpb-JO-Xa4" userLabel="Eq Slider4k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="199" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="DN9-sj-6u7" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="DeG-qX-fbp" userLabel="Eq Slider2k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="177" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="GRP-y0-lsp" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="NvT-MU-IaD" userLabel="Eq Slider1k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="155" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="nNk-Xr-eK4" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="jzc-vu-Gic" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="133" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="xY5-WD-LbG" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="Q2g-Zs-CPB" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="111" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="XsY-iY-CiE" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="5lc-gc-aFz" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="89" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="JBV-U8-wBH" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="0xm-TX-Ck2" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="67" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="rgr-bU-jbq" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iwa-GO-vhz" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="45" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="PFi-R6-bRg" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1ew-Ld-RWN">
-                                                            <rect key="frame" x="25" y="88" width="20" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="XFw-nY-Lcw">
-                                                                <font key="font" size="10" name="Play-Regular"/>
-                                                                <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Qf-wa-EvF">
-                                                            <rect key="frame" x="25" y="-7" width="20" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="g0k-C3-Fpz">
-                                                                <font key="font" size="10" name="Play-Regular"/>
-                                                                <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TcL-p7-ftB">
-                                                            <rect key="frame" x="30" y="46" width="15" height="16"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="YDr-YN-2zP">
-                                                                <font key="font" size="10" name="Play-Regular"/>
-                                                                <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="U5u-5g-Ugo" userLabel="Eq Slider16k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="351" y="0.0" width="19" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="F4v-js-VgU" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="vpf-eC-6ux" userLabel="Eq Slider8k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="331" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="wtR-u9-iCn" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="wHU-5u-YGi" userLabel="Eq Slider4k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="309" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="8me-Jq-CeQ" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="EUJ-6u-MLd" userLabel="Eq Slider2k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="287" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Eek-1s-UPk" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="10" translatesAutoresizingMaskIntoConstraints="NO" id="xY1-c2-H7t" userLabel="Eq Slider1k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="265" y="0.0" width="18" height="108"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="ET0-1J-Fhn" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
-                                                        </slider>
-                                                    </subviews>
-                                                    <connections>
-                                                        <outlet property="globalGainSlider" destination="7x8-UT-v4i" id="KkS-A9-Xoh"/>
-                                                    </connections>
-                                                </view>
-                                            </subviews>
-                                        </view>
-                                    </tabViewItem>
-                                </tabViewItems>
-                            </tabView>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="zWY-Fz-cx6" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="32W-Qo-jjM" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="162" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="oCw-yb-zTy" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="Dzg-4O-teh" userLabel="Eq Slider2k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="316" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="veV-SV-74E" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="TW3-in-1C2" userLabel="Eq Slider16k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="380" y="86" width="19" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="H2G-uH-fpz" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="rLY-PL-Hmz" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="140" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="rTt-Wy-HUs" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="5B0-2Y-sdm" userLabel="Eq Slider2k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="206" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="e1c-Zj-ETh" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="4DN-ny-YeG" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="118" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="JTM-JS-e7r" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="6ST-Hf-jei" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="96" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="qDQ-du-OqZ" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="8" translatesAutoresizingMaskIntoConstraints="NO" id="W5K-LK-snj" userLabel="Eq Slider8k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="250" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="PDi-JZ-XLh" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="QJ3-n2-SMa" userLabel="Eq Slider8k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="360" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="gDK-iI-6V0" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="95c-zC-g8K" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="74" y="86" width="18" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="JZy-Oy-3OX" customClass="EQSliderConstantColorPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ute-7M-lTE">
+                                <rect key="frame" x="59" y="132" width="15" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="rCB-0l-D3C">
+                                    <font key="font" size="10" name="Play-Regular"/>
+                                    <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <connections>
-                            <outlet property="btn10Band" destination="aI2-fa-bQZ" id="hKP-92-8n9"/>
-                            <outlet property="btn15Band" destination="aAC-zP-FcH" id="D5w-Lr-10p"/>
-                            <outlet property="eq10BandView" destination="yfL-f9-iM6" id="Dfc-D5-waV"/>
-                            <outlet property="eq15BandView" destination="zep-le-FyS" id="gj2-7T-YlB"/>
-                            <outlet property="tabView" destination="bGW-a2-czF" id="nvi-bb-PhS"/>
+                            <outlet property="globalGainSlider" destination="ytQ-sK-ESW" id="ltN-gQ-64K"/>
                         </connections>
                     </view>
                     <color key="borderColor" white="0.34804687499999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
