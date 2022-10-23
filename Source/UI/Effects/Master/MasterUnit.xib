@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,8 +14,8 @@
                 <outlet property="btnBypass" destination="1bl-Og-Men" id="ILs-W4-cRi"/>
                 <outlet property="btnSavePreset" destination="8or-Oa-uMa" id="X8Y-GB-CUL"/>
                 <outlet property="masterUnitView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
-                <outlet property="presetsMenuButton" destination="uqP-oj-xNY" id="Fth-M5-zlm"/>
-                <outlet property="presetsMenuIconItem" destination="bE8-u7-FFo" id="Rba-vo-6zI"/>
+                <outlet property="presetsMenuButton" destination="qNJ-io-Jo6" id="lmQ-lc-uDZ"/>
+                <outlet property="presetsMenuIconItem" destination="Q8N-BL-cYl" id="9ZA-fu-oMH"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>
             </connections>
         </customObject>
@@ -140,27 +140,6 @@
                         <action selector="delayBypassAction:" target="-2" id="mrN-Bs-fPm"/>
                     </connections>
                 </button>
-                <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqP-oj-xNY" userLabel="Presets Menu">
-                    <rect key="frame" x="454" y="3" width="27" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="Tg0-YE-4cH">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
-                        <menu key="menu" showsStateColumn="NO" id="wAk-l0-VwJ">
-                            <items>
-                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="bE8-u7-FFo" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
-                                    </userDefinedRuntimeAttributes>
-                                </menuItem>
-                            </items>
-                            <connections>
-                                <outlet property="delegate" destination="-2" id="teh-ey-Kre"/>
-                            </connections>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="St1-EV-PgQ" userLabel="Pitch img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="91" y="145" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -220,6 +199,30 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qNJ-io-Jo6" userLabel="Presets Menu">
+                    <rect key="frame" x="454" y="3" width="27" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="Mv0-sI-hi4">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <menu key="menu" id="4Hy-pY-Pse">
+                            <items>
+                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="Q8N-BL-cYl" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                            </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="m5V-k1-fEE"/>
+                            </connections>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="presetsAction:" target="-2" id="2MS-UO-qqL"/>
+                    </connections>
+                </popUpButton>
                 <button toolTip="Save new preset" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8or-Oa-uMa" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="480" y="3" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

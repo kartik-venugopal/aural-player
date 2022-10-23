@@ -32,14 +32,11 @@ extension NSMenu {
                       indentationLevel: Int? = nil) {
         
         // Remove all user-defined scheme items (i.e. all items before the first separator)
-        if index < items.count {
-            
-            while let item = item(at: index), !item.isSeparatorItem {
-                removeItem(at: index)
-            }
+        while index < items.count, let item = item(at: index), !item.isSeparatorItem {
+            removeItem(at: index)
         }
         
-        // Recreate the user-defined color scheme items
+        // Recreate the user-defined items
         titles.forEach {
 
             let item: NSMenuItem = NSMenuItem(title: $0, action: action, keyEquivalent: "")
