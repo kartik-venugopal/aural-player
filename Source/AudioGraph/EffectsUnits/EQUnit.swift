@@ -52,7 +52,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         
         set {
             node.globalGain = newValue
-            currentPreset = nil
+            invalidateCurrentPreset()
         }
     }
     
@@ -61,8 +61,9 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         get {node.bandGains}
         
         set(newBands) {
+            
             node.bandGains = newBands
-            currentPreset = nil
+            invalidateCurrentPreset()
         }
     }
     
@@ -73,44 +74,45 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         get {node[index]}
         
         set {
+            
             node[index] = newValue
-            currentPreset = nil
+            invalidateCurrentPreset()
         }
     }
     
     func increaseBass(by increment: Float) -> [Float] {
         
-        currentPreset = nil
+        invalidateCurrentPreset()
         return node.increaseBass(by: increment)
     }
     
     func decreaseBass(by decrement: Float) -> [Float] {
         
-        currentPreset = nil
+        invalidateCurrentPreset()
         return node.decreaseBass(by: decrement)
     }
     
     func increaseMids(by increment: Float) -> [Float] {
         
-        currentPreset = nil
+        invalidateCurrentPreset()
         return node.increaseMids(by: increment)
     }
     
     func decreaseMids(by decrement: Float) -> [Float] {
         
-        currentPreset = nil
+        invalidateCurrentPreset()
         return node.decreaseMids(by: decrement)
     }
     
     func increaseTreble(by increment: Float) -> [Float] {
         
-        currentPreset = nil
+        invalidateCurrentPreset()
         return node.increaseTreble(by: increment)
     }
     
     func decreaseTreble(by decrement: Float) -> [Float] {
         
-        currentPreset = nil
+        invalidateCurrentPreset()
         return node.decreaseTreble(by: decrement)
     }
     
@@ -136,11 +138,17 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         globalGain = preset.globalGain
         
         // When a master preset is applied, the current EQ preset should be reset.
-        currentPreset = nil
+        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: EQPreset {
         EQPreset(name: "eqSettings", state: state, bands: bands, globalGain: globalGain, systemDefined: false)
+    }
+    
+    private func invalidateCurrentPreset() {
+        
+        currentPreset = nil
+        masterUnit.currentPreset = nil
     }
     
     var persistentState: EQUnitPersistentState {

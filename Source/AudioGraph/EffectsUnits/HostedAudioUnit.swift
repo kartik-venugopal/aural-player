@@ -47,6 +47,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     }
     
     let presets: AudioUnitPresets
+    var currentPreset: AudioUnitPreset? = nil
     
     var parameterTree: AUParameterTree? {node.parameterTree}
     

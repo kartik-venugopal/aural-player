@@ -39,4 +39,6 @@ protocol EffectsUnitDelegateProtocol {
     func savePreset(named presetName: String)
     
     func applyPreset(named presetName: String)
+    
+    var nameOfCurrentPreset: String? {get}
 }

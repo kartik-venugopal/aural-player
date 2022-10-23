@@ -50,7 +50,7 @@ class ObjectGraph {
     lazy var audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
     private lazy var audioEngine: AudioEngine = AudioEngine()
     
-    private lazy var audioGraph: AudioGraph = AudioGraph(audioEngine: audioEngine, audioUnitsManager: audioUnitsManager,
+    lazy var audioGraph: AudioGraph = AudioGraph(audioEngine: audioEngine, audioUnitsManager: audioUnitsManager,
                                                          persistentState: persistentState.audioGraph)
     
     lazy var audioGraphDelegate: AudioGraphDelegateProtocol = AudioGraphDelegate(graph: audioGraph, persistentState: persistentState.audioGraph,

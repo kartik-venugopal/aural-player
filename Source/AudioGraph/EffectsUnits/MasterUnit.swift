@@ -22,6 +22,7 @@ protocol MasterUnitProtocol: EffectsUnitProtocol {}
 class MasterUnit: EffectsUnit, MasterUnitProtocol {
     
     let presets: MasterPresets
+    var currentPreset: MasterPreset? = nil
     
     var eqUnit: EQUnit
     var pitchShiftUnit: PitchShiftUnit
@@ -50,6 +51,12 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         super.init(unitType: .master, unitState: persistentState?.state ?? AudioGraphDefaults.masterState)
         
         messenger.subscribe(to: .effects_unitActivated, handler: ensureActive)
+        
+        if let currentPresetName = persistentState?.currentPresetName,
+            let matchingPreset = presets.object(named: currentPresetName) {
+            
+            currentPreset = matchingPreset
+        }
     }
     
     override func toggleState() -> EffectsUnitState {
@@ -101,6 +108,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
                                         filter: filterPreset, systemDefined: false)
         
         presets.addObject(masterPreset)
+        currentPreset = masterPreset
     }
     
     var settingsAsPreset: MasterPreset {
@@ -120,7 +128,9 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     override func applyPreset(named presetName: String) {
         
         if let preset = presets.object(named: presetName) {
+            
             applyPreset(preset)
+            currentPreset = preset
         }
     }
     
@@ -143,6 +153,8 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         
         filterUnit.applyPreset(preset.filter)
         filterUnit.state = preset.filter.state
+        
+        currentPreset = nil
     }
     
     func addAudioUnit(_ unit: HostedAudioUnit) {
@@ -156,6 +168,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     var persistentState: MasterUnitPersistentState {
 
         MasterUnitPersistentState(state: state,
-                                  userPresets: presets.userDefinedObjects.map {MasterPresetPersistentState(preset: $0)})
+                                  userPresets: presets.userDefinedObjects.map {MasterPresetPersistentState(preset: $0)},
+                                  currentPresetName: currentPreset?.name)
     }
 }

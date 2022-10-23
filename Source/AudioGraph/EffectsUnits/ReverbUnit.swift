@@ -20,6 +20,7 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     
     let node: AVAudioUnitReverb = AVAudioUnitReverb()
     let presets: ReverbPresets
+    var currentPreset: ReverbPreset? = nil
     
     init(persistentState: ReverbUnitPersistentState?) {
         
@@ -29,6 +30,12 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         super.init(unitType: .reverb, unitState: persistentState?.state ?? AudioGraphDefaults.reverbState, renderQuality: persistentState?.renderQuality)
         
         amount = persistentState?.amount ?? AudioGraphDefaults.reverbAmount
+        
+        if let currentPresetName = persistentState?.currentPresetName,
+            let matchingPreset = presets.object(named: currentPresetName) {
+            
+            currentPreset = matchingPreset
+        }
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -37,8 +44,13 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         node.reset()
     }
     
-    var avSpace: AVAudioUnitReverbPreset {
-        didSet {node.loadFactoryPreset(avSpace)}
+    private var avSpace: AVAudioUnitReverbPreset {
+        
+        didSet {
+            
+            node.loadFactoryPreset(avSpace)
+            invalidateCurrentPreset()
+        }
     }
     
     var space: ReverbSpaces {
@@ -50,7 +62,12 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     var amount: Float {
         
         get {node.wetDryMix}
-        set {node.wetDryMix = newValue}
+        
+        set {
+            
+            node.wetDryMix = newValue
+            invalidateCurrentPreset()
+        }
     }
     
     override func stateChanged() {
@@ -61,14 +78,18 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     
     override func savePreset(named presetName: String) {
         
-        presets.addObject(ReverbPreset(name: presetName, state: .active,
-                                       space: space, amount: amount, systemDefined: false))
+        let newPreset = ReverbPreset(name: presetName, state: .active,
+                                     space: space, amount: amount, systemDefined: false)
+        presets.addObject(newPreset)
+        currentPreset = newPreset
     }
     
     override func applyPreset(named presetName: String) {
         
         if let preset = presets.object(named: presetName) {
+            
             applyPreset(preset)
+            currentPreset = preset
         }
     }
     
@@ -76,16 +97,25 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         
         space = preset.space
         amount = preset.amount
+        
+        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: ReverbPreset {
         ReverbPreset(name: "reverbSettings", state: state, space: space, amount: amount, systemDefined: false)
     }
     
+    private func invalidateCurrentPreset() {
+        
+        currentPreset = nil
+        masterUnit.currentPreset = nil
+    }
+    
     var persistentState: ReverbUnitPersistentState {
         
         ReverbUnitPersistentState(state: state,
                                   userPresets: presets.userDefinedObjects.map {ReverbPresetPersistentState(preset: $0)},
+                                  currentPresetName: currentPreset?.name,
                                   renderQuality: renderQualityPersistentState,
                                   space: space,
                                   amount: amount)

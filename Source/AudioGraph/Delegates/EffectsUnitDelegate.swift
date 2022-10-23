@@ -21,7 +21,7 @@ import Foundation
 /// - SeeAlso: `EffectsUnitDelegateProtocol`
 /// - SeeAlso: `EffectsUnit`
 ///
-class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
+class EffectsUnitDelegate<T: EffectsUnitProtocol>: EffectsUnitDelegateProtocol {
     
     var unit: T
     
@@ -61,5 +61,10 @@ class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
         
         unit.applyPreset(named: presetName)
 //        unit.ensureActive()
+    }
+    
+    /// Override this !!!
+    var nameOfCurrentPreset: String? {
+        unit.currentPreset?.name
     }
 }

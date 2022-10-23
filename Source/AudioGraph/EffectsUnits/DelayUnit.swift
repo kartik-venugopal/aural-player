@@ -20,6 +20,7 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
     let node: AVAudioUnitDelay = AVAudioUnitDelay()
     let presets: DelayPresets
+    var currentPreset: DelayPreset? = nil
     
     init(persistentState: DelayUnitPersistentState?) {
         
@@ -30,6 +31,12 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
         amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
         feedback = persistentState?.feedback ?? AudioGraphDefaults.delayFeedback
         lowPassCutoff = persistentState?.lowPassCutoff ?? AudioGraphDefaults.delayLowPassCutoff
+        
+        if let currentPresetName = persistentState?.currentPresetName,
+            let matchingPreset = presets.object(named: currentPresetName) {
+            
+            currentPreset = matchingPreset
+        }
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -41,25 +48,45 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     var amount: Float {
         
         get {node.wetDryMix}
-        set {node.wetDryMix = newValue}
+        
+        set {
+            
+            node.wetDryMix = newValue
+            invalidateCurrentPreset()
+        }
     }
     
     var time: Double {
         
         get {node.delayTime}
-        set {node.delayTime = newValue}
+        
+        set {
+            
+            node.delayTime = newValue
+            invalidateCurrentPreset()
+        }
     }
     
     var feedback: Float {
         
         get {node.feedback}
-        set {node.feedback = newValue}
+        
+        set {
+            
+            node.feedback = newValue
+            invalidateCurrentPreset()
+        }
     }
     
     var lowPassCutoff: Float {
         
         get {node.lowPassCutoff}
-        set {node.lowPassCutoff = newValue}
+        
+        set {
+            
+            node.lowPassCutoff = newValue
+            invalidateCurrentPreset()
+        }
     }
     
     override func stateChanged() {
@@ -70,14 +97,18 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
     override func savePreset(named presetName: String) {
         
-        presets.addObject(DelayPreset(name: presetName, state: .active, amount: amount,
-                                      time: time, feedback: feedback, cutoff: lowPassCutoff, systemDefined: false))
+        let newPreset = DelayPreset(name: presetName, state: .active, amount: amount,
+                                    time: time, feedback: feedback, cutoff: lowPassCutoff, systemDefined: false)
+        presets.addObject(newPreset)
+        currentPreset = newPreset
     }
     
     override func applyPreset(named presetName: String) {
         
         if let preset = presets.object(named: presetName) {
+            
             applyPreset(preset)
+            currentPreset = preset
         }
     }
     
@@ -87,6 +118,8 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
         amount = preset.amount
         feedback = preset.feedback
         lowPassCutoff = preset.lowPassCutoff
+        
+        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: DelayPreset {
@@ -95,10 +128,17 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
                     feedback: feedback, cutoff: lowPassCutoff, systemDefined: false)
     }
     
+    private func invalidateCurrentPreset() {
+        
+        currentPreset = nil
+        masterUnit.currentPreset = nil
+    }
+    
     var persistentState: DelayUnitPersistentState {
 
         DelayUnitPersistentState(state: state,
                                  userPresets: presets.userDefinedObjects.map {DelayPresetPersistentState(preset: $0)},
+                                 currentPresetName: currentPreset?.name,
                                  renderQuality: renderQualityPersistentState,
                                  amount: amount,
                                  time: time,

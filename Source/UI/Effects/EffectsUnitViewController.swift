@@ -312,9 +312,8 @@ extension EffectsUnitViewController: NSMenuDelegate {
         
         menu.items.forEach {$0.state = .off}
 
-        if let eqUnit = self.effectsUnit as? EQUnitDelegateProtocol,
-           let currentPreset = eqUnit.currentPreset,
-           let itemForCurrentPreset = menu.item(withTitle: currentPreset.name) {
+        if let currentPresetName = effectsUnit.nameOfCurrentPreset,
+           let itemForCurrentPreset = menu.item(withTitle: currentPresetName) {
             
             itemForCurrentPreset.state = .on
         }

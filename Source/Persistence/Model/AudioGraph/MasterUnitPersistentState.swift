@@ -18,6 +18,7 @@ struct MasterUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [MasterPresetPersistentState]?
+    let currentPresetName: String?
 }
 
 ///

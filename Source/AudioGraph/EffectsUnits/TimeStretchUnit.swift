@@ -20,6 +20,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     
     let node: VariableRateNode = VariableRateNode()
     let presets: TimeStretchPresets
+    var currentPreset: TimeStretchPreset? = nil
     
     init(persistentState: TimeStretchUnitPersistentState?) {
         
@@ -28,6 +29,12 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         
         rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
         shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeStretchShiftPitch
+        
+        if let currentPresetName = persistentState?.currentPresetName,
+            let matchingPreset = presets.object(named: currentPresetName) {
+            
+            currentPreset = matchingPreset
+        }
     }
     
     override var avNodes: [AVAudioNode] {node.avNodes}
@@ -35,13 +42,23 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     var rate: Float {
         
         get {node.rate}
-        set {node.rate = newValue}
+        
+        set {
+            
+            node.rate = newValue
+            invalidateCurrentPreset()
+        }
     }
     
     var shiftPitch: Bool {
         
         get {node.shiftPitch}
-        set {node.shiftPitch = newValue}
+        
+        set {
+            
+            node.shiftPitch = newValue
+            invalidateCurrentPreset()
+        }
     }
     
     var pitch: Float {
@@ -56,14 +73,18 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     
     override func savePreset(named presetName: String) {
         
-        presets.addObject(TimeStretchPreset(name: presetName, state: .active, rate: node.rate,
-                                            shiftPitch: node.shiftPitch, systemDefined: false))
+        let newPreset = TimeStretchPreset(name: presetName, state: .active, rate: node.rate,
+                                          shiftPitch: node.shiftPitch, systemDefined: false)
+        presets.addObject(newPreset)
+        currentPreset = newPreset
     }
     
     override func applyPreset(named presetName: String) {
         
         if let preset = presets.object(named: presetName) {
+            
             applyPreset(preset)
+            currentPreset = preset
         }
     }
     
@@ -71,6 +92,8 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         
         rate = preset.rate
         shiftPitch = preset.shiftPitch
+        
+        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: TimeStretchPreset {
@@ -79,10 +102,17 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
                           shiftPitch: shiftPitch, systemDefined: false)
     }
     
+    private func invalidateCurrentPreset() {
+        
+        currentPreset = nil
+        masterUnit.currentPreset = nil
+    }
+    
     var persistentState: TimeStretchUnitPersistentState {
 
         TimeStretchUnitPersistentState(state: state,
                                        userPresets: presets.userDefinedObjects.map {TimeStretchPresetPersistentState(preset: $0)},
+                                       currentPresetName: currentPreset?.name,
                                        renderQuality: renderQualityPersistentState,
                                        rate: rate,
                                        shiftPitch: shiftPitch)
