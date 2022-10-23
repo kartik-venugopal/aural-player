@@ -23,7 +23,8 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
     
-    @IBOutlet weak var renderQualityMenu: NSMenu!
+    @IBOutlet weak var renderQualityMenuButton: NSPopUpButton!
+    lazy var renderQualityMenuIconItem: TintedIconMenuItem? = renderQualityMenuButton?.menu?.items[0] as? TintedIconMenuItem
     var renderQualityMenuViewController: NSViewController!
     
     // Labels
@@ -67,17 +68,23 @@ class EffectsUnitViewController: NSViewController, Destroyable {
         btnBypass.stateFunction = self.unitStateFunction
         btnSavePreset.tintFunction = {Colors.functionButtonColor}
         presetsMenuIconItem.tintFunction = {Colors.functionButtonColor}
-        (renderQualityMenu?.items[0] as? TintedIconMenuItem)?.tintFunction = {Colors.functionButtonColor}
+        renderQualityMenuIconItem?.tintFunction = {Colors.functionButtonColor}
         
-        if #available(macOS 10.13, *), let renderQualityMenu = self.renderQualityMenu {
+        if #available(macOS 10.13, *) {
             
-            let renderQualityMenuViewController = RenderQualityMenuViewController()
-            renderQualityMenuViewController.effectsUnit = effectsUnit
+            if let renderQualityMenu = self.renderQualityMenuButton?.menu {
+                
+                let renderQualityMenuViewController = RenderQualityMenuViewController()
+                renderQualityMenuViewController.effectsUnit = effectsUnit
+                
+                renderQualityMenu.items[1].view = renderQualityMenuViewController.view
+                renderQualityMenu.delegate = renderQualityMenuViewController
+                
+                self.renderQualityMenuViewController = renderQualityMenuViewController
+            }
             
-            renderQualityMenu.items[1].view = renderQualityMenuViewController.view
-            renderQualityMenu.delegate = renderQualityMenuViewController
-            
-            self.renderQualityMenuViewController = renderQualityMenuViewController
+        } else {
+            renderQualityMenuButton?.hide()
         }
         
         initSubscriptions()
@@ -258,9 +265,7 @@ class EffectsUnitViewController: NSViewController, Destroyable {
         
         btnSavePreset.reTint()
         presetsMenuIconItem.reTint()
-        
-        print("\n\(className): \(renderQualityMenu?.items[0])")
-        (renderQualityMenu?.items[0] as? TintedIconMenuItem)?.reTint()
+        renderQualityMenuIconItem?.reTint()
     }
     
     func changeSliderColors() {

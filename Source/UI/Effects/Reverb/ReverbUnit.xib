@@ -12,7 +12,7 @@
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
                 <outlet property="presetsMenuButton" destination="rrE-w8-gig" id="ZBc-UX-iGA"/>
                 <outlet property="presetsMenuIconItem" destination="8v4-M7-RfA" id="8c9-6g-DWY"/>
-                <outlet property="renderQualityMenu" destination="tPn-L1-mcO" id="2iw-5p-g1n"/>
+                <outlet property="renderQualityMenuButton" destination="OEx-b8-N7J" id="NNg-OZ-Soq"/>
                 <outlet property="reverbUnitView" destination="elw-qF-nCD" id="MWM-Tn-dx8"/>
                 <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>
             </connections>
@@ -34,29 +34,26 @@
                         <action selector="bypassAction:" target="-2" id="B8c-y1-3Y7"/>
                     </connections>
                 </button>
-                <popUpButton toolTip="Adjust render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwo-3g-EZp" userLabel="Render Quality Menu">
-                    <rect key="frame" x="24" y="122" width="24" height="15"/>
+                <popUpButton toolTip="Adjust render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEx-b8-N7J" userLabel="Render Quality Menu">
+                    <rect key="frame" x="24" y="117" width="24" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="ROb-KN-Jw1">
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="d9m-oD-JEI" id="Ymp-ML-aHf">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" showsStateColumn="NO" id="tPn-L1-mcO">
+                        <menu key="menu" showsStateColumn="NO" id="dkG-6D-aLq">
                             <items>
-                                <menuItem image="cpu" catalog="system" hidden="YES" id="1rM-0J-HhQ" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem image="CPU" hidden="YES" id="d9m-oD-JEI" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="cpu" catalog="system"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="CPU"/>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Render Quality" id="SmK-TP-zco">
+                                <menuItem title="Render Quality" id="rN3-dD-SfC">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <connections>
-                        <action selector="presetsAction:" target="-2" id="50z-kR-r0W"/>
-                    </connections>
                 </popUpButton>
                 <view id="elw-qF-nCD" customClass="ReverbUnitView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="38" y="61" width="472" height="99"/>
@@ -222,8 +219,8 @@
         </view>
     </objects>
     <resources>
+        <image name="CPU" width="30" height="31"/>
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="SaveEQPreset" width="15" height="15"/>
-        <image name="cpu" catalog="system" width="17" height="16"/>
     </resources>
 </document>

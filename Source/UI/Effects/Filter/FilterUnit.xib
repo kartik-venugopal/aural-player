@@ -13,7 +13,7 @@
                 <outlet property="filterUnitView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="presetsMenuButton" destination="JJo-gm-Pih" id="YoC-TC-Lse"/>
                 <outlet property="presetsMenuIconItem" destination="FlK-G5-JPk" id="p1U-3G-y9J"/>
-                <outlet property="renderQualityMenu" destination="8T8-eo-S9n" id="35d-Qt-Li6"/>
+                <outlet property="renderQualityMenuButton" destination="x00-QL-huO" id="hFx-tx-wCb"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
             </connections>
         </customObject>
@@ -34,6 +34,27 @@
                         <action selector="bypassAction:" target="-2" id="kxt-Hu-2Q3"/>
                     </connections>
                 </button>
+                <popUpButton toolTip="Adjust render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x00-QL-huO" userLabel="Render Quality Menu">
+                    <rect key="frame" x="24" y="117" width="24" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="tqV-XX-V8n" id="naE-6v-Ikb">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <menu key="menu" showsStateColumn="NO" id="NE4-5m-8Tr">
+                            <items>
+                                <menuItem image="CPU" hidden="YES" id="tqV-XX-V8n" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="CPU"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Render Quality" id="aEz-G5-bDb">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pTF-TT-2rE">
                     <rect key="frame" x="68" y="100" width="350" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -155,27 +176,6 @@
                         <action selector="savePresetAction:" target="-2" id="6M3-Oa-JfU"/>
                     </connections>
                 </button>
-                <popUpButton toolTip="Adjust render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q1i-qH-GyP" userLabel="Render Quality Menu">
-                    <rect key="frame" x="24" y="122" width="24" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="YBz-go-3Uz" id="vIG-0Q-B82">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" showsStateColumn="NO" id="8T8-eo-S9n">
-                            <items>
-                                <menuItem image="cpu" catalog="system" hidden="YES" id="YBz-go-3Uz" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="cpu" catalog="system"/>
-                                    </userDefinedRuntimeAttributes>
-                                </menuItem>
-                                <menuItem title="Render Quality" id="bBA-WH-S54">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
             </subviews>
             <connections>
                 <outlet property="btnAdd" destination="dAC-v2-fWg" id="RUN-oU-rFg"/>
@@ -191,10 +191,10 @@
         <customObject id="aHf-z2-jHq" customClass="FilterBandsViewDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
+        <image name="CPU" width="30" height="31"/>
         <image name="FilterBandsTabs-Left" width="24" height="32"/>
         <image name="FilterBandsTabs-Right" width="24" height="32"/>
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="SaveEQPreset" width="15" height="15"/>
-        <image name="cpu" catalog="system" width="17" height="16"/>
     </resources>
 </document>

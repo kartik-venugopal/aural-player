@@ -13,6 +13,9 @@
                 <outlet property="btnUserPresets" destination="xoa-Kv-Cdv" id="iEb-mo-dsy"/>
                 <outlet property="lblFactoryPresets" destination="lF8-Ap-UiM" id="xcg-Oj-rSC"/>
                 <outlet property="lblRenderQuality" destination="j98-lO-C0D" id="xSp-Ex-9Zt"/>
+                <outlet property="lblRenderQualityCaption" destination="Hb3-jf-wbJ" id="lhq-JQ-il7"/>
+                <outlet property="lblRenderQuality_0" destination="sqj-B1-EwO" id="uXc-Cm-vSC"/>
+                <outlet property="lblRenderQuality_127" destination="E4J-fa-von" id="3XN-6w-ZGE"/>
                 <outlet property="lblTitle" destination="LAn-Sl-fSv" id="AML-EE-2ml"/>
                 <outlet property="lblUserPresets" destination="uYN-5k-nw5" id="DU8-2M-Rd0"/>
                 <outlet property="renderQualitySlider" destination="KWm-NV-CEa" id="vHP-iP-iBZ"/>

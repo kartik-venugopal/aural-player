@@ -30,7 +30,10 @@ class AudioUnitEditorDialogController: NSWindowController {
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     
     @IBOutlet weak var renderQualitySlider: NSSlider!
+    @IBOutlet weak var lblRenderQualityCaption: NSTextField!
     @IBOutlet weak var lblRenderQuality: NSTextField!
+    @IBOutlet weak var lblRenderQuality_0: NSTextField!
+    @IBOutlet weak var lblRenderQuality_127: NSTextField!
     
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
     
@@ -90,7 +93,7 @@ class AudioUnitEditorDialogController: NSWindowController {
             lblRenderQuality.stringValue = "\(audioUnit.renderQuality)"
             
         } else {
-            [renderQualitySlider, lblRenderQuality].forEach {$0?.hide()}
+            [lblRenderQualityCaption, renderQualitySlider, lblRenderQuality_0, lblRenderQuality_127, lblRenderQuality].forEach {$0?.hide()}
         }
     }
     

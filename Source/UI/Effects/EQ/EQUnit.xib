@@ -13,8 +13,7 @@
                 <outlet property="eqUnitView" destination="zTt-IY-Dad" id="Tq0-ny-AWA"/>
                 <outlet property="presetsMenuButton" destination="Q15-iZ-G8V" id="eHx-yd-zRG"/>
                 <outlet property="presetsMenuIconItem" destination="ZUZ-sN-HFg" id="j2j-i6-XU7"/>
-                <outlet property="renderQualityMenu" destination="Ts8-0g-u5O" id="OIg-re-2Fs"/>
-                <outlet property="renderQualityMenuIconItem" destination="dsS-mA-iu3" id="M0k-ev-ePU"/>
+                <outlet property="renderQualityMenuButton" destination="cOq-18-MP5" id="STh-24-FYU"/>
                 <outlet property="view" destination="zTt-IY-Dad" id="2gC-LH-eIR"/>
             </connections>
         </customObject>
@@ -637,7 +636,7 @@
         </view>
     </objects>
     <resources>
-        <image name="CPU" width="860" height="899"/>
+        <image name="CPU" width="30" height="31"/>
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="SaveEQPreset" width="15" height="15"/>
     </resources>

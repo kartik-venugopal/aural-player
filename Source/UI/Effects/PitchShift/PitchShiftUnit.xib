@@ -13,7 +13,7 @@
                 <outlet property="pitchShiftUnitView" destination="Nbf-AE-zAG" id="UXG-p7-MF7"/>
                 <outlet property="presetsMenuButton" destination="kLM-JQ-Lj4" id="gK0-FV-36c"/>
                 <outlet property="presetsMenuIconItem" destination="Oa1-cy-CFz" id="zQi-12-DxR"/>
-                <outlet property="renderQualityMenu" destination="Ezh-6o-3p8" id="MMo-FQ-OAL"/>
+                <outlet property="renderQualityMenuButton" destination="cwL-KM-shF" id="Pmm-WX-ydx"/>
                 <outlet property="view" destination="rBN-FU-dcW" id="36W-5X-XyO"/>
             </connections>
         </customObject>
@@ -23,6 +23,38 @@
             <rect key="frame" x="0.0" y="0.0" width="518" height="185"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wm-Yf-mhU" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="28" y="145" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Bxi-jL-lgE">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="bypassAction:" target="-2" id="r15-6h-hgL"/>
+                    </connections>
+                </button>
+                <popUpButton toolTip="Adjust render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwL-KM-shF" userLabel="Render Quality Menu">
+                    <rect key="frame" x="24" y="117" width="24" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="Kfd-dE-7pe" id="uVt-3u-FGp">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <menu key="menu" showsStateColumn="NO" id="FpR-sh-Xyz">
+                            <items>
+                                <menuItem image="CPU" hidden="YES" id="Kfd-dE-7pe" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="CPU"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Render Quality" id="po6-9w-b4s">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
                 <view wantsLayer="YES" id="Nbf-AE-zAG" customClass="PitchShiftUnitView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="38" y="44" width="460" height="129"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -205,17 +237,6 @@
                         <outlet property="pitchSlider" destination="SSK-tR-2tT" id="YYQ-Sz-9CB"/>
                     </connections>
                 </view>
-                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wm-Yf-mhU" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="28" y="145" width="16" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Bxi-jL-lgE">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="bypassAction:" target="-2" id="r15-6h-hgL"/>
-                    </connections>
-                </button>
                 <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLM-JQ-Lj4" userLabel="Presets Menu">
                     <rect key="frame" x="454" y="3" width="27" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -283,36 +304,15 @@
                         <action selector="savePresetAction:" target="-2" id="n17-c5-3Yt"/>
                     </connections>
                 </button>
-                <popUpButton toolTip="Adjust render quality" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Jl-RP-ewY" userLabel="Render Quality Menu">
-                    <rect key="frame" x="24" y="122" width="24" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="KFp-K7-ppl" id="PG0-4n-1OP">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" showsStateColumn="NO" id="Ezh-6o-3p8">
-                            <items>
-                                <menuItem image="cpu" catalog="system" hidden="YES" id="KFp-K7-ppl" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="cpu" catalog="system"/>
-                                    </userDefinedRuntimeAttributes>
-                                </menuItem>
-                                <menuItem title="Render Quality" id="Bsh-3W-SFg">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="139" y="153.5"/>
         </view>
     </objects>
     <resources>
         <image name="Add" width="25" height="25"/>
+        <image name="CPU" width="30" height="31"/>
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="Remove" width="27" height="27"/>
         <image name="SaveEQPreset" width="15" height="15"/>
-        <image name="cpu" catalog="system" width="17" height="16"/>
     </resources>
 </document>
