@@ -20,8 +20,6 @@ import Foundation
 ///
 protocol EQUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
-    var type: EQType {get set}
-    
     var globalGain: Float {get set}
     
     var bands: [Float] {get set}

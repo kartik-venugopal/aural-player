@@ -16,8 +16,6 @@ import Foundation
 ///
 protocol EQUnitProtocol: EffectsUnitProtocol {
     
-    var type: EQType {get set}
-    
     var globalGain: Float {get set}
     
     var bands: [Float] {get set}
@@ -42,4 +40,6 @@ protocol EQUnitProtocol: EffectsUnitProtocol {
     
     // Decreases the equalizer treble band gains by a small decrement. Returns all EQ band gain values, mapped by index.
     func decreaseTreble(by decrement: Float) -> [Float]
+    
+    var currentPreset: PresetType? {get}
 }

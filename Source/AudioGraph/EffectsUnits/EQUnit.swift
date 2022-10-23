@@ -18,17 +18,18 @@ import AVFoundation
 ///
 class EQUnit: EffectsUnit, EQUnitProtocol {
     
-    let node: ParametricEQ
+    let node: ParametricEQNode
     let presets: EQPresets
+    
+    var currentPreset: EQPreset?
     
     init(persistentState: EQUnitPersistentState?) {
         
-        node = ParametricEQ(type: persistentState?.type ?? AudioGraphDefaults.eqType)
+        node = FifteenBandEQNode()
         presets = EQPresets(persistentState: persistentState)
         
-        super.init(unitType: .eq, unitState: persistentState?.state ?? AudioGraphDefaults.eqState, renderQuality: persistentState?.renderQuality)
+        super.init(unitType: .eq, unitState: persistentState?.state ?? AudioGraphDefaults.eqState)
 
-        // TODO: Validate persistent bands array ... if not 10 or 15 values, fix it.
         bands = persistentState?.bands ?? AudioGraphDefaults.eqBands
         globalGain = persistentState?.globalGain ?? AudioGraphDefaults.eqGlobalGain
     }
@@ -39,18 +40,6 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         node.bypass = !isActive
     }
     
-    var type: EQType {
-        
-        get {node.type}
-        
-        set(newType) {
-            
-            if newType != node.type {
-                node.type = newType
-            }
-        }
-    }
-    
     var globalGain: Float {
         
         get {node.globalGain}
@@ -59,11 +48,11 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     
     var bands: [Float] {
         
-        get {node.bands}
-        set(newBands) {node.bands = newBands}
+        get {node.bandGains}
+        set(newBands) {node.bandGains = newBands}
     }
     
-    override var avNodes: [AVAudioNode] {node.allNodes}
+    override var avNodes: [AVAudioNode] {[node]}
     
     subscript(_ index: Int) -> Float {
         
@@ -117,12 +106,11 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     }
     
     var persistentState: EQUnitPersistentState {
-        
+
         EQUnitPersistentState(state: state,
-                                     userPresets: presets.userDefinedObjects.map {EQPresetPersistentState(preset: $0)},
-                                     renderQuality: renderQualityPersistentState,
-                                     type: type,
-                                     globalGain: globalGain,
-                                     bands: bands)
+                              userPresets: presets.userDefinedObjects.map {EQPresetPersistentState(preset: $0)},
+                              renderQuality: renderQualityPersistentState,
+                              globalGain: globalGain,
+                              bands: bands)
     }
 }

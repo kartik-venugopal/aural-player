@@ -15,36 +15,24 @@ class EQUnitView: NSView {
     
     // MARK: UI fields
     
-    @IBOutlet weak var tabView: NSTabView!
+    @IBOutlet weak var globalGainSlider: EffectsUnitSlider!
     
-    @IBOutlet weak var eq10BandView: EQUnitSubview!
-    @IBOutlet weak var eq15BandView: EQUnitSubview!
+    var bandSliders: [EffectsUnitSlider] = []
+    var allSliders: [EffectsUnitSlider] = []
     
-    @IBOutlet weak var btn10Band: NSButton!
-    @IBOutlet weak var btn15Band: NSButton!
+    var sliderAction: Selector?
+    var sliderActionTarget: AnyObject?
     
     // ------------------------------------------------------------------------
     
     // MARK: Properties
     
-    var type: EQType {
-        btn10Band.isOn ? .tenBand : .fifteenBand
-    }
-    
-    private var activeView: EQUnitSubview {
-        btn10Band.isOn ? eq10BandView : eq15BandView
-    }
-    
-    private var activeViewTabIndex: Int {
-        btn10Band.isOn ? 0 : 1
-    }
-    
     var globalGain: Float {
-        activeView.globalGainSlider.floatValue
+        globalGainSlider.floatValue
     }
     
     var functionCaptionLabels: [NSTextField] {
-        eq10BandView.functionCaptionLabels + eq15BandView.functionCaptionLabels
+        subviews.compactMap {$0 as? NSTextField}
     }
     
     // ------------------------------------------------------------------------
@@ -53,65 +41,61 @@ class EQUnitView: NSView {
     
     override func awakeFromNib() {
         
-        for (index, view) in [eq10BandView, eq15BandView].compactMap({$0}).enumerated() {
+        super.awakeFromNib()
+        
+        allSliders = subviews.compactMap({$0 as? EffectsUnitSlider})
+        bandSliders = allSliders.filter {$0.tag >= 0}
+        
+        bandSliders.forEach {
             
-            tabView.tabViewItem(at: index).view?.addSubview(view)
-            view.positionAtZeroPoint()
+            $0.action = sliderAction
+            $0.target = sliderActionTarget
         }
     }
     
     func initialize(eqStateFunction: @escaping EffectsUnitStateFunction,
                     sliderAction: Selector?, sliderActionTarget: AnyObject?) {
+
+        allSliders.forEach {$0.stateFunction = eqStateFunction}
         
-        eq10BandView.initialize(stateFunction: eqStateFunction,
-                                sliderAction: sliderAction, sliderActionTarget: sliderActionTarget)
+        self.sliderAction = sliderAction
+        self.sliderActionTarget = sliderActionTarget
         
-        eq15BandView.initialize(stateFunction: eqStateFunction,
-                                sliderAction: sliderAction, sliderActionTarget: sliderActionTarget)
+        bandSliders.forEach {
+            
+            $0.action = sliderAction
+            $0.target = sliderActionTarget
+        }
     }
     
     // ------------------------------------------------------------------------
     
     // MARK: View update
     
-    func setState(eqType: EQType, bands: [Float], globalGain: Float) {
-
-        eqType == .tenBand ? btn10Band.on() : btn15Band.on()
-        typeChanged(bands: bands, globalGain: globalGain)
+    func setState(bands: [Float], globalGain: Float) {
+        bandsUpdated(bands, globalGain: globalGain)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
-        activeView.setState(state)
+        allSliders.forEach {$0.setUnitState(state)}
     }
 
-    func typeChanged(bands: [Float], globalGain: Float) {
-        
-        activeView.stateChanged()
-        activeView.updateBands(bands, globalGain: globalGain)
-        
-        tabView.selectTabViewItem(at: activeViewTabIndex)
-    }
-    
     func bandsUpdated(_ bands: [Float], globalGain: Float) {
-        activeView.updateBands(bands, globalGain: globalGain)
-    }
-    
-    func stateChanged() {
-        activeView.stateChanged()
-    }
-    
-    func chooseType(_ eqType: EQType) {
         
-        eqType == .tenBand ? btn10Band.on() : btn15Band.on()
+        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
+        bandSliders.forEach {
+            $0.floatValue = $0.tag < bands.count ? bands[$0.tag] : AudioGraphDefaults.eqBandGain
+        }
         
-        activeView.stateChanged()
-        tabView.selectTabViewItem(at: activeViewTabIndex)
+        globalGainSlider.floatValue = globalGain
     }
     
     func applyPreset(_ preset: EQPreset) {
-    
-        setUnitState(preset.state)
         bandsUpdated(preset.bands, globalGain: preset.globalGain)
+    }
+    
+    func stateChanged() {
+        allSliders.forEach {$0.updateState()}
     }
     
     // ------------------------------------------------------------------------
@@ -119,44 +103,25 @@ class EQUnitView: NSView {
     // MARK: Theming
     
     func applyFontScheme(_ fontScheme: FontScheme) {
-        
-        btn10Band.redraw()
-        btn15Band.redraw()
-    }
-    
-    func changeActiveUnitStateColor(_ color: NSColor) {
-        
-        eq10BandView.changeActiveUnitStateColor(color)
-        eq15BandView.changeActiveUnitStateColor(color)
-    }
-    
-    func changeBypassedUnitStateColor(_ color: NSColor) {
-        
-        eq10BandView.changeBypassedUnitStateColor(color)
-        eq15BandView.changeBypassedUnitStateColor(color)
-    }
-    
-    func changeSuppressedUnitStateColor(_ color: NSColor) {
-        
-        eq10BandView.changeSuppressedUnitStateColor(color)
-        eq15BandView.changeSuppressedUnitStateColor(color)
-    }
-    
-    func changeSelectedTabButtonColor() {
-        btn10Band.isOn ? btn10Band.redraw() : btn15Band.redraw()
-    }
-    
-    func changeTabButtonTextColor() {
-        btn10Band.isOff ? btn10Band.redraw() : btn15Band.redraw()
-    }
-    
-    func changeSelectedTabButtonTextColor() {
-        btn10Band.isOn ? btn10Band.redraw() : btn15Band.redraw()
     }
     
     func changeSliderColor() {
-        
-        eq10BandView.changeSliderColor()
-        eq15BandView.changeSliderColor()
+        allSliders.forEach {$0.redraw()}
+    }
+    
+    func changeActiveUnitStateColor(_ color: NSColor) {
+        allSliders.forEach {$0.redraw()}
+    }
+    
+    func changeBypassedUnitStateColor(_ color: NSColor) {
+        allSliders.forEach {$0.redraw()}
+    }
+    
+    func changeSuppressedUnitStateColor(_ color: NSColor) {
+        allSliders.forEach {$0.redraw()}
+    }
+    
+    func setState(_ state: EffectsUnitState) {
+        allSliders.forEach {$0.setUnitState(state)}
     }
 }

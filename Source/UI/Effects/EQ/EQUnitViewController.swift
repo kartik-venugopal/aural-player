@@ -50,7 +50,7 @@ class EQUnitViewController: EffectsUnitViewController {
     override func initControls() {
         
         super.initControls()
-        eqUnitView.setState(eqType: eqUnit.type, bands: eqUnit.bands, globalGain: eqUnit.globalGain)
+        eqUnitView.setState(bands: eqUnit.bands, globalGain: eqUnit.globalGain)
     }
     
     override func findFunctionLabels(under view: NSView) {
@@ -65,12 +65,6 @@ class EQUnitViewController: EffectsUnitViewController {
     // ------------------------------------------------------------------------
     
     // MARK: Actions
-    
-    @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
-        
-        eqUnit.type = eqUnitView.type
-        eqUnitView.typeChanged(bands: eqUnit.bands, globalGain: eqUnit.globalGain)
-    }
     
     @IBAction func eqGlobalGainAction(_ sender: EffectsUnitSlider) {
         eqUnit.globalGain = sender.floatValue
@@ -97,10 +91,6 @@ class EQUnitViewController: EffectsUnitViewController {
         
         messenger.subscribe(to: .eqEffectsUnit_decreaseTreble, handler: decreaseTreble)
         messenger.subscribe(to: .eqEffectsUnit_increaseTreble, handler: increaseTreble)
-
-        messenger.subscribe(to: .changeTabButtonTextColor, handler: changeTabButtonTextColor(_:))
-        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
-        messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: changeSelectedTabButtonTextColor(_:))
     }
     
     override func stateChanged() {
@@ -161,10 +151,6 @@ class EQUnitViewController: EffectsUnitViewController {
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
-        
-        changeSelectedTabButtonColor(scheme.general.selectedTabButtonColor)
-        changeTabButtonTextColor(scheme.general.tabButtonTextColor)
-        changeSelectedTabButtonTextColor(scheme.general.selectedTabButtonTextColor)
         changeSliderColors()
     }
     
@@ -193,18 +179,6 @@ class EQUnitViewController: EffectsUnitViewController {
         if eqUnit.state == .suppressed {
             eqUnitView.changeSuppressedUnitStateColor(color)
         }
-    }
-    
-    func changeSelectedTabButtonColor(_ color: NSColor) {
-        eqUnitView.changeSelectedTabButtonColor()
-    }
-    
-    func changeTabButtonTextColor(_ color: NSColor) {
-        eqUnitView.changeTabButtonTextColor()
-    }
-    
-    func changeSelectedTabButtonTextColor(_ color: NSColor) {
-        eqUnitView.changeSelectedTabButtonTextColor()
     }
     
     override func changeSliderColors() {

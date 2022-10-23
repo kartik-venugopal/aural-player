@@ -7,7 +7,7 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Cocoa
+import Foundation
 import AVFoundation
 
 ///
@@ -63,7 +63,7 @@ class ParametricEQNode: AVAudioUnitEQ {
         set(newGains) {
             
             for index in 0..<newGains.count {
-                bands[index].gain = newGains[index]
+                bands[index].gain = newGains[index].clamp(to: Self.validGainRange)
             }
         }
     }
@@ -126,23 +126,6 @@ class ParametricEQNode: AVAudioUnitEQ {
             let band = bands[$0]
             band.gain = (band.gain - decrement).clamp(to: Self.validGainRange)
         }
-    }
-}
-
-///
-/// A specialized **ParametricEQNode** that represents an ISO standard 10-band Equalizer.
-///
-class TenBandEQNode: ParametricEQNode {
-    
-    override var frequencies: [Float] {SoundConstants.ISOStandard10BandEQFrequencies}
-    override var bandwidth: Float {1}
-    
-    override var bassBandIndexes: [Int] {[0, 1, 2]}
-    override var midBandIndexes: [Int] {[3, 4, 5, 6]}
-    override var trebleBandIndexes: [Int] {[7, 8, 9]}
-    
-    init() {
-        super.init(10)
     }
 }
 

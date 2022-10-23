@@ -184,7 +184,6 @@
 		3E363404268636ED006A88ED /* TrackKeyedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E363403268636ED006A88ED /* TrackKeyedMap.swift */; };
 		3E363406268639A5006A88ED /* FilterBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E363405268639A5006A88ED /* FilterBand.swift */; };
 		3E363408268639DC006A88ED /* FilterBandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E363407268639DC006A88ED /* FilterBandType.swift */; };
-		3E36340A26863C63006A88ED /* ParametricEQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36340926863C63006A88ED /* ParametricEQ.swift */; };
 		3E36BD3126A68E9800B6E28B /* LyricsTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E36BD3026A68E9800B6E28B /* LyricsTrackInfo.xib */; };
 		3E36BD3426A68EAA00B6E28B /* LyricsTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36BD3326A68EAA00B6E28B /* LyricsTrackInfoViewController.swift */; };
 		3E36BD3A26A68FDB00B6E28B /* CoverArtTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36BD3926A68FDB00B6E28B /* CoverArtTrackInfoViewController.swift */; };
@@ -688,7 +687,6 @@
 		3E6C12CE25CEBE6700BF0D07 /* ReverbUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFF25CEB98600BF0D07 /* ReverbUnitView.swift */; };
 		3E6C12D125CEBE6700BF0D07 /* TimeStretchUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100425CEB98600BF0D07 /* TimeStretchUnitViewController.swift */; };
 		3E6C12D225CEBE6700BF0D07 /* PitchShiftUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF125CEB98600BF0D07 /* PitchShiftUnit.xib */; };
-		3E6C12D325CEBE6700BF0D07 /* EQUnitSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFB25CEB98600BF0D07 /* EQUnitSubview.swift */; };
 		3E6C12D425CEBE6700BF0D07 /* MasterUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100825CEB98600BF0D07 /* MasterUnitViewController.swift */; };
 		3E6C12D625CEBE8100BF0D07 /* FilterUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101425CEB98600BF0D07 /* FilterUnitViewController.swift */; };
 		3E6C12D725CEBE8100BF0D07 /* PlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101F25CEB98600BF0D07 /* PlayerUIState.swift */; };
@@ -848,7 +846,6 @@
 		3E871A472698FA4200C626DC /* EffectsUnitType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633D02685FAD0006A88ED /* EffectsUnitType.swift */; };
 		3E871A492698FA4800C626DC /* EQUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633F526863048006A88ED /* EQUnitProtocol.swift */; };
 		3E871A4B2698FA5100C626DC /* EffectsUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633CF2685FAD0006A88ED /* EffectsUnitProtocol.swift */; };
-		3E871A4D2698FAA500C626DC /* ParametricEQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36340926863C63006A88ED /* ParametricEQ.swift */; };
 		3E871A502698FF0B00C626DC /* PitchShiftUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A4F2698FF0B00C626DC /* PitchShiftUnitTests.swift */; };
 		3E871A532698FF6000C626DC /* PitchShiftUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633C72685FAD0006A88ED /* PitchShiftUnit.swift */; };
 		3E871A552699014800C626DC /* PitchShiftUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633F726863077006A88ED /* PitchShiftUnitProtocol.swift */; };
@@ -1492,7 +1489,6 @@
 		3E363403268636ED006A88ED /* TrackKeyedMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackKeyedMap.swift; sourceTree = "<group>"; };
 		3E363405268639A5006A88ED /* FilterBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBand.swift; sourceTree = "<group>"; };
 		3E363407268639DC006A88ED /* FilterBandType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandType.swift; sourceTree = "<group>"; };
-		3E36340926863C63006A88ED /* ParametricEQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametricEQ.swift; sourceTree = "<group>"; };
 		3E36BD3026A68E9800B6E28B /* LyricsTrackInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LyricsTrackInfo.xib; sourceTree = "<group>"; };
 		3E36BD3326A68EAA00B6E28B /* LyricsTrackInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsTrackInfoViewController.swift; sourceTree = "<group>"; };
 		3E36BD3926A68FDB00B6E28B /* CoverArtTrackInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtTrackInfoViewController.swift; sourceTree = "<group>"; };
@@ -1787,7 +1783,6 @@
 		3E6C0FF825CEB98600BF0D07 /* EQUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitViewController.swift; sourceTree = "<group>"; };
 		3E6C0FF925CEB98600BF0D07 /* EQUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitView.swift; sourceTree = "<group>"; };
 		3E6C0FFA25CEB98600BF0D07 /* EQUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQUnit.xib; sourceTree = "<group>"; };
-		3E6C0FFB25CEB98600BF0D07 /* EQUnitSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitSubview.swift; sourceTree = "<group>"; };
 		3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsWrapper.swift; sourceTree = "<group>"; };
 		3E6C0FFE25CEB98600BF0D07 /* ReverbUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReverbUnit.xib; sourceTree = "<group>"; };
 		3E6C0FFF25CEB98600BF0D07 /* ReverbUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbUnitView.swift; sourceTree = "<group>"; };
@@ -2606,7 +2601,6 @@
 			isa = PBXGroup;
 			children = (
 				3E6C111525CEB98700BF0D07 /* ParametricEQNode.swift */,
-				3E36340926863C63006A88ED /* ParametricEQ.swift */,
 			);
 			path = EQ;
 			sourceTree = "<group>";
@@ -3527,7 +3521,6 @@
 				3E6C0FFA25CEB98600BF0D07 /* EQUnit.xib */,
 				3E6C0FF825CEB98600BF0D07 /* EQUnitViewController.swift */,
 				3E6C0FF925CEB98600BF0D07 /* EQUnitView.swift */,
-				3E6C0FFB25CEB98600BF0D07 /* EQUnitSubview.swift */,
 				3EBF29242686940600D87021 /* EQSelectorButtonCell.swift */,
 				3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */,
 			);
@@ -5381,7 +5374,6 @@
 				3E6C127225CEBE0600BF0D07 /* EQPresetsManagerViewController.swift in Sources */,
 				3EBF29252686940600D87021 /* EQSelectorButtonCell.swift in Sources */,
 				3E6C129E25CEBE2700BF0D07 /* EQSliderCell.swift in Sources */,
-				3E6C12D325CEBE6700BF0D07 /* EQUnitSubview.swift in Sources */,
 				3EFDA965268F71C600CFF785 /* EQType.swift in Sources */,
 				3E3633D62685FAD0006A88ED /* EQUnit.swift in Sources */,
 				3E6C118A25CEBD6D00BF0D07 /* EQUnitDelegate.swift in Sources */,
@@ -5634,7 +5626,6 @@
 				3E6C128925CEBE1800BF0D07 /* OnOffImageButtons.swift in Sources */,
 				3E67878226981BBF00408566 /* OptionSetExtensions.swift in Sources */,
 				3EAFB60D267FF2F300F0DC96 /* PanSliderCell.swift in Sources */,
-				3E36340A26863C63006A88ED /* ParametricEQ.swift in Sources */,
 				3E6C118125CEBD6D00BF0D07 /* ParametricEQNode.swift in Sources */,
 				3EDB346625E8B75D004DF7DE /* ParserUtils.swift in Sources */,
 				3E6C11AD25CEBDA200BF0D07 /* PersistenceManager.swift in Sources */,
@@ -6147,7 +6138,6 @@
 				3EE4B848268F95A7006BDEB2 /* ReverbPresets.swift in Sources */,
 				3E60C9DA26B0816100D9404C /* FFmpegFileContext.swift in Sources */,
 				3E82A2CF26ACC8670013AB8E /* MockAudioEngine.swift in Sources */,
-				3E871A4D2698FAA500C626DC /* ParametricEQ.swift in Sources */,
 				3E871A65269907EB00C626DC /* ReverbUnitProtocol.swift in Sources */,
 				3E60C98926B07A4800D9404C /* AudioFilePreparationAction.swift in Sources */,
 				3E21ECB5268F498A00731E4C /* PlaylistType.swift in Sources */,
@@ -6574,7 +6564,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.11.0;
+				CURRENT_PROJECT_VERSION = 3.12.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = (
@@ -6588,7 +6578,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.11.0;
+				MARKETING_VERSION = 3.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;
@@ -6608,7 +6598,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.11.0;
+				CURRENT_PROJECT_VERSION = 3.12.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = (
@@ -6622,7 +6612,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.11.0;
+				MARKETING_VERSION = 3.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;

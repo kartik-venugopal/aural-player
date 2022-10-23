@@ -29,16 +29,7 @@ class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        
         eqView.initialize(eqStateFunction: {.active}, sliderAction: nil, sliderActionTarget: nil)
-        eqView.chooseType(.tenBand)
-    }
-    
-    @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
-        
-        if let preset = firstSelectedPreset as? EQPreset {
-            eqView.typeChanged(bands: preset.bands, globalGain: preset.globalGain)
-        }
     }
     
     override func renderPreview(_ presetName: String) {

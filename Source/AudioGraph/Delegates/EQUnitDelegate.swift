@@ -28,12 +28,6 @@ class EQUnitDelegate: EffectsUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
         super.init(for: unit)
     }
     
-    var type: EQType {
-        
-        get {unit.type}
-        set(newType) {unit.type = newType}
-    }
-    
     var globalGain: Float {
         
         get {unit.globalGain}

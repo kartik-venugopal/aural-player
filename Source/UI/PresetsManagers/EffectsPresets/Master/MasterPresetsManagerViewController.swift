@@ -52,8 +52,6 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         subPreviewViews = [masterSubPreview, eqSubPreview, pitchSubPreview, timeSubPreview, reverbSubPreview, delaySubPreview, filterSubPreview]
         subPreviewViews.forEach {subPreviewBox.addSubview($0)}
         
-        eqSubPreview.chooseType(.tenBand)
-        
         let bandsDataFunction = {[weak self] in self?.filterChartBands ?? []}
         filterSubPreview.initialize(stateFunction: {[weak self] in self?.presetFilterUnitState ?? .active},
                                     bandsDataFunction: bandsDataFunction)
@@ -103,17 +101,6 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
             
         default: return
             
-        }
-    }
-    
-    @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
-        
-        if let firstSelectedPreset = self.firstSelectedPreset as? MasterPreset {
-            
-            let eqPreset = firstSelectedPreset.eq
-            
-            eqSubPreview.setUnitState(eqPreset.state)
-            eqSubPreview.typeChanged(bands: eqPreset.bands, globalGain: eqPreset.globalGain)
         }
     }
     
