@@ -63,6 +63,8 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         
         super.init(unitType: .au, unitState: .active)
         self.node.addBypassStateObserver(self)
+        
+        unitInitialized = true
     }
     
     // Called upon app startup when restoring from persisted state.
@@ -84,6 +86,8 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         
         super.init(unitType: .au, unitState: persistentState.state ?? AudioGraphDefaults.auState, renderQuality: persistentState.renderQuality)
         self.node.addBypassStateObserver(self)
+        
+        unitInitialized = true
     }
     
     // A flag indicating whether or not the node's bypass state should be updated

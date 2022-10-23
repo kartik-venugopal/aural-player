@@ -37,6 +37,10 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
             
             currentPreset = matchingPreset
         }
+        
+        presets.registerPresetDeletionCallback(presetsDeleted(_:))
+        
+        unitInitialized = true
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -130,8 +134,18 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
     private func invalidateCurrentPreset() {
         
+        guard unitInitialized else {return}
+        
         currentPreset = nil
         masterUnit.currentPreset = nil
+    }
+    
+    private func presetsDeleted(_ presetNames: [String]) {
+        
+        if let theCurrentPreset = currentPreset, presetNames.contains(theCurrentPreset.name) {
+            print("Preset '\(theCurrentPreset.name)' got deleted, invalidating current preset ...")
+            currentPreset = nil
+        }
     }
     
     var persistentState: DelayUnitPersistentState {

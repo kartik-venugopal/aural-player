@@ -59,6 +59,8 @@ class EffectsUnit {
     
     lazy var messenger = Messenger(for: self)
     
+    var unitInitialized: Bool = false
+    
     init(unitType: EffectsUnitType, unitState: EffectsUnitState, renderQuality: Int? = nil) {
         
         self.unitType = unitType

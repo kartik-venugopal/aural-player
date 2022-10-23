@@ -57,6 +57,8 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
             
             currentPreset = matchingPreset
         }
+        
+        unitInitialized = true
     }
     
     override func toggleState() -> EffectsUnitState {
@@ -155,6 +157,14 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         filterUnit.state = preset.filter.state
         
         currentPreset = nil
+    }
+    
+    private func presetsDeleted(_ presetNames: [String]) {
+        
+        if let theCurrentPreset = currentPreset, presetNames.contains(theCurrentPreset.name) {
+            print("Preset '\(theCurrentPreset.name)' got deleted, invalidating current preset ...")
+            currentPreset = nil
+        }
     }
     
     func addAudioUnit(_ unit: HostedAudioUnit) {
