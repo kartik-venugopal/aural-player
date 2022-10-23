@@ -46,4 +46,6 @@ protocol EQUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     func decreaseTreble() -> [Float]
     
     var presets: EQPresets {get}
+    
+    var currentPreset: EQPreset? {get}
 }

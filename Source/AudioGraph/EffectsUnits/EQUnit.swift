@@ -21,7 +21,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     let node: ParametricEQNode
     let presets: EQPresets
     
-    var currentPreset: EQPreset?
+    var currentPreset: EQPreset? = nil
     
     init(persistentState: EQUnitPersistentState?) {
         
@@ -32,6 +32,12 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
 
         bands = persistentState?.bands ?? AudioGraphDefaults.eqBands
         globalGain = persistentState?.globalGain ?? AudioGraphDefaults.eqGlobalGain
+        
+        if let currentPresetName = persistentState?.currentPresetName,
+            let matchingPreset = presets.object(named: currentPresetName) {
+            
+            currentPreset = matchingPreset
+        }
     }
     
     override func stateChanged() {
@@ -43,13 +49,21 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     var globalGain: Float {
         
         get {node.globalGain}
-        set {node.globalGain = newValue}
+        
+        set {
+            node.globalGain = newValue
+            currentPreset = nil
+        }
     }
     
     var bands: [Float] {
         
         get {node.bandGains}
-        set(newBands) {node.bandGains = newBands}
+        
+        set(newBands) {
+            node.bandGains = newBands
+            currentPreset = nil
+        }
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -57,41 +71,62 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     subscript(_ index: Int) -> Float {
         
         get {node[index]}
-        set {node[index] = newValue}
+        
+        set {
+            node[index] = newValue
+            currentPreset = nil
+        }
     }
     
     func increaseBass(by increment: Float) -> [Float] {
+        
+        currentPreset = nil
         return node.increaseBass(by: increment)
     }
     
     func decreaseBass(by decrement: Float) -> [Float] {
+        
+        currentPreset = nil
         return node.decreaseBass(by: decrement)
     }
     
     func increaseMids(by increment: Float) -> [Float] {
+        
+        currentPreset = nil
         return node.increaseMids(by: increment)
     }
     
     func decreaseMids(by decrement: Float) -> [Float] {
+        
+        currentPreset = nil
         return node.decreaseMids(by: decrement)
     }
     
     func increaseTreble(by increment: Float) -> [Float] {
+        
+        currentPreset = nil
         return node.increaseTreble(by: increment)
     }
     
     func decreaseTreble(by decrement: Float) -> [Float] {
+        
+        currentPreset = nil
         return node.decreaseTreble(by: decrement)
     }
     
     override func savePreset(named presetName: String) {
-        presets.addObject(EQPreset(name: presetName, state: .active, bands: bands, globalGain: globalGain, systemDefined: false))
+        
+        let newPreset = EQPreset(name: presetName, state: .active, bands: bands, globalGain: globalGain, systemDefined: false)
+        presets.addObject(newPreset)
+        currentPreset = newPreset
     }
     
     override func applyPreset(named presetName: String) {
         
         if let preset = presets.object(named: presetName) {
+            
             applyPreset(preset)
+            currentPreset = preset
         }
     }
     
@@ -99,6 +134,9 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         
         bands = preset.bands
         globalGain = preset.globalGain
+        
+        // When a master preset is applied, the current EQ preset should be reset.
+        currentPreset = nil
     }
     
     var settingsAsPreset: EQPreset {
@@ -109,6 +147,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
 
         EQUnitPersistentState(state: state,
                               userPresets: presets.userDefinedObjects.map {EQPresetPersistentState(preset: $0)},
+                              currentPresetName: currentPreset?.name,
                               renderQuality: renderQualityPersistentState,
                               globalGain: globalGain,
                               bands: bands)

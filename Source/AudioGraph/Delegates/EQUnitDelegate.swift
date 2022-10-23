@@ -42,6 +42,8 @@ class EQUnitDelegate: EffectsUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     
     var presets: EQPresets {unit.presets}
     
+    var currentPreset: EQPreset? {unit.currentPreset}
+    
     /// Gets / sets the gain for the band at the given index.
     subscript(_ index: Int) -> Float {
         

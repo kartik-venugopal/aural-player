@@ -210,7 +210,6 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-//        lblCaption.font = fontScheme.effects.unitCaptionFont
         functionLabels.forEach {$0.font = fontScheme.effects.unitFunctionFont}
         presetsMenuButton.font = .menuFont
     }
@@ -229,7 +228,6 @@ class EffectsUnitViewController: NSViewController, Destroyable {
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {
-//        lblCaption.textColor = color
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
@@ -312,7 +310,13 @@ extension EffectsUnitViewController: NSMenuDelegate {
         
         presetsMenuButton.recreateMenu(insertingItemsAt: 1, fromItems: presetsWrapper.userDefinedPresets)
         
-        // Don't select any items from the EQ presets menu
-        presetsMenuButton.deselect()
+        menu.items.forEach {$0.state = .off}
+
+        if let eqUnit = self.effectsUnit as? EQUnitDelegateProtocol,
+           let currentPreset = eqUnit.currentPreset,
+           let itemForCurrentPreset = menu.item(withTitle: currentPreset.name) {
+            
+            itemForCurrentPreset.state = .on
+        }
     }
 }
