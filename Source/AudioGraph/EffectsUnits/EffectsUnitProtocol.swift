@@ -50,6 +50,10 @@ protocol EffectsUnitProtocol {
     var settingsAsPreset: PresetType {get}
     
     var currentPreset: PresetType? {get}
+    
+//    func setCurrentPreset(byName presetName: String)
+    
+//    func setCurrentPreset(byName presetName: String, ifItMatches presetInProfile: PresetType)
 }
 
 extension EffectsUnitProtocol {

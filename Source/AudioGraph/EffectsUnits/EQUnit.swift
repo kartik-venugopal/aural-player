@@ -154,6 +154,14 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         masterUnit.currentPreset = nil
     }
     
+    func setCurrentPreset(byName presetName: String, ifItMatches presetInProfile: EQPreset) {
+        
+        // TODO: Maybe pass in the profile here ? Or at least the EQPreset from the profile.
+        if let matchingPreset = presets.object(named: presetName), matchingPreset == presetInProfile {
+            self.currentPreset = matchingPreset
+        }
+    }
+    
     private func presetsDeleted(_ presetNames: [String]) {
         
         if let theCurrentPreset = currentPreset, presetNames.contains(theCurrentPreset.name) {

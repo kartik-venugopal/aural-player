@@ -25,6 +25,14 @@ extension FloatingPoint {
         
         return self
     }
+    
+    static func valuesEqual(_ v1: Self, _ v2: Self, tolerance: Self) -> Bool {
+        abs(v1 - v2) <= tolerance
+    }
+    
+    static func valuesDiffer(_ v1: Self, _ v2: Self, tolerance: Self) -> Bool {
+        abs(v1 - v2) > tolerance
+    }
 }
 
 extension Double {

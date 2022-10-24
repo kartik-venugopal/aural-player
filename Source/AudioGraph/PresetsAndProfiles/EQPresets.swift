@@ -111,3 +111,27 @@ class EQPreset: EffectsUnitPreset {
         [0, 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 8, 8, 9].map {srcBands[$0]}
     }
 }
+
+
+extension EQPreset: Equatable {
+    
+    static func == (lhs: EQPreset, rhs: EQPreset) -> Bool {
+        
+        if lhs.bands.count != rhs.bands.count {
+            return false
+        }
+        
+        for index in lhs.bands.indices {
+            
+            if Float.valuesDiffer(lhs.bands[index], rhs.bands[index], tolerance: 0.001) {
+                return false
+            }
+        }
+        
+        if Float.valuesDiffer(lhs.globalGain, rhs.globalGain, tolerance: 0.001) {
+            return false
+        }
+        
+        return true
+    }
+}

@@ -55,4 +55,32 @@ struct SoundProfile {
     let pan: Float
     
     let effects: MasterPreset
+    
+    let nameOfCurrentMasterPreset: String?
+    let nameOfCurrentEQPreset: String?
+    let nameOfCurrentTimeStretchPreset: String?
+    let nameOfCurrentPitchShiftPreset: String?
+    let nameOfCurrentReverbPreset: String?
+    let nameOfCurrentDelayPreset: String?
+    let nameOfCurrentFilterPreset: String?
+    
+    init(file: URL, volume: Float, pan: Float, effects: MasterPreset,
+         nameOfCurrentMasterPreset: String? = nil,
+         nameOfCurrentEQPreset: String? = nil, nameOfCurrentTimeStretchPreset: String? = nil,
+         nameOfCurrentPitchShiftPreset: String? = nil, nameOfCurrentReverbPreset: String? = nil,
+         nameOfCurrentDelayPreset: String? = nil, nameOfCurrentFilterPreset: String? = nil) {
+        
+        self.file = file
+        self.volume = volume
+        self.pan = pan
+        self.effects = effects
+        
+        self.nameOfCurrentMasterPreset = nameOfCurrentMasterPreset
+        self.nameOfCurrentEQPreset = nameOfCurrentEQPreset
+        self.nameOfCurrentTimeStretchPreset = nameOfCurrentTimeStretchPreset
+        self.nameOfCurrentPitchShiftPreset = nameOfCurrentPitchShiftPreset
+        self.nameOfCurrentReverbPreset = nameOfCurrentReverbPreset
+        self.nameOfCurrentDelayPreset = nameOfCurrentDelayPreset
+        self.nameOfCurrentFilterPreset = nameOfCurrentFilterPreset
+    }
 }
