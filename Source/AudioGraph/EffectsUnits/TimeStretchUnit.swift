@@ -96,8 +96,6 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         
         rate = preset.rate
         shiftPitch = preset.shiftPitch
-        
-        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: TimeStretchPreset {

@@ -39,14 +39,14 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
 
         self.window?.isMovableByWindowBackground = true
         
-        for theMenu in [fontSchemesMenu, colorSchemesMenu] as! [NSMenu] {
+        for theMenu in [fontSchemesMenu, colorSchemesMenu].compactMap({$0}) {
         
-            theMenu.insertItem(NSMenuItem.createDescriptor(title: "Built-in schemes"), at: 0)
-            theMenu.insertItem(NSMenuItem.separator(), at: 0)
+            theMenu.insertItem(.createDescriptor(title: "Built-in schemes"), at: 0)
+            theMenu.insertItem(.separator(), at: 0)
             
-            theMenu.insertItem(NSMenuItem.separator(), at: 0)
-            theMenu.insertItem(NSMenuItem.createDescriptor(title: "Custom schemes"), at: 0)
-            theMenu.insertItem(NSMenuItem.separator(), at: 0)
+            theMenu.insertItem(.separator(), at: 0)
+            theMenu.insertItem(.createDescriptor(title: "Custom schemes"), at: 0)
+            theMenu.insertItem(.separator(), at: 0)
         }
         
         lblError?.font = .stringInputPopoverErrorFont

@@ -102,7 +102,6 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         
         // Need to clone the preset's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
         bands = preset.bands.map {$0.clone()}
-        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: FilterPreset {

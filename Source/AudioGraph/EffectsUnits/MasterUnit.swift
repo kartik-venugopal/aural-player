@@ -58,6 +58,8 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
             currentPreset = matchingPreset
         }
         
+        presets.registerPresetDeletionCallback(presetsDeleted(_:))
+        
         unitInitialized = true
     }
     
@@ -86,29 +88,17 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     
     override func savePreset(named presetName: String) {
         
-        let eqPreset = eqUnit.settingsAsPreset
-        eqPreset.name = "EQ settings for Master preset: '\(presetName)'"
+        let masterPreset = settingsAsPreset
         
-        let pitchPreset = pitchShiftUnit.settingsAsPreset
-        pitchPreset.name = "Pitch settings for Master preset: '\(presetName)'"
-        
-        let timePreset = timeStretchUnit.settingsAsPreset
-        timePreset.name = "Time settings for Master preset: '\(presetName)'"
-        
-        let reverbPreset = reverbUnit.settingsAsPreset
-        reverbPreset.name = "Reverb settings for Master preset: '\(presetName)'"
-        
-        let delayPreset = delayUnit.settingsAsPreset
-        delayPreset.name = "Delay settings for Master preset: '\(presetName)'"
-        
-        let filterPreset = filterUnit.settingsAsPreset
-        filterPreset.name = "Filter settings for Master preset: '\(presetName)'"
+        masterPreset.name = presetName
+        masterPreset.eq.name = "EQ settings for Master preset: '\(presetName)'"
+        masterPreset.pitch.name = "Pitch settings for Master preset: '\(presetName)'"
+        masterPreset.time.name = "Time settings for Master preset: '\(presetName)'"
+        masterPreset.reverb.name = "Reverb settings for Master preset: '\(presetName)'"
+        masterPreset.delay.name = "Delay settings for Master preset: '\(presetName)'"
+        masterPreset.filter.name = "Filter settings for Master preset: '\(presetName)'"
         
         // Save the new preset
-        let masterPreset = MasterPreset(name: presetName, eq: eqPreset, pitch: pitchPreset,
-                                        time: timePreset, reverb: reverbPreset, delay: delayPreset,
-                                        filter: filterPreset, systemDefined: false)
-        
         presets.addObject(masterPreset)
         currentPreset = masterPreset
     }

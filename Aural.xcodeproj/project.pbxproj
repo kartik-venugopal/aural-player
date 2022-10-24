@@ -1089,7 +1089,6 @@
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
 		3EBABCBE262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */; };
 		3EBF2923268653B100D87021 /* AudioDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF2922268653B100D87021 /* AudioDeviceList.swift */; };
-		3EBF29252686940600D87021 /* EQSelectorButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29242686940600D87021 /* EQSelectorButtonCell.swift */; };
 		3EBF29272686944000D87021 /* PlaylistViewsButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29262686944000D87021 /* PlaylistViewsButtonCell.swift */; };
 		3EBF29292686947700D87021 /* FilterBandsTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */; };
 		3EBF292B268695B700D87021 /* EffectsUnitTriStateBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */; };
@@ -2210,7 +2209,6 @@
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerSettingsViewController.swift; sourceTree = "<group>"; };
 		3EBF2922268653B100D87021 /* AudioDeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDeviceList.swift; sourceTree = "<group>"; };
-		3EBF29242686940600D87021 /* EQSelectorButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSelectorButtonCell.swift; sourceTree = "<group>"; };
 		3EBF29262686944000D87021 /* PlaylistViewsButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewsButtonCell.swift; sourceTree = "<group>"; };
 		3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandsTabButtonCell.swift; sourceTree = "<group>"; };
 		3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateBypassButton.swift; sourceTree = "<group>"; };
@@ -3521,7 +3519,6 @@
 				3E6C0FFA25CEB98600BF0D07 /* EQUnit.xib */,
 				3E6C0FF825CEB98600BF0D07 /* EQUnitViewController.swift */,
 				3E6C0FF925CEB98600BF0D07 /* EQUnitView.swift */,
-				3EBF29242686940600D87021 /* EQSelectorButtonCell.swift */,
 				3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */,
 			);
 			path = EQ;
@@ -5372,7 +5369,6 @@
 				3EB3A61326A7561E0060487C /* EnumExtensions.swift in Sources */,
 				3E6C116A25CEBD6000BF0D07 /* EQPresets.swift in Sources */,
 				3E6C127225CEBE0600BF0D07 /* EQPresetsManagerViewController.swift in Sources */,
-				3EBF29252686940600D87021 /* EQSelectorButtonCell.swift in Sources */,
 				3E6C129E25CEBE2700BF0D07 /* EQSliderCell.swift in Sources */,
 				3EFDA965268F71C600CFF785 /* EQType.swift in Sources */,
 				3E3633D62685FAD0006A88ED /* EQUnit.swift in Sources */,

@@ -74,9 +74,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     }
     
     func applyPreset(_ preset: PitchShiftPreset) {
-        
         pitch = preset.pitch
-        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: PitchShiftPreset {

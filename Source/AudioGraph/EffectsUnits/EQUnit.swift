@@ -140,9 +140,6 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         
         bands = preset.bands
         globalGain = preset.globalGain
-        
-        // When a master preset is applied, the current EQ preset should be reset.
-        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: EQPreset {

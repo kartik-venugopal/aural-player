@@ -102,7 +102,6 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         
         // Recreate the custom layout items
         let itemCount = layoutMenu.itemArray.count
-        
         let customLayoutCount = itemCount - 9  // 1 separator, 8 presets
         
         if customLayoutCount > 0 {

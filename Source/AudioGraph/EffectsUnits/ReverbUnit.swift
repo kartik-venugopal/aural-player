@@ -101,8 +101,6 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         
         space = preset.space
         amount = preset.amount
-        
-        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: ReverbPreset {

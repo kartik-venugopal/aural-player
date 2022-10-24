@@ -61,10 +61,6 @@ extension NSView {
         subViews.forEach {self.addSubview($0)}
     }
     
-    func positionAtZeroPoint() {
-        self.setFrameOrigin(NSPoint.zero)
-    }
-    
     func bringToFront() {
         
         let superView = self.superview

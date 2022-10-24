@@ -122,8 +122,6 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
         amount = preset.amount
         feedback = preset.feedback
         lowPassCutoff = preset.lowPassCutoff
-        
-        invalidateCurrentPreset()
     }
     
     var settingsAsPreset: DelayPreset {
