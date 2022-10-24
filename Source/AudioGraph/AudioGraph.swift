@@ -123,9 +123,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     }
     
     func captureSystemSoundProfile() {
-        let p = SoundProfile(file: URL(fileURLWithPath: "system"), volume: volume, pan: pan, effects: settingsAsMasterPreset)
         soundProfiles.systemProfile = SoundProfile(file: URL(fileURLWithPath: "system"), volume: volume, pan: pan, effects: settingsAsMasterPreset)
-        print("\nCaptured EQ: \(p.effects.eq.bands)")
     }
     
     func restoreSystemSoundProfile() {

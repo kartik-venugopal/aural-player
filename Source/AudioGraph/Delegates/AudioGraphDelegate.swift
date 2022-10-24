@@ -246,11 +246,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     func preTrackPlayback(_ notification: PreTrackPlaybackNotification) {
-        trackChanged(notification.oldTrack, notification.newTrack)
-    }
-    
-    private func trackChanged(_ oldTrack: Track?, _ newTrack: Track?) {
         
+        let oldTrack = notification.oldTrack
+        let newTrack = notification.newTrack
         let rememberSettingsForAllTracks: Bool = preferences.rememberEffectsSettingsOption == .allTracks
         
         if oldTrack != nil && (rememberSettingsForAllTracks || soundProfiles.hasFor(oldTrack!)) {

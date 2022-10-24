@@ -168,12 +168,9 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     func trackChanged(_ notification: TrackTransitionNotification) {
         
-        // Apply sound profile if there is one for the new track and if the preferences allow it
-        if let newTrack = notification.endTrack, soundProfiles.hasFor(newTrack) {
-            
-            updateButtons()
-            messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
-        }
+        // Sound settings may have changed as a result of the track change.
+        updateButtons()
+        messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
     }
     
     // ------------------------------------------------------------------------

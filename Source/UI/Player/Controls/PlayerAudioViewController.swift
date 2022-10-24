@@ -191,15 +191,13 @@ class PlayerAudioViewController: NSViewController, Destroyable {
     func trackChanged(_ newTrack: Track?) {
         
         // Apply sound profile if there is one for the new track and the preferences allow it
-        if let theNewTrack = newTrack, soundProfiles.hasFor(theNewTrack) {
-
-            volumeChanged(audioGraph.volume, audioGraph.muted)
+        
+        volumeChanged(audioGraph.volume, audioGraph.muted)
+        
+        if showsPanControl {
             
-            if showsPanControl {
-                
-                panChanged(audioGraph.pan)
-                panSlider.floatValue = audioGraph.pan
-            }
+            panChanged(audioGraph.pan)
+            panSlider.floatValue = audioGraph.pan
         }
     }
     
