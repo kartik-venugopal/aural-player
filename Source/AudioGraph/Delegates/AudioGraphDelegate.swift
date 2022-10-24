@@ -74,7 +74,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     // User preferences
     private let preferences: SoundPreferences
     
-    var soundProfiles: SoundProfiles {graph.soundProfiles}
+    lazy var soundProfiles: SoundProfiles = graph.soundProfiles
     
     private lazy var messenger = Messenger(for: self)
     
@@ -125,6 +125,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             
             masterUnit.applyPreset(named: presetName)
         }
+        
+        graph.captureSystemSoundProfile()
         
         messenger.subscribe(to: .application_willExit, handler: onAppExit)
         messenger.subscribe(to: .player_preTrackPlayback, handler: preTrackPlayback(_:))
@@ -249,16 +251,31 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     private func trackChanged(_ oldTrack: Track?, _ newTrack: Track?) {
         
-        // Save/apply sound profile
-        saveProfile(forTrack: oldTrack)
+        let rememberSettingsForAllTracks: Bool = preferences.rememberEffectsSettingsOption == .allTracks
         
-        // Apply sound profile if there is one for the new track and the preferences allow it
-        if let theNewTrack = newTrack, let profile = soundProfiles[theNewTrack] {
+        if oldTrack != nil && (rememberSettingsForAllTracks || soundProfiles.hasFor(oldTrack!)) {
             
-            graph.volume = profile.volume
-            graph.pan = profile.pan
-            masterUnit.applyPreset(profile.effects)
+            saveProfile(forTrack: oldTrack)
+            
+            if let theNewTrack = newTrack, let profile = soundProfiles[theNewTrack] {
+                applyProfile(profile)
+                
+            } else {
+                graph.restoreSystemSoundProfile()
+            }
+            
+        } else if let theNewTrack = newTrack, let profile = soundProfiles[theNewTrack] {
+            
+            graph.captureSystemSoundProfile()
+            applyProfile(profile)
         }
+    }
+    
+    private func applyProfile(_ profile: SoundProfile) {
+        
+        graph.volume = profile.volume
+        graph.pan = profile.pan
+        masterUnit.applyPreset(profile.effects)
     }
     
     private func saveProfile(forTrack track: Track?) {
@@ -270,7 +287,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         if let theTrack = track,
            preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theTrack) {
-            
             
             soundProfiles[theTrack] = SoundProfile(file: theTrack.file, volume: graph.volume,
                                                    pan: graph.pan, effects: graph.settingsAsMasterPreset)

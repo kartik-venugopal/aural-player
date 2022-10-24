@@ -1,18 +1,14 @@
-#  What's New in Version 3.11.0
+#  What's New in Version 3.12.0
 
-## New render quality setting (macOS High Sierra+)
+## Current effects preset indication
 
-On macOS High Sierra and later versions, users can now adjust the render quality of each individual effects unit - both built-in effects and user-configured Audio Unit (AU) plug-ins.
+The built-in effects units will now indicate the currently selected preset when applicable (i.e. no changes have been made after selecting a preset). The current preset for any effects unit can be discovered by opening its presets menu that is displayed via the "Load preset" button - the corresponding menu item will have a check mark next to it.
 
-Lower values for render quality will ease CPU load while higher values will increase CPU load.
+### Other changes
 
-### Built-in effects
-
-For built-in effects, the new render quality setting can be adjusted by clicking the button with the CPU icon which sits below the bypass (i.e. on/off) toggle switch.
-
-### Audio Unit (AU) plug-ins
-
-For AU plug-ins, the new render quality setting's controls can be found on the editor dialog for the plug-in.
+* Improvement - When a track that has remembered audio settings finishes playing, the previous audio settings will be restored.
+* Bug fix - Master presets menu button didn't do anything.
+* Bug fix - Presets menu recreation failed in rare cases.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.11.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.12.0)

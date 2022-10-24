@@ -16,6 +16,8 @@ import Foundation
 ///
 class SoundProfiles: TrackKeyedMap<SoundProfile> {
     
+    var systemProfile: SoundProfile?
+    
     init(persistentState: [SoundProfilePersistentState]?) {
         
         super.init()

@@ -122,6 +122,23 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         audioEngine.start()
     }
     
+    func captureSystemSoundProfile() {
+        let p = SoundProfile(file: URL(fileURLWithPath: "system"), volume: volume, pan: pan, effects: settingsAsMasterPreset)
+        soundProfiles.systemProfile = SoundProfile(file: URL(fileURLWithPath: "system"), volume: volume, pan: pan, effects: settingsAsMasterPreset)
+        print("\nCaptured EQ: \(p.effects.eq.bands)")
+    }
+    
+    func restoreSystemSoundProfile() {
+        
+        guard let systemSoundProfile = soundProfiles.systemProfile else {return}
+        
+        self.volume = systemSoundProfile.volume
+        self.pan = systemSoundProfile.pan
+        masterUnit.applyPreset(systemSoundProfile.effects)
+        
+        // TODO: Current presets for all FX units !
+    }
+    
     // MARK: Audio engine functions ----------------------------------
     
     func reconnectPlayerNode(withFormat format: AVAudioFormat) {
