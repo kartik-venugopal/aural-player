@@ -33,6 +33,16 @@ extension FloatingPoint {
     static func valuesDiffer(_ v1: Self, _ v2: Self, tolerance: Self) -> Bool {
         abs(v1 - v2) > tolerance
     }
+    
+    static func optionalValuesEqual(_ op1: Self?, _ op2: Self?, tolerance: Self) -> Bool {
+        
+        if op1 == nil {return op2 == nil}
+        if op2 == nil {return false}
+        
+        guard let theOp1 = op1, let theOp2 = op2 else {return false}
+        
+        return valuesEqual(theOp1, theOp2, tolerance: tolerance)
+    }
 }
 
 extension Double {

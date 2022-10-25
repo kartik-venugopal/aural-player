@@ -43,6 +43,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var settingsAsMasterPreset: MasterPreset {get}
     
     var soundProfiles: SoundProfiles {get set}
+    func applySoundProfile(_ profile: SoundProfile)
     func captureSystemSoundProfile()
     func restoreSystemSoundProfile()
     

@@ -26,10 +26,10 @@ class ReverbPresets: EffectsUnitPresets<ReverbPreset> {
 ///
 class ReverbPreset: EffectsUnitPreset {
     
-    let space: ReverbSpaces
+    let space: ReverbSpace
     let amount: Float
     
-    init(name: String, state: EffectsUnitState, space: ReverbSpaces, amount: Float, systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, space: ReverbSpace, amount: Float, systemDefined: Bool) {
         
         self.space = space
         self.amount = amount
@@ -46,5 +46,9 @@ class ReverbPreset: EffectsUnitPreset {
         self.amount = amount
         
         super.init(name: name, state: unitState, systemDefined: false)
+    }
+    
+    func equalToOtherPreset(space: ReverbSpace, amount: Float) -> Bool {
+        self.space == space && Float.valuesEqual(self.amount, amount, tolerance: 0.001) 
     }
 }

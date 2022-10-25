@@ -134,4 +134,24 @@ extension EQPreset: Equatable {
         
         return true
     }
+    
+    func equalToOtherPreset(globalGain: Float, bands: [Float]) -> Bool {
+        
+        if self.bands.count != bands.count {
+            return false
+        }
+        
+        for index in self.bands.indices {
+            
+            if Float.valuesDiffer(self.bands[index], bands[index], tolerance: 0.001) {
+                return false
+            }
+        }
+        
+        if Float.valuesDiffer(self.globalGain, globalGain, tolerance: 0.001) {
+            return false
+        }
+        
+        return true
+    }
 }

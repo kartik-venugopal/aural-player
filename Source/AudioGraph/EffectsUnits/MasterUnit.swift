@@ -149,9 +149,42 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         currentPreset = nil
     }
     
+    func applySoundProfile(_ profile: SoundProfile) {
+        
+        applyPreset(profile.effects)
+        
+        if let nameOfCurrentEQPreset = profile.nameOfCurrentEQPreset {
+            eqUnit.setCurrentPreset(byName: nameOfCurrentEQPreset)
+        }
+        
+        if let nameOfCurrentPitchShiftPreset = profile.nameOfCurrentPitchShiftPreset {
+            pitchShiftUnit.setCurrentPreset(byName: nameOfCurrentPitchShiftPreset)
+        }
+        
+        if let nameOfCurrentTimeStretchPreset = profile.nameOfCurrentTimeStretchPreset {
+            timeStretchUnit.setCurrentPreset(byName: nameOfCurrentTimeStretchPreset)
+        }
+        
+        if let nameOfCurrentReverbPreset = profile.nameOfCurrentReverbPreset {
+            reverbUnit.setCurrentPreset(byName: nameOfCurrentReverbPreset)
+        }
+     
+        if let nameOfCurrentDelayPreset = profile.nameOfCurrentDelayPreset {
+            delayUnit.setCurrentPreset(byName: nameOfCurrentDelayPreset)
+        }
+        
+        if let nameOfCurrentFilterPreset = profile.nameOfCurrentFilterPreset {
+            filterUnit.setCurrentPreset(byName: nameOfCurrentFilterPreset)
+        }
+    }
+    
+    func setCurrentPreset(byName presetName: String) {
+        
+    }
+    
     private func presetsDeleted(_ presetNames: [String]) {
         
-        if let theCurrentPreset = currentPreset, presetNames.contains(theCurrentPreset.name) {
+        if let theCurrentPreset = currentPreset, theCurrentPreset.userDefined, presetNames.contains(theCurrentPreset.name) {
             print("Preset '\(theCurrentPreset.name)' got deleted, invalidating current preset ...")
             currentPreset = nil
         }

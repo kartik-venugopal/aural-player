@@ -38,7 +38,7 @@ struct AudioGraphDefaults {
     static let timeStretchOverlap: Float = 8
     
     static let reverbState: EffectsUnitState = .bypassed
-    static let reverbSpace: ReverbSpaces = .mediumHall
+    static let reverbSpace: ReverbSpace = .mediumHall
     static let reverbAmount: Float = 50
     
     static let delayState: EffectsUnitState = .bypassed

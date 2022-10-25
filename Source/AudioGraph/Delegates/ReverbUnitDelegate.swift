@@ -22,7 +22,7 @@ class ReverbUnitDelegate: EffectsUnitDelegate<ReverbUnit>, ReverbUnitDelegatePro
     
     var presets: ReverbPresets {unit.presets}
     
-    var space: ReverbSpaces {
+    var space: ReverbSpace {
         
         get {unit.space}
         set {unit.space = newValue}

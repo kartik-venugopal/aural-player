@@ -426,7 +426,7 @@
 		3E6C116A25CEBD6000BF0D07 /* EQPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110525CEB98700BF0D07 /* EQPresets.swift */; };
 		3E6C116C25CEBD6000BF0D07 /* DelayPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110925CEB98700BF0D07 /* DelayPresets.swift */; };
 		3E6C117325CEBD6000BF0D07 /* ReverbPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110825CEB98700BF0D07 /* ReverbPresets.swift */; };
-		3E6C117625CEBD6000BF0D07 /* ReverbSpaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110625CEB98700BF0D07 /* ReverbSpaces.swift */; };
+		3E6C117625CEBD6000BF0D07 /* ReverbSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110625CEB98700BF0D07 /* ReverbSpace.swift */; };
 		3E6C117725CEBD6000BF0D07 /* MasterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110725CEB98700BF0D07 /* MasterPresets.swift */; };
 		3E6C117B25CEBD6000BF0D07 /* SoundProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110425CEB98700BF0D07 /* SoundProfiles.swift */; };
 		3E6C117F25CEBD6D00BF0D07 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1725CEB98500BF0D07 /* Favorite.swift */; };
@@ -1323,7 +1323,7 @@
 		3EFDA96B268F724B00CFF785 /* UserManagedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DF42681702000E826F0 /* UserManagedObjects.swift */; };
 		3EFDA96D268F725800CFF785 /* EQPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110525CEB98700BF0D07 /* EQPresets.swift */; };
 		3EFDA96F268F726900CFF785 /* AudioGraphDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0012EE2684858A00F3880C /* AudioGraphDefaults.swift */; };
-		3EFDA971268F727400CFF785 /* ReverbSpaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110625CEB98700BF0D07 /* ReverbSpaces.swift */; };
+		3EFDA971268F727400CFF785 /* ReverbSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110625CEB98700BF0D07 /* ReverbSpace.swift */; };
 		3EFDA973268F727800CFF785 /* FilterBandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E363407268639DC006A88ED /* FilterBandType.swift */; };
 		3EFDA978268F792A00CFF785 /* MirrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E145502268107910034056E /* MirrorExtensions.swift */; };
 		3EFDA97B268F7F1200CFF785 /* PitchShiftUnitPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFDA97A268F7F1200CFF785 /* PitchShiftUnitPersistenceTests.swift */; };
@@ -1910,7 +1910,7 @@
 		3E6C110225CEB98700BF0D07 /* FilterPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresets.swift; sourceTree = "<group>"; };
 		3E6C110425CEB98700BF0D07 /* SoundProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundProfiles.swift; sourceTree = "<group>"; };
 		3E6C110525CEB98700BF0D07 /* EQPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPresets.swift; sourceTree = "<group>"; };
-		3E6C110625CEB98700BF0D07 /* ReverbSpaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbSpaces.swift; sourceTree = "<group>"; };
+		3E6C110625CEB98700BF0D07 /* ReverbSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbSpace.swift; sourceTree = "<group>"; };
 		3E6C110725CEB98700BF0D07 /* MasterPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresets.swift; sourceTree = "<group>"; };
 		3E6C110825CEB98700BF0D07 /* ReverbPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbPresets.swift; sourceTree = "<group>"; };
 		3E6C110925CEB98700BF0D07 /* DelayPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresets.swift; sourceTree = "<group>"; };
@@ -3968,7 +3968,7 @@
 				3E6C110A25CEB98700BF0D07 /* PitchShiftPresets.swift */,
 				3E6C110B25CEB98700BF0D07 /* TimeStretchPresets.swift */,
 				3E6C110825CEB98700BF0D07 /* ReverbPresets.swift */,
-				3E6C110625CEB98700BF0D07 /* ReverbSpaces.swift */,
+				3E6C110625CEB98700BF0D07 /* ReverbSpace.swift */,
 				3E6C110925CEB98700BF0D07 /* DelayPresets.swift */,
 				3E6C110225CEB98700BF0D07 /* FilterPresets.swift */,
 				3E28691528E2538400478AC4 /* AudioUnitPresets.swift */,
@@ -5737,7 +5737,7 @@
 				3E62979D26A3CEBF00C96AB8 /* Restorable.swift in Sources */,
 				3E6C117325CEBD6000BF0D07 /* ReverbPresets.swift in Sources */,
 				3E6C125B25CEBE0600BF0D07 /* ReverbPresetsManagerViewController.swift in Sources */,
-				3E6C117625CEBD6000BF0D07 /* ReverbSpaces.swift in Sources */,
+				3E6C117625CEBD6000BF0D07 /* ReverbSpace.swift in Sources */,
 				3E3633D52685FAD0006A88ED /* ReverbUnit.swift in Sources */,
 				3E6C118625CEBD6D00BF0D07 /* ReverbUnitDelegate.swift in Sources */,
 				3E3633EA2686281D006A88ED /* ReverbUnitDelegateProtocol.swift in Sources */,
@@ -6041,7 +6041,7 @@
 				3E21ECE0268F4ABE00731E4C /* GroupingPlaylistPersistentState.swift in Sources */,
 				3E67877F26981B2B00408566 /* OptionSetExtensions.swift in Sources */,
 				3EA62F312693A7B6004A780A /* PersistentModelObject.swift in Sources */,
-				3EFDA971268F727400CFF785 /* ReverbSpaces.swift in Sources */,
+				3EFDA971268F727400CFF785 /* ReverbSpace.swift in Sources */,
 				3E871A0B2698E7F900C626DC /* SearchType.swift in Sources */,
 				3EE7A43826B2643300851F5B /* MasterUnitTests.swift in Sources */,
 				3E21ECD5268F4A4600731E4C /* SortComparator.swift in Sources */,

@@ -20,7 +20,7 @@ import Foundation
 ///
 protocol ReverbUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
-    var space: ReverbSpaces {get set}
+    var space: ReverbSpace {get set}
     
     var amount: Float {get set}
     

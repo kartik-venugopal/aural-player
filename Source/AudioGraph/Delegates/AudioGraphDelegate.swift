@@ -232,9 +232,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     private func saveSoundProfile() {
         
         if let plTrack = player.playingTrack {
-            
-            soundProfiles[plTrack] = SoundProfile(file: plTrack.file, volume: graph.volume,
-                                                  pan: graph.pan, effects: graph.settingsAsMasterPreset)
+            doSaveProfile(forTrack: plTrack)
         }
     }
     
@@ -245,18 +243,21 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         }
     }
     
+    private var needToRememberSettingsForAllTracks: Bool {
+        preferences.rememberEffectsSettingsOption == .allTracks
+    }
+    
     func preTrackPlayback(_ notification: PreTrackPlaybackNotification) {
         
         let oldTrack = notification.oldTrack
         let newTrack = notification.newTrack
-        let rememberSettingsForAllTracks: Bool = preferences.rememberEffectsSettingsOption == .allTracks
         
-        if oldTrack != nil && (rememberSettingsForAllTracks || soundProfiles.hasFor(oldTrack!)) {
+        if let theOldTrack = oldTrack, (needToRememberSettingsForAllTracks || soundProfiles.hasFor(theOldTrack)) {
             
-            saveProfile(forTrack: oldTrack)
+            doSaveProfile(forTrack: theOldTrack)
             
             if let theNewTrack = newTrack, let profile = soundProfiles[theNewTrack] {
-                applyProfile(profile)
+                graph.applySoundProfile(profile)
                 
             } else {
                 graph.restoreSystemSoundProfile()
@@ -265,34 +266,37 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         } else if let theNewTrack = newTrack, let profile = soundProfiles[theNewTrack] {
             
             graph.captureSystemSoundProfile()
-            applyProfile(profile)
+            graph.applySoundProfile(profile)
         }
     }
     
-    private func applyProfile(_ profile: SoundProfile) {
+    @inline(__always)
+    private func doSaveProfile(forTrack track: Track) {
         
-        graph.volume = profile.volume
-        graph.pan = profile.pan
-        masterUnit.applyPreset(profile.effects)
+        soundProfiles[track] = SoundProfile(file: track.file, volume: graph.volume,
+                                               pan: graph.pan, effects: graph.settingsAsMasterPreset,
+                                               nameOfCurrentMasterPreset: masterUnit.nameOfCurrentPreset,
+                                               nameOfCurrentEQPreset: eqUnit.nameOfCurrentPreset,
+                                               nameOfCurrentPitchShiftPreset: pitchShiftUnit.nameOfCurrentPreset,
+                                               nameOfCurrentTimeStretchPreset: timeStretchUnit.nameOfCurrentPreset,
+                                               nameOfCurrentReverbPreset: reverbUnit.nameOfCurrentPreset,
+                                               nameOfCurrentDelayPreset: delayUnit.nameOfCurrentPreset,
+                                               nameOfCurrentFilterPreset: filterUnit.nameOfCurrentPreset)
     }
     
-    private func saveProfile(forTrack track: Track?) {
+    // This function is invoked when the user attempts to exit the app.
+    // It checks if there is a track playing and if sound settings for the track need to be remembered.
+    func onAppExit() {
         
         // Save a profile if either:
         // 1 - the preferences require profiles for all tracks, OR
         // 2 - there is an existing profile for this track (chosen by the user) so it needs to be
         // updated as the track is done playing.
         
-        if let theTrack = track,
-           preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theTrack) {
+        if let plTrack = player.playingTrack,
+           needToRememberSettingsForAllTracks || soundProfiles.hasFor(plTrack) {
             
-            soundProfiles[theTrack] = SoundProfile(file: theTrack.file, volume: graph.volume,
-                                                   pan: graph.pan, effects: graph.settingsAsMasterPreset)
+            doSaveProfile(forTrack: plTrack)
         }
-    }
-    
-    // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
-    func onAppExit() {
-        saveProfile(forTrack: player.playingTrack)
     }
 }

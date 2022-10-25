@@ -154,17 +154,19 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         masterUnit.currentPreset = nil
     }
     
-    func setCurrentPreset(byName presetName: String, ifItMatches presetInProfile: EQPreset) {
+    func setCurrentPreset(byName presetName: String) {
         
-        // TODO: Maybe pass in the profile here ? Or at least the EQPreset from the profile.
-        if let matchingPreset = presets.object(named: presetName), matchingPreset == presetInProfile {
+        guard let matchingPreset = presets.object(named: presetName) else {return}
+        
+        if matchingPreset.equalToOtherPreset(globalGain: self.globalGain, bands: self.bands) {
             self.currentPreset = matchingPreset
         }
     }
     
     private func presetsDeleted(_ presetNames: [String]) {
         
-        if let theCurrentPreset = currentPreset, presetNames.contains(theCurrentPreset.name) {
+        // System-defined presets cannot be deleted.
+        if let theCurrentPreset = currentPreset, theCurrentPreset.userDefined, presetNames.contains(theCurrentPreset.name) {
             print("Preset '\(theCurrentPreset.name)' got deleted, invalidating current preset ...")
             currentPreset = nil
         }

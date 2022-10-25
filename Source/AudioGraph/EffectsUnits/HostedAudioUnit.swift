@@ -157,6 +157,8 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     func setValue(_ value: Float, forParameterWithAddress address: AUParameterAddress) {
         node.setValue(value, forParameterWithAddress: address)
     }
+    
+    func setCurrentPreset(byName presetName: String) {}
 
     var settingsAsPreset: AudioUnitPreset {
         

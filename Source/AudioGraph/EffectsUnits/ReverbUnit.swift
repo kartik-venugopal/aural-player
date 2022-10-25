@@ -57,7 +57,7 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
         }
     }
     
-    var space: ReverbSpaces {
+    var space: ReverbSpace {
         
         get {.mapFromAVPreset(avSpace)}
         set {avSpace = newValue.avPreset}
@@ -117,9 +117,18 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     
     private func presetsDeleted(_ presetNames: [String]) {
         
-        if let theCurrentPreset = currentPreset, presetNames.contains(theCurrentPreset.name) {
+        if let theCurrentPreset = currentPreset, theCurrentPreset.userDefined, presetNames.contains(theCurrentPreset.name) {
             print("Preset '\(theCurrentPreset.name)' got deleted, invalidating current preset ...")
             currentPreset = nil
+        }
+    }
+    
+    func setCurrentPreset(byName presetName: String) {
+        
+        guard let matchingPreset = presets.object(named: presetName) else {return}
+        
+        if matchingPreset.equalToOtherPreset(space: self.space, amount: self.amount) {
+            self.currentPreset = matchingPreset
         }
     }
     

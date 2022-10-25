@@ -122,8 +122,23 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         audioEngine.start()
     }
     
+    func applySoundProfile(_ profile: SoundProfile) {
+        
+        self.volume = profile.volume
+        self.pan = profile.pan
+        masterUnit.applySoundProfile(profile)
+    }
+    
     func captureSystemSoundProfile() {
-        soundProfiles.systemProfile = SoundProfile(file: URL(fileURLWithPath: "system"), volume: volume, pan: pan, effects: settingsAsMasterPreset)
+        
+        soundProfiles.systemProfile = SoundProfile(file: URL(fileURLWithPath: "system"), volume: volume, pan: pan, effects: settingsAsMasterPreset,
+                                                   nameOfCurrentMasterPreset: masterUnit.currentPreset?.name,
+                                                   nameOfCurrentEQPreset: eqUnit.currentPreset?.name,
+                                                   nameOfCurrentPitchShiftPreset: pitchShiftUnit.currentPreset?.name,
+                                                   nameOfCurrentTimeStretchPreset: timeStretchUnit.currentPreset?.name,
+                                                   nameOfCurrentReverbPreset: reverbUnit.currentPreset?.name,
+                                                   nameOfCurrentDelayPreset: delayUnit.currentPreset?.name,
+                                                   nameOfCurrentFilterPreset: filterUnit.currentPreset?.name)
     }
     
     func restoreSystemSoundProfile() {
