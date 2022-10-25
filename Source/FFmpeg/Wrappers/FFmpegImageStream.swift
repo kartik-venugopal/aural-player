@@ -41,12 +41,12 @@ class FFmpegImageStream: FFmpegStreamProtocol {
     /// The packet (optionally) containing an attached picture.
     /// This can be used to read cover art.
     ///
-    lazy var attachedPic: FFmpegPacket = FFmpegPacket(encapsulating: &avStream.attached_pic)
+    private(set) lazy var attachedPic: FFmpegPacket = FFmpegPacket(encapsulating: &avStream.attached_pic)
     
     ///
     /// All metadata key / value pairs available for this stream.
     ///
-    lazy var metadata: [String: String] = FFmpegMetadataReader.read(from: avStream.metadata)
+    private(set) lazy var metadata: [String: String] = FFmpegMetadataReader.read(from: avStream.metadata)
     
     ///
     /// Instantiates this stream object and its associated codec and codec context.

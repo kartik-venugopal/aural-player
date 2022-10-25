@@ -254,6 +254,8 @@ class FFmpegFileReader: FileReaderProtocol {
         
         do {
             
+            // TODO: Write an FFmpegCoverArtReader class which only reads cover art.
+            
             // Construct an ffmpeg file context for this track.
             // This will be used to read cover art.
             let fctx = try FFmpegFileContext(for: file)
@@ -262,7 +264,9 @@ class FFmpegFileReader: FileReaderProtocol {
                 return CoverArt(imageData: imageData)
             }
             
-        } catch {}
+        } catch {
+            NSLog("Error retrieving art for file: '\(file.path)'. Error: \(error)")
+        }
         
         return nil
     }

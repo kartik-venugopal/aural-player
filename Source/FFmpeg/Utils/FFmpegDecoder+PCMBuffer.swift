@@ -59,10 +59,10 @@ extension FFmpegDecoder {
             
             // Temporarily bind the input sample buffers as floating point numbers, and perform the copy.
             frame.dataPointers.withMemoryRebound(to: UnsafeMutablePointer<Float>.self, capacity: channelCount) {srcPointers in
-                
+
                 // Iterate through all the channels.
                 for channelIndex in 0..<channelCount {
-                    
+
                     // Use Accelerate to perform the copy optimally, starting at the given offset.
                     cblas_scopy(sampleCount,
                                 srcPointers[channelIndex].advanced(by: firstSampleIndex), 1,
@@ -76,13 +76,13 @@ extension FFmpegDecoder {
     
     func convert(samplesIn frameBuffer: FFmpegFrameBuffer, andCopyTo audioBuffer: AVAudioPCMBuffer) {
         
-        guard let resampleCtx = self.resampleCtx, let floatChannelData = audioBuffer.floatChannelData else {return}
+        guard let resampleCtx = self.resampleCtx, let destPointers = audioBuffer.floatChannelData else {return}
         
         var sampleCountSoFar: Int = 0
         let outputData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = .allocate(capacity: channelCount)
         defer {outputData.deallocate()}
         
-        floatChannelData.withMemoryRebound(to: UnsafeMutablePointer<UInt8>.self, capacity: channelCount) {outChannelPointers in
+        destPointers.withMemoryRebound(to: UnsafeMutablePointer<UInt8>.self, capacity: channelCount) {outChannelPointers in
             
             // Convert one frame at a time.
             for frame in frameBuffer.frames {
