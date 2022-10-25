@@ -7,7 +7,7 @@ The built-in effects units will now indicate the currently selected preset when 
 ### Other changes
 
 * Improvement - When a track that has remembered audio settings finishes playing, the previous audio settings will be restored.
-* Bug fix - Master presets menu button didn't do anything.
+* Bug fix - The Master presets menu button didn't do anything.
 * Bug fix - Presets menu recreation failed in rare cases.
 
 ### **For more info**

@@ -298,5 +298,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             
             doSaveProfile(forTrack: plTrack)
         }
+        
+        // App exit implies the track has finished playing, restore system sound settings
+        // so that they will be used on the next app launch.
+        graph.restoreSystemSoundProfile()
     }
 }
