@@ -254,13 +254,7 @@ class FFmpegFileReader: FileReaderProtocol {
         
         do {
             
-            // TODO: Write an FFmpegCoverArtReader class which only reads cover art.
-            
-            // Construct an ffmpeg file context for this track.
-            // This will be used to read cover art.
-            let fctx = try FFmpegFileContext(for: file)
-            
-            if let imageData = fctx.bestImageStream?.attachedPic.data {
+            if let imageData = try FFmpegCoverArtReader.readCoverArt(from: file) {
                 return CoverArt(imageData: imageData)
             }
             

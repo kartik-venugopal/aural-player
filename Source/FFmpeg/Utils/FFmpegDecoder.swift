@@ -365,16 +365,11 @@ class FFmpegDecoder {
         // Use sample count and sample rate to calculate timestamps
         // for each of the subsequent (after the first) frames.
         
-        var currentSampleCount: Int32 = frame0.sampleCount
-        
         for index in (1..<frames.count) {
             
             let frame = frames[index]
-            
             frame.startTimestampSeconds = frames[index - 1].endTimestampSeconds
             frame.endTimestampSeconds = frame.startTimestampSeconds + (Double(frame.actualSampleCount) / sampleRate)
-            
-            currentSampleCount += frame.actualSampleCount
         }
     }
     

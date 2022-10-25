@@ -9,6 +9,37 @@
 //
 import Cocoa
 
+/*
+ 
+ album        -- name of the set this work belongs to
+ album_artist -- main creator of the set/album, if different from artist.
+                 e.g. "Various Artists" for compilation albums.
+ artist       -- main creator of the work
+ comment      -- any additional description of the file.
+ composer     -- who composed the work, if different from artist.
+ copyright    -- name of copyright holder.
+ creation_time-- date when the file was created, preferably in ISO 8601.
+ date         -- date when the work was created, preferably in ISO 8601.
+ disc         -- number of a subset, e.g. disc in a multi-disc collection.
+ encoder      -- name/settings of the software/hardware that produced the file.
+ encoded_by   -- person/group who created the file.
+ filename     -- original name of the file.
+ genre        -- <self-evident>.
+ language     -- main language in which the work is performed, preferably
+                 in ISO 639-2 format. Multiple languages can be specified by
+                 separating them with commas.
+ performer    -- artist who performed the work, if different from artist.
+                 E.g for "Also sprach Zarathustra", artist would be "Richard
+                 Strauss" and performer "London Philharmonic Orchestra".
+ publisher    -- name of the label/publisher.
+ service_name     -- name of the service in broadcasting (channel name).
+ service_provider -- name of the service provider in broadcasting.
+ title        -- name of the work.
+ track        -- number of this work in the set, can be in form current/total.
+ variant_bitrate -- the total bitrate of the bitrate variant that the current stream is part of
+ 
+ */
+
 fileprivate let key_title = "title"
 
 fileprivate let key_artist = "artist"
