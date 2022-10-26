@@ -74,9 +74,11 @@ class FFmpegDecoder {
     
     let resampleCtx: FFmpegAVAEResamplingContext?
     
-    lazy var audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount, channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
+    private(set) lazy var audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount, channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
     
-    lazy var channelCount: Int = Int(audioFormat.channelCount)
+    private(set) lazy var channelCount: Int = Int(audioFormat.channelCount)
+    
+    private(set) lazy var sampleRateDouble: Double = Double(codec.sampleRate)
     
     ///
     /// Given ffmpeg context for a file, initializes an appropriate codec to perform decoding.
