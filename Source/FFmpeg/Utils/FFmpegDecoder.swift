@@ -185,9 +185,7 @@ class FFmpegDecoder {
             var terminalFrames: [FFmpegFrame] = frameQueue.dequeueAll()
             
             do {
-                
-                let drainFrames = try codec.drain()
-                terminalFrames.append(contentsOf: drainFrames.frames)
+                terminalFrames.append(contentsOf: try codec.drain().frames)
                 
             } catch {
                 NSLog("Decoder drain error while reading track \(fileCtx.filePath): \(error)")
@@ -277,7 +275,7 @@ class FFmpegDecoder {
                     
                     if let packet = try fileCtx.readPacket(from: stream) {
                         
-                        lastReadPacketTimestamp = Double(packet.pts) * stream.timeBase.ratio
+                        lastReadPacketTimestamp = Double(packet.pts) * stream.timeBaseRatio
                         packetsRead.append((packet, lastReadPacketTimestamp))
                     }
                 }
@@ -353,13 +351,11 @@ class FFmpegDecoder {
         
         if frames.isEmpty {return}
         
-        let sampleRate = Double(codec.sampleRate)
-        
         // The timestamp of the first frame will serve as a base timestamp
         let frame0 = frames[0]
-        let frame0PTS: Double = Double(frame0.pts) * stream.timeBase.ratio
+        let frame0PTS: Double = Double(frame0.pts) * stream.timeBaseRatio
         frame0.startTimestampSeconds = frame0PTS
-        frame0.endTimestampSeconds = frame0PTS + (Double(frame0.actualSampleCount) / sampleRate)
+        frame0.endTimestampSeconds = frame0PTS + (Double(frame0.actualSampleCount) / sampleRateDouble)
         
         // More than 1 frame in packet
         guard frames.count > 1 else {return}
@@ -371,7 +367,7 @@ class FFmpegDecoder {
             
             let frame = frames[index]
             frame.startTimestampSeconds = frames[index - 1].endTimestampSeconds
-            frame.endTimestampSeconds = frame.startTimestampSeconds + (Double(frame.actualSampleCount) / sampleRate)
+            frame.endTimestampSeconds = frame.startTimestampSeconds + (Double(frame.actualSampleCount) / sampleRateDouble)
         }
     }
     
