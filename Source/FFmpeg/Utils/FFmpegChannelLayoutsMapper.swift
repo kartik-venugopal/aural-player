@@ -154,10 +154,9 @@ struct FFmpegChannelLayoutsMapper {
     private static func readableFFmpegString(for channelLayout: Int64, channelCount: Int32) -> String {
         
         let layoutStringPointer = UnsafeMutablePointer<Int8>.allocate(capacity: 100)
-        av_get_channel_layout_string(layoutStringPointer, 100, channelCount, UInt64(channelLayout))
-        
         defer {layoutStringPointer.deallocate()}
         
+        av_get_channel_layout_string(layoutStringPointer, 100, channelCount, UInt64(channelLayout))
         return String(cString: layoutStringPointer).replacingOccurrences(of: "(", with: " (").capitalized
     }
 }

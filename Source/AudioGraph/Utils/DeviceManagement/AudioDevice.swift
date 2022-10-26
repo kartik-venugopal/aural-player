@@ -64,6 +64,8 @@ public class AudioDevice {
             if result != 0 {return 0}
             
             let bufferList = UnsafeMutablePointer<AudioBufferList>.allocate(capacity: Int(sizeOfCFStringOptional))
+            defer {bufferList.deallocate()}
+            
             result = AudioObjectGetPropertyData(deviceId, &Self.streamConfigPropertyAddress, 0, nil, &size, bufferList)
             if result != 0 {return 0}
             

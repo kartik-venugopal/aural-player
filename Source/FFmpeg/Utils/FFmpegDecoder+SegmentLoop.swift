@@ -41,13 +41,22 @@ extension FFmpegDecoder {
                     
                     // Have reached the end of the loop, need to truncate this frame so that
                     // no samples after loopEndTime are scheduled.
-                    let sampleRate = Double(codec.sampleRate)
-                    let truncatedSampleCount = Int32((loopEndTime - frame.startTimestampSeconds) * sampleRate)
+                    let truncatedSampleCount = Int32((loopEndTime - frame.startTimestampSeconds) * sampleRateDouble)
                     
                     // Truncate frame, append it to the frame buffer, and break from loop
                     frame.keepFirstNSamples(sampleCount: truncatedSampleCount)
                     buffer.appendTerminalFrames([frame])
                     
+                    // TODO: Do we need to dequeue the frame ?!!! Won't it be read twice ???
+                    
+                    // TODO: Can we cache all the loop frames ?!!! Just play the same frames again and again !!!
+                    // TODO: If not the samples (could be very large - many hours, potentially with high sample rate / channel count), at least
+                    // TODO: cache some metadata ?
+                    // TODO:
+                    // TODO: Conditionally cache all the samples ? Examine loop duration + sample rate + channel count
+                    // TODO: If less than some max threshold, cache all samples ?
+                    // TODO:
+                    // TODO:
                     self._endOfLoop.setValue(true)
                     
                     break

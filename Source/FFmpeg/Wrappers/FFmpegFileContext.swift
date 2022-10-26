@@ -213,11 +213,13 @@ class FFmpegFileContext {
         let streamIndex = av_find_best_stream(pointer, mediaType, -1, -1, nil, 0)
         guard streamIndex.isNonNegative, streamIndex < streamCount else {return nil}
         
+        let streamPointer = avStreamPointers[Int(streamIndex)]
+        
         switch mediaType {
         
-        case AVMEDIA_TYPE_AUDIO: return FFmpegAudioStream(encapsulating: avStreamPointers[Int(streamIndex)])
+        case AVMEDIA_TYPE_AUDIO: return FFmpegAudioStream(encapsulating: streamPointer)
         
-        case AVMEDIA_TYPE_VIDEO: return FFmpegImageStream(encapsulating: avStreamPointers[Int(streamIndex)])
+        case AVMEDIA_TYPE_VIDEO: return FFmpegImageStream(encapsulating: streamPointer)
         
         default: return nil
             
@@ -257,7 +259,7 @@ class FFmpegFileContext {
         
         // We need to determine a target frame, given the seek position in seconds,
         // duration, and frame count.
-        timestamp = Int64(time * Double(stream.timeBase.reciprocalRatio))
+        timestamp = Int64(time * stream.timeBaseReciprocalRatio)
         
         // Validate the target frame (cannot exceed the total frame count)
         if stream.timeBaseDuration > 0, timestamp >= stream.timeBaseDuration {throw SeekError(ERROR_EOF)}

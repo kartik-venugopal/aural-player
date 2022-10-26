@@ -230,6 +230,7 @@ public class System {
         
         var size     = HOST_CPU_LOAD_INFO_COUNT
         let hostInfo = host_cpu_load_info_t.allocate(capacity: 1)
+        defer {hostInfo.deallocate()}
 
         let result = hostInfo.withMemoryRebound(to: integer_t.self, capacity: Int(size)) {
             host_statistics(machHost, HOST_CPU_LOAD_INFO,
@@ -238,7 +239,6 @@ public class System {
         }
 
         let data = hostInfo.move()
-        hostInfo.deallocate()
 
         #if DEBUG
             if result != KERN_SUCCESS {
