@@ -89,6 +89,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     override func savePreset(named presetName: String) {
         
         let masterPreset = settingsAsPreset
+        masterPreset.nameOfCurrentMasterPreset = nil    // This field is only used with sound profiles
         
         masterPreset.name = presetName
         masterPreset.eq.name = "EQ settings for Master preset: '\(presetName)'"
@@ -114,7 +115,15 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         
         return MasterPreset(name: "masterSettings", eq: eqPreset, pitch: pitchPreset,
                             time: timePreset, reverb: reverbPreset, delay: delayPreset,
-                            filter: filterPreset, systemDefined: false)
+                            filter: filterPreset,
+                            nameOfCurrentMasterPreset: currentPreset?.name,
+                            nameOfCurrentEQPreset: eqUnit.currentPreset?.name,
+                            nameOfCurrentPitchShiftPreset: pitchShiftUnit.currentPreset?.name,
+                            nameOfCurrentTimeStretchPreset: timeStretchUnit.currentPreset?.name,
+                            nameOfCurrentReverbPreset: reverbUnit.currentPreset?.name,
+                            nameOfCurrentDelayPreset: delayUnit.currentPreset?.name,
+                            nameOfCurrentFilterPreset: filterUnit.currentPreset?.name,
+                            systemDefined: false)
     }
     
     override func applyPreset(named presetName: String) {
@@ -131,55 +140,59 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         eqUnit.applyPreset(preset.eq)
         eqUnit.state = preset.eq.state
         
+        if let nameOfCurrentEQPreset = preset.nameOfCurrentEQPreset {
+            eqUnit.setCurrentPreset(byName: nameOfCurrentEQPreset)
+        }
+        
         pitchShiftUnit.applyPreset(preset.pitch)
         pitchShiftUnit.state = preset.pitch.state
+        
+        if let nameOfCurrentPitchShiftPreset = preset.nameOfCurrentPitchShiftPreset {
+            pitchShiftUnit.setCurrentPreset(byName: nameOfCurrentPitchShiftPreset)
+        }
         
         timeStretchUnit.applyPreset(preset.time)
         timeStretchUnit.state = preset.time.state
         
+        if let nameOfCurrentTimeStretchPreset = preset.nameOfCurrentTimeStretchPreset {
+            timeStretchUnit.setCurrentPreset(byName: nameOfCurrentTimeStretchPreset)
+        }
+        
         reverbUnit.applyPreset(preset.reverb)
         reverbUnit.state = preset.reverb.state
+        
+        if let nameOfCurrentReverbPreset = preset.nameOfCurrentReverbPreset {
+            reverbUnit.setCurrentPreset(byName: nameOfCurrentReverbPreset)
+        }
         
         delayUnit.applyPreset(preset.delay)
         delayUnit.state = preset.delay.state
         
-        filterUnit.applyPreset(preset.filter)
-        filterUnit.state = preset.filter.state
-        
-        currentPreset = nil
-    }
-    
-    func applySoundProfile(_ profile: SoundProfile) {
-        
-        applyPreset(profile.effects)
-        
-        if let nameOfCurrentEQPreset = profile.nameOfCurrentEQPreset {
-            eqUnit.setCurrentPreset(byName: nameOfCurrentEQPreset)
-        }
-        
-        if let nameOfCurrentPitchShiftPreset = profile.nameOfCurrentPitchShiftPreset {
-            pitchShiftUnit.setCurrentPreset(byName: nameOfCurrentPitchShiftPreset)
-        }
-        
-        if let nameOfCurrentTimeStretchPreset = profile.nameOfCurrentTimeStretchPreset {
-            timeStretchUnit.setCurrentPreset(byName: nameOfCurrentTimeStretchPreset)
-        }
-        
-        if let nameOfCurrentReverbPreset = profile.nameOfCurrentReverbPreset {
-            reverbUnit.setCurrentPreset(byName: nameOfCurrentReverbPreset)
-        }
-     
-        if let nameOfCurrentDelayPreset = profile.nameOfCurrentDelayPreset {
+        if let nameOfCurrentDelayPreset = preset.nameOfCurrentDelayPreset {
             delayUnit.setCurrentPreset(byName: nameOfCurrentDelayPreset)
         }
         
-        if let nameOfCurrentFilterPreset = profile.nameOfCurrentFilterPreset {
+        filterUnit.applyPreset(preset.filter)
+        filterUnit.state = preset.filter.state
+        
+        if let nameOfCurrentFilterPreset = preset.nameOfCurrentFilterPreset {
             filterUnit.setCurrentPreset(byName: nameOfCurrentFilterPreset)
+        }
+        
+        if let nameOfCurrentMasterPreset = preset.nameOfCurrentMasterPreset {
+            self.setCurrentPreset(byName: nameOfCurrentMasterPreset)
+        } else {
+            currentPreset = nil
         }
     }
     
     func setCurrentPreset(byName presetName: String) {
         
+        // TODO: Implement this !!!
+        
+        if let matchingPreset = presets.object(named: presetName) {
+            self.currentPreset = matchingPreset
+        }
     }
     
     private func presetsDeleted(_ presetNames: [String]) {

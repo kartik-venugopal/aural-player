@@ -53,10 +53,3 @@ protocol EffectsUnitProtocol {
     
     func setCurrentPreset(byName presetName: String)
 }
-
-extension EffectsUnitProtocol {
-    
-    var masterUnit: MasterUnit {
-        objectGraph.audioGraph.masterUnit
-    }
-}

@@ -30,14 +30,7 @@ class SoundProfiles: TrackKeyedMap<SoundProfile> {
             
             let url = URL(fileURLWithPath: path)
             self[url] = SoundProfile(file: url, volume: volume,
-                                     pan: pan, effects: masterPreset,
-                                     nameOfCurrentMasterPreset: profile.nameOfCurrentMasterPreset,
-                                     nameOfCurrentEQPreset: profile.nameOfCurrentEQPreset,
-                                     nameOfCurrentPitchShiftPreset: profile.nameOfCurrentPitchShiftPreset,
-                                     nameOfCurrentTimeStretchPreset: profile.nameOfCurrentTimeStretchPreset,
-                                     nameOfCurrentReverbPreset: profile.nameOfCurrentReverbPreset,
-                                     nameOfCurrentDelayPreset: profile.nameOfCurrentDelayPreset,
-                                     nameOfCurrentFilterPreset: profile.nameOfCurrentFilterPreset)
+                                     pan: pan, effects: masterPreset)
         }
     }
     
@@ -62,12 +55,4 @@ struct SoundProfile {
     let pan: Float
     
     let effects: MasterPreset
-    
-    let nameOfCurrentMasterPreset: String?
-    let nameOfCurrentEQPreset: String?
-    let nameOfCurrentPitchShiftPreset: String?
-    let nameOfCurrentTimeStretchPreset: String?
-    let nameOfCurrentReverbPreset: String?
-    let nameOfCurrentDelayPreset: String?
-    let nameOfCurrentFilterPreset: String?
 }

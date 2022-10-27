@@ -22,27 +22,11 @@ struct SoundProfilePersistentState: Codable {
     let pan: Float?
     let effects: MasterPresetPersistentState?
     
-    let nameOfCurrentMasterPreset: String?
-    let nameOfCurrentEQPreset: String?
-    let nameOfCurrentPitchShiftPreset: String?
-    let nameOfCurrentTimeStretchPreset: String?
-    let nameOfCurrentReverbPreset: String?
-    let nameOfCurrentDelayPreset: String?
-    let nameOfCurrentFilterPreset: String?
-    
     init(profile: SoundProfile) {
         
         self.file = profile.file.path
         self.volume = profile.volume
         self.pan = profile.pan
         self.effects = MasterPresetPersistentState(preset: profile.effects)
-        
-        self.nameOfCurrentMasterPreset = profile.nameOfCurrentMasterPreset
-        self.nameOfCurrentEQPreset = profile.nameOfCurrentEQPreset
-        self.nameOfCurrentPitchShiftPreset = profile.nameOfCurrentPitchShiftPreset
-        self.nameOfCurrentTimeStretchPreset = profile.nameOfCurrentTimeStretchPreset
-        self.nameOfCurrentReverbPreset = profile.nameOfCurrentReverbPreset
-        self.nameOfCurrentDelayPreset = profile.nameOfCurrentDelayPreset
-        self.nameOfCurrentFilterPreset = profile.nameOfCurrentFilterPreset
     }
 }

@@ -20,6 +20,10 @@ class EffectsUnit {
     
     var unitType: EffectsUnitType
     
+    var masterUnit: MasterUnit {
+        objectGraph.audioGraph.masterUnit
+    }
+    
     var state: EffectsUnitState {
         didSet {stateChanged()}
     }
@@ -83,6 +87,7 @@ class EffectsUnit {
     func toggleState() -> EffectsUnitState {
         
         state = state == .active ? .bypassed : .active
+        masterUnit.currentPreset = nil
         return state
     }
     

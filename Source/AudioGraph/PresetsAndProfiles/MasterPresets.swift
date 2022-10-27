@@ -33,9 +33,17 @@ class MasterPreset: EffectsUnitPreset {
     let reverb: ReverbPreset
     let delay: DelayPreset
     let filter: FilterPreset
+
+    var nameOfCurrentMasterPreset: String?  // Used only within SoundProfile
+    let nameOfCurrentEQPreset: String?
+    let nameOfCurrentPitchShiftPreset: String?
+    let nameOfCurrentTimeStretchPreset: String?
+    let nameOfCurrentReverbPreset: String?
+    let nameOfCurrentDelayPreset: String?
+    let nameOfCurrentFilterPreset: String?
     
     init(name: String, eq: EQPreset, pitch: PitchShiftPreset, time: TimeStretchPreset,
-         reverb: ReverbPreset, delay: DelayPreset, filter: FilterPreset, systemDefined: Bool) {
+         reverb: ReverbPreset, delay: DelayPreset, filter: FilterPreset, nameOfCurrentMasterPreset: String?, nameOfCurrentEQPreset: String?, nameOfCurrentPitchShiftPreset: String?, nameOfCurrentTimeStretchPreset: String?, nameOfCurrentReverbPreset: String?, nameOfCurrentDelayPreset: String?, nameOfCurrentFilterPreset: String?, systemDefined: Bool) {
         
         self.eq = eq
         self.pitch = pitch
@@ -43,6 +51,14 @@ class MasterPreset: EffectsUnitPreset {
         self.reverb = reverb
         self.delay = delay
         self.filter = filter
+        
+        self.nameOfCurrentMasterPreset = nameOfCurrentMasterPreset
+        self.nameOfCurrentEQPreset = nameOfCurrentEQPreset
+        self.nameOfCurrentPitchShiftPreset = nameOfCurrentPitchShiftPreset
+        self.nameOfCurrentTimeStretchPreset = nameOfCurrentTimeStretchPreset
+        self.nameOfCurrentReverbPreset = nameOfCurrentReverbPreset
+        self.nameOfCurrentDelayPreset = nameOfCurrentDelayPreset
+        self.nameOfCurrentFilterPreset = nameOfCurrentFilterPreset
         
         super.init(name: name, state: .active, systemDefined: systemDefined)
     }
@@ -64,6 +80,14 @@ class MasterPreset: EffectsUnitPreset {
         self.reverb = reverbPreset
         self.delay = delayPreset
         self.filter = filterPreset
+        
+        self.nameOfCurrentMasterPreset = persistentState.nameOfCurrentMasterPreset
+        self.nameOfCurrentEQPreset = persistentState.nameOfCurrentEQPreset
+        self.nameOfCurrentPitchShiftPreset = persistentState.nameOfCurrentPitchShiftPreset
+        self.nameOfCurrentTimeStretchPreset = persistentState.nameOfCurrentTimeStretchPreset
+        self.nameOfCurrentReverbPreset = persistentState.nameOfCurrentReverbPreset
+        self.nameOfCurrentDelayPreset = persistentState.nameOfCurrentDelayPreset
+        self.nameOfCurrentFilterPreset = persistentState.nameOfCurrentFilterPreset
         
         super.init(name: name, state: unitState, systemDefined: false)
     }

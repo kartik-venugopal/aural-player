@@ -274,14 +274,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     private func doSaveProfile(forTrack track: Track) {
         
         soundProfiles[track] = SoundProfile(file: track.file, volume: graph.volume,
-                                               pan: graph.pan, effects: graph.settingsAsMasterPreset,
-                                               nameOfCurrentMasterPreset: masterUnit.nameOfCurrentPreset,
-                                               nameOfCurrentEQPreset: eqUnit.nameOfCurrentPreset,
-                                               nameOfCurrentPitchShiftPreset: pitchShiftUnit.nameOfCurrentPreset,
-                                               nameOfCurrentTimeStretchPreset: timeStretchUnit.nameOfCurrentPreset,
-                                               nameOfCurrentReverbPreset: reverbUnit.nameOfCurrentPreset,
-                                               nameOfCurrentDelayPreset: delayUnit.nameOfCurrentPreset,
-                                               nameOfCurrentFilterPreset: filterUnit.nameOfCurrentPreset)
+                                               pan: graph.pan, effects: graph.settingsAsMasterPreset)
     }
     
     // This function is invoked when the user attempts to exit the app.
@@ -297,10 +290,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
            needToRememberSettingsForAllTracks || soundProfiles.hasFor(plTrack) {
             
             doSaveProfile(forTrack: plTrack)
+            
+            // App exit implies the track has finished playing, restore system sound settings
+            // so that they will be used on the next app launch.
+            graph.restoreSystemSoundProfile()
         }
-        
-        // App exit implies the track has finished playing, restore system sound settings
-        // so that they will be used on the next app launch.
-        graph.restoreSystemSoundProfile()
     }
 }
