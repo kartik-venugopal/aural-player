@@ -22,11 +22,6 @@ class FFmpegPacket {
     var avPacket: AVPacket
     
     ///
-    /// A pointer to the encapsulated AVPacket object.
-    ///
-    var pointer: UnsafeMutablePointer<AVPacket>!
-    
-    ///
     /// Index of the stream from which this packet was read.
     ///
     var streamIndex: Int32 {avPacket.stream_index}
@@ -78,10 +73,9 @@ class FFmpegPacket {
     init(readingFromFormat formatCtx: UnsafeMutablePointer<AVFormatContext>?) throws {
         
         self.avPacket = AVPacket()
-        self.pointer = withUnsafeMutablePointer(to: &avPacket, {(ptr: UnsafeMutablePointer<AVPacket>) in ptr})
         
         // Try to read a packet.
-        let readResult: Int32 = av_read_frame(formatCtx, pointer)
+        let readResult: Int32 = av_read_frame(formatCtx, &avPacket)
         
         // If the read fails, log a message and throw an error.
         guard readResult >= 0 else {
@@ -102,7 +96,6 @@ class FFmpegPacket {
     ///
     init(encapsulating pointer: UnsafeMutablePointer<AVPacket>) {
         
-        self.pointer = pointer
         self.avPacket = pointer.pointee
         
         // Since this avPacket was not allocated by this object, we
@@ -111,6 +104,10 @@ class FFmpegPacket {
         //
         // So, set the destroyed flag, to prevent deallocation.
         destroyed = true
+    }
+    
+    func sendToCodec(withContext contextPointer: UnsafeMutablePointer<AVCodecContext>!) -> ResultCode {
+        avcodec_send_packet(contextPointer, &avPacket)
     }
 
     /// Indicates whether or not this object has already been destroyed.

@@ -29,6 +29,20 @@ class FileCoverArtReader: CoverArtReaderProtocol {
         
         if searchedTracks.contains(track) {return nil}
         
+        // For non-native tracks, check if we already have a file context
+        // to read cover art from.
+        
+        if let plbkContext = track.playbackContext as? FFmpegPlaybackContext,
+           let fileCtx = plbkContext.fileContext {
+           
+            if let imageData = fileCtx.bestImageStream?.attachedPic.data {
+                return CoverArt(imageData: imageData)
+            }
+            
+            searchedTracks.insert(track)
+            return nil
+        }
+        
         let art = fileReader.getArt(for: track.file)
         if art == nil {
             searchedTracks.insert(track)

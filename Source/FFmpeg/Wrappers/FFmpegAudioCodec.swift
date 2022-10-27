@@ -99,7 +99,7 @@ class FFmpegAudioCodec: FFmpegCodec {
     func decode(packet: FFmpegPacket) throws -> FFmpegPacketFrames {
         
         // Send the packet to the decoder for decoding.
-        let resultCode: ResultCode = avcodec_send_packet(contextPointer, packet.pointer)
+        let resultCode: ResultCode = packet.sendToCodec(withContext: contextPointer)
         
         // If the packet send failed, log a message and throw an error.
         if resultCode.isNegative {
@@ -132,7 +132,7 @@ class FFmpegAudioCodec: FFmpegCodec {
     func decodeAndDrop(packet: FFmpegPacket) {
         
         // Send the packet to the decoder for decoding.
-        var resultCode: ResultCode = avcodec_send_packet(contextPointer, packet.pointer)
+        var resultCode: ResultCode = packet.sendToCodec(withContext: contextPointer)
         if resultCode.isNegative {return}
         
         var avFrame: AVFrame = AVFrame()

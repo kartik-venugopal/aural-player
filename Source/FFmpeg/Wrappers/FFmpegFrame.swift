@@ -250,8 +250,7 @@ class FFmpegFrame {
         if destroyed {return}
         
         // Free up the space allocated to this frame.
-        av_frame_unref(pointer)
-        av_freep(pointer)
+        av_frame_free(&pointer)
         
         destroyed = true
     }
