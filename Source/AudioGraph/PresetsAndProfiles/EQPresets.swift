@@ -15,8 +15,8 @@ import Foundation
 class EQPresets: EffectsUnitPresets<EQPreset> {
     
     /// Default EQ preset.
-    fileprivate static let flatPreset: EQPreset = EQPreset(name: "Flat", state: .active, bands: [Float](repeating: 0, count: 15),
-                                                           globalGain: 0, systemDefined: true)
+    static let flatPreset: EQPreset = EQPreset(name: "Flat", state: .active, bands: [Float](repeating: 0, count: 15),
+                                               globalGain: 0, systemDefined: true)
     
     fileprivate static let systemDefinedPresets: [EQPreset] = [
 
@@ -108,7 +108,16 @@ class EQPreset: EffectsUnitPreset {
     }
     
     private static func map10BandsTo15Bands(_ srcBands: [Float]) -> [Float] {
-        [0, 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 8, 8, 9].map {srcBands[$0]}
+        
+        var bands = [0, 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 8, 8, 9].map {srcBands[$0]}
+        
+        bands[1] = (bands[0] + bands[2]) / 2
+        bands[4] = (bands[3] + bands[5]) / 2
+        bands[7] = (bands[6] + bands[8]) / 2
+        bands[10] = (bands[9] + bands[11]) / 2
+        bands[13] = (bands[12] + bands[14]) / 2
+        
+        return bands
     }
 }
 

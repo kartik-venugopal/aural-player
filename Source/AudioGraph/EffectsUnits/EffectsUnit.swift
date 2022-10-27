@@ -87,7 +87,12 @@ class EffectsUnit {
     func toggleState() -> EffectsUnitState {
         
         state = state == .active ? .bypassed : .active
-        masterUnit.currentPreset = nil
+        
+        // If this is the Master unit, toggling state does not invalidate its own current preset.
+        if self.unitType != .master {
+            masterUnit.currentPreset = nil
+        }
+        
         return state
     }
     

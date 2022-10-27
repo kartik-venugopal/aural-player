@@ -60,12 +60,32 @@ class ParametricEQNode: AVAudioUnitEQ {
         
         get {bands.map {$0.gain}}
         
-        set(newGains) {
+        set {
+            
+            var newGains = newValue
+            
+            if newGains.count == 10 {
+                newGains = Self.map10BandsTo15Bands(newGains)
+            }
             
             for index in 0..<newGains.count {
                 bands[index].gain = newGains[index].clamp(to: Self.validGainRange)
             }
         }
+    }
+    
+    @inline(__always)
+    private static func map10BandsTo15Bands(_ srcBands: [Float]) -> [Float] {
+        
+        var bands = [0, 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 8, 8, 9].map {srcBands[$0]}
+        
+        bands[1] = (bands[0] + bands[2]) / 2
+        bands[4] = (bands[3] + bands[5]) / 2
+        bands[7] = (bands[6] + bands[8]) / 2
+        bands[10] = (bands[9] + bands[11]) / 2
+        bands[13] = (bands[12] + bands[14]) / 2
+        
+        return bands
     }
     
     subscript(_ index: Int) -> Float {

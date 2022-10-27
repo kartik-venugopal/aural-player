@@ -26,7 +26,7 @@ struct AudioGraphDefaults {
     static let eqState: EffectsUnitState = .bypassed
     static let eqType: EQType = .tenBand
     static let eqGlobalGain: Float = 0
-    static let eqBands: [Float] = Array(repeating: Float(0), count: 10)
+    static let eqBands: [Float] = EQPresets.flatPreset.bands
     static let eqBandGain: Float = 0
     
     static let pitchShiftState: EffectsUnitState = .bypassed
