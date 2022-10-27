@@ -17,4 +17,4 @@ Also, when audio settings have been remembered and re-applied for a track (when 
 * Bug fix - The option to not remember audio settings for a track could not be disabled. 
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.12.0)
+Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.12.0)
