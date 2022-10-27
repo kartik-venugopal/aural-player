@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -4972,7 +4972,6 @@
 			buildConfigurationList = 3E6C0ECD25CEB3EE00BF0D07 /* Build configuration list for PBXNativeTarget "Aural" */;
 			buildPhases = (
 				3E6C0EBB25CEB3ED00BF0D07 /* Sources */,
-				3EFB9EBE26A6819900EA8440 /* Find unused code */,
 				3E6C0EBC25CEB3ED00BF0D07 /* Frameworks */,
 				3E6C0EBD25CEB3ED00BF0D07 /* Resources */,
 				3EDB340725E8AEB3004DF7DE /* Embed Libraries */,
@@ -5160,28 +5159,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3EFB9EBE26A6819900EA8440 /* Find unused code */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Find unused code";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$PROJECT_DIR/Resources/buildScripts/unused.rb xcode\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E6C0EBB25CEB3ED00BF0D07 /* Sources */ = {
