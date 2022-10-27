@@ -10,7 +10,7 @@ Also, when audio settings have been remembered and re-applied for a track (when 
 
 * Improvement - When a track that has remembered audio settings finishes playing, the previous audio settings will be restored.
 * Improvement - Smarter (faster) loading of cover art for non-native tracks decoded by FFmpeg.
-* Improvement - Some minor optimizations to FFmpeg decoding to prevent redundadnt computations.
+* Improvement - Some minor optimizations to FFmpeg decoding to prevent redundant computations.
 
 * Bug fix - The Master presets menu button didn't do anything.
 * Bug fix - Presets menu recreation failed in rare cases.
