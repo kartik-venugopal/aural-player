@@ -8,13 +8,15 @@ Also, when audio settings have been remembered and re-applied for a track (when 
 
 ### Other changes
 
+* Removed feature - The 10-band Equalizer has been removed, keeping only the 15-band Equalizer. This change is backwards-compatible, i.e. old 10-band EQ presets will be automatically and seamlessly mapped to 15-band EQ presets. 
+
 * Improvement - When a track that has remembered audio settings finishes playing, the previous audio settings will be restored.
 * Improvement - Smarter (faster) loading of cover art for non-native tracks decoded by FFmpeg.
 * Improvement - Some minor optimizations to FFmpeg decoding to prevent redundant computations.
 
 * Bug fix - The Master presets menu button didn't do anything.
 * Bug fix - Presets menu recreation failed in rare cases.
-* Bug fix - The option to not remember audio settings for a track could not be disabled. 
+* Bug fix - The option to not remember audio settings for a track could not be disabled.
 
 ### **For more info**
 Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.12.0)
