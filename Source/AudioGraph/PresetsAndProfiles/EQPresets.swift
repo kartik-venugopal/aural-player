@@ -121,7 +121,6 @@ class EQPreset: EffectsUnitPreset {
     }
 }
 
-
 extension EQPreset: Equatable {
     
     static func == (lhs: EQPreset, rhs: EQPreset) -> Bool {

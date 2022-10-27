@@ -11,6 +11,7 @@ Also, when audio settings have been remembered and re-applied for a track (when 
 * Improvement - When a track that has remembered audio settings finishes playing, the previous audio settings will be restored.
 * Bug fix - The Master presets menu button didn't do anything.
 * Bug fix - Presets menu recreation failed in rare cases.
+* Bug fix - The option to not remember audio settings for a track could not be disabled.
 
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.12.0)

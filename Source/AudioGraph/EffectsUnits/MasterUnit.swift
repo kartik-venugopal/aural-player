@@ -190,9 +190,44 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         
         // TODO: Implement this !!!
         
-        if let matchingPreset = presets.object(named: presetName) {
-            self.currentPreset = matchingPreset
+        guard let matchingPreset = presets.object(named: presetName) else {return}
+        
+        if (matchingPreset.eq.state != eqUnit.state) ||
+            (matchingPreset.pitch.state != pitchShiftUnit.state) ||
+            (matchingPreset.time.state != timeStretchUnit.state) ||
+            (matchingPreset.reverb.state != reverbUnit.state) ||
+            (matchingPreset.delay.state != delayUnit.state) ||
+            (matchingPreset.filter.state != filterUnit.state) {
+            
+            return
         }
+        
+        if !matchingPreset.eq.equalToOtherPreset(globalGain: eqUnit.globalGain, bands: eqUnit.bands) {
+            return
+        }
+        
+        if !matchingPreset.pitch.equalToOtherPreset(pitch: pitchShiftUnit.pitch) {
+            return
+        }
+        
+        if !matchingPreset.time.equalToOtherPreset(rate: timeStretchUnit.rate, shiftPitch: timeStretchUnit.shiftPitch) {
+            return
+        }
+        
+        if !matchingPreset.reverb.equalToOtherPreset(space: reverbUnit.space, amount: reverbUnit.amount) {
+            return
+        }
+        
+        if !matchingPreset.delay.equalToOtherPreset(amount: delayUnit.amount, time: delayUnit.time,
+                                                    feedback: delayUnit.feedback, lowPassCutoff: delayUnit.lowPassCutoff) {
+            return
+        }
+        
+        if !matchingPreset.filter.equalToOtherPreset(bands: filterUnit.bands) {
+            return
+        }
+        
+        self.currentPreset = matchingPreset
     }
     
     private func presetsDeleted(_ presetNames: [String]) {

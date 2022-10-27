@@ -103,11 +103,11 @@ extension NSMenuItem {
     }
     
     @objc var isOn: Bool {
-        return self.state == .on
+        state == .on
     }
     
     @objc var isOff: Bool {
-        return self.state == .off
+        state == .off
     }
     
     @objc func toggle() {
