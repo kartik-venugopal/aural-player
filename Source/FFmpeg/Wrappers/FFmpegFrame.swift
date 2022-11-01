@@ -25,7 +25,7 @@ class FFmpegFrame {
     ///
     /// A pointer to the encapsulated AVFrame object.
     ///
-    var pointer: UnsafeMutablePointer<AVFrame>!
+    private var pointer: UnsafeMutablePointer<AVFrame>!
     
     ///
     /// Describes the number and physical / spatial arrangement of the channels. (e.g. "5.1 surround" or "stereo")
