@@ -2,8 +2,6 @@
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
-**Watch out for v4.0 - an improved app version, expected to come out later this year ! Read about it [here](https://github.com/kartik-venugopal/aural-player/tree/v4.0).**
-
 ## Table of Contents
   * [Overview](#overview)
     + [How it works (under the hood)](#how-it-works-under-the-hood)
