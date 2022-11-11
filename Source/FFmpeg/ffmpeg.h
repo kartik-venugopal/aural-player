@@ -2,7 +2,7 @@
 //  ffmpeg.h
 //  Aural
 //
-//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//  Copyright © 2022 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
@@ -10,7 +10,6 @@
 #import <libavcodec/avcodec.h>
 #import <libavformat/avformat.h>
 #import <libavutil/avutil.h>
-#import <libavutil/dict.h>
 #import <libavutil/error.h>
 #import <libavutil/channel_layout.h>
 #import <libavutil/opt.h>
@@ -27,6 +26,7 @@ int ERROR_EOF;
 
 long CH_LAYOUT_MONO;
 long CH_LAYOUT_STEREO;
+long CH_LAYOUT_STEREO_DOWNMIX;
 long CH_LAYOUT_2POINT1;
 long CH_LAYOUT_2_1;
 long CH_LAYOUT_SURROUND;
@@ -52,4 +52,3 @@ long CH_LAYOUT_7POINT1_WIDE;
 long CH_LAYOUT_7POINT1_WIDE_BACK;
 long CH_LAYOUT_OCTAGONAL;
 long CH_LAYOUT_HEXADECAGONAL;
-long CH_LAYOUT_STEREO_DOWNMIX;

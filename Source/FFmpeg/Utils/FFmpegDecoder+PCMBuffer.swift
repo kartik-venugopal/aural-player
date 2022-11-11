@@ -2,7 +2,7 @@
 //  FFmpegSampleConverter.swift
 //  Aural
 //
-//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//  Copyright © 2022 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
@@ -28,6 +28,8 @@ extension FFmpegDecoder {
         // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
         guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat,
                                                     frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return nil}
+        
+        print("OFormat: \(outputFormat)")
         
         // The audio buffer will always be filled to capacity.
         playbackBuffer.frameLength = playbackBuffer.frameCapacity
