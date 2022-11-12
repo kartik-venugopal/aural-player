@@ -23,7 +23,7 @@ struct FFmpegAudioFormat {
     let channelCount: Int32
     
     /// An ffmpeg identifier for the physical / spatial layout of channels. eg. "5.1 surround" or "stereo".
-    let channelLayout: Int64
+    let channelLayout: FFmpegChannelLayout
     
     /// PCM sample format
     let sampleFormat: FFmpegSampleFormat

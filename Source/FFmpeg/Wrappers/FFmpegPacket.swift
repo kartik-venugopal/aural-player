@@ -49,7 +49,7 @@ class FFmpegPacket {
     ///
     /// Pointer to the raw data (unsigned bytes) contained in this packet.
     ///
-    var rawDataPointer: UnsafeMutablePointer<UInt8>! {avPacket.data}
+    var rawDataPointer: BytePointer! {avPacket.data}
     
     ///
     /// The raw data encapsulated in a byte buffer, if there is any raw data. Nil if there is no raw data.
@@ -73,6 +73,7 @@ class FFmpegPacket {
     init(readingFromFormat formatCtx: UnsafeMutablePointer<AVFormatContext>?) throws {
         
         self.avPacket = AVPacket()
+        self.needToDealloc = true
         
         // Try to read a packet.
         let readResult: Int32 = av_read_frame(formatCtx, &avPacket)
@@ -102,36 +103,24 @@ class FFmpegPacket {
         // cannot deallocate it here. It is the caller's responsibility
         // to ensure that avPacket is destroyed.
         //
-        // So, set the destroyed flag, to prevent deallocation.
-        destroyed = true
+        // So, set the needToDealloc flag, to prevent deallocation.
+        needToDealloc = false
     }
     
     func sendToCodec(withContext contextPointer: UnsafeMutablePointer<AVCodecContext>!) -> ResultCode {
         avcodec_send_packet(contextPointer, &avPacket)
     }
 
-    /// Indicates whether or not this object has already been destroyed.
-    private var destroyed: Bool = false
-    
-    ///
-    /// Performs cleanup (deallocation of allocated memory space) when
-    /// this object is about to be deinitialized or is no longer needed.
-    ///
-    func destroy() {
-
-        // This check ensures that the deallocation happens
-        // only once. Otherwise, a fatal error will be
-        // thrown.
-        if destroyed {return}
-        
-        av_packet_unref(&avPacket)
-        av_freep(&avPacket)
-        
-        destroyed = true
-    }
+    /// Indicates whether or not this object needs to free up used memory space.
+    private let needToDealloc: Bool
     
     /// When this object is deinitialized, make sure that its allocated memory space is deallocated.
     deinit {
-        destroy()
+        
+        if needToDealloc {
+            
+            av_packet_unref(&avPacket)
+            av_freep(&avPacket)
+        }
     }
 }

@@ -84,7 +84,7 @@ class FFmpegAudioStream: FFmpegStreamProtocol {
     
     var channelCount: Int32 {codecParams.channels}
     
-    var channelLayout: UInt64 {codecParams.channel_layout}
+    lazy var channelLayout: FFmpegChannelLayout = FFmpegChannelLayout(id: codecParams.channel_layout, channelCount: channelCount)
     
     ///
     /// All metadata key / value pairs available for this stream.

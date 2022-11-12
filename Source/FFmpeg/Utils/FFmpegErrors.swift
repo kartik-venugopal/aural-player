@@ -10,6 +10,7 @@
 import Foundation
 
 typealias ResultCode = Int32
+typealias BytePointer = UnsafeMutablePointer<UInt8>
 
 ///
 /// Helper functions and properties for convenience in error handling and logging.
@@ -23,10 +24,8 @@ extension ResultCode {
             
         } else {
             
-            let errorStringPointer = UnsafeMutablePointer<Int8>.allocate(capacity: 100)
-            defer {errorStringPointer.deallocate()}
-            
-            return av_strerror(self, errorStringPointer, 100).isZero ? String(cString: errorStringPointer) : "Unknown error"
+            let errorString = FFmpegString(size: 100)
+            return av_strerror(self, errorString.pointer, errorString.size).isZero ? errorString.string : "Unknown error"
         }
     }
     

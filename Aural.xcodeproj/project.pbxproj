@@ -1042,6 +1042,10 @@
 		3EABDE152694CA64008066E8 /* EffectsColorSchemePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0AB26805C18008ECB8C /* EffectsColorSchemePersistentState.swift */; };
 		3EABDE1A2694CFD4008066E8 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDE192694CFD4008066E8 /* ColorConstants.swift */; };
 		3EABDE1C2694D002008066E8 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDE192694CFD4008066E8 /* ColorConstants.swift */; };
+		3EAD7CE5291FBB5F004CDFA4 /* FFmpegString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD7CE4291FBB5F004CDFA4 /* FFmpegString.swift */; };
+		3EAD7CE6291FBB5F004CDFA4 /* FFmpegString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD7CE4291FBB5F004CDFA4 /* FFmpegString.swift */; };
+		3EAD7CE8291FC00B004CDFA4 /* FFmpegChannelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD7CE7291FC00B004CDFA4 /* FFmpegChannelLayout.swift */; };
+		3EAD7CE9291FC00B004CDFA4 /* FFmpegChannelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD7CE7291FC00B004CDFA4 /* FFmpegChannelLayout.swift */; };
 		3EAF886F26B706530051871E /* GroupingPlaylistTests+SortGenresPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAF886E26B706530051871E /* GroupingPlaylistTests+SortGenresPlaylist.swift */; };
 		3EAFB5D3267FE79200F0DC96 /* CoverArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5D2267FE79200F0DC96 /* CoverArt.swift */; };
 		3EAFB5D5267FE7CC00F0DC96 /* FileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5D4267FE7CC00F0DC96 /* FileMetadata.swift */; };
@@ -2164,6 +2168,8 @@
 		3EABDDFC2694C57B008066E8 /* ControlBarPlayerUIPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarPlayerUIPersistenceTests.swift; sourceTree = "<group>"; };
 		3EABDE002694C98B008066E8 /* ColorSchemesPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesPersistenceTests.swift; sourceTree = "<group>"; };
 		3EABDE192694CFD4008066E8 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
+		3EAD7CE4291FBB5F004CDFA4 /* FFmpegString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegString.swift; sourceTree = "<group>"; };
+		3EAD7CE7291FC00B004CDFA4 /* FFmpegChannelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegChannelLayout.swift; sourceTree = "<group>"; };
 		3EAF886E26B706530051871E /* GroupingPlaylistTests+SortGenresPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupingPlaylistTests+SortGenresPlaylist.swift"; sourceTree = "<group>"; };
 		3EAFB5D2267FE79200F0DC96 /* CoverArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArt.swift; sourceTree = "<group>"; };
 		3EAFB5D4267FE7CC00F0DC96 /* FileMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetadata.swift; sourceTree = "<group>"; };
@@ -4701,6 +4707,7 @@
 				3EDB335F25E8AE08004DF7DE /* FFmpegSampleFormat.swift */,
 				3EDB335A25E8AE08004DF7DE /* FFmpegAudioFormat.swift */,
 				3EDB335E25E8AE08004DF7DE /* FFmpegResamplingContext.swift */,
+				3EAD7CE7291FC00B004CDFA4 /* FFmpegChannelLayout.swift */,
 			);
 			path = Wrappers;
 			sourceTree = "<group>";
@@ -4718,6 +4725,7 @@
 				3EDB336525E8AE08004DF7DE /* FFmpegPacketFrames.swift */,
 				3EDB33C725E8AE08004DF7DE /* FFmpegFrameBuffer.swift */,
 				3EDB33CB25E8AE08004DF7DE /* FFmpegChannelLayoutsMapper.swift */,
+				3EAD7CE4291FBB5F004CDFA4 /* FFmpegString.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -5530,6 +5538,7 @@
 				3E6C119925CEBD6D00BF0D07 /* MasterUnitDelegate.swift in Sources */,
 				3E3633F2268628B1006A88ED /* MasterUnitDelegateProtocol.swift in Sources */,
 				3E09D0DC26805C19008ECB8C /* MasterUnitPersistentState.swift in Sources */,
+				3EAD7CE8291FC00B004CDFA4 /* FFmpegChannelLayout.swift in Sources */,
 				3E6C12BE25CEBE6700BF0D07 /* MasterUnitView.swift in Sources */,
 				3E6C12D425CEBE6700BF0D07 /* MasterUnitViewController.swift in Sources */,
 				3E6C11B725CEBDA900BF0D07 /* MediaApplicationWatcher.swift in Sources */,
@@ -5626,6 +5635,7 @@
 				3E6C11E925CEBDC400BF0D07 /* PlaybackLoop.swift in Sources */,
 				3E6C12B425CEBE5800BF0D07 /* PlaybackMenuController.swift in Sources */,
 				3E6C11CB25CEBDBE00BF0D07 /* PlaybackParams.swift in Sources */,
+				3EAD7CE5291FBB5F004CDFA4 /* FFmpegString.swift in Sources */,
 				3E6C120E25CEBDD100BF0D07 /* PlaybackPreferences.swift in Sources */,
 				3E6C122525CEBDE600BF0D07 /* PlaybackPreferencesViewController.swift in Sources */,
 				3E09D0C726805C19008ECB8C /* PlaybackProfilePersistentState.swift in Sources */,
@@ -6057,6 +6067,7 @@
 				3E21ECB4268F498A00731E4C /* GroupType.swift in Sources */,
 				3ECE4BEE26960A140017DD25 /* ViewPreferencesTests.swift in Sources */,
 				3E82A27826ACB0D90013AB8E /* GroupedItemRemovalResult.swift in Sources */,
+				3EAD7CE9291FC00B004CDFA4 /* FFmpegChannelLayout.swift in Sources */,
 				3EA62F602693E1D3004A780A /* FavoritePersistentState.swift in Sources */,
 				3E60C9E326B0817600D9404C /* FFmpegChapter.swift in Sources */,
 				3EA62F5B2693DDE6004A780A /* HistoryItem.swift in Sources */,
@@ -6170,6 +6181,7 @@
 				3E5ECA43268F4C46000AE8B7 /* DateExtensions.swift in Sources */,
 				3E60C9B126B07B1700D9404C /* CoverArtCache.swift in Sources */,
 				3E2EADDA26B17B9100A95119 /* StopPlaybackChainTests.swift in Sources */,
+				3EAD7CE6291FBB5F004CDFA4 /* FFmpegString.swift in Sources */,
 				3EA3ADB8269223DE0066A918 /* MasterPresets.swift in Sources */,
 				3E2EADDE26B1810900A95119 /* StartPlaybackChainTests.swift in Sources */,
 				3EABDE012694C98B008066E8 /* ColorSchemesPersistenceTests.swift in Sources */,

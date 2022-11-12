@@ -26,10 +26,22 @@ class FFmpegMetadataReader {
         
         while let tag = av_dict_get(pointer, "", tagPtr, AV_DICT_IGNORE_SUFFIX) {
             
-            metadata[String(cString: tag.pointee.key)] = String(cString: tag.pointee.value)
+            let entry = tag.pointee
+            metadata[entry.keyString] = entry.valueString
             tagPtr = tag
         }
         
         return metadata
+    }
+}
+
+extension AVDictionaryEntry {
+    
+    var keyString: String {
+        String(cString: key)
+    }
+    
+    var valueString: String {
+        String(cString: value)
     }
 }

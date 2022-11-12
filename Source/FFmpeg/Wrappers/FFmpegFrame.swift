@@ -28,11 +28,6 @@ class FFmpegFrame {
     private var pointer: UnsafeMutablePointer<AVFrame>!
     
     ///
-    /// Describes the number and physical / spatial arrangement of the channels. (e.g. "5.1 surround" or "stereo")
-    ///
-    var channelLayout: UInt64 {avFrame.channel_layout}
-    
-    ///
     /// Number of channels of audio data.
     ///
     var channelCount: Int32 {avFrame.channels}
@@ -167,7 +162,7 @@ class FFmpegFrame {
     ///
     /// Pointers to the raw data (unsigned bytes) constituting this frame's samples.
     ///
-    var dataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! {avFrame.extended_data}
+    var dataPointers: UnsafeMutablePointer<BytePointer?>! {avFrame.extended_data}
     
     ///
     /// Instantiates a Frame, reading an AVFrame from the given codec context, and sets its sample format.
@@ -235,28 +230,8 @@ class FFmpegFrame {
         }
     }
     
-    /// Indicates whether or not this object has already been destroyed.
-    private var destroyed: Bool = false
-    
-    ///
-    /// Performs cleanup (deallocation of allocated memory space) when
-    /// this object is about to be deinitialized or is no longer needed.
-    ///
-    func destroy() {
-
-        // This check ensures that the deallocation happens
-        // only once. Otherwise, a fatal error will be
-        // thrown.
-        if destroyed {return}
-        
-        // Free up the space allocated to this frame.
-        av_frame_free(&pointer)
-        
-        destroyed = true
-    }
-    
     /// When this object is deinitialized, make sure that its allocated memory space is deallocated.
     deinit {
-        destroy()
+        av_frame_free(&pointer)
     }
 }

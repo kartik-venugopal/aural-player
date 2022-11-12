@@ -72,7 +72,7 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
         self.sampleRate = sampleRateDouble
         self.frameCount = Int64(sampleRateDouble * fileContext!.duration)
         
-        let channelLayout: AVAudioChannelLayout = FFmpegChannelLayoutsMapper.mapLayout(ffmpegLayout: Int(codec.channelLayout)) ?? .stereo
+        let channelLayout: AVAudioChannelLayout = codec.channelLayout.avfLayout
         
         self.audioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRateDouble, channelLayout: channelLayout)
 

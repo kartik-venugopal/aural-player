@@ -29,8 +29,6 @@ extension FFmpegDecoder {
         guard let playbackBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat,
                                                     frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) else {return nil}
         
-        print("OFormat: \(outputFormat)")
-        
         // The audio buffer will always be filled to capacity.
         playbackBuffer.frameLength = playbackBuffer.frameCapacity
         
@@ -81,10 +79,10 @@ extension FFmpegDecoder {
         guard let resampleCtx = self.resampleCtx, let destPointers = audioBuffer.floatChannelData else {return}
         
         var sampleCountSoFar: Int = 0
-        let outputData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = .allocate(capacity: channelCount)
+        let outputData: UnsafeMutablePointer<BytePointer?>! = .allocate(capacity: channelCount)
         defer {outputData.deallocate()}
         
-        destPointers.withMemoryRebound(to: UnsafeMutablePointer<UInt8>.self, capacity: channelCount) {outChannelPointers in
+        destPointers.withMemoryRebound(to: BytePointer.self, capacity: channelCount) {outChannelPointers in
             
             // Convert one frame at a time.
             for frame in frameBuffer.frames {

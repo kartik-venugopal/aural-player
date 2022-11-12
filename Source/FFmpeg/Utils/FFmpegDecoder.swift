@@ -104,7 +104,7 @@ class FFmpegDecoder {
         
         if codec.sampleFormat.needsFormatConversion {
             
-            guard let resampleCtx = FFmpegAVAEResamplingContext(channelLayout: codec.channelLayout,
+            guard let resampleCtx = FFmpegAVAEResamplingContext(channelLayout: codec.channelLayout.id,
                                                                 sampleRate: Int64(codec.sampleRate),
                                                                 inputSampleFormat: codec.sampleFormat.avFormat) else {
                 
@@ -376,30 +376,5 @@ class FFmpegDecoder {
     ///
     func stop() {
         frameQueue.clear()
-    }
-    
-    /// Indicates whether or not this object has already been destroyed.
-    private var destroyed: Bool = false
-    
-    ///
-    /// Performs cleanup (deallocation of allocated memory space) when
-    /// this object is about to be deinitialized or is no longer needed.
-    ///
-    func destroy() {
-
-        // This check ensures that the deallocation happens
-        // only once. Otherwise, a fatal error will be
-        // thrown.
-        if destroyed {return}
-
-        codec.destroy()
-        fileCtx.destroy()
-        
-        destroyed = true
-    }
-
-    /// When this object is deinitialized, make sure that its allocated memory space is deallocated.
-    deinit {
-        destroy()
     }
 }

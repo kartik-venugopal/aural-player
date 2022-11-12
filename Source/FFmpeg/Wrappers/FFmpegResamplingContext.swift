@@ -51,12 +51,12 @@ class FFmpegResamplingContext {
     ///
     /// The channel layout of the input samples.
     ///
-    var inputChannelLayout: Int64? {
+    var inputChannelLayout: UInt64? {
         
         didSet {
             
             if let channelLayout = inputChannelLayout {
-                av_opt_set_channel_layout(rawPointer, "in_channel_layout", channelLayout, 0)
+                av_opt_set_channel_layout(rawPointer, "in_channel_layout", Int64(channelLayout), 0)
             }
         }
     }
@@ -64,12 +64,12 @@ class FFmpegResamplingContext {
     ///
     /// The (desired) channel layout of the output samples.
     ///
-    var outputChannelLayout: Int64? {
+    var outputChannelLayout: UInt64? {
         
         didSet {
             
             if let channelLayout = outputChannelLayout {
-                av_opt_set_channel_layout(rawPointer, "out_channel_layout", channelLayout, 0)
+                av_opt_set_channel_layout(rawPointer, "out_channel_layout", Int64(channelLayout), 0)
             }
         }
     }
@@ -158,7 +158,7 @@ class FFmpegResamplingContext {
     @inline(__always)
     func convert(inputDataPointer: UnsafeMutablePointer<UnsafePointer<UInt8>?>?,
                  inputSampleCount: Int32,
-                 outputDataPointer: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>,
+                 outputDataPointer: UnsafeMutablePointer<BytePointer?>,
                  outputSampleCount: Int32) {
 
         swr_convert(resampleCtx, outputDataPointer, outputSampleCount, inputDataPointer, inputSampleCount)
@@ -183,7 +183,7 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
     ///
     private static let standardSampleFormat: AVSampleFormat = AV_SAMPLE_FMT_FLTP
     
-    init?(channelLayout: Int64, sampleRate: Int64, inputSampleFormat: AVSampleFormat) {
+    init?(channelLayout: UInt64, sampleRate: Int64, inputSampleFormat: AVSampleFormat) {
         
         super.init()
         
@@ -213,7 +213,7 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
     
     @inline(__always)
     func convertFrame(_ frame: FFmpegFrame,
-                      andStoreIn outputDataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>) {
+                      andStoreIn outputDataPointers: UnsafeMutablePointer<BytePointer?>) {
         
         let sampleCount = frame.sampleCount
         
