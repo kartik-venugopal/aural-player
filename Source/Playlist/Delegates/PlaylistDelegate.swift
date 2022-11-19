@@ -233,11 +233,13 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
                     if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
                     expandPlaylist(resolvedFile)
                     
-                } else if SupportedTypes.allAudioExtensions.contains(fileExtension),
-                    !playlist.hasTrackForFile(resolvedFile) {
+                } else if SupportedTypes.allAudioExtensions.contains(fileExtension) {
                     
                     // Track
-                    if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
+                    if !isRecursiveCall, !playlist.hasTrackForFile(resolvedFile) {
+                        addSession.addHistoryItem(resolvedFile)
+                    }
+                    
                     addSession.tracks.append(Track(resolvedFile))
                 }
             }
@@ -299,10 +301,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
                 let progress = TrackAddOperationProgress(tracksAdded: addSession.tracksAdded, totalTracks: addSession.totalTracks)
                 messenger.publish(TrackAddedNotification(trackIndex: result.flatPlaylistResult,
                                                          groupingInfo: result.groupingPlaylistResults, addOperationProgress: progress))
-                
-                if batchIndex == 0 && addSession.autoplayOptions.autoplay {
-                    autoplay(addSession.autoplayOptions.autoplayType, track, addSession.autoplayOptions.interruptPlayback)
-                }
+            }
+            
+            if batchIndex == 0 && addSession.autoplayOptions.autoplay {
+                autoplay(addSession.autoplayOptions.autoplayType, track, addSession.autoplayOptions.interruptPlayback)
             }
         }
     }
