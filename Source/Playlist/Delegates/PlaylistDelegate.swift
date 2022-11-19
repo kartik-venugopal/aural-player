@@ -144,7 +144,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         let autoplayEnabled: Bool = beginPlayback ?? playbackPreferences.autoplayAfterAddingTracks
         let interruptPlayback: Bool = beginPlayback ?? (playbackPreferences.autoplayAfterAddingOption == .always)
         
-        addFiles_async(files, AutoplayOptions(autoplayEnabled, .playSpecificTrack, interruptPlayback))
+        addFiles_async(files, AutoplayOptions(autoplay: autoplayEnabled, autoplayType: .playSpecificTrack, interruptPlayback: interruptPlayback))
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
@@ -433,39 +433,30 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         if filesToOpen.isNonEmpty {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-            addFiles_async(filesToOpen, AutoplayOptions(true), userAction: false)
+            addFiles_async(filesToOpen, AutoplayOptions(autoplay: true), userAction: false)
 
         } else if playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch,
                   let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) {
 
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-            addFiles_async(tracks, AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
+            addFiles_async(tracks, AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
             
         } else if playlistPreferences.playlistOnStartup == .loadFile,
                   let playlistFile: URL = playlistPreferences.playlistFile {
             
-            addFiles_async([playlistFile], AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false)
+            addFiles_async([playlistFile], AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup), userAction: false)
             
         } else if playlistPreferences.playlistOnStartup == .loadFolder,
                   let folder: URL = playlistPreferences.tracksFolder {
             
-            addFiles_async([folder], AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false)
+            addFiles_async([folder], AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup), userAction: false)
         }
     }
-    
-//    private func currentPlaylistChanged() {
-//        
-//        guard playlist.needsLoadingFromPersistentState,
-//              let persistentStateForPlaylist = persistentState?.userPlaylistByName(playlist.name),
-//              let tracks = persistentStateForPlaylist.tracks?.map({URL(fileURLWithPath: $0)}) else {return}
-//
-//        addFiles_async(tracks, AutoplayOptions(false), userAction: false, reorderGroupingPlaylists: true)
-//    }
     
     func appReopened(_ notification: AppReopenedNotification) {
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-        addFiles_async(notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification))
+        addFiles_async(notification.filesToOpen, AutoplayOptions(autoplay: !notification.isDuplicateNotification, autoplayType: .playSpecificTrack))
     }
 }
 
@@ -484,9 +475,9 @@ fileprivate class AutoplayOptions {
     // If false, the first track in the playlist will play.
     var autoplayType: AutoplayCommandType
     
-    init(_ autoplay: Bool,
-         _ autoplayType: AutoplayCommandType = .beginPlayback,
-         _ interruptPlayback: Bool = true) {
+    init(autoplay: Bool,
+         autoplayType: AutoplayCommandType = .beginPlayback,
+         interruptPlayback: Bool = true) {
         
         self.autoplay = autoplay
         self.autoplayType = autoplayType
