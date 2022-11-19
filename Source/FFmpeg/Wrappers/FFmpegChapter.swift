@@ -29,7 +29,7 @@ struct FFmpegChapter {
     init(encapsulating chapter: AVChapter, atIndex index: Int) {
         
         // Ratio used to convert from the chapter's time base units to seconds.
-        let conversionFactor: Double = Double(chapter.time_base.num) / Double(chapter.time_base.den)
+        let conversionFactor: Double = chapter.time_base.ratio
         
         self.startTime = Double(chapter.start) * conversionFactor
         self.endTime = Double(chapter.end) * conversionFactor

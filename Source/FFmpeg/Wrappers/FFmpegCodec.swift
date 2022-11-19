@@ -73,25 +73,26 @@ class FFmpegCodec {
         
         // Find the codec by ID.
         let codecID = paramsPointer.pointee.codec_id
+        lazy var codecName = String(cString: avcodec_get_name(codecID))
         
         self.pointer = avcodec_find_decoder(codecID)
         
         guard self.pointer != nil else {
-            throw CodecInitializationError(description: "Unable to find required codec '\(String(cString: avcodec_get_name(codecID)))'")
+            throw CodecInitializationError(description: "Unable to find required codec '\(codecName)'")
         }
         
         // Allocate a context for the codec.
         self.contextPointer = avcodec_alloc_context3(pointer)
         
         guard self.contextPointer != nil else {
-            throw CodecInitializationError(description: "Unable to allocate context for codec '\(String(cString: avcodec_get_name(codecID)))'")
+            throw CodecInitializationError(description: "Unable to allocate context for codec '\(codecName)'")
         }
         
         // Copy the codec's parameters to the codec context.
         let codecCopyResult: ResultCode = avcodec_parameters_to_context(contextPointer, paramsPointer)
         
         guard codecCopyResult.isNonNegative else {
-            throw CodecInitializationError(description: "Unable to copy codec parameters to codec context, for codec '\(String(cString: avcodec_get_name(codecID)))'. Error: \(codecCopyResult) (\(codecCopyResult.errorDescription)")
+            throw CodecInitializationError(description: "Unable to copy codec parameters to codec context, for codec '\(codecName)'. Error: \(codecCopyResult) (\(codecCopyResult.errorDescription)")
         }
     }
     

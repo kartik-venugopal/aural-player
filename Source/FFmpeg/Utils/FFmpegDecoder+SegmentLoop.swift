@@ -47,8 +47,6 @@ extension FFmpegDecoder {
                     frame.keepFirstNSamples(sampleCount: truncatedSampleCount)
                     buffer.appendTerminalFrames([frame])
                     
-                    // TODO: Do we need to dequeue the frame ?!!! Won't it be read twice ???
-                    
                     // TODO: Can we cache all the loop frames ?!!! Just play the same frames again and again !!!
                     // TODO: If not the samples (could be very large - many hours, potentially with high sample rate / channel count), at least
                     // TODO: cache some metadata ?
