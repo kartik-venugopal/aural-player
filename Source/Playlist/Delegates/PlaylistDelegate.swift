@@ -434,6 +434,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         // Check if any launch parameters were specified
         if filesToOpen.isNonEmpty {
             
+            if playlistPreferences.openWithAddMode == .replace {
+                clear()
+            }
+            
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
             addFiles_async(filesToOpen, AutoplayOptions(autoplay: true), userAction: false)
 
@@ -456,6 +460,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     }
     
     func appReopened(_ notification: AppReopenedNotification) {
+        
+        if !notification.isDuplicateNotification, playlistPreferences.openWithAddMode == .replace {
+            clear()
+        }
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
         addFiles_async(notification.filesToOpen, AutoplayOptions(autoplay: !notification.isDuplicateNotification, autoplayType: .playSpecificTrack))

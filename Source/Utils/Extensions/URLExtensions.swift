@@ -35,6 +35,18 @@ extension URL {
         SupportedTypes.nonNativeAudioExtensions.contains(lowerCasedExtension)
     }
     
+    static func atLeastOneSupportedURL(_ urls: [URL]) -> Bool {
+        
+        for url in urls {
+            
+            if url.isDirectory || url.isAliasOrSymLink || url.isSupported {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     // Checks if a file exists
     var exists: Bool {
         fileManager.fileExists(atPath: self.path)

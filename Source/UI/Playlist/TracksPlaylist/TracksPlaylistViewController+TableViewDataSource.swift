@@ -100,7 +100,8 @@ extension TracksPlaylistViewController: NSTableViewDataSource {
             
         } else if let files = info.urls {
             
-            if playlistPreferences.dragDropAddMode == .replace || (playlistPreferences.dragDropAddMode == .hybrid && NSEvent.optionFlagSet) {
+            let addMode = playlistPreferences.dragDropAddMode
+            if addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet) {
                 playlist.clear()
             }
             

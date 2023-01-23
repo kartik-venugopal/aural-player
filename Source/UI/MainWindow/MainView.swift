@@ -11,11 +11,14 @@
 import Cocoa
 import AppKit
 
+/*
+    Custom view for the main window's content view. To receive drag/drop events
+    (i.e. files/folders) from Finder.
+ */
 class MainView: NSView {
-    
-    private lazy var playlistPreferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
-    
+
     private lazy var playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
+    private lazy var playlistPreferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
     
     override func awakeFromNib() {
         
@@ -29,7 +32,7 @@ class MainView: NSView {
 
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
         
-        guard let urls = sender.urls, atLeastOneSupportedURL(urls) else {return []}
+        guard let urls = sender.urls, URL.atLeastOneSupportedURL(urls) else {return []}
         return NSDragOperation.generic
     }
 
@@ -41,28 +44,13 @@ class MainView: NSView {
         
         guard let urls = sender.urls else {return false}
         
-        if playlistPreferences.dragDropAddMode == .replace || (playlistPreferences.dragDropAddMode == .hybrid && NSEvent.optionFlagSet) {
+        let addMode = playlistPreferences.dragDropAddMode
+        if addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet) {
             playlist.clear()
         }
         
         playlist.addFiles(urls)
         
         return true
-    }
-    
-    private func atLeastOneSupportedURL(_ urls: [URL]) -> Bool {
-        
-        for url in urls {
-            
-            if url.isAliasOrSymLink {
-                print("\(url.lastPathComponent) is a symLink !")
-            }
-            
-            if url.isDirectory || url.isAliasOrSymLink || url.isSupported {
-                return true
-            }
-        }
-        
-        return false
     }
 }
