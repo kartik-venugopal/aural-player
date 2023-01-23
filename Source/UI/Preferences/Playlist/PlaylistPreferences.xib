@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    PlaylistPreferences.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,9 +10,14 @@
             <connections>
                 <outlet property="btnBrowseFile" destination="VWX-kR-DXZ" id="dOI-LQ-gEO"/>
                 <outlet property="btnBrowseFolder" destination="HM3-o3-TvO" id="q9A-3G-ljB"/>
+                <outlet property="btnDragDropAppend" destination="rQ2-CM-g7e" id="rB5-de-QgJ"/>
+                <outlet property="btnDragDropHybrid" destination="BYx-2l-bBd" id="Eez-Zg-xla"/>
+                <outlet property="btnDragDropReplace" destination="BDX-lh-Pzd" id="aOU-wI-q99"/>
                 <outlet property="btnEmptyPlaylist" destination="9oU-XJ-Z4W" id="Ymp-E9-jNY"/>
                 <outlet property="btnLoadPlaylistFromFile" destination="Dce-Nd-jp7" id="mbr-tQ-mvR"/>
                 <outlet property="btnLoadTracksFromFolder" destination="ukb-oo-Yli" id="h0L-4L-rua"/>
+                <outlet property="btnOpenWithAppend" destination="ABl-dz-Whw" id="yfQ-OB-44t"/>
+                <outlet property="btnOpenWithReplace" destination="QLt-8p-sDQ" id="MMU-3V-9ft"/>
                 <outlet property="btnRememberPlaylist" destination="11g-RD-mFQ" id="Jvo-mq-jSV"/>
                 <outlet property="btnRememberView" destination="DHW-Fc-HiE" id="hwQ-gQ-FVQ"/>
                 <outlet property="btnShowChaptersList" destination="rqK-Fk-tAG" id="gbN-4E-lgT"/>
@@ -55,7 +49,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11g-RD-mFQ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="408" width="326" height="20"/>
+                    <rect key="frame" x="30" y="408.5" width="326" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember playlist from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Zct-47-a9y">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -66,7 +60,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-XJ-Z4W" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="383" width="173" height="20"/>
+                    <rect key="frame" x="30" y="383.5" width="173" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Start with empty playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1Ce-7p-oC9">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -77,7 +71,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-Nd-jp7" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="358" width="162" height="20"/>
+                    <rect key="frame" x="30" y="358.5" width="162" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Load playlist from file:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="jeQ-w2-omU">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -119,7 +113,7 @@ DQ
                     </connections>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ukb-oo-Yli" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="333" width="162" height="20"/>
+                    <rect key="frame" x="30" y="333.5" width="162" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Load tracks from folder:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="ds5-bi-2RV">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -167,7 +161,7 @@ DQ
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DHW-Fc-HiE" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="260" width="289" height="20"/>
+                    <rect key="frame" x="30" y="260.5" width="289" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember view from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="00R-q2-d2L">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -178,7 +172,7 @@ DQ
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2w-iX-ltq" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="236" width="128" height="20"/>
+                    <rect key="frame" x="30" y="236.5" width="128" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Start with view" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="a1O-Lq-CPe">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -236,6 +230,79 @@ DQ
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qbm-wm-fQt">
+                    <rect key="frame" x="17" y="101" width="304" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When files/folders are added via drag 'n drop" id="wK8-S2-Phy">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O2h-rJ-zDA">
+                    <rect key="frame" x="366" y="101" width="304" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="When files/folders are added via &quot;Open With&quot;" id="JHs-tr-iHL">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQ2-CM-g7e" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="29" y="77.5" width="241" height="19.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Append files/folders to playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="1SE-TJ-80n">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="dragDropAddModePrefAction:" target="-2" id="eBt-Wh-3Me"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BDX-lh-Pzd" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="29" y="52.5" width="231" height="19.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Replace playlist tracks with files/folders" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="PIf-ep-v6H">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="dragDropAddModePrefAction:" target="-2" id="3OJ-ZE-ITq"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ABl-dz-Whw" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="424" y="77.5" width="241" height="19.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Append files/folders to playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="kth-ll-pan">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="openWithAddModePrefAction:" target="-2" id="d2O-cJ-FRk"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QLt-8p-sDQ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="424" y="52.5" width="231" height="19.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Replace playlist tracks with files/folders" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="nEC-O6-YHA">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="openWithAddModePrefAction:" target="-2" id="XCD-dU-qQP"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BYx-2l-bBd" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="29" y="27.5" width="327" height="19.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Hybrid mode - Replace if ⌥ is pressed, Append otherwise" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="8oF-w6-JiG">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="dragDropAddModePrefAction:" target="-2" id="LJl-s9-UKa"/>
+                    </connections>
                 </button>
             </subviews>
             <point key="canvasLocation" x="139" y="168"/>

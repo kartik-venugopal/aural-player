@@ -36,10 +36,17 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnShowNewTrack: NSButton!
     @IBOutlet weak var btnShowChaptersList: NSButton!
     
+    @IBOutlet weak var btnDragDropAppend: NSButton!
+    @IBOutlet weak var btnDragDropReplace: NSButton!
+    @IBOutlet weak var btnDragDropHybrid: NSButton!
+    
+    @IBOutlet weak var btnOpenWithAppend: NSButton!
+    @IBOutlet weak var btnOpenWithReplace: NSButton!
+    
     override var nibName: String? {"PlaylistPreferences"}
     
     var preferencesView: NSView {
-        return self.view
+        self.view
     }
     
     func resetFields(_ preferences: Preferences) {
@@ -78,7 +85,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // View on startup
         
-        if (playlistPrefs.viewOnStartup.option == .specific) {
+        if playlistPrefs.viewOnStartup.option == .specific {
             btnStartWithView.on()
         } else {
             btnRememberView.on()
@@ -97,6 +104,27 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Show chapters list window
         btnShowChaptersList.onIf(playlistPrefs.showChaptersList)
+        
+        switch playlistPrefs.dragDropAddMode {
+            
+        case .append:
+            
+            btnDragDropAppend.on()
+            
+        case .replace:
+            
+            btnDragDropReplace.on()
+            
+        case .hybrid:
+            
+            btnDragDropHybrid.on()
+        }
+        
+        if playlistPrefs.openWithAddMode == .append {
+            btnOpenWithAppend.on()
+        } else {
+            btnOpenWithReplace.on()
+        }
     }
     
     @IBAction func startupPlaylistPrefAction(_ sender: Any) {
@@ -141,6 +169,14 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBAction func startupPlaylistViewPrefAction(_ sender: Any) {
         // Needed for radio button group
         viewMenu.enableIf(btnStartWithView.isOn)
+    }
+    
+    @IBAction func dragDropAddModePrefAction(_ sender: Any) {
+        // Needed for radio button group
+    }
+    
+    @IBAction func openWithAddModePrefAction(_ sender: Any) {
+        // Needed for radio button group
     }
     
     func save(_ preferences: Preferences) throws {
@@ -197,6 +233,18 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Show chapters list window
         prefs.showChaptersList = btnShowChaptersList.isOn
+        
+        if btnDragDropAppend.isOn {
+            prefs.dragDropAddMode = .append
+            
+        } else if btnDragDropReplace.isOn {
+            prefs.dragDropAddMode = .replace
+            
+        } else {
+            prefs.dragDropAddMode = .hybrid
+        }
+        
+        prefs.openWithAddMode = btnOpenWithAppend.isOn ? .append : .replace
     }
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {

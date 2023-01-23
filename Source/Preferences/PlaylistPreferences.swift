@@ -99,7 +99,10 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         defaults[Self.key_viewOnStartupViewName] = viewOnStartup.viewName 
         
         defaults[Self.key_showNewTrackInPlaylist] = showNewTrackInPlaylist 
-        defaults[Self.key_showChaptersList] = showChaptersList 
+        defaults[Self.key_showChaptersList] = showChaptersList
+        
+        defaults[Self.key_dragDropAddMode] = dragDropAddMode.rawValue
+        defaults[Self.key_openWithAddMode] = openWithAddMode.rawValue
     }
 }
 
