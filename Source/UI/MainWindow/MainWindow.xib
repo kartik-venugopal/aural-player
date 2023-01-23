@@ -558,7 +558,7 @@
                                 <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Player Container Box">
                                     <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView" id="DYU-Up-NX9">
+                                    <view key="contentView" id="DYU-Up-NX9" customClass="MainView" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>

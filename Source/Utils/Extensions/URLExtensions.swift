@@ -27,6 +27,14 @@ extension URL {
         SupportedTypes.nativeAudioExtensions.contains(lowerCasedExtension)
     }
     
+    var isSupported: Bool {
+        SupportedTypes.allAudioExtensions.contains(lowerCasedExtension)
+    }
+    
+    var isNonNativelySupported: Bool {
+        SupportedTypes.nonNativeAudioExtensions.contains(lowerCasedExtension)
+    }
+    
     // Checks if a file exists
     var exists: Bool {
         fileManager.fileExists(atPath: self.path)

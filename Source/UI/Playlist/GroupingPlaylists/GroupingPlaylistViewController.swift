@@ -81,6 +81,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         
         messenger.subscribe(to: .playlist_refresh, handler: playlistView.reloadData, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_removeTracks, handler: removeTracks, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_cleared, handler: playlistCleared)
         
         messenger.subscribe(to: .playlist_moveTracksUp, handler: moveTracksUp, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_moveTracksDown, handler: moveTracksDown, filter: viewSelectionFilter)
@@ -444,6 +445,10 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
             // For all groups from which tracks were removed, reload them
             groupsToReload.forEach {playlistView.reloadItem($0)}
         }
+    }
+    
+    private func playlistCleared() {
+        playlistView.reloadData()
     }
     
     func trackTransitioned(_ notification: TrackTransitionNotification) {

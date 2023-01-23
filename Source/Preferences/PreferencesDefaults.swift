@@ -72,6 +72,9 @@ struct PreferencesDefaults {
         
         static let showNewTrackInPlaylist: Bool = true
         static let showChaptersList: Bool = true
+        
+        static let dragDropAddMode: PlaylistTracksAddMode = .append
+        static let openWithAddMode: PlaylistTracksAddMode = .append
     }
     
     ///

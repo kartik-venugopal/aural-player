@@ -55,5 +55,9 @@ extension NSEvent {
         let mediaKeys = [NX_KEYTYPE_PLAY, NX_KEYTYPE_PREVIOUS, NX_KEYTYPE_NEXT, NX_KEYTYPE_FAST, NX_KEYTYPE_REWIND]
         return isKeyEvent && mediaKeys.contains(keycode)
     }
+    
+    static var optionFlagSet: Bool {
+        modifierFlags.contains(.option)
+    }
 }
 

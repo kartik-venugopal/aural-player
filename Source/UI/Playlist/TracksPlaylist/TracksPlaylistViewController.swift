@@ -16,6 +16,8 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
     
     @IBOutlet weak var playlistView: NSTableView!
     
+    lazy var playlistPreferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
+    
     var contextMenu: NSMenu! {
         
         didSet {
@@ -75,6 +77,7 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
         
         messenger.subscribe(to: .playlist_refresh, handler: playlistView.reloadData, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_removeTracks, handler: removeTracks, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_cleared, handler: playlistCleared)
         
         messenger.subscribe(to: .playlist_moveTracksUp, handler: moveTracksUp, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_moveTracksDown, handler: moveTracksDown, filter: viewSelectionFilter)
@@ -302,6 +305,10 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
         if firstRemovedRow <= lastPlaylistRowAfterRemove {
             playlistView.reloadRows(firstRemovedRow...lastPlaylistRowAfterRemove)
         }
+    }
+    
+    private func playlistCleared() {
+        playlistView.reloadData()
     }
     
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
