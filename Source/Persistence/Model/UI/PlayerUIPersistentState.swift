@@ -17,6 +17,7 @@ import Foundation
 struct PlayerUIPersistentState: Codable {
     
     let viewType: PlayerViewType?
+    let controlsViewType: PlayerControlsViewType?
     
     let showAlbumArt: Bool?
     let showArtist: Bool?

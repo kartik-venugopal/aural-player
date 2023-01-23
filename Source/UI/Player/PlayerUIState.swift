@@ -13,6 +13,7 @@ import Foundation
 class PlayerUIState {
     
     var viewType: PlayerViewType
+    var controlsViewType: PlayerControlsViewType
     
     // Settings for individual track metadata fields
     
@@ -33,6 +34,7 @@ class PlayerUIState {
     init(persistentState: PlayerUIPersistentState?) {
         
         viewType = persistentState?.viewType ?? PlayerUIDefaults.viewType
+        controlsViewType = persistentState?.controlsViewType ?? PlayerUIDefaults.controlsViewType
         
         showAlbumArt = persistentState?.showAlbumArt ?? PlayerUIDefaults.showAlbumArt
         showArtist = persistentState?.showArtist ?? PlayerUIDefaults.showArtist
@@ -52,22 +54,24 @@ class PlayerUIState {
     var persistentState: PlayerUIPersistentState {
         
         PlayerUIPersistentState(viewType: viewType,
-            showAlbumArt: showAlbumArt,
-            showArtist: showArtist,
-            showAlbum: showAlbum,
-            showCurrentChapter: showCurrentChapter,
-            showTrackInfo: showTrackInfo,
-            showPlayingTrackFunctions: showPlayingTrackFunctions,
-            showControls: showControls,
-            showTimeElapsedRemaining: showTimeElapsedRemaining,
-            timeElapsedDisplayType: timeElapsedDisplayType,
-            timeRemainingDisplayType: timeRemainingDisplayType)
+                                controlsViewType: controlsViewType,
+                                showAlbumArt: showAlbumArt,
+                                showArtist: showArtist,
+                                showAlbum: showAlbum,
+                                showCurrentChapter: showCurrentChapter,
+                                showTrackInfo: showTrackInfo,
+                                showPlayingTrackFunctions: showPlayingTrackFunctions,
+                                showControls: showControls,
+                                showTimeElapsedRemaining: showTimeElapsedRemaining,
+                                timeElapsedDisplayType: timeElapsedDisplayType,
+                                timeRemainingDisplayType: timeRemainingDisplayType)
     }
 }
 
 struct PlayerUIDefaults {
     
     static let viewType: PlayerViewType = .defaultView
+    static let controlsViewType: PlayerControlsViewType = .advanced
     
     static let showAlbumArt: Bool = true
     static let showArtist: Bool = true
@@ -88,4 +92,10 @@ enum PlayerViewType: String, CaseIterable, Codable {
     
     case defaultView
     case expandedArt
+}
+
+enum PlayerControlsViewType: String, CaseIterable, Codable {
+    
+    case advanced
+    case simple
 }

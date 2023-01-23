@@ -18,6 +18,9 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var playerDefaultViewMenuItem: NSMenuItem!
     @IBOutlet weak var playerExpandedArtViewMenuItem: NSMenuItem!
     
+    @IBOutlet weak var simpleControlsViewMenuItem: NSMenuItem!
+    @IBOutlet weak var advancedControlsViewMenuItem: NSMenuItem!
+    
     @IBOutlet weak var showArtMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
@@ -71,6 +74,10 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         // Player view:
         playerDefaultViewMenuItem.onIf(uiState.viewType == .defaultView)
         playerExpandedArtViewMenuItem.onIf(uiState.viewType == .expandedArt)
+        
+        // Controls view:
+        simpleControlsViewMenuItem.onIf(uiState.controlsViewType == .simple)
+        advancedControlsViewMenuItem.onIf(uiState.controlsViewType == .advanced)
         
         [showArtMenuItem, showMainControlsMenuItem].forEach {$0.hideIf(uiState.viewType == .expandedArt)}
         
@@ -158,6 +165,24 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             
             uiState.viewType = .expandedArt
             messenger.publish(.player_changeView, payload: PlayerViewType.expandedArt)
+        }
+    }
+    
+    @IBAction func simpleControlsViewAction(_ sender: NSMenuItem) {
+        
+        if uiState.controlsViewType != .simple {
+            
+            uiState.controlsViewType = .simple
+            messenger.publish(.player_changeControlsView, payload: PlayerControlsViewType.simple)
+        }
+    }
+    
+    @IBAction func advancedControlsViewAction(_ sender: NSMenuItem) {
+        
+        if uiState.controlsViewType != .advanced {
+            
+            uiState.controlsViewType = .advanced
+            messenger.publish(.player_changeControlsView, payload: PlayerControlsViewType.advanced)
         }
     }
     

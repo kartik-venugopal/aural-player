@@ -71,6 +71,7 @@ class PlayerViewController: NSViewController, Destroyable {
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .player_changeView, handler: infoView.switchView(_:))
+        messenger.subscribe(to: .player_changeControlsView, handler: infoView.switchControlsView(_:))
         messenger.subscribe(to: .player_showOrHideAlbumArt, handler: infoView.showOrHideAlbumArt)
         messenger.subscribe(to: .player_showOrHideArtist, handler: infoView.showOrHideArtist)
         messenger.subscribe(to: .player_showOrHideAlbum, handler: infoView.showOrHideAlbum)

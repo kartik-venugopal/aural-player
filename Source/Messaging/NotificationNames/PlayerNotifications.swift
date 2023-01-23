@@ -162,6 +162,9 @@ extension Notification.Name {
     
     // Commands the player to switch between the 2 views - Default and Expanded Art
     static let player_changeView = Notification.Name("player_changeView")
+    
+    // Commands the player to switch between the 2 controls views - Simple and Advanced
+    static let player_changeControlsView = Notification.Name("player_changeControlsView")
 
     // Commands the player to show or hide album art for the current track.
     static let player_showOrHideAlbumArt = Notification.Name("player_showOrHideAlbumArt")

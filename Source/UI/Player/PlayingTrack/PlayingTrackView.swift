@@ -83,6 +83,15 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
         setUpMouseTracking()
     }
     
+    // Switches between the 2 sub-views (Default and Expanded Art)
+    func switchControlsView(_ viewType: PlayerViewType) {
+        
+        tabView.selectTabViewItem(at: uiState.viewType == .defaultView ? 0 : 1)
+        
+//        inactiveView.hideView()
+//        activeView.showView()
+    }
+    
     func showOrHidePlayingTrackInfo() {
         
         defaultView.showOrHidePlayingTrackInfo()

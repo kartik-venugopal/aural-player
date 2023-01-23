@@ -153,6 +153,17 @@
                                                                     <action selector="playerExpandedArtViewAction:" target="gF1-jg-yeJ" id="MzE-1p-bbE"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem isSeparatorItem="YES" id="9ep-VB-t7F"/>
+                                                            <menuItem title="Simple controls" id="W2s-Re-pEf">
+                                                                <connections>
+                                                                    <action selector="simpleControlsViewAction:" target="gF1-jg-yeJ" id="pfK-Md-4JY"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Advanced controls" state="on" id="F1U-WE-CeI">
+                                                                <connections>
+                                                                    <action selector="advancedControlsViewAction:" target="gF1-jg-yeJ" id="MR0-Ry-efE"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="1FF-lZ-iMo"/>
                                                             <menuItem title="Album art" id="1PV-wr-DCy">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -724,6 +735,7 @@
         </customObject>
         <customObject id="EaI-8U-RaS" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="advancedControlsViewMenuItem" destination="0iO-ac-ElV" id="m5V-36-6Tx"/>
                 <outlet property="playerDefaultViewMenuItem" destination="BaQ-8M-GIN" id="cgc-hw-QYf"/>
                 <outlet property="playerExpandedArtViewMenuItem" destination="RfH-2P-h3c" id="36D-or-CFJ"/>
                 <outlet property="showAlbumMenuItem" destination="spV-g2-kU5" id="mRC-Nl-bt5"/>
@@ -734,6 +746,7 @@
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="ydv-KF-EB5" id="cIX-Im-GW7"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="Nun-Dc-rdQ" id="C1C-c1-LM4"/>
                 <outlet property="showTrackInfoMenuItem" destination="Qdq-Il-5ry" id="I2a-lZ-wgx"/>
+                <outlet property="simpleControlsViewMenuItem" destination="exJ-Zr-VqT" id="6jE-As-sMC"/>
                 <outlet property="timeElapsedFormatMenuItem" destination="WJU-vo-6K8" id="HOU-35-dLI"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="Jpd-uD-MKW" id="KY7-KE-0nq"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="pnz-YU-rO1" id="ils-HE-aku"/>
@@ -769,6 +782,7 @@
         <customObject id="Ejb-cE-J2S" customClass="SupportMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="gF1-jg-yeJ" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="advancedControlsViewMenuItem" destination="F1U-WE-CeI" id="gBC-VG-Wgv"/>
                 <outlet property="playerDefaultViewMenuItem" destination="KXZ-Ro-nbz" id="0pr-QG-a9m"/>
                 <outlet property="playerExpandedArtViewMenuItem" destination="P5U-AN-0cd" id="Bfo-1I-nwk"/>
                 <outlet property="showAlbumMenuItem" destination="q2a-QM-USN" id="Jgu-iU-NHK"/>
@@ -779,6 +793,7 @@
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="qVo-UC-jVo" id="Qd6-R2-zYB"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="Yhs-qW-5Tg" id="9hA-X9-zhj"/>
                 <outlet property="showTrackInfoMenuItem" destination="fVd-mV-11I" id="963-7n-J5M"/>
+                <outlet property="simpleControlsViewMenuItem" destination="W2s-Re-pEf" id="sbV-Tq-bje"/>
                 <outlet property="timeElapsedFormatMenuItem" destination="eFE-oQ-dY3" id="zwz-oU-17W"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="eWc-7F-XQe" id="xuU-mo-QsP"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="U8Y-9v-cIm" id="QvX-Kw-ZUY"/>
@@ -1707,6 +1722,17 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Frv-PF-QVe"/>
+                                        <menuItem title="Simple controls" id="exJ-Zr-VqT">
+                                            <connections>
+                                                <action selector="simpleControlsViewAction:" target="EaI-8U-RaS" id="bWt-JM-Acz"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Advanced controls" state="on" id="0iO-ac-ElV">
+                                            <connections>
+                                                <action selector="advancedControlsViewAction:" target="EaI-8U-RaS" id="ziH-KB-2Ce"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="zSq-qh-c4r"/>
                                         <menuItem title="Album art" id="fmD-aM-X9O">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
