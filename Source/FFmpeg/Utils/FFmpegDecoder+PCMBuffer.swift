@@ -10,7 +10,7 @@
 import AVFoundation
 import Accelerate
 
-fileprivate let bytesInAFloat: Int = MemoryLayout<Float>.size / MemoryLayout<UInt8>.size
+fileprivate let bytesInAFloat: Int = MemoryLayout<Float>.size
 
 ///
 /// Performs conversion of PCM audio samples to the standard format suitable for playback in an **AVAudioEngine**,
@@ -79,8 +79,7 @@ extension FFmpegDecoder {
         guard let resampleCtx = self.resampleCtx, let destPointers = audioBuffer.floatChannelData else {return}
         
         var sampleCountSoFar: Int = 0
-        let outputData: UnsafeMutablePointer<BytePointer?>! = .allocate(capacity: channelCount)
-        defer {outputData.deallocate()}
+        let outputData: UnsafeBuffer<BytePointer?>! = .init(ofCapacity: channelCount)
         
         destPointers.withMemoryRebound(to: BytePointer.self, capacity: channelCount) {outChannelPointers in
             
@@ -93,7 +92,7 @@ extension FFmpegDecoder {
                     outputData[ch] = outChannelPointers[ch].advanced(by: offset)
                 }
                 
-                resampleCtx.convertFrame(frame, andStoreIn: outputData)
+                resampleCtx.convertFrame(frame, andStoreIn: outputData.pointer)
                 sampleCountSoFar += frame.intSampleCount
             }
         }

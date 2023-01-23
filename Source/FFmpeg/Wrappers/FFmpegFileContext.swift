@@ -252,14 +252,9 @@ class FFmpegFileContext {
     func seek(within stream: FFmpegAudioStream, to time: Double) throws {
         
         // Represents the target seek position that the format context understands.
-        var timestamp: Int64 = 0
-        
-        // Describes the seeking mode to use (seek by frame, seek by byte, etc)
-        var flags: Int32 = 0
-        
         // We need to determine a target frame, given the seek position in seconds,
         // duration, and frame count.
-        timestamp = Int64(time * stream.timeBaseReciprocalRatio)
+        let timestamp = Int64(time * stream.timeBaseReciprocalRatio)
         
         // Validate the target frame (cannot exceed the total frame count)
         if stream.timeBaseDuration > 0, timestamp >= stream.timeBaseDuration {throw SeekError(ERROR_EOF)}
@@ -270,10 +265,9 @@ class FFmpegFileContext {
         // having a smaller timestamp than the one you are seeking."
         //
         // Source - https://stackoverflow.com/questions/20734814/ffmpeg-av-seek-frame-with-avseek-flag-any-causes-grey-screen
-        flags = AVSEEK_FLAG_BACKWARD
         
         // Attempt the seek and capture the result code.
-        let seekResult: ResultCode = av_seek_frame(pointer, stream.index, timestamp, flags)
+        let seekResult: ResultCode = av_seek_frame(pointer, stream.index, timestamp, AVSEEK_FLAG_BACKWARD)
         
         // If the seek failed, log a message and throw an error.
         guard seekResult.isNonNegative else {
