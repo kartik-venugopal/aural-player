@@ -35,11 +35,11 @@ extension URL {
         SupportedTypes.nonNativeAudioExtensions.contains(lowerCasedExtension)
     }
     
-    static func atLeastOneSupportedURL(_ urls: [URL]) -> Bool {
+    static func atLeastOneSupportedURL(in urls: [URL]) -> Bool {
         
         for url in urls {
             
-            if url.isDirectory || url.isAliasOrSymLink || url.isSupported {
+            if url.isSupported || url.isDirectory || url.isAliasOrSymLink {
                 return true
             }
         }

@@ -32,7 +32,7 @@ class MainView: NSView {
 
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
         
-        guard let urls = sender.urls, URL.atLeastOneSupportedURL(urls) else {return []}
+        guard let urls = sender.urls, URL.atLeastOneSupportedURL(in: urls) else {return []}
         return NSDragOperation.generic
     }
 
