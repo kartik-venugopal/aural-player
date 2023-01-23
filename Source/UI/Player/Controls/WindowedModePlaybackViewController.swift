@@ -49,6 +49,8 @@ class WindowedModePlaybackViewController: PlaybackViewController {
         
         guard let playbackView = self.playbackView as? WindowedModePlaybackView else {return}
         
+        messenger.subscribe(to: .player_changeControlsView, handler: playbackView.changeControlsView(to:))
+        
         messenger.subscribe(to: .applyTheme, handler: playbackView.applyTheme)
         messenger.subscribe(to: .applyFontScheme, handler: playbackView.applyFontScheme(_:))
         messenger.subscribe(to: .applyColorScheme, handler: playbackView.applyColorScheme(_:))

@@ -84,6 +84,8 @@ class PlaybackView: NSView {
         }
         
         functionButtons = [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward]
+        
+        btnLoop.showIf(objectGraph.playerUIState.controlsViewType == .advanced)
     }
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated
@@ -134,6 +136,10 @@ class PlaybackView: NSView {
     
     func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
         sliderView.setTimeRemainingDisplayFormat(format)
+    }
+    
+    func changeControlsView(to newControlsView: PlayerControlsViewType) {
+        btnLoop.showIf(newControlsView == .advanced)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
