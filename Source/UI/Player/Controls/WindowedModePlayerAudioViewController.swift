@@ -16,6 +16,10 @@ class WindowedModePlayerAudioViewController: PlayerAudioViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        simpleControls = [btnSimpleVolume, simpleVolumeSlider]
+        advancedControls = [btnAdvancedVolume, advancedVolumeSlider, lblPanCaption, lblPanCaption2, panSlider]
+        
         changeControlsView(to: uiState.controlsViewType)
     }
     

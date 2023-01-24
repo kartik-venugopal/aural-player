@@ -90,9 +90,6 @@ class PlayerAudioViewController: NSViewController, Destroyable {
             panChanged(audioGraph.pan, false)
         }
         
-        simpleControls = [btnSimpleVolume, simpleVolumeSlider]
-        advancedControls = [btnAdvancedVolume, advancedVolumeSlider, lblPanCaption, lblPanCaption2, panSlider]
-        
         initSubscriptions()
     }
     

@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    MenuBarPlayer.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -466,10 +455,10 @@
         </customObject>
         <customObject id="c56-oI-v2n" customClass="MenuBarPlayerAudioViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnVolume" destination="P5p-7u-pjj" id="T1X-br-huH"/>
-                <outlet property="lblVolume" destination="ifp-dM-R5z" id="Qsp-bN-9fE"/>
+                <outlet property="advancedVolumeSlider" destination="LQL-m8-1KN" id="878-Ah-Xqo"/>
+                <outlet property="btnAdvancedVolume" destination="P5p-7u-pjj" id="Ctn-eT-y0o"/>
+                <outlet property="lblAdvancedVolume" destination="ifp-dM-R5z" id="RUI-Gn-8Yq"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="KoY-nE-tpV"/>
-                <outlet property="volumeSlider" destination="LQL-m8-1KN" id="IlP-oD-Ld4"/>
             </connections>
         </customObject>
         <customObject id="AjS-bO-E7r" customClass="MenuBarPlaybackViewController" customModule="Aural" customModuleProvider="target">

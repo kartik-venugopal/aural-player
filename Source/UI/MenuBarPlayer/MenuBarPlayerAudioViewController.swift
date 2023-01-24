@@ -13,6 +13,18 @@ class MenuBarPlayerAudioViewController: PlayerAudioViewController {
     
     override var showsPanControl: Bool {false}
     
+    override var btnVolume: TintedImageButton! {
+        btnAdvancedVolume
+    }
+    
+    override var lblVolume: VALabel! {
+        lblAdvancedVolume
+    }
+    
+    override var volumeSlider: NSSlider! {
+        advancedVolumeSlider
+    }
+    
     override func viewDidLoad() {
         
         btnVolume.tintFunction = {.white70Percent}
@@ -26,4 +38,6 @@ class MenuBarPlayerAudioViewController: PlayerAudioViewController {
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged})
     }
+    
+    override func changeControlsView(to newControlsView: PlayerControlsViewType) {}
 }

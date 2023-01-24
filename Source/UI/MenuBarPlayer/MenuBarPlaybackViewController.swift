@@ -27,5 +27,7 @@ class MenuBarPlaybackViewController: PlaybackViewController {
         
         messenger.subscribe(to: .effects_playbackRateChanged, handler: playbackRateChanged(_:))
         messenger.subscribe(to: .player_playbackLoopChanged, handler: playbackLoopChanged)
+        
+        messenger.subscribe(to: .player_changeControlsView, handler: playbackView.changeControlsView(to:))
     }
 }
