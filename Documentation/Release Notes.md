@@ -16,5 +16,9 @@ So, there are now 2 player controls views:
 
 NOTE - The default view is the "Advanced" view, thus making all controls visible to new users so that they are aware of them.
 
+### Bug fix - Drag/drop behavior in hierarchical playlist views
+
+The newly added (customizable) drag/drop behavior in v3.13.0 only worked in the "Tracks" playlist view before. Now, it works in all 4 views.
+
 ### **For more info**
 Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.14.0)
