@@ -13,6 +13,18 @@ class ControlBarPlayerAudioViewController: PlayerAudioViewController {
     
     override var showsPanControl: Bool {false}
     
+    override var btnVolume: TintedImageButton! {
+        btnAdvancedVolume
+    }
+    
+    override var lblVolume: VALabel! {
+        lblAdvancedVolume
+    }
+    
+    override var volumeSlider: NSSlider! {
+        advancedVolumeSlider
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()

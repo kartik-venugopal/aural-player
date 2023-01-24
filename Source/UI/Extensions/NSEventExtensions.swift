@@ -60,4 +60,3 @@ extension NSEvent {
         modifierFlags.contains(.option)
     }
 }
-

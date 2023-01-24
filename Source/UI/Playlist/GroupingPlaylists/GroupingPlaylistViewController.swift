@@ -18,6 +18,8 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     @IBOutlet weak var clipView: NSClipView!
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
     
+    lazy var playlistPreferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
+    
     let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     

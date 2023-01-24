@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    ControlBarPlayer.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,7 +23,7 @@
             <windowStyleMask key="styleMask" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="570" height="40"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="570" height="40"/>
             <value key="maxSize" type="size" width="10000" height="40"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ControlBarPlaybackView" customModule="Aural" customModuleProvider="target">
@@ -639,10 +628,10 @@
         </customObject>
         <customObject id="khd-7d-e1B" customClass="ControlBarPlayerAudioViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnVolume" destination="cQe-K3-rAJ" id="Bng-oz-ffB"/>
-                <outlet property="lblVolume" destination="5Wc-og-czo" id="B1y-ys-c2z"/>
+                <outlet property="advancedVolumeSlider" destination="WoE-gv-TJl" id="n0d-Vw-ZIm"/>
+                <outlet property="btnAdvancedVolume" destination="cQe-K3-rAJ" id="iRs-AL-1dY"/>
+                <outlet property="lblAdvancedVolume" destination="5Wc-og-czo" id="bom-s1-cLM"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="MB0-Nr-bC7"/>
-                <outlet property="volumeSlider" destination="WoE-gv-TJl" id="ste-G8-sg2"/>
             </connections>
         </customObject>
         <customObject id="jjz-yr-7y3" customClass="ThemePopupMenuController" customModule="Aural" customModuleProvider="target">
