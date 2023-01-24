@@ -37,14 +37,17 @@
         </slider>
         <customObject id="bbe-2a-cSz" customClass="WindowedModePlayerAudioViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnVolume" destination="TDX-6H-xzc" id="aKC-Wy-MKo"/>
+                <outlet property="advancedVolumeSlider" destination="cwg-dx-g0W" id="Vem-ia-MqN"/>
+                <outlet property="btnAdvancedVolume" destination="TDX-6H-xzc" id="tPZ-Dm-dXy"/>
+                <outlet property="btnSimpleVolume" destination="C9g-RT-f6S" id="Ufa-bi-QPr"/>
+                <outlet property="lblAdvancedVolume" destination="i7r-GF-ZgY" id="5o5-kl-Lqv"/>
                 <outlet property="lblPan" destination="02u-ld-jAl" id="UKa-6E-34Y"/>
                 <outlet property="lblPanCaption" destination="kPj-kX-wi1" id="wIJ-zd-UVS"/>
                 <outlet property="lblPanCaption2" destination="0Wj-JJ-PAf" id="Snp-Dl-TUD"/>
-                <outlet property="lblVolume" destination="i7r-GF-ZgY" id="4SO-Ev-Uc6"/>
+                <outlet property="lblSimpleVolume" destination="1Rw-p7-47S" id="235-Vf-YkI"/>
                 <outlet property="panSlider" destination="QRT-te-AGM" id="uYq-eL-OtA"/>
+                <outlet property="simpleVolumeSlider" destination="irR-TH-sza" id="DI4-CI-mib"/>
                 <outlet property="view" destination="Jrx-i6-RpP" id="7hc-zD-blw"/>
-                <outlet property="volumeSlider" destination="cwg-dx-g0W" id="a3W-1D-UVU"/>
             </connections>
         </customObject>
         <customObject id="BqW-FI-x6I" customClass="WindowedModePlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
@@ -258,7 +261,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button toolTip="Mute / Unmute" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDX-6H-xzc" userLabel="Adv. Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <button hidden="YES" toolTip="Mute / Unmute" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDX-6H-xzc" userLabel="Adv. Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="376" y="9" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="VolumeMedium" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="m75-AN-odg">
@@ -272,7 +275,7 @@
                                             <action selector="muteOrUnmuteAction:" target="bbe-2a-cSz" id="HQY-3Q-bnS"/>
                                         </connections>
                                     </button>
-                                    <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwg-dx-g0W" userLabel="Adv. Volume Slider">
+                                    <slider hidden="YES" toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwg-dx-g0W" userLabel="Adv. Volume Slider">
                                         <rect key="frame" x="394" y="9" width="50" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="btx-cJ-rO8" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -289,8 +292,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button toolTip="Mute / Unmute" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9g-RT-f6S" userLabel="Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="388" y="9" width="15" height="15"/>
+                                    <button hidden="YES" toolTip="Mute / Unmute" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9g-RT-f6S" userLabel="Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="419" y="9" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="VolumeMedium" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="xdO-HG-Ijq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -303,8 +306,8 @@
                                             <action selector="muteOrUnmuteAction:" target="bbe-2a-cSz" id="9Vn-fU-eH0"/>
                                         </connections>
                                     </button>
-                                    <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="irR-TH-sza" userLabel="Volume Slider">
-                                        <rect key="frame" x="406" y="5" width="100" height="15"/>
+                                    <slider hidden="YES" toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="irR-TH-sza" userLabel="Volume Slider">
+                                        <rect key="frame" x="437" y="9" width="80" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="QeW-Tx-Y4E" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
                                         <connections>
@@ -312,7 +315,7 @@
                                         </connections>
                                     </slider>
                                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Rw-p7-47S" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="430" y="24" width="50" height="20"/>
+                                        <rect key="frame" x="467" y="24" width="50" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="79X-nb-Zda" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                             <font key="font" size="9" name="Play-Regular"/>

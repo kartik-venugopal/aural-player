@@ -16,9 +16,7 @@ class WindowedModePlayerAudioViewController: PlayerAudioViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(colorSchemesManager.systemScheme)
+        changeControlsView(to: uiState.controlsViewType)
     }
     
     override func initSubscriptions() {
@@ -33,6 +31,8 @@ class WindowedModePlayerAudioViewController: PlayerAudioViewController {
         
         messenger.subscribe(to: .player_panLeft, handler: panLeft)
         messenger.subscribe(to: .player_panRight, handler: panRight)
+        
+        messenger.subscribe(to: .player_changeControlsView, handler: changeControlsView(to:))
         
         messenger.subscribe(to: .applyTheme, handler: applyTheme)
         messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))

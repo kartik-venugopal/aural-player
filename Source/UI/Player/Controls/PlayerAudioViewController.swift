@@ -17,12 +17,33 @@ class PlayerAudioViewController: NSViewController, Destroyable {
     var showsPanControl: Bool {true}
     
     // Volume/pan controls
-    @IBOutlet weak var btnVolume: TintedImageButton!
-    @IBOutlet weak var volumeSlider: NSSlider!
+    @IBOutlet weak var btnAdvancedVolume: TintedImageButton!
+    @IBOutlet weak var btnSimpleVolume: TintedImageButton!
+    
+    var btnVolume: TintedImageButton! {
+        uiState.controlsViewType == .simple ? btnSimpleVolume : btnAdvancedVolume
+    }
+    
+    @IBOutlet weak var advancedVolumeSlider: NSSlider!
+    @IBOutlet weak var simpleVolumeSlider: NSSlider!
+    
+    var volumeSlider: NSSlider! {
+        uiState.controlsViewType == .simple ? simpleVolumeSlider : advancedVolumeSlider
+    }
+    
     @IBOutlet weak var panSlider: NSSlider!
     
     // These are feedback labels that are shown briefly and automatically hidden
-    @IBOutlet weak var lblVolume: VALabel!
+    @IBOutlet weak var lblAdvancedVolume: VALabel!
+    @IBOutlet weak var lblSimpleVolume: VALabel!
+    
+    var lblVolume: VALabel! {
+        uiState.controlsViewType == .simple ? lblSimpleVolume : lblAdvancedVolume
+    }
+    
+    var simpleControls: [NSView] = []
+    var advancedControls: [NSView] = []
+    
     @IBOutlet weak var lblPan: VALabel!
     
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
@@ -39,6 +60,8 @@ class PlayerAudioViewController: NSViewController, Destroyable {
     
     let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
+    
+    lazy var uiState: PlayerUIState = objectGraph.playerUIState
     
     lazy var messenger = Messenger(for: self)
     
@@ -58,7 +81,6 @@ class PlayerAudioViewController: NSViewController, Destroyable {
         }
         
         autoHidingVolumeLabel = AutoHidingView(lblVolume, Self.feedbackLabelAutoHideIntervalSeconds)
-        volumeSlider.floatValue = audioGraph.volume
         volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
         
         if showsPanControl {
@@ -67,6 +89,9 @@ class PlayerAudioViewController: NSViewController, Destroyable {
             panSlider.floatValue = audioGraph.pan
             panChanged(audioGraph.pan, false)
         }
+        
+        simpleControls = [btnSimpleVolume, simpleVolumeSlider]
+        advancedControls = [btnAdvancedVolume, advancedVolumeSlider, lblPanCaption, lblPanCaption2, panSlider]
         
         initSubscriptions()
     }
@@ -188,13 +213,32 @@ class PlayerAudioViewController: NSViewController, Destroyable {
         }
     }
     
+    func changeControlsView(to newControlsView: PlayerControlsViewType) {
+        
+        if newControlsView == .simple {
+            
+            advancedControls.forEach {$0.hide()}
+            simpleControls.forEach {$0.show()}
+            
+        } else {
+            
+            simpleControls.forEach {$0.hide()}
+            advancedControls.forEach {$0.show()}
+        }
+
+        autoHidingVolumeLabel.view = lblVolume
+        volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
+        
+        applyTheme()
+    }
+    
     func trackChanged(_ newTrack: Track?) {
         
         // Apply sound profile if there is one for the new track and the preferences allow it
         
         volumeChanged(audioGraph.volume, audioGraph.muted)
         
-        if showsPanControl {
+        if uiState.controlsViewType == .advanced && showsPanControl {
             
             panChanged(audioGraph.pan)
             panSlider.floatValue = audioGraph.pan

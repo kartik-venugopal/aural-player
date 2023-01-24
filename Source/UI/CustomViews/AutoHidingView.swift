@@ -15,7 +15,7 @@ import Cocoa
 class AutoHidingView: NSObject {
     
     // The view that is to be shown and auto-hidden
-    let view: NSView
+    var view: NSView
     
     // The time interval, specified in seconds, after which the view will be hidden, after it is shown
     let autoHideInterval: TimeInterval
