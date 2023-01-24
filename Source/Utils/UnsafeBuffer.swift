@@ -32,6 +32,5 @@ class UnsafeBuffer<T> {
     
     deinit {
         pointer.deallocate()
-        print("Pointer deallocated !!!")
     }
 }

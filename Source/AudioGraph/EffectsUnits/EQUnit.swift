@@ -167,7 +167,6 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         
         // System-defined presets cannot be deleted.
         if let theCurrentPreset = currentPreset, theCurrentPreset.userDefined, presetNames.contains(theCurrentPreset.name) {
-            print("Preset '\(theCurrentPreset.name)' got deleted, invalidating current preset ...")
             currentPreset = nil
         }
     }

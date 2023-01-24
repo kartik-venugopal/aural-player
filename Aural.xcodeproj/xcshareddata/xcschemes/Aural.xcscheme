@@ -70,7 +70,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = "Leaks"
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "NO"
+      enableTestabilityWhenProfilingTests = "No">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference

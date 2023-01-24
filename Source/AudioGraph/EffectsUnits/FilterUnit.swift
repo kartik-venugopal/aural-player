@@ -119,7 +119,6 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     private func presetsDeleted(_ presetNames: [String]) {
         
         if let theCurrentPreset = currentPreset, theCurrentPreset.userDefined, presetNames.contains(theCurrentPreset.name) {
-            print("Preset '\(theCurrentPreset.name)' got deleted, invalidating current preset ...")
             currentPreset = nil
         }
     }

@@ -24,6 +24,5 @@ class FFmpegString {
     
     deinit {
         pointer.deallocate()
-        print("Deallocated FFmpegString of size \(size)")
     }
 }
