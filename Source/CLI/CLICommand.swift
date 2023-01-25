@@ -21,6 +21,8 @@ struct CLICommand {
             throw CommandParserError(description: "Malformed command string: Must begin with '--' and be at least 3 total characters long.")
         }
         
+        // TODO: Separating tokens by space will not work for URLs with ' '. eg "Conjure One". Can we use " as a separator ?
+        
         let tokens = commandString.split(separator: " ")
         var cmd = String(tokens[0])
         cmd = cmd.substring(range: 2..<cmd.count)

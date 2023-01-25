@@ -54,14 +54,53 @@ class CLICommandProcessor {
                   let volumeFloat = Float(command.arguments[0]),
                   volumeFloat >= 0, volumeFloat <= 100.0 else {
                       
-                      throw CommandProcessorError(description: "Exactly one floating point argument between 0 and 100 must be specified for --volume.")
+                      throw CommandProcessorError(description: "Exactly one floating-point argument between 0 and 100 must be specified for --volume.")
                   }
             
             messenger.publish(.player_setVolume, payload: volumeFloat)
             
+        case .repeat:
+            
+            guard command.arguments.count == 1, let repeatMode = RepeatMode(rawValue: command.arguments[0]) else {
+                throw CommandProcessorError(description: "Exactly one argument must be specified for --repeat. Specify repeat mode ('off', 'one', 'all')")
+            }
+            
+            messenger.publish(.player_setRepeatMode, payload: repeatMode)
+            
+        case .shuffle:
+            
+            guard command.arguments.count == 1, let shuffleMode = ShuffleMode(rawValue: command.arguments[0]) else {
+                throw CommandProcessorError(description: "Exactly one argument must be specified for --shuffle. Specify shuffle mode ('off', 'on')")
+            }
+            
+            messenger.publish(.player_setShuffleMode, payload: shuffleMode)
+            
+        case .replayTrack:
+            
+            messenger.publish(.player_replayTrack)
+            
+        case .previousTrack:
+            
+            messenger.publish(.player_previousTrack)
+            
+        case .nextTrack:
+            
+            messenger.publish(.player_nextTrack)
+            
         case .stop:
             
             messenger.publish(.player_stop)
+            
+        case .timeStretch:
+            
+            guard command.arguments.count == 1,
+                  let rateFloat = Float(command.arguments[0]),
+                  rateFloat >= 0.25, rateFloat <= 4 else {
+                      
+                      throw CommandProcessorError(description: "Exactly one floating-point argument between 0.25 and 4.0 must be specified for --timeStretch.")
+                  }
+            
+            messenger.publish(.timeEffectsUnit_setRate, payload: rateFloat)
 
         default:
             

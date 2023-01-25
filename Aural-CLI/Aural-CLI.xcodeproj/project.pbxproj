@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3EF9BE042980727E002D29E8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE032980727E002D29E8 /* main.swift */; };
+		3EF9BE132980BE54002D29E8 /* CLIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE122980BE54002D29E8 /* CLIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,7 @@
 		3EF9BE002980727E002D29E8 /* Aural-CLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Aural-CLI"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF9BE032980727E002D29E8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3EF9BE0A29808626002D29E8 /* Aural-CLI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Aural-CLI.entitlements"; sourceTree = "<group>"; };
+		3EF9BE122980BE54002D29E8 /* CLIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				3EF9BE0A29808626002D29E8 /* Aural-CLI.entitlements */,
 				3EF9BE032980727E002D29E8 /* main.swift */,
+				3EF9BE122980BE54002D29E8 /* CLIClient.swift */,
 			);
 			path = "Aural-CLI";
 			sourceTree = "<group>";
@@ -123,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EF9BE042980727E002D29E8 /* main.swift in Sources */,
+				3EF9BE132980BE54002D29E8 /* CLIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

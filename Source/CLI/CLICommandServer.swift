@@ -12,7 +12,9 @@ import Foundation
 
 enum CommandType: String, CaseIterable, Codable {
     
-    case playURLs, enqueueURLs, volume, mute, unmute, `repeat`, shuffle, stop, nextTrack, previousTrack, skipForward, skipBackward
+    case listCommands, playURLs, enqueueURLs, volume, mute, unmute, `repeat`, shuffle, stop, replayTrack, previousTrack, nextTrack, skipBackward, skipForward, jumpToTime, pitchShift, timeStretch, uiMode, runScript
+    
+    // TODO: Man page descriptions for each command type (incl. their args and value constraints)
 }
 
 class CommandParserError: Error {
@@ -54,7 +56,10 @@ class CLICommandServer {
             try server.receive(string)
             
         } catch let error as CommandParserError {
-            return Unmanaged.passRetained(CFData.fromString("error-\(error.description)"))
+            return Unmanaged.passRetained(CFData.fromString("Error parsing command: \(error.description)"))
+            
+        } catch let error as CommandProcessorError {
+            return Unmanaged.passRetained(CFData.fromString("Error processing command: \(error.description)"))
             
         } catch {
             
