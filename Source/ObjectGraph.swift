@@ -140,6 +140,8 @@ class ObjectGraph {
     lazy var remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
                                                                                sequencer: sequencerDelegate, preferences: preferences)
     
+    lazy var cliCommandProcessor: CLICommandProcessor = .shared
+    
     // Performs all necessary object initialization
     private init() {
         

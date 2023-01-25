@@ -135,11 +135,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     // MARK: Playlist mutation functions --------------------------------------------------
     
-    func addFiles(_ files: [URL]) {
-        addFiles(files, beginPlayback: nil)
-    }
-    
-    func addFiles(_ files: [URL], beginPlayback: Bool? = nil) {
+    func addFiles(_ files: [URL], clearBeforeAdding: Bool = false, beginPlayback: Bool? = false) {
+        
+        if clearBeforeAdding {
+            clear()
+        }
         
         let autoplayEnabled: Bool = beginPlayback ?? playbackPreferences.autoplayAfterAddingTracks
         let interruptPlayback: Bool = beginPlayback ?? (playbackPreferences.autoplayAfterAddingOption == .always)

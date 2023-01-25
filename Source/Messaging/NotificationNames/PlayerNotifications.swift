@@ -73,7 +73,7 @@ extension Notification.Name {
 
     // Commands the player to replay the currently playing track from the beginning, if there is one
     static let player_replayTrack = Notification.Name("player_replayTrack")
-
+    
     // Commands the player to seek backward within the currently playing track
     static let player_seekBackward = Notification.Name("player_seekBackward")
 
@@ -128,11 +128,20 @@ extension Notification.Name {
     // Command to mute or unmute the player
     static let player_muteOrUnmute = Notification.Name("player_muteOrUnmute")
     
+    // Command to mute the player
+    static let player_mute = Notification.Name("player_mute")
+    
+    // Command to unmute the player
+    static let player_unmute = Notification.Name("player_unmute")
+    
     // Command to decrease the volume by a certain preset decrement
     static let player_decreaseVolume = Notification.Name("player_decreaseVolume")
 
     // Command to increase the volume by a certain preset increment
     static let player_increaseVolume = Notification.Name("player_increaseVolume")
+    
+    // Command to set the volume to a certain value (between 0 and 100)
+    static let player_setVolume = Notification.Name("player_setVolume")
 
     // Command to pan the sound towards the left channel, by a certain preset value
     static let player_panLeft = Notification.Name("player_panLeft")
@@ -225,4 +234,11 @@ extension Notification.Name {
 
     // Commands all relevant player UI components to redraw their sliders.
     static let player_changeSliderColors = Notification.Name("player_changeSliderColors")
+    
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: Special commands (sent from the CLI)
+    
+    // Commands the player to play the given files/folders/playlists (clearing the playlist first).
+    static let player_playFiles = Notification.Name("player_playFiles")
 }

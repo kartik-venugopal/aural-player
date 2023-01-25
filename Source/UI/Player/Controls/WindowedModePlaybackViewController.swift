@@ -30,6 +30,8 @@ class WindowedModePlaybackViewController: PlaybackViewController {
         messenger.subscribe(to: .player_previousTrack, handler: previousTrack)
         messenger.subscribe(to: .player_nextTrack, handler: nextTrack)
         messenger.subscribe(to: .player_replayTrack, handler: replayTrack)
+        messenger.subscribe(to: .player_playFiles, handler: playFiles(_:))
+        
         messenger.subscribe(to: .player_seekBackward, handler: seekBackward(_:))
         messenger.subscribe(to: .player_seekForward, handler: seekForward(_:))
         messenger.subscribe(to: .player_seekBackward_secondary, handler: seekBackward_secondary)

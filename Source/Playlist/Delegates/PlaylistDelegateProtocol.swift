@@ -110,9 +110,7 @@ protocol PlaylistMutatorDelegateProtocol {
      
             - All playlist types will be affected by this operation. i.e. the tracks will be added to all playlist types.
      */
-    func addFiles(_ files: [URL])
-    
-    func addFiles(_ files: [URL], beginPlayback: Bool?)
+    func addFiles(_ files: [URL], clearBeforeAdding: Bool, beginPlayback: Bool?)
     
     // Searches for a track by file. If it is found, its information is returned. If not, it is first added and then its information is returned. Throws an error if the file does not exist on the filesystem.
     func findOrAddFile(_ file: URL) throws -> Track?
@@ -218,4 +216,15 @@ protocol PlaylistMutatorDelegateProtocol {
             - Only the specified type of grouping/hierarchical playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
      */
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults
+}
+
+extension PlaylistMutatorDelegateProtocol {
+    
+    func addFiles(_ files: [URL]) {
+        addFiles(files, clearBeforeAdding: false, beginPlayback: nil)
+    }
+    
+    func addFiles(_ files: [URL], clearBeforeAdding: Bool) {
+        addFiles(files, clearBeforeAdding: clearBeforeAdding, beginPlayback: nil)
+    }
 }

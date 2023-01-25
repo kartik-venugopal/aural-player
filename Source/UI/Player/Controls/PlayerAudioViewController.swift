@@ -117,6 +117,18 @@ class PlayerAudioViewController: NSViewController, Destroyable {
         updateVolumeMuteButtonImage(audioGraph.volume, audioGraph.muted)
     }
     
+    func mute() {
+        
+        audioGraph.mute()
+        updateVolumeMuteButtonImage(audioGraph.volume, audioGraph.muted)
+    }
+    
+    func unmute() {
+        
+        audioGraph.unmute()
+        updateVolumeMuteButtonImage(audioGraph.volume, audioGraph.muted)
+    }
+    
     // Decreases the volume by a certain preset decrement
     func decreaseVolume(_ inputMode: UserInputMode) {
         
@@ -128,6 +140,13 @@ class PlayerAudioViewController: NSViewController, Destroyable {
     func increaseVolume(_ inputMode: UserInputMode) {
         
         let newVolume = audioGraph.increaseVolume(inputMode: inputMode)
+        volumeChanged(newVolume, audioGraph.muted)
+    }
+    
+    // Sets the volume to a certain value
+    func setVolume(to newVolume: Float) {
+        
+        audioGraph.volume = newVolume
         volumeChanged(newVolume, audioGraph.muted)
     }
     

@@ -1314,6 +1314,9 @@
 		3EF28DBE2694E48C005D5B43 /* UIPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF28DBD2694E48C005D5B43 /* UIPersistenceTests.swift */; };
 		3EF28DC22694EDC1005D5B43 /* AppStatePersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF28DC12694EDC1005D5B43 /* AppStatePersistenceTests.swift */; };
 		3EF28DC42694F07B005D5B43 /* AppPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0EB26805C50008ECB8C /* AppPersistentState.swift */; };
+		3EF9BE0D29809478002D29E8 /* CLICommandServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE0C29809478002D29E8 /* CLICommandServer.swift */; };
+		3EF9BE0F2980A2C3002D29E8 /* CLICommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE0E2980A2C3002D29E8 /* CLICommand.swift */; };
+		3EF9BE112980A43D002D29E8 /* CLICommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE102980A43D002D29E8 /* CLICommandProcessor.swift */; };
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
 		3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */; };
 		3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */; };
@@ -2366,6 +2369,9 @@
 		3EF28DB82694E42C005D5B43 /* AppMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMode.swift; sourceTree = "<group>"; };
 		3EF28DBD2694E48C005D5B43 /* UIPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPersistenceTests.swift; sourceTree = "<group>"; };
 		3EF28DC12694EDC1005D5B43 /* AppStatePersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStatePersistenceTests.swift; sourceTree = "<group>"; };
+		3EF9BE0C29809478002D29E8 /* CLICommandServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLICommandServer.swift; sourceTree = "<group>"; };
+		3EF9BE0E2980A2C3002D29E8 /* CLICommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLICommand.swift; sourceTree = "<group>"; };
+		3EF9BE102980A43D002D29E8 /* CLICommandProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLICommandProcessor.swift; sourceTree = "<group>"; };
 		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
 		3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegScheduler.swift; sourceTree = "<group>"; };
 		3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegLoopScheduling.swift; sourceTree = "<group>"; };
@@ -2897,6 +2903,7 @@
 				3E6C10A925CEB98700BF0D07 /* History */,
 				3E6C112C25CEB98700BF0D07 /* MediaKeyHandling */,
 				3E11B2D2267BF8BB00AB7DC9 /* RemoteControl */,
+				3EF9BE0B29809461002D29E8 /* CLI */,
 				3E6C109425CEB98700BF0D07 /* Preferences */,
 				3E6C10F125CEB98700BF0D07 /* Persistence */,
 				3E6C0F1A25CEB98500BF0D07 /* UI */,
@@ -4950,6 +4957,16 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		3EF9BE0B29809461002D29E8 /* CLI */ = {
+			isa = PBXGroup;
+			children = (
+				3EF9BE0C29809478002D29E8 /* CLICommandServer.swift */,
+				3EF9BE102980A43D002D29E8 /* CLICommandProcessor.swift */,
+				3EF9BE0E2980A2C3002D29E8 /* CLICommand.swift */,
+			);
+			path = CLI;
+			sourceTree = "<group>";
+		};
 		3EFB9EC326A683A100EA8440 /* buildScripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -5447,6 +5464,7 @@
 				3EF28DAA2694DDE2005D5B43 /* FontConstants.swift in Sources */,
 				3E6C128825CEBE1800BF0D07 /* Fonts.swift in Sources */,
 				3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */,
+				3EF9BE112980A43D002D29E8 /* CLICommandProcessor.swift in Sources */,
 				3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */,
 				3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */,
 				3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */,
@@ -5550,6 +5568,7 @@
 				3E6C12D425CEBE6700BF0D07 /* MasterUnitViewController.swift in Sources */,
 				3E6C11B725CEBDA900BF0D07 /* MediaApplicationWatcher.swift in Sources */,
 				3E6C11B925CEBDAD00BF0D07 /* MediaKeyHandler.swift in Sources */,
+				3EF9BE0F2980A2C3002D29E8 /* CLICommand.swift in Sources */,
 				3E1454F92680F9C50034056E /* MediaKeysControlsPreferences.swift in Sources */,
 				3E2000C5267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift in Sources */,
 				3E6C11B625CEBDA900BF0D07 /* MediaKeyTap.swift in Sources */,
@@ -5599,6 +5618,7 @@
 				3EAFB5F8267FEEC700F0DC96 /* NSBezierPathExtensions.swift in Sources */,
 				3EAFB5EE267FECEE00F0DC96 /* NSButtonExtensions.swift in Sources */,
 				3EAFB5FC267FEF1C00F0DC96 /* NSColorExtensions.swift in Sources */,
+				3EF9BE0D29809478002D29E8 /* CLICommandServer.swift in Sources */,
 				3EAFB5F2267FEE0400F0DC96 /* NSControlExtensions.swift in Sources */,
 				3E5F3DF126813F2400E826F0 /* NSEventExtensions.swift in Sources */,
 				3EAFB5FE267FEF3700F0DC96 /* NSGradientExtensions.swift in Sources */,
@@ -6563,7 +6583,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.14.0;
+				CURRENT_PROJECT_VERSION = 3.15.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = (
@@ -6577,7 +6597,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.14.0;
+				MARKETING_VERSION = 3.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;
@@ -6597,7 +6617,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.14.0;
+				CURRENT_PROJECT_VERSION = 3.15.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = (
@@ -6611,7 +6631,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.14.0;
+				MARKETING_VERSION = 3.15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;

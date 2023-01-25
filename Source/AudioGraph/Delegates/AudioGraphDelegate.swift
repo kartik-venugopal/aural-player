@@ -152,6 +152,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         set {graph.muted = newValue}
     }
     
+    func mute() {
+        muted = true
+    }
+    
+    func unmute() {
+        muted = false
+    }
+    
     let maxLeftPan: Float = -1
     let maxRightPan: Float = 1
     

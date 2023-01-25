@@ -45,11 +45,7 @@ class MainView: NSView {
         guard let urls = sender.urls else {return false}
         
         let addMode = playlistPreferences.dragDropAddMode
-        if addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet) {
-            playlist.clear()
-        }
-        
-        playlist.addFiles(urls)
+        playlist.addFiles(urls, clearBeforeAdding: addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet))
         
         return true
     }

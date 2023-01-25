@@ -100,13 +100,10 @@ extension TracksPlaylistViewController: NSTableViewDataSource {
             
         } else if let files = info.urls {
             
-            let addMode = playlistPreferences.dragDropAddMode
-            if addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet) {
-                playlist.clear()
-            }
-            
             // Files added from Finder, add them to the playlist as URLs
-            playlist.addFiles(files)
+            let addMode = playlistPreferences.dragDropAddMode
+            playlist.addFiles(files, clearBeforeAdding: addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet))
+            
             return true
         }
         

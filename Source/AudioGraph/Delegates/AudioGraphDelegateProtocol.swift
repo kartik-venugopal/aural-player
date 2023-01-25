@@ -51,6 +51,10 @@ protocol AudioGraphDelegateProtocol {
     
     var muted: Bool {get set}
     
+    func mute()
+    
+    func unmute()
+    
     var pan: Float {get set}
     
     var formattedPan: String {get}

@@ -21,6 +21,7 @@ class PlaybackViewController: NSViewController, Destroyable {
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
+    lazy var playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
@@ -80,6 +81,10 @@ class PlaybackViewController: NSViewController, Destroyable {
 
     func nextTrack() {
         player.nextTrack()
+    }
+    
+    func playFiles(_ files: [URL]) {
+        playlist.addFiles(files, clearBeforeAdding: true, beginPlayback: true)
     }
     
     func stop() {

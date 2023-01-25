@@ -39,6 +39,9 @@ class ControlBarPlayerAudioViewController: PlayerAudioViewController {
                                  filter: {msg in msg.trackChanged})
         
         messenger.subscribe(to: .player_muteOrUnmute, handler: muteOrUnmute)
+        messenger.subscribe(to: .player_mute, handler: mute)
+        messenger.subscribe(to: .player_unmute, handler: unmute)
+        
         messenger.subscribe(to: .player_decreaseVolume, handler: decreaseVolume(_:))
         messenger.subscribe(to: .player_increaseVolume, handler: increaseVolume(_:))
         
