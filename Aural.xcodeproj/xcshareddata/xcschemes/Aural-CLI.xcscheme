@@ -52,11 +52,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--playURLs"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "&quot;/Users/kven/Music/Conjure One&quot;"
+            argument = "--mute"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

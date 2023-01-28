@@ -24,28 +24,23 @@ struct CLICommand {
     
     static func parse(_ commandString: String) throws -> [CLICommand] {
         
-        // TODO: Separating tokens by space will not work for URLs with ' '. eg "Conjure One". Can we use " as a separator ?
-        
         let tokens = commandString.split(separator: "\n")
         var commands: [CLICommand] = []
-        
         var cur = 0
+        
         while cur < tokens.count {
             
             let cmd = String(tokens[cur])
             cur.increment()
             var args: [String] = []
             
-            if tokens.count > cur {
-                
-                while cur < tokens.count && !tokens[cur].starts(with: "--") {
-                    args.append(String(tokens[cur]))
-                    cur.increment()
-                }
-                
-                commands.append(try parseSingleCommand(cmd, args: args))
-                NSLog("Received command: '\(cmd)', with args: \(args)")
+            while cur < tokens.count && !tokens[cur].starts(with: "--") {
+                args.append(String(tokens[cur]))
+                cur.increment()
             }
+            
+            commands.append(try parseSingleCommand(cmd, args: args))
+            NSLog("Received command: '\(cmd)', with args: \(args)")
         }
         
         return commands

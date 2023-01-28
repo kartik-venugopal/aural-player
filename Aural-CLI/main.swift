@@ -18,7 +18,6 @@ if !runningApps.contains(where: {$0.localizedName == "Aural"}) {
 }
 
 processCommands()
-sleep(30)
 
 func processCommands() {
     
@@ -26,12 +25,10 @@ func processCommands() {
         exit(1)
     }
     
+    // Remove the process name (arg 0).
     var args = CommandLine.arguments
     args.removeFirst()
     
-//    print("\nCommands:\n")
-
-//    let command: String = "--playURLs /Users/kven/Music/Air"
     let command: String = args.joined(separator: "\n")
     client.sendCommand(command)
 }

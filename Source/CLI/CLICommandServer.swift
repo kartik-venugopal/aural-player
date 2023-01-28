@@ -75,8 +75,8 @@ class CLICommandServer {
         
         print("\nReceived command string:\n\(commandString)\n")
         
-        let command = try CLICommand.parse(commandString)
-        try commandProcessor.process(command)
+        let commands = try CLICommand.parse(commandString)
+        try commandProcessor.process(commands)
     }
 }
 
