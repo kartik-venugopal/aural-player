@@ -10,30 +10,7 @@
 
 import Foundation
 
-enum CommandType: String, CaseIterable, Codable {
-    
-    case listCommands, playURLs, enqueueURLs, volume, mute, unmute, `repeat`, shuffle, stop, replayTrack, previousTrack, nextTrack, skipBackward, skipForward, jumpToTime, pitchShift, timeStretch, uiMode, runScript
-    
-    // TODO: Man page descriptions for each command type (incl. their args and value constraints)
-}
-
-class CommandParserError: Error {
-    
-    let description: String
-    
-    init(description: String) {
-        self.description = description
-    }
-}
-
 fileprivate let successMessage: CFData = Data("success".utf8) as CFData
-
-extension CFData {
-    
-    static func fromString(_ string: String) -> CFData {
-        Data(string.utf8) as CFData
-    }
-}
 
 class CLICommandServer {
 
@@ -96,7 +73,16 @@ class CLICommandServer {
     
     func receive(_ commandString: String) throws {
         
+        print("\nReceived command string:\n\(commandString)\n")
+        
         let command = try CLICommand.parse(commandString)
         try commandProcessor.process(command)
+    }
+}
+
+extension CFData {
+    
+    static func fromString(_ string: String) -> CFData {
+        Data(string.utf8) as CFData
     }
 }

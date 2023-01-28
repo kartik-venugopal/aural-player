@@ -10,35 +10,66 @@
 
 import Foundation
 
+enum CommandType: String, CaseIterable, Codable {
+    
+    case listCommands, playURLs, enqueueURLs, volume, mute, unmute, `repeat`, shuffle, stop, replayTrack, previousTrack, nextTrack, skipBackward, skipForward, jumpToTime, pitchShift, timeStretch, uiMode, runScript
+    
+    // TODO: Man page descriptions for each command type (incl. their args and value constraints)
+}
+
 struct CLICommand {
     
     let type: CommandType
     let arguments: [String]
     
-    static func parse(_ commandString: String) throws -> CLICommand {
+    static func parse(_ commandString: String) throws -> [CLICommand] {
+        
+        // TODO: Separating tokens by space will not work for URLs with ' '. eg "Conjure One". Can we use " as a separator ?
+        
+        let tokens = commandString.split(separator: "\n")
+        var commands: [CLICommand] = []
+        
+        var cur = 0
+        while cur < tokens.count {
+            
+            let cmd = String(tokens[cur])
+            cur.increment()
+            var args: [String] = []
+            
+            if tokens.count > cur {
+                
+                while cur < tokens.count && !tokens[cur].starts(with: "--") {
+                    args.append(String(tokens[cur]))
+                    cur.increment()
+                }
+                
+                commands.append(try parseSingleCommand(cmd, args: args))
+                NSLog("Received command: '\(cmd)', with args: \(args)")
+            }
+        }
+        
+        return commands
+    }
+    
+    private static func parseSingleCommand(_ commandString: String, args: [String]) throws -> CLICommand {
         
         if !(commandString.starts(with: "--") && commandString.count >= 3) {
             throw CommandParserError(description: "Malformed command string: Must begin with '--' and be at least 3 total characters long.")
         }
         
-        // TODO: Separating tokens by space will not work for URLs with ' '. eg "Conjure One". Can we use " as a separator ?
-        
-        let tokens = commandString.split(separator: " ")
-        var cmd = String(tokens[0])
-        cmd = cmd.substring(range: 2..<cmd.count)
-        
-        var args: [String] = []
-        
-        if tokens.count > 1 {
-            args = tokens[1..<tokens.count].map {String($0)}
+        guard let cmdType = CommandType(rawValue: commandString.substring(range: 2..<commandString.count)) else {
+            throw CommandParserError(description: "Unrecognized command: '\(commandString)'.")
         }
-        
-        guard let cmdType = CommandType(rawValue: cmd) else {
-            throw CommandParserError(description: "Unrecognized command: '\(cmd)'.")
-        }
-        
-        print("\nCommand is: '\(cmd)', args are: \(args)")
         
         return CLICommand(type: cmdType, arguments: args)
+    }
+}
+
+class CommandParserError: Error {
+    
+    let description: String
+    
+    init(description: String) {
+        self.description = description
     }
 }

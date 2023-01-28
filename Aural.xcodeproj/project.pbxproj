@@ -1317,6 +1317,8 @@
 		3EF9BE0D29809478002D29E8 /* CLICommandServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE0C29809478002D29E8 /* CLICommandServer.swift */; };
 		3EF9BE0F2980A2C3002D29E8 /* CLICommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE0E2980A2C3002D29E8 /* CLICommand.swift */; };
 		3EF9BE112980A43D002D29E8 /* CLICommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE102980A43D002D29E8 /* CLICommandProcessor.swift */; };
+		3EF9BE1B2981BC87002D29E8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE1A2981BC87002D29E8 /* main.swift */; };
+		3EF9BE212981BCE7002D29E8 /* CLIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9BE1F2981BCC3002D29E8 /* CLIClient.swift */; };
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
 		3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */; };
 		3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */; };
@@ -1377,6 +1379,15 @@
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EF9BE162981BC87002D29E8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -2372,6 +2383,9 @@
 		3EF9BE0C29809478002D29E8 /* CLICommandServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLICommandServer.swift; sourceTree = "<group>"; };
 		3EF9BE0E2980A2C3002D29E8 /* CLICommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLICommand.swift; sourceTree = "<group>"; };
 		3EF9BE102980A43D002D29E8 /* CLICommandProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLICommandProcessor.swift; sourceTree = "<group>"; };
+		3EF9BE182981BC87002D29E8 /* aural */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = aural; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EF9BE1A2981BC87002D29E8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3EF9BE1F2981BCC3002D29E8 /* CLIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIClient.swift; sourceTree = "<group>"; };
 		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
 		3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegScheduler.swift; sourceTree = "<group>"; };
 		3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegLoopScheduling.swift; sourceTree = "<group>"; };
@@ -2400,6 +2414,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3E90260D268ED91B00C5A1C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EF9BE152981BC87002D29E8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2866,6 +2887,7 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0EC125CEB3ED00BF0D07 /* Source */,
+				3EF9BE192981BC87002D29E8 /* Aural-CLI */,
 				3E9025AB268E830800C5A1C5 /* Tests */,
 				3E6C114C25CEB9C100BF0D07 /* Resources */,
 				3E6C114825CEB9C100BF0D07 /* Fonts */,
@@ -2882,6 +2904,7 @@
 			children = (
 				3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */,
 				3E902610268ED91B00C5A1C5 /* Tests.xctest */,
+				3EF9BE182981BC87002D29E8 /* aural */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4967,6 +4990,15 @@
 			path = CLI;
 			sourceTree = "<group>";
 		};
+		3EF9BE192981BC87002D29E8 /* Aural-CLI */ = {
+			isa = PBXGroup;
+			children = (
+				3EF9BE1A2981BC87002D29E8 /* main.swift */,
+				3EF9BE1F2981BCC3002D29E8 /* CLIClient.swift */,
+			);
+			path = "Aural-CLI";
+			sourceTree = "<group>";
+		};
 		3EFB9EC326A683A100EA8440 /* buildScripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -5035,13 +5067,30 @@
 			productReference = 3E902610268ED91B00C5A1C5 /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		3EF9BE172981BC87002D29E8 /* aural */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EF9BE1C2981BC87002D29E8 /* Build configuration list for PBXNativeTarget "aural" */;
+			buildPhases = (
+				3EF9BE142981BC87002D29E8 /* Sources */,
+				3EF9BE152981BC87002D29E8 /* Frameworks */,
+				3EF9BE162981BC87002D29E8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = aural;
+			productName = "Aural-CLI";
+			productReference = 3EF9BE182981BC87002D29E8 /* aural */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3E6C0EB725CEB3ED00BF0D07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Kartik Venugopal";
 				TargetAttributes = {
@@ -5051,6 +5100,9 @@
 					};
 					3E90260F268ED91B00C5A1C5 = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					3EF9BE172981BC87002D29E8 = {
+						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
 			};
@@ -5069,6 +5121,7 @@
 			targets = (
 				3E6C0EBE25CEB3ED00BF0D07 /* Aural */,
 				3E90260F268ED91B00C5A1C5 /* Tests */,
+				3EF9BE172981BC87002D29E8 /* aural */,
 			);
 		};
 /* End PBXProject section */
@@ -6431,6 +6484,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3EF9BE142981BC87002D29E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EF9BE1B2981BC87002D29E8 /* main.swift in Sources */,
+				3EF9BE212981BCE7002D29E8 /* CLIClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -6689,6 +6751,32 @@
 			};
 			name = Release;
 		};
+		3EF9BE1D2981BC87002D29E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C4YUF2G676;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3EF9BE1E2981BC87002D29E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C4YUF2G676;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -6715,6 +6803,15 @@
 			buildConfigurations = (
 				3E902618268ED91B00C5A1C5 /* Debug */,
 				3E902619268ED91B00C5A1C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3EF9BE1C2981BC87002D29E8 /* Build configuration list for PBXNativeTarget "aural" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EF9BE1D2981BC87002D29E8 /* Debug */,
+				3EF9BE1E2981BC87002D29E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
