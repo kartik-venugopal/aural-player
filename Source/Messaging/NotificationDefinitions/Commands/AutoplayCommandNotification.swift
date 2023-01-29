@@ -17,8 +17,8 @@ struct AutoplayCommandNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .player_autoplay
     
-    // See AutoplayCLICommandType
-    let type: AutoplayCLICommandType
+    // See AutoplayCommandType
+    let type: AutoplayCommandType
     
     // Whether it is ok to interrupt playback (if a track is currently playing)
     // NOTE - This value is irrelevant for commands of type beginPlayback
@@ -28,7 +28,7 @@ struct AutoplayCommandNotification: NotificationPayload {
     // NOTE - This value is irrelevant for commands of type beginPlayback.
     let candidateTrack: Track?
     
-    init(type: AutoplayCLICommandType, interruptPlayback: Bool = true, candidateTrack: Track? = nil) {
+    init(type: AutoplayCommandType, interruptPlayback: Bool = true, candidateTrack: Track? = nil) {
         
         self.type = type
         self.interruptPlayback = interruptPlayback
@@ -36,7 +36,7 @@ struct AutoplayCommandNotification: NotificationPayload {
     }
 }
 
-enum AutoplayCLICommandType {
+enum AutoplayCommandType {
     
     // The player will begin a new playback sequence (assumes no track is currently playing).
     // i.e. the track to play is not known when the autoplay command is issued and is determined on demand by the sequencer.

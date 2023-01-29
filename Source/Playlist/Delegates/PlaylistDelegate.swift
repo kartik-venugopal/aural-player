@@ -347,7 +347,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     }
     
     // Performs autoplay, by delegating a playback request to the player
-    private func autoplay(_ autoplayType: AutoplayCLICommandType, _ track: Track, _ interruptPlayback: Bool) {
+    private func autoplay(_ autoplayType: AutoplayCommandType, _ track: Track, _ interruptPlayback: Bool) {
         
         messenger.publish(autoplayType == .playSpecificTrack ?
             AutoplayCommandNotification(type: .playSpecificTrack, interruptPlayback: interruptPlayback, candidateTrack: track) :
@@ -483,10 +483,10 @@ fileprivate class AutoplayOptions {
     
     // Whether or not the first added track should be selected for playback.
     // If false, the first track in the playlist will play.
-    var autoplayType: AutoplayCLICommandType
+    var autoplayType: AutoplayCommandType
     
     init(autoplay: Bool,
-         autoplayType: AutoplayCLICommandType = .beginPlayback,
+         autoplayType: AutoplayCommandType = .beginPlayback,
          interruptPlayback: Bool = true) {
         
         self.autoplay = autoplay
