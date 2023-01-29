@@ -37,6 +37,10 @@ class MenuBarPlayerAudioViewController: PlayerAudioViewController {
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged})
+        
+        messenger.subscribe(to: .player_mute, handler: mute)
+        messenger.subscribe(to: .player_unmute, handler: unmute)
+        messenger.subscribe(to: .player_setVolume, handler: setVolume(to:))
     }
     
     override func changeControlsView(to newControlsView: PlayerControlsViewType) {}

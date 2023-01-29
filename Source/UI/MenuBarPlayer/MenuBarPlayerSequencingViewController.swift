@@ -10,7 +10,11 @@
 
 class MenuBarPlayerSequencingViewController: PlayerSequencingViewController {
     
-    override func initSubscriptions() {}
+    override func initSubscriptions() {
+        
+        messenger.subscribe(to: .player_setRepeatMode, handler: setRepeatMode(_:))
+        messenger.subscribe(to: .player_setShuffleMode, handler: setShuffleMode(_:))
+    }
     
     // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
     override var offStateTintFunction: TintFunction {{.white40Percent}}
