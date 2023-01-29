@@ -76,9 +76,15 @@ extension Notification.Name {
     
     // Commands the player to seek backward within the currently playing track
     static let player_seekBackward = Notification.Name("player_seekBackward")
+    
+    // Commands the player to seek backward within the currently playing track
+    static let player_seekBackwardByInterval = Notification.Name("player_seekBackwardByInterval")
 
     // Commands the player to seek forward within the currently playing track
     static let player_seekForward = Notification.Name("player_seekForward")
+    
+    // Commands the player to seek forward within the currently playing track
+    static let player_seekForwardByInterval = Notification.Name("player_seekForwardByInterval")
 
     // Commands the player to seek backward within the currently playing track (secondary seek function - allows a different seek interval)
     static let player_seekBackward_secondary = Notification.Name("player_seekBackward_secondary")
@@ -241,4 +247,7 @@ extension Notification.Name {
     
     // Commands the player to play the given files/folders/playlists (clearing the playlist first).
     static let player_playFiles = Notification.Name("player_playFiles")
+    
+    // Commands the player to enqueue the given files/folders/playlists.
+    static let player_enqueueFiles = Notification.Name("player_enqueueFiles")
 }

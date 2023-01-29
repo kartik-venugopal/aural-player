@@ -10,7 +10,7 @@
 
 import Foundation
 
-fileprivate let successMessage: CFData = Data("success".utf8) as CFData
+fileprivate let successMessage: CFData = CFData.fromString("Success!")
 
 class CLICommandServer {
 
@@ -30,7 +30,12 @@ class CLICommandServer {
         let server = Unmanaged<CLICommandServer>.fromOpaque(serverPtr).takeUnretainedValue()
         
         do {
-            try server.receive(string)
+            
+            if let responseString = try server.receive(string) {
+                return Unmanaged.passRetained(CFData.fromString(responseString))
+            }
+            
+            return Unmanaged.passRetained(successMessage)
             
         } catch let error as CommandParserError {
             return Unmanaged.passRetained(CFData.fromString("Error parsing command: \(error.description)"))
@@ -39,12 +44,8 @@ class CLICommandServer {
             return Unmanaged.passRetained(CFData.fromString("Error processing command: \(error.description)"))
             
         } catch {
-            
-            print("\nUNKNOWN ERROR !")
-            return Unmanaged.passRetained(CFData.fromString("error-unknown"))
+            return Unmanaged.passRetained(CFData.fromString("Unknown error"))
         }
-        
-        return Unmanaged.passRetained(successMessage)
     }
     
     func start() {
@@ -71,12 +72,12 @@ class CLICommandServer {
         }
     }
     
-    func receive(_ commandString: String) throws {
+    func receive(_ commandString: String) throws -> String? {
         
         print("\nReceived command string:\n\(commandString)\n")
         
         let commands = try CLICommand.parse(commandString)
-        try commandProcessor.process(commands)
+        return try commandProcessor.process(commands)
     }
 }
 

@@ -65,28 +65,32 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     func previousTrack()
     
     /*
-        Seeks forward by a preset time interval, within the current track.
-     
-        The "inputMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The input mode will affect the time interval of the seek.
-     */
-    func seekForward(_ inputMode: UserInputMode)
-    
-    /*
         Seeks backward by a preset time interval, within the current track.
      
         The "inputMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The input mode will affect the time interval of the seek.
      */
     func seekBackward(_ inputMode: UserInputMode)
     
-    /*
-        Seeks forward by a preset time interval, within the current track.
-     */
-    func seekForwardSecondary()
+    func seekBackward(by interval: Double)
     
     /*
         Seeks backward by a preset time interval, within the current track.
      */
     func seekBackwardSecondary()
+    
+    /*
+        Seeks forward by a preset time interval, within the current track.
+     
+        The "inputMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The input mode will affect the time interval of the seek.
+     */
+    func seekForward(_ inputMode: UserInputMode)
+    
+    func seekForward(by interval: Double)
+    
+    /*
+        Seeks forward by a preset time interval, within the current track.
+     */
+    func seekForwardSecondary()
     
     // Seeks to a specific percentage of the track duration, within the current track
     func seekToPercentage(_ percentage: Double)

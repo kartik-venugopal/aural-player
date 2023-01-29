@@ -27,11 +27,23 @@ class CLICommandProcessor {
     
     private lazy var messenger: Messenger = .init(for: self)
     
-    func process(_ commands: [CLICommand]) throws {
+    func process(_ commands: [CLICommand]) throws -> String? {
+        
+        var output: String? = nil
         
         for command in commands {
             
             switch command.type {
+                
+            case .listCommands:
+                
+                var outputStr: String = "\n"
+                
+                for cmdType in CLICommandType.allCases {
+                    outputStr += "\(cmdType.rawValue): \(cmdType.description)\nArguments: \(cmdType.args)\n\n"
+                }
+                
+                output = outputStr
                 
             case .playURLs:
                 
@@ -42,13 +54,14 @@ class CLICommandProcessor {
                 let urls = command.arguments.map {URL(fileURLWithPath: $0)}
                 messenger.publish(.player_playFiles, payload: urls)
                 
-            case .mute:
+            case .enqueueURLs:
                 
-                messenger.publish(.player_mute)
+                guard command.arguments.count >= 1 else {
+                    throw CommandProcessorError(description: "At least one file/folder path must be specified for --enqueueURLs.")
+                }
                 
-            case .unmute:
-                
-                messenger.publish(.player_unmute)
+                let urls = command.arguments.map {URL(fileURLWithPath: $0)}
+                messenger.publish(.player_enqueueFiles, payload: urls)
                 
             case .volume:
                 
@@ -60,6 +73,14 @@ class CLICommandProcessor {
                       }
                 
                 messenger.publish(.player_setVolume, payload: volumeFloat)
+                
+            case .mute:
+                
+                messenger.publish(.player_mute)
+                
+            case .unmute:
+                
+                messenger.publish(.player_unmute)
                 
             case .repeat:
                 
@@ -77,6 +98,14 @@ class CLICommandProcessor {
                 
                 messenger.publish(.player_setShuffleMode, payload: shuffleMode)
                 
+            case .togglePlayPause:
+                
+                messenger.publish(.player_playOrPause)
+                
+            case .stop:
+                
+                messenger.publish(.player_stop)
+                
             case .replayTrack:
                 
                 messenger.publish(.player_replayTrack)
@@ -89,9 +118,77 @@ class CLICommandProcessor {
                 
                 messenger.publish(.player_nextTrack)
                 
-            case .stop:
+            case .skipBackward:
                 
-                messenger.publish(.player_stop)
+                if command.arguments.isNonEmpty {
+                    
+                    guard command.arguments.count == 1,
+                          let interval = Double(command.arguments[0]),
+                          interval >= 0 else {
+                              
+                              throw CommandProcessorError(description: "Exactly one floating-point argument greater than 0 must be specified for --skipBackward.")
+                          }
+                    
+                    messenger.publish(.player_seekBackwardByInterval, payload: interval)
+                    
+                } else {
+                    messenger.publish(.player_seekBackward, payload: UserInputMode.discrete)
+                }
+                
+            case .skipForward:
+                
+                if command.arguments.isNonEmpty {
+                    
+                    guard command.arguments.count == 1,
+                          let interval = Double(command.arguments[0]),
+                          interval >= 0 else {
+                              
+                              throw CommandProcessorError(description: "Exactly one floating-point argument greater than 0 must be specified for --skipForward.")
+                          }
+                    
+                    messenger.publish(.player_seekForwardByInterval, payload: interval)
+                    
+                } else {
+                    messenger.publish(.player_seekForward, payload: UserInputMode.discrete)
+                }
+                
+            case .jumpToTime:
+                
+                guard command.arguments.count == 1 else {
+                    throw CommandProcessorError(description: "Exactly one formatted time argument (hh:mm:ss) must be specified for --jumpToTime.")
+                }
+                
+                let timeString = command.arguments[0]
+                let tokens = timeString.split(separator: ":")
+                
+                guard tokens.count == 3 else {
+                    throw CommandProcessorError(description: "Exactly one formatted time argument (hh:mm:ss) must be specified for --jumpToTime.")
+                }
+                
+                let hoursStr = String(tokens[0])
+                let minsStr = String(tokens[1])
+                let secsStr = String(tokens[2])
+                
+                guard let hours = Int(hoursStr),
+                      let mins = Int(minsStr),
+                      let secs = Double(secsStr) else {
+                          
+                          throw CommandProcessorError(description: "Exactly one formatted time argument (hh:mm:ss) must be specified for --jumpToTime.")
+                      }
+                
+                let totalSecs: Double = (Double(hours) * 3600.0) + (Double(mins) * 60.0) + secs
+                messenger.publish(.player_jumpToTime, payload: totalSecs)
+                
+            case .pitchShift:
+                
+                guard command.arguments.count == 1,
+                      let pitchFloat = Float(command.arguments[0]),
+                      pitchFloat >= -2400, pitchFloat <= 2400 else {
+                          
+                          throw CommandProcessorError(description: "Exactly one floating-point argument between -2400.0 and 2400.0 must be specified for --pitchShift.")
+                      }
+                
+                messenger.publish(.pitchEffectsUnit_setPitch, payload: pitchFloat)
                 
             case .timeStretch:
                 
@@ -104,10 +201,18 @@ class CLICommandProcessor {
                 
                 messenger.publish(.timeEffectsUnit_setRate, payload: rateFloat)
                 
-            default:
+            case .uiMode:
                 
-                return
+                guard command.arguments.count == 1,
+                      let appMode = AppMode(rawValue: command.arguments[0]) else {
+                          
+                          throw CommandProcessorError(description: "Exactly one app mode argument (windowed | menuBar | controlBar) must be specified for --uiMode.")
+                      }
+                
+                messenger.publish(.application_switchMode, payload: appMode)
             }
         }
+        
+        return output
     }
 }

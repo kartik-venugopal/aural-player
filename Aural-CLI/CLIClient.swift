@@ -33,19 +33,14 @@ class CLIClient {
                                               &responseData)
         
         guard status == kCFMessagePortSuccess,
-              let string = responseData?.retainedString else {
+              let responseString = responseData?.retainedString else {
                   
                   // TODO: Throw some error
-                  
                   print("\nCommunication Failure !")
                   return
               }
         
-        if string == "success" {
-            print("Success !")
-        } else {
-            print("FAILURE: \(string)")
-        }
+        print(responseString)
     }
 }
 

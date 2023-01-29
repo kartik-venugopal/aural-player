@@ -18,7 +18,7 @@ struct TrackPlaybackCommandNotification: NotificationPayload {
     
     // Type indicates whether the request parameter is an index, track, or group.
     // This is used to initialize the new playback sequence.
-    let type: PlaybackCommandType
+    let type: PlaybackCLICommandType
     
     // Only one of these 3 fields will be non-nil, depending on the command type
     var index: Int? = nil
@@ -48,7 +48,7 @@ struct TrackPlaybackCommandNotification: NotificationPayload {
 }
 
 // Enumerates all the possible playback command types. See PlaybackCommandNotification.
-enum PlaybackCommandType {
+enum PlaybackCLICommandType {
     
     // Play the track with the given index
     case index

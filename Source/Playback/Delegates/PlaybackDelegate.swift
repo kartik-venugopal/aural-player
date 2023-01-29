@@ -215,12 +215,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         attemptSeek(player.seekPosition - secondarySeekLength)
     }
     
+    func seekBackward(by interval: Double) {
+        attemptSeek(player.seekPosition - interval)
+    }
+    
     func seekForward(_ inputMode: UserInputMode = .discrete) {
         attemptSeek(player.seekPosition + getPrimarySeekLength(inputMode))
     }
     
     func seekForwardSecondary() {
         attemptSeek(player.seekPosition + secondarySeekLength)
+    }
+    
+    func seekForward(by interval: Double) {
+        attemptSeek(player.seekPosition + interval)
     }
     
     // An attempted seek cannot seek outside the bounds of a segment loop (if one is defined).

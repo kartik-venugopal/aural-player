@@ -87,6 +87,10 @@ class PlaybackViewController: NSViewController, Destroyable {
         playlist.addFiles(files, clearBeforeAdding: true, beginPlayback: true)
     }
     
+    func enqueueFiles(_ files: [URL]) {
+        playlist.addFiles(files, clearBeforeAdding: false)
+    }
+    
     func stop() {
         player.stop()
     }
@@ -136,6 +140,12 @@ class PlaybackViewController: NSViewController, Destroyable {
         playbackView.updateSeekPosition()
     }
     
+    func seekBackward(by interval: Double) {
+        
+        player.seekBackward(by: interval)
+        playbackView.updateSeekPosition()
+    }
+    
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
         seekForward(.discrete)
@@ -144,6 +154,12 @@ class PlaybackViewController: NSViewController, Destroyable {
     func seekForward(_ inputMode: UserInputMode) {
         
         player.seekForward(inputMode)
+        playbackView.updateSeekPosition()
+    }
+    
+    func seekForward(by interval: Double) {
+        
+        player.seekForward(by: interval)
         playbackView.updateSeekPosition()
     }
     
