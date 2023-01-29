@@ -121,6 +121,8 @@ class MenuBarPlayerViewController: NSViewController, Destroyable {
         // position as the view is now visible.
         if player.state == .playing {
             seekSliderView.resumeUpdatingSeekPosition()
+        } else {
+            seekSliderView.updateSeekPosition()
         }
     }
     

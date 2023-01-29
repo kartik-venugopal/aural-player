@@ -98,7 +98,7 @@ class CLICommandProcessor {
                 
                 messenger.publish(.player_setShuffleMode, payload: shuffleMode)
                 
-            case .togglePlayPause:
+            case .togglePlayback:
                 
                 messenger.publish(.player_playOrPause)
                 

@@ -20,7 +20,7 @@ enum CLICommandType: String, CaseIterable {
          unmute,
          `repeat`,
          shuffle,
-         togglePlayPause,
+         togglePlayback,
          stop,
          replayTrack,
          previousTrack,
@@ -69,7 +69,7 @@ enum CLICommandType: String, CaseIterable {
             
             return "Sets the shuffle mode."
             
-        case .togglePlayPause:
+        case .togglePlayback:
             
             return "Toggles playback state between play/pause."
             
@@ -123,7 +123,7 @@ enum CLICommandType: String, CaseIterable {
         
         switch self {
             
-        case .listCommands, .mute, .unmute, .togglePlayPause, .stop, .replayTrack, .previousTrack, .nextTrack:
+        case .listCommands, .mute, .unmute, .togglePlayback, .stop, .replayTrack, .previousTrack, .nextTrack:
             
             return "<None>"
             
