@@ -30,8 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var server: CLICommandServer = .init()
-    
     override init() {
         
         super.init()
@@ -56,29 +54,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
         messenger.publish(.application_launched, payload: filesToOpen)
-        
-//        print("\nCLArgs: \(CommandLine.arguments)")
-        NSLog("\nCLArgs 1: \(CommandLine.arguments)")
-        
-        server.start()
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-//            self.server.stop()
-//        })
     }
     
     /// Opens the application with a single file (audio file or playlist)
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
         
         self.application(sender, openFiles: [filename])
-        NSLog("\nCLArgs 2: \(CommandLine.arguments)")
         return true
     }
     
     /// Opens the application with a set of files (audio files or playlists)
     public func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        
-        NSLog("\nCLArgs 3: \(CommandLine.arguments)")
         
         // Mark the timestamp of this operation
         let now = Date()
