@@ -185,6 +185,7 @@ class FFmpegFrame {
         
         // Receive the frame from the codec context.
         guard avcodec_receive_frame(codecCtx, pointer).isNonNegative else {
+            
             av_frame_free(&pointer)
             return nil
         }

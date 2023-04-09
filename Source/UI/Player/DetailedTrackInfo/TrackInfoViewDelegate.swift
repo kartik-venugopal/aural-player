@@ -92,11 +92,24 @@ class TrackInfoViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegat
         return max(keyHeight, valueHeight) + 5
     }
     
-    // Completely disable row selection.
-    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {false}
+    ///
+    /// Disables drawing of the row selection marker.
+    ///
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        TrackInfoRowView()
+    }
     
     // Should be overriden by subclasses.
     func infoForTrack(_ track: Track) -> [KeyValuePair] {[]}
+}
+
+///
+/// Custom view for a NSTableView row that displays a single row of track info (eg. metadata). Customizes the selection look and feel.
+///
+class TrackInfoRowView: NSTableRowView {
+    
+    /// Draws nothing (i.e. disables drawing of the row selection marker).
+    override func drawSelection(in dirtyRect: NSRect) {}
 }
 
 extension NSUserInterfaceItemIdentifier {

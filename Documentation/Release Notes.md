@@ -1,24 +1,14 @@
-#  What's New in Version 3.14.0
+#  What's New in Version 3.15.0
 
-## Simple/Advanced player controls views
+## Fixed FFmpeg memory leak
 
-Many thanks to @KalleNiemi for requesting this enhancement !
+Many thanks to @lijuncode for coming up with this fix for issue #53 !
 
-Some users would prefer not to see the following player controls, as they are rarely used:
-* The A->B Segment loop button
-* The L/R pan slider
+When FFmpeg frame allocation fails, the memory allocated to receive the frame should be freed. This was not being done before.
 
-Not showing the pan slider would make more room for the much more frequently used volume slider.
+### Info panel text is now selectable - issue #55
 
-So, there are now 2 player controls views:
-* Simple: In this view, the segment loop button and pan slider would both be hidden, making the volume slider wider.
-* Advanced: In this view, all player controls would be shown (as before).
-
-NOTE - The default view is the "Advanced" view, thus making all controls visible to new users so that they are aware of them.
-
-### Bug fix - Drag/drop behavior in hierarchical playlist views
-
-The newly added (customizable) drag/drop behavior in v3.13.0 only worked in the "Tracks" playlist view before. Now, it works in all 4 views.
+Text in the detailed track info panel is now selectable, so can be copied. Thanks to @XhstormR for suggesting this improvement.
 
 ### **For more info**
-Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.14.0)
+Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.15.0)
