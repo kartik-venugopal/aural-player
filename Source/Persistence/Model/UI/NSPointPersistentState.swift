@@ -14,6 +14,8 @@ import Foundation
 ///
 struct NSPointPersistentState: Codable {
     
+    static let zero: NSPointPersistentState = .init(point: .zero)
+    
     let x: CGFloat?
     let y: CGFloat?
     

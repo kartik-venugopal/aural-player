@@ -201,24 +201,37 @@ class ObjectGraph {
         persistentState.playbackSequence = sequencer.persistentState
         persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
         
-        persistentState.ui = UIPersistentState(appMode: appModeManager.currentMode,
-                                               windowLayout: windowLayoutsManager.persistentState,
-                                               themes: themesManager.persistentState,
-                                               fontSchemes: fontSchemesManager.persistentState,
-                                               colorSchemes: colorSchemesManager.persistentState,
-                                               player: playerUIState.persistentState,
-                                               playlist: playlistUIState.persistentState,
-                                               visualizer: visualizerUIState.persistentState,
-                                               windowAppearance: windowAppearanceState.persistentState,
-                                               menuBarPlayer: menuBarPlayerUIState.persistentState,
-                                               controlBarPlayer: controlBarPlayerUIState.persistentState)
-        
         persistentState.history = _historyDelegate.persistentState
         persistentState.favorites = _favoritesDelegate.persistentState
         persistentState.bookmarks = _bookmarksDelegate.persistentState
         persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
         
-        persistenceManager.save(persistentState)
+        var windowLayoutsState = WindowLayoutsPersistentState(showEffects: true, showPlaylist: true,
+                                                              mainWindowOrigin: .zero, effectsWindowOrigin: .zero, playlistWindowFrame: .zero,
+                                                              userLayouts: [])
+        
+        // Grab window layouts state on the main thread.
+        DispatchQueue.main.async {
+            windowLayoutsState = self.windowLayoutsManager.persistentState
+        }
+        
+        // Wait a bit for the main thread task to finish.
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
+            
+            persistentState.ui = UIPersistentState(appMode: self.appModeManager.currentMode,
+                                                   windowLayout: windowLayoutsState,
+                                                   themes: self.themesManager.persistentState,
+                                                   fontSchemes: self.fontSchemesManager.persistentState,
+                                                   colorSchemes: self.colorSchemesManager.persistentState,
+                                                   player: self.playerUIState.persistentState,
+                                                   playlist: self.playlistUIState.persistentState,
+                                                   visualizer: self.visualizerUIState.persistentState,
+                                                   windowAppearance: self.windowAppearanceState.persistentState,
+                                                   menuBarPlayer: self.menuBarPlayerUIState.persistentState,
+                                                   controlBarPlayer: self.controlBarPlayerUIState.persistentState)
+            
+            self.persistenceManager.save(persistentState)
+        }
     }
     
     // Called when app exits
