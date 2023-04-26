@@ -39,6 +39,8 @@ extension ResultCode {
     
     var isZero: Bool {self == 0}
     var isNonZero: Bool {self != 0}
+    
+    var isEOF: Bool {self == ERROR_EOF}
 }
 
 ///
@@ -85,14 +87,6 @@ class SeekError: CodedError {}
 ///
 class DecoderInitializationError: CodedError {}
 
-///
-/// Helper function to check if the given result code indicates end of file (EOF).
-///
-func isEOF(code: ResultCode) -> Bool {
-    code == ERROR_EOF
-}
-
-///
 class FormatContextInitializationError: Error {
     
     let description: String

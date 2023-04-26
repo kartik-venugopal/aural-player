@@ -54,6 +54,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
         messenger.publish(.application_launched, payload: filesToOpen)
+        
+        // Initiate the recurring task that periodically saves persistent app state.
+        objectGraph.beginPeriodicPersistence()
     }
     
     /// Opens the application with a single file (audio file or playlist)

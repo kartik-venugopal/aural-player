@@ -142,6 +142,13 @@ class ObjectGraph {
     
     lazy var cliCommandProcessor: CLICommandProcessor = .shared
     
+    /// Measured in seconds
+    private static let persistenceTaskInterval: Int = 60
+    
+    private lazy var persistenceTaskExecutor = RepeatingTaskExecutor(intervalMillis: Self.persistenceTaskInterval * 1000,
+                                                                     task: savePersistentState,
+                                                                     queue: .global(qos: .background))
+    
     // Performs all necessary object initialization
     private init() {
         
@@ -175,8 +182,14 @@ class ObjectGraph {
     
     private lazy var tearDownOpQueue: OperationQueue = OperationQueue(opCount: 2, qos: .userInteractive)
     
-    // Called when app exits
-    func tearDown() {
+    func beginPeriodicPersistence() {
+        
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + Double(Self.persistenceTaskInterval)) {
+            self.persistenceTaskExecutor.startOrResume()
+        }
+    }
+    
+    private func savePersistentState() {
         
         // Gather all pieces of persistent state into the persistentState object
         var persistentState: AppPersistentState = AppPersistentState()
@@ -205,6 +218,12 @@ class ObjectGraph {
         persistentState.bookmarks = _bookmarksDelegate.persistentState
         persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
         
+        persistenceManager.save(persistentState)
+    }
+    
+    // Called when app exits
+    func tearDown() {
+        
         // App state persistence and shutting down the audio engine can be performed concurrently
         // on two background threads to save some time when exiting the app.
         
@@ -212,7 +231,7 @@ class ObjectGraph {
 
             // Persist app state to disk.
             BlockOperation {
-                self.persistenceManager.save(persistentState)
+                self.savePersistentState()
             },
             
             // Tear down the player and audio engine.

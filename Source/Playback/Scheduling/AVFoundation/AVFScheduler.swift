@@ -20,7 +20,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
     // Player node used for actual playback
     var playerNode: AuralPlayerNode
     
-    let completionHandlerQueue: DispatchQueue = DispatchQueue.global(qos: .userInteractive)
+    let completionHandlerQueue: DispatchQueue = .global(qos: .userInteractive)
 
     // Indicates whether or not a track completed while the player was paused.
     // This is required because, in rare cases, some file segments may complete when they've reached close to the end, even if the last frame has not played yet.
