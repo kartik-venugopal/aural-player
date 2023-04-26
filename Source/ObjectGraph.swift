@@ -181,6 +181,7 @@ class ObjectGraph {
     }
     
     private lazy var tearDownOpQueue: OperationQueue = OperationQueue(opCount: 2, qos: .userInteractive)
+    private lazy var recurringPersistenceOpQueue: OperationQueue = OperationQueue(opCount: 1, qos: .background)
     
     func beginPeriodicPersistence() {
         
@@ -230,7 +231,13 @@ class ObjectGraph {
                                                    menuBarPlayer: self.menuBarPlayerUIState.persistentState,
                                                    controlBarPlayer: self.controlBarPlayerUIState.persistentState)
             
-            self.persistenceManager.save(persistentState)
+            // Make sure app is not tearing down ! If it is, do nothing here.
+            if self.tearDownOpQueue.operationCount == 0 {
+                
+                self.recurringPersistenceOpQueue.addOperation {
+                    self.persistenceManager.save(persistentState)
+                }
+            }
         }
     }
     
@@ -271,11 +278,22 @@ class ObjectGraph {
             
             // Persist app state to disk.
             BlockOperation {
-                self.persistenceManager.save(persistentState)
+                
+                if self.recurringPersistenceOpQueue.operationCount == 0 {
+                    
+                    // If the recurring persistence task is not running, save state normally.
+                    self.persistenceManager.save(persistentState)
+                    
+                } else {
+                    
+                    // If the recurring persistence task is running, just wait for it to finish.
+                    self.recurringPersistenceOpQueue.waitUntilAllOperationsAreFinished()
+                }
             },
             
             // Tear down the player and audio engine.
             BlockOperation {
+                
                 self.player.tearDown()
                 self.audioGraph.tearDown()
             }

@@ -25,7 +25,7 @@ extension FFmpegScheduler {
         
         // Reset all the loop state in the decoder
         decoder.loopCompleted()
-        decoder.framesNeedTimestamps.setValue(true)
+        decoder.framesNeedTimestamps.setTrue()
         
         initiateLoopDecodingAndScheduling(for: session, context: thePlaybackCtx, decoder: decoder, with: loop)
         
@@ -174,7 +174,7 @@ extension FFmpegScheduler {
         
         // Reset all the loop state in the decoder
         decoder.loopCompleted()
-        decoder.framesNeedTimestamps.setValue(true)
+        decoder.framesNeedTimestamps.setTrue()
         
         initiateLoopDecodingAndScheduling(for: session, context: thePlaybackCtx, decoder: decoder, with: loop, startingAt: playbackStartTime)
         

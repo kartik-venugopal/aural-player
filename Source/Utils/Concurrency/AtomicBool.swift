@@ -20,6 +20,14 @@ public final class AtomicBool {
     public init(value initialValue: Bool = false) {
         _value = initialValue
     }
+
+    func setTrue() {
+        self.value = true
+    }
+    
+    func setFalse() {
+        self.value = false
+    }
     
     func setValue(_ value: Bool) {
         self.value = value

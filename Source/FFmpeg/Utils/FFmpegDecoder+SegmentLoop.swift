@@ -55,7 +55,7 @@ extension FFmpegDecoder {
                     // TODO: If less than some max threshold, cache all samples ?
                     // TODO:
                     // TODO:
-                    self._endOfLoop.setValue(true)
+                    self._endOfLoop.setTrue()
                     
                     break
                 }
@@ -98,7 +98,7 @@ extension FFmpegDecoder {
         
         if eof {
             
-            self._endOfLoop.setValue(true)
+            self._endOfLoop.setTrue()
             
             var terminalFrames: [FFmpegFrame] = frameQueue.dequeueAll()
             
@@ -122,6 +122,6 @@ extension FFmpegDecoder {
     /// Resets all loop-related state, in response to a loop either being completed or being removed.
     ///
     func loopCompleted() {
-        self._endOfLoop.setValue(false)
+        self._endOfLoop.setFalse()
     }
 }

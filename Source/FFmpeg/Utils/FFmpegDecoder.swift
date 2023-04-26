@@ -180,7 +180,7 @@ class FFmpegDecoder {
                     
                     if recurringPacketReadErrorCount == 5 {
                         
-                        _fatalError.setValue(true)
+                        _fatalError.setTrue()
                         return buffer.sampleCount > 0 ? transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat) : nil
                     }
                 }
@@ -347,7 +347,7 @@ class FFmpegDecoder {
             }
             
             // If the seek succeeds, we have not reached EOF.
-            self._eof.setValue(false)
+            self._eof.setFalse()
             
         } catch let seekError as SeekError {
             
