@@ -240,11 +240,38 @@ class ObjectGraph {
         // App state persistence and shutting down the audio engine can be performed concurrently
         // on two background threads to save some time when exiting the app.
         
+        // Gather all pieces of persistent state into the persistentState object
+        var persistentState: AppPersistentState = AppPersistentState()
+        
+        persistentState.appVersion = NSApp.appVersion
+        
+        persistentState.audioGraph = audioGraph.persistentState
+        persistentState.playlist = playlist.persistentState
+        persistentState.playbackSequence = sequencer.persistentState
+        persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
+        
+        persistentState.history = _historyDelegate.persistentState
+        persistentState.favorites = _favoritesDelegate.persistentState
+        persistentState.bookmarks = _bookmarksDelegate.persistentState
+        persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
+        
+        persistentState.ui = UIPersistentState(appMode: appModeManager.currentMode,
+                                               windowLayout: windowLayoutsManager.persistentState,
+                                               themes: themesManager.persistentState,
+                                               fontSchemes: fontSchemesManager.persistentState,
+                                               colorSchemes: colorSchemesManager.persistentState,
+                                               player: playerUIState.persistentState,
+                                               playlist: playlistUIState.persistentState,
+                                               visualizer: visualizerUIState.persistentState,
+                                               windowAppearance: windowAppearanceState.persistentState,
+                                               menuBarPlayer: menuBarPlayerUIState.persistentState,
+                                               controlBarPlayer: controlBarPlayerUIState.persistentState)
+        
         tearDownOpQueue.addOperations([
-
+            
             // Persist app state to disk.
             BlockOperation {
-                self.savePersistentState()
+                self.persistenceManager.save(persistentState)
             },
             
             // Tear down the player and audio engine.

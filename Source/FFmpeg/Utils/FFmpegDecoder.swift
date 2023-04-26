@@ -49,6 +49,10 @@ class FFmpegDecoder {
     var eof: Bool {_eof.value}
     
     var _eof: AtomicBool = AtomicBool()
+    
+    var fatalError: Bool {_fatalError.value}
+    
+    var _fatalError: AtomicBool = AtomicBool()
 
     ///
     /// Indicates whether or not we have reached the end of the loop when scheduling buffers for the current loop (analogous to EOF for file scheduling).
@@ -118,6 +122,8 @@ class FFmpegDecoder {
         }
     }
     
+    private var recurringPacketReadErrorCount: Int = 0
+    
     ///
     /// Decodes the currently playing file's audio stream to produce a given (maximum) number of samples, in a loop, and returns a frame buffer
     /// containing all the samples produced during the loop.
@@ -144,6 +150,9 @@ class FFmpegDecoder {
                 // Try to obtain a single decoded frame.
                 let frame = try nextFrame()
                 
+                // Reset the counter because packet read succeeded.
+                recurringPacketReadErrorCount = 0
+                
                 // Try appending the frame to the frame buffer.
                 // The frame buffer may reject the new frame if appending it would
                 // cause its sample count to exceed the maximum.
@@ -164,7 +173,17 @@ class FFmpegDecoder {
                 self._eof.setValue(packetReadError.isEOF)
                 
                 // If the error is something other than EOF, it either indicates a real problem or simply that there was one bad packet. Log the error.
-                if !eof {NSLog("Packet read error while reading track \(fileCtx.filePath) : \(packetReadError)")}
+                if !eof {
+                    
+                    recurringPacketReadErrorCount.increment()
+                    NSLog("Packet read error while reading track \(fileCtx.filePath) : \(packetReadError)")
+                    
+                    if recurringPacketReadErrorCount == 5 {
+                        
+                        _fatalError.setValue(true)
+                        return buffer.sampleCount > 0 ? transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat) : nil
+                    }
+                }
                 
             } catch {
                 

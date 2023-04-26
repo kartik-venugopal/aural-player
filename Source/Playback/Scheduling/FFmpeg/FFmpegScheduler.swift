@@ -213,7 +213,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         // Audio buffer has completed playback, so decrement the counter.
         scheduledBufferCounts[session]?.decrement()
         
-        if !decoder.eof {
+        if !(decoder.eof || decoder.fatalError) {
 
             // If EOF has not been reached, continue recursively decoding / scheduling.
             self.decodeAndScheduleOneBufferAsync(for: session, context: playbackCtx, decoder: decoder, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
