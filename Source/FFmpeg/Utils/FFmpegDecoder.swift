@@ -173,24 +173,18 @@ class FFmpegDecoder {
                     
                     // If the error signals EOF, suppress it, and simply set the EOF flag.
                     self._eof.setValue(packetReadError.isEOF)
-                    
-                    // If the error is something other than EOF, it either indicates a real problem or simply that there was one bad packet. Log the error.
-                    if !eof {
-                        
-                        recurringPacketReadErrorCount.increment()
-                        NSLog("Packet read error while reading track \(fileCtx.filePath) : \(packetReadError)")
-                    }
-                    
-                } else {
-                    
-                    // This either indicates a real problem or simply that there was one bad packet. Log the error.
-                    NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
                 }
                 
-                if recurringPacketReadErrorCount == 5 && (!eof) {
+                if !eof {
                     
-                    _fatalError.setTrue()
-                    return buffer.sampleCount > 0 ? transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat) : nil
+                    NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
+                    recurringPacketReadErrorCount.increment()
+                    
+                    if recurringPacketReadErrorCount == 5 {
+                        
+                        _fatalError.setTrue()
+                        return buffer.sampleCount > 0 ? transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat) : nil
+                    }
                 }
             }
         }
