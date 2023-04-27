@@ -167,28 +167,31 @@ class FFmpegDecoder {
                     break
                 }
                 
-            } catch let packetReadError as PacketReadError {
-                
-                // If the error signals EOF, suppress it, and simply set the EOF flag.
-                self._eof.setValue(packetReadError.isEOF)
-                
-                // If the error is something other than EOF, it either indicates a real problem or simply that there was one bad packet. Log the error.
-                if !eof {
-                    
-                    recurringPacketReadErrorCount.increment()
-                    NSLog("Packet read error while reading track \(fileCtx.filePath) : \(packetReadError)")
-                    
-                    if recurringPacketReadErrorCount == 5 {
-                        
-                        _fatalError.setTrue()
-                        return buffer.sampleCount > 0 ? transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat) : nil
-                    }
-                }
-                
             } catch {
                 
-                // This either indicates a real problem or simply that there was one bad packet. Log the error.
-                NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
+                if let packetReadError = error as? PacketReadError {
+                    
+                    // If the error signals EOF, suppress it, and simply set the EOF flag.
+                    self._eof.setValue(packetReadError.isEOF)
+                    
+                    // If the error is something other than EOF, it either indicates a real problem or simply that there was one bad packet. Log the error.
+                    if !eof {
+                        
+                        recurringPacketReadErrorCount.increment()
+                        NSLog("Packet read error while reading track \(fileCtx.filePath) : \(packetReadError)")
+                    }
+                    
+                } else {
+                    
+                    // This either indicates a real problem or simply that there was one bad packet. Log the error.
+                    NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
+                }
+                
+                if recurringPacketReadErrorCount == 5 && (!eof) {
+                    
+                    _fatalError.setTrue()
+                    return buffer.sampleCount > 0 ? transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat) : nil
+                }
             }
         }
         
