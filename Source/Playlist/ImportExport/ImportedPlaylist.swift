@@ -17,6 +17,7 @@ struct ImportedPlaylist {
     // The filesystem location of the playlist file referenced by this object
     let file: URL
     
+    /// TODO: Ordering of URLs !!! Use OrderedDictionary (requires package import) !!!
     // URLs of tracks in this playlist
-    let tracks: [URL]
+    let tracksWithChapters: [URL: [Chapter]]
 }

@@ -83,7 +83,7 @@ class Track: Hashable, PlaylistItem {
     var fileSystemInfo: FileSystemInfo
     var audioInfo: AudioInfo?
     
-    init(_ file: URL, fileMetadata: FileMetadata? = nil) {
+    init(_ file: URL, fileMetadata: FileMetadata? = nil, chapters: [Chapter] = []) {
 
         self.file = file
         self.fileSystemInfo = FileSystemInfo(file: file)
@@ -95,6 +95,8 @@ class Track: Hashable, PlaylistItem {
         if let theFileMetadata = fileMetadata {
             setPlaylistMetadata(from: theFileMetadata)
         }
+        
+        self.chapters = chapters
     }
     
     func setPlaylistMetadata(from allMetadata: FileMetadata) {
@@ -122,7 +124,14 @@ class Track: Hashable, PlaylistItem {
         self.duration = metadata.duration
         self.durationIsAccurate = metadata.durationIsAccurate
         
-        self.chapters = metadata.chapters
+        if self.chapters.isEmpty {
+            self.chapters = metadata.chapters
+            
+        } else if var lastChapter = self.chapters.last,     // Chapters were created by reading a CUE sheet, correct the end time of the last chapter, if necessary.
+            lastChapter.duration == 0 {
+            
+            lastChapter.correctEndTimeAndDuration(endTime: metadata.duration)
+        }
     }
     
     func setAuxiliaryMetadata(_ metadata: AuxiliaryMetadata) {

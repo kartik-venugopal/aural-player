@@ -12,15 +12,15 @@ import Foundation
 ///
 /// Represents a single chapter marking within a track.
 ///
-struct Chapter {
+class Chapter: CustomStringConvertible {
     
     // Title may be changed / corrected after chapter object is created
     var title: String
     
     // Time bounds of this chapter
     let startTime: Double
-    let endTime: Double
-    let duration: Double
+    var endTime: Double
+    var duration: Double
     
     init(title: String, startTime: Double, endTime: Double, duration: Double? = nil) {
         
@@ -37,4 +37,19 @@ struct Chapter {
     func containsTimePosition(_ seconds: Double) -> Bool {
         return seconds >= startTime && seconds <= endTime
     }
+    
+    func correctEndTimeAndDuration(endTime: Double) {
+        
+        self.endTime = endTime
+        self.duration = max(endTime - startTime, 0)
+    }
+
+#if DEBUG
+    
+    var description: String {
+        "Title: \(title), startTime: \(startTime), endTime: \(endTime), duration: \(duration)"
+    }
+    
+#endif
+
 }

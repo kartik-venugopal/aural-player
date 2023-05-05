@@ -19,7 +19,8 @@ struct SupportedTypes {
     
     static let m3u: String = "m3u"
     static let m3u8: String = "m3u8"
-    static let playlistExtensions: [String] = [m3u, m3u8]
+    static let cue: String = "cue"
+    static let playlistExtensions: [String] = [m3u, m3u8, cue]
     
     // Supported audio file types/formats
     

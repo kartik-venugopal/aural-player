@@ -38,7 +38,17 @@ class PlaylistIO: PlaylistIOProtocol {
     
     // Load playlist from file into current playlist.
     static func loadPlaylist(fromFile playlistFile: URL) -> ImportedPlaylist? {
-        return M3UPlaylistIO.loadPlaylist(fromFile: playlistFile)
+        
+        let fileExtension = playlistFile.lowerCasedExtension
+        
+        if fileExtension.equalsOneOf(SupportedTypes.m3u, SupportedTypes.m3u8) {
+            return M3UPlaylistIO.loadPlaylist(fromFile: playlistFile)
+            
+        } else if fileExtension == SupportedTypes.cue {
+            return CueSheetIO.loadPlaylist(fromFile: playlistFile)
+        }
+        
+        return nil
     }
     
     static func readFileAsString(_ file: URL) -> String? {

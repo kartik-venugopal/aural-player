@@ -246,13 +246,42 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         }
     }
     
+    private func collectPlaylistTracks(_ tracksWithChapters: [URL: [Chapter]], _ isRecursiveCall: Bool) {
+        
+        for (file, chapters) in tracksWithChapters {
+            
+            // Playlists might contain broken file references
+            if !file.exists {
+                
+                addSession.addError(FileNotFoundError(file))
+                continue
+            }
+            
+            // Always resolve sym links and aliases before reading the file
+            let resolvedFile = file.resolvedURL
+            
+            // Single file - playlist or track
+            let fileExtension = resolvedFile.lowerCasedExtension
+            
+            if SupportedTypes.allAudioExtensions.contains(fileExtension) {
+                
+                // Track
+                if !isRecursiveCall, !playlist.hasTrackForFile(resolvedFile) {
+                    addSession.addHistoryItem(resolvedFile)
+                }
+                
+                addSession.tracks.append(Track(resolvedFile, chapters: chapters))
+            }
+        }
+    }
+
     // Expands a playlist into individual tracks
     private func expandPlaylist(_ playlistFile: URL) {
         
         if let loadedPlaylist = PlaylistIO.loadPlaylist(fromFile: playlistFile) {
             
-            addSession.totalTracks += loadedPlaylist.tracks.count - 1
-            collectTracks(loadedPlaylist.tracks, true)
+            addSession.totalTracks += loadedPlaylist.tracksWithChapters.count - 1
+            collectPlaylistTracks(loadedPlaylist.tracksWithChapters, true)
         }
     }
     

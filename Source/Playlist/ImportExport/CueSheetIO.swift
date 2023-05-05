@@ -37,6 +37,8 @@ class CueSheetIO: PlaylistIOProtocol {
     private static let prefix_performer: String = "PERFORMER"
     private static let prefix_songwriter: String = "SONGWRITER"
 
+    // Transient data
+    
     private static var cursor: Int = 0
     private static var lines: [String] = []
     private static var line: String = ""
@@ -62,8 +64,7 @@ class CueSheetIO: PlaylistIOProtocol {
             }
         }
 
-//        return SavedPlaylist(file: playlistFile, tracks: [], tracksWithChapters: tracksWithChapters)
-        return ImportedPlaylist(file: playlistFile, tracks: [])
+        return ImportedPlaylist(file: playlistFile, tracksWithChapters: tracksWithChapters)
     }
 
     private static func readFile(_ playlistFile: URL, _ rootIndentLevel: Int) -> (file: URL, chapters: [Chapter])? {
@@ -126,6 +127,11 @@ class CueSheetIO: PlaylistIOProtocol {
             let correctedDuration = (duration.isNaN || duration < 0) ? nil : duration
 
             chapters.append(Chapter(title: title ?? String(format: "Chapter %d", index + 1), startTime: correctedStart, endTime: correctedEnd, duration: correctedDuration))
+        }
+        
+        // If there is only one chapter with no end time specified, that refers to the whole track.
+        if chapters.count == 1, chapters[0].endTime == 0 {
+            chapters = []
         }
 
         return (url, chapters)
@@ -211,10 +217,6 @@ class CueSheetIO: PlaylistIOProtocol {
             return (minutes * 60.0) + seconds + (frames / 75.0)
         }
 
-        return nil
-    }
-
-    private static func readTrackStartTime() -> Double? {
         return nil
     }
 }

@@ -45,7 +45,7 @@ struct FFmpegChapter {
 
 extension Chapter {
     
-    init(_ ffmpegChapter: FFmpegChapter) {
+    convenience init(_ ffmpegChapter: FFmpegChapter) {
         
         self.init(title: ffmpegChapter.title, startTime: ffmpegChapter.startTime, endTime: ffmpegChapter.endTime,
                   duration: max(ffmpegChapter.endTime - ffmpegChapter.startTime, 0))
