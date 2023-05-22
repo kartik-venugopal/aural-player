@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    RemoteControlPreferences.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -69,7 +58,7 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C3Y-XZ-TqJ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="31" y="274" width="227" height="32"/>
+                                <rect key="frame" x="31" y="274.5" width="227" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Enable Remote Control" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gX8-Ta-w7v">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -77,7 +66,7 @@
                                 </buttonCell>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQV-xJ-MQm" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="70" y="222" width="361" height="18"/>
+                                <rect key="frame" x="70" y="222.5" width="361" height="17.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Show previous / next track controls" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="dJp-3t-L5S">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -88,7 +77,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ecr-zR-fQj" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="70" y="202" width="361" height="18"/>
+                                <rect key="frame" x="70" y="202.5" width="361" height="17.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Show seek forward / backward controls" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="lhm-nf-8QY">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

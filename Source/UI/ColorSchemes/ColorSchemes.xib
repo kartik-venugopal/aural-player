@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,10 +31,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="412"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button toolTip="Redo last change" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63Z-HH-Hrj" userLabel="Save">
+                    <button toolTip="Redo last change" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63Z-HH-Hrj" userLabel="Save">
                         <rect key="frame" x="301" y="36" width="18" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Redo" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="OhN-CX-YqV">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Redo" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="OhN-CX-YqV">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent">Z</string>
@@ -44,10 +44,10 @@
                             <action selector="redoLastChangeAction:" target="-2" id="Kwf-8Y-vRN"/>
                         </connections>
                     </button>
-                    <button toolTip="Undo last change" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wMK-VB-9mI" userLabel="Save">
+                    <button toolTip="Undo last change" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wMK-VB-9mI" userLabel="Save">
                         <rect key="frame" x="269" y="36" width="18" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Undo" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="zA2-Uf-3q5">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Undo" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="zA2-Uf-3q5">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent">z</string>
@@ -57,10 +57,10 @@
                             <action selector="undoLastChangeAction:" target="-2" id="l6H-vG-baf"/>
                         </connections>
                     </button>
-                    <button toolTip="Undo all changes" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1x-IR-t1N" userLabel="Save">
+                    <button toolTip="Undo all changes" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1x-IR-t1N" userLabel="Save">
                         <rect key="frame" x="237" y="36" width="18" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="UndoAll" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ysx-Ap-Vho">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="UndoAll" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="Ysx-Ap-Vho">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent">z</string>
@@ -70,10 +70,10 @@
                             <action selector="undoAllChangesAction:" target="-2" id="OBu-f9-G2u"/>
                         </connections>
                     </button>
-                    <button toolTip="Redo all changes" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GOE-V5-FTX" userLabel="Save">
+                    <button toolTip="Redo all changes" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GOE-V5-FTX" userLabel="Save">
                         <rect key="frame" x="332" y="36" width="18" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RedoAll" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="W0H-qy-Bfq">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RedoAll" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="W0H-qy-Bfq">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent">Z</string>
@@ -83,10 +83,10 @@
                             <action selector="redoAllChangesAction:" target="-2" id="65M-rJ-qj0"/>
                         </connections>
                     </button>
-                    <popUpButton toolTip="Load color scheme" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3N-y5-Sxg" userLabel="Presets Menu">
+                    <popUpButton toolTip="Load color scheme" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3N-y5-Sxg" userLabel="Presets Menu">
                         <rect key="frame" x="130" y="35" width="35" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="5lu-BT-xYZ">
+                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="5lu-BT-xYZ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="11" name="Play-Regular"/>
                             <menu key="menu" showsStateColumn="NO" id="7Xj-qr-pKQ">
@@ -150,10 +150,10 @@
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vto-5b-gSA" userLabel="Done button">
+                    <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vto-5b-gSA" userLabel="Done button">
                         <rect key="frame" x="410" y="6" width="60" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VIL-LC-wPz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="VIL-LC-wPz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Play-Regular"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -173,34 +173,34 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="mNJ-4K-PMF" userLabel="Effects tab button">
+                    <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="mNJ-4K-PMF" userLabel="Effects tab button">
                         <rect key="frame" x="309" y="344" width="65" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Effects" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="3" imageScaling="proportionallyDown" inset="2" id="HiP-xm-s2s" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="Effects" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" tag="3" imageScaling="proportionallyDown" inset="2" id="HiP-xm-s2s" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="MIV-6O-bmK" userLabel="Playlist tab button">
+                    <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="MIV-6O-bmK" userLabel="Playlist tab button">
                         <rect key="frame" x="242" y="344" width="65" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="LFL-BA-Tvt" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="LFL-BA-Tvt" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="zU8-ra-LLn" userLabel="Player tab button">
+                    <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="zU8-ra-LLn" userLabel="Player tab button">
                         <rect key="frame" x="175" y="344" width="65" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Player" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="aMp-Rh-psv" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="Player" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="aMp-Rh-psv" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZZ-k4-49W" userLabel="General tab button">
+                    <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZZ-k4-49W" userLabel="General tab button">
                         <rect key="frame" x="108" y="344" width="65" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="General" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="TNs-3q-275" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="General" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="TNs-3q-275" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
@@ -257,10 +257,10 @@ Gw
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
-                    <button toolTip="Save color scheme" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUl-jB-2L2" userLabel="Save">
+                    <button toolTip="Save color scheme" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUl-jB-2L2" userLabel="Save">
                         <rect key="frame" x="171" y="36" width="18" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveScheme" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="lXP-Ze-8b6">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveScheme" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="lXP-Ze-8b6">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -268,13 +268,13 @@ Gw
                             <action selector="saveSchemeAction:" target="-2" id="LFk-po-ruN"/>
                         </connections>
                     </button>
-                    <imageView toolTip="Color clipboard" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fIx-Ln-dOF">
+                    <imageView toolTip="Color clipboard" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fIx-Ln-dOF">
                         <rect key="frame" x="10" y="36" width="16" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Clipboard" id="iMM-ga-hYe"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="Clipboard" id="iMM-ga-hYe"/>
                     </imageView>
-                    <colorWell fixedFrame="YES" bordered="NO" continuous="NO" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbt-wD-yHi">
-                        <rect key="frame" x="32" y="36" width="16" height="16"/>
+                    <colorWell focusRingType="none" fixedFrame="YES" bordered="NO" continuous="NO" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbt-wD-yHi">
+                        <rect key="frame" x="32" y="36" width="19" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </colorWell>

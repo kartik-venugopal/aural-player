@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    EffectsFontScheme.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -91,10 +80,10 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuZ-j2-J7q" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
+                                    <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuZ-j2-J7q" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="71" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="ZM1-oa-qJa"/>
+                                        <stepperCell key="cell" continuous="YES" focusRingType="none" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="ZM1-oa-qJa"/>
                                         <connections>
                                             <outlet property="lblValue" destination="wT1-yV-TXT" id="N6m-zu-vMh"/>
                                         </connections>
@@ -108,10 +97,10 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akU-oF-8Ow" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
+                                    <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akU-oF-8Ow" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="176" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="HDT-yg-Ej3"/>
+                                        <stepperCell key="cell" continuous="YES" focusRingType="none" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="HDT-yg-Ej3"/>
                                         <connections>
                                             <outlet property="lblValue" destination="sis-aW-oNq" id="kST-Wo-At8"/>
                                         </connections>
@@ -125,10 +114,10 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VcD-wx-crP" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
+                                    <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VcD-wx-crP" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="141" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="rWb-mv-uhz"/>
+                                        <stepperCell key="cell" continuous="YES" focusRingType="none" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="rWb-mv-uhz"/>
                                         <connections>
                                             <outlet property="lblValue" destination="S4o-EB-nmU" id="pRR-7C-r4u"/>
                                         </connections>
@@ -142,10 +131,10 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L0h-Du-7Tx" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
+                                    <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L0h-Du-7Tx" customClass="FontSizeStepper" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="424" y="106" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="tGh-cC-tUA"/>
+                                        <stepperCell key="cell" continuous="YES" focusRingType="none" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="tGh-cC-tUA"/>
                                         <connections>
                                             <outlet property="lblValue" destination="bdg-kb-929" id="R88-Wy-UAS"/>
                                         </connections>
@@ -177,10 +166,10 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2u-O5-VhB">
+                                    <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2u-O5-VhB">
                                         <rect key="frame" x="424" y="36" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <stepperCell key="cell" continuous="YES" alignment="left" minValue="-15" maxValue="15" id="EIN-Q3-Rug"/>
+                                        <stepperCell key="cell" continuous="YES" focusRingType="none" alignment="left" minValue="-15" maxValue="15" id="EIN-Q3-Rug"/>
                                         <connections>
                                             <action selector="auTableRowYOffsetStepperAction:" target="-2" id="sGo-hO-kaQ"/>
                                         </connections>

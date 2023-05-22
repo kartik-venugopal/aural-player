@@ -861,10 +861,10 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qpG-S8-CX4" userLabel="Radius Stepper">
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qpG-S8-CX4" userLabel="Radius Stepper">
                     <rect key="frame" x="193" y="0.0" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="25" doubleValue="3" id="n03-mo-5Zv"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" refusesFirstResponder="YES" focusRingType="none" alignment="left" maxValue="25" doubleValue="3" id="n03-mo-5Zv"/>
                     <connections>
                         <action selector="cornerRadiusStepperAction:" target="f8G-sv-wa9" id="a0V-Yx-Ifq"/>
                     </connections>
@@ -899,10 +899,10 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxR-4k-v2o" userLabel="Radius Stepper">
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxR-4k-v2o" userLabel="Radius Stepper">
                     <rect key="frame" x="230" y="2" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="25" doubleValue="3" id="p7H-TU-bYJ"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" refusesFirstResponder="YES" focusRingType="none" alignment="left" maxValue="25" doubleValue="3" id="p7H-TU-bYJ"/>
                     <connections>
                         <action selector="cornerRadiusStepperAction:" target="BN4-kh-WZm" id="DKv-Qo-6Nf"/>
                     </connections>
