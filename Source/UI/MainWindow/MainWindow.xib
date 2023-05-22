@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -43,10 +43,10 @@
                             <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Quit application" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Quit application" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="15" y="204" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -57,10 +57,10 @@
                                         <action selector="quitAction:" target="-2" id="te0-r8-B0U"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Minimize window" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Minimize window" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="29" y="205" width="8" height="8"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -71,10 +71,10 @@
                                         <action selector="minimizeAction:" target="-2" id="67L-qB-Vyv"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Switch to menu bar mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuI-sH-f9K" userLabel="Menu Bar Mode Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Switch to menu bar mode" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuI-sH-f9K" userLabel="Menu Bar Mode Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="43" y="205" width="11" height="8"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MenuBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KFK-iW-kM5">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MenuBarMode" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="KFK-iW-kM5">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -85,10 +85,10 @@
                                         <action selector="menuBarModeAction:" target="-2" id="YuQ-CY-KEJ"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Switch to control bar mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-XT-x3a" userLabel="Control Bar Mode Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Switch to control bar mode" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-XT-x3a" userLabel="Control Bar Mode Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="59" y="205" width="11" height="8"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ControlBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Okb-Nw-ztF">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ControlBarMode" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="Okb-Nw-ztF">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -107,10 +107,10 @@
                                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="AppTitle"/>
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
-                                <button toolTip="Show/hide playlist" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Show/hide playlist" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="469" y="204" width="14" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -124,12 +124,12 @@
                                         <action selector="togglePlaylistAction:" target="-2" id="Oro-eR-EYP"/>
                                     </connections>
                                 </button>
-                                <popUpButton toolTip="Global and player view settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Settings Menu">
+                                <popUpButton toolTip="Global and player view settings" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Settings Menu">
                                     <rect key="frame" x="496" y="201" width="24" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
+                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="11" name="Play-Regular"/>
+                                        <font key="font" metaFont="smallSystem"/>
                                         <menu key="menu" autoenablesItems="NO" id="drC-pX-0Rs">
                                             <items>
                                                 <menuItem image="Settings" hidden="YES" id="HM2-5O-u4Z" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
@@ -549,10 +549,10 @@
                                         </menu>
                                     </popUpButtonCell>
                                 </popUpButton>
-                                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <button wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="486" y="204" width="14" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>

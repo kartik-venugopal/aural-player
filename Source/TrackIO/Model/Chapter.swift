@@ -43,13 +43,8 @@ class Chapter: CustomStringConvertible {
         self.endTime = endTime
         self.duration = max(endTime - startTime, 0)
     }
-
-#if DEBUG
-    
+   
     var description: String {
         "Title: \(title), startTime: \(startTime), endTime: \(endTime), duration: \(duration)"
     }
-    
-#endif
-
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -65,10 +65,10 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button toolTip="Hide the playlist" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdc-Y5-FXG" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Hide the playlist" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdc-Y5-FXG" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="15" y="252" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UvB-YL-0pm">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="UvB-YL-0pm">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -106,34 +106,34 @@
                             <rect key="frame" x="0.0" y="0.0" width="125" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Tracks view" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRy-40-ayp" userLabel="Tracks Button">
+                                <button toolTip="Tracks view" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRy-40-ayp" userLabel="Tracks Button">
                                     <rect key="frame" x="1" y="0.0" width="22" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Tracks" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zgx-eE-HPM" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Tracks" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="zgx-eE-HPM" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
-                                <button toolTip="Artists view" verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gd5-Z1-IPv" userLabel="Artists Button">
+                                <button toolTip="Artists view" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gd5-Z1-IPv" userLabel="Artists Button">
                                     <rect key="frame" x="34" y="0.0" width="22" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Artists" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji9-rd-q2F" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Artists" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="ji9-rd-q2F" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
-                                <button toolTip="Albums view" verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-Se-Yie" userLabel="Albums Button">
+                                <button toolTip="Albums view" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-Se-Yie" userLabel="Albums Button">
                                     <rect key="frame" x="67" y="0.0" width="22" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Albums" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OyZ-cR-V6J" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Albums" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="OyZ-cR-V6J" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
-                                <button toolTip="Genres view" verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-oc-eXx" userLabel="Genres Button">
+                                <button toolTip="Genres view" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-oc-eXx" userLabel="Genres Button">
                                     <rect key="frame" x="100" y="0.0" width="22" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Genres" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YnV-Ql-KcB" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Genres" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="YnV-Ql-KcB" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -252,13 +252,13 @@
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                     </box>
-                    <button hidden="YES" toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="hbJ-4L-vUS" userLabel="Scroll To Top Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Scroll to top of playlist" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="hbJ-4L-vUS" userLabel="Scroll To Top Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="517" y="217" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Jj8-lk-s9J"/>
                             <constraint firstAttribute="height" constant="10" id="NCo-1V-xXg"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ScrollToTop" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="lHc-DC-Y11">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ScrollToTop" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="lHc-DC-Y11">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -269,13 +269,13 @@
                             <action selector="scrollToTopAction:" target="-2" id="cbL-bi-2mF"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Page up" translatesAutoresizingMaskIntoConstraints="NO" id="aRU-Xs-Jom" userLabel="Page Up Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Page up" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="aRU-Xs-Jom" userLabel="Page Up Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="517" y="207" width="10" height="8"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="LMQ-1a-1qb"/>
                             <constraint firstAttribute="width" constant="10" id="due-Mu-skc"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PageUp" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="EoZ-RE-4a0">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PageUp" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="EoZ-RE-4a0">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -286,13 +286,13 @@
                             <action selector="pageUpAction:" target="-2" id="c2B-qD-TfT"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Scroll to bottom of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="B7I-KW-j8r" userLabel="Scroll To Bottom Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Scroll to bottom of playlist" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="B7I-KW-j8r" userLabel="Scroll To Bottom Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="517" y="48" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="D5c-aB-FSg"/>
                             <constraint firstAttribute="width" constant="10" id="c7G-uw-aSp"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ScrollToBottom" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="ZyR-xk-pl5">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ScrollToBottom" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="ZyR-xk-pl5">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -303,13 +303,13 @@
                             <action selector="scrollToBottomAction:" target="-2" id="TDg-mR-lQb"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Page down" translatesAutoresizingMaskIntoConstraints="NO" id="MyO-C3-Vvb" userLabel="Page Down Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Page down" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="MyO-C3-Vvb" userLabel="Page Down Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="517" y="60" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Tf8-ZS-vnw"/>
                             <constraint firstAttribute="height" constant="10" id="wDg-8c-7OW"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PageDown" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="MpM-qN-PBs">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PageDown" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="MpM-qN-PBs">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -320,13 +320,13 @@
                             <action selector="pageDownAction:" target="-2" id="XcS-3y-RUh"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Export current playlist to file" translatesAutoresizingMaskIntoConstraints="NO" id="gX9-U6-3fw" userLabel="ExportPlaylist" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Export current playlist to file" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="gX9-U6-3fw" userLabel="ExportPlaylist" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="380" y="12" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="7Q9-YU-fej"/>
                             <constraint firstAttribute="height" constant="11" id="rM9-rA-TpJ"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ExportMetadata" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0jI-Pj-eYA">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ExportMetadata" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="0jI-Pj-eYA">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -337,13 +337,13 @@
                             <action selector="savePlaylistAction:" target="-2" id="I2f-PR-b9Y"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="69P-I6-ESe" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Add files to playlist" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="69P-I6-ESe" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="335" y="13" width="10" height="9"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Oc7-sz-mom"/>
                             <constraint firstAttribute="height" constant="9" id="bQp-Rd-5uh"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="sdI-Ho-9Cs">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="sdI-Ho-9Cs">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -354,13 +354,13 @@
                             <action selector="addTracksAction:" target="-2" id="yHV-Oz-dq9"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8bh-90-Ye2" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Remove selected tracks from playlist" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="8bh-90-Ye2" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="350" y="13" width="10" height="9"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="489-Gv-K2e"/>
                             <constraint firstAttribute="height" constant="9" id="VcT-5g-JU0"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Qty-rk-e43">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="Qty-rk-e43">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -371,13 +371,13 @@
                             <action selector="removeTracksAction:" target="-2" id="r86-Yn-P8V"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="6wk-oD-sAb" userLabel="Clear" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Clear the playlist" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="6wk-oD-sAb" userLabel="Clear" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="397" y="12" width="11" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="4pG-DK-BL1"/>
                             <constraint firstAttribute="width" constant="11" id="9io-Xn-5d8"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="LeH-iN-tle">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="LeH-iN-tle">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -388,13 +388,13 @@
                             <action selector="clearPlaylistAction:" target="-2" id="l0Z-2l-hUM"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="2cB-rC-TAd" userLabel="Up" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Move selected tracks up" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="2cB-rC-TAd" userLabel="Up" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="428" y="12" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="bqI-nB-yBM"/>
                             <constraint firstAttribute="height" constant="12" id="eyd-9c-yNX"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="bnv-vN-JOg">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="bnv-vN-JOg">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -405,13 +405,13 @@
                             <action selector="moveTracksUpAction:" target="-2" id="SiI-8R-bZI"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="XMf-ei-tjw" userLabel="Down" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Move selected tracks down" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="XMf-ei-tjw" userLabel="Down" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="443" y="11" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="3RV-cn-oBr"/>
                             <constraint firstAttribute="height" constant="12" id="tO8-Sw-zHb"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="wtF-Lc-AT2">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="wtF-Lc-AT2">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -422,13 +422,13 @@
                             <action selector="moveTracksDownAction:" target="-2" id="uFd-ph-czc"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="k4F-AY-e2O" userLabel="Search" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Search playlist" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="k4F-AY-e2O" userLabel="Search" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="475" y="12" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="3OB-bV-J45"/>
                             <constraint firstAttribute="height" constant="10" id="UG7-XR-QC2"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="N5i-LK-1nP">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="N5i-LK-1nP">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -439,13 +439,13 @@
                             <action selector="searchAction:" target="-2" id="F9C-kE-tqc"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="1a0-k6-zjf" userLabel="Sort" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button hidden="YES" toolTip="Sort playlist" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="1a0-k6-zjf" userLabel="Sort" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="493" y="11" width="14" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="14" id="b4n-Z0-9w7"/>
                             <constraint firstAttribute="height" constant="14" id="eeu-gf-YdT"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bUY-qk-aHo">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="bUY-qk-aHo">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
