@@ -3165,9 +3165,9 @@
 				3E6C0F4725CEB98600BF0D07 /* ArtistsPlaylistSort.xib */,
 				3E6C0F4B25CEB98600BF0D07 /* AlbumsPlaylistSort.xib */,
 				3E6C0F4625CEB98600BF0D07 /* GenresPlaylistSort.xib */,
+				3E6C0F4825CEB98600BF0D07 /* TracksPlaylistSortViewController.swift */,
 				3E6C0F4425CEB98600BF0D07 /* ArtistsPlaylistSortViewController.swift */,
 				3E6C0F4525CEB98600BF0D07 /* GenresPlaylistSortViewController.swift */,
-				3E6C0F4825CEB98600BF0D07 /* TracksPlaylistSortViewController.swift */,
 				3E6C0F4925CEB98600BF0D07 /* AlbumsPlaylistSortViewController.swift */,
 			);
 			path = Subviews;
@@ -6648,7 +6648,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.17.0;
+				CURRENT_PROJECT_VERSION = 3.18.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = (
@@ -6662,7 +6662,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.17.0;
+				MARKETING_VERSION = 3.18.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;
@@ -6681,7 +6681,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.17.0;
+				CURRENT_PROJECT_VERSION = 3.18.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = (
@@ -6695,7 +6695,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.17.0;
+				MARKETING_VERSION = 3.18.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;

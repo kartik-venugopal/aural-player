@@ -1,16 +1,10 @@
-#  What's New in Version 3.17.0
+#  What's New in Version 3.18.0
 
-## Fixed button focus issue (M2 Pro / Ventura)
+## #56 - Added ability to sort playlist by file "Last Modified" timestamp.
 
-On an M2 Pro machine running macOS Ventura, I discovered that the close button ('X') would be in focus on app startup ... this had 2 undesirable consequences:
-1. The button looked ugly with a focus ring around it.
-2. When the Space key was pressed to initiate playback, a button press would be triggered, quitting the app.
+Thanks to @XhstormR for requesting this feature !
 
-This issue has been fixed.
-
-## Dropped support for macOS 10.12 Sierra
-
-Xcode 14 does not support building for macOS Sierra.
+The playlist can now be sorted by the "Last Modified" timestamp of the audio files (if/when available).
 
 ### **For more info**
-Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.17.0)
+Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.18.0)

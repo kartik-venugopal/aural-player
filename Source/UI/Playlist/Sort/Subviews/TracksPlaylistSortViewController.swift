@@ -13,6 +13,7 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBOutlet weak var sortByName: NSButton!
     @IBOutlet weak var sortByDuration: NSButton!
+    @IBOutlet weak var sortByFileLastModifiedTime: NSButton!
     
     @IBOutlet weak var sortByArtist_andAlbum_andDiscTrack: NSButton!
     @IBOutlet weak var sortByArtist_andAlbum_andName: NSButton!
@@ -68,6 +69,10 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
         } else if sortByAlbum_andDiscTrack.isOn {
             
             _ = tracksSort.withFields(.album, .discNumberAndTrackNumber)
+            
+        } else if sortByFileLastModifiedTime.isOn {
+            
+            _ = tracksSort.withFields(.fileLastModifiedTime)
             
         } else {
             

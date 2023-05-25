@@ -103,6 +103,10 @@ class SortComparator {
         case .discNumberAndTrackNumber:
             
             return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.discNumber}, 0), ({$0.trackNumber}, 0))
+            
+        case .fileLastModifiedTime:
+            
+            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.file.lastModifiedTime}, .distantPast))
         }
     }
     

@@ -17,17 +17,17 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="q7J-c3-oYm" userLabel="Playlist Sort Dialog" customClass="NoTitleBarPanel" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="0.0" y="0.0" width="530" height="400"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="530" height="430"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" wantsLayer="YES" id="d89-ua-Tni" userLabel="Container View">
-                <rect key="frame" x="0.0" y="0.0" width="530" height="400"/>
+                <rect key="frame" x="0.0" y="0.0" width="530" height="430"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Options:" translatesAutoresizingMaskIntoConstraints="NO" id="2Xd-Vi-QuN" userLabel="Sort Options Box">
-                        <rect key="frame" x="15" y="37" width="500" height="330"/>
+                        <rect key="frame" x="15" y="37" width="500" height="360"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="sFa-mR-3mA">
-                            <rect key="frame" x="0.0" y="0.0" width="500" height="330"/>
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="360"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -61,7 +61,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V2b-Ns-cA4" userLabel="Title">
-                        <rect key="frame" x="180" y="372" width="170" height="23"/>
+                        <rect key="frame" x="180" y="402" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Sort playlist" id="I23-mM-Bne">
                             <font key="font" size="12" name="Play-Regular"/>

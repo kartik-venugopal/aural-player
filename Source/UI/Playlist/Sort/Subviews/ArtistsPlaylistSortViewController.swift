@@ -28,6 +28,7 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     @IBOutlet weak var sortTracks_byAlbum_andName: NSButton!
     @IBOutlet weak var sortTracks_byName: NSButton!
     @IBOutlet weak var sortTracks_byDuration: NSButton!
+    @IBOutlet weak var sortTracks_ByFileLastModifiedTime: NSButton!
     
     @IBOutlet weak var sortTracks_ascending: NSButton!
     @IBOutlet weak var sortTracks_descending: NSButton!
@@ -96,6 +97,10 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
                 
             } else if sortTracks_byAlbum_andName.isOn {
                 _ = tracksSort.withFields(.album, .name)
+                
+            } else if sortTracks_ByFileLastModifiedTime.isOn {
+                
+                _ = tracksSort.withFields(.fileLastModifiedTime)
                 
             } else {
                 // By duration

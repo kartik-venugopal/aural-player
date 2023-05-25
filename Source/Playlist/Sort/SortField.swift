@@ -18,4 +18,5 @@ enum SortField {
     case artist
     case album
     case discNumberAndTrackNumber
+    case fileLastModifiedTime
 }

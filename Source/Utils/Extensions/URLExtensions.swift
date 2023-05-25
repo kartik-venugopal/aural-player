@@ -132,6 +132,20 @@ extension URL {
                               kindOfFile: kindOfFile, lastOpened: lastOpened)
     }
     
+    var lastModifiedTime: Date? {
+        
+        do {
+
+            let attr = try fileManager.attributesOfItem(atPath: path)
+            return attr[.modificationDate, Date.self]
+            
+        } catch let error as NSError {
+            
+            NSLog("Error getting size of file '%@': %@", path, error.description)
+            return nil
+        }
+    }
+    
     func createDirectory() {
         
         if exists {return}
