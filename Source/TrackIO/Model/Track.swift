@@ -127,7 +127,7 @@ class Track: Hashable, PlaylistItem {
         if self.chapters.isEmpty {
             self.chapters = metadata.chapters
             
-        } else if var lastChapter = self.chapters.last,     // Chapters were created by reading a CUE sheet, correct the end time of the last chapter, if necessary.
+        } else if let lastChapter = self.chapters.last,     // Chapters were created by reading a CUE sheet, correct the end time of the last chapter, if necessary.
             lastChapter.duration == 0 {
             
             lastChapter.correctEndTimeAndDuration(endTime: metadata.duration)

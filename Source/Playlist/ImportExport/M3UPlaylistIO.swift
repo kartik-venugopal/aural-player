@@ -99,12 +99,6 @@ class M3UPlaylistIO: PlaylistIOProtocol {
             }
         }
         
-        var tracksWithChapters: [URL: [Chapter]] = [:]
-        
-        for track in tracks {
-            tracksWithChapters[track] = []
-        }
-        
-        return ImportedPlaylist(file: playlistFile, tracksWithChapters: tracksWithChapters)
+        return ImportedPlaylist(file: playlistFile, tracks: tracks.map {ImportedPlaylistTrack(file: $0, chapters: [])})
     }
 }

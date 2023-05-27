@@ -246,9 +246,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         }
     }
     
-    private func collectPlaylistTracks(_ tracksWithChapters: [URL: [Chapter]], _ isRecursiveCall: Bool) {
+    private func collectPlaylistTracks(_ tracks: [ImportedPlaylistTrack], _ isRecursiveCall: Bool) {
         
-        for (file, chapters) in tracksWithChapters {
+        for track in tracks {
+            
+            let file = track.file
+            let chapters = track.chapters
             
             // Playlists might contain broken file references
             if !file.exists {
@@ -280,8 +283,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         
         if let loadedPlaylist = PlaylistIO.loadPlaylist(fromFile: playlistFile) {
             
-            addSession.totalTracks += loadedPlaylist.tracksWithChapters.count - 1
-            collectPlaylistTracks(loadedPlaylist.tracksWithChapters, true)
+            addSession.totalTracks += loadedPlaylist.tracks.count - 1
+            collectPlaylistTracks(loadedPlaylist.tracks, true)
         }
     }
     

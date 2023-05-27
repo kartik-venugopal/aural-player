@@ -250,31 +250,23 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBAction func choosePlaylistFileAction(_ sender: Any) {
         
         let dialog = DialogsAndAlerts.openPlaylistFileDialog
+        guard dialog.runModal() == .OK else {return}
         
-        let modalResponse = dialog.runModal()
+        let playlistFile = dialog.urls[0]
         
-        if (modalResponse == NSApplication.ModalResponse.OK) {
-            
-            let playlistFile = dialog.urls[0]
-            
-            hideError_playlistFile()
-            lblPlaylistFile.stringValue = playlistFile.path
-        }
+        hideError_playlistFile()
+        lblPlaylistFile.stringValue = playlistFile.path
     }
     
     @IBAction func chooseTracksFolderAction(_ sender: Any) {
         
         let dialog = DialogsAndAlerts.openFolderDialog
+        guard dialog.runModal() == .OK else {return}
         
-        let modalResponse = dialog.runModal()
+        let folder = dialog.urls[0]
         
-        if (modalResponse == NSApplication.ModalResponse.OK) {
-            
-            let folder = dialog.urls[0]
-            
-            hideError_tracksFolder()
-            lblFolder.stringValue = folder.path
-        }
+        hideError_tracksFolder()
+        lblFolder.stringValue = folder.path
     }
     
     private func showError_playlistFile() {

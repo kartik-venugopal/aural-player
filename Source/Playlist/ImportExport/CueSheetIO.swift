@@ -49,22 +49,22 @@ class CueSheetIO: PlaylistIOProtocol {
 
         lines = fileContents.components(separatedBy: .newlines)
 
-        var tracksWithChapters: [URL: [Chapter]] = [:]
+        var tracks: [ImportedPlaylistTrack] = []
         cursor = 0
 
         while cursor < lines.count {
 
             line = lines[cursor].trim()
 
-            if line.starts(with: prefix_file), let file = readFile(playlistFile, 0) {
-                tracksWithChapters[file.file] = file.chapters
+            if line.starts(with: prefix_file), let track = readFile(playlistFile, 0) {
+                tracks.append(ImportedPlaylistTrack(file: track.file, chapters: track.chapters))
 
             } else {
                 cursor.increment()
             }
         }
 
-        return ImportedPlaylist(file: playlistFile, tracksWithChapters: tracksWithChapters)
+        return ImportedPlaylist(file: playlistFile, tracks: tracks)
     }
 
     private static func readFile(_ playlistFile: URL, _ rootIndentLevel: Int) -> (file: URL, chapters: [Chapter])? {
