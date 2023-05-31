@@ -36,8 +36,12 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnAutoplayOnStartup: NSButton!
     
     @IBOutlet weak var btnAutoplayAfterAddingTracks: NSButton!
-    @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
-    @IBOutlet weak var btnAutoplayAlways: NSButton!
+    @IBOutlet weak var btnAutoplayAfterAdding_IfNotPlaying: NSButton!
+    @IBOutlet weak var btnAutoplayAfterAdding_Always: NSButton!
+    
+    @IBOutlet weak var btnAutoplayAfterOpeningTracks: NSButton!
+    @IBOutlet weak var btnAutoplayAfterOpening_IfNotPlaying: NSButton!
+    @IBOutlet weak var btnAutoplayAfterOpening_Always: NSButton!
     
     @IBOutlet weak var btnRememberPosition_allTracks: NSButton!
     @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
@@ -57,7 +61,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     override var nibName: String? {"PlaybackPreferences"}
     
     var preferencesView: NSView {
-        return self.view
+        view
     }
     
     override func viewDidLoad() {
@@ -111,10 +115,14 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Autoplay
         
         btnAutoplayOnStartup.onIf(prefs.autoplayOnStartup)
-        btnAutoplayAfterAddingTracks.onIf(prefs.autoplayAfterAddingTracks)
         
-        btnAutoplayIfNotPlaying.onIf(prefs.autoplayAfterAddingOption == .ifNotPlaying)
-        btnAutoplayAlways.onIf(prefs.autoplayAfterAddingOption == .always)
+        btnAutoplayAfterAddingTracks.onIf(prefs.autoplayAfterAddingTracks)
+        btnAutoplayAfterAdding_IfNotPlaying.onIf(prefs.autoplayAfterAddingOption == .ifNotPlaying)
+        btnAutoplayAfterAdding_Always.onIf(prefs.autoplayAfterAddingOption == .always)
+        
+        btnAutoplayAfterOpeningTracks.onIf(prefs.autoplayAfterOpeningTracks)
+        btnAutoplayAfterOpening_Always.onIf(prefs.autoplayAfterOpeningOption == .always)
+        btnAutoplayAfterOpening_IfNotPlaying.onIf(prefs.autoplayAfterOpeningOption == .ifNotPlaying)
         
         // Remember last track position
         
@@ -161,6 +169,10 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
     }
     
+    @IBAction func autoplayAfterOpeningRadioButtonAction(_ sender: Any) {
+        // Needed for radio button group
+    }
+    
     @IBAction func rememberLastPositionRadioButtonAction(_ sender: Any) {
         // Needed for radio button group
     }
@@ -201,7 +213,10 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         prefs.autoplayOnStartup = btnAutoplayOnStartup.isOn
         
         prefs.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.isOn
-        prefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.isOn ? .ifNotPlaying : .always
+        prefs.autoplayAfterAddingOption = btnAutoplayAfterAdding_IfNotPlaying.isOn ? .ifNotPlaying : .always
+        
+        prefs.autoplayAfterOpeningTracks = btnAutoplayAfterOpeningTracks.isOn
+        prefs.autoplayAfterOpeningOption = btnAutoplayAfterOpening_IfNotPlaying.isOn ? .ifNotPlaying : .always
         
         // Playback profiles
         

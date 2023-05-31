@@ -9,8 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PlaybackPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnAutoplayAfterAddingTracks" destination="qSu-Gq-GD0" id="WFj-tj-Ui4"/>
-                <outlet property="btnAutoplayAlways" destination="WrV-9w-TDC" id="ISm-HO-4OZ"/>
-                <outlet property="btnAutoplayIfNotPlaying" destination="Oaz-io-4ja" id="Ugf-fh-bTf"/>
+                <outlet property="btnAutoplayAfterAdding_Always" destination="WrV-9w-TDC" id="ISm-HO-4OZ"/>
+                <outlet property="btnAutoplayAfterAdding_IfNotPlaying" destination="Oaz-io-4ja" id="Ugf-fh-bTf"/>
                 <outlet property="btnAutoplayOnStartup" destination="znf-vd-0EN" id="v3P-VH-2gM"/>
                 <outlet property="btnInfo_primarySeekLength" destination="L8I-p6-5ZK" id="7hv-qa-tZC"/>
                 <outlet property="btnInfo_secondarySeekLength" destination="pLg-Zx-z1o" id="O0L-tk-5qQ"/>
@@ -83,7 +83,7 @@
                     </connections>
                 </stepper>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSu-Gq-GD0" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="47" y="261" width="281" height="20"/>
+                    <rect key="frame" x="47" y="256" width="281" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="After adding tracks, play first added track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="5Kd-qp-PiC">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -103,7 +103,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FAF-So-sMu" userLabel="For individual tracks" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="45" y="153.5" width="443" height="19.5"/>
+                    <rect key="frame" x="45" y="88.5" width="443" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="For individual tracks that I apply this option to (Playback menu)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="hzV-ZU-muz">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -134,7 +134,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DU-OO-agi" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="45" y="134.5" width="213" height="19.5"/>
+                    <rect key="frame" x="45" y="69.5" width="213" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Jw4-k0-1Eu">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -158,7 +158,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WrV-9w-TDC" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="71" y="221.5" width="203" height="19.5"/>
+                    <rect key="frame" x="71" y="216.5" width="203" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Always" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="B13-O8-QKf">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -169,7 +169,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0M-Y1-Jc0">
-                    <rect key="frame" x="35" y="177" width="430" height="20"/>
+                    <rect key="frame" x="35" y="112" width="430" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Resume track playback from last playback position" id="bNf-Jp-q0R">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -178,7 +178,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oaz-io-4ja" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="71" y="240.5" width="232" height="19.5"/>
+                    <rect key="frame" x="71" y="235.5" width="232" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="If no track is currently playing" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="fim-2o-tXZ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -186,6 +186,39 @@
                     </buttonCell>
                     <connections>
                         <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="50Q-NE-F1L"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t4d-Qx-hGu" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="47" y="196" width="527" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="After opening tracks with &quot;Open With&quot; (or double-click), play first opened track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="dCl-cX-3hy">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="autoplayAfterAddingAction:" target="-2" id="Vns-3l-63k"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15u-Vf-yRK" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="71" y="176.5" width="203" height="19.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Always" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="7wi-vx-hNk">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="gvd-di-mvL"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GK8-Xg-g0d" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="71" y="157.5" width="232" height="19.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="If no track is currently playing" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="YaO-su-d70">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="ckb-5x-XcJ"/>
                     </connections>
                 </button>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CC1-0k-NBg" userLabel="Secondary Seek Stepper">
