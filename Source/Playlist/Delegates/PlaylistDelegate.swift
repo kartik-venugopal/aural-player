@@ -26,6 +26,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
 //    private var playlist: PlaylistProtocol {playlistsManager.currentPlaylist}
     private let playlist: PlaylistProtocol
     
+    private let player: PlaybackInfoDelegateProtocol
+    
 //    private let playlistsManager: PlaylistsManager
     
     private let trackReader: TrackReader
@@ -59,10 +61,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     private lazy var messenger = Messenger(for: self)
     
     init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistProtocol,
-         _ trackReader: TrackReader, _ preferences: Preferences) {
+         _ player: PlaybackInfoDelegateProtocol, _ trackReader: TrackReader, _ preferences: Preferences) {
         
         self.playlist = playlist
 //        self.playlistsManager = playlistsManager
+        self.player = player
         self.trackReader = trackReader
         
         self.persistentState = persistentState
@@ -466,12 +469,19 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         // Check if any launch parameters were specified
         if filesToOpen.isNonEmpty {
             
+            // Launch parameters specified, override playlist saved state and add file paths in params to playlist
             if playlistPreferences.openWithAddMode == .replace {
+                
+                NSLog("PREF SET TO REPLACE, CLEARING ...")
                 clear()
+                addFiles_async(filesToOpen, AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks), userAction: false)
+                
+            } else if let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) {
+                
+                NSLog("PREF SET TO APPEND, not CLEARING.")
+                // Need to append files, load playlist saved state
+                addFiles_async(tracks + filesToOpen, AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks), userAction: false, reorderGroupingPlaylists: true)
             }
-            
-            // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-            addFiles_async(filesToOpen, AutoplayOptions(autoplay: true), userAction: false)
 
         } else if playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch,
                   let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) {
@@ -497,8 +507,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             clear()
         }
         
+        let autoplayEnabled = (!notification.isDuplicateNotification) && playbackPreferences.autoplayAfterOpeningTracks
+        let interruptPlayback = playbackPreferences.autoplayAfterOpeningOption == .always
+        
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-        addFiles_async(notification.filesToOpen, AutoplayOptions(autoplay: !notification.isDuplicateNotification, autoplayType: .playSpecificTrack))
+        addFiles_async(notification.filesToOpen, AutoplayOptions(autoplay: autoplayEnabled, autoplayType: .playSpecificTrack,
+                                                                 interruptPlayback: interruptPlayback))
     }
 }
 

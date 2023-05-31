@@ -11,6 +11,9 @@
                 <outlet property="btnAutoplayAfterAddingTracks" destination="qSu-Gq-GD0" id="WFj-tj-Ui4"/>
                 <outlet property="btnAutoplayAfterAdding_Always" destination="WrV-9w-TDC" id="ISm-HO-4OZ"/>
                 <outlet property="btnAutoplayAfterAdding_IfNotPlaying" destination="Oaz-io-4ja" id="Ugf-fh-bTf"/>
+                <outlet property="btnAutoplayAfterOpeningTracks" destination="t4d-Qx-hGu" id="Fa6-IQ-OJN"/>
+                <outlet property="btnAutoplayAfterOpening_Always" destination="15u-Vf-yRK" id="CGW-xR-PlO"/>
+                <outlet property="btnAutoplayAfterOpening_IfNotPlaying" destination="GK8-Xg-g0d" id="2ac-Lx-Had"/>
                 <outlet property="btnAutoplayOnStartup" destination="znf-vd-0EN" id="v3P-VH-2gM"/>
                 <outlet property="btnInfo_primarySeekLength" destination="L8I-p6-5ZK" id="7hv-qa-tZC"/>
                 <outlet property="btnInfo_secondarySeekLength" destination="pLg-Zx-z1o" id="O0L-tk-5qQ"/>
@@ -196,7 +199,7 @@
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
-                        <action selector="autoplayAfterAddingAction:" target="-2" id="Vns-3l-63k"/>
+                        <action selector="autoplayAfterOpeningAction:" target="-2" id="Wnw-EI-yMs"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15u-Vf-yRK" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
@@ -207,7 +210,7 @@
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
-                        <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="gvd-di-mvL"/>
+                        <action selector="autoplayAfterOpeningRadioButtonAction:" target="-2" id="eC1-57-8Rh"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GK8-Xg-g0d" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
@@ -218,7 +221,7 @@
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
-                        <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="ckb-5x-XcJ"/>
+                        <action selector="autoplayAfterOpeningRadioButtonAction:" target="-2" id="9Nd-cu-88R"/>
                     </connections>
                 </button>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CC1-0k-NBg" userLabel="Secondary Seek Stepper">

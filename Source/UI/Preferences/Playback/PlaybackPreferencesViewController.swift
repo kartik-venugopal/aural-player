@@ -165,6 +165,10 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBAction func autoplayAfterAddingAction(_ sender: Any) {
     }
     
+    // When the check box for "autoplay after opening tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
+    @IBAction func autoplayAfterOpeningAction(_ sender: Any) {
+    }
+    
     @IBAction func autoplayAfterAddingRadioButtonAction(_ sender: Any) {
         // Needed for radio button group
     }
