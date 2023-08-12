@@ -36,8 +36,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     var autoplayAfterAddingTracks: Bool
     var autoplayAfterAddingOption: AutoplayAfterAddingOptions
     
-    var autoplayAfterOpeningTracks: Bool
-    var autoplayAfterOpeningOption: AutoplayAfterOpeningOptions
+//    var autoplayAfterOpeningTracks: Bool
+//    var autoplayAfterOpeningOption: AutoplayAfterOpeningOptions
     
     var rememberLastPositionOption: RememberSettingsForTrackOptions
     
@@ -90,10 +90,10 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         autoplayAfterAddingOption = dict.enumValue(forKey: Self.key_autoplayAfterAddingOption,
                                                    ofType: AutoplayAfterAddingOptions.self) ?? Defaults.autoplayAfterAddingOption
         
-        autoplayAfterOpeningTracks = dict[Self.key_autoplayAfterOpeningTracks, Bool.self] ?? Defaults.autoplayAfterOpeningTracks
-        
-        autoplayAfterOpeningOption = dict.enumValue(forKey: Self.key_autoplayAfterOpeningOption,
-                                                   ofType: AutoplayAfterOpeningOptions.self) ?? Defaults.autoplayAfterOpeningOption
+//        autoplayAfterOpeningTracks = dict[Self.key_autoplayAfterOpeningTracks, Bool.self] ?? Defaults.autoplayAfterOpeningTracks
+//
+//        autoplayAfterOpeningOption = dict.enumValue(forKey: Self.key_autoplayAfterOpeningOption,
+//                                                   ofType: AutoplayAfterOpeningOptions.self) ?? Defaults.autoplayAfterOpeningOption
         
         rememberLastPositionOption = dict.enumValue(forKey: Self.key_rememberLastPositionOption,
                                                     ofType: RememberSettingsForTrackOptions.self) ?? Defaults.rememberLastPositionOption
@@ -114,8 +114,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         defaults[Self.key_autoplayAfterAddingTracks] = autoplayAfterAddingTracks 
         defaults[Self.key_autoplayAfterAddingOption] = autoplayAfterAddingOption.rawValue
         
-        defaults[Self.key_autoplayAfterOpeningTracks] = autoplayAfterOpeningTracks
-        defaults[Self.key_autoplayAfterOpeningOption] = autoplayAfterOpeningOption.rawValue
+//        defaults[Self.key_autoplayAfterOpeningTracks] = autoplayAfterOpeningTracks
+//        defaults[Self.key_autoplayAfterOpeningOption] = autoplayAfterOpeningOption.rawValue
         
         defaults[Self.key_rememberLastPositionOption] = rememberLastPositionOption.rawValue 
     }
@@ -135,11 +135,11 @@ enum AutoplayAfterAddingOptions: String, CaseIterable {
 }
 
 // Possible options for the "autoplay afer 'Open With'" user preference
-enum AutoplayAfterOpeningOptions: String, CaseIterable {
-    
-    case ifNotPlaying
-    case always
-}
+//enum AutoplayAfterOpeningOptions: String, CaseIterable {
+//
+//    case ifNotPlaying
+//    case always
+//}
 
 enum RememberSettingsForTrackOptions: String, CaseIterable {
     

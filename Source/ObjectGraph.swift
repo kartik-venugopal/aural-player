@@ -42,7 +42,7 @@ class ObjectGraph {
 //                                })
 //    }()
     
-    lazy var playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist, playbackInfoDelegate,
+    lazy var playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist,
                                                                            trackReader, preferences)
     
     var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {playlistDelegate}

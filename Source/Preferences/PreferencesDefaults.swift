@@ -32,8 +32,8 @@ struct PreferencesDefaults {
         static let autoplayAfterAddingTracks: Bool = false
         static let autoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying
         
-        static let autoplayAfterOpeningTracks: Bool = true
-        static let autoplayAfterOpeningOption: AutoplayAfterOpeningOptions = .always
+//        static let autoplayAfterOpeningTracks: Bool = true
+//        static let autoplayAfterOpeningOption: AutoplayAfterOpeningOptions = .always
         
         static let rememberLastPositionOption: RememberSettingsForTrackOptions = .individualTracks
     }
