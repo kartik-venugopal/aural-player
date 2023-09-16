@@ -20,14 +20,14 @@
             <rect key="frame" x="0.0" y="0.0" width="490" height="177"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzJ-2a-yOb" userLabel="Playlist Tracks View">
+                <scrollView focusRingType="none" borderType="none" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzJ-2a-yOb" userLabel="Playlist Tracks View">
                     <rect key="frame" x="0.0" y="0.0" width="530" height="175"/>
                     <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="fxA-zZ-X3P">
-                        <rect key="frame" x="0.0" y="0.0" width="530" height="175"/>
+                        <rect key="frame" x="0.0" y="0.0" width="515" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="yfe-8c-y7Q" userLabel="Playlist Tracks View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="530" height="175"/>
+                                <rect key="frame" x="0.0" y="0.0" width="515" height="175"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
@@ -175,8 +175,8 @@
                         <rect key="frame" x="-100" y="-100" width="383" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="al8-7u-8lG">
-                        <rect key="frame" x="-100" y="-100" width="15" height="102"/>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="al8-7u-8lG" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="515" y="0.0" width="15" height="175"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
