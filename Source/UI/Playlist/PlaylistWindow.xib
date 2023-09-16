@@ -148,18 +148,18 @@
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="10" width="500" height="224"/>
+                        <rect key="frame" x="15" y="10" width="510" height="224"/>
                         <view key="contentView" id="11G-bl-tTJ">
-                            <rect key="frame" x="0.0" y="0.0" width="500" height="224"/>
+                            <rect key="frame" x="0.0" y="0.0" width="510" height="224"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tabView wantsLayer="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-JW-9R7" userLabel="Playlist Views Tab Group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="29" width="500" height="195"/>
+                                    <rect key="frame" x="0.0" y="29" width="510" height="195"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="R3K-O5-tIq">
-                                                <rect key="frame" x="0.0" y="0.0" width="500" height="195"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="510" height="195"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>
@@ -196,7 +196,7 @@
                                     </tabViewItems>
                                 </tabView>
                                 <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="TgI-fO-gfa" userLabel="Spinner">
-                                    <rect key="frame" x="242" y="5" width="16" height="16"/>
+                                    <rect key="frame" x="247" y="5" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="I7h-EG-DwM"/>
                                         <constraint firstAttribute="width" constant="16" id="l6y-B3-mdy"/>
@@ -224,7 +224,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="291" y="0.0" width="204" height="25"/>
+                                    <rect key="frame" x="301" y="0.0" width="204" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="Dph-rN-D1k"/>
                                         <constraint firstAttribute="height" constant="25" id="h0n-sa-1Fx"/>
@@ -461,7 +461,7 @@
                     <constraint firstItem="hbJ-4L-vUS" firstAttribute="trailing" secondItem="B7I-KW-j8r" secondAttribute="leading" constant="-5" id="0NT-Pg-tSh"/>
                     <constraint firstItem="MyO-C3-Vvb" firstAttribute="bottom" secondItem="aRU-Xs-Jom" secondAttribute="bottom" id="1sQ-N5-Rej"/>
                     <constraint firstItem="k4F-AY-e2O" firstAttribute="bottom" secondItem="XMf-ei-tjw" secondAttribute="bottom" constant="-1" id="2Lh-pN-0xc"/>
-                    <constraint firstItem="rbs-L2-HsW" firstAttribute="trailing" secondItem="Syt-ea-ETd" secondAttribute="trailing" id="6nc-vt-Y7x"/>
+                    <constraint firstItem="rbs-L2-HsW" firstAttribute="trailing" secondItem="Syt-ea-ETd" secondAttribute="trailing" constant="-10" id="6nc-vt-Y7x"/>
                     <constraint firstItem="rbs-L2-HsW" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" constant="3" id="842-Pc-uWj"/>
                     <constraint firstItem="8bh-90-Ye2" firstAttribute="leading" secondItem="69P-I6-ESe" secondAttribute="trailing" constant="5" id="8mV-vx-DPi"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="15" id="Cbd-FA-MF9"/>
@@ -475,7 +475,7 @@
                     <constraint firstItem="MyO-C3-Vvb" firstAttribute="trailing" secondItem="hbJ-4L-vUS" secondAttribute="leading" constant="-20" id="PdX-Yi-MTf"/>
                     <constraint firstAttribute="bottom" secondItem="1a0-k6-zjf" secondAttribute="bottom" constant="11" id="WHg-Mu-SyH"/>
                     <constraint firstItem="XMf-ei-tjw" firstAttribute="bottom" secondItem="2cB-rC-TAd" secondAttribute="bottom" constant="1" id="a82-bP-AJI"/>
-                    <constraint firstItem="Syt-ea-ETd" firstAttribute="trailing" secondItem="eVi-5y-Ide" secondAttribute="trailing" constant="-15" id="aax-dN-msO"/>
+                    <constraint firstItem="Syt-ea-ETd" firstAttribute="trailing" secondItem="eVi-5y-Ide" secondAttribute="trailing" constant="-5" id="aax-dN-msO"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="trailing" secondItem="eVi-5y-Ide" secondAttribute="trailing" constant="-23" id="dxh-Jt-N2y"/>
                     <constraint firstItem="gX9-U6-3fw" firstAttribute="leading" secondItem="8bh-90-Ye2" secondAttribute="trailing" constant="20" id="f6Q-kE-0Aw"/>
                     <constraint firstAttribute="trailing" secondItem="2Bk-G6-skT" secondAttribute="trailing" id="fGP-uy-1P0"/>

@@ -27,13 +27,13 @@ class PrettyScroller: NSScroller {
     
     override func drawKnob() {
         
-        let tableView = objectGraph.playlistUIState.currentTableView!
-        let htOfRow = tableView.heightOfARow
-        let numTracks = objectGraph.playlistDelegate.size
-        
-        if tableView.visibleRect.height > (CGFloat(numTracks) * htOfRow) {
-            return
-        }
+//        let tableView = objectGraph.playlistUIState.currentTableView!
+//        let htOfRow = tableView.heightOfARow
+//        let numTracks = objectGraph.playlistDelegate.size
+//
+//        if tableView.visibleRect.height > (CGFloat(numTracks) * htOfRow) {
+//            return
+//        }
         
         let knobRect = self.rect(for: .knob).insetBy(dx: knobInsetX, dy: knobInsetY)
         if knobRect.height <= 0 || knobRect.width <= 0 {return}
@@ -43,7 +43,7 @@ class PrettyScroller: NSScroller {
     
     override func draw(_ dirtyRect: NSRect) {
         
-        NSBezierPath.fillRoundedRect(dirtyRect, radius: 0, withColor: objectGraph.colorSchemesManager.systemScheme.general.backgroundColor)
+//        NSBezierPath.fillRoundedRect(dirtyRect, radius: 0, withColor: objectGraph.colorSchemesManager.systemScheme.general.backgroundColor)
         
         let trackRect = dirtyRect.insetBy(dx: barInsetX, dy: barInsetY)
         NSBezierPath.fillRoundedRect(trackRect, radius: barRadius, withColor: .scrollerBarColor)

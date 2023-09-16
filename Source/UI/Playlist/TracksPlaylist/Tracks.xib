@@ -139,7 +139,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pY7-8Q-lam" userLabel="Duration">
-                                                        <rect key="frame" x="-2" y="0.0" width="65" height="30"/>
+                                                        <rect key="frame" x="-2" y="0.0" width="60" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="hjg-gf-GXP"/>
                                                         </constraints>
@@ -151,7 +151,7 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="pY7-8Q-lam" secondAttribute="trailing" constant="5" id="lwJ-Be-82Y"/>
+                                                    <constraint firstAttribute="trailing" secondItem="pY7-8Q-lam" secondAttribute="trailing" constant="10" id="lwJ-Be-82Y"/>
                                                     <constraint firstItem="pY7-8Q-lam" firstAttribute="leading" secondItem="Nxn-ZH-ZX3" secondAttribute="leading" id="sJA-dS-TRw"/>
                                                     <constraint firstItem="pY7-8Q-lam" firstAttribute="bottom" secondItem="Nxn-ZH-ZX3" secondAttribute="bottom" id="zua-1D-2bg"/>
                                                 </constraints>
@@ -175,7 +175,7 @@
                         <rect key="frame" x="-100" y="-100" width="383" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="al8-7u-8lG" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="al8-7u-8lG">
                         <rect key="frame" x="515" y="0.0" width="15" height="175"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

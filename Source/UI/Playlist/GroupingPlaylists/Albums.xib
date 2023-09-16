@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,10 +20,10 @@
             <rect key="frame" x="0.0" y="0.0" width="448" height="177"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K58-n2-zaU" userLabel="Playlist Albums View">
+                <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K58-n2-zaU" userLabel="Playlist Albums View">
                     <rect key="frame" x="0.0" y="0.0" width="420" height="173"/>
                     <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="L4D-0W-akw">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="173"/>
+                        <rect key="frame" x="0.0" y="0.0" width="405" height="173"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="fuY-IV-I6h" id="zOt-gt-mXm" userLabel="Playlist Albums View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
@@ -100,7 +100,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nIb-9O-Jw2" userLabel="Duration">
-                                                        <rect key="frame" x="-7" y="0.0" width="84" height="30"/>
+                                                        <rect key="frame" x="-7" y="0.0" width="79" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="PU9-6j-ux6"/>
                                                         </constraints>
@@ -112,7 +112,7 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="nIb-9O-Jw2" secondAttribute="trailing" constant="5" id="DGb-Dh-mFR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="nIb-9O-Jw2" secondAttribute="trailing" constant="10" id="DGb-Dh-mFR"/>
                                                     <constraint firstItem="nIb-9O-Jw2" firstAttribute="bottom" secondItem="4CH-bK-zT1" secondAttribute="bottom" id="Os9-HV-8pF"/>
                                                     <constraint firstItem="nIb-9O-Jw2" firstAttribute="leading" secondItem="4CH-bK-zT1" secondAttribute="leading" constant="-5" id="oEX-lO-z2m"/>
                                                 </constraints>
@@ -136,8 +136,8 @@
                         <rect key="frame" x="-100" y="-100" width="383" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="HqA-34-kwb">
-                        <rect key="frame" x="-100" y="-100" width="15" height="102"/>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="HqA-34-kwb">
+                        <rect key="frame" x="405" y="0.0" width="15" height="173"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
