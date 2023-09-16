@@ -106,14 +106,20 @@ function configureAndMake {
     # CD to the source directory.
     cd "src-${arch}/${srcDirName}"
     
+    hostArch=$(uname -a | awk 'NF>1{print $NF}')
+    
     # Determine compiler / linker flags based on architecture.
-    if [[ "$arch" == "arm64" ]]
+    if [[ "$arch" == "$hostArch" ]]
     then
-        archInFlags="-arch arm64 "
-        crossCompileAndArch="--enable-cross-compile --arch=arm64"
-    else
+    
         archInFlags=""
         crossCompileAndArch=""
+        
+    else
+    
+        archInFlags="-arch $arch "
+        crossCompileAndArch="--enable-cross-compile --arch=$arch"
+        
     fi
     
     # Configure FFmpeg
