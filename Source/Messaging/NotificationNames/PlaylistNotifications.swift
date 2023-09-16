@@ -103,6 +103,12 @@ extension Notification.Name {
     // view, i.e. other playlist views can ignore this notification.
     static let playlist_moveTracksToBottom = Notification.Name("playlist_moveTracksToBottom")
     
+    // Commands the currently displayed playlist view to select all its items.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
+    static let playlist_selectAllItems = Notification.Name("playlist_selectAllItems")
+    
     // Commands the currently displayed playlist view to clear its current selection.
     //
     // NOTE - This command is intended only for a single playlist

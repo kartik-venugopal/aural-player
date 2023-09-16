@@ -90,6 +90,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         messenger.subscribe(to: .playlist_moveTracksToTop, handler: moveTracksToTop, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_moveTracksToBottom, handler: moveTracksToBottom, filter: viewSelectionFilter)
         
+        messenger.subscribe(to: .playlist_selectAllItems, handler: playlistView.selectAllItems, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_clearSelection, handler: playlistView.clearSelection, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_invertSelection, handler: invertSelection, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_cropSelection, handler: cropSelection, filter: viewSelectionFilter)

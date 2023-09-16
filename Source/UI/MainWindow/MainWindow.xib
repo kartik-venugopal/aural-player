@@ -629,13 +629,13 @@
         <customObject id="z4t-PF-r6l" customClass="PlaylistMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="clearPlaylistMenuItem" destination="Gvm-SD-t0X" id="7Dj-1Q-9Ns"/>
-                <outlet property="clearSelectionMenuItem" destination="Gkv-dD-9HZ" id="89O-9Q-IqH"/>
+                <outlet property="clearSelectionMenuItem" destination="jIj-5R-ndo" id="RWS-TM-UQf"/>
                 <outlet property="collapseAllGroupsMenuItem" destination="mHZ-h6-3LQ" id="rRd-mg-WV9"/>
                 <outlet property="collapseSelectedItemsMenuItem" destination="IMc-pe-fcB" id="2rb-45-AQI"/>
                 <outlet property="cropSelectionMenuItem" destination="K4J-8G-9Gg" id="nv3-3U-EKf"/>
                 <outlet property="expandAllGroupsMenuItem" destination="rdI-PZ-4vA" id="bKN-zt-KFG"/>
                 <outlet property="expandSelectedGroupsMenuItem" destination="YzS-3W-DdK" id="8Ku-12-47Q"/>
-                <outlet property="invertSelectionMenuItem" destination="Gkv-dD-9HZ" id="yPT-ms-Oi4"/>
+                <outlet property="invertSelectionMenuItem" destination="wZL-mu-B9X" id="MI4-KV-a43"/>
                 <outlet property="moveItemsDownMenuItem" destination="y2t-L2-nT2" id="qeL-WV-bla"/>
                 <outlet property="moveItemsToBottomMenuItem" destination="mA3-wi-wer" id="vUg-V8-awx"/>
                 <outlet property="moveItemsToTopMenuItem" destination="tdd-2b-f9Y" id="ya6-wp-Fys"/>
@@ -650,6 +650,7 @@
                 <outlet property="scrollToBottomMenuItem" destination="gTV-sL-qhX" id="tEE-yQ-8cs"/>
                 <outlet property="scrollToTopMenuItem" destination="Ohv-gi-Pi1" id="19T-ax-zPg"/>
                 <outlet property="searchPlaylistMenuItem" destination="LzN-Hb-3YQ" id="UC7-ZW-az9"/>
+                <outlet property="selectAllItemsMenuItem" destination="Gkv-dD-9HZ" id="SpF-jC-DhI"/>
                 <outlet property="sortPlaylistMenuItem" destination="pbA-sk-N2Z" id="Qrw-75-Fto"/>
                 <outlet property="theMenu" destination="3Ox-XB-OXu" id="BqG-4P-gJQ"/>
             </connections>
@@ -1075,10 +1076,15 @@ DQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4jC-uF-ZG4"/>
-                            <menuItem title=" Clear selection" image="InvertSelection-Small" id="Gkv-dD-9HZ" userLabel="Clear selection">
+                            <menuItem title="   Select all items" keyEquivalent="a" indentationLevel="1" id="Gkv-dD-9HZ" userLabel="Select all items">
+                                <connections>
+                                    <action selector="selectAllItemsAction:" target="z4t-PF-r6l" id="G1l-3T-je1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Clear selection" image="InvertSelection-Small" id="jIj-5R-ndo" userLabel="Clear selection">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="clearSelectionAction:" target="z4t-PF-r6l" id="4vs-K3-poz"/>
+                                    <action selector="clearSelectionAction:" target="z4t-PF-r6l" id="l8r-jE-fUt"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Invert selection" image="InvertSelection-Small" id="wZL-mu-B9X" userLabel="Invert selection">

@@ -26,6 +26,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var moveItemsToBottomMenuItem: NSMenuItem!
     @IBOutlet weak var removeSelectedItemsMenuItem: NSMenuItem!
     
+    @IBOutlet weak var selectAllItemsMenuItem: NSMenuItem!
     @IBOutlet weak var clearSelectionMenuItem: NSMenuItem!
     @IBOutlet weak var invertSelectionMenuItem: NSMenuItem!
     @IBOutlet weak var cropSelectionMenuItem: NSMenuItem!
@@ -106,7 +107,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         let onlyGroupsSelected: Bool = areOnlyGroupsSelected
 
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach {$0?.enableIf(playlistNotEmpty)}
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, selectAllItemsMenuItem, invertSelectionMenuItem].forEach {$0?.enableIf(playlistNotEmpty)}
 
         // At least 2 tracks needed for these functions, and at least one track selected
         [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach {$0?.enableIf(playlistSize > 1 && atLeastOneItemSelected)}
@@ -214,6 +215,10 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         } else {
             messenger.publish(.playlist_playSelectedItem, payload: uiState.currentViewSelector)
         }
+    }
+    
+    @IBAction func selectAllItemsAction(_ sender: Any) {
+        messenger.publish(.playlist_selectAllItems, payload: uiState.currentViewSelector)
     }
     
     @IBAction func clearSelectionAction(_ sender: Any) {

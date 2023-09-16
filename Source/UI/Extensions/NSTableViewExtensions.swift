@@ -49,6 +49,10 @@ extension NSTableView {
         self.selectRowIndexes(IndexSet(rows), byExtendingSelection: false)
     }
     
+    func selectAllItems() {
+        self.selectRowIndexes(IndexSet(0..<self.numberOfRows), byExtendingSelection: false)
+    }
+    
     func clearSelection() {
         self.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
     }
