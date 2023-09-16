@@ -121,7 +121,7 @@ extension NSTableView {
         scrollRowToVisible(scrollRow)
     }
     
-    private var heightOfARow: CGFloat {self.rect(ofRow: 0).height}
+    var heightOfARow: CGFloat {self.rect(ofRow: 0).height}
     
     func pageDown() {
         
