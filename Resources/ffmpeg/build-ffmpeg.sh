@@ -66,6 +66,12 @@ export minMacOSVersion="10.12"
 # Points to the latest MacOS SDK installed.
 export sdk="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
 
+# arm64
+export PKG_CONFIG_PATH="/opt/homebrew/Cellar/libopenmpt/0.7.3/lib/pkgconfig"
+
+# x86_64
+#export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
+
 # MARK: Functions -------------------------------------------------------------------------------------
 
 function cleanXCFrameworksDir {
@@ -80,8 +86,10 @@ function buildFFmpeg {
     for arch in ${architectures[@]}; do
         buildFFmpegForArch $arch &
     done
-    
+
     wait
+    
+#    buildFFmpegForArch arm64
 }
 
 function buildFFmpegForArch {
@@ -128,8 +136,9 @@ function configureAndMake {
     --extra-ldflags="${archInFlags}-mmacosx-version-min=${minMacOSVersion} -isysroot ${sdk}" \
     --extra-cflags="${archInFlags}-mmacosx-version-min=${minMacOSVersion} -isysroot ${sdk}" \
     ${crossCompileAndArch} \
-    --enable-gpl \
-    --enable-version3 \
+    --extra-libs=-lpthread \
+    --pkg-config-flags="--static" \
+    --pkg-config="pkg-config --static" \
     --enable-shared \
     --disable-static \
     --enable-runtime-cpudetect \
@@ -145,6 +154,8 @@ function configureAndMake {
     --enable-audiotoolbox \
     --enable-coreimage \
     --enable-zlib \
+    --enable-libopenmpt \
+    --enable-nonfree \
     --disable-everything \
     --disable-appkit \
     --disable-iconv \
@@ -152,16 +163,16 @@ function configureAndMake {
     --disable-sdl2 \
     --disable-videotoolbox \
     --disable-securetransport \
-    --enable-demuxer=ape,asf,asf_o,dsf,flac,iff,matroska,mpc,mpc8,ogg,rm,tak,tta,wv \
-    --enable-parser=bmp,cook,flac,gif,jpeg2000,mjpeg,mpegaudio,opus,png,sipr,tak,vorbis,webp \
-    --enable-decoder=ape,cook,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,flac,mpc7,mpc8,musepack7,musepack8,opus,ra_144,ra_288,ralf,sipr,tta,tak,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice \
+    --enable-demuxer=ape,asf,asf_o,dsf,flac,iff,matroska,mpc,mpc8,ogg,rm,tak,tta,wv,libopenmpt \
+    --enable-parser=bmp,cook,flac,gif,jpeg2000,mjpeg,mpegaudio,opus,png,sipr,tak,vorbis,webp,xma \
+    --enable-decoder=ape,cook,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,flac,mpc7,mpc8,musepack7,musepack8,opus,ra_144,ra_288,ralf,sipr,tta,tak,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice,adpcm_4xm,adpcm_adx,adpcm_afc,adpcm_agm,adpcm_aica,adpcm_argo,adpcm_ct,adpcm_dtk,adpcm_ea,adpcm_ea_maxis_xa,adpcm_ea_r1,adpcm_ea_r2,adpcm_ea_r3,adpcm_ea_xas,adpcm_g722,adpcm_g726,adpcm_g726le,adpcm_ima_alp,adpcm_ima_amv,adpcm_ima_apc,adpcm_ima_apm,adpcm_ima_cunning,adpcm_ima_dat4,adpcm_ima_dk3,adpcm_ima_dk4,adpcm_ima_ea_eacs,adpcm_ima_ea_sead,adpcm_ima_iss,adpcm_ima_moflex,adpcm_ima_mtf,adpcm_ima_oki,adpcm_ima_qt,adpcm_ima_qt_at,adpcm_ima_rad,adpcm_ima_smjpeg,adpcm_ima_ssi,adpcm_ima_wav,adpcm_ima_ws,adpcm_ms,adpcm_mtaf,adpcm_psx,adpcm_sbpro_2,adpcm_sbpro_3,adpcm_sbpro_4,adpcm_swf,adpcm_thp,adpcm_thp_le,adpcm_vima,adpcm_xa,adpcm_yamaha,adpcm_zork,pcm_alaw,pcm_alaw_at,pcm_bluray,pcm_dvd,pcm_f16le,pcm_f24le,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le,pcm_lxf,pcm_mulaw,pcm_mulaw_at,pcm_s16be,pcm_s16be_planar,pcm_s16le,pcm_s16le_planar,pcm_s24be,pcm_s24daud,pcm_s24le,pcm_s24le_planar,pcm_s32be,pcm_s32le,pcm_s32le_planar,pcm_s64be,pcm_s64le,pcm_s8,pcm_s8_planar,pcm_sga,pcm_u16be,pcm_u16le,pcm_u24be,pcm_u24le,pcm_u32be,pcm_u32le,pcm_u8,pcm_vidc \
     --enable-protocol=file
     
     # Build FFmpeg (use multithreading).
     tokens=$(sysctl hw.physicalcpu)
     numCores="$(cut -d' ' -f2 <<<$tokens)"
     make -j${numCores}
-    
+
     cd ../..
 }
 
