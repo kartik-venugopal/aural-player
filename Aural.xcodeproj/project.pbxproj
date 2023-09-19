@@ -62,6 +62,7 @@
 		3E1B5C0926B6E2C70084FBA4 /* GroupingPlaylistTests+SortArtistsPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B5C0826B6E2C70084FBA4 /* GroupingPlaylistTests+SortArtistsPlaylist.swift */; };
 		3E1B5C0B26B6FD370084FBA4 /* GroupingPlaylistTests+SortAlbumsPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B5C0A26B6FD370084FBA4 /* GroupingPlaylistTests+SortAlbumsPlaylist.swift */; };
 		3E1C2A5F26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C2A5E26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift */; };
+		3E1ECB782ABA555600C6EBD0 /* libopenmpt.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E6D9C3C2ABA507700B39170 /* libopenmpt.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */; };
 		3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */; };
 		3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */; };
@@ -754,6 +755,8 @@
 		3E6C249626B4A684008F8475 /* GroupingPlaylistTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C249526B4A684008F8475 /* GroupingPlaylistTestCase.swift */; };
 		3E6C39F826AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C39F726AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift */; };
 		3E6C39FC26AA169500AF5009 /* FilterPreviewChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C39FB26AA169500AF5009 /* FilterPreviewChart.swift */; };
+		3E6D9C3D2ABA507700B39170 /* libopenmpt.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6D9C3C2ABA507700B39170 /* libopenmpt.0.dylib */; };
+		3E6D9C3E2ABA508000B39170 /* libopenmpt.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3E6D9C3C2ABA507700B39170 /* libopenmpt.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E752743267F32A60092BB89 /* RoundedImageView.swift */; };
 		3E7572F12609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572EC2609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift */; };
 		3E7572F22609E83B00CA3F85 /* MusicBrainzArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572ED2609E83B00CA3F85 /* MusicBrainzArtist.swift */; };
@@ -1357,6 +1360,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3E1ECB772ABA554D00C6EBD0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				3E1ECB782ABA555600C6EBD0 /* libopenmpt.0.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3E60CA1326B085B300D9404C /* Embed libraries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1375,6 +1388,7 @@
 			files = (
 				3E92BFC628DA5553009735C0 /* libavcodec.xcframework in Embed Libraries */,
 				3E92BFCA28DA5555009735C0 /* libavutil.xcframework in Embed Libraries */,
+				3E6D9C3E2ABA508000B39170 /* libopenmpt.0.dylib in Embed Libraries */,
 				3E92BFCC28DA5556009735C0 /* libswresample.xcframework in Embed Libraries */,
 				3E92BFC828DA5554009735C0 /* libavformat.xcframework in Embed Libraries */,
 			);
@@ -1394,6 +1408,7 @@
 
 /* Begin PBXFileReference section */
 		3E0012EE2684858A00F3880C /* AudioGraphDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphDefaults.swift; sourceTree = "<group>"; };
+		3E050DA52AB690F6001163F5 /* openmt.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = openmt.sh; sourceTree = "<group>"; };
 		3E09D09D26805C18008ECB8C /* MusicBrainzCachePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzCachePersistentState.swift; sourceTree = "<group>"; };
 		3E09D09E26805C18008ECB8C /* PlaybackProfilePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackProfilePersistentState.swift; sourceTree = "<group>"; };
 		3E09D09F26805C18008ECB8C /* PlaylistsPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsPersistentState.swift; sourceTree = "<group>"; };
@@ -1972,6 +1987,7 @@
 		3E6C249526B4A684008F8475 /* GroupingPlaylistTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistTestCase.swift; sourceTree = "<group>"; };
 		3E6C39F726AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutoffFrequencySliderPreviewCell.swift; sourceTree = "<group>"; };
 		3E6C39FB26AA169500AF5009 /* FilterPreviewChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPreviewChart.swift; sourceTree = "<group>"; };
+		3E6D9C3C2ABA507700B39170 /* libopenmpt.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopenmpt.0.dylib; sourceTree = "<group>"; };
 		3E752743267F32A60092BB89 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		3E7572EC2609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzCoverArtArchive.swift; sourceTree = "<group>"; };
 		3E7572ED2609E83B00CA3F85 /* MusicBrainzArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzArtist.swift; sourceTree = "<group>"; };
@@ -2410,6 +2426,7 @@
 			files = (
 				3E92BFC928DA5555009735C0 /* libavutil.xcframework in Frameworks */,
 				3E92BFC728DA5554009735C0 /* libavformat.xcframework in Frameworks */,
+				3E6D9C3D2ABA507700B39170 /* libopenmpt.0.dylib in Frameworks */,
 				3E92BFCB28DA5556009735C0 /* libswresample.xcframework in Frameworks */,
 				3E92BFC528DA5553009735C0 /* libavcodec.xcframework in Frameworks */,
 			);
@@ -4132,6 +4149,7 @@
 			children = (
 				3E6C115225CEB9C100BF0D07 /* README.txt */,
 				3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */,
+				3E050DA52AB690F6001163F5 /* openmt.sh */,
 			);
 			path = ffmpeg;
 			sourceTree = "<group>";
@@ -4715,6 +4733,7 @@
 				3E92BFBF28DA554E009735C0 /* libavformat.xcframework */,
 				3E92BFBE28DA554E009735C0 /* libavutil.xcframework */,
 				3E92BFBD28DA554E009735C0 /* libswresample.xcframework */,
+				3E6D9C3C2ABA507700B39170 /* libopenmpt.0.dylib */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -5041,6 +5060,7 @@
 				3E6C0EBC25CEB3ED00BF0D07 /* Frameworks */,
 				3E6C0EBD25CEB3ED00BF0D07 /* Resources */,
 				3EDB340725E8AEB3004DF7DE /* Embed Libraries */,
+				3E1ECB772ABA554D00C6EBD0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -6655,7 +6675,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.20.0;
+				CURRENT_PROJECT_VERSION = 3.21.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
@@ -6670,7 +6690,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.20.0;
+				MARKETING_VERSION = 3.21.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;
@@ -6689,7 +6709,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.20.0;
+				CURRENT_PROJECT_VERSION = 3.21.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
@@ -6704,7 +6724,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.20.0;
+				MARKETING_VERSION = 3.21.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;

@@ -66,11 +66,7 @@ export minMacOSVersion="10.12"
 # Points to the latest MacOS SDK installed.
 export sdk="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
 
-# arm64
-export PKG_CONFIG_PATH="/opt/homebrew/Cellar/libopenmpt/0.7.3/lib/pkgconfig"
-
-# x86_64
-#export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
 
 # MARK: Functions -------------------------------------------------------------------------------------
 
@@ -83,13 +79,13 @@ function cleanXCFrameworksDir {
 
 function buildFFmpeg {
 
-    for arch in ${architectures[@]}; do
-        buildFFmpegForArch $arch &
-    done
-
-    wait
+#    for arch in ${architectures[@]}; do
+#        buildFFmpegForArch $arch &
+#    done
+#
+#    wait
     
-#    buildFFmpegForArch arm64
+    buildFFmpegForArch arm64
 }
 
 function buildFFmpegForArch {
@@ -293,17 +289,17 @@ function deleteHeaders {
 
 # MARK: Script -------------------------------------------------------------------------------------
 
-cleanXCFrameworksDir
-buildFFmpeg
+#cleanXCFrameworksDir
+#buildFFmpeg
 
 createFatLibs
 copyHeaders
 
 createXCFrameworks
-
-deleteSource
-deleteDylibs
-deleteHeaders
+#
+#deleteSource
+#deleteDylibs
+#deleteHeaders
 
 echo "\nAll done !\n"
 

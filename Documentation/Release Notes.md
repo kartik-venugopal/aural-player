@@ -1,14 +1,10 @@
-#  What's New in Version 3.20.0
+#  What's New in Version 3.21.0
 
-Many thanks to @skillt3ch for requesting these features!
+## #62 - Support for tracker module formats
 
-## #60 - Added scrollbar thumb / knob to playlist  
+Many thanks to @skillt3ch for requesting this feature!
 
-The playlist views will now always display a scroll bar with a thumb / knob, to make browsing large playlists easier. 
-
-## #61 - Keyboard Shortcut: '⌘+A' to select all playlist items
-
-The user can now easily select all playlist items with the '⌘+A' keyboard shortcut.
+Aural Player can now play "tracker module" formats: .it, .xm, .mod, and .s3m.
 
 ### **For more info**
-Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.20.0)
+Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.21.0)
