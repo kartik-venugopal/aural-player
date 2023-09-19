@@ -54,6 +54,10 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
         if uiState.currentView == .tracks, preferences.showNewTrackInPlaylist {
             showPlayingTrack()
         }
+        
+        scrollView.scrollerStyle = .legacy
+        scrollView.hasVerticalScroller = true
+        scrollView.autohidesScrollers = false
     }
     
     private func initSubscriptions() {

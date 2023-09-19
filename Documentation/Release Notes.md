@@ -1,10 +1,8 @@
-#  What's New in Version 3.21.0
+#  What's New in Version 3.21.1
 
-## #62 - Support for tracker module formats
+## Bug fix - Playlist scroll bar on Intel Macs
 
-Many thanks to @skillt3ch for requesting this feature!
-
-Aural Player can now play "tracker module" formats: .it, .xm, .mod, and .s3m.
+On Intel Macs, the playlist scroll bar would not show up (it would be auto-hidden). This bug has been fixed, so the scroll bar is always visible.
 
 ### **For more info**
-Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.21.0)
+Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.21.1)

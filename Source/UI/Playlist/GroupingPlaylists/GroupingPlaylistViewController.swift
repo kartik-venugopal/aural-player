@@ -59,6 +59,10 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         if uiState.currentView == self.playlistType, preferences.showNewTrackInPlaylist {
             showPlayingTrack()
         }
+        
+        scrollView.scrollerStyle = .legacy
+        scrollView.hasVerticalScroller = true
+        scrollView.autohidesScrollers = false
     }
     
     private func initSubscriptions() {
