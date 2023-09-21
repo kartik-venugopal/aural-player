@@ -244,6 +244,8 @@ NOTE - I am ***not*** looking for help with app development at the moment, but i
 
 ## Contributor attributions
 
+App user [VisualisationExpo](https://github.com/VisualisationExpo) designed the new app icon (as of v3.22.0).
+
 App user [yougotwill](https://github.com/yougotwill) made numerous suggestions for improvements and features, provided a lot of valuable feedback, and designed the Poolside.fm theme.
 
 Fellow GitHub member [dun198](https://github.com/dun198) made significant contributions towards this project - performance optimizations, UX improvements, etc.
