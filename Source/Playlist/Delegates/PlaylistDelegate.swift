@@ -26,6 +26,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
 //    private var playlist: PlaylistProtocol {playlistsManager.currentPlaylist}
     private let playlist: PlaylistProtocol
     
+    private let player: PlaybackInfoDelegateProtocol
+    
 //    private let playlistsManager: PlaylistsManager
     
     private let trackReader: TrackReader
@@ -59,10 +61,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     private lazy var messenger = Messenger(for: self)
     
     init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistProtocol,
-         _ trackReader: TrackReader, _ preferences: Preferences) {
+         _ player: PlaybackInfoDelegateProtocol, _ trackReader: TrackReader, _ preferences: Preferences) {
         
         self.playlist = playlist
 //        self.playlistsManager = playlistsManager
+        self.player = player
         self.trackReader = trackReader
         
         self.persistentState = persistentState
@@ -144,7 +147,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         let autoplayEnabled: Bool = beginPlayback ?? playbackPreferences.autoplayAfterAddingTracks
         let interruptPlayback: Bool = beginPlayback ?? (playbackPreferences.autoplayAfterAddingOption == .always)
         
-        addFiles_async(files, AutoplayOptions(autoplay: autoplayEnabled, autoplayType: .playSpecificTrack, interruptPlayback: interruptPlayback))
+        addFiles_async(files, AutoplayOptions(autoplay: autoplayEnabled, autoplayType: .playFirstAddedTrack, interruptPlayback: interruptPlayback))
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
@@ -335,8 +338,14 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
                                                          groupingInfo: result.groupingPlaylistResults, addOperationProgress: progress))
             }
             
-            if batchIndex == 0 && addSession.autoplayOptions.autoplay {
-                autoplay(addSession.autoplayOptions.autoplayType, track, addSession.autoplayOptions.interruptPlayback)
+            if addSession.autoplayOptions.autoplay {
+                
+                if addSession.autoplayOptions.autoplayType.equalsOneOf(.beginPlayback, .playFirstAddedTrack) && batchIndex == 0 {
+                    autoplay(addSession.autoplayOptions.autoplayType, track, addSession.autoplayOptions.interruptPlayback)
+                    
+                } else if addSession.autoplayOptions.autoplayType == .playSpecificTrack, track.file == addSession.autoplayOptions.fileToPlay {
+                    autoplay(addSession.autoplayOptions.autoplayType, track, addSession.autoplayOptions.interruptPlayback)
+                }
             }
         }
     }
@@ -381,9 +390,20 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     // Performs autoplay, by delegating a playback request to the player
     private func autoplay(_ autoplayType: AutoplayCommandType, _ track: Track, _ interruptPlayback: Bool) {
         
-        messenger.publish(autoplayType == .playSpecificTrack ?
-            AutoplayCommandNotification(type: .playSpecificTrack, interruptPlayback: interruptPlayback, candidateTrack: track) :
-            AutoplayCommandNotification(type: .beginPlayback))
+        switch autoplayType {
+            
+        case .beginPlayback:
+            
+            messenger.publish(AutoplayCommandNotification(type: .beginPlayback))
+            
+        case .playFirstAddedTrack:
+            
+            messenger.publish(AutoplayCommandNotification(type: .playFirstAddedTrack, interruptPlayback: interruptPlayback, candidateTrack: track))
+                              
+        case .playSpecificTrack:
+            
+            messenger.publish(AutoplayCommandNotification(type: .playSpecificTrack, interruptPlayback: interruptPlayback, candidateTrack: track))
+        }
     }
     
     func removeTracks(_ indexes: IndexSet) {
@@ -466,12 +486,19 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         // Check if any launch parameters were specified
         if filesToOpen.isNonEmpty {
             
+            // Launch parameters specified, override playlist saved state and add file paths in params to playlist
             if playlistPreferences.openWithAddMode == .replace {
+                
                 clear()
+                addFiles_async(filesToOpen, AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks), userAction: false)
+                
+            } else {
+                
+                let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) ?? []
+                
+                // Need to append files, load playlist saved state
+                addFiles_async(tracks + filesToOpen, AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks, autoplayType: .playSpecificTrack, fileToPlay: filesToOpen[0]), userAction: false, reorderGroupingPlaylists: true)
             }
-            
-            // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-            addFiles_async(filesToOpen, AutoplayOptions(autoplay: true), userAction: false)
 
         } else if playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch,
                   let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) {
@@ -497,8 +524,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             clear()
         }
         
+        let autoplayEnabled = (!notification.isDuplicateNotification) && playbackPreferences.autoplayAfterOpeningTracks
+        let interruptPlayback = playbackPreferences.autoplayAfterOpeningOption == .always
+        
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-        addFiles_async(notification.filesToOpen, AutoplayOptions(autoplay: !notification.isDuplicateNotification, autoplayType: .playSpecificTrack))
+        addFiles_async(notification.filesToOpen, AutoplayOptions(autoplay: autoplayEnabled, autoplayType: .playFirstAddedTrack,
+                                                                 interruptPlayback: interruptPlayback))
     }
 }
 
@@ -517,12 +548,16 @@ fileprivate class AutoplayOptions {
     // If false, the first track in the playlist will play.
     var autoplayType: AutoplayCommandType
     
+    var fileToPlay: URL?
+    
     init(autoplay: Bool,
          autoplayType: AutoplayCommandType = .beginPlayback,
+         fileToPlay: URL? = nil,
          interruptPlayback: Bool = true) {
         
         self.autoplay = autoplay
         self.autoplayType = autoplayType
+        self.fileToPlay = fileToPlay
         self.interruptPlayback = interruptPlayback
     }
 }

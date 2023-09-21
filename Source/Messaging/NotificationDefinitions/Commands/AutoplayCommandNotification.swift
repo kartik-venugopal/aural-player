@@ -45,5 +45,9 @@ enum AutoplayCommandType {
     
     // The player will play a specific track.
     // This is usually done when the user adds files to the playlist.
+    case playFirstAddedTrack
+    
+    // The player will play a specific track.
+    // This is usually done when the user adds files to the playlist.
     case playSpecificTrack
 }
