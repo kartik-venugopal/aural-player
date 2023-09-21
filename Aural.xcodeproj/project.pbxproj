@@ -1408,7 +1408,6 @@
 
 /* Begin PBXFileReference section */
 		3E0012EE2684858A00F3880C /* AudioGraphDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphDefaults.swift; sourceTree = "<group>"; };
-		3E050DA52AB690F6001163F5 /* openmt.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = openmt.sh; sourceTree = "<group>"; };
 		3E09D09D26805C18008ECB8C /* MusicBrainzCachePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzCachePersistentState.swift; sourceTree = "<group>"; };
 		3E09D09E26805C18008ECB8C /* PlaybackProfilePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackProfilePersistentState.swift; sourceTree = "<group>"; };
 		3E09D09F26805C18008ECB8C /* PlaylistsPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsPersistentState.swift; sourceTree = "<group>"; };
@@ -4149,7 +4148,6 @@
 			children = (
 				3E6C115225CEB9C100BF0D07 /* README.txt */,
 				3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */,
-				3E050DA52AB690F6001163F5 /* openmt.sh */,
 			);
 			path = ffmpeg;
 			sourceTree = "<group>";
@@ -6675,7 +6673,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.21.1;
+				CURRENT_PROJECT_VERSION = 3.22.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
@@ -6690,7 +6688,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.21.1;
+				MARKETING_VERSION = 3.22.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;
@@ -6709,7 +6707,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.21.1;
+				CURRENT_PROJECT_VERSION = 3.22.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
@@ -6724,7 +6722,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.21.1;
+				MARKETING_VERSION = 3.22.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/FFmpeg/ffmpeg.h;
