@@ -239,10 +239,13 @@ NOTE - I am ***not*** looking for help with app development at the moment, but i
 ## Third party code attributions
 
 * [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
+* [libopenmpt](https://lib.openmpt.org/libopenmpt/) (used by ffmpeg to decode tracker module formats)
 * [MediaKeyTap](https://github.com/nhurden/MediaKeyTap) (used to respond to media keys)
 * [RangeSlider](https://github.com/matthewreagan/RangeSlider) (used in the Filter effects unit to specify frequency ranges)
 
 ## Contributor attributions
+
+App user [VisualisationExpo](https://github.com/VisualisationExpo) designed the new app icon (as of v3.22.0).
 
 App user [yougotwill](https://github.com/yougotwill) made numerous suggestions for improvements and features, provided a lot of valuable feedback, and designed the Poolside.fm theme.
 
