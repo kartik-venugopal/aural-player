@@ -254,7 +254,7 @@ class FFmpegFileContext {
         // Represents the target seek position that the format context understands.
         // We need to determine a target frame, given the seek position in seconds,
         // duration, and frame count.
-        let timestamp = Int64(time * stream.timeBaseReciprocalRatio)
+        let timestamp = Int64(time * stream.timeBaseRatio)
         
         // Validate the target frame (cannot exceed the total frame count)
         if stream.timeBaseDuration > 0, timestamp >= stream.timeBaseDuration {throw SeekError(ERROR_EOF)}
