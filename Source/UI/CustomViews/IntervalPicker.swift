@@ -68,7 +68,7 @@ class FormattedIntervalLabel: NSTextField {
     
     override func awakeFromNib() {
         
-        self.alignment = .left
+        self.alignment = .right
         self.font = standardFontSet.mainFont(size: 11)
         self.isBordered = false
         self.drawsBackground = false

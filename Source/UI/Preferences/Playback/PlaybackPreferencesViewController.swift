@@ -14,7 +14,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnPrimarySeekLengthConstant: NSButton!
     @IBOutlet weak var btnPrimarySeekLengthPerc: NSButton!
     
-    @IBOutlet weak var primarySeekLengthPicker: IntervalPicker!
+    @IBOutlet weak var primarySeekLengthPicker: NSStepper!
     @IBOutlet weak var lblPrimarySeekLength: FormattedIntervalLabel!
     
     @IBOutlet weak var primarySeekLengthPercStepper: NSStepper!
@@ -25,7 +25,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnSecondarySeekLengthConstant: NSButton!
     @IBOutlet weak var btnSecondarySeekLengthPerc: NSButton!
     
-    @IBOutlet weak var secondarySeekLengthPicker: IntervalPicker!
+    @IBOutlet weak var secondarySeekLengthPicker: NSStepper!
     @IBOutlet weak var lblSecondarySeekLength: FormattedIntervalLabel!
     
     @IBOutlet weak var secondarySeekLengthPercStepper: NSStepper!
@@ -77,7 +77,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Primary seek length
         
         let primarySeekLength = prefs.primarySeekLengthConstant
-        primarySeekLengthPicker.setInterval(Double(primarySeekLength))
+        primarySeekLengthPicker.integerValue = primarySeekLength
         primarySeekLengthAction(self)
         
         let primarySeekLengthPerc = prefs.primarySeekLengthPercentage
@@ -96,7 +96,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Secondary seek length
         
         let secondarySeekLength = prefs.secondarySeekLengthConstant
-        secondarySeekLengthPicker.setInterval(Double(secondarySeekLength))
+        secondarySeekLengthPicker.integerValue = secondarySeekLength
         secondarySeekLengthAction(self)
         
         let secondarySeekLengthPerc = prefs.secondarySeekLengthPercentage
@@ -146,11 +146,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func primarySeekLengthAction(_ sender: Any) {
-        lblPrimarySeekLength.interval = primarySeekLengthPicker.interval
+        lblPrimarySeekLength.interval = primarySeekLengthPicker.doubleValue
     }
     
     @IBAction func secondarySeekLengthAction(_ sender: Any) {
-        lblSecondarySeekLength.interval = secondarySeekLengthPicker.interval
+        lblSecondarySeekLength.interval = secondarySeekLengthPicker.doubleValue
     }
     
     @IBAction func primarySeekLengthPercAction(_ sender: Any) {
@@ -207,11 +207,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         let oldPrimarySeekLengthConstant = prefs.primarySeekLengthConstant
         
         prefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.isOn ? .constant : .percentage
-        prefs.primarySeekLengthConstant = primarySeekLengthPicker.interval.roundedInt
+        prefs.primarySeekLengthConstant = primarySeekLengthPicker.doubleValue.roundedInt
         prefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
         
         prefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.isOn ? .constant : .percentage
-        prefs.secondarySeekLengthConstant = secondarySeekLengthPicker.interval.roundedInt
+        prefs.secondarySeekLengthConstant = secondarySeekLengthPicker.doubleValue.roundedInt
         prefs.secondarySeekLengthPercentage = secondarySeekLengthPercStepper.integerValue
         
         prefs.autoplayOnStartup = btnAutoplayOnStartup.isOn

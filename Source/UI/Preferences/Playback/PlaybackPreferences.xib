@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,12 +25,12 @@
                 <outlet property="btnSecondarySeekLengthPerc" destination="VRB-wu-9sz" id="h1c-mC-cB9"/>
                 <outlet property="lblPrimarySeekLength" destination="dO7-h4-3oX" id="Jvs-pc-UjN"/>
                 <outlet property="lblPrimarySeekLengthPerc" destination="QX4-pn-nlv" id="qW5-y5-JlQ"/>
-                <outlet property="lblSecondarySeekLength" destination="MNT-bC-HtP" id="bqk-HI-n2W"/>
+                <outlet property="lblSecondarySeekLength" destination="8DG-sq-Nas" id="fgo-3u-VaW"/>
                 <outlet property="lblSecondarySeekLengthPerc" destination="wsl-VD-iQq" id="pq7-Cs-PFK"/>
                 <outlet property="primarySeekLengthPercStepper" destination="Jri-6S-T38" id="mOO-VA-eFq"/>
-                <outlet property="primarySeekLengthPicker" destination="AcR-YB-Zle" id="juj-b9-PlZ"/>
+                <outlet property="primarySeekLengthPicker" destination="yhW-nB-Pal" id="zG6-QT-3pD"/>
                 <outlet property="secondarySeekLengthPercStepper" destination="CC1-0k-NBg" id="030-qW-lJl"/>
-                <outlet property="secondarySeekLengthPicker" destination="fst-3x-dVi" id="qm1-Vf-Jli"/>
+                <outlet property="secondarySeekLengthPicker" destination="ODo-B8-Bt4" id="xll-aH-1Pf"/>
                 <outlet property="view" destination="fBA-Aa-Qne" id="bEU-1Z-jc8"/>
             </connections>
         </customObject>
@@ -48,24 +48,6 @@
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                 </button>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MNT-bC-HtP" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="535" y="372" width="131" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="pVy-QD-nEZ">
-                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="dSU-et-Kr6">
-                            <real key="minimum" value="3"/>
-                            <real key="maximum" value="300"/>
-                        </numberFormatter>
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="interval">
-                            <real key="value" value="0.0"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </textField>
                 <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pLg-Zx-z1o" userLabel="Info - Seek length primary">
                     <rect key="frame" x="491" y="400" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -85,6 +67,14 @@
                         <action selector="primarySeekLengthPercAction:" target="-2" id="FJV-ih-7ME"/>
                     </connections>
                 </stepper>
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhW-nB-Pal" userLabel="Primary Seek Stepper">
+                    <rect key="frame" x="208" y="370" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="36000" doubleValue="1" id="lob-PI-7VT"/>
+                    <connections>
+                        <action selector="primarySeekLengthAction:" target="-2" id="F4e-DW-V2V"/>
+                    </connections>
+                </stepper>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSu-Gq-GD0" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="47" y="256" width="281" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -96,7 +86,7 @@
                         <action selector="autoplayAfterAddingAction:" target="-2" id="BJ7-8q-qYW"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9p2-IE-kkS" userLabel="Autoplay on startup">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9p2-IE-kkS" userLabel="Autoplay on startup">
                     <rect key="frame" x="35" y="302" width="70" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Autoplay" id="aQU-mj-Wq1">
@@ -116,7 +106,7 @@
                         <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="vw2-qW-dzS"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHg-WZ-fxu" userLabel="Seek Length Label">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHg-WZ-fxu" userLabel="Seek Length Label">
                     <rect key="frame" x="35" y="399" width="135" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (primary)" id="zEK-xV-hXD">
@@ -147,7 +137,7 @@
                         <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="raM-sC-lgC"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsl-VD-iQq" userLabel="Secondary Seek % Label">
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsl-VD-iQq" userLabel="Secondary Seek % Label">
                     <rect key="frame" x="478" y="345" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="szA-kN-ypc">
@@ -171,7 +161,7 @@
                         <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="eg1-OH-HV7"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0M-Y1-Jc0">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0M-Y1-Jc0">
                     <rect key="frame" x="35" y="107" width="430" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Resume track playback from last playback position" id="bNf-Jp-q0R">
@@ -199,7 +189,7 @@
                         <action selector="secondarySeekLengthPercAction:" target="-2" id="PiA-SK-LvK"/>
                     </connections>
                 </stepper>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-pn-nlv" userLabel="Primary Seek % Label">
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-pn-nlv" userLabel="Primary Seek % Label">
                     <rect key="frame" x="168" y="346" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="RfY-8L-z41">
@@ -212,7 +202,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGX-lg-IJ4" userLabel="Seek Length Label">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGX-lg-IJ4" userLabel="Seek Length Label">
                     <rect key="frame" x="345" y="399" width="145" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (secondary)" id="8Oy-qJ-sGs">
@@ -221,27 +211,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcR-YB-Zle" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="123" y="373" width="100" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="5rv-FG-7hc">
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <date key="date" timeIntervalSinceReferenceDate="636532364.05013704">
-                            <!--2021-03-04 6:32:44 AM +0000-->
-                        </date>
-                        <color key="backgroundColor" name="selectedMenuItemTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
-                    </datePickerCell>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
-                            <real key="value" value="86400"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="primarySeekLengthAction:" target="-2" id="ehQ-Af-lwi"/>
-                    </connections>
-                </datePicker>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VRB-wu-9sz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="355" y="347.5" width="127" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -264,32 +233,37 @@
                         <action selector="primarySeekLengthRadioButtonAction:" target="-2" id="TWY-Ai-UQ5"/>
                     </connections>
                 </button>
-                <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fst-3x-dVi" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="433" y="372" width="100" height="25"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dO7-h4-3oX" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="117" y="373" width="86" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="Nfd-jW-tTh">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="CgJ-N5-8QO">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="htd-sw-2aL">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="300"/>
+                        </numberFormatter>
                         <font key="font" size="11" name="Play-Regular"/>
-                        <date key="date" timeIntervalSinceReferenceDate="636532364.03853297">
-                            <!--2021-03-04 6:32:44 AM +0000-->
-                        </date>
-                        <color key="backgroundColor" name="selectedMenuItemTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
-                    </datePickerCell>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
-                            <real key="value" value="86400"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                            <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="secondarySeekLengthAction:" target="-2" id="G3M-rr-Olt"/>
-                    </connections>
-                </datePicker>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dO7-h4-3oX" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="225" y="373" width="118" height="20"/>
+                </textField>
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ODo-B8-Bt4" userLabel="Primary Seek Stepper">
+                    <rect key="frame" x="518" y="370" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="CgJ-N5-8QO">
-                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="htd-sw-2aL">
+                    <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="36000" doubleValue="1" id="iHz-3s-06L"/>
+                    <connections>
+                        <action selector="secondarySeekLengthAction:" target="-2" id="DlG-KH-7d9"/>
+                    </connections>
+                </stepper>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DG-sq-Nas" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="427" y="373" width="86" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="8o2-aT-gAZ">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="YHj-eD-fcK">
                             <real key="minimum" value="3"/>
                             <real key="maximum" value="300"/>
                         </numberFormatter>

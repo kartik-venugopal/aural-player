@@ -1,18 +1,18 @@
-#  What's New in Version 3.22.0
+#  What's New in Version 3.23.0
 
-## #58 - Autoplay enhancement
+## Bug Fixes
 
-Many thanks to @LesterJitsi for requesting this enhancement!
+### #65 - FFmpeg seeking causes crash (arm64)
 
-Some users would prefer the app to quietly append files to the playlist when files are opened from Finder with the "Open With" action (equivalent to double-clicking files in Finder), without immediately starting playback of the opened files. So, a new option has been added under Preferences > Playback, to allow for this behavior.
+Previously, seeking with FFmpeg (within non-native tracks) would cause a crash on arm64 systems. This has been fixed.
 
-NOTE - The default behavior will continue to be that the app begins playback of files opened with "Open With", but this can now be overriden.
+### #64 - Spectrogram visualization shows no activity in first band 
 
-## #63 - New app icon
+The first band of the Spectrogram visualizer view would, in some cases, not show any activity / movement. A workaround for this bug has been implemented.
 
-Many thanks to @VisualisationExpo for requesting this enhancement, and for providing the new icon!
+### #66 - Seek interval stepper controls (preferences)
 
-Aural has a new app icon ... can't you see ;)   
+In the preferences window, under the Playback tab, the seek interval stepper controls showed the wrong kind of formatting on newer macOS systems. The stepper controls have been simplified to solve this problem.   
 
 ### **For more info**
-Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.22.0)
+Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.23.0)
