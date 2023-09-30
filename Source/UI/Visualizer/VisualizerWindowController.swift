@@ -39,6 +39,14 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
     
     private lazy var uiState: VisualizerUIState = objectGraph.visualizerUIState
     
+    private(set) lazy var messenger = Messenger(for: self)
+    
+    override func windowDidLoad() {
+        
+        super.windowDidLoad()
+        messenger.subscribeAsync(to: .audioGraph_outputDeviceChanged, handler: audioOutputDeviceChanged)
+    }
+    
     override func awakeFromNib() {
         
         window?.delegate = self
@@ -58,6 +66,7 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
         
         close()
         visualizer.destroy()
+        messenger.unsubscribeFromAll()
     }
     
     override func showWindow(_ sender: Any?) {
@@ -147,6 +156,14 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
                 $0.setColors(startColor: self.startColorPicker.color,
                              endColor: self.endColorPicker.color)
             }
+        }
+    }
+    
+    // When the audio output device changes, restart the audio engine and continue playback as before.
+    func audioOutputDeviceChanged() {
+        
+        allViews.forEach {
+            $0.setUp(with: objectGraph.fft)
         }
     }
     

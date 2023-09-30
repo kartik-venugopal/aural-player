@@ -40,6 +40,10 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
     
     let textureImage: NSImage = NSImage(named: "DiscoBall")!
     
+    func setUp(with fft: FFT) {
+        data.setUp(for: fft)
+    }
+    
     func presentView(with fft: FFT) {
         
         data.setUp(for: fft)

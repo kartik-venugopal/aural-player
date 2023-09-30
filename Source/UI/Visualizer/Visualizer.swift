@@ -18,7 +18,7 @@ typealias VisualizerRenderCallback = () -> Void
 class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
     
     // Fast Fourier Transform
-    let fft: FFT = FFT()
+    let fft: FFT = objectGraph.fft
     
     private var audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     private var normalDeviceBufferSize: Int = 0
@@ -65,7 +65,11 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
         normalDeviceBufferSize = newDeviceBufferSize
         
         if newDeviceBufferSize != audioGraph.visualizationAnalysisBufferSize {
+            
             audioGraph.outputDeviceBufferSize = audioGraph.visualizationAnalysisBufferSize
+            
+            fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate),
+                      bufferSize: audioGraph.outputDeviceBufferSize)
         }
     }
     

@@ -19,6 +19,8 @@ protocol VisualizerViewProtocol {
     
     func dismissView()
     
+    func setUp(with fft: FFT)
+    
     func update(with fft: FFT)
     
     func setColors(startColor: NSColor, endColor: NSColor)

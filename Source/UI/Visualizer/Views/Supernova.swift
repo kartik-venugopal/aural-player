@@ -22,6 +22,10 @@ class Supernova: SKView, VisualizerViewProtocol {
     
     private var glowWidth: CGFloat = 50
     
+    func setUp(with fft: FFT) {
+        data.setUp(for: fft)
+    }
+    
     func presentView(with fft: FFT) {
         
         data.setUp(for: fft)

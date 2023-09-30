@@ -52,6 +52,10 @@ class Spectrogram: SKView, VisualizerViewProtocol {
         }
     }
     
+    func setUp(with fft: FFT) {
+        data.setUp(fft: fft, numberOfBands: numberOfBands)
+    }
+    
     func presentView(with fft: FFT) {
         
         data.setUp(fft: fft, numberOfBands: numberOfBands)

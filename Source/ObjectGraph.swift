@@ -136,6 +136,8 @@ class ObjectGraph {
     
     let mediaKeyHandler: MediaKeyHandler
     
+    let fft: FFT = FFT()
+    
     @available(OSX 10.12.2, *)
     lazy var remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
                                                                                sequencer: sequencerDelegate, preferences: preferences)
