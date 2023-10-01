@@ -46,8 +46,16 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
         audioGraph.registerRenderObserver(self)
     }
     
+    func pauseAnalysis() {
+        audioGraph.pauseRenderObserver(self)
+    }
+    
+    func resumeAnalysis() {
+        audioGraph.resumeRenderObserver(self)
+    }
+    
     func stopAnalysis() {
-        
+
         audioGraph.removeRenderObserver(self)
         audioGraph.outputDeviceBufferSize = normalDeviceBufferSize
     }

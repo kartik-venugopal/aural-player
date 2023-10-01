@@ -22,6 +22,8 @@ class Supernova: SKView, VisualizerViewProtocol {
     
     private var glowWidth: CGFloat = 50
     
+    private static let minScale: CGFloat = 0.1
+    
     func setUp(with fft: FFT) {
         data.setUp(for: fft)
     }
@@ -85,11 +87,20 @@ class Supernova: SKView, VisualizerViewProtocol {
     func update(with fft: FFT) {
         
         data.update(with: fft)
-        let magnitude = CGFloat(data.peakBassMagnitude)
+        updateForMagnitude(CGFloat(data.peakBassMagnitude))
+    }
+    
+    func reset() {
+        updateForMagnitude(0)
+    }
+    
+    private func updateForMagnitude(_ magnitude: CGFloat) {
+        
+        if self.scene == nil {return}
         
         star.strokeColor = startColor.interpolate(endColor, magnitude)
         
-        let scaleAction = SKAction.scale(to: magnitude, duration: updateActionDuration)
+        let scaleAction = SKAction.scale(to: max(Self.minScale, magnitude), duration: updateActionDuration)
         let rotateAction = SKAction.rotate(byAngle: rotationAngle, duration: updateActionDuration)
         
         star.run(SKAction.sequence([scaleAction, rotateAction]))

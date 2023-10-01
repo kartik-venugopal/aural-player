@@ -43,6 +43,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
     private let player: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
+    private let audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
@@ -67,6 +68,9 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
         manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedObjects > 0))
+        
+        // To prevent invalid sample rates if the visualizer is launched immediately upon app startup ... give the audio engine a few seconds to start up.
+        toggleVisualizerMenuItem.enableIf(windowLayoutsManager.isShowingVisualizer || audioGraph.outputDeviceSampleRate > 1000)
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state

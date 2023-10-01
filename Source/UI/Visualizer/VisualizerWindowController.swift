@@ -37,6 +37,8 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
     
     private lazy var visualizer: Visualizer = Visualizer(renderCallback: updateCurrentView)
     
+    private lazy var player: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
+    
     private lazy var uiState: VisualizerUIState = objectGraph.visualizerUIState
     
     private(set) lazy var messenger = Messenger(for: self)
@@ -72,15 +74,18 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
     override func showWindow(_ sender: Any?) {
         
         super.showWindow(sender)
-     
+        
         containerBox.startTracking()
         
         initUI(type: uiState.type, lowAmplitudeColor: uiState.options.lowAmplitudeColor,
                highAmplitudeColor: uiState.options.highAmplitudeColor)
         
         visualizer.startAnalysis()
+        playbackStateChanged()
         
         window?.orderFront(self)
+        
+        messenger.subscribeAsync(to: .player_playbackStateChanged, handler: playbackStateChanged)
     }
     
     private func initUI(type: VisualizationType, lowAmplitudeColor: NSColor, highAmplitudeColor: NSColor) {
@@ -167,6 +172,23 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
         }
     }
     
+    func playbackStateChanged() {
+        
+        switch player.state {
+            
+        case .playing:
+            visualizer.resumeAnalysis()
+            
+        case .paused:
+            visualizer.pauseAnalysis()
+            
+        case .noTrack:
+            
+            visualizer.pauseAnalysis()
+            allViews.forEach {$0.reset()}
+        }
+    }
+    
     @IBAction func closeWindowAction(_ sender: Any) {
         close()
     }
@@ -182,5 +204,7 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
         optionsBox.hide()
         
         allViews.forEach {$0.dismissView()}
+        
+        messenger.unsubscribe(from: .player_playbackStateChanged)
     }
 }

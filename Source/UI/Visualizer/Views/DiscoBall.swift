@@ -182,11 +182,19 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
         if ball == nil {return}
         
         data.update(with: fft)
+        updateForMagnitude(CGFloat(data.peakBassMagnitude))
+    }
+    
+    func reset() {
+        updateForMagnitude(0)
+    }
+    
+    private func updateForMagnitude(_ magnitude: CGFloat) {
+        
+        if self.scene == nil {return}
         
         SCNTransaction.begin()
         SCNTransaction.animationDuration = animationDuration
-        
-        let magnitude = CGFloat(data.peakBassMagnitude)
         
         ball.radius = 1 + (magnitude * maxRadiusIncreaseFactor)
         node.position = nodePosition

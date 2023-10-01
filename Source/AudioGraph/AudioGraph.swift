@@ -297,6 +297,14 @@ extension AudioGraph {
         
         renderObserver = nil
     }
+    
+    func pauseRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
+        outputAudioUnit.removeRenderCallback(inProc: renderCallback, inProcUserData: unmanagedReferenceToSelf)
+    }
+    
+    func resumeRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
+        outputAudioUnit.registerRenderCallback(inProc: renderCallback, inProcUserData: unmanagedReferenceToSelf)
+    }
 }
 
 fileprivate var audioGraphInstance: AudioGraph!

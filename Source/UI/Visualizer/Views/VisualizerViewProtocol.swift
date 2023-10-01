@@ -24,6 +24,8 @@ protocol VisualizerViewProtocol {
     func update(with fft: FFT)
     
     func setColors(startColor: NSColor, endColor: NSColor)
+    
+    func reset()
 }
 
 class AuralSCNView: SCNView {

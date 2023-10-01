@@ -50,6 +50,9 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     
+    func pauseRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
+    func resumeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
+    
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
     

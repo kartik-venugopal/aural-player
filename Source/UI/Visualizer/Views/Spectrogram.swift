@@ -85,6 +85,16 @@ class Spectrogram: SKView, VisualizerViewProtocol {
         isPaused = false
     }
     
+    func reset() {
+        
+        updateSemaphore.executeAfterWait {
+            
+            for bar in bars {
+                bar.magnitude = 0
+            }
+        }
+    }
+    
     func dismissView() {
         
         scene?.removeAllActions()

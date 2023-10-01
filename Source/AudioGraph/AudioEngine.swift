@@ -142,4 +142,8 @@ class AudioEngine {
     func stop() {
         engine.stop()
     }
+    
+    var isRunning: Bool {
+        engine.isRunning
+    }
 }
