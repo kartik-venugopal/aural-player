@@ -106,8 +106,7 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 |              | Intel (x86_64)  | Apple silicon (arm64)|
 | :---:        | :-:             | :-:       |
 | macOS 10.12 - 10.15 | [1.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v1.0.0)           | (N/A)     |
-| macOS 11.x (Big Sur)  | [2.3.0](https://github.com/kartik-venugopal/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/3.0.0)    |
-| macOS 12.x (Monterey)  | [2.3.0](https://github.com/kartik-venugopal/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/3.0.0)    |
+| macOS 11+  | [2.3.0](https://github.com/kartik-venugopal/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/3.0.0)    |
 
 **NOTES:** 
 
