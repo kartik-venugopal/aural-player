@@ -65,8 +65,6 @@ class FFT: Destroyable {
         self.sampleRate = sampleRate
         self.bufferSize = bufferSize
         
-        print("SR = \(sampleRate)")
-        
         log2n = log2(Double(bufferSize)).roundedUInt
         
         bufferSizePOT = Int(1 << log2n)
