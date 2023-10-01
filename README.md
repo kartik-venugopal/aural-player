@@ -71,9 +71,11 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 
 ### Roadmap
 
+The app (v3.x) is currently in maintenance mode - bugs will be fixed and small enhancements may be made.
+
 #### Version 4.0
 
-As of May 21, 2022, version 4.0 is in active development, and may bring several improvements.
+As of Oct 1, 2023, version 4.0 is ***no longer*** in active development. It is unknown when development will resume.
 
 Interested in seeing what's going on with the development of v4.0 ? Check out [the v4.0 branch](https://github.com/kartik-venugopal/aural-player/tree/v4.0)!
 
