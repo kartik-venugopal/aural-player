@@ -46,13 +46,13 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, Destroya
     override func windowDidLoad() {
         
         super.windowDidLoad()
+        
+        theWindow.isMovableByWindowBackground = true
         messenger.subscribeAsync(to: .audioGraph_outputDeviceChanged, handler: audioOutputDeviceChanged)
     }
     
     override func awakeFromNib() {
         
-        window?.delegate = self
-        window?.isMovableByWindowBackground = true
         window?.aspectRatio = NSSize(width: 3.0, height: 2.0)
         
         [spectrogram, supernova, discoBall].forEach {$0?.anchorToSuperview()}

@@ -27,7 +27,8 @@ class SnappingWindowDelegate: NSObject, NSWindowDelegate {
         // Only respond if movement was user-initiated (flag on window).
         guard window.userMovingWindow else {return}
         
-        if checkForSnapToWindows() {
+        // Main window cannot be snapped to other windows because all other windows move with the main window.
+        if !window.isTheMainWindow, checkForSnapToWindows() {
             return
         }
         

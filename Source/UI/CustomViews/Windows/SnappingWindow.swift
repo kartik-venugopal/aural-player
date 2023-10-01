@@ -25,7 +25,9 @@ class SnappingWindow: NoTitleBarWindow {
     
     private var snapProximity: CGFloat {Self.snapProximity}
     
-    private lazy var theDelegate: SnappingWindowDelegate = SnappingWindowDelegate(window: self)
+    fileprivate lazy var theDelegate: SnappingWindowDelegate = SnappingWindowDelegate(window: self)
+    
+    lazy var isTheMainWindow: Bool = (identifier?.rawValue ?? "") == "wid_main"
     
     override func awakeFromNib() {
         self.delegate = theDelegate
@@ -212,79 +214,43 @@ class SnappingWindow: NoTitleBarWindow {
     
     func checkForSnapToVisibleFrame() {
         
-        var snap: SnapToVisibleFrameType = checkForSnapToVisibleFrame_topLeftCorner()
+        var snap: SnapToVisibleFrameType = .none
         
-        if snap.isValidSnap() {
+        func checkForValidSnap() -> Bool {
             
-            snapLocation = snap.getLocation(self)
-            snapped = true
-            return
+            if snap.isValidSnap() {
+                
+                snapLocation = snap.getLocation(self)
+                snapped = true
+                return true
+            }
+            
+            return false
         }
+        
+        snap = checkForSnapToVisibleFrame_topLeftCorner()
+        if checkForValidSnap() {return}
         
         snap = checkForSnapToVisibleFrame_topRightCorner()
-        
-        if snap.isValidSnap() {
-            
-            snapLocation = snap.getLocation(self)
-            snapped = true
-            return
-        }
+        if checkForValidSnap() {return}
         
         snap = checkForSnapToVisibleFrame_bottomRightCorner()
-        
-        if snap.isValidSnap() {
-            
-            // Snap on the right
-            snapLocation = snap.getLocation(self)
-            snapped = true
-            return
-        }
+        if checkForValidSnap() {return}
         
         snap = checkForSnapToVisibleFrame_bottomLeftCorner()
-        
-        if snap.isValidSnap() {
-            
-            // Snap on the right
-            snapLocation = snap.getLocation(self)
-            snapped = true
-            return
-        }
+        if checkForValidSnap() {return}
         
         snap = checkForSnapToVisibleFrame_leftEdge()
-        
-        if snap.isValidSnap() {
-            
-            snapLocation = snap.getLocation(self)
-            snapped = true
-            return
-        }
+        if checkForValidSnap() {return}
         
         snap = checkForSnapToVisibleFrame_rightEdge()
-        
-        if snap.isValidSnap() {
-            
-            snapLocation = snap.getLocation(self)
-            snapped = true
-            return
-        }
+        if checkForValidSnap() {return}
         
         snap = checkForSnapToVisibleFrame_topEdge()
-        
-        if snap.isValidSnap() {
-            
-            snapLocation = snap.getLocation(self)
-            snapped = true
-            return
-        }
+        if checkForValidSnap() {return}
         
         snap = checkForSnapToVisibleFrame_bottomEdge()
-        
-        if snap.isValidSnap() {
-            
-            snapLocation = snap.getLocation(self)
-            snapped = true
-            return
-        }
+        _ = checkForValidSnap()
     }
     
     private func checkForSnapToVisibleFrame_topLeftCorner() -> SnapToVisibleFrameType {
@@ -576,9 +542,10 @@ enum SnapToVisibleFrameType {
         case .bottomLeftCorner:
             
             return NSPoint(x: visibleFrame.minX, y: visibleFrame.minY)
+             
+        default:
             
-        default:    return NSPoint.zero     // Impossible
-            
+            return .zero     // Impossible
         }
     }
 }
