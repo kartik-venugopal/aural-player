@@ -87,14 +87,8 @@ class AudioUnitEditorDialogController: NSWindowController {
         initFactoryPresets()
         initUserPresets()
         
-        if #available(macOS 10.13, *) {
-            
-            renderQualitySlider.integerValue = audioUnit.renderQuality
-            lblRenderQuality.stringValue = "\(audioUnit.renderQuality)"
-            
-        } else {
-            [lblRenderQualityCaption, renderQualitySlider, lblRenderQuality_0, lblRenderQuality_127, lblRenderQuality].forEach {$0?.hide()}
-        }
+        renderQualitySlider.integerValue = audioUnit.renderQuality
+        lblRenderQuality.stringValue = "\(audioUnit.renderQuality)"
     }
     
     private func initFactoryPresets() {

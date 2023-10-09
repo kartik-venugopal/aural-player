@@ -17,7 +17,6 @@ import MediaPlayer
 /// 1 - Remote command manager
 /// 2 - Now Playing Info manager
 ///
-@available(OSX 10.12.2, *)
 class RemoteControlManager {
 
     /// Handles registration and handling of remote commands with **MPRemoteCommandCenter**.

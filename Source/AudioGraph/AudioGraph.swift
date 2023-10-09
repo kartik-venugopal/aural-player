@@ -66,12 +66,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         let volume = persistentState?.volume ?? AudioGraphDefaults.volume
         let pan = persistentState?.pan ?? AudioGraphDefaults.pan
         
-        // If running on 10.12 Sierra or older, use the legacy AVAudioPlayerNode APIs
-        if #available(OSX 10.13, *) {
-            playerNode = AuralPlayerNode(useLegacyAPI: false, volume: volume, pan: pan)
-        } else {
-            playerNode = AuralPlayerNode(useLegacyAPI: true, volume: volume, pan: pan)
-        }
+        playerNode = AuralPlayerNode(volume: volume, pan: pan)
         
         let muted = persistentState?.muted ?? AudioGraphDefaults.muted
         auxMixer = AVAudioMixerNode(muted: muted)

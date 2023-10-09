@@ -53,13 +53,8 @@ class AuralPlayerNode: AVAudioPlayerNode {
     // The absolute minimum frame count when scheduling a segment (to prevent crashes in the playerNode).
     static let minFrames: AVAudioFrameCount = 1
     
-    // This flag determines whether the legacy scheduling API should be used (i.e. <= macOS 10.12)
-    // If false, the newer APIs will be used.
-    var useLegacyAPI: Bool
-    
-    init(useLegacyAPI: Bool, volume: Float, pan: Float) {
+    init(volume: Float, pan: Float) {
         
-        self.useLegacyAPI = useLegacyAPI
         super.init()
         
         self.volume = volume
@@ -128,20 +123,11 @@ class AuralPlayerNode: AVAudioPlayerNode {
             correctionAppliedForSegment = false
         }
         
-        if #available(OSX 10.13, *), !useLegacyAPI {
-            
-            scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil,
-                            completionCallbackType: completionCallbackType,
-                            completionHandler: {callbackType in
-                                self.completionCallbackQueue.async {completionHandler(segment.session)}
-                            })
-
-        } else {
-            
-            scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil, completionHandler: {() -> Void in
-                self.completionCallbackQueue.async {completionHandler(segment.session)}
-            })
-        }
+        scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil,
+                        completionCallbackType: completionCallbackType,
+                        completionHandler: {callbackType in
+            self.completionCallbackQueue.async {completionHandler(segment.session)}
+        })
     }
     
     ///

@@ -70,21 +70,15 @@ class EffectsUnitViewController: NSViewController, Destroyable {
         presetsMenuIconItem.tintFunction = {Colors.functionButtonColor}
         renderQualityMenuIconItem?.tintFunction = {Colors.functionButtonColor}
         
-        if #available(macOS 10.13, *) {
+        if let renderQualityMenu = self.renderQualityMenuButton?.menu {
             
-            if let renderQualityMenu = self.renderQualityMenuButton?.menu {
-                
-                let renderQualityMenuViewController = RenderQualityMenuViewController()
-                renderQualityMenuViewController.effectsUnit = effectsUnit
-                
-                renderQualityMenu.items[1].view = renderQualityMenuViewController.view
-                renderQualityMenu.delegate = renderQualityMenuViewController
-                
-                self.renderQualityMenuViewController = renderQualityMenuViewController
-            }
+            let renderQualityMenuViewController = RenderQualityMenuViewController()
+            renderQualityMenuViewController.effectsUnit = effectsUnit
             
-        } else {
-            renderQualityMenuButton?.hide()
+            renderQualityMenu.items[1].view = renderQualityMenuViewController.view
+            renderQualityMenu.delegate = renderQualityMenuViewController
+            
+            self.renderQualityMenuViewController = renderQualityMenuViewController
         }
         
         initSubscriptions()

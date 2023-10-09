@@ -51,12 +51,7 @@ class EffectsUnit {
     }
     
     var renderQualityPersistentState: Int? {
-        
-        if #available(macOS 10.13, *) {
-            return self.renderQuality
-        } else {
-            return nil
-        }
+        self.renderQuality
     }
     
     var isActive: Bool {state == .active}
@@ -71,9 +66,7 @@ class EffectsUnit {
         self.state = unitState
         stateChanged()
         
-        if #available(macOS 10.13, *) {
-            self.renderQuality = renderQuality ?? AudioGraphDefaults.renderQuality
-        }
+        self.renderQuality = renderQuality ?? AudioGraphDefaults.renderQuality
     }
     
     func stateChanged() {

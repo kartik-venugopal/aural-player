@@ -18,22 +18,15 @@ class AVFFileReader: FileReaderProtocol {
     let commonParser: CommonAVFMetadataParser = CommonAVFMetadataParser()
     let id3Parser: ID3AVFParser = ID3AVFParser()
     let iTunesParser: ITunesParser = ITunesParser()
+    let audioToolboxParser: AudioToolboxParser = AudioToolboxParser()
 
     let allParsers: [AVFMetadataParser]
     let parsersMap: [AVMetadataKeySpace: AVFMetadataParser]
     
     init() {
         
-        // Audio Toolbox is only available starting with macOS 10.13.
-        if #available(OSX 10.13, *) {
-            
-            parsersMap = [.common: commonParser, .id3: id3Parser, .iTunes: iTunesParser, .audioFile: AudioToolboxParser()]
-            
-        } else {
-            parsersMap = [.common: commonParser, .id3: id3Parser, .iTunes: iTunesParser]
-        }
-        
-        allParsers = [id3Parser, iTunesParser, commonParser]
+        parsersMap = [.common: commonParser, .id3: id3Parser, .iTunes: iTunesParser, .audioFile: audioToolboxParser]
+        allParsers = [id3Parser, iTunesParser, audioToolboxParser, commonParser]
     }
     
     private func cleanUpString(_ string: String?) -> String? {

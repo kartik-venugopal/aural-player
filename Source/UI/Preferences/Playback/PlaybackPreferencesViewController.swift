@@ -237,7 +237,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Remote Control (seek interval)
         
         // If the (primary) seek interval has changed, update Remote Control with the new interval.
-        if oldPrimarySeekLengthConstant != prefs.primarySeekLengthConstant, #available(OSX 10.12.2, *) {
+        if oldPrimarySeekLengthConstant != prefs.primarySeekLengthConstant {
             remoteControlManager.updateSeekInterval(to: Double(prefs.primarySeekLengthConstant))
         }
     }

@@ -57,16 +57,7 @@ class ObjectGraph {
                                                                                  player: playbackDelegate, preferences: preferences.soundPreferences)
     
     private lazy var player: PlayerProtocol = Player(graph: audioGraph, avfScheduler: avfScheduler, ffmpegScheduler: ffmpegScheduler)
-    private lazy var avfScheduler: PlaybackSchedulerProtocol = {
-        
-        // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
-        // Instantiate the legacy scheduler if running on 10.12 Sierra or older systems.
-        if #available(macOS 10.13, *) {
-            return AVFScheduler(audioGraph.playerNode)
-        } else {
-            return LegacyAVFScheduler(audioGraph.playerNode)
-        }
-    }()
+    private lazy var avfScheduler: PlaybackSchedulerProtocol = AVFScheduler(audioGraph.playerNode)
     
     private lazy var ffmpegScheduler: PlaybackSchedulerProtocol = FFmpegScheduler(playerNode: audioGraph.playerNode)
     private lazy var sequencer: Sequencer = {
@@ -159,9 +150,7 @@ class ObjectGraph {
         
         self.mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences.mediaKeys)
         
-        if #available(OSX 10.12.2, *) {
-            _ = remoteControlManager
-        }
+        _ = remoteControlManager
         
         DispatchQueue.global(qos: .background).async {
             self.cleanUpLegacyFolders()

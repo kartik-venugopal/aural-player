@@ -88,7 +88,7 @@ struct AVFMappedMetadata {
                 if keySpace.rawValue.lowercased() == ITunesSpec.longForm_keySpaceID {
                     iTunes[key] = item
                     
-                } else if #available(OSX 10.13, *), keySpace == .audioFile {
+                } else if keySpace == .audioFile {
                     audioToolbox[key] = item
                 }
             }

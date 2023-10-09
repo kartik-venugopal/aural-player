@@ -21,12 +21,7 @@ class PersistenceManager {
     private lazy var encoder: JSONEncoder = {
         
         let encoder = JSONEncoder()
-        
-        if #available(OSX 10.13, *) {
-            encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        } else {
-            encoder.outputFormatting = [.prettyPrinted]
-        }
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         
         return encoder
     }()
