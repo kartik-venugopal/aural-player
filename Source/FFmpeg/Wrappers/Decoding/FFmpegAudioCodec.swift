@@ -71,8 +71,8 @@ class FFmpegAudioCodec: FFmpegCodec {
         self.channelLayout = FFmpegChannelLayout(id: context.channelLayout, channelCount: context.channels)
         
         // Use multithreading to speed up decoding.
-        self.context.pointer.pointee.thread_count = Self.threadCount
-        self.context.pointer.pointee.thread_type = Self.threadType
+        self.context.threadCount = Self.threadCount
+        self.context.threadType = Self.threadType
     }
     
     override func open() throws {
@@ -99,7 +99,7 @@ class FFmpegAudioCodec: FFmpegCodec {
     func decode(packet: FFmpegPacket) throws -> FFmpegPacketFrames {
         
         // Send the packet to the decoder for decoding.
-        let resultCode: ResultCode = packet.sendToCodec(withContext: context.pointer)
+        let resultCode: ResultCode = context.sendPacket(packet)
         
         // If the packet send failed, log a message and throw an error.
         if resultCode.isNegative {
@@ -112,7 +112,7 @@ class FFmpegAudioCodec: FFmpegCodec {
         let packetFrames: FFmpegPacketFrames = FFmpegPacketFrames()
         
         // Keep receiving decoded frames while no errors are encountered
-        while let frame = FFmpegFrame(readingFrom: context.pointer, withSampleFormat: self.sampleFormat) {
+        while let frame = context.receiveFrame() {
             packetFrames.appendFrame(frame)
         }
         
@@ -132,14 +132,10 @@ class FFmpegAudioCodec: FFmpegCodec {
     func decodeAndDrop(packet: FFmpegPacket) {
         
         // Send the packet to the decoder for decoding.
-        var resultCode: ResultCode = packet.sendToCodec(withContext: context.pointer)
+        var resultCode: ResultCode = context.sendPacket(packet)
         if resultCode.isNegative {return}
         
-        var avFrame: AVFrame = AVFrame()
-        
-        repeat {
-            resultCode = avcodec_receive_frame(context.pointer, &avFrame)
-        } while resultCode.isZero && avFrame.nb_samples > 0
+        context.receiveAndDropAllFrames()
     }
     
     ///
@@ -154,7 +150,7 @@ class FFmpegAudioCodec: FFmpegCodec {
     func drain() throws -> FFmpegPacketFrames {
         
         // Send the "flush packet" to the decoder
-        let resultCode: Int32 = avcodec_send_packet(context.pointer, nil)
+        let resultCode: Int32 = context.sendFlushPacket()
         
         if resultCode.isNonZero {
             
@@ -166,7 +162,7 @@ class FFmpegAudioCodec: FFmpegCodec {
         let packetFrames: FFmpegPacketFrames = FFmpegPacketFrames()
         
         // Keep receiving decoded frames while no errors are encountered
-        while let frame = FFmpegFrame(readingFrom: context.pointer, withSampleFormat: self.sampleFormat) {
+        while let frame = context.receiveFrame() {
             packetFrames.appendFrame(frame)
         }
         
@@ -179,7 +175,7 @@ class FFmpegAudioCodec: FFmpegCodec {
     /// Make sure to call this function prior to seeking within a stream.
     ///
     func flushBuffers() {
-        avcodec_flush_buffers(context.pointer)
+        context.flushBuffers()
     }
     
 #if DEBUG

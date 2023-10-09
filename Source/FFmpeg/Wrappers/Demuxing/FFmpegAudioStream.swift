@@ -98,7 +98,7 @@ class FFmpegAudioStream: FFmpegStreamProtocol {
     ///
     /// - Parameter mediaType: The media type of this stream (e.g. audio / video, etc)
     ///
-    init(encapsulating pointer: UnsafeMutablePointer<AVStream>) {
+    init(encapsulatingPointeeOf pointer: UnsafeMutablePointer<AVStream>) {
         
         self.pointer = pointer
         self.index = pointer.pointee.index

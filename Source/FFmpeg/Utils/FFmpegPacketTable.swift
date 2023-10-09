@@ -53,18 +53,13 @@ class FFmpegPacketTable {
             
             // Keep reading packets till EOF is encountered.
             
-            while true {
+            while let packet = try fileContext.readPacket(from: stream) {
                 
-                let packet = try FFmpegPacket(readingFromFormat: fileContext.pointer)
+                // Store a reference to this packet as the last packet encountered so far.
+                lastPacket = packet
                 
-                if packet.streamIndex == stream.index {
-                    
-                    // Store a reference to this packet as the last packet encountered so far.
-                    lastPacket = packet
-                    
-                    // Store byte position and timestamp info for this packet.
-                    packetTable.append(FFmpegPacketTableEntry(bytePosition: packet.bytePosition, pts: packet.pts))
-                }
+                // Store byte position and timestamp info for this packet.
+                packetTable.append(FFmpegPacketTableEntry(bytePosition: packet.bytePosition, pts: packet.pts))
             }
             
         } catch {

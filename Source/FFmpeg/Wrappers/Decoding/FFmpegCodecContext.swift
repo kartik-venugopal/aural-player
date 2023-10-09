@@ -69,6 +69,61 @@ class FFmpegCodecContext {
         }
     }
     
+    func sendPacket(_ packet: FFmpegPacket) -> ResultCode {
+        avcodec_send_packet(pointer, &packet.avPacket)
+    }
+    
+    func sendFlushPacket() -> ResultCode {
+        avcodec_send_packet(pointer, nil)
+    }
+    
+    ///
+    /// Instantiates a Frame, reading an AVFrame from this codec context, and sets its sample format.
+    ///
+    func receiveFrame() -> FFmpegFrame? {
+        
+        // Allocate memory for the frame.
+        var framePtr: UnsafeMutablePointer<AVFrame>! = av_frame_alloc()
+        
+        // Check if memory allocation was successful. Can't proceed otherwise.
+        guard framePtr != nil else {
+            
+            NSLog("Unable to allocate memory for frame.")
+            return nil
+        }
+        
+        // Receive the frame from the codec context.
+        guard avcodec_receive_frame(pointer, framePtr).isNonNegative else {
+            
+            av_frame_free(&framePtr)
+            return nil
+        }
+        
+        return FFmpegFrame(encapsulatingPointeeOf: framePtr, withSampleFormat: FFmpegSampleFormat(encapsulating: self.sampleFormat))
+    }
+
+    ///
+    /// Decode the current packet and drop (ignore) the received frames.
+    ///
+    func receiveAndDropAllFrames() {
+        
+        var avFrame: AVFrame = AVFrame()
+        var resultCode: ResultCode = 0
+        
+        repeat {
+            resultCode = avcodec_receive_frame(pointer, &avFrame)
+        } while resultCode.isZero && avFrame.nb_samples > 0
+    }
+    
+    ///
+    /// Flush this codec's internal buffers.
+    ///
+    /// Make sure to call this function prior to seeking within a stream.
+    ///
+    func flushBuffers() {
+        avcodec_flush_buffers(pointer)
+    }
+    
     /// When this object is deinitialized, make sure that its allocated memory space is deallocated.
     deinit {
         avcodec_free_context(&pointer)

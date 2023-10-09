@@ -57,14 +57,13 @@ extension FFmpegDecoder {
             // Temporarily bind the input sample buffers as floating point numbers, and perform the copy.
             frame.dataPointers.withMemoryRebound(to: UnsafeMutablePointer<Float>.self, capacity: channelCount) {srcPointers in
                 
-                let sampleCount = frame.sampleCount
                 let firstSampleIndex = Int(frame.firstSampleIndex)
 
                 // Iterate through all the channels.
                 for channelIndex in 0..<channelCount {
 
                     // Use Accelerate to perform the copy optimally, starting at the given offset.
-                    cblas_scopy(sampleCount,
+                    cblas_scopy(frame.sampleCount,
                                 srcPointers[channelIndex].advanced(by: firstSampleIndex), 1,
                                 destPointers[channelIndex].advanced(by: sampleCountSoFar), 1)
                 }

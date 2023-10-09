@@ -70,46 +70,45 @@ class FFmpegPacketFrames {
     func keepLastNSamples(sampleCount: Int32) {
         
         // Desired sample count must be less than existing sample count.
-        if sampleCount < self.sampleCount {
+        guard sampleCount < self.sampleCount else {return}
+        
+        // Counter to keep track of samples accounted for so far.
+        var samplesSoFar: Int32 = 0
+        
+        // Index of the first frame in the array that will not be removed.
+        var firstFrameToKeep: Int = 0
+        
+        // Iterate the frames in reverse, counting the accumulated samples till we have enough.
+        for (index, frame) in frames.enumerated().reversed() {
             
-            // Counter to keep track of samples accounted for so far.
-            var samplesSoFar: Int32 = 0
-            
-            // Index of the first frame in the array that will not be removed.
-            var firstFrameToKeep: Int = 0
-
-            // Iterate the frames in reverse, counting the accumulated samples till we have enough.
-            for (index, frame) in frames.enumerated().reversed() {
+            if samplesSoFar + frame.sampleCount <= sampleCount {
                 
-                if samplesSoFar + frame.sampleCount <= sampleCount {
-                    
-                    // This frame fits in its entirety.
-                    samplesSoFar += frame.sampleCount
-                    
-                } else {
-                    
-                    // This frame fits partially. Need to truncate it.
-                    let samplesToKeep = sampleCount - samplesSoFar
-                    samplesSoFar += samplesToKeep
-                    frame.keepLastNSamples(sampleCount: samplesToKeep)
-                }
+                // This frame fits in its entirety.
+                samplesSoFar += frame.sampleCount
                 
-                if samplesSoFar == sampleCount {
-                    
-                    // We have enough samples. Note down the index of this frame,
-                    // and exit the loop.
-                    firstFrameToKeep = index
-                    break
-                }
+            } else {
+                
+                // This frame fits partially. Need to truncate it.
+                let samplesToKeep = sampleCount - samplesSoFar
+                samplesSoFar += samplesToKeep
+                frame.keepLastNSamples(sampleCount: samplesToKeep)
             }
             
-            // Discard any surplus frames from the beginning of the array.
-            if firstFrameToKeep > 0 {
-                frames.removeFirst(firstFrameToKeep)
+            if samplesSoFar == sampleCount {
+                
+                // We have enough samples. Note down the index of this frame,
+                // and exit the loop.
+                firstFrameToKeep = index
+                break
             }
-            
-            // Update the sample count.
-            self.sampleCount = sampleCount
         }
+        
+        // Discard any surplus frames from the beginning of the array.
+        if firstFrameToKeep > 0 {
+            frames.removeFirst(firstFrameToKeep)
+        }
+        
+        // Update the sample count.
+        self.sampleCount = sampleCount
     }
 }

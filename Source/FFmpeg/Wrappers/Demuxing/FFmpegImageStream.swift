@@ -41,7 +41,7 @@ class FFmpegImageStream: FFmpegStreamProtocol {
     /// The packet (optionally) containing an attached picture.
     /// This can be used to read cover art.
     ///
-    private(set) lazy var attachedPic: FFmpegPacket = FFmpegPacket(encapsulating: &pointer.pointee.attached_pic)
+    private(set) lazy var attachedPic: FFmpegPacket = FFmpegPacket(encapsulatingPointeeOf: &pointer.pointee.attached_pic)
     
     ///
     /// All metadata key / value pairs available for this stream.
@@ -55,7 +55,7 @@ class FFmpegImageStream: FFmpegStreamProtocol {
     ///
     /// - Parameter mediaType: The media type of this stream (e.g. audio / video, etc)
     ///
-    init(encapsulating pointer: UnsafeMutablePointer<AVStream>) {
+    init(encapsulatingPointeeOf pointer: UnsafeMutablePointer<AVStream>) {
         
         self.pointer = pointer
         self.index = pointer.pointee.index

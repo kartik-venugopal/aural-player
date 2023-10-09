@@ -171,25 +171,10 @@ class FFmpegFrame {
     ///
     /// - Parameter sampleFormat: The format of the samples in this frame.
     ///
-    init?(readingFrom codecCtx: UnsafeMutablePointer<AVCodecContext>, withSampleFormat sampleFormat: FFmpegSampleFormat) {
+    init(encapsulatingPointeeOf pointer: UnsafeMutablePointer<AVFrame>!, withSampleFormat sampleFormat: FFmpegSampleFormat) {
         
         // Allocate memory for the frame.
-        self.pointer = av_frame_alloc()
-        
-        // Check if memory allocation was successful. Can't proceed otherwise.
-        guard pointer != nil else {
-            
-            NSLog("Unable to allocate memory for frame.")
-            return nil
-        }
-        
-        // Receive the frame from the codec context.
-        guard avcodec_receive_frame(codecCtx, pointer).isNonNegative else {
-            
-            av_frame_free(&pointer)
-            return nil
-        }
-        
+        self.pointer = pointer
         self.sampleFormat = sampleFormat
         self.firstSampleIndex = 0
     }

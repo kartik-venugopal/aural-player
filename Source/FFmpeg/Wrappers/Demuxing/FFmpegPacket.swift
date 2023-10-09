@@ -10,9 +10,9 @@
 import Foundation
 
 ///
-/// Encapsulates an ffmpeg **AVPacke**t struct that represents a single packet
+/// Encapsulates an ffmpeg **AVPacket** struct that represents a single packet
 /// i.e. audio data in its encoded / compressed form, prior to decoding,
-/// and provides convenient Swift-style access to their functions and member variables.
+/// and provides convenient Swift-style access to its functions and member variables.
 ///
 class FFmpegPacket {
     
@@ -63,6 +63,9 @@ class FFmpegPacket {
         return nil
     }()
     
+    /// Indicates whether or not this object needs to free up used memory space.
+    private let needToDealloc: Bool
+    
     ///
     /// Instantiates a Packet from a format context (container), if it can be read. Returns nil otherwise.
     ///
@@ -70,24 +73,10 @@ class FFmpegPacket {
     ///
     /// - throws: **PacketReadError** if the read fails.
     ///
-    init(readingFromFormat formatCtx: UnsafeMutablePointer<AVFormatContext>?) throws {
+    init(encapsulating packet: AVPacket) {
         
-        self.avPacket = AVPacket()
+        self.avPacket = packet
         self.needToDealloc = true
-        
-        // Try to read a packet.
-        let readResult: Int32 = av_read_frame(formatCtx, &avPacket)
-        
-        // If the read fails, log a message and throw an error.
-        guard readResult >= 0 else {
-            
-            // No need to log a message for EOF as it is considered harmless.
-            if !readResult.isEOF {
-                NSLog("Unable to read packet. Error: \(readResult) (\(readResult.errorDescription)))")
-            }
-            
-            throw PacketReadError(readResult)
-        }
     }
     
     ///
@@ -95,7 +84,7 @@ class FFmpegPacket {
     ///
     /// - Parameter pointer: A pointer to a pre-existing AVPacket that has already been read.
     ///
-    init(encapsulating pointer: UnsafeMutablePointer<AVPacket>) {
+    init(encapsulatingPointeeOf pointer: UnsafeMutablePointer<AVPacket>) {
         
         self.avPacket = pointer.pointee
         
@@ -106,14 +95,7 @@ class FFmpegPacket {
         // So, set the needToDealloc flag, to prevent deallocation.
         needToDealloc = false
     }
-    
-    func sendToCodec(withContext contextPointer: UnsafeMutablePointer<AVCodecContext>!) -> ResultCode {
-        avcodec_send_packet(contextPointer, &avPacket)
-    }
 
-    /// Indicates whether or not this object needs to free up used memory space.
-    private let needToDealloc: Bool
-    
     /// When this object is deinitialized, make sure that its allocated memory space is deallocated.
     deinit {
         

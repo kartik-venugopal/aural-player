@@ -217,9 +217,9 @@ class FFmpegFileContext {
         
         switch mediaType {
         
-        case AVMEDIA_TYPE_AUDIO: return FFmpegAudioStream(encapsulating: streamPointer)
+        case AVMEDIA_TYPE_AUDIO: return FFmpegAudioStream(encapsulatingPointeeOf: streamPointer)
         
-        case AVMEDIA_TYPE_VIDEO: return FFmpegImageStream(encapsulating: streamPointer)
+        case AVMEDIA_TYPE_VIDEO: return FFmpegImageStream(encapsulatingPointeeOf: streamPointer)
         
         default: return nil
             
@@ -237,7 +237,23 @@ class FFmpegFileContext {
     ///
     func readPacket(from stream: FFmpegStreamProtocol) throws -> FFmpegPacket? {
         
-        let packet = try FFmpegPacket(readingFromFormat: pointer)
+        var avPacket = AVPacket()
+        
+        // Try to read a packet.
+        let readResult: Int32 = av_read_frame(pointer, &avPacket)
+        
+        // If the read fails, log a message and throw an error.
+        guard readResult >= 0 else {
+            
+            // No need to log a message for EOF as it is considered harmless.
+            if !readResult.isEOF {
+                NSLog("Unable to read packet. Error: \(readResult) (\(readResult.errorDescription)))")
+            }
+            
+            throw PacketReadError(readResult)
+        }
+
+        let packet = FFmpegPacket(encapsulating: avPacket)
         return packet.streamIndex == stream.index ? packet : nil
     }
     
