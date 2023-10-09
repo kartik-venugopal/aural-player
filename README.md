@@ -105,7 +105,7 @@ This table lists the range of compatible Aural Player versions for your hardware
 
 |              | Intel (x86_64)  | Apple silicon (arm64)|
 | :---:        | :-:             | :-:       |
-| macOS 10.12 - 10.15 | [1.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v1.0.0) - [v3.16.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.16.0)           | (N/A)     |
+| macOS 10.12 Sierra (no longer supported) | [1.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v1.0.0) - [v3.16.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.16.0)           | (N/A)     |
 | macOS 10.13 - 10.15 | [1.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v1.0.0) - [latest](https://github.com/kartik-venugopal/aural-player/releases/latest)         | (N/A)     |
 | macOS 11+  | [2.3.0](https://github.com/kartik-venugopal/aural-player/releases/tag/2.3.0) - [latest](https://github.com/kartik-venugopal/aural-player/releases/latest)           | [3.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/3.0.0) - [latest](https://github.com/kartik-venugopal/aural-player/releases/latest)|
 
