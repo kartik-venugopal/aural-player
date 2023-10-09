@@ -101,12 +101,13 @@ In addition to v4.0, the following features ***may be*** implemented in the futu
 
 ### Compatibility
 
-This table lists the ***minimum*** required Aural Player version for your hardware and macOS version. It is always recommended to use the [latest](https://github.com/kartik-venugopal/aural-player/releases/latest) app version, regardless of your hardware / macOS version.
+This table lists the range of compatible Aural Player versions for your hardware and macOS version. Unless you are using macOS 10.12 Sierra, it is always recommended to use the [latest](https://github.com/kartik-venugopal/aural-player/releases/latest) app version, regardless of your hardware / macOS version.
 
 |              | Intel (x86_64)  | Apple silicon (arm64)|
 | :---:        | :-:             | :-:       |
-| macOS 10.12 - 10.15 | [1.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v1.0.0)           | (N/A)     |
-| macOS 11+  | [2.3.0](https://github.com/kartik-venugopal/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/3.0.0)    |
+| macOS 10.12 - 10.15 | [1.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v1.0.0) - [v3.16.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.16.0)           | (N/A)     |
+| macOS 10.13 - 10.15 | [1.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/v1.0.0) - [latest](https://github.com/kartik-venugopal/aural-player/releases/latest)         | (N/A)     |
+| macOS 11+  | [2.3.0](https://github.com/kartik-venugopal/aural-player/releases/tag/2.3.0) - [latest](https://github.com/kartik-venugopal/aural-player/releases/latest)           | [3.0.0](https://github.com/kartik-venugopal/aural-player/releases/tag/3.0.0) - [latest](https://github.com/kartik-venugopal/aural-player/releases/latest)|
 
 **NOTES:** 
 
