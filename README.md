@@ -75,7 +75,7 @@ The app (v3.x) is currently in maintenance mode - bugs will be fixed and small e
 
 #### Version 4.0
 
-As of Oct 1, 2023, version 4.0 is ***no longer*** in active development. It is unknown when development will resume.
+As of Oct 12, 2023, version 4.0 is being actively developed. It is unknown when the first release will occur.
 
 Interested in seeing what's going on with the development of v4.0 ? Check out [the v4.0 branch](https://github.com/kartik-venugopal/aural-player/tree/v4.0)!
 
