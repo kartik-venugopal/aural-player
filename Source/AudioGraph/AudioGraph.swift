@@ -135,8 +135,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         self.volume = systemSoundProfile.volume
         self.pan = systemSoundProfile.pan
         masterUnit.applyPreset(systemSoundProfile.effects)
-        
-        // TODO: Current presets for all FX units !
     }
     
     // MARK: Audio engine functions ----------------------------------

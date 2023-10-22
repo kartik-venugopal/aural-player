@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -65,7 +65,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="6R2-C8-igF" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i0p-O9-yOu" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i0p-O9-yOu" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="81" y="17" width="34" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="-20" id="zDp-7x-Svl">
@@ -79,7 +79,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="bCd-KJ-f6X" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lo4-B4-1Wf" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lo4-B4-1Wf" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="217" y="17" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="250" id="XQp-HC-Qym">
@@ -88,7 +88,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WjH-DX-cu3" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WjH-DX-cu3" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="398" y="147" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="16k" id="o6m-hh-iGo">
@@ -102,7 +102,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Z96-Rz-CDP" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNh-Sy-04r" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNh-Sy-04r" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="317" y="147" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="2.5k" id="PYI-Cj-Ttu">
@@ -116,7 +116,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="uUZ-2T-Vzo" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yre-4G-L6b" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yre-4G-L6b" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="117" y="147" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="25" id="WZt-l5-cm8">
@@ -133,7 +133,7 @@
                         <action selector="eqGlobalGainAction:" target="-2" id="1gW-cZ-xtY"/>
                     </connections>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DTE-WF-Gfr" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DTE-WF-Gfr" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="377" y="17" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="10k" id="uJs-ox-bUE">
@@ -147,7 +147,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="LhE-WM-fcA" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-Ur-BW8" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-Ur-BW8" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="137" y="17" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="40" id="7iJ-b3-BZd">
@@ -156,7 +156,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8M5-Q0-y6L" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8M5-Q0-y6L" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="297" y="17" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1.6k" id="NW4-cm-7ZG">
@@ -165,7 +165,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="STc-Jf-VbD" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="STc-Jf-VbD" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="81" y="147" width="34" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="+20" id="zDt-Ao-SUL">
@@ -174,7 +174,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBs-qV-cLT" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBs-qV-cLT" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="237" y="147" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="400" id="u6h-BQ-33k">
@@ -183,7 +183,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rdr-XA-dkg" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rdr-XA-dkg" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="277" y="147" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1k" id="LYt-VF-ef1">
@@ -197,7 +197,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="ooG-9T-2CJ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PVl-uo-grr" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PVl-uo-grr" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="197" y="147" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="160" id="OLN-b0-Q8w">
@@ -221,7 +221,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="dqO-r2-4aj" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOW-Ai-0Ff" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOW-Ai-0Ff" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="338" y="17" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="4k" id="EYJ-QJ-Ha2">
@@ -235,7 +235,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="k6M-j4-7P2" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EA8-Fq-y5L" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EA8-Fq-y5L" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="358" y="147" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="6.3k" id="fEe-yy-DMD">
@@ -244,7 +244,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iKT-K2-BuF" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iKT-K2-BuF" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="177" y="17" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="100" id="0nF-7t-lWs">
@@ -253,7 +253,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AYZ-7u-IbP" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AYZ-7u-IbP" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="104" y="82" width="24" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0" id="mcj-U8-kJc">
@@ -267,7 +267,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="KsT-Ws-REY" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="547-z4-wOg" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="547-z4-wOg" userLabel="Frequencies" customClass="TopTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="257" y="17" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="630" id="3qT-Ta-pcc">
@@ -291,7 +291,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="SNj-q5-GdB" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                 </slider>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8W6-nF-BLg" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8W6-nF-BLg" userLabel="Frequencies" customClass="BottomTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="157" y="147" width="41" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="63" id="hWS-Uf-fFO">

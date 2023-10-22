@@ -151,7 +151,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
-    private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions, userAction: Bool = true, reorderGroupingPlaylists: Bool = false) {
+    private func addFiles_async(_ files: [URL], filesToIgnoreForHistory: Set<URL> = Set(), _ autoplayOptions: AutoplayOptions, userAction: Bool = true, reorderGroupingPlaylists: Bool = false) {
         
         addSession = TrackAddSession(files.count, autoplayOptions)
         
@@ -162,7 +162,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             
             self.messenger.publish(.playlist_startedAddingTracks)
             
-            if userAction {
+            // Don't sort when tracks are remembered
+            if userAction && filesToIgnoreForHistory.isEmpty {
                 self.collectTracks(files.sorted(by: URL.ascendingPathComparator), false)
             } else {
                 self.collectTracks(files, false)
@@ -205,7 +206,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
      
         The progress argument indicates current progress.
      */
-    private func collectTracks(_ files: [URL], _ isRecursiveCall: Bool) {
+    private func collectTracks(_ files: [URL], filesToIgnoreForHistory: Set<URL> = Set(), _ isRecursiveCall: Bool) {
         
         for file in files {
             
@@ -222,7 +223,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             if resolvedFile.isDirectory {
 
                 // Directory
-                if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
+                if !isRecursiveCall, !filesToIgnoreForHistory.contains(file) {addSession.addHistoryItem(resolvedFile)}
                 expandDirectory(resolvedFile)
                 
             } else {
@@ -231,15 +232,15 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
                 let fileExtension = resolvedFile.lowerCasedExtension
 
                 if SupportedTypes.playlistExtensions.contains(fileExtension) {
-
+                    
                     // Playlist
-                    if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
+                    if !isRecursiveCall, !filesToIgnoreForHistory.contains(file) {addSession.addHistoryItem(resolvedFile)}
                     expandPlaylist(resolvedFile)
                     
                 } else if SupportedTypes.allAudioExtensions.contains(fileExtension) {
                     
                     // Track
-                    if !isRecursiveCall, !playlist.hasTrackForFile(resolvedFile) {
+                    if !isRecursiveCall, !filesToIgnoreForHistory.contains(file), !playlist.hasTrackForFile(resolvedFile) {
                         addSession.addHistoryItem(resolvedFile)
                     }
                     
@@ -249,7 +250,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         }
     }
     
-    private func collectPlaylistTracks(_ tracks: [ImportedPlaylistTrack], _ isRecursiveCall: Bool) {
+    private func collectPlaylistTracks(_ tracks: [ImportedPlaylistTrack]) {
         
         for track in tracks {
             
@@ -270,12 +271,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             let fileExtension = resolvedFile.lowerCasedExtension
             
             if SupportedTypes.allAudioExtensions.contains(fileExtension) {
-                
-                // Track
-                if !isRecursiveCall, !playlist.hasTrackForFile(resolvedFile) {
-                    addSession.addHistoryItem(resolvedFile)
-                }
-                
                 addSession.tracks.append(Track(resolvedFile, chapters: chapters))
             }
         }
@@ -287,7 +282,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         if let loadedPlaylist = PlaylistIO.loadPlaylist(fromFile: playlistFile) {
             
             addSession.totalTracks += loadedPlaylist.tracks.count - 1
-            collectPlaylistTracks(loadedPlaylist.tracks, true)
+            collectPlaylistTracks(loadedPlaylist.tracks)
         }
     }
     
@@ -490,31 +485,73 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             if playlistPreferences.openWithAddMode == .replace {
                 
                 clear()
-                addFiles_async(filesToOpen, AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks), userAction: false)
+                addFiles_async(filesToOpen, 
+                               AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks),
+                               userAction: true)
                 
             } else {
                 
-                let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) ?? []
+                let filesToAdd: [URL]
+                var rememberedFiles: [URL] = []
+                var reorderGroupingPlaylists: Bool = false
+                var autoplayOptions: AutoplayOptions = AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks, autoplayType: .playSpecificTrack, fileToPlay: filesToOpen[0])
                 
-                // Need to append files, load playlist saved state
-                addFiles_async(tracks + filesToOpen, AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks, autoplayType: .playSpecificTrack, fileToPlay: filesToOpen[0]), userAction: false, reorderGroupingPlaylists: true)
+                switch playlistPreferences.playlistOnStartup {
+                    
+                case .rememberFromLastAppLaunch:
+                    
+                    rememberedFiles = persistentState?.tracks?.map {URL(fileURLWithPath: $0)} ?? []
+                    reorderGroupingPlaylists = true
+                    
+                case .loadFile:
+                    
+                    if let playlistFile: URL = playlistPreferences.playlistFile {
+                        rememberedFiles = [playlistFile]
+                    }
+                    
+                case .loadFolder:
+                    
+                    if let folder: URL = playlistPreferences.tracksFolder {
+                        rememberedFiles = [folder]
+                    }
+                    
+                case .empty:
+                    
+                    autoplayOptions = AutoplayOptions(autoplay: playbackPreferences.autoplayAfterOpeningTracks)
+                }
+                
+                filesToAdd = rememberedFiles + filesToOpen
+                
+                // Ignore remembered tracks for history, but do consider the new ones for history.
+                addFiles_async(filesToAdd, 
+                               filesToIgnoreForHistory: Set(rememberedFiles),
+                               autoplayOptions,
+                               userAction: true,
+                               reorderGroupingPlaylists: reorderGroupingPlaylists)
             }
 
         } else if playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch,
                   let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) {
 
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-            addFiles_async(tracks, AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
+            addFiles_async(tracks, 
+                           AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup),
+                           userAction: false,
+                           reorderGroupingPlaylists: true)
             
         } else if playlistPreferences.playlistOnStartup == .loadFile,
                   let playlistFile: URL = playlistPreferences.playlistFile {
             
-            addFiles_async([playlistFile], AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup), userAction: false)
+            addFiles_async([playlistFile], 
+                           AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup),
+                           userAction: false)
             
         } else if playlistPreferences.playlistOnStartup == .loadFolder,
                   let folder: URL = playlistPreferences.tracksFolder {
             
-            addFiles_async([folder], AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup), userAction: false)
+            addFiles_async([folder], 
+                           AutoplayOptions(autoplay: playbackPreferences.autoplayOnStartup),
+                           userAction: false)
         }
     }
     
