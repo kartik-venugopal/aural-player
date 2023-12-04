@@ -39,6 +39,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     override var nibName: String? {"MetadataPreferences"}
     
     private var lastFMToken: LastFMToken? = nil
+    private var permissionGranted: Bool = false
     
     var preferencesView: NSView {
         return self.view
@@ -73,6 +74,9 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
             lblLastFMAuthStatus.stringValue = "(Not Authenticated)"
             
             btnLastFMGrantPermission.show()
+            
+            // TODO: Disable this button till the other one is clicked !!!
+            btnLastFMGetSessionKey.disable()
             btnLastFMGetSessionKey.show()
             
         } else {
@@ -101,29 +105,36 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     @IBAction func grantLastFMPermissionAction(_ sender: Any) {
         
-        // TODO: Make this async
-        
-        if let token = lastFMClient.getToken() {
+        DispatchQueue.global(qos: .userInteractive).async {
             
-            self.lastFMToken = token
-            lastFMClient.requestUserAuthorization(withToken: token)
+            if let token = self.lastFMClient.getToken() {
+                
+                self.lastFMToken = token
+                self.lastFMClient.requestUserAuthorization(withToken: token)
+                self.permissionGranted = true
+                
+                DispatchQueue.main.async {
+                    self.btnLastFMGetSessionKey.enable()
+                }
+            }
         }
     }
     
     @IBAction func getLastFMSessionKeyAction(_ sender: Any) {
 
-        // TODO: Make this async
-        
-        if let token = self.lastFMToken,
-           let session = lastFMClient.getSession(forToken: token) {
+        DispatchQueue.global(qos: .userInteractive).async {
             
-            let prefs = objectGraph.preferences.metadataPreferences.lastFM
-            prefs.sessionKey = session.key
-            prefs.persistSessionKey(to: .standard)
-            
-            print("Got SK = \(session.key) !!!")
-            
-            hideLastFMAuthFields()
+            if let token = self.lastFMToken,
+               let session = self.lastFMClient.getSession(forToken: token) {
+                
+                let prefs = objectGraph.preferences.metadataPreferences.lastFM
+                prefs.sessionKey = session.key
+                prefs.persistSessionKey(to: .standard)
+                
+                DispatchQueue.main.async {
+                    self.hideLastFMAuthFields()
+                }
+            }
         }
     }
     

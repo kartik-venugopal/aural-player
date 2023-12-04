@@ -14,8 +14,8 @@ class LastFMScrobbleAction: PlaybackChainAction {
     
     private lazy var lastFMClient: LastFM_WSClientProtocol = objectGraph.lastFMClient
     private lazy var preferences: LastFMPreferences = objectGraph.preferences.metadataPreferences.lastFM
+    private lazy var history = objectGraph.historyDelegate
     
-    private static let minTrackLength: Double = 30      // 30 seconds
     private static let maxPlaybackTime: Double = 240    // 4 minutes
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
@@ -35,20 +35,12 @@ class LastFMScrobbleAction: PlaybackChainAction {
         if let sessionKey = preferences.sessionKey,
            preferences.enableScrobbling,
            let stoppedTrack = context.currentTrack,
-           stoppedTrack.duration > Self.minTrackLength,
-           context.currentSeekPosition >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime) {
+           stoppedTrack.canBeScrobbled,
+           context.currentSeekPosition >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime),
+           let historyLastPlayedItem = history.lastPlayedItem, historyLastPlayedItem.file == stoppedTrack.file {
             
             DispatchQueue.global(qos: .background).async {
-                
-                // TODO: Timestamp - time track STARTED playing, not STOPPED playing !!! (look in history ???)
-                
-                let hist = objectGraph.historyDelegate
-                
-                if let last = hist.lastPlayedItem, last.file == stoppedTrack.file {
-                    print("Start date: \(last.time) \(last.time.timeIntervalSince1970)")
-                }
-                
-                self.lastFMClient.scrobbleTrack(track: stoppedTrack, timestamp: NSDate.epochTime, usingSessionKey: sessionKey)
+                self.lastFMClient.scrobbleTrack(track: stoppedTrack, timestamp: historyLastPlayedItem.time.epochTime, usingSessionKey: sessionKey)
             }
         }
         
@@ -56,9 +48,9 @@ class LastFMScrobbleAction: PlaybackChainAction {
     }
 }
 
-extension NSDate {
+extension Date {
     
-    static var epochTime: Int {
-        Int(NSDate().timeIntervalSince1970)
+    var epochTime: Int {
+        Int(timeIntervalSince1970)
     }
 }
