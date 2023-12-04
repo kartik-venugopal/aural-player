@@ -86,10 +86,17 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
         
         do {
             
-            let signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.scrobblesk\(sessionKey)timestamp\(timestamp)track\(title)\(Self.sharedSecret)"
-                .utf8EncodedString().MD5Hex()
+            var signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.scrobblesk\(sessionKey)timestamp\(timestamp)track\(title)\(Self.sharedSecret)"
             
-            let urlString = "\(Self.webServicesBaseURL)?method=track.scrobble&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(Self.apiKey)&artist=\(artist.encodedAsURLQueryParameter())&timestamp=\(timestamp)&track=\(title.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json"
+            if let album = track.album {
+                signature = "album\(album)" + signature
+            }
+            
+            var urlString = "\(Self.webServicesBaseURL)?method=track.scrobble&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(Self.apiKey)&artist=\(artist.encodedAsURLQueryParameter())&timestamp=\(timestamp)&track=\(title.encodedAsURLQueryParameter())&api_sig=\(signature.utf8EncodedString().MD5Hex())&format=json"
+            
+            if let album = track.album {
+                urlString += "&album=\(album.encodedAsURLQueryParameter())"
+            }
             
             guard let url = URL(string: urlString) else {
                 throw MalformedLastFMURLError(url: urlString)
