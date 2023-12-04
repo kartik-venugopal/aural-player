@@ -15,6 +15,7 @@
                 <outlet property="btnEnableMusicBrainzOnDiskCoverArtCache" destination="aoA-aw-TdP" id="H6P-dg-AnO"/>
                 <outlet property="btnLastFMGetSessionKey" destination="MwB-aE-Xl7" id="9ks-BP-dCf"/>
                 <outlet property="btnLastFMGrantPermission" destination="Ll7-nD-GSL" id="UPV-yi-z3h"/>
+                <outlet property="btnLastFMReauthenticate" destination="Yia-fG-uq9" id="a8J-DZ-Wo4"/>
                 <outlet property="imgLastFMAuthStatus" destination="PcL-6O-Fvu" id="zZY-Kk-WAq"/>
                 <outlet property="lblLastFMAuthInstructions1" destination="MhL-J6-LFb" id="chu-Qb-Erd"/>
                 <outlet property="lblLastFMAuthInstructions2" destination="wSU-xT-YnZ" id="5xS-Qh-O2D"/>
@@ -166,7 +167,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="Error" id="mWY-hG-wqN"/>
                 </imageView>
-                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MwB-aE-Xl7" userLabel="Btn Browse">
+                <button toolTip="Get a persistent Session Key from Last.fm that will be saved for long-term reuse." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MwB-aE-Xl7" userLabel="Btn Browse">
                     <rect key="frame" x="485" y="26" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Get Session Key" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="ZZ6-Ox-yJD" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
@@ -180,7 +181,7 @@ DQ
                         <action selector="getLastFMSessionKeyAction:" target="-2" id="mIW-e4-Ixb"/>
                     </connections>
                 </button>
-                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ll7-nD-GSL" userLabel="Btn Browse">
+                <button toolTip="Launch Last.fm in the web browser to allow Aural to scrobble to your Last.fm account." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ll7-nD-GSL" userLabel="Btn Browse">
                     <rect key="frame" x="485" y="77" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Grant Aural Permission" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="7Qx-Hi-Gi7" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
@@ -192,6 +193,20 @@ DQ
                     </buttonCell>
                     <connections>
                         <action selector="grantLastFMPermissionAction:" target="-2" id="fjh-Bx-bDb"/>
+                    </connections>
+                </button>
+                <button toolTip="Reset the Session Key and redo the authentication process." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yia-fG-uq9" userLabel="Btn Browse">
+                    <rect key="frame" x="485" y="111" width="174" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Re-Authenticate" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="hob-z5-sgh" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="reauthenticateLastFMAction:" target="-2" id="V4e-Cn-B0V"/>
                     </connections>
                 </button>
             </subviews>

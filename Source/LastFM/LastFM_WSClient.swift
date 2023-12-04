@@ -26,72 +26,44 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
     
     // MARK: Get Token ------------------------------------------------------------
     
-    private static let getTokenRequestURL: URL? =
-        URL(string: "\(webServicesBaseURL)?method=auth.getToken&api_key=\(apiKey)&format=json")
-    
-    func getToken() -> LastFMToken? {
+    func getToken() throws -> LastFMToken {
         
-        do {
-            
-            guard let url = Self.getTokenRequestURL else {return nil}
-            
-            let tokenJSON = try httpClient.performGET(toURL: url, withHeaders: [:])
-            return try Self.jsonDecoder.decode(LastFMToken.self, from: tokenJSON)
-            
-        } catch let httpError as HTTPError {
-            
-            NSLog("Failed to get Last.fm API token. HTTP Error: \(httpError.code)")
-            return nil
-            
-        } catch {
-            
-            NSLog("Failed to get Last.fm API token. Error: \(error.localizedDescription)")
-            return nil
+        let urlString = "\(Self.webServicesBaseURL)?method=auth.getToken&api_key=\(Self.apiKey)&format=json"
+        
+        guard let url = URL(string: urlString) else {
+            throw MalformedLastFMURLError(url: urlString)
         }
+        
+        let tokenJSON = try httpClient.performGET(toURL: url, withHeaders: [:])
+        return try Self.jsonDecoder.decode(LastFMToken.self, from: tokenJSON)
     }
     
     // MARK: Request User auth ------------------------------------------------------------
     
-    private static func getLastFM_APIAuthURL(forToken token: String) -> URL? {
-        URL(string: "https://www.last.fm/api/auth/?api_key=\(apiKey)&token=\(token)")
-    }
-    
-    func requestUserAuthorization(withToken token: LastFMToken) {
+    func requestUserAuthorization(withToken token: LastFMToken) throws {
         
-        if let url = Self.getLastFM_APIAuthURL(forToken: token.token) {
-            NSWorkspace.shared.open(url)
+        let urlString = "https://www.last.fm/api/auth/?api_key=\(Self.apiKey)&token=\(token.token)"
+        
+        guard let url = URL(string: urlString) else {
+            throw MalformedLastFMURLError(url: urlString)
         }
+        
+        NSWorkspace.shared.open(url)
     }
     
     // MARK: Get Session ------------------------------------------------------------
     
-    private static func getSessionAPISignature(forToken token: String) -> String {
-        "api_key\(apiKey)methodauth.getSessiontoken\(token)\(sharedSecret)".utf8EncodedString().MD5Hex()
-    }
-    
-    private static func getSessionRequestURL(forToken token: String) -> URL? {
-        URL(string: "\(webServicesBaseURL)?method=auth.getSession&token=\(token)&api_key=\(apiKey)&api_sig=\(getSessionAPISignature(forToken: token))&format=json")
-    }
-    
-    func getSession(forToken token: LastFMToken) -> LastFMSession? {
+    func getSession(forToken token: LastFMToken) throws -> LastFMSession {
         
-        do {
-            
-            guard let url = Self.getSessionRequestURL(forToken: token.token) else {return nil}
-            
-            let sessionJSON = try httpClient.performGET(toURL: url, withHeaders: [:])
-            return (try Self.jsonDecoder.decode(LastFMSessionResponse.self, from: sessionJSON)).session
-            
-        } catch let httpError as HTTPError {
-            
-            NSLog("Failed to get Last.fm API session key. HTTP Error: \(httpError.code)")
-            return nil
-            
-        } catch {
-            
-            NSLog("Failed to get Last.fm API session key. Error: \(error.localizedDescription)")
-            return nil
+        let apiSignature = "api_key\(Self.apiKey)methodauth.getSessiontoken\(token.token)\(Self.sharedSecret)".utf8EncodedString().MD5Hex()
+        let urlString = "\(Self.webServicesBaseURL)?method=auth.getSession&token=\(token.token)&api_key=\(Self.apiKey)&api_sig=\(apiSignature)&format=json"
+        
+        guard let url = URL(string: urlString) else {
+            throw MalformedLastFMURLError(url: urlString)
         }
+        
+        let sessionJSON = try httpClient.performGET(toURL: url, withHeaders: [:])
+        return (try Self.jsonDecoder.decode(LastFMSessionResponse.self, from: sessionJSON)).session
     }
     
     // MARK: Scrobble Track ------------------------------------------------------------
@@ -200,5 +172,18 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
         } catch {
             NSLog("Failed to unlove track '\(track.displayName)' on Last.fm. Error: \(error.localizedDescription)")
         }
+    }
+}
+
+class MalformedLastFMURLError: Error, CustomStringConvertible {
+    
+    private let url: String
+    
+    init(url: String) {
+        self.url = url
+    }
+    
+    var description: String {
+        "The URL used to make a Last.fm API call is invalid: '\(url)'"
     }
 }

@@ -14,7 +14,7 @@ import Foundation
 ///
 class Track: Hashable, PlaylistItem {
     
-    private static let minTrackLengthForScrobbling: Double = 30      // 30 seconds
+    private static let minDurationForScrobblingOnLastFM: Double = 30      // 30 seconds
     
     let file: URL
     let isNativelySupported: Bool
@@ -53,8 +53,12 @@ class Track: Hashable, PlaylistItem {
         return title
     }
     
-    var canBeScrobbled: Bool {
-        artist != nil && title != nil && duration > Self.minTrackLengthForScrobbling
+    var canBeScrobbledOnLastFM: Bool {
+        artist != nil && title != nil && duration > Self.minDurationForScrobblingOnLastFM
+    }
+    
+    var canBeLovedAndUnlovedOnLastFM: Bool {
+        artist != nil && title != nil
     }
     
     var albumArtist: String?

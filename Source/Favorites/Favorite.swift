@@ -43,12 +43,6 @@ class Favorite: UserManagedObject, Hashable {
         self._name = track.displayName
     }
     
-    init(_ file: URL, _ name: String) {
-        
-        self.file = file
-        self._name = name
-    }
-    
     init?(persistentState: FavoritePersistentState) {
         
         guard let path = persistentState.file, let name = persistentState.name else {return nil}

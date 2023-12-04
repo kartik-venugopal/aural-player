@@ -35,7 +35,7 @@ class LastFMScrobbleAction: PlaybackChainAction {
         if let sessionKey = preferences.sessionKey,
            preferences.enableScrobbling,
            let stoppedTrack = context.currentTrack,
-           stoppedTrack.canBeScrobbled,
+           stoppedTrack.canBeScrobbledOnLastFM,
            context.currentSeekPosition >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime),
            let historyLastPlayedItem = history.lastPlayedItem, historyLastPlayedItem.file == stoppedTrack.file {
             

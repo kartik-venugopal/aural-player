@@ -57,11 +57,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Initiate the recurring task that periodically saves persistent app state.
         objectGraph.beginPeriodicPersistence()
-        
-        // TODO: TEMPORARY !!!
-//        let prefs = objectGraph.preferences.metadataPreferences.lastFM
-//        prefs.sessionKey = nil
-//        prefs.persistSessionKey(to: .standard)
     }
     
     /// Opens the application with a single file (audio file or playlist)

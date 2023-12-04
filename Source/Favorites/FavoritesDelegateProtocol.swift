@@ -21,8 +21,6 @@ protocol FavoritesDelegateProtocol {
     
     func addFavorite(_ track: Track) -> Favorite
     
-    func addFavorite(_ file: URL, _ name: String) -> Favorite
-    
     var allFavorites: [Favorite] {get}
     
     var count: Int {get}

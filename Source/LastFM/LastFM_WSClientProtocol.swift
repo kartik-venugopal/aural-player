@@ -12,11 +12,11 @@ import Foundation
 
 protocol LastFM_WSClientProtocol {
     
-    func getToken() -> LastFMToken?
+    func getToken() throws -> LastFMToken
     
-    func requestUserAuthorization(withToken token: LastFMToken)
+    func requestUserAuthorization(withToken token: LastFMToken) throws
     
-    func getSession(forToken token: LastFMToken) -> LastFMSession?
+    func getSession(forToken token: LastFMToken) throws -> LastFMSession
     
     func scrobbleTrack(track: Track, timestamp: Int, usingSessionKey sessionKey: String)
     

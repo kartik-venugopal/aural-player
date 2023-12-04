@@ -28,6 +28,8 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var imgLastFMAuthStatus: NSImageView!
     @IBOutlet weak var lblLastFMAuthStatus: NSTextField!
     
+    @IBOutlet weak var btnLastFMReauthenticate: NSButton!
+    
     @IBOutlet weak var btnLastFMGrantPermission: NSButton!
     @IBOutlet weak var btnLastFMGetSessionKey: NSButton!
     
@@ -35,11 +37,10 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     private let trackReader: TrackReader = objectGraph.trackReader
     private let musicBrainzCache: MusicBrainzCache = objectGraph.musicBrainzCache
     private let lastFMClient: LastFM_WSClientProtocol = objectGraph.lastFMClient
-    
+
     override var nibName: String? {"MetadataPreferences"}
     
     private var lastFMToken: LastFMToken? = nil
-    private var permissionGranted: Bool = false
     
     var preferencesView: NSView {
         return self.view
@@ -66,22 +67,28 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         btnEnableLastFMLoveUnlove.onIf(lastFMPrefs.enableLoveUnlove)
         
         if lastFMPrefs.sessionKey == nil {
-            
-            lblLastFMAuthInstructions1.show()
-            lblLastFMAuthInstructions2.show()
-            
-            imgLastFMAuthStatus.image = Images.imgError
-            lblLastFMAuthStatus.stringValue = "(Not Authenticated)"
-            
-            btnLastFMGrantPermission.show()
-            
-            // TODO: Disable this button till the other one is clicked !!!
-            btnLastFMGetSessionKey.disable()
-            btnLastFMGetSessionKey.show()
+            showLastFMAuthFields()
             
         } else {
             hideLastFMAuthFields()
         }
+        
+        self.lastFMToken = nil
+    }
+    
+    private func showLastFMAuthFields() {
+        
+        lblLastFMAuthInstructions1.show()
+        lblLastFMAuthInstructions2.show()
+        
+        imgLastFMAuthStatus.image = Images.imgError
+        lblLastFMAuthStatus.stringValue = "(Not Authenticated)"
+        btnLastFMReauthenticate.hide()
+        
+        btnLastFMGrantPermission.show()
+        
+        btnLastFMGetSessionKey.disable()
+        btnLastFMGetSessionKey.show()
     }
     
     private func hideLastFMAuthFields() {
@@ -91,6 +98,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         imgLastFMAuthStatus.image = Images.imgGreenCheck
         lblLastFMAuthStatus.stringValue = "(Authenticated)"
+        btnLastFMReauthenticate.show()
         
         btnLastFMGrantPermission.hide()
         btnLastFMGetSessionKey.hide()
@@ -103,20 +111,52 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     // Needed for radio button group
     @IBAction func musicBrainzOnDiskCacheCoverArtAction(_ sender: NSButton) {}
     
+    @IBAction func reauthenticateLastFMAction(_ sender: Any) {
+        
+        // Reset token
+        self.lastFMToken = nil
+        
+        // Reset session key
+        let prefs = objectGraph.preferences.metadataPreferences.lastFM
+        prefs.sessionKey = nil
+        prefs.persistSessionKey(to: .standard)
+        
+        // Allow the user to re-authenticate.
+        showLastFMAuthFields()
+    }
+    
     @IBAction func grantLastFMPermissionAction(_ sender: Any) {
         
         DispatchQueue.global(qos: .userInteractive).async {
             
-            if let token = self.lastFMClient.getToken() {
+            do {
+                
+                let token = try self.lastFMClient.getToken()
                 
                 self.lastFMToken = token
-                self.lastFMClient.requestUserAuthorization(withToken: token)
-                self.permissionGranted = true
+                try self.lastFMClient.requestUserAuthorization(withToken: token)
                 
                 DispatchQueue.main.async {
                     self.btnLastFMGetSessionKey.enable()
                 }
+                
+            } catch let httpError as HTTPError {
+                
+                NSLog("Failed to get Last.fm API token. HTTP Error: \(httpError.code)")
+                self.showAlert("Failed to get Last.fm API token", "HTTP Error \(httpError.code)", "\(httpError.description)")
+                
+            } catch {
+                
+                NSLog("Failed to get Last.fm API token. Error: \(error.localizedDescription)")
+                self.showAlert("Failed to get Last.fm API token", "Error", "\(error.localizedDescription)")
             }
+        }
+    }
+    
+    private func showAlert(_ title: String, _ message: String, _ info: String) {
+        
+        DispatchQueue.main.async {
+            _ = DialogsAndAlerts.genericErrorAlert(title, message, info).showModal()
         }
     }
     
@@ -124,16 +164,30 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
 
         DispatchQueue.global(qos: .userInteractive).async {
             
-            if let token = self.lastFMToken,
-               let session = self.lastFMClient.getSession(forToken: token) {
+            do {
                 
-                let prefs = objectGraph.preferences.metadataPreferences.lastFM
-                prefs.sessionKey = session.key
-                prefs.persistSessionKey(to: .standard)
-                
-                DispatchQueue.main.async {
-                    self.hideLastFMAuthFields()
+                if let token = self.lastFMToken {
+                    
+                    let session = try self.lastFMClient.getSession(forToken: token)
+                    
+                    let prefs = objectGraph.preferences.metadataPreferences.lastFM
+                    prefs.sessionKey = session.key
+                    prefs.persistSessionKey(to: .standard)
+                    
+                    DispatchQueue.main.async {
+                        self.hideLastFMAuthFields()
+                    }
                 }
+                
+            } catch let httpError as HTTPError {
+                
+                NSLog("Failed to get Last.fm API session key. HTTP Error: \(httpError.code)")
+                self.showAlert("Failed to get Last.fm API session key.", "HTTP Error \(httpError.code)", "\(httpError.description)")
+                
+            } catch {
+                
+                NSLog("Failed to get Last.fm API session key. Error: \(error.localizedDescription)")
+                self.showAlert("Failed to get Last.fm API session key.", "Error", "\(error.localizedDescription)")
             }
         }
     }
@@ -164,5 +218,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         lastFMPrefs.enableScrobbling = btnEnableLastFMScrobbling.isOn
         lastFMPrefs.enableLoveUnlove = btnEnableLastFMLoveUnlove.isOn
+        
+        self.lastFMToken = nil
     }
 }
