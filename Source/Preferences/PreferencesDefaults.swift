@@ -157,5 +157,15 @@ struct PreferencesDefaults {
             static let enableCoverArtSearch: Bool = true
             static let enableOnDiskCoverArtCache: Bool = true
         }
+        
+        ///
+        /// An enumeration of default values for **LastFM** metadata scrobbling / retrieval preferences.
+        ///
+        struct LastFM {
+            
+            static let httpTimeout: Int = 5
+            static let enableScrobbling: Bool = false
+            static let enableLoveUnlove: Bool = false
+        }
     }
 }

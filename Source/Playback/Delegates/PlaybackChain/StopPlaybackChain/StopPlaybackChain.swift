@@ -27,5 +27,6 @@ class StopPlaybackChain: PlaybackChain {
             .withAction(HaltPlaybackAction(player))
             .withAction(EndPlaybackSequenceAction(sequencer))
             .withAction(CloseFileHandlesAction(playlist: playlist))
+            .withAction(LastFMScrobbleAction())
     }
 }

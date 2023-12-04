@@ -84,11 +84,34 @@ class HTTPClient {
         
         return response?.url
     }
+    
+    func performPOST(toURL url: URL, withHeaders headers: [String: String]? = nil, withBody body: Data? = nil, timeout: Int = 5) throws {
+        
+        // Construct a request object with the specified URL and headers.
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = headers
+        request.httpBody = body
+        request.httpMethod = URLRequest.POSTMethod
+        request.timeoutInterval = TimeInterval(timeout)
+        
+        var response: URLResponse?
+        
+        // Even though this function is deprecated, it is the best and cleanest solution for our use case.
+        _ = try NSURLConnection.sendSynchronousRequest(request, returning: &response)
+        
+        // Check the response for errors (based on status code)
+        if let response = response as? HTTPURLResponse, response.failed {
+            
+            // Construct an appropriate error from the status code and throw it.
+            throw HTTPError.fromCode(response.statusCode, forURL: url)
+        }
+    }
 }
 
 extension URLRequest {
     
     static let GETMethod: String = "GET"
+    static let POSTMethod: String = "POST"
 }
 
 extension HTTPURLResponse {

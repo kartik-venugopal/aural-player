@@ -30,11 +30,12 @@ class StartPlaybackChain: PlaybackChain {
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
-        .withAction(HaltPlaybackAction(player))
-        .withAction(AudioFilePreparationAction(trackReader: trackReader))
-        .withAction(ApplyPlaybackProfileAction(profiles, preferences))
-        .withAction(StartPlaybackAction(player))
-        .withAction(PredictiveTrackPreparationAction(sequencer: sequencer, trackReader: trackReader))
+            .withAction(LastFMScrobbleAction())
+            .withAction(HaltPlaybackAction(player))
+            .withAction(AudioFilePreparationAction(trackReader: trackReader))
+            .withAction(ApplyPlaybackProfileAction(profiles, preferences))
+            .withAction(StartPlaybackAction(player))
+            .withAction(PredictiveTrackPreparationAction(sequencer: sequencer, trackReader: trackReader))
     }
     
     override func execute(_ context: PlaybackRequestContext) {

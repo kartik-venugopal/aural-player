@@ -111,6 +111,8 @@ class ObjectGraph {
     lazy var musicBrainzCache: MusicBrainzCache = MusicBrainzCache(state: persistentState.musicBrainzCache,
                                                                      preferences: preferences.metadataPreferences.musicBrainz)
     
+    lazy var lastFMClient: LastFM_WSClientProtocol = LastFM_WSClient.shared
+    
     lazy var windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout,
                                                                                  viewPreferences: preferences.viewPreferences)
     
