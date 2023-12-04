@@ -12,8 +12,10 @@ import Foundation
 
 class LastFMPreferences: PersistentPreferencesProtocol {
     
-    var httpTimeout: Int
     var sessionKey: String?
+    var hasSessionKey: Bool {
+        sessionKey != nil
+    }
     
     var enableScrobbling: Bool
     var enableLoveUnlove: Bool
@@ -23,7 +25,6 @@ class LastFMPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "metadata.lastFM"
     
-    static let key_httpTimeout: String = "\(keyPrefix).httpTimeout"
     static let key_sessionKey: String = "\(keyPrefix).sessionKey"
     
     static let key_enableScrobbling: String = "\(keyPrefix).enableScrobbling"
@@ -36,7 +37,6 @@ class LastFMPreferences: PersistentPreferencesProtocol {
     
     required init(_ dict: [String : Any]) {
         
-        httpTimeout = dict.intValue(forKey: Self.key_httpTimeout) ?? Defaults.httpTimeout
         sessionKey = dict[Self.key_sessionKey, String.self]
         
         enableScrobbling = dict[Self.key_enableScrobbling, Bool.self] ?? Defaults.enableScrobbling
@@ -48,7 +48,6 @@ class LastFMPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults[Self.key_httpTimeout] = httpTimeout
         defaults[Self.key_sessionKey] = sessionKey
         
         defaults[Self.key_enableScrobbling] = enableScrobbling
@@ -56,5 +55,9 @@ class LastFMPreferences: PersistentPreferencesProtocol {
         
 //        defaults[Self.key_enableCoverArtSearch] = enableCoverArtSearch
 //        defaults[Self.key_enableOnDiskCoverArtCache] = enableOnDiskCoverArtCache
+    }
+    
+    func persistSessionKey(to defaults: UserDefaults) {
+        defaults[Self.key_sessionKey] = sessionKey
     }
 }

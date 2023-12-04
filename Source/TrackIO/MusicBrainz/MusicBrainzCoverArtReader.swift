@@ -32,11 +32,11 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     ///
     private let apiCallsLock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     
-    init(preferences: MusicBrainzPreferences, cache: MusicBrainzCache) {
+    init(preferences: MetadataPreferences, cache: MusicBrainzCache) {
 
         self.restAPIClient = MusicBrainzRESTClient(preferences: preferences)
         self.cache = cache
-        self.preferences = preferences
+        self.preferences = preferences.musicBrainz
     }
     
     func getCoverArt(forTrack track: Track) -> CoverArt? {

@@ -52,10 +52,13 @@ class MusicBrainzRESTClient {
     ///
     private let thumbnailSizes: [String] = ["front-500", "front-250", "front", "front-1200"]
     
-    private let preferences: MusicBrainzPreferences
+    private let preferences: MetadataPreferences
+    private let mbPreferences: MusicBrainzPreferences
     
-    init(preferences: MusicBrainzPreferences) {
+    init(preferences: MetadataPreferences) {
+        
         self.preferences = preferences
+        self.mbPreferences = preferences.musicBrainz
     }
     
     ///

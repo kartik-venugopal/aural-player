@@ -147,13 +147,14 @@ struct PreferencesDefaults {
     /// An enumeration of default values for metadata retrieval preferences.
     ///
     struct Metadata {
+        
+        static let httpTimeout: Int = 5
     
         ///
         /// An enumeration of default values for **MusicBrainz** metadata retrieval preferences.
         ///
         struct MusicBrainz {
             
-            static let httpTimeout: Int = 5
             static let enableCoverArtSearch: Bool = true
             static let enableOnDiskCoverArtCache: Bool = true
         }
@@ -163,7 +164,6 @@ struct PreferencesDefaults {
         ///
         struct LastFM {
             
-            static let httpTimeout: Int = 5
             static let enableScrobbling: Bool = false
             static let enableLoveUnlove: Bool = false
         }

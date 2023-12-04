@@ -46,6 +46,8 @@ struct Images {
     static let imgWarning: NSImage = NSImage(named: "Warning")!
     static let imgError: NSImage = NSImage(named: "Error")!
     
+    static let imgGreenCheck: NSImage = NSImage(named: "GreenCheck")!
+    
     static let imgPlayedTrack: NSImage = NSImage(named: "PlayedTrack")!
     
     static let imgPlayerPreview: NSImage = NSImage(named: "PlayerPreview")!
