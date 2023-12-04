@@ -22,9 +22,15 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
     private let httpClient: HTTPClient = .shared
     
     private lazy var messenger: Messenger = .init(for: self)
+    private lazy var fileReader: FileReader = objectGraph.fileReader
     
     static let shared: LastFM_WSClient = .init()
-    private init() {}
+    
+    private init() {
+        
+        messenger.subscribe(to: .favoritesList_trackAdded, handler: favoriteAdded(favorite:))
+        messenger.subscribe(to: .favoritesList_tracksRemoved, handler: favoritesRemoved(favorites:))
+    }
     
     // MARK: Get Token ------------------------------------------------------------
     
@@ -110,9 +116,14 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
             return
         }
         
+        doLoveTrack(artist: artist, title: title, usingSessionKey: sessionKey)
+    }
+    
+    private func doLoveTrack(artist: String, title: String, usingSessionKey sessionKey: String) {
+        
         do {
             
-            let signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.lovesk\(sessionKey)track\(track)\(Self.sharedSecret)"
+            let signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.lovesk\(sessionKey)track\(title)\(Self.sharedSecret)"
                 .utf8EncodedString().MD5Hex()
             
             let urlString = "\(Self.webServicesBaseURL)?method=track.love&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(Self.apiKey)&artist=\(artist.encodedAsURLQueryParameter())&track=\(title.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json"
@@ -125,10 +136,10 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
             NSLog("Last.fm: Successfully Loved: Artist='\(artist)', Title='\(title)' !")
             
         } catch let httpError as HTTPError {
-            NSLog("Failed to love track '\(track.displayName)' on Last.fm. HTTP Error: \(httpError.code)")
+            NSLog("Failed to love track '\(artist) - \(title)' on Last.fm. HTTP Error: \(httpError.code)")
             
         } catch {
-            NSLog("Failed to love track '\(track.displayName)' on Last.fm. Error: \(error.localizedDescription)")
+            NSLog("Failed to love track '\(artist) - \(title)' on Last.fm. Error: \(error.localizedDescription)")
         }
     }
     
@@ -142,9 +153,14 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
             return
         }
         
+        doUnloveTrack(artist: artist, title: title, usingSessionKey: sessionKey)
+    }
+    
+    private func doUnloveTrack(artist: String, title: String, usingSessionKey sessionKey: String) {
+        
         do {
             
-            let signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.unlovesk\(sessionKey)track\(track)\(Self.sharedSecret)"
+            let signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.unlovesk\(sessionKey)track\(title)\(Self.sharedSecret)"
                 .utf8EncodedString().MD5Hex()
             
             let urlString = "\(Self.webServicesBaseURL)?method=track.unlove&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(Self.apiKey)&artist=\(artist.encodedAsURLQueryParameter())&track=\(title.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json"
@@ -157,10 +173,78 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
             NSLog("Last.fm: Successfully Unloved: Artist='\(artist)', Title='\(title)' !")
             
         } catch let httpError as HTTPError {
-            NSLog("Failed to unlove track '\(track.displayName)' on Last.fm. HTTP Error: \(httpError.code)")
+            NSLog("Failed to unlove track '\(artist) - \(title)' on Last.fm. HTTP Error: \(httpError.code)")
             
         } catch {
-            NSLog("Failed to unlove track '\(track.displayName)' on Last.fm. Error: \(error.localizedDescription)")
+            NSLog("Failed to unlove track '\(artist) - \(title)' on Last.fm. Error: \(error.localizedDescription)")
+        }
+    }
+    
+    // MARK: Message handling ------------------------------------------------------------
+    
+    private func favoriteAdded(favorite: Favorite) {
+        
+        guard objectGraph.preferences.metadataPreferences.lastFM.enableLoveUnlove else {
+            return
+        }
+        
+        guard let sessionKey = objectGraph.preferences.metadataPreferences.lastFM.sessionKey else {
+            
+            NSLog("Cannot love track '\(favorite.file.lastPathComponent)' on Last.fm because no session key is available.")
+            return
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+            
+            if let track = favorite.track {
+                self.loveTrack(track: track, usingSessionKey: sessionKey)
+                
+            } else {
+                
+                NSLog("Cannot love track '\(favorite.file.lastPathComponent)' on Last.fm because it does not have both title and artist metadata.")
+                return
+            }
+        }
+    }
+    
+    private func favoritesRemoved(favorites: Set<Favorite>) {
+        
+        guard objectGraph.preferences.metadataPreferences.lastFM.enableLoveUnlove else {
+            return
+        }
+        
+        guard let sessionKey = objectGraph.preferences.metadataPreferences.lastFM.sessionKey else {
+            
+            NSLog("Cannot unlove tracks on Last.fm because no session key is available.")
+            return
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+            
+            for favorite in favorites {
+                
+                if let track = favorite.track {
+                    self.unloveTrack(track: track, usingSessionKey: sessionKey)
+                    
+                } else {
+                    
+                    do {
+                        
+                        let metadata = try self.fileReader.getPlaylistMetadata(for: favorite.file)
+                        
+                        guard let artist = metadata.artist, let title = metadata.title else {
+                            
+                            NSLog("Cannot love track '\(favorite.file.lastPathComponent)' on Last.fm because it does not have both title and artist metadata.")
+                            return
+                        }
+                        
+                        self.doUnloveTrack(artist: artist, title: title, usingSessionKey: sessionKey)
+                        
+                    } catch {
+                        NSLog("Cannot unlove track '\(favorite.file.lastPathComponent)' on Last.fm. Error reading file metadata: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
     }
 }

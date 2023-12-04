@@ -153,6 +153,7 @@ class ObjectGraph {
         self.mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences.mediaKeys)
         
         _ = remoteControlManager
+        _ = lastFMClient
         
         DispatchQueue.global(qos: .background).async {
             self.cleanUpLegacyFolders()
