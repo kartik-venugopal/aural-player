@@ -6,7 +6,7 @@
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
-//  
+//
 
 import Cocoa
 
@@ -20,6 +20,8 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
     private static let jsonDecoder: JSONDecoder = JSONDecoder()
     
     private let httpClient: HTTPClient = .shared
+    
+    private lazy var messenger: Messenger = .init(for: self)
     
     static let shared: LastFM_WSClient = .init()
     private init() {}
@@ -68,14 +70,6 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
     
     // MARK: Scrobble Track ------------------------------------------------------------
     
-    private static func getTrackScrobbleAPISignature(forSessionKey sessionKey: String, artist: String, track: String, timestamp: Int) -> String {
-        "api_key\(apiKey)artist\(artist)methodtrack.scrobblesk\(sessionKey)timestamp\(timestamp)track\(track)\(sharedSecret)".utf8EncodedString().MD5Hex()
-    }
-    
-    private static func getTrackScrobbleURL(forSessionKey sessionKey: String, artist: String, track: String, timestamp: Int, signature: String) -> URL? {
-        URL(string: "\(webServicesBaseURL)?method=track.scrobble&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(apiKey)&artist=\(artist.encodedAsURLQueryParameter())&timestamp=\(timestamp)&track=\(track.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json")
-    }
-    
     func scrobbleTrack(track: Track, timestamp: Int, usingSessionKey sessionKey: String) {
         
         guard let artist = track.artist, let title = track.title else {
@@ -86,13 +80,17 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
         
         do {
             
-            let signature = Self.getTrackScrobbleAPISignature(forSessionKey: sessionKey, artist: artist, track: title, timestamp: timestamp)
-            guard let url = Self.getTrackScrobbleURL(forSessionKey: sessionKey, artist: artist, track: title, timestamp: timestamp, signature: signature) else {
-                return
+            let signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.scrobblesk\(sessionKey)timestamp\(timestamp)track\(title)\(Self.sharedSecret)"
+                .utf8EncodedString().MD5Hex()
+            
+            let urlString = "\(Self.webServicesBaseURL)?method=track.scrobble&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(Self.apiKey)&artist=\(artist.encodedAsURLQueryParameter())&timestamp=\(timestamp)&track=\(title.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json"
+            
+            guard let url = URL(string: urlString) else {
+                throw MalformedLastFMURLError(url: urlString)
             }
             
             try httpClient.performPOST(toURL: url, withHeaders: [:], withBody: nil)
-            print("Successfully Scrobbled: Artist='\(artist)', Title='\(title)' !")
+            NSLog("Last.fm: Successfully Scrobbled: Artist='\(artist)', Title='\(title)' !")
             
         } catch let httpError as HTTPError {
             NSLog("Failed to scrobble track '\(track.displayName)' on Last.fm. HTTP Error: \(httpError.code)")
@@ -104,14 +102,6 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
     
     // MARK: Love Track ------------------------------------------------------------
     
-    private static func getTrackLoveAPISignature(forSessionKey sessionKey: String, artist: String, track: String) -> String {
-        "api_key\(apiKey)artist\(artist)methodtrack.lovesk\(sessionKey)track\(track)\(sharedSecret)".utf8EncodedString().MD5Hex()
-    }
-    
-    private static func getTrackLoveURL(forSessionKey sessionKey: String, artist: String, track: String, signature: String) -> URL? {
-        URL(string: "\(webServicesBaseURL)?method=track.love&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(apiKey)&artist=\(artist.encodedAsURLQueryParameter())&track=\(track.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json")
-    }
-    
     func loveTrack(track: Track, usingSessionKey sessionKey: String) {
         
         guard let artist = track.artist, let title = track.title else {
@@ -122,13 +112,17 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
         
         do {
             
-            let signature = Self.getTrackLoveAPISignature(forSessionKey: sessionKey, artist: artist, track: title)
-            guard let url = Self.getTrackLoveURL(forSessionKey: sessionKey, artist: artist, track: title, signature: signature) else {
-                return
+            let signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.lovesk\(sessionKey)track\(track)\(Self.sharedSecret)"
+                .utf8EncodedString().MD5Hex()
+            
+            let urlString = "\(Self.webServicesBaseURL)?method=track.love&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(Self.apiKey)&artist=\(artist.encodedAsURLQueryParameter())&track=\(title.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json"
+            
+            guard let url = URL(string: urlString) else {
+                throw MalformedLastFMURLError(url: urlString)
             }
             
             _ = try httpClient.performPOST(toURL: url, withHeaders: [:], withBody: nil)
-            print("Successfully Loved: Artist='\(artist)', Title='\(title)' !")
+            NSLog("Last.fm: Successfully Loved: Artist='\(artist)', Title='\(title)' !")
             
         } catch let httpError as HTTPError {
             NSLog("Failed to love track '\(track.displayName)' on Last.fm. HTTP Error: \(httpError.code)")
@@ -140,14 +134,6 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
     
     // MARK: Unlove Track ------------------------------------------------------------
     
-    private static func getTrackUnloveAPISignature(forSessionKey sessionKey: String, artist: String, track: String) -> String {
-        "api_key\(apiKey)artist\(artist)methodtrack.unlovesk\(sessionKey)track\(track)\(sharedSecret)".utf8EncodedString().MD5Hex()
-    }
-    
-    private static func getTrackUnloveURL(forSessionKey sessionKey: String, artist: String, track: String, signature: String) -> URL? {
-        URL(string: "\(webServicesBaseURL)?method=track.unlove&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(apiKey)&artist=\(artist.encodedAsURLQueryParameter())&track=\(track.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json")
-    }
-    
     func unloveTrack(track: Track, usingSessionKey sessionKey: String) {
         
         guard let artist = track.artist, let title = track.title else {
@@ -158,13 +144,17 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
         
         do {
             
-            let signature = Self.getTrackUnloveAPISignature(forSessionKey: sessionKey, artist: artist, track: title)
-            guard let url = Self.getTrackUnloveURL(forSessionKey: sessionKey, artist: artist, track: title, signature: signature) else {
-                return
+            let signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.unlovesk\(sessionKey)track\(track)\(Self.sharedSecret)"
+                .utf8EncodedString().MD5Hex()
+            
+            let urlString = "\(Self.webServicesBaseURL)?method=track.unlove&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(Self.apiKey)&artist=\(artist.encodedAsURLQueryParameter())&track=\(title.encodedAsURLQueryParameter())&api_sig=\(signature)&format=json"
+            
+            guard let url = URL(string: urlString) else {
+                throw MalformedLastFMURLError(url: urlString)
             }
             
             _ = try httpClient.performPOST(toURL: url, withHeaders: [:], withBody: nil)
-            print("Successfully Unloved: Artist='\(artist)', Title='\(title)' !")
+            NSLog("Last.fm: Successfully Unloved: Artist='\(artist)', Title='\(title)' !")
             
         } catch let httpError as HTTPError {
             NSLog("Failed to unlove track '\(track.displayName)' on Last.fm. HTTP Error: \(httpError.code)")
@@ -187,3 +177,4 @@ class MalformedLastFMURLError: Error, CustomStringConvertible {
         "The URL used to make a Last.fm API call is invalid: '\(url)'"
     }
 }
+
