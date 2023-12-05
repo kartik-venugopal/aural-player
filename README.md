@@ -63,7 +63,7 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 * **Playback:** Bookmarking, segment looping, custom seek intervals, per-track last position memory, chapters support, autoplay, resume last played track.
 * **Effects:** Built-in effects (incl. equalizer), Audio Unit (AU) plug-in support, built-in / custom presets, per-track settings memory.
 * **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection.
-* **Track information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, etc. Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export. Last.fm scrobbling and love/unlove, with caching/retry **(NEW!)**.
+* **Track information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, etc. Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export. Last.fm scrobbling and love/unlove **(NEW!)**.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizer:** 3 different visualizations that dance to the music, with customizable colors.
 * **UI:** Modular interface, fully customizable fonts and colors (with gradients), built-in / custom window layouts, configurable window snapping / docking / spacing / corner radius, menu bar mode, control bar (widget) mode.
