@@ -20,16 +20,32 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
     private static let jsonDecoder: JSONDecoder = JSONDecoder()
     
     private let httpClient: HTTPClient = .shared
+    private let cache: LastFMScrobbleCache
     
     private lazy var messenger: Messenger = .init(for: self)
     private lazy var fileReader: FileReader = objectGraph.fileReader
     
-    static let shared: LastFM_WSClient = .init()
+    private let retryOpQueue: OperationQueue = .init(opCount: 1, qos: .background)
     
-    private init() {
+    init(cache: LastFMScrobbleCache) {
+        
+        self.cache = cache
         
         messenger.subscribe(to: .favoritesList_trackAdded, handler: favoriteAdded(favorite:))
         messenger.subscribe(to: .favoritesList_tracksRemoved, handler: favoritesRemoved(favorites:))
+    }
+    
+    func retryFailedScrobbleAttempts() {
+        
+        let prefs = objectGraph.preferences.metadataPreferences.lastFM
+        guard prefs.enableScrobbling, let sessionKey = prefs.sessionKey else {return}
+        
+        for entry in cache.allEntries {
+            
+            retryOpQueue.addOperation {
+                self.scrobbleTrack(artist: entry.artist, title: entry.title, album: entry.album, timestamp: entry.timestamp, usingSessionKey: sessionKey)
+            }
+        }
     }
     
     // MARK: Get Token ------------------------------------------------------------
@@ -84,17 +100,24 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
             return
         }
         
+        scrobbleTrack(artist: artist, title: title, album: track.album, timestamp: timestamp, usingSessionKey: sessionKey)
+    }
+    
+    func scrobbleTrack(artist: String, title: String, album: String?, timestamp: Int, usingSessionKey sessionKey: String) {
+        
+        var failed: Bool = false
+        
         do {
             
             var signature = "api_key\(Self.apiKey)artist\(artist)methodtrack.scrobblesk\(sessionKey)timestamp\(timestamp)track\(title)\(Self.sharedSecret)"
             
-            if let album = track.album {
+            if let album = album {
                 signature = "album\(album)" + signature
             }
             
             var urlString = "\(Self.webServicesBaseURL)?method=track.scrobble&sk=\(sessionKey.encodedAsURLQueryParameter())&api_key=\(Self.apiKey)&artist=\(artist.encodedAsURLQueryParameter())&timestamp=\(timestamp)&track=\(title.encodedAsURLQueryParameter())&api_sig=\(signature.utf8EncodedString().MD5Hex())&format=json"
             
-            if let album = track.album {
+            if let album = album {
                 urlString += "&album=\(album.encodedAsURLQueryParameter())"
             }
             
@@ -103,13 +126,21 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
             }
             
             try httpClient.performPOST(toURL: url, withHeaders: [:], withBody: nil)
-            NSLog("Last.fm: Successfully Scrobbled: Artist='\(artist)', Title='\(title)' !")
             
         } catch let httpError as HTTPError {
-            NSLog("Failed to scrobble track '\(track.displayName)' on Last.fm. HTTP Error: \(httpError.code)")
+            
+            NSLog("Failed to scrobble track '\(artist) - \(title)' on Last.fm. HTTP Error: \(httpError.code)")
+            failed = true
             
         } catch {
-            NSLog("Failed to scrobble track '\(track.displayName)' on Last.fm. Error: \(error.localizedDescription)")
+            NSLog("Failed to scrobble track '\(artist) - \(title)' on Last.fm. Error: \(error.localizedDescription)")
+            failed = true
+        }
+        
+        if failed {
+            cache.markFailedScrobbleAttempt(artist: artist, title: title, album: album, timestamp: timestamp)
+        } else {
+            cache.invalidateEntry(artist: artist, title: title, album: album)
         }
     }
     
@@ -140,7 +171,6 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
             }
             
             _ = try httpClient.performPOST(toURL: url, withHeaders: [:], withBody: nil)
-            NSLog("Last.fm: Successfully Loved: Artist='\(artist)', Title='\(title)' !")
             
         } catch let httpError as HTTPError {
             NSLog("Failed to love track '\(artist) - \(title)' on Last.fm. HTTP Error: \(httpError.code)")
@@ -177,7 +207,6 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
             }
             
             _ = try httpClient.performPOST(toURL: url, withHeaders: [:], withBody: nil)
-            NSLog("Last.fm: Successfully Unloved: Artist='\(artist)', Title='\(title)' !")
             
         } catch let httpError as HTTPError {
             NSLog("Failed to unlove track '\(artist) - \(title)' on Last.fm. HTTP Error: \(httpError.code)")
@@ -242,7 +271,7 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
                         guard let artist = metadata.artist, let title = metadata.title else {
                             
                             NSLog("Cannot love track '\(favorite.file.lastPathComponent)' on Last.fm because it does not have both title and artist metadata.")
-                            return
+                            continue
                         }
                         
                         self.doUnloveTrack(artist: artist, title: title, usingSessionKey: sessionKey)

@@ -57,6 +57,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Initiate the recurring task that periodically saves persistent app state.
         objectGraph.beginPeriodicPersistence()
+        
+        objectGraph.lastFMClient.retryFailedScrobbleAttempts()
     }
     
     /// Opens the application with a single file (audio file or playlist)

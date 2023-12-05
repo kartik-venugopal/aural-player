@@ -111,7 +111,8 @@ class ObjectGraph {
     lazy var musicBrainzCache: MusicBrainzCache = MusicBrainzCache(state: persistentState.musicBrainzCache,
                                                                      preferences: preferences.metadataPreferences.musicBrainz)
     
-    lazy var lastFMClient: LastFM_WSClientProtocol = LastFM_WSClient.shared
+    lazy var lastFMCache: LastFMScrobbleCache = .init(persistentState: persistentState.lastFMCache)
+    lazy var lastFMClient: LastFM_WSClientProtocol = LastFM_WSClient(cache: lastFMCache)
     
     lazy var windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout,
                                                                                  viewPreferences: preferences.viewPreferences)
@@ -199,7 +200,8 @@ class ObjectGraph {
         persistentState.history = _historyDelegate.persistentState
         persistentState.favorites = _favoritesDelegate.persistentState
         persistentState.bookmarks = _bookmarksDelegate.persistentState
-        persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
+        persistentState.musicBrainzCache = musicBrainzCache.persistentState
+        persistentState.lastFMCache = lastFMCache.persistentState
         
         var windowLayoutsState = WindowLayoutsPersistentState(showEffects: true, showPlaylist: true,
                                                               mainWindowOrigin: .zero, effectsWindowOrigin: .zero, playlistWindowFrame: .zero,
@@ -254,7 +256,8 @@ class ObjectGraph {
         persistentState.history = _historyDelegate.persistentState
         persistentState.favorites = _favoritesDelegate.persistentState
         persistentState.bookmarks = _bookmarksDelegate.persistentState
-        persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
+        persistentState.musicBrainzCache = musicBrainzCache.persistentState
+        persistentState.lastFMCache = lastFMCache.persistentState
         
         persistentState.ui = UIPersistentState(appMode: appModeManager.currentMode,
                                                windowLayout: windowLayoutsManager.persistentState,

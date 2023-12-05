@@ -32,8 +32,8 @@ class LastFMScrobbleAction: PlaybackChainAction {
          
          */
         
-        if let sessionKey = preferences.sessionKey,
-           preferences.enableScrobbling,
+        if preferences.enableScrobbling,
+           let sessionKey = preferences.sessionKey,
            let stoppedTrack = context.currentTrack,
            stoppedTrack.canBeScrobbledOnLastFM,
            context.currentSeekPosition >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime),
@@ -49,6 +49,10 @@ class LastFMScrobbleAction: PlaybackChainAction {
 }
 
 extension Date {
+    
+    static var nowEpochTime: Int {
+        Int(NSDate().timeIntervalSince1970)
+    }
     
     var epochTime: Int {
         Int(timeIntervalSince1970)

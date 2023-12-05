@@ -29,6 +29,7 @@ struct AppPersistentState: Codable {
     var bookmarks: [BookmarkPersistentState]?
     
     var musicBrainzCache: MusicBrainzCachePersistentState?
+    var lastFMCache: LastFMScrobbleCachePersistentState?
     
     init() {}
     

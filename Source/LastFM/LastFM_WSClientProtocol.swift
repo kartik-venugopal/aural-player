@@ -20,6 +20,10 @@ protocol LastFM_WSClientProtocol {
     
     func scrobbleTrack(track: Track, timestamp: Int, usingSessionKey sessionKey: String)
     
+    func scrobbleTrack(artist: String, title: String, album: String?, timestamp: Int, usingSessionKey sessionKey: String)
+    
+    func retryFailedScrobbleAttempts()
+    
     func loveTrack(track: Track, usingSessionKey sessionKey: String)
     
     func unloveTrack(track: Track, usingSessionKey sessionKey: String)

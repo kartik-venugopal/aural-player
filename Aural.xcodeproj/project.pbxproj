@@ -1254,6 +1254,10 @@
 		3EE7CB9825E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */; };
 		3EE7CB9C25E22D5D0075F1DD /* EffectsFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */; };
 		3EE7CB9F25E22D6C0075F1DD /* EffectsFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9E25E22D6B0075F1DD /* EffectsFontSchemeViewController.swift */; };
+		3EE896632B1FD1360087ADC2 /* LastFMScrobbleCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE896622B1FD1360087ADC2 /* LastFMScrobbleCache.swift */; };
+		3EE896672B1FDA820087ADC2 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE896662B1FDA820087ADC2 /* Collections */; };
+		3EE896692B1FDA820087ADC2 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE896682B1FDA820087ADC2 /* DequeModule */; };
+		3EE8966B2B1FDA820087ADC2 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE8966A2B1FDA820087ADC2 /* OrderedCollections */; };
 		3EE9BBE9268F90BE0073321A /* TimeStretchUnitPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE9BBE8268F90BE0073321A /* TimeStretchUnitPersistenceTests.swift */; };
 		3EEC040B26874041004478CE /* SequencerInfoDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC040A26874041004478CE /* SequencerInfoDelegateProtocol.swift */; };
 		3EEC040D26876E4D004478CE /* ShuffleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC040C26876E4D004478CE /* ShuffleMode.swift */; };
@@ -2378,6 +2382,7 @@
 		3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsFontScheme.xib; sourceTree = "<group>"; };
 		3EE7CB9E25E22D6B0075F1DD /* EffectsFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsFontSchemeViewController.swift; sourceTree = "<group>"; };
+		3EE896622B1FD1360087ADC2 /* LastFMScrobbleCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastFMScrobbleCache.swift; sourceTree = "<group>"; };
 		3EE9BBE8268F90BE0073321A /* TimeStretchUnitPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchUnitPersistenceTests.swift; sourceTree = "<group>"; };
 		3EEC040A26874041004478CE /* SequencerInfoDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerInfoDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EEC040C26876E4D004478CE /* ShuffleMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleMode.swift; sourceTree = "<group>"; };
@@ -2438,10 +2443,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EE896672B1FDA820087ADC2 /* Collections in Frameworks */,
 				3EEF68AB2AC0E7DF00327699 /* libavutil.xcframework in Frameworks */,
 				3EEF68A92AC0E7DE00327699 /* libavformat.xcframework in Frameworks */,
+				3EE896692B1FDA820087ADC2 /* DequeModule in Frameworks */,
 				3EEF68B02AC0E7E600327699 /* libopenmpt.0.dylib in Frameworks */,
 				3EEF68AD2AC0E7E000327699 /* libswresample.xcframework in Frameworks */,
+				3EE8966B2B1FDA820087ADC2 /* OrderedCollections in Frameworks */,
 				3EEF68A72AC0E7DD00327699 /* libavcodec.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2560,6 +2568,7 @@
 			children = (
 				3E18817F2B1D51BA0056711A /* LastFM_WSClientProtocol.swift */,
 				3E18817D2B1D51970056711A /* LastFM_WSClient.swift */,
+				3EE896622B1FD1360087ADC2 /* LastFMScrobbleCache.swift */,
 			);
 			path = LastFM;
 			sourceTree = "<group>";
@@ -5121,6 +5130,9 @@
 			);
 			name = Aural;
 			packageProductDependencies = (
+				3EE896662B1FDA820087ADC2 /* Collections */,
+				3EE896682B1FDA820087ADC2 /* DequeModule */,
+				3EE8966A2B1FDA820087ADC2 /* OrderedCollections */,
 			);
 			productName = Aural;
 			productReference = 3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */;
@@ -5195,6 +5207,7 @@
 			);
 			mainGroup = 3E6C0EB625CEB3ED00BF0D07;
 			packageReferences = (
+				3EE896652B1FDA820087ADC2 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 3E6C0EC025CEB3ED00BF0D07 /* Products */;
 			projectDirPath = "";
@@ -5531,6 +5544,7 @@
 				3E09D0EA26805C19008ECB8C /* FavoritePersistentState.swift in Sources */,
 				3E6C118325CEBD6D00BF0D07 /* FavoritesDelegate.swift in Sources */,
 				3E6C119625CEBD6D00BF0D07 /* FavoritesDelegateProtocol.swift in Sources */,
+				3EE896632B1FD1360087ADC2 /* LastFMScrobbleCache.swift in Sources */,
 				3E8C7932269C4278005E78D1 /* FavoritesListNotifications.swift in Sources */,
 				3E6C126325CEBE0600BF0D07 /* FavoritesManagerViewController.swift in Sources */,
 				3E6C12B325CEBE5800BF0D07 /* FavoritesMenuController.swift in Sources */,
@@ -6920,6 +6934,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3EE896652B1FDA820087ADC2 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3EE896662B1FDA820087ADC2 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3EE896652B1FDA820087ADC2 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		3EE896682B1FDA820087ADC2 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3EE896652B1FDA820087ADC2 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		3EE8966A2B1FDA820087ADC2 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3EE896652B1FDA820087ADC2 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3E6C0EB725CEB3ED00BF0D07 /* Project object */;
 }
