@@ -36,7 +36,8 @@ class LastFMScrobbleAction: PlaybackChainAction {
            let sessionKey = preferences.sessionKey,
            let stoppedTrack = context.currentTrack,
            stoppedTrack.canBeScrobbledOnLastFM,
-           context.currentSeekPosition >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime),
+           // Either track playback completed (seekPos = 0) or was stopped before completing (check how much played)
+           ((context.currentSeekPosition == 0) && (context.requestedTrack != nil)) || (context.currentSeekPosition >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime)),
            let historyLastPlayedItem = history.lastPlayedItem, historyLastPlayedItem.file == stoppedTrack.file {
             
             DispatchQueue.global(qos: .background).async {
