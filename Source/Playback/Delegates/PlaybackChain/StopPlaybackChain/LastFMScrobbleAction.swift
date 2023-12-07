@@ -14,7 +14,7 @@ class LastFMScrobbleAction: PlaybackChainAction {
     
     private lazy var lastFMClient: LastFM_WSClientProtocol = objectGraph.lastFMClient
     private lazy var preferences: LastFMPreferences = objectGraph.preferences.metadataPreferences.lastFM
-    private lazy var history = objectGraph.historyDelegate
+    private lazy var history: HistoryDelegateProtocol = objectGraph.historyDelegate
     
     private static let maxPlaybackTime: Double = 240    // 4 minutes
     
@@ -37,11 +37,20 @@ class LastFMScrobbleAction: PlaybackChainAction {
            let stoppedTrack = context.currentTrack,
            stoppedTrack.canBeScrobbledOnLastFM,
            // Either track playback completed (seekPos = 0) or was stopped before completing (check how much played)
-           ((context.currentSeekPosition == 0) && (context.requestedTrack != nil)) || (context.currentSeekPosition >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime)),
-           let historyLastPlayedItem = history.lastPlayedItem, historyLastPlayedItem.file == stoppedTrack.file {
+           ((context.currentSeekPosition == 0) && (context.requestedTrack != nil)) || (context.currentSeekPosition >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime)) {
             
             DispatchQueue.global(qos: .background).async {
-                self.lastFMClient.scrobbleTrack(track: stoppedTrack, timestamp: historyLastPlayedItem.time.epochTime, usingSessionKey: sessionKey)
+                
+                let timestamp: Int
+                
+                if let historyLastPlayedItem = self.history.lastPlayedItem, historyLastPlayedItem.file == stoppedTrack.file {
+                    timestamp = historyLastPlayedItem.time.epochTime
+                    
+                } else {
+                    timestamp = Date.nowEpochTime - Int(context.currentSeekPosition)
+                }
+                
+                self.lastFMClient.scrobbleTrack(track: stoppedTrack, timestamp: timestamp, usingSessionKey: sessionKey)
             }
         }
         
