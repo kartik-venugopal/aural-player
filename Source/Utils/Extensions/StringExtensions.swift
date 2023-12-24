@@ -324,7 +324,7 @@ extension String {
     
     func utf8EncodedString()-> String {
         
-        let messageData = self.data(using: .nonLossyASCII)
+        let messageData = self.data(using: .utf8)
         return String(data: messageData!, encoding: .utf8) ?? ""
     }
     
