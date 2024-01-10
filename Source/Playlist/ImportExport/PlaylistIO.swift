@@ -43,10 +43,10 @@ class PlaylistIO: PlaylistIOProtocol {
         
         if fileExtension.equalsOneOf(SupportedTypes.m3u, SupportedTypes.m3u8) {
             return M3UPlaylistIO.loadPlaylist(fromFile: playlistFile)
-            
-        } else if fileExtension == SupportedTypes.cue {
-            return CueSheetIO.loadPlaylist(fromFile: playlistFile)
         }
+//        } else if fileExtension == SupportedTypes.cue {
+//            return CueSheetIO.loadPlaylist(fromFile: playlistFile)
+//        }
         
         return nil
     }

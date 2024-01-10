@@ -1,14 +1,12 @@
-#  What's New in Version 3.25.1
+#  What's New in Version 3.25.2
 
-## Fixed Last.fm scrobbling bugs
+## #72 - Fixed playlist bug
 
-### Measuring playback time
+Thanks to @sirlaurie for reporting this bug! 
 
-The way Aural measures how long a track was played back for, has been improved.
+The Playlist would cause a freeze when dragging in a folder containing a CUE file. This bug has been fixed.
 
-### Character encoding
-
-Previously, track metadata with Unicode characters having symbols such as accents or umlauts was not encoded properly, resulted in failed scrobbling requests.  
+NOTE - CUE Sheets are not currently supported, but will probably be supported in a future version.
 
 ### **For more info**
-Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.25.1)
+Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/v3.25.2)
