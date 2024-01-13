@@ -89,7 +89,6 @@ In addition to v4.0, the following features ***may be*** implemented in the futu
 
 #### Other goals
 
-- More extensive unit testing.
 - More comprehensive documentation.
 - Better source code commenting.
 
