@@ -47,6 +47,8 @@ class PlaybackSession: Hashable {
     // Unique ID (i.e. UUID) ... used to differentiate two PlaybackSession objects
     let id: String
     
+    var error: Error?
+    
     private init(_ track: Track) {
         
         self.timestamp = ProcessInfo.processInfo.systemUptime

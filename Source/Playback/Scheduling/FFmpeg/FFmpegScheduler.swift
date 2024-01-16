@@ -126,6 +126,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
                 }
                 
                 return
+                
             }
         }
         
@@ -151,7 +152,10 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///
     func decodeAndScheduleOneBufferAsync(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, maxSampleCount: Int32) {
         
-        if decoder.eof {return}
+        if decoder.eof || decoder.fatalError {
+            NSLog("RETURN 1: EOF \(decoder.eof) FE: \(decoder.fatalError) TFE: \(decoder.theFatalError)")
+            return
+        }
         
         self.schedulingOpQueue.addOperation {
             self.decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, immediatePlayback: false, maxSampleCount: maxSampleCount)
@@ -181,10 +185,16 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///
     func decodeAndScheduleOneBuffer(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, from seekPosition: Double? = nil, immediatePlayback: Bool, maxSampleCount: Int32) {
         
-        if decoder.eof {return}
+        if decoder.eof || decoder.fatalError {
+            NSLog("RETURN 2: EOF \(decoder.eof) FE: \(decoder.fatalError) TFE: \(decoder.theFatalError)")
+            return
+        }
         
         // Ask the decoder to decode up to the given number of samples.
-        guard let playbackBuffer = decoder.decode(maxSampleCount: maxSampleCount, intoFormat: context.audioFormat) else {return}
+        guard let playbackBuffer = decoder.decode(maxSampleCount: maxSampleCount, intoFormat: context.audioFormat) else {
+            NSLog("RETURN 3: EOF \(decoder.eof) FE: \(decoder.fatalError) TFE: \(decoder.theFatalError)")
+            return
+        }
         
         // Pass off the audio buffer to the audio engine for playback. The completion handler is executed when
         // the buffer has finished playing.
@@ -214,23 +224,40 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         scheduledBufferCounts[session]?.decrement()
         
         if !(decoder.eof || decoder.fatalError) {
-
+            
+            NSLog("Not Fatal")
+            
             // If EOF has not been reached, continue recursively decoding / scheduling.
             self.decodeAndScheduleOneBufferAsync(for: session, context: playbackCtx, decoder: decoder, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
-
-        } else if let bufferCount = scheduledBufferCounts[session], bufferCount.isZero {
+            
+        } else if decoder.eof, let bufferCount = scheduledBufferCounts[session], bufferCount.isZero {
+            
+            NSLog("ZERO buffers, Fatal ? \(decoder.fatalError) EOF ? \(decoder.eof) The Error: \(decoder.theFatalError)")
             
             // EOF has been reached, and all buffers have completed playback.
             // Signal playback completion (on the main thread).
 
             DispatchQueue.main.async {
-                self.trackCompleted(session)
+                self.trackCompleted(session, withError: decoder.theFatalError)
+            }
+            
+        } else if decoder.fatalError {
+            
+            NSLog("FATAL FATAL buffers, Fatal ? \(decoder.fatalError) EOF ? \(decoder.eof) The Error: \(decoder.theFatalError)")
+            
+            // EOF has been reached, and all buffers have completed playback.
+            // Signal playback completion (on the main thread).
+
+            DispatchQueue.main.async {
+                self.trackCompleted(session, withError: decoder.theFatalError)
             }
         }
     }
     
     // Signal track playback completion
-    func trackCompleted(_ session: PlaybackSession) {
+    func trackCompleted(_ session: PlaybackSession, withError error: Error? = nil) {
+        
+        session.error = error
         messenger.publish(.player_trackPlaybackCompleted, payload: session)
     }
     

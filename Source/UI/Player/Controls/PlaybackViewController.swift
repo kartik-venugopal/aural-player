@@ -33,7 +33,9 @@ class PlaybackViewController: NSViewController, Destroyable {
         initSubscriptions()
     }
     
-    func initSubscriptions() {}
+    func initSubscriptions() {
+        messenger.subscribeAsync(to: .player_trackPlaybackCompleted, handler: playbackCompleted(session:))
+    }
     
     func destroy() {
         messenger.unsubscribeFromAll()
@@ -116,6 +118,17 @@ class PlaybackViewController: NSViewController, Destroyable {
         let errorDialog = DialogsAndAlerts.genericErrorAlert("Track not played",
                                                              notification.errorTrack.file.lastPathComponent,
                                                              notification.error.message)
+            
+        errorDialog.runModal()
+    }
+    
+    private func playbackCompleted(session: PlaybackSession) {
+        
+        guard let theError = session.error else {return}
+        
+        let errorDialog = DialogsAndAlerts.genericErrorAlert("Error while playing track",
+                                                             session.track.file.lastPathComponent,
+                                                             "\(theError)")
             
         errorDialog.runModal()
     }

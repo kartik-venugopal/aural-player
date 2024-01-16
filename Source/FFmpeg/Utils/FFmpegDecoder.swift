@@ -53,6 +53,8 @@ class FFmpegDecoder {
     var fatalError: Bool {_fatalError.value}
     
     var _fatalError: AtomicBool = AtomicBool()
+    
+    private(set) var theFatalError: Error?
 
     ///
     /// Indicates whether or not we have reached the end of the loop when scheduling buffers for the current loop (analogous to EOF for file scheduling).
@@ -122,8 +124,6 @@ class FFmpegDecoder {
         }
     }
     
-    private var recurringPacketReadErrorCount: Int = 0
-    
     ///
     /// Decodes the currently playing file's audio stream to produce a given (maximum) number of samples, in a loop, and returns a frame buffer
     /// containing all the samples produced during the loop.
@@ -138,6 +138,9 @@ class FFmpegDecoder {
     /// allowed as this is the terminal buffer.
     ///
     func decode(maxSampleCount: Int32, intoFormat outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
+        
+        NSLog("\ndecode()\n")
+        var recurringPacketReadErrorCount = 0
         
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: maxSampleCount)
@@ -180,9 +183,12 @@ class FFmpegDecoder {
                     NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
                     recurringPacketReadErrorCount.increment()
                     
-                    if recurringPacketReadErrorCount == 5 {
+                    if recurringPacketReadErrorCount >= 5 {
+                        
+                        NSLog("\nrecurringPacketReadErrorCount is 5 !!!\n")
                         
                         _fatalError.setTrue()
+                        theFatalError = error
                         return buffer.sampleCount > 0 ? transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat) : nil
                     }
                 }
@@ -236,7 +242,7 @@ class FFmpegDecoder {
     func nextFrame() throws -> FFmpegFrame {
         
         while frameQueue.isEmpty {
-        
+            
             guard let packet = try fileCtx.readPacket(from: stream) else {continue}
             
             let frames = try codec.decode(packet: packet).frames
