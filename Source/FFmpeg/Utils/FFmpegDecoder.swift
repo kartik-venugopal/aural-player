@@ -124,6 +124,8 @@ class FFmpegDecoder {
         }
     }
     
+//    private var ctr: Int = 0
+    
     ///
     /// Decodes the currently playing file's audio stream to produce a given (maximum) number of samples, in a loop, and returns a frame buffer
     /// containing all the samples produced during the loop.
@@ -141,6 +143,7 @@ class FFmpegDecoder {
         
         NSLog("\ndecode()\n")
         var recurringPacketReadErrorCount = 0
+//        ctr.increment()
         
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: maxSampleCount)
@@ -240,6 +243,10 @@ class FFmpegDecoder {
     /// to do so, upon consuming the frame.
     ///
     func nextFrame() throws -> FFmpegFrame {
+        
+//        if ctr > 2 {
+//            throw PacketReadError(-5)
+//        }
         
         while frameQueue.isEmpty {
             
@@ -359,7 +366,7 @@ class FFmpegDecoder {
             
             if !eof {
                 
-                NSLog("Error while skipping packets after seeking within track \(fileCtx.filePath) to time: \(time) seconds: \(seekError.code.errorDescription)")
+                NSLog("Error while seeking within track \(fileCtx.filePath) to time: \(time) seconds: \(seekError.code.errorDescription)")
                 throw DecoderError(seekError.code)
             }
         }

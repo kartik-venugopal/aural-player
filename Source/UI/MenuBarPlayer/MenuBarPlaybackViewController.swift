@@ -13,6 +13,8 @@ class MenuBarPlaybackViewController: PlaybackViewController {
  
     override func initSubscriptions() {
         
+        super.initSubscriptions()
+        
         // MARK: Notifications --------------------------------------------------------------
         
         messenger.subscribe(to: .player_playOrPause, handler: playOrPause)

@@ -13,6 +13,8 @@ class WindowedModePlaybackViewController: PlaybackViewController {
     
     override func initSubscriptions() {
         
+        super.initSubscriptions()
+        
         // MARK: Notifications --------------------------------------------------------------
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:))
