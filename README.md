@@ -1,4 +1,4 @@
-<img width="225" src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
+<img width="225" src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/v4.0/Documentation/Screenshots/readmeLogo.png"/>
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
