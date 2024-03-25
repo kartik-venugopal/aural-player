@@ -96,47 +96,47 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     // MARK: Play Now ---------------------------------------------------------------
 
     // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History
-    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool) -> IndexSet {
+    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
         
         tracksEnqueued(tracks)
-        return doEnqueueToPlayNow(tracks: tracks, clearQueue: clearQueue)
+        return doEnqueueToPlayNow(tracks: tracks, clearQueue: clearQueue, params: params)
     }
     
     // Library (grouped views) / Favorites / History
-    @discardableResult func enqueueToPlayNow(groups: [Group], tracks: [Track], clearQueue: Bool) -> IndexSet {
+    @discardableResult func enqueueToPlayNow(groups: [Group], tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
         
         groupsAndTracksEnqueued(groups: groups, tracks: tracks)
-        return doEnqueueToPlayNow(tracks: groups.flatMap {$0.tracks} + tracks, clearQueue: clearQueue)
+        return doEnqueueToPlayNow(tracks: groups.flatMap {$0.tracks} + tracks, clearQueue: clearQueue, params: params)
     }
     
     // Library (playlist files)
-    @discardableResult func enqueueToPlayNow(playlistFiles: [ImportedPlaylist], tracks: [Track], clearQueue: Bool) -> IndexSet {
+    @discardableResult func enqueueToPlayNow(playlistFiles: [ImportedPlaylist], tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
         
         playlistFilesAndTracksEnqueued(playlistFiles: playlistFiles, tracks: tracks)
-        return doEnqueueToPlayNow(tracks: playlistFiles.flatMap {$0.tracks} + tracks, clearQueue: clearQueue)
+        return doEnqueueToPlayNow(tracks: playlistFiles.flatMap {$0.tracks} + tracks, clearQueue: clearQueue, params: params)
     }
     
     // Library (Managed Playlist)
-    @discardableResult func enqueueToPlayNow(playlist: Playlist, clearQueue: Bool) -> IndexSet {
+    @discardableResult func enqueueToPlayNow(playlist: Playlist, clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
         
         playlistEnqueued(playlist)
-        return doEnqueueToPlayNow(tracks: playlist.tracks, clearQueue: clearQueue)
+        return doEnqueueToPlayNow(tracks: playlist.tracks, clearQueue: clearQueue, params: params)
     }
     
     // Tune Browser
-    @discardableResult func enqueueToPlayNow(fileSystemItems: [FileSystemItem], clearQueue: Bool) -> IndexSet {
+    @discardableResult func enqueueToPlayNow(fileSystemItems: [FileSystemItem], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
         
         fileSystemItemsEnqueued(fileSystemItems)
-        return doEnqueueToPlayNow(tracks: fileSystemItems.flatMap {$0.tracks}, clearQueue: clearQueue)
+        return doEnqueueToPlayNow(tracks: fileSystemItems.flatMap {$0.tracks}, clearQueue: clearQueue, params: params)
     }
     
-    @discardableResult func doEnqueueToPlayNow(tracks: [Track], clearQueue: Bool) -> IndexSet {
+    @discardableResult func doEnqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
         
         let indices = playQueue.enqueueTracks(tracks, clearQueue: clearQueue)
         messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
         
         if let trackToPlay = tracks.first {
-            playbackDelegate.play(track: trackToPlay, .defaultParams())
+            playbackDelegate.play(track: trackToPlay, params)
         }
             
         return indices

@@ -58,15 +58,18 @@ class PresetsManagerTableCellView: NSTableCellView {
 class EditableTextField: NSTextField {
     
     var editTextColor: PlatformColor {
-        .black
+        systemColorScheme.primarySelectedTextColor
     }
     
     var editCursorColor: PlatformColor {
-        .black
+        systemColorScheme.primarySelectedTextColor
     }
     
+    private var origTextColor: NSColor!
+    
     override func becomeFirstResponder() -> Bool {
-        
+
+        origTextColor = self.textColor
         self.textColor = editTextColor
         
         // Cursor color
@@ -74,6 +77,13 @@ class EditableTextField: NSTextField {
         fieldEditor.insertionPointColor = editCursorColor
         
         return super.becomeFirstResponder()
+    }
+    
+    func restoreTextColor() {
+        
+        if let origTextColor = self.origTextColor {
+            self.textColor = origTextColor
+        }
     }
 }
 

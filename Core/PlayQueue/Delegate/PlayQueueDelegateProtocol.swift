@@ -16,19 +16,19 @@ protocol PlayQueueDelegateProtocol: TrackListProtocol, SequencingProtocol, Histo
     // MARK: Play Now ---------------------------------------------------------------
     
     // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History
-    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool) -> IndexSet
+    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet
     
     // Library (grouped views) / Favorites / History
-    @discardableResult func enqueueToPlayNow(groups: [Group], tracks: [Track], clearQueue: Bool) -> IndexSet
+    @discardableResult func enqueueToPlayNow(groups: [Group], tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet
     
     // Library (playlist files)
-    @discardableResult func enqueueToPlayNow(playlistFiles: [ImportedPlaylist], tracks: [Track], clearQueue: Bool) -> IndexSet
+    @discardableResult func enqueueToPlayNow(playlistFiles: [ImportedPlaylist], tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet
     
     // Library (Managed Playlist)
-    @discardableResult func enqueueToPlayNow(playlist: Playlist, clearQueue: Bool) -> IndexSet
+    @discardableResult func enqueueToPlayNow(playlist: Playlist, clearQueue: Bool, params: PlaybackParams) -> IndexSet
     
     // Tune Browser
-    @discardableResult func enqueueToPlayNow(fileSystemItems: [FileSystemItem], clearQueue: Bool) -> IndexSet
+    @discardableResult func enqueueToPlayNow(fileSystemItems: [FileSystemItem], clearQueue: Bool, params: PlaybackParams) -> IndexSet
     
     // MARK: Play Next ---------------------------------------------------------------
     
@@ -62,13 +62,33 @@ protocol PlayQueueDelegateProtocol: TrackListProtocol, SequencingProtocol, Histo
 
 extension PlayQueueDelegateProtocol {
     
-    @discardableResult func enqueueToPlayNow(group: Group, clearQueue: Bool) -> IndexSet {
-        enqueueToPlayNow(groups: [group], tracks: [], clearQueue: clearQueue)
+    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
+        enqueueToPlayNow(tracks: tracks, clearQueue: clearQueue, params: params)
     }
     
-    @discardableResult func enqueueToPlayNow(playlistFile: ImportedPlaylist, clearQueue: Bool) -> IndexSet {
-        enqueueToPlayNow(playlistFiles: [playlistFile], tracks: [], clearQueue: clearQueue)
+    @discardableResult func enqueueToPlayNow(group: Group, clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
+        enqueueToPlayNow(groups: [group], tracks: [], clearQueue: clearQueue, params: params)
     }
+    
+    @discardableResult func enqueueToPlayNow(playlistFile: ImportedPlaylist, clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
+        enqueueToPlayNow(playlistFiles: [playlistFile], tracks: [], clearQueue: clearQueue, params: params)
+    }
+    
+    @discardableResult func enqueueToPlayNow(fileSystemItems: [FileSystemItem], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
+        enqueueToPlayNow(fileSystemItems: fileSystemItems, clearQueue: clearQueue, params: params)
+    }
+    
+    @discardableResult func enqueueToPlayNow(playlist: Playlist, clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
+        enqueueToPlayNow(playlist: playlist, clearQueue: clearQueue, params: params)
+    }
+    
+//    @discardableResult func enqueueToPlayNow(group: Group, clearQueue: Bool) -> IndexSet {
+//        enqueueToPlayNow(groups: [group], tracks: [], clearQueue: clearQueue, params: .defaultParams())
+//    }
+//    
+//    @discardableResult func enqueueToPlayNow(playlistFile: ImportedPlaylist, clearQueue: Bool) -> IndexSet {
+//        enqueueToPlayNow(playlistFiles: [playlistFile], tracks: [], clearQueue: clearQueue, params: .defaultParams())
+//    }
     
     @discardableResult func enqueueToPlayLater(group: Group) -> IndexSet {
         enqueueToPlayLater(groups: [group], tracks: [])

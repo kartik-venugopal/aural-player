@@ -54,8 +54,8 @@ class AppModeManager {
 //            presentMode(lastPresentedAppMode ?? .defaultMode)
 //        }
         
-        presentMode(.unified)
-//        presentMode(.modular)
+//        presentMode(.unified)
+        presentMode(.modular)
 //        presentMode(.compact)
     }
     

@@ -28,7 +28,7 @@ protocol BookmarksDelegateProtocol {
     
     var count: Int {get}
     
-    func getBookmarkAtIndex(_ index: Int) -> Bookmark
+    subscript(_ index: Int) -> Bookmark {get}
     
     func getBookmark(named name: String) -> Bookmark?
     

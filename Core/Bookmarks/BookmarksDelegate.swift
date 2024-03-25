@@ -58,7 +58,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         bookmarks.userDefinedObject(named: name)
     }
     
-    func getBookmarkAtIndex(_ index: Int) -> Bookmark {
+    subscript(_ index: Int) -> Bookmark {
         bookmarks.userDefinedObjects[index]
     }
     
@@ -67,9 +67,9 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     }
     
     func playBookmark(_ bookmark: Bookmark) throws {
-
-        playQueue.addTracks([bookmark.track])
-        player.play(track: bookmark.track, PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition))
+        
+        playQueueDelegate.enqueueToPlayNow(tracks: [bookmark.track], clearQueue: false,
+                                           params: PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition))
     }
     
     func renameBookmark(named name: String, to newName: String) {

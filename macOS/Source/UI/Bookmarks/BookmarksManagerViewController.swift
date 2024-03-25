@@ -43,9 +43,25 @@ class BookmarksManagerViewController: NSViewController {
         let numBookmarks = bookmarksDelegate.count
         lblSummary.stringValue = "\(numBookmarks)  \(numBookmarks == 1 ? "bookmark" : "bookmarks")"
     }
+    
+    @IBAction func playSelectedBookmarkAction(_ sender: Any) {
+        
+        let index = tableView.selectedRow
+        guard index >= 0 else {return}
+        
+        do {
+            try bookmarksDelegate.playBookmark(bookmarksDelegate[index])
+        } catch {
+            // TODO: Log the error
+        }
+    }
 }
 
 extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDelegate {
+    
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        30
+    }
     
     func numberOfRows(in tableView: NSTableView) -> Int {bookmarksDelegate.count}
     
@@ -65,7 +81,7 @@ extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDele
         guard let column = tableColumn else {return nil}
         let colID = column.identifier
         
-        let bookmark = bookmarksDelegate.getBookmarkAtIndex(row)
+        let bookmark = bookmarksDelegate[row]
         
         switch colID {
             
@@ -105,15 +121,18 @@ extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDele
         guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? AuralTableCellView,
               let textField = cell.textField else {return nil}
         
-        textField.stringValue = name
-        
-        textField.font = systemFontScheme.normalFont
-        textField.textColor = systemColorScheme.primaryTextColor
-        
         // Name column is editable
         textField.delegate = self
         
-        return cell
+        let builder = TableCellBuilder()
+        
+        builder.withAttributedText(strings: [(text: name,
+                                              font: systemFontScheme.normalFont,
+                                              color: systemColorScheme.primaryTextColor)],
+                                   selectedTextColors: [systemColorScheme.primarySelectedTextColor],
+                                   bottomYOffset: systemFontScheme.tableYOffset)
+        
+        return builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
     }
     
     // Creates a cell view containing text
@@ -139,27 +158,32 @@ extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDele
         
         builder.withImage(image: track.art?.image ?? .imgPlayingArt)
         
-        return builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
+        let cell = builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
+        cell?.textField?.lineBreakMode = .byTruncatingTail
+        return cell
     }
     
     func createTimeCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, time: Double?) -> AuralTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? AuralTableCellView,
-              let textField = cell.textField else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? AuralTableCellView else {return nil}
+        
+        let timeText: String
         
         if let time = time {
-            textField.stringValue = ValueFormatter.formatSecondsToHMS(time)
+            timeText = ValueFormatter.formatSecondsToHMS(time)
         } else {
-            textField.stringValue = "-"
+            timeText = "-"
         }
         
-        textField.font = systemFontScheme.normalFont
-        textField.textColor = systemColorScheme.primaryTextColor
+        let builder = TableCellBuilder()
         
-        // Name column is editable
-        textField.delegate = self
+        builder.withAttributedText(strings: [(text: timeText,
+                                              font: systemFontScheme.normalFont,
+                                              color: systemColorScheme.primaryTextColor)],
+                                   selectedTextColors: [systemColorScheme.primarySelectedTextColor],
+                                   bottomYOffset: systemFontScheme.tableYOffset)
         
-        return cell
+        return builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
     }
 }
 
@@ -172,15 +196,15 @@ extension BookmarksManagerViewController: NSTextFieldDelegate {
         let rowView = tableView.rowView(atRow: rowIndex, makeIfNecessary: true)
 
         guard let cell = rowView?.view(atColumn: 0) as? NSTableCellView,
-              let editedTextField = cell.textField else {return}
+              let editedTextField = cell.textField as? EditableTextField else {return}
         
-        let oldPresetName = bookmarksDelegate.getBookmarkAtIndex(rowIndex).name
+        let oldPresetName = bookmarksDelegate[rowIndex].name
         let newPresetName = editedTextField.stringValue
+        
+        editedTextField.restoreTextColor()
         
         // No change in preset name. Nothing to be done.
         if newPresetName == oldPresetName {return}
-        
-        editedTextField.textColor = .defaultSelectedLightTextColor
         
         // Empty string is invalid, revert to old value
 //        if newPresetName.isEmptyAfterTrimming {

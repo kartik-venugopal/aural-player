@@ -40,13 +40,13 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="27" horizontalPageScroll="10" verticalLineScroll="27" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VrI-h4-kR5" userLabel="Bookmarks Table">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VrI-h4-kR5" userLabel="Bookmarks Table">
                     <rect key="frame" x="15" y="37" width="540" height="428"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="pbf-cd-a6M">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="428"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="AT6-5X-2A1" viewBased="YES" id="1tS-29-36l" userLabel="Bookmarks Table View">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" headerView="AT6-5X-2A1" viewBased="YES" id="1tS-29-36l" userLabel="Bookmarks Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="540" height="395"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -66,15 +66,15 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="txv-wv-FF2" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="200" height="25"/>
+                                                <rect key="frame" x="1" y="1" width="200" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="jnI-3g-Tyg" customClass="EditableTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="25"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="8HD-1z-IFu"/>
+                                                            <constraint firstAttribute="height" constant="30" id="8HD-1z-IFu"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="BFQ-XY-xKb">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="BFQ-XY-xKb">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -108,15 +108,15 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="KPd-lg-hbM" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="204" y="1" width="200" height="25"/>
+                                                <rect key="frame" x="204" y="1" width="200" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0cc-1A-wAr" customClass="EditableTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="3" y="0.0" width="199" height="25"/>
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0cc-1A-wAr" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="3" y="0.0" width="199" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="MRZ-j8-a5I"/>
+                                                            <constraint firstAttribute="height" constant="30" id="MRZ-j8-a5I"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="0Mc-DY-44c">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="0Mc-DY-44c">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -147,15 +147,15 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="cJQ-dD-biF" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="407" y="1" width="60" height="25"/>
+                                                <rect key="frame" x="407" y="1" width="60" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wSc-9l-4on" customClass="EditableTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62" height="25"/>
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wSc-9l-4on" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="62" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="3EF-lZ-BS4"/>
+                                                            <constraint firstAttribute="height" constant="30" id="3EF-lZ-BS4"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" id="4bM-Jc-ZiG">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" usesSingleLineMode="YES" id="4bM-Jc-ZiG">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -186,15 +186,15 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="ZUf-rL-AXj" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="470" y="1" width="60" height="25"/>
+                                                <rect key="frame" x="470" y="1" width="60" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="SQN-g0-IqY" customClass="EditableTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62" height="25"/>
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="SQN-g0-IqY" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="62" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="ulm-TF-rfq"/>
+                                                            <constraint firstAttribute="height" constant="30" id="ulm-TF-rfq"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" id="elG-wy-Wch">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" usesSingleLineMode="YES" id="elG-wy-Wch">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -214,6 +214,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="playSelectedBookmarkAction:" target="-2" id="pKu-6L-5fg"/>
                                     <outlet property="dataSource" destination="-2" id="QmH-xA-Dx3"/>
                                     <outlet property="delegate" destination="-2" id="4jO-4h-LKc"/>
                                 </connections>

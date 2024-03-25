@@ -116,8 +116,8 @@ class EffectsContainerViewController: NSViewController {
         devicesTabViewButton.stateFunction = {.bypassed}
         
         // Select Master tab view by default
-//        doTabViewAction(masterTabViewButton)
-        doTabViewAction(timeTabViewButton)
+        doTabViewAction(masterTabViewButton)
+//        doTabViewAction(timeTabViewButton)
     }
 
     override func destroy() {
