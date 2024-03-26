@@ -65,7 +65,3 @@ The following features are possible, but not highly likely:
 - Online streaming
 - Plug-in architecture for visualizations (enabling developers to use / share custom visualizations) ? ... TBD
 
-### Notes:
-
-- 
-
