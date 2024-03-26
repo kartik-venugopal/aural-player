@@ -46,6 +46,7 @@ class LibraryWindowController: NSWindowController {
     private lazy var playlistsViewController: PlaylistsViewController = PlaylistsViewController()
     private lazy var favoritesViewController: FavoritesManagerViewController = FavoritesManagerViewController()
     private lazy var bookmarksViewController: BookmarksManagerViewController = BookmarksManagerViewController()
+    private lazy var historyRecentItemsViewController: HistoryRecentItemsViewController = HistoryRecentItemsViewController()
     
     private lazy var messenger: Messenger = Messenger(for: self)
     
@@ -100,6 +101,10 @@ class LibraryWindowController: NSWindowController {
         let bookmarksView: NSView = bookmarksViewController.view
         tabGroup.tabViewItem(at: 9).view?.addSubview(bookmarksView)
         bookmarksView.anchorToSuperview()
+        
+        let historyRecentItemsView: NSView = historyRecentItemsViewController.view
+        tabGroup.tabViewItem(at: 10).view?.addSubview(historyRecentItemsView)
+        historyRecentItemsView.anchorToSuperview()
         
         let windowShownFilter = {[weak self] in self?.theWindow.isVisible ?? false}
         messenger.subscribeAsync(to: .Library.startedReadingFileSystem, handler: startedReadingFileSystem, filter: windowShownFilter)

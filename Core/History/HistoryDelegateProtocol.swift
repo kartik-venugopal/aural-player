@@ -26,6 +26,10 @@ protocol HistoryDelegateProtocol {
     // Retrieves all items from the Recently added list, in chronological order
     var allRecentItems: [HistoryItem] {get}
     
+    var numberOfItems: Int {get}
+    
+    func historyItem(at index: Int) -> HistoryItem
+    
     // Plays a given item.
     func playItem(_ item: HistoryItem)
     

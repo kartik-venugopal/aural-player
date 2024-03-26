@@ -246,7 +246,7 @@ extension BookmarksManagerViewController: ColorSchemeObserver {
     }
 }
 
-extension NSUserInterfaceItemIdentifier {
+fileprivate extension NSUserInterfaceItemIdentifier {
     
     // Table view column identifiers
     

@@ -155,6 +155,8 @@
 		3E4C763B2AD7713400DDED45 /* AppSetupWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4C763A2AD7713400DDED45 /* AppSetupWindow.xib */; };
 		3E4C763D2AD774DA00DDED45 /* AppSetupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4C763C2AD774DA00DDED45 /* AppSetupWindowController.swift */; };
 		3E4C763F2AD7797600DDED45 /* AppSetupNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4C763E2AD7797600DDED45 /* AppSetupNotifications.swift */; };
+		3E508F662BB330CD00D4B677 /* HistoryRecentItems.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E508F652BB330CD00D4B677 /* HistoryRecentItems.xib */; };
+		3E508F682BB330F100D4B677 /* HistoryRecentItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E508F672BB330F100D4B677 /* HistoryRecentItemsViewController.swift */; };
 		3E51CCF0285E8986002CBEF2 /* UnifiedPlayerSidebar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51CCEF285E8986002CBEF2 /* UnifiedPlayerSidebar.xib */; };
 		3E51CCF2285E899E002CBEF2 /* UnifiedPlayerSidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51CCF1285E899E002CBEF2 /* UnifiedPlayerSidebarViewController.swift */; };
 		3E51CCF4285E8A45002CBEF2 /* UnifiedPlayerSidebarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51CCF3285E8A45002CBEF2 /* UnifiedPlayerSidebarItems.swift */; };
@@ -1201,6 +1203,8 @@
 		3E4C763A2AD7713400DDED45 /* AppSetupWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppSetupWindow.xib; sourceTree = "<group>"; };
 		3E4C763C2AD774DA00DDED45 /* AppSetupWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetupWindowController.swift; sourceTree = "<group>"; };
 		3E4C763E2AD7797600DDED45 /* AppSetupNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetupNotifications.swift; sourceTree = "<group>"; };
+		3E508F652BB330CD00D4B677 /* HistoryRecentItems.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryRecentItems.xib; sourceTree = "<group>"; };
+		3E508F672BB330F100D4B677 /* HistoryRecentItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecentItemsViewController.swift; sourceTree = "<group>"; };
 		3E51CCEF285E8986002CBEF2 /* UnifiedPlayerSidebar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnifiedPlayerSidebar.xib; sourceTree = "<group>"; };
 		3E51CCF1285E899E002CBEF2 /* UnifiedPlayerSidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPlayerSidebarViewController.swift; sourceTree = "<group>"; };
 		3E51CCF3285E8A45002CBEF2 /* UnifiedPlayerSidebarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPlayerSidebarItems.swift; sourceTree = "<group>"; };
@@ -2572,6 +2576,15 @@
 			path = AppSetup;
 			sourceTree = "<group>";
 		};
+		3E508F642BB3308000D4B677 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				3E508F652BB330CD00D4B677 /* HistoryRecentItems.xib */,
+				3E508F672BB330F100D4B677 /* HistoryRecentItemsViewController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		3E51CCEE285E896B002CBEF2 /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2837,6 +2850,7 @@
 				3E6C0FED25CEB98600BF0D07 /* Effects */,
 				3E6C0F6A25CEB98600BF0D07 /* Favorites */,
 				3E6C0F8925CEB98600BF0D07 /* Bookmarks */,
+				3E508F642BB3308000D4B677 /* History */,
 				3E6C0F6925CEB98600BF0D07 /* PresetsManagers */,
 				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F2425CEB98500BF0D07 /* Preferences */,
@@ -5301,6 +5315,7 @@
 				3EF84DAA2836359B004EF57B /* LibrarySidebar.xib in Resources */,
 				3E6C122E25CEBDE600BF0D07 /* PlaybackPreferences.xib in Resources */,
 				3E6C121A25CEBDE600BF0D07 /* PlayQueuePreferences.xib in Resources */,
+				3E508F662BB330CD00D4B677 /* HistoryRecentItems.xib in Resources */,
 				3EBFF5A32B528E430056D5B4 /* FavoriteArtists.xib in Resources */,
 				3E6C12E525CEBE8100BF0D07 /* EffectsWindow.xib in Resources */,
 				3E6C126E25CEBE0600BF0D07 /* MasterPresetsManager.xib in Resources */,
@@ -5873,6 +5888,7 @@
 				3EFE393B27864897006F8B8C /* BookmarksDelegate.swift in Sources */,
 				3EFE385F27864896006F8B8C /* ReverbUnitProtocol.swift in Sources */,
 				3E59E9D92B521E6A001DDCE9 /* FileSystemFolderChangedNotification.swift in Sources */,
+				3E508F682BB330F100D4B677 /* HistoryRecentItemsViewController.swift in Sources */,
 				3EFE397D27864897006F8B8C /* HaltPlaybackAction.swift in Sources */,
 				3E45C03625E1269500C1519C /* FontSchemeSizesViewController.swift in Sources */,
 				3EFE398327864897006F8B8C /* StartPlaybackAction.swift in Sources */,
