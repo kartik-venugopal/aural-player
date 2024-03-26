@@ -33,11 +33,18 @@ enum LibrarySidebarCategory: String, CaseIterable, CustomStringConvertible {
         LibrarySidebarItem(displayName: "Folders", browserTab: .favorites, image: .imgFileSystem)
     ]
     
+    private static let historyItems: [LibrarySidebarItem] = [
+        
+        LibrarySidebarItem(displayName: "Recent Items", browserTab: .historyRecentItems),
+        LibrarySidebarItem(displayName: "Frequent items", browserTab: .historyFrequentItems),
+    ]
+    
     case library = "Library"
     case tuneBrowser = "File System"
     case playlists = "Playlists"
     case favorites = "Favorites"
     case bookmarks = "Bookmarks"
+    case history = "History"
     
     var description: String {rawValue}
     
@@ -64,6 +71,10 @@ enum LibrarySidebarCategory: String, CaseIterable, CustomStringConvertible {
         case .bookmarks:
             
             return 0
+            
+        case .history:
+            
+            return Self.historyItems.count
         }
     }
     
@@ -99,6 +110,10 @@ enum LibrarySidebarCategory: String, CaseIterable, CustomStringConvertible {
         case .bookmarks:
             
             return []
+            
+        case .history:
+            
+            return Self.historyItems
         }
     }
     
@@ -125,6 +140,10 @@ enum LibrarySidebarCategory: String, CaseIterable, CustomStringConvertible {
         case .bookmarks:
             
             return .imgBookmark
+            
+        case .history:
+            
+            return .imgHistory
         }
     }
 }
@@ -175,5 +194,7 @@ enum LibraryBrowserTab: Int {
          fileSystem = 6,
          playlists = 7,
          favorites = 8,
-         bookmarks = 9
+         bookmarks = 9,
+         historyRecentItems = 10,
+         historyFrequentItems = 11
 }

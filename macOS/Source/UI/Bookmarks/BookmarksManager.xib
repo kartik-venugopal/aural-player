@@ -116,7 +116,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="MRZ-j8-a5I"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="0Mc-DY-44c">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="0Mc-DY-44c" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -155,7 +155,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="3EF-lZ-BS4"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" usesSingleLineMode="YES" id="4bM-Jc-ZiG">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" usesSingleLineMode="YES" id="4bM-Jc-ZiG" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -194,7 +194,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="ulm-TF-rfq"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" usesSingleLineMode="YES" id="elG-wy-Wch">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" usesSingleLineMode="YES" id="elG-wy-Wch" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

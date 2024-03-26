@@ -141,20 +141,20 @@ extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDele
         let builder = TableCellBuilder()
         let titleAndArtist = track.titleAndArtist
         
-        if let artist = titleAndArtist.artist {
-            
-            builder.withAttributedText(strings: [(text: artist + "  ", font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor),
-                                                        (text: titleAndArtist.title, font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)],
-                                              selectedTextColors: [systemColorScheme.secondarySelectedTextColor, systemColorScheme.primarySelectedTextColor],
-                                              bottomYOffset: systemFontScheme.tableYOffset)
-            
-        } else {
+//        if let artist = titleAndArtist.artist {
+//            
+//            builder.withAttributedText(strings: [(text: artist + "  ", font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor),
+//                                                        (text: titleAndArtist.title, font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)],
+//                                              selectedTextColors: [systemColorScheme.secondarySelectedTextColor, systemColorScheme.primarySelectedTextColor],
+//                                              bottomYOffset: systemFontScheme.tableYOffset)
+//            
+//        } else {
             
             builder.withAttributedText(strings: [(text: titleAndArtist.title,
                                                          font: systemFontScheme.normalFont,
                                                          color: systemColorScheme.primaryTextColor)], selectedTextColors: [systemColorScheme.primarySelectedTextColor],
                                               bottomYOffset: systemFontScheme.tableYOffset)
-        }
+//        }
         
         builder.withImage(image: track.art?.image ?? .imgPlayingArt)
         
