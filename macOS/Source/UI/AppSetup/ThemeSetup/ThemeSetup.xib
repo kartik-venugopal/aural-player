@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ThemeSetupViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnColorScheme" destination="J7D-cD-M0c" id="amQ-Cv-Rbz"/>
+                <outlet property="btnFontScheme" destination="iBF-V9-N0r" id="iFf-yM-0TU"/>
+                <outlet property="previewView" destination="S54-Qk-fMN" id="C6m-Jx-9am"/>
+                <outlet property="view" destination="YvG-kZ-B25" id="8C6-Gl-eLr"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="YvG-kZ-B25">
+            <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fa1-NG-W96" userLabel="Seek Length Label">
+                    <rect key="frame" x="18" y="394" width="638" height="41"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Personalize Aural with a font scheme and color scheme!" id="o6q-mq-F9R">
+                        <font key="font" size="18" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S54-Qk-fMN" customClass="AppSetupThemePreviewView" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="137" y="140" width="400" height="225"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yuW-zn-ZvF" userLabel="Player Preview">
+                            <rect key="frame" x="0.0" y="0.0" width="406" height="225"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <view key="contentView" id="1Ax-Gv-SOP">
+                                <rect key="frame" x="1" y="1" width="404" height="223"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QW6-Xt-XyK">
+                                        <rect key="frame" x="93" y="136" width="220" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Track Title" id="Y08-Ko-D90">
+                                            <font key="font" size="16" name="Play-Regular"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4yL-Z0-RNy">
+                                        <rect key="frame" x="93" y="116" width="220" height="26"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Artist -- Album" id="AlO-Rk-K8L">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nu4-a0-nwO">
+                                        <rect key="frame" x="18" y="68" width="370" height="15"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="cRQ-f3-Qd4" customClass="AppSetupSeekSliderPreviewCell" customModule="Aural" customModuleProvider="target"/>
+                                    </slider>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ja-qU-8kf" userLabel="Playing Track Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="192" y="23" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Play" id="bFY-Qr-jT3"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Play"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jeG-JY-w5B" userLabel="Playing Track Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="229" y="21.5" width="20.5" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="8TY-GF-NUw">
+                                            <imageReference key="image" image="forward.end" catalog="system" symbolScale="large"/>
+                                        </imageCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="NextTrack"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhV-8h-ru0" userLabel="Playing Track Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="155" y="21.5" width="19.5" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="9Qw-aO-gyj">
+                                            <imageReference key="image" image="backward.end" catalog="system" symbolScale="large"/>
+                                        </imageCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PreviousTrack"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="haD-oX-3Av">
+                                        <rect key="frame" x="20" y="121" width="48" height="54"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="music.quarternote.3" catalog="system" id="UbC-MB-mcZ"/>
+                                    </imageView>
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHV-6E-1Vq">
+                                        <rect key="frame" x="308" y="130" width="80" height="26"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="4:37" id="4D6-3I-dGQ">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                            </view>
+                            <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </box>
+                    </subviews>
+                    <connections>
+                        <outlet property="btnNextTrack" destination="jeG-JY-w5B" id="Xkk-io-MuM"/>
+                        <outlet property="btnPlay" destination="3ja-qU-8kf" id="kog-0V-A0m"/>
+                        <outlet property="btnPreviousTrack" destination="OhV-8h-ru0" id="ZLX-3d-fXy"/>
+                        <outlet property="imgArt" destination="haD-oX-3Av" id="36b-hC-GsU"/>
+                        <outlet property="lblArtistAlbum" destination="4yL-Z0-RNy" id="vNW-Nc-OQ7"/>
+                        <outlet property="lblDuration" destination="yHV-6E-1Vq" id="57U-6E-Nhn"/>
+                        <outlet property="lblTrackTitle" destination="QW6-Xt-XyK" id="cWQ-eC-hul"/>
+                        <outlet property="playerBox" destination="yuW-zn-ZvF" id="gbi-Nh-t7j"/>
+                        <outlet property="seekSlider" destination="Nu4-a0-nwO" id="g54-2c-Bt9"/>
+                        <outlet property="seekSliderCell" destination="cRQ-f3-Qd4" id="Leg-YS-9KQ"/>
+                    </connections>
+                </customView>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBF-V9-N0r" userLabel="Fnot Schemes Menu">
+                    <rect key="frame" x="203" y="73" width="338" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Standard" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="oen-3k-4Z8" id="vrr-Am-cTF">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="rNK-0P-5AF">
+                            <items>
+                                <menuItem title="Standard" state="on" indentationLevel="1" id="oen-3k-4Z8">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Rounded" indentationLevel="1" id="Fz4-e1-UPH">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Programmer" indentationLevel="1" id="CnR-4F-5WI">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Futuristic" indentationLevel="1" id="jrc-7K-s4Y">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Novelist" indentationLevel="1" id="2Xy-jd-imI">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Soy Sauce" indentationLevel="1" id="NvX-ec-xCO">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Gothic" indentationLevel="1" id="93q-zQ-f8S">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Papyrus" indentationLevel="1" id="dpV-1R-hF6">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Poolside.fm" indentationLevel="1" id="M77-yA-m4f">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="fontSchemeSelectionAction:" target="-2" id="Yz2-1D-mYN"/>
+                    </connections>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J7D-cD-M0c" userLabel="Color Schemes Menu">
+                    <rect key="frame" x="203" y="30" width="338" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Lava" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="6D2-fS-6eM" id="XU0-T5-otZ">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="KFF-Fq-uvh">
+                            <items>
+                                <menuItem title="Lava" state="on" indentationLevel="1" id="6D2-fS-6eM">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Brownie" indentationLevel="1" id="faO-vJ-Dii">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Black &amp; green" indentationLevel="1" id="k9n-pq-XWo">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Poolside.fm" indentationLevel="1" id="KVe-Fs-jfa">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Gloomy day" indentationLevel="1" id="QhA-9T-TDF">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Black &amp; aqua" indentationLevel="1" id="HAF-Gw-eG6">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="The blues" indentationLevel="1" id="VDf-j1-bZ3">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="White blight" indentationLevel="1" id="T0P-43-O8v">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="colorSchemeSelectionAction:" target="-2" id="ev7-C1-VFC"/>
+                    </connections>
+                </popUpButton>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-zh-qYg" userLabel="Seek Length Label">
+                    <rect key="frame" x="40" y="67" width="145" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Font Scheme" id="eHF-fQ-AlY">
+                        <font key="font" size="16" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4d6-I1-tHa" userLabel="Seek Length Label">
+                    <rect key="frame" x="40" y="25" width="145" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Color Scheme" id="BaC-3z-kSw">
+                        <font key="font" size="16" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="101" y="154"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NextTrack" width="31" height="35"/>
+        <image name="Play" width="40" height="40"/>
+        <image name="PreviousTrack" width="31" height="35"/>
+        <image name="backward.end" catalog="system" width="17" height="17"/>
+        <image name="forward.end" catalog="system" width="17" height="17"/>
+        <image name="music.quarternote.3" catalog="system" width="18" height="15"/>
+    </resources>
+</document>

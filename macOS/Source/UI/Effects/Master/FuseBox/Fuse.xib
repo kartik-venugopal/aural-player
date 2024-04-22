@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="FuseViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundBox" destination="RtD-Y5-ba7" id="o4d-5m-93y"/>
+                <outlet property="icon" destination="qzd-2b-TwD" id="TKg-I4-Ilr"/>
+                <outlet property="imgBypass" destination="IIf-SS-Vez" id="zNj-aa-n5R"/>
+                <outlet property="lblUnitCaption" destination="cAB-LP-Oa5" id="O9e-9l-syj"/>
+                <outlet property="view" destination="c22-O7-iKe" id="hSq-kU-Oi1"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="342" height="36"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="RtD-Y5-ba7" userLabel="Background Box">
+                    <rect key="frame" x="0.0" y="0.0" width="342" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="h0e-XM-y8s">
+                        <rect key="frame" x="0.0" y="0.0" width="342" height="36"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </box>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IIf-SS-Vez" userLabel="Bypass Button Image" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="16" y="11" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="power" catalog="system" id="Wlw-KS-TBq"/>
+                    <connections>
+                        <action selector="bypassAction:" target="-2" id="SUf-E2-s8f"/>
+                    </connections>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qzd-2b-TwD" userLabel="Icon" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="50" y="11" width="14" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="EQTab" id="c2u-JM-abd"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cAB-LP-Oa5" userLabel="Unit Caption" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="72" y="7" width="262" height="22"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Equalizer" id="HOB-yc-Wfv" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" metaFont="cellTitle"/>
+                        <color key="textColor" white="0.70435334849999998" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="63" y="-187"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="EQTab" width="25" height="25"/>
+        <image name="power" catalog="system" width="15" height="16"/>
+    </resources>
+</document>

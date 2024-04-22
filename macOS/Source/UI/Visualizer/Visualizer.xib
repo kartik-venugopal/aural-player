@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="VisualizerWindowController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="containerBox" destination="j6R-ye-LTm" id="UYU-zJ-Q7c"/>
+                <outlet property="discoBall" destination="k23-1e-Yfu" id="V0d-ik-Gma"/>
+                <outlet property="discoBallMenuItem" destination="xv1-wM-0Hf" id="35M-Js-xgp"/>
+                <outlet property="endColorPicker" destination="yLw-yM-ZCG" id="RaF-Tb-SOG"/>
+                <outlet property="optionsBox" destination="XpW-Cc-cL9" id="23h-tg-1MV"/>
+                <outlet property="spectrogram" destination="urw-iw-KjM" id="iSd-02-xel"/>
+                <outlet property="spectrogramMenuItem" destination="FZm-qk-5i9" id="DVf-Dw-XhD"/>
+                <outlet property="startColorPicker" destination="Hz0-AK-hl0" id="dVL-ZG-YDr"/>
+                <outlet property="supernova" destination="oy2-qJ-0rY" id="3qq-Kl-aQY"/>
+                <outlet property="supernovaMenuItem" destination="CQD-G1-6Uv" id="zha-YQ-fsL"/>
+                <outlet property="tabView" destination="jq4-Se-Giz" id="CGV-Lk-15r"/>
+                <outlet property="typeMenu" destination="BGG-tA-Gy9" id="fuV-DD-XrW"/>
+                <outlet property="typeMenuButton" destination="DM4-7i-v6q" id="Qop-0W-ThC"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="jNN-vL-uGq"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window identifier="wid_visualizer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" deferred="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="QvC-M9-y7g" customClass="SnappingNonKeyWindow" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="450" height="300"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1079"/>
+            <value key="minSize" type="size" width="450" height="300"/>
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="j6R-ye-LTm" userLabel="VizContainer" customClass="VisualizerContainer" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <view key="contentView" id="0K1-rI-qOl">
+                            <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="jq4-Se-Giz" userLabel="TabView">
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                    <font key="font" metaFont="system"/>
+                                    <tabViewItems>
+                                        <tabViewItem label="Spectrogram" identifier="" id="DBz-DD-cOi">
+                                            <view key="view" id="Y0y-yI-XBw">
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <customView id="urw-iw-KjM" userLabel="Spectrogram" customClass="Spectrogram" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    </customView>
+                                                </subviews>
+                                            </view>
+                                        </tabViewItem>
+                                        <tabViewItem label="Supernova" identifier="" id="USd-hZ-Ueg">
+                                            <view key="view" id="xX8-wH-mDO">
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <customView id="oy2-qJ-0rY" customClass="Supernova" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </customView>
+                                                </subviews>
+                                            </view>
+                                        </tabViewItem>
+                                        <tabViewItem label="Disco Ball" identifier="" id="h8p-kh-Q4s">
+                                            <view key="view" id="9XU-kE-N1V">
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <customView id="k23-1e-Yfu" customClass="DiscoBall" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    </customView>
+                                                </subviews>
+                                            </view>
+                                        </tabViewItem>
+                                    </tabViewItems>
+                                </tabView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="jq4-Se-Giz" secondAttribute="trailing" id="DvJ-ib-pUv"/>
+                                <constraint firstItem="jq4-Se-Giz" firstAttribute="leading" secondItem="0K1-rI-qOl" secondAttribute="leading" id="aWr-qT-3xt"/>
+                                <constraint firstAttribute="bottom" secondItem="jq4-Se-Giz" secondAttribute="bottom" id="c47-TQ-u9f"/>
+                                <constraint firstItem="jq4-Se-Giz" firstAttribute="top" secondItem="0K1-rI-qOl" secondAttribute="top" id="qfk-oa-g2O"/>
+                            </constraints>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="optionsBox" destination="XpW-Cc-cL9" id="SJl-hY-7zB"/>
+                        </connections>
+                    </box>
+                    <box hidden="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="XpW-Cc-cL9" userLabel="Options Box">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
+                        <view key="contentView" id="eKB-lz-9pZ">
+                            <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3u-HL-TMC">
+                                    <rect key="frame" x="32" y="98" width="126" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Visualization Type:" id="PhG-lU-bnf">
+                                        <font key="font" size="13" name="Play-Regular"/>
+                                        <color key="textColor" white="0.75229500723885478" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DM4-7i-v6q" userLabel="Visualization Type Menu">
+                                    <rect key="frame" x="185" y="94" width="220" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="push" title="Spectrogram" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="FZm-qk-5i9" id="2CH-f3-3NP">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="12" name="Play-Regular"/>
+                                        <menu key="menu" id="BGG-tA-Gy9">
+                                            <items>
+                                                <menuItem title="Spectrogram" state="on" id="FZm-qk-5i9">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Supernova" id="CQD-G1-6Uv">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Disco Ball" id="xv1-wM-0Hf">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="changeTypeAction:" target="-2" id="agy-I8-n9z"/>
+                                    </connections>
+                                </popUpButton>
+                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pt9-a2-vyg">
+                                    <rect key="frame" x="32" y="55" width="137" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Low Amplitude Color:" id="afO-Vv-2Fm">
+                                        <font key="font" size="12" name="Play-Regular"/>
+                                        <color key="textColor" white="0.75229500723885478" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hz0-AK-hl0" userLabel="Low Color">
+                                    <rect key="frame" x="185" y="54" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <color key="color" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="setColorsAction:" target="-2" id="cvi-RS-OlQ"/>
+                                    </connections>
+                                </colorWell>
+                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ygU-iA-NuG">
+                                    <rect key="frame" x="32" y="20" width="145" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="High Amplitude Color:" id="SUc-45-T6m">
+                                        <font key="font" size="12" name="Play-Regular"/>
+                                        <color key="textColor" white="0.75229500723885478" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yLw-yM-ZCG" userLabel="High Color">
+                                    <rect key="frame" x="185" y="19" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="setColorsAction:" target="-2" id="18Q-Pd-6al"/>
+                                    </connections>
+                                </colorWell>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="150" id="zEU-UF-ZNG"/>
+                        </constraints>
+                        <color key="fillColor" white="0.0" alpha="0.80439319349315064" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </box>
+                    <button toolTip="Close Visualizer" wantsLayer="YES" focusRingType="none" id="qJC-vD-AZW" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="15" y="274" width="10" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="me7-OR-ofa">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Close"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="closeWindowAction:" target="-2" id="uFl-RN-aFa"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="j6R-ye-LTm" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="2s7-Qr-tzY"/>
+                    <constraint firstAttribute="trailing" secondItem="j6R-ye-LTm" secondAttribute="trailing" id="3Ci-kW-ugv"/>
+                    <constraint firstAttribute="bottom" secondItem="j6R-ye-LTm" secondAttribute="bottom" id="7Vi-Ix-Eyd"/>
+                    <constraint firstItem="j6R-ye-LTm" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="OWh-LM-xhM"/>
+                    <constraint firstItem="XpW-Cc-cL9" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="hFC-8B-MMT"/>
+                    <constraint firstAttribute="bottom" secondItem="XpW-Cc-cL9" secondAttribute="bottom" id="ivM-dO-22b"/>
+                    <constraint firstAttribute="trailing" secondItem="XpW-Cc-cL9" secondAttribute="trailing" id="nKK-6u-aJi"/>
+                </constraints>
+            </view>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="snapLevel">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="85" y="-43"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="Close" width="16" height="15"/>
+    </resources>
+</document>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="FavoriteGenresViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="TV2-bm-YJ9" id="eTF-ZN-bJL"/>
+                <outlet property="view" destination="bdL-s6-33j" id="UpD-t9-6gp"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView misplaced="YES" id="bdL-s6-33j" customClass="FavoriteGenresContainerView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="726" height="437"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box hidden="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="8" titlePosition="noTitle" id="svn-Qq-xqe" userLabel="Controls Overlay" customClass="FavoritesHoverControlsBox" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="316" y="204" width="94" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="fjd-4j-zQ5">
+                        <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gy2-1a-mn4" userLabel="Play Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="13" y="8" width="14" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Ixc-6a-Rd6">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <imageReference key="image" image="Play" symbolScale="large"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="playFavoriteAction:" target="svn-Qq-xqe" id="Zek-fv-hmX"/>
+                                </connections>
+                            </button>
+                            <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kft-xC-qXI" userLabel="Enqueue And Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="38" y="6" width="13.5" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="IFH-Qn-WwX">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <imageReference key="image" image="list.triangle" catalog="system" symbolScale="large"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="enqueueAndPlayFavoriteAction:" target="svn-Qq-xqe" id="BQh-Pf-Fh2"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Shuffle" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0oc-zZ-yiM" userLabel="Delete Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="65" y="9" width="15.5" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="trash" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="m5N-Cj-75H">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="deleteFromFavoritesAction:" target="svn-Qq-xqe" id="kdH-CL-HnE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="fillColor" white="0.0" alpha="0.70297511089999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="btnEnqueueAndPlay" destination="kft-xC-qXI" id="yEq-hE-jmL"/>
+                        <outlet property="btnFavorite" destination="0oc-zZ-yiM" id="rra-y2-q0L"/>
+                        <outlet property="btnPlay" destination="Gy2-1a-mn4" id="Ypf-pd-hMI"/>
+                    </connections>
+                </box>
+                <scrollView borderType="none" horizontalLineScroll="28" horizontalPageScroll="10" verticalLineScroll="28" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUh-8T-61c" userLabel="Favorites Table">
+                    <rect key="frame" x="0.0" y="0.0" width="1026" height="407"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="WMb-Ud-aXe">
+                        <rect key="frame" x="0.0" y="0.0" width="1011" height="407"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" viewBased="YES" id="TV2-bm-YJ9" userLabel="Favorites Table View">
+                                <rect key="frame" x="0.0" y="0.0" width="1011" height="397"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <size key="intercellSpacing" width="3" height="2"/>
+                                <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="gridColor" white="0.42990451390000001" alpha="1" colorSpace="calibratedWhite"/>
+                                <tableColumns>
+                                    <tableColumn identifier="cid_favoriteColumn" width="250" minWidth="100" maxWidth="700" id="4uA-tc-1el">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="OGd-Ff-Mg8">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="cid_FavoriteName"/>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+                                            <tableCellView misplaced="YES" id="KPx-W4-tZr" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="1" y="1" width="250" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="bxf-6f-6yf" userLabel="Genre Image View">
+                                                        <rect key="frame" x="10" y="1" width="20" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Z3V-vM-O0k"/>
+                                                    </imageView>
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0K-5a-nTX" userLabel="Genre Text Field">
+                                                        <rect key="frame" x="35" y="0.0" width="224" height="26"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Table View Cell" id="TeF-sI-qKA" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="t0K-5a-nTX" secondAttribute="trailing" constant="5" id="4D1-mp-KbI"/>
+                                                    <constraint firstAttribute="bottom" secondItem="t0K-5a-nTX" secondAttribute="bottom" id="4oe-be-Shu"/>
+                                                    <constraint firstItem="t0K-5a-nTX" firstAttribute="top" secondItem="KPx-W4-tZr" secondAttribute="top" id="out-xz-bFd"/>
+                                                    <constraint firstItem="t0K-5a-nTX" firstAttribute="leading" secondItem="bxf-6f-6yf" secondAttribute="trailing" constant="15" id="sj8-z8-H65"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="imageView" destination="bxf-6f-6yf" id="fkY-Bt-ksH"/>
+                                                    <outlet property="textField" destination="t0K-5a-nTX" id="Qct-XN-UmD"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                </tableColumns>
+                                <connections>
+                                    <outlet property="dataSource" destination="-2" id="Gnd-Q3-3ec"/>
+                                    <outlet property="delegate" destination="-2" id="bIV-gL-oYc"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <nil key="backgroundColor"/>
+                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="10" bottom="0.0"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="1qD-2L-run">
+                        <rect key="frame" x="-100" y="-100" width="0.0" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="Y5u-pG-ZBh">
+                        <rect key="frame" x="1011" y="0.0" width="15" height="407"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="iUh-8T-61c" firstAttribute="top" secondItem="bdL-s6-33j" secondAttribute="top" id="4C1-Xm-xLE"/>
+                <constraint firstAttribute="trailing" secondItem="iUh-8T-61c" secondAttribute="trailing" id="gIo-ib-94m"/>
+                <constraint firstItem="iUh-8T-61c" firstAttribute="leading" secondItem="bdL-s6-33j" secondAttribute="leading" id="uy3-OQ-2W5"/>
+                <constraint firstAttribute="bottom" secondItem="iUh-8T-61c" secondAttribute="bottom" id="v5H-k0-KLG"/>
+            </constraints>
+            <connections>
+                <outlet property="hoverControls" destination="svn-Qq-xqe" id="QLs-XW-i8K"/>
+                <outlet property="tableView" destination="TV2-bm-YJ9" id="6Im-ex-Jra"/>
+            </connections>
+            <point key="canvasLocation" x="102" y="231.5"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="Play" width="40" height="40"/>
+        <image name="list.triangle" catalog="system" width="21" height="16"/>
+        <image name="trash" catalog="system" width="15" height="17"/>
+    </resources>
+</document>

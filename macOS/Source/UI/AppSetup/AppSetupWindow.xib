@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AppSetupWindowController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnNext" destination="wBi-Mf-Zd1" id="Qla-hm-HVQ"/>
+                <outlet property="btnPrevious" destination="rMF-ho-NPk" id="DKe-eq-Xc2"/>
+                <outlet property="pathControl" destination="NDf-j8-g6w" id="JLV-dz-Txf"/>
+                <outlet property="tabView" destination="9xf-4j-eJW" id="WEW-Uy-gVA"/>
+                <outlet property="window" destination="ybt-jW-z2M" id="kd9-mF-Q5q"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="ybt-jW-z2M" userLabel="App Setup Dialog" customClass="NoTitleBarPanel" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="120" y="65" width="712" height="627"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" id="xg8-sF-gRd">
+                <rect key="frame" x="0.0" y="0.0" width="712" height="627"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ikD-tg-ohE" userLabel="Container Box">
+                        <rect key="frame" x="0.0" y="-9" width="712" height="636"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="lWL-LA-ese">
+                            <rect key="frame" x="0.0" y="0.0" width="712" height="636"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="9xf-4j-eJW" userLabel="Tab View">
+                                    <rect key="frame" x="7" y="73" width="674" height="470"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <tabViewItems>
+                                        <tabViewItem label="Presentation Mode" identifier="0" id="Ce0-tU-4CG" userLabel="Presentation Mode" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                            <view key="view" id="pKR-vV-S96">
+                                                <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                        </tabViewItem>
+                                        <tabViewItem label="Window Layout" identifier="1" id="LWc-uV-vGL" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                            <view key="view" id="Uyy-15-Enm">
+                                                <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                        </tabViewItem>
+                                        <tabViewItem label="Theme" identifier="2" id="hHo-wR-x8f" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                            <view key="view" id="X3s-Vn-AHz">
+                                                <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                        </tabViewItem>
+                                        <tabViewItem label="Library Home" identifier="3" id="lNu-zj-LTQ" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                            <view key="view" id="4Tk-hG-LYF">
+                                                <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                        </tabViewItem>
+                                    </tabViewItems>
+                                </tabView>
+                            </subviews>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jNL-kw-8Tt">
+                        <rect key="frame" x="236" y="591" width="241" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Set up Aural Player!" id="BLk-Zs-aOV">
+                            <font key="font" size="16" name="ControlFreak"/>
+                            <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wBi-Mf-Zd1" userLabel="Next Button">
+                        <rect key="frame" x="646" y="7" width="61" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Next" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="VQu-eP-Qoh">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="nextStepAction:" target="-2" id="5VY-qe-GNZ"/>
+                        </connections>
+                    </button>
+                    <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-LZ-KtU" userLabel="Skip setup Button">
+                        <rect key="frame" x="5" y="7" width="100" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Skip Setup" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Fme-Is-JAg">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="skipSetupAction:" target="-2" id="clI-O9-Cqr"/>
+                        </connections>
+                    </button>
+                    <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rMF-ho-NPk" userLabel="Previous Button">
+                        <rect key="frame" x="566" y="7" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Previous" bezelStyle="rounded" alignment="center" enabled="NO" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="qMM-Wy-awE">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="previousStepAction:" target="-2" id="EQT-S4-qBW"/>
+                        </connections>
+                    </button>
+                    <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDf-j8-g6w">
+                        <rect key="frame" x="11" y="556" width="681" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <pathCell key="cell" selectable="YES" focusRingType="none" alignment="left" id="p0M-sW-X7H">
+                            <font key="font" metaFont="system"/>
+                            <url key="url" string="file://localhost/Applications/"/>
+                        </pathCell>
+                        <connections>
+                            <action selector="pathControlAction:" target="-2" id="abb-Rw-BFQ"/>
+                        </connections>
+                    </pathControl>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="-955" y="678.5"/>
+        </window>
+    </objects>
+</document>

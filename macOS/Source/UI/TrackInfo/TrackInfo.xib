@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TrackInfoViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnAudioTab" destination="CD3-If-LZf" id="5CR-vp-ijy"/>
+                <outlet property="btnCoverArtTab" destination="Hfh-bI-MqD" id="cBk-Qz-JvQ"/>
+                <outlet property="btnFileSystemTab" destination="B6K-n6-rUh" id="6yo-MX-dT8"/>
+                <outlet property="btnLyricsTab" destination="gKl-rk-GcY" id="bgR-Ld-uN7"/>
+                <outlet property="btnMetadataTab" destination="f9U-H8-EmK" id="Lw4-OX-k8k"/>
+                <outlet property="exportArtMenuItem" destination="DdK-AT-gbo" id="8Al-eQ-URR"/>
+                <outlet property="exportHTMLWithArtMenuItem" destination="r3P-AN-pYB" id="AG2-FL-V3V"/>
+                <outlet property="exportMenuIcon" destination="wXq-k7-leP" id="HlB-cT-Lrn"/>
+                <outlet property="lblMainCaption" destination="Hxj-TJ-fF3" id="j6n-Oe-mAX"/>
+                <outlet property="lblTabCaption" destination="NTA-ZT-k06" id="AzM-Dn-Ebr"/>
+                <outlet property="lblTrackTitle" destination="BG9-V8-fJc" id="sDs-lP-tMH"/>
+                <outlet property="rootContainer" destination="5G0-Zs-Qic" id="ER5-s2-2FV"/>
+                <outlet property="tabButtonsBox" destination="Uk4-az-2s4" id="Hm2-Jb-lLg"/>
+                <outlet property="tabView" destination="ySH-bF-1gq" id="MSC-u9-s6K"/>
+                <outlet property="view" destination="5G0-Zs-Qic" id="2gt-mz-q9F"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" id="5G0-Zs-Qic" userLabel="Root Container">
+            <rect key="frame" x="0.0" y="0.0" width="575" height="432"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="agd-0A-aOK">
+                <rect key="frame" x="0.0" y="0.0" width="575" height="432"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-TJ-fF3" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="31" y="403" width="214" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="6CI-cS-xYw"/>
+                            <constraint firstAttribute="width" constant="210" id="YG5-p8-nXk"/>
+                        </constraints>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Track  Info" id="mO5-ov-DaZ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Uk4-az-2s4" userLabel="Tab Buttons Box">
+                        <rect key="frame" x="396" y="317" width="169" height="30"/>
+                        <view key="contentView" id="paZ-QN-pr0">
+                            <rect key="frame" x="0.0" y="0.0" width="169" height="30"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button toolTip="Metadata" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9U-H8-EmK" userLabel="Metadata Button">
+                                    <rect key="frame" x="11" y="0.0" width="22" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="doc.text" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QRw-I2-kwG" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                                <button toolTip="Lyrics" tag="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKl-rk-GcY" userLabel="Lyrics Button">
+                                    <rect key="frame" x="44" y="0.0" width="22" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="music.mic" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wZX-TS-VLc" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                                <button toolTip="Cover Art" tag="2" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hfh-bI-MqD" userLabel="Cover Art Button">
+                                    <rect key="frame" x="77" y="0.0" width="22" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N0B-HF-Mul" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <imageReference key="image" image="photo" catalog="system" symbolScale="large"/>
+                                    </buttonCell>
+                                </button>
+                                <button toolTip="Audio" tag="3" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CD3-If-LZf" userLabel="Audio Button">
+                                    <rect key="frame" x="110" y="0.0" width="22" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="waveform" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RDg-7z-QZv" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                                <button toolTip="File System" tag="4" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B6K-n6-rUh" userLabel="File System Button">
+                                    <rect key="frame" x="143" y="0.0" width="22" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="folder" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V8E-b3-x6H" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="169" id="WDH-Sd-EII"/>
+                            <constraint firstAttribute="height" constant="30" id="kut-Zk-o8B"/>
+                        </constraints>
+                        <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NTA-ZT-k06" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="38" y="323" width="214" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="210" id="AIc-U8-We0"/>
+                            <constraint firstAttribute="height" constant="25" id="YPm-oy-n8X"/>
+                        </constraints>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Metadata" id="k1c-nx-GIt">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <tabView appearanceType="darkAqua" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="ySH-bF-1gq" userLabel="Tab group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="40" y="25" width="515" height="266"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="Metadata" identifier="0" id="ipi-6d-JNn" userLabel="Metadata" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="Sbg-LM-ZPx">
+                                    <rect key="frame" x="0.0" y="0.0" width="515" height="266"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="f9U-H8-EmK" id="XTw-uH-ALI"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="Lyrics" identifier="1" id="CaP-dp-DBE" userLabel="Lyrics" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="hTl-d3-N2e">
+                                    <rect key="frame" x="0.0" y="0.0" width="647" height="397"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="gKl-rk-GcY" id="DWO-qt-VrJ"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="Cover Art" identifier="2" id="TVK-VM-7gg" userLabel="Cover Art" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="oSa-fd-czd">
+                                    <rect key="frame" x="0.0" y="0.0" width="647" height="397"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="Hfh-bI-MqD" id="Lbh-jN-5Qm"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="Audio" identifier="3" id="OvZ-mC-1Ga" userLabel="Audio" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="nGJ-HS-6jX">
+                                    <rect key="frame" x="0.0" y="0.0" width="647" height="397"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="CD3-If-LZf" id="6QN-Js-oqo"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="File System" identifier="4" id="7xi-IY-o5i" userLabel="File System" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="M2J-I9-kUS">
+                                    <rect key="frame" x="0.0" y="0.0" width="627" height="391"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="B6K-n6-rUh" id="lMk-5X-Jw8"/>
+                                </connections>
+                            </tabViewItem>
+                        </tabViewItems>
+                    </tabView>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BG9-V8-fJc" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="33" y="356" width="524" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="bDd-3q-hAj"/>
+                        </constraints>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Label" id="Uec-ym-TKw">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <popUpButton toolTip="Options" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0nj-4A-AYU" userLabel="Export Menu">
+                        <rect key="frame" x="548" y="402" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="wXq-k7-leP" id="oeq-Su-oUx">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <menu key="menu" autoenablesItems="NO" id="qtX-0i-JOF">
+                                <items>
+                                    <menuItem hidden="YES" id="wXq-k7-leP" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                        <imageReference key="image" image="Hamburger" symbolScale="medium"/>
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Hamburger"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </menuItem>
+                                    <menuItem title="Export cover art ..." image="arrow.right.doc.on.clipboard" catalog="system" id="DdK-AT-gbo" userLabel="Export cover art ...">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Export metadata ..." id="iJp-vI-GTf" userLabel="Metadata menu">
+                                            <items>
+                                                <menuItem title="As JPEG file" id="QHx-Pf-VNm">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="exportJPEGAction:" target="-2" id="zeG-kb-8b6"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="As PNG file" id="nZ5-ME-RHn">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="exportPNGAction:" target="-2" id="XKo-Rd-ySR"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </menuItem>
+                                    <menuItem title="Export metadata ..." image="arrow.right.doc.on.clipboard" catalog="system" id="bR8-PI-2FN" userLabel="Export metadata ...">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Export metadata ..." id="LZh-KJ-gHN" userLabel="Metadata menu">
+                                            <items>
+                                                <menuItem title="As HTML file (with cover art)" id="r3P-AN-pYB">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="exportHTMLWithArtAction:" target="-2" id="EDp-9R-qPb"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="As HTML file" id="vzX-9h-u0k">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="exportHTMLAction:" target="-2" id="2vG-NK-x78"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="As JSON file" id="ugX-Ao-pJv">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="exportJSONAction:" target="-2" id="fOC-CD-gxq"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="NTA-ZT-k06" firstAttribute="top" secondItem="Hxj-TJ-fF3" secondAttribute="bottom" constant="55" id="2k8-fe-jC8"/>
+                    <constraint firstItem="BG9-V8-fJc" firstAttribute="leading" secondItem="agd-0A-aOK" secondAttribute="leading" constant="35" id="FT1-PA-yXv"/>
+                    <constraint firstItem="NTA-ZT-k06" firstAttribute="leading" secondItem="agd-0A-aOK" secondAttribute="leading" constant="40" id="Fbo-tw-3N3"/>
+                    <constraint firstAttribute="trailing" secondItem="ySH-bF-1gq" secondAttribute="trailing" constant="20" symbolic="YES" id="ND3-tH-dYb"/>
+                    <constraint firstItem="ySH-bF-1gq" firstAttribute="leading" secondItem="agd-0A-aOK" secondAttribute="leading" constant="40" id="PpQ-Ta-72C"/>
+                    <constraint firstAttribute="trailing" secondItem="BG9-V8-fJc" secondAttribute="trailing" constant="20" symbolic="YES" id="V4U-mD-MBf"/>
+                    <constraint firstAttribute="trailing" secondItem="Uk4-az-2s4" secondAttribute="trailing" constant="10" id="erg-nR-r20"/>
+                    <constraint firstItem="Uk4-az-2s4" firstAttribute="top" secondItem="agd-0A-aOK" secondAttribute="top" constant="85" id="evZ-3D-DVb"/>
+                    <constraint firstAttribute="bottom" secondItem="ySH-bF-1gq" secondAttribute="bottom" constant="25" id="hi9-LX-fw8"/>
+                    <constraint firstItem="Hxj-TJ-fF3" firstAttribute="leading" secondItem="agd-0A-aOK" secondAttribute="leading" constant="33" id="jLg-nc-qtO"/>
+                    <constraint firstItem="BG9-V8-fJc" firstAttribute="top" secondItem="Hxj-TJ-fF3" secondAttribute="bottom" constant="7" id="qQ8-Qn-CYb"/>
+                    <constraint firstItem="ySH-bF-1gq" firstAttribute="top" secondItem="NTA-ZT-k06" secondAttribute="bottom" constant="32" id="ukX-Ej-tL3"/>
+                    <constraint firstItem="Hxj-TJ-fF3" firstAttribute="top" secondItem="agd-0A-aOK" secondAttribute="top" constant="4" id="wAg-Wg-xkN"/>
+                </constraints>
+            </view>
+            <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="140" y="349"/>
+        </box>
+    </objects>
+    <resources>
+        <image name="Hamburger" width="10" height="7"/>
+        <image name="arrow.right.doc.on.clipboard" catalog="system" width="16" height="18"/>
+        <image name="doc.text" catalog="system" width="14" height="16"/>
+        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="music.mic" catalog="system" width="16" height="16"/>
+        <image name="photo" catalog="system" width="24" height="18"/>
+        <image name="waveform" catalog="system" width="15" height="16"/>
+    </resources>
+</document>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="CompactPlayerTrackInfoViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnAudioTab" destination="nCt-Bx-9Yx" id="qLm-gS-1SS"/>
+                <outlet property="btnCoverArtTab" destination="Fcs-Gc-k2d" id="2pB-2A-1df"/>
+                <outlet property="btnFileSystemTab" destination="Nav-pm-yI0" id="k4u-wb-mq6"/>
+                <outlet property="btnLyricsTab" destination="IXA-OZ-L8W" id="Am2-f2-nkH"/>
+                <outlet property="btnMetadataTab" destination="DQl-fF-uMU" id="8W8-D3-mVS"/>
+                <outlet property="lblMainCaption" destination="UiF-eo-RiJ" id="hLK-rd-QxV"/>
+                <outlet property="tabButtonsBox" destination="z3T-4l-91i" id="IGB-Hx-dVk"/>
+                <outlet property="tabView" destination="Iqn-Dw-BBa" id="ZCW-6R-P8C"/>
+                <outlet property="view" destination="nlt-Rv-vo9" id="bbP-C0-C3h"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="nlt-Rv-vo9" userLabel="Track Info View">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UiF-eo-RiJ" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="13" y="350" width="129" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="125" id="JtN-4m-vYM"/>
+                        <constraint firstAttribute="height" constant="30" id="lH9-aL-fQw"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Track Info" id="Ncf-vz-bUg">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="z3T-4l-91i" userLabel="Tab Buttons Box">
+                    <rect key="frame" x="145" y="350" width="140" height="30"/>
+                    <view key="contentView" id="HwY-BQ-k9c">
+                        <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button toolTip="Metadata" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DQl-fF-uMU" userLabel="Metadata Button">
+                                <rect key="frame" x="5" y="0.0" width="22" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="doc.text" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xho-wC-cee" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button toolTip="Lyrics" tag="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IXA-OZ-L8W" userLabel="Lyrics Button">
+                                <rect key="frame" x="33" y="0.0" width="22" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="music.mic" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qgo-Yh-ue6" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button toolTip="Cover Art" tag="2" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fcs-Gc-k2d" userLabel="Cover Art Button">
+                                <rect key="frame" x="61" y="0.0" width="22" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PFO-Rh-v6e" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <imageReference key="image" image="photo" catalog="system" symbolScale="large"/>
+                                </buttonCell>
+                            </button>
+                            <button toolTip="Audio" tag="3" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nCt-Bx-9Yx" userLabel="Audio Button">
+                                <rect key="frame" x="89" y="0.0" width="22" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="waveform" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ecv-dX-mwl" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button toolTip="File System" tag="4" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nav-pm-yI0" userLabel="File System Button">
+                                <rect key="frame" x="117" y="0.0" width="22" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="folder" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RkU-dx-OGO" customClass="ImageTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="EMK-15-6hz"/>
+                        <constraint firstAttribute="width" constant="140" id="Jps-yw-0Rc"/>
+                    </constraints>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </box>
+                <tabView appearanceType="darkAqua" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Iqn-Dw-BBa" userLabel="Tab group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="15" y="15" width="270" height="320"/>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="Metadata" identifier="0" id="kLU-hb-qJs" userLabel="Metadata" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="NOi-rc-8Jb">
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="320"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <connections>
+                                <outlet property="tabButton" destination="DQl-fF-uMU" id="HM8-D7-jvZ"/>
+                            </connections>
+                        </tabViewItem>
+                        <tabViewItem label="Lyrics" identifier="1" id="5Tj-tQ-zLr" userLabel="Lyrics" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="0xb-j2-Ngh">
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="315"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <connections>
+                                <outlet property="tabButton" destination="IXA-OZ-L8W" id="u6d-Ml-bZh"/>
+                            </connections>
+                        </tabViewItem>
+                        <tabViewItem label="Cover Art" identifier="2" id="hqM-eb-ZiA" userLabel="Cover Art" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="JpF-cu-Tuy">
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="315"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <connections>
+                                <outlet property="tabButton" destination="Fcs-Gc-k2d" id="vnx-GX-aQg"/>
+                            </connections>
+                        </tabViewItem>
+                        <tabViewItem label="Audio" identifier="3" id="yKR-7R-3K1" userLabel="Audio" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="VAm-Bs-LiV">
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="315"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <connections>
+                                <outlet property="tabButton" destination="nCt-Bx-9Yx" id="k2V-l4-yQg"/>
+                            </connections>
+                        </tabViewItem>
+                        <tabViewItem label="File System" identifier="4" id="ito-Pi-6Q2" userLabel="File System" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="qGl-ux-kQg">
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="315"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <connections>
+                                <outlet property="tabButton" destination="Nav-pm-yI0" id="NZe-ua-n0F"/>
+                            </connections>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="z3T-4l-91i" firstAttribute="top" secondItem="nlt-Rv-vo9" secondAttribute="top" constant="10" id="BRA-6F-UqL"/>
+                <constraint firstAttribute="bottom" secondItem="Iqn-Dw-BBa" secondAttribute="bottom" constant="15" id="Klw-JR-3Ac"/>
+                <constraint firstItem="UiF-eo-RiJ" firstAttribute="leading" secondItem="nlt-Rv-vo9" secondAttribute="leading" constant="15" id="VYe-RB-3wV"/>
+                <constraint firstItem="Iqn-Dw-BBa" firstAttribute="top" secondItem="z3T-4l-91i" secondAttribute="bottom" constant="15" id="XwS-NX-YVL"/>
+                <constraint firstItem="Iqn-Dw-BBa" firstAttribute="leading" secondItem="nlt-Rv-vo9" secondAttribute="leading" constant="15" id="Zqh-GV-vDy"/>
+                <constraint firstAttribute="trailing" secondItem="Iqn-Dw-BBa" secondAttribute="trailing" constant="15" id="dbh-lM-bp4"/>
+                <constraint firstAttribute="trailing" secondItem="z3T-4l-91i" secondAttribute="trailing" constant="15" id="j8R-nb-Bhb"/>
+                <constraint firstItem="z3T-4l-91i" firstAttribute="centerY" secondItem="UiF-eo-RiJ" secondAttribute="centerY" id="wpb-Br-34r"/>
+            </constraints>
+            <point key="canvasLocation" x="82" y="-461"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="doc.text" catalog="system" width="14" height="16"/>
+        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="music.mic" catalog="system" width="16" height="16"/>
+        <image name="photo" catalog="system" width="24" height="18"/>
+        <image name="waveform" catalog="system" width="15" height="16"/>
+    </resources>
+</document>

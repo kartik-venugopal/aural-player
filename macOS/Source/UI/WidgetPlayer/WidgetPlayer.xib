@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="WidgetPlayerWindowController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnQuit" destination="Ll7-4b-FN9" id="bMh-DH-wIW"/>
+                <outlet property="cornerRadiusStepper" destination="EPl-ya-Gzc" id="36A-6P-nQa"/>
+                <outlet property="lblCornerRadius" destination="NIT-Qi-ob2" id="HFf-ek-ONH"/>
+                <outlet property="optionsMenuItem" destination="ELr-fq-JoS" id="EEN-lH-Qyc"/>
+                <outlet property="rootContainerBox" destination="cl4-0e-ANP" id="bhf-gH-CQS"/>
+                <outlet property="viewController" destination="VLj-aK-Baf" id="7x1-d8-6tZ"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="A6E-Dx-qZU"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" closable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="610" height="50"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
+            <value key="minSize" type="size" width="610" height="50"/>
+            <value key="maxSize" type="size" width="10000" height="50"/>
+            <view key="contentView" wantsLayer="YES" misplaced="YES" id="EiT-Mj-1SZ" customClass="WidgetPlaybackView" customModule="Aural" customModuleProvider="target">
+                <rect key="frame" x="0.0" y="0.0" width="610" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cl4-0e-ANP" userLabel="Background Box">
+                        <rect key="frame" x="0.0" y="0.0" width="598" height="50"/>
+                        <view key="contentView" id="Aqe-re-gbP" customClass="WidgetSeekSliderView" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="598" height="50"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField hidden="YES" wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Wc-og-czo" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="542" y="30" width="50" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="46" id="K1x-sl-Zyz"/>
+                                        <constraint firstAttribute="height" constant="20" id="Qzg-zb-9ks"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="M3d-KF-J9C" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                        <font key="font" size="10" name="Play-Regular"/>
+                                        <color key="textColor" white="0.69653362990000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button toolTip="Repeat" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="4qN-q5-DoC" userLabel="Repeat Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="294" y="15" width="16" height="21"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="repeat" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="2gi-bY-1f7">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="R7a-bR-159"/>
+                                        <constraint firstAttribute="width" constant="16" id="RuZ-5O-J2z"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="toggleRepeatModeAction:" target="VLj-aK-Baf" id="DQM-au-29d"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Shuffle" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-OP-WNr" userLabel="Shuffle Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="314" y="15" width="16" height="21"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="shuffle" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="saS-rv-Llg">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="BVT-Xa-7cT"/>
+                                        <constraint firstAttribute="width" constant="16" id="TiD-eC-ybh"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="toggleShuffleModeAction:" target="VLj-aK-Baf" id="22W-Zi-tFT"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="A ⇋ B Segment loop" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-Ju-N8p" userLabel="Loop Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="338" y="20" width="12" height="10"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Loop" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="axesIndependently" inset="2" id="yEv-IC-0ff">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="10" id="dDc-cs-DvB"/>
+                                        <constraint firstAttribute="width" constant="12" id="n0k-JH-IGz"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="toggleLoopAction:" target="VLj-aK-Baf" id="FR5-lo-hFN"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Mute / Unmute" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="cQe-K3-rAJ" userLabel="Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="522" y="16" width="24.5" height="20"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="speaker.wave.2" catalog="system" imagePosition="left" alignment="center" refusesFirstResponder="YES" focusRingType="none" inset="2" id="DMc-l7-m6m">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="24" id="FIj-Vt-sk0"/>
+                                        <constraint firstAttribute="height" constant="15" id="sUR-kR-zEq"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="muteOrUnmuteAction:" target="VLj-aK-Baf" id="bZl-cf-1d2"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Seek backward" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="rMK-zd-YvE" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="385" y="17.5" width="17" height="15"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="backward" catalog="system" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="kCE-Fr-eDh">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="17" id="AdY-ah-fAj"/>
+                                        <constraint firstAttribute="height" constant="12" id="gPy-pO-OSz"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="seekBackwardAction:" target="VLj-aK-Baf" id="GxV-ff-bNm"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Previous track" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="8py-2V-iWJ" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="407" y="18.5" width="13" height="14"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="backward.end" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="Jmr-Xb-im2">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="13" id="gcV-E3-itD"/>
+                                        <constraint firstAttribute="height" constant="10" id="qZL-nq-Cnf"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Previous track"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PreviousTrack"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="previousTrackAction:" target="VLj-aK-Baf" id="LKk-24-I7p"/>
+                                    </connections>
+                                </button>
+                                <button wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="sFw-RL-2ra" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="428" y="17" width="16" height="16"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" refusesFirstResponder="YES" state="on" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="PhX-3d-3Pa">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="message" size="11"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="9Lp-hG-deF"/>
+                                        <constraint firstAttribute="width" constant="16" id="OLg-9P-3PF"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="togglePlayPauseAction:" target="VLj-aK-Baf" id="ogd-Dm-4kv"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Next track" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="iaY-fV-voY" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="452" y="18.5" width="13" height="14"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward.end" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="DPM-rC-GE6">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="13" id="HyY-vC-ha3"/>
+                                        <constraint firstAttribute="height" constant="10" id="Z0d-G1-T97"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Next track"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="NextTrack"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="nextTrackAction:" target="VLj-aK-Baf" id="iob-4Q-yOg"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Seek forward" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="KtZ-rZ-MnJ" userLabel="Seek Fwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="470" y="17.5" width="17" height="15"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward" catalog="system" imagePosition="only" alignment="center" continuous="YES" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="g8z-N6-MM4">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="iNN-2d-Fqh"/>
+                                        <constraint firstAttribute="width" constant="17" id="jTm-kX-vva"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="seekForwardAction:" target="VLj-aK-Baf" id="KIm-pI-ojf"/>
+                                    </connections>
+                                </button>
+                                <slider wantsLayer="YES" verticalHuggingPriority="750" id="oBR-SZ-2k2" userLabel="Seek Slider">
+                                    <rect key="frame" x="71" y="-4" width="205" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <sliderCell key="cell" controlSize="mini" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="ovd-HG-pIx" customClass="WidgetSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                    <connections>
+                                        <action selector="seekSliderAction:" target="VLj-aK-Baf" id="VoC-hg-GJ8"/>
+                                    </connections>
+                                </slider>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iv0-Qr-jOE" userLabel="Seek Position" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="206" y="13" width="70" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="66" id="Jse-nZ-XrD"/>
+                                        <constraint firstAttribute="height" constant="24" id="NAa-Yp-eLP"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="-956:67:67" id="3e8-F6-O4p" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zmm-Kt-3Gg">
+                                    <rect key="frame" x="20" y="1" width="48" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="48" id="kRD-y8-ogZ"/>
+                                        <constraint firstAttribute="width" constant="48" id="mTZ-if-aUN"/>
+                                    </constraints>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="5Pa-eM-25Q"/>
+                                </imageView>
+                                <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="4eB-tw-tmb" userLabel="Text View Container Box">
+                                    <rect key="frame" x="78" y="10" width="196" height="30"/>
+                                    <view key="contentView" id="5mu-48-dd2">
+                                        <rect key="frame" x="0.0" y="0.0" width="196" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <customView id="lNe-zj-5jU" customClass="ScrollingTrackTextView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="2" width="205" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            </customView>
+                                        </subviews>
+                                    </view>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="9dx-JP-Mei"/>
+                                    </constraints>
+                                </box>
+                                <popUpButton toolTip="View settings" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="XQX-EX-Rmk" userLabel="Options Menu">
+                                    <rect key="frame" x="-2" y="2" width="23" height="15"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="ZS3-2f-8Sb">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="11" name="Play-Regular"/>
+                                        <menu key="menu" autoenablesItems="NO" id="PdB-cO-xbh">
+                                            <items>
+                                                <menuItem image="Settings-Small" hidden="YES" id="ELr-fq-JoS" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings-Small"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </menuItem>
+                                                <menuItem title="Scroll track info text" state="on" indentationLevel="2" id="Kmj-co-2pl">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="toggleTrackInfoScrollingAction:" target="VLj-aK-Baf" id="wyC-XH-MP9"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Show seek position" state="on" indentationLevel="2" id="h7t-6S-pQK">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="toggleShowSeekPositionAction:" target="VLj-aK-Baf" id="jBy-9s-eYK"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Seek position display" indentationLevel="2" id="1kM-98-n5Y">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Seek position display" id="TBs-tP-j8q">
+                                                        <items>
+                                                            <menuItem title="Time elapsed" state="on" id="Fax-Qw-7a9" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="IkQ-3b-gGL"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Time remaining" tag="1" id="4M7-PM-McI" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="FG8-iG-wqW"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Track duration" tag="2" id="2Uw-dq-NqZ" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="O8M-so-6zf"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="23m-sy-aRI"/>
+                                                <menuItem title="         Theme" id="q0l-RJ-1Ji" userLabel="Theme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="         Theme" showsStateColumn="NO" id="26P-Bm-FwK">
+                                                        <items>
+                                                            <menuItem isSeparatorItem="YES" id="3Ry-EU-24t"/>
+                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="4as-0l-6kg">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="jjz-yr-7y3" id="iHz-F1-Qi0"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="jjz-yr-7y3" id="s5U-DS-w2H"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem title="         Font scheme" id="P5O-pW-4ws">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="         Font scheme" showsStateColumn="NO" id="fJM-mv-Ttp">
+                                                        <items>
+                                                            <menuItem isSeparatorItem="YES" id="6oN-SH-ySy"/>
+                                                            <menuItem title="Standard" indentationLevel="1" id="JnL-OV-1aV">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="N62-jE-hUa"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Rounded" indentationLevel="1" id="JjG-95-EAH">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="ST6-xp-IMc"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Programmer" indentationLevel="1" id="SNi-me-bwh">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="1pL-U8-toR"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Futuristic" indentationLevel="1" id="dc4-zZ-Kv3">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="SkB-gb-m6U"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Novelist" indentationLevel="1" id="km1-Ht-cxE">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="2Zf-Wl-jJm"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Soy Sauce" indentationLevel="1" id="67I-IN-cKw">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="qqr-QX-PT1"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Gothic" indentationLevel="1" id="cl3-7m-YqP">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="qWI-0S-s1q"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Papyrus" indentationLevel="1" id="asR-vk-5Ez">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="Rb7-Tq-evg"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="TN7-Rv-IJA">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="qgc-mq-08S"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="9gC-9U-u2q" id="BnX-fD-bAj"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem title="         Color scheme" id="7VP-Km-xXd" userLabel="Color scheme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="         Color scheme" showsStateColumn="NO" id="CpD-Vf-gir">
+                                                        <items>
+                                                            <menuItem isSeparatorItem="YES" id="zTR-y3-ExR"/>
+                                                            <menuItem title="Black attack (default)" indentationLevel="1" id="3KU-o9-2y2">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="cgq-9t-dsz"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Black &amp; aqua" indentationLevel="1" id="oFD-Gh-JsU">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="fJH-32-viw"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Lava" indentationLevel="1" id="pdQ-0V-4KE">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="h8g-A4-NSU"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="White blight" indentationLevel="1" id="0Ni-Wd-rqo">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="XSb-Ln-zsI"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Gloomy day" indentationLevel="1" id="wK7-PS-ICA">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="b0y-KS-KDH"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Brownie" indentationLevel="1" id="ItJ-Pz-pZx">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="kWB-uk-qiA"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="The blues" indentationLevel="1" id="uEb-hU-uUZ">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="YqO-Dm-FeR"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="Utr-8w-duN">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="5Ow-Vx-AAf"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="kZG-Ff-6JH" id="nqF-t2-piX"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="odw-a7-vTG"/>
+                                                <menuItem title="Window corner radius" id="orA-xV-bwD">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <outlet property="view" destination="Rk7-Wu-WQ0" id="tei-XG-kOi"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="VaY-OO-BFg"/>
+                                                <menuItem title="  Dock window" image="DockTopLeft" id="Xyb-45-B3D" userLabel="Dock window">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" id="byG-WM-Ywa">
+                                                        <items>
+                                                            <menuItem title="  Dock to top left" image="DockTopLeft" id="0cT-Sq-9dX" userLabel="Dock to top left">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockTopLeftAction:" target="-2" id="msb-yn-bAt"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to top right" image="DockTopRight" id="Iqv-rL-4j8">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockTopRightAction:" target="-2" id="LxW-ns-tHl"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to top center" image="DockTopCenter" id="ncI-cT-fL6">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockTopCenterAction:" target="-2" id="Fva-2T-LyE"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to top (span across screen)" image="DockTop" id="kus-SD-590" userLabel="Dock to top">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockTopAction:" target="-2" id="Bwq-HY-LtT"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem isSeparatorItem="YES" id="K6k-Mo-FNT"/>
+                                                            <menuItem title="  Dock to bottom left" image="DockBottomLeft" id="LYp-Yz-nh6">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockBottomLeftAction:" target="-2" id="d2i-hu-wdg"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to bottom right" image="DockBottomRight" id="kgn-Fh-0kN" userLabel="Dock to bottom right">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockBottomRightAction:" target="-2" id="U1r-hY-Noy"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to bottom center" image="DockBottomCenter" id="N5A-IY-Ujd" userLabel="Dock to bottom center">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockBottomCenterAction:" target="-2" id="f12-GW-q77"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to bottom (span across screen)" image="DockBottom" id="dU8-Vp-Upu" userLabel="Dock to bottom">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockBottomAction:" target="-2" id="fb6-fL-mfq"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                    <connections>
+                                                        <action selector="dockTopLeftAction:" target="-2" id="r4u-Ma-vua"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="K7h-oW-lF5"/>
+                                                <menuItem title="  Switch to Modular mode" image="WindowedMode-Small" id="4cF-e2-ta6" userLabel="Switch to Modular mode">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="modularModeAction:" target="-2" id="uzR-XL-iFa"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="  Switch to Unified mode" image="WindowedMode-Small" id="Tgt-my-6Br" userLabel="Switch to Unified mode">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="unifiedModeAction:" target="-2" id="dhl-nI-YIe"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="  Switch to Menu Bar mode" image="MenuBarMode-Small" id="Uub-O4-NqJ" userLabel="Switch to menu bar mode">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="menuBarModeAction:" target="-2" id="VOp-3E-gIP"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                            <connections>
+                                                <outlet property="delegate" destination="VLj-aK-Baf" id="ZXN-VM-5vv"/>
+                                            </connections>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
+                                <button toolTip="Quit Aural" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ll7-4b-FN9" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="5" y="35" width="10" height="10"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="yvy-bI-r2e">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="10" id="qPN-dj-A63"/>
+                                        <constraint firstAttribute="width" constant="10" id="rT3-Cv-JCD"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="quitAction:" target="-2" id="tjv-tv-Pvt"/>
+                                    </connections>
+                                </button>
+                                <slider toolTip="Volume" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WoE-gv-TJl" userLabel="Volume Slider">
+                                    <rect key="frame" x="548" y="17" width="44" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="13" id="7Di-bS-mTc"/>
+                                        <constraint firstAttribute="width" constant="40" id="xcD-qx-ihZ"/>
+                                    </constraints>
+                                    <sliderCell key="cell" controlSize="small" continuous="YES" refusesFirstResponder="YES" state="on" focusRingType="none" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="vfc-ab-d4E" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                    <connections>
+                                        <action selector="volumeAction:" target="VLj-aK-Baf" id="RJB-x3-HMK"/>
+                                    </connections>
+                                </slider>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="WoE-gv-TJl" firstAttribute="leading" secondItem="cQe-K3-rAJ" secondAttribute="trailing" constant="4" id="2b7-hb-XbR"/>
+                                <constraint firstItem="Hat-OP-WNr" firstAttribute="centerY" secondItem="4qN-q5-DoC" secondAttribute="centerY" id="4LX-4U-RRz"/>
+                                <constraint firstAttribute="bottom" secondItem="Zmm-Kt-3Gg" secondAttribute="bottom" constant="1" id="6ha-3T-5S8"/>
+                                <constraint firstItem="iaY-fV-voY" firstAttribute="centerY" secondItem="rMK-zd-YvE" secondAttribute="centerY" id="ELd-T5-vgf"/>
+                                <constraint firstItem="WoE-gv-TJl" firstAttribute="trailing" secondItem="5Wc-og-czo" secondAttribute="trailing" id="N9r-G3-KOw"/>
+                                <constraint firstItem="Zmm-Kt-3Gg" firstAttribute="leading" secondItem="Ll7-4b-FN9" secondAttribute="trailing" constant="5" id="NoB-0h-5Ly"/>
+                                <constraint firstItem="cQe-K3-rAJ" firstAttribute="centerY" secondItem="Aqe-re-gbP" secondAttribute="centerY" id="Nxq-Qf-rHj"/>
+                                <constraint firstItem="4qN-q5-DoC" firstAttribute="leading" secondItem="iv0-Qr-jOE" secondAttribute="trailing" constant="20" id="QRE-cB-x4l"/>
+                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="centerY" secondItem="4qN-q5-DoC" secondAttribute="centerY" id="RYA-bg-FHa"/>
+                                <constraint firstItem="Ll7-4b-FN9" firstAttribute="leading" secondItem="Aqe-re-gbP" secondAttribute="leading" constant="5" id="SAW-XY-EC2"/>
+                                <constraint firstItem="WoE-gv-TJl" firstAttribute="centerY" secondItem="cQe-K3-rAJ" secondAttribute="centerY" id="TbK-69-bgM"/>
+                                <constraint firstItem="4eB-tw-tmb" firstAttribute="centerY" secondItem="Aqe-re-gbP" secondAttribute="centerY" id="Tv1-ha-SJ4"/>
+                                <constraint firstItem="Hat-OP-WNr" firstAttribute="leading" secondItem="4qN-q5-DoC" secondAttribute="trailing" constant="4" id="Vbs-5L-Fz8"/>
+                                <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="leading" secondItem="iaY-fV-voY" secondAttribute="trailing" constant="5" id="X04-PO-MUr"/>
+                                <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="centerY" secondItem="rMK-zd-YvE" secondAttribute="centerY" id="aMz-BH-O01"/>
+                                <constraint firstItem="Ll7-4b-FN9" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="5" id="apu-D6-Jo8"/>
+                                <constraint firstItem="sFw-RL-2ra" firstAttribute="leading" secondItem="8py-2V-iWJ" secondAttribute="trailing" constant="8" id="c6d-zI-zhF"/>
+                                <constraint firstItem="sFw-RL-2ra" firstAttribute="centerY" secondItem="Aqe-re-gbP" secondAttribute="centerY" id="dJx-LV-Nw1"/>
+                                <constraint firstItem="iv0-Qr-jOE" firstAttribute="trailing" secondItem="4eB-tw-tmb" secondAttribute="trailing" id="hV2-Vd-Si6"/>
+                                <constraint firstItem="iaY-fV-voY" firstAttribute="leading" secondItem="sFw-RL-2ra" secondAttribute="trailing" constant="8" id="hZT-AO-29u"/>
+                                <constraint firstAttribute="trailing" secondItem="WoE-gv-TJl" secondAttribute="trailing" constant="8" id="j2J-cV-pJn"/>
+                                <constraint firstItem="cQe-K3-rAJ" firstAttribute="leading" secondItem="KtZ-rZ-MnJ" secondAttribute="trailing" constant="35" id="jQk-T0-EgG"/>
+                                <constraint firstItem="iv0-Qr-jOE" firstAttribute="trailing" secondItem="oBR-SZ-2k2" secondAttribute="trailing" id="kXi-Dt-uA1"/>
+                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="leading" secondItem="Hat-OP-WNr" secondAttribute="trailing" constant="8" id="nuW-dj-Unr"/>
+                                <constraint firstItem="8py-2V-iWJ" firstAttribute="leading" secondItem="rMK-zd-YvE" secondAttribute="trailing" constant="5" id="poS-gU-yuK"/>
+                                <constraint firstItem="5Wc-og-czo" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" id="rby-Pp-IQ9"/>
+                                <constraint firstItem="iv0-Qr-jOE" firstAttribute="centerY" secondItem="4eB-tw-tmb" secondAttribute="centerY" id="rsB-uA-wXc"/>
+                                <constraint firstItem="4eB-tw-tmb" firstAttribute="leading" secondItem="Zmm-Kt-3Gg" secondAttribute="trailing" constant="10" id="t6u-s7-f3f"/>
+                                <constraint firstItem="rMK-zd-YvE" firstAttribute="centerY" secondItem="4qN-q5-DoC" secondAttribute="centerY" id="tUq-Tu-mYf"/>
+                                <constraint firstItem="8py-2V-iWJ" firstAttribute="centerY" secondItem="rMK-zd-YvE" secondAttribute="centerY" id="uen-rT-vZp"/>
+                                <constraint firstItem="sFw-RL-2ra" firstAttribute="centerY" secondItem="rMK-zd-YvE" secondAttribute="centerY" id="w7d-2K-Wvn"/>
+                                <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="35" id="x29-1E-zNF"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="lblTrackTime" destination="iv0-Qr-jOE" id="cfj-RX-rgQ"/>
+                                <outlet property="seekSlider" destination="oBR-SZ-2k2" id="F4W-yv-Xo5"/>
+                                <outlet property="seekSliderCell" destination="ovd-HG-pIx" id="ghM-zZ-Pnd"/>
+                            </connections>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="aLE-rA-Cxd"/>
+                        </constraints>
+                        <color key="fillColor" white="0.11666483274647887" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </box>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="cl4-0e-ANP" secondAttribute="trailing" id="2Ss-WT-upI"/>
+                    <constraint firstAttribute="bottom" secondItem="cl4-0e-ANP" secondAttribute="bottom" id="H8K-cT-mVE"/>
+                    <constraint firstItem="cl4-0e-ANP" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="R5n-Cu-O0t"/>
+                </constraints>
+                <connections>
+                    <outlet property="btnLoop" destination="8tt-Ju-N8p" id="Dxp-5W-Ld6"/>
+                    <outlet property="btnNextTrack" destination="iaY-fV-voY" id="Yyo-Su-h5I"/>
+                    <outlet property="btnPlayPause" destination="sFw-RL-2ra" id="W0h-l3-K3G"/>
+                    <outlet property="btnPreviousTrack" destination="8py-2V-iWJ" id="9b8-tC-Dgt"/>
+                    <outlet property="btnSeekBackward" destination="rMK-zd-YvE" id="umG-Zu-y9R"/>
+                    <outlet property="btnSeekForward" destination="KtZ-rZ-MnJ" id="ClL-yi-cbO"/>
+                    <outlet property="sliderView" destination="Aqe-re-gbP" id="Awr-L3-VWY"/>
+                </connections>
+            </view>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="79" y="153"/>
+        </window>
+        <customObject id="VLj-aK-Baf" customClass="WidgetPlayerViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="artView" destination="Zmm-Kt-3Gg" id="8Et-DQ-Bd8"/>
+                <outlet property="btnLoop" destination="8tt-Ju-N8p" id="dU8-6m-nKw"/>
+                <outlet property="btnNextTrack" destination="iaY-fV-voY" id="reU-ZZ-pWd"/>
+                <outlet property="btnPlayPause" destination="sFw-RL-2ra" id="syo-mE-Bxg"/>
+                <outlet property="btnPreviousTrack" destination="8py-2V-iWJ" id="p5a-G1-Zmx"/>
+                <outlet property="btnRepeat" destination="4qN-q5-DoC" id="7VB-K5-sTt"/>
+                <outlet property="btnSeekBackward" destination="rMK-zd-YvE" id="B16-K2-4bo"/>
+                <outlet property="btnSeekForward" destination="KtZ-rZ-MnJ" id="y88-yg-AHC"/>
+                <outlet property="btnShuffle" destination="Hat-OP-WNr" id="URm-je-RdN"/>
+                <outlet property="btnVolume" destination="cQe-K3-rAJ" id="Asv-yB-bbx"/>
+                <outlet property="lblTrackTime" destination="iv0-Qr-jOE" id="odb-oG-uH1"/>
+                <outlet property="lblVolume" destination="5Wc-og-czo" id="kHS-IC-PIC"/>
+                <outlet property="scrollingEnabledMenuItem" destination="Kmj-co-2pl" id="sEH-pY-Bv8"/>
+                <outlet property="scrollingTextViewContainerBox" destination="4eB-tw-tmb" id="Gsy-fe-Lmp"/>
+                <outlet property="scrollingTrackTextView" destination="lNe-zj-5jU" id="9Fj-gZ-k8b"/>
+                <outlet property="seekPositionDisplayTypeMenuItem" destination="1kM-98-n5Y" id="Upi-zI-ERa"/>
+                <outlet property="seekSlider" destination="oBR-SZ-2k2" id="vpD-ju-zWN"/>
+                <outlet property="seekSliderCell" destination="ovd-HG-pIx" id="MeP-i3-tuI"/>
+                <outlet property="showTrackTimeMenuItem" destination="h7t-6S-pQK" id="D1u-kE-Zmd"/>
+                <outlet property="timeElapsedMenuItem" destination="Fax-Qw-7a9" id="Jay-54-cx8"/>
+                <outlet property="timeRemainingMenuItem" destination="4M7-PM-McI" id="iFg-e8-Mkg"/>
+                <outlet property="trackDurationMenuItem" destination="2Uw-dq-NqZ" id="5PV-Xm-3ZR"/>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="dSF-qc-mTt"/>
+                <outlet property="volumeSlider" destination="WoE-gv-TJl" id="Yrs-Fb-bU4"/>
+            </connections>
+        </customObject>
+        <customObject id="jjz-yr-7y3" customClass="ThemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="26P-Bm-FwK" id="wuY-2H-evR"/>
+            </connections>
+        </customObject>
+        <customObject id="9gC-9U-u2q" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="fJM-mv-Ttp" id="ZbZ-5A-io6"/>
+            </connections>
+        </customObject>
+        <customObject id="kZG-Ff-6JH" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="CpD-Vf-gir" id="Yrt-0U-X3m"/>
+            </connections>
+        </customObject>
+        <customView id="Rk7-Wu-WQ0" userLabel="Window corner radius editor view (in window)">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="25"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HT1-mk-btU">
+                    <rect key="frame" x="29" y="5" width="138" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="y7y-6a-Ofb">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NIT-Qi-ob2">
+                    <rect key="frame" x="151" y="5" width="39" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="7fz-R5-8JK">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EPl-ya-Gzc" userLabel="Radius Stepper">
+                    <rect key="frame" x="193" y="0.0" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" refusesFirstResponder="YES" focusRingType="none" alignment="left" maxValue="20" doubleValue="3" id="j0O-OU-Mq6"/>
+                    <connections>
+                        <action selector="cornerRadiusStepperAction:" target="-2" id="FWP-iy-6QX"/>
+                    </connections>
+                </stepper>
+            </subviews>
+            <point key="canvasLocation" x="-104" y="527"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="Close" width="16" height="15"/>
+        <image name="DockBottom" width="14" height="12"/>
+        <image name="DockBottomCenter" width="14" height="12"/>
+        <image name="DockBottomLeft" width="14" height="12"/>
+        <image name="DockBottomRight" width="14" height="12"/>
+        <image name="DockTop" width="14" height="12"/>
+        <image name="DockTopCenter" width="14" height="12"/>
+        <image name="DockTopLeft" width="14" height="12"/>
+        <image name="DockTopRight" width="14" height="12"/>
+        <image name="Loop" width="18" height="25"/>
+        <image name="MenuBarMode-Small" width="14" height="10"/>
+        <image name="NextTrack" width="21" height="23"/>
+        <image name="Play" width="40" height="40"/>
+        <image name="PreviousTrack" width="21" height="23"/>
+        <image name="Settings-Small" width="8" height="7"/>
+        <image name="WindowedMode-Small" width="13" height="13"/>
+        <image name="backward" catalog="system" width="19" height="12"/>
+        <image name="backward.end" catalog="system" width="13" height="13"/>
+        <image name="forward" catalog="system" width="19" height="12"/>
+        <image name="forward.end" catalog="system" width="13" height="13"/>
+        <image name="repeat" catalog="system" width="17" height="14"/>
+        <image name="shuffle" catalog="system" width="18" height="14"/>
+        <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
+    </resources>
+</document>

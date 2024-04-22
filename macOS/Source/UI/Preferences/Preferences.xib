@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="tabView" destination="nWY-5D-UP3" id="gWU-wV-81o"/>
+                <outlet property="toolbar" destination="sOD-ln-7jl" id="3yL-T3-Gyd"/>
+                <outlet property="window" destination="cPc-w0-G6G" id="aFk-2J-IDF"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" toolbarStyle="preference" id="cPc-w0-G6G" userLabel="Preferences Dialog">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="120" y="65" width="746" height="623"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" id="fR8-8f-93h">
+                <rect key="frame" x="0.0" y="0.0" width="746" height="623"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="nWY-5D-UP3" userLabel="Prefs Tab View">
+                        <rect key="frame" x="19" y="60" width="707" height="470"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="Playlist" identifier="0" id="TYN-PH-4OO" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="EFS-Lg-2eG">
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Playback" identifier="1" id="qD8-pP-ieh" userLabel="Playback" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="KWv-RK-uzg">
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Sound" identifier="2" id="VXC-Sl-emE" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="eM4-j9-EOX">
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="View" identifier="3" id="C3g-xs-GOv" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="MBJ-Ma-zUx">
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="History" identifier="4" id="VOm-vG-6fp" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="5HA-lk-HSZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Controls" identifier="5" id="Dxa-HX-bnr" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="eys-OJ-Y8G">
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Metadata" identifier="6" id="lyq-n0-eNb" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="b8q-Qi-fGV">
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                    </tabView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xZn-wk-Yzb" userLabel="Save button">
+                        <rect key="frame" x="599" y="3" width="64" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="g9T-gO-tSc">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="savePreferencesAction:" target="-2" id="Z24-VZ-o5O"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sD2-kU-JBa" userLabel="Cancel button">
+                        <rect key="frame" x="660" y="3" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fNg-0f-sEm">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelPreferencesAction:" target="-2" id="vVx-sg-H3d"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hir-nM-dZ5" userLabel="Previous tab button">
+                        <rect key="frame" x="-100" y="38" width="4" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Tab" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yj9-mv-sHC" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent">[</string>
+                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="previousTabAction:" target="-2" id="qEK-m0-rGs"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zL-ev-hAC" userLabel="Next tab button">
+                        <rect key="frame" x="-137" y="316" width="6" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Tab" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oYy-I0-wtK" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent">]</string>
+                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="nextTabAction:" target="-2" id="F8a-W0-sEr"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyV-Tw-wt7" userLabel="Save button">
+                        <rect key="frame" x="12" y="3" width="138" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Reset to defaults" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gf2-bf-ORi">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="savePreferencesAction:" target="-2" id="JEC-Sn-j4n"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="B5AF642E-BCD1-4D4C-979F-5414ED6139A4" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="sOD-ln-7jl">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="C08E83AB-C4C6-4F88-9A65-E1A50A0A6DCA" explicitItemIdentifier="PlayQueue" label="Play Queue" paletteLabel="Play Queue" selectable="YES" id="3aN-Hr-ue5">
+                        <imageReference key="image" image="list.bullet" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="4" height="16"/>
+                        <size key="maxSize" width="73" height="16"/>
+                        <connections>
+                            <action selector="switchToTabAction:" target="-2" id="YhQ-cK-FnP"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="EC37CE9E-8A7B-4B90-A605-332701E07506" label="Playback" paletteLabel="Playback" tag="1" selectable="YES" id="SF0-BP-tNr">
+                        <imageReference key="image" image="play" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="15" height="17"/>
+                        <size key="maxSize" width="15" height="17"/>
+                        <connections>
+                            <action selector="switchToTabAction:" target="-2" id="22X-1y-MQW"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="B688BC2C-6C18-4326-9E52-190657FB9A40" label="Sound" paletteLabel="Sound" tag="2" selectable="YES" id="fnR-bv-BV0">
+                        <imageReference key="image" image="speaker.wave.1" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="20" height="18"/>
+                        <size key="maxSize" width="20" height="18"/>
+                        <connections>
+                            <action selector="switchToTabAction:" target="-2" id="ApR-Wn-wOk"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C26852F4-0248-4EFB-9D97-68C04112AC15" label="View" paletteLabel="View" tag="3" selectable="YES" id="BDD-WJ-vlL">
+                        <imageReference key="image" image="macwindow" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="24" height="18"/>
+                        <size key="maxSize" width="24" height="18"/>
+                        <connections>
+                            <action selector="switchToTabAction:" target="-2" id="4mI-qO-pXp"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="FDB59EFA-42EB-4838-9DB9-FA582916B680" label="History" paletteLabel="History" tag="4" selectable="YES" id="Ixe-ui-Ydx">
+                        <imageReference key="image" image="clock" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="20" height="20"/>
+                        <size key="maxSize" width="20" height="20"/>
+                        <connections>
+                            <action selector="switchToTabAction:" target="-2" id="VKS-WR-hlA"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="617BD7C1-ABAC-44C3-8EAB-2413A1FAA2B4" label="Controls" paletteLabel="Controls" tag="5" selectable="YES" id="yAf-T5-XAU">
+                        <imageReference key="image" image="keyboard" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="25" height="16"/>
+                        <size key="maxSize" width="25" height="16"/>
+                        <connections>
+                            <action selector="switchToTabAction:" target="-2" id="k0e-jF-YiU"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="FC049B0A-B86B-4CF0-876F-9980BF84F23F" label="Metadata" paletteLabel="Metadata" tag="6" selectable="YES" id="F0m-lY-VJm">
+                        <imageReference key="image" image="info.circle" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="20" height="20"/>
+                        <size key="maxSize" width="20" height="20"/>
+                        <connections>
+                            <action selector="switchToTabAction:" target="-2" id="yi3-1A-czw"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="zXT-zR-K06"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="3aN-Hr-ue5"/>
+                    <toolbarItem reference="SF0-BP-tNr"/>
+                    <toolbarItem reference="fnR-bv-BV0"/>
+                    <toolbarItem reference="BDD-WJ-vlL"/>
+                    <toolbarItem reference="Ixe-ui-Ydx"/>
+                    <toolbarItem reference="yAf-T5-XAU"/>
+                    <toolbarItem reference="F0m-lY-VJm"/>
+                    <toolbarItem reference="zXT-zR-K06"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" white="0.1562228732638889" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="-938" y="676.5"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="clock" catalog="system" width="20" height="20"/>
+        <image name="info.circle" catalog="system" width="20" height="20"/>
+        <image name="keyboard" catalog="system" width="25" height="16"/>
+        <image name="list.bullet" catalog="system" width="21" height="15"/>
+        <image name="macwindow" catalog="system" width="24" height="18"/>
+        <image name="play" catalog="system" width="15" height="17"/>
+        <image name="speaker.wave.1" catalog="system" width="20" height="18"/>
+    </resources>
+</document>

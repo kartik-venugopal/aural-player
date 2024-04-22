@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="control-freak.regular.ttf">
+            <string>ControlFreak</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Play Queue View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="PlayQueueViewController" id="Y6W-OH-hqX" customClass="PlayQueueViewController" customModule="Aural_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ubj-eX-7zz">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wTe-WC-3AW" userLabel="PlayQueue View">
+                                <rect key="frame" x="20" y="24" width="794" height="1150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayQueueCell" rowHeight="65" id="TDU-eo-6Hd" userLabel="PlayQueueCell" customClass="PlayQueueCell" customModule="Aural_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="794" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TDU-eo-6Hd" id="Opy-dp-fYt">
+                                            <rect key="frame" x="0.0" y="0.0" width="794" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsN-dP-oku">
+                                                    <rect key="frame" x="20" y="0.0" width="40" height="65"/>
+                                                    <fontDescription key="fontDescription" name="ControlFreak" family="Control Freak" pointSize="20"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRM-NP-S6o">
+                                                    <rect key="frame" x="60" y="0.0" width="624" height="65"/>
+                                                    <fontDescription key="fontDescription" name="ControlFreak" family="Control Freak" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qk7-AK-pLa" userLabel="Lbl Duration">
+                                                    <rect key="frame" x="685" y="0.0" width="99" height="65"/>
+                                                    <fontDescription key="fontDescription" name="ControlFreak" family="Control Freak" pointSize="20"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="HRM-NP-S6o" secondAttribute="bottom" id="1nA-Ir-7nX"/>
+                                                <constraint firstAttribute="bottom" secondItem="jsN-dP-oku" secondAttribute="bottom" id="Cgx-LH-bbe"/>
+                                                <constraint firstItem="jsN-dP-oku" firstAttribute="leading" secondItem="Opy-dp-fYt" secondAttribute="leading" constant="20" id="EmJ-m8-HgY"/>
+                                                <constraint firstItem="HRM-NP-S6o" firstAttribute="leading" secondItem="Opy-dp-fYt" secondAttribute="leading" constant="60" id="KJl-6v-TEP"/>
+                                                <constraint firstItem="qk7-AK-pLa" firstAttribute="top" secondItem="Opy-dp-fYt" secondAttribute="top" id="PyC-Cu-lft"/>
+                                                <constraint firstAttribute="trailing" secondItem="HRM-NP-S6o" secondAttribute="trailing" constant="110" id="Sa6-JR-Ut3"/>
+                                                <constraint firstItem="HRM-NP-S6o" firstAttribute="top" secondItem="Opy-dp-fYt" secondAttribute="top" id="bfK-BW-e7B"/>
+                                                <constraint firstItem="jsN-dP-oku" firstAttribute="top" secondItem="Opy-dp-fYt" secondAttribute="top" id="iVR-04-D8X"/>
+                                                <constraint firstAttribute="trailing" secondItem="qk7-AK-pLa" secondAttribute="trailing" constant="10" id="pIA-kI-Laj"/>
+                                                <constraint firstItem="HRM-NP-S6o" firstAttribute="leading" secondItem="jsN-dP-oku" secondAttribute="trailing" id="qen-SX-LHV"/>
+                                                <constraint firstItem="qk7-AK-pLa" firstAttribute="leading" secondItem="HRM-NP-S6o" secondAttribute="trailing" constant="1" id="vfR-qj-aap"/>
+                                                <constraint firstAttribute="bottom" secondItem="qk7-AK-pLa" secondAttribute="bottom" id="ySl-ci-XiO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblDuration" destination="qk7-AK-pLa" id="vJm-4F-cR1"/>
+                                            <outlet property="lblIndex" destination="jsN-dP-oku" id="MlY-wh-63O"/>
+                                            <outlet property="lblTitle" destination="HRM-NP-S6o" id="nwE-Dc-kmt"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Y6W-OH-hqX" id="QNH-d5-7gB"/>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="riN-zd-x2C"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DgQ-dC-x04"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wTe-WC-3AW" firstAttribute="leading" secondItem="ubj-eX-7zz" secondAttribute="leadingMargin" id="4N9-7F-0ei"/>
+                            <constraint firstItem="wTe-WC-3AW" firstAttribute="top" secondItem="ubj-eX-7zz" secondAttribute="topMargin" id="77n-ZG-a10"/>
+                            <constraint firstItem="wTe-WC-3AW" firstAttribute="trailing" secondItem="ubj-eX-7zz" secondAttribute="trailingMargin" id="Nh4-B2-Vo3"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="wTe-WC-3AW" secondAttribute="bottom" id="s9v-Nf-uSz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playQueueView" destination="wTe-WC-3AW" id="FHq-8w-jU9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="66" y="-26"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TuneBrowserViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="backHistoryMenu" destination="PBx-07-kog" id="OuA-nz-osS"/>
+                <outlet property="btnBack" destination="bwx-2C-Eg4" id="cNk-pH-qmO"/>
+                <outlet property="btnForward" destination="jmd-Wq-WNc" id="Ggv-tP-71e"/>
+                <outlet property="forwardHistoryMenu" destination="ftf-ek-twl" id="HWr-Tw-uzS"/>
+                <outlet property="imgHomeIcon" destination="EQv-NM-f1r" id="qSN-NV-ghT"/>
+                <outlet property="lblCaption" destination="7cL-0X-ZiE" id="pqy-0t-qqL"/>
+                <outlet property="pathControlWidget" destination="jTW-xB-lKp" id="pf4-wK-1gG"/>
+                <outlet property="rootContainer" destination="fke-7G-0dx" id="QGR-2V-3vK"/>
+                <outlet property="tabView" destination="YpR-Qx-Ish" id="vHc-3M-wV6"/>
+                <outlet property="view" destination="fke-7G-0dx" id="kDU-DE-sRJ"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <menu id="bs8-bP-8Hb" userLabel="Browser Column Selection Menu">
+            <items>
+                <menuItem title="Type" identifier="tuneBrowser_type" id="p2L-Ud-0fZ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Title" identifier="tuneBrowser_title" id="cMy-p1-qjP">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Artist" identifier="tuneBrowser_artist" id="SyH-x9-uYq" userLabel="Artist">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Album" identifier="tuneBrowser_album" id="w6e-uk-Wf6" userLabel="Album">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Genre" identifier="tuneBrowser_genre" id="7Br-0d-DEU" userLabel="Genre">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Track #" identifier="tuneBrowser_trackNum" id="F76-Zc-zTQ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Disc #" identifier="tuneBrowser_discNum" id="k8S-yF-RBe">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Year" identifier="tuneBrowser_year" id="Z61-z7-U49">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Duration" identifier="tuneBrowser_duration" id="syk-Dp-FfX" userLabel="Duration">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Format" identifier="tuneBrowser_format" id="OYR-1p-LEq" userLabel="Format">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="Pne-Y9-U7T"/>
+            </connections>
+            <point key="canvasLocation" x="-147" y="-1180"/>
+        </menu>
+        <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" id="fke-7G-0dx" userLabel="Root Container">
+            <rect key="frame" x="0.0" y="0.0" width="700" height="351"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="tdp-f1-awf">
+                <rect key="frame" x="0.0" y="0.0" width="700" height="351"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7cL-0X-ZiE" userLabel="Title">
+                        <rect key="frame" x="1" y="321" width="124" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="120" id="0bS-r1-2mF"/>
+                            <constraint firstAttribute="height" constant="22" id="FWb-AD-r0Z"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="File  System" id="qCm-0N-qGD">
+                            <font key="font" size="12" name="Play-Regular"/>
+                            <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <popUpButton toolTip="Playlist View" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hDu-SS-U8T" userLabel="Settings Menu">
+                        <rect key="frame" x="675" y="327" width="25" height="8"/>
+                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="jgX-6S-K6n">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="11" name="Play-Regular"/>
+                            <menu key="menu" autoenablesItems="NO" id="hyW-aa-Bcy">
+                                <items>
+                                    <menuItem image="Settings" hidden="YES" id="pdo-9D-x2u">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem title="Show table header" id="TmD-1C-jwo">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="su5-Hl-ama"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="kPt-Jn-JnQ"/>
+                            <constraint firstAttribute="width" constant="20" id="vax-9L-ZeO"/>
+                        </constraints>
+                    </popUpButton>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EQv-NM-f1r" userLabel="Home Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="6" y="293.5" width="20.5" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="music.note.house" catalog="system" id="VqE-eC-F3O"/>
+                    </imageView>
+                    <pathControl focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jTW-xB-lKp">
+                        <rect key="frame" x="30" y="290" width="670" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="ce5-UB-er0"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="uI4-do-fff"/>
+                        </constraints>
+                        <pathCell key="cell" controlSize="small" selectable="YES" editable="YES" focusRingType="none" alignment="left" id="ReJ-JK-ebR">
+                            <font key="font" size="12" name="Exo-Medium"/>
+                            <url key="url" string="file://localhost/Applications/"/>
+                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </pathCell>
+                        <connections>
+                            <action selector="pathControlAction:" target="-2" id="Hde-it-w4M"/>
+                        </connections>
+                    </pathControl>
+                    <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="YpR-Qx-Ish" userLabel="Tab View">
+                        <rect key="frame" x="0.0" y="0.0" width="700" height="280"/>
+                        <font key="font" metaFont="system"/>
+                    </tabView>
+                    <button toolTip="Back" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-2C-Eg4" userLabel="Back Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="619" y="321" width="18.5" height="20"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Vqa-qe-ymV">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="message" size="11"/>
+                            <imageReference key="image" image="arrow.backward" catalog="system" symbolScale="large"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="4PZ-xL-FzP"/>
+                            <constraint firstAttribute="width" constant="18" id="WUV-5g-vIP"/>
+                        </constraints>
+                        <connections>
+                            <action selector="goBackAction:" target="-2" id="FbL-JN-6Zf"/>
+                            <outlet property="menu" destination="PBx-07-kog" id="Gxy-RO-ezD"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Forward" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jmd-Wq-WNc" userLabel="Forward Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="644" y="321" width="18.5" height="20"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="llN-vi-1Kv">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="message" size="11"/>
+                            <imageReference key="image" image="arrow.forward" catalog="system" symbolScale="large"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="Rms-yY-3pN"/>
+                            <constraint firstAttribute="height" constant="13" id="w0E-oO-HIb"/>
+                        </constraints>
+                        <connections>
+                            <action selector="goForwardAction:" target="-2" id="4rY-Mm-oZF"/>
+                            <outlet property="menu" destination="ftf-ek-twl" id="hnL-7K-fNw"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jmd-Wq-WNc" firstAttribute="top" secondItem="tdp-f1-awf" secondAttribute="top" constant="14" id="0Zd-20-KfB"/>
+                    <constraint firstItem="hDu-SS-U8T" firstAttribute="leading" secondItem="jmd-Wq-WNc" secondAttribute="trailing" constant="18" id="4kg-Vr-ETO"/>
+                    <constraint firstItem="hDu-SS-U8T" firstAttribute="top" secondItem="tdp-f1-awf" secondAttribute="top" constant="16" id="650-Ql-AHm"/>
+                    <constraint firstItem="jTW-xB-lKp" firstAttribute="top" secondItem="hDu-SS-U8T" secondAttribute="bottom" constant="15" id="7pz-Fq-WVM"/>
+                    <constraint firstAttribute="trailing" secondItem="jTW-xB-lKp" secondAttribute="trailing" id="7uo-xX-t4s"/>
+                    <constraint firstItem="jmd-Wq-WNc" firstAttribute="top" secondItem="bwx-2C-Eg4" secondAttribute="top" id="DbC-6V-KQl"/>
+                    <constraint firstItem="jTW-xB-lKp" firstAttribute="leading" secondItem="tdp-f1-awf" secondAttribute="leading" constant="30" id="Hc4-fZ-VEg"/>
+                    <constraint firstAttribute="trailing" secondItem="hDu-SS-U8T" secondAttribute="trailing" id="OL1-aG-W1S"/>
+                    <constraint firstItem="YpR-Qx-Ish" firstAttribute="leading" secondItem="tdp-f1-awf" secondAttribute="leading" id="aeg-De-D5A"/>
+                    <constraint firstItem="jmd-Wq-WNc" firstAttribute="leading" secondItem="bwx-2C-Eg4" secondAttribute="trailing" constant="7" id="fHc-Ww-fvV"/>
+                    <constraint firstItem="7cL-0X-ZiE" firstAttribute="top" secondItem="tdp-f1-awf" secondAttribute="top" constant="8" id="jDS-7F-aff"/>
+                    <constraint firstItem="7cL-0X-ZiE" firstAttribute="leading" secondItem="tdp-f1-awf" secondAttribute="leading" constant="3" id="lEF-cN-UX0"/>
+                    <constraint firstAttribute="trailing" secondItem="YpR-Qx-Ish" secondAttribute="trailing" id="pdg-Sn-LW4"/>
+                    <constraint firstAttribute="bottom" secondItem="YpR-Qx-Ish" secondAttribute="bottom" id="rfA-KS-U2w"/>
+                    <constraint firstItem="YpR-Qx-Ish" firstAttribute="top" secondItem="jTW-xB-lKp" secondAttribute="bottom" constant="10" id="vJa-hU-jXB"/>
+                </constraints>
+            </view>
+            <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="fillColor" white="0.0848004534527972" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <point key="canvasLocation" x="139" y="595.5"/>
+        </box>
+        <menu id="PBx-07-kog" userLabel="History (Back)">
+            <items>
+                <menuItem title="&lt;Back History&gt;" state="on" id="yvp-kJ-B7A">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="57" y="260"/>
+        </menu>
+        <menu id="ftf-ek-twl" userLabel="History (Forward)">
+            <items>
+                <menuItem title="&lt;Forward History&gt;" state="on" id="pGd-wc-f1X">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="510" y="301"/>
+        </menu>
+    </objects>
+    <resources>
+        <image name="Settings" width="10" height="7"/>
+        <image name="arrow.backward" catalog="system" width="20" height="16"/>
+        <image name="arrow.forward" catalog="system" width="20" height="16"/>
+        <image name="music.note.house" catalog="system" width="19" height="16"/>
+    </resources>
+</document>

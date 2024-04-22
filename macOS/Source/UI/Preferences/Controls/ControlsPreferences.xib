@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ControlsPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="tabView" destination="2Ht-DN-HLi" id="Lqm-Gr-dKL"/>
+                <outlet property="view" destination="gGy-jp-4Vt" id="OfW-26-rEr"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="gGy-jp-4Vt">
+            <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Ht-DN-HLi" userLabel="Tab View">
+                    <rect key="frame" x="0.0" y="10" width="688" height="462"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="Media Keys" identifier="" id="ERV-OM-y2y" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="r4a-tZ-6kE">
+                                <rect key="frame" x="10" y="33" width="668" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <imageReference key="image" image="keyboard" catalog="system" symbolScale="medium"/>
+                        </tabViewItem>
+                        <tabViewItem label="Gestures" identifier="" id="xaO-BS-bpJ" userLabel="Gestures" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="ffi-Q6-D9v">
+                                <rect key="frame" x="10" y="33" width="668" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <imageReference key="image" image="rectangle.and.hand.point.up.left.fill" catalog="system" symbolScale="medium"/>
+                        </tabViewItem>
+                        <tabViewItem label="Remote Control" identifier="" id="e6S-Xh-5Jr" userLabel="Remote Control" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="JpE-Vp-eUh">
+                                <rect key="frame" x="10" y="33" width="668" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <imageReference key="image" image="av.remote" catalog="system" symbolScale="medium"/>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
+            </subviews>
+            <point key="canvasLocation" x="189" y="196"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="av.remote" catalog="system" width="11" height="17"/>
+        <image name="keyboard" catalog="system" width="19" height="13"/>
+        <image name="rectangle.and.hand.point.up.left.fill" catalog="system" width="19" height="17"/>
+    </resources>
+</document>

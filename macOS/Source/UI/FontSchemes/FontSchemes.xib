@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="FontSchemesWindowController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnRedo" destination="Zp6-KZ-xof" id="sEK-2A-CEx"/>
+                <outlet property="btnRedoAll" destination="7zb-Hv-L8Z" id="g4o-kr-NbP"/>
+                <outlet property="btnUndo" destination="Abv-63-ST4" id="UlL-cA-Ycm"/>
+                <outlet property="btnUndoAll" destination="5ZN-sY-YA0" id="6Ch-kA-4HG"/>
+                <outlet property="tabView" destination="0fj-R3-1nG" id="aWg-bi-fmN"/>
+                <outlet property="window" destination="ZzA-LT-RDQ" id="BIq-uR-mtT"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Customize font scheme" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" toolbarStyle="preference" id="ZzA-LT-RDQ">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="505" height="412"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" wantsLayer="YES" id="n6y-D8-HHK">
+                <rect key="frame" x="0.0" y="0.0" width="505" height="412"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <tabView focusRingType="none" drawsBackground="NO" id="0fj-R3-1nG" userLabel="Tab Group">
+                        <rect key="frame" x="10" y="46" width="485" height="281"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="Fonts" identifier="" id="7LR-aQ-Anc">
+                                <view key="view" id="D3A-Jk-9HF">
+                                    <rect key="frame" x="10" y="33" width="465" height="235"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Sizes" identifier="" id="INV-Jq-dVp">
+                                <view key="view" id="H3Y-eg-fiX">
+                                    <rect key="frame" x="10" y="33" width="465" height="235"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                    </tabView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMH-xe-RHW" userLabel="Done button">
+                        <rect key="frame" x="436" y="5" width="60" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7uG-5P-V7q">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="doneAction:" target="-2" id="2sm-XG-y4x"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XCr-cy-xc9" userLabel="Apply button">
+                        <rect key="frame" x="381" y="5" width="60" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NHF-AI-bfy">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="applyChangesAction:" target="-2" id="Lhp-yV-7kf"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="9FEB7C10-F5A6-4867-BE27-FCE6F758DCC7" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="ECs-kz-LMA">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="14B74D24-51AF-4935-898E-CC414F49EB48" explicitItemIdentifier="undo" label="Undo" paletteLabel="Undo" id="Abv-63-ST4">
+                        <imageReference key="image" image="arrow.counterclockwise" catalog="system" symbolScale="medium"/>
+                        <size key="minSize" width="33.5" height="29"/>
+                        <size key="maxSize" width="33.5" height="29"/>
+                        <connections>
+                            <action selector="undoLastChangeAction:" target="-2" id="1qT-yn-lBz"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="F678ED64-5872-48F6-BA81-F1851C835BB1" explicitItemIdentifier="undoAll" label="Undo All" paletteLabel="Undo All" id="5ZN-sY-YA0">
+                        <imageReference key="image" image="arrow.counterclockwise" catalog="system" symbolScale="medium"/>
+                        <size key="minSize" width="33.5" height="29"/>
+                        <size key="maxSize" width="33.5" height="29"/>
+                        <connections>
+                            <action selector="undoAllChangesAction:" target="-2" id="ZzX-aP-3bc"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="71723B92-88D8-4923-929B-C0329939F01A" explicitItemIdentifier="redo" label="Redo" paletteLabel="Redo" tag="2" id="Zp6-KZ-xof">
+                        <imageReference key="image" image="arrow.clockwise" catalog="system" symbolScale="medium"/>
+                        <size key="minSize" width="33.5" height="29"/>
+                        <size key="maxSize" width="33.5" height="29"/>
+                        <connections>
+                            <action selector="redoLastChangeAction:" target="-2" id="gku-jE-A8A"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="2961C779-D4EB-41A2-890E-B53376053699" explicitItemIdentifier="redoAll" label="Redo All" paletteLabel="Redo All" tag="3" id="7zb-Hv-L8Z">
+                        <imageReference key="image" image="arrow.clockwise" catalog="system" symbolScale="medium"/>
+                        <size key="minSize" width="33.5" height="29"/>
+                        <size key="maxSize" width="33.5" height="29"/>
+                        <connections>
+                            <action selector="redoAllChangesAction:" target="-2" id="9dP-S6-IpZ"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Eua-2l-CzX"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="Abv-63-ST4"/>
+                    <toolbarItem reference="5ZN-sY-YA0"/>
+                    <toolbarItem reference="Zp6-KZ-xof"/>
+                    <toolbarItem reference="7zb-Hv-L8Z"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <point key="canvasLocation" x="-280" y="-43"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
+        <image name="arrow.counterclockwise" catalog="system" width="14" height="16"/>
+    </resources>
+</document>

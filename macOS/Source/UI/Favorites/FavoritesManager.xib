@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="FavoritesManagerViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="containerBox" destination="Wcl-GF-UWK" id="sgt-Vy-gmg"/>
+                <outlet property="lblCaption" destination="fMA-Ty-1Q0" id="xns-yZ-NYK"/>
+                <outlet property="lblSummary" destination="MOk-aF-fbr" id="FQ0-Yo-8ww"/>
+                <outlet property="tabGroup" destination="3DZ-HY-LNK" id="tQB-m5-E0U"/>
+                <outlet property="view" destination="Ovo-SL-XF4" id="EeS-wy-vgv"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Ovo-SL-XF4">
+            <rect key="frame" x="0.0" y="0.0" width="460" height="502"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Wcl-GF-UWK" userLabel="Container Box">
+                    <rect key="frame" x="0.0" y="0.0" width="460" height="502"/>
+                    <view key="contentView" id="8lP-ww-3HC">
+                        <rect key="frame" x="0.0" y="0.0" width="460" height="502"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </box>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fMA-Ty-1Q0">
+                    <rect key="frame" x="25" y="464" width="260" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="256" id="tFG-y8-1Ko"/>
+                        <constraint firstAttribute="height" constant="26" id="w3a-pC-zYW"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Tracks" id="EN0-qU-5yO">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-HY-LNK" userLabel="Tab Group">
+                    <rect key="frame" x="15" y="40" width="430" height="418"/>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="Tracks" identifier="" id="bUP-ax-Ysz">
+                            <view key="view" id="h7B-Yz-cdh">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="418"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Artists" identifier="" id="drd-LA-vL6">
+                            <view key="view" id="csq-K0-IWM">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="418"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Albums" identifier="" id="yqD-gR-y50">
+                            <view key="view" id="c5q-Oe-quw">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="418"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Genres" identifier="" id="zO8-Iq-uum">
+                            <view key="view" id="7xb-GX-Xts">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="418"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Decades" identifier="" id="uwg-sO-quN">
+                            <view key="view" id="txE-vA-uP1">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="418"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Playlist Files" identifier="" id="1y5-U6-kCd">
+                            <view key="view" id="sFZ-eq-gI4">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="418"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Folders" identifier="" id="She-tD-oKX">
+                            <view key="view" id="7CH-vl-iPi">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="418"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MOk-aF-fbr" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="18" y="4" width="214" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="1Bu-vo-TIX"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="aTI-P6-68f"/>
+                        <constraint firstAttribute="width" constant="210" id="gal-Y9-SiF"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="210" id="hE2-I9-ycc"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="hcC-ME-OaP"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="tOe-vB-yn9"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" id="k5P-46-wma" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Wcl-GF-UWK" secondAttribute="trailing" id="EA8-U5-tKV"/>
+                <constraint firstItem="3DZ-HY-LNK" firstAttribute="top" secondItem="fMA-Ty-1Q0" secondAttribute="bottom" constant="6" id="EzC-Ng-lFK"/>
+                <constraint firstItem="fMA-Ty-1Q0" firstAttribute="leading" secondItem="Ovo-SL-XF4" secondAttribute="leading" constant="27" id="Z22-gr-3TU"/>
+                <constraint firstAttribute="bottom" secondItem="3DZ-HY-LNK" secondAttribute="bottom" constant="40" id="Z4q-ld-cmD"/>
+                <constraint firstAttribute="bottom" secondItem="Wcl-GF-UWK" secondAttribute="bottom" id="bW2-ZO-3om"/>
+                <constraint firstItem="Wcl-GF-UWK" firstAttribute="leading" secondItem="Ovo-SL-XF4" secondAttribute="leading" id="dPf-xb-NDM"/>
+                <constraint firstItem="Wcl-GF-UWK" firstAttribute="top" secondItem="Ovo-SL-XF4" secondAttribute="top" id="exV-Au-yhO"/>
+                <constraint firstAttribute="trailing" secondItem="3DZ-HY-LNK" secondAttribute="trailing" constant="15" id="lWo-Wr-weq"/>
+                <constraint firstItem="3DZ-HY-LNK" firstAttribute="leading" secondItem="Ovo-SL-XF4" secondAttribute="leading" constant="15" id="nDL-28-712"/>
+                <constraint firstItem="MOk-aF-fbr" firstAttribute="leading" secondItem="Ovo-SL-XF4" secondAttribute="leading" constant="20" symbolic="YES" id="rbB-mB-nfX"/>
+                <constraint firstItem="fMA-Ty-1Q0" firstAttribute="top" secondItem="Ovo-SL-XF4" secondAttribute="top" constant="12" id="x2v-ni-5ln"/>
+                <constraint firstAttribute="bottom" secondItem="MOk-aF-fbr" secondAttribute="bottom" constant="4" id="y8g-1X-Ya5"/>
+            </constraints>
+            <point key="canvasLocation" x="-100" y="292"/>
+        </customView>
+    </objects>
+</document>

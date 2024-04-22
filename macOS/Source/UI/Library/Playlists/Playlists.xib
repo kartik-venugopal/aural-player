@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlaylistsViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="tabGroup" destination="o7Y-hO-mVz" id="1Yn-rH-6Sm"/>
+                <outlet property="view" destination="c22-O7-iKe" id="bjD-z8-r2X"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="PgX-LB-MQS" userLabel="Root Container">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                    <view key="contentView" id="kvU-l9-JU4">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </box>
+                <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="o7Y-hO-mVz">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                    <font key="font" metaFont="system"/>
+                </tabView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="o7Y-hO-mVz" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="BE2-ms-53C"/>
+                <constraint firstItem="o7Y-hO-mVz" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="Olm-uD-JeE"/>
+                <constraint firstAttribute="bottom" secondItem="PgX-LB-MQS" secondAttribute="bottom" id="SsR-cz-XL8"/>
+                <constraint firstItem="PgX-LB-MQS" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="U1B-co-zAo"/>
+                <constraint firstAttribute="bottom" secondItem="o7Y-hO-mVz" secondAttribute="bottom" id="UnK-4g-uYG"/>
+                <constraint firstAttribute="trailing" secondItem="o7Y-hO-mVz" secondAttribute="trailing" id="WFX-kH-AJF"/>
+                <constraint firstAttribute="trailing" secondItem="PgX-LB-MQS" secondAttribute="trailing" id="jo8-s7-F1P"/>
+                <constraint firstItem="PgX-LB-MQS" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="tyo-Uy-D12"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
+        </customView>
+    </objects>
+</document>

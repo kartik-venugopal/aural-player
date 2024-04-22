@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Effects Tab Bar Controller-->
+        <scene sceneID="JSs-bh-XHE">
+            <objects>
+                <tabBarController storyboardIdentifier="EffectsTabBarController" id="6xE-OS-uc1" customClass="EffectsTabBarController" customModule="Aural_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vQE-ck-G1K">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Mv7-bN-4co" kind="relationship" relationship="viewControllers" id="Yqq-4b-Jru"/>
+                        <segue destination="nC7-Op-xEP" kind="relationship" relationship="viewControllers" id="DOg-po-YdM"/>
+                        <segue destination="faE-Zb-62y" kind="relationship" relationship="viewControllers" id="CSX-dN-gEF"/>
+                        <segue destination="IQw-fk-N1h" kind="relationship" relationship="viewControllers" id="G76-eI-di6"/>
+                        <segue destination="5sy-k3-8TL" kind="relationship" relationship="viewControllers" id="rgk-0T-Y73"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="elk-Lc-o2l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-730" y="-647"/>
+        </scene>
+        <!--Master Unit-->
+        <scene sceneID="VTA-gL-LBk">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="MasterUnitViewController" storyboardName="MasterUnit" referencedIdentifier="MasterUnitViewController" id="Mv7-bN-4co" userLabel="Master Unit" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Yms-Ek-9Pc"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mg8-7l-gv1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1126" y="-253"/>
+        </scene>
+        <!--Equalizer Unit-->
+        <scene sceneID="l54-NM-eF3">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="EQViewController" storyboardName="EQUnit" referencedIdentifier="EQViewController" id="nC7-Op-xEP" userLabel="Equalizer Unit" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="J8Y-4P-TWK"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jhj-am-z7J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-959" y="-253"/>
+        </scene>
+        <!--Pitch Shift Unit-->
+        <scene sceneID="s21-K9-DT6">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="PitchShiftUnitViewController" storyboardName="PitchShiftUnit" referencedIdentifier="PitchShiftUnitViewController" id="faE-Zb-62y" userLabel="Pitch Shift Unit" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="a4k-Ol-WPu"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yr3-Ve-Ca4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-723" y="-247"/>
+        </scene>
+        <!--Time Stretch Unit-->
+        <scene sceneID="NXO-7a-8a0">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="TimeStretchUnitViewController" storyboardName="TimeStretchUnit" referencedIdentifier="TimeStretchUnitViewController" id="IQw-fk-N1h" userLabel="Time Stretch Unit" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="iEr-E3-fY9"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Cv-id-reg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-495" y="-253"/>
+        </scene>
+        <!--Reverb Unit-->
+        <scene sceneID="rmj-ut-nJ9">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="ReverbUnitViewController" storyboardName="ReverbUnit" referencedIdentifier="ReverbUnitViewController" id="5sy-k3-8TL" userLabel="Reverb Unit" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="MMG-sC-7DT"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dsc-wm-cW4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-341" y="-253"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="CompactPlayQueueViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="lblCaption" destination="ILg-fo-rF1" id="ZWU-Hb-Ec7"/>
+                <outlet property="lblDurationSummary" destination="FMM-38-eg8" id="lqM-Es-0Uq"/>
+                <outlet property="lblTracksSummary" destination="E3H-PZ-zam" id="N7k-1v-YgK"/>
+                <outlet property="progressSpinner" destination="xTF-ma-4qy" id="4by-1U-YcI"/>
+                <outlet property="sortOrderMenuItemView" destination="IAW-N7-buz" id="MeF-p9-JiX"/>
+                <outlet property="tableView" destination="v1i-DE-EUT" id="M82-gi-HRD"/>
+                <outlet property="view" destination="rlY-xn-aWC" id="aBY-ZT-Co9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="rlY-xn-aWC" userLabel="Compact Play Queue">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="el0-VE-Ib7" customClass="CompactPlayQueueContainer" customModule="Aural" customModuleProvider="target">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="55" horizontalPageScroll="10" verticalLineScroll="55" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" id="Xxw-1I-HfF" userLabel="Scroll View">
+                        <rect key="frame" x="0.0" y="49" width="300" height="300"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <clipView key="contentView" drawsBackground="NO" id="Vug-Hx-3O1">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <tableView identifier="tid_CompactPlayQueue" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="v1i-DE-EUT" customClass="AuralTableView" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <size key="intercellSpacing" width="3" height="5"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                    <tableColumns>
+                                        <tableColumn identifier="cid_Index" width="35" minWidth="35" maxWidth="35" id="SsQ-6E-Nld" userLabel="Index">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="FOd-Zs-Mwf">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="0w6-g2-NRC" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
+                                                    <rect key="frame" x="1" y="2" width="35" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QEF-KT-Ib2" userLabel="Index">
+                                                            <rect key="frame" x="6" y="0.0" width="31" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="XVj-Vc-CZG"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="jtE-6y-M18" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7nt-h6-FwA">
+                                                            <rect key="frame" x="8" y="11" width="12" height="10"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="12" id="C2n-JL-Ua8"/>
+                                                                <constraint firstAttribute="height" constant="10" id="KKr-vQ-77Q"/>
+                                                            </constraints>
+                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" id="8Up-kA-mfH" customClass="TableImageCell" customModule="Aural" customModuleProvider="target"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="QEF-KT-Ib2" firstAttribute="leading" secondItem="0w6-g2-NRC" secondAttribute="leading" constant="8" id="7Yd-Yx-EUN"/>
+                                                        <constraint firstAttribute="trailing" secondItem="QEF-KT-Ib2" secondAttribute="trailing" id="CF9-Vv-Zxe"/>
+                                                        <constraint firstAttribute="centerY" secondItem="QEF-KT-Ib2" secondAttribute="centerY" id="NIB-g5-vsD"/>
+                                                        <constraint firstItem="7nt-h6-FwA" firstAttribute="leading" secondItem="QEF-KT-Ib2" secondAttribute="leading" id="otZ-Gc-GY5"/>
+                                                        <constraint firstAttribute="centerY" secondItem="7nt-h6-FwA" secondAttribute="centerY" constant="1" id="sym-fX-HeR"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="imageView" destination="7nt-h6-FwA" id="Dau-6P-0bx"/>
+                                                        <outlet property="textField" destination="QEF-KT-Ib2" id="bFe-3S-Kvz"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                        </tableColumn>
+                                        <tableColumn identifier="cid_Name" width="190" minWidth="190" maxWidth="190" id="rev-eW-Yyo" userLabel="Track Name">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="dKJ-2f-yCp">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="vUj-ka-rRh" customClass="PlayQueueListTrackNameCell" customModule="Aural" customModuleProvider="target">
+                                                    <rect key="frame" x="39" y="2" width="190" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="YAf-ng-KMA" userLabel="Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="28" width="190" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="iOU-dh-YIA"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" usesSingleLineMode="YES" id="OTC-Tz-vIy" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="8S4-l4-lCp" userLabel="Default Display Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="5" width="190" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="90J-Ug-aF2"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" id="dBA-wW-I2N" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="WcR-Za-oZ6" userLabel="Artist Album" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="2" width="190" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="sfM-vI-bvI"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" usesSingleLineMode="YES" id="De9-gs-HU5" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="YAf-ng-KMA" secondAttribute="trailing" constant="2" id="DpK-gF-iCa"/>
+                                                        <constraint firstAttribute="bottom" secondItem="WcR-Za-oZ6" secondAttribute="bottom" constant="2" id="Ggk-cM-Bmv"/>
+                                                        <constraint firstAttribute="centerY" secondItem="8S4-l4-lCp" secondAttribute="centerY" id="PXN-EK-0aA"/>
+                                                        <constraint firstAttribute="trailing" secondItem="WcR-Za-oZ6" secondAttribute="trailing" constant="2" id="XjT-hO-Xep"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8S4-l4-lCp" secondAttribute="trailing" constant="2" id="eMj-Jc-KpW"/>
+                                                        <constraint firstItem="YAf-ng-KMA" firstAttribute="top" secondItem="vUj-ka-rRh" secondAttribute="top" constant="2" id="i4b-aL-P8x"/>
+                                                        <constraint firstItem="YAf-ng-KMA" firstAttribute="leading" secondItem="vUj-ka-rRh" secondAttribute="leading" constant="2" id="i7a-JS-1hv"/>
+                                                        <constraint firstItem="8S4-l4-lCp" firstAttribute="leading" secondItem="vUj-ka-rRh" secondAttribute="leading" constant="2" id="l1I-ke-cOj"/>
+                                                        <constraint firstItem="WcR-Za-oZ6" firstAttribute="leading" secondItem="vUj-ka-rRh" secondAttribute="leading" constant="2" id="n4w-LQ-Njg"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="lblArtistAlbum" destination="WcR-Za-oZ6" id="QUV-aC-s58"/>
+                                                        <outlet property="lblDefaultDisplayName" destination="8S4-l4-lCp" id="eEE-Ug-vL5"/>
+                                                        <outlet property="lblTitle" destination="YAf-ng-KMA" id="if1-9F-DrQ"/>
+                                                        <outlet property="textField" destination="YAf-ng-KMA" id="YS7-bU-eC3"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                        </tableColumn>
+                                        <tableColumn identifier="cid_Duration" width="55" minWidth="55" maxWidth="55" id="tPZ-0b-ufd" userLabel="Duration">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="3qU-cN-HH6">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="WDk-6x-pQc" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
+                                                    <rect key="frame" x="232" y="2" width="55" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="w0M-QL-S1o" userLabel="Duration">
+                                                            <rect key="frame" x="-2" y="10" width="49" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="uEi-Ep-Gi8"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="Gp3-Im-zdx" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="w0M-QL-S1o" firstAttribute="leading" secondItem="WDk-6x-pQc" secondAttribute="leading" id="Tsn-Dz-fx0"/>
+                                                        <constraint firstAttribute="trailing" secondItem="w0M-QL-S1o" secondAttribute="trailing" constant="10" id="a9y-tB-WAP"/>
+                                                        <constraint firstItem="w0M-QL-S1o" firstAttribute="centerY" secondItem="WDk-6x-pQc" secondAttribute="centerY" id="lwo-eL-mSR"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="textField" destination="w0M-QL-S1o" id="U6y-a9-Avt"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                        </tableColumn>
+                                    </tableColumns>
+                                    <connections>
+                                        <action trigger="doubleAction" selector="playSelectedTrackAction:" target="-2" id="SWj-Vi-ozO"/>
+                                        <outlet property="dataSource" destination="-2" id="cDm-xt-8GD"/>
+                                        <outlet property="delegate" destination="-2" id="Qr4-1U-i9z"/>
+                                    </connections>
+                                </tableView>
+                            </subviews>
+                            <nil key="backgroundColor"/>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="uT8-KT-299">
+                            <rect key="frame" x="-100" y="-100" width="500" height="15"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="BRx-Bv-wZY">
+                            <rect key="frame" x="-100" y="-100" width="15" height="102"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3H-PZ-zam" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="8" y="12" width="150" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" id="azG-qQ-aVV" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FMM-38-eg8" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="193" y="12" width="100" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="Ba2-IF-rK1" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textFieldCell>
+                    </textField>
+                    <button hidden="YES" toolTip="Import files / folders" translatesAutoresizingMaskIntoConstraints="NO" id="d0w-w8-fA7" userLabel="Import" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="35" y="10" width="17" height="17"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="plus.rectangle.on.folder" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8NC-GV-GTH">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="Xid-ix-gWv"/>
+                            <constraint firstAttribute="height" constant="11" id="fXD-oM-mq5"/>
+                        </constraints>
+                        <connections>
+                            <action selector="importFilesAndFoldersAction:" target="-2" id="ECb-zt-nBi"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Export tracks to a playlist file" translatesAutoresizingMaskIntoConstraints="NO" id="8Vi-ax-FQk" userLabel="Export" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="59" y="11.5" width="13" height="12"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="doc.text" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="B5e-oz-I7q">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="5" id="MN2-5d-vJZ"/>
+                            <constraint firstAttribute="width" constant="13" id="m8e-zc-JAm"/>
+                        </constraints>
+                        <connections>
+                            <action selector="exportToPlaylistAction:" target="-2" id="Eud-BM-ZKH"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Remove selected tracks from Play Queue" translatesAutoresizingMaskIntoConstraints="NO" id="pcR-HY-5FP" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="87" y="9.5" width="16.5" height="17"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark.bin" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jDB-NR-wEc">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="E2u-Fj-dBE"/>
+                            <constraint firstAttribute="height" constant="12" id="I9g-CX-Ldr"/>
+                        </constraints>
+                        <connections>
+                            <action selector="removeSelectedTracksAction:" target="-2" id="GtL-yy-HCM"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Crop selected Play Queue tracks" translatesAutoresizingMaskIntoConstraints="NO" id="RsD-Tk-fTw" userLabel="Crop" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="108" y="8.5" width="16.5" height="18"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="scissors" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="SZS-VA-MCA">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="0nv-lV-yYa"/>
+                            <constraint firstAttribute="height" constant="12" id="wyH-XQ-qq1"/>
+                        </constraints>
+                        <connections>
+                            <action selector="cropSelectionAction:" target="-2" id="aEq-Zd-n8q"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Remove all tracks from Play Queue" translatesAutoresizingMaskIntoConstraints="NO" id="EEM-hK-rk8" userLabel="Remove All" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="130" y="12" width="11.5" height="14"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="trash" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9VL-DW-hPH">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="6" id="9ah-Qn-bDL"/>
+                            <constraint firstAttribute="width" constant="11" id="yQQ-Xm-JJx"/>
+                        </constraints>
+                        <connections>
+                            <action selector="removeAllTracksAction:" target="-2" id="NRp-Qk-IJx"/>
+                        </connections>
+                    </button>
+                    <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="xTF-ma-4qy" userLabel="Spinner">
+                        <rect key="frame" x="142" y="10" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="ifL-9a-hEJ"/>
+                            <constraint firstAttribute="width" constant="16" id="sZR-Wz-t84"/>
+                        </constraints>
+                        <contentFilters>
+                            <ciFilter name="CIFalseColor">
+                                <configuration>
+                                    <ciColor key="inputColor0" red="0.71891206502914429" green="0.71891206502914429" blue="0.71891206502914429" alpha="1"/>
+                                    <ciColor key="inputColor1" red="0.91730046272277832" green="0.91730046272277832" blue="0.91730046272277832" alpha="1"/>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                    </progressIndicator>
+                    <button hidden="YES" toolTip="Move selected tracks up one row" translatesAutoresizingMaskIntoConstraints="NO" id="rGi-Br-hY8" userLabel="Move Up" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="156" y="11.5" width="11" height="12"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.up" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="AaB-kF-cAE">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="7" id="1bL-uI-Zy9"/>
+                            <constraint firstAttribute="width" constant="11" id="IE2-1e-muE"/>
+                        </constraints>
+                        <connections>
+                            <action selector="moveTracksUpAction:" target="-2" id="Afu-4e-nyg"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Move selected tracks down one row" translatesAutoresizingMaskIntoConstraints="NO" id="sb4-QZ-Nqd" userLabel="Move Down" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="168" y="11.5" width="11" height="12"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.down" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="HOq-JC-mqE">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="11" id="g9V-Dp-2FK"/>
+                            <constraint firstAttribute="height" constant="7" id="pvg-BO-otB"/>
+                        </constraints>
+                        <connections>
+                            <action selector="moveTracksDownAction:" target="-2" id="kYO-z7-7Sm"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Move selected tracks to the top" translatesAutoresizingMaskIntoConstraints="NO" id="M4Y-BC-T8J" userLabel="Move to Top" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="191" y="13" width="11" height="10"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.up.to.line.alt" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yr6-Ce-dRs">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="5" id="1GM-XN-euI"/>
+                            <constraint firstAttribute="width" constant="11" id="zGh-sn-meG"/>
+                        </constraints>
+                        <connections>
+                            <action selector="moveTracksToTopAction:" target="-2" id="4cz-qh-fie"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Move selected tracks to the bottom" translatesAutoresizingMaskIntoConstraints="NO" id="3Of-aL-sDz" userLabel="Move to Bottom" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="203" y="13" width="11" height="10"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.down.to.line.alt" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qY4-9v-Dzq">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="11" id="90F-8c-muG"/>
+                            <constraint firstAttribute="height" constant="5" id="vLf-Ko-Mw3"/>
+                        </constraints>
+                        <connections>
+                            <action selector="moveTracksToBottomAction:" target="-2" id="Zbo-1q-1Ad"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" toolTip="Search the Play Queue" translatesAutoresizingMaskIntoConstraints="NO" id="M1d-v2-GBv" userLabel="Search" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="229" y="11.5" width="13.5" height="14"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="magnifyingglass" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="FuY-zU-QLW">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="MYg-FF-EmX"/>
+                            <constraint firstAttribute="width" constant="13" id="ekQ-Ez-VcO"/>
+                        </constraints>
+                        <connections>
+                            <action selector="searchAction:" target="-2" id="hKb-Mb-1jO"/>
+                        </connections>
+                    </button>
+                    <popUpButton hidden="YES" toolTip="Sort the Play Queue" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aBL-E4-FyY" userLabel="Sort">
+                        <rect key="frame" x="242" y="11" width="23" height="14"/>
+                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="axesIndependently" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="ah3-Us-I4W" id="4DG-iX-YP5">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" showsStateColumn="NO" id="PP7-yi-bSz">
+                                <items>
+                                    <menuItem image="Sort" hidden="YES" id="ah3-Us-I4W" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Sort"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </menuItem>
+                                    <menuItem title="Sort by track name" id="B4P-a1-d06">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortByTrackNameAction:" target="-2" id="00x-M3-8O7"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Sort by artist, album, and disc/track #" id="VqJ-fH-PDN" userLabel="Sort by artist, album, and disc/track #">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortByArtistAlbumDiscTrackNumberAction:" target="-2" id="8GQ-b5-zYw"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Sort by artist, album, and track name" id="1E3-VW-qBt" userLabel="Sort by artist, album, and track name">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortByArtistAlbumTrackNameAction:" target="-2" id="tpW-Lb-1J6"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Sort by artist and track name" id="8e6-3k-eYU" userLabel="Sort by artist and track name">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortByArtistTrackNameAction:" target="-2" id="zte-Bs-xcx"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Sort by album and disc/track #" id="Pbv-Jv-1dO" userLabel="Sort by album and disc/track #">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortByAlbumDiscTrackNumberAction:" target="-2" id="BaM-Ln-ssz"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Sort by album and track name" id="Bhu-b4-0Yd" userLabel="Sort by album and track name">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortByAlbumTrackNameAction:" target="-2" id="MYg-tX-DhB"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Sort by duration" id="XCj-Ha-xm9">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sortByDurationAction:" target="-2" id="MLm-59-dFb"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="xl6-Ww-9ou"/>
+                                    <menuItem title="Sort order" id="9R1-fX-tq9">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <outlet property="view" destination="IAW-N7-buz" id="NIn-ez-CYe"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="FFn-Mk-IPT"/>
+                            <constraint firstAttribute="height" constant="14" id="M6Z-2g-Gbw"/>
+                        </constraints>
+                    </popUpButton>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ILg-fo-rF1" userLabel="Play Queue Caption Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="23" y="360" width="214" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="76d-fr-gp4"/>
+                            <constraint firstAttribute="width" constant="210" id="dTN-oT-aj0"/>
+                        </constraints>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Play  Queue" id="dVU-RS-mFb">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3Of-aL-sDz" firstAttribute="leading" secondItem="M4Y-BC-T8J" secondAttribute="trailing" constant="1" id="1fy-Cj-Nqz"/>
+                    <constraint firstItem="ILg-fo-rF1" firstAttribute="top" secondItem="el0-VE-Ib7" secondAttribute="top" constant="5" id="3fC-iJ-7qN"/>
+                    <constraint firstAttribute="bottom" secondItem="d0w-w8-fA7" secondAttribute="bottom" constant="12" id="4d8-Ao-jMo"/>
+                    <constraint firstItem="RsD-Tk-fTw" firstAttribute="leading" secondItem="pcR-HY-5FP" secondAttribute="trailing" constant="5" id="4o2-Sy-dES"/>
+                    <constraint firstItem="sb4-QZ-Nqd" firstAttribute="leading" secondItem="rGi-Br-hY8" secondAttribute="trailing" constant="1" id="6dC-QK-x2m"/>
+                    <constraint firstItem="M4Y-BC-T8J" firstAttribute="leading" secondItem="sb4-QZ-Nqd" secondAttribute="trailing" constant="12" id="6n5-7k-mT9"/>
+                    <constraint firstItem="d0w-w8-fA7" firstAttribute="leading" secondItem="el0-VE-Ib7" secondAttribute="leading" constant="35" id="AJ6-KQ-GC8"/>
+                    <constraint firstItem="EEM-hK-rk8" firstAttribute="leading" secondItem="RsD-Tk-fTw" secondAttribute="trailing" constant="6" id="F1G-vI-JGL"/>
+                    <constraint firstItem="rGi-Br-hY8" firstAttribute="centerY" secondItem="EEM-hK-rk8" secondAttribute="centerY" id="GlG-h3-FHh"/>
+                    <constraint firstItem="pcR-HY-5FP" firstAttribute="leading" secondItem="8Vi-ax-FQk" secondAttribute="trailing" constant="15" id="IRK-bo-zz9"/>
+                    <constraint firstAttribute="bottom" secondItem="xTF-ma-4qy" secondAttribute="bottom" constant="10" id="JjW-Lc-7JF"/>
+                    <constraint firstItem="aBL-E4-FyY" firstAttribute="centerY" secondItem="M1d-v2-GBv" secondAttribute="centerY" id="TKM-jR-vqP"/>
+                    <constraint firstItem="ILg-fo-rF1" firstAttribute="leading" secondItem="el0-VE-Ib7" secondAttribute="leading" constant="25" id="Uiv-0W-eZk"/>
+                    <constraint firstItem="M4Y-BC-T8J" firstAttribute="centerY" secondItem="sb4-QZ-Nqd" secondAttribute="centerY" id="Zba-h8-1u4"/>
+                    <constraint firstItem="aBL-E4-FyY" firstAttribute="leading" secondItem="M1d-v2-GBv" secondAttribute="trailing" constant="5" id="buk-BK-wnV"/>
+                    <constraint firstItem="EEM-hK-rk8" firstAttribute="centerY" secondItem="RsD-Tk-fTw" secondAttribute="centerY" id="cOX-KA-Z9f"/>
+                    <constraint firstItem="M1d-v2-GBv" firstAttribute="leading" secondItem="3Of-aL-sDz" secondAttribute="trailing" constant="15" id="eEm-bN-pW2"/>
+                    <constraint firstItem="sb4-QZ-Nqd" firstAttribute="centerY" secondItem="rGi-Br-hY8" secondAttribute="centerY" id="ff1-UJ-ufW"/>
+                    <constraint firstItem="RsD-Tk-fTw" firstAttribute="centerY" secondItem="pcR-HY-5FP" secondAttribute="centerY" id="gpG-Mk-VTF"/>
+                    <constraint firstItem="M1d-v2-GBv" firstAttribute="centerY" secondItem="3Of-aL-sDz" secondAttribute="centerY" id="i7G-f8-Qbv"/>
+                    <constraint firstItem="xTF-ma-4qy" firstAttribute="centerX" secondItem="el0-VE-Ib7" secondAttribute="centerX" id="ka6-fh-usk"/>
+                    <constraint firstItem="8Vi-ax-FQk" firstAttribute="centerY" secondItem="d0w-w8-fA7" secondAttribute="centerY" id="l4A-82-xZN"/>
+                    <constraint firstItem="8Vi-ax-FQk" firstAttribute="leading" secondItem="d0w-w8-fA7" secondAttribute="trailing" constant="8" id="lYe-zs-rum"/>
+                    <constraint firstItem="rGi-Br-hY8" firstAttribute="leading" secondItem="EEM-hK-rk8" secondAttribute="trailing" constant="15" id="lsg-FP-eOq"/>
+                    <constraint firstItem="3Of-aL-sDz" firstAttribute="centerY" secondItem="M4Y-BC-T8J" secondAttribute="centerY" id="vKq-mr-18F"/>
+                    <constraint firstItem="pcR-HY-5FP" firstAttribute="centerY" secondItem="d0w-w8-fA7" secondAttribute="centerY" id="vQF-Vb-obe"/>
+                </constraints>
+                <connections>
+                    <outlet property="btnCropTracks" destination="RsD-Tk-fTw" id="zsz-TU-eye"/>
+                    <outlet property="btnExport" destination="8Vi-ax-FQk" id="Sf5-sV-TqB"/>
+                    <outlet property="btnImportTracks" destination="d0w-w8-fA7" id="7j8-fe-djk"/>
+                    <outlet property="btnMoveTracksDown" destination="sb4-QZ-Nqd" id="Rn5-ob-UUk"/>
+                    <outlet property="btnMoveTracksToBottom" destination="3Of-aL-sDz" id="gqn-ec-dJi"/>
+                    <outlet property="btnMoveTracksToTop" destination="M4Y-BC-T8J" id="40f-Ew-eyK"/>
+                    <outlet property="btnMoveTracksUp" destination="rGi-Br-hY8" id="5GQ-a1-AVy"/>
+                    <outlet property="btnRemoveAllTracks" destination="EEM-hK-rk8" id="ntH-to-arj"/>
+                    <outlet property="btnRemoveTracks" destination="pcR-HY-5FP" id="JLp-ba-8H5"/>
+                    <outlet property="btnSearch" destination="M1d-v2-GBv" id="hkh-6z-VUE"/>
+                    <outlet property="btnSortPopup" destination="aBL-E4-FyY" id="GSm-CH-E1g"/>
+                    <outlet property="lblDurationSummary" destination="FMM-38-eg8" id="gzg-Vq-Nbf"/>
+                    <outlet property="lblTracksSummary" destination="E3H-PZ-zam" id="bkB-oU-qqb"/>
+                    <outlet property="sortTintedIconMenuItem" destination="ah3-Us-I4W" id="9ly-s0-F2d"/>
+                </connections>
+            </view>
+            <point key="canvasLocation" x="-274" y="39"/>
+        </box>
+        <customView id="IAW-N7-buz" userLabel="Sort order menu item view" customClass="SortOrderMenuItemView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="186" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tHo-Cc-V9F">
+                    <rect key="frame" x="99" y="5" width="43" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="▲" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="uqc-Pk-nzu">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changeSortOrderAction:" target="IAW-N7-buz" id="V1A-8c-dyb"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ftc-Kk-T7r">
+                    <rect key="frame" x="143" y="5" width="43" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="▼" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="H65-GR-bTz">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changeSortOrderAction:" target="IAW-N7-buz" id="iQd-Kp-TWK"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fq6-3x-yoc">
+                    <rect key="frame" x="11" y="1" width="86" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Sort order:" id="TKn-xU-c66">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <connections>
+                <outlet property="btnAscending" destination="tHo-Cc-V9F" id="PPi-kE-mRb"/>
+                <outlet property="btnDescending" destination="Ftc-Kk-T7r" id="09K-d0-Xtc"/>
+            </connections>
+            <point key="canvasLocation" x="-449" y="577"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="Sort" width="35" height="25"/>
+        <image name="arrow.down" catalog="system" width="13" height="14"/>
+        <image name="arrow.down.to.line.alt" catalog="system" width="13" height="14"/>
+        <image name="arrow.up" catalog="system" width="13" height="14"/>
+        <image name="arrow.up.to.line.alt" catalog="system" width="13" height="14"/>
+        <image name="doc.text" catalog="system" width="14" height="16"/>
+        <image name="magnifyingglass" catalog="system" width="16" height="15"/>
+        <image name="plus.rectangle.on.folder" catalog="system" width="19" height="15"/>
+        <image name="scissors" catalog="system" width="20" height="15"/>
+        <image name="trash" catalog="system" width="15" height="17"/>
+        <image name="xmark.bin" catalog="system" width="19" height="14"/>
+    </resources>
+</document>

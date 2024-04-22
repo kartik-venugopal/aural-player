@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="WindowLayoutSetupViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnLayout" destination="g1v-Tr-3oJ" id="uQI-he-jbZ"/>
+                <outlet property="lblDescription" destination="YeK-MP-9on" id="XRY-Up-GiL"/>
+                <outlet property="lblName" destination="b20-9r-b6C" id="kfE-ci-nIB"/>
+                <outlet property="previewView" destination="vxH-JY-cmo" id="2hg-tH-RPi"/>
+                <outlet property="view" destination="Uk7-BQ-g3E" id="pcL-g2-42E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Uk7-BQ-g3E">
+            <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yx7-EN-woD" userLabel="Seek Length Label">
+                    <rect key="frame" x="18" y="394" width="638" height="41"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Choose your window layout:" id="GYC-EE-VdZ">
+                        <font key="font" size="18" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b20-9r-b6C" userLabel="Seek Length Label">
+                    <rect key="frame" x="30" y="349" width="614" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="5Rf-n7-wms">
+                        <font key="font" size="22" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-JY-cmo" userLabel="Layout Preview" customClass="PresetLayoutPreviewView" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="177" y="140" width="320" height="200"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </customView>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YeK-MP-9on" userLabel="Seek Length Label">
+                    <rect key="frame" x="117" y="62" width="440" height="58"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="UdJ-xT-nJO">
+                        <font key="font" size="16" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g1v-Tr-3oJ" userLabel="Window Layouts Menu">
+                    <rect key="frame" x="174" y="25" width="338" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Vertical stack" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="w6a-Mu-cmq" id="yEB-To-JSU">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="bfe-vw-XcO">
+                            <items>
+                                <menuItem title="Vertical stack" image="WindowLayout-VerticalStack" id="w6a-Mu-cmq">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Horizontal stack" image="WindowLayout-HorizontalStack" id="WYh-pJ-5Hu">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Big bottom Play Queue" image="WindowLayout-BigBottomPlaylist" id="weI-qS-Aik">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Big right Play Queue" image="WindowLayout-BigRightPlaylist" id="JnQ-I8-yra">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Big left Play Queue" image="WindowLayout-BigLeftPlaylist" id="qdV-xW-WzB">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Vertical Player and Play Queue" image="WindowLayout-VerticalPlayerAndPlaylist" id="0ov-qD-CSC">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Horizontal Player and Play Queue" image="WindowLayout-HorizontalPlayerAndPlaylist" id="9Dy-Th-FAQ">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Compact cornered" image="WindowLayout-CompactCornered" id="dky-Oa-f7k">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="layoutSelectionAction:" target="-2" id="Ike-Q9-w7U"/>
+                    </connections>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="101" y="154"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-CompactCornered" width="30" height="20"/>
+        <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
+        <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-VerticalStack" width="30" height="20"/>
+    </resources>
+</document>

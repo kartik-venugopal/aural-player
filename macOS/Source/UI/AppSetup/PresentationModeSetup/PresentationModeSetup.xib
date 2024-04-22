@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PresentationModeSetupViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnCompactMode" destination="6ck-2w-YOd" id="rIg-Br-5im"/>
+                <outlet property="btnModularMode" destination="Ndg-2V-HXt" id="y6V-Hc-WJX"/>
+                <outlet property="btnUnifiedMode" destination="QKg-VC-jpH" id="J0w-bg-6L5"/>
+                <outlet property="view" destination="c22-O7-iKe" id="scv-71-zz2"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qKq-f5-QWw" userLabel="Seek Length Label">
+                    <rect key="frame" x="18" y="377" width="638" height="58"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="FA5-4q-4Mu">
+                        <font key="font" size="18" name="Play-Regular"/>
+                        <string key="title">The presentation mode determines how the app fits on your desktop. 
+Tip - Try out the new modes!</string>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ndg-2V-HXt">
+                    <rect key="frame" x="223" y="262" width="426" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Each core component has its own separate window." bezelStyle="shadowlessSquare" image="ModularMode" imagePosition="left" alignment="right" refusesFirstResponder="YES" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="5UQ-aZ-wXA">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                        <font key="font" size="14" name="Exo-Medium"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="modularModeAction:" target="-2" id="f2m-0j-a04"/>
+                    </connections>
+                </button>
+                <button wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QKg-VC-jpH">
+                    <rect key="frame" x="223" y="154" width="426" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="All core components are contained in a single window." bezelStyle="shadowlessSquare" image="UnifiedMode" imagePosition="left" alignment="right" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="lH1-RE-fIZ">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                        <font key="font" size="14" name="Exo-Medium"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="unifiedModeAction:" target="-2" id="nMw-Iy-CQk"/>
+                    </connections>
+                </button>
+                <button wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ck-2w-YOd">
+                    <rect key="frame" x="223" y="41" width="426" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="The essentials in a single compact window." bezelStyle="shadowlessSquare" image="CompactMode" imagePosition="left" alignment="right" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="THs-v0-6gt">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                        <font key="font" size="14" name="Exo-Medium"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="compactModeAction:" target="-2" id="Tce-bM-pHR"/>
+                    </connections>
+                </button>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fYv-Gu-lb5" userLabel="Seek Length Label">
+                    <rect key="frame" x="21" y="173" width="172" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Unified (New!)" id="bbB-gB-ZYL">
+                        <font key="font" size="22" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sOv-MO-XNH" userLabel="Seek Length Label">
+                    <rect key="frame" x="79" y="281" width="114" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Modular" id="Vaj-Q8-rYp">
+                        <font key="font" size="22" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDH-ef-ao1" userLabel="Seek Length Label">
+                    <rect key="frame" x="1" y="59" width="192" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Compact (New!)" id="d1J-mu-ABZ">
+                        <font key="font" size="22" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="101" y="154"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="CompactMode" width="150" height="215"/>
+        <image name="ModularMode" width="192" height="242"/>
+        <image name="UnifiedMode" width="240" height="150"/>
+    </resources>
+</document>
