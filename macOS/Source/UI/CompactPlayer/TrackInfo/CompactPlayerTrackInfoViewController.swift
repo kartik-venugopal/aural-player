@@ -14,16 +14,12 @@ class CompactPlayerTrackInfoViewController: TrackInfoViewController {
     
     override var nibName: NSNib.Name? {"CompactPlayerTrackInfo"}
     
-    let compactPlayerMetadataViewController: CompactPlayerMetadataTrackInfoViewController = CompactPlayerMetadataTrackInfoViewController()
-    let compactPlayerLyricsViewController: LyricsTrackInfoViewController = LyricsTrackInfoViewController()
-    let compactPlayerCoverArtViewController: CompactPlayerCoverArtTrackInfoViewController = CompactPlayerCoverArtTrackInfoViewController()
-    let compactPlayerAudioViewController: CompactPlayerAudioTrackInfoViewController = CompactPlayerAudioTrackInfoViewController()
-    let compactPlayerFileSystemViewController: CompactPlayerFileSystemTrackInfoViewController = CompactPlayerFileSystemTrackInfoViewController()
+    let compactPlayerCoverArtViewController: CompactPlayerCoverArtTrackInfoViewController = .init()
     
     override func initTabViewControllers() {
 
-        tabViewControllers = [compactPlayerMetadataViewController, compactPlayerLyricsViewController, compactPlayerCoverArtViewController,
-                              compactPlayerAudioViewController, compactPlayerFileSystemViewController]
+        tabViewControllers = [metadataViewController, lyricsViewController, compactPlayerCoverArtViewController,
+                           audioViewController, fileSystemViewController]
     }
     
     override func initSubscriptions() {
@@ -39,7 +35,6 @@ class CompactPlayerTrackInfoViewController: TrackInfoViewController {
                                     msg.updatedFields.contains(.art)})
         
         messenger.subscribe(to: .Player.trackInfo_refresh, handler: refresh)
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
     }
     
     override func updateTrackTitle() {}

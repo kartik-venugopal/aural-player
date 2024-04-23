@@ -37,7 +37,10 @@ class TrackInfoViewController: NSViewController {
     
     let metadataViewController: MetadataTrackInfoViewController = MetadataTrackInfoViewController()
     let lyricsViewController: LyricsTrackInfoViewController = LyricsTrackInfoViewController()
-    let coverArtViewController: CoverArtTrackInfoViewController = CoverArtTrackInfoViewController()
+    
+    // This one is lazy because sub-classes may use their own custom VC.
+    lazy var coverArtViewController: CoverArtTrackInfoViewController = CoverArtTrackInfoViewController()
+    
     let audioViewController: AudioTrackInfoViewController = AudioTrackInfoViewController()
     let fileSystemViewController: FileSystemTrackInfoViewController = FileSystemTrackInfoViewController()
     

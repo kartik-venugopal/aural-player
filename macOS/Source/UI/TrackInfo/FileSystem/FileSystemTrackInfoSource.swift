@@ -16,6 +16,10 @@ class FileSystemTrackInfoSource: TrackInfoSource {
     
     private(set) var trackInfo: [KeyValuePair] = []
     
+    static let instance: FileSystemTrackInfoSource = .init()
+    
+    private init() {}
+    
     private lazy var dateFormatter: DateFormatter = DateFormatter(format: "MMMM dd, yyyy  'at'  hh:mm:ss a")
     
     func loadTrackInfo(for track: Track) {

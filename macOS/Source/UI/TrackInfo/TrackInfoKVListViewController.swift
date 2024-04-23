@@ -73,14 +73,9 @@ class TrackInfoKVListViewController: NSViewController, TrackInfoViewProtocol {
     
     // MARK: Export ---------------------------------------------------
     
-    var jsonObject: AnyObject? {
-//        tableView.jsonObject
-        nil
-    }
+    var jsonObject: AnyObject? {nil}
     
-    func writeHTML(to writer: HTMLWriter) {
-//        writer.addTable("Metadata:", 3, nil, tableView.htmlTable)
-    }
+    func writeHTML(to writer: HTMLWriter) {}
     
     // MARK: Theming ---------------------------------------------------
     

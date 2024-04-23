@@ -56,6 +56,10 @@ class TrackReader {
         
         track.setPrimaryMetadata(from: fileMetadata)
         
+        if track.art == nil {
+            track.art = musicBrainzCache.getCoverArt(forTrack: track)
+        }
+        
         // For non-native tracks that don't have accurate duration, compute duration async.
         
         if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {

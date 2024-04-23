@@ -68,7 +68,8 @@
                         <rect key="frame" x="280" y="0.0" width="15" height="313"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <outlet property="scrolledView" destination="SIX-BA-zH9" id="WpO-EO-cjc"/>
+                            <outlet property="contentView" destination="SIX-BA-zH9" id="OkU-vq-Lk5"/>
+                            <outlet property="scrollView" destination="DcN-9N-A47" id="tOE-Ih-zvk"/>
                         </connections>
                     </scroller>
                 </scrollView>

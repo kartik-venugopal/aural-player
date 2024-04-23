@@ -19,8 +19,3 @@ class MetadataTrackInfoViewController: TrackInfoKVListViewController {
 //        writer.addTable("Metadata:", 3, nil, tableView.htmlTable)
     }
 }
-
-class CompactPlayerMetadataTrackInfoViewController: MetadataTrackInfoViewController {
-    
-    override var nibName: String? {"CompactPlayerMetadataTrackInfo"}
-}

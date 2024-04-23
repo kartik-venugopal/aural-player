@@ -91,6 +91,21 @@ class MusicBrainzCache: PersistentModelObject {
         self.cleanUpUnmappedFiles()
     }
     
+    func getCoverArt(forTrack track: Track) -> CoverArt? {
+        
+        guard let artist = track.artist?.lowerCasedAndTrimmed() else {return nil}
+        
+        if let album = track.album?.lowerCasedAndTrimmed() {
+            return getForRelease(artist: artist, title: album)?.art
+        }
+        
+        if let title = track.title?.lowerCasedAndTrimmed() {
+            return getForRecording(artist: artist, title: title)?.art
+        }
+        
+        return nil
+    }
+    
     func getForRelease(artist: String, title: String) -> CachedCoverArtResult? {
         releasesCache[artist, title]
     }
