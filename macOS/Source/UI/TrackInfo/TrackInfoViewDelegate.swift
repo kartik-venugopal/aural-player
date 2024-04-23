@@ -124,7 +124,7 @@ class CompactPlayerTrackInfoViewDelegate: TrackInfoViewDelegate {
     }
     
     override func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        60
+        57
     }
 }
 

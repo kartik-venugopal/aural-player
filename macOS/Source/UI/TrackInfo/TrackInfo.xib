@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,7 +35,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="575" height="432"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-TJ-fF3" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-TJ-fF3" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="31" y="403" width="214" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="6CI-cS-xYw"/>
@@ -103,7 +103,7 @@
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NTA-ZT-k06" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NTA-ZT-k06" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="38" y="323" width="214" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="210" id="AIc-U8-We0"/>
@@ -166,7 +166,7 @@
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BG9-V8-fJc" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BG9-V8-fJc" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="33" y="356" width="524" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="bDd-3q-hAj"/>
@@ -177,9 +177,8 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton toolTip="Options" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0nj-4A-AYU" userLabel="Export Menu">
+                    <popUpButton toolTip="Options" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0nj-4A-AYU" userLabel="Export Menu">
                         <rect key="frame" x="548" y="402" width="18" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="wXq-k7-leP" id="oeq-Su-oUx">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="cellTitle"/>
@@ -239,14 +238,20 @@
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="aTU-cC-g7V"/>
+                            <constraint firstAttribute="width" constant="13" id="wXT-tH-WcC"/>
+                        </constraints>
                     </popUpButton>
                 </subviews>
                 <constraints>
                     <constraint firstItem="NTA-ZT-k06" firstAttribute="top" secondItem="Hxj-TJ-fF3" secondAttribute="bottom" constant="55" id="2k8-fe-jC8"/>
                     <constraint firstItem="BG9-V8-fJc" firstAttribute="leading" secondItem="agd-0A-aOK" secondAttribute="leading" constant="35" id="FT1-PA-yXv"/>
                     <constraint firstItem="NTA-ZT-k06" firstAttribute="leading" secondItem="agd-0A-aOK" secondAttribute="leading" constant="40" id="Fbo-tw-3N3"/>
+                    <constraint firstAttribute="trailing" secondItem="0nj-4A-AYU" secondAttribute="trailing" constant="9" id="KPP-8L-ukO"/>
                     <constraint firstAttribute="trailing" secondItem="ySH-bF-1gq" secondAttribute="trailing" constant="20" symbolic="YES" id="ND3-tH-dYb"/>
                     <constraint firstItem="ySH-bF-1gq" firstAttribute="leading" secondItem="agd-0A-aOK" secondAttribute="leading" constant="40" id="PpQ-Ta-72C"/>
+                    <constraint firstItem="0nj-4A-AYU" firstAttribute="top" secondItem="agd-0A-aOK" secondAttribute="top" constant="12" id="Tx5-Jf-eab"/>
                     <constraint firstAttribute="trailing" secondItem="BG9-V8-fJc" secondAttribute="trailing" constant="20" symbolic="YES" id="V4U-mD-MBf"/>
                     <constraint firstAttribute="trailing" secondItem="Uk4-az-2s4" secondAttribute="trailing" constant="10" id="erg-nR-r20"/>
                     <constraint firstItem="Uk4-az-2s4" firstAttribute="top" secondItem="agd-0A-aOK" secondAttribute="top" constant="85" id="evZ-3D-DVb"/>

@@ -33,7 +33,7 @@ enum FontSchemePreset: String, CaseIterable {
     
     case poolsideFM
     
-    static let defaultScheme: FontSchemePreset = .standard
+    static let defaultScheme: FontSchemePreset = .futuristic
     
     // Maps a display name to a preset.
     static func presetByName(_ name: String) -> FontSchemePreset? {

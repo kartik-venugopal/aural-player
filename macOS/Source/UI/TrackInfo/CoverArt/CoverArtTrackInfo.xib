@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,15 +18,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="Ul4-Ea-95e">
-            <rect key="frame" x="0.0" y="0.0" width="525" height="105"/>
+            <rect key="frame" x="0.0" y="0.0" width="555" height="353"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vod-w3-hfk" userLabel="Artwork" customClass="RoundedImageView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="3" width="100" height="100"/>
+                    <rect key="frame" x="0.0" y="143" width="200" height="200"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="Q1x-VE-GK2"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="YO2-NE-3ra"/>
-                        <constraint firstAttribute="width" secondItem="Vod-w3-hfk" secondAttribute="height" multiplier="1:1" id="l49-NT-mTu"/>
+                        <constraint firstAttribute="width" constant="200" id="Q1x-VE-GK2"/>
+                        <constraint firstAttribute="height" constant="200" id="YO2-NE-3ra"/>
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="fwk-AN-HtG"/>
                     <userDefinedRuntimeAttributes>
@@ -36,13 +35,13 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWP-ca-fk8" userLabel="Cover Art Table">
-                    <rect key="frame" x="160" y="33" width="365" height="40"/>
+                    <rect key="frame" x="260" y="35" width="295" height="308"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="EDn-FI-Cp9">
-                        <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                        <rect key="frame" x="0.0" y="0.0" width="295" height="308"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="C5J-tV-JbV" userLabel="Cover Art Table View">
-                                <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="295" height="308"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -131,7 +130,7 @@
                     </scroller>
                 </scrollView>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d00-kB-O0G">
-                    <rect key="frame" x="138" y="79" width="250" height="25"/>
+                    <rect key="frame" x="153" y="327" width="250" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="1Oc-5b-ucn"/>
                         <constraint firstAttribute="width" constant="246" id="tzT-jD-4cw"/>
@@ -144,14 +143,13 @@
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="RWP-ca-fk8" firstAttribute="top" secondItem="d00-kB-O0G" secondAttribute="bottom" constant="6" id="13l-gP-pxn"/>
-                <constraint firstItem="Vod-w3-hfk" firstAttribute="leading" secondItem="Ul4-Ea-95e" secondAttribute="leading" id="2BN-Iz-okl"/>
                 <constraint firstItem="d00-kB-O0G" firstAttribute="centerX" secondItem="Ul4-Ea-95e" secondAttribute="centerX" id="Ffe-Xc-5ji"/>
+                <constraint firstItem="RWP-ca-fk8" firstAttribute="top" secondItem="Vod-w3-hfk" secondAttribute="top" id="HBM-hh-hVJ"/>
                 <constraint firstItem="Vod-w3-hfk" firstAttribute="leading" secondItem="Ul4-Ea-95e" secondAttribute="leading" id="NOY-TR-lrg"/>
-                <constraint firstItem="Vod-w3-hfk" firstAttribute="top" secondItem="Ul4-Ea-95e" secondAttribute="top" constant="2" id="ZBJ-Vs-hw3"/>
+                <constraint firstItem="Vod-w3-hfk" firstAttribute="top" secondItem="Ul4-Ea-95e" secondAttribute="top" constant="10" id="ZBJ-Vs-hw3"/>
                 <constraint firstItem="RWP-ca-fk8" firstAttribute="leading" secondItem="Vod-w3-hfk" secondAttribute="trailing" constant="60" id="kvv-H9-btm"/>
                 <constraint firstItem="d00-kB-O0G" firstAttribute="top" secondItem="Ul4-Ea-95e" secondAttribute="top" constant="1" id="nVF-Hi-KBn"/>
-                <constraint firstAttribute="bottom" secondItem="RWP-ca-fk8" secondAttribute="bottom" constant="33" id="oMg-th-fzX"/>
+                <constraint firstAttribute="bottom" secondItem="RWP-ca-fk8" secondAttribute="bottom" constant="35" id="oMg-th-fzX"/>
                 <constraint firstAttribute="trailing" secondItem="RWP-ca-fk8" secondAttribute="trailing" id="px0-dk-si4"/>
             </constraints>
             <point key="canvasLocation" x="-260" y="-180"/>

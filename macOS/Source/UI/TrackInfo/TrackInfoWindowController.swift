@@ -17,6 +17,7 @@ class TrackInfoWindowController: NSWindowController {
     override var windowNibName: String? {"TrackInfoWindow"}
     
     @IBOutlet weak var btnClose: NSButton!
+    private lazy var btnCloseConstraints: LayoutConstraintsManager = LayoutConstraintsManager(for: btnClose)
     
     private lazy var messenger = Messenger(for: self)
     
@@ -27,7 +28,15 @@ class TrackInfoWindowController: NSWindowController {
         super.windowDidLoad()
         
         window?.contentView?.addSubview(viewController.view)
+        viewController.view.anchorToSuperview()
+        
+        // Bring the 'X' (Close) button to the front and constrain it.
         btnClose.bringToFront()
+        
+        btnCloseConstraints.setWidth(11.5)
+        btnCloseConstraints.setHeight(10)
+        btnCloseConstraints.setLeading(relatedToLeadingOf: btnClose.superview!, offset: 10)
+        btnCloseConstraints.setTop(relatedToTopOf: btnClose.superview!, offset: 15)
         
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)

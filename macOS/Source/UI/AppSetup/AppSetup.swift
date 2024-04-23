@@ -37,5 +37,5 @@ class AppSetup {
     var windowLayoutPreset: WindowLayoutPresets = .defaultLayout
     var colorSchemePreset: ColorSchemePreset = .defaultScheme
     var fontSchemePreset: FontSchemePreset = .defaultScheme
-    var librarySourceFolder: URL = FilesAndPaths.musicDir
+//    var librarySourceFolder: URL = FilesAndPaths.musicDir
 }

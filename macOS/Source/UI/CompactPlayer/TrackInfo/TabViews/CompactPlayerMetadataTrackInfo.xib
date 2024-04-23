@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,13 +19,13 @@
             <rect key="frame" x="0.0" y="0.0" width="270" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="62" horizontalPageScroll="10" verticalLineScroll="62" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOv-LX-jr6" userLabel="Metadata Table">
+                <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="59" horizontalPageScroll="10" verticalLineScroll="59" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOv-LX-jr6" userLabel="Metadata Table">
                     <rect key="frame" x="0.0" y="0.0" width="270" height="320"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ZYf-BC-ckJ">
                         <rect key="frame" x="0.0" y="0.0" width="270" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="60" viewBased="YES" id="cmO-sR-iFZ" userLabel="Metadata Table View">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="57" viewBased="YES" id="cmO-sR-iFZ" userLabel="Metadata Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="273" height="320"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -48,10 +48,10 @@
                                                 <rect key="frame" x="1" y="1" width="270" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oP0-6l-hsR" userLabel="Key Field">
-                                                        <rect key="frame" x="3" y="30" width="264" height="30"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oP0-6l-hsR" userLabel="Key Field" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="3" y="31" width="264" height="26"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="Qc4-im-nIz"/>
+                                                            <constraint firstAttribute="height" constant="26" id="Qc4-im-nIz"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" usesSingleLineMode="YES" id="RjD-sS-zIM">
                                                             <font key="font" size="13" name="Play-Regular"/>
@@ -59,10 +59,10 @@
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPU-yh-v5z" userLabel="Value Field">
-                                                        <rect key="frame" x="3" y="0.0" width="264" height="30"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPU-yh-v5z" userLabel="Value Field" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="3" y="0.0" width="264" height="26"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="6ft-pG-EUX"/>
+                                                            <constraint firstAttribute="height" constant="26" id="6ft-pG-EUX"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" usesSingleLineMode="YES" id="rIk-Ot-cz2">
                                                             <font key="font" size="13" name="Play-Regular"/>
@@ -73,7 +73,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="DPU-yh-v5z" firstAttribute="trailing" secondItem="oP0-6l-hsR" secondAttribute="trailing" id="2Pn-i6-9dO"/>
-                                                    <constraint firstItem="DPU-yh-v5z" firstAttribute="top" secondItem="oP0-6l-hsR" secondAttribute="bottom" id="AA9-Ar-AeU"/>
+                                                    <constraint firstItem="oP0-6l-hsR" firstAttribute="bottom" secondItem="DPU-yh-v5z" secondAttribute="top" constant="-5" id="AA9-Ar-AeU"/>
                                                     <constraint firstItem="DPU-yh-v5z" firstAttribute="bottom" secondItem="iL1-my-cmO" secondAttribute="bottom" id="e9R-1s-m8z"/>
                                                     <constraint firstItem="oP0-6l-hsR" firstAttribute="leading" secondItem="iL1-my-cmO" secondAttribute="leading" constant="5" id="mUI-g2-NZ0"/>
                                                     <constraint firstAttribute="trailing" secondItem="oP0-6l-hsR" secondAttribute="trailing" constant="5" id="vI0-sR-EGN"/>

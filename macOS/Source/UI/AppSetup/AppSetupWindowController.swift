@@ -28,7 +28,7 @@ class AppSetupWindowController: NSWindowController {
     private let presentationModeSetupViewController: PresentationModeSetupViewController = .init()
     private let windowLayoutSetupViewController: WindowLayoutSetupViewController = .init()
     private let themeSetupViewController: ThemeSetupViewController = .init()
-    private let libraryHomeSetupViewController: LibraryHomeSetupViewController = .init()
+//    private let libraryHomeSetupViewController: LibraryHomeSetupViewController = .init()
     
     private lazy var messenger: Messenger = Messenger(for: self)
     
@@ -45,7 +45,7 @@ class AppSetupWindowController: NSWindowController {
         
         pathControl.pathItems.removeAll()
         
-        let titles: [String] = ["Presentation Mode", "Window Layout", "Theme", "Library"]
+        let titles: [String] = ["Presentation Mode", "Window Layout", "Theme"]
         let pathItems: [NSPathControlItem] = titles.enumerated().map {(index, title) in
             
             titlesAndIndices[title] = index
@@ -60,7 +60,7 @@ class AppSetupWindowController: NSWindowController {
         pathControl.pathItems.append(contentsOf: pathItems)
         
         for (index, controller) in [presentationModeSetupViewController, windowLayoutSetupViewController, 
-                                    themeSetupViewController, libraryHomeSetupViewController].enumerated() {
+                                    themeSetupViewController].enumerated() {
             
             tabView.tabViewItem(at: index).view?.addSubview(controller.view)
             controller.view.anchorToSuperview()

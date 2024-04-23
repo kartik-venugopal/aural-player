@@ -494,8 +494,6 @@
 		3EAFB615267FF47200F0DC96 /* FilterBandSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */; };
 		3EAFB617267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */; };
 		3EAFB619267FF68C00F0DC96 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */; };
-		3EB1274A2ADD8E1E00745603 /* LibraryHomeSetup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB127492ADD8E1E00745603 /* LibraryHomeSetup.xib */; };
-		3EB1274C2ADD8E3C00745603 /* LibraryHomeSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1274B2ADD8E3C00745603 /* LibraryHomeSetupViewController.swift */; };
 		3EB1A8112826D14F00866012 /* ThemablePopupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1A8102826D14F00866012 /* ThemablePopupButton.swift */; };
 		3EB1A8132826FCE900866012 /* DevicesViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1A8122826FCE900866012 /* DevicesViewController+TableViewDelegate.swift */; };
 		3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */; };
@@ -5283,7 +5281,6 @@
 				3EAF96FB28DCE1B6008561A7 /* control-freak.regular.ttf in Resources */,
 				3EC793882B74700900AF7E9E /* CompactPlayQueue.xib in Resources */,
 				3E25B65027F7818900D10A5F /* PlayQueueWindow.xib in Resources */,
-				3EB1274A2ADD8E1E00745603 /* LibraryHomeSetup.xib in Resources */,
 				3E91932925E0CF5D00F30F81 /* FontSchemeFonts.xib in Resources */,
 				3EAF96F628DCE1B6008561A7 /* ragingredlotus-bb.regular.ttf in Resources */,
 				3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */,
@@ -6063,7 +6060,6 @@
 				3E10178828D7713B002C0D8E /* FFmpegPacketTable.swift in Sources */,
 				3EABDDEA2694BC40008066E8 /* VisualizerViewOptions.swift in Sources */,
 				3E5F943025E571A6002DEF80 /* VisualizerViewProtocol.swift in Sources */,
-				3EB1274C2ADD8E3C00745603 /* LibraryHomeSetupViewController.swift in Sources */,
 				3EFE39D127864897006F8B8C /* FilterUnitPersistentState.swift in Sources */,
 				3EB4202D285A652D007159CC /* UnifiedPlayerViewController.swift in Sources */,
 				3EFE39B727864897006F8B8C /* NSRectPersistentState.swift in Sources */,

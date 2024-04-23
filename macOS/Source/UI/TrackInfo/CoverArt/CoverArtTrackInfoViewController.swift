@@ -99,7 +99,7 @@ class CoverArtTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     func colorSchemeChanged() {
         
         lblNoArt.textColor = systemColorScheme.primaryTextColor
-        tableView.setBackgroundColor(systemColorScheme.backgroundColor)
+        tableView.setBackgroundColor(.yellow)
         tableView.reloadData()
     }
     
