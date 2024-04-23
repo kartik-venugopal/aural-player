@@ -15,7 +15,5 @@ class MetadataTrackInfoViewController: TrackInfoKVListViewController {
         MetadataTrackInfoSource.instance
     }
     
-    override func writeHTML(to writer: HTMLWriter) {
-//        writer.addTable("Metadata:", 3, nil, tableView.htmlTable)
-    }
+    override var htmlTableName: String {"Metadata"}
 }

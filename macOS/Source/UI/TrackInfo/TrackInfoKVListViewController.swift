@@ -73,9 +73,29 @@ class TrackInfoKVListViewController: NSViewController, TrackInfoViewProtocol {
     
     // MARK: Export ---------------------------------------------------
     
-    var jsonObject: AnyObject? {nil}
+    var jsonObject: AnyObject? {
+        
+        var dict: [NSString: AnyObject] = [:]
+        
+        for (key, value) in trackInfoSource.trackInfo {
+            dict[key as NSString] = value as AnyObject
+        }
+        
+        return dict as NSDictionary
+    }
     
-    func writeHTML(to writer: HTMLWriter) {}
+    var htmlTableName: String {""}
+    
+    func writeHTML(to writer: HTMLWriter) {
+        
+        let grid: [[HTMLText]] = trackInfoSource.trackInfo.map {kvPair in
+            
+            [HTMLText(text: kvPair.key, underlined: true, bold: false, italic: false, width: 300),
+             HTMLText(text: kvPair.value, underlined: false, bold: false, italic: false, width: nil)]
+        }
+        
+        writer.addTable("\(htmlTableName):", 3, nil, grid)
+    }
     
     // MARK: Theming ---------------------------------------------------
     

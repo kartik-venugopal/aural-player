@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vod-w3-hfk" userLabel="Artwork" customClass="RoundedImageView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="143" width="200" height="200"/>
+                    <rect key="frame" x="0.0" y="153" width="200" height="200"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="Q1x-VE-GK2"/>
                         <constraint firstAttribute="height" constant="200" id="YO2-NE-3ra"/>
@@ -45,17 +45,17 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcN-9N-A47">
-                    <rect key="frame" x="260" y="30" width="295" height="313"/>
-                    <clipView key="contentView" drawsBackground="NO" id="E6C-RL-3WH">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="313"/>
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcN-9N-A47">
+                    <rect key="frame" x="260" y="0.0" width="295" height="353"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="E6C-RL-3WH">
+                        <rect key="frame" x="0.0" y="0.0" width="295" height="353"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView wantsLayer="YES" editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="SIX-BA-zH9">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="313"/>
+                                <rect key="frame" x="0.0" y="0.0" width="295" height="353"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="280" height="313"/>
+                                <size key="minSize" width="295" height="353"/>
                                 <size key="maxSize" width="10000" height="10000000"/>
                             </textView>
                         </subviews>
@@ -64,8 +64,8 @@
                         <rect key="frame" x="-100" y="-100" width="225" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="ZZt-G5-SfS" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="280" y="0.0" width="15" height="313"/>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="ZZt-G5-SfS" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="280" y="0.0" width="15" height="353"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <outlet property="contentView" destination="SIX-BA-zH9" id="OkU-vq-Lk5"/>
@@ -80,8 +80,8 @@
                 <constraint firstItem="Vod-w3-hfk" firstAttribute="leading" secondItem="Ul4-Ea-95e" secondAttribute="leading" id="NOY-TR-lrg"/>
                 <constraint firstAttribute="trailing" secondItem="DcN-9N-A47" secondAttribute="trailing" id="Nz7-cb-yZP"/>
                 <constraint firstItem="DcN-9N-A47" firstAttribute="top" secondItem="Vod-w3-hfk" secondAttribute="top" id="Qi7-Pg-eOt"/>
-                <constraint firstItem="Vod-w3-hfk" firstAttribute="top" secondItem="Ul4-Ea-95e" secondAttribute="top" constant="10" id="ZBJ-Vs-hw3"/>
-                <constraint firstAttribute="bottom" secondItem="DcN-9N-A47" secondAttribute="bottom" constant="30" id="ZRv-mH-4Ll"/>
+                <constraint firstItem="Vod-w3-hfk" firstAttribute="top" secondItem="Ul4-Ea-95e" secondAttribute="top" id="ZBJ-Vs-hw3"/>
+                <constraint firstAttribute="bottom" secondItem="DcN-9N-A47" secondAttribute="bottom" id="ZRv-mH-4Ll"/>
                 <constraint firstItem="d00-kB-O0G" firstAttribute="top" secondItem="Ul4-Ea-95e" secondAttribute="top" constant="1" id="nVF-Hi-KBn"/>
             </constraints>
             <point key="canvasLocation" x="-260.5" y="-180.5"/>

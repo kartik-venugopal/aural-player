@@ -15,7 +15,5 @@ class AudioTrackInfoViewController: TrackInfoKVListViewController {
         AudioTrackInfoSource.instance
     }
     
-    override func writeHTML(to writer: HTMLWriter) {
-//        writer.addTable("Audio:", 3, nil, tableView.htmlTable)
-    }
+    override var htmlTableName: String {"Audio"}
 }

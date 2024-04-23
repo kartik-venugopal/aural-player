@@ -18,9 +18,9 @@
             <rect key="frame" x="0.0" y="0.0" width="447" height="177"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="KbK-mP-1to">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="KbK-mP-1to">
                     <rect key="frame" x="0.0" y="0.0" width="447" height="177"/>
-                    <clipView key="contentView" drawsBackground="NO" id="kLV-1o-whq">
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="kLV-1o-whq">
                         <rect key="frame" x="0.0" y="0.0" width="447" height="177"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

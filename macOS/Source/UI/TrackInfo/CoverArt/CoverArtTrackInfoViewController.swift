@@ -36,9 +36,10 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
     }
     
     override var jsonObject: AnyObject? {
-//        artView.image != nil ? tableView.jsonObject : nil
-        nil
+        artView.image != nil ? super.jsonObject : nil
     }
+    
+    override var htmlTableName: String {"Cover Art"}
     
     override func writeHTML(to writer: HTMLWriter) {
         
@@ -60,7 +61,7 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
         writer.addImage(imgFile.lastPathComponent, "(Cover Art)")
         
         if artView.image != nil {
-//            writer.addTable("Cover Art Metadata:", 3, nil, tableView.htmlTable)
+            super.writeHTML(to: writer)
         }
     }
     

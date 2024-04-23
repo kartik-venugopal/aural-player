@@ -15,7 +15,5 @@ class FileSystemTrackInfoViewController: TrackInfoKVListViewController {
         FileSystemTrackInfoSource.instance
     }
     
-    override func writeHTML(to writer: HTMLWriter) {
-        //        writer.addTable("File System:", 3, nil, tableView.htmlTable)
-    }
+    override var htmlTableName: String {"File System"}
 }
