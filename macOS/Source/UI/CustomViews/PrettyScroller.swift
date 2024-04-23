@@ -21,14 +21,22 @@ class PrettyScroller: NSScroller {
 
     var knobColor: NSColor = NSColor.gray
     
+    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var contentView: NSView!
+    
     override func awakeFromNib() {
         self.scrollerStyle = .overlay
     }
     
     override func drawKnob() {
         
+        if contentView != nil, scrollView != nil, contentView.height <= scrollView.height {
+            return
+        }
+        
         let knobRect = self.rect(for: .knob).insetBy(dx: knobInsetX, dy: knobInsetY)
         if knobRect.height <= 0 || knobRect.width <= 0 {return}
+        
         NSBezierPath.fillRoundedRect(knobRect, radius: knobRadius, withColor: .scrollerKnobColor)
     }
     

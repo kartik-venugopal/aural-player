@@ -23,3 +23,13 @@ extension NSTextField: ColorSchemePropertyChangeReceiver {
 //        font = newFont
 //    }
 //}
+
+extension NSTextView {
+    
+    func setBackgroundColor(_ newColor: PlatformColor) {
+        
+        backgroundColor = newColor
+        enclosingScrollView?.backgroundColor = newColor
+        enclosingScrollView?.contentView.backgroundColor = newColor
+    }
+}

@@ -9,45 +9,38 @@
 //  
 import Cocoa
 
-class CoverArtTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
+class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
     
     override var nibName: String? {"CoverArtTrackInfo"}
-    
-    @IBOutlet weak var tableView: NSTableView!
     
     // Displays track artwork
     @IBOutlet weak var artView: NSImageView!
     @IBOutlet weak var lblNoArt: NSTextField!
     
-    private let trackInfoSource: CoverArtTrackInfoSource = .init()
-    @IBOutlet weak var tableViewDelegate: TrackInfoViewDelegate! {
-        
-        didSet {
-            tableViewDelegate.trackInfoSource = trackInfoSource
-        }
+    override var trackInfoSource: TrackInfoSource {
+        CoverArtTrackInfoSource.instance
     }
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
-    func refresh() {
+    override func refresh() {
         
         guard let track = TrackInfoViewContext.displayedTrack else {return}
-        trackInfoSource.loadTrackInfo(for: track)
-        
         artView?.image = track.art?.image
         lblNoArt.showIf(artView?.image == nil)
         
-        tableView.reloadData()
+        super.refresh()
     }
     
     func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
         refresh()
     }
     
-    var jsonObject: AnyObject? {
-        artView.image != nil ? tableView.jsonObject : nil
+    override var jsonObject: AnyObject? {
+//        artView.image != nil ? tableView.jsonObject : nil
+        nil
     }
     
-    func writeHTML(to writer: HTMLWriter) {
+    override func writeHTML(to writer: HTMLWriter) {
         
         guard let track = TrackInfoViewContext.displayedTrack else {return}
         
@@ -67,7 +60,7 @@ class CoverArtTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
         writer.addImage(imgFile.lastPathComponent, "(Cover Art)")
         
         if artView.image != nil {
-            writer.addTable("Cover Art Metadata:", 3, nil, tableView.htmlTable)
+//            writer.addTable("Cover Art Metadata:", 3, nil, tableView.htmlTable)
         }
     }
     
@@ -90,29 +83,22 @@ class CoverArtTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     
     // MARK: Theming ---------------------------------------------------
     
-    func fontSchemeChanged() {
+    override func fontSchemeChanged() {
         
         lblNoArt.font = systemFontScheme.normalFont
-        tableView.reloadData()
+        super.fontSchemeChanged()
     }
     
-    func colorSchemeChanged() {
+    override func colorSchemeChanged() {
         
         lblNoArt.textColor = systemColorScheme.primaryTextColor
-        tableView.setBackgroundColor(.yellow)
-        tableView.reloadData()
+        super.colorSchemeChanged()
     }
     
-    func backgroundColorChanged(_ newColor: PlatformColor) {
-        tableView.setBackgroundColor(newColor)
-    }
-    
-    func primaryTextColorChanged(_ newColor: PlatformColor) {
-        tableView.reloadAllRows(columns: [1])
-    }
-    
-    func secondaryTextColorChanged(_ newColor: PlatformColor) {
-        tableView.reloadAllRows(columns: [0])
+    override func primaryTextColorChanged(_ newColor: PlatformColor) {
+        
+        lblNoArt.textColor = newColor
+        super.primaryTextColorChanged(newColor)
     }
 }
 

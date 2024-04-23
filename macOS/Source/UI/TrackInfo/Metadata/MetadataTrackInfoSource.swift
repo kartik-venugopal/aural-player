@@ -13,6 +13,10 @@ class MetadataTrackInfoSource: TrackInfoSource {
     
     private(set) var trackInfo: [KeyValuePair] = []
     
+    static let instance: MetadataTrackInfoSource = .init()
+    
+    private init() {}
+    
     func loadTrackInfo(for track: Track) {
         
         trackInfo.removeAll()

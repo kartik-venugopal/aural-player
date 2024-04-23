@@ -123,45 +123,13 @@ extension NSTableView {
     }
     
     func pageUp() {
-        
-        guard self.numberOfRows > 3 else {return}
-        
-        // Determine if the last row currently displayed has been truncated so it is not fully visible
-        let visibleRect = self.visibleRect
-        let visibleRows = self.rows(in: visibleRect)
-        let numVisibleRows = Int(visibleRect.height / heightOfARow)
-        
-        let firstRowShown = visibleRows.lowerBound
-        let firstRowShownRect = self.rect(ofRow: firstRowShown)
-        let firstRowShownFully = CGRectContainsRect(visibleRect, firstRowShownRect)
-        
-        // If the first row currently displayed has been truncated more than 10%, show it again in the next page
-
-        let lastRowToShow = firstRowShownFully ? firstRowShown - 1 : firstRowShown
-        let scrollRow = max(lastRowToShow - numVisibleRows + 1, 0)
-
-        scrollRowToVisible(scrollRow)
+        enclosingScrollView?.pageUp(self)
     }
     
     var heightOfARow: CGFloat {self.rect(ofRow: 0).height}
     
     func pageDown() {
-        
-        guard self.numberOfRows > 3 else {return}
-        
-        // Determine if the last row currently displayed has been truncated so it is not fully visible
-        let visibleRect = self.visibleRect
-        let visibleRows = self.rows(in: visibleRect)
-        let numVisibleRows = Int(visibleRect.height / heightOfARow)
-        
-        let lastRowShown = visibleRows.lowerBound + visibleRows.length - 1
-        let lastRowShownRect = self.rect(ofRow: lastRowShown)
-        let lastRowShownFully = CGRectContainsRect(visibleRect, lastRowShownRect)
-        
-        let firstRowToShow = lastRowShownFully ? lastRowShown + 1 : lastRowShown
-        let scrollRow = min(firstRowToShow + numVisibleRows - 1, self.numberOfRows - 1)
-        
-        scrollRowToVisible(scrollRow)
+        enclosingScrollView?.pageDown(self)
     }
     
     // Scrolls the playlist view to the very top

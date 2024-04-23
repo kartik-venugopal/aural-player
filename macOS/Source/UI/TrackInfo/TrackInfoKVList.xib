@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TrackInfoKVListViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="textView" destination="DH1-5p-QoB" id="a23-jJ-3OG"/>
+                <outlet property="view" destination="k9f-Xp-VLt" id="QJl-2x-1jr"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <view id="k9f-Xp-VLt">
+            <rect key="frame" x="0.0" y="0.0" width="525" height="265"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kuc-rC-GUl">
+                    <rect key="frame" x="0.0" y="0.0" width="525" height="265"/>
+                    <clipView key="contentView" drawsBackground="NO" id="2Dt-p4-fOb">
+                        <rect key="frame" x="0.0" y="0.0" width="510" height="265"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView wantsLayer="YES" editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="DH1-5p-QoB">
+                                <rect key="frame" x="0.0" y="0.0" width="510" height="265"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <size key="minSize" width="510" height="265"/>
+                                <size key="maxSize" width="10000" height="10000000"/>
+                            </textView>
+                        </subviews>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="wYD-TG-fFA">
+                        <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="TCg-zA-Jlx" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="510" y="0.0" width="15" height="265"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="contentView" destination="DH1-5p-QoB" id="qyS-Eb-8pj"/>
+                            <outlet property="scrollView" destination="kuc-rC-GUl" id="ASp-zs-aRN"/>
+                        </connections>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="kuc-rC-GUl" secondAttribute="bottom" id="Oy1-Bx-zxu"/>
+                <constraint firstAttribute="trailing" secondItem="kuc-rC-GUl" secondAttribute="trailing" id="TsS-ky-p7Q"/>
+                <constraint firstItem="kuc-rC-GUl" firstAttribute="top" secondItem="k9f-Xp-VLt" secondAttribute="top" id="r5Q-Dc-dpW"/>
+                <constraint firstItem="kuc-rC-GUl" firstAttribute="leading" secondItem="k9f-Xp-VLt" secondAttribute="leading" id="tuA-S9-f30"/>
+            </constraints>
+            <point key="canvasLocation" x="-236" y="132"/>
+        </view>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+    </objects>
+</document>

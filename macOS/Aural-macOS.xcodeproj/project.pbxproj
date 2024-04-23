@@ -585,6 +585,8 @@
 		3EE9BCB7278A896800DFFDD7 /* ColorSchemeableBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE9BCB6278A896800DFFDD7 /* ColorSchemeableBox.swift */; };
 		3EEBC6EC27C14A4B00880DFD /* HorizontalSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBC6EB27C14A4B00880DFD /* HorizontalSliderCell.swift */; };
 		3EEBC6EE27C16CF700880DFD /* EffectsUnitStateObserverRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBC6ED27C16CF700880DFD /* EffectsUnitStateObserverRegistry.swift */; };
+		3EEC6EC92BD8464A00BC5D32 /* TrackInfoKVListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC6EC82BD8464A00BC5D32 /* TrackInfoKVListViewController.swift */; };
+		3EEC6ECB2BD8472200BC5D32 /* TrackInfoKVList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EEC6ECA2BD8472200BC5D32 /* TrackInfoKVList.xib */; };
 		3EEFF58927DE842C002CB0FE /* PlayQueueDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58327DE842C002CB0FE /* PlayQueueDelegateProtocol.swift */; };
 		3EEFF58A27DE842C002CB0FE /* PlayQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58427DE842C002CB0FE /* PlayQueueDelegate.swift */; };
 		3EEFF58B27DE842C002CB0FE /* PlayQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58527DE842C002CB0FE /* PlayQueue.swift */; };
@@ -611,7 +613,6 @@
 		3EFAA8D52B7146AC001A6682 /* ChaptersListSearchFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */; };
 		3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */; };
 		3EFB64952772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */; };
-		3EFB9ECF26A689D800EA8440 /* MetadataTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EFB9ECE26A689D800EA8440 /* MetadataTrackInfo.xib */; };
 		3EFB9ED326A68A2400EA8440 /* TrackInfoViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB9ED226A68A2400EA8440 /* TrackInfoViewDelegate.swift */; };
 		3EFB9ED626A68B1F00EA8440 /* MetadataTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB9ED526A68B1F00EA8440 /* MetadataTrackInfoViewController.swift */; };
 		3EFE0A8C2B4B364200C9B121 /* TrackHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFE0A8B2B4B364200C9B121 /* TrackHistoryItem.swift */; };
@@ -1633,6 +1634,8 @@
 		3EEABD432B56D47E00263797 /* Library+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Build.swift"; sourceTree = "<group>"; };
 		3EEBC6EB27C14A4B00880DFD /* HorizontalSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSliderCell.swift; sourceTree = "<group>"; };
 		3EEBC6ED27C16CF700880DFD /* EffectsUnitStateObserverRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitStateObserverRegistry.swift; sourceTree = "<group>"; };
+		3EEC6EC82BD8464A00BC5D32 /* TrackInfoKVListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoKVListViewController.swift; sourceTree = "<group>"; };
+		3EEC6ECA2BD8472200BC5D32 /* TrackInfoKVList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackInfoKVList.xib; sourceTree = "<group>"; };
 		3EEFF58327DE842C002CB0FE /* PlayQueueDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EEFF58427DE842C002CB0FE /* PlayQueueDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueDelegate.swift; sourceTree = "<group>"; };
 		3EEFF58527DE842C002CB0FE /* PlayQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueue.swift; sourceTree = "<group>"; };
@@ -1674,7 +1677,6 @@
 		3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListSearchFieldCell.swift; sourceTree = "<group>"; };
 		3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchSliderCell.swift; sourceTree = "<group>"; };
 		3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateCheckButton.swift; sourceTree = "<group>"; };
-		3EFB9ECE26A689D800EA8440 /* MetadataTrackInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataTrackInfo.xib; sourceTree = "<group>"; };
 		3EFB9ED226A68A2400EA8440 /* TrackInfoViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoViewDelegate.swift; sourceTree = "<group>"; };
 		3EFB9ED526A68B1F00EA8440 /* MetadataTrackInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTrackInfoViewController.swift; sourceTree = "<group>"; };
 		3EFE0A8B2B4B364200C9B121 /* TrackHistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackHistoryItem.swift; sourceTree = "<group>"; };
@@ -3359,6 +3361,8 @@
 				3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */,
 				3EFB9ED226A68A2400EA8440 /* TrackInfoViewDelegate.swift */,
 				3E36BD4D26A6AA5A00B6E28B /* TableViewRepresentations.swift */,
+				3EEC6ECA2BD8472200BC5D32 /* TrackInfoKVList.xib */,
+				3EEC6EC82BD8464A00BC5D32 /* TrackInfoKVListViewController.swift */,
 				3EFB9ECC26A688B100EA8440 /* Metadata */,
 				3E36BD2F26A68E7800B6E28B /* Lyrics */,
 				3E36BD3626A68F6300B6E28B /* CoverArt */,
@@ -4232,7 +4236,6 @@
 		3EFB9ECC26A688B100EA8440 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				3EFB9ECE26A689D800EA8440 /* MetadataTrackInfo.xib */,
 				3EFB9ED526A68B1F00EA8440 /* MetadataTrackInfoViewController.swift */,
 				3E6C103725CEB98600BF0D07 /* MetadataTrackInfoSource.swift */,
 			);
@@ -5219,7 +5222,6 @@
 				3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */,
 				3EAF96FD28DCE1B6008561A7 /* coming-soon.regular.ttf in Resources */,
 				3E51CCF0285E8986002CBEF2 /* UnifiedPlayerSidebar.xib in Resources */,
-				3EFB9ECF26A689D800EA8440 /* MetadataTrackInfo.xib in Resources */,
 				3E6C125E25CEBE0600BF0D07 /* ReverbPresetsManager.xib in Resources */,
 				3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */,
 				3E8C370D2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib in Resources */,
@@ -5234,6 +5236,7 @@
 				3ECBF3082619D58E00AD5C30 /* AudioUnits.xib in Resources */,
 				3E6C126625CEBE0600BF0D07 /* DelayPresetsManager.xib in Resources */,
 				3E5F943425E571A6002DEF80 /* Visualizer.xib in Resources */,
+				3EEC6ECB2BD8472200BC5D32 /* TrackInfoKVList.xib in Resources */,
 				3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* ModularPlayer.xib in Resources */,
 				3EAF96FF28DCE1B6008561A7 /* CarroisGothicSC-Regular.ttf in Resources */,
@@ -5339,6 +5342,7 @@
 				3EFE3A8727864898006F8B8C /* FileSystemInfo.swift in Sources */,
 				3ECBF30A2619DF7200AD5C30 /* AudioUnitsViewController+TableViewDelegate.swift in Sources */,
 				3E6C66A92B54686D00AA0D81 /* LegacyAudioGraphPersistentState.swift in Sources */,
+				3EEC6EC92BD8464A00BC5D32 /* TrackInfoKVListViewController.swift in Sources */,
 				3EFE387527864896006F8B8C /* ReverbUnit.swift in Sources */,
 				3ECBF3062619D58500AD5C30 /* AudioUnitsViewController.swift in Sources */,
 				3E6C128525CEBE1800BF0D07 /* AuralColorPicker.swift in Sources */,

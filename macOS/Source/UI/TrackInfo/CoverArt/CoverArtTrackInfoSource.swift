@@ -16,6 +16,10 @@ class CoverArtTrackInfoSource: TrackInfoSource {
     
     private(set) var trackInfo: [KeyValuePair] = []
     
+    static let instance: CoverArtTrackInfoSource = .init()
+    
+    private init() {}
+    
     func loadTrackInfo(for track: Track) {
         
         trackInfo.removeAll()

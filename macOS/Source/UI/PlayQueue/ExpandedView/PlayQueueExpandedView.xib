@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -98,7 +98,7 @@
                                                 <rect key="frame" x="44" y="2" width="340" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ZBX-aA-NAy" userLabel="Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ZBX-aA-NAy" userLabel="Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="8" y="25" width="332" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="a9d-Cg-WAK"/>
@@ -109,7 +109,7 @@
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="SU0-ut-uHa" userLabel="Default Display Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="SU0-ut-uHa" userLabel="Default Display Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="8" y="5" width="332" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="UU6-Pd-Rza"/>
@@ -120,7 +120,7 @@
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vJS-xt-F7y" userLabel="Artist Album" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vJS-xt-F7y" userLabel="Artist Album" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="8" y="3" width="332" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="3m7-rA-xeC"/>
@@ -168,7 +168,7 @@
                                                 <rect key="frame" x="387" y="2" width="70" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bxe-de-Six" userLabel="Duration">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bxe-de-Six" userLabel="Duration">
                                                         <rect key="frame" x="-2" y="10" width="69" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="J5d-DA-zWJ"/>
@@ -205,9 +205,13 @@
                         <rect key="frame" x="-100" y="-100" width="500" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="NrJ-XW-mbV">
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="NrJ-XW-mbV" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="-100" y="-100" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="contentView" destination="RAo-B3-mxT" id="wTn-uG-Rcm"/>
+                            <outlet property="scrollView" destination="KbK-mP-1to" id="QnX-yt-7U8"/>
+                        </connections>
                     </scroller>
                 </scrollView>
             </subviews>

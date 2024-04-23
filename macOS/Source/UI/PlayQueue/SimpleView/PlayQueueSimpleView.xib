@@ -14,7 +14,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView misplaced="YES" id="c22-O7-iKe">
+        <customView id="c22-O7-iKe">
             <rect key="frame" x="0.0" y="0.0" width="447" height="177"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -173,9 +173,13 @@
                         <rect key="frame" x="-100" y="-100" width="500" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="NrJ-XW-mbV">
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="NrJ-XW-mbV" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="-100" y="-100" width="15" height="177"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="contentView" destination="RAo-B3-mxT" id="5i0-LU-yBh"/>
+                            <outlet property="scrollView" destination="KbK-mP-1to" id="uhf-op-tb0"/>
+                        </connections>
                     </scroller>
                 </scrollView>
             </subviews>
