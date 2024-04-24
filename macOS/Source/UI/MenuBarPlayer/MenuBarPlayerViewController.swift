@@ -20,6 +20,8 @@ class MenuBarPlayerViewController: PlayerViewController {
     
     override var nibName: NSNib.Name? {"MenuBarPlayer"}
     
+//    private lazy var settingsPopup: MenuBarSettingsPopupViewController = .instance
+    
     override var shouldEnableSeekTimer: Bool {
         super.shouldEnableSeekTimer && view.superview != nil
     }
@@ -68,7 +70,14 @@ class MenuBarPlayerViewController: PlayerViewController {
     }
     
     @IBAction func toggleSettingsMenuAction(_ sender: NSButton) {
-        messenger.publish(.MenuBarPlayer.showSettings)
+        
+//        messenger.publish(.MenuBarPlayer.showSettings)
+        
+//        if settingsPopup.isShown {
+//            settingsPopup.close()
+//        } else {
+//            settingsPopup.show(relativeTo: self.view, preferredEdge: .maxX)
+//        }
     }
     
     @IBAction func quitAction(_ sender: AnyObject) {

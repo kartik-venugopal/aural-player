@@ -28,8 +28,10 @@ class MenuBarAppModeController: NSObject, AppModeController {
     private var playerViewController: MenuBarPlayerViewController!
     private lazy var playQueueViewController: MenuBarPlayQueueViewController! = .init()
     private lazy var settingsWindowController: MenuBarSettingsWindowController! = .init()
+    private lazy var sett: MenuBarSettingsPopupViewController = .init()
     
     private var playQueueMenuItem: NSMenuItem!
+    private var settingsMenuItem: NSMenuItem!
     
     private let appIcon: NSImage = NSImage(named: "AppIcon-MenuBar")!
     
@@ -61,9 +63,22 @@ class MenuBarAppModeController: NSObject, AppModeController {
         let playerMenuItem = NSMenuItem(view: playerViewController.view)
         menu.addItem(playerMenuItem)
         
+        settingsMenuItem = NSMenuItem(view: sett.view)
+        menu.addItem(settingsMenuItem)
+        
+        toggle()
+        
         togglePlayQueue()
         
         menu.delegate = playerViewController
+    }
+    
+    func toggle() {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.settingsMenuItem.toggleShownOrHidden()
+            self.toggle()
+        }
     }
     
     func dismissMode() {

@@ -52,3 +52,21 @@ class MenuBarSettingsWindowController: NSWindowController {
         close()
     }
 }
+
+class MenuBarSettingsPopupViewController: NSViewController {
+    
+    override var nibName: String? {"MenuBarSettings"}
+    
+//    // Shows the popover
+//    func show(relativeTo view: NSView, preferredEdge: NSRectEdge) {
+//        
+//        if !isShown {
+//            popover.show(relativeTo: positioningRect, of: view, preferredEdge: preferredEdge)
+//        }
+//    }
+//    
+//    // Closes the popover
+//    @objc override func close() {
+//        super.close()
+//    }
+}
