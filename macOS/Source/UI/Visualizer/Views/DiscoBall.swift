@@ -113,7 +113,7 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
             node = SCNNode(geometry: ball)
             
             node.position = nodePosition
-            ball.firstMaterial?.diffuse.contents = textureImage.tintedWithColor(startColor)
+            ball.firstMaterial?.diffuse.contents = textureImage.tintedUsingCIFilterWithColor(startColor)
             ball.firstMaterial?.diffuse.wrapS = .clamp
             ball.firstMaterial?.diffuse.wrapT = .clamp
             
@@ -133,7 +133,7 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
             showsStatistics = false
             
             for level in 0...10 {
-                textureCache.append(textureImage.tintedWithColor(startColor.interpolate(endColor, CGFloat(level) * 0.1)))
+                textureCache.append(textureImage.tintedUsingCIFilterWithColor(startColor.interpolate(endColor, CGFloat(level) * 0.1)))
             }
             
         } else {
@@ -152,13 +152,13 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
         if textureCache.isNonEmpty {
             
             for level in 0...10 {
-                textureCache[level] = textureImage.tintedWithColor(startColor.interpolate(endColor, CGFloat(level) * 0.1))
+                textureCache[level] = textureImage.tintedUsingCIFilterWithColor(startColor.interpolate(endColor, CGFloat(level) * 0.1))
             }
             
         } else {
             
             for level in 0...10 {
-                textureCache.append(textureImage.tintedWithColor(startColor.interpolate(endColor, CGFloat(level) * 0.1)))
+                textureCache.append(textureImage.tintedUsingCIFilterWithColor(startColor.interpolate(endColor, CGFloat(level) * 0.1)))
             }
         }
     }

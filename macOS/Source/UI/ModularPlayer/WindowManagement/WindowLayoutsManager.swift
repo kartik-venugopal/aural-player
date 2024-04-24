@@ -64,6 +64,10 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
                 
                 windowLoaders.append(WindowLoader(windowID: .chaptersList, windowControllerType: ChaptersListWindowController.self))
                 
+            case .visualizer:
+                
+                windowLoaders.append(WindowLoader(windowID: .visualizer, windowControllerType: VisualizerWindowController.self))
+                
             default:
                 
                 continue

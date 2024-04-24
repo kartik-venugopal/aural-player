@@ -37,10 +37,6 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate {
     
     private lazy var visualizer: Visualizer = Visualizer(renderCallback: updateCurrentView)
     
-    private lazy var player: PlaybackInfoDelegateProtocol = playbackInfoDelegate
-    
-    private lazy var uiState: VisualizerUIState = visualizerUIState
-    
     private(set) lazy var messenger = Messenger(for: self)
     
     override func windowDidLoad() {
@@ -77,10 +73,12 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate {
         
         super.showWindow(sender)
         
+        visualizer.setUp()
+        
         containerBox.startTracking()
         
-        initUI(type: uiState.type, lowAmplitudeColor: uiState.options.lowAmplitudeColor,
-               highAmplitudeColor: uiState.options.highAmplitudeColor)
+        initUI(type: visualizerUIState.type, lowAmplitudeColor: visualizerUIState.options.lowAmplitudeColor,
+               highAmplitudeColor: visualizerUIState.options.highAmplitudeColor)
         
         visualizer.startAnalysis()
         playbackStateChanged()
@@ -115,7 +113,7 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate {
         currentView?.dismissView()
         currentView = nil
         
-        uiState.type = type
+        visualizerUIState.type = type
         
         switch type {
 
@@ -147,7 +145,7 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate {
         
         updateViewColors()
         
-        uiState.options.setColors(lowAmplitudeColor: startColorPicker.color,
+        visualizerUIState.options.setColors(lowAmplitudeColor: startColorPicker.color,
                                   highAmplitudeColor: endColorPicker.color)
     }
     

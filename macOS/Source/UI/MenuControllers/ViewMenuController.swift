@@ -91,6 +91,6 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
-//        windowLayoutsManager.toggleVisualizerWindow()
+        windowLayoutsManager.toggleWindow(withId: .visualizer)
     }
 }

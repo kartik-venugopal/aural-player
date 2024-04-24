@@ -22,8 +22,10 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
     private let renderCallback: VisualizerRenderCallback
     
     init(renderCallback: @escaping VisualizerRenderCallback) {
-        
         self.renderCallback = renderCallback
+    }
+    
+    func setUp() {
         
         normalDeviceBufferSize = audioGraph.outputDeviceBufferSize
         audioGraph.outputDeviceBufferSize = audioGraph.visualizationAnalysisBufferSize
