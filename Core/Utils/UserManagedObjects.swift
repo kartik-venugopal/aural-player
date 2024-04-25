@@ -56,7 +56,9 @@ class UserManagedObjects<O: UserManagedObject> {
         systemDefinedObjectsMap[name] ?? userDefinedObjectsMap[name]
     }
     
+    var numberOfSystemDefinedObjects: Int {systemDefinedObjectsMap.count}
     var numberOfUserDefinedObjects: Int {userDefinedObjectsMap.count}
+    var totalNumberOfObjects: Int {systemDefinedObjectsMap.count + userDefinedObjectsMap.count}
     
     func userDefinedObject(named name: String) -> O? {
         userDefinedObjectsMap[name]

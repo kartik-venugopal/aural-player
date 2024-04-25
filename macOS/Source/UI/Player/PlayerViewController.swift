@@ -413,7 +413,7 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
     }
     
     func setUpColorSchemePropertyObservation() {
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, changeReceiver: volumeSlider)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, changeReceivers: [seekSlider, volumeSlider])
     }
     
     func fontSchemeChanged() {
@@ -455,6 +455,8 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         }
         
         btnVolume.colorChanged(systemColorScheme.buttonColor)
+        
+        seekSlider.redraw()
         volumeSlider.redraw()
         lblVolume.textColor = volumeLevelColor
     }
