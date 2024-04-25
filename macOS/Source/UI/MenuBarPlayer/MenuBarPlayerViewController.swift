@@ -20,7 +20,19 @@ class MenuBarPlayerViewController: PlayerViewController {
     
     override var nibName: NSNib.Name? {"MenuBarPlayer"}
     
-//    private lazy var settingsPopup: MenuBarSettingsPopupViewController = .instance
+    private static let textViewDefaultPosition: NSPoint = NSPoint(x: 67, y: 66)
+    private static let textViewPosition_noArt: NSPoint = NSPoint(x: 12, y: 66)
+    
+    private static let textViewDefaultWidth: CGFloat = 210
+    private static let textViewWidth_noArt: CGFloat = 265
+    
+    override func setUpNotificationHandling() {
+        
+        super.setUpNotificationHandling()
+        
+        messenger.subscribe(to: .MenuBarPlayer.menuWillOpen, handler: menuWillOpen)
+        messenger.subscribe(to: .MenuBarPlayer.menuDidClose, handler: menuDidClose)
+    }
     
     override var shouldEnableSeekTimer: Bool {
         super.shouldEnableSeekTimer && view.superview != nil
@@ -58,6 +70,22 @@ class MenuBarPlayerViewController: PlayerViewController {
         updateMultilineTrackTextViewColors()
     }
     
+    override func showOrHideAlbumArt() {
+        
+        artView.showIf(menuBarPlayerUIState.showAlbumArt)
+        resizeAndRepositionTextView()
+    }
+    
+    private func resizeAndRepositionTextView() {
+        
+        let showingArt: Bool = menuBarPlayerUIState.showAlbumArt
+        
+        multilineTrackTextView.setFrameOrigin(showingArt ? Self.textViewDefaultPosition : Self.textViewPosition_noArt)
+        multilineTrackTextView.resize(width: showingArt ? Self.textViewDefaultWidth : Self.textViewWidth_noArt)
+        textScrollView.resize(multilineTrackTextView.width, multilineTrackTextView.height)
+        multilineTrackTextView.resized()
+    }
+    
     override func colorSchemeChanged() {
         
         super.colorSchemeChanged()
@@ -70,34 +98,26 @@ class MenuBarPlayerViewController: PlayerViewController {
     }
     
     @IBAction func toggleSettingsMenuAction(_ sender: NSButton) {
-        
-//        messenger.publish(.MenuBarPlayer.showSettings)
-        
-//        if settingsPopup.isShown {
-//            settingsPopup.close()
-//        } else {
-//            settingsPopup.show(relativeTo: self.view, preferredEdge: .maxX)
-//        }
+        messenger.publish(.MenuBarPlayer.toggleSettingsMenu)
     }
     
     @IBAction func quitAction(_ sender: AnyObject) {
         NSApp.terminate(self)
     }
-}
-
-extension MenuBarPlayerViewController: NSMenuDelegate {
     
-    func menuDidClose(_ menu: NSMenu) {
-        
-        // Updating seek position is not necessary when the view has been closed.
-        setSeekTimerState(to: false)
-    }
+    // MARK: Menu delegate functions (menu bar menu) ---------------------------------
     
-    func menuWillOpen(_ menu: NSMenu) {
+    private func menuWillOpen() {
         
         // If the player is playing, we need to resume updating the seek
         // position as the view is now visible.
         updateSeekPosition()
         updateSeekTimerState()
+    }
+    
+    private func menuDidClose() {
+        
+        // Updating seek position is not necessary when the view has been closed.
+        setSeekTimerState(to: false)
     }
 }

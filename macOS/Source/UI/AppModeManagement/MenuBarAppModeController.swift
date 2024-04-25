@@ -24,11 +24,11 @@ class MenuBarAppModeController: NSObject, AppModeController {
     var mode: AppMode {.menuBar}
 
     private var statusItem: NSStatusItem?
+    private var rootMenu: NSMenu!
     
     private var playerViewController: MenuBarPlayerViewController!
     private lazy var playQueueViewController: MenuBarPlayQueueViewController! = .init()
-    private lazy var settingsWindowController: MenuBarSettingsWindowController! = .init()
-    private lazy var sett: MenuBarSettingsPopupViewController = .init()
+    private let settingsViewController: MenuBarSettingsViewController! = .init()
     
     private var playQueueMenuItem: NSMenuItem!
     private var settingsMenuItem: NSMenuItem!
@@ -41,8 +41,8 @@ class MenuBarAppModeController: NSObject, AppModeController {
         
         super.init()
         
-        messenger.subscribe(to: .MenuBarPlayer.showSettings, handler: showSettings)
-        messenger.subscribe(to: .MenuBarPlayer.togglePlayQueue, handler: togglePlayQueue)
+        messenger.subscribe(to: .MenuBarPlayer.togglePlayQueue, handler: showOrHidePlayQueue)
+        messenger.subscribe(to: .MenuBarPlayer.toggleSettingsMenu, handler: toggleSettingsMenu)
     }
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {
@@ -57,28 +57,25 @@ class MenuBarAppModeController: NSObject, AppModeController {
         statusItem?.button?.image = appIcon
         statusItem?.button?.toolTip = "Aural Player v\(NSApp.appVersion)"
         
-        let menu = NSMenu()
-        statusItem?.menu = menu
+        rootMenu = NSMenu()
+        statusItem?.menu = rootMenu
         
         let playerMenuItem = NSMenuItem(view: playerViewController.view)
-        menu.addItem(playerMenuItem)
+        rootMenu.addItem(playerMenuItem)
         
-        settingsMenuItem = NSMenuItem(view: sett.view)
-        menu.addItem(settingsMenuItem)
+        showOrHidePlayQueue()
+        createSettingsMenu()
         
-        toggle()
-        
-        togglePlayQueue()
-        
-        menu.delegate = playerViewController
+        rootMenu.delegate = self
     }
     
-    func toggle() {
+    private func createSettingsMenu() {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.settingsMenuItem.toggleShownOrHidden()
-            self.toggle()
-        }
+        settingsMenuItem = NSMenuItem(view: settingsViewController.view)
+        settingsMenuItem.hide()
+        
+        rootMenu.addItem(.separator())
+        rootMenu.addItem(settingsMenuItem)
     }
     
     func dismissMode() {
@@ -90,6 +87,7 @@ class MenuBarAppModeController: NSObject, AppModeController {
             
             statusItem.menu?.cancelTracking()
             statusItem.menu = nil
+            rootMenu = nil
             
             NSStatusBar.system.removeStatusItem(statusItem)
             self.statusItem = nil
@@ -98,19 +96,14 @@ class MenuBarAppModeController: NSObject, AppModeController {
         playerViewController = nil
         playQueueViewController = nil
         playQueueMenuItem = nil
-        settingsWindowController = nil
+        settingsMenuItem = nil
     }
     
-    private func showSettings() {
-        
-        NSApp.activate(ignoringOtherApps: true)
-        
-        settingsWindowController.showWindow(self)
-        settingsWindowController.window?.center()
-        settingsWindowController.window?.makeKeyAndOrderFront(self)
+    private func toggleSettingsMenu() {
+        settingsMenuItem.toggleShownOrHidden()
     }
     
-    private func togglePlayQueue() {
+    private func showOrHidePlayQueue() {
         
         createPlayQueueMenuItemIfRequired()
         playQueueMenuItem?.showIf(menuBarPlayerUIState.showPlayQueue)
@@ -120,9 +113,20 @@ class MenuBarAppModeController: NSObject, AppModeController {
         
         guard menuBarPlayerUIState.showPlayQueue, playQueueMenuItem == nil else {return}
         
-        statusItem?.menu?.addItem(.separator())
+        statusItem?.menu?.insertItem(.separator(), at: 1)
         
         self.playQueueMenuItem = NSMenuItem(view: playQueueViewController.view)
-        statusItem?.menu?.addItem(playQueueMenuItem)
+        statusItem?.menu?.insertItem(playQueueMenuItem, at: 2)
+    }
+}
+
+extension MenuBarAppModeController: NSMenuDelegate {
+    
+    func menuDidClose(_ menu: NSMenu) {
+        messenger.publish(.MenuBarPlayer.menuDidClose)
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        messenger.publish(.MenuBarPlayer.menuWillOpen)
     }
 }

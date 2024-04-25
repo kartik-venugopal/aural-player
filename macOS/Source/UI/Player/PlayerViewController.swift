@@ -13,7 +13,12 @@ import AppKit
 class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObserver {
     
     @IBOutlet weak var artView: NSImageView!
+    
     @IBOutlet weak var multilineTrackTextView: MultilineTrackTextView!
+    var textScrollView: NSScrollView! {
+        multilineTrackTextView.clipView.enclosingScrollView
+    }
+    
     @IBOutlet weak var scrollingTrackTextView: ScrollingTrackTextView!
     
     @IBOutlet weak var lblTrackTime: NSTextField!

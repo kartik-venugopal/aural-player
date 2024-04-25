@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,7 +22,7 @@
             <windowStyleMask key="styleMask" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="610" height="50"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="610" height="50"/>
             <value key="maxSize" type="size" width="10000" height="50"/>
             <view key="contentView" wantsLayer="YES" misplaced="YES" id="EiT-Mj-1SZ" customClass="WidgetPlaybackView" customModule="Aural" customModuleProvider="target">
@@ -256,19 +255,19 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Seek position display" id="TBs-tP-j8q">
                                                         <items>
-                                                            <menuItem title="Time elapsed" state="on" id="Fax-Qw-7a9" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                            <menuItem title="Time elapsed" state="on" id="Fax-Qw-7a9" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="IkQ-3b-gGL"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Time remaining" tag="1" id="4M7-PM-McI" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                            <menuItem title="Time remaining" tag="1" id="4M7-PM-McI" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="FG8-iG-wqW"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Track duration" tag="2" id="2Uw-dq-NqZ" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                            <menuItem title="Track duration" tag="2" id="2Uw-dq-NqZ" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="O8M-so-6zf"/>

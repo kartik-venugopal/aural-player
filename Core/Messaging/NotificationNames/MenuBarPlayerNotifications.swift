@@ -17,7 +17,10 @@ extension Notification.Name {
     
     struct MenuBarPlayer {
         
-        static let showSettings = Notification.Name("menuBarPlayer_showSettings")
+        static let menuWillOpen = Notification.Name("menuBarPlayer_menuWillOpen")
+        static let menuDidClose = Notification.Name("menuBarPlayer_menuDidClose")
+        
+        static let toggleSettingsMenu = Notification.Name("menuBarPlayer_toggleSettingsMenu")
         static let togglePlayQueue = Notification.Name("menuBarPlayer_togglePlayQueue")
         static let showSearch = Notification.Name("menuBarPlayer_showSearch")
     }

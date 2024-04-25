@@ -16,9 +16,9 @@ class WidgetPlayerViewController: PlayerViewController {
     @IBOutlet weak var showTrackTimeMenuItem: NSMenuItem!
     @IBOutlet weak var seekPositionDisplayTypeMenuItem: NSMenuItem!
     
-    @IBOutlet weak var timeElapsedMenuItem: SeekPositionDisplayTypeMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem: SeekPositionDisplayTypeMenuItem!
-    @IBOutlet weak var trackDurationMenuItem: SeekPositionDisplayTypeMenuItem!
+    @IBOutlet weak var timeElapsedMenuItem: TrackTimeDisplayTypeMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem: TrackTimeDisplayTypeMenuItem!
+    @IBOutlet weak var trackDurationMenuItem: TrackTimeDisplayTypeMenuItem!
     
     private lazy var seekPositionDisplayTypeItems: [NSMenuItem] = [timeElapsedMenuItem, timeRemainingMenuItem, trackDurationMenuItem]
     
@@ -80,7 +80,7 @@ class WidgetPlayerViewController: PlayerViewController {
         layoutScrollingTrackTextView()
     }
     
-    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: SeekPositionDisplayTypeMenuItem) {
+    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: TrackTimeDisplayTypeMenuItem) {
         
         playerUIState.trackTimeDisplayType = sender.displayType
         setTrackTimeDisplayType(to: playerUIState.trackTimeDisplayType)
@@ -123,6 +123,6 @@ extension WidgetPlayerViewController: NSMenuDelegate {
     }
 }
 
-class SeekPositionDisplayTypeMenuItem: NSMenuItem {
+class TrackTimeDisplayTypeMenuItem: NSMenuItem {
     var displayType: TrackTimeDisplayType = .elapsed
 }

@@ -6,129 +6,151 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="MenuBarSettingsPopupViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="MenuBarSettingsViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnDuration" destination="LcT-R3-ZXs" id="Gid-nS-xGM"/>
+                <outlet property="btnShowAlbum" destination="4Ze-x3-ewZ" id="3yu-xh-dXL"/>
+                <outlet property="btnShowArt" destination="Eg4-AA-i5Y" id="Ceq-z4-Hrs"/>
+                <outlet property="btnShowArtist" destination="W2y-fJ-6UE" id="NyG-mJ-FnL"/>
+                <outlet property="btnShowChapterTitle" destination="UOu-0q-tEk" id="wvA-jb-CDw"/>
+                <outlet property="btnShowPlayQueue" destination="efL-5J-Rgf" id="QMU-rr-Qe0"/>
+                <outlet property="btnTimeElapsed" destination="QTV-Ju-md7" id="AIk-MA-efi"/>
+                <outlet property="btnTimeRemaining" destination="Ggm-yA-8AJ" id="GeU-9K-EaM"/>
+                <outlet property="tabView" destination="K14-Bt-m1d" id="CXc-WM-jg3"/>
                 <outlet property="view" destination="SwN-Na-hmm" id="huh-o4-XFi"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="GrQ-56-xOq" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="theMenu" destination="itA-jY-ufF" id="8to-dz-qiZ"/>
-            </connections>
-        </customObject>
-        <customObject id="gAX-tJ-3un" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="theMenu" destination="l4A-bP-FgU" id="dRL-By-c1P"/>
-            </connections>
-        </customObject>
         <customView wantsLayer="YES" id="SwN-Na-hmm">
-            <rect key="frame" x="0.0" y="0.0" width="283" height="286"/>
+            <rect key="frame" x="0.0" y="0.0" width="283" height="344"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K14-Bt-m1d">
-                    <rect key="frame" x="13" y="8" width="264" height="234"/>
+                    <rect key="frame" x="13" y="10" width="264" height="295"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
-                        <tabViewItem label="General" identifier="" id="YeJ-hG-71Z">
-                            <view key="view" id="rrT-LX-yd2">
-                                <rect key="frame" x="10" y="33" width="244" height="188"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efL-5J-Rgf" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="143" width="141" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Show Play Queue" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="tXN-Xa-5NQ">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="12" name="Play-Regular"/>
-                                        </buttonCell>
-                                    </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXr-fT-IIr" userLabel="App Mode Caption">
-                                        <rect key="frame" x="16" y="100" width="254" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Change Presentation Mode:" id="lX5-U4-vTZ">
-                                            <font key="font" size="13" name="Play-Regular"/>
-                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <popUpButton focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f73-Rv-1fg" userLabel="App Modes Menu">
-                                        <rect key="frame" x="14" y="74" width="204" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <popUpButtonCell key="cell" type="push" title="&lt;Select Presentation Mode&gt;" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" focusRingType="none" imageScaling="proportionallyDown" inset="2" selectedItem="TEe-Wz-NOR" id="EoR-Xg-7HL">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <menu key="menu" showsStateColumn="NO" id="s7Z-jn-Gep">
-                                                <items>
-                                                    <menuItem title="&lt;Select Presentation Mode&gt;" state="on" hidden="YES" allowsKeyEquivalentWhenHidden="YES" id="TEe-Wz-NOR"/>
-                                                    <menuItem title="Modular (multiple windows)" identifier="modular" id="Zgb-0l-efI">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Unified (single window)" identifier="unified" id="d3u-ih-A2c">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Compact (single compact window)" identifier="compact" id="Qas-il-Piu">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Widget (floating widget)" identifier="widget" id="tqP-aQ-LPK">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </popUpButtonCell>
-                                    </popUpButton>
-                                </subviews>
-                            </view>
-                        </tabViewItem>
                         <tabViewItem label="Player" identifier="" id="dBF-po-OsZ">
                             <view key="view" id="yRQ-Jn-Kt0">
-                                <rect key="frame" x="10" y="33" width="244" height="188"/>
+                                <rect key="frame" x="10" y="33" width="244" height="249"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOu-0q-tEk" userLabel="Show chapter title" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="71" y="62" width="141" height="18"/>
+                                        <rect key="frame" x="11" y="148" width="141" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Show chapter title" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="lzO-uk-xIa">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="12" name="Play-Regular"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="showOrHideChapterTitleAction:" target="-2" id="hb4-i8-Zat"/>
+                                        </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W2y-fJ-6UE" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="71" y="102" width="141" height="18"/>
+                                        <rect key="frame" x="11" y="188" width="141" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Show artist" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="rGh-UF-Ppu">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="12" name="Play-Regular"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="showOrHideArtistAction:" target="-2" id="KCj-yZ-mOc"/>
+                                        </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ze-x3-ewZ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="71" y="82" width="141" height="18"/>
+                                        <rect key="frame" x="11" y="168" width="141" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Show album" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="8eG-KS-mKu">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="12" name="Play-Regular"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="showOrHideAlbumAction:" target="-2" id="29U-mO-KlT"/>
+                                        </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eg4-AA-i5Y" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="71" y="122" width="141" height="18"/>
+                                        <rect key="frame" x="11" y="208" width="141" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Show album art" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="wWX-Tf-UJP">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="12" name="Play-Regular"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="showOrHideAlbumArtAction:" target="-2" id="Q9N-Dl-b29"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="79O-u6-7uG" userLabel="Theme Caption">
+                                        <rect key="frame" x="11" y="113" width="194" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek position display" id="UWD-nz-uK3">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QTV-Ju-md7" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="87" width="181" height="19"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="Time elapsed" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="a0b-n6-43e">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="trackTimeDisplayTypeAction:" target="-2" id="tqx-2J-K1J"/>
+                                        </connections>
+                                    </button>
+                                    <button tag="1" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ggm-yA-8AJ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="66" width="132" height="19"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="Time remaining" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="cPk-Ck-VLq">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="trackTimeDisplayTypeAction:" target="-2" id="ZvR-bD-cEj"/>
+                                        </connections>
+                                    </button>
+                                    <button tag="2" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LcT-R3-ZXs" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="45" width="120" height="19"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="Duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="si2-rK-Jg8">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="trackTimeDisplayTypeAction:" target="-2" id="chY-ON-A2G"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Play Queue" identifier="" id="YeJ-hG-71Z" userLabel="Play Queue">
+                            <view key="view" id="rrT-LX-yd2">
+                                <rect key="frame" x="10" y="33" width="244" height="249"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button id="efL-5J-Rgf" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="213" width="141" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Show Play Queue" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="tXN-Xa-5NQ">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="12" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showPlayQueueAction:" target="-2" id="U2V-IN-768"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Theming" identifier="" id="jvc-36-7zd">
                             <view key="view" id="kIo-32-cwY">
-                                <rect key="frame" x="10" y="33" width="244" height="188"/>
+                                <rect key="frame" x="10" y="33" width="244" height="249"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KqJ-nC-POh" userLabel="Theme Caption">
-                                        <rect key="frame" x="15" y="151" width="194" height="20"/>
+                                        <rect key="frame" x="15" y="212" width="194" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Change Theme:" id="hzK-e5-g3i">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -137,7 +159,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <popUpButton focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CnT-1c-FMk" userLabel="Themes Menu">
-                                        <rect key="frame" x="13" y="125" width="204" height="22"/>
+                                        <rect key="frame" x="13" y="186" width="204" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="push" title="&lt;Select Theme&gt;" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" focusRingType="none" imageScaling="proportionallyDown" inset="2" selectedItem="0Ky-GN-LKK" id="RlB-Gg-1YE">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -153,167 +175,13 @@
                                             </menu>
                                         </popUpButtonCell>
                                     </popUpButton>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LkT-PV-9cl" userLabel="Font Scheme Caption">
-                                        <rect key="frame" x="15" y="93" width="200" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Change Font Scheme:" id="Afx-B0-NOO">
-                                            <font key="font" size="13" name="Play-Regular"/>
-                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <popUpButton focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CZy-v8-TFr" userLabel="Font Schemes Menu">
-                                        <rect key="frame" x="13" y="67" width="204" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <popUpButtonCell key="cell" type="push" title="&lt;Select Font Scheme&gt;" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" focusRingType="none" imageScaling="proportionallyDown" inset="2" selectedItem="xIx-14-nFj" id="aCg-mR-GDo">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <menu key="menu" id="itA-jY-ufF">
-                                                <items>
-                                                    <menuItem title="&lt;Select Font Scheme&gt;" state="on" hidden="YES" allowsKeyEquivalentWhenHidden="YES" id="xIx-14-nFj"/>
-                                                    <menuItem isSeparatorItem="YES" id="cAZ-Lz-sCK"/>
-                                                    <menuItem title="Standard" indentationLevel="1" id="3Z4-FO-cI1">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="kqo-j5-nCu"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Rounded" indentationLevel="1" id="0g9-jg-AYT">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="dL2-qN-7wc"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Programmer" indentationLevel="1" id="0VP-dH-6lD">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="d7A-xZ-mQu"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Futuristic" indentationLevel="1" id="nmr-Vs-jfc">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="htb-ub-ic8"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Novelist" indentationLevel="1" id="lEk-Oj-Cui">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="USb-w3-NyW"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Soy Sauce" indentationLevel="1" id="DqM-ER-50G">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="gPd-bp-TLu"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Gothic" indentationLevel="1" id="hjD-qB-Apt">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="PNR-nb-inp"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Papyrus" indentationLevel="1" id="KVn-Oz-iuO">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="Fx9-jM-fnt"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Poolside.fm" indentationLevel="1" id="ZVZ-7r-Tho">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="GrQ-56-xOq" id="IRr-1R-A7Q"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                                <connections>
-                                                    <outlet property="delegate" destination="GrQ-56-xOq" id="Svh-52-xWU"/>
-                                                </connections>
-                                            </menu>
-                                        </popUpButtonCell>
-                                    </popUpButton>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IX-1g-341" userLabel="Color Scheme Caption">
-                                        <rect key="frame" x="15" y="33" width="200" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Change Color Scheme:" id="WS8-Mq-ceg">
-                                            <font key="font" size="13" name="Play-Regular"/>
-                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <popUpButton focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P4m-JU-Frd" userLabel="Color Schemes Menu">
-                                        <rect key="frame" x="13" y="7" width="204" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <popUpButtonCell key="cell" type="push" title="&lt;Select Color Scheme&gt;" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" focusRingType="none" imageScaling="proportionallyDown" inset="2" selectedItem="jN2-Pk-fRm" id="j7p-ZI-On6">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <menu key="menu" id="l4A-bP-FgU">
-                                                <items>
-                                                    <menuItem title="&lt;Select Color Scheme&gt;" state="on" hidden="YES" allowsKeyEquivalentWhenHidden="YES" id="jN2-Pk-fRm"/>
-                                                    <menuItem isSeparatorItem="YES" id="JyO-RR-MbT"/>
-                                                    <menuItem title="Lava" indentationLevel="1" id="Uci-nO-uuW">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="gAX-tJ-3un" id="ORh-QC-aoM"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Black &amp; aqua" indentationLevel="1" id="fFl-eD-cDv" userLabel="Black &amp; aqua">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="gAX-tJ-3un" id="eiA-Wb-YWU"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Black &amp; green" indentationLevel="1" id="AOj-78-uPJ">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="gAX-tJ-3un" id="Kki-6d-b2B"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="White blight" indentationLevel="1" id="FiG-Vq-4hf">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="gAX-tJ-3un" id="xiL-FC-iRr"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Gloomy day" indentationLevel="1" id="n0U-Nm-XQd">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="gAX-tJ-3un" id="yO4-6w-vhd"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Brownie" indentationLevel="1" id="miS-2a-Qnj">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="gAX-tJ-3un" id="wam-Ym-1IB"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="The blues" indentationLevel="1" id="5P0-HV-XDS">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="gAX-tJ-3un" id="Wqr-he-GEc"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Poolside.fm" indentationLevel="1" id="bQr-26-sbv">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="applyPresetAction:" target="gAX-tJ-3un" id="FQ9-de-omn"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                                <connections>
-                                                    <outlet property="delegate" destination="gAX-tJ-3un" id="ZR9-vB-jgq"/>
-                                                </connections>
-                                            </menu>
-                                        </popUpButtonCell>
-                                    </popUpButton>
                                 </subviews>
                             </view>
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OHU-wU-vRn" userLabel="Info label">
-                    <rect key="frame" x="64" y="244" width="162" height="24"/>
+                    <rect key="frame" x="64" y="312" width="162" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Settings" id="0Fc-C9-eBV">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -321,8 +189,22 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button toolTip="Hide the Settings menu" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rA1-ei-dH6" userLabel="Quit Button" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="9" y="323.5" width="11.5" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="RPr-cH-i3C">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="closeAction:" target="-2" id="Lkg-rR-b6r"/>
+                    </connections>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="299.5" y="39"/>
+            <point key="canvasLocation" x="299.5" y="68"/>
         </customView>
     </objects>
+    <resources>
+        <image name="xmark" catalog="system" width="14" height="13"/>
+    </resources>
 </document>

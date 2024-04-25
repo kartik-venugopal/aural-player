@@ -82,7 +82,7 @@ class CompactPlayerViewController: PlayerViewController {
         layoutScrollingTrackTextView()
     }
     
-    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: SeekPositionDisplayTypeMenuItem) {
+    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: TrackTimeDisplayTypeMenuItem) {
         
         playerUIState.trackTimeDisplayType = sender.displayType
         setTrackTimeDisplayType(to: playerUIState.trackTimeDisplayType)

@@ -527,7 +527,7 @@
 		3EC079422B7848A3008CB68C /* MenuBarPlayQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EC079412B7848A3008CB68C /* MenuBarPlayQueue.xib */; };
 		3EC079442B784B07008CB68C /* MenuBarPlayQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC079432B784B07008CB68C /* MenuBarPlayQueueViewController.swift */; };
 		3EC079472B78549F008CB68C /* MenuBarSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EC079462B78549F008CB68C /* MenuBarSettings.xib */; };
-		3EC079492B78559C008CB68C /* MenuBarSettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC079482B78559C008CB68C /* MenuBarSettingsWindowController.swift */; };
+		3EC079492B78559C008CB68C /* MenuBarSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC079482B78559C008CB68C /* MenuBarSettingsViewController.swift */; };
 		3EC083652B5B3DCB001934DA /* AppSetupThemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC083642B5B3DCB001934DA /* AppSetupThemePreviewView.swift */; };
 		3EC2975A27864CD400B29551 /* Aural.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EC2975927864CD400B29551 /* Aural.xcassets */; };
 		3EC29A5927865BC900B29551 /* MenuItemMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC29A5827865BC900B29551 /* MenuItemMappable.swift */; };
@@ -1559,7 +1559,7 @@
 		3EC079412B7848A3008CB68C /* MenuBarPlayQueue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuBarPlayQueue.xib; sourceTree = "<group>"; };
 		3EC079432B784B07008CB68C /* MenuBarPlayQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayQueueViewController.swift; sourceTree = "<group>"; };
 		3EC079462B78549F008CB68C /* MenuBarSettings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuBarSettings.xib; sourceTree = "<group>"; };
-		3EC079482B78559C008CB68C /* MenuBarSettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarSettingsWindowController.swift; sourceTree = "<group>"; };
+		3EC079482B78559C008CB68C /* MenuBarSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarSettingsViewController.swift; sourceTree = "<group>"; };
 		3EC083642B5B3DCB001934DA /* AppSetupThemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetupThemePreviewView.swift; sourceTree = "<group>"; };
 		3EC2975927864CD400B29551 /* Aural.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Aural.xcassets; sourceTree = "<group>"; };
 		3EC29A5827865BC900B29551 /* MenuItemMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemMappable.swift; sourceTree = "<group>"; };
@@ -3893,7 +3893,7 @@
 			isa = PBXGroup;
 			children = (
 				3EC079462B78549F008CB68C /* MenuBarSettings.xib */,
-				3EC079482B78559C008CB68C /* MenuBarSettingsWindowController.swift */,
+				3EC079482B78559C008CB68C /* MenuBarSettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -5776,7 +5776,7 @@
 				3EFE397D27864897006F8B8C /* HaltPlaybackAction.swift in Sources */,
 				3E45C03625E1269500C1519C /* FontSchemeSizesViewController.swift in Sources */,
 				3EFE398327864897006F8B8C /* StartPlaybackAction.swift in Sources */,
-				3EC079492B78559C008CB68C /* MenuBarSettingsWindowController.swift in Sources */,
+				3EC079492B78559C008CB68C /* MenuBarSettingsViewController.swift in Sources */,
 				3E7AF10528065441006DC98F /* PlayQueueMenuController.swift in Sources */,
 				3EEFF58927DE842C002CB0FE /* PlayQueueDelegateProtocol.swift in Sources */,
 				3EFE387927864896006F8B8C /* DelayUnit.swift in Sources */,

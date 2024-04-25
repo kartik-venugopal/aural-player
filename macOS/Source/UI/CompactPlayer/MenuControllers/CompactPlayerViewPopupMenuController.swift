@@ -21,9 +21,9 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var showTrackTimeMenuItem: NSMenuItem!
     @IBOutlet weak var seekPositionDisplayTypeMenuItem: NSMenuItem!
     
-    @IBOutlet weak var timeElapsedMenuItem: SeekPositionDisplayTypeMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem: SeekPositionDisplayTypeMenuItem!
-    @IBOutlet weak var trackDurationMenuItem: SeekPositionDisplayTypeMenuItem!
+    @IBOutlet weak var timeElapsedMenuItem: TrackTimeDisplayTypeMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem: TrackTimeDisplayTypeMenuItem!
+    @IBOutlet weak var trackDurationMenuItem: TrackTimeDisplayTypeMenuItem!
     
     var seekPositionDisplayTypeItems: [NSMenuItem] = []
     
@@ -133,7 +133,7 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         messenger.publish(.CompactPlayer.toggleShowSeekPosition)
     }
     
-    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: SeekPositionDisplayTypeMenuItem) {
+    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: TrackTimeDisplayTypeMenuItem) {
         
         playerUIState.trackTimeDisplayType = sender.displayType
         messenger.publish(.Player.setTrackTimeDisplayType, payload: sender.displayType)

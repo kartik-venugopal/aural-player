@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -121,19 +120,19 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <menu key="submenu" title="Seek position display" id="ekz-ZO-i4a">
                                                                     <items>
-                                                                        <menuItem title="Time elapsed" state="on" id="Bpy-xd-WOj" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                        <menuItem title="Time elapsed" state="on" id="Bpy-xd-WOj" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                             <connections>
                                                                                 <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="rN7-6e-Ko2"/>
                                                                             </connections>
                                                                         </menuItem>
-                                                                        <menuItem title="Time remaining" tag="1" id="hZW-qV-AL5" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                        <menuItem title="Time remaining" tag="1" id="hZW-qV-AL5" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                             <connections>
                                                                                 <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="1uT-1V-Fdx"/>
                                                                             </connections>
                                                                         </menuItem>
-                                                                        <menuItem title="Track duration" tag="2" id="5jA-HD-rVz" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                        <menuItem title="Track duration" tag="2" id="5jA-HD-rVz" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                             <connections>
                                                                                 <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="7Rv-9w-k7d"/>
@@ -1414,19 +1413,19 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Seek position display" id="2zn-Xp-gHO">
                                                 <items>
-                                                    <menuItem title="Time elapsed" state="on" id="xly-7a-SJZ" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                    <menuItem title="Time elapsed" state="on" id="xly-7a-SJZ" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="changeSeekPositionDisplayTypeAction:" target="RlF-o4-guF" id="x6d-eT-f1c"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Time remaining" tag="1" id="GHC-fd-Ein" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                    <menuItem title="Time remaining" tag="1" id="GHC-fd-Ein" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="changeSeekPositionDisplayTypeAction:" target="RlF-o4-guF" id="66r-tl-OMb"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Track duration" tag="2" id="hXb-z4-5R9" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                    <menuItem title="Track duration" tag="2" id="hXb-z4-5R9" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="changeSeekPositionDisplayTypeAction:" target="RlF-o4-guF" id="O05-c8-FDe"/>

@@ -288,6 +288,6 @@
         <image name="forward.end" catalog="system" width="13" height="13"/>
         <image name="repeat" catalog="system" width="17" height="14"/>
         <image name="shuffle" catalog="system" width="18" height="14"/>
-        <image name="speaker.wave.2" catalog="system" width="24" height="18"/>
+        <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
     </resources>
 </document>
