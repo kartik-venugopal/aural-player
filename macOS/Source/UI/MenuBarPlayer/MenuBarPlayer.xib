@@ -10,7 +10,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MenuBarPlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="artView" destination="WCq-Eb-sSB" id="zra-Oi-efb"/>
+                <outlet property="btnCompactMode" destination="bV4-WK-nNi" id="dc2-WS-JX0"/>
                 <outlet property="btnLoop" destination="Y0O-RQ-7r1" id="cfW-gc-hXW"/>
+                <outlet property="btnModularMode" destination="8da-oj-HLG" id="yjT-i6-1aY"/>
                 <outlet property="btnNextTrack" destination="ffS-Wf-PIL" id="Twh-Eu-6Hd"/>
                 <outlet property="btnPlayPause" destination="k6P-VT-BGY" id="rwJ-uf-z8Y"/>
                 <outlet property="btnPreviousTrack" destination="AAi-7n-PAk" id="sDp-P3-en5"/>
@@ -18,11 +20,14 @@
                 <outlet property="btnRepeat" destination="vDs-we-Jvw" id="M4H-fK-2JS"/>
                 <outlet property="btnSettings" destination="t49-BV-Ux5" id="1vX-fw-yrS"/>
                 <outlet property="btnShuffle" destination="0r6-na-u8Q" id="8zK-n5-fJh"/>
+                <outlet property="btnUnifiedMode" destination="fOP-lC-pbG" id="HD3-04-Sef"/>
                 <outlet property="btnVolume" destination="lt1-d9-2mN" id="hKv-Yp-vBu"/>
+                <outlet property="btnWidgetMode" destination="d0q-xP-bTY" id="ohB-MM-ujb"/>
                 <outlet property="lblTrackTime" destination="D24-2X-fE6" id="XWd-QC-B4g"/>
                 <outlet property="lblVolume" destination="KgP-XY-h6e" id="eR1-JY-aBL"/>
                 <outlet property="logoImage" destination="sz6-pu-dBE" id="sKk-0i-xZe"/>
                 <outlet property="multilineTrackTextView" destination="336-LV-XbM" id="xAF-Sg-s3z"/>
+                <outlet property="presentationModesBox" destination="5xA-GD-o4c" id="qSv-Bv-dZU"/>
                 <outlet property="rootContainerBox" destination="ts2-9K-m3f" id="J3R-aR-jsJ"/>
                 <outlet property="seekSlider" destination="m0V-zo-4fd" id="S9o-m9-p5K"/>
                 <outlet property="seekSliderCell" destination="vca-5L-2ob" id="PQg-0w-z4h"/>
@@ -72,6 +77,90 @@
                         <action selector="quitAction:" target="-2" id="Bnb-by-1s4"/>
                     </connections>
                 </button>
+                <button toolTip="Change presentation mode" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Esa-Fz-m23" userLabel="Presentation Mode Button" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="24" y="150" width="10" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WindowLayout" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="PWH-Ma-Xyl">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Close"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="showOrHidePresentationModesBoxAction:" target="-2" id="Kk3-Bb-ItR"/>
+                    </connections>
+                </button>
+                <box hidden="YES" boxType="custom" borderType="line" borderWidth="2" cornerRadius="5" titlePosition="noTitle" id="5xA-GD-o4c" userLabel="Presentation Modes Box">
+                    <rect key="frame" x="24" y="10" width="247" height="140"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="wFD-wS-6Hf">
+                        <rect key="frame" x="2" y="2" width="243" height="136"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8da-oj-HLG" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="10" y="104" width="192" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Modular (multi-window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="lD4-L2-0o0">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="13" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="presentationModeRadioButtonGroupAction:" target="-2" id="Xjw-7d-EDc"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fOP-lC-pbG" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="10" y="82" width="192" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Unified (single window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="sRV-EQ-wkF">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="13" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="presentationModeRadioButtonGroupAction:" target="-2" id="QEi-Rw-agu"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bV4-WK-nNi" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="10" y="60" width="218" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Compact (single compact window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="NrP-SC-kKg">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="13" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="presentationModeRadioButtonGroupAction:" target="-2" id="hx4-Fr-67k"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-xP-bTY" userLabel="Widget (floating mini window)" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="10" y="38" width="218" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Widget (floating mini window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="hbC-cJ-LJn">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="13" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="presentationModeRadioButtonGroupAction:" target="-2" id="MPf-pG-iNc"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJC-rL-PuQ">
+                                <rect key="frame" x="184" y="4" width="55" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TsL-bL-mfy">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="changePresentationModeAction:" target="-2" id="h9v-p8-D6x"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="fillColor" red="0.3071037371" green="0.3071037371" blue="0.3071037371" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                </box>
                 <button toolTip="Settings" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t49-BV-Ux5" userLabel="Settings Button" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="280" y="151" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -275,7 +364,7 @@
                 <outlet property="seekSlider" destination="m0V-zo-4fd" id="Q9r-fI-qhF"/>
                 <outlet property="seekSliderCell" destination="vca-5L-2ob" id="hWK-bR-wzS"/>
             </connections>
-            <point key="canvasLocation" x="-108" y="288"/>
+            <point key="canvasLocation" x="-231" y="445"/>
         </view>
     </objects>
     <resources>
@@ -284,6 +373,7 @@
         <image name="Loop" width="18" height="25"/>
         <image name="Play" width="40" height="40"/>
         <image name="Settings" width="10" height="7"/>
+        <image name="WindowLayout" width="20" height="20"/>
         <image name="backward.end" catalog="system" width="13" height="13"/>
         <image name="forward.end" catalog="system" width="13" height="13"/>
         <image name="repeat" catalog="system" width="17" height="14"/>

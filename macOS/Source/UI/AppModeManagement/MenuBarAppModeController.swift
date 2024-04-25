@@ -120,6 +120,10 @@ class MenuBarAppModeController: NSObject, AppModeController {
         
         statusItem?.menu?.insertItem(.separator(), at: 1)
         
+        if playQueueViewController == nil {
+            playQueueViewController = .init()
+        }
+        
         self.playQueueMenuItem = NSMenuItem(view: playQueueViewController.view)
         statusItem?.menu?.insertItem(playQueueMenuItem, at: 2)
     }

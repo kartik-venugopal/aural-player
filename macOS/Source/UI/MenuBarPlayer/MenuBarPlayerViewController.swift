@@ -13,10 +13,17 @@ import AppKit
 class MenuBarPlayerViewController: PlayerViewController {
     
     @IBOutlet weak var rootContainerBox: NSBox!
+    @IBOutlet weak var presentationModesBox: NSBox!
+    
     @IBOutlet weak var btnQuit: FillableImageButton!
     @IBOutlet weak var logoImage: TintedImageView!
     
     @IBOutlet weak var btnSettings: NSButton!
+    
+    @IBOutlet weak var btnModularMode: RadioButton!
+    @IBOutlet weak var btnUnifiedMode: RadioButton!
+    @IBOutlet weak var btnCompactMode: RadioButton!
+    @IBOutlet weak var btnWidgetMode: RadioButton!
     
     override var nibName: NSNib.Name? {"MenuBarPlayer"}
     
@@ -99,6 +106,36 @@ class MenuBarPlayerViewController: PlayerViewController {
     
     @IBAction func toggleSettingsMenuAction(_ sender: NSButton) {
         messenger.publish(.MenuBarPlayer.toggleSettingsMenu)
+    }
+    
+    @IBAction func showOrHidePresentationModesBoxAction(_ sender: NSButton) {
+        
+        if presentationModesBox.isShown {
+            presentationModesBox.hide()
+            
+        } else {
+            
+            presentationModesBox.bringToFront()
+            presentationModesBox.show()
+        }
+    }
+    
+    @IBAction func presentationModeRadioButtonGroupAction(_ sender: RadioButton) {}
+    
+    @IBAction func changePresentationModeAction(_ sender: RadioButton) {
+        
+        if btnModularMode.isOn {
+            appModeManager.presentMode(.modular)
+            
+        } else if btnUnifiedMode.isOn {
+            appModeManager.presentMode(.unified)
+            
+        } else if btnCompactMode.isOn {
+            appModeManager.presentMode(.compact)
+            
+        } else if btnWidgetMode.isOn {
+            appModeManager.presentMode(.widget)
+        }
     }
     
     @IBAction func quitAction(_ sender: AnyObject) {

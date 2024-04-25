@@ -648,6 +648,62 @@ Gw
             </view>
             <point key="canvasLocation" x="-497" y="101"/>
         </box>
+        <box hidden="YES" boxType="custom" borderType="line" borderWidth="2" cornerRadius="5" titlePosition="noTitle" id="QYy-FL-32X" userLabel="Presentation Modes Box">
+            <rect key="frame" x="0.0" y="0.0" width="247" height="140"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="DtL-r2-eLE">
+                <rect key="frame" x="2" y="2" width="243" height="136"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Efo-NF-rjr" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="10" y="104" width="192" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Modular (multi-window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="eg6-4z-J6T">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="13" name="Play-Regular"/>
+                        </buttonCell>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fK0-Qv-ZnT" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="10" y="82" width="192" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Unified (single window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="EnJ-CP-MOt">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="13" name="Play-Regular"/>
+                        </buttonCell>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0u-qS-yTc" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="10" y="60" width="218" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Compact (single compact window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="jlM-p9-QOm">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="13" name="Play-Regular"/>
+                        </buttonCell>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B0P-ZZ-5Zg" userLabel="Widget (floating mini window)" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="10" y="38" width="218" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Widget (floating mini window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="8iP-0q-sMc">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="13" name="Play-Regular"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPT-Mm-iqx">
+                        <rect key="frame" x="184" y="4" width="55" height="27"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L7a-Cp-Tro">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                    </button>
+                </subviews>
+            </view>
+            <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="fillColor" red="0.3071037371" green="0.3071037371" blue="0.3071037371" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <point key="canvasLocation" x="-675" y="-229"/>
+        </box>
     </objects>
     <resources>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
