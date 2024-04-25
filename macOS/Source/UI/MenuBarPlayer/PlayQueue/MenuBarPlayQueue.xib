@@ -433,7 +433,7 @@
                             <action selector="closeAction:" target="-2" id="dCg-7w-szH"/>
                         </connections>
                     </button>
-                    <box hidden="YES" boxType="custom" borderType="line" cornerRadius="2" titlePosition="noTitle" id="2tK-hP-pIH" userLabel="Sort Options Box">
+                    <box hidden="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" id="2tK-hP-pIH" userLabel="Sort Options Box">
                         <rect key="frame" x="32" y="30" width="220" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="ly7-v2-eGo">
@@ -587,6 +587,7 @@ Gw
                                 </button>
                             </subviews>
                         </view>
+                        <color key="borderColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </box>
                 </subviews>
