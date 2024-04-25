@@ -1,5 +1,5 @@
 //
-//  MenuBarColorSchemesTableViewDelegate.swift
+//  MenuBarFontSchemesTableViewDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,10 +10,10 @@
 
 import AppKit
 
-class MenuBarColorSchemesTableViewDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource {
+class MenuBarFontSchemesTableViewDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        colorSchemesManager.totalNumberOfObjects
+        fontSchemesManager.totalNumberOfObjects
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -22,7 +22,7 @@ class MenuBarColorSchemesTableViewDelegate: NSObject, NSTableViewDelegate, NSTab
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let scheme: ColorScheme = scheme(forRow: row)
+        let scheme: FontScheme = scheme(forRow: row)
         guard let cell = tableView.makeView(withIdentifier: .cid_schemeName, owner: nil) as? NSTableCellView else {return nil}
         
         cell.text = scheme.name
@@ -35,31 +35,26 @@ class MenuBarColorSchemesTableViewDelegate: NSObject, NSTableViewDelegate, NSTab
                   tableView.selectedRow >= 0 else {return}
         
         let row = tableView.selectedRow
-        let scheme: ColorScheme = scheme(forRow: row)
+        let scheme: FontScheme = scheme(forRow: row)
         
-        colorSchemesManager.applyScheme(scheme)
+        fontSchemesManager.applyScheme(scheme)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             tableView.clearSelection()
         }
     }
     
-    private func scheme(forRow row: Int) -> ColorScheme {
+    private func scheme(forRow row: Int) -> FontScheme {
         
         // Show user-defined schemes first
         
-        if row < colorSchemesManager.numberOfUserDefinedObjects {
-            return colorSchemesManager.userDefinedObjects[row]
+        if row < fontSchemesManager.numberOfUserDefinedObjects {
+            return fontSchemesManager.userDefinedObjects[row]
             
         } else {
             
-            let index = row - colorSchemesManager.numberOfUserDefinedObjects
-            return colorSchemesManager.systemDefinedObjects[index]
+            let index = row - fontSchemesManager.numberOfUserDefinedObjects
+            return fontSchemesManager.systemDefinedObjects[index]
         }
     }
-}
-
-extension NSUserInterfaceItemIdentifier {
-    
-    static let cid_schemeName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_schemeName")
 }

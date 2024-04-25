@@ -100,6 +100,11 @@ class MenuBarAppModeController: NSObject, AppModeController {
     }
     
     private func toggleSettingsMenu() {
+        
+        if settingsMenuItem.isHidden {
+            settingsViewController.prepareToShow()
+        }
+        
         settingsMenuItem.toggleShownOrHidden()
     }
     

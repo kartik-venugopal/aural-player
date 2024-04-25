@@ -15,6 +15,7 @@ class MenuBarSettingsViewController: NSViewController {
     override var nibName: NSNib.Name? {"MenuBarSettings"}
     
     @IBOutlet weak var tabView: NSTabView!
+    @IBOutlet weak var themingTabView: NSTabView!
     
     @IBOutlet weak var btnShowArt: CheckBox!
     @IBOutlet weak var btnShowArtist: CheckBox!
@@ -39,11 +40,10 @@ class MenuBarSettingsViewController: NSViewController {
         })
     }
     
-    override func viewWillAppear() {
-        
-        super.viewWillAppear()
+    func prepareToShow() {
         
         tabView.selectTabViewItem(at: 0)
+        themingTabView.selectTabViewItem(at: 0)
         
         btnShowArt.onIf(menuBarPlayerUIState.showAlbumArt)
         btnShowAlbum.onIf(menuBarPlayerUIState.showAlbum)

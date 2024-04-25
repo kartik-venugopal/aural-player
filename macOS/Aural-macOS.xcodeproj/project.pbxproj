@@ -111,6 +111,8 @@
 		3E3C1FED2849611200A023EC /* TuneBrowserUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C1FEC2849611200A023EC /* TuneBrowserUIPersistentState.swift */; };
 		3E3C1FEF2849631800A023EC /* NSTableColumnExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C1FEE2849631800A023EC /* NSTableColumnExtensions.swift */; };
 		3E3D7C8D2BDAC77100A82646 /* MenuBarColorSchemesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D7C8C2BDAC77100A82646 /* MenuBarColorSchemesTableViewDelegate.swift */; };
+		3E3D7C8F2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D7C8E2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift */; };
+		3E3D7C912BDAECBB00A82646 /* MenuBarThemesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D7C902BDAECBB00A82646 /* MenuBarThemesTableViewDelegate.swift */; };
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
 		3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */; };
 		3E419B5F27B18C6500C2B965 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E419B5E27B18C6500C2B965 /* CALayerExtensions.swift */; };
@@ -1088,6 +1090,8 @@
 		3E3C1FEC2849611200A023EC /* TuneBrowserUIPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuneBrowserUIPersistentState.swift; sourceTree = "<group>"; };
 		3E3C1FEE2849631800A023EC /* NSTableColumnExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTableColumnExtensions.swift; sourceTree = "<group>"; };
 		3E3D7C8C2BDAC77100A82646 /* MenuBarColorSchemesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarColorSchemesTableViewDelegate.swift; sourceTree = "<group>"; };
+		3E3D7C8E2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarFontSchemesTableViewDelegate.swift; sourceTree = "<group>"; };
+		3E3D7C902BDAECBB00A82646 /* MenuBarThemesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarThemesTableViewDelegate.swift; sourceTree = "<group>"; };
 		3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataPreferences.xib; sourceTree = "<group>"; };
 		3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E419B5E27B18C6500C2B965 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
@@ -3896,7 +3900,9 @@
 			children = (
 				3EC079462B78549F008CB68C /* MenuBarSettings.xib */,
 				3EC079482B78559C008CB68C /* MenuBarSettingsViewController.swift */,
+				3E3D7C8E2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift */,
 				3E3D7C8C2BDAC77100A82646 /* MenuBarColorSchemesTableViewDelegate.swift */,
+				3E3D7C902BDAECBB00A82646 /* MenuBarThemesTableViewDelegate.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -5700,6 +5706,7 @@
 				3EFE3A5527864898006F8B8C /* MusicBrainzRESTClient.swift in Sources */,
 				3EFE3A9727864898006F8B8C /* TrackReader.swift in Sources */,
 				3EA6C62C2AD6AAA100B75166 /* FFmpegAudioCodec.swift in Sources */,
+				3E3D7C912BDAECBB00A82646 /* MenuBarThemesTableViewDelegate.swift in Sources */,
 				3EFE394F27864897006F8B8C /* ShuffleMode.swift in Sources */,
 				3EEFF58B27DE842C002CB0FE /* PlayQueue.swift in Sources */,
 				3E7204BF2B853DC800E40D87 /* AuralPlaylistViews.swift in Sources */,
@@ -5841,6 +5848,7 @@
 				3E6C39F826AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift in Sources */,
 				3EFE3A7527864898006F8B8C /* AVFMetadataParser.swift in Sources */,
 				3EFE38C527864896006F8B8C /* EffectsUnitDelegate.swift in Sources */,
+				3E3D7C8F2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift in Sources */,
 				3EFE38A727864896006F8B8C /* InternalDeviceList.swift in Sources */,
 				3ECF71BC2B75B48E00FDB69B /* CompactPlayQueueSearchViewController.swift in Sources */,
 				3EFE38AB27864896006F8B8C /* ParametricEQNode.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  MenuBarColorSchemesTableViewDelegate.swift
+//  MenuBarThemesTableViewDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,10 +10,10 @@
 
 import AppKit
 
-class MenuBarColorSchemesTableViewDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource {
+class MenuBarThemesTableViewDelegate: NSObject, NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        colorSchemesManager.totalNumberOfObjects
+        themesManager.totalNumberOfObjects
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -22,10 +22,10 @@ class MenuBarColorSchemesTableViewDelegate: NSObject, NSTableViewDelegate, NSTab
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let scheme: ColorScheme = scheme(forRow: row)
+        let theme: Theme = theme(forRow: row)
         guard let cell = tableView.makeView(withIdentifier: .cid_schemeName, owner: nil) as? NSTableCellView else {return nil}
         
-        cell.text = scheme.name
+        cell.text = theme.name
         return cell
     }
     
@@ -35,31 +35,26 @@ class MenuBarColorSchemesTableViewDelegate: NSObject, NSTableViewDelegate, NSTab
                   tableView.selectedRow >= 0 else {return}
         
         let row = tableView.selectedRow
-        let scheme: ColorScheme = scheme(forRow: row)
+        let theme: Theme = theme(forRow: row)
         
-        colorSchemesManager.applyScheme(scheme)
+        themesManager.applyTheme(theme)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             tableView.clearSelection()
         }
     }
     
-    private func scheme(forRow row: Int) -> ColorScheme {
+    private func theme(forRow row: Int) -> Theme {
         
-        // Show user-defined schemes first
+        // Show user-defined themes first
         
-        if row < colorSchemesManager.numberOfUserDefinedObjects {
-            return colorSchemesManager.userDefinedObjects[row]
+        if row < themesManager.numberOfUserDefinedObjects {
+            return themesManager.userDefinedObjects[row]
             
         } else {
             
-            let index = row - colorSchemesManager.numberOfUserDefinedObjects
-            return colorSchemesManager.systemDefinedObjects[index]
+            let index = row - themesManager.numberOfUserDefinedObjects
+            return themesManager.systemDefinedObjects[index]
         }
     }
-}
-
-extension NSUserInterfaceItemIdentifier {
-    
-    static let cid_schemeName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_schemeName")
 }
