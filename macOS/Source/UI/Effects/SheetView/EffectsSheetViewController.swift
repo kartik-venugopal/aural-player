@@ -43,13 +43,15 @@ class EffectsSheetViewController: NSViewController {
     func endSheet() {
         
         dismiss(self)
+        
+        let mainAppWindowID: String = appModeManager.currentMode == .compact ? "compactPlayer" : "unifiedPlayer"
 
         // Close AU editor and Filter band editor dialogs
         for window in NSApp.windows.filter({$0.isVisible}) {
             
             let windowID = window.identifier?.rawValue
             
-            if windowID != "compactPlayer" {
+            if windowID != mainAppWindowID {
                 window.close()
             }
         }

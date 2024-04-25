@@ -584,6 +584,29 @@
                 <outlet property="twoOctavesBelowMenuItem" destination="Flj-vX-E4U" id="6bz-Uf-1UX"/>
             </connections>
         </customObject>
+        <customObject id="7wH-fQ-84r" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="recentItemsMenu" destination="2Cr-2C-dl6" id="WzW-9f-Xrh"/>
+                <outlet property="resumeLastPlayedTrackItem" destination="ObL-fb-YED" id="ojz-c0-hy9"/>
+            </connections>
+        </customObject>
+        <customObject id="V86-mT-Lpz" userLabel="Favorites Menu Controller" customClass="FavoritesMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="addRemoveFavoritesMenuItem" destination="Iji-1w-p0Y" id="Q5s-tP-OlF"/>
+            </connections>
+        </customObject>
+        <customObject id="GWF-5e-xdi" customClass="FavoriteTracksMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="FAQ-gj-45R" customClass="FavoriteFoldersMenuController" customModule="Aural" customModuleProvider="target">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="image" keyPath="itemImage" value="calendar" catalog="system"/>
+            </userDefinedRuntimeAttributes>
+        </customObject>
+        <customObject id="NwD-uc-7MP" customClass="BookmarksMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="bookmarkTrackPositionMenuItem" destination="bbJ-MX-Aku" id="m20-fz-Mpt"/>
+                <outlet property="bookmarkTrackSegmentLoopMenuItem" destination="Ib4-w5-Avy" id="uW3-oZ-llJ"/>
+            </connections>
+        </customObject>
         <customView id="9cJ-NH-tTK" userLabel="Window corner radius editor view (in window)" customClass="WindowCornerRadiusMenuItemView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="220" height="25"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1194,24 +1217,28 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="History" autoenablesItems="NO" id="bzu-JA-6Xx">
                         <items>
-                            <menuItem title="Recently added" image="RecentlyAdded" id="C9Z-qI-0on" userLabel="Recently added">
+                            <menuItem title="Recent items" image="clock" catalog="system" id="JDk-2O-uAu" userLabel="Recent items">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Recently added" autoenablesItems="NO" id="WQ9-8g-o4k"/>
+                                <menu key="submenu" title="Recent items" autoenablesItems="NO" id="2Cr-2C-dl6"/>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="34T-89-jfe"/>
-                            <menuItem title="Recently played" image="RecentlyPlayed" id="iYi-UP-Yks" userLabel="Recently played">
+                            <menuItem isSeparatorItem="YES" id="ZGj-F1-iaQ"/>
+                            <menuItem title="Resume last played track" image="play" catalog="system" id="ObL-fb-YED">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Recently played" autoenablesItems="NO" id="0Sw-xR-uzE"/>
+                                <connections>
+                                    <action selector="resumeLastPlayedTrackAction:" target="7wH-fQ-84r" id="dbm-Yf-Ooh"/>
+                                </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="saa-3h-Nww"/>
-                            <menuItem title="Resume last played track" image="RecentlyPlayed" id="ZMD-8q-Atg">
+                            <menuItem isSeparatorItem="YES" id="vJk-1z-kTK"/>
+                            <menuItem title=" Clear all history" image="trash" catalog="system" id="7iK-q1-6Bb" userLabel="Clear history">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="PTh-NC-RD6"/>
-                            <menuItem title=" Clear all history" image="Clear-Small" id="DX2-a3-E3c" userLabel="Clear history">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="clearHistoryAction:" target="7wH-fQ-84r" id="bvE-d2-CmO"/>
+                                </connections>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="7wH-fQ-84r" id="wDj-bz-LnY"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="Favorites" id="jhN-sr-cw1">
@@ -1225,6 +1252,9 @@ CA
                                     <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="Favorites"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="Favorites"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="playingTrackFavoritesAction:" target="V86-mT-Lpz" id="S13-Ic-ZbI"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="  Manage favorites" image="Favorites-Editor" hidden="YES" enabled="NO" keyEquivalent="f" id="3pe-o6-aqs" userLabel="Manage Favorites">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
@@ -1232,7 +1262,11 @@ CA
                             <menuItem isSeparatorItem="YES" id="Szy-PE-VAa"/>
                             <menuItem title="  Tracks" image="music.quarternote.3" catalog="system" id="AIt-zr-mJq" userLabel="Tracks">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Tracks" autoenablesItems="NO" id="sqT-HN-Q73"/>
+                                <menu key="submenu" title="  Tracks" autoenablesItems="NO" id="sqT-HN-Q73">
+                                    <connections>
+                                        <outlet property="delegate" destination="GWF-5e-xdi" id="DHm-ra-s7h"/>
+                                    </connections>
+                                </menu>
                             </menuItem>
                             <menuItem title="  Artists" image="Artists_Menu" hidden="YES" enabled="NO" id="Zyz-Bf-SH9">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -1252,26 +1286,44 @@ CA
                             </menuItem>
                             <menuItem title="  Folders" image="folder" catalog="system" id="brG-wa-ZfS" userLabel="Folders">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Folders" autoenablesItems="NO" id="5fg-N4-xSS"/>
+                                <menu key="submenu" title="  Folders" autoenablesItems="NO" id="5fg-N4-xSS">
+                                    <connections>
+                                        <outlet property="delegate" destination="FAQ-gj-45R" id="HWY-L4-8MM"/>
+                                    </connections>
+                                </menu>
                             </menuItem>
                             <menuItem title="  Playlist Files" image="list.dash" catalog="system" hidden="YES" enabled="NO" id="OAK-S0-XJy" userLabel="Playlist Files">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Playlist Files" autoenablesItems="NO" id="PCh-Tk-7pp"/>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="V86-mT-Lpz" id="zLc-0B-dvk"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="Bookmarks" id="LmJ-9c-SFg">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Bookmarks" autoenablesItems="NO" id="h0L-V0-evc">
                         <items>
-                            <menuItem title="  Bookmark this track position" image="Bookmark-Dark" keyEquivalent="b" id="bbJ-MX-Aku" userLabel="Bookmark this track position"/>
-                            <menuItem title="  Bookmark this track segment loop" image="Bookmark-Dark" keyEquivalent="B" id="Ib4-w5-Avy" userLabel="Bookmark this loop"/>
+                            <menuItem title="  Bookmark this track position" image="Bookmark-Dark" keyEquivalent="b" id="bbJ-MX-Aku" userLabel="Bookmark this track position">
+                                <connections>
+                                    <action selector="bookmarkTrackPositionAction:" target="NwD-uc-7MP" id="rEp-GT-PRl"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Bookmark this track segment loop" image="Bookmark-Dark" keyEquivalent="B" id="Ib4-w5-Avy" userLabel="Bookmark this loop">
+                                <connections>
+                                    <action selector="bookmarkTrackSegmentLoopAction:" target="NwD-uc-7MP" id="P3b-J3-OWU"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="  Manage bookmarks" image="Bookmarks-Editor" hidden="YES" enabled="NO" keyEquivalent="b" id="a7z-mD-NQ5" userLabel="Manage Bookmarks">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="mYk-s6-zvH"/>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="NwD-uc-7MP" id="QyM-S5-f1W"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="View" id="b9K-Rf-0fC" userLabel="View">
@@ -1582,15 +1634,12 @@ CA
         <image name="Artists_Menu" width="20" height="20"/>
         <image name="Bookmark-Dark" width="15" height="15"/>
         <image name="Bookmarks-Editor" width="15" height="15"/>
-        <image name="Clear-Small" width="13" height="15"/>
         <image name="ColorScheme" width="13" height="14"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Favorites-Editor" width="15" height="15"/>
         <image name="FontScheme" width="14" height="14"/>
         <image name="Genres_Menu" width="20" height="20"/>
         <image name="Hamburger" width="10" height="7"/>
-        <image name="RecentlyAdded" width="18" height="14"/>
-        <image name="RecentlyPlayed" width="18" height="14"/>
         <image name="ToggleChaptersList-Small" width="14" height="11"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="ToggleVisualizer-Small" width="14" height="14"/>
@@ -1620,6 +1669,7 @@ CA
         <image name="backward" catalog="system" width="19" height="12"/>
         <image name="backward.end" catalog="system" width="13" height="13"/>
         <image name="calendar" catalog="system" width="16" height="14"/>
+        <image name="clock" catalog="system" width="15" height="15"/>
         <image name="clock.arrow.2.circlepath" catalog="system" width="18" height="15"/>
         <image name="folder" catalog="system" width="18" height="14"/>
         <image name="forward" catalog="system" width="19" height="12"/>
