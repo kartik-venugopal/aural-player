@@ -20,14 +20,14 @@ class MenuBarPlayQueueContainer: PlayQueueContainer {
         viewsToShowOnMouseOver = [btnImportTracks, btnExport,
                                   btnRemoveTracks, btnCropTracks, btnRemoveAllTracks,
                                   btnMoveTracksUp, btnMoveTracksDown, btnMoveTracksToTop, btnMoveTracksToBottom,
-                                  btnSearch, btnSort]
+                                  btnSort]
         
         viewsToHideOnMouseOver = [lblTracksSummary, lblDurationSummary]
         
         allButtons = [btnImportTracks, btnExport,
                       btnRemoveTracks, btnCropTracks, btnRemoveAllTracks,
                       btnMoveTracksUp, btnMoveTracksDown, btnMoveTracksToTop, btnMoveTracksToBottom,
-                      btnSearch, btnSort]
+                      btnSort]
     }
     
     override func mouseExited(with event: NSEvent) {

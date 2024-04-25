@@ -254,7 +254,7 @@
                         </textFieldCell>
                     </textField>
                     <button hidden="YES" toolTip="Import files / folders" translatesAutoresizingMaskIntoConstraints="NO" id="oae-Pk-C9g" userLabel="Import" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="35" y="10" width="17" height="17"/>
+                        <rect key="frame" x="45" y="10" width="17" height="17"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="plus.rectangle.on.folder" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="16F-mp-peJ">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -268,7 +268,7 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Export tracks to a playlist file" translatesAutoresizingMaskIntoConstraints="NO" id="9Zo-Cm-dZq" userLabel="Export" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="59" y="11.5" width="13" height="12"/>
+                        <rect key="frame" x="69" y="11.5" width="13" height="12"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="doc.text" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="EXb-0s-qwI">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -282,7 +282,7 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Remove selected tracks from Play Queue" translatesAutoresizingMaskIntoConstraints="NO" id="oha-Jz-NRZ" userLabel="Remove" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="87" y="9.5" width="16.5" height="17"/>
+                        <rect key="frame" x="97" y="9.5" width="16.5" height="17"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark.bin" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="E5W-Wp-d4X">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -296,7 +296,7 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Crop selected Play Queue tracks" translatesAutoresizingMaskIntoConstraints="NO" id="TvW-bI-XWh" userLabel="Crop" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="108" y="8.5" width="16.5" height="18"/>
+                        <rect key="frame" x="118" y="8.5" width="16.5" height="18"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="scissors" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6TI-sa-UWO">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -310,7 +310,7 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Remove all tracks from Play Queue" translatesAutoresizingMaskIntoConstraints="NO" id="4pv-Up-ER3" userLabel="Remove All" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="130" y="12" width="11.5" height="14"/>
+                        <rect key="frame" x="140" y="12" width="11.5" height="14"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="trash" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Iv4-Ub-yFn">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -340,7 +340,7 @@
                         </contentFilters>
                     </progressIndicator>
                     <button hidden="YES" toolTip="Move selected tracks up one row" translatesAutoresizingMaskIntoConstraints="NO" id="g9l-Cw-8ik" userLabel="Move Up" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="156" y="11.5" width="11" height="12"/>
+                        <rect key="frame" x="166" y="11.5" width="11" height="12"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.up" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="M8i-T1-zpz">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -354,7 +354,7 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Move selected tracks down one row" translatesAutoresizingMaskIntoConstraints="NO" id="Wdp-Nm-H7f" userLabel="Move Down" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="168" y="11.5" width="11" height="12"/>
+                        <rect key="frame" x="178" y="11.5" width="11" height="12"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.down" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="g4B-BU-9RI">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -368,7 +368,7 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Move selected tracks to the top" translatesAutoresizingMaskIntoConstraints="NO" id="8QW-iq-0A0" userLabel="Move to Top" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="191" y="13" width="11" height="10"/>
+                        <rect key="frame" x="201" y="13" width="11" height="10"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.up.to.line.alt" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="10h-bt-S0B">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -382,7 +382,7 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Move selected tracks to the bottom" translatesAutoresizingMaskIntoConstraints="NO" id="GtB-gn-EvX" userLabel="Move to Bottom" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="203" y="13" width="11" height="10"/>
+                        <rect key="frame" x="213" y="13" width="11" height="10"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.down.to.line.alt" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9BS-SU-E18">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -395,19 +395,8 @@
                             <action selector="moveTracksToBottomAction:" target="-2" id="3n7-0k-gIm"/>
                         </connections>
                     </button>
-                    <button hidden="YES" toolTip="Search the Play Queue" translatesAutoresizingMaskIntoConstraints="NO" id="OCf-pN-jWi" userLabel="Search" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="229" y="11.5" width="13.5" height="14"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="magnifyingglass" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="aNk-Am-cc6">
-                            <behavior key="behavior" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="13" id="LNv-Eg-76w"/>
-                            <constraint firstAttribute="height" constant="8" id="d9e-vA-TCD"/>
-                        </constraints>
-                    </button>
                     <button hidden="YES" toolTip="Sort the Play Queue" translatesAutoresizingMaskIntoConstraints="NO" id="vAc-Sr-v6j" userLabel="Sort" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="245" y="5.5" width="15" height="25"/>
+                        <rect key="frame" x="239" y="6.5" width="15" height="25"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yrI-Y6-cjC">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -445,7 +434,7 @@
                         </connections>
                     </button>
                     <box hidden="YES" boxType="custom" borderType="line" cornerRadius="2" titlePosition="noTitle" id="2tK-hP-pIH" userLabel="Sort Options Box">
-                        <rect key="frame" x="45" y="30" width="220" height="300"/>
+                        <rect key="frame" x="32" y="30" width="220" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="ly7-v2-eGo">
                             <rect key="frame" x="1" y="1" width="218" height="298"/>
@@ -609,25 +598,23 @@ Gw
                     <constraint firstItem="GtB-gn-EvX" firstAttribute="leading" secondItem="8QW-iq-0A0" secondAttribute="trailing" constant="1" id="CMp-Oh-Dty"/>
                     <constraint firstItem="9Zo-Cm-dZq" firstAttribute="centerY" secondItem="oae-Pk-C9g" secondAttribute="centerY" id="CW3-oj-G7E"/>
                     <constraint firstItem="8QW-iq-0A0" firstAttribute="leading" secondItem="Wdp-Nm-H7f" secondAttribute="trailing" constant="12" id="Dty-XE-UFt"/>
-                    <constraint firstItem="oae-Pk-C9g" firstAttribute="leading" secondItem="57b-Qf-w8i" secondAttribute="leading" constant="35" id="Gf3-7i-Jfi"/>
-                    <constraint firstItem="OCf-pN-jWi" firstAttribute="centerY" secondItem="GtB-gn-EvX" secondAttribute="centerY" id="Ha0-Wi-Lcl"/>
+                    <constraint firstItem="oae-Pk-C9g" firstAttribute="leading" secondItem="57b-Qf-w8i" secondAttribute="leading" constant="45" id="Gf3-7i-Jfi"/>
                     <constraint firstItem="TvW-bI-XWh" firstAttribute="centerY" secondItem="oha-Jz-NRZ" secondAttribute="centerY" id="HoC-S6-Pbm"/>
                     <constraint firstItem="gPh-vb-4rz" firstAttribute="centerX" secondItem="57b-Qf-w8i" secondAttribute="centerX" id="KNz-Dp-UTA"/>
                     <constraint firstItem="8QW-iq-0A0" firstAttribute="centerY" secondItem="Wdp-Nm-H7f" secondAttribute="centerY" id="MSI-fe-a48"/>
                     <constraint firstItem="Wdp-Nm-H7f" firstAttribute="centerY" secondItem="g9l-Cw-8ik" secondAttribute="centerY" id="SCj-iL-BQN"/>
                     <constraint firstItem="oha-Jz-NRZ" firstAttribute="leading" secondItem="9Zo-Cm-dZq" secondAttribute="trailing" constant="15" id="Vot-SW-yRd"/>
-                    <constraint firstItem="OCf-pN-jWi" firstAttribute="leading" secondItem="GtB-gn-EvX" secondAttribute="trailing" constant="15" id="WVO-kO-cYQ"/>
                     <constraint firstItem="4pv-Up-ER3" firstAttribute="leading" secondItem="TvW-bI-XWh" secondAttribute="trailing" constant="6" id="YeD-bh-EPK"/>
                     <constraint firstAttribute="bottom" secondItem="gPh-vb-4rz" secondAttribute="bottom" constant="10" id="a9A-8h-6HJ"/>
                     <constraint firstItem="g9l-Cw-8ik" firstAttribute="leading" secondItem="4pv-Up-ER3" secondAttribute="trailing" constant="15" id="akq-gh-H92"/>
-                    <constraint firstItem="vAc-Sr-v6j" firstAttribute="centerY" secondItem="OCf-pN-jWi" secondAttribute="centerY" id="bha-eG-v5K"/>
                     <constraint firstItem="Wdp-Nm-H7f" firstAttribute="leading" secondItem="g9l-Cw-8ik" secondAttribute="trailing" constant="1" id="cPs-ag-VHH"/>
                     <constraint firstItem="TvW-bI-XWh" firstAttribute="leading" secondItem="oha-Jz-NRZ" secondAttribute="trailing" constant="5" id="cn7-ES-4hO"/>
                     <constraint firstItem="9Zo-Cm-dZq" firstAttribute="leading" secondItem="oae-Pk-C9g" secondAttribute="trailing" constant="8" id="fv2-Zg-pKu"/>
                     <constraint firstItem="dLu-33-Jnb" firstAttribute="top" secondItem="57b-Qf-w8i" secondAttribute="top" constant="5" id="oFp-52-rtz"/>
                     <constraint firstItem="GtB-gn-EvX" firstAttribute="centerY" secondItem="8QW-iq-0A0" secondAttribute="centerY" id="oj6-1p-f18"/>
                     <constraint firstItem="oha-Jz-NRZ" firstAttribute="centerY" secondItem="oae-Pk-C9g" secondAttribute="centerY" id="qEH-GA-De4"/>
-                    <constraint firstItem="vAc-Sr-v6j" firstAttribute="leading" secondItem="OCf-pN-jWi" secondAttribute="trailing" constant="3" id="zYN-Ux-CqO"/>
+                    <constraint firstItem="vAc-Sr-v6j" firstAttribute="leading" secondItem="GtB-gn-EvX" secondAttribute="trailing" constant="15" id="w76-eD-TgK"/>
+                    <constraint firstAttribute="bottom" secondItem="vAc-Sr-v6j" secondAttribute="bottom" constant="11" id="wAQ-IT-W0N"/>
                 </constraints>
                 <connections>
                     <outlet property="btnCropTracks" destination="TvW-bI-XWh" id="S8o-Md-YLS"/>
@@ -639,7 +626,6 @@ Gw
                     <outlet property="btnMoveTracksUp" destination="g9l-Cw-8ik" id="udb-m5-Bv6"/>
                     <outlet property="btnRemoveAllTracks" destination="4pv-Up-ER3" id="F3e-1w-2Ee"/>
                     <outlet property="btnRemoveTracks" destination="oha-Jz-NRZ" id="KnJ-ag-Tet"/>
-                    <outlet property="btnSearch" destination="OCf-pN-jWi" id="mW6-yZ-FpT"/>
                     <outlet property="btnSort" destination="vAc-Sr-v6j" id="7Fi-sR-fte"/>
                     <outlet property="lblDurationSummary" destination="f5H-sF-fPv" id="g8N-5K-yiQ"/>
                     <outlet property="lblTracksSummary" destination="PRj-0v-wta" id="gMU-Do-0aw"/>
@@ -647,62 +633,6 @@ Gw
                 </connections>
             </view>
             <point key="canvasLocation" x="-497" y="101"/>
-        </box>
-        <box hidden="YES" boxType="custom" borderType="line" borderWidth="2" cornerRadius="5" titlePosition="noTitle" id="QYy-FL-32X" userLabel="Presentation Modes Box">
-            <rect key="frame" x="0.0" y="0.0" width="247" height="140"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <view key="contentView" id="DtL-r2-eLE">
-                <rect key="frame" x="2" y="2" width="243" height="136"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                <subviews>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Efo-NF-rjr" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="104" width="192" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="radio" title="Modular (multi-window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="eg6-4z-J6T">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" size="13" name="Play-Regular"/>
-                        </buttonCell>
-                    </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fK0-Qv-ZnT" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="82" width="192" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="radio" title="Unified (single window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="EnJ-CP-MOt">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" size="13" name="Play-Regular"/>
-                        </buttonCell>
-                    </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0u-qS-yTc" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="60" width="218" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="radio" title="Compact (single compact window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="jlM-p9-QOm">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" size="13" name="Play-Regular"/>
-                        </buttonCell>
-                    </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B0P-ZZ-5Zg" userLabel="Widget (floating mini window)" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="38" width="218" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="radio" title="Widget (floating mini window)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="8iP-0q-sMc">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" size="13" name="Play-Regular"/>
-                        </buttonCell>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPT-Mm-iqx">
-                        <rect key="frame" x="184" y="4" width="55" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L7a-Cp-Tro">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                    </button>
-                </subviews>
-            </view>
-            <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-            <color key="fillColor" red="0.3071037371" green="0.3071037371" blue="0.3071037371" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-            <point key="canvasLocation" x="-675" y="-229"/>
         </box>
     </objects>
     <resources>
@@ -712,7 +642,6 @@ DQ
         <image name="arrow.up.arrow.down" catalog="system" width="23" height="19"/>
         <image name="arrow.up.to.line.alt" catalog="system" width="13" height="14"/>
         <image name="doc.text" catalog="system" width="14" height="16"/>
-        <image name="magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="plus.rectangle.on.folder" catalog="system" width="19" height="15"/>
         <image name="scissors" catalog="system" width="20" height="15"/>
         <image name="trash" catalog="system" width="15" height="17"/>
