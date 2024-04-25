@@ -99,7 +99,7 @@
                                                         <action selector="menuBarModeAction:" target="-2" id="iHV-Vb-E8O"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="Control Bar (floating widget)" id="zIp-0Y-NQx">
+                                                <menuItem title="Widget (floating mini window)" id="zIp-0Y-NQx">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="widgetModeAction:" target="-2" id="2qo-8F-aJd"/>
@@ -1569,11 +1569,43 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="efi-tn-whz"/>
-                            <menuItem title=" Switch to menu bar mode" image="MenuBarMode-Small" id="zS7-7O-5lF" userLabel="Switch to menu bar mode">
+                            <menuItem title=" Presentation mode" image="WindowLayout-Menu" id="hAv-s2-1Eq">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title=" Switch to widget mode" image="WidgetMode-Small" id="ht9-cb-4uj" userLabel="Switch to widget mode">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title=" Presentation mode" autoenablesItems="NO" id="eIV-do-uoC">
+                                    <items>
+                                        <menuItem hidden="YES" id="H7A-1e-Mb6" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <imageReference key="image" image="WindowLayout" symbolScale="medium"/>
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="WindowLayout"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </menuItem>
+                                        <menuItem title="Unified (single window)" id="MJg-Pu-YgU">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="unifiedModeAction:" target="-2" id="rkG-BD-Z7z"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Compact (single compact window)" id="Uq9-l3-1dd">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="compactModeAction:" target="-2" id="6qn-kw-nkn"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Menu Bar (macOS menu bar)" id="1uu-b7-SNc">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="menuBarModeAction:" target="-2" id="UOH-QH-4Mm"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Widget (floating mini window)" id="6jo-hz-ppm">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="widgetModeAction:" target="-2" id="dEu-W9-SHK"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bmk-qe-d8C"/>
                             <menuItem title="   Player view" indentationLevel="1" id="RDU-QL-Gam" userLabel="Player view">
@@ -1980,13 +2012,11 @@ CA
         <image name="FontScheme" width="14" height="14"/>
         <image name="Genres_Menu" width="20" height="20"/>
         <image name="Hamburger" width="10" height="7"/>
-        <image name="MenuBarMode-Small" width="14" height="10"/>
         <image name="ToggleChaptersList-Small" width="14" height="11"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="ToggleVisualizer-Small" width="14" height="14"/>
         <image name="Update" width="15" height="15"/>
         <image name="UserGuide" width="16" height="14"/>
-        <image name="WidgetMode-Small" width="14" height="10"/>
         <image name="WindowLayout" width="20" height="20"/>
         <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
@@ -1994,6 +2024,7 @@ CA
         <image name="WindowLayout-CompactCornered" width="30" height="20"/>
         <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
+        <image name="WindowLayout-Menu" width="15" height="15"/>
         <image name="WindowLayout-Small" width="13" height="13"/>
         <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-VerticalStack" width="30" height="20"/>

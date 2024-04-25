@@ -156,6 +156,12 @@ class WidgetPlayerWindowController: NSWindowController, NSWindowDelegate, NSMenu
         appModeManager.presentMode(.unified)
     }
     
+    @IBAction func compactModeAction(_ sender: AnyObject) {
+        
+        transferViewState()
+        appModeManager.presentMode(.compact)
+    }
+    
     @IBAction func menuBarModeAction(_ sender: AnyObject) {
         
         transferViewState()

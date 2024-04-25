@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,7 +33,7 @@
                 <subviews>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cl4-0e-ANP" userLabel="Background Box">
                         <rect key="frame" x="0.0" y="0.0" width="598" height="50"/>
-                        <view key="contentView" id="Aqe-re-gbP" customClass="WidgetSeekSliderView" customModule="Aural" customModuleProvider="target">
+                        <view key="contentView" id="Aqe-re-gbP" userLabel="Controls">
                             <rect key="frame" x="0.0" y="0.0" width="598" height="50"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -486,23 +488,43 @@
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="K7h-oW-lF5"/>
-                                                <menuItem title="  Switch to Modular mode" image="WindowedMode-Small" id="4cF-e2-ta6" userLabel="Switch to Modular mode">
+                                                <menuItem title=" Presentation mode" image="WindowLayout-Menu" id="4cF-e2-ta6">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="modularModeAction:" target="-2" id="uzR-XL-iFa"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Switch to Unified mode" image="WindowedMode-Small" id="Tgt-my-6Br" userLabel="Switch to Unified mode">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="unifiedModeAction:" target="-2" id="dhl-nI-YIe"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Switch to Menu Bar mode" image="MenuBarMode-Small" id="Uub-O4-NqJ" userLabel="Switch to menu bar mode">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="menuBarModeAction:" target="-2" id="VOp-3E-gIP"/>
-                                                    </connections>
+                                                    <menu key="submenu" title=" Presentation mode" autoenablesItems="NO" id="zgD-Up-6sZ">
+                                                        <items>
+                                                            <menuItem hidden="YES" id="Rir-8J-WdS" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                <imageReference key="image" image="WindowLayout" symbolScale="medium"/>
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="WindowLayout"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </menuItem>
+                                                            <menuItem title="Modular (multi-window)" id="at5-nE-bvj" userLabel="Modular (multi-window)">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="modularModeAction:" target="-2" id="dxb-hK-780"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Unified (single window)" id="jpM-Qj-5wn">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="unifiedModeAction:" target="-2" id="sp6-yW-LEH"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Compact (single compact window)" id="v8W-Vb-FiH">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="compactModeAction:" target="-2" id="kLu-Zx-2Nf"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Menu Bar (macOS menu bar)" id="lyi-Mw-Sww">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="menuBarModeAction:" target="-2" id="3gl-VE-RiY"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
                                                 </menuItem>
                                             </items>
                                             <connections>
@@ -693,12 +715,12 @@
         <image name="DockTopLeft" width="14" height="12"/>
         <image name="DockTopRight" width="14" height="12"/>
         <image name="Loop" width="18" height="25"/>
-        <image name="MenuBarMode-Small" width="14" height="10"/>
         <image name="NextTrack" width="21" height="23"/>
         <image name="Play" width="40" height="40"/>
         <image name="PreviousTrack" width="21" height="23"/>
         <image name="Settings-Small" width="8" height="7"/>
-        <image name="WindowedMode-Small" width="13" height="13"/>
+        <image name="WindowLayout" width="20" height="20"/>
+        <image name="WindowLayout-Menu" width="15" height="15"/>
         <image name="backward" catalog="system" width="19" height="12"/>
         <image name="backward.end" catalog="system" width="13" height="13"/>
         <image name="forward" catalog="system" width="19" height="12"/>

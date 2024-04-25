@@ -170,7 +170,7 @@
                                             <action selector="menuBarModeAction:" target="-2" id="u0o-yT-Bnx"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Control Bar (floating widget)" id="KMl-dm-ab8">
+                                    <menuItem title="Widget (floating mini window)" id="KMl-dm-ab8">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="widgetModeAction:" target="-2" id="aOF-Kh-twD"/>
@@ -486,7 +486,7 @@
                     <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="-6" y="317"/>
+            <point key="canvasLocation" x="-16" y="854"/>
         </window>
         <customObject id="fs7-n4-iiz" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
@@ -1283,11 +1283,43 @@ CA
                             <menuItem title=" Chapters list" image="ToggleChaptersList-Small" keyEquivalent="3" id="5oj-xI-CJk"/>
                             <menuItem title=" Visualizer" image="ToggleVisualizer-Small" keyEquivalent="4" id="Vl8-np-2Xg"/>
                             <menuItem isSeparatorItem="YES" id="QrC-Oa-Pva"/>
-                            <menuItem title=" Switch to menu bar mode" image="MenuBarMode-Small" id="vcD-1S-4qQ" userLabel="Switch to menu bar mode">
+                            <menuItem title=" Presentation mode" image="WindowLayout-Menu" id="u7c-yT-v01">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title=" Switch to widget mode" image="WidgetMode-Small" id="wXv-Df-PtY" userLabel="Switch to widget mode">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title=" Presentation mode" autoenablesItems="NO" id="6VO-m4-QnO">
+                                    <items>
+                                        <menuItem hidden="YES" id="5RV-HU-KbH" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <imageReference key="image" image="WindowLayout" symbolScale="medium"/>
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="WindowLayout"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </menuItem>
+                                        <menuItem title="Modular (multi-window)" id="bU3-pY-InM" userLabel="Modular (multi-window)">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="modularModeAction:" target="-2" id="3Uk-RZ-FM8"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Compact (single compact window)" id="BT9-Et-IDs">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="compactModeAction:" target="-2" id="41D-2E-mfd"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Menu Bar (macOS menu bar)" id="EXt-fx-qoN">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="menuBarModeAction:" target="-2" id="jmx-pp-Tu0"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Widget (floating mini window)" id="jxD-eR-VYs">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="widgetModeAction:" target="-2" id="TO7-ZX-QzP"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="QqL-6o-VVd"/>
                             <menuItem title="   Player view" indentationLevel="1" id="YeT-xf-kI6" userLabel="Player view">
@@ -1557,7 +1589,6 @@ CA
         <image name="FontScheme" width="14" height="14"/>
         <image name="Genres_Menu" width="20" height="20"/>
         <image name="Hamburger" width="10" height="7"/>
-        <image name="MenuBarMode-Small" width="14" height="10"/>
         <image name="RecentlyAdded" width="18" height="14"/>
         <image name="RecentlyPlayed" width="18" height="14"/>
         <image name="ToggleChaptersList-Small" width="14" height="11"/>
@@ -1565,7 +1596,6 @@ CA
         <image name="ToggleVisualizer-Small" width="14" height="14"/>
         <image name="Update" width="15" height="15"/>
         <image name="UserGuide" width="16" height="14"/>
-        <image name="WidgetMode-Small" width="14" height="10"/>
         <image name="WindowLayout" width="20" height="20"/>
         <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
@@ -1573,6 +1603,7 @@ CA
         <image name="WindowLayout-CompactCornered" width="30" height="20"/>
         <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
+        <image name="WindowLayout-Menu" width="15" height="15"/>
         <image name="WindowLayout-Small" width="13" height="13"/>
         <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-VerticalStack" width="30" height="20"/>
