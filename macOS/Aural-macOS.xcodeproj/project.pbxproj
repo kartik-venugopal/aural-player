@@ -583,6 +583,7 @@
 		3EE9BCB7278A896800DFFDD7 /* ColorSchemeableBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE9BCB6278A896800DFFDD7 /* ColorSchemeableBox.swift */; };
 		3EEBC6EC27C14A4B00880DFD /* HorizontalSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBC6EB27C14A4B00880DFD /* HorizontalSliderCell.swift */; };
 		3EEBC6EE27C16CF700880DFD /* EffectsUnitStateObserverRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBC6ED27C16CF700880DFD /* EffectsUnitStateObserverRegistry.swift */; };
+		3EEC08B92BDC5F9A008DBF8E /* SearchViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC08B82BDC5F9A008DBF8E /* SearchViewController+Theming.swift */; };
 		3EEC6EC92BD8464A00BC5D32 /* TrackInfoKVListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC6EC82BD8464A00BC5D32 /* TrackInfoKVListViewController.swift */; };
 		3EEC6ECB2BD8472200BC5D32 /* TrackInfoKVList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EEC6ECA2BD8472200BC5D32 /* TrackInfoKVList.xib */; };
 		3EEC6ECD2BD85F8900BC5D32 /* TrackInfoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC6ECC2BD85F8900BC5D32 /* TrackInfoSource.swift */; };
@@ -1630,6 +1631,7 @@
 		3EEABD432B56D47E00263797 /* Library+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Build.swift"; sourceTree = "<group>"; };
 		3EEBC6EB27C14A4B00880DFD /* HorizontalSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSliderCell.swift; sourceTree = "<group>"; };
 		3EEBC6ED27C16CF700880DFD /* EffectsUnitStateObserverRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitStateObserverRegistry.swift; sourceTree = "<group>"; };
+		3EEC08B82BDC5F9A008DBF8E /* SearchViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+Theming.swift"; sourceTree = "<group>"; };
 		3EEC6EC82BD8464A00BC5D32 /* TrackInfoKVListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoKVListViewController.swift; sourceTree = "<group>"; };
 		3EEC6ECA2BD8472200BC5D32 /* TrackInfoKVList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackInfoKVList.xib; sourceTree = "<group>"; };
 		3EEC6ECC2BD85F8900BC5D32 /* TrackInfoSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoSource.swift; sourceTree = "<group>"; };
@@ -2295,6 +2297,7 @@
 			children = (
 				3E2C4BCF2B38D46400FC65DD /* Search.xib */,
 				3E2C4BD32B38DD0400FC65DD /* SearchViewController.swift */,
+				3EEC08B82BDC5F9A008DBF8E /* SearchViewController+Theming.swift */,
 				3E4574942B3DEEE600AF117E /* SearchViewController+TableView.swift */,
 			);
 			path = Search;
@@ -5888,6 +5891,7 @@
 				3EB3A60E26A744C80060487C /* SingletonPopoverViewController.swift in Sources */,
 				3E10178E28D7713B002C0D8E /* FFmpegMetadataReader.swift in Sources */,
 				3E4A90FE27F79AFA003A6C80 /* WindowID.swift in Sources */,
+				3EEC08B92BDC5F9A008DBF8E /* SearchViewController+Theming.swift in Sources */,
 				3EA6C62B2AD6AAA100B75166 /* FFmpegCodecParameters.swift in Sources */,
 				3EFE385B27864896006F8B8C /* TimeStretchUnitProtocol.swift in Sources */,
 				3EB3A60B26A7425C0060487C /* SingletonWindowController.swift in Sources */,

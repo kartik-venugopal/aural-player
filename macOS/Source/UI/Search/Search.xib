@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +16,9 @@
                 <outlet property="btnSearchByName" destination="jhe-l8-nNi" id="QTh-0c-ZkG"/>
                 <outlet property="btnSearchByTitle" destination="ZlV-tU-KcN" id="RBo-4M-zye"/>
                 <outlet property="btnSearchCaseSensitive" destination="KBA-MV-QuH" id="hty-ad-mfS"/>
+                <outlet property="lblComparisonTypeCaption" destination="XHb-Bd-BBr" id="8m6-bN-d7z"/>
+                <outlet property="lblOptionsCaption" destination="CJV-OI-GYV" id="0aW-GD-GT1"/>
+                <outlet property="lblSeachByCaption" destination="lPM-el-2ih" id="mL0-pC-UCm"/>
                 <outlet property="lblSummary" destination="SbZ-4U-Eu4" id="FL5-Bv-H0d"/>
                 <outlet property="resultsTable" destination="jrU-2c-JGF" id="Eox-hJ-yaI"/>
                 <outlet property="searchField" destination="Z9R-ej-663" id="cSm-8F-8pG"/>
@@ -28,6 +31,13 @@
             <rect key="frame" x="0.0" y="0.0" width="500" height="512"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
+                <box boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="JiB-wC-MAh" userLabel="Root Container Box">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="512"/>
+                    <view key="contentView" id="Lrs-GO-LI4">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="512"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </box>
                 <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9R-ej-663">
                     <rect key="frame" x="20" y="448" width="457" height="22"/>
                     <constraints>
@@ -70,7 +80,7 @@ Gw
                         <constraint firstAttribute="height" constant="18" id="jP4-Su-29Q"/>
                     </constraints>
                 </button>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbZ-4U-Eu4" userLabel="Results summary label">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbZ-4U-Eu4" userLabel="Results summary label">
                     <rect key="frame" x="27" y="293" width="341" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="No results" id="hrk-CY-MZp">
@@ -79,7 +89,7 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lPM-el-2ih">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lPM-el-2ih">
                     <rect key="frame" x="24" y="412" width="86" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search by:" id="kMh-Yz-IWZ">
@@ -132,7 +142,7 @@ Gw
                         <action selector="searchFieldsChangedAction:" target="-2" id="J91-yE-sDb"/>
                     </connections>
                 </button>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XHb-Bd-BBr" userLabel="Comparison type:">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XHb-Bd-BBr" userLabel="Comparison type:">
                     <rect key="frame" x="385" y="412" width="94" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="K5M-cB-Dhc"/>
@@ -144,7 +154,7 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CJV-OI-GYV" userLabel="Options:">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CJV-OI-GYV" userLabel="Options:">
                     <rect key="frame" x="418" y="362" width="61" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="UT3-eB-98v"/>
@@ -193,14 +203,14 @@ Gw
                         <action selector="searchTypeChangedAction:" target="-2" id="788-OD-MPe"/>
                     </connections>
                 </popUpButton>
-                <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw4-ZG-Aj9" userLabel="Results Table">
-                    <rect key="frame" x="20" y="55" width="460" height="221"/>
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw4-ZG-Aj9" userLabel="Results Table">
+                    <rect key="frame" x="20" y="55" width="460" height="222"/>
                     <clipView key="contentView" id="RlX-Bl-Tqc">
-                        <rect key="frame" x="1" y="1" width="458" height="219"/>
+                        <rect key="frame" x="1" y="1" width="458" height="220"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="1Rx-VA-4ps" viewBased="YES" id="jrU-2c-JGF">
-                                <rect key="frame" x="0.0" y="0.0" width="458" height="191"/>
+                                <rect key="frame" x="0.0" y="0.0" width="458" height="192"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="17" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -222,7 +232,7 @@ Gw
                                                 <rect key="frame" x="8" y="0.0" width="198" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10d-XA-Igb">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10d-XA-Igb">
                                                         <rect key="frame" x="0.0" y="4" width="198" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="aL8-zz-7hx">
@@ -254,7 +264,7 @@ Gw
                                                 <rect key="frame" x="223" y="0.0" width="115" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sla-Cx-CNi">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sla-Cx-CNi">
                                                         <rect key="frame" x="0.0" y="4" width="115" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="bPw-iL-ZHs">
@@ -286,7 +296,7 @@ Gw
                                                 <rect key="frame" x="355" y="0.0" width="94" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iLB-Sm-cTr">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iLB-Sm-cTr">
                                                         <rect key="frame" x="0.0" y="1" width="94" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="dvb-aU-qbm">
@@ -348,7 +358,10 @@ Gw
                 <constraint firstAttribute="trailing" secondItem="nvb-2M-b2o" secondAttribute="trailing" constant="20" symbolic="YES" id="AKy-HE-R8F"/>
                 <constraint firstItem="XHb-Bd-BBr" firstAttribute="top" secondItem="Z9R-ej-663" secondAttribute="bottom" constant="19" id="AWk-bk-Vor"/>
                 <constraint firstItem="CJV-OI-GYV" firstAttribute="top" secondItem="Ped-pZ-hAW" secondAttribute="bottom" constant="9" id="B2h-Cw-pc3"/>
+                <constraint firstAttribute="bottom" secondItem="JiB-wC-MAh" secondAttribute="bottom" id="CRi-94-Met"/>
+                <constraint firstItem="JiB-wC-MAh" firstAttribute="leading" secondItem="oa7-dV-w1l" secondAttribute="leading" id="Jez-Kr-9tB"/>
                 <constraint firstItem="Ped-pZ-hAW" firstAttribute="trailing" secondItem="Z9R-ej-663" secondAttribute="trailing" id="KWl-A7-k4F"/>
+                <constraint firstItem="JiB-wC-MAh" firstAttribute="trailing" secondItem="oa7-dV-w1l" secondAttribute="trailing" id="OGj-MG-bnY"/>
                 <constraint firstItem="Z9R-ej-663" firstAttribute="leading" secondItem="oa7-dV-w1l" secondAttribute="leading" constant="20" symbolic="YES" id="P4V-pQ-cnY"/>
                 <constraint firstItem="xw4-ZG-Aj9" firstAttribute="leading" secondItem="oa7-dV-w1l" secondAttribute="leading" constant="20" symbolic="YES" id="Ppt-TB-8cN"/>
                 <constraint firstItem="KBA-MV-QuH" firstAttribute="top" secondItem="CJV-OI-GYV" secondAttribute="bottom" id="TVt-xD-1XD"/>
@@ -360,6 +373,7 @@ Gw
                 <constraint firstItem="XHb-Bd-BBr" firstAttribute="trailing" secondItem="Z9R-ej-663" secondAttribute="trailing" id="fnF-JX-iQ6"/>
                 <constraint firstItem="7mw-bb-uao" firstAttribute="trailing" secondItem="Z9R-ej-663" secondAttribute="trailing" id="gUc-Tt-kTe"/>
                 <constraint firstItem="7mw-bb-uao" firstAttribute="top" secondItem="kdl-C9-5k9" secondAttribute="top" id="kcR-hc-wim"/>
+                <constraint firstItem="JiB-wC-MAh" firstAttribute="top" secondItem="oa7-dV-w1l" secondAttribute="top" id="p1p-HF-vqx"/>
             </constraints>
             <point key="canvasLocation" x="145" y="-52"/>
         </view>

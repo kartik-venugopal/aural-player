@@ -16,20 +16,25 @@ class SearchViewController: NSViewController {
     
     @IBOutlet weak var searchField: NSSearchField!
     
-    //    @IBOutlet weak var lblMatchFieldName: NSTextField!
-    //    @IBOutlet weak var lblMatchFieldValue: NSTextField!
+    @IBOutlet weak var lblSeachByCaption: NSTextField!
+    @IBOutlet weak var lblComparisonTypeCaption: NSTextField!
+    @IBOutlet weak var lblOptionsCaption: NSTextField!
+    
+    lazy var captionLabels: [NSTextField] = [lblSeachByCaption, lblComparisonTypeCaption, lblOptionsCaption]
     
     @IBOutlet weak var btnNextSearch: NSButton!
     @IBOutlet weak var btnPreviousSearch: NSButton!
     
-    @IBOutlet weak var btnSearchByName: NSButton!
-    @IBOutlet weak var btnSearchByArtist: NSButton!
-    @IBOutlet weak var btnSearchByTitle: NSButton!
-    @IBOutlet weak var btnSearchByAlbum: NSButton!
+    @IBOutlet weak var btnSearchByName: CheckBox!
+    @IBOutlet weak var btnSearchByArtist: CheckBox!
+    @IBOutlet weak var btnSearchByTitle: CheckBox!
+    @IBOutlet weak var btnSearchByAlbum: CheckBox!
     
     @IBOutlet weak var btnComparisonType: NSPopUpButton!
     
-    @IBOutlet weak var btnSearchCaseSensitive: NSButton!
+    @IBOutlet weak var btnSearchCaseSensitive: CheckBox!
+    
+    lazy var checkBoxes: [CheckBox] = [btnSearchByName, btnSearchByArtist, btnSearchByTitle, btnSearchByAlbum, btnSearchCaseSensitive]
     
     @IBOutlet weak var lblSummary: NSTextField!
     @IBOutlet weak var resultsTable: NSTableView!
@@ -39,23 +44,21 @@ class SearchViewController: NSViewController {
     // Current search results
     private(set) var searchResults: SearchResults!
     
-    //    private var modalDialogResponse: ModalDialogResponse = .ok
-    //
-    //    override var windowNibName: String? {"PlaylistSearch"}
-    
     private lazy var messenger = Messenger(for: self)
-    //
-    //    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
-    //
-    //    var isModal: Bool {self.window?.isVisible ?? false}
-    //
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        fontSchemesManager.registerObserver(self)
+        colorSchemesManager.registerSchemeObserver(self)
+    }
+
     override func viewDidAppear() {
         
         super.viewDidAppear()
         
         // Don't do anything if no tracks in playlist
-        //            guard playlist.size > 0 else {return .cancel}
-        
         searchField.stringValue = ""
         searchQuery.text = ""
         noResultsFound()
@@ -91,19 +94,11 @@ class SearchViewController: NSViewController {
             
             return
         }
-        
-        //        searchResults = playlist.search(searchQuery, uiState.currentView)
-        
-        // Show the first result
-        //        searchResults.hasResults ? nextSearchAction(self) : noResultsFound()
     }
     
     private func noResultsFound() {
         
         //        lblSummary.stringValue = "No results"
-        //        lblMatchFieldName.stringValue = ""
-        //        lblMatchFieldValue.stringValue = ""
-        //
         //        NSView.hideViews(btnNextSearch, btnPreviousSearch)
     }
     
