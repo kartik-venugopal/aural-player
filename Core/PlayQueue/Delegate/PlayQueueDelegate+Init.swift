@@ -22,32 +22,37 @@ extension PlayQueueDelegate {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
             loadTracks(from: appLaunchFiles, params: .init(autoplay: playbackPreferences.autoplayAfterOpeningTracks.value, markLoadedItemsForHistory: false))
+            return
+        }
+        
+        switch playQueuePreferences.playQueueOnStartup.value {
             
-        } else {
+        case .empty:
+            break
             
-            guard let state = persistentState else {return}
+        case .rememberFromLastAppLaunch:
             
-            if playQueuePreferences.playQueueOnStartup.value == .rememberFromLastAppLaunch, let files = state.tracks, files.isNonEmpty {
+            if let files = persistentState?.tracks, files.isNonEmpty {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
                 loadTracks(from: files, params: .init(autoplay: playbackPreferences.autoplayOnStartup.value, markLoadedItemsForHistory: false))
             }
+            
+        case .loadPlaylistFile:
+            
+            if let playlistFile = playQueuePreferences.playlistFile.value {
+                loadTracks(from: [playlistFile], params: .init(autoplay: playbackPreferences.autoplayOnStartup.value, markLoadedItemsForHistory: false))
+            }
+            
+        case .loadFolder:
+            
+            if let folder = playQueuePreferences.tracksFolder.value {
+                loadTracks(from: [folder], params: .init(autoplay: playbackPreferences.autoplayOnStartup.value, markLoadedItemsForHistory: false))
+            }
+            
         }
         
         initializeHistory(fromPersistentState: persistentState?.history)
-        
-        // TODO: Load from playlist / playlist file / folder / group
-        
-        //        } else if playlistPreferences.playlistOnStartup == .loadFile,
-        //                  let playlistFile: URL = playlistPreferences.playlistFile {
-        //
-        //            addFiles_async([playlistFile], AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false)
-        //
-        //        } else if playlistPreferences.playlistOnStartup == .loadFolder,
-        //                  let folder: URL = playlistPreferences.tracksFolder {
-        //
-        //            addFiles_async([folder], AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false)
-        //        }
     }
     
     private func initializeHistory(fromPersistentState persistentState: HistoryPersistentState?) {

@@ -11,10 +11,10 @@ import Cocoa
 
 class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var btnEmptyPlaylist: NSButton!
-    @IBOutlet weak var btnRememberPlaylist: NSButton!
+    @IBOutlet weak var btnEmptyPlayQueue: NSButton!
+    @IBOutlet weak var btnRememberPlayQueue: NSButton!
     
-    @IBOutlet weak var btnLoadPlaylistFromFile: NSButton!
+    @IBOutlet weak var btnLoadPlaylistFile: NSButton!
     @IBOutlet weak var btnBrowseFile: NSButton!
     
     @IBOutlet weak var btnLoadTracksFromFolder: NSButton!
@@ -52,20 +52,20 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         switch pqPrefs.playQueueOnStartup.value {
 
         case .empty:
-            btnEmptyPlaylist.on()
+            btnEmptyPlayQueue.on()
             
         case .rememberFromLastAppLaunch:
-            btnRememberPlaylist.on()
+            btnRememberPlayQueue.on()
             
-        case .loadFile:
-            btnLoadPlaylistFromFile.on()
+        case .loadPlaylistFile:
+            btnLoadPlaylistFile.on()
             
         case .loadFolder:
             btnLoadTracksFromFolder.on()
         }
         
         [btnBrowseFile, lblPlaylistFile].forEach({
-            $0!.enableIf(btnLoadPlaylistFromFile.isOn)
+            $0!.enableIf(btnLoadPlaylistFile.isOn)
         })
         
         [btnBrowseFolder, lblFolder].forEach({
@@ -106,19 +106,19 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         }
     }
     
-    @IBAction func startupPlaylistPrefAction(_ sender: Any) {
+    @IBAction func startupPlayQueuePrefAction(_ sender: Any) {
         
         // Needed for radio button group
         
         [btnBrowseFile, lblPlaylistFile].forEach({
-            $0!.enableIf(btnLoadPlaylistFromFile.isOn)
+            $0!.enableIf(btnLoadPlaylistFile.isOn)
         })
         
         [btnBrowseFolder, lblFolder].forEach({
             $0!.enableIf(btnLoadTracksFromFolder.isOn)
         })
         
-        if btnLoadPlaylistFromFile.isOff {
+        if btnLoadPlaylistFile.isOff {
             
             if errorIcon_1.isShown {
                 hideError_playlistFile()
@@ -136,7 +136,7 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
             lblFolder.stringValue = ""
         }
     
-        if btnLoadPlaylistFromFile.isOn && String.isEmpty(lblPlaylistFile.stringValue) {
+        if btnLoadPlaylistFile.isOn && String.isEmpty(lblPlaylistFile.stringValue) {
             choosePlaylistFileAction(sender)
         }
         
@@ -157,20 +157,20 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         
         let prefs: PlayQueuePreferences = preferences.playQueuePreferences
         
-        if btnEmptyPlaylist.isOn {
+        if btnEmptyPlayQueue.isOn {
             
             prefs.playQueueOnStartup.value = .empty
             
-        } else if btnRememberPlaylist.isOn {
+        } else if btnRememberPlayQueue.isOn {
             
             prefs.playQueueOnStartup.value = .rememberFromLastAppLaunch
             
-        } else if btnLoadPlaylistFromFile.isOn {
+        } else if btnLoadPlaylistFile.isOn {
             
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !String.isEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
                 
-                prefs.playQueueOnStartup.value = .loadFile
+                prefs.playQueueOnStartup.value = .loadPlaylistFile
                 prefs.playlistFile.value = URL(fileURLWithPath: lblPlaylistFile.stringValue)
                 
             } else {

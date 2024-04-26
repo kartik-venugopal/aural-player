@@ -144,7 +144,7 @@ class PlayQueueContainerViewController: NSViewController {
         
         messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: updateSummary)
         
-        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: updateSummary)
+        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
     }
@@ -221,6 +221,15 @@ class PlayQueueContainerViewController: NSViewController {
         
         progressSpinner.hide()
         progressSpinner.stopAnimation(nil)
+    }
+    
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
+        
+        if preferences.playQueuePreferences.showNewTrackInPlayQueue.value, notification.endTrack != nil {
+            showPlayingTrack()
+        }
+        
+        updateSummary()
     }
     
     func updateSummary() {

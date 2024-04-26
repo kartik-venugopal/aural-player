@@ -46,7 +46,7 @@ enum PlayQueueStartupOption: String, CaseIterable, Codable {
     
     case empty
     case rememberFromLastAppLaunch
-    case loadFile
+    case loadPlaylistFile
     case loadFolder
 }
 

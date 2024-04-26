@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,12 +13,12 @@
                 <outlet property="btnDragDropAppend" destination="rQ2-CM-g7e" id="rB5-de-QgJ"/>
                 <outlet property="btnDragDropHybrid" destination="BYx-2l-bBd" id="Eez-Zg-xla"/>
                 <outlet property="btnDragDropReplace" destination="BDX-lh-Pzd" id="aOU-wI-q99"/>
-                <outlet property="btnEmptyPlaylist" destination="9oU-XJ-Z4W" id="Ymp-E9-jNY"/>
-                <outlet property="btnLoadPlaylistFromFile" destination="Dce-Nd-jp7" id="mbr-tQ-mvR"/>
+                <outlet property="btnEmptyPlayQueue" destination="9oU-XJ-Z4W" id="1S3-oc-4ed"/>
+                <outlet property="btnLoadPlaylistFile" destination="Dce-Nd-jp7" id="mbr-tQ-mvR"/>
                 <outlet property="btnLoadTracksFromFolder" destination="ukb-oo-Yli" id="h0L-4L-rua"/>
                 <outlet property="btnOpenWithAppend" destination="ABl-dz-Whw" id="yfQ-OB-44t"/>
                 <outlet property="btnOpenWithReplace" destination="QLt-8p-sDQ" id="MMU-3V-9ft"/>
-                <outlet property="btnRememberPlaylist" destination="11g-RD-mFQ" id="Jvo-mq-jSV"/>
+                <outlet property="btnRememberPlayQueue" destination="11g-RD-mFQ" id="kZG-9I-qLx"/>
                 <outlet property="btnShowChaptersList" destination="rqK-Fk-tAG" id="gbN-4E-lgT"/>
                 <outlet property="btnShowNewTrack" destination="ZPD-DH-Z3O" id="dPa-C9-pPx"/>
                 <outlet property="errorIcon_1" destination="1jP-hB-Fpl" id="RcR-o3-Uct"/>
@@ -36,7 +36,7 @@
             <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZn-N7-le7">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZn-N7-le7">
                     <rect key="frame" x="18" y="437" width="290" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Play Queue (tracks) loaded on app startup" id="4VF-3R-sOZ">
@@ -53,7 +53,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="startupPlaylistPrefAction:" target="-2" id="KSB-Jx-Ejw"/>
+                        <action selector="startupPlayQueuePrefAction:" target="-2" id="8mR-KN-8Iw"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-XJ-Z4W" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
@@ -64,7 +64,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="startupPlaylistPrefAction:" target="-2" id="Git-bs-9rv"/>
+                        <action selector="startupPlayQueuePrefAction:" target="-2" id="bgx-2O-WBL"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-Nd-jp7" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
@@ -75,7 +75,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="startupPlaylistPrefAction:" target="-2" id="dyM-HN-Brs"/>
+                        <action selector="startupPlayQueuePrefAction:" target="-2" id="5oI-VN-xgR"/>
                     </connections>
                 </button>
                 <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWX-kR-DXZ" userLabel="Btn Browse">
@@ -97,7 +97,7 @@ DQ
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="Error" id="VX8-Wb-T9Q"/>
                 </imageView>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8OE-My-Cyn">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8OE-My-Cyn">
                     <rect key="frame" x="306" y="356" width="342" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingHead" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="1T9-ny-RtV" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">
@@ -117,7 +117,7 @@ DQ
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="startupPlaylistPrefAction:" target="-2" id="ihJ-oe-WGK"/>
+                        <action selector="startupPlayQueuePrefAction:" target="-2" id="dfb-rB-1bf"/>
                     </connections>
                 </button>
                 <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HM3-o3-TvO" userLabel="Btn Browse">
@@ -134,7 +134,7 @@ DQ
                         <action selector="chooseTracksFolderAction:" target="-2" id="FMy-Nu-fb1"/>
                     </connections>
                 </button>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KwB-rp-fIz">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KwB-rp-fIz">
                     <rect key="frame" x="306" y="331" width="342" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingHead" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="sOq-4p-ng8" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">
@@ -156,7 +156,7 @@ DQ
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoP-tM-ocT">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoP-tM-ocT">
                     <rect key="frame" x="18" y="287" width="186" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When a track begins playing" id="gaO-Wu-yJz">
@@ -173,7 +173,7 @@ DQ
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qbm-wm-fQt">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qbm-wm-fQt">
                     <rect key="frame" x="17" y="196" width="304" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When files/folders are added via drag 'n drop" id="wK8-S2-Phy">
@@ -182,7 +182,7 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O2h-rJ-zDA">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O2h-rJ-zDA">
                     <rect key="frame" x="18" y="76" width="304" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="When files/folders are added via &quot;Open With&quot;" id="JHs-tr-iHL">
