@@ -55,7 +55,7 @@ extension UnifiedPlayerWindowController {
         guard gesturesPreferences.allowSeeking else {return}
         
         // If no track is playing, seeking cannot be performed
-        if playbackInfoDelegate.state.isNotPlayingOrPaused {
+        if playbackInfoDelegate.state.isStopped {
             return
         }
         

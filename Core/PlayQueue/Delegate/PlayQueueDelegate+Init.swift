@@ -20,8 +20,8 @@ extension PlayQueueDelegate {
         // Check if any launch parameters were specified
         if appLaunchFiles.isNonEmpty {
             
-            // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-            loadTracks(from: appLaunchFiles, params: .init(autoplay: playbackPreferences.autoplayAfterOpeningTracks.value, markLoadedItemsForHistory: false))
+            // Launch parameters specified, override playlist saved state and add file paths in params to playlist
+            loadTracks(from: appLaunchFiles, params: .init(autoplay: playbackPreferences.autoplayAfterOpeningTracks.value))
             return
         }
         

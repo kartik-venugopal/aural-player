@@ -596,11 +596,7 @@
             </connections>
         </customObject>
         <customObject id="GWF-5e-xdi" customClass="FavoriteTracksMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="FAQ-gj-45R" customClass="FavoriteFoldersMenuController" customModule="Aural" customModuleProvider="target">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="image" keyPath="itemImage" value="calendar" catalog="system"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
+        <customObject id="FAQ-gj-45R" customClass="FavoriteFoldersMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="NwD-uc-7MP" customClass="BookmarksMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="bookmarkTrackPositionMenuItem" destination="bbJ-MX-Aku" id="m20-fz-Mpt"/>

@@ -97,7 +97,7 @@ extension MainWindowController {
         if gesturesPreferences.allowSeeking {
             
             // If no track is playing, seeking cannot be performed
-            if playbackInfoDelegate.state.isNotPlayingOrPaused {
+            if playbackInfoDelegate.state.isStopped {
                 return
             }
             

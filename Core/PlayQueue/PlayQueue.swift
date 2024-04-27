@@ -175,7 +175,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         
         // Use for autoplay
         if autoplay.value {
-            messenger.publish(TrackPlaybackCommandNotification(index: index))
+            playbackDelegate.play(trackAtIndex: index, .defaultParams())
         }
     }
     

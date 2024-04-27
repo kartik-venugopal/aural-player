@@ -50,14 +50,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func applicationWillFinishLaunching(_ notification: Notification) {
-        initializeMetadataComponents()
-    }
-    
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        print("AppDelegate.applicationDidFinishLaunching(): \(Date.nowTimestampString)")
+        initializeMetadataComponents()
         
         if appSetup.setupRequired {
             performAppSetup()
@@ -65,6 +61,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             postLaunch()
         }
+        
+//        SearchWindowController.shared.showWindow(self)
     }
     
     /// Opens the application with a single file (audio file or playlist)

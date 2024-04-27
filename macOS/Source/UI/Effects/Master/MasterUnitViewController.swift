@@ -184,6 +184,8 @@ class MasterUnitViewController: EffectsUnitViewController {
             
         } else {
             
+            messenger.publish(.Effects.updateEffectsUnitView, payload: EffectsUnitType.master)
+            
             // HACK: To make the tool tip disappear (without hiding / showing)
             btnRememberSettings.moveX(to: -50)
         }

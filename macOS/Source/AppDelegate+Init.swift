@@ -43,11 +43,15 @@ extension AppDelegate {
         if appLaunched {
             
             // Check when the last file open operation was performed, to see if this is a chunk of a single larger operation
-            let timeSinceLastFileOpen = lastFileOpenTime != nil ? now.timeIntervalSince(lastFileOpenTime!) : (Self.fileOpenNotificationWindow_seconds + 1)
+            
+            var isDuplicateNotification: Bool = false
+            
+            if let lastFileOpenTime = lastFileOpenTime {
+                isDuplicateNotification = now.timeIntervalSince(lastFileOpenTime) < Self.fileOpenNotificationWindow_seconds
+            }
             
             // Publish a notification to the app that it needs to open the new set of files
-            let reopenMsg = AppReopenedNotification(filesToOpen: filesToOpen, isDuplicateNotification: timeSinceLastFileOpen < Self.fileOpenNotificationWindow_seconds)
-            
+            let reopenMsg = AppReopenedNotification(filesToOpen: filesToOpen, isDuplicateNotification: isDuplicateNotification)
             messenger.publish(reopenMsg)
         }
         

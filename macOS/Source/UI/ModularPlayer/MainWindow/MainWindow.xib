@@ -607,36 +607,7 @@
             </connections>
         </customObject>
         <customObject id="PzJ-EZ-UVN" customClass="FavoriteTracksMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="fpb-7Y-cX2" userLabel="Favorite Artists Menu Controller" customClass="FavoriteArtistsMenuController" customModule="Aural" customModuleProvider="target">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="image" keyPath="itemImage" value="Artists_Menu"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
-        <customObject id="WwH-5U-9yf" userLabel="Favorite Albums Menu Controller" customClass="FavoriteAlbumsMenuController" customModule="Aural" customModuleProvider="target">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="image" keyPath="itemImage" value="opticaldisc" catalog="system"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
-        <customObject id="JFA-4b-diU" userLabel="Favorite Genres Menu Controller" customClass="FavoriteGenresMenuController" customModule="Aural" customModuleProvider="target">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="image" keyPath="itemImage" value="Genres_Menu"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
-        <customObject id="WAm-ix-kSm" userLabel="Favorite Decades Menu Controller" customClass="FavoriteDecadesMenuController" customModule="Aural" customModuleProvider="target">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="image" keyPath="itemImage" value="calendar" catalog="system"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
-        <customObject id="reB-MX-qev" customClass="FavoriteFoldersMenuController" customModule="Aural" customModuleProvider="target">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="image" keyPath="itemImage" value="calendar" catalog="system"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
-        <customObject id="XBi-jq-Tk7" userLabel="Favorite Playlist Files Menu Controller" customClass="FavoritePlaylistFilesMenuController" customModule="Aural" customModuleProvider="target">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="image" keyPath="itemImage" value="calendar" catalog="system"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
+        <customObject id="reB-MX-qev" customClass="FavoriteFoldersMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="Jfa-2S-wE7" customClass="BookmarksMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="bookmarkTrackPositionMenuItem" destination="4Im-2o-F9y" id="fJI-rO-di6"/>
@@ -1468,35 +1439,19 @@ CA
                             </menuItem>
                             <menuItem title="  Artists" image="Artists_Menu" hidden="YES" enabled="NO" id="7CL-Rf-NSR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Artists" autoenablesItems="NO" id="3y7-Ta-6u9">
-                                    <connections>
-                                        <outlet property="delegate" destination="fpb-7Y-cX2" id="KRw-qQ-mK0"/>
-                                    </connections>
-                                </menu>
+                                <menu key="submenu" title="  Artists" autoenablesItems="NO" id="3y7-Ta-6u9"/>
                             </menuItem>
                             <menuItem title="  Albums" image="opticaldisc" catalog="system" hidden="YES" enabled="NO" id="5Lt-Jy-hab">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Albums" autoenablesItems="NO" id="2Nz-dX-1pD">
-                                    <connections>
-                                        <outlet property="delegate" destination="WwH-5U-9yf" id="2gx-1o-cTP"/>
-                                    </connections>
-                                </menu>
+                                <menu key="submenu" title="  Albums" autoenablesItems="NO" id="2Nz-dX-1pD"/>
                             </menuItem>
                             <menuItem title="  Genres" image="Genres_Menu" hidden="YES" enabled="NO" id="oKr-XA-fO9" userLabel="Genres">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Genres" autoenablesItems="NO" id="sae-Mt-rqZ">
-                                    <connections>
-                                        <outlet property="delegate" destination="JFA-4b-diU" id="eWS-1F-nEn"/>
-                                    </connections>
-                                </menu>
+                                <menu key="submenu" title="  Genres" autoenablesItems="NO" id="sae-Mt-rqZ"/>
                             </menuItem>
                             <menuItem title="  Decades" image="calendar" catalog="system" hidden="YES" enabled="NO" id="OFr-2K-S9E" userLabel="Decades">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Decades" autoenablesItems="NO" id="MWY-yg-tNp">
-                                    <connections>
-                                        <outlet property="delegate" destination="WAm-ix-kSm" id="aeP-LY-UCR"/>
-                                    </connections>
-                                </menu>
+                                <menu key="submenu" title="  Decades" autoenablesItems="NO" id="MWY-yg-tNp"/>
                             </menuItem>
                             <menuItem title="  Folders" image="folder" catalog="system" id="ZEF-Ma-OpX" userLabel="Folders">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -1508,11 +1463,7 @@ CA
                             </menuItem>
                             <menuItem title="  Playlist Files" image="list.dash" catalog="system" hidden="YES" enabled="NO" id="3Ln-tn-2Ar" userLabel="Playlist Files">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Playlist Files" autoenablesItems="NO" id="d6c-y9-ty4">
-                                    <connections>
-                                        <outlet property="delegate" destination="XBi-jq-Tk7" id="Kyu-vD-Tdg"/>
-                                    </connections>
-                                </menu>
+                                <menu key="submenu" title="  Playlist Files" autoenablesItems="NO" id="d6c-y9-ty4"/>
                             </menuItem>
                         </items>
                         <connections>

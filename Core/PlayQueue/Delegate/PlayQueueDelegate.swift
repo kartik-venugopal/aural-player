@@ -308,8 +308,17 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     func appReopened(_ notification: AppReopenedNotification) {
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-//        addTracks(from: notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification))
-        loadTracks(from: notification.filesToOpen)
+        let openWithAddMode = preferences.playQueuePreferences.openWithAddMode.value
+        let clearQueue: Bool = openWithAddMode == .replace
+        
+        let notDuplicateNotification = !notification.isDuplicateNotification
+        lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplayAfterOpeningTracks.value
+        lazy var autoplayAfterOpeningOption: AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplayAfterOpeningOption.value
+        lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
+        lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
+        let autoplay: Bool = notDuplicateNotification && autoplayPreference
+        
+        loadTracks(from: notification.filesToOpen, params: .init(clearQueue: clearQueue, autoplay: autoplay))
     }
     
     var persistentState: PlayQueuePersistentState {
