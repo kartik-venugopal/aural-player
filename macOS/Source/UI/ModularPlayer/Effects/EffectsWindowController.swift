@@ -47,6 +47,7 @@ class EffectsWindowController: NSWindowController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
         
         initSubscriptions()
+        changeWindowCornerRadius(playerUIState.cornerRadius)
     }
     
     override func destroy() {
@@ -77,7 +78,7 @@ class EffectsWindowController: NSWindowController {
     // MARK: Theming
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
-        containerViewController.rootContainerBox.cornerRadius = radius
+        containerViewController.changeCornerRadius(radius)
     }
 }
 

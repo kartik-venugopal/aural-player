@@ -91,6 +91,11 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     }
     
     func loadTracks(from urls: [URL], atPosition position: Int? = nil, params: PlayQueueTrackLoadParams) {
+        
+        if params.clearQueue {
+            removeAllTracks()
+        }
+        
         playQueue.loadTracks(from: urls, atPosition: position, params: params)
     }
     

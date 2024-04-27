@@ -181,6 +181,10 @@ class EffectsContainerViewController: NSViewController {
 
         }
     }
+    
+    func changeCornerRadius(_ radius: CGFloat) {
+        rootContainerBox.cornerRadius = radius
+    }
 }
 
 extension EffectsContainerViewController: FontSchemeObserver {

@@ -34,10 +34,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     func loadTracks(from urls: [URL], atPosition position: Int?, params: PlayQueueTrackLoadParams) {
         
-        if params.clearQueue {
-            removeAllTracks()
-        }
-        
         autoplay.setValue(params.autoplay)
         markLoadedItemsForHistory.setValue(params.markLoadedItemsForHistory)
         
