@@ -18,6 +18,8 @@ let appSetup: AppSetup = .shared
 
 fileprivate let logger: Logger = .init()
 
+fileprivate var needToMigrateLegacySettings: Bool = false
+
 let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
 let appPersistentState: AppPersistentState = {
     
@@ -34,11 +36,16 @@ let appPersistentState: AppPersistentState = {
     if let appVersionString = dict["appVersion"] as? String,
        let appVersion = AppVersion(versionString: appVersionString) {
         
-        if appVersion.majorVersion < 4, let legacyPersistentState: LegacyAppPersistentState = persistenceManager.load(type: LegacyAppPersistentState.self) {
+        if appVersion.majorVersion < 4 {
             
-            // Attempt migration and return the mapped instance.
-            print("Mapped persistent state from app version: \(appVersionString)\n")
-            return AppPersistentState(legacyAppPersistentState: legacyPersistentState)
+            needToMigrateLegacySettings = true
+            
+            if let legacyPersistentState: LegacyAppPersistentState = persistenceManager.load(type: LegacyAppPersistentState.self) {
+                
+                // Attempt migration and return the mapped instance.
+                print("Mapped persistent state from app version: \(appVersionString)\n")
+                return AppPersistentState(legacyAppPersistentState: legacyPersistentState)
+            }
         }
     }
     
@@ -46,7 +53,7 @@ let appPersistentState: AppPersistentState = {
 }()
 
 let userDefaults: UserDefaults = .standard
-let preferences: Preferences = Preferences(defaults: userDefaults)
+let preferences: Preferences = Preferences(defaults: userDefaults, needToMigrateLegacySettings: needToMigrateLegacySettings)
 
 #if os(macOS)
 

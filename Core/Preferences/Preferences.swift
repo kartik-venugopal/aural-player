@@ -34,14 +34,19 @@ class Preferences {
     var controlsPreferences: ControlsPreferences
     var metadataPreferences: MetadataPreferences
     
-    init(defaults: UserDefaults) {
+    init(defaults: UserDefaults, needToMigrateLegacySettings: Bool) {
         
         self.defaults = defaults
         
         controlsPreferences = ControlsPreferences()
         playbackPreferences = PlaybackPreferences(controlsPreferences: controlsPreferences.gestures)
         soundPreferences = SoundPreferences(controlsPreferences: controlsPreferences.gestures)
-        playQueuePreferences = PlayQueuePreferences()
+        
+        if needToMigrateLegacySettings {
+            playQueuePreferences = PlayQueuePreferences(legacyPlaylistPreferences: LegacyPlaylistPreferences.init(defaults.dictionaryRepresentation()))
+        } else {
+            playQueuePreferences = PlayQueuePreferences()
+        }
         
 #if os(macOS)
         viewPreferences = ViewPreferences()

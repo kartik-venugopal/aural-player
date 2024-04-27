@@ -25,6 +25,9 @@ extension PlayQueueDelegate {
             return
         }
         
+        lazy var autoplayOnStartup: Bool = playbackPreferences.autoplayOnStartup.value
+        lazy var pqParmsWithAutoplayAndNoHistory: PlayQueueTrackLoadParams = .init(autoplay: autoplayOnStartup, markLoadedItemsForHistory: false)
+        
         switch playQueuePreferences.playQueueOnStartup.value {
             
         case .empty:
@@ -35,21 +38,20 @@ extension PlayQueueDelegate {
             if let files = persistentState?.tracks, files.isNonEmpty {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-                loadTracks(from: files, params: .init(autoplay: playbackPreferences.autoplayOnStartup.value, markLoadedItemsForHistory: false))
+                loadTracks(from: files, params: pqParmsWithAutoplayAndNoHistory)
             }
             
         case .loadPlaylistFile:
             
             if let playlistFile = playQueuePreferences.playlistFile.value {
-                loadTracks(from: [playlistFile], params: .init(autoplay: playbackPreferences.autoplayOnStartup.value, markLoadedItemsForHistory: false))
+                loadTracks(from: [playlistFile], params: pqParmsWithAutoplayAndNoHistory)
             }
             
         case .loadFolder:
             
             if let folder = playQueuePreferences.tracksFolder.value {
-                loadTracks(from: [folder], params: .init(autoplay: playbackPreferences.autoplayOnStartup.value, markLoadedItemsForHistory: false))
+                loadTracks(from: [folder], params: pqParmsWithAutoplayAndNoHistory)
             }
-            
         }
         
         initializeHistory(fromPersistentState: persistentState?.history)

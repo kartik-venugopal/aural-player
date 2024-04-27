@@ -53,6 +53,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        // Force eager loading of persistent state
+        _ = appPersistentState
+        
         initializeMetadataComponents()
         
         if appSetup.setupRequired {

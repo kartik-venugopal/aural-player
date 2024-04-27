@@ -155,13 +155,20 @@ class PlayQueueViewController: TrackListTableViewController {
         doLoadFinderTracks(from: files, atPosition: row)
     }
     
+    var shouldAutoplayAfterAdding: Bool {
+        
+        let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks.value
+        lazy var option: AutoplayAfterAddingOption = preferences.playbackPreferences.autoplayAfterAddingOption.value
+        lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
+        return autoplayAfterAdding && (option == .always || playerIsStopped)
+    }
+    
     func doLoadFinderTracks(from files: [URL], atPosition row: Int? = nil) {
         
         let addMode = preferences.playQueuePreferences.dragDropAddMode.value
         let clearQueue: Bool = addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet)
-        let autoplay: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks.value
         
-        playQueueDelegate.loadTracks(from: files, atPosition: row, params: .init(clearQueue: clearQueue, autoplay: autoplay))
+        playQueueDelegate.loadTracks(from: files, atPosition: row, params: .init(clearQueue: clearQueue, autoplay: shouldAutoplayAfterAdding))
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -174,7 +181,7 @@ class PlayQueueViewController: TrackListTableViewController {
     override func importFilesAndFolders() {
         
         if fileOpenDialog.runModal() == .OK {
-            playQueueDelegate.loadTracks(from: fileOpenDialog.urls, params: .init(autoplay: preferences.playbackPreferences.autoplayAfterAddingTracks.value))
+            playQueueDelegate.loadTracks(from: fileOpenDialog.urls, params: .init(autoplay: shouldAutoplayAfterAdding))
         }
     }
     

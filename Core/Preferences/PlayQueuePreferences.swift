@@ -39,6 +39,44 @@ class PlayQueuePreferences {
     
     lazy var openWithAddMode: UserPreference<PlayQueueTracksAddMode> = .init(defaultsKey: "\(Self.keyPrefix).openWithAddMode",
                                                                              defaultValue: Defaults.openWithAddMode)
+    
+    init() {}
+    
+    init(legacyPlaylistPreferences: LegacyPlaylistPreferences) {
+        
+        if let playlistOnStartup = legacyPlaylistPreferences.playlistOnStartup {
+            
+            self.playQueueOnStartup.value = .fromLegacyPlaylistStartupOption(playlistOnStartup)
+            
+            switch playlistOnStartup {
+            
+            case .loadFile:
+                self.playlistFile.value = legacyPlaylistPreferences.playlistFile
+                
+            case .loadFolder:
+                self.tracksFolder.value = legacyPlaylistPreferences.tracksFolder
+                
+            default:
+                break
+            }
+        }
+        
+        if let showNewTrackInPlaylist = legacyPlaylistPreferences.showNewTrackInPlaylist {
+            self.showNewTrackInPlayQueue.value = showNewTrackInPlaylist
+        }
+        
+        if let showChaptersList = legacyPlaylistPreferences.showChaptersList {
+            self.showChaptersList.value = showChaptersList
+        }
+        
+        if let dragDropAddMode = legacyPlaylistPreferences.dragDropAddMode {
+            self.dragDropAddMode.value = .fromLegacyPlaylistTracksAddMode(dragDropAddMode)
+        }
+        
+        if let openWithAddMode = legacyPlaylistPreferences.openWithAddMode {
+            self.openWithAddMode.value = .fromLegacyPlaylistTracksAddMode(openWithAddMode)
+        }
+    }
 }
 
 // All options for the Play Queue at startup
@@ -48,6 +86,24 @@ enum PlayQueueStartupOption: String, CaseIterable, Codable {
     case rememberFromLastAppLaunch
     case loadPlaylistFile
     case loadFolder
+    
+    static func fromLegacyPlaylistStartupOption(_ option: LegacyPlaylistStartupOptions) -> PlayQueueStartupOption {
+        
+        switch option {
+            
+        case .empty:
+            return .empty
+            
+        case .rememberFromLastAppLaunch:
+            return .rememberFromLastAppLaunch
+            
+        case .loadFile:
+            return .loadPlaylistFile
+            
+        case .loadFolder:
+            return .loadFolder
+        }
+    }
 }
 
 enum PlayQueueTracksAddMode: String, CaseIterable, Codable {
@@ -55,4 +111,19 @@ enum PlayQueueTracksAddMode: String, CaseIterable, Codable {
     case append
     case replace
     case hybrid
+    
+    static func fromLegacyPlaylistTracksAddMode(_ mode: LegacyPlaylistTracksAddMode) -> PlayQueueTracksAddMode {
+        
+        switch mode {
+        
+        case .append:
+            return .append
+            
+        case .replace:
+            return .replace
+            
+        case .hybrid:
+            return .hybrid
+        }
+    }
 }

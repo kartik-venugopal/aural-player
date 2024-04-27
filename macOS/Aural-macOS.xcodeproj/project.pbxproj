@@ -571,6 +571,7 @@
 		3ED8E74A281482C9002E313F /* TableImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E749281482C9002E313F /* TableImageCell.swift */; };
 		3ED8E74F2814A312002E313F /* GeneralColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E74D2814A312002E313F /* GeneralColorSchemeViewController.swift */; };
 		3ED8E7502814A312002E313F /* GeneralColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8E74E2814A312002E313F /* GeneralColorScheme.xib */; };
+		3EDBC4452BDDB39700FB7E30 /* LegacyPlaylistPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBC4442BDDB39700FB7E30 /* LegacyPlaylistPreferences.swift */; };
 		3EDC157C27C2ACB100B91157 /* HorizontalSymmetricSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDC157B27C2ACB100B91157 /* HorizontalSymmetricSliderCell.swift */; };
 		3EDCC4B8282C2223002AF3AE /* PlayQueueUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCC4B7282C2223002AF3AE /* PlayQueueUIState.swift */; };
 		3EDCC4BA282C2312002AF3AE /* PlayQueueUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCC4B9282C2312002AF3AE /* PlayQueueUIPersistentState.swift */; };
@@ -1618,6 +1619,7 @@
 		3ED8E749281482C9002E313F /* TableImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableImageCell.swift; sourceTree = "<group>"; };
 		3ED8E74D2814A312002E313F /* GeneralColorSchemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3ED8E74E2814A312002E313F /* GeneralColorScheme.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralColorScheme.xib; sourceTree = "<group>"; };
+		3EDBC4442BDDB39700FB7E30 /* LegacyPlaylistPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyPlaylistPreferences.swift; sourceTree = "<group>"; };
 		3EDC157B27C2ACB100B91157 /* HorizontalSymmetricSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSymmetricSliderCell.swift; sourceTree = "<group>"; };
 		3EDCC4B7282C2223002AF3AE /* PlayQueueUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueUIState.swift; sourceTree = "<group>"; };
 		3EDCC4B9282C2312002AF3AE /* PlayQueueUIPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueUIPersistentState.swift; sourceTree = "<group>"; };
@@ -4051,6 +4053,14 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		3EDBC4432BDDB38900FB7E30 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				3EDBC4442BDDB39700FB7E30 /* LegacyPlaylistPreferences.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
 		3EE2ACFF2A1FF71300D7BA7D /* GeneratedView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4272,6 +4282,7 @@
 				3EFE362527864895006F8B8C /* ControlsPreferences.swift */,
 				3EFE362727864895006F8B8C /* GesturesControlsPreferences.swift */,
 				3E3BCFF52AF1BB0000FD893A /* UserPreference.swift */,
+				3EDBC4432BDDB38900FB7E30 /* Legacy */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -5361,6 +5372,7 @@
 				3EFE395327864897006F8B8C /* FFmpegPlaybackContext.swift in Sources */,
 				3EAE9CC42836E7BA004499FE /* OrderedSetExtensions.swift in Sources */,
 				3EFE380B27864896006F8B8C /* PlaylistType.swift in Sources */,
+				3EDBC4452BDDB39700FB7E30 /* LegacyPlaylistPreferences.swift in Sources */,
 				3E6C128C25CEBE1800BF0D07 /* ColorClipboard.swift in Sources */,
 				3E10177F28D7713B002C0D8E /* FFmpegSampleFormat.swift in Sources */,
 				3EABDE1C2694D002008066E8 /* ColorConstants.swift in Sources */,

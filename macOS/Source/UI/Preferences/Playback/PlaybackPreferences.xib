@@ -60,7 +60,7 @@
                     </connections>
                 </button>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jri-6S-T38" userLabel="Primary Seek Stepper">
-                    <rect key="frame" x="208" y="345" width="15" height="22"/>
+                    <rect key="frame" x="238" y="345" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="95f-Rt-euV"/>
                     <connections>
@@ -68,7 +68,7 @@
                     </connections>
                 </stepper>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhW-nB-Pal" userLabel="Primary Seek Stepper">
-                    <rect key="frame" x="208" y="370" width="15" height="22"/>
+                    <rect key="frame" x="238" y="370" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="36000" doubleValue="1" id="lob-PI-7VT"/>
                     <connections>
@@ -138,7 +138,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsl-VD-iQq" userLabel="Secondary Seek % Label">
-                    <rect key="frame" x="478" y="345" width="40" height="20"/>
+                    <rect key="frame" x="508" y="345" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="szA-kN-ypc">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="jKy-FX-tJH">
@@ -182,7 +182,7 @@
                     </connections>
                 </button>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CC1-0k-NBg" userLabel="Secondary Seek Stepper">
-                    <rect key="frame" x="518" y="344" width="15" height="22"/>
+                    <rect key="frame" x="548" y="344" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="mmo-uE-NkR"/>
                     <connections>
@@ -190,7 +190,7 @@
                     </connections>
                 </stepper>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-pn-nlv" userLabel="Primary Seek % Label">
-                    <rect key="frame" x="168" y="346" width="40" height="20"/>
+                    <rect key="frame" x="198" y="346" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="RfY-8L-z41">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="6S3-JM-Uea">
@@ -212,7 +212,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VRB-wu-9sz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="355" y="348" width="127" height="19"/>
+                    <rect key="frame" x="355" y="348" width="147" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="% of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="BnS-LI-CQ0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -234,7 +234,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dO7-h4-3oX" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="117" y="373" width="86" height="20"/>
+                    <rect key="frame" x="147" y="373" width="86" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="CgJ-N5-8QO">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="htd-sw-2aL">
@@ -252,7 +252,7 @@
                     </userDefinedRuntimeAttributes>
                 </textField>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ODo-B8-Bt4" userLabel="Primary Seek Stepper">
-                    <rect key="frame" x="518" y="370" width="15" height="22"/>
+                    <rect key="frame" x="548" y="370" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="36000" doubleValue="1" id="iHz-3s-06L"/>
                     <connections>
@@ -260,7 +260,7 @@
                     </connections>
                 </stepper>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DG-sq-Nas" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="427" y="373" width="86" height="20"/>
+                    <rect key="frame" x="457" y="373" width="86" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="8o2-aT-gAZ">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="YHj-eD-fcK">
