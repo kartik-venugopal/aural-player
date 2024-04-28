@@ -62,9 +62,6 @@ extension NSColor {
     // A lighter version of popupMenuArrowColor
     static let lightPopupMenuArrowColor: NSColor = .white80Percent
     
-    static let scrollerKnobColor: NSColor = .white40Percent
-    static let scrollerBarColor: NSColor = .white25Percent
-    
     // Color of the ticks/notches on sliders
     static let sliderNotchColor: NSColor = NSColor.black
     

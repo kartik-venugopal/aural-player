@@ -400,6 +400,12 @@
                                                         <action selector="applyPresetAction:" target="fs7-n4-iiz" id="Emn-bL-IRw"/>
                                                     </connections>
                                                 </menuItem>
+                                                <menuItem title="Gray &amp; red" indentationLevel="1" id="TZa-VH-e2Z">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="applyPresetAction:" target="fs7-n4-iiz" id="BT7-K4-nUq"/>
+                                                    </connections>
+                                                </menuItem>
                                                 <menuItem title="White blight" indentationLevel="1" id="5J4-kh-0xh">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
@@ -416,12 +422,6 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="applyPresetAction:" target="fs7-n4-iiz" id="mAk-Q3-EG1"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="The blues" indentationLevel="1" id="TZa-VH-e2Z">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="applyPresetAction:" target="fs7-n4-iiz" id="BT7-K4-nUq"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem title="Poolside.fm" indentationLevel="1" id="eZy-Ci-Duj">

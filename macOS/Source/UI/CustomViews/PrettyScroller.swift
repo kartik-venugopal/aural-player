@@ -24,8 +24,18 @@ class PrettyScroller: NSScroller {
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var contentView: NSView!
     
+    var scrollerKnobColor: NSColor {
+        systemColorScheme.buttonColor
+    }
+    
+    var scrollerBarColor: NSColor {
+        systemColorScheme.inactiveControlColor
+    }
+    
     override func awakeFromNib() {
+        
         self.scrollerStyle = .overlay
+        registerColorSchemeObserver()
     }
     
     override func drawKnob() {
@@ -37,14 +47,47 @@ class PrettyScroller: NSScroller {
         let knobRect = self.rect(for: .knob).insetBy(dx: knobInsetX, dy: knobInsetY)
         if knobRect.height <= 0 || knobRect.width <= 0 {return}
         
-        NSBezierPath.fillRoundedRect(knobRect, radius: knobRadius, withColor: .scrollerKnobColor)
+        NSBezierPath.fillRoundedRect(knobRect, radius: knobRadius, withColor: scrollerKnobColor)
     }
     
     override func draw(_ dirtyRect: NSRect) {
         
         let rect = dirtyRect.insetBy(dx: barInsetX, dy: barInsetY)
-        NSBezierPath.fillRoundedRect(rect, radius: barRadius, withColor: .scrollerBarColor)
+        NSBezierPath.fillRoundedRect(rect, radius: barRadius, withColor: scrollerBarColor)
         
         self.drawKnob()
     }
+}
+
+extension PrettyScroller: ColorSchemeObserver {
+    
+    @objc func registerColorSchemeObserver() {
+        
+        colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperties: [\.buttonColor, \.inactiveControlColor], changeReceiver: self)
+    }
+    
+    func colorSchemeChanged() {
+        redraw()
+    }
+}
+
+extension PrettyScroller: ColorSchemePropertyChangeReceiver {
+    
+    func colorChanged(_ newColor: PlatformColor) {
+        redraw()
+    }
+}
+
+class SimplePrettyScroller: PrettyScroller {
+    
+    override var scrollerKnobColor: NSColor {
+        .white40Percent
+    }
+    
+    override var scrollerBarColor: NSColor {
+        .white25Percent
+    }
+    
+    override func registerColorSchemeObserver() {}
 }

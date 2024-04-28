@@ -251,6 +251,12 @@
                                                                     <action selector="applyPresetAction:" target="1AV-wk-fXj" id="QwO-Uf-Bhx"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Gray &amp; red" indentationLevel="1" id="cqV-e3-Qej">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="ozu-WX-4MZ"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem title="White blight" indentationLevel="1" id="hxD-Se-ogL">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
@@ -267,12 +273,6 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="1AV-wk-fXj" id="rZN-gF-0Tx"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="The blues" indentationLevel="1" id="cqV-e3-Qej">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="ozu-WX-4MZ"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Poolside.fm" indentationLevel="1" id="3gA-2j-4WR">

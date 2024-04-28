@@ -51,33 +51,46 @@ class ButtonStateMachine<E>: NSObject, ColorSchemeObserver where E: Hashable {
         }
     }
     
+    private var observedProperty: ColorSchemeProperty? = nil
+    
     private func doSetState(_ newState: E) {
         
         guard let mapping = mappings[newState] else {return}
         
-        let oldState = self.state
         self.state = newState
         
         button.image = mapping.image
         button.toolTip = mapping.toolTip
         
-        // Register for color scheme property observation for the new color property, if different from the previous one.
-        guard let oldColorProp = mappings[oldState]?.colorProperty, oldColorProp != mapping.colorProperty else {return}
-        
         // Color scheme property customization possible only in modular or unified app modes.
-        if let currentAppMode = appModeManager.currentMode, currentAppMode.equalsOneOf(.modular, .unified) {
+        guard let currentAppMode = appModeManager.currentMode, currentAppMode.equalsOneOf(.modular, .unified) else {
             
-            colorSchemesManager.removePropertyObserver(self, forProperty: oldColorProp)
-            colorSchemesManager.registerPropertyObserver(self, forProperty: mapping.colorProperty, changeReceiver: button)
-            
-        } else {
             updateButtonColor()
+            return
+        }
+        
+        // Register for color scheme property observation for the new color property, if different from the previous one.
+        if self.observedProperty != mapping.colorProperty {
+            
+            if let observedProperty = self.observedProperty {
+                colorSchemesManager.removePropertyObserver(self, forProperty: observedProperty)
+            }
+            
+            colorSchemesManager.registerPropertyObserver(self, forProperty: mapping.colorProperty, changeReceiver: button)
+            self.observedProperty = mapping.colorProperty
         }
     }
     
     func colorSchemeChanged() {
         updateButtonColor()
     }
+    
+//    func colorChanged(_ newColor: PlatformColor) {
+//        
+//        if button.toolTip!.equalsOneOf("Play", "Pause") {
+//            print("btnPlay is: \(button.className)")
+//        }
+//    }
     
     private func updateButtonColor() {
         

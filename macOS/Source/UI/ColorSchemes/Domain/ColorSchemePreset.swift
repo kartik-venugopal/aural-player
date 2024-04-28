@@ -13,26 +13,26 @@ import Cocoa
     Enumeration of all system-defined color schemes and all their color values.
  */
 enum ColorSchemePreset: String, CaseIterable {
+
+    // the default scheme
+    case lava
     
-    // A dark scheme with a black background (the default scheme) and lighter foreground elements.
+    // A dark scheme with a black background and lighter foreground elements.
     case blackAndGreen
-    
-    // A light scheme with an off-white background and dark foreground elements.
-    case whiteBlight
     
     // A dark scheme with a black background and aqua coloring of active sliders.
     case blackAndAqua
     
-    case lava
+    case grayRed
+    
+    // A light scheme with an off-white background and dark foreground elements.
+    case whiteBlight
     
     // A semi-dark scheme with a gray background and lighter foreground elements.
     case gloomyDay
     
     // A semi-dark scheme with a brown background and lighter reddish-brown foreground elements.
     case brownie
-    
-    // A moderately dark scheme with a blue-ish background and lighter blue-ish foreground elements.
-    case theBlues
     
     case poolsideFM
     
@@ -45,19 +45,19 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch name {
             
+        case ColorSchemePreset.lava.name:    return .lava
+            
         case ColorSchemePreset.blackAndGreen.name:    return .blackAndGreen
             
         case ColorSchemePreset.blackAndAqua.name:    return .blackAndAqua
             
-        case ColorSchemePreset.lava.name:    return .lava
+        case ColorSchemePreset.grayRed.name:   return .grayRed
             
         case ColorSchemePreset.whiteBlight.name:    return .whiteBlight
             
         case ColorSchemePreset.gloomyDay.name:      return .gloomyDay
             
         case ColorSchemePreset.brownie.name:      return .brownie
-            
-        case ColorSchemePreset.theBlues.name:   return .theBlues
             
         case ColorSchemePreset.poolsideFM.name:   return .poolsideFM
             
@@ -71,19 +71,19 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
+        case .lava:         return "Lava"
+            
         case .blackAndGreen:  return "Black & green"
             
         case .blackAndAqua:    return "Black & aqua"
             
-        case .lava:         return "Lava"
+        case .grayRed:     return "Gray & red"
             
         case .whiteBlight:  return "White blight"
             
         case .gloomyDay:    return "Gloomy day"
             
         case .brownie:         return "Brownie"
-            
-        case .theBlues:     return "The blues"
             
         case .poolsideFM:     return "Poolside.fm"
             

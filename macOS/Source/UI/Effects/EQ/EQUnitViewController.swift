@@ -80,6 +80,8 @@ class EQUnitViewController: EffectsUnitViewController {
         
         super.initSubscriptions()
         
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceivers: eqUnitView.allSliders)
+        
         messenger.subscribe(to: .Effects.EQUnit.decreaseBass, handler: decreaseBass)
         messenger.subscribe(to: .Effects.EQUnit.increaseBass, handler: increaseBass)
         

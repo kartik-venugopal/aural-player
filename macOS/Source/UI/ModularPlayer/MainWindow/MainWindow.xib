@@ -354,6 +354,12 @@
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="OBG-05-7fK"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Gray &amp; red" indentationLevel="1" id="FJ3-SF-NSo">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="rmT-GJ-QDE"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem title="White blight" indentationLevel="1" id="41Q-2F-UWV">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
@@ -370,12 +376,6 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="OTK-Qb-Q5V"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="The blues" indentationLevel="1" id="FJ3-SF-NSo">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="rmT-GJ-QDE"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Poolside.fm" indentationLevel="1" id="n7e-jY-Srs">

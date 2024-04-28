@@ -63,7 +63,7 @@ class ColorScheme: NSObject, UserManagedObject {
     // MARK: Functions ----------------------------------------------------------------------------------------
     
     init(name: String, systemDefined: Bool,
-         backgroundColor: NSColor, buttonColor: NSColor, iconColor: NSColor,
+         backgroundColor: NSColor, buttonColor: NSColor,
          captionTextColor: NSColor,
          primaryTextColor: NSColor, secondaryTextColor: NSColor, tertiaryTextColor: NSColor,
          primarySelectedTextColor: NSColor, secondarySelectedTextColor: NSColor, tertiarySelectedTextColor: NSColor,

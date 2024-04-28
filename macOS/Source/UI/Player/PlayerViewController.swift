@@ -413,7 +413,11 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
     }
     
     func setUpColorSchemePropertyObservation() {
+        
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: volumeSlider)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, changeReceivers: [seekSlider, volumeSlider])
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, changeReceivers: [seekSlider, volumeSlider])
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: [btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume])
     }
     
     func fontSchemeChanged() {
