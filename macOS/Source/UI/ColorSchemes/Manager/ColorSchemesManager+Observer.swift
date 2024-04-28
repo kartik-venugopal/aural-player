@@ -1,3 +1,4 @@
+
 //
 //  ColorSchemesManager+Observer.swift
 //  Aural-macOS
@@ -41,7 +42,12 @@ extension ColorSchemesManager {
     func registerSchemeObserver(_ observer: ColorSchemeObserver) {
         
         schemeObservers[observer.hashValue] = observer
-        observer.colorSchemeChanged()
+        
+        if let themeInitialingObserver = observer as? ThemeInitialization {
+            themeInitialingObserver.initTheme()
+        } else {
+            observer.colorSchemeChanged()
+        }
     }
     
     func registerSchemeObservers(_ observers: ColorSchemeObserver...) {
@@ -63,9 +69,6 @@ extension ColorSchemesManager {
         }
         
         propertyObservers[property]![observer.hashValue]!.append(handler)
-        
-        // Set initial value.
-        handler(systemScheme[keyPath: property])
     }
     
     func registerPropertyObserver(_ observer: ColorSchemePropertyObserver, forProperties properties: [ColorSchemeProperty],
@@ -88,9 +91,6 @@ extension ColorSchemesManager {
         }
         
         propertyObservers[property]![observer.hashValue]!.append(changeReceiver.colorChanged(_:))
-        
-        // Set initial value.
-        changeReceiver.colorChanged(systemScheme[keyPath: property])
     }
     
     func registerPropertyObserver(_ observer: ColorSchemePropertyObserver, forProperty property: ColorSchemeProperty,
@@ -105,11 +105,7 @@ extension ColorSchemesManager {
         }
         
         for receiver in changeReceivers {
-            
             propertyObservers[property]![observer.hashValue]!.append(receiver.colorChanged(_:))
-            
-            // Set initial value.
-            receiver.colorChanged(systemScheme[keyPath: property])
         }
     }
     

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,7 +24,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SOp-D8-Cd6" userLabel="Results summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SOp-D8-Cd6" userLabel="Results summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="10" y="10" width="205" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="No results found" id="F0y-xF-Jqn" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -51,7 +51,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="285" height="300"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView identifier="tid_CompactPlayQueue" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Z0G-Hb-SQ9" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
+                                <tableView identifier="tid_CompactPlayQueueSearch" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Z0G-Hb-SQ9" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="5"/>
@@ -74,7 +74,7 @@
                                                     <rect key="frame" x="1" y="2" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7Pg-Hp-DfM" userLabel="Index">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7Pg-Hp-DfM" userLabel="Index">
                                                             <rect key="frame" x="6" y="0.0" width="26" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="49g-P7-WKw"/>
@@ -114,7 +114,7 @@
                                                     <rect key="frame" x="34" y="2" width="250" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OoC-Ys-5U9" userLabel="Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OoC-Ys-5U9" userLabel="Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="28" width="250" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="Kwh-za-X7K"/>
@@ -125,7 +125,7 @@
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="r6m-PR-3Lq" userLabel="Default Display Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="r6m-PR-3Lq" userLabel="Default Display Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="5" width="250" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="K7w-sx-n9U"/>
@@ -136,7 +136,7 @@
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OaM-yn-pk1" userLabel="Artist Album" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OaM-yn-pk1" userLabel="Artist Album" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="2" width="250" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="ckB-Dl-FRN"/>
@@ -188,7 +188,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pw5-nE-rby">
+                    <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pw5-nE-rby">
                         <rect key="frame" x="10" y="353" width="280" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="uxk-47-E8j">

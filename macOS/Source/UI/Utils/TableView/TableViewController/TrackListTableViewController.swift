@@ -437,3 +437,10 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         tableView.redoRowSelection()
     }
 }
+
+extension TrackListTableViewController: ThemeInitialization {
+    
+    func initTheme() {
+        tableView.colorSchemeChanged()
+    }
+}

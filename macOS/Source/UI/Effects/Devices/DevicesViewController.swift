@@ -64,7 +64,10 @@ class DevicesViewController: NSViewController {
         messenger.subscribeAsync(to: .deviceManager_deviceListUpdated, handler: deviceListUpdated)
         messenger.subscribeAsync(to: .deviceManager_defaultDeviceChanged, handler: defaultDeviceChanged)
         
-        deviceListUpdated()
+//        deviceListUpdated()
+        doMarkingSelectionChangeAsInternal {
+            self.tableView.selectRow(audioGraphDelegate.indexOfOutputDevice)
+        }
     }
     
     override func destroy() {
@@ -138,6 +141,21 @@ class DevicesViewController: NSViewController {
     }
 }
 
+extension DevicesViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        doMarkingSelectionChangeAsInternal {
+            self.tableView.colorSchemeChanged()
+        }
+        
+        labels.forEach {$0.font = systemFontScheme.smallFont}
+        lblPan.textColor = systemColorScheme.primaryTextColor
+        secondaryTextColorChanged(systemColorScheme.secondaryTextColor)
+        panSlider.redraw()
+    }
+}
+
 extension DevicesViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {
@@ -151,10 +169,8 @@ extension DevicesViewController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
         
-        backgroundColorChanged(systemColorScheme.backgroundColor)
-        
         doMarkingSelectionChangeAsInternal {
-            self.tableView.reloadDataMaintainingSelection()
+            self.tableView.colorSchemeChanged()
         }
         
         lblPan.textColor = systemColorScheme.primaryTextColor

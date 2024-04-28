@@ -29,7 +29,9 @@ extension FontSchemesManager {
         schemeObservers[observer.hashValue] = observer
     
         // Set initial value.
-        observer.fontSchemeChanged()
+        if !(observer is ThemeInitialization) {
+            observer.fontSchemeChanged()
+        }
     }
     
     func removeObserver(_ observer: FontSchemeObserver) {

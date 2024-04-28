@@ -61,3 +61,8 @@ class Theme: UserManagedObject, PersistentModelObject {
         ThemePersistentState(self)
     }
 }
+
+protocol ThemeInitialization {
+    
+    func initTheme()
+}

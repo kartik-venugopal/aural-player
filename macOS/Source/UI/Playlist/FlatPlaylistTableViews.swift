@@ -86,6 +86,15 @@ class AuralTableView: NSTableView {
         
         return self.menu
     }
+    
+    override func reloadData() {
+        
+//        if self.identifier?.rawValue == "tid_PlayQueueSimpleView" {
+            print("Reloading data for: \(self.identifier?.rawValue ?? "<???>")")
+//        }
+        
+        super.reloadData()
+    }
 }
 
 /*
