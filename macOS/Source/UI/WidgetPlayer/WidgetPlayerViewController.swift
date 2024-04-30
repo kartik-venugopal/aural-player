@@ -52,6 +52,10 @@ class WidgetPlayerViewController: PlayerViewController {
         updateScrollingTrackTextViewColors()
     }
     
+    override func updateTrackTextViewFontsAndColors() {
+        updateScrollingTrackTextViewFontsAndColors()
+    }
+    
     override func setUpTrackInfoView() {
         
         super.setUpTrackInfoView()

@@ -12,7 +12,6 @@ import Cocoa
 
 class DevicesViewController: NSViewController {
     
-    
     override var nibName: String? {"Devices"}
     
     // ------------------------------------------------------------------------

@@ -431,6 +431,35 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         // To be overriden!
     }
     
+    func updateTrackTextViewFontsAndColors() {
+        // To be overriden!
+    }
+    
+    func updateMultilineTrackTextViewFontsAndColors() {
+        
+        multilineTrackTextView.titleFont = multilineTrackTextTitleFont
+        multilineTrackTextView.artistAlbumFont = multilineTrackTextArtistAlbumFont
+        multilineTrackTextView.chapterTitleFont = multilineTrackTextChapterTitleFont
+        
+        multilineTrackTextView.backgroundColor = systemColorScheme.backgroundColor
+        multilineTrackTextView.titleColor = multilineTrackTextTitleColor
+        multilineTrackTextView.artistAlbumColor = multilineTrackTextArtistAlbumColor
+        multilineTrackTextView.chapterTitleColor = multilineTrackTextChapterTitleColor
+        
+        multilineTrackTextView.update()
+    }
+    
+    func updateScrollingTrackTextViewFontsAndColors() {
+        
+        scrollingTrackTextView.font = scrollingTrackTextFont
+        scrollingTextViewContainerBox.fillColor = systemColorScheme.backgroundColor
+        scrollingTrackTextView.titleTextColor = scrollingTrackTextTitleColor
+        scrollingTrackTextView.artistTextColor = scrollingTrackTextArtistColor
+        
+        layoutScrollingTrackTextView()
+        scrollingTrackTextView.update()
+    }
+    
     func updateMultilineTrackTextViewFonts() {
         
         multilineTrackTextView.titleFont = multilineTrackTextTitleFont
@@ -980,5 +1009,30 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
     
     override func destroy() {
         messenger.unsubscribeFromAll()
+    }
+}
+
+extension PlayerViewController: ThemeInitialization {
+    
+    @objc func initTheme() {
+        
+        updateTrackTextViewFontsAndColors()
+        
+        lblTrackTime.font = trackTimeFont
+        lblTrackTime.textColor = trackTimeColor
+        
+        lblVolume.font = volumeLevelFont
+        lblVolume.textColor = volumeLevelColor
+        
+        artViewTintColorChanged(systemColorScheme.secondaryTextColor)
+        
+        [btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach {
+            $0?.colorChanged(systemColorScheme.buttonColor)
+        }
+        
+        btnVolume.colorChanged(systemColorScheme.buttonColor)
+        
+        seekSlider.redraw()
+        volumeSlider.redraw()
     }
 }

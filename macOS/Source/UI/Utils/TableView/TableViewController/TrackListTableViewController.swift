@@ -418,11 +418,15 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
     }
     
     func fontSchemeChanged() {
+        
         tableView.reloadDataMaintainingSelection()
+        updateSummary()
     }
     
     func colorSchemeChanged() {
+        
         tableView.colorSchemeChanged()
+        updateSummary()
     }
     
     func textColorChanged(_ newColor: PlatformColor) {
@@ -440,7 +444,9 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
 
 extension TrackListTableViewController: ThemeInitialization {
     
-    func initTheme() {
+    @objc func initTheme() {
+        
         tableView.colorSchemeChanged()
+        updateSummary()
     }
 }

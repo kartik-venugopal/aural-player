@@ -10,6 +10,33 @@
 
 import AppKit
 
+extension TrackInfoViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        lblMainCaption.font = systemFontScheme.captionFont
+        lblMainCaption.textColor = systemColorScheme.captionTextColor
+        
+        lblTabCaption?.font = systemFontScheme.captionFont
+        lblTabCaption?.textColor = systemColorScheme.captionTextColor
+        
+        lblTrackTitle?.font = systemFontScheme.prominentFont
+        updateTrackTitle()
+        
+        exportMenuIcon?.colorChanged(systemColorScheme.buttonColor)
+        
+        rootContainer?.fillColor = systemColorScheme.backgroundColor
+        tabButtonsBox.fillColor = systemColorScheme.backgroundColor
+        tabButtons.forEach {
+            $0.redraw()
+        }
+        
+        tabViewControllers.forEach {
+            $0.initTheme()
+        }
+    }
+}
+
 extension TrackInfoViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {

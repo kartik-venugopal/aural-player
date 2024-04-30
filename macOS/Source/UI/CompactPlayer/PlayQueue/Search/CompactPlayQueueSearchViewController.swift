@@ -107,6 +107,21 @@ class CompactPlayQueueSearchViewController: NSViewController {
     }
 }
 
+extension CompactPlayQueueSearchViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        searchField.font = systemFontScheme.smallFont
+        searchField.textColor = systemColorScheme.primaryTextColor
+        
+        lblSummary.font = systemFontScheme.smallFont
+        lblSummary.textColor = systemColorScheme.secondaryTextColor
+        
+        resultsTable.colorSchemeChanged()
+        btnDone.redraw()
+    }
+}
+
 extension CompactPlayQueueSearchViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {
@@ -125,7 +140,6 @@ extension CompactPlayQueueSearchViewController: ColorSchemeObserver {
         lblSummary.textColor = systemColorScheme.secondaryTextColor
         btnDone.redraw()
         
-        resultsTable.setBackgroundColor(systemColorScheme.backgroundColor)
-        resultsTable.reloadData()
+        resultsTable.colorSchemeChanged()
     }
 }

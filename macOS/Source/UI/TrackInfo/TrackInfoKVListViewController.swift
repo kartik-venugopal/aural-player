@@ -99,6 +99,12 @@ class TrackInfoKVListViewController: NSViewController, TrackInfoViewProtocol {
     
     // MARK: Theming ---------------------------------------------------
     
+    func initTheme() {
+        
+        textView.setBackgroundColor(systemColorScheme.backgroundColor)
+        update()
+    }
+    
     func fontSchemeChanged() {
         update()
     }

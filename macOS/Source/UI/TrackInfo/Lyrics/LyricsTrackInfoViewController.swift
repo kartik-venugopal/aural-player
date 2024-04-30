@@ -47,6 +47,12 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     
     // MARK: Theming ---------------------------------------------------
     
+    func initTheme() {
+        
+        fontSchemeChanged()
+        colorSchemeChanged()
+    }
+    
     func fontSchemeChanged() {
         textView.font = systemFontScheme.normalFont
     }

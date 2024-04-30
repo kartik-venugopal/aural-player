@@ -10,6 +10,33 @@
 
 import AppKit
 
+extension ChaptersListViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        chaptersListView.reloadDataMaintainingSelection()
+        
+        lblCaption.font = systemFontScheme.captionFont
+        lblCaption.textColor = systemColorScheme.captionTextColor
+        
+        [lblSummary, lblNumMatches, txtSearch].forEach {$0?.font = systemFontScheme.smallFont}
+        [lblSummary, lblNumMatches].forEach {$0?.textColor = systemColorScheme.secondaryTextColor}
+        
+        backgroundColorChanged(systemColorScheme.backgroundColor)
+        buttonColorChanged(systemColorScheme.buttonColor)
+
+        redrawSearchField()
+        
+        // Hack to get the search field to redraw (doesn't work)
+        
+        let origFrame = view.window?.frame ?? .zero
+        var newFrame = view.window?.frame ?? .zero
+        newFrame.size = NSSize(width: origFrame.size.width + 1, height: origFrame.size.height)
+        
+        view.window?.setFrame(newFrame, display: true)
+    }
+}
+
 extension ChaptersListViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {

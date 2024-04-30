@@ -84,6 +84,14 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
     
     // MARK: Theming ---------------------------------------------------
     
+    override func initTheme() {
+        
+        super.initTheme()
+        
+        lblNoArt.font = systemFontScheme.normalFont
+        lblNoArt.textColor = systemColorScheme.primaryTextColor
+    }
+    
     override func fontSchemeChanged() {
         
         lblNoArt.font = systemFontScheme.normalFont

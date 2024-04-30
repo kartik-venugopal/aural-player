@@ -110,6 +110,13 @@ class UnifiedPlayerSidebarViewController: NSViewController {
     }
 }
 
+extension UnifiedPlayerSidebarViewController: ThemeInitialization {
+    
+    func initTheme() {
+        sidebarView.colorSchemeChanged()
+    }
+}
+
 extension UnifiedPlayerSidebarViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {

@@ -275,6 +275,23 @@ extension PlayQueueContainerViewController: NSTabViewDelegate {
     }
 }
 
+extension PlayQueueContainerViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        lblCaption.font = systemFontScheme.captionFont
+        lblCaption.textColor = systemColorScheme.captionTextColor
+        
+        updateSummary()
+        
+        [btnSimpleView, btnExpandedView].forEach {
+            $0.redraw()
+        }
+        
+        tabButtonsContainer.fillColor = systemColorScheme.backgroundColor
+    }
+}
+
 extension PlayQueueContainerViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {

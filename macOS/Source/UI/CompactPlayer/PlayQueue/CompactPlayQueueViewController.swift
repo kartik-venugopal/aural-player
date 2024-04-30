@@ -95,19 +95,23 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         updateSummary()
     }
     
+    override func initTheme() {
+        
+        super.initTheme()
+        
+        lblCaption.font = systemFontScheme.captionFont
+        lblCaption.textColor = systemColorScheme.captionTextColor
+    }
+    
     override func fontSchemeChanged() {
         
         super.fontSchemeChanged()
-        
         lblCaption.font = systemFontScheme.captionFont
-        updateSummary()
     }
     
     override func colorSchemeChanged() {
         
         super.colorSchemeChanged()
-        
         lblCaption.textColor = systemColorScheme.captionTextColor
-        updateSummary()
     }
 }

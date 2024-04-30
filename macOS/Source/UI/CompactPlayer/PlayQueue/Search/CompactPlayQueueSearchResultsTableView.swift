@@ -87,6 +87,8 @@ class CompactPlayQueueSearchResultsTableView: AuralTableView {
 extension CompactPlayQueueSearchResultsTableView: ColorSchemeObserver {
     
     override func colorSchemeChanged() {
+        
+        super.colorSchemeChanged()
         btnPlay.contentTintColor = systemColorScheme.activeControlColor
     }
 }

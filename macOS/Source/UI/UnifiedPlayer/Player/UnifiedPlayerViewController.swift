@@ -86,6 +86,10 @@ class UnifiedPlayerViewController: PlayerViewController {
         functionsMenuItem.colorChanged(systemColorScheme.buttonColor)
     }
     
+    override func updateTrackTextViewFontsAndColors() {
+        updateMultilineTrackTextViewFontsAndColors()
+    }
+    
     override func updateTrackInfo(for track: Track?, playingChapterTitle: String? = nil) {
         
         super.updateTrackInfo(for: track, playingChapterTitle: playingChapterTitle)

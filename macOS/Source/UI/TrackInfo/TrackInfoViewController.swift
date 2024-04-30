@@ -168,6 +168,8 @@ protocol TrackInfoViewProtocol where Self: NSViewController {
     
     func refresh()
     
+    func initTheme()
+    
     func fontSchemeChanged()
     
     func colorSchemeChanged()

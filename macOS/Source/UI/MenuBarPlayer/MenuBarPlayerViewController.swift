@@ -77,6 +77,10 @@ class MenuBarPlayerViewController: PlayerViewController {
         updateMultilineTrackTextViewColors()
     }
     
+    override func updateTrackTextViewFontsAndColors() {
+        updateMultilineTrackTextViewFontsAndColors()
+    }
+    
     override func showOrHideAlbumArt() {
         
         artView.showIf(menuBarPlayerUIState.showAlbumArt)
@@ -96,12 +100,22 @@ class MenuBarPlayerViewController: PlayerViewController {
     override func colorSchemeChanged() {
         
         super.colorSchemeChanged()
+        menuBarPlayerColorSchemeChanged()
+    }
+    
+    private func menuBarPlayerColorSchemeChanged() {
         
         rootContainerBox.fillColor = systemColorScheme.backgroundColor
         logoImage.colorChanged(systemColorScheme.captionTextColor)
         [btnQuit, btnSettings].forEach {
             $0.colorChanged(systemColorScheme.buttonColor)
         }
+    }
+    
+    override func initTheme() {
+        
+        super.initTheme()
+        menuBarPlayerColorSchemeChanged()
     }
     
     @IBAction func toggleSettingsMenuAction(_ sender: NSButton) {
