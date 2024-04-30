@@ -202,17 +202,6 @@ extension NSTableView: ColorSchemePropertyChangeReceiver {
 //    }
 }
 
-extension NSTableView: FontSchemeObserver {
-    
-    func fontSchemeChanged() {
-        reloadData()
-    }
-    
-    func fontChanged(to newFont: PlatformFont, forProperty property: KeyPath<FontScheme, PlatformFont>) {
-        reloadData()
-    }
-}
-
 extension NSOutlineView {
     
     func isItemSelected(_ item: Any) -> Bool {

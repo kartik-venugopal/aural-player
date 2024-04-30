@@ -226,7 +226,9 @@ class FilterUnitViewController: EffectsUnitViewController {
     override func fontSchemeChanged() {
         
         super.fontSchemeChanged()
+        
         bandsTableView.reloadAllRows(columns: [0, 2, 3])
+        filterUnitView.redrawChart()
     }
     
     override func colorSchemeChanged() {
@@ -286,6 +288,21 @@ class FilterUnitViewController: EffectsUnitViewController {
     override func suppressedControlColorChanged(_ newColor: PlatformColor) {
         
         super.suppressedControlColorChanged(newColor)
+        filterUnitView.redrawChart()
+    }
+}
+
+extension FilterUnitViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        super.fontSchemeChanged()
+        super.colorSchemeChanged()
+        
+        buttonColorChanged(systemColorScheme.buttonColor)
+        lblSummary.textColor = systemColorScheme.secondaryTextColor
+        
+        bandsTableView.colorSchemeChanged()
         filterUnitView.redrawChart()
     }
 }

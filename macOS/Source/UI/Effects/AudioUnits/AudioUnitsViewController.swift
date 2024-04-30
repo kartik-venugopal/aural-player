@@ -187,6 +187,20 @@ class AudioUnitsViewController: NSViewController {
     }
 }
 
+extension AudioUnitsViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        tableView.colorSchemeChanged()
+        
+        lblSummary.font = systemFontScheme.smallFont
+        lblSummary.textColor = systemColorScheme.secondaryTextColor
+        
+        btnRemove.contentTintColor = systemColorScheme.buttonColor
+        addAudioUnitMenuIconItem.colorChanged(systemColorScheme.buttonColor)
+    }
+}
+
 extension AudioUnitsViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {
@@ -200,10 +214,11 @@ extension AudioUnitsViewController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
         
-        backgroundColorChanged(systemColorScheme.backgroundColor)
+        tableView.colorSchemeChanged()
+        
         btnRemove.contentTintColor = systemColorScheme.buttonColor
         addAudioUnitMenuIconItem.colorChanged(systemColorScheme.buttonColor)
-        tableView.reloadDataMaintainingSelection()
+        
         lblSummary.textColor = systemColorScheme.secondaryTextColor
     }
     

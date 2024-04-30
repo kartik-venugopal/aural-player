@@ -104,3 +104,14 @@ class ReverbUnitViewController: EffectsUnitViewController {
         }
     }
 }
+
+extension ReverbUnitViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        super.fontSchemeChanged()
+        super.colorSchemeChanged()
+        
+        reverbUnitView.updatePopupMenuColor(systemColorScheme.colorForEffectsUnitState(reverbUnit.state))
+    }
+}

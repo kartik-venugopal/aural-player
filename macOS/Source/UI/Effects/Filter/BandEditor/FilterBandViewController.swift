@@ -11,27 +11,11 @@ import Cocoa
 
 class FilterBandViewController: NSViewController {
     
-    override var nibName: String? {"FilterBand"}
-    
-    static func create(band: FilterBand, at index: Int, withButtonAction action: Selector, andTarget target: AnyObject) -> FilterBandViewController {
-        
-        let controller = FilterBandViewController()
-        controller.forceLoadingOfView()
-        
-        controller.initialize(band: band, at: index, withButtonAction: action, andTarget: target)
-        return controller
-    }
-    
-    // ------------------------------------------------------------------------
-    
     // MARK: UI fields
     
     @IBOutlet weak var bandView: FilterBandView!
     
     var band: FilterBand {bandView.band}
-    
-    // TODO:
-//    var bandState: EffectsUnitState {}
     
     private lazy var messenger: Messenger = Messenger(for: self)
     
@@ -43,9 +27,15 @@ class FilterBandViewController: NSViewController {
         
         super.viewDidLoad()
         
+        fontSchemesManager.registerObserver(self)
+        
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperties: [\.activeControlColor, \.inactiveControlColor, \.suppressedControlColor],
                                                      handler: unitStateColorChanged(_:))
+        
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, handler: bandView.buttonColorChanged(_:))
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.primaryTextColor, handler: bandView.primaryTextColorChanged(_:))
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.secondaryTextColor, handler: bandView.secondaryTextColorChanged(_:))
     }
     
     // ------------------------------------------------------------------------
@@ -83,6 +73,20 @@ class FilterBandViewController: NSViewController {
             bandView.setCutoffFrequency(Float(selectedItem.tag))
             messenger.publish(.Effects.FilterUnit.bandUpdated, payload: bandView.bandIndex)
         }
+    }
+}
+
+extension FilterBandViewController: ThemeInitialization {
+    
+    func initTheme() {
+        bandView.initTheme()
+    }
+}
+
+extension FilterBandViewController: FontSchemeObserver {
+    
+    func fontSchemeChanged() {
+        bandView.fontSchemeChanged()
     }
 }
 

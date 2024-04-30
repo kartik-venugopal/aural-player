@@ -10,6 +10,28 @@
 
 import AppKit
 
+extension SearchViewController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        searchField.font = systemFontScheme.normalFont
+        
+        captionLabels.forEach {
+            $0.font = systemFontScheme.smallFont
+        }
+        
+        checkBoxes.forEach {
+            $0.font = systemFontScheme.smallFont
+        }
+        
+        btnComparisonType.font = systemFontScheme.smallFont
+        
+        lblSummary.font = systemFontScheme.normalFont
+        
+        resultsTable.reloadDataMaintainingSelection()
+    }
+}
+
 extension SearchViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {

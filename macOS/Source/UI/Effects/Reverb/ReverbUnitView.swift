@@ -78,7 +78,6 @@ class ReverbUnitView: NSView {
         
         if let popupMenuCell = reverbSpaceMenu.cell as? EffectsUnitPopupMenuCell {
             popupMenuCell.tintColor = newColor
-//            popupMenuCell.tintColor = systemColorScheme.colorForEffectsUnitState(audioGraphDelegate.reverbUnit.state)
         }
     }
 }

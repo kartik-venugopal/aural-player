@@ -44,12 +44,25 @@ class FilterBandEditorDialogController: NSWindowController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, handler: buttonColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.primaryTextColor, handler: primaryTextColorChanged(_:))
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.secondaryTextColor, handler: bandView.secondaryTextColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
     }
     
     @IBAction func doneAction(_ sender: NSButton) {
         close()
+    }
+}
+
+extension FilterBandEditorDialogController: ThemeInitialization {
+    
+    func initTheme() {
+        
+        lblCaption.font = systemFontScheme.captionFont
+        lblCaption.textColor = systemColorScheme.captionTextColor
+        
+        btnDone.redraw()
+        
+        rootContainerBox.fillColor = systemColorScheme.backgroundColor
+        btnClose.contentTintColor = systemColorScheme.buttonColor
     }
 }
 
@@ -59,7 +72,6 @@ extension FilterBandEditorDialogController: FontSchemeObserver {
         
         lblCaption.font = systemFontScheme.captionFont
         btnDone.redraw()
-        bandView.fontSchemeChanged()
     }
 }
 
@@ -77,12 +89,9 @@ extension FilterBandEditorDialogController: ColorSchemeObserver {
         
         btnClose.contentTintColor = newColor
         btnDone.redraw()
-        bandView.buttonColorChanged(newColor)
     }
     
     private func primaryTextColorChanged(_ newColor: PlatformColor) {
-        
         btnDone.redraw()
-        bandView.primaryTextColorChanged(newColor)
     }
 }

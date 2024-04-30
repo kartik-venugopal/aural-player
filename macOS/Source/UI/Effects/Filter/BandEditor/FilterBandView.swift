@@ -72,7 +72,6 @@ class FilterBandView: NSView {
         
         self.band = band
         self.bandIndex = index
-        
     }
     
     override func awakeFromNib() {
@@ -278,6 +277,19 @@ class FilterBandView: NSView {
     // ------------------------------------------------------------------------
     
     // MARK: Theming
+    
+    func initTheme() {
+        
+        let smallFont = systemFontScheme.smallFont
+        
+        functionCaptionLabels.forEach {$0.font = smallFont}
+        
+        filterTypeMenu.font = smallFont
+        presetRangesMenu.font = smallFont
+        lblFrequencies.font = smallFont
+        
+        colorSchemeChanged()
+    }
     
     func fontSchemeChanged() {
         
