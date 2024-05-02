@@ -75,13 +75,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         }
         
         super.init(systemDefinedObjects: systemDefinedLayouts, userDefinedObjects: userDefinedLayouts)
-        
-        if preferences.layoutOnStartup.option == .specific, let layoutName = preferences.layoutOnStartup.layoutName {
-            self.savedLayout = object(named: layoutName)
-            
-        } else {
-            self.savedLayout = WindowLayout(systemLayoutFrom: persistentState)
-        }
+        self.savedLayout = WindowLayout(systemLayoutFrom: persistentState)
     }
     
     var defaultLayout: WindowLayout {

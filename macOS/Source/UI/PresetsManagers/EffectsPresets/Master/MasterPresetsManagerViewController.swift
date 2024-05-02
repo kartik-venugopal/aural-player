@@ -116,22 +116,6 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         filterBandsTable.reloadData()
     }
     
-    override func deleteSelectedPresets() {
-        
-        // If there is a user-chosen master preset to be applied on app startup, and that preset
-        // is being deleted, reset the user preference value.
-        if let startupPreset = preferences.soundPreferences.masterPresetOnStartup_name {
-            
-            let selectedPresetNames = selectedPresets.map {$0.name}
-            
-            if selectedPresetNames.contains(startupPreset) {
-                preferences.soundPreferences.masterPresetOnStartup_name = nil
-            }
-        }
-        
-        super.deleteSelectedPresets()
-    }
-    
     // MARK: View delegate functions
     
     override func tableViewSelectionDidChange(_ notification: Notification) {
@@ -146,17 +130,5 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         }
         
         messenger.publish(.presetsManager_selectionChanged, payload: numRows)
-    }
-    
-    override func renamePreset(named name: String, to newName: String) {
-        
-        super.renamePreset(named: name, to: newName)
-        
-        // Also update the sound preference, if the chosen preset was this edited one
-        if preferences.soundPreferences.masterPresetOnStartup_name == name {
-            
-            preferences.soundPreferences.masterPresetOnStartup_name = newName
-//            preferences.persist()
-        }
     }
 }

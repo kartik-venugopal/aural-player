@@ -43,7 +43,7 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     func increasePitch() -> PitchShift {
         
         ensureActiveAndResetPitch()
-        return setUnitPitch((unit.pitch + Float(preferences.pitchDelta)).clamped(to: pitchRange))
+        return setUnitPitch((unit.pitch + Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
     }
     
     func increasePitchOneOctave() -> PitchShift {
@@ -61,7 +61,7 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     func decreasePitch() -> PitchShift {
         
         ensureActiveAndResetPitch()
-        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta)).clamped(to: pitchRange))
+        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
     }
     
     func decreasePitchOneOctave() -> PitchShift {

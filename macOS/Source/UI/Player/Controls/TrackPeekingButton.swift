@@ -39,7 +39,7 @@ class TrackPeekingButton: TintedImageButton, TrackPeekingButtonProtocol {
     
     func updateTooltip() {
         self.toolTip = toolTipFunction?() ?? defaultTooltip
-        print("Tooltip updated to: \(toolTip!)")
+//        print("Tooltip updated to: \(toolTip!)")
     }
 }
 

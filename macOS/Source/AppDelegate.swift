@@ -20,8 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     override init() {
         
-        print("AppDelegate.init(): \(Date.nowTimestampString)")
-        
         super.init()
         
         System.openFilesLimit = 10000
@@ -66,6 +64,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
 //        SearchWindowController.shared.showWindow(self)
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            colorSchemesManager.printNumObservers()
+//            fontSchemesManager.printNumObservers()
+//        }
     }
     
     /// Opens the application with a single file (audio file or playlist)

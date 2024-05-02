@@ -43,23 +43,14 @@ struct PreferencesDefaults {
     ///
     struct Sound {
         
-        static let outputDeviceOnStartup: OutputDeviceOnStartup = OutputDeviceOnStartup.defaultInstance
-        
         static let volumeDelta: Float = 0.05
-        
-        static let volumeOnStartupOption: VolumeStartupOptions = .rememberFromLastAppLaunch
-        static let startupVolumeValue: Float = 0.5
-        
         static let panDelta: Float = 0.1
         
         static let eqDelta: Float = 1
         static let pitchDelta: Int = 100
-        static let timeDelta: Float = 0.05
+        static let rateDelta: Float = 0.05
         
-        static let effectsSettingsOnStartupOption: EffectsSettingsStartupOptions = .rememberFromLastAppLaunch
-        static let masterPresetOnStartup_name: String? = nil
-        
-        static let rememberEffectsSettingsOption: RememberSettingsForTrackOption = .individualTracks
+        static let rememberEffectsSettingsForAllTracks: Bool = false
     }
     
     ///
@@ -81,8 +72,6 @@ struct PreferencesDefaults {
     ///
     struct View {
         
-        static let appModeOnStartup: AppModeOnStartup = AppModeOnStartup.defaultInstance
-        static let layoutOnStartup: LayoutOnStartup = LayoutOnStartup.defaultInstance
         static let snapToWindows: Bool = true
         static let snapToScreen: Bool = true
         static let windowGap: Float = 0

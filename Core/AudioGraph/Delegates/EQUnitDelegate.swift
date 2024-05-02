@@ -52,37 +52,37 @@ class EQUnitDelegate: EffectsUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     func increaseBass() -> [Float] {
         
         ensureEQActive()
-        return unit.increaseBass(by: preferences.eqDelta)
+        return unit.increaseBass(by: preferences.eqDelta.value)
     }
     
     func decreaseBass() -> [Float] {
         
         ensureEQActive()
-        return unit.decreaseBass(by: preferences.eqDelta)
+        return unit.decreaseBass(by: preferences.eqDelta.value)
     }
     
     func increaseMids() -> [Float] {
         
         ensureEQActive()
-        return unit.increaseMids(by: preferences.eqDelta)
+        return unit.increaseMids(by: preferences.eqDelta.value)
     }
     
     func decreaseMids() -> [Float] {
         
         ensureEQActive()
-        return unit.decreaseMids(by: preferences.eqDelta)
+        return unit.decreaseMids(by: preferences.eqDelta.value)
     }
     
     func increaseTreble() -> [Float] {
         
         ensureEQActive()
-        return unit.increaseTreble(by: preferences.eqDelta)
+        return unit.increaseTreble(by: preferences.eqDelta.value)
     }
     
     func decreaseTreble() -> [Float] {
         
         ensureEQActive()
-        return unit.decreaseTreble(by: preferences.eqDelta)
+        return unit.decreaseTreble(by: preferences.eqDelta.value)
     }
     
     private func ensureEQActive() {

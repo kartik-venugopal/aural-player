@@ -12,81 +12,96 @@ import Cocoa
 
 class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var tabView: NSTabView!
-    
-    private let generalPreferencesView: PreferencesViewProtocol = GeneralSoundPreferencesViewController()
-    private let adjustmentPreferencesView: PreferencesViewProtocol = SoundAdjustmentPreferencesViewController()
-    
-    private var subViews: [PreferencesViewProtocol] = []
-    
     override var nibName: String? {"SoundPreferences"}
     
-    var preferencesView: NSView {
-        return self.view
-    }
+    var preferencesView: NSView {self.view}
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        subViews = [generalPreferencesView, adjustmentPreferencesView]
-        
-        for (index, subView) in subViews.enumerated() {
-            tabView.tabViewItems[index].view?.addSubview(subView.preferencesView)
-        }
-        
-        // Select the Media Keys prefs tab
-//        tabView.selectTabViewItem(at: 0)
-    }
+    @IBOutlet weak var btnRememberSettingsforAllTracks: CheckBox!
+    
+    @IBOutlet weak var volumeDeltaField: NSTextField!
+    @IBOutlet weak var volumeDeltaStepper: NSStepper!
+    
+    @IBOutlet weak var lblPanDelta: NSTextField!
+    @IBOutlet weak var panDeltaStepper: NSStepper!
+    
+    @IBOutlet weak var lblEQDelta: NSTextField!
+    @IBOutlet weak var eqDeltaStepper: NSStepper!
+    
+    @IBOutlet weak var lblPitchDelta: NSTextField!
+    @IBOutlet weak var pitchDeltaStepper: NSStepper!
+    
+    @IBOutlet weak var lblTimeDelta: NSTextField!
+    @IBOutlet weak var timeDeltaStepper: NSStepper!
     
     func resetFields() {
         
+        let soundPrefs = preferences.soundPreferences
         
+        // Per-track effects settings memory
+        btnRememberSettingsforAllTracks.onIf(soundPrefs.rememberEffectsSettingsForAllTracks.value)
+        
+        // Volume increment / decrement
+        
+        let volumeDelta = (soundPrefs.volumeDelta.value * ValueConversions.volume_audioGraphToUI).roundedInt
+        volumeDeltaStepper.integerValue = volumeDelta
+        volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
+        
+        // Pan increment / decrement
+        
+        let panDelta = (soundPrefs.panDelta.value * ValueConversions.pan_audioGraphToUI).roundedInt
+        panDeltaStepper.integerValue = panDelta
+        panDeltaAction(self)
+        
+        let eqDelta = soundPrefs.eqDelta.value
+        eqDeltaStepper.floatValue = eqDelta
+        eqDeltaAction(self)
+        
+        let pitchDelta = soundPrefs.pitchDelta.value
+        pitchDeltaStepper.integerValue = pitchDelta
+        pitchDeltaAction(self)
+        
+        let timeDelta = soundPrefs.rateDelta.value
+        timeDeltaStepper.floatValue = timeDelta
+        timeDeltaAction(self)
+    }
+    
+    @IBAction func volumeDeltaAction(_ sender: Any) {
+        volumeDeltaField.stringValue = String(format: "%d%%", volumeDeltaStepper.integerValue)
+    }
+    
+    @IBAction func panDeltaAction(_ sender: Any) {
+        lblPanDelta.stringValue = String(format: "%d%%", panDeltaStepper.integerValue)
+    }
+    
+    @IBAction func eqDeltaAction(_ sender: Any) {
+        lblEQDelta.stringValue = String(format: "%.1lf dB", eqDeltaStepper.floatValue)
+    }
+    
+    @IBAction func pitchDeltaAction(_ sender: Any) {
+        lblPitchDelta.stringValue = String(format: "%d cents", pitchDeltaStepper.integerValue)
+    }
+    
+    @IBAction func timeDeltaAction(_ sender: Any) {
+        lblTimeDelta.stringValue = String(format: "%.2lfx", timeDeltaStepper.floatValue)
     }
     
     func save() throws {
         
-        try generalPreferencesView.save()
-        try adjustmentPreferencesView.save()
+        let soundPrefs = preferences.soundPreferences
         
-//        let soundPrefs = preferences.soundPreferences
-//        
-//        if (btnSystemDeviceOnStartup.isOn) {
-//            soundPrefs.outputDeviceOnStartup.option = .system
-//        } else if (btnRememberDeviceOnStartup.isOn) {
-//            soundPrefs.outputDeviceOnStartup.option = .rememberFromLastAppLaunch
-//        } else {
-//            soundPrefs.outputDeviceOnStartup.option = .specific
-//        }
-//        
-//        if let prefDevice: PreferredDevice = preferredDevicesMenu.selectedItem?.representedObject as? PreferredDevice {
-//            soundPrefs.outputDeviceOnStartup.preferredDeviceName = prefDevice.name
-//            soundPrefs.outputDeviceOnStartup.preferredDeviceUID = prefDevice.uid
-//        }
-//        
-//        soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * ValueConversions.volume_UIToAudioGraph
-//        
-//        soundPrefs.volumeOnStartupOption = btnRememberVolume.isOn ? .rememberFromLastAppLaunch : .specific
-//        soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * ValueConversions.volume_UIToAudioGraph
-//        
-//        soundPrefs.panDelta = panDeltaStepper.floatValue * ValueConversions.pan_UIToAudioGraph
-//        
-//        soundPrefs.eqDelta = eqDeltaStepper.floatValue
-//        soundPrefs.pitchDelta = pitchDeltaStepper.integerValue
-//        soundPrefs.timeDelta = timeDeltaStepper.floatValue
-//        
-//        soundPrefs.effectsSettingsOnStartupOption = btnRememberEffectsOnStartup.isOn ? .rememberFromLastAppLaunch : .applyMasterPreset
-//        
-//        soundPrefs.masterPresetOnStartup_name = masterPresetsMenu.titleOfSelectedItem ?? ""
-//        
-//        let wasAllTracks: Bool = soundPrefs.rememberEffectsSettingsOption == .allTracks
-//        
-//        soundPrefs.rememberEffectsSettingsOption = btnRememberSettings_individualTracks.isOn ? .individualTracks : .allTracks
-//        
-//        let isNowIndividualTracks: Bool = soundPrefs.rememberEffectsSettingsOption == .individualTracks
-//        
-//        if wasAllTracks && isNowIndividualTracks {
-//            soundProfiles.removeAll()
-//        }
+        soundPrefs.volumeDelta.value = volumeDeltaStepper.floatValue * ValueConversions.volume_UIToAudioGraph
+        soundPrefs.panDelta.value = panDeltaStepper.floatValue * ValueConversions.pan_UIToAudioGraph
+        
+        soundPrefs.eqDelta.value = eqDeltaStepper.floatValue
+        soundPrefs.pitchDelta.value = pitchDeltaStepper.integerValue
+        soundPrefs.rateDelta.value = timeDeltaStepper.floatValue
+
+        let wasAllTracks: Bool = soundPrefs.rememberEffectsSettingsForAllTracks.value
+        soundPrefs.rememberEffectsSettingsForAllTracks.value = btnRememberSettingsforAllTracks.isOn
+        let isNowIndividualTracks: Bool = soundPrefs.rememberEffectsSettingsForAllTracks.value
+        
+        if wasAllTracks && isNowIndividualTracks {
+            audioGraphDelegate.soundProfiles.removeAll()
+        }
     }
 }

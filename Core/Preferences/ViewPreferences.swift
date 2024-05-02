@@ -16,8 +16,6 @@ import Foundation
 ///
 class ViewPreferences {
     
-    var appModeOnStartup: AppModeOnStartup = .defaultInstance
-    var layoutOnStartup: LayoutOnStartup = .defaultInstance
     var snapToWindows: Bool = true
     var snapToScreen: Bool = true
     
@@ -26,20 +24,13 @@ class ViewPreferences {
     
     private static let keyPrefix: String = "view"
     
-    static let key_appModeOnStartup_option: String = "\(keyPrefix).appModeOnStartup.option"
-    static let key_appModeOnStartup_modeName: String = "\(keyPrefix).appModeOnStartup.mode"
-    
-    static let key_layoutOnStartup_option: String = "\(keyPrefix).layoutOnStartup.option"
-    static let key_layoutOnStartup_layoutName: String = "\(keyPrefix).layoutOnStartup.layout"
-    
     static let key_snapToWindows: String = "\(keyPrefix).snap.toWindows"
     static let key_windowGap: String = "\(keyPrefix).snap.toWindows.gap"
     static let key_snapToScreen: String = "\(keyPrefix).snap.toScreen"
     
     private typealias Defaults = PreferencesDefaults.View
 
-    init() {
-    }
+    init() {}
 }
 
 // Window layout on startup preference

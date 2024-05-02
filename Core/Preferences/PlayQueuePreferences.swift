@@ -40,40 +40,40 @@ class PlayQueuePreferences {
     lazy var openWithAddMode: UserPreference<PlayQueueTracksAddMode> = .init(defaultsKey: "\(Self.keyPrefix).openWithAddMode",
                                                                              defaultValue: Defaults.openWithAddMode)
     
-    init() {}
-    
-    init(legacyPlaylistPreferences: LegacyPlaylistPreferences) {
+    init(legacyPreferences: LegacyPlaylistPreferences? = nil) {
         
-        if let playlistOnStartup = legacyPlaylistPreferences.playlistOnStartup {
+        guard let legacyPreferences = legacyPreferences else {return}
+        
+        if let playlistOnStartup = legacyPreferences.playlistOnStartup {
             
             self.playQueueOnStartup.value = .fromLegacyPlaylistStartupOption(playlistOnStartup)
             
             switch playlistOnStartup {
             
             case .loadFile:
-                self.playlistFile.value = legacyPlaylistPreferences.playlistFile
+                self.playlistFile.value = legacyPreferences.playlistFile
                 
             case .loadFolder:
-                self.tracksFolder.value = legacyPlaylistPreferences.tracksFolder
+                self.tracksFolder.value = legacyPreferences.tracksFolder
                 
             default:
                 break
             }
         }
         
-        if let showNewTrackInPlaylist = legacyPlaylistPreferences.showNewTrackInPlaylist {
+        if let showNewTrackInPlaylist = legacyPreferences.showNewTrackInPlaylist {
             self.showNewTrackInPlayQueue.value = showNewTrackInPlaylist
         }
         
-        if let showChaptersList = legacyPlaylistPreferences.showChaptersList {
+        if let showChaptersList = legacyPreferences.showChaptersList {
             self.showChaptersList.value = showChaptersList
         }
         
-        if let dragDropAddMode = legacyPlaylistPreferences.dragDropAddMode {
+        if let dragDropAddMode = legacyPreferences.dragDropAddMode {
             self.dragDropAddMode.value = .fromLegacyPlaylistTracksAddMode(dragDropAddMode)
         }
         
-        if let openWithAddMode = legacyPlaylistPreferences.openWithAddMode {
+        if let openWithAddMode = legacyPreferences.openWithAddMode {
             self.openWithAddMode.value = .fromLegacyPlaylistTracksAddMode(openWithAddMode)
         }
     }

@@ -47,14 +47,6 @@ class LayoutsManagerViewController: PresetsManagerViewController {
         
         // Update the layout name.
         windowLayoutsManager.renameObject(named: name, to: newName)
-        
-        // Also update the view preference, if the chosen startup layout was this edited one.
-        let prefLayout = preferences.viewPreferences.layoutOnStartup.layoutName
-        if prefLayout == name {
-            
-            preferences.viewPreferences.layoutOnStartup.layoutName = newName
-//            preferences.persist()
-        }
     }
     
     // Updates the visual preview.

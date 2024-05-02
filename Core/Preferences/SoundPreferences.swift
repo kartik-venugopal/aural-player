@@ -14,9 +14,11 @@ import Foundation
 ///
 class SoundPreferences {
     
-    var outputDeviceOnStartup: OutputDeviceOnStartup = .defaultInstance
+    private static let keyPrefix: String = "sound"
+    private typealias Defaults = PreferencesDefaults.Sound
     
-    var volumeDelta: Float = 0.05
+    lazy var volumeDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).volumeDelta",
+                                                                    defaultValue: Defaults.volumeDelta)
     
     private let scrollSensitiveVolumeDeltas: [ScrollSensitivity: Float] = [.low: 0.025, .medium: 0.05, .high: 0.1]
     
@@ -24,80 +26,44 @@ class SoundPreferences {
         scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity]!
     }
     
-    var volumeOnStartupOption: VolumeStartupOptions = .rememberFromLastAppLaunch
-    var startupVolumeValue: Float = 0.5
+    lazy var panDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).panDelta",
+                                                                    defaultValue: Defaults.panDelta)
     
-    var panDelta: Float = 0.1
+    lazy var eqDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).eqDelta",
+                                                                    defaultValue: Defaults.eqDelta)
     
-    var eqDelta: Float = 1
-    var pitchDelta: Int = 10
-    var timeDelta: Float = 0.05
+    lazy var pitchDelta: UserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).pitchDelta",
+                                                                    defaultValue: Defaults.pitchDelta)
     
-    var effectsSettingsOnStartupOption: EffectsSettingsStartupOptions = .applyMasterPreset
-    var masterPresetOnStartup_name: String?
+    lazy var rateDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).rateDelta",
+                                                                    defaultValue: Defaults.rateDelta)
     
-    var rememberEffectsSettingsOption: RememberSettingsForTrackOption = .allTracks
+    lazy var rememberEffectsSettingsForAllTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).rememberEffectsSettingsForAllTracks",
+                                                                    defaultValue: Defaults.rememberEffectsSettingsForAllTracks)
     
     private var controlsPreferences: GesturesControlsPreferences!
     
-    private static let keyPrefix: String = "sound"
-    
-    static let key_outputDeviceOnStartup_option: String = "\(keyPrefix).outputDeviceOnStartup.option"
-    static let key_outputDeviceOnStartup_preferredDeviceName: String = "\(keyPrefix).outputDeviceOnStartup.preferredDeviceName"
-    static let key_outputDeviceOnStartup_preferredDeviceUID: String = "\(keyPrefix).outputDeviceOnStartup.preferredDeviceUID"
-    
     static let key_volumeDelta: String = "\(keyPrefix).volumeDelta"
-    
-    static let key_volumeOnStartup_option: String = "\(keyPrefix).volumeOnStartup.option"
-    static let key_volumeOnStartup_value: String = "\(keyPrefix).volumeOnStartup.value"
-    
     static let key_panDelta: String = "\(keyPrefix).panDelta"
     
     static let key_eqDelta: String = "\(keyPrefix).eqDelta"
     static let key_pitchDelta: String = "\(keyPrefix).pitchDelta"
     static let key_timeDelta: String = "\(keyPrefix).timeDelta"
     
-    static let key_effectsSettingsOnStartup_option: String = "\(keyPrefix).effectsSettingsOnStartup.option"
-    static let key_effectsSettingsOnStartup_masterPreset: String = "\(keyPrefix).effectsSettingsOnStartup.masterPreset"
-    
     static let key_rememberEffectsSettingsOption: String = "\(keyPrefix).rememberEffectsSettings.option"
     
-    init(controlsPreferences: GesturesControlsPreferences) {
+    init(controlsPreferences: GesturesControlsPreferences, legacyPreferences: LegacySoundPreferences? = nil) {
+        
         self.controlsPreferences = controlsPreferences
+        
+        guard let legacyPreferences = legacyPreferences else {return}
+        
+        if let rateDelta = legacyPreferences.timeDelta {
+            self.rateDelta.value = rateDelta
+        }
+        
+        if let rememberEffectsSettingsOption = legacyPreferences.rememberEffectsSettingsOption {
+            self.rememberEffectsSettingsForAllTracks.value = rememberEffectsSettingsOption == .allTracks
+        }
     }
-    
-    private typealias Defaults = PreferencesDefaults.Sound
-}
-
-// Window layout on startup preference
-class OutputDeviceOnStartup {
-    
-    var option: OutputDeviceStartupOptions = .system
-    
-    // This is used only if option == .specific
-    var preferredDeviceName: String? = nil
-    var preferredDeviceUID: String? = nil
-    
-    // NOTE: This is mutable. Potentially unsafe (convert variable into factory method ???)
-    static let defaultInstance: OutputDeviceOnStartup = OutputDeviceOnStartup()
-}
-
-enum OutputDeviceStartupOptions: String, CaseIterable {
-    
-    case rememberFromLastAppLaunch
-    case system
-    case specific
-}
-
-// All options for the volume at startup
-enum VolumeStartupOptions: String, CaseIterable {
-    
-    case rememberFromLastAppLaunch
-    case specific
-}
-
-enum EffectsSettingsStartupOptions: String, CaseIterable {
-    
-    case rememberFromLastAppLaunch
-    case applyMasterPreset
 }

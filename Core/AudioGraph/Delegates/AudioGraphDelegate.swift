@@ -113,36 +113,13 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         // Set output device based on user preference
         
         // Check if remembered device is available (based on name and UID).
-        if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch,
-           let prefDeviceUID = persistentState?.outputDevice?.uid,
+        if let prefDeviceUID = persistentState?.outputDevice?.uid,
            let foundDevice = graph.availableDevices.first(where: {$0.uid == prefDeviceUID}) {
-            
-            self.graph.outputDevice = foundDevice
-            
-        } // Check if preferred device is available (based on name and UID).
-        else if preferences.outputDeviceOnStartup.option == .specific,
-           let prefDeviceName = preferences.outputDeviceOnStartup.preferredDeviceName,
-           let prefDeviceUID = preferences.outputDeviceOnStartup.preferredDeviceUID,
-                let foundDevice = graph.availableDevices.first(where: {$0.name == prefDeviceName && $0.uid == prefDeviceUID}) {
             
             self.graph.outputDevice = foundDevice
         }
         
         #endif
-        
-        // Set volume and effects based on user preference
-        
-        if preferences.volumeOnStartupOption == .specific {
-            
-            self.graph.volume = preferences.startupVolumeValue
-            self.muted = false
-        }
-        
-        if preferences.effectsSettingsOnStartupOption == .applyMasterPreset,
-           let presetName = preferences.masterPresetOnStartup_name {
-            
-            masterUnit.applyPreset(named: presetName)
-        }
         
         graph.captureSystemSoundProfile()
         
@@ -183,7 +160,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func increaseVolume(inputMode: UserInputMode) -> Float {
         
-        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
+        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta.value : preferences.volumeDelta_continuous
         graph.volume = min(maxVolume, graph.volume + volumeDelta)
         
         return volume
@@ -191,7 +168,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func decreaseVolume(inputMode: UserInputMode) -> Float {
         
-        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
+        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta.value : preferences.volumeDelta_continuous
         graph.volume = max(minVolume, graph.volume - volumeDelta)
         
         return volume
@@ -199,7 +176,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func panLeft() -> Float {
         
-        let newPan = max(maxLeftPan, graph.pan - preferences.panDelta)
+        let newPan = max(maxLeftPan, graph.pan - preferences.panDelta.value)
         
         // If the pan caused the balance to switch from L->R or R->L,
         // center the pan.
@@ -210,7 +187,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func panRight() -> Float {
         
-        let newPan = min(maxRightPan, graph.pan + preferences.panDelta)
+        let newPan = min(maxRightPan, graph.pan + preferences.panDelta.value)
         graph.pan = graph.pan < 0 && newPan > 0 ? 0 : newPan
         
         return pan
@@ -286,7 +263,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     private var needToRememberSettingsForAllTracks: Bool {
-        preferences.rememberEffectsSettingsOption == .allTracks
+        preferences.rememberEffectsSettingsForAllTracks.value
     }
     
     func preTrackPlayback(_ notification: PreTrackPlaybackNotification) {
