@@ -43,17 +43,12 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnAutoplayAfterOpening_IfNotPlaying: NSButton!
     @IBOutlet weak var btnAutoplayAfterOpening_Always: NSButton!
     
-    @IBOutlet weak var btnRememberPosition_allTracks: NSButton!
-    @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
+    @IBOutlet weak var btnRememberPositionForAllTracks: CheckBox!
     
-    @IBOutlet weak var btnInfo_primarySeekLength: NSButton!
-    @IBOutlet weak var btnInfo_secondarySeekLength: NSButton!
+    @IBOutlet weak var btnInfo_primarySeekLength: ContextHelpButton!
+    @IBOutlet weak var btnInfo_secondarySeekLength: ContextHelpButton!
     
     private lazy var playbackProfiles: PlaybackProfiles = playbackDelegate.profiles
-    
-    static let info_seekLengthPrimary: String = "The time interval by which the player will increment/decrement the playback position within the current track, each time the user seeks forward or backward. This value will be used by the application's main seek controls (on the player and in the Playback menu). Set this value as appropriate for frequent use.\n\nTip - Use this in conjunction with the Secondary seek length, to combine fine-grained seeking with more coarse-grained seeking. For instance, Primary seek length could specify a shorter interval for more accurate seeking and Secondary seek length could specify a larger interval for quickly skipping through larger tracks."
-    
-    static let info_seekLengthSecondary: String = "The time interval by which the player will increment/decrement the playback position within the current track, each time the user seeks forward or backward. This value will be used by the secondary seek controls in the Playback menu (and the corresponding keyboard shortcuts). Set this value as appropriate for relatively infrequent use.\n\nTip - Use this in conjunction with the Primary seek length, to combine fine-grained seeking with more coarse-grained seeking. For instance, Primary seek length could specify a shorter interval for more accurate seeking and Secondary seek length could specify a larger interval for quickly skipping through larger tracks."
     
     override var nibName: String? {"PlaybackPreferences"}
     
@@ -120,12 +115,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         btnAutoplayAfterOpening_IfNotPlaying.onIf(prefs.autoplayAfterOpeningOption.value == .ifNotPlaying)
         
         // Remember last track position
-        
-        if prefs.rememberLastPositionOption.value == .individualTracks {
-            btnRememberPosition_individualTracks.on()
-        } else {
-            btnRememberPosition_allTracks.on()
-        }
+        btnRememberPositionForAllTracks.onIf(prefs.rememberLastPositionForAllTracks.value)
     }
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
@@ -177,22 +167,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func seekLengthPrimary_infoAction(_ sender: Any) {
-        showInfo(Self.info_seekLengthPrimary)
+        btnInfo_primarySeekLength.showContextHelp(self)
     }
     
     @IBAction func seekLengthSecondary_infoAction(_ sender: Any) {
-        showInfo(Self.info_seekLengthSecondary)
-    }
-    
-    private func showInfo(_ text: String) {
-        
-        let helpManager = NSHelpManager.shared
-        let textFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.helpInfoTextFont]
-        
-        helpManager.setContextHelp(NSAttributedString(string: text, attributes: textFontAttributes),
-                                   for: btnInfo_primarySeekLength!)
-        
-        helpManager.showContextHelp(for: btnInfo_primarySeekLength!, locationHint: NSEvent.mouseLocation)
+        btnInfo_secondarySeekLength.showContextHelp(self)
     }
     
     func save() throws {
@@ -219,11 +198,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Playback profiles
         
-        let wasAllTracks: Bool = prefs.rememberLastPositionOption.value == .allTracks
-        
-        prefs.rememberLastPositionOption.value = btnRememberPosition_individualTracks.isOn ? .individualTracks : .allTracks
-
-        let isNowIndividualTracks: Bool = prefs.rememberLastPositionOption.value == .individualTracks
+        let wasAllTracks: Bool = prefs.rememberLastPositionForAllTracks.value
+        prefs.rememberLastPositionForAllTracks.value = btnRememberPositionForAllTracks.isOn
+        let isNowIndividualTracks: Bool = !prefs.rememberLastPositionForAllTracks.value
         
         if wasAllTracks && isNowIndividualTracks {
             playbackProfiles.removeAll()

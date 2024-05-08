@@ -19,8 +19,7 @@
                 <outlet property="btnInfo_secondarySeekLength" destination="pLg-Zx-z1o" id="O0L-tk-5qQ"/>
                 <outlet property="btnPrimarySeekLengthConstant" destination="tBj-Ko-4Pw" id="wRe-Nt-Gpe"/>
                 <outlet property="btnPrimarySeekLengthPerc" destination="hWC-Lh-o1C" id="f18-W9-R2J"/>
-                <outlet property="btnRememberPosition_allTracks" destination="8DU-OO-agi" id="KcV-xo-FjW"/>
-                <outlet property="btnRememberPosition_individualTracks" destination="FAF-So-sMu" id="jGE-ks-8r5"/>
+                <outlet property="btnRememberPositionForAllTracks" destination="8DU-OO-agi" id="rL2-w8-nop"/>
                 <outlet property="btnSecondarySeekLengthConstant" destination="P1V-FV-Brv" id="uh5-70-86O"/>
                 <outlet property="btnSecondarySeekLengthPerc" destination="VRB-wu-9sz" id="h1c-mC-cB9"/>
                 <outlet property="lblPrimarySeekLength" destination="dO7-h4-3oX" id="Jvs-pc-UjN"/>
@@ -48,13 +47,18 @@
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
-                <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pLg-Zx-z1o" userLabel="Info - Seek length primary">
+                <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pLg-Zx-z1o" userLabel="Info - Seek length primary" customClass="ContextHelpButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="491" y="400" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="iXw-b2-VxL">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="helpText">
+                            <mutableString key="value">The time interval by which the player will increment/decrement the playback position within the current track, each time the user seeks forward or backward. This value will be used by the secondary seek controls in the Playback menu (and the corresponding keyboard shortcuts). Set this value as appropriate for relatively infrequent use.  💡 Tip - Use this in conjunction with the Primary seek length, to combine fine-grained seeking with more coarse-grained seeking. For instance, Primary seek length could specify a shorter interval for more accurate seeking and Secondary seek length could specify a larger interval for quickly skipping through larger tracks.</mutableString>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="seekLengthSecondary_infoAction:" target="-2" id="wkX-QY-qcw"/>
                     </connections>
@@ -277,13 +281,18 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
-                <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-p6-5ZK" userLabel="Info - Seek length primary">
+                <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-p6-5ZK" userLabel="Info - Seek length primary" customClass="ContextHelpButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="166" y="399" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="QI3-6Y-8pI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="helpText">
+                            <mutableString key="value">The time interval by which the player will increment/decrement the playback position within the current track, each time the user seeks forward or backward. This value will be used by the application's main seek controls (on the player and in the Playback menu). Set this value as appropriate for frequent use.  💡Tip - Use this in conjunction with the Secondary seek length, to combine fine-grained seeking with more coarse-grained seeking. For instance, Primary seek length could specify a shorter interval for more accurate seeking and Secondary seek length could specify a larger interval for quickly skipping through larger tracks.</mutableString>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="seekLengthPrimary_infoAction:" target="-2" id="aQF-1O-nH6"/>
                     </connections>

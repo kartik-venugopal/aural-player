@@ -74,8 +74,8 @@ class PlaybackPreferences {
     lazy var autoplayAfterOpeningOption: UserPreference<AutoplayAfterOpeningOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplayAfterOpeningTracks.option",
                                                                                             defaultValue: Defaults.autoplayAfterOpeningOption)
     
-    lazy var rememberLastPositionOption: UserPreference<RememberSettingsForTrackOption> = .init(defaultsKey: "\(Self.keyPrefix).rememberLastPosition.option",
-                                                                                                defaultValue: Defaults.rememberLastPositionOption)
+    lazy var rememberLastPositionForAllTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).rememberLastPositionForAllTracks",
+                                                                                                defaultValue: Defaults.rememberLastPositionForAllTracks)
 }
 
 enum SeekLengthOption: String, CaseIterable {

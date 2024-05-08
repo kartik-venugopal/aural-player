@@ -35,7 +35,7 @@ struct PreferencesDefaults {
         static let autoplayAfterOpeningTracks: Bool = true
         static let autoplayAfterOpeningOption: AutoplayAfterOpeningOption = .always
         
-        static let rememberLastPositionOption: RememberSettingsForTrackOption = .individualTracks
+        static let rememberLastPositionForAllTracks: Bool = false
     }
     
     ///

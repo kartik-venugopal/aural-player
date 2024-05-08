@@ -44,6 +44,7 @@
 		3E1741482801FDE500772ED1 /* TrackListTableViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1741472801FDE500772ED1 /* TrackListTableViewController+DataSource.swift */; };
 		3E1AEFAC2B7D67320081CF1B /* FavoriteFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AEFAB2B7D67320081CF1B /* FavoriteFolder.swift */; };
 		3E1B72512B9108D500BF010E /* PlayQueueDelegate+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B72502B9108D500BF010E /* PlayQueueDelegate+History.swift */; };
+		3E1DA0D62BEC2B68004670B3 /* ContextHelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DA0D52BEC2B68004670B3 /* ContextHelpButton.swift */; };
 		3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */; };
 		3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */; };
 		3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */; };
@@ -1009,6 +1010,7 @@
 		3E1D1DDF28DD016900E79674 /* macOS.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = macOS.sh; sourceTree = "<group>"; };
 		3E1D1DE028DD016900E79674 /* iOS.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = iOS.sh; sourceTree = "<group>"; };
 		3E1D1DE128DD016900E79674 /* build-all.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-all.sh"; sourceTree = "<group>"; };
+		3E1DA0D52BEC2B68004670B3 /* ContextHelpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextHelpButton.swift; sourceTree = "<group>"; };
 		3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaKeysPreferences.xib; sourceTree = "<group>"; };
 		3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GesturesPreferences.xib; sourceTree = "<group>"; };
 		3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteControlPreferences.xib; sourceTree = "<group>"; };
@@ -3097,6 +3099,7 @@
 				3E6C0FBC25CEB98600BF0D07 /* TintedImageButton.swift */,
 				3EB1A8102826D14F00866012 /* ThemablePopupButton.swift */,
 				3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */,
+				3E1DA0D52BEC2B68004670B3 /* ContextHelpButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -5381,6 +5384,7 @@
 				3EFE38D527864896006F8B8C /* FilterUnitDelegateProtocol.swift in Sources */,
 				3EA6C6302AD6AAA100B75166 /* FFmpegImageStream.swift in Sources */,
 				3E5864A22B76EC8700BDB5A6 /* MenuBarPlayerViewController.swift in Sources */,
+				3E1DA0D62BEC2B68004670B3 /* ContextHelpButton.swift in Sources */,
 				3EDC157C27C2ACB100B91157 /* HorizontalSymmetricSliderCell.swift in Sources */,
 				3E10178228D7713B002C0D8E /* FFmpegChapter.swift in Sources */,
 				3EFE390327864897006F8B8C /* ArrayExtensions.swift in Sources */,
