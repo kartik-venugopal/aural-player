@@ -18,7 +18,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     
     @IBOutlet weak var btnRememberSettingsforAllTracks: CheckBox!
     
-    @IBOutlet weak var volumeDeltaField: NSTextField!
+    @IBOutlet weak var lblVolumeDelta: NSTextField!
     @IBOutlet weak var volumeDeltaStepper: NSStepper!
     
     @IBOutlet weak var lblPanDelta: NSTextField!
@@ -30,8 +30,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var lblPitchDelta: NSTextField!
     @IBOutlet weak var pitchDeltaStepper: NSStepper!
     
-    @IBOutlet weak var lblTimeDelta: NSTextField!
-    @IBOutlet weak var timeDeltaStepper: NSStepper!
+    @IBOutlet weak var lblRateDelta: NSTextField!
+    @IBOutlet weak var rateDeltaStepper: NSStepper!
     
     func resetFields() {
         
@@ -44,7 +44,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let volumeDelta = (soundPrefs.volumeDelta.value * ValueConversions.volume_audioGraphToUI).roundedInt
         volumeDeltaStepper.integerValue = volumeDelta
-        volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
+        lblVolumeDelta.stringValue = String(format: "%d%%", volumeDelta)
         
         // Pan increment / decrement
         
@@ -60,13 +60,13 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         pitchDeltaStepper.integerValue = pitchDelta
         pitchDeltaAction(self)
         
-        let timeDelta = soundPrefs.rateDelta.value
-        timeDeltaStepper.floatValue = timeDelta
-        timeDeltaAction(self)
+        let rateDelta = soundPrefs.rateDelta.value
+        rateDeltaStepper.floatValue = rateDelta
+        rateDeltaAction(self)
     }
     
     @IBAction func volumeDeltaAction(_ sender: Any) {
-        volumeDeltaField.stringValue = String(format: "%d%%", volumeDeltaStepper.integerValue)
+        lblVolumeDelta.stringValue = String(format: "%d%%", volumeDeltaStepper.integerValue)
     }
     
     @IBAction func panDeltaAction(_ sender: Any) {
@@ -81,8 +81,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         lblPitchDelta.stringValue = String(format: "%d cents", pitchDeltaStepper.integerValue)
     }
     
-    @IBAction func timeDeltaAction(_ sender: Any) {
-        lblTimeDelta.stringValue = String(format: "%.2lfx", timeDeltaStepper.floatValue)
+    @IBAction func rateDeltaAction(_ sender: Any) {
+        lblRateDelta.stringValue = String(format: "%.2lfx", rateDeltaStepper.floatValue)
     }
     
     func save() throws {
@@ -94,7 +94,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         soundPrefs.eqDelta.value = eqDeltaStepper.floatValue
         soundPrefs.pitchDelta.value = pitchDeltaStepper.integerValue
-        soundPrefs.rateDelta.value = timeDeltaStepper.floatValue
+        soundPrefs.rateDelta.value = rateDeltaStepper.floatValue
 
         let wasAllTracks: Bool = soundPrefs.rememberEffectsSettingsForAllTracks.value
         soundPrefs.rememberEffectsSettingsForAllTracks.value = btnRememberSettingsforAllTracks.isOn

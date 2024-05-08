@@ -8,7 +8,18 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SoundPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnRememberSettingsforAllTracks" destination="ZkC-zP-oIO" id="vVw-8n-rNj"/>
+                <outlet property="eqDeltaStepper" destination="53w-VK-kmR" id="62J-Hx-2v8"/>
+                <outlet property="lblEQDelta" destination="eg8-WN-tLj" id="dUg-vo-gII"/>
+                <outlet property="lblPanDelta" destination="VlY-bs-jcg" id="s5E-dJ-hDX"/>
+                <outlet property="lblPitchDelta" destination="kot-f9-1yH" id="Y1U-tx-IaH"/>
+                <outlet property="lblRateDelta" destination="hUp-MU-8Pq" id="4Za-Rp-Wzo"/>
+                <outlet property="lblVolumeDelta" destination="T5D-4J-iAL" id="zMz-vX-Gmj"/>
+                <outlet property="panDeltaStepper" destination="tOD-Rd-0j9" id="iwf-Sj-3Wp"/>
+                <outlet property="pitchDeltaStepper" destination="cyz-LK-0fq" id="X6l-nP-0nr"/>
+                <outlet property="rateDeltaStepper" destination="EL9-gI-yRh" id="9r9-hM-Yj6"/>
                 <outlet property="view" destination="ADk-4h-E7s" id="8AJ-pj-jzB"/>
+                <outlet property="volumeDeltaStepper" destination="yoX-sR-UW8" id="jQo-d2-JTy"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -18,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-FS-ylj" userLabel="Volume Increment Label">
-                    <rect key="frame" x="44" y="301" width="126" height="20"/>
+                    <rect key="frame" x="44" y="326" width="126" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Volume  +/-" id="ywM-ZD-08L">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -27,7 +38,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T5D-4J-iAL" userLabel="Volume Increment Field">
-                    <rect key="frame" x="217" y="299" width="40" height="18"/>
+                    <rect key="frame" x="217" y="324" width="40" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" focusRingType="none" alignment="right" title="5%" id="YOn-84-T6y">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="ciZ-Ns-UlL">
@@ -40,12 +51,15 @@
                     </textFieldCell>
                 </textField>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yoX-sR-UW8" userLabel="Volume Increment Stepper">
-                    <rect key="frame" x="257" y="297" width="15" height="22"/>
+                    <rect key="frame" x="257" y="322" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="DZj-j1-6d1"/>
+                    <connections>
+                        <action selector="volumeDeltaAction:" target="-2" id="VcP-pq-nQL"/>
+                    </connections>
                 </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NWp-Bf-51L" userLabel="Pan Delta label">
-                    <rect key="frame" x="44" y="272" width="138" height="20"/>
+                    <rect key="frame" x="44" y="297" width="138" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Pan  +/-" id="ald-qK-6By">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -54,7 +68,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VlY-bs-jcg" userLabel="Pan Delta Field">
-                    <rect key="frame" x="217" y="270" width="40" height="18"/>
+                    <rect key="frame" x="217" y="295" width="40" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" focusRingType="none" alignment="right" title="10%" id="Auk-aW-FFD">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="4K3-MV-cX6">
@@ -67,12 +81,15 @@
                     </textFieldCell>
                 </textField>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tOD-Rd-0j9" userLabel="Pan Delta Stepper">
-                    <rect key="frame" x="257" y="268" width="15" height="22"/>
+                    <rect key="frame" x="257" y="293" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="25" doubleValue="10" id="DGT-HV-4h1"/>
+                    <connections>
+                        <action selector="panDeltaAction:" target="-2" id="noG-1e-9Zk"/>
+                    </connections>
                 </stepper>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kot-f9-1yH" userLabel="Pan Delta Field">
-                    <rect key="frame" x="181" y="167" width="76" height="18"/>
+                    <rect key="frame" x="181" y="232" width="76" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" focusRingType="none" alignment="right" title="100 cents" id="VDc-af-cOQ">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="jmL-Cu-hrG">
@@ -85,12 +102,15 @@
                     </textFieldCell>
                 </textField>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyz-LK-0fq" userLabel="Pan Delta Stepper">
-                    <rect key="frame" x="257" y="165" width="15" height="22"/>
+                    <rect key="frame" x="257" y="230" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" increment="5" minValue="5" maxValue="2400" doubleValue="100" id="TVc-PU-vn8"/>
+                    <connections>
+                        <action selector="pitchDeltaAction:" target="-2" id="9wy-dA-WMF"/>
+                    </connections>
                 </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdE-FF-CXc" userLabel="Volume Increment Label">
-                    <rect key="frame" x="44" y="169" width="86" height="20"/>
+                    <rect key="frame" x="44" y="234" width="86" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Pitch  +/-" id="jfq-5W-gKh">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -99,7 +119,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cwt-3n-6JW" userLabel="Volume Increment Label">
-                    <rect key="frame" x="44" y="138" width="106" height="20"/>
+                    <rect key="frame" x="44" y="203" width="106" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Rate  +/-" id="lz5-bs-NkD">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -108,7 +128,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hUp-MU-8Pq" userLabel="Rate Delta Field">
-                    <rect key="frame" x="210" y="136" width="47" height="18"/>
+                    <rect key="frame" x="210" y="201" width="47" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" focusRingType="none" alignment="right" title="0.05x" id="8S9-gI-EnX">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Ca5-g4-Kno">
@@ -121,12 +141,15 @@
                     </textFieldCell>
                 </textField>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EL9-gI-yRh" userLabel="Rate Delta Stepper">
-                    <rect key="frame" x="257" y="134" width="15" height="22"/>
+                    <rect key="frame" x="257" y="199" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" increment="0.01" minValue="0.01" maxValue="1" doubleValue="0.050000000000000003" id="Hml-QE-F6p"/>
+                    <connections>
+                        <action selector="rateDeltaAction:" target="-2" id="wnP-2i-H7a"/>
+                    </connections>
                 </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWu-x5-CXX" userLabel="Volume Increment Label">
-                    <rect key="frame" x="44" y="200" width="106" height="20"/>
+                    <rect key="frame" x="44" y="265" width="106" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="EQ gain  +/-" id="xOU-sX-1Oc">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -135,7 +158,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eg8-WN-tLj" userLabel="Pan Delta Field">
-                    <rect key="frame" x="193" y="198" width="64" height="18"/>
+                    <rect key="frame" x="193" y="263" width="64" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" focusRingType="none" alignment="right" title="1 dB" id="K3Q-KZ-cok">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Gxe-ZG-0fD">
@@ -148,9 +171,12 @@
                     </textFieldCell>
                 </textField>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="53w-VK-kmR" userLabel="Pan Delta Stepper">
-                    <rect key="frame" x="257" y="196" width="15" height="22"/>
+                    <rect key="frame" x="257" y="261" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" increment="0.10000000000000001" minValue="0.10000000000000001" maxValue="5" doubleValue="1" id="eLP-9t-Aaf"/>
+                    <connections>
+                        <action selector="eqDeltaAction:" target="-2" id="Kci-Pm-pbe"/>
+                    </connections>
                 </stepper>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZkC-zP-oIO" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="413.5" width="524" height="20"/>
@@ -160,6 +186,15 @@
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tBr-lR-l05" userLabel="Seek Length Label">
+                    <rect key="frame" x="29" y="360" width="466" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Adjustments made to sound settings (incement / decrement amount)" id="tUk-ic-rax">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="139" y="153"/>
         </view>

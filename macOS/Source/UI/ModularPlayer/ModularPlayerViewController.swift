@@ -80,6 +80,16 @@ class ModularPlayerViewController: PlayerViewController {
         updateMultilineTrackTextViewFontsAndColors()
     }
     
+    override func updateMultilineTrackTextViewFontsAndColors() {
+        
+        super.updateMultilineTrackTextViewFontsAndColors()
+        
+        infoBox.fillColor = systemColorScheme.backgroundColor
+        controlsBox.fillColor = systemColorScheme.backgroundColor
+        
+        functionsMenuItem.colorChanged(systemColorScheme.buttonColor)
+    }
+    
     override func updateTrackInfo(for track: Track?, playingChapterTitle: String? = nil) {
         
         super.updateTrackInfo(for: track, playingChapterTitle: playingChapterTitle)
