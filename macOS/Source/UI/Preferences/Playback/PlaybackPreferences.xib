@@ -19,7 +19,7 @@
                 <outlet property="btnInfo_secondarySeekLength" destination="pLg-Zx-z1o" id="O0L-tk-5qQ"/>
                 <outlet property="btnPrimarySeekLengthConstant" destination="tBj-Ko-4Pw" id="wRe-Nt-Gpe"/>
                 <outlet property="btnPrimarySeekLengthPerc" destination="hWC-Lh-o1C" id="f18-W9-R2J"/>
-                <outlet property="btnRememberPositionForAllTracks" destination="8DU-OO-agi" id="rL2-w8-nop"/>
+                <outlet property="btnRememberPositionForAllTracks" destination="Z5y-j9-JWd" id="9IN-bL-UAd"/>
                 <outlet property="btnSecondarySeekLengthConstant" destination="P1V-FV-Brv" id="uh5-70-86O"/>
                 <outlet property="btnSecondarySeekLengthPerc" destination="VRB-wu-9sz" id="h1c-mC-cB9"/>
                 <outlet property="lblPrimarySeekLength" destination="dO7-h4-3oX" id="Jvs-pc-UjN"/>
@@ -99,17 +99,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FAF-So-sMu" userLabel="For individual tracks" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="45" y="84" width="443" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="For individual tracks that I apply this option to (Playback menu)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="hzV-ZU-muz">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="13" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="vw2-qW-dzS"/>
-                    </connections>
-                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHg-WZ-fxu" userLabel="Seek Length Label">
                     <rect key="frame" x="35" y="399" width="135" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -128,17 +117,6 @@
                     </buttonCell>
                     <connections>
                         <action selector="secondarySeekLengthRadioButtonAction:" target="-2" id="mLg-Ad-g49"/>
-                    </connections>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DU-OO-agi" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="45" y="65" width="213" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Jw4-k0-1Eu">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="13" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="raM-sC-lgC"/>
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsl-VD-iQq" userLabel="Secondary Seek % Label">
@@ -165,15 +143,6 @@
                         <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="eg1-OH-HV7"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0M-Y1-Jc0">
-                    <rect key="frame" x="35" y="107" width="430" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Resume track playback from last playback position" id="bNf-Jp-q0R">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oaz-io-4ja" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="71" y="236" width="232" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -340,6 +309,14 @@
                     <connections>
                         <action selector="autoplayAfterOpeningRadioButtonAction:" target="-2" id="9Nd-cu-88R"/>
                     </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z5y-j9-JWd" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="36" y="103.5" width="524" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Resume track playback from last playback position for all tracks" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="G2Q-OM-EQQ">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
                 </button>
             </subviews>
             <point key="canvasLocation" x="-41" y="154"/>

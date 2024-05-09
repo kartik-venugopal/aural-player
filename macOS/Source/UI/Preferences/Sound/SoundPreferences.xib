@@ -187,7 +187,7 @@
                     </buttonCell>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tBr-lR-l05" userLabel="Seek Length Label">
-                    <rect key="frame" x="29" y="360" width="466" height="20"/>
+                    <rect key="frame" x="29" y="360" width="562" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Adjustments made to sound settings (incement / decrement amount)" id="tUk-ic-rax">
                         <font key="font" size="13" name="Play-Regular"/>

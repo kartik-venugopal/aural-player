@@ -38,7 +38,7 @@ class SnappingWindowDelegate: NSObject, NSWindowDelegate {
     
     private func checkForSnapToWindows() -> Bool {
         
-        guard viewPreferences.snapToWindows else {return false}
+        guard viewPreferences.snapToWindows.value else {return false}
         
         // First check if window can be snapped to another app window
         for mate in getCandidateWindowsForSnap() {
@@ -53,7 +53,7 @@ class SnappingWindowDelegate: NSObject, NSWindowDelegate {
     
     private func checkForSnapToScreen() {
         
-        if viewPreferences.snapToScreen {
+        if viewPreferences.snapToScreen.value {
             window.checkForSnapToVisibleFrame()
         }
     }

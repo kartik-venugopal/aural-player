@@ -42,16 +42,7 @@ class SoundPreferences {
                                                                     defaultValue: Defaults.rememberEffectsSettingsForAllTracks)
     
     private var controlsPreferences: GesturesControlsPreferences!
-    
-    static let key_volumeDelta: String = "\(keyPrefix).volumeDelta"
-    static let key_panDelta: String = "\(keyPrefix).panDelta"
-    
-    static let key_eqDelta: String = "\(keyPrefix).eqDelta"
-    static let key_pitchDelta: String = "\(keyPrefix).pitchDelta"
-    static let key_timeDelta: String = "\(keyPrefix).timeDelta"
-    
-    static let key_rememberEffectsSettingsOption: String = "\(keyPrefix).rememberEffectsSettings.option"
-    
+
     init(controlsPreferences: GesturesControlsPreferences, legacyPreferences: LegacySoundPreferences? = nil) {
         
         self.controlsPreferences = controlsPreferences

@@ -25,7 +25,7 @@ class PrettyScroller: NSScroller {
     @IBOutlet weak var contentView: NSView!
     
     var scrollerKnobColor: NSColor {
-        systemColorScheme.buttonColor
+        systemColorScheme.inactiveControlColor
     }
     
     var scrollerBarColor: NSColor {
@@ -64,7 +64,7 @@ extension PrettyScroller: ColorSchemeObserver {
     @objc func registerColorSchemeObserver() {
         
         colorSchemesManager.registerSchemeObserver(self)
-        colorSchemesManager.registerPropertyObserver(self, forProperties: [\.buttonColor, \.inactiveControlColor], changeReceiver: self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, changeReceiver: self)
     }
     
     func colorSchemeChanged() {

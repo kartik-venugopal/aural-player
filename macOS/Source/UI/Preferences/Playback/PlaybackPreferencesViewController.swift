@@ -162,10 +162,6 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
     }
     
-    @IBAction func rememberLastPositionRadioButtonAction(_ sender: Any) {
-        // Needed for radio button group
-    }
-    
     @IBAction func seekLengthPrimary_infoAction(_ sender: Any) {
         btnInfo_primarySeekLength.showContextHelp(self)
     }
@@ -200,7 +196,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let wasAllTracks: Bool = prefs.rememberLastPositionForAllTracks.value
         prefs.rememberLastPositionForAllTracks.value = btnRememberPositionForAllTracks.isOn
-        let isNowIndividualTracks: Bool = !prefs.rememberLastPositionForAllTracks.value
+        let isNowIndividualTracks: Bool = btnRememberPositionForAllTracks.isOff
         
         if wasAllTracks && isNowIndividualTracks {
             playbackProfiles.removeAll()

@@ -16,63 +16,19 @@ import Foundation
 ///
 class ViewPreferences {
     
-    var snapToWindows: Bool = true
-    var snapToScreen: Bool = true
+    private static let keyPrefix: String = "view"
+    private typealias Defaults = PreferencesDefaults.View
+    
+    lazy var snapToWindows: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).snap.toWindows",
+                                                                    defaultValue: Defaults.snapToWindows)
+    
+    lazy var snapToScreen: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).snap.toScreen",
+                                                                    defaultValue: Defaults.snapToScreen)
     
     // Only used when snapToWindows == true
-    var windowGap: Float = 1
-    
-    private static let keyPrefix: String = "view"
-    
-    static let key_snapToWindows: String = "\(keyPrefix).snap.toWindows"
-    static let key_windowGap: String = "\(keyPrefix).snap.toWindows.gap"
-    static let key_snapToScreen: String = "\(keyPrefix).snap.toScreen"
-    
-    private typealias Defaults = PreferencesDefaults.View
-
+    lazy var windowGap: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).snap.toWindows.gap",
+                                                                    defaultValue: Defaults.windowGap)
     init() {}
-}
-
-// Window layout on startup preference
-class LayoutOnStartup {
-    
-    var option: WindowLayoutStartupOptions = .rememberFromLastAppLaunch
-    
-    // This is used only if option == .specific
-    var layoutName: String? = nil
-    
-    // NOTE: This is mutable. Potentially unsafe
-    static let defaultInstance: LayoutOnStartup = LayoutOnStartup()
-}
-
-// All options for the view at startup
-enum WindowLayoutStartupOptions: String, CaseIterable {
-    
-    case specific
-    case rememberFromLastAppLaunch
-}
-
-// Window layout on startup preference
-class AppModeOnStartup {
-    
-    var option: AppModeStartupOptions = .rememberFromLastAppLaunch
-    
-    // This is used only if option == .specific
-    var modeName: String? = nil
-    
-    var mode: AppMode? {
-        modeName == nil ? nil : AppMode(rawValue: modeName!)
-    }
-    
-    // NOTE: This is mutable. Potentially unsafe
-    static let defaultInstance: AppModeOnStartup = AppModeOnStartup()
-}
-
-// All options for the view at startup
-enum AppModeStartupOptions: String, CaseIterable {
-    
-    case specific
-    case rememberFromLastAppLaunch
 }
 
 #endif

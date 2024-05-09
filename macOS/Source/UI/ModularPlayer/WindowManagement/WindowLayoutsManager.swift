@@ -11,8 +11,6 @@ import Cocoa
 
 class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Restorable {
     
-    private let preferences: ViewPreferences
-    
     private var windowLoaders: [WindowLoader] = []
     
     private func loader(withID id: WindowID) -> WindowLoader {
@@ -24,12 +22,14 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     private var savedLayout: WindowLayout? = nil
     
     var mainWindow: NSWindow {loader(withID: .main).window}
+    
+    private var windowGap: CGFloat {
+        CGFloat(preferences.viewPreferences.windowGap.value)
+    }
 
     init(persistentState: WindowLayoutsPersistentState?, viewPreferences: ViewPreferences) {
         
-        self.preferences = viewPreferences
-        
-        let systemDefinedLayouts = WindowLayoutPresets.allCases.map {$0.layout(gap: CGFloat(viewPreferences.windowGap))}
+        let systemDefinedLayouts = WindowLayoutPresets.allCases.map {$0.layout(gap: CGFloat(preferences.viewPreferences.windowGap.value))}
         let userDefinedLayouts: [WindowLayout] = persistentState?.userLayouts?.compactMap
         {WindowLayout(persistentState: $0)} ?? []
         
@@ -83,7 +83,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     }
     
     func recomputeSystemDefinedLayouts() {
-        systemDefinedObjects.forEach {WindowLayoutPresets.recompute(layout: $0, gap: CGFloat(preferences.windowGap))}
+        systemDefinedObjects.forEach {WindowLayoutPresets.recompute(layout: $0, gap: windowGap)}
     }
     
     var isShowingModalComponent: Bool {
@@ -121,7 +121,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         
         // Remember from last app launch, reverting to default layout if app state is corrupted
         if appSetup.setupCompleted {
-            applyLayout(appSetup.windowLayoutPreset.layout(gap: CGFloat(preferences.windowGap)))
+            applyLayout(appSetup.windowLayoutPreset.layout(gap: windowGap))
             
         } else {
             applyLayout(savedLayout ?? defaultLayout)
