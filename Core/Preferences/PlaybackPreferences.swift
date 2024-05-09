@@ -24,6 +24,19 @@ class PlaybackPreferences {
         self.controlsPreferences = controlsPreferences
     }
     
+    init(controlsPreferences: GesturesControlsPreferences, legacyPreferences: LegacyPlaybackPreferences? = nil) {
+        
+        self.controlsPreferences = controlsPreferences
+        
+        guard let legacyPreferences = legacyPreferences else {return}
+        
+        if let rememberLastPositionOption = legacyPreferences.rememberLastPositionOption {
+            self.rememberLastPositionForAllTracks.value = rememberLastPositionOption == .allTracks
+        }
+        
+        legacyPreferences.deleteAll()
+    }
+    
     // General preferences
     
     lazy var primarySeekLengthOption: UserPreference<SeekLengthOption> = .init(defaultsKey: "\(Self.keyPrefix).seekLength.primary.option",

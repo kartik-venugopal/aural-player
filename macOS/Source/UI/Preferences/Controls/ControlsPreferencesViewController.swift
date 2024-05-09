@@ -25,21 +25,22 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         subViews = [mediaKeysPreferencesView, gesturesPreferencesView, remoteControlPreferencesView]
         
-//        let actualViews = subViews.map {$0.preferencesView}
-//        tabView.addViewsForTabs(actualViews)
-        
-        // Select the Media Keys prefs tab
-//        tabView.selectTabViewItem(at: 0)
+        let actualViews = subViews.map {$0.preferencesView}
+        for (index, view) in actualViews.enumerated() {
+            tabView.tabViewItem(at: index).view?.addSubview(view)
+        }
     }
     
-    override func viewDidAppear() {
+    override func viewWillAppear() {
+        
+        super.viewWillAppear()
         
         // Select the Media Keys prefs tab
         tabView.selectTabViewItem(at: 0)
     }
     
     var preferencesView: NSView {
-        return self.view
+        view
     }
     
     func resetFields() {
@@ -48,8 +49,8 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func save() throws {
         
-//        for subView in subViews {
-//            try subView.save()
-//        }
+        for subView in subViews {
+            try subView.save()
+        }
     }
 }

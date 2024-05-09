@@ -20,7 +20,8 @@ class HistoryPreferences {
     
     private typealias Defaults = PreferencesDefaults.History
     
-    init() {
+    init(legacyPreferences: LegacyHistoryPreferences?) {
+        legacyPreferences?.deleteAll()
     }
 }
 

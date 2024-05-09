@@ -96,7 +96,7 @@ struct PreferencesDefaults {
             
             static let enabled: Bool = true
             static let skipKeyBehavior: SkipKeyBehavior = .hybrid
-            static let repeatSpeed: SkipKeyRepeatSpeed = .medium
+            static let skipKeyRepeatSpeed: SkipKeyRepeatSpeed = .medium
         }
         
         ///

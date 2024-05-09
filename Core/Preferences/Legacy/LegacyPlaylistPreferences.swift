@@ -30,6 +30,9 @@ class LegacyPlaylistPreferences {
     
     private static let keyPrefix: String = "playlist"
     
+    static let key_viewOnStartupOption: String = "\(keyPrefix).viewOnStartup.option"
+    static let key_viewOnStartupViewName: String = "\(keyPrefix).viewOnStartup.view"
+    
     private static let key_playlistOnStartup: String = "\(keyPrefix).playlistOnStartup"
     private static let key_playlistFile: String = "\(keyPrefix).playlistOnStartup.playlistFile"
     private static let key_tracksFolder: String = "\(keyPrefix).playlistOnStartup.tracksFolder"
@@ -64,6 +67,22 @@ class LegacyPlaylistPreferences {
         
         dragDropAddMode = dict.enumValue(forKey: Self.key_dragDropAddMode, ofType: LegacyPlaylistTracksAddMode.self)
         openWithAddMode = dict.enumValue(forKey: Self.key_openWithAddMode, ofType: LegacyPlaylistTracksAddMode.self)
+    }
+    
+    func deleteAll() {
+        
+        userDefaults[Self.key_viewOnStartupOption] = nil
+        userDefaults[Self.key_viewOnStartupViewName] = nil
+        
+        userDefaults[Self.key_playlistOnStartup] = nil
+        userDefaults[Self.key_playlistFile] = nil
+        userDefaults[Self.key_tracksFolder] = nil
+        
+        userDefaults[Self.key_showNewTrackInPlaylist] = nil
+        userDefaults[Self.key_showChaptersList] = nil
+        
+        userDefaults[Self.key_dragDropAddMode] = nil
+        userDefaults[Self.key_openWithAddMode] = nil
     }
 }
 

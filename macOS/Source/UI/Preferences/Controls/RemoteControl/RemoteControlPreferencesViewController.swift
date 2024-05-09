@@ -11,9 +11,6 @@ import Cocoa
 
 class RemoteControlPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var lblNotApplicable: NSTextField!
-    @IBOutlet weak var controlsBox: NSBox!
-    
     @IBOutlet weak var btnEnableRemoteControl: NSButton!
     
     @IBOutlet weak var btnShowTrackChangeControls: NSButton!
@@ -21,23 +18,17 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
     
     override var nibName: String? {"RemoteControlPreferences"}
     
-    override func viewDidLoad() {
-        
-        lblNotApplicable.hide()
-        controlsBox.show()
-    }
-    
     var preferencesView: NSView {
-        return self.view
+        view
     }
     
     func resetFields() {
         
-//        let controlsPrefs = preferences.controlsPreferences.remoteControl
-//        
-//        btnEnableRemoteControl.onIf(controlsPrefs.enabled)
-//        btnShowTrackChangeControls.onIf(controlsPrefs.trackChangeOrSeekingOption == .trackChange)
-//        btnShowSeekingControls.onIf(controlsPrefs.trackChangeOrSeekingOption == .seeking)
+        let controlsPrefs = preferences.controlsPreferences.remoteControl
+        
+        btnEnableRemoteControl.onIf(controlsPrefs.enabled)
+        btnShowTrackChangeControls.onIf(controlsPrefs.trackChangeOrSeekingOption == .trackChange)
+        btnShowSeekingControls.onIf(controlsPrefs.trackChangeOrSeekingOption == .seeking)
     }
     
     @IBAction func trackChangeOrSeekingOptionsAction(_ sender: Any) {

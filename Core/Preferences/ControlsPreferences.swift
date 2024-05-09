@@ -18,9 +18,9 @@ class ControlsPreferences {
     var gestures: GesturesControlsPreferences
     var remoteControl: RemoteControlPreferences
     
-    init() {
+    init(legacyPreferences: LegacyControlsPreferences? = nil) {
         
-        mediaKeys = MediaKeysControlsPreferences()
+        mediaKeys = MediaKeysControlsPreferences(legacyPreferences: legacyPreferences?.mediaKeys)
         gestures = GesturesControlsPreferences()
         remoteControl = RemoteControlPreferences()
     }

@@ -14,17 +14,32 @@ import Foundation
 ///
 class MediaKeysControlsPreferences {
     
-    var enabled: Bool = true
-    var skipKeyBehavior: SkipKeyBehavior = .hybrid
-    var repeatSpeed: SkipKeyRepeatSpeed = .fast
-    
     private static let keyPrefix: String = "controls.mediaKeys"
-    
-    static let key_enabled: String = "\(keyPrefix).enabled"
-    static let key_skipKeyBehavior: String = "\(keyPrefix).skipKeyBehavior"
-    static let key_repeatSpeed: String = "\(keyPrefix).repeatSpeed"
-    
     private typealias Defaults = PreferencesDefaults.Controls.MediaKeys
+    
+    lazy var enabled: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enabled",
+                                                                    defaultValue: Defaults.enabled)
+    
+    lazy var skipKeyBehavior: UserPreference<SkipKeyBehavior> = .init(defaultsKey: "\(Self.keyPrefix).skipKey.behavior",
+                                                                    defaultValue: Defaults.skipKeyBehavior)
+    
+    lazy var skipKeyRepeatSpeed: UserPreference<SkipKeyRepeatSpeed> = .init(defaultsKey: "\(Self.keyPrefix).skipKey.repeatSpeed",
+                                                                    defaultValue: Defaults.skipKeyRepeatSpeed)
+    
+    init(legacyPreferences: LegacyMediaKeysControlsPreferences? = nil) {
+        
+        guard let legacyPreferences = legacyPreferences else {return}
+        
+        if let skipKeyBehavior = legacyPreferences.skipKeyBehavior {
+            self.skipKeyBehavior.value = skipKeyBehavior
+        }
+        
+        if let repeatSpeed = legacyPreferences.repeatSpeed {
+            self.skipKeyRepeatSpeed.value = repeatSpeed
+        }
+        
+        legacyPreferences.deleteAll()
+    }
 }
 
 enum SkipKeyBehavior: String, CaseIterable {

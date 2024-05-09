@@ -28,7 +28,9 @@ class ViewPreferences {
     // Only used when snapToWindows == true
     lazy var windowGap: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).snap.toWindows.gap",
                                                                     defaultValue: Defaults.windowGap)
-    init() {}
+    init(legacyPreferences: LegacyViewPreferences? = nil) {
+        legacyPreferences?.deleteAll()
+    }
 }
 
 #endif

@@ -76,6 +76,8 @@ class PlayQueuePreferences {
         if let openWithAddMode = legacyPreferences.openWithAddMode {
             self.openWithAddMode.value = .fromLegacyPlaylistTracksAddMode(openWithAddMode)
         }
+        
+        legacyPreferences.deleteAll()
     }
 }
 

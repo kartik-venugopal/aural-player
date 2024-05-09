@@ -56,5 +56,7 @@ class SoundPreferences {
         if let rememberEffectsSettingsOption = legacyPreferences.rememberEffectsSettingsOption {
             self.rememberEffectsSettingsForAllTracks.value = rememberEffectsSettingsOption == .allTracks
         }
+        
+        legacyPreferences.deleteAll()
     }
 }
