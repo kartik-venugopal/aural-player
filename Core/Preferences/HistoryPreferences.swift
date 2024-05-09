@@ -14,16 +14,19 @@ import Foundation
 ///
 class HistoryPreferences {
     
-    var recentlyAddedListSize: Int = 25
-    var recentlyPlayedListSize: Int = 25
+    lazy var recentItemsListSize: OptionalUserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).recentItems.listSize")
     
     private static let keyPrefix: String = "history"
-    
-    static let key_recentlyAddedListSize: String = "\(keyPrefix).recentlyAddedListSize"
-    static let key_recentlyPlayedListSize: String = "\(keyPrefix).recentlyPlayedListSize"
     
     private typealias Defaults = PreferencesDefaults.History
     
     init() {
     }
+}
+
+// TODO: ???
+enum TrackListMenuItemAction: String, Codable {
+    
+    case enqueue
+    case enqueueAndPlay
 }

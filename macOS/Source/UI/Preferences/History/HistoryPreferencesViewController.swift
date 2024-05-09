@@ -11,24 +11,34 @@ import Cocoa
 
 class HistoryPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var recentlyAddedListSizeMenu: NSPopUpButton!
-    @IBOutlet weak var recentlyPlayedListSizeMenu: NSPopUpButton!
+    @IBOutlet weak var btnLimitRecentItemsListSize: CheckBox!
+    @IBOutlet weak var recentItemsListSizeMenu: NSPopUpButton!
     
     override var nibName: String? {"HistoryPreferences"}
     
     var preferencesView: NSView {
-        return self.view
+        view
     }
     
     func resetFields() {
         
-//        let historyPrefs = preferences.historyPreferences
-//        
-//        let recentlyAddedListSize = historyPrefs.recentlyAddedListSize
-//        let recentlyPlayedListSize = historyPrefs.recentlyPlayedListSize
-//        
-//        selectItemWithTag(recentlyAddedListSizeMenu, recentlyAddedListSize)
-//        selectItemWithTag(recentlyPlayedListSizeMenu, recentlyPlayedListSize)
+        let historyPrefs = preferences.historyPreferences
+        
+        if let recentItemsListSize = historyPrefs.recentItemsListSize.value {
+            
+            btnLimitRecentItemsListSize.on()
+            recentItemsListSizeMenu.selectItem(withTag: recentItemsListSize)
+            recentItemsListSizeMenu.enable()
+            
+        } else {
+            
+            btnLimitRecentItemsListSize.off()
+            recentItemsListSizeMenu.disable()
+        }
+    }
+    
+    @IBAction func limitRecentItemsListSizeAction(_ sender: CheckBox) {
+        recentItemsListSizeMenu.enableIf(btnLimitRecentItemsListSize.isOn)
     }
     
     private func selectItemWithTag(_ list: NSPopUpButton, _ tag: Int) {
@@ -37,11 +47,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
     
     func save() throws {
         
-//        let historyPrefs = preferences.historyPreferences
-//        
-//        historyPrefs.recentlyAddedListSize = recentlyAddedListSizeMenu.selectedTag()
-//        historyPrefs.recentlyPlayedListSize = recentlyPlayedListSizeMenu.selectedTag()
-//        
-//        historyDelegate.resizeLists(historyPrefs.recentlyAddedListSize, historyPrefs.recentlyPlayedListSize)
+        let historyPrefs = preferences.historyPreferences
+        historyPrefs.recentItemsListSize.value = btnLimitRecentItemsListSize.isOn ? recentItemsListSizeMenu.selectedTag() : nil
     }
 }

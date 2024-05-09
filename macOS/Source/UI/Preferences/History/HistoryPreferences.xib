@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="HistoryPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="recentlyAddedListSizeMenu" destination="YE6-qq-eO3" id="wpe-0i-bEe"/>
-                <outlet property="recentlyPlayedListSizeMenu" destination="IaC-hx-OQy" id="362-XW-aZH"/>
+                <outlet property="btnLimitRecentItemsListSize" destination="OY3-NU-4Ab" id="Xnj-da-0QB"/>
+                <outlet property="recentItemsListSizeMenu" destination="YE6-qq-eO3" id="YBd-4Y-bzJ"/>
                 <outlet property="view" destination="R9F-WR-jFo" id="UjS-bb-vF7"/>
             </connections>
         </customObject>
@@ -19,50 +19,28 @@
             <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MRu-eL-mLI" userLabel="Recently added list size">
-                    <rect key="frame" x="18" y="437" width="181" height="20"/>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OY3-NU-4Ab" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="29" y="423.5" width="309" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Recently added items list" id="vqH-Kv-VT8">
+                    <buttonCell key="cell" type="check" title="Limit the size of the 'Recent items' list" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="o9R-Ka-SJj">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YE6-qq-eO3" userLabel="Recently added list size menu">
-                    <rect key="frame" x="224" y="433" width="186" height="26"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="limitRecentItemsListSizeAction:" target="-2" id="Lgy-g0-wBk"/>
+                    </connections>
+                </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YE6-qq-eO3" userLabel="Recent items list size menu">
+                    <rect key="frame" x="351" y="418" width="186" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Remember last 25 items" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="25" imageScaling="proportionallyDown" inset="2" selectedItem="4mD-At-dvM" id="sLQ-o8-592" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="push" title="Remember last 25 items" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="25" imageScaling="proportionallyDown" inset="2" selectedItem="4mD-At-dvM" id="sLQ-o8-592" userLabel="Menu">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="10" name="Play-Regular"/>
-                        <menu key="menu" id="ZEY-rM-KMg">
+                        <menu key="menu" showsStateColumn="NO" id="ZEY-rM-KMg">
                             <items>
-                                <menuItem title="Remember last 10 items" tag="10" id="br7-TG-hEw"/>
                                 <menuItem title="Remember last 25 items" state="on" tag="25" id="4mD-At-dvM"/>
                                 <menuItem title="Remember last 50 items" tag="50" id="0F1-Pb-EJC"/>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aO3-S9-PPP" userLabel="Recently played list size">
-                    <rect key="frame" x="18" y="401" width="188" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Recently played items list" id="Qol-VI-smE">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaC-hx-OQy" userLabel="Recently added list size menu">
-                    <rect key="frame" x="225" y="397" width="185" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Remember last 25 items" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="25" imageScaling="proportionallyDown" inset="2" selectedItem="j8n-BZ-j2v" id="hK9-7m-63c" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="Play-Regular"/>
-                        <menu key="menu" id="XnZ-Fn-Un5">
-                            <items>
-                                <menuItem title="Remember last 10 items" tag="10" id="v9a-1f-5dd"/>
-                                <menuItem title="Remember last 25 items" state="on" tag="25" id="j8n-BZ-j2v"/>
-                                <menuItem title="Remember last 50 items" tag="50" id="ddE-w9-9dv"/>
+                                <menuItem title="Remember last 100 items" tag="100" id="br7-TG-hEw"/>
                             </items>
                         </menu>
                     </popUpButtonCell>

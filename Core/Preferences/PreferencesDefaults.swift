@@ -81,9 +81,7 @@ struct PreferencesDefaults {
     /// An enumeration of default values for history preferences.
     ///
     struct History {
-        
-        static let recentlyAddedListSize: Int = 25
-        static let recentlyPlayedListSize: Int = 25
+        static let recentItemsListSize: Int? = nil
     }
     
     ///
