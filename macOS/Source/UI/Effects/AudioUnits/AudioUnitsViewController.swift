@@ -15,7 +15,7 @@ import AVFoundation
  */
 class AudioUnitsViewController: NSViewController {
     
-    override var nibName: String? {"AudioUnits"}
+    override var nibName: NSNib.Name? {"AudioUnits"}
     
     // ------------------------------------------------------------------------
     

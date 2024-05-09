@@ -38,7 +38,7 @@ class MainWindowController: NSWindowController {
     
     lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, settingsMenuIconItem]
     
-    override var windowNibName: String? {"MainWindow"}
+    override var windowNibName: NSNib.Name? {"MainWindow"}
     
     lazy var messenger = Messenger(for: self)
     

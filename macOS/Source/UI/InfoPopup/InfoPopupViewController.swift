@@ -22,7 +22,7 @@ class InfoPopupViewController: SingletonPopoverViewController {
     // Timer used to auto-hide the popover once it is shown
     private var viewHidingTimer: Timer?
     
-    override var nibName: String? {"InfoPopup"}
+    override var nibName: NSNib.Name? {"InfoPopup"}
     
     // Shows a message and then auto-hides the view.
     func showMessage(_ message: String, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {

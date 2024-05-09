@@ -12,12 +12,12 @@ import Cocoa
 
 class LibraryBuildProgressViewController: NSViewController {
     
-    override var nibName: String? {"LibraryBuildProgress"}
+    override var nibName: NSNib.Name? {"LibraryBuildProgress"}
 }
 
 class LibraryBuildProgressWindowController: NSWindowController {
     
-//    override var nibName: String? {"LibraryBuildProgress"}
+//    override var nibName: NSNib.Name? {"LibraryBuildProgress"}
     override var windowNibName: NSNib.Name? {"LibraryBuildProgress"}
     
     @IBOutlet weak var buildProgressSpinner: ProgressArc!

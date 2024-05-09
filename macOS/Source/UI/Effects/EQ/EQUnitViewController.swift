@@ -14,7 +14,7 @@ import Cocoa
  */
 class EQUnitViewController: EffectsUnitViewController {
     
-    override var nibName: String? {"EQUnit"}
+    override var nibName: NSNib.Name? {"EQUnit"}
     
     // ------------------------------------------------------------------------
     

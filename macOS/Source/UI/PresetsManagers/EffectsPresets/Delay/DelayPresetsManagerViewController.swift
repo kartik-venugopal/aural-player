@@ -13,7 +13,7 @@ class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewControl
     
     @IBOutlet weak var delayView: DelayUnitView!
     
-    override var nibName: String? {"DelayPresetsManager"}
+    override var nibName: NSNib.Name? {"DelayPresetsManager"}
     
     var delayUnit: DelayUnitDelegateProtocol = audioGraphDelegate.delayUnit
     

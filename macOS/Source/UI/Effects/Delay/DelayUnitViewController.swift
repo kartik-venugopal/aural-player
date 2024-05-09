@@ -14,7 +14,7 @@ import Cocoa
  */
 class DelayUnitViewController: EffectsUnitViewController {
     
-    override var nibName: String? {"DelayUnit"}
+    override var nibName: NSNib.Name? {"DelayUnit"}
     
     // ------------------------------------------------------------------------
     

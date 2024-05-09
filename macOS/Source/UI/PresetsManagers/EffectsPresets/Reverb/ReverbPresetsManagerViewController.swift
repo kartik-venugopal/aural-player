@@ -13,7 +13,7 @@ class ReverbPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     
     @IBOutlet weak var reverbView: ReverbUnitView!
     
-    override var nibName: String? {"ReverbPresetsManager"}
+    override var nibName: NSNib.Name? {"ReverbPresetsManager"}
     
     var reverbUnit: ReverbUnitDelegateProtocol {graph.reverbUnit}
     

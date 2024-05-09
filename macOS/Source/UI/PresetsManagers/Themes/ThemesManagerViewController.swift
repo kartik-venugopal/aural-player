@@ -17,7 +17,7 @@ class ThemesManagerViewController: PresetsManagerViewController {
     // A view that gives the user a visual preview of what each theme looks like.
     @IBOutlet weak var previewView: ThemePreviewView!
     
-    override var nibName: String? {"ThemesManager"}
+    override var nibName: NSNib.Name? {"ThemesManager"}
     
     override var numberOfPresets: Int {themesManager.numberOfUserDefinedObjects}
     

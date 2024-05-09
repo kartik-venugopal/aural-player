@@ -12,7 +12,7 @@ import Cocoa
 
 class LibraryWindowController: NSWindowController {
     
-    override var windowNibName: String? {"LibraryWindow"}
+    override var windowNibName: NSNib.Name? {"LibraryWindow"}
     
     @IBOutlet weak var rootContainer: NSBox!
     @IBOutlet weak var controlsBox: NSBox!

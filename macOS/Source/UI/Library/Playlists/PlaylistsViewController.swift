@@ -12,7 +12,7 @@ import Cocoa
 
 class PlaylistsViewController: NSViewController {
     
-    override var nibName: String? {"Playlists"}
+    override var nibName: NSNib.Name? {"Playlists"}
     
     @IBOutlet weak var tabGroup: NSTabView!
     

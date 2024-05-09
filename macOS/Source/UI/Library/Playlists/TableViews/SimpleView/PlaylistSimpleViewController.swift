@@ -16,7 +16,7 @@ class PlaylistSimpleViewController: PlaylistViewController {
 //        .simple
 //    }
     
-    override var nibName: String? {"PlaylistSimpleView"}
+    override var nibName: NSNib.Name? {"PlaylistSimpleView"}
     
     override var rowHeight: CGFloat {30}
     

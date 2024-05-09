@@ -12,7 +12,7 @@ import Cocoa
 
 class PlayQueueContainerViewController: NSViewController {
     
-    override var nibName: String? {"PlayQueueContainer"}
+    override var nibName: NSNib.Name? {"PlayQueueContainer"}
     
     @IBOutlet weak var lblCaption: NSTextField!
     @IBOutlet weak var lblTracksSummary: NSTextField!

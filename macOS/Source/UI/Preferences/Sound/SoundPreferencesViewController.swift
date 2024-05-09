@@ -12,7 +12,7 @@ import Cocoa
 
 class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    override var nibName: String? {"SoundPreferences"}
+    override var nibName: NSNib.Name? {"SoundPreferences"}
     
     var preferencesView: NSView {self.view}
     

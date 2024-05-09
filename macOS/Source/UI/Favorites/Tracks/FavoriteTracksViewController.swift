@@ -12,7 +12,7 @@ import AppKit
 
 class FavoriteTracksViewController: FavoritesTableViewController {
     
-    override var nibName: String? {"FavoriteTracks"}
+    override var nibName: NSNib.Name? {"FavoriteTracks"}
     
     // Override this !!!
     @objc override var numberOfFavorites: Int {

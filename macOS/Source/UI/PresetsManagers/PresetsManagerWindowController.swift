@@ -26,7 +26,7 @@ class PresetsManagerWindowController: SingletonWindowController, ModalComponentP
     private lazy var effectsPresetsManagerViewLoader: LazyViewLoader<EffectsPresetsManagerViewController> = LazyViewLoader()
     private lazy var effectsPresetsManagerView: NSView = effectsPresetsManagerViewLoader.view
     
-    override var windowNibName: String? {"PresetsManagerWindow"}
+    override var windowNibName: NSNib.Name? {"PresetsManagerWindow"}
     
     private var addedViews: Set<NSView> = Set()
     

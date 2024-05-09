@@ -12,7 +12,7 @@ import Cocoa
 
 class LibrarySidebarViewController: NSViewController {
     
-    override var nibName: String? {"LibrarySidebar"}
+    override var nibName: NSNib.Name? {"LibrarySidebar"}
     
     @IBOutlet weak var sidebarView: NSOutlineView!
     

@@ -11,7 +11,7 @@ import Cocoa
 
 class AudioUnitEditorDialogController: NSWindowController {
     
-    override var windowNibName: String? {"AudioUnitEditorDialog"}
+    override var windowNibName: NSNib.Name? {"AudioUnitEditorDialog"}
     
     // ------------------------------------------------------------------------
     

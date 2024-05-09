@@ -13,7 +13,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     
     @IBOutlet weak var sidebarView: TuneBrowserOutlineView!
     
-    override var nibName: String? {"Sidebar"}
+    override var nibName: NSNib.Name? {"Sidebar"}
     
     private let size14: NSFont = NSFont(name: "Play Regular", size: 13)!
     

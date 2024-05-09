@@ -11,7 +11,7 @@ import Cocoa
 
 class MasterUnitViewController: EffectsUnitViewController {
     
-    override var nibName: String? {"MasterUnit"}
+    override var nibName: NSNib.Name? {"MasterUnit"}
     
     // ------------------------------------------------------------------------
     

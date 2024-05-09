@@ -12,7 +12,7 @@ import Cocoa
 
 class EffectsContainerViewController: NSViewController {
     
-    override var nibName: String? {"EffectsContainer"}
+    override var nibName: NSNib.Name? {"EffectsContainer"}
     
     // ------------------------------------------------------------------------
     

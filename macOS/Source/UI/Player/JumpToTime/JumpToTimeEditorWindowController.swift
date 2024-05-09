@@ -11,7 +11,7 @@ import Cocoa
 
 class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate {
     
-    override var windowNibName: String? {"JumpToTimeEditorDialog"}
+    override var windowNibName: NSNib.Name? {"JumpToTimeEditorDialog"}
     
     @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var lblTrackDuration: NSTextField!

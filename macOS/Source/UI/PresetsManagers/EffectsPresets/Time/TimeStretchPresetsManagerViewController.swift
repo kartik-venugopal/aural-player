@@ -13,7 +13,7 @@ class TimeStretchPresetsManagerViewController: EffectsPresetsManagerGenericViewC
     
     @IBOutlet weak var timeView: TimeStretchUnitView!
     
-    override var nibName: String? {"TimeStretchPresetsManager"}
+    override var nibName: NSNib.Name? {"TimeStretchPresetsManager"}
     
     var timeStretchUnit: TimeStretchUnitDelegateProtocol = audioGraphDelegate.timeStretchUnit
     

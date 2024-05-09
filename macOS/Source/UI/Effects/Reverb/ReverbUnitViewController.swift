@@ -14,7 +14,7 @@ import Cocoa
  */
 class ReverbUnitViewController: EffectsUnitViewController {
     
-    override var nibName: String? {"ReverbUnit"}
+    override var nibName: NSNib.Name? {"ReverbUnit"}
     
     // ------------------------------------------------------------------------
     

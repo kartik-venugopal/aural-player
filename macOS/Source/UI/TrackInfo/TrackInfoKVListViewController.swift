@@ -12,7 +12,7 @@ import AppKit
 
 class TrackInfoKVListViewController: NSViewController, TrackInfoViewProtocol {
     
-    override var nibName: String? {"TrackInfoKVList"}
+    override var nibName: NSNib.Name? {"TrackInfoKVList"}
     
     var trackInfoSource: TrackInfoSource {
         MetadataTrackInfoSource.instance

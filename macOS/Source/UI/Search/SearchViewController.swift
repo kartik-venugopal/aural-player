@@ -12,7 +12,7 @@ import Cocoa
 
 class SearchViewController: NSViewController {
     
-    override var nibName: String? {"Search"}
+    override var nibName: NSNib.Name? {"Search"}
     
     @IBOutlet weak var searchField: NSSearchField!
     

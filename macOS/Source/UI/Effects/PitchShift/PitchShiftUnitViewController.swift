@@ -14,7 +14,7 @@ import Cocoa
  */
 class PitchShiftUnitViewController: EffectsUnitViewController {
     
-    override var nibName: String? {"PitchShiftUnit"}
+    override var nibName: NSNib.Name? {"PitchShiftUnit"}
     
     // ------------------------------------------------------------------------
     

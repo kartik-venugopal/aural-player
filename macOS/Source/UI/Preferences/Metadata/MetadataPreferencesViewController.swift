@@ -19,7 +19,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnEnableMusicBrainzOnDiskCoverArtCache: NSButton!
     @IBOutlet weak var btnDisableMusicBrainzOnDiskCoverArtCache: NSButton!
     
-    override var nibName: String? {"MetadataPreferences"}
+    override var nibName: NSNib.Name? {"MetadataPreferences"}
     
     var preferencesView: NSView {
         return self.view

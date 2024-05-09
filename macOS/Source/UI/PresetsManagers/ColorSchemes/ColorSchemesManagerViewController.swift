@@ -17,7 +17,7 @@ class ColorSchemesManagerViewController: PresetsManagerViewController {
     // A view that gives the user a visual preview of what each color scheme looks like.
     @IBOutlet weak var previewView: ColorSchemePreviewView!
     
-    override var nibName: String? {"ColorSchemesManager"}
+    override var nibName: NSNib.Name? {"ColorSchemesManager"}
     
     override var numberOfPresets: Int {colorSchemesManager.numberOfUserDefinedObjects}
     

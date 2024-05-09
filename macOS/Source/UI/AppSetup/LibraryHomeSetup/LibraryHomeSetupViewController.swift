@@ -12,7 +12,7 @@ import Cocoa
 
 class LibraryHomeSetupViewController: NSViewController {
     
-    override var nibName: String? {"LibraryHomeSetup"}
+    override var nibName: NSNib.Name? {"LibraryHomeSetup"}
     
     @IBOutlet weak var lblPath: NSTextField!
     lazy var openFolderDialog = DialogsAndAlerts.openFolderDialog

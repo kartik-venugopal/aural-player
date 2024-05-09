@@ -12,7 +12,7 @@ import Cocoa
 
 class SearchWindowController: NSWindowController {
     
-    override var windowNibName: String? {"SearchWindow"}
+    override var windowNibName: NSNib.Name? {"SearchWindow"}
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var btnClose: TintedImageButton!

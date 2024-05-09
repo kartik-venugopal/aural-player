@@ -13,7 +13,7 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     
     @IBOutlet weak var previewView: LayoutPreviewView!
     
-    override var nibName: String? {"LayoutsManager"}
+    override var nibName: NSNib.Name? {"LayoutsManager"}
     
     override var numberOfPresets: Int {windowLayoutsManager.numberOfUserDefinedObjects}
     

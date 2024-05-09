@@ -13,7 +13,7 @@ import OrderedCollections
 
 class AppSetupWindowController: NSWindowController {
     
-    override var windowNibName: String? {"AppSetupWindow"}
+    override var windowNibName: NSNib.Name? {"AppSetupWindow"}
     
     @IBOutlet weak var tabView: NSTabView!
     @IBOutlet weak var pathControl: NSPathControl!

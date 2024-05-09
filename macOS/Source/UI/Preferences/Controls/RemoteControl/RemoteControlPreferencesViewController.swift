@@ -16,7 +16,7 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
     @IBOutlet weak var btnShowTrackChangeControls: NSButton!
     @IBOutlet weak var btnShowSeekingControls: NSButton!
     
-    override var nibName: String? {"RemoteControlPreferences"}
+    override var nibName: NSNib.Name? {"RemoteControlPreferences"}
     
     var preferencesView: NSView {
         view

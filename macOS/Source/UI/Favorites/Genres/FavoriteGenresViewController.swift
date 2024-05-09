@@ -12,7 +12,7 @@ import AppKit
 
 class FavoriteGenresViewController: FavoritesTableViewController {
     
-    override var nibName: String? {"FavoriteGenres"}
+    override var nibName: NSNib.Name? {"FavoriteGenres"}
     
     override var numberOfFavorites: Int {
         favoritesDelegate.numberOfFavoriteGenres

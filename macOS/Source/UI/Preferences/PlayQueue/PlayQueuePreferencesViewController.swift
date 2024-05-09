@@ -39,7 +39,7 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
     @IBOutlet weak var btnOpenWithAppend: NSButton!
     @IBOutlet weak var btnOpenWithReplace: NSButton!
     
-    override var nibName: String? {"PlayQueuePreferences"}
+    override var nibName: NSNib.Name? {"PlayQueuePreferences"}
     
     var preferencesView: NSView {
         self.view

@@ -11,7 +11,7 @@ import Cocoa
 
 class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     
-    override var nibName: String? {"LyricsTrackInfo"}
+    override var nibName: NSNib.Name? {"LyricsTrackInfo"}
     
     @IBOutlet weak var textView: NSTextView! {
         

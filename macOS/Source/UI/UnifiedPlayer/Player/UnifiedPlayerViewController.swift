@@ -11,7 +11,7 @@ import Cocoa
 
 class UnifiedPlayerViewController: PlayerViewController {
     
-    override var nibName: String? {"UnifiedPlayer"}
+    override var nibName: NSNib.Name? {"UnifiedPlayer"}
     
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var controlsBox: NSBox!

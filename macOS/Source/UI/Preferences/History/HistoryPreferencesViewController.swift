@@ -14,7 +14,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
     @IBOutlet weak var btnLimitRecentItemsListSize: CheckBox!
     @IBOutlet weak var recentItemsListSizeMenu: NSPopUpButton!
     
-    override var nibName: String? {"HistoryPreferences"}
+    override var nibName: NSNib.Name? {"HistoryPreferences"}
     
     var preferencesView: NSView {
         view

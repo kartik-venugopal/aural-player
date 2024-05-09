@@ -12,7 +12,7 @@ import Cocoa
 
 class WindowLayoutSetupViewController: NSViewController {
     
-    override var nibName: String? {"WindowLayoutSetup"}
+    override var nibName: NSNib.Name? {"WindowLayoutSetup"}
     
     @IBOutlet weak var lblName: NSTextField!
     @IBOutlet weak var lblDescription: NSTextField!

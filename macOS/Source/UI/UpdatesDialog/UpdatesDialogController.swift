@@ -11,7 +11,7 @@ import Cocoa
 
 class UpdatesDialogController: NSWindowController, ModalComponentProtocol {
     
-    override var windowNibName: String? {"UpdatesDialog"}
+    override var windowNibName: NSNib.Name? {"UpdatesDialog"}
 
     @IBOutlet weak var lblNoUpdates: NSTextField!
     @IBOutlet weak var lblUpdateAvailable: NSTextField!

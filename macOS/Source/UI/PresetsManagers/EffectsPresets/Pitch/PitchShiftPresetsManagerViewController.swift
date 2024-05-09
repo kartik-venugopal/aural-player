@@ -13,7 +13,7 @@ class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewCo
     
     @IBOutlet weak var pitchView: PitchShiftUnitView!
     
-    override var nibName: String? {"PitchShiftPresetsManager"}
+    override var nibName: NSNib.Name? {"PitchShiftPresetsManager"}
     
     var pitchShiftUnit: PitchShiftUnitDelegateProtocol = audioGraphDelegate.pitchShiftUnit
     

@@ -13,7 +13,7 @@ class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController
     
     @IBOutlet weak var eqView: EQUnitView!
     
-    override var nibName: String? {"EQPresetsManager"}
+    override var nibName: NSNib.Name? {"EQPresetsManager"}
     
     var eqUnit: EQUnitDelegateProtocol {graph.eqUnit}
     

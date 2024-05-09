@@ -11,7 +11,7 @@ import Cocoa
 
 class BookmarksManagerViewController: NSViewController {
     
-    override var nibName: String? {"BookmarksManager"}
+    override var nibName: NSNib.Name? {"BookmarksManager"}
     
     @IBOutlet weak var containerBox: NSBox!
     

@@ -12,7 +12,7 @@ import AppKit
 
 class FuseViewController: NSViewController {
     
-    override var nibName: String? {"Fuse"}
+    override var nibName: NSNib.Name? {"Fuse"}
     
     @IBOutlet weak var imgBypass: EffectsUnitTriStateBypassImage!
     @IBOutlet weak var icon: EffectsUnitTriStateBypassImage!

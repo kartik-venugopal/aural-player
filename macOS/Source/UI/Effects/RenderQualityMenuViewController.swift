@@ -12,7 +12,7 @@ import Cocoa
 
 class RenderQualityMenuViewController: NSViewController {
     
-    override var nibName: String? {"RenderQualityMenu"}
+    override var nibName: NSNib.Name? {"RenderQualityMenu"}
     
     @IBOutlet weak var renderQualitySlider: NSSlider!
     @IBOutlet weak var lblRenderQuality: NSTextField!

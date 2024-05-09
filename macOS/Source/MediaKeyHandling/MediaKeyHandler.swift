@@ -25,7 +25,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
     
     private var keyRepeatInterval_msecs: Int {
         
-        switch preferences.repeatSpeed {
+        switch preferences.skipKeyRepeatSpeed.value {
             
         case .slow:
             
@@ -49,7 +49,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
     init(_ preferences: MediaKeysControlsPreferences) {
         
         self.preferences = preferences
-        messenger.subscribe(to: .Application.launched, handler: startMonitoring, filter: {[weak self] in self?.preferences.enabled ?? false})
+        messenger.subscribe(to: .Application.launched, handler: startMonitoring, filter: {[weak self] in self?.preferences.enabled.value ?? false})
     }
     
     func startMonitoring() {
@@ -90,7 +90,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
             
         default:
             
-            switch preferences.skipKeyBehavior {
+            switch preferences.skipKeyBehavior.value {
                 
             case .hybrid:
                 

@@ -13,7 +13,7 @@ import OrderedCollections
 
 class TuneBrowserViewController: NSViewController {
     
-    override var nibName: String? {"TuneBrowser"}
+    override var nibName: NSNib.Name? {"TuneBrowser"}
     
     @IBOutlet weak var rootContainer: NSBox!
     @IBOutlet weak var tabView: NSTabView!

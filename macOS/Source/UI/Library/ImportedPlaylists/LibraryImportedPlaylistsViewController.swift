@@ -12,7 +12,7 @@ import Cocoa
 
 class LibraryImportedPlaylistsViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource {
     
-    override var nibName: String? {"LibraryImportedPlaylists"}
+    override var nibName: NSNib.Name? {"LibraryImportedPlaylists"}
     
     @IBOutlet weak var outlineView: NSOutlineView!
     

@@ -12,7 +12,7 @@ import AppKit
 
 class PlaylistContainerViewController: NSViewController {
     
-    override var nibName: String? {"PlaylistContainer"}
+    override var nibName: NSNib.Name? {"PlaylistContainer"}
     
     unowned var playlist: Playlist!
     

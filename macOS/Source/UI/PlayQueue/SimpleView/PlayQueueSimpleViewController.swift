@@ -16,7 +16,7 @@ class PlayQueueSimpleViewController: PlayQueueViewController {
         .simple
     }
     
-    override var nibName: String? {"PlayQueueSimpleView"}
+    override var nibName: NSNib.Name? {"PlayQueueSimpleView"}
     
     override var rowHeight: CGFloat {30}
     

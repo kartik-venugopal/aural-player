@@ -41,7 +41,7 @@ class EffectsPresetsManagerViewController: NSViewController {
     
     private lazy var messenger = Messenger(for: self)
     
-    override var nibName: String? {"EffectsPresetsManager"}
+    override var nibName: NSNib.Name? {"EffectsPresetsManager"}
     
     override func viewDidLoad() {
         

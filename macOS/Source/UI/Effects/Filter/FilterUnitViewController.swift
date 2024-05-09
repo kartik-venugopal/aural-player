@@ -14,7 +14,7 @@ import Cocoa
  */
 class FilterUnitViewController: EffectsUnitViewController {
     
-    override var nibName: String? {"FilterUnit"}
+    override var nibName: NSNib.Name? {"FilterUnit"}
     
     // ------------------------------------------------------------------------
     

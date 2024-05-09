@@ -14,7 +14,7 @@ import Cocoa
  */
 class TimeStretchUnitViewController: EffectsUnitViewController {
     
-    override var nibName: String? {"TimeStretchUnit"}
+    override var nibName: NSNib.Name? {"TimeStretchUnit"}
     
     // ------------------------------------------------------------------------
     

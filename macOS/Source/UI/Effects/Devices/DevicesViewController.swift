@@ -12,7 +12,7 @@ import Cocoa
 
 class DevicesViewController: NSViewController {
     
-    override var nibName: String? {"Devices"}
+    override var nibName: NSNib.Name? {"Devices"}
     
     // ------------------------------------------------------------------------
     

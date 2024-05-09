@@ -26,7 +26,7 @@ class WidgetPlayerWindowController: NSWindowController, NSWindowDelegate, NSMenu
     
     private let uiState: WidgetPlayerUIState = widgetPlayerUIState
     
-    override var windowNibName: String? {"WidgetPlayer"}
+    override var windowNibName: NSNib.Name? {"WidgetPlayer"}
     
     private var appMovingWindow: Bool = false
     

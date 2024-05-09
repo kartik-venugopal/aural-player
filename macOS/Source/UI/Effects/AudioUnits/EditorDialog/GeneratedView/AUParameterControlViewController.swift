@@ -13,7 +13,7 @@ import AudioToolbox
 
 class AUParameterControlViewController: NSViewController {
     
-    override var nibName: String? {"AUParameterControl"}
+    override var nibName: NSNib.Name? {"AUParameterControl"}
     
     @IBOutlet weak var lblName: NSTextField!
     @IBOutlet weak var lblMinValue: NSTextField!

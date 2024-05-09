@@ -30,7 +30,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     
     private lazy var messenger = Messenger(for: self)
     
-    override var nibName: String? {"MasterPresetsManager"}
+    override var nibName: NSNib.Name? {"MasterPresetsManager"}
     
     var masterUnit: MasterUnitDelegateProtocol {graph.masterUnit}
     

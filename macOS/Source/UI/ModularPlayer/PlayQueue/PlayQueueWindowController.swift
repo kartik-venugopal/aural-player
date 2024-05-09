@@ -12,7 +12,7 @@ import Cocoa
 
 class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
 
-    override var windowNibName: String? {"PlayQueueWindow"}
+    override var windowNibName: NSNib.Name? {"PlayQueueWindow"}
     
     @IBOutlet weak var rootContainer: NSBox!
     @IBOutlet weak var btnClose: TintedImageButton!

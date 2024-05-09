@@ -12,7 +12,7 @@ import Cocoa
 
 class LibraryTracksViewController: TrackListTableViewController {
     
-    override var nibName: String? {"LibraryTracks"}
+    override var nibName: NSNib.Name? {"LibraryTracks"}
     
     @IBOutlet weak var rootContainer: NSBox!
     @IBOutlet weak var lblCaption: NSTextField!

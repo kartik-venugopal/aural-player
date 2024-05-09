@@ -12,7 +12,7 @@ import Cocoa
 
 class PresentationModeSetupViewController: NSViewController {
     
-    override var nibName: String? {"PresentationModeSetup"}
+    override var nibName: NSNib.Name? {"PresentationModeSetup"}
     
     @IBOutlet weak var btnModularMode: NSButton!
     @IBOutlet weak var btnUnifiedMode: NSButton!

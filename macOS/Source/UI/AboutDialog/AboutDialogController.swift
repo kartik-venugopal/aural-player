@@ -11,7 +11,7 @@ import Cocoa
 
 class AboutDialogController: NSWindowController, ModalComponentProtocol {
     
-    override var windowNibName: String? {"AboutDialog"}
+    override var windowNibName: NSNib.Name? {"AboutDialog"}
     
     @IBOutlet weak var versionLabel: NSTextField! {
         

@@ -12,7 +12,7 @@ import AVFoundation
 
 class VisualizerWindowController: NSWindowController, NSWindowDelegate {
     
-    override var windowNibName: String? {"Visualizer"}
+    override var windowNibName: NSNib.Name? {"Visualizer"}
     
     @IBOutlet weak var containerBox: VisualizerContainer!
     @IBOutlet weak var tabView: NSTabView!

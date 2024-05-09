@@ -25,7 +25,7 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var volumeControlSensitivityMenu: NSPopUpButton!
     @IBOutlet weak var seekSensitivityMenu: NSPopUpButton!
     
-    override var nibName: String? {"GesturesPreferences"}
+    override var nibName: NSNib.Name? {"GesturesPreferences"}
     
     override func viewDidLoad() {
         

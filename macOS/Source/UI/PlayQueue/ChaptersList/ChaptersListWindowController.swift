@@ -18,7 +18,7 @@ class ChaptersListWindowController: NSWindowController, ModalComponentProtocol {
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var viewController: ChaptersListViewController!
     
-    override var windowNibName: String? {"ChaptersList"}
+    override var windowNibName: NSNib.Name? {"ChaptersList"}
     
     private lazy var messenger = Messenger(for: self)
     

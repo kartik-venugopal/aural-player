@@ -19,7 +19,7 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     private var subViews: [PreferencesViewProtocol] = []
     
-    override var nibName: String? {"ControlsPreferences"}
+    override var nibName: NSNib.Name? {"ControlsPreferences"}
     
     override func viewDidLoad() {
         

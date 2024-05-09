@@ -11,7 +11,7 @@ import Cocoa
 
 class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
     
-    override var nibName: String? {"CoverArtTrackInfo"}
+    override var nibName: NSNib.Name? {"CoverArtTrackInfo"}
     
     // Displays track artwork
     @IBOutlet weak var artView: NSImageView!
@@ -113,5 +113,5 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
 
 class CompactPlayerCoverArtTrackInfoViewController: CoverArtTrackInfoViewController {
     
-    override var nibName: String? {"CompactPlayerCoverArtTrackInfo"}
+    override var nibName: NSNib.Name? {"CompactPlayerCoverArtTrackInfo"}
 }

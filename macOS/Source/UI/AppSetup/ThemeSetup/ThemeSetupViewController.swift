@@ -12,7 +12,7 @@ import Cocoa
 
 class ThemeSetupViewController: NSViewController {
     
-    override var nibName: String? {"ThemeSetup"}
+    override var nibName: NSNib.Name? {"ThemeSetup"}
     
     @IBOutlet weak var btnFontScheme: NSPopUpButton!
     @IBOutlet weak var btnColorScheme: NSPopUpButton!

@@ -12,7 +12,7 @@ import Cocoa
 
 class FilterBandEditorDialogController: NSWindowController {
     
-    override var windowNibName: String? {"FilterBandEditorDialog"}
+    override var windowNibName: NSNib.Name? {"FilterBandEditorDialog"}
     
     @IBOutlet weak var lblCaption: NSTextField!
     @IBOutlet weak var btnClose: NSButton!

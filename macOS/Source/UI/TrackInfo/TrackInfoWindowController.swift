@@ -14,7 +14,7 @@ import Cocoa
 */
 class TrackInfoWindowController: NSWindowController {
     
-    override var windowNibName: String? {"TrackInfoWindow"}
+    override var windowNibName: NSNib.Name? {"TrackInfoWindow"}
     
     @IBOutlet weak var btnClose: NSButton!
     private lazy var btnCloseConstraints: LayoutConstraintsManager = LayoutConstraintsManager(for: btnClose)

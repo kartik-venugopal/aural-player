@@ -13,7 +13,7 @@ import AudioToolbox
 
 class AUControlViewController: NSViewController {
     
-    override var nibName: String? {"AUControl"}
+    override var nibName: NSNib.Name? {"AUControl"}
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var containerView: NSView!

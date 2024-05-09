@@ -11,7 +11,7 @@ import Cocoa
 
 class TuneBrowserTabViewController: NSViewController, NSMenuDelegate, FileSystemUIObserver {
     
-    override var nibName: String? {"TuneBrowserTab"}
+    override var nibName: NSNib.Name? {"TuneBrowserTab"}
     
     @IBOutlet weak var rootContainer: NSBox!
     var pathControlWidget: NSPathControl!

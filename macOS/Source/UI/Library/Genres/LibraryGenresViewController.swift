@@ -12,7 +12,7 @@ import Cocoa
 
 class LibraryGenresViewController: TrackListOutlineViewController {
     
-    override var nibName: String? {"LibraryGenres"}
+    override var nibName: NSNib.Name? {"LibraryGenres"}
     
     @IBOutlet weak var rootContainer: NSBox!
     @IBOutlet weak var lblCaption: NSTextField!

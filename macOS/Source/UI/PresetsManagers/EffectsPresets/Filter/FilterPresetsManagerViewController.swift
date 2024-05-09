@@ -16,7 +16,7 @@ class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     @IBOutlet weak var bandsTable: NSTableView!
     @IBOutlet weak var tableViewDelegate: FilterPresetBandsTableViewDelegate!
     
-    override var nibName: String? {"FilterPresetsManager"}
+    override var nibName: NSNib.Name? {"FilterPresetsManager"}
     
     var filterUnit: FilterUnitDelegateProtocol = audioGraphDelegate.filterUnit
     

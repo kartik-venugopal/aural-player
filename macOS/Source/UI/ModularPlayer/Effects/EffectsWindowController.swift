@@ -15,7 +15,7 @@ import Cocoa
 
 class EffectsWindowController: NSWindowController {
     
-    override var windowNibName: String? {"EffectsWindow"}
+    override var windowNibName: NSNib.Name? {"EffectsWindow"}
     
     // ------------------------------------------------------------------------
     

@@ -17,7 +17,7 @@ class FontSchemesManagerViewController: PresetsManagerViewController {
     // A view that gives the user a visual preview of what each font scheme looks like.
     @IBOutlet weak var previewView: FontSchemePreviewView!
     
-    override var nibName: String? {"FontSchemesManager"}
+    override var nibName: NSNib.Name? {"FontSchemesManager"}
     
     override var numberOfPresets: Int {fontSchemesManager.numberOfUserDefinedObjects}
     

@@ -12,7 +12,7 @@ import Cocoa
 
 class UnifiedPlayerWindowController: NSWindowController {
     
-    override var windowNibName: String? {"UnifiedPlayerWindow"}
+    override var windowNibName: NSNib.Name? {"UnifiedPlayerWindow"}
     
     @IBOutlet weak var logoImage: TintedImageView!
     @IBOutlet weak var rootContainerBox: NSBox!

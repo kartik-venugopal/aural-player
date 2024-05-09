@@ -31,7 +31,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
-    override var windowNibName: String? {"Preferences"}
+    override var windowNibName: NSNib.Name? {"Preferences"}
     
     override func windowDidLoad() {
         

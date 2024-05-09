@@ -12,7 +12,7 @@ import Cocoa
 
 class UnifiedPlayerSidebarViewController: NSViewController {
     
-    override var nibName: String? {"UnifiedPlayerSidebar"}
+    override var nibName: NSNib.Name? {"UnifiedPlayerSidebar"}
     
     @IBOutlet weak var sidebarView: NSOutlineView!
     

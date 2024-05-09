@@ -21,32 +21,32 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
     
     @IBOutlet weak var repeatSpeedMenu: NSPopUpButton!
     
-    override var nibName: String? {"MediaKeysPreferences"}
+    override var nibName: NSNib.Name? {"MediaKeysPreferences"}
     
     var preferencesView: NSView {
-        return self.view
+        view
     }
     
     func resetFields() {
         
-//        let controlsPrefs = preferences.controlsPreferences.mediaKeys
-//        
-//        btnRespondToMediaKeys.onIf(controlsPrefs.enabled)
-//        mediaKeyResponseAction(self)
-//        
-//        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly].forEach {$0?.off()}
-//        
-//        switch controlsPrefs.skipKeyBehavior {
-//            
-//        case .hybrid:   btnHybrid.on()
-//            
-//        case .trackChangesOnly:     btnTrackChangesOnly.on()
-//            
-//        case .seekingOnly:          btnSeekingOnly.on()
-//            
-//        }
-//        
-//        repeatSpeedMenu.selectItem(withTitle: controlsPrefs.repeatSpeed.rawValue.capitalized)
+        let controlsPrefs = preferences.controlsPreferences.mediaKeys
+        
+        btnRespondToMediaKeys.onIf(controlsPrefs.enabled.value)
+        mediaKeyResponseAction(self)
+        
+        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly].forEach {$0?.off()}
+        
+        switch controlsPrefs.skipKeyBehavior.value {
+            
+        case .hybrid:   btnHybrid.on()
+            
+        case .trackChangesOnly:     btnTrackChangesOnly.on()
+            
+        case .seekingOnly:          btnSeekingOnly.on()
+            
+        }
+        
+        repeatSpeedMenu.selectItem(withTitle: controlsPrefs.skipKeyRepeatSpeed.value.rawValue.capitalized)
     }
     
     @IBAction func mediaKeyResponseAction(_ sender: Any) {
@@ -60,17 +60,17 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
         
         let controlsPrefs = preferences.controlsPreferences
         
-        controlsPrefs.mediaKeys.enabled = btnRespondToMediaKeys.isOn
+        controlsPrefs.mediaKeys.enabled.value = btnRespondToMediaKeys.isOn
         
         if btnHybrid.isOn {
-            controlsPrefs.mediaKeys.skipKeyBehavior = .hybrid
+            controlsPrefs.mediaKeys.skipKeyBehavior.value = .hybrid
         } else if btnTrackChangesOnly.isOn {
-            controlsPrefs.mediaKeys.skipKeyBehavior = .trackChangesOnly
+            controlsPrefs.mediaKeys.skipKeyBehavior.value = .trackChangesOnly
         } else {
-            controlsPrefs.mediaKeys.skipKeyBehavior = .seekingOnly
+            controlsPrefs.mediaKeys.skipKeyBehavior.value = .seekingOnly
         }
         
-        controlsPrefs.mediaKeys.repeatSpeed = SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased())!
-        controlsPrefs.mediaKeys.enabled ? mediaKeyHandler.startMonitoring() : mediaKeyHandler.stopMonitoring()
+        controlsPrefs.mediaKeys.skipKeyRepeatSpeed.value = SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased())!
+        controlsPrefs.mediaKeys.enabled.value ? mediaKeyHandler.startMonitoring() : mediaKeyHandler.stopMonitoring()
     }
 }

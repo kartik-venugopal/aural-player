@@ -16,7 +16,7 @@ class PlayQueueExpandedViewController: PlayQueueViewController {
         .expanded
     }
     
-    override var nibName: String? {"PlayQueueExpandedView"}
+    override var nibName: NSNib.Name? {"PlayQueueExpandedView"}
     
     override var rowHeight: CGFloat {50}
     

@@ -11,7 +11,7 @@ import Cocoa
 
 class FavoritesManagerViewController: NSViewController {
     
-    override var nibName: String? {"FavoritesManager"}
+    override var nibName: NSNib.Name? {"FavoritesManager"}
     
     @IBOutlet weak var containerBox: NSBox!
     
