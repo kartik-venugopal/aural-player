@@ -48,6 +48,15 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
     func save() throws {
         
         let historyPrefs = preferences.historyPreferences
+        
+        let listSizeBeforeChange = historyPrefs.recentItemsListSize.value ?? Int.max
         historyPrefs.recentItemsListSize.value = btnLimitRecentItemsListSize.isOn ? recentItemsListSizeMenu.selectedTag() : nil
+        let listSizeAfterChange = historyPrefs.recentItemsListSize.value ?? Int.max
+        
+        if listSizeAfterChange < listSizeBeforeChange {
+            
+            // Need to trim "Recent Items" list
+            historyDelegate.resizeRecentItemsList(to: listSizeAfterChange)
+        }
     }
 }

@@ -84,7 +84,9 @@ extension PlayQueueDelegate {
             markNewEvent(forItem: existingHistoryItem)
             
         } else {
+            
             recentItems[trackKey] = TrackHistoryItem(track: track, lastEventTime: Date())
+            maintainListSize()
         }
     }
     
@@ -116,7 +118,9 @@ extension PlayQueueDelegate {
             markNewEvent(forItem: existingHistoryItem)
             
         } else {
+            
             recentItems[folderKey] = FolderHistoryItem(folder: folder, lastEventTime: Date())
+            maintainListSize()
         }
     }
     
@@ -143,7 +147,9 @@ extension PlayQueueDelegate {
             markNewEvent(forItem: existingHistoryItem)
             
         } else {
+            
             recentItems[playlistFileKey] = PlaylistFileHistoryItem(playlistFile: playlistFile, lastEventTime: Date())
+            maintainListSize()
         }
     }
     
@@ -172,7 +178,9 @@ extension PlayQueueDelegate {
             markNewEvent(forItem: existingHistoryItem)
             
         } else {
+            
             recentItems[groupKey] = GroupHistoryItem(groupName: group.name, groupType: group.type, lastEventTime: Date())
+            maintainListSize()
         }
     }
     
@@ -186,7 +194,9 @@ extension PlayQueueDelegate {
             markNewEvent(forItem: existingHistoryItem)
             
         } else {
+            
             recentItems[playlistKey] = PlaylistHistoryItem(playlistName: playlist.name, lastEventTime: Date())
+            maintainListSize()
         }
     }
     
@@ -269,10 +279,19 @@ extension PlayQueueDelegate {
 //        recentlyPlayedItems.remove(item)
     }
     
-    func resizeList(_ listSize: Int) {
+    func resizeRecentItemsList(to newListSize: Int) {
         
-//        recentlyPlayedItems.resize(recentlyPlayedListSize)
-//        messenger.publish(.history_updated)
+        guard recentItems.count > newListSize else {return}
+        
+        recentItems.removeFirst(recentItems.count - newListSize)
+        messenger.publish(.History.updated)
+    }
+    
+    private func maintainListSize() {
+        
+        if let maxListSize = preferences.historyPreferences.recentItemsListSize.value {
+            resizeRecentItemsList(to: maxListSize)
+        }
     }
     
     func clearAllHistory() {
