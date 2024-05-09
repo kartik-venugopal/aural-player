@@ -18,8 +18,6 @@ class SnappingWindow: NoTitleBarWindow {
     var snapped: Bool = false
     var snapLocation: NSPoint?
     
-    @IBInspectable var snapLevel: Int = 0
-    
     var userMovingWindow: Bool = false
     
     private static let snapProximity: CGFloat = 20

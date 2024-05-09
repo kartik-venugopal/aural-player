@@ -39,16 +39,12 @@ class SnappingWindowDelegate: NSObject, NSWindowDelegate {
     private func checkForSnapToWindows() -> Bool {
         
         guard viewPreferences.snapToWindows.value else {return false}
-        
-        // First check if window can be snapped to another app window
-        for mate in getCandidateWindowsForSnap() {
-            
-            if mate.isVisible && window.checkForSnap(to: mate) {
-                return true
-            }
-        }
-        
-        return false
+
+        // This window can be snapped to all visible windows except itself.
+        let snapCandidates = NSApp.windows.compactMap {$0 as? SnappingWindow}.filter {$0.isVisible && $0.identifier != self.window.identifier}
+
+        // Check if window can be snapped to another app window
+        return snapCandidates.contains(where: {window.checkForSnap(to: $0)})
     }
     
     private func checkForSnapToScreen() {
@@ -56,15 +52,5 @@ class SnappingWindowDelegate: NSObject, NSWindowDelegate {
         if viewPreferences.snapToScreen.value {
             window.checkForSnapToVisibleFrame()
         }
-    }
-    
-    // Sorted by order of relevance
-    private func getCandidateWindowsForSnap() -> [NSWindow] {
-        
-        let otherWindows: [SnappingWindow] = NSApp.windows.compactMap {$0 as? SnappingWindow}.filter {
-            $0.snapLevel <= self.window.snapLevel
-        }
-        
-        return otherWindows.sorted(by: {$0.snapLevel < $1.snapLevel})
     }
 }
