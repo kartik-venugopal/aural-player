@@ -2806,7 +2806,7 @@
 				3E6C0F2C25CEB98500BF0D07 /* Preferences.xib */,
 				3E6C0F2B25CEB98500BF0D07 /* PreferencesWindowController.swift */,
 				3EAFB60A267FF2B900F0DC96 /* PreferencesSliderCell.swift */,
-				3E6C0F2525CEB98500BF0D07 /* Playlist */,
+				3E6C0F2525CEB98500BF0D07 /* PlayQueue */,
 				3E6C0F2D25CEB98500BF0D07 /* Playback */,
 				3E6C0F3825CEB98600BF0D07 /* Sound */,
 				3E6C0F3525CEB98600BF0D07 /* View */,
@@ -2818,13 +2818,13 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
-		3E6C0F2525CEB98500BF0D07 /* Playlist */ = {
+		3E6C0F2525CEB98500BF0D07 /* PlayQueue */ = {
 			isa = PBXGroup;
 			children = (
 				3E6C0F2625CEB98500BF0D07 /* PlayQueuePreferences.xib */,
 				3E6C0F2725CEB98500BF0D07 /* PlayQueuePreferencesViewController.swift */,
 			);
-			path = Playlist;
+			path = PlayQueue;
 			sourceTree = "<group>";
 		};
 		3E6C0F2825CEB98500BF0D07 /* Controls */ = {
