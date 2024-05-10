@@ -12,12 +12,12 @@ import Cocoa
 class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     // Media keys response
-    @IBOutlet weak var btnRespondToMediaKeys: NSButton!
+    @IBOutlet weak var btnRespondToMediaKeys: CheckBox!
     
     // SKip key behavior
-    @IBOutlet weak var btnHybrid: NSButton!
-    @IBOutlet weak var btnTrackChangesOnly: NSButton!
-    @IBOutlet weak var btnSeekingOnly: NSButton!
+    @IBOutlet weak var btnHybrid: RadioButton!
+    @IBOutlet weak var btnTrackChangesOnly: RadioButton!
+    @IBOutlet weak var btnSeekingOnly: RadioButton!
     
     @IBOutlet weak var repeatSpeedMenu: NSPopUpButton!
     
@@ -49,8 +49,7 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
         repeatSpeedMenu.selectItem(withTitle: controlsPrefs.skipKeyRepeatSpeed.value.rawValue.capitalized)
     }
     
-    @IBAction func mediaKeyResponseAction(_ sender: Any) {
-    }
+    @IBAction func mediaKeyResponseAction(_ sender: Any) {}
     
     @IBAction func skipKeyBehaviorAction(_ sender: Any) {
         // Needed for radio button group
@@ -64,13 +63,15 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
         
         if btnHybrid.isOn {
             controlsPrefs.mediaKeys.skipKeyBehavior.value = .hybrid
+            
         } else if btnTrackChangesOnly.isOn {
             controlsPrefs.mediaKeys.skipKeyBehavior.value = .trackChangesOnly
+            
         } else {
             controlsPrefs.mediaKeys.skipKeyBehavior.value = .seekingOnly
         }
         
-        controlsPrefs.mediaKeys.skipKeyRepeatSpeed.value = SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased())!
+        controlsPrefs.mediaKeys.skipKeyRepeatSpeed.value = SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.MediaKeys.skipKeyRepeatSpeed
         controlsPrefs.mediaKeys.enabled.value ? mediaKeyHandler.startMonitoring() : mediaKeyHandler.stopMonitoring()
     }
 }
