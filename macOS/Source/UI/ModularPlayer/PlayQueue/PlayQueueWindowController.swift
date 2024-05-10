@@ -21,6 +21,8 @@ class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
     
     private lazy var containerViewController: PlayQueueContainerViewController = .init()
     
+    var eventMonitor: EventMonitor! = EventMonitor()
+    
     lazy var messenger: Messenger = Messenger(for: self)
     
     override func windowDidLoad() {
@@ -51,19 +53,21 @@ class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
         changeWindowCornerRadius(playerUIState.cornerRadius)
         messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        
+        setUpEventHandling()
     }
     
     func trackTransitioned(_ notif: TrackTransitionNotification) {
-    
-            // New track has no chapters, or there is no new track
-            if playbackInfoDelegate.chapterCount == 0 {
-                windowLayoutsManager.hideWindow(withId: .chaptersList)
-    
-            } // Only show chapters list if preferred by user
-            else {
-                windowLayoutsManager.showWindow(withId: .chaptersList)
-            }
+        
+        // New track has no chapters, or there is no new track
+        if playbackInfoDelegate.chapterCount == 0 {
+            windowLayoutsManager.hideWindow(withId: .chaptersList)
+            
+        } // Only show chapters list if preferred by user
+        else if preferences.playQueuePreferences.showChaptersList.value {
+            windowLayoutsManager.showWindow(withId: .chaptersList)
         }
+    }
     
     func colorSchemeChanged() {
         
@@ -89,5 +93,8 @@ class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
         
         containerViewController.destroy()
         messenger.unsubscribeFromAll()
+        
+        eventMonitor.stopMonitoring()
+        eventMonitor = nil
     }
 }

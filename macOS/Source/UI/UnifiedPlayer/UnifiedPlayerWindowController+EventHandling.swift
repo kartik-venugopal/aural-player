@@ -42,7 +42,7 @@ extension UnifiedPlayerWindowController {
     
     func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        if gesturesPreferences.allowVolumeControl,
+        if gesturesPreferences.allowVolumeControl.value,
            ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
         
             // Scroll up = increase volume, scroll down = decrease volume
@@ -52,7 +52,7 @@ extension UnifiedPlayerWindowController {
     
     func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        guard gesturesPreferences.allowSeeking else {return}
+        guard gesturesPreferences.allowSeeking.value else {return}
         
         // If no track is playing, seeking cannot be performed
         if playbackInfoDelegate.state.isStopped {

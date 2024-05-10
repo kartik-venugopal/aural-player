@@ -59,7 +59,7 @@ class PlaybackPreferences {
     
     var seekLength_continuous: Double {
         
-        switch controlsPreferences.seekSensitivity {
+        switch controlsPreferences.seekSensitivity.value {
             
         case .low:
             return 2.5

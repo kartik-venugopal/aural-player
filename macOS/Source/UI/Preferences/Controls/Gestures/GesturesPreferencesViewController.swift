@@ -12,12 +12,12 @@ import Cocoa
 class GesturesPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     // Gestures
-    @IBOutlet weak var btnAllowVolumeControl: NSButton!
-    @IBOutlet weak var btnAllowSeeking: NSButton!
-    @IBOutlet weak var btnAllowTrackChange: NSButton!
+    @IBOutlet weak var btnAllowVolumeControl: CheckBox!
+    @IBOutlet weak var btnAllowSeeking: CheckBox!
+    @IBOutlet weak var btnAllowTrackChange: CheckBox!
     
-    @IBOutlet weak var btnAllowPlaylistNavigation: NSButton!
-    @IBOutlet weak var btnAllowPlaylistTabToggle: NSButton!
+    @IBOutlet weak var btnAllowPlayQueueScrollingTopToBottom: CheckBox!
+    @IBOutlet weak var btnAllowPlayQueueScrollingPageUpDown: CheckBox!
     
     private var gestureButtons: [NSButton] = []
     
@@ -29,29 +29,29 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     override func viewDidLoad() {
         
-        gestureButtons = [btnAllowVolumeControl, btnAllowSeeking, btnAllowTrackChange, btnAllowPlaylistNavigation, btnAllowPlaylistTabToggle]
+        gestureButtons = [btnAllowVolumeControl, btnAllowSeeking, btnAllowTrackChange, btnAllowPlayQueueScrollingTopToBottom, btnAllowPlayQueueScrollingPageUpDown]
     }
     
     var preferencesView: NSView {
-        return self.view
+        view
     }
     
     func resetFields() {
         
-//        let controlsPrefs = preferences.controlsPreferences.gestures
-//        
-//        btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl)
-//        volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn)
-//        volumeControlSensitivityMenu.selectItem(withTitle: controlsPrefs.volumeControlSensitivity.rawValue.capitalized)
-//        
-//        btnAllowSeeking.onIf(controlsPrefs.allowSeeking)
-//        seekSensitivityMenu.enableIf(btnAllowSeeking.isOn)
-//        seekSensitivityMenu.selectItem(withTitle: controlsPrefs.seekSensitivity.rawValue.capitalized)
-//        
-//        btnAllowTrackChange.onIf(controlsPrefs.allowTrackChange)
-//        
-//        btnAllowPlaylistNavigation.onIf(controlsPrefs.allowPlaylistNavigation)
-//        btnAllowPlaylistTabToggle.onIf(controlsPrefs.allowPlaylistTabToggle)
+        let controlsPrefs = preferences.controlsPreferences.gestures
+        
+        btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl.value)
+        volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn)
+        volumeControlSensitivityMenu.selectItem(withTitle: controlsPrefs.volumeControlSensitivity.value.rawValue.capitalized)
+        
+        btnAllowSeeking.onIf(controlsPrefs.allowSeeking.value)
+        seekSensitivityMenu.enableIf(btnAllowSeeking.isOn)
+        seekSensitivityMenu.selectItem(withTitle: controlsPrefs.seekSensitivity.value.rawValue.capitalized)
+        
+        btnAllowTrackChange.onIf(controlsPrefs.allowTrackChange.value)
+        
+        btnAllowPlayQueueScrollingTopToBottom.onIf(controlsPrefs.allowPlayQueueScrollingTopToBottom.value)
+        btnAllowPlayQueueScrollingPageUpDown.onIf(controlsPrefs.allowPlayQueueScrollingPageUpDown.value)
     }
 
     @IBAction func allowVolumeControlAction(_ sender: Any) {
@@ -63,11 +63,13 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func enableAllGesturesAction(_ sender: Any) {
+        
         gestureButtons.forEach {$0.on()}
         [volumeControlSensitivityMenu, seekSensitivityMenu].forEach {$0.enable()}
     }
     
     @IBAction func disableAllGesturesAction(_ sender: Any) {
+        
         gestureButtons.forEach {$0.off()}
         [volumeControlSensitivityMenu, seekSensitivityMenu].forEach {$0.disable()}
     }
@@ -76,15 +78,15 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let controlsPrefs = preferences.controlsPreferences.gestures
         
-        controlsPrefs.allowVolumeControl = btnAllowVolumeControl.isOn
-        controlsPrefs.volumeControlSensitivity = ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased())!
-        
-        controlsPrefs.allowSeeking = btnAllowSeeking.isOn
-        controlsPrefs.seekSensitivity = ScrollSensitivity(rawValue: seekSensitivityMenu.titleOfSelectedItem!.lowercased())!
-        
-        controlsPrefs.allowTrackChange = btnAllowTrackChange.isOn
-        
-        controlsPrefs.allowPlaylistNavigation = btnAllowPlaylistNavigation.isOn
-        controlsPrefs.allowPlaylistTabToggle = btnAllowPlaylistTabToggle.isOn
+        controlsPrefs.allowVolumeControl.value = btnAllowVolumeControl.isOn
+        controlsPrefs.volumeControlSensitivity.value = ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.Gestures.volumeControlSensitivity
+
+        controlsPrefs.allowSeeking.value = btnAllowSeeking.isOn
+        controlsPrefs.seekSensitivity.value = ScrollSensitivity(rawValue: seekSensitivityMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.Gestures.seekSensitivity
+
+        controlsPrefs.allowTrackChange.value = btnAllowTrackChange.isOn
+
+        controlsPrefs.allowPlayQueueScrollingTopToBottom.value = btnAllowPlayQueueScrollingTopToBottom.isOn
+        controlsPrefs.allowPlayQueueScrollingPageUpDown.value = btnAllowPlayQueueScrollingPageUpDown.isOn
     }
 }

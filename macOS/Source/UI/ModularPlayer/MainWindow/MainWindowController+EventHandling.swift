@@ -76,7 +76,7 @@ extension MainWindowController {
     
     func handleTrackChange(_ swipeDirection: GestureDirection) {
         
-        if gesturesPreferences.allowTrackChange {
+        if gesturesPreferences.allowTrackChange.value {
             
             // Publish the command notification
             messenger.publish(swipeDirection == .left ? .Player.previousTrack : .Player.nextTrack)
@@ -85,7 +85,7 @@ extension MainWindowController {
     
     func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        if gesturesPreferences.allowVolumeControl && ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
+        if gesturesPreferences.allowVolumeControl.value && ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
         
             // Scroll up = increase volume, scroll down = decrease volume
             messenger.publish(scrollDirection == .up ?.Player.increaseVolume : .Player.decreaseVolume, payload: UserInputMode.continuous)
@@ -94,7 +94,7 @@ extension MainWindowController {
     
     func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        if gesturesPreferences.allowSeeking {
+        if gesturesPreferences.allowSeeking.value {
             
             // If no track is playing, seeking cannot be performed
             if playbackInfoDelegate.state.isStopped {

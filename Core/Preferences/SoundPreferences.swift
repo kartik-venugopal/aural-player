@@ -23,7 +23,7 @@ class SoundPreferences {
     private let scrollSensitiveVolumeDeltas: [ScrollSensitivity: Float] = [.low: 0.025, .medium: 0.05, .high: 0.1]
     
     var volumeDelta_continuous: Float {
-        scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity]!
+        scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity.value]!
     }
     
     lazy var panDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).panDelta",

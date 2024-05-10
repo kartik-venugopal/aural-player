@@ -8,8 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GesturesPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnAllowPlaylistNavigation" destination="NKk-Gc-XCa" id="0lD-nQ-nRH"/>
-                <outlet property="btnAllowPlaylistTabToggle" destination="i2U-jy-QG3" id="0Oh-oD-D53"/>
+                <outlet property="btnAllowPlayQueueScrollingPageUpDown" destination="i2U-jy-QG3" id="0Oh-oD-D53"/>
+                <outlet property="btnAllowPlayQueueScrollingTopToBottom" destination="NKk-Gc-XCa" id="0lD-nQ-nRH"/>
                 <outlet property="btnAllowSeeking" destination="Zgv-Ag-CdH" id="0iG-Nx-ya6"/>
                 <outlet property="btnAllowTrackChange" destination="BCa-Qs-oMN" id="Glk-JU-cF4"/>
                 <outlet property="btnAllowVolumeControl" destination="dSQ-CO-bdv" id="jZf-uS-LzY"/>
@@ -25,9 +25,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4bZ-my-swS" userLabel="Sensitivity menu">
-                    <rect key="frame" x="156" y="233" width="104" height="26"/>
+                    <rect key="frame" x="156" y="213" width="104" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="VCa-FB-Cz9" id="gx8-VL-rjD" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="VCa-FB-Cz9" id="gx8-VL-rjD" userLabel="Menu">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="10" name="Play-Regular"/>
                         <menu key="menu" id="rLC-Uv-htA">
@@ -46,7 +46,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVg-y3-BHh" userLabel="Sensitivity">
-                    <rect key="frame" x="80" y="235" width="73" height="20"/>
+                    <rect key="frame" x="80" y="215" width="73" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensitivity" id="5JE-qG-dyW">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -55,9 +55,9 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SRj-zz-XOc" userLabel="Sensitivity menu">
-                    <rect key="frame" x="156" y="273" width="104" height="26"/>
+                    <rect key="frame" x="156" y="268" width="104" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="NSR-FU-uvO" id="VMA-0u-K4K" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="NSR-FU-uvO" id="VMA-0u-K4K" userLabel="Menu">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="10" name="Play-Regular"/>
                         <menu key="menu" id="eNK-4S-jdd">
@@ -76,7 +76,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9mn-s0-YjC" userLabel="Sensitivity">
-                    <rect key="frame" x="80" y="275" width="73" height="20"/>
+                    <rect key="frame" x="80" y="270" width="73" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensitivity" id="sPI-yH-3FH">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -85,32 +85,32 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2U-jy-QG3" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="43" y="143" width="318" height="20"/>
+                    <rect key="frame" x="43" y="98" width="318" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Horizontal swipe) Switch playlist view tabs" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ojM-zp-7R9">
+                    <buttonCell key="cell" type="check" title="(Horizontal swipe) Page up / down" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ojM-zp-7R9">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NKk-Gc-XCa" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="43" y="163" width="318" height="20"/>
+                    <rect key="frame" x="43" y="118" width="318" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Vertical swipe) Scroll to top/bottom of playlist" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="NMG-Bl-o1D">
+                    <buttonCell key="cell" type="check" title="(Vertical swipe) Scroll to top / bottom of Play Queue" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="NMG-Bl-o1D">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TGT-1y-mTF">
-                    <rect key="frame" x="30" y="186" width="181" height="20"/>
+                    <rect key="frame" x="30" y="141" width="181" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist window" id="92n-P1-CMa">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Play Queue window" id="92n-P1-CMa">
                         <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BCa-Qs-oMN" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="43" y="215" width="277" height="20"/>
+                    <rect key="frame" x="43" y="180" width="277" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="(Horizontal swipe) Previous/next track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="SUI-L5-zx0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -118,9 +118,9 @@
                     </buttonCell>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zgv-Ag-CdH" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="43" y="256" width="277" height="20"/>
+                    <rect key="frame" x="43" y="241" width="277" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Horizontal scroll) Seek backward/forward" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="o2M-dS-Io9">
+                    <buttonCell key="cell" type="check" title="(Horizontal scroll) Seek backward / forward" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="o2M-dS-Io9">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -131,7 +131,7 @@
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dSQ-CO-bdv" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="43" y="296" width="277" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Vertical scroll) Increase/decrease volume " bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="QiZ-FI-8Hb">
+                    <buttonCell key="cell" type="check" title="(Vertical scroll) Increase / decrease volume " bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="QiZ-FI-8Hb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -142,7 +142,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Uy-f5-2LD" userLabel="Playback">
                     <rect key="frame" x="30" y="321" width="215" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playback / sound (main window)" id="TA3-eG-AJT">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playback / sound (Player window)" id="TA3-eG-AJT">
                         <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

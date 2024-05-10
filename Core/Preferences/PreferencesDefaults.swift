@@ -108,8 +108,8 @@ struct PreferencesDefaults {
             static let allowSeeking: Bool = true
             static let allowTrackChange: Bool = true
             
-            static let allowPlaylistNavigation: Bool = true
-            static let allowPlaylistTabToggle: Bool = true
+            static let allowPlayQueueScrollingTopToBottom: Bool = true
+            static let allowPlayQueueScrollingPageUpDown: Bool = true
             
             static let volumeControlSensitivity: ScrollSensitivity = .medium
             static let seekSensitivity: ScrollSensitivity = .medium

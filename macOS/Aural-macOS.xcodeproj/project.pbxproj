@@ -591,6 +591,8 @@
 		3EEC6EC92BD8464A00BC5D32 /* TrackInfoKVListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC6EC82BD8464A00BC5D32 /* TrackInfoKVListViewController.swift */; };
 		3EEC6ECB2BD8472200BC5D32 /* TrackInfoKVList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EEC6ECA2BD8472200BC5D32 /* TrackInfoKVList.xib */; };
 		3EEC6ECD2BD85F8900BC5D32 /* TrackInfoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC6ECC2BD85F8900BC5D32 /* TrackInfoSource.swift */; };
+		3EEFBCB12BEEAA4F00F90BE7 /* LegacyGesturesControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFBCB02BEEAA4F00F90BE7 /* LegacyGesturesControlsPreferences.swift */; };
+		3EEFBCB32BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFBCB22BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift */; };
 		3EEFF58927DE842C002CB0FE /* PlayQueueDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58327DE842C002CB0FE /* PlayQueueDelegateProtocol.swift */; };
 		3EEFF58A27DE842C002CB0FE /* PlayQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58427DE842C002CB0FE /* PlayQueueDelegate.swift */; };
 		3EEFF58B27DE842C002CB0FE /* PlayQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58527DE842C002CB0FE /* PlayQueue.swift */; };
@@ -1643,6 +1645,8 @@
 		3EEC6EC82BD8464A00BC5D32 /* TrackInfoKVListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoKVListViewController.swift; sourceTree = "<group>"; };
 		3EEC6ECA2BD8472200BC5D32 /* TrackInfoKVList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackInfoKVList.xib; sourceTree = "<group>"; };
 		3EEC6ECC2BD85F8900BC5D32 /* TrackInfoSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoSource.swift; sourceTree = "<group>"; };
+		3EEFBCB02BEEAA4F00F90BE7 /* LegacyGesturesControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyGesturesControlsPreferences.swift; sourceTree = "<group>"; };
+		3EEFBCB22BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayQueueWindowController+GestureHandling.swift"; sourceTree = "<group>"; };
 		3EEFF58327DE842C002CB0FE /* PlayQueueDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EEFF58427DE842C002CB0FE /* PlayQueueDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueDelegate.swift; sourceTree = "<group>"; };
 		3EEFF58527DE842C002CB0FE /* PlayQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueue.swift; sourceTree = "<group>"; };
@@ -2160,6 +2164,7 @@
 			children = (
 				3E25B64F27F7818900D10A5F /* PlayQueueWindow.xib */,
 				3E25B65327F7865900D10A5F /* PlayQueueWindowController.swift */,
+				3EEFBCB22BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift */,
 			);
 			path = PlayQueue;
 			sourceTree = "<group>";
@@ -4050,6 +4055,7 @@
 				3E9E975B2BE41849003FCFE8 /* LegacySoundPreferences.swift */,
 				3E2B75522BED6F190096AB2F /* LegacyMediaKeysControlsPreferences.swift */,
 				3E2B75582BED7EF00096AB2F /* LegacyHistoryPreferences.swift */,
+				3EEFBCB02BEEAA4F00F90BE7 /* LegacyGesturesControlsPreferences.swift */,
 			);
 			path = Legacy;
 			sourceTree = "<group>";
@@ -4263,17 +4269,17 @@
 				3EFE362327864895006F8B8C /* PlayQueuePreferences.swift */,
 				3EFE361A27864895006F8B8C /* PlaybackPreferences.swift */,
 				3EFE362627864895006F8B8C /* SoundPreferences.swift */,
-				3EFE361927864895006F8B8C /* MediaKeysControlsPreferences.swift */,
 				3EFE361B27864895006F8B8C /* ViewPreferences.swift */,
 				3EFE361D27864895006F8B8C /* UserDefaultsExtensions.swift */,
 				3EFE361E27864895006F8B8C /* HistoryPreferences.swift */,
 				3EFE361F27864895006F8B8C /* PreferencesDefaults.swift */,
 				3EFE362127864895006F8B8C /* MetadataPreferences.swift */,
-				3EFE362227864895006F8B8C /* RemoteControlPreferences.swift */,
 				3EFE362427864895006F8B8C /* MusicBrainzPreferences.swift */,
 				3E46AEE02BD4863C00789A91 /* LastFMPreferences.swift */,
 				3EFE362527864895006F8B8C /* ControlsPreferences.swift */,
+				3EFE361927864895006F8B8C /* MediaKeysControlsPreferences.swift */,
 				3EFE362727864895006F8B8C /* GesturesControlsPreferences.swift */,
+				3EFE362227864895006F8B8C /* RemoteControlPreferences.swift */,
 				3E3BCFF52AF1BB0000FD893A /* UserPreference.swift */,
 				3EDBC4432BDDB38900FB7E30 /* Legacy */,
 			);
@@ -5873,6 +5879,7 @@
 				3E6C12C525CEBE6700BF0D07 /* ReverbUnitViewController.swift in Sources */,
 				3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */,
 				3E10177E28D7713B002C0D8E /* FFmpegResamplingContext.swift in Sources */,
+				3EEFBCB12BEEAA4F00F90BE7 /* LegacyGesturesControlsPreferences.swift in Sources */,
 				3E43227B2687D531009E8ADB /* ScrollingTrackTextView.swift in Sources */,
 				3EA89D9B2699F50C0021CDB9 /* ScrollSession.swift in Sources */,
 				3EAFB607267FF24900F0DC96 /* SeekSliderCell.swift in Sources */,
@@ -5999,6 +6006,7 @@
 				3EFE3A5B27864898006F8B8C /* MusicBrainzRecording.swift in Sources */,
 				3E25B65427F7865900D10A5F /* PlayQueueWindowController.swift in Sources */,
 				3E6C128625CEBE1800BF0D07 /* TrackPeekingButton.swift in Sources */,
+				3EEFBCB32BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift in Sources */,
 				3EFE3A9927864898006F8B8C /* FileReader.swift in Sources */,
 				3EFE381127864896006F8B8C /* PlaylistIO.swift in Sources */,
 				3EFE393727864897006F8B8C /* GraphicsUtils.swift in Sources */,

@@ -14,45 +14,39 @@ import Foundation
 ///
 class GesturesControlsPreferences {
     
-    var allowVolumeControl: Bool = true
-    var allowSeeking: Bool = true
-    var allowTrackChange: Bool = true
+    lazy var allowVolumeControl: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowVolumeControl",
+                                                              defaultValue: Defaults.allowVolumeControl)
     
-    var allowPlaylistNavigation: Bool = true
-    var allowPlaylistTabToggle: Bool = true
+    lazy var volumeControlSensitivity: UserPreference<ScrollSensitivity> = .init(defaultsKey: "\(Self.keyPrefix).volumeControlSensitivity",
+                                                                                 defaultValue: Defaults.volumeControlSensitivity)
     
-    var volumeControlSensitivity: ScrollSensitivity = .high
-    var seekSensitivity: ScrollSensitivity = .low
+    lazy var allowSeeking: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowSeeking",
+                                                        defaultValue: Defaults.allowSeeking)
+    
+    lazy var seekSensitivity: UserPreference<ScrollSensitivity> = .init(defaultsKey: "\(Self.keyPrefix).seekSensitivity",
+                                                                        defaultValue: Defaults.seekSensitivity)
+    
+    lazy var allowTrackChange: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowTrackChange",
+                                                            defaultValue: Defaults.allowTrackChange)
+    
+    lazy var allowPlayQueueScrollingTopToBottom: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowPlayQueueScrolling.topToBottom",
+                                                                              defaultValue: Defaults.allowPlayQueueScrollingTopToBottom)
+    
+    lazy var allowPlayQueueScrollingPageUpDown: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowPlayQueueScrolling.pageUpDown",
+                                                                             defaultValue: Defaults.allowPlayQueueScrollingPageUpDown)
     
     private static let keyPrefix: String = "controls.gestures"
-    
-    static let key_allowVolumeControl: String = "\(keyPrefix).allowVolumeControl"
-    static let key_allowSeeking: String = "\(keyPrefix).allowSeeking"
-    static let key_allowTrackChange: String = "\(keyPrefix).allowTrackChange"
-    
-    static let key_allowPlaylistNavigation: String = "\(keyPrefix).allowPlaylistNavigation"
-    static let key_allowPlaylistTabToggle: String = "\(keyPrefix).allowPlaylistTabToggle"
-    
-    static let key_volumeControlSensitivity: String = "\(keyPrefix).volumeControlSensitivity"
-    static let key_seekSensitivity: String = "\(keyPrefix).seekSensitivity"
-    
     private typealias Defaults = PreferencesDefaults.Controls.Gestures
     
-    init() {
+    init(legacyPreferences: LegacyGesturesControlsPreferences? = nil) {
         
-//        allowVolumeControl = dict[Self.key_allowVolumeControl, Bool.self] ?? Defaults.allowVolumeControl
-//        
-//        allowSeeking = dict[Self.key_allowSeeking, Bool.self] ?? Defaults.allowSeeking
-//        
-//        allowTrackChange = dict[Self.key_allowTrackChange, Bool.self] ?? Defaults.allowTrackChange
-//        
-//        allowPlaylistNavigation = dict[Self.key_allowPlaylistNavigation, Bool.self] ?? Defaults.allowPlaylistNavigation
-//        
-//        allowPlaylistTabToggle = dict[Self.key_allowPlaylistTabToggle, Bool.self] ?? Defaults.allowPlaylistTabToggle
-//        
-//        volumeControlSensitivity = dict.enumValue(forKey: Self.key_volumeControlSensitivity, ofType: ScrollSensitivity.self) ??  Defaults.volumeControlSensitivity
-//        
-//        seekSensitivity = dict.enumValue(forKey: Self.key_seekSensitivity, ofType: ScrollSensitivity.self) ?? Defaults.seekSensitivity
+        guard let legacyPreferences = legacyPreferences else {return}
+        
+        if let allowPlaylistNavigation = legacyPreferences.allowPlaylistNavigation {
+            self.allowPlayQueueScrollingTopToBottom.value = allowPlaylistNavigation
+        }
+        
+        legacyPreferences.deleteAll()
     }
 }
 
