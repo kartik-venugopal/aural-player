@@ -19,7 +19,7 @@ class WindowLayout {
     
     var effectsWindowFrame: NSRect? {
         
-        if let effectsWindow = displayedWindows.first(where: { $0.id == .effects }) {
+        if let effectsWindow = displayedWindows.first(where: {$0.id == .effects}) {
             return effectsWindow.frame
         }
         
@@ -28,7 +28,7 @@ class WindowLayout {
     
     var playQueueWindowFrame: NSRect? {
         
-        if let playQueueWindow = displayedWindows.first(where: { $0.id == .playQueue }) {
+        if let playQueueWindow = displayedWindows.first(where: {$0.id == .playQueue}) {
             return playQueueWindow.frame
         }
         
@@ -67,6 +67,17 @@ class WindowLayout {
     }
 }
 
+extension WindowLayout: UserManagedObject {
+    
+    var key: String {
+        
+        get {name}
+        set {name = newValue}
+    }
+    
+    var userDefined: Bool {!systemDefined}
+}
+
 struct LayoutWindow {
     
     let id: WindowID
@@ -85,15 +96,4 @@ struct LayoutWindow {
         self.id = id
         self.frame = persistentState.frame?.toNSRect() ?? .zero
     }
-}
-
-extension WindowLayout: UserManagedObject {
-    
-    var key: String {
-        
-        get {name}
-        set {name = newValue}
-    }
-    
-    var userDefined: Bool {!systemDefined}
 }

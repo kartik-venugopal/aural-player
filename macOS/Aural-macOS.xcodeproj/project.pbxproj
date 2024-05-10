@@ -593,6 +593,7 @@
 		3EEC6ECD2BD85F8900BC5D32 /* TrackInfoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC6ECC2BD85F8900BC5D32 /* TrackInfoSource.swift */; };
 		3EEFBCB12BEEAA4F00F90BE7 /* LegacyGesturesControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFBCB02BEEAA4F00F90BE7 /* LegacyGesturesControlsPreferences.swift */; };
 		3EEFBCB32BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFBCB22BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift */; };
+		3EEFBCB52BEECC9100F90BE7 /* ScreenArrangement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFBCB42BEECC9100F90BE7 /* ScreenArrangement.swift */; };
 		3EEFF58927DE842C002CB0FE /* PlayQueueDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58327DE842C002CB0FE /* PlayQueueDelegateProtocol.swift */; };
 		3EEFF58A27DE842C002CB0FE /* PlayQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58427DE842C002CB0FE /* PlayQueueDelegate.swift */; };
 		3EEFF58B27DE842C002CB0FE /* PlayQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFF58527DE842C002CB0FE /* PlayQueue.swift */; };
@@ -1647,6 +1648,7 @@
 		3EEC6ECC2BD85F8900BC5D32 /* TrackInfoSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoSource.swift; sourceTree = "<group>"; };
 		3EEFBCB02BEEAA4F00F90BE7 /* LegacyGesturesControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyGesturesControlsPreferences.swift; sourceTree = "<group>"; };
 		3EEFBCB22BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayQueueWindowController+GestureHandling.swift"; sourceTree = "<group>"; };
+		3EEFBCB42BEECC9100F90BE7 /* ScreenArrangement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenArrangement.swift; sourceTree = "<group>"; };
 		3EEFF58327DE842C002CB0FE /* PlayQueueDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EEFF58427DE842C002CB0FE /* PlayQueueDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueDelegate.swift; sourceTree = "<group>"; };
 		3EEFF58527DE842C002CB0FE /* PlayQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueue.swift; sourceTree = "<group>"; };
@@ -2496,6 +2498,7 @@
 				3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */,
 				3E6C105125CEB98600BF0D07 /* WindowLayout.swift */,
 				3E4A90FD27F79AFA003A6C80 /* WindowID.swift */,
+				3EEFBCB42BEECC9100F90BE7 /* ScreenArrangement.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6006,6 +6009,7 @@
 				3EFE3A5B27864898006F8B8C /* MusicBrainzRecording.swift in Sources */,
 				3E25B65427F7865900D10A5F /* PlayQueueWindowController.swift in Sources */,
 				3E6C128625CEBE1800BF0D07 /* TrackPeekingButton.swift in Sources */,
+				3EEFBCB52BEECC9100F90BE7 /* ScreenArrangement.swift in Sources */,
 				3EEFBCB32BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift in Sources */,
 				3EFE3A9927864898006F8B8C /* FileReader.swift in Sources */,
 				3EFE381127864896006F8B8C /* PlaylistIO.swift in Sources */,
