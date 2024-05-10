@@ -11,12 +11,12 @@ import Cocoa
 
 class RemoteControlPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var btnEnableRemoteControl: NSButton!
-    
-    @IBOutlet weak var btnShowTrackChangeControls: NSButton!
-    @IBOutlet weak var btnShowSeekingControls: NSButton!
-    
     override var nibName: NSNib.Name? {"RemoteControlPreferences"}
+    
+    @IBOutlet weak var btnEnableRemoteControl: CheckBox!
+    
+    @IBOutlet weak var btnShowTrackChangeControls: RadioButton!
+    @IBOutlet weak var btnShowSeekingControls: RadioButton!
     
     var preferencesView: NSView {
         view
@@ -26,9 +26,11 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
         
         let controlsPrefs = preferences.controlsPreferences.remoteControl
         
-        btnEnableRemoteControl.onIf(controlsPrefs.enabled)
-        btnShowTrackChangeControls.onIf(controlsPrefs.trackChangeOrSeekingOption == .trackChange)
-        btnShowSeekingControls.onIf(controlsPrefs.trackChangeOrSeekingOption == .seeking)
+        btnEnableRemoteControl.onIf(controlsPrefs.enabled.value)
+        
+        let trackChangeOrSeekingOption = controlsPrefs.trackChangeOrSeekingOption.value
+        btnShowTrackChangeControls.onIf(trackChangeOrSeekingOption == .trackChange)
+        btnShowSeekingControls.onIf(trackChangeOrSeekingOption == .seeking)
     }
     
     @IBAction func trackChangeOrSeekingOptionsAction(_ sender: Any) {
@@ -39,15 +41,15 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
         
         let controlsPrefs = preferences.controlsPreferences.remoteControl
         
-        let wasEnabled: Bool = controlsPrefs.enabled
-        let oldTrackChangeOrSeekingOption = controlsPrefs.trackChangeOrSeekingOption
+        let wasEnabled: Bool = controlsPrefs.enabled.value
+        let oldTrackChangeOrSeekingOption = controlsPrefs.trackChangeOrSeekingOption.value
         
-        controlsPrefs.enabled = btnEnableRemoteControl.isOn
-        controlsPrefs.trackChangeOrSeekingOption = btnShowTrackChangeControls.isOn ? .trackChange : .seeking
+        controlsPrefs.enabled.value = btnEnableRemoteControl.isOn
+        controlsPrefs.trackChangeOrSeekingOption.value = btnShowTrackChangeControls.isOn ? .trackChange : .seeking
         
         // Don't do anything unless at least one preference was changed.
         
-        let prefsHaveChanged = (wasEnabled != controlsPrefs.enabled) || (oldTrackChangeOrSeekingOption != controlsPrefs.trackChangeOrSeekingOption)
+        let prefsHaveChanged = (wasEnabled != controlsPrefs.enabled.value) || (oldTrackChangeOrSeekingOption != controlsPrefs.trackChangeOrSeekingOption.value)
         
         if prefsHaveChanged {
             remoteControlManager.preferencesUpdated()

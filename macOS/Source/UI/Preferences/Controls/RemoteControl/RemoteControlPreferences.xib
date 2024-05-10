@@ -8,6 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="RemoteControlPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnEnableRemoteControl" destination="RTv-WN-fIc" id="JDb-CM-uQa"/>
+                <outlet property="btnShowSeekingControls" destination="hUp-TN-hqH" id="dhR-6F-Jjq"/>
+                <outlet property="btnShowTrackChangeControls" destination="xfV-tr-MyC" id="EQU-4I-6kw"/>
                 <outlet property="view" destination="c22-O7-iKe" id="Qqj-XD-7bP"/>
             </connections>
         </customObject>
