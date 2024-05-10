@@ -13,27 +13,41 @@ import Cocoa
 /// An enumeration of default values for user preferences.
 ///
 struct PreferencesDefaults {
+    
+    ///
+    /// An enumeration of default values for Play Queue preferences.
+    ///
+    struct PlayQueue {
+        
+        static let playQueueOnStartup: PlayQueuePreferences.PlayQueueStartupOption = .rememberFromLastAppLaunch
+        
+        static let showNewTrackInPlayQueue: Bool = true
+        static let showChaptersList: Bool = true
+        
+        static let dragDropAddMode: PlayQueuePreferences.PlayQueueTracksAddMode = .append
+        static let openWithAddMode: PlayQueuePreferences.PlayQueueTracksAddMode = .append
+    }
 
     ///
     /// An enumeration of default values for playback preferences.
     ///
     struct Playback {
         
-        static let primarySeekLengthOption: SeekLengthOption = .constant
+        static let primarySeekLengthOption: PlaybackPreferences.SeekLengthOption = .constant
         static let primarySeekLengthConstant: Int = 5
         static let primarySeekLengthPercentage: Int = 2
         
-        static let secondarySeekLengthOption: SeekLengthOption = .constant
+        static let secondarySeekLengthOption: PlaybackPreferences.SeekLengthOption = .constant
         static let secondarySeekLengthConstant: Int = 30
         static let secondarySeekLengthPercentage: Int = 10
         
         static let autoplayOnStartup: Bool = false
         
         static let autoplayAfterAddingTracks: Bool = false
-        static let autoplayAfterAddingOption: AutoplayAfterAddingOption = .ifNotPlaying
+        static let autoplayAfterAddingOption: PlaybackPreferences.AutoplayAfterAddingOption = .ifNotPlaying
         
         static let autoplayAfterOpeningTracks: Bool = true
-        static let autoplayAfterOpeningOption: AutoplayAfterOpeningOption = .always
+        static let autoplayAfterOpeningOption: PlaybackPreferences.AutoplayAfterOpeningOption = .always
         
         static let rememberLastPositionForAllTracks: Bool = false
     }
@@ -51,20 +65,6 @@ struct PreferencesDefaults {
         static let rateDelta: Float = 0.05
         
         static let rememberEffectsSettingsForAllTracks: Bool = false
-    }
-    
-    ///
-    /// An enumeration of default values for Play Queue preferences.
-    ///
-    struct PlayQueue {
-        
-        static let playQueueOnStartup: PlayQueueStartupOption = .rememberFromLastAppLaunch
-        
-        static let showNewTrackInPlayQueue: Bool = true
-        static let showChaptersList: Bool = true
-        
-        static let dragDropAddMode: PlayQueueTracksAddMode = .append
-        static let openWithAddMode: PlayQueueTracksAddMode = .append
     }
     
     ///
@@ -95,8 +95,8 @@ struct PreferencesDefaults {
         struct MediaKeys {
             
             static let enabled: Bool = true
-            static let skipKeyBehavior: SkipKeyBehavior = .hybrid
-            static let skipKeyRepeatSpeed: SkipKeyRepeatSpeed = .medium
+            static let skipKeyBehavior: MediaKeysControlsPreferences.SkipKeyBehavior = .hybrid
+            static let skipKeyRepeatSpeed: MediaKeysControlsPreferences.SkipKeyRepeatSpeed = .medium
         }
         
         ///
@@ -111,8 +111,8 @@ struct PreferencesDefaults {
             static let allowPlayQueueScrollingTopToBottom: Bool = true
             static let allowPlayQueueScrollingPageUpDown: Bool = true
             
-            static let volumeControlSensitivity: ScrollSensitivity = .medium
-            static let seekSensitivity: ScrollSensitivity = .medium
+            static let volumeControlSensitivity: GesturesControlsPreferences.ScrollSensitivity = .medium
+            static let seekSensitivity: GesturesControlsPreferences.ScrollSensitivity = .medium
             
         }
         
@@ -122,7 +122,7 @@ struct PreferencesDefaults {
         struct RemoteControl {
             
             static let enabled: Bool = true
-            static let trackChangeOrSeekingOption: TrackChangeOrSeekingOptions = .trackChange
+            static let trackChangeOrSeekingOption: RemoteControlPreferences.TrackChangeOrSeekingOptions = .trackChange
         }
     }
     

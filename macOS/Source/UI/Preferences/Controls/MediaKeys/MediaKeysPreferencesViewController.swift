@@ -71,7 +71,7 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
             controlsPrefs.mediaKeys.skipKeyBehavior.value = .seekingOnly
         }
         
-        controlsPrefs.mediaKeys.skipKeyRepeatSpeed.value = SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.MediaKeys.skipKeyRepeatSpeed
+        controlsPrefs.mediaKeys.skipKeyRepeatSpeed.value = MediaKeysControlsPreferences.SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.MediaKeys.skipKeyRepeatSpeed
         controlsPrefs.mediaKeys.enabled.value ? mediaKeyHandler.startMonitoring() : mediaKeyHandler.stopMonitoring()
     }
 }

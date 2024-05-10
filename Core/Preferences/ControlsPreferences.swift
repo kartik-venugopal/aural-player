@@ -21,7 +21,7 @@ class ControlsPreferences {
     init(legacyPreferences: LegacyControlsPreferences? = nil) {
         
         mediaKeys = MediaKeysControlsPreferences(legacyPreferences: legacyPreferences?.mediaKeys)
-        gestures = GesturesControlsPreferences()
+        gestures = GesturesControlsPreferences(legacyPreferences: legacyPreferences?.gestures)
         remoteControl = RemoteControlPreferences()
     }
 }

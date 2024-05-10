@@ -30,8 +30,8 @@ class RemoteControlManager {
     var remoteControlPreferences: RemoteControlPreferences {preferences.controlsPreferences.remoteControl}
     var playbackPreferences: PlaybackPreferences {preferences.playbackPreferences}
     
-    var isEnabled: Bool {remoteControlPreferences.enabled}
-    var trackChangeOrSeekingOption: TrackChangeOrSeekingOptions {remoteControlPreferences.trackChangeOrSeekingOption}
+    var isEnabled: Bool {remoteControlPreferences.enabled.value}
+    var trackChangeOrSeekingOption: RemoteControlPreferences.TrackChangeOrSeekingOptions {remoteControlPreferences.trackChangeOrSeekingOption.value}
     var seekInterval: Double {Double(playbackPreferences.primarySeekLengthConstant.value)}
     
     init(playbackInfo: PlaybackInfoDelegateProtocol, playQueue: PlayQueueDelegateProtocol, audioGraph: AudioGraphDelegateProtocol,

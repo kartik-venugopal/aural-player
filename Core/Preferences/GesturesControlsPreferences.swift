@@ -48,11 +48,11 @@ class GesturesControlsPreferences {
         
         legacyPreferences.deleteAll()
     }
-}
-
-enum ScrollSensitivity: String, CaseIterable {
     
-    case low
-    case medium
-    case high
+    enum ScrollSensitivity: String, CaseIterable {
+        
+        case low
+        case medium
+        case high
+    }
 }

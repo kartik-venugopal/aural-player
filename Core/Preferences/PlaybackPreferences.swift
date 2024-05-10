@@ -20,10 +20,6 @@ class PlaybackPreferences {
     
     private let controlsPreferences: GesturesControlsPreferences
     
-    init(controlsPreferences: GesturesControlsPreferences) {
-        self.controlsPreferences = controlsPreferences
-    }
-    
     init(controlsPreferences: GesturesControlsPreferences, legacyPreferences: LegacyPlaybackPreferences? = nil) {
         
         self.controlsPreferences = controlsPreferences
@@ -89,30 +85,30 @@ class PlaybackPreferences {
     
     lazy var rememberLastPositionForAllTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).rememberLastPositionForAllTracks",
                                                                                                 defaultValue: Defaults.rememberLastPositionForAllTracks)
-}
-
-enum SeekLengthOption: String, CaseIterable {
     
-    case constant
-    case percentage
-}
+    enum SeekLengthOption: String, CaseIterable {
+        
+        case constant
+        case percentage
+    }
 
-// Possible options for the "autoplay afer adding tracks" user preference
-enum AutoplayAfterAddingOption: String, CaseIterable {
-    
-    case ifNotPlaying
-    case always
-}
+    // Possible options for the "autoplay afer adding tracks" user preference
+    enum AutoplayAfterAddingOption: String, CaseIterable {
+        
+        case ifNotPlaying
+        case always
+    }
 
-// Possible options for the "autoplay afer 'Open With'" user preference
-enum AutoplayAfterOpeningOption: String, CaseIterable {
+    // Possible options for the "autoplay afer 'Open With'" user preference
+    enum AutoplayAfterOpeningOption: String, CaseIterable {
 
-    case ifNotPlaying
-    case always
-}
+        case ifNotPlaying
+        case always
+    }
 
-enum RememberSettingsForTrackOption: String, CaseIterable {
-    
-    case allTracks
-    case individualTracks
+    enum RememberSettingsForTrackOption: String, CaseIterable {
+        
+        case allTracks
+        case individualTracks
+    }
 }

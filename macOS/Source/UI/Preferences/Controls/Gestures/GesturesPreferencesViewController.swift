@@ -79,10 +79,10 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
         let controlsPrefs = preferences.controlsPreferences.gestures
         
         controlsPrefs.allowVolumeControl.value = btnAllowVolumeControl.isOn
-        controlsPrefs.volumeControlSensitivity.value = ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.Gestures.volumeControlSensitivity
+        controlsPrefs.volumeControlSensitivity.value = GesturesControlsPreferences.ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.Gestures.volumeControlSensitivity
 
         controlsPrefs.allowSeeking.value = btnAllowSeeking.isOn
-        controlsPrefs.seekSensitivity.value = ScrollSensitivity(rawValue: seekSensitivityMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.Gestures.seekSensitivity
+        controlsPrefs.seekSensitivity.value = GesturesControlsPreferences.ScrollSensitivity(rawValue: seekSensitivityMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.Gestures.seekSensitivity
 
         controlsPrefs.allowTrackChange.value = btnAllowTrackChange.isOn
 

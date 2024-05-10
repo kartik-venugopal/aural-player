@@ -20,7 +20,7 @@ class SoundPreferences {
     lazy var volumeDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).volumeDelta",
                                                                     defaultValue: Defaults.volumeDelta)
     
-    private let scrollSensitiveVolumeDeltas: [ScrollSensitivity: Float] = [.low: 0.025, .medium: 0.05, .high: 0.1]
+    private let scrollSensitiveVolumeDeltas: [GesturesControlsPreferences.ScrollSensitivity: Float] = [.low: 0.025, .medium: 0.05, .high: 0.1]
     
     var volumeDelta_continuous: Float {
         scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity.value]!

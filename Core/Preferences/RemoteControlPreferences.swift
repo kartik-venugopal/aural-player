@@ -15,22 +15,18 @@ import Foundation
 ///
 class RemoteControlPreferences {
     
-    var enabled: Bool = true
-    var trackChangeOrSeekingOption: TrackChangeOrSeekingOptions = .trackChange
+    lazy var enabled: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enabled",
+                                                                    defaultValue: Defaults.enabled)
+    
+    lazy var trackChangeOrSeekingOption: UserPreference<TrackChangeOrSeekingOptions> = .init(defaultsKey: "\(Self.keyPrefix).trackChangeOrSeekingOption",
+                                                                    defaultValue: Defaults.trackChangeOrSeekingOption)
     
     private static let keyPrefix: String = "controls.remoteControl"
-    
-    static let key_enabled: String = "\(keyPrefix).enabled"
-    static let key_trackChangeOrSeekingOption: String = "\(keyPrefix).trackChangeOrSeekingOption"
-    
     private typealias Defaults = PreferencesDefaults.Controls.RemoteControl
     
-    init() {
+    enum TrackChangeOrSeekingOptions: String, CaseIterable {
+        
+        case trackChange
+        case seeking
     }
-}
-
-enum TrackChangeOrSeekingOptions: String, CaseIterable {
-    
-    case trackChange
-    case seeking
 }

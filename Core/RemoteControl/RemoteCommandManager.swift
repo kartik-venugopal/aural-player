@@ -37,7 +37,7 @@ class RemoteCommandManager: NSObject {
     private lazy var messenger = Messenger(for: self)
     
     /// Registers command handlers with the command center.
-    func activate(trackChangeOrSeekingOption: TrackChangeOrSeekingOptions, seekInterval: Double) {
+    func activate(trackChangeOrSeekingOption: RemoteControlPreferences.TrackChangeOrSeekingOptions, seekInterval: Double) {
         
         // Previous / Next track
         

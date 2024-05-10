@@ -40,18 +40,18 @@ class MediaKeysControlsPreferences {
         
         legacyPreferences.deleteAll()
     }
-}
-
-enum SkipKeyBehavior: String, CaseIterable {
     
-    case hybrid
-    case trackChangesOnly
-    case seekingOnly
-}
+    enum SkipKeyBehavior: String, CaseIterable {
+        
+        case hybrid
+        case trackChangesOnly
+        case seekingOnly
+    }
 
-enum SkipKeyRepeatSpeed: String, CaseIterable {
-    
-    case slow
-    case medium
-    case fast
+    enum SkipKeyRepeatSpeed: String, CaseIterable {
+        
+        case slow
+        case medium
+        case fast
+    }
 }

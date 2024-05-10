@@ -79,53 +79,53 @@ class PlayQueuePreferences {
         
         legacyPreferences.deleteAll()
     }
-}
-
-// All options for the Play Queue at startup
-enum PlayQueueStartupOption: String, CaseIterable, Codable {
     
-    case empty
-    case rememberFromLastAppLaunch
-    case loadPlaylistFile
-    case loadFolder
-    
-    static func fromLegacyPlaylistStartupOption(_ option: LegacyPlaylistStartupOptions) -> PlayQueueStartupOption {
+    // All options for the Play Queue at startup
+    enum PlayQueueStartupOption: String, CaseIterable, Codable {
         
-        switch option {
+        case empty
+        case rememberFromLastAppLaunch
+        case loadPlaylistFile
+        case loadFolder
+        
+        static func fromLegacyPlaylistStartupOption(_ option: LegacyPlaylistStartupOptions) -> PlayQueueStartupOption {
             
-        case .empty:
-            return .empty
-            
-        case .rememberFromLastAppLaunch:
-            return .rememberFromLastAppLaunch
-            
-        case .loadFile:
-            return .loadPlaylistFile
-            
-        case .loadFolder:
-            return .loadFolder
+            switch option {
+                
+            case .empty:
+                return .empty
+                
+            case .rememberFromLastAppLaunch:
+                return .rememberFromLastAppLaunch
+                
+            case .loadFile:
+                return .loadPlaylistFile
+                
+            case .loadFolder:
+                return .loadFolder
+            }
         }
     }
-}
 
-enum PlayQueueTracksAddMode: String, CaseIterable, Codable {
-    
-    case append
-    case replace
-    case hybrid
-    
-    static func fromLegacyPlaylistTracksAddMode(_ mode: LegacyPlaylistTracksAddMode) -> PlayQueueTracksAddMode {
+    enum PlayQueueTracksAddMode: String, CaseIterable, Codable {
         
-        switch mode {
+        case append
+        case replace
+        case hybrid
         
-        case .append:
-            return .append
+        static func fromLegacyPlaylistTracksAddMode(_ mode: LegacyPlaylistTracksAddMode) -> PlayQueueTracksAddMode {
             
-        case .replace:
-            return .replace
+            switch mode {
             
-        case .hybrid:
-            return .hybrid
+            case .append:
+                return .append
+                
+            case .replace:
+                return .replace
+                
+            case .hybrid:
+                return .hybrid
+            }
         }
     }
 }

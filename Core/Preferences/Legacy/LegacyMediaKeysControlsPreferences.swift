@@ -12,8 +12,8 @@ import Foundation
 
 class LegacyMediaKeysControlsPreferences {
     
-    var skipKeyBehavior: SkipKeyBehavior?
-    var repeatSpeed: SkipKeyRepeatSpeed?
+    var skipKeyBehavior: MediaKeysControlsPreferences.SkipKeyBehavior?
+    var repeatSpeed: MediaKeysControlsPreferences.SkipKeyRepeatSpeed?
     
     private static let keyPrefix: String = "controls.mediaKeys"
     
@@ -22,8 +22,8 @@ class LegacyMediaKeysControlsPreferences {
     
     required init(_ dict: [String: Any]) {
         
-        skipKeyBehavior = dict.enumValue(forKey: Self.key_skipKeyBehavior, ofType: SkipKeyBehavior.self)
-        repeatSpeed = dict.enumValue(forKey: Self.key_repeatSpeed, ofType: SkipKeyRepeatSpeed.self)
+        skipKeyBehavior = dict.enumValue(forKey: Self.key_skipKeyBehavior, ofType: MediaKeysControlsPreferences.SkipKeyBehavior.self)
+        repeatSpeed = dict.enumValue(forKey: Self.key_repeatSpeed, ofType: MediaKeysControlsPreferences.SkipKeyRepeatSpeed.self)
     }
     
     func deleteAll() {

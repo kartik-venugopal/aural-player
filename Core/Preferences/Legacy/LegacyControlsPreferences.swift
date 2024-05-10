@@ -13,13 +13,11 @@ import Foundation
 class LegacyControlsPreferences {
     
     var mediaKeys: LegacyMediaKeysControlsPreferences
-//    var gestures: LegacyGesturesControlsPreferences
-//    var remoteControl: LegacyRemoteControlPreferences
+    var gestures: LegacyGesturesControlsPreferences
     
     internal required init(_ dict: [String: Any]) {
         
         mediaKeys = LegacyMediaKeysControlsPreferences(dict)
-//        gestures = LegacyGesturesControlsPreferences(dict)
-//        remoteControl = LegacyRemoteControlPreferences(dict)
+        gestures = LegacyGesturesControlsPreferences(dict)
     }
 }
