@@ -51,6 +51,8 @@ class ChaptersListViewController: NSViewController {
     
     override func viewDidLoad() {
         
+        super.viewDidLoad()
+        
         scrollView.drawsBackground = false
         clipView.drawsBackground = false
         
@@ -61,14 +63,14 @@ class ChaptersListViewController: NSViewController {
         
         initSubscriptions()
         
-        btnCaseSensitive.off()
+        btnCaseSensitive?.off()
         btnLoopChapter.off()
         
-        lblNumMatches.stringValue = ""
+        lblNumMatches?.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach {$0?.disable()}
     }
     
-    private func initSubscriptions() {
+    func initSubscriptions() {
         
         fontSchemesManager.registerObserver(self)
         
@@ -102,10 +104,6 @@ class ChaptersListViewController: NSViewController {
     override func viewWillAppear() {
         
         super.viewWillAppear()
-
-        // TODO: This is inefficient for the tableView (will be reloaded twice) !
-        fontSchemeChanged()
-        colorSchemeChanged()
         
         if let chapter = player.playingChapter, chapter.index < chaptersListView.numberOfRows {
             chaptersListView.scrollRowToVisible(chapter.index)
@@ -187,10 +185,14 @@ class ChaptersListViewController: NSViewController {
     
     // MARK: Message handling
     
+    var shouldRespondToTrackChange: Bool {
+        view.window?.isVisible ?? false
+    }
+    
     func trackChanged() {
         
         // Don't need to do this if the window is not visible
-        if view.window?.isVisible ?? false {
+        if shouldRespondToTrackChange {
             
             chaptersListView.reloadData()
             chaptersListView.scrollRowToVisible(0)
@@ -201,8 +203,8 @@ class ChaptersListViewController: NSViewController {
         
         // This should always be done
         btnLoopChapter.onIf(player.chapterLoopExists)
-        txtSearch.stringValue = ""
-        lblNumMatches.stringValue = ""
+        txtSearch?.stringValue = ""
+        lblNumMatches?.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach {$0?.disable()}
         resultIndex = nil
         searchResults.removeAll()

@@ -60,6 +60,7 @@ enum CompactPlayerDisplayedView {
     
     case player
     case playQueue
+    case chaptersList
     case search
     case effects
     case trackInfo

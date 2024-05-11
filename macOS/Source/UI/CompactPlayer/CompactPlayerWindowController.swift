@@ -27,6 +27,7 @@ class CompactPlayerWindowController: NSWindowController {
     @IBOutlet weak var tabView: NSTabView!
     let playerViewController: CompactPlayerViewController = .init()
     var playQueueViewController: CompactPlayQueueViewController! = .init()
+    let chaptersListViewController: CompactChaptersListViewController = .init()
     let searchViewController: CompactPlayQueueSearchViewController = .init()
     lazy var effectsSheetViewController: EffectsSheetViewController = .init()
     lazy var trackInfoViewController: CompactPlayerTrackInfoViewController = .init()
@@ -53,10 +54,12 @@ class CompactPlayerWindowController: NSWindowController {
         tabView.tabViewItem(at: 0).view?.addSubview(playerViewController.view)
         tabView.tabViewItem(at: 1).view?.addSubview(playQueueViewController.view)
         tabView.tabViewItem(at: 2).view?.addSubview(searchViewController.view)
-        tabView.tabViewItem(at: 3).view?.addSubview(trackInfoViewController.view)
+        tabView.tabViewItem(at: 3).view?.addSubview(chaptersListViewController.view)
+        tabView.tabViewItem(at: 4).view?.addSubview(trackInfoViewController.view)
         
         playQueueViewController.view.anchorToSuperview()
         searchViewController.view.anchorToSuperview()
+        chaptersListViewController.view.anchorToSuperview()
         
         tabView.selectTabViewItem(at: 0)
         
@@ -66,8 +69,11 @@ class CompactPlayerWindowController: NSWindowController {
         
         messenger.subscribe(to: .CompactPlayer.showPlayer, handler: showPlayer)
         messenger.subscribe(to: .CompactPlayer.showPlayQueue, handler: showPlayQueue)
+        messenger.subscribe(to: .CompactPlayer.showSearch, handler: showSearch)
+        messenger.subscribe(to: .CompactPlayer.showChaptersList, handler: showChaptersList)
         messenger.subscribe(to: .CompactPlayer.toggleEffects, handler: toggleEffects)
         messenger.subscribe(to: .CompactPlayer.showTrackInfo, handler: showTrackInfo)
+        
         messenger.subscribe(to: .CompactPlayer.changeWindowCornerRadius, handler: changeWindowCornerRadius)
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrackInPlayQueue)
         
@@ -75,8 +81,6 @@ class CompactPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .CompactPlayer.switchToUnifiedMode, handler: switchToUnifiedMode)
         messenger.subscribe(to: .CompactPlayer.switchToMenuBarMode, handler: switchToMenuBarMode)
         messenger.subscribe(to: .CompactPlayer.switchToWidgetMode, handler: switchToWidgetMode)
-        
-        messenger.subscribe(to: .CompactPlayer.showSearch, handler: showSearch)
         
         setUpEventHandling()
     }
@@ -168,8 +172,15 @@ class CompactPlayerWindowController: NSWindowController {
         tabView.selectTabViewItem(at: 2)
     }
     
-    func showTrackInfo() {
+    func showChaptersList() {
+        
+        print(tabView.tabViewItems)
+        
         tabView.selectTabViewItem(at: 3)
+    }
+    
+    func showTrackInfo() {
+        tabView.selectTabViewItem(at: 4)
     }
     
     func showPlayingTrackInPlayQueue() {
@@ -255,6 +266,9 @@ class CompactPlayerWindowController: NSWindowController {
             compactPlayerUIState.displayedView = .search
             
         case 3:
+            compactPlayerUIState.displayedView = .chaptersList
+            
+        case 4:
             compactPlayerUIState.displayedView = .trackInfo
             
         default:

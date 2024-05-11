@@ -27,7 +27,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="300" height="430"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
             <value key="minSize" type="size" width="300" height="430"/>
             <value key="maxSize" type="size" width="300" height="430"/>
             <view key="contentView" id="R1o-nt-GJA" userLabel="Player View">
@@ -92,6 +92,12 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="toggleEffectsAction:" target="9Am-6j-VlW" id="e2j-fc-ZdU"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Chapters List" id="5ya-Z0-y1v">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showChaptersListAction:" target="9Am-6j-VlW" id="Hl6-kX-1Xy"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem title="Track Info" id="lsw-pi-g5q">
@@ -358,13 +364,13 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
-                                        <tabViewItem label="Tab" identifier="" id="xWZ-b3-cwO" userLabel="Player">
+                                        <tabViewItem label="Player" identifier="" id="xWZ-b3-cwO" userLabel="Player">
                                             <view key="view" id="8oG-VK-t61">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                         </tabViewItem>
-                                        <tabViewItem label="View" identifier="" id="YWQ-mT-0GE" userLabel="Play Queue">
+                                        <tabViewItem label="Play Queue" identifier="" id="YWQ-mT-0GE" userLabel="Play Queue">
                                             <view key="view" id="kPu-MB-Qvi">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -372,6 +378,12 @@
                                         </tabViewItem>
                                         <tabViewItem label="Search" identifier="" id="Wh5-US-W7Y">
                                             <view key="view" id="4Ca-Vt-lwy">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                        </tabViewItem>
+                                        <tabViewItem label="Chapters List" identifier="" id="TIR-B2-6PM" userLabel="Chapters List">
+                                            <view key="view" id="2yZ-KR-xfL">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
@@ -422,6 +434,7 @@
                 <outlet property="lblCornerRadius" destination="M3o-Oh-fXf" id="eg6-S0-uqv"/>
                 <outlet property="scrollingEnabledMenuItem" destination="ecA-5M-DtZ" id="5Rx-wg-jij"/>
                 <outlet property="seekPositionDisplayTypeMenuItem" destination="8Qz-Rt-MXv" id="7JD-UJ-fVc"/>
+                <outlet property="showChaptersListMenuItem" destination="5ya-Z0-y1v" id="qqD-OL-93N"/>
                 <outlet property="showPlayQueueMenuItem" destination="Mrs-Bh-3AU" id="TBC-du-pcJ"/>
                 <outlet property="showPlayerMenuItem" destination="BQn-Yq-vQk" id="An1-0w-Xwc"/>
                 <outlet property="showTrackInfoMenuItem" destination="lsw-pi-g5q" id="txl-WN-OKD"/>
@@ -534,6 +547,7 @@
                 <outlet property="lblCornerRadius" destination="scl-nL-etF" id="2Hc-FG-qbR"/>
                 <outlet property="scrollingEnabledMenuItem" destination="n5c-Gs-i6I" id="WNp-Wy-MI3"/>
                 <outlet property="seekPositionDisplayTypeMenuItem" destination="v0D-Fo-V99" id="Ipm-GV-zkH"/>
+                <outlet property="showChaptersListMenuItem" destination="t6j-68-uF7" id="rU3-tD-uvQ"/>
                 <outlet property="showPlayQueueMenuItem" destination="BJ6-ad-JqX" id="NzD-Rn-0dQ"/>
                 <outlet property="showPlayerMenuItem" destination="zzl-wA-8VI" id="EJx-31-5GH"/>
                 <outlet property="showTrackInfoMenuItem" destination="bTJ-0x-qx1" id="T4e-cU-Bdh"/>
@@ -1339,7 +1353,12 @@ CA
                                     <action selector="toggleEffectsAction:" target="RlF-o4-guF" id="Dae-OW-IsX"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Track Info" state="on" image="info.circle" catalog="system" keyEquivalent="3" id="bTJ-0x-qx1" userLabel="Track Info">
+                            <menuItem title=" Chapters List" state="on" image="list.bullet" catalog="system" keyEquivalent="3" id="t6j-68-uF7" userLabel="Chapters List">
+                                <connections>
+                                    <action selector="showChaptersListAction:" target="RlF-o4-guF" id="1wn-zR-PHn"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Track Info" state="on" image="info.circle" catalog="system" keyEquivalent="4" id="bTJ-0x-qx1" userLabel="Track Info">
                                 <connections>
                                     <action selector="showTrackInfoAction:" target="RlF-o4-guF" id="HfU-qY-AfK"/>
                                 </connections>
@@ -1622,6 +1641,7 @@ CA
         <image name="info" catalog="system" width="9" height="12"/>
         <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="left" catalog="system" width="9" height="12"/>
+        <image name="list.bullet" catalog="system" width="16" height="12"/>
         <image name="list.bullet.rectangle.fill" catalog="system" width="18" height="14"/>
         <image name="list.dash" catalog="system" width="16" height="11"/>
         <image name="macwindow" catalog="system" width="18" height="14"/>

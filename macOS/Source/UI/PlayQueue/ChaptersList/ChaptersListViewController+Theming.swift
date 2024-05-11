@@ -49,7 +49,7 @@ extension ChaptersListViewController: FontSchemeObserver {
         
         let smallFont = systemFontScheme.smallFont
         lblSummary.font = smallFont
-        txtSearch.font = smallFont
+        txtSearch?.font = smallFont
         lblNumMatches.font = smallFont
     }
 }
@@ -76,7 +76,7 @@ extension ChaptersListViewController: ColorSchemeObserver {
     func backgroundColorChanged(_ newColor: NSColor) {
         
         chaptersListView.setBackgroundColor(.clear)
-        header.redraw()
+        header?.redraw()
     }
     
     func buttonColorChanged(_ newColor: NSColor) {
@@ -112,7 +112,7 @@ extension ChaptersListViewController: ColorSchemeObserver {
     func secondaryTextColorChanged(_ newColor: NSColor) {
         
         [lblSummary, lblNumMatches].forEach {$0?.textColor = newColor}
-        header.redraw()
+        header?.redraw()
     }
     
     func tertiaryTextColorChanged(_ newColor: NSColor) {
@@ -122,9 +122,9 @@ extension ChaptersListViewController: ColorSchemeObserver {
     func redrawSearchField() {
         
         let textColor = systemColorScheme.primaryTextColor
-        txtSearch.textColor = textColor
+        txtSearch?.textColor = textColor
         
-        if let cell: NSSearchFieldCell = txtSearch.cell as? NSSearchFieldCell {
+        if let cell: NSSearchFieldCell = txtSearch?.cell as? NSSearchFieldCell {
 
             // This is a hack to force these cells to redraw
             cell.resetCancelButtonCell()
@@ -138,7 +138,7 @@ extension ChaptersListViewController: ColorSchemeObserver {
             cell.searchButtonCell?.image?.isTemplate = true
         }
         
-        txtSearch.redraw()
+        txtSearch?.redraw()
     }
     
     func primarySelectedTextColorChanged(_ newColor: NSColor) {

@@ -14,6 +14,7 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var showPlayerMenuItem: NSMenuItem!
     @IBOutlet weak var showPlayQueueMenuItem: NSMenuItem!
+    @IBOutlet weak var showChaptersListMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
     
@@ -46,7 +47,7 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        [showPlayerMenuItem, showPlayQueueMenuItem, toggleEffectsMenuItem, showTrackInfoMenuItem].forEach {$0?.off()}
+        [showPlayerMenuItem, showPlayQueueMenuItem, toggleEffectsMenuItem, showChaptersListMenuItem, showTrackInfoMenuItem].forEach {$0?.off()}
 
         switch compactPlayerUIState.displayedView {
             
@@ -56,15 +57,22 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         case .playQueue, .search:
             showPlayQueueMenuItem.on()
             
+        case .chaptersList:
+            showChaptersListMenuItem.on()
+            
         case .effects:
             toggleEffectsMenuItem.on()
             
         case .trackInfo:
             showTrackInfoMenuItem.on()
         }
+        
+        let isPlaying = playbackInfoDelegate.state.isPlayingOrPaused
 
         // Cannot show Track Info view if no track is currently playing
-        showTrackInfoMenuItem.showIf(compactPlayerUIState.displayedView == .trackInfo || playbackInfoDelegate.state.isPlayingOrPaused)
+        showTrackInfoMenuItem.showIf(compactPlayerUIState.displayedView == .trackInfo || isPlaying)
+        
+        showChaptersListMenuItem.enableIf(isPlaying && playbackInfoDelegate.chapterCount > 0)
         
         scrollingEnabledMenuItem.onIf(compactPlayerUIState.trackInfoScrollingEnabled)
         showTrackTimeMenuItem.onIf(compactPlayerUIState.showTrackTime)
@@ -112,6 +120,11 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     // Shows/hides the effects view
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
         messenger.publish(.CompactPlayer.toggleEffects)
+    }
+    
+    // Shows the Chapters List view
+    @IBAction func showChaptersListAction(_ sender: AnyObject) {
+        messenger.publish(.CompactPlayer.showChaptersList)
     }
     
     // Shows the Track Info view

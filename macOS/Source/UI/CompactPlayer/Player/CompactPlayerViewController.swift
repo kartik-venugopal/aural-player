@@ -26,10 +26,6 @@ class CompactPlayerViewController: PlayerViewController {
         compactPlayerUIState.showTrackTime
     }
     
-    override var displaysChapterIndicator: Bool {
-        false
-    }
-    
     override func updateTrackTextView(for track: Track?, playingChapterTitle: String? = nil) {
         updateScrollingTrackTextView(for: track)
     }

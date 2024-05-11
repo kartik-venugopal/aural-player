@@ -95,7 +95,7 @@ extension ChaptersListViewController: NSTableViewDelegate {
         return cell
     }
     
-    private func createTitleCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> ChaptersListTableCellView? {
+    @objc func createTitleCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> ChaptersListTableCellView? {
         
         guard let cell = tableView.makeView(withIdentifier: .cid_chapterTitle, owner: nil) as? ChaptersListTableCellView else {return nil}
         
@@ -105,6 +105,7 @@ extension ChaptersListViewController: NSTableViewDelegate {
         
         cell.text = text
         cell.textField?.show()
+        cell.textField?.lineBreakMode = .byTruncatingTail
         
         cell.rowSelectionStateFunction = {[weak tableView] in tableView?.isRowSelected(row) ?? false}
         

@@ -21,6 +21,7 @@ extension Notification.Name {
         static let showPlayQueue = Notification.Name("compactPlayer_showPlayQueue")
         static let toggleEffects = Notification.Name("compactPlayer_toggleEffects")
         static let showSearch = Notification.Name("compactPlayer_showSearch")
+        static let showChaptersList = Notification.Name("compactPlayer_showChaptersList")
         static let showTrackInfo = Notification.Name("compactPlayer_showTrackInfo")
         
         static let toggleTrackInfoScrolling = Notification.Name("compactPlayer_toggleTrackInfoScrolling")
