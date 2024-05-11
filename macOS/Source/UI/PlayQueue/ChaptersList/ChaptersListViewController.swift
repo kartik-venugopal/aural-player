@@ -185,14 +185,14 @@ class ChaptersListViewController: NSViewController {
     
     // MARK: Message handling
     
-    var shouldRespondToTrackChange: Bool {
+    var shouldRespondToTrackOrChapterChange: Bool {
         view.window?.isVisible ?? false
     }
     
     func trackChanged() {
         
         // Don't need to do this if the window is not visible
-        if shouldRespondToTrackChange {
+        if shouldRespondToTrackOrChapterChange {
             
             chaptersListView.reloadData()
             chaptersListView.scrollRowToVisible(0)
@@ -215,7 +215,7 @@ class ChaptersListViewController: NSViewController {
     func chapterChanged(_ notification: ChapterChangedNotification) {
         
         // Don't need to do this if the window is not visible
-        if let _window = view.window, _window.isVisible {
+        if shouldRespondToTrackOrChapterChange {
             
             let refreshRows: [Int] = [notification.oldChapter?.index, notification.newChapter?.index]
                 .compactMap {$0}.filter({$0 >= 0})

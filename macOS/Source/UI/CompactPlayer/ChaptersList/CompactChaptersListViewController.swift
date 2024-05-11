@@ -14,7 +14,7 @@ class CompactChaptersListViewController: ChaptersListViewController {
     
     override var nibName: NSNib.Name? {"CompactChaptersList"}
     
-    override var shouldRespondToTrackChange: Bool {
+    override var shouldRespondToTrackOrChapterChange: Bool {
         true
     }
     
