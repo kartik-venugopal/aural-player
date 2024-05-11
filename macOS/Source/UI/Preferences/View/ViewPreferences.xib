@@ -12,6 +12,7 @@
                 <outlet property="btnSnapToWindows" destination="DUF-2F-cuz" id="lRt-Qo-CT3"/>
                 <outlet property="gapStepper" destination="JM6-3k-x8N" id="QeI-Qi-F1T"/>
                 <outlet property="lblWindowGap" destination="raN-A4-2KT" id="rJW-kh-qoM"/>
+                <outlet property="lblWindowGapCaption" destination="VBM-JL-EGo" id="i3F-Re-scj"/>
                 <outlet property="view" destination="YPU-Wt-2pN" id="oYL-9k-17W"/>
             </connections>
         </customObject>
@@ -31,7 +32,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBM-JL-EGo">
-                    <rect key="frame" x="58" y="393" width="205" height="20"/>
+                    <rect key="frame" x="58" y="388" width="205" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gap between windows when snapped:" id="vBe-K4-yLt">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -40,7 +41,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="raN-A4-2KT" userLabel="Window gap value">
-                    <rect key="frame" x="263" y="393" width="35" height="20"/>
+                    <rect key="frame" x="263" y="388" width="35" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="0px" id="SX5-qn-SOs">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hHp-xe-8z8">
@@ -53,7 +54,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JM6-3k-x8N" userLabel="Window gap Stepper">
-                    <rect key="frame" x="299" y="391" width="15" height="22"/>
+                    <rect key="frame" x="299" y="386" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" maxValue="25" id="HkQ-J3-crQ"/>
                     <connections>
@@ -72,7 +73,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLF-UP-XoA" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="38" y="373" width="323" height="20"/>
+                    <rect key="frame" x="38" y="358" width="323" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Snap app windows to screen corners and edges" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9Tk-y7-Lp0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

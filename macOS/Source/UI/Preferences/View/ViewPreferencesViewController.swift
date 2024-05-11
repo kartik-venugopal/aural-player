@@ -12,6 +12,8 @@ import Cocoa
 class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     @IBOutlet weak var btnSnapToWindows: CheckBox!
+    
+    @IBOutlet weak var lblWindowGapCaption: NSTextField!
     @IBOutlet weak var lblWindowGap: NSTextField!
     @IBOutlet weak var gapStepper: NSStepper!
     
@@ -31,6 +33,21 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         [lblWindowGap, gapStepper].forEach {$0!.enableIf(btnSnapToWindows.isOn)}
         
         btnSnapToScreen.onIf(viewPrefs.snapToScreen.value)
+        
+        if appModeManager.currentMode != .modular {
+            
+            [btnSnapToWindows, gapStepper].forEach {
+                
+                $0?.toolTip = "<This preference is only applicable to the \"Modular\" app mode>"
+                $0?.disable()
+            }
+            
+            [lblWindowGapCaption, lblWindowGap].forEach {
+                
+                $0?.toolTip = "<This preference is only applicable to the \"Modular\" app mode>"
+                $0?.textColor = .disabledControlTextColor
+            }
+        }
     }
     
     @IBAction func snapToWindowsAction(_ sender: Any) {

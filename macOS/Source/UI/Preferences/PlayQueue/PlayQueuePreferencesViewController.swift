@@ -104,7 +104,13 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         } else {
             btnOpenWithReplace.on()
         }
-    }
+        
+        if let appMode = appModeManager.currentMode, !appMode.equalsOneOf(.modular, .unified) {
+            
+            btnShowChaptersList.disable()
+            btnShowChaptersList.toolTip = "<This preference is only applicable to the \"Modular\" and \"Unified\" app modes>"
+        }
+     }
     
     @IBAction func startupPlayQueuePrefAction(_ sender: Any) {
         
