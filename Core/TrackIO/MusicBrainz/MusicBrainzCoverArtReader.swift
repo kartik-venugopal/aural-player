@@ -34,14 +34,14 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     
     init(preferences: MusicBrainzPreferences, cache: MusicBrainzCache) {
 
-        self.restAPIClient = MusicBrainzRESTClient(preferences: preferences)
+        self.restAPIClient = MusicBrainzRESTClient()
         self.cache = cache
         self.preferences = preferences
     }
     
     func getCoverArt(forTrack track: Track) -> CoverArt? {
         
-        if (!preferences.enableCoverArtSearch) || searchedTracks.contains(track) {return nil}
+        if (!preferences.enableCoverArtSearch.value) || searchedTracks.contains(track) {return nil}
         
         searchedTracks.insert(track)
         

@@ -382,6 +382,10 @@
 		3E836E392868A36F009371D4 /* UnifiedPlayerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E836E382868A36F009371D4 /* UnifiedPlayerNotifications.swift */; };
 		3E836E3B2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */; };
 		3E8836172B6E0AC30009ABE2 /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8836162B6E0AC30009ABE2 /* TrackInfoViewController.swift */; };
+		3E8B8C2F2BEF58250025D60B /* MusicBrainzPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8B8C2E2BEF58250025D60B /* MusicBrainzPreferencesViewController.swift */; };
+		3E8B8C312BEF58680025D60B /* MusicBrainzPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8B8C302BEF58680025D60B /* MusicBrainzPreferences.xib */; };
+		3E8B8C352BEF59960025D60B /* LastFMPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8B8C322BEF59960025D60B /* LastFMPreferences.xib */; };
+		3E8B8C362BEF59960025D60B /* LastFMPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8B8C332BEF59960025D60B /* LastFMPreferencesViewController.swift */; };
 		3E8C370D2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8C370C2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib */; };
 		3E8C7918269C40FC005E78D1 /* UserInputMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8C7917269C40FC005E78D1 /* UserInputMode.swift */; };
 		3E8C791E269C4196005E78D1 /* PlaylistViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8C791D269C4196005E78D1 /* PlaylistViewSelector.swift */; };
@@ -1399,6 +1403,10 @@
 		3E836E382868A36F009371D4 /* UnifiedPlayerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPlayerNotifications.swift; sourceTree = "<group>"; };
 		3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifiedPlayerWindowController+EventHandling.swift"; sourceTree = "<group>"; };
 		3E8836162B6E0AC30009ABE2 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoViewController.swift; sourceTree = "<group>"; };
+		3E8B8C2E2BEF58250025D60B /* MusicBrainzPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzPreferencesViewController.swift; sourceTree = "<group>"; };
+		3E8B8C302BEF58680025D60B /* MusicBrainzPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MusicBrainzPreferences.xib; sourceTree = "<group>"; };
+		3E8B8C322BEF59960025D60B /* LastFMPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LastFMPreferences.xib; sourceTree = "<group>"; };
+		3E8B8C332BEF59960025D60B /* LastFMPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFMPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E8C370C2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompactPlayerCoverArtTrackInfo.xib; sourceTree = "<group>"; };
 		3E8C7917269C40FC005E78D1 /* UserInputMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputMode.swift; sourceTree = "<group>"; };
 		3E8C791D269C4196005E78D1 /* PlaylistViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewSelector.swift; sourceTree = "<group>"; };
@@ -2427,6 +2435,8 @@
 			children = (
 				3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */,
 				3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */,
+				3E8B8C2D2BEF58020025D60B /* MusicBrainz */,
+				3E8B8C342BEF59960025D60B /* Last.fm */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -3484,6 +3494,25 @@
 			);
 			path = Support;
 			sourceTree = "<group>";
+		};
+		3E8B8C2D2BEF58020025D60B /* MusicBrainz */ = {
+			isa = PBXGroup;
+			children = (
+				3E8B8C302BEF58680025D60B /* MusicBrainzPreferences.xib */,
+				3E8B8C2E2BEF58250025D60B /* MusicBrainzPreferencesViewController.swift */,
+			);
+			path = MusicBrainz;
+			sourceTree = "<group>";
+		};
+		3E8B8C342BEF59960025D60B /* Last.fm */ = {
+			isa = PBXGroup;
+			children = (
+				3E8B8C322BEF59960025D60B /* LastFMPreferences.xib */,
+				3E8B8C332BEF59960025D60B /* LastFMPreferencesViewController.swift */,
+			);
+			name = Last.fm;
+			path = Source/UI/Preferences/Metadata/Last.fm;
+			sourceTree = SOURCE_ROOT;
 		};
 		3E8DD63F2844985F00FED49D /* Artists */ = {
 			isa = PBXGroup;
@@ -5234,6 +5263,7 @@
 				3E6C12C225CEBE6700BF0D07 /* MasterUnit.xib in Resources */,
 				3EAF96F528DCE1B6008561A7 /* ChicagoFLF.ttf in Resources */,
 				3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */,
+				3E8B8C352BEF59960025D60B /* LastFMPreferences.xib in Resources */,
 				3E6C127125CEBE0600BF0D07 /* FilterPresetsManager.xib in Resources */,
 				3E6C125625CEBE0600BF0D07 /* EffectsPresetsManager.xib in Resources */,
 				3E6C126F25CEBE0600BF0D07 /* TimeStretchPresetsManager.xib in Resources */,
@@ -5264,6 +5294,7 @@
 				3E6C122C25CEBDE600BF0D07 /* HistoryPreferences.xib in Resources */,
 				3E43227D2687D65F009E8ADB /* WidgetPlayer.xib in Resources */,
 				3E6C12AD25CEBE2700BF0D07 /* StringInputPopover.xib in Resources */,
+				3E8B8C312BEF58680025D60B /* MusicBrainzPreferences.xib in Resources */,
 				3E45C03325E1264C00C1519C /* FontSchemeSizes.xib in Resources */,
 				3EAF96F428DCE1B6008561A7 /* AlmendraSC-Regular.ttf in Resources */,
 				3E6668B12ADB4AF500BBD119 /* WindowLayoutSetup.xib in Resources */,
@@ -5830,6 +5861,7 @@
 				3E6C12B725CEBE5800BF0D07 /* PlaylistMenuController.swift in Sources */,
 				3EFE3A4F27864898006F8B8C /* LanguageMap.swift in Sources */,
 				3E6C122A25CEBDE600BF0D07 /* PlayQueuePreferencesViewController.swift in Sources */,
+				3E8B8C2F2BEF58250025D60B /* MusicBrainzPreferencesViewController.swift in Sources */,
 				3EFE396F27864897006F8B8C /* ChapterPlayback.swift in Sources */,
 				3E3B8D362B72E2700060C7C7 /* FuseBoxPopupMenuCell.swift in Sources */,
 				3EB3FFDC27DE3839009F7E2C /* ColorScheme+Presets.swift in Sources */,
@@ -5862,6 +5894,7 @@
 				3ECF71BC2B75B48E00FDB69B /* CompactPlayQueueSearchViewController.swift in Sources */,
 				3EFE38AB27864896006F8B8C /* ParametricEQNode.swift in Sources */,
 				3E6C126225CEBE0600BF0D07 /* PresetsManagerWindowController.swift in Sources */,
+				3E8B8C362BEF59960025D60B /* LastFMPreferencesViewController.swift in Sources */,
 				3E6C12C025CEBE6700BF0D07 /* PresetsWrapper.swift in Sources */,
 				3E3ACC042B5932EC00F2F678 /* LegacyHistoryPersistentState.swift in Sources */,
 				3EF84D872835D7D9004EF57B /* GroupedSortedTrackList.swift in Sources */,

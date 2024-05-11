@@ -1,183 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MetadataPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnDisableMusicBrainzOnDiskCoverArtCache" destination="tBL-iz-Oka" id="DsZ-Cy-YXM"/>
-                <outlet property="btnEnableMusicBrainzCoverArtSearch" destination="XQ9-wg-zZo" id="oOx-I3-ZcJ"/>
-                <outlet property="btnEnableMusicBrainzOnDiskCoverArtCache" destination="aoA-aw-TdP" id="H6P-dg-AnO"/>
-                <outlet property="lblTimeout" destination="emq-j8-af3" id="Nmu-Xv-eAJ"/>
-                <outlet property="timeoutStepper" destination="rb4-IS-LZr" id="aG5-ls-hyR"/>
-                <outlet property="view" destination="gM7-Rf-uEp" id="mH7-ZP-hDi"/>
+                <outlet property="lblTimeout" destination="FnG-sc-wtT" id="1P7-xN-N0P"/>
+                <outlet property="tabView" destination="CQ6-wz-qRX" id="pFz-gv-gzS"/>
+                <outlet property="timeoutStepper" destination="Ngp-xp-zWL" id="I1G-cv-30Z"/>
+                <outlet property="view" destination="XyJ-uV-Hek" id="g3X-fZ-lR9"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view id="gM7-Rf-uEp">
-            <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxZ-vh-pjm">
-                    <rect key="frame" x="47" y="372" width="283" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="MusicBrainz on-disk cache (for cover art)" id="VAI-8o-e4n">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9f-q8-9fD">
-                    <rect key="frame" x="47" y="402" width="220" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="HTTP request timeout (seconds)" id="HRY-pK-lDC">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aoA-aw-TdP" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="59" y="347.5" width="327" height="18.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Enable  (better user experience, some disk usage)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="iqx-Gc-G5S">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="musicBrainzOnDiskCacheCoverArtAction:" target="-2" id="eV1-d6-hbE"/>
-                    </connections>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tBL-iz-Oka" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="59" y="323.5" width="316" height="19.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Disable  (no disk usage, more frequent queries)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4Yw-JO-Kke">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="musicBrainzOnDiskCacheCoverArtAction:" target="-2" id="rhR-CU-iDq"/>
-                    </connections>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XQ9-wg-zZo" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="16" y="429.5" width="322" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Search MusicBrainz  database for cover art" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UtI-I5-vc1">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="13" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="emq-j8-af3" userLabel="Timeout Label">
-                    <rect key="frame" x="283" y="398" width="40" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5 sec" id="eVj-3h-MvH">
-                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="NNY-RN-RaG">
-                            <real key="minimum" value="3"/>
-                            <real key="maximum" value="30"/>
-                        </numberFormatter>
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rb4-IS-LZr" userLabel="Timeout Stepper">
-                    <rect key="frame" x="323" y="398" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="60" doubleValue="5" id="ytY-VQ-Te0"/>
-                    <connections>
-                        <action selector="musicBrainzTimeoutStepperAction:" target="-2" id="O5X-Xu-fWu"/>
-                    </connections>
-                </stepper>
-            </subviews>
-            <point key="canvasLocation" x="139" y="168"/>
-        </view>
         <view id="XyJ-uV-Hek">
             <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NtM-WB-HCh">
-                    <rect key="frame" x="62" y="312" width="283" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="MusicBrainz on-disk cache (for cover art)" id="N6V-FN-lpe">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uTz-Qn-agD" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="74" y="287.5" width="327" height="18.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Enable  (better user experience, some disk usage)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Uwv-K2-GPm">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jkc-be-iy0" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="74" y="263.5" width="316" height="19.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Disable  (no disk usage, more frequent queries)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="n0h-x3-MEs">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktP-CC-HN2" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="31" y="344.5" width="322" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Search MusicBrainz  database for cover art" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="W04-dy-o75">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="13" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nAc-C2-peg" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="31" y="180.5" width="322" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Enable Last.fm scrobbling" bezelStyle="regularSquare" imagePosition="left" inset="2" id="w6E-hb-kCM">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="13" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4YA-Zi-RHT">
-                    <rect key="frame" x="16" y="423" width="220" height="20"/>
+                    <rect key="frame" x="16" y="433" width="388" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="HTTP request timeout (seconds)" id="4hk-zm-U4K">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bQX-KS-Nsk">
-                    <rect key="frame" x="56" y="116" width="146" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(Not Authenticated)" id="ZNU-Bj-ENP">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KlO-yV-EuW">
-                    <rect key="frame" x="29" y="63" width="416" height="39"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="2d0-S4-Atb">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <string key="title">Step 1 - Click "Grant Aural Permission" to launch Last.fm in your web browser and grant the app permission within your Last.fm account.</string>
-                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Yk-YC-7Z9">
-                    <rect key="frame" x="28" y="16" width="417" height="39"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Step 2 - After completing Step 1 in the browser, click &quot;Get Session Key&quot; to obtain a persistent Session Key." id="D4l-bT-TWx">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="HTTP timeout when making internet requests (seconds)" id="4hk-zm-U4K">
                         <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FnG-sc-wtT" userLabel="Timeout Label">
-                    <rect key="frame" x="252" y="419" width="40" height="20"/>
+                    <rect key="frame" x="422" y="432" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5 sec" id="ol3-AL-lgn">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="NbU-Tl-mUc">
@@ -190,79 +44,40 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ngp-xp-zWL" userLabel="Timeout Stepper">
-                    <rect key="frame" x="292" y="419" width="15" height="22"/>
+                    <rect key="frame" x="462" y="432" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="60" doubleValue="5" id="Mxi-n7-IJc"/>
+                    <connections>
+                        <action selector="httpTimeoutStepperAction:" target="-2" id="ePj-aO-zRu"/>
+                    </connections>
                 </stepper>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KBH-ij-wQU" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="31" y="152.5" width="588" height="32"/>
+                <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CQ6-wz-qRX" userLabel="Tab View">
+                    <rect key="frame" x="15" y="15" width="658" height="400"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Enable Last.fm love / unlove   (triggered by changes to 'Favorites' list)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="993-i1-9ax">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="13" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CZK-AG-JMb" userLabel="Autoplay on startup">
-                    <rect key="frame" x="16" y="383" width="220" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="MusicBrainz" id="6sx-69-8qj">
-                        <font key="font" size="16" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YE9-fH-TGH" userLabel="Autoplay on startup">
-                    <rect key="frame" x="16" y="219" width="220" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Last.fm" id="DXo-Ha-8DX">
-                        <font key="font" size="16" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <imageView focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gMA-mz-g2G" userLabel="Error icon">
-                    <rect key="frame" x="31" y="117" width="18" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="Error" id="VUu-5W-aqT"/>
-                </imageView>
-                <button toolTip="Get a persistent Session Key from Last.fm that will be saved for long-term reuse." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLf-EY-Dbk" userLabel="Btn Browse">
-                    <rect key="frame" x="485" y="26" width="174" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Get Session Key" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="0dz-rf-zEz" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="cellTitle"/>
-                        <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                    </buttonCell>
-                </button>
-                <button toolTip="Launch Last.fm in the web browser to allow Aural to scrobble to your Last.fm account." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BJ4-Hl-SWm" userLabel="Btn Browse">
-                    <rect key="frame" x="485" y="77" width="174" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Grant Aural Permission" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="GlA-mf-uLb" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="cellTitle"/>
-                        <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                    </buttonCell>
-                </button>
-                <button toolTip="Reset the Session Key and redo the authentication process." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fo7-rs-lm8" userLabel="Btn Browse">
-                    <rect key="frame" x="485" y="111" width="174" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Re-Authenticate" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="wJG-t1-qr0" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="cellTitle"/>
-                        <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                    </buttonCell>
-                </button>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="MusicBrainz" identifier="" id="8YO-gP-xM0" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="a8o-Fj-fme">
+                                <rect key="frame" x="10" y="33" width="638" height="356"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <imageReference key="image" image="keyboard" catalog="system" symbolScale="medium"/>
+                        </tabViewItem>
+                        <tabViewItem label="Last.fm" identifier="" id="lnE-Fz-P4l" userLabel="Gestures" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="jQ5-PV-gV1">
+                                <rect key="frame" x="10" y="33" width="638" height="354"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <imageReference key="image" image="rectangle.and.hand.point.up.left.fill" catalog="system" symbolScale="medium"/>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
             </subviews>
             <point key="canvasLocation" x="148" y="-450"/>
         </view>
     </objects>
     <resources>
-        <image name="Error" width="77" height="77"/>
+        <image name="keyboard" catalog="system" width="19" height="13"/>
+        <image name="rectangle.and.hand.point.up.left.fill" catalog="system" width="19" height="18"/>
     </resources>
 </document>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MusicBrainzPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnDisableOnDiskCache" destination="yC8-Oc-3Jh" id="olP-qz-3xh"/>
+                <outlet property="btnEnableCoverArtSearch" destination="yd1-72-Yf8" id="2FG-Or-usU"/>
+                <outlet property="btnEnableOnDiskCache" destination="NXb-kt-SBM" id="n7v-ab-A24"/>
+                <outlet property="view" destination="W8Y-oq-0wu" id="YaQ-nL-8LG"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="W8Y-oq-0wu">
+            <rect key="frame" x="0.0" y="0.0" width="658" height="400"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e4D-ku-9LF">
+                    <rect key="frame" x="57" y="271" width="283" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="MusicBrainz on-disk cache (for cover art)" id="64O-3c-rdM">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NXb-kt-SBM" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="69" y="246.5" width="327" height="18.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Enable  (better user experience, some disk usage)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="3ys-ec-C27">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="onDiskCacheRadioButtonAction:" target="-2" id="s70-gz-AGo"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yC8-Oc-3Jh" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="69" y="222.5" width="316" height="19.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Disable  (no disk usage, more frequent queries)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="StR-cf-hMW">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="onDiskCacheRadioButtonAction:" target="-2" id="9nP-rk-6s9"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yd1-72-Yf8" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="26" y="303.5" width="322" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Search MusicBrainz  database for cover art" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Xav-Fp-VUg">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="148" y="-450"/>
+        </view>
+    </objects>
+</document>

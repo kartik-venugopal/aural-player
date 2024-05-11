@@ -15,17 +15,13 @@ import Foundation
 ///
 class MusicBrainzPreferences {
 
-    var httpTimeout: Int = 5
-    var enableCoverArtSearch: Bool = true
-    var enableOnDiskCoverArtCache: Bool = true
+    lazy var enableCoverArtSearch: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableCoverArtSearch", defaultValue: Defaults.enableCoverArtSearch)
+    lazy var enableOnDiskCoverArtCache: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableOnDiskCoverArtCache", defaultValue: Defaults.enableOnDiskCoverArtCache)
+    
+    var cachingEnabled: Bool {
+        enableCoverArtSearch.value && enableOnDiskCoverArtCache.value
+    }
     
     private static let keyPrefix: String = "metadata.musicBrainz"
-    
-    static let key_enableCoverArtSearch: String = "\(keyPrefix).enableCoverArtSearch"
-    static let key_enableOnDiskCoverArtCache: String = "\(keyPrefix).enableOnDiskCoverArtCache"
-    
     private typealias Defaults = PreferencesDefaults.Metadata.MusicBrainz
-    
-    init() {
-    }
 }

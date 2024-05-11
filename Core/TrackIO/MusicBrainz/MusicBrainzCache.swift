@@ -39,7 +39,7 @@ class MusicBrainzCache: PersistentModelObject {
         self.preferences = preferences
         messenger.subscribe(to: .Application.willExit, handler: onAppExit)
         
-        guard preferences.enableCoverArtSearch && preferences.enableOnDiskCoverArtCache else {
+        guard preferences.cachingEnabled else {
             
             self.baseDir.delete()
             return
@@ -118,7 +118,7 @@ class MusicBrainzCache: PersistentModelObject {
         
         releasesCache[artist, title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
         
-        if preferences.enableOnDiskCoverArtCache, let foundArt = coverArt {
+        if preferences.enableOnDiskCoverArtCache.value, let foundArt = coverArt {
             persistForRelease(artist: artist, title: title, coverArt: foundArt)
         }
     }
@@ -153,7 +153,7 @@ class MusicBrainzCache: PersistentModelObject {
         
         recordingsCache[artist, title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
         
-        if preferences.enableOnDiskCoverArtCache, let foundArt = coverArt {
+        if preferences.enableOnDiskCoverArtCache.value, let foundArt = coverArt {
             persistForRecording(artist: artist, title: title, coverArt: foundArt)
         }
     }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LastFMPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnEnableLoveUnlove" destination="sbL-NK-8Bh" id="QqY-1y-0hc"/>
+                <outlet property="btnEnableScrobbling" destination="Xsz-F8-nwx" id="t9v-Gt-0A9"/>
+                <outlet property="btnGetSessionKey" destination="mQT-il-2Px" id="HMn-Ac-p5C"/>
+                <outlet property="btnGrantPermission" destination="Sfq-sD-TN1" id="peC-Pe-FcJ"/>
+                <outlet property="btnReauthenticate" destination="HnK-tL-q1v" id="Z7X-AH-FYm"/>
+                <outlet property="imgAuthStatus" destination="xIH-qV-9T5" id="X9o-B9-pE3"/>
+                <outlet property="lblAuthInstructions1" destination="TMc-yz-eoY" id="P3r-01-HjD"/>
+                <outlet property="lblAuthInstructions2" destination="x96-AG-5VF" id="9oA-8f-Pk1"/>
+                <outlet property="lblAuthStatus" destination="Nmp-yG-Rvg" id="rTn-aB-Is2"/>
+                <outlet property="view" destination="W8Y-oq-0wu" id="s67-U7-QoX"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="W8Y-oq-0wu">
+            <rect key="frame" x="0.0" y="0.0" width="658" height="400"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xsz-F8-nwx" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="26" y="303.5" width="322" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Enable Last.fm scrobbling" bezelStyle="regularSquare" imagePosition="left" inset="2" id="IIp-GZ-RuH">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbL-NK-8Bh" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="26" y="276.5" width="588" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Enable Last.fm love / unlove   (triggered by changes to 'Favorites' list)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Tq7-gP-dap">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nmp-yG-Rvg">
+                    <rect key="frame" x="51" y="238" width="206" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(Not Authenticated)" id="M99-1H-8e9">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TMc-yz-eoY">
+                    <rect key="frame" x="24" y="150" width="342" height="59"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Vta-Jo-7TH">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <string key="title">Step 1 - Click "Grant Aural Permission" to launch Last.fm in your web browser and grant the app permission within your Last.fm account.</string>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x96-AG-5VF">
+                    <rect key="frame" x="23" y="109" width="348" height="43"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Step 2 - After completing Step 1 in the browser, click &quot;Get Session Key&quot; to obtain a persistent Session Key." id="vfe-PE-dyC">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xIH-qV-9T5" userLabel="Error icon">
+                    <rect key="frame" x="26" y="239" width="18" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="Error" id="L53-Tx-qmk"/>
+                </imageView>
+                <button toolTip="Get a persistent Session Key from Last.fm that will be saved for long-term reuse." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mQT-il-2Px" userLabel="Btn Browse">
+                    <rect key="frame" x="430" y="123" width="174" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Get Session Key" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="1Gy-U2-N4s" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="getSessionKeyAction:" target="-2" id="QcK-Bv-TZh"/>
+                    </connections>
+                </button>
+                <button toolTip="Launch Last.fm in the web browser to allow Aural to scrobble to your Last.fm account." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sfq-sD-TN1" userLabel="Btn Browse">
+                    <rect key="frame" x="430" y="184" width="174" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Grant Aural Permission" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="bmG-jb-gdt" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="grantPermissionAction:" target="-2" id="Y1l-Ef-CIG"/>
+                    </connections>
+                </button>
+                <button toolTip="Reset the Session Key and redo the authentication process." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HnK-tL-q1v" userLabel="Btn Browse">
+                    <rect key="frame" x="430" y="233" width="174" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Re-Authenticate" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="q5y-Xh-Ihf" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="reauthenticateAction:" target="-2" id="OYX-w1-5dm"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="148" y="-450"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Error" width="77" height="77"/>
+    </resources>
+</document>

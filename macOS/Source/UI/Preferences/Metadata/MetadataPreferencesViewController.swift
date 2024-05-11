@@ -11,63 +11,54 @@ import Cocoa
 
 class MetadataPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var btnEnableMusicBrainzCoverArtSearch: NSButton!
+    override var nibName: NSNib.Name? {"MetadataPreferences"}
+    
+    @IBOutlet weak var tabView: NSTabView!
     
     @IBOutlet weak var timeoutStepper: NSStepper!
     @IBOutlet weak var lblTimeout: NSTextField!
     
-    @IBOutlet weak var btnEnableMusicBrainzOnDiskCoverArtCache: NSButton!
-    @IBOutlet weak var btnDisableMusicBrainzOnDiskCoverArtCache: NSButton!
-    
-    override var nibName: NSNib.Name? {"MetadataPreferences"}
+    private let musicBrainzPreferencesView: PreferencesViewProtocol = MusicBrainzPreferencesViewController()
+    private let lastFMPreferencesView: PreferencesViewProtocol = LastFMPreferencesViewController()
     
     var preferencesView: NSView {
-        return self.view
+        view
+    }
+    
+    private var subViews: [PreferencesViewProtocol] = []
+    
+    override func viewDidLoad() {
+        
+        subViews = [musicBrainzPreferencesView, lastFMPreferencesView]
+        
+        let actualViews = subViews.map {$0.preferencesView}
+        for (index, view) in actualViews.enumerated() {
+            tabView.tabViewItem(at: index).view?.addSubview(view)
+        }
+    }
+    
+    private var metadataPrefs: MetadataPreferences {
+        preferences.metadataPreferences
     }
     
     func resetFields() {
         
-//        let musicBrainzPrefs = preferences.metadataPreferences.musicBrainz
-//        
-//        timeoutStepper.integerValue = musicBrainzPrefs.httpTimeout
-//        lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
-//       
-//        btnEnableMusicBrainzCoverArtSearch.onIf(musicBrainzPrefs.enableCoverArtSearch)
-//        
-//        if musicBrainzPrefs.enableOnDiskCoverArtCache {
-//            btnEnableMusicBrainzOnDiskCoverArtCache.on()
-//        } else {
-//            btnDisableMusicBrainzOnDiskCoverArtCache.on()
-//        }
+        timeoutStepper.integerValue = metadataPrefs.httpTimeout.value
+        lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
+        
+        subViews.forEach {$0.resetFields()}
     }
     
-    @IBAction func musicBrainzTimeoutStepperAction(_ sender: NSStepper) {
+    @IBAction func httpTimeoutStepperAction(_ sender: NSStepper) {
         lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
     }
     
-    // Needed for radio button group
-    @IBAction func musicBrainzOnDiskCacheCoverArtAction(_ sender: NSButton) {}
-    
     func save() throws {
         
-        let prefs: MusicBrainzPreferences = preferences.metadataPreferences.musicBrainz
+        metadataPrefs.httpTimeout.value = timeoutStepper.integerValue
         
-//        prefs.httpTimeout = timeoutStepper.integerValue
-        
-        let wasSearchDisabled: Bool = !prefs.enableCoverArtSearch
-        prefs.enableCoverArtSearch = btnEnableMusicBrainzCoverArtSearch.isOn
-        
-        prefs.enableOnDiskCoverArtCache = btnEnableMusicBrainzOnDiskCoverArtCache.isOn
-        
-        // If searching was disabled before but has been switched on, let's search for art for the playing track, if required.
-        if wasSearchDisabled && prefs.enableCoverArtSearch, let playingTrack = playbackInfoDelegate.playingTrack {
-            trackReader.loadArtAsync(for: playingTrack, immediate: true)
-        }
-        
-        if prefs.enableCoverArtSearch && prefs.enableOnDiskCoverArtCache {
-            musicBrainzCache.onDiskCachingEnabled()
-        } else {
-            musicBrainzCache.onDiskCachingDisabled()
+        for subView in subViews {
+            try subView.save()
         }
     }
 }

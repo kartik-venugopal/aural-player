@@ -22,5 +22,5 @@ class LastFMPreferences {
     }
     
     lazy var enableScrobbling: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableScrobbling", defaultValue: Defaults.enableScrobbling)
-    lazy var enableLoveUnlove: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).sessionKey", defaultValue: Defaults.enableLoveUnlove)
+    lazy var enableLoveUnlove: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableLoveUnlove", defaultValue: Defaults.enableLoveUnlove)
 }

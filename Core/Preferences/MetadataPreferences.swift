@@ -14,11 +14,13 @@ import Foundation
 ///
 class MetadataPreferences {
     
-    var musicBrainz: MusicBrainzPreferences
-    var lastFM: LastFMPreferences
+    private static let keyPrefix: String = "metadata"
+    private typealias Defaults = PreferencesDefaults.Metadata
     
-    // TODO: UserPreference<Int>
-    var httpTimeout: Int = 5
+    lazy var httpTimeout: UserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).httpTimeout", defaultValue: Defaults.httpTimeout)
+    
+    let musicBrainz: MusicBrainzPreferences
+    let lastFM: LastFMPreferences
     
     init() {
         

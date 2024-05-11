@@ -78,6 +78,8 @@ extension PlatformImage {
     static let imgDisclosure_collapsed: PlatformImage = PlatformImage(named: "DisclosureTriangle-Collapsed")!
     static let imgDisclosure_expanded: PlatformImage = PlatformImage(named: "DisclosureTriangle-Expanded")!
     
+    static let imgGreenCheck: PlatformImage = PlatformImage(named: "GreenCheck")!
+    
     // --------------- Device type icons -------------------
     
     static let imgDeviceType_builtIn: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.2.fill", accessibilityDescription: nil)!
