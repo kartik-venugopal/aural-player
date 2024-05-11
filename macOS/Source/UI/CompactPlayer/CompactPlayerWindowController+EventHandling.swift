@@ -24,26 +24,34 @@ extension CompactPlayerWindowController {
     }
 
     // Handles a single swipe event
-    func handleSwipe(_ event: NSEvent) -> NSEvent? {
+    private func handleSwipe(_ event: NSEvent) -> NSEvent? {
 
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
 
-        if let swipeDirection = event.gestureDirection, swipeDirection.isHorizontal {
-            handleTrackChange(swipeDirection)
+        if let swipeDirection = event.gestureDirection {
+            
+            if swipeDirection.isHorizontal {
+                compactPlayerUIState.displayedView == .player ? handleTrackChange(swipeDirection) : handlePageUpDown(swipeDirection)
+                
+            } else if compactPlayerUIState.displayedView == .playQueue {
+                
+                // Vertical swipe on the PQ
+                handleScrollTopBottom(swipeDirection)
+            }
         }
 
         return event
     }
 
     // Handles a single scroll event
-    func handleScroll(_ event: NSEvent) -> NSEvent? {
+    private func handleScroll(_ event: NSEvent) -> NSEvent? {
 
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
 
         // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
-        if let scrollDirection = event.gestureDirection {
+        if let scrollDirection = event.gestureDirection, compactPlayerUIState.displayedView == .player {
 
             // Vertical scroll = volume control, horizontal scroll = seeking
             scrollDirection.isVertical ? handleVolumeControl(event, scrollDirection) : handleSeek(event, scrollDirection)
@@ -52,7 +60,7 @@ extension CompactPlayerWindowController {
         return event
     }
     
-    func handleTrackChange(_ swipeDirection: GestureDirection) {
+    private func handleTrackChange(_ swipeDirection: GestureDirection) {
         
         if gesturesPreferences.allowTrackChange.value {
             
@@ -61,7 +69,7 @@ extension CompactPlayerWindowController {
         }
     }
     
-    func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
+    private func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
         if gesturesPreferences.allowVolumeControl.value && ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
         
@@ -70,7 +78,7 @@ extension CompactPlayerWindowController {
         }
     }
     
-    func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
+    private func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
         guard gesturesPreferences.allowSeeking.value else {return}
         
@@ -91,6 +99,20 @@ extension CompactPlayerWindowController {
         }
     }
     
+    private func handleScrollTopBottom(_ swipeDirection: GestureDirection) {
+        
+        if gesturesPreferences.allowPlayQueueScrollingTopToBottom.value {
+            messenger.publish(swipeDirection == .up ? .PlayQueue.scrollToTop : .PlayQueue.scrollToBottom)
+        }
+    }
+    
+    private func handlePageUpDown(_ swipeDirection: GestureDirection) {
+        
+        if gesturesPreferences.allowPlayQueueScrollingPageUpDown.value {
+            messenger.publish(swipeDirection == .left ? .PlayQueue.pageUp : .PlayQueue.pageDown)
+        }
+    }
+    
     /*
         "Residual scrolling" occurs when seeking forward to the end of a playing track (scrolling right), resulting in the next track playing while the scroll is still occurring. Inertia (i.e. the momentum phase of the scroll) can cause scrolling, and hence seeking, to continue after the new track has begun playing. This is undesirable behavior. The scrolling should stop when the new track begins playing.
      
@@ -101,7 +123,7 @@ extension CompactPlayerWindowController {
      
         Returns a value indicating whether or not this event constitutes residual scroll.
      */
-    func isResidualScroll(_ event: NSEvent) -> Bool {
+    private func isResidualScroll(_ event: NSEvent) -> Bool {
     
         // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
         if let playingTrackStartTime = playbackInfoDelegate.playingTrackStartTime,

@@ -261,7 +261,7 @@ class CompactPlayerWindowController: NSWindowController {
             return
         }
         
-        if compactPlayerUIState.displayedView == .player {
+        if compactPlayerUIState.displayedView.equalsOneOf(.player, .playQueue) {
             eventMonitor.resumeMonitoring()
         } else {
             eventMonitor.pauseMonitoring()

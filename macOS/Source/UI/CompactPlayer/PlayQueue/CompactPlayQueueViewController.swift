@@ -34,6 +34,11 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         
         messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: updateSummary)
         messenger.subscribeAsync(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
+        
+        messenger.subscribe(to: .PlayQueue.pageUp, handler: pageUp)
+        messenger.subscribe(to: .PlayQueue.pageDown, handler: pageDown)
+        messenger.subscribe(to: .PlayQueue.scrollToTop, handler: scrollToTop)
+        messenger.subscribe(to: .PlayQueue.scrollToBottom, handler: scrollToBottom)
     }
     
     // MARK: Notification handling ----------------------------------------------------------------------------------
