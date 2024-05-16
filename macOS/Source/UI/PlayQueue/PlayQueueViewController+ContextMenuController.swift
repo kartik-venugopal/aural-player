@@ -134,7 +134,7 @@ extension PlayQueueViewController: NSMenuDelegate {
     }
     
     @IBAction func viewChaptersListAction(_ sender: Any) {
-        windowLayoutsManager.showWindow(withId: .chaptersList)
+        messenger.publish(.PlayQueue.viewChaptersList)
     }
     
     @IBAction func jumpToChapterAction(_ sender: ChapterMenuItem) {

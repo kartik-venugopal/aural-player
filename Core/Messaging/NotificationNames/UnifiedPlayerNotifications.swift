@@ -18,6 +18,7 @@ extension Notification.Name {
         
         // Command to show a specific Library browser tab (specified in the payload).
         static let showModule = Notification.Name("unifiedPlayer_showModule")
+        static let hideModule = Notification.Name("unifiedPlayer_hideModule")
     }
     
     // Command to show a specific Library browser tab (specified in the payload).

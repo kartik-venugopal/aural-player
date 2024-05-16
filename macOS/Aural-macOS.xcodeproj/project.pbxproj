@@ -524,7 +524,6 @@
 		3EBD345D2B5DBFC40048AC03 /* BookmarksDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD345C2B5DBFC40048AC03 /* BookmarksDelegate+Init.swift */; };
 		3EBF0F67280C7317000455D6 /* MetadataRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF0F66280C7317000455D6 /* MetadataRegistry.swift */; };
 		3EBF0F69280C73E4000455D6 /* MetadataPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF0F68280C73E4000455D6 /* MetadataPersistentState.swift */; };
-		3EBF238D2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF238C2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift */; };
 		3EBF238F2BF66D090069B6B1 /* ChaptersListWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBF238E2BF66D090069B6B1 /* ChaptersListWindow.xib */; };
 		3EBF29292686947700D87021 /* FilterBandsTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */; };
 		3EBF292B268695B700D87021 /* EffectsUnitTriStateBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */; };
@@ -1574,7 +1573,6 @@
 		3EBD345C2B5DBFC40048AC03 /* BookmarksDelegate+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarksDelegate+Init.swift"; sourceTree = "<group>"; };
 		3EBF0F66280C7317000455D6 /* MetadataRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataRegistry.swift; sourceTree = "<group>"; };
 		3EBF0F68280C73E4000455D6 /* MetadataPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPersistentState.swift; sourceTree = "<group>"; };
-		3EBF238C2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPlayQueueViewController.swift; sourceTree = "<group>"; };
 		3EBF238E2BF66D090069B6B1 /* ChaptersListWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChaptersListWindow.xib; sourceTree = "<group>"; };
 		3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandsTabButtonCell.swift; sourceTree = "<group>"; };
 		3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateBypassButton.swift; sourceTree = "<group>"; };
@@ -3474,7 +3472,6 @@
 				3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */,
 				3E51CCEE285E896B002CBEF2 /* Sidebar */,
 				3EB42029285A627C007159CC /* Player */,
-				3EBF238B2BF6664F0069B6B1 /* PlayQueue */,
 			);
 			path = UnifiedPlayer;
 			sourceTree = "<group>";
@@ -3893,14 +3890,6 @@
 				3EBF0F66280C7317000455D6 /* MetadataRegistry.swift */,
 			);
 			path = Registry;
-			sourceTree = "<group>";
-		};
-		3EBF238B2BF6664F0069B6B1 /* PlayQueue */ = {
-			isa = PBXGroup;
-			children = (
-				3EBF238C2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift */,
-			);
-			path = PlayQueue;
 			sourceTree = "<group>";
 		};
 		3EBFF5A12B528E2D0056D5B4 /* Artists */ = {
@@ -6101,7 +6090,6 @@
 				3EFE39ED27864898006F8B8C /* PlaylistsPersistentState.swift in Sources */,
 				3EFE3A5927864898006F8B8C /* MusicBrainzArtistCredit.swift in Sources */,
 				3EFE391F27864897006F8B8C /* CollectionExtensions.swift in Sources */,
-				3EBF238D2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift in Sources */,
 				3E6C129825CEBE2700BF0D07 /* VAlignedTextField.swift in Sources */,
 				3E10177C28D7713B002C0D8E /* FFmpegAudioFormat.swift in Sources */,
 				3EFE39DF27864897006F8B8C /* AudioUnitPersistentState.swift in Sources */,

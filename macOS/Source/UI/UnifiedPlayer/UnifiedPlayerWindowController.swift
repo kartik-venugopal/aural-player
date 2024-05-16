@@ -37,7 +37,8 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     private lazy var sidebarController: UnifiedPlayerSidebarViewController = UnifiedPlayerSidebarViewController()
     
-    private lazy var playQueueController: PlayQueueContainerViewController = PlayQueueContainerViewController()
+    private lazy var playQueueController: PlayQueueContainerViewController = .init()
+    private lazy var chaptersListController: ChaptersListViewController = .init()
     
 //    private lazy var libraryTracksController: LibraryTracksViewController = LibraryTracksViewController()
 //    private lazy var libraryArtistsController: LibraryArtistsViewController = LibraryArtistsViewController()
@@ -95,6 +96,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         tabGroup.selectTabViewItem(at: 0)
         
         messenger.subscribe(to: .UnifiedPlayer.showModule, handler: showModule(forItem:))
+        messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)
     }
     
     // Set window properties
@@ -189,6 +191,12 @@ class UnifiedPlayerWindowController: NSWindowController {
             
             return
         }
+    }
+    
+    private func viewChaptersList() {
+        
+        tabGroup.addAndAnchorSubView(forController: chaptersListController)
+        tabGroup.selectLastTabViewItem(self)
     }
 }
 
