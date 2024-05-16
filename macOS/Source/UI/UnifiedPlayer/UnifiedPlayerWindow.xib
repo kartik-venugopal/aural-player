@@ -488,6 +488,7 @@
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-16" y="854"/>
         </window>
+        <customObject id="FuH-AM-eRS" customClass="AuralMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="fs7-n4-iiz" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="theMenu" destination="Wgb-fp-9D8" id="nTa-bB-WNi"/>
@@ -649,12 +650,27 @@
                         <items>
                             <menuItem title="About Aural" id="ZBj-FX-zzH">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="aboutAction:" target="FuH-AM-eRS" id="IgC-Xo-cbm"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="8la-li-FNu"/>
-                            <menuItem title="Preferences" keyEquivalent="," id="Rcw-fe-3VY"/>
+                            <menuItem title="Preferences" keyEquivalent="," id="Rcw-fe-3VY">
+                                <connections>
+                                    <action selector="preferencesAction:" target="FuH-AM-eRS" id="cZy-ia-JqY"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="YSV-PQ-9PR"/>
-                            <menuItem title="Hide Aural" keyEquivalent="h" id="X1B-5A-cdj" userLabel="Hide Aural"/>
-                            <menuItem title="Quit Aural" keyEquivalent="q" id="UOs-ox-vy1"/>
+                            <menuItem title="Hide Aural" keyEquivalent="h" id="X1B-5A-cdj" userLabel="Hide Aural">
+                                <connections>
+                                    <action selector="hideAction:" target="FuH-AM-eRS" id="nsa-Zm-wEQ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Quit Aural" keyEquivalent="q" id="UOs-ox-vy1">
+                                <connections>
+                                    <action selector="quitAction:" target="FuH-AM-eRS" id="Ab8-PB-DeL"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>

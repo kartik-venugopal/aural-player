@@ -524,6 +524,8 @@
 		3EBD345D2B5DBFC40048AC03 /* BookmarksDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD345C2B5DBFC40048AC03 /* BookmarksDelegate+Init.swift */; };
 		3EBF0F67280C7317000455D6 /* MetadataRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF0F66280C7317000455D6 /* MetadataRegistry.swift */; };
 		3EBF0F69280C73E4000455D6 /* MetadataPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF0F68280C73E4000455D6 /* MetadataPersistentState.swift */; };
+		3EBF238D2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF238C2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift */; };
+		3EBF238F2BF66D090069B6B1 /* ChaptersListWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBF238E2BF66D090069B6B1 /* ChaptersListWindow.xib */; };
 		3EBF29292686947700D87021 /* FilterBandsTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */; };
 		3EBF292B268695B700D87021 /* EffectsUnitTriStateBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */; };
 		3EBF292D2686961300D87021 /* EffectsUnitTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF292C2686961300D87021 /* EffectsUnitTabButton.swift */; };
@@ -1572,6 +1574,8 @@
 		3EBD345C2B5DBFC40048AC03 /* BookmarksDelegate+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarksDelegate+Init.swift"; sourceTree = "<group>"; };
 		3EBF0F66280C7317000455D6 /* MetadataRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataRegistry.swift; sourceTree = "<group>"; };
 		3EBF0F68280C73E4000455D6 /* MetadataPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPersistentState.swift; sourceTree = "<group>"; };
+		3EBF238C2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPlayQueueViewController.swift; sourceTree = "<group>"; };
+		3EBF238E2BF66D090069B6B1 /* ChaptersListWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChaptersListWindow.xib; sourceTree = "<group>"; };
 		3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandsTabButtonCell.swift; sourceTree = "<group>"; };
 		3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateBypassButton.swift; sourceTree = "<group>"; };
 		3EBF292C2686961300D87021 /* EffectsUnitTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTabButton.swift; sourceTree = "<group>"; };
@@ -2231,7 +2235,6 @@
 				3EC856A72811BA7000647CF4 /* PlayQueueViewController+ContextMenuController.swift */,
 				3E25B65127F7859800D10A5F /* SimpleView */,
 				3E25B65227F785D800D10A5F /* ExpandedView */,
-				3E6C0F5F25CEB98600BF0D07 /* ChaptersList */,
 				3E47214C282AE3820097F1AB /* TrackListTabButton.swift */,
 				3EDCC4B7282C2223002AF3AE /* PlayQueueUIState.swift */,
 			);
@@ -2800,6 +2803,7 @@
 				3E6C103625CEB98600BF0D07 /* TrackInfo */,
 				3E7204BC2B853DC800E40D87 /* Playlist */,
 				3E25B64C27F7812500D10A5F /* PlayQueue */,
+				3E6C0F5F25CEB98600BF0D07 /* ChaptersList */,
 				3EF84D9F283623D3004EF57B /* Library */,
 				3E2C4BCE2B38D43400FC65DD /* Search */,
 				3E6C0FED25CEB98600BF0D07 /* Effects */,
@@ -2910,13 +2914,14 @@
 		3E6C0F5F25CEB98600BF0D07 /* ChaptersList */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F6025CEB98600BF0D07 /* ChaptersList.xib */,
+				3EBF238E2BF66D090069B6B1 /* ChaptersListWindow.xib */,
 				3E6C0F6225CEB98600BF0D07 /* ChaptersListWindowController.swift */,
+				3E6C0F6025CEB98600BF0D07 /* ChaptersList.xib */,
 				3E6C0F6125CEB98600BF0D07 /* ChaptersListViewController.swift */,
 				3EFAA8D22B71323F001A6682 /* ChaptersListViewController+Search.swift */,
 				3EFAA8D02B710C30001A6682 /* ChaptersListViewController+Theming.swift */,
-				3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */,
 				3E6C0F6425CEB98600BF0D07 /* ChaptersListViewController+TableViewDelegate.swift */,
+				3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */,
 				3E6C0F6325CEB98600BF0D07 /* ChaptersListTableHeaderCell.swift */,
 				3E55639F269D642B00864598 /* ChaptersListTableCellView.swift */,
 			);
@@ -3469,6 +3474,7 @@
 				3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */,
 				3E51CCEE285E896B002CBEF2 /* Sidebar */,
 				3EB42029285A627C007159CC /* Player */,
+				3EBF238B2BF6664F0069B6B1 /* PlayQueue */,
 			);
 			path = UnifiedPlayer;
 			sourceTree = "<group>";
@@ -3887,6 +3893,14 @@
 				3EBF0F66280C7317000455D6 /* MetadataRegistry.swift */,
 			);
 			path = Registry;
+			sourceTree = "<group>";
+		};
+		3EBF238B2BF6664F0069B6B1 /* PlayQueue */ = {
+			isa = PBXGroup;
+			children = (
+				3EBF238C2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift */,
+			);
+			path = PlayQueue;
 			sourceTree = "<group>";
 		};
 		3EBFF5A12B528E2D0056D5B4 /* Artists */ = {
@@ -5237,6 +5251,7 @@
 				3E6C12CB25CEBE6700BF0D07 /* TimeStretchUnit.xib in Resources */,
 				3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */,
 				3EAF96EE28DCE1B6008561A7 /* futura light bt.ttf in Resources */,
+				3EBF238F2BF66D090069B6B1 /* ChaptersListWindow.xib in Resources */,
 				3EAF96F228DCE1B6008561A7 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */,
 				3EE2AD042A1FF71300D7BA7D /* AUParameterControl.xib in Resources */,
@@ -6086,6 +6101,7 @@
 				3EFE39ED27864898006F8B8C /* PlaylistsPersistentState.swift in Sources */,
 				3EFE3A5927864898006F8B8C /* MusicBrainzArtistCredit.swift in Sources */,
 				3EFE391F27864897006F8B8C /* CollectionExtensions.swift in Sources */,
+				3EBF238D2BF666640069B6B1 /* UnifiedPlayQueueViewController.swift in Sources */,
 				3E6C129825CEBE2700BF0D07 /* VAlignedTextField.swift in Sources */,
 				3E10177C28D7713B002C0D8E /* FFmpegAudioFormat.swift in Sources */,
 				3EFE39DF27864897006F8B8C /* AudioUnitPersistentState.swift in Sources */,

@@ -60,7 +60,7 @@ extension ChaptersListViewController: ColorSchemeObserver {
         
         lblCaption.textColor = systemColorScheme.captionTextColor
         backgroundColorChanged(systemColorScheme.backgroundColor)
-        chaptersListView.reloadData()
+        chaptersListView.reloadDataMaintainingSelection()
         buttonColorChanged(systemColorScheme.buttonColor)
         [lblSummary, lblNumMatches].forEach {$0?.textColor = systemColorScheme.secondaryTextColor}
 
@@ -75,16 +75,12 @@ extension ChaptersListViewController: ColorSchemeObserver {
     
     func backgroundColorChanged(_ newColor: NSColor) {
         
+        rootContainerBox?.fillColor = systemColorScheme.backgroundColor
         chaptersListView.setBackgroundColor(.clear)
         header?.redraw()
     }
     
     func buttonColorChanged(_ newColor: NSColor) {
-        
-        [btnClose, btnPreviousChapter, btnNextChapter, btnReplayChapter, btnPreviousMatch, btnNextMatch].forEach {
-            $0?.colorChanged(newColor)
-        }
-        
         [btnLoopChapter, btnCaseSensitive].forEach {$0?.reTint()}
     }
     
@@ -117,6 +113,10 @@ extension ChaptersListViewController: ColorSchemeObserver {
     
     func tertiaryTextColorChanged(_ newColor: NSColor) {
         chaptersListView.reloadAllRows(columns: [0, 2, 3])
+    }
+    
+    func changeWindowCornerRadius(_ radius: CGFloat) {
+        rootContainerBox?.cornerRadius = radius
     }
     
     func redrawSearchField() {

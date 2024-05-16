@@ -15,10 +15,12 @@ import Cocoa
  */
 class ChaptersListWindowController: NSWindowController, ModalComponentProtocol {
     
-    @IBOutlet weak var rootContainerBox: NSBox!
-    @IBOutlet weak var viewController: ChaptersListViewController!
+    @IBOutlet weak var btnClose: TintedImageButton!
+    private lazy var btnCloseConstraints: LayoutConstraintsManager = LayoutConstraintsManager(for: btnClose)
     
-    override var windowNibName: NSNib.Name? {"ChaptersList"}
+    private let viewController: ChaptersListViewController = .init()
+    
+    override var windowNibName: NSNib.Name? {"ChaptersListWindow"}
     
     private lazy var messenger = Messenger(for: self)
     
@@ -32,20 +34,22 @@ class ChaptersListWindowController: NSWindowController, ModalComponentProtocol {
         
         super.windowDidLoad()
         
+        window?.contentView?.addSubview(viewController.view)
+        viewController.view.anchorToSuperview()
+        
+        btnClose.bringToFront()
+        
+        btnCloseConstraints.setWidth(11.5)
+        btnCloseConstraints.setHeight(10)
+        btnCloseConstraints.setLeading(relatedToLeadingOf: btnClose.superview!, offset: 10)
+        btnCloseConstraints.setTop(relatedToTopOf: btnClose.superview!, offset: 15)
+        
         colorSchemesManager.registerSchemeObserver(self)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
-        
-        rootContainerBox.cornerRadius = playerUIState.cornerRadius
-        
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         windowLayoutsManager.hideWindow(withId: .chaptersList)
-    }
-    
-    func changeWindowCornerRadius(_ radius: CGFloat) {
-        rootContainerBox.cornerRadius = radius
     }
     
     override func destroy() {
@@ -60,6 +64,6 @@ class ChaptersListWindowController: NSWindowController, ModalComponentProtocol {
 extension ChaptersListWindowController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
-        rootContainerBox.fillColor = systemColorScheme.backgroundColor
+        btnClose.colorChanged(systemColorScheme.buttonColor)
     }
 }

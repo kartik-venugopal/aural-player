@@ -180,14 +180,16 @@ class UnifiedPlayerSidebarItem {
     
     let module: UnifiedPlayerModule
     let childItems: [UnifiedPlayerSidebarItem]
+    let isCloseable: Bool
     
-    static let playQueueItem: UnifiedPlayerSidebarItem = .init(module: .playQueue)
+    static let playQueueItem: UnifiedPlayerSidebarItem = .init(module: .playQueue, isCloseable: false)
     static let chaptersListItem: UnifiedPlayerSidebarItem = .init(module: .chaptersList)
     
-    init(module: UnifiedPlayerModule, childItems: [UnifiedPlayerSidebarItem] = []) {
+    init(module: UnifiedPlayerModule, childItems: [UnifiedPlayerSidebarItem] = [], isCloseable: Bool = true) {
         
         self.module = module
         self.childItems = childItems
+        self.isCloseable = isCloseable
     }
     
     fileprivate func equals(other: UnifiedPlayerSidebarItem) -> Bool {

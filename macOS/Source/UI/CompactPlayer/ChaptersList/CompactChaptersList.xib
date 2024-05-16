@@ -38,7 +38,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView identifier="tid_CompactPlayQueue" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="DGp-6a-PuU" customClass="AuralTableView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="292" height="300"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="5"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,11 +107,11 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView id="haT-dn-clU" customClass="ChaptersListTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="32" y="2" width="200" height="50"/>
+                                                    <rect key="frame" x="32" y="2" width="195" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ypq-HX-DAJ" userLabel="Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="28" width="200" height="20"/>
+                                                            <rect key="frame" x="0.0" y="28" width="195" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="bQy-PT-aBX"/>
                                                             </constraints>
@@ -146,7 +146,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView id="LGv-HX-fhf" customClass="ChaptersListTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="235" y="2" width="55" height="50"/>
+                                                    <rect key="frame" x="230" y="2" width="55" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="S87-Dg-E2F" userLabel="Duration">

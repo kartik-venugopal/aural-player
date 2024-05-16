@@ -60,12 +60,12 @@ class ButtonStateMachine<E>: NSObject, ColorSchemeObserver where E: Hashable {
         self.state = newState
         
         button.image = mapping.image
+        updateButtonColor()
+        
         button.toolTip = mapping.toolTip
         
         // Color scheme property customization possible only in modular or unified app modes.
         guard let currentAppMode = appModeManager.currentMode, currentAppMode.equalsOneOf(.modular, .unified) else {
-            
-            updateButtonColor()
             return
         }
         

@@ -15,6 +15,10 @@ import Cocoa
  */
 class ChaptersListViewController: NSViewController {
     
+    override var nibName: NSNib.Name? {"ChaptersList"}
+    
+    @IBOutlet weak var rootContainerBox: NSBox!
+    
     @IBOutlet weak var chaptersListView: NSTableView!
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
@@ -24,7 +28,6 @@ class ChaptersListViewController: NSViewController {
     @IBOutlet weak var lblCaption: NSTextField!
     @IBOutlet weak var lblSummary: NSTextField!
     
-    @IBOutlet weak var btnClose: TintedImageButton!
     @IBOutlet weak var btnPreviousChapter: TintedImageButton!
     @IBOutlet weak var btnNextChapter: TintedImageButton!
     @IBOutlet weak var btnReplayChapter: TintedImageButton!
@@ -73,11 +76,13 @@ class ChaptersListViewController: NSViewController {
     func initSubscriptions() {
         
         fontSchemesManager.registerObserver(self)
-        
         colorSchemesManager.registerSchemeObserver(self)
+        
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, handler: backgroundColorChanged(_:))
         
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, handler: buttonColorChanged(_:))
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, 
+                                                     changeReceivers: [btnPreviousChapter, btnNextChapter, btnReplayChapter, btnPreviousMatch, btnNextMatch].compactMap {$0})
+        
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, handler: activeControlStateColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, handler: inactiveControlStateColorChanged(_:))
         
@@ -90,6 +95,9 @@ class ChaptersListViewController: NSViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.primarySelectedTextColor, handler: primarySelectedTextColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.tertiarySelectedTextColor, handler: tertiarySelectedTextColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.textSelectionColor, handler: textSelectionColorChanged(_:))
+        
+        rootContainerBox?.cornerRadius = playerUIState.cornerRadius
+        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
         
         messenger.subscribe(to: .Player.chapterChanged, handler: chapterChanged(_:))
         messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
@@ -126,14 +134,13 @@ class ChaptersListViewController: NSViewController {
     
     private func playSelectedChapter() {
         
-        if let selRow = chaptersListView.selectedRowIndexes.first {
-            
-            messenger.publish(.Player.playChapter, payload: selRow)
-            btnLoopChapter.onIf(player.chapterLoopExists)
-            
-            // Remove focus from the search field (if necessary)
-            self.view.window?.makeFirstResponder(chaptersListView)
-        }
+        guard let selRow = chaptersListView.selectedRowIndexes.first else {return}
+        
+        messenger.publish(.Player.playChapter, payload: selRow)
+        btnLoopChapter.onIf(player.chapterLoopExists)
+        
+        // Remove focus from the search field (if necessary)
+        self.view.window?.makeFirstResponder(chaptersListView)
     }
     
     @IBAction func playPreviousChapterAction(_ sender: AnyObject) {
