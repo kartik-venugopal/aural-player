@@ -19,6 +19,8 @@ class UnifiedPlayerViewController: PlayerViewController {
     @IBOutlet weak var functionsMenuItem: TintedIconMenuItem!
     @IBOutlet weak var functionsMenuDelegate: PlayingTrackFunctionsMenuDelegate!
     
+    lazy var trackInfoSheetViewController: TrackInfoSheetViewController = .init()
+    
     var mouseOverPlayer: Bool = false
     
     override var shouldEnableSeekTimer: Bool {
@@ -106,6 +108,10 @@ class UnifiedPlayerViewController: PlayerViewController {
         
         artView.showIf(playerUIState.showAlbumArt)
         functionsButton.showIf(mouseOverPlayer && track != nil)
+    }
+    
+    override func showTrackInfoView() {
+        self.presentAsSheet(trackInfoSheetViewController)
     }
     
     override func setUpColorSchemePropertyObservation() {

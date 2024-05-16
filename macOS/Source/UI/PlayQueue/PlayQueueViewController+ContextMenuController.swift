@@ -352,24 +352,7 @@ extension PlayQueueViewController: NSMenuDelegate {
     
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func trackInfoAction(_ sender: AnyObject) {
-        
-        // If there is a track currently playing, load detailed track info and toggle the popover view
-        guard let selectedTrack = selectedTracks.first else {return}
-                
-        trackReader.loadAuxiliaryMetadata(for: selectedTrack)
-        TrackInfoViewContext.displayedTrack = selectedTrack
-        
-        if appModeManager.currentMode == .modular {
-            
-            if windowLayoutsManager.isWindowLoaded(withId: .trackInfo) {
-                messenger.publish(.Player.trackInfo_refresh)
-            }
-            
-            windowLayoutsManager.showWindow(withId: .trackInfo)
-            
-        } else if appModeManager.currentMode == .unified {
-            self.presentAsSheet(trackInfoSheetViewController)
-        }
+        messenger.publish(.Player.trackInfo)
     }
     
     // Shows the selected tracks in Finder.
