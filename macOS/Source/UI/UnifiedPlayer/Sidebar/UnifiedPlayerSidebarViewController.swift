@@ -16,8 +16,6 @@ class UnifiedPlayerSidebarViewController: NSViewController {
     
     @IBOutlet weak var sidebarView: NSOutlineView!
     
-    let categories: [UnifiedPlayerSidebarCategory] = UnifiedPlayerSidebarCategory.allCases
-    
     lazy var messenger: Messenger = Messenger(for: self)
     
     var respondToSelectionChange: Bool = true
@@ -26,7 +24,10 @@ class UnifiedPlayerSidebarViewController: NSViewController {
         
         super.viewDidLoad()
         
-        categories.forEach {sidebarView.collapseItem($0)}
+        unifiedPlayerUIState.sidebarItems = [.playQueueItem]
+        
+        sidebarView.reloadData()
+        unifiedPlayerUIState.sidebarItems.forEach {sidebarView.collapseItem($0)}
         sidebarView.selectRow(0)
         
 //        messenger.subscribe(to: .Library.Sidebar.addFileSystemShortcut, handler: addFileSystemShortcut)

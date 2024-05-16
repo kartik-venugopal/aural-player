@@ -15,48 +15,54 @@ import Foundation
 
 extension PlatformImage {
     
-    static let imgPlayQueueTableView: PlatformImage = PlatformImage(systemSymbolName: "list.dash", accessibilityDescription: nil)!
-    static let imgPlayQueueExpandedView: PlatformImage = PlatformImage(systemSymbolName: "text.below.photo.rtl", accessibilityDescription: nil)!
+    convenience init(systemSymbolName: String) {
+        self.init(systemSymbolName: systemSymbolName, accessibilityDescription: nil)!
+    }
     
-    static let imgPlayQueue: PlatformImage = PlatformImage(named: "PlayQueue")!
-    static let imgEffects: PlatformImage = PlatformImage(systemSymbolName: "slider.vertical.3", accessibilityDescription: nil)!
+    static let imgPlayQueueTableView: PlatformImage = PlatformImage(systemSymbolName: "list.dash")
+    static let imgPlayQueueExpandedView: PlatformImage = PlatformImage(systemSymbolName: "text.below.photo.rtl")
+    
+    static let imgPlayQueue: PlatformImage = imgPlayQueueTableView
+    static let imgEffects: PlatformImage = PlatformImage(systemSymbolName: "slider.vertical.3")
     static let imgLibrary: PlatformImage = PlatformImage(named: "Library")!
-    static let imgPlaylist: PlatformImage = PlatformImage(systemSymbolName: "list.dash", accessibilityDescription: nil)!
+    static let imgPlaylist: PlatformImage = PlatformImage(systemSymbolName: "list.dash")
     
     static let imgPlay: PlatformImage = PlatformImage(named: "Play")!
-    static let imgPlayFilled: PlatformImage = PlatformImage(systemSymbolName: "play.fill", accessibilityDescription: nil)!
+    static let imgPlayFilled: PlatformImage = PlatformImage(systemSymbolName: "play.fill")
     
     static let imgPause: PlatformImage = PlatformImage(named: "Pause")!
     
     static let imgChecked: PlatformImage = PlatformImage(named: "Checked")!
     static let imgNotChecked: PlatformImage = PlatformImage(named: "NotChecked")!
     
-    static let imgPlayingArt: PlatformImage = PlatformImage(systemSymbolName: "music.quarternote.3", accessibilityDescription: nil)!
+    static let imgInfo: PlatformImage = PlatformImage(systemSymbolName: "info")
+    
+    static let imgPlayingArt: PlatformImage = PlatformImage(systemSymbolName: "music.quarternote.3")
     
     static let imgSave: PlatformImage = PlatformImage(named: "Save")!
     
-    static let imgFavorite: PlatformImage = PlatformImage(systemSymbolName: "heart", accessibilityDescription: nil)!
-    static let imgBookmark: PlatformImage = PlatformImage(systemSymbolName: "bookmark", accessibilityDescription: nil)!
+    static let imgFavorite: PlatformImage = PlatformImage(systemSymbolName: "heart")
+    static let imgBookmark: PlatformImage = PlatformImage(systemSymbolName: "bookmark")
     
-    static let imgVolumeZero: PlatformImage = PlatformImage(systemSymbolName: "volume", accessibilityDescription: nil)!
-    static let imgVolumeLow: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.1", accessibilityDescription: nil)!
-    static let imgVolumeMedium: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.2", accessibilityDescription: nil)!
-    static let imgVolumeHigh: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.3", accessibilityDescription: nil)!
-    static let imgMute: PlatformImage = PlatformImage(systemSymbolName: "volume.slash", accessibilityDescription: nil)!
+    static let imgVolumeZero: PlatformImage = PlatformImage(systemSymbolName: "volume")
+    static let imgVolumeLow: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.1")
+    static let imgVolumeMedium: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.2")
+    static let imgVolumeHigh: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.3")
+    static let imgMute: PlatformImage = PlatformImage(systemSymbolName: "volume.slash")
     
-    static let imgRepeatOne: PlatformImage = PlatformImage(systemSymbolName: "repeat.1", accessibilityDescription: nil)!
-    static let imgRepeat: PlatformImage = PlatformImage(systemSymbolName: "repeat", accessibilityDescription: nil)!
+    static let imgRepeatOne: PlatformImage = PlatformImage(systemSymbolName: "repeat.1")
+    static let imgRepeat: PlatformImage = PlatformImage(systemSymbolName: "repeat")
     
-    static let imgShuffle: PlatformImage = PlatformImage(systemSymbolName: "shuffle", accessibilityDescription: nil)!
+    static let imgShuffle: PlatformImage = PlatformImage(systemSymbolName: "shuffle")
     
     static let imgLoop: PlatformImage = PlatformImage(named: "Loop")!
     static let imgLoopStarted: PlatformImage = PlatformImage(named: "LoopStarted")!
     
-    static let imgSwitch: PlatformImage = PlatformImage(systemSymbolName: "power", accessibilityDescription: nil)!
+    static let imgSwitch: PlatformImage = PlatformImage(systemSymbolName: "power")
     
-    static let imgRememberSettings: PlatformImage = PlatformImage(systemSymbolName: "clock.arrow.2.circlepath", accessibilityDescription: nil)!
+    static let imgRememberSettings: PlatformImage = PlatformImage(systemSymbolName: "clock.arrow.2.circlepath")
     
-    static let imgHistory: PlatformImage = PlatformImage(systemSymbolName: "clock", accessibilityDescription: nil)!
+    static let imgHistory: PlatformImage = PlatformImage(systemSymbolName: "clock")
     static let imgHistory_playlist_padded: PlatformImage = PlatformImage(named: "History_PaddedPlaylist")!
     
     // Displayed in the playlist view
@@ -82,8 +88,8 @@ extension PlatformImage {
     
     // --------------- Device type icons -------------------
     
-    static let imgDeviceType_builtIn: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.2.fill", accessibilityDescription: nil)!
-    static let imgDeviceType_headphones: PlatformImage = PlatformImage(systemSymbolName: "headphones", accessibilityDescription: nil)!
+    static let imgDeviceType_builtIn: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.2.fill")
+    static let imgDeviceType_headphones: PlatformImage = PlatformImage(systemSymbolName: "headphones")
     static let imgDeviceType_bluetooth: PlatformImage = PlatformImage(named: "DeviceType_Bluetooth")!
     static let imgDeviceType_displayPort: PlatformImage = PlatformImage(named: "DeviceType_DisplayPort")!
     static let imgDeviceType_hdmi: PlatformImage = PlatformImage(named: "DeviceType_HDMI")!
@@ -91,8 +97,8 @@ extension PlatformImage {
     static let imgDeviceType_pci: PlatformImage = PlatformImage(named: "DeviceType_PCI")!
     static let imgDeviceType_firewire: PlatformImage = PlatformImage(named: "DeviceType_FireWire")!
     static let imgDeviceType_thunderbolt: PlatformImage = PlatformImage(named: "DeviceType_Thunderbolt")!
-    static let imgDeviceType_virtual: PlatformImage = PlatformImage(systemSymbolName: "waveform", accessibilityDescription: nil)!
-    static let imgDeviceType_airplay: PlatformImage = PlatformImage(systemSymbolName: "airplayaudio", accessibilityDescription: nil)!
+    static let imgDeviceType_virtual: PlatformImage = PlatformImage(systemSymbolName: "waveform")
+    static let imgDeviceType_airplay: PlatformImage = PlatformImage(systemSymbolName: "airplayaudio")
     static let imgDeviceType_aggregate: PlatformImage = PlatformImage(named: "DeviceType_Aggregate")!
     static let imgDeviceType_avb: PlatformImage = PlatformImage(named: "DeviceType_AVB")!
     
@@ -102,18 +108,18 @@ extension PlatformImage {
     static let imgArtistGroup: PlatformImage = PlatformImage(named: "Artists")!
     static let imgAlbumGroup: PlatformImage = PlatformImage(named: "Albums")!
     static let imgGenreGroup: PlatformImage = PlatformImage(named: "Genres")!
-    static let imgDecadeGroup: PlatformImage = PlatformImage(systemSymbolName: "calendar", accessibilityDescription: nil)!
-    static let imgFileSystem: PlatformImage = PlatformImage(systemSymbolName: "folder", accessibilityDescription: nil)!
+    static let imgDecadeGroup: PlatformImage = PlatformImage(systemSymbolName: "calendar")
+    static let imgFileSystem: PlatformImage = PlatformImage(systemSymbolName: "folder")
     
     static let imgArtistGroup_menu: PlatformImage = PlatformImage(named: "Artists_Menu")!
     static let imgAlbumGroup_menu: PlatformImage = PlatformImage(named: "Albums_Menu")!
     
     // --------------- Effects Unit icons -----------------
 
-    static let imgMasterUnit: PlatformImage = PlatformImage(systemSymbolName: "powerplug.fill", accessibilityDescription: nil)!
-    static let imgEQUnit: PlatformImage = PlatformImage(systemSymbolName: "slider.vertical.3", accessibilityDescription: nil)!
-    static let imgPitchShiftUnit: PlatformImage = PlatformImage(systemSymbolName: "waveform.path.ecg", accessibilityDescription: nil)!
-    static let imgTimeStretchUnit: PlatformImage = PlatformImage(systemSymbolName: "timer", accessibilityDescription: nil)!
+    static let imgMasterUnit: PlatformImage = PlatformImage(systemSymbolName: "powerplug.fill")
+    static let imgEQUnit: PlatformImage = PlatformImage(systemSymbolName: "slider.vertical.3")
+    static let imgPitchShiftUnit: PlatformImage = PlatformImage(systemSymbolName: "waveform.path.ecg")
+    static let imgTimeStretchUnit: PlatformImage = PlatformImage(systemSymbolName: "timer")
     static let imgReverbUnit: PlatformImage = PlatformImage(named: "ReverbTab")!
     static let imgDelayUnit: PlatformImage = PlatformImage(named: "DelayTab")!
     static let imgFilterUnit: PlatformImage = PlatformImage(named: "FilterTab")!

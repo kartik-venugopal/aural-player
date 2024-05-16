@@ -15,10 +15,10 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
         if item == nil {
-            return categories.count
+            return unifiedPlayerUIState.sidebarItems.count
             
-        } else if let sidebarCat = item as? UnifiedPlayerSidebarCategory {
-            return sidebarCat.numberOfItems
+        } else if let sidebarItem = item as? UnifiedPlayerSidebarItem {
+            return sidebarItem.childItems.count
         }
         
         return 0
@@ -27,10 +27,10 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
         if item == nil {
-            return categories[index]
+            return unifiedPlayerUIState.sidebarItems[index]
             
-        } else if let sidebarCat = item as? UnifiedPlayerSidebarCategory {
-            return sidebarCat.items[index]
+        } else if let sidebarItem = item as? UnifiedPlayerSidebarItem {
+            return sidebarItem.childItems[index]
         }
         
         return ""

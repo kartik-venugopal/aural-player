@@ -258,7 +258,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="786" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="bNd-u7-Wc9">
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="bNd-u7-Wc9" userLabel="Scroll View">
                                 <rect key="frame" x="0.0" y="0.0" width="697" height="70"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="RdT-fa-WIX">
                                     <rect key="frame" x="0.0" y="0.0" width="697" height="70"/>
@@ -269,7 +269,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="450" height="70"/>
+                                            <size key="minSize" width="697" height="70"/>
                                             <size key="maxSize" width="4000" height="70"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>

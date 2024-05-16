@@ -94,8 +94,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         
         tabGroup.selectTabViewItem(at: 0)
         
-        messenger.subscribe(to: .unifiedPlayer_showBrowserTabForItem, handler: showBrowserTab(forItem:))
-        messenger.subscribe(to: .unifiedPlayer_showBrowserTabForCategory, handler: showBrowserTab(forCategory:))
+        messenger.subscribe(to: .UnifiedPlayer.showModule, handler: showModule(forItem:))
     }
     
     // Set window properties
@@ -169,30 +168,27 @@ class UnifiedPlayerWindowController: NSWindowController {
         rootContainerBox.cornerRadius = radius
     }
     
-    private func showBrowserTab(forItem item: UnifiedPlayerSidebarItem) {
+    private func showModule(forItem item: UnifiedPlayerSidebarItem) {
         
-        let tab = item.browserTab
+////        if tab == .playlists {
+////            messenger.publish(.playlists_showPlaylist, payload: item.displayName)
+////            
+////        } else if tab == .fileSystem,
+////                  let folder = item.tuneBrowserFolder, let tree = item.tuneBrowserTree {
+////                       
+////                   tuneBrowserViewController.showFolder(folder, inTree: tree, updateHistory: true)
+////               }
 
-//        if tab == .playlists {
-//            messenger.publish(.playlists_showPlaylist, payload: item.displayName)
-//            
-//        } else if tab == .fileSystem,
-//                  let folder = item.tuneBrowserFolder, let tree = item.tuneBrowserTree {
-//                       
-//                   tuneBrowserViewController.showFolder(folder, inTree: tree, updateHistory: true)
-//               }
-        
-        tabGroup.selectTabViewItem(at: tab.rawValue)
-    }
-    
-    private func showBrowserTab(forCategory category: UnifiedPlayerSidebarCategory) {
-
-        let tab = category.browserTab
-        tabGroup.selectTabViewItem(at: tab.rawValue)
-//
-//        if tab == .playlists {
-//
-//        }
+        switch item.module {
+            
+        case .playQueue:
+            
+            tabGroup.selectTabViewItem(at: 0)
+            
+        default:
+            
+            return
+        }
     }
 }
 

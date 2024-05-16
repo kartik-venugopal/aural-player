@@ -14,11 +14,11 @@ extension Notification.Name {
     
     // MARK: Notifications published by / to the unified player.
     
-    // Command to show a specific Library browser tab (specified in the payload).
-    static let unifiedPlayer_showBrowserTabForItem = Notification.Name("unifiedPlayer_showBrowserTabForItem")
-    
-    // Command to show a specific Library browser tab (specified in the payload).
-    static let unifiedPlayer_showBrowserTabForCategory = Notification.Name("unifiedPlayer_showBrowserTabForCategory")
+    struct UnifiedPlayer {
+        
+        // Command to show a specific Library browser tab (specified in the payload).
+        static let showModule = Notification.Name("unifiedPlayer_showModule")
+    }
     
     // Command to show a specific Library browser tab (specified in the payload).
 //    static let unifiedPlayerSidebar_addFileSystemShortcut = Notification.Name("unifiedPlayerSidebar_addFileSystemShortcut")

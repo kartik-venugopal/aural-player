@@ -86,6 +86,16 @@ class UnifiedPlayerViewController: PlayerViewController {
         functionsMenuItem.colorChanged(systemColorScheme.buttonColor)
     }
     
+    override func updateMultilineTrackTextViewFontsAndColors() {
+        
+        super.updateMultilineTrackTextViewFontsAndColors()
+        
+        infoBox.fillColor = systemColorScheme.backgroundColor
+        controlsBox.fillColor = systemColorScheme.backgroundColor
+        
+        functionsMenuItem.colorChanged(systemColorScheme.buttonColor)
+    }
+    
     override func updateTrackTextViewFontsAndColors() {
         updateMultilineTrackTextViewFontsAndColors()
     }

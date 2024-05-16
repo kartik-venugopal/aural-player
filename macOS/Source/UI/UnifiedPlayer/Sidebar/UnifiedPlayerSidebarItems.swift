@@ -10,7 +10,7 @@
 
 import Foundation
 
-enum UnifiedPlayerSidebarCategory: String, CaseIterable, CustomStringConvertible {
+enum UnifiedPlayerModule: String, CaseIterable, CustomStringConvertible {
     
 //    private static let libraryItems: [UnifiedPlayerSidebarItem] = [
 //        
@@ -29,6 +29,13 @@ enum UnifiedPlayerSidebarCategory: String, CaseIterable, CustomStringConvertible
 //    ]
     
     case playQueue = "Play Queue"
+    case chaptersList = "Chapters List"
+    case trackInfo = "Track Info"
+    
+    var isTopLevelItem: Bool {
+        self.equalsOneOf(.playQueue, .chaptersList, .trackInfo)
+    }
+    
 //    case library = "Library"
 //    case tuneBrowser = "File System"
 //    case playlists = "Playlists"
@@ -36,31 +43,31 @@ enum UnifiedPlayerSidebarCategory: String, CaseIterable, CustomStringConvertible
 //    case favorites = "Favorites"
 //    case bookmarks = "Bookmarks"
     
-    var browserTab: UnifiedPlayerBrowserTab {
-        
-        switch self {
-            
-        case .playQueue:
-            
-            return .playQueue
-            
-//        case .favorites:
+//    var browserTab: UnifiedPlayerBrowserTab {
+//        
+//        switch self {
 //            
-//            return .favorites
+//        case .playQueue:
 //            
-//        case .bookmarks:
+//            return .playQueue
 //            
-//            return .favorites
-//            
-//        default:
-//            
-//            return .libraryTracks
-        }
-    }
+////        case .favorites:
+////            
+////            return .favorites
+////            
+////        case .bookmarks:
+////            
+////            return .favorites
+////            
+////        default:
+////            
+////            return .libraryTracks
+//        }
+//    }
     
     var description: String {rawValue}
     
-    var numberOfItems: Int {
+    var numberOfChildItems: Int {
         0
 //
 //        switch self {
@@ -88,7 +95,7 @@ enum UnifiedPlayerSidebarCategory: String, CaseIterable, CustomStringConvertible
     
     }
     
-    var items: [UnifiedPlayerSidebarItem] {
+    var childItems: [UnifiedPlayerSidebarItem] {
         
 //        switch self {
 //            
@@ -132,74 +139,86 @@ enum UnifiedPlayerSidebarCategory: String, CaseIterable, CustomStringConvertible
             
             return .imgPlayQueue
             
-//        case .library:
-//            
-//            return .imgLibrary
-//            
-//        case .tuneBrowser:
-//            
-//            return .imgFileSystem
-//            
-//        case .playlists:
-//            
-//            return .imgPlaylist
-//            
-//        case .history:
-//            
-//            return .imgHistory
-//            
-//        case .favorites:
-//            
-//            return .imgFavorite
-//            
-//        case .bookmarks:
-//            
-//            return .imgBookmark
+        case .chaptersList:
+            
+            return .imgPlayQueue
+            
+        case .trackInfo:
+            
+            return .imgInfo
+            
+            //        case .library:
+            //
+            //            return .imgLibrary
+            //
+            //        case .tuneBrowser:
+            //
+            //            return .imgFileSystem
+            //
+            //        case .playlists:
+            //
+            //            return .imgPlaylist
+            //
+            //        case .history:
+            //
+            //            return .imgHistory
+            //
+            //        case .favorites:
+            //
+            //            return .imgFavorite
+            //
+            //        case .bookmarks:
+            //
+            //            return .imgBookmark
+            //        }
         }
     }
 }
 
 // TODO: Consolidate this struct with 'LibrarySidebarItem'
-struct UnifiedPlayerSidebarItem {
+class UnifiedPlayerSidebarItem {
     
-    let category: UnifiedPlayerSidebarCategory
+    let module: UnifiedPlayerModule
+    let childItems: [UnifiedPlayerSidebarItem]
     
-    let displayName: String
-    let browserTab: UnifiedPlayerBrowserTab
-    let image: PlatformImage?
+    static let playQueueItem: UnifiedPlayerSidebarItem = .init(module: .playQueue)
+    static let chaptersListItem: UnifiedPlayerSidebarItem = .init(module: .chaptersList)
     
-//    let tuneBrowserFolder: FileSystemFolderItem?
-//    let tuneBrowserTree: FileSystemTree?
+    init(module: UnifiedPlayerModule, childItems: [UnifiedPlayerSidebarItem] = []) {
+        
+        self.module = module
+        self.childItems = childItems
+    }
     
-//    init(category: UnifiedPlayerSidebarCategory, displayName: String, browserT/*ab: UnifiedPlayerBrowserTab, tuneBrowserFolder: FileSystemFolderItem? = nil, tuneBrowserTree: FileSystemTree? = nil, image: PlatformImage? = nil) {*/
-        
-        init(category: UnifiedPlayerSidebarCategory, displayName: String, browserTab: UnifiedPlayerBrowserTab, image: PlatformImage? = nil) {
-        
-        self.category = category
-        
-        self.displayName = displayName
-        self.browserTab = browserTab
-        
-//        self.tuneBrowserFolder = tuneBrowserFolder
-//        self.tuneBrowserTree = tuneBrowserTree
-        
-        self.image = image
+    fileprivate func equals(other: UnifiedPlayerSidebarItem) -> Bool {
+        self.module == other.module
     }
 }
 
-enum UnifiedPlayerBrowserTab: Int {
+extension UnifiedPlayerSidebarItem: Equatable {
     
-    case playQueue = 0
-//         libraryTracks = 1,
-//         libraryArtists = 2,
-//         libraryAlbums = 3,
-//         libraryGenres = 4,
-//         libraryDecades = 5,
-//         fileSystem = 6,
-//         playlists = 7,
-//         historyRecentlyPlayed = 8,
-//         historyMostPlayed = 9,
-//         historyRecentlyAdded = 10,
-//         favorites = 11,
-//         bookmarks = 12
+    static func ==(lhs: UnifiedPlayerSidebarItem, rhs: UnifiedPlayerSidebarItem) -> Bool {
+        lhs.equals(other: rhs)
+    }
 }
+
+class TrackInfoUnifiedPlayerSidebarItem: UnifiedPlayerSidebarItem {
+    
+    let track: Track
+    
+    init(track: Track) {
+        
+        self.track = track
+        super.init(module: .trackInfo)
+    }
+    
+    override func equals(other: UnifiedPlayerSidebarItem) -> Bool {
+        super.equals(other: other) && self.track == (other as? TrackInfoUnifiedPlayerSidebarItem)?.track
+    }
+}
+
+//class TuneBrowserUnifiedPlayerSidebarItem: UnifiedPlayerSidebarItem {
+//
+//        let tuneBrowserFolder: FileSystemFolderItem?
+//        let tuneBrowserTree: FileSystemTree?
+//}

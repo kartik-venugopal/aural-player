@@ -45,7 +45,7 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        if appModeManager.currentMode == .unified, unifiedPlayerUIState.sidebarSelectedModule != .playQueue {
+        if appModeManager.currentMode == .unified, unifiedPlayerUIState.sidebarSelectedItem?.module != .playQueue {
             
             menu.items.forEach {$0.disable()}
             return

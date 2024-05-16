@@ -13,7 +13,13 @@ class UnifiedPlayerUIState {
     
     var windowFrame: NSRect?
     
-    var sidebarSelectedModule: UnifiedPlayerSidebarCategory = .playQueue
+    var sidebarItems: [UnifiedPlayerSidebarItem] = []
+    var sidebarSelectedItem: UnifiedPlayerSidebarItem? = nil {
+        
+        didSet {
+            print("SelItem: \(sidebarSelectedItem?.module.description ?? "<None>")")
+        }
+    }
     
     init(persistentState: UnifiedPlayerUIPersistentState?) {
         self.windowFrame = persistentState?.windowFrame?.toNSRect()

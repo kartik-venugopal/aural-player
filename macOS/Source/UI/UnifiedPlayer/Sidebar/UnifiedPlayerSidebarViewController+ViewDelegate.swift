@@ -13,7 +13,12 @@ import Cocoa
 extension UnifiedPlayerSidebarViewController: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        item is UnifiedPlayerSidebarCategory ? 31: 27
+        
+        if let sidebarItem = item as? UnifiedPlayerSidebarItem {
+            return sidebarItem.module.isTopLevelItem ? 31 : 27
+        }
+        
+        return 27
     }
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
@@ -21,16 +26,18 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        item is UnifiedPlayerSidebarCategory && (sidebarView.numberOfChildren(ofItem: item) > 0)
+        sidebarView.numberOfChildren(ofItem: item) > 0
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
-        if let category = item as? UnifiedPlayerSidebarCategory {
+        if let sidebarItem = item as? UnifiedPlayerSidebarItem {
             
             //            return category == .playlists ?
             //            createPlaylistCategoryCell(outlineView, category.description, font: systemFontScheme.normalFont, textColor: systemColorScheme.secondaryTextColor, image: category.image) :
-            return createNameCell(outlineView, category.description, font: systemFontScheme.normalFont, textColor: systemColorScheme.secondaryTextColor, image: category.image)
+            return createNameCell(outlineView, sidebarItem.module.description, font: systemFontScheme.normalFont, 
+                                  textColor: systemColorScheme.secondaryTextColor,
+                                  image: sidebarItem.module.image)
         }
             
 //        } else if let sidebarItem = item as? UnifiedPlayerSidebarItem {
@@ -97,36 +104,28 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
         
-        if let category = item as? UnifiedPlayerSidebarCategory {
-//            return category.equalsOneOf(.playQueue, .favorites, .bookmarks)
-            return category.equalsOneOf(.playQueue)
-        }
+        guard let sidebarItem = item as? UnifiedPlayerSidebarItem else {return true}
         
-        return true
+        if sidebarItem.module.isTopLevelItem {
+            return sidebarItem.childItems.isEmpty
+        } else {
+            return true
+        }
     }
     
     func outlineViewSelectionDidChange(_ notification: Notification) {
         
-        guard let outlineView = notification.object as? NSOutlineView else {return}
-        
+        guard respondToSelectionChange, let outlineView = notification.object as? NSOutlineView else {return}
         let item = outlineView.item(atRow: outlineView.selectedRow)
         
-        if let selectedItem = item as? UnifiedPlayerSidebarItem {
+        guard let selectedItem = item as? UnifiedPlayerSidebarItem else {
             
-            unifiedPlayerUIState.sidebarSelectedModule = selectedItem.category
-            
-            if respondToSelectionChange {
-                messenger.publish(.unifiedPlayer_showBrowserTabForItem, payload: selectedItem)
-            }
-            
-        } else if let selectedCategory = item as? UnifiedPlayerSidebarCategory {
-            
-            unifiedPlayerUIState.sidebarSelectedModule = selectedCategory
-            
-            if respondToSelectionChange {
-                messenger.publish(.unifiedPlayer_showBrowserTabForCategory, payload: selectedCategory)
-            }
+            unifiedPlayerUIState.sidebarSelectedItem = nil
+            return
         }
+            
+        unifiedPlayerUIState.sidebarSelectedItem = selectedItem
+        messenger.publish(.UnifiedPlayer.showModule, payload: selectedItem)
     }
 }
 
