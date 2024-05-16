@@ -19,13 +19,11 @@ extension ChaptersListViewController: ThemeInitialization {
         lblCaption.font = systemFontScheme.captionFont
         lblCaption.textColor = systemColorScheme.captionTextColor
         
-        [lblSummary, lblNumMatches, txtSearch].forEach {$0?.font = systemFontScheme.smallFont}
-        [lblSummary, lblNumMatches].forEach {$0?.textColor = systemColorScheme.secondaryTextColor}
+        lblSummary.font = systemFontScheme.smallFont
+        lblSummary.textColor = systemColorScheme.secondaryTextColor
         
         backgroundColorChanged(systemColorScheme.backgroundColor)
         buttonColorChanged(systemColorScheme.buttonColor)
-
-        redrawSearchField()
         
         // Hack to get the search field to redraw (doesn't work)
         
@@ -49,8 +47,6 @@ extension ChaptersListViewController: FontSchemeObserver {
         
         let smallFont = systemFontScheme.smallFont
         lblSummary.font = smallFont
-        txtSearch?.font = smallFont
-        lblNumMatches.font = smallFont
     }
 }
 
@@ -62,10 +58,8 @@ extension ChaptersListViewController: ColorSchemeObserver {
         backgroundColorChanged(systemColorScheme.backgroundColor)
         chaptersListView.reloadDataMaintainingSelection()
         buttonColorChanged(systemColorScheme.buttonColor)
-        [lblSummary, lblNumMatches].forEach {$0?.textColor = systemColorScheme.secondaryTextColor}
+        lblSummary.textColor = systemColorScheme.secondaryTextColor
 
-        redrawSearchField()
-        
         let origFrame = view.window?.frame ?? .zero
         var newFrame = view.window?.frame ?? .zero
         newFrame.size = NSSize(width: origFrame.size.width + 1, height: origFrame.size.height)
@@ -81,7 +75,7 @@ extension ChaptersListViewController: ColorSchemeObserver {
     }
     
     func buttonColorChanged(_ newColor: NSColor) {
-        [btnLoopChapter, btnCaseSensitive].forEach {$0?.reTint()}
+        btnLoopChapter.reTint()
     }
     
     func activeControlStateColorChanged(_ newColor: NSColor) {
@@ -92,7 +86,7 @@ extension ChaptersListViewController: ColorSchemeObserver {
     }
     
     func inactiveControlStateColorChanged(_ newColor: NSColor) {
-        [btnLoopChapter, btnCaseSensitive].forEach {$0?.reTint()}
+        btnLoopChapter.reTint()
     }
     
     func captionTextColorChanged(_ newColor: NSColor) {
@@ -100,14 +94,12 @@ extension ChaptersListViewController: ColorSchemeObserver {
     }
     
     func primaryTextColorChanged(_ newColor: NSColor) {
-        
         chaptersListView.reloadAllRows(columns: [1])
-        redrawSearchField()
     }
     
     func secondaryTextColorChanged(_ newColor: NSColor) {
         
-        [lblSummary, lblNumMatches].forEach {$0?.textColor = newColor}
+        lblSummary.textColor = newColor
         header?.redraw()
     }
     
@@ -117,28 +109,6 @@ extension ChaptersListViewController: ColorSchemeObserver {
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
         rootContainerBox?.cornerRadius = radius
-    }
-    
-    func redrawSearchField() {
-        
-        let textColor = systemColorScheme.primaryTextColor
-        txtSearch?.textColor = textColor
-        
-        if let cell: NSSearchFieldCell = txtSearch?.cell as? NSSearchFieldCell {
-
-            // This is a hack to force these cells to redraw
-            cell.resetCancelButtonCell()
-            cell.resetSearchButtonCell()
-            
-            // Tint the 2 cell images according to the appropriate color.
-            cell.cancelButtonCell?.image = cell.cancelButtonCell?.image?.filledWithColor(textColor)
-            cell.cancelButtonCell?.image?.isTemplate = true
-            
-            cell.searchButtonCell?.image = cell.searchButtonCell?.image?.filledWithColor(textColor)
-            cell.searchButtonCell?.image?.isTemplate = true
-        }
-        
-        txtSearch?.redraw()
     }
     
     func primarySelectedTextColorChanged(_ newColor: NSColor) {

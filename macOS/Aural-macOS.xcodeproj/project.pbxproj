@@ -623,7 +623,6 @@
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
 		3EFAA8CF2B70260A001A6682 /* HMSTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8CE2B70260A001A6682 /* HMSTimeFormatter.swift */; };
 		3EFAA8D12B710C30001A6682 /* ChaptersListViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8D02B710C30001A6682 /* ChaptersListViewController+Theming.swift */; };
-		3EFAA8D32B71323F001A6682 /* ChaptersListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8D22B71323F001A6682 /* ChaptersListViewController+Search.swift */; };
 		3EFAA8D52B7146AC001A6682 /* ChaptersListSearchFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */; };
 		3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */; };
 		3EFB64952772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */; };
@@ -1700,7 +1699,6 @@
 		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
 		3EFAA8CE2B70260A001A6682 /* HMSTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSTimeFormatter.swift; sourceTree = "<group>"; };
 		3EFAA8D02B710C30001A6682 /* ChaptersListViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChaptersListViewController+Theming.swift"; sourceTree = "<group>"; };
-		3EFAA8D22B71323F001A6682 /* ChaptersListViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChaptersListViewController+Search.swift"; sourceTree = "<group>"; };
 		3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListSearchFieldCell.swift; sourceTree = "<group>"; };
 		3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchSliderCell.swift; sourceTree = "<group>"; };
 		3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateCheckButton.swift; sourceTree = "<group>"; };
@@ -2916,7 +2914,6 @@
 				3E6C0F6225CEB98600BF0D07 /* ChaptersListWindowController.swift */,
 				3E6C0F6025CEB98600BF0D07 /* ChaptersList.xib */,
 				3E6C0F6125CEB98600BF0D07 /* ChaptersListViewController.swift */,
-				3EFAA8D22B71323F001A6682 /* ChaptersListViewController+Search.swift */,
 				3EFAA8D02B710C30001A6682 /* ChaptersListViewController+Theming.swift */,
 				3E6C0F6425CEB98600BF0D07 /* ChaptersListViewController+TableViewDelegate.swift */,
 				3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */,
@@ -5652,7 +5649,6 @@
 				3E2D09DC2AD4C5440062D3C9 /* RenderQualityMenuViewController.swift in Sources */,
 				3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */,
 				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesManagerViewController.swift in Sources */,
-				3EFAA8D32B71323F001A6682 /* ChaptersListViewController+Search.swift in Sources */,
 				3EFE39FF27864898006F8B8C /* NowPlayingInfoManager.swift in Sources */,
 				3EB3A61626A762750060487C /* FontSchemesViewProtocol.swift in Sources */,
 				3EC29A5F27865CB500B29551 /* Images.swift in Sources */,

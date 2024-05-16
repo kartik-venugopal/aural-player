@@ -8,22 +8,17 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ChaptersListViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnCaseSensitive" destination="zN5-WG-Hfk" id="dsQ-JQ-1y5"/>
                 <outlet property="btnLoopChapter" destination="Vrl-tz-2sw" id="lT1-Ze-Ut6"/>
                 <outlet property="btnNextChapter" destination="1DC-Ew-OQb" id="eQp-S0-UHu"/>
-                <outlet property="btnNextMatch" destination="bHr-UJ-NIW" id="Zyg-ex-2mf"/>
                 <outlet property="btnPreviousChapter" destination="ygd-DI-k3m" id="yq8-RJ-Mxj"/>
-                <outlet property="btnPreviousMatch" destination="6S0-IW-w5g" id="4ID-6i-w5d"/>
                 <outlet property="btnReplayChapter" destination="CC1-rj-6IZ" id="AOf-lr-qFY"/>
                 <outlet property="chaptersListView" destination="gvu-3H-WxP" id="FhW-ey-XWb"/>
                 <outlet property="clipView" destination="D96-oh-MHg" id="jlj-9F-t1U"/>
                 <outlet property="header" destination="dDi-bj-xLU" id="c1a-XV-hYt"/>
                 <outlet property="lblCaption" destination="PWs-Dc-64l" id="wQj-vR-Gws"/>
-                <outlet property="lblNumMatches" destination="r6w-Dx-ye5" id="YTR-CJ-Mag"/>
                 <outlet property="lblSummary" destination="fjX-Be-K9u" id="dmG-cs-sCP"/>
                 <outlet property="rootContainerBox" destination="avu-VO-oGx" id="GS4-C6-grQ"/>
                 <outlet property="scrollView" destination="tap-dl-Pc8" id="Zek-to-jYN"/>
-                <outlet property="txtSearch" destination="t3D-lJ-WT1" id="Biv-75-XsK"/>
                 <outlet property="view" destination="yXh-pp-sxI" id="3CO-8l-6zG"/>
             </connections>
         </customObject>
@@ -34,31 +29,19 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <box appearanceType="darkAqua" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="avu-VO-oGx" userLabel="Root Container">
-                    <rect key="frame" x="0.0" y="0.0" width="583" height="277"/>
+                    <rect key="frame" x="0.0" y="0.0" width="583" height="163"/>
                     <view key="contentView" id="8MV-pa-c2W">
-                        <rect key="frame" x="0.0" y="0.0" width="583" height="277"/>
+                        <rect key="frame" x="0.0" y="0.0" width="583" height="163"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PWs-Dc-64l" userLabel="Caption">
-                                <rect key="frame" x="33" y="271" width="204" height="28"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PWs-Dc-64l" userLabel="Caption">
+                                <rect key="frame" x="33" y="129" width="204" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="NLF-Vu-J8C"/>
                                     <constraint firstAttribute="height" constant="28" id="pme-4d-LCa"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Chapters  List" id="DdJ-65-Ash" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                     <font key="font" size="14" name="Play-Regular"/>
-                                    <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r6w-Dx-ye5" userLabel="Num Matches Label">
-                                <rect key="frame" x="419" y="232" width="104" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="9pk-hx-Gwh"/>
-                                    <constraint firstAttribute="width" constant="100" id="rbp-o6-FFb"/>
-                                </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="I6O-Oj-QNQ" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
-                                    <font key="font" size="12" name="Play-Regular"/>
                                     <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </textFieldCell>
@@ -87,20 +70,6 @@
                                 </constraints>
                                 <connections>
                                     <action selector="playPreviousChapterAction:" target="-2" id="L22-Xb-hF1"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Previous search result" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6S0-IW-w5g" userLabel="Previous Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="531" y="237.5" width="16.5" height="17"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrowshape.left.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="WdC-To-B3l">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="16" id="KgF-UY-7fa"/>
-                                    <constraint firstAttribute="height" constant="12" id="cgC-Zl-GvA"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="previousSearchResultAction:" target="-2" id="h16-DX-Cs6"/>
                                 </connections>
                             </button>
                             <button toolTip="Next chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1DC-Ew-OQb" userLabel="Next Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -151,91 +120,33 @@
                                     <action selector="replayCurrentChapterAction:" target="-2" id="2gF-gb-kh7"/>
                                 </connections>
                             </button>
-                            <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3D-lJ-WT1">
-                                <rect key="frame" x="14" y="235" width="367" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="dsP-Tv-Y7r"/>
-                                </constraints>
-                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" usesSingleLineMode="YES" bezelStyle="round" id="3ZQ-Xf-lJF">
-                                    <font key="font" size="12" name="Play-Regular"/>
-                                    <color key="textColor" white="0.70217628970000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="backgroundColor" white="0.48200924299999998" alpha="1" colorSpace="calibratedWhite"/>
-                                </searchFieldCell>
-                                <connections>
-                                    <action selector="searchAction:" target="-2" id="DHY-vK-wC3"/>
-                                </connections>
-                            </searchField>
-                            <button toolTip="Case sensitive search (disabled)" wantsLayer="YES" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zN5-WG-Hfk" userLabel="Case Sensitive" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="390" y="239" width="20" height="15"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search-CaseSensitive-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ADC-V1-rrX">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="3Jz-iY-uzb"/>
-                                    <constraint firstAttribute="height" constant="15" id="Amt-Ua-aaZ"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="Search-CaseSensitive-Off"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="Search-CaseSensitive-On"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Case sensitive search (disabled)"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Case sensitive search (enabled)"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="toggleCaseSensitiveSearchAction:" target="-2" id="CGi-Ou-cbB"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Next search result" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bHr-UJ-NIW" userLabel="Next Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="551" y="237.5" width="16.5" height="17"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrowshape.right.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="FCp-xT-7Do">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="16" id="9zn-ph-egs"/>
-                                    <constraint firstAttribute="height" constant="12" id="PE7-Ea-s18"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="nextSearchResultAction:" target="-2" id="GDm-kD-seT"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ygd-DI-k3m" secondAttribute="bottom" constant="15" id="0ge-cs-Dbf"/>
-                            <constraint firstItem="6S0-IW-w5g" firstAttribute="centerY" secondItem="t3D-lJ-WT1" secondAttribute="centerY" id="184-b0-1Lm"/>
                             <constraint firstItem="Vrl-tz-2sw" firstAttribute="centerY" secondItem="CC1-rj-6IZ" secondAttribute="centerY" constant="2" id="8vS-eF-ePl"/>
                             <constraint firstItem="Vrl-tz-2sw" firstAttribute="leading" secondItem="1DC-Ew-OQb" secondAttribute="trailing" constant="10" id="8vY-bM-Y5a"/>
+                            <constraint firstItem="PWs-Dc-64l" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="leading" constant="35" id="9Uy-3s-s2v"/>
                             <constraint firstItem="1DC-Ew-OQb" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="centerX" constant="5" id="B8e-5N-fFQ"/>
-                            <constraint firstItem="6S0-IW-w5g" firstAttribute="leading" secondItem="r6w-Dx-ye5" secondAttribute="trailing" constant="10" id="BRI-ks-erF"/>
                             <constraint firstItem="PWs-Dc-64l" firstAttribute="top" secondItem="8MV-pa-c2W" secondAttribute="top" constant="6" id="F7G-TB-ioK"/>
-                            <constraint firstItem="t3D-lJ-WT1" firstAttribute="top" secondItem="PWs-Dc-64l" secondAttribute="bottom" constant="14" id="Gpl-CZ-cty"/>
-                            <constraint firstItem="r6w-Dx-ye5" firstAttribute="centerY" secondItem="t3D-lJ-WT1" secondAttribute="centerY" id="Ifp-c2-74L"/>
-                            <constraint firstItem="t3D-lJ-WT1" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="leading" constant="14" id="Vfd-mu-86Q"/>
                             <constraint firstAttribute="bottom" secondItem="fjX-Be-K9u" secondAttribute="bottom" constant="23" id="X3s-DN-Ep5"/>
-                            <constraint firstAttribute="trailing" secondItem="bHr-UJ-NIW" secondAttribute="trailing" constant="16" id="Xhj-oE-eo7"/>
                             <constraint firstItem="1DC-Ew-OQb" firstAttribute="centerY" secondItem="ygd-DI-k3m" secondAttribute="centerY" id="Y81-Tw-W9f"/>
-                            <constraint firstItem="zN5-WG-Hfk" firstAttribute="centerY" secondItem="t3D-lJ-WT1" secondAttribute="centerY" id="aML-Z5-ug0"/>
                             <constraint firstItem="CC1-rj-6IZ" firstAttribute="centerY" secondItem="1DC-Ew-OQb" secondAttribute="centerY" constant="-2" id="daQ-RH-fsg"/>
-                            <constraint firstItem="bHr-UJ-NIW" firstAttribute="leading" secondItem="6S0-IW-w5g" secondAttribute="trailing" constant="4" id="eco-ho-mcw"/>
                             <constraint firstItem="fjX-Be-K9u" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="leading" constant="22" id="i8X-U5-pKu"/>
-                            <constraint firstItem="bHr-UJ-NIW" firstAttribute="centerY" secondItem="6S0-IW-w5g" secondAttribute="centerY" id="qEF-gz-i44"/>
                             <constraint firstItem="ygd-DI-k3m" firstAttribute="trailing" secondItem="8MV-pa-c2W" secondAttribute="centerX" constant="-5" id="qO9-NR-Lam"/>
-                            <constraint firstItem="zN5-WG-Hfk" firstAttribute="leading" secondItem="t3D-lJ-WT1" secondAttribute="trailing" constant="9" id="uuu-kw-9Pe"/>
                             <constraint firstItem="CC1-rj-6IZ" firstAttribute="trailing" secondItem="ygd-DI-k3m" secondAttribute="leading" constant="-10" id="yJQ-es-40k"/>
-                            <constraint firstItem="r6w-Dx-ye5" firstAttribute="leading" secondItem="t3D-lJ-WT1" secondAttribute="trailing" constant="40" id="zw0-m2-7Hr"/>
                         </constraints>
                     </view>
                     <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </box>
-                <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tap-dl-Pc8" userLabel="Chapters View">
-                    <rect key="frame" x="15" y="54" width="553" height="133"/>
+                <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="59" horizontalPageScroll="10" verticalLineScroll="59" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tap-dl-Pc8" userLabel="Chapters View">
+                    <rect key="frame" x="15" y="54" width="553" height="59"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="D96-oh-MHg">
-                        <rect key="frame" x="0.0" y="0.0" width="538" height="133"/>
+                        <rect key="frame" x="0.0" y="0.0" width="538" height="59"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" headerView="dDi-bj-xLU" viewBased="YES" id="gvu-3H-WxP" userLabel="Chapters View" customClass="AuralTableView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="538" height="105"/>
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="55" rowSizeStyle="automatic" headerView="dDi-bj-xLU" viewBased="YES" id="gvu-3H-WxP" userLabel="Chapters View" customClass="AuralTableView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="538" height="59"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -258,7 +169,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U4i-22-mOa" userLabel="Index">
-                                                        <rect key="frame" x="5" y="0.0" width="27" height="30"/>
+                                                        <rect key="frame" x="8" y="0.0" width="24" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="BAP-jO-hlL"/>
                                                         </constraints>
@@ -269,7 +180,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0qP-U7-Gli">
-                                                        <rect key="frame" x="5" y="23" width="12" height="10"/>
+                                                        <rect key="frame" x="10" y="24" width="12" height="10"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="10" id="STT-a8-Rr1"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="12" id="gKq-1M-n7Z"/>
@@ -280,10 +191,10 @@
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="U4i-22-mOa" firstAttribute="leading" secondItem="kof-SQ-JWD" secondAttribute="leading" constant="7" id="7Mt-Cs-B9A"/>
-                                                    <constraint firstItem="0qP-U7-Gli" firstAttribute="leading" secondItem="kof-SQ-JWD" secondAttribute="leading" constant="5" id="fmr-Gb-n2r"/>
+                                                    <constraint firstItem="U4i-22-mOa" firstAttribute="leading" secondItem="kof-SQ-JWD" secondAttribute="leading" constant="10" id="7Mt-Cs-B9A"/>
+                                                    <constraint firstItem="0qP-U7-Gli" firstAttribute="leading" secondItem="kof-SQ-JWD" secondAttribute="leading" constant="10" id="fmr-Gb-n2r"/>
                                                     <constraint firstItem="U4i-22-mOa" firstAttribute="bottom" secondItem="kof-SQ-JWD" secondAttribute="bottom" id="gj4-Q4-Ct4"/>
-                                                    <constraint firstItem="0qP-U7-Gli" firstAttribute="centerY" secondItem="kof-SQ-JWD" secondAttribute="centerY" id="oHe-q8-agh"/>
+                                                    <constraint firstItem="0qP-U7-Gli" firstAttribute="centerY" secondItem="kof-SQ-JWD" secondAttribute="centerY" constant="-1" id="oHe-q8-agh"/>
                                                     <constraint firstItem="U4i-22-mOa" firstAttribute="trailing" secondItem="kof-SQ-JWD" secondAttribute="trailing" id="qTq-Mf-Vmg"/>
                                                 </constraints>
                                                 <connections>
@@ -420,13 +331,19 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.40019349209999999" blue="0.82375323830000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </clipView>
+                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="U6n-GB-mZ8">
                         <rect key="frame" x="-100" y="-100" width="383" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="NO" id="I5T-EO-Idm" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="538" y="28" width="15" height="105"/>
+                        <rect key="frame" x="538" y="28" width="15" height="31"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="clipView" destination="D96-oh-MHg" id="PNC-fv-LYn"/>
+                            <outlet property="contentView" destination="gvu-3H-WxP" id="4GG-T8-t9A"/>
+                            <outlet property="scrollView" destination="tap-dl-Pc8" id="ds8-eS-Rm1"/>
+                        </connections>
                     </scroller>
                     <tableHeaderView key="headerView" wantsLayer="YES" id="dDi-bj-xLU">
                         <rect key="frame" x="0.0" y="0.0" width="538" height="28"/>
@@ -440,7 +357,7 @@
                 <constraint firstAttribute="trailing" secondItem="tap-dl-Pc8" secondAttribute="trailing" constant="15" id="M2E-pN-Ubv"/>
                 <constraint firstAttribute="bottom" secondItem="avu-VO-oGx" secondAttribute="bottom" id="TYC-Z9-GzP"/>
                 <constraint firstItem="tap-dl-Pc8" firstAttribute="leading" secondItem="yXh-pp-sxI" secondAttribute="leading" constant="15" id="YIw-CE-KX1"/>
-                <constraint firstItem="tap-dl-Pc8" firstAttribute="top" secondItem="yXh-pp-sxI" secondAttribute="top" constant="90" id="ce9-5l-xkq"/>
+                <constraint firstItem="tap-dl-Pc8" firstAttribute="top" secondItem="yXh-pp-sxI" secondAttribute="top" constant="50" id="ce9-5l-xkq"/>
                 <constraint firstItem="avu-VO-oGx" firstAttribute="top" secondItem="yXh-pp-sxI" secondAttribute="top" id="daa-Zl-xBb"/>
                 <constraint firstAttribute="trailing" secondItem="avu-VO-oGx" secondAttribute="trailing" id="ytS-Zb-XpR"/>
             </constraints>
@@ -451,11 +368,7 @@
         <image name="Loop" width="18" height="25"/>
         <image name="LoopChapter-Off" width="20" height="20"/>
         <image name="LoopChapter-On" width="20" height="20"/>
-        <image name="Search-CaseSensitive-Off" width="43" height="31"/>
-        <image name="Search-CaseSensitive-On" width="43" height="31"/>
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
-        <image name="arrowshape.left.fill" catalog="system" width="17" height="14"/>
-        <image name="arrowshape.right.fill" catalog="system" width="17" height="14"/>
         <image name="backward.end" catalog="system" width="13" height="13"/>
         <image name="forward.end" catalog="system" width="13" height="13"/>
     </resources>

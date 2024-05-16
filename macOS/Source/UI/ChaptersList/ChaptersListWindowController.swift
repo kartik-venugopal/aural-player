@@ -13,22 +13,16 @@ import Cocoa
     Window controller for the Chapters list window.
     Contains the Chapters list view and performs window snapping.
  */
-class ChaptersListWindowController: NSWindowController, ModalComponentProtocol {
+class ChaptersListWindowController: NSWindowController {
+    
+    override var windowNibName: NSNib.Name? {"ChaptersListWindow"}
     
     @IBOutlet weak var btnClose: TintedImageButton!
     private lazy var btnCloseConstraints: LayoutConstraintsManager = LayoutConstraintsManager(for: btnClose)
     
     private let viewController: ChaptersListViewController = .init()
     
-    override var windowNibName: NSNib.Name? {"ChaptersListWindow"}
-    
     private lazy var messenger = Messenger(for: self)
-    
-    // The chapters list window is only considered modal when it is the key window AND
-    // the search bar has focus (i.e. a search is being performed).
-    var isModal: Bool {
-        theWindow.isKeyWindow && viewController.isPerformingSearch
-    }
     
     override func windowDidLoad() {
         

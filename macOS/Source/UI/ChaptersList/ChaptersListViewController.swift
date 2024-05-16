@@ -33,21 +33,6 @@ class ChaptersListViewController: NSViewController {
     @IBOutlet weak var btnReplayChapter: TintedImageButton!
     @IBOutlet weak var btnLoopChapter: OnOffImageButton!
     
-    @IBOutlet weak var txtSearch: NSSearchField!
-    @IBOutlet weak var btnCaseSensitive: OnOffImageButton!
-    
-    @IBOutlet weak var lblNumMatches: NSTextField!
-    @IBOutlet weak var btnPreviousMatch: TintedImageButton!
-    @IBOutlet weak var btnNextMatch: TintedImageButton!
-    
-    // Holds all search results from the latest performed search
-    var searchResults: [Int] = []
-    
-    // Points to the current search result selected within the chapters list, and assists in search result navigation.
-    // Serves as an index within the searchResults array.
-    // Will be nil if no results available or no chapters available.
-    var resultIndex: Int?
-    
     let player: PlaybackDelegateProtocol = playbackDelegate
     
     private lazy var messenger = Messenger(for: self)
@@ -66,11 +51,7 @@ class ChaptersListViewController: NSViewController {
         
         initSubscriptions()
         
-        btnCaseSensitive?.off()
         btnLoopChapter.off()
-        
-        lblNumMatches?.stringValue = ""
-        [btnPreviousMatch, btnNextMatch].forEach {$0?.disable()}
     }
     
     func initSubscriptions() {
@@ -81,7 +62,7 @@ class ChaptersListViewController: NSViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, handler: backgroundColorChanged(_:))
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, 
-                                                     changeReceivers: [btnPreviousChapter, btnNextChapter, btnReplayChapter, btnPreviousMatch, btnNextMatch].compactMap {$0})
+                                                     changeReceivers: [btnPreviousChapter, btnNextChapter, btnReplayChapter])
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, handler: activeControlStateColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, handler: inactiveControlStateColorChanged(_:))
@@ -210,11 +191,6 @@ class ChaptersListViewController: NSViewController {
         
         // This should always be done
         btnLoopChapter.onIf(player.chapterLoopExists)
-        txtSearch?.stringValue = ""
-        lblNumMatches?.stringValue = ""
-        [btnPreviousMatch, btnNextMatch].forEach {$0?.disable()}
-        resultIndex = nil
-        searchResults.removeAll()
     }
     
     // When the currently playing chapter changes, the marker icon in the chapters list needs to move to the

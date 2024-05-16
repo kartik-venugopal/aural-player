@@ -22,6 +22,7 @@ class PrettyScroller: NSScroller {
     var knobColor: NSColor = NSColor.gray
     
     @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var clipView: NSClipView!
     @IBOutlet weak var contentView: NSView!
     
     var scrollerKnobColor: NSColor {
@@ -40,7 +41,7 @@ class PrettyScroller: NSScroller {
     
     override func drawKnob() {
         
-        if contentView != nil, scrollView != nil, contentView.height <= scrollView.height {
+        if contentView != nil, scrollView != nil, (contentView.height + (clipView?.contentInsets.top ?? 0) + (clipView?.contentInsets.bottom ?? 0)) <= scrollView.height {
             return
         }
         
