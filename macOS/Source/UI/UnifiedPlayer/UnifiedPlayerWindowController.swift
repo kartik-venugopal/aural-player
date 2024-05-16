@@ -19,6 +19,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
+    @IBOutlet weak var btnToggleSidebar: TintedImageButton!
     @IBOutlet weak var presentationModeMenuItem: TintedIconMenuItem!
     @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
     
@@ -30,7 +31,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     @IBOutlet weak var mainMenu: NSMenu!
     
-    lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, settingsMenuIconItem]
+    lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, btnToggleSidebar, settingsMenuIconItem]
     
     lazy var playerController: UnifiedPlayerViewController = UnifiedPlayerViewController()
     private lazy var effectsSheetViewController: EffectsSheetViewController = .init()
@@ -77,29 +78,18 @@ class UnifiedPlayerWindowController: NSWindowController {
         
         super.windowDidLoad()
         
-        playerController.forceLoadingOfView()
-        
-        rootSplitView.addAndAnchorSubView(playerController.view, underArrangedSubviewAt: 0)
-        browserSplitView.addAndAnchorSubView(sidebarController.view, underArrangedSubviewAt: 0)
-        
-        tabGroup.addAndAnchorSubView(forController: playQueueController)
-//        tabGroup.addAndAnchorSubView(forController: libraryTracksController)
-//        tabGroup.addAndAnchorSubView(forController: libraryArtistsController)
-//        tabGroup.addAndAnchorSubView(forController: libraryAlbumsController)
-//        tabGroup.addAndAnchorSubView(forController: libraryGenresController)
-//        tabGroup.addAndAnchorSubView(forController: libraryDecadesController)
-//        
-//        tabGroup.addAndAnchorSubView(forController: tuneBrowserViewController)
-//        
-//        tabGroup.addAndAnchorSubView(forController: playlistsViewController)
-        
-        tabGroup.selectTabViewItem(at: 0)
-        
         messenger.subscribe(to: .UnifiedPlayer.showModule, handler: showModule(forItem:))
         messenger.subscribe(to: .UnifiedPlayer.hideModule, handler: hideModule(forItem:))
         
         messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        
+        messenger.subscribe(to: .Application.willExit, handler: preApplicationExit)
+        
+        colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: logoImage)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: buttonColorChangeReceivers)
     }
     
     // Set window properties
@@ -107,12 +97,26 @@ class UnifiedPlayerWindowController: NSWindowController {
         
         theWindow.makeKeyAndOrderFront(self)
         
-        colorSchemesManager.registerSchemeObserver(self)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: logoImage)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: buttonColorChangeReceivers)
-        
         changeWindowCornerRadius(playerUIState.cornerRadius)
+        playerController.forceLoadingOfView()
+        
+        rootSplitView.addAndAnchorSubView(playerController.view, underArrangedSubviewAt: 0)
+        browserSplitView.addAndAnchorSubView(sidebarController.view, underArrangedSubviewAt: 0)
+        browserSplitView.delegate = self
+        browserSplitView.subviews.first?.showIf(unifiedPlayerUIState.isSidebarShown)
+        
+        tabGroup.addAndAnchorSubView(forController: playQueueController)
+//        tabGroup.addAndAnchorSubView(forController: libraryTracksController)
+//        tabGroup.addAndAnchorSubView(forController: libraryArtistsController)
+//        tabGroup.addAndAnchorSubView(forController: libraryAlbumsController)
+//        tabGroup.addAndAnchorSubView(forController: libraryGenresController)
+//        tabGroup.addAndAnchorSubView(forController: libraryDecadesController)
+//
+//        tabGroup.addAndAnchorSubView(forController: tuneBrowserViewController)
+//
+//        tabGroup.addAndAnchorSubView(forController: playlistsViewController)
+        
+        tabGroup.selectTabViewItem(at: 0)
     }
     
     private func initSubscriptions() {
@@ -138,8 +142,12 @@ class UnifiedPlayerWindowController: NSWindowController {
     // Quits the app
     @IBAction func quitAction(_ sender: AnyObject) {
         
-        unifiedPlayerUIState.windowFrame = theWindow.frame
+        preApplicationExit()
         NSApp.terminate(self)
+    }
+    
+    private func preApplicationExit() {
+        unifiedPlayerUIState.windowFrame = theWindow.frame
     }
     
     // Minimizes the window (and any child windows)
@@ -165,6 +173,12 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     @IBAction func showEffectsPanelAction(_ sender: AnyObject) {
         playerController.presentAsSheet(effectsSheetViewController)
+    }
+    
+    @IBAction func toggleSidebarAction(_ sender: AnyObject) {
+        
+        unifiedPlayerUIState.isSidebarShown.toggle()
+        browserSplitView.subviews.first?.showIf(unifiedPlayerUIState.isSidebarShown)
     }
     
     // MARK: Message handling -----------------------------------------------------------
@@ -247,9 +261,18 @@ class UnifiedPlayerWindowController: NSWindowController {
     }
 }
 
+extension UnifiedPlayerWindowController: NSSplitViewDelegate {
+    
+    func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
+        !unifiedPlayerUIState.isSidebarShown
+    }
+}
+
 extension UnifiedPlayerWindowController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
+        
+        logoImage.colorChanged(systemColorScheme.captionTextColor)
         
         rootContainerBox.fillColor = systemColorScheme.backgroundColor
         

@@ -9,6 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ChaptersListWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnClose" destination="Bqb-2Y-Uw2" id="Htc-Dq-PpA"/>
+                <outlet property="containerView" destination="nPh-fb-Ezh" id="k6d-dE-qtX"/>
+                <outlet property="rootContainer" destination="e3w-jW-60q" id="THD-my-1Na"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="Vrd-Pf-VfP"/>
             </connections>
         </customObject>
@@ -25,6 +27,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="e3w-jW-60q" userLabel="Root Container">
+                        <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
+                        <view key="contentView" id="gbS-Ee-zgC">
+                            <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                    </box>
                     <button toolTip="Hide the chapters list" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="10" y="355" width="10" height="10"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="buttonCell:2yB-X7-zcw:image" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2yB-X7-zcw">
@@ -39,10 +48,21 @@
                             <action selector="closeWindowAction:" target="-2" id="pbv-ne-DbR"/>
                         </connections>
                     </button>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="nPh-fb-Ezh" userLabel="Container">
+                        <rect key="frame" x="10" y="10" width="550" height="370"/>
+                    </customView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="15" id="A0e-0L-O0V"/>
+                    <constraint firstItem="e3w-jW-60q" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="CnS-nt-6yO"/>
+                    <constraint firstAttribute="bottom" secondItem="e3w-jW-60q" secondAttribute="bottom" id="Gx4-O7-xzo"/>
+                    <constraint firstItem="nPh-fb-Ezh" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="10" id="Mxr-Kk-D69"/>
+                    <constraint firstAttribute="trailing" secondItem="e3w-jW-60q" secondAttribute="trailing" id="bpC-En-wmn"/>
+                    <constraint firstAttribute="bottom" secondItem="nPh-fb-Ezh" secondAttribute="bottom" constant="10" id="eXq-Ju-low"/>
+                    <constraint firstItem="e3w-jW-60q" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="nHr-3j-Fxd"/>
+                    <constraint firstAttribute="trailing" secondItem="nPh-fb-Ezh" secondAttribute="trailing" constant="10" id="rOu-68-wHr"/>
                     <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="10" id="rsj-Hx-jJe"/>
+                    <constraint firstItem="nPh-fb-Ezh" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="x37-xj-iyd"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>

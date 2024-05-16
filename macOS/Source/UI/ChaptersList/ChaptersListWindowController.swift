@@ -17,8 +17,11 @@ class ChaptersListWindowController: NSWindowController {
     
     override var windowNibName: NSNib.Name? {"ChaptersListWindow"}
     
+    @IBOutlet weak var rootContainer: NSBox!
     @IBOutlet weak var btnClose: TintedImageButton!
     private lazy var btnCloseConstraints: LayoutConstraintsManager = LayoutConstraintsManager(for: btnClose)
+    
+    @IBOutlet weak var containerView: NSView!
     
     private let viewController: ChaptersListViewController = .init()
     
@@ -28,7 +31,7 @@ class ChaptersListWindowController: NSWindowController {
         
         super.windowDidLoad()
         
-        window?.contentView?.addSubview(viewController.view)
+        containerView.addSubview(viewController.view)
         viewController.view.anchorToSuperview()
         
         btnClose.bringToFront()
@@ -39,11 +42,20 @@ class ChaptersListWindowController: NSWindowController {
         btnCloseConstraints.setTop(relatedToTopOf: btnClose.superview!, offset: 15)
         
         colorSchemesManager.registerSchemeObserver(self)
+        
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainer)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
+        
+        rootContainer?.cornerRadius = playerUIState.cornerRadius
+        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         windowLayoutsManager.hideWindow(withId: .chaptersList)
+    }
+    
+    private func changeWindowCornerRadius(_ radius: CGFloat) {
+        rootContainer.cornerRadius = radius
     }
     
     override func destroy() {
@@ -58,6 +70,8 @@ class ChaptersListWindowController: NSWindowController {
 extension ChaptersListWindowController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
+        
+        rootContainer.fillColor = systemColorScheme.backgroundColor
         btnClose.colorChanged(systemColorScheme.buttonColor)
     }
 }

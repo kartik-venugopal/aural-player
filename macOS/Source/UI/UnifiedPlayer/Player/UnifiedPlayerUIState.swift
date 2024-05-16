@@ -12,6 +12,7 @@ import AppKit
 class UnifiedPlayerUIState {
     
     var windowFrame: NSRect?
+    var isSidebarShown: Bool = true
     
     var sidebarItems: [UnifiedPlayerSidebarItem] = []
     var sidebarSelectedItem: UnifiedPlayerSidebarItem? = nil {
@@ -22,13 +23,18 @@ class UnifiedPlayerUIState {
     }
     
     init(persistentState: UnifiedPlayerUIPersistentState?) {
+        
+        if let isSidebarShown = persistentState?.isSidebarShown {
+            self.isSidebarShown = isSidebarShown
+        }
+        
         self.windowFrame = persistentState?.windowFrame?.toNSRect()
     }
     
     var persistentState: UnifiedPlayerUIPersistentState? {
         
         if let windowFrame = self.windowFrame {
-            return .init(windowFrame: NSRectPersistentState(rect: windowFrame))
+            return .init(windowFrame: NSRectPersistentState(rect: windowFrame), isSidebarShown: isSidebarShown)
         } else {
             return nil
         }

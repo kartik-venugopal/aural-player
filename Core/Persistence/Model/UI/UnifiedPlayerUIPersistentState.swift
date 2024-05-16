@@ -13,4 +13,5 @@ import Foundation
 struct UnifiedPlayerUIPersistentState: Codable {
     
     let windowFrame: NSRectPersistentState?
+    let isSidebarShown: Bool?
 }

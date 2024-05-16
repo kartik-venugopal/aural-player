@@ -12,6 +12,7 @@
                 <outlet property="browserSplitView" destination="ExY-pd-fXH" id="EzR-RH-Jge"/>
                 <outlet property="btnMinimize" destination="uqs-37-cFW" id="PS8-Qa-j26"/>
                 <outlet property="btnQuit" destination="eoQ-Xe-ODi" id="9a8-0J-rjm"/>
+                <outlet property="btnToggleSidebar" destination="SuE-cK-RHB" id="0tY-CE-Zpk"/>
                 <outlet property="logoImage" destination="Qgw-qr-6uY" id="Sk4-8w-7d9"/>
                 <outlet property="mainMenu" destination="ELy-TT-jHS" id="4LK-Px-Hh5"/>
                 <outlet property="presentationModeMenuItem" destination="zFw-j4-cIv" id="0sq-To-Mh6"/>
@@ -188,6 +189,20 @@
                         </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="HdP-Q9-02D"/>
                     </imageView>
+                    <button toolTip="Toggle Sidebar" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="SuE-cK-RHB" userLabel="Toggle Sidebar Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="751" y="473.5" width="17" height="9"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="sidebar.left" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="jc4-Hm-pTR">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="4" id="O58-be-TuD"/>
+                            <constraint firstAttribute="width" constant="17" id="Q2B-v4-RFs"/>
+                        </constraints>
+                        <connections>
+                            <action selector="toggleSidebarAction:" target="-2" id="kPK-lK-8c1"/>
+                        </connections>
+                    </button>
                     <popUpButton toolTip="Options" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jbr-GM-SIl" userLabel="Settings Menu">
                         <rect key="frame" x="772" y="469" width="18" height="18"/>
                         <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="J1C-Fv-lVe">
@@ -382,7 +397,7 @@
                                         <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="Wgb-fp-9D8">
                                             <items>
                                                 <menuItem isSeparatorItem="YES" id="He6-2e-g3z"/>
-                                                <menuItem title="Lava (default)" indentationLevel="1" id="dqJ-yU-6Eg">
+                                                <menuItem title="Lava" indentationLevel="1" id="dqJ-yU-6Eg">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="applyPresetAction:" target="fs7-n4-iiz" id="W01-Ru-MqE"/>
@@ -466,9 +481,11 @@
                 <constraints>
                     <constraint firstItem="zSX-rs-0Aq" firstAttribute="top" secondItem="Jbr-GM-SIl" secondAttribute="bottom" constant="11" id="4s4-sy-I89"/>
                     <constraint firstItem="qQ2-PJ-W1D" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="5ta-nV-uhG"/>
+                    <constraint firstItem="Jbr-GM-SIl" firstAttribute="leading" secondItem="SuE-cK-RHB" secondAttribute="trailing" constant="9" id="6RU-h6-zr3"/>
                     <constraint firstItem="aim-2G-bxd" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="7Zb-hT-M6Z"/>
                     <constraint firstAttribute="trailing" secondItem="qQ2-PJ-W1D" secondAttribute="trailing" id="Avo-Wi-aXA"/>
                     <constraint firstItem="zSX-rs-0Aq" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="10" id="BjK-fc-HpW"/>
+                    <constraint firstItem="Jbr-GM-SIl" firstAttribute="centerY" secondItem="SuE-cK-RHB" secondAttribute="centerY" id="C7T-cs-k6D"/>
                     <constraint firstAttribute="trailing" secondItem="aim-2G-bxd" secondAttribute="trailing" id="IMa-kj-s2m"/>
                     <constraint firstItem="aim-2G-bxd" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="O6g-f9-cVb"/>
                     <constraint firstAttribute="bottom" secondItem="zSX-rs-0Aq" secondAttribute="bottom" constant="10" id="Pq5-M4-kV6"/>
@@ -1705,6 +1722,7 @@ CA
         <image name="right" catalog="system" width="10" height="12"/>
         <image name="scissors" catalog="system" width="16" height="13"/>
         <image name="shuffle" catalog="system" width="18" height="14"/>
+        <image name="sidebar.left" catalog="system" width="18" height="14"/>
         <image name="slider.vertical.3" catalog="system" width="15" height="14"/>
         <image name="speaker.slash" catalog="system" width="14" height="16"/>
         <image name="speaker.wave.1" catalog="system" width="16" height="14"/>

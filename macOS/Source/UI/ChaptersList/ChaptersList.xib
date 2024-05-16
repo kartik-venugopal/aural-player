@@ -29,13 +29,13 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <box appearanceType="darkAqua" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="avu-VO-oGx" userLabel="Root Container">
-                    <rect key="frame" x="0.0" y="0.0" width="583" height="163"/>
+                    <rect key="frame" x="0.0" y="0.0" width="553" height="144"/>
                     <view key="contentView" id="8MV-pa-c2W">
-                        <rect key="frame" x="0.0" y="0.0" width="583" height="163"/>
+                        <rect key="frame" x="0.0" y="0.0" width="553" height="144"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PWs-Dc-64l" userLabel="Caption">
-                                <rect key="frame" x="33" y="129" width="204" height="28"/>
+                                <rect key="frame" x="-2" y="110" width="204" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="NLF-Vu-J8C"/>
                                     <constraint firstAttribute="height" constant="28" id="pme-4d-LCa"/>
@@ -47,7 +47,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fjX-Be-K9u" userLabel="Chapters summary" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="20" y="23" width="204" height="23"/>
+                                <rect key="frame" x="8" y="1" width="204" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="DFb-WK-lZ3"/>
                                     <constraint firstAttribute="width" constant="200" id="PZS-1g-734"/>
@@ -59,7 +59,7 @@
                                 </textFieldCell>
                             </textField>
                             <button toolTip="Previous chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ygd-DI-k3m" userLabel="Previous Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="273" y="13.5" width="14" height="15"/>
+                                <rect key="frame" x="258" y="3.5" width="14" height="15"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="backward.end" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YMG-7Y-REd">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -73,7 +73,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Next chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1DC-Ew-OQb" userLabel="Next Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="297" y="13.5" width="14" height="15"/>
+                                <rect key="frame" x="282" y="3.5" width="14" height="15"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward.end" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ieJ-48-FCo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -87,7 +87,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Toggle current chapter loop" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vrl-tz-2sw" userLabel="Loop Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="321" y="14" width="15" height="14"/>
+                                <rect key="frame" x="306" y="4" width="15" height="14"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Loop" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="Msv-5B-HgS">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -107,7 +107,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Replay current chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CC1-rj-6IZ" userLabel="Replay Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="248" y="10" width="15.5" height="23"/>
+                                <rect key="frame" x="233" y="0.0" width="15.5" height="23"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.uturn.backward" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bQH-XB-lh5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system" size="21"/>
@@ -122,25 +122,25 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="ygd-DI-k3m" secondAttribute="bottom" constant="15" id="0ge-cs-Dbf"/>
+                            <constraint firstAttribute="bottom" secondItem="ygd-DI-k3m" secondAttribute="bottom" constant="5" id="0ge-cs-Dbf"/>
                             <constraint firstItem="Vrl-tz-2sw" firstAttribute="centerY" secondItem="CC1-rj-6IZ" secondAttribute="centerY" constant="2" id="8vS-eF-ePl"/>
                             <constraint firstItem="Vrl-tz-2sw" firstAttribute="leading" secondItem="1DC-Ew-OQb" secondAttribute="trailing" constant="10" id="8vY-bM-Y5a"/>
-                            <constraint firstItem="PWs-Dc-64l" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="leading" constant="35" id="9Uy-3s-s2v"/>
+                            <constraint firstItem="PWs-Dc-64l" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="leading" id="9Uy-3s-s2v"/>
                             <constraint firstItem="1DC-Ew-OQb" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="centerX" constant="5" id="B8e-5N-fFQ"/>
                             <constraint firstItem="PWs-Dc-64l" firstAttribute="top" secondItem="8MV-pa-c2W" secondAttribute="top" constant="6" id="F7G-TB-ioK"/>
-                            <constraint firstAttribute="bottom" secondItem="fjX-Be-K9u" secondAttribute="bottom" constant="23" id="X3s-DN-Ep5"/>
                             <constraint firstItem="1DC-Ew-OQb" firstAttribute="centerY" secondItem="ygd-DI-k3m" secondAttribute="centerY" id="Y81-Tw-W9f"/>
                             <constraint firstItem="CC1-rj-6IZ" firstAttribute="centerY" secondItem="1DC-Ew-OQb" secondAttribute="centerY" constant="-2" id="daQ-RH-fsg"/>
-                            <constraint firstItem="fjX-Be-K9u" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="leading" constant="22" id="i8X-U5-pKu"/>
+                            <constraint firstItem="fjX-Be-K9u" firstAttribute="leading" secondItem="8MV-pa-c2W" secondAttribute="leading" constant="10" id="i8X-U5-pKu"/>
                             <constraint firstItem="ygd-DI-k3m" firstAttribute="trailing" secondItem="8MV-pa-c2W" secondAttribute="centerX" constant="-5" id="qO9-NR-Lam"/>
                             <constraint firstItem="CC1-rj-6IZ" firstAttribute="trailing" secondItem="ygd-DI-k3m" secondAttribute="leading" constant="-10" id="yJQ-es-40k"/>
+                            <constraint firstItem="CC1-rj-6IZ" firstAttribute="centerY" secondItem="fjX-Be-K9u" secondAttribute="centerY" id="yUb-iv-b2y"/>
                         </constraints>
                     </view>
                     <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </box>
                 <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="59" horizontalPageScroll="10" verticalLineScroll="59" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tap-dl-Pc8" userLabel="Chapters View">
-                    <rect key="frame" x="15" y="54" width="553" height="59"/>
+                    <rect key="frame" x="0.0" y="35" width="553" height="59"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="D96-oh-MHg">
                         <rect key="frame" x="0.0" y="0.0" width="538" height="59"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -204,7 +204,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_chapterTitle" width="350" minWidth="275" maxWidth="10000" id="YMk-VA-3Qy" userLabel="Title">
+                                    <tableColumn identifier="cid_chapterTitle" width="350" minWidth="250" maxWidth="10000" id="YMk-VA-3Qy" userLabel="Title">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -353,10 +353,10 @@
             </subviews>
             <constraints>
                 <constraint firstItem="avu-VO-oGx" firstAttribute="leading" secondItem="yXh-pp-sxI" secondAttribute="leading" id="0Eg-Dx-2Tn"/>
-                <constraint firstAttribute="bottom" secondItem="tap-dl-Pc8" secondAttribute="bottom" constant="54" id="4ui-eL-Vvf"/>
-                <constraint firstAttribute="trailing" secondItem="tap-dl-Pc8" secondAttribute="trailing" constant="15" id="M2E-pN-Ubv"/>
+                <constraint firstItem="avu-VO-oGx" firstAttribute="bottom" secondItem="tap-dl-Pc8" secondAttribute="bottom" constant="35" id="4ui-eL-Vvf"/>
+                <constraint firstAttribute="trailing" secondItem="tap-dl-Pc8" secondAttribute="trailing" id="M2E-pN-Ubv"/>
                 <constraint firstAttribute="bottom" secondItem="avu-VO-oGx" secondAttribute="bottom" id="TYC-Z9-GzP"/>
-                <constraint firstItem="tap-dl-Pc8" firstAttribute="leading" secondItem="yXh-pp-sxI" secondAttribute="leading" constant="15" id="YIw-CE-KX1"/>
+                <constraint firstItem="tap-dl-Pc8" firstAttribute="leading" secondItem="yXh-pp-sxI" secondAttribute="leading" id="YIw-CE-KX1"/>
                 <constraint firstItem="tap-dl-Pc8" firstAttribute="top" secondItem="yXh-pp-sxI" secondAttribute="top" constant="50" id="ce9-5l-xkq"/>
                 <constraint firstItem="avu-VO-oGx" firstAttribute="top" secondItem="yXh-pp-sxI" secondAttribute="top" id="daa-Zl-xBb"/>
                 <constraint firstAttribute="trailing" secondItem="avu-VO-oGx" secondAttribute="trailing" id="ytS-Zb-XpR"/>

@@ -46,6 +46,12 @@ class ChaptersListViewController: NSViewController {
         
         chaptersListView.customizeHeader(heightIncrease: 5, customCellType: ChaptersListTableHeaderCell.self)
         
+        if appModeManager.currentMode == .modular,
+            let lblCaptionLeadingConstraint = lblCaption.superview?.constraints.first(where: {$0.firstAttribute == .leading}) {
+            
+            lblCaptionLeadingConstraint.constant = 23
+        }
+        
         // Set these fields for later access
         //        uiState.chaptersListView = self.chaptersListView
         
@@ -76,9 +82,6 @@ class ChaptersListViewController: NSViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.primarySelectedTextColor, handler: primarySelectedTextColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.tertiarySelectedTextColor, handler: tertiarySelectedTextColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.textSelectionColor, handler: textSelectionColorChanged(_:))
-        
-        rootContainerBox?.cornerRadius = playerUIState.cornerRadius
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
         
         messenger.subscribe(to: .Player.chapterChanged, handler: chapterChanged(_:))
         messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)

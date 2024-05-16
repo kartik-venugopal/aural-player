@@ -13,6 +13,11 @@ import AppKit
 extension ChaptersListViewController: ThemeInitialization {
     
     func initTheme() {
+
+        // To avoid cutoff of window corners in Modular mode.
+        if appModeManager.currentMode == .modular {
+            rootContainerBox?.fillColor = .clear
+        }
         
         chaptersListView.reloadDataMaintainingSelection()
         
@@ -69,7 +74,10 @@ extension ChaptersListViewController: ColorSchemeObserver {
     
     func backgroundColorChanged(_ newColor: NSColor) {
         
-        rootContainerBox?.fillColor = systemColorScheme.backgroundColor
+        if appModeManager.currentMode != .modular {
+            rootContainerBox?.fillColor = systemColorScheme.backgroundColor
+        }
+        
         chaptersListView.setBackgroundColor(.clear)
         header?.redraw()
     }
@@ -105,10 +113,6 @@ extension ChaptersListViewController: ColorSchemeObserver {
     
     func tertiaryTextColorChanged(_ newColor: NSColor) {
         chaptersListView.reloadAllRows(columns: [0, 2, 3])
-    }
-    
-    func changeWindowCornerRadius(_ radius: CGFloat) {
-        rootContainerBox?.cornerRadius = radius
     }
     
     func primarySelectedTextColorChanged(_ newColor: NSColor) {
