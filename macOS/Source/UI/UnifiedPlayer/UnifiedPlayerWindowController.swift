@@ -96,7 +96,10 @@ class UnifiedPlayerWindowController: NSWindowController {
         tabGroup.selectTabViewItem(at: 0)
         
         messenger.subscribe(to: .UnifiedPlayer.showModule, handler: showModule(forItem:))
+        messenger.subscribe(to: .UnifiedPlayer.hideModule, handler: hideModule(forItem:))
+        
         messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)
+        messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
     }
     
     // Set window properties
@@ -187,6 +190,24 @@ class UnifiedPlayerWindowController: NSWindowController {
             
             tabGroup.selectTabViewItem(at: 0)
             
+        case .chaptersList:
+            
+            tabGroup.selectLastTabViewItem(self)
+            
+        default:
+            
+            return
+        }
+    }
+    
+    private func hideModule(forItem item: UnifiedPlayerSidebarItem) {
+        
+        switch item.module {
+            
+        case .chaptersList:
+            
+            closeChaptersList()
+            
         default:
             
             return
@@ -195,8 +216,34 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     private func viewChaptersList() {
         
-        tabGroup.addAndAnchorSubView(forController: chaptersListController)
+        if tabGroup.tabViewItems.count == 1 {
+            tabGroup.addAndAnchorSubView(forController: chaptersListController)
+        }
+        
         tabGroup.selectLastTabViewItem(self)
+    }
+    
+    private func closeChaptersList() {
+        
+        if tabGroup.tabViewItems.count > 1 {
+            tabGroup.tabViewItems.removeLast()
+        }
+    }
+    
+    func trackTransitioned(_ notif: TrackTransitionNotification) {
+        
+        if let newTrack = notif.endTrack {
+            
+            if newTrack.hasChapters, preferences.playQueuePreferences.showChaptersList.value {
+                viewChaptersList()
+                
+            } else {
+                closeChaptersList()
+            }
+            
+        } else {
+            closeChaptersList()
+        }
     }
 }
 

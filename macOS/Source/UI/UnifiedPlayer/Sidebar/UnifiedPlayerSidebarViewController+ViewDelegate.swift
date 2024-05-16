@@ -35,7 +35,8 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDelegate {
             
             //            return category == .playlists ?
             //            createPlaylistCategoryCell(outlineView, category.description, font: systemFontScheme.normalFont, textColor: systemColorScheme.secondaryTextColor, image: category.image) :
-            return createNameCell(outlineView, sidebarItem.module.description, font: systemFontScheme.normalFont, 
+            
+            return createNameCell(outlineView, sidebarItem: sidebarItem, sidebarItem.module.description, font: systemFontScheme.normalFont,
                                   textColor: systemColorScheme.secondaryTextColor,
                                   image: sidebarItem.module.image)
         }
@@ -53,10 +54,12 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDelegate {
         return nil
     }
     
-    private func createNameCell(_ outlineView: NSOutlineView, _ text: String, font: NSFont, textColor: NSColor, image: NSImage? = nil) -> NSTableCellView? {
+    private func createNameCell(_ outlineView: NSOutlineView, sidebarItem: UnifiedPlayerSidebarItem, _ text: String, font: NSFont, textColor: NSColor, image: NSImage? = nil) -> UnifiedPlayerSidebarCellView? {
         
         guard let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("name"), owner: nil)
-            as? NSTableCellView else {return nil}
+            as? UnifiedPlayerSidebarCellView else {return nil}
+        
+        cell.sidebarItem = sidebarItem
         
         cell.text = text
         cell.textFont = font
@@ -65,42 +68,10 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDelegate {
         cell.image = image
         cell.imageColor = textColor
         
+        cell.btnClose.showIf(sidebarItem.module != .playQueue)
+        
         return cell
     }
-    
-//    private func createPlaylistCategoryCell(_ outlineView: NSOutlineView, _ text: String, font: NSFont, textColor: NSColor, image: NSImage? = nil) -> NSTableCellView? {
-//        
-//        guard let cell = outlineView.makeView(withIdentifier: .cid_SidebarPlaylistCategory, owner: nil)
-//            as? PlaylistSidebarCategoryCell else {return nil}
-//        
-//        cell.text = text
-//        cell.textFont = font
-//        cell.textColor = textColor
-//        
-//        cell.image = image
-//        cell.imageColor = textColor
-//        
-//        cell.updateAddButton(withAction: #selector(createEmptyPlaylistAction(_:)), onTarget: self)
-//        
-//        return cell
-//    }
-//    
-//    private func createPlaylistNameCell(_ outlineView: NSOutlineView, _ text: String, font: NSFont, textColor: NSColor, image: NSImage? = nil) -> NSTableCellView? {
-//        
-//        guard let cell = outlineView.makeView(withIdentifier: .cid_SidebarPlaylistName, owner: nil)
-//            as? NSTableCellView else {return nil}
-//        
-//        cell.text = text
-//        cell.textFont = font
-//        cell.textColor = textColor
-//
-//        cell.image = image
-//        cell.imageColor = textColor
-//        
-//        cell.textField?.delegate = self
-//        
-//        return cell
-//    }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
         
@@ -126,6 +97,53 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDelegate {
             
         unifiedPlayerUIState.sidebarSelectedItem = selectedItem
         messenger.publish(.UnifiedPlayer.showModule, payload: selectedItem)
+    }
+    
+    //    private func createPlaylistCategoryCell(_ outlineView: NSOutlineView, _ text: String, font: NSFont, textColor: NSColor, image: NSImage? = nil) -> NSTableCellView? {
+    //
+    //        guard let cell = outlineView.makeView(withIdentifier: .cid_SidebarPlaylistCategory, owner: nil)
+    //            as? PlaylistSidebarCategoryCell else {return nil}
+    //
+    //        cell.text = text
+    //        cell.textFont = font
+    //        cell.textColor = textColor
+    //
+    //        cell.image = image
+    //        cell.imageColor = textColor
+    //
+    //        cell.updateAddButton(withAction: #selector(createEmptyPlaylistAction(_:)), onTarget: self)
+    //
+    //        return cell
+    //    }
+    //
+    //    private func createPlaylistNameCell(_ outlineView: NSOutlineView, _ text: String, font: NSFont, textColor: NSColor, image: NSImage? = nil) -> NSTableCellView? {
+    //
+    //        guard let cell = outlineView.makeView(withIdentifier: .cid_SidebarPlaylistName, owner: nil)
+    //            as? NSTableCellView else {return nil}
+    //
+    //        cell.text = text
+    //        cell.textFont = font
+    //        cell.textColor = textColor
+    //
+    //        cell.image = image
+    //        cell.imageColor = textColor
+    //
+    //        cell.textField?.delegate = self
+    //
+    //        return cell
+    //    }
+}
+
+class UnifiedPlayerSidebarCellView: NSTableCellView {
+    
+    @IBOutlet weak var btnClose: NSButton!
+    var sidebarItem: UnifiedPlayerSidebarItem!
+    
+    @IBAction func closeModuleAction(_ sender: NSButton) {
+        
+        if let sidebarItem = self.sidebarItem {
+            Messenger.publish(.UnifiedPlayer.hideModule, payload: sidebarItem)
+        }
     }
 }
 

@@ -326,25 +326,11 @@ class Messenger {
     /// - Parameter payload: The payload object to be published (must conform to **NotificationPayload**)
     ///
     func publish<P: NotificationPayload>(_ payload: P) {
-        
-        // The notification name is extracted from the payload object, and the payload
-        // object is wrapped in a Notification which is then posted by the NotificationCenter.
-        
-        var notification = Notification(name: payload.notificationName)
-        notification.payload = payload
-        notification.object = client
-        
-        notifCtr.post(notification)
+        Self.doPublish(payload.notificationName, payload: payload, object: client)
     }
     
     static func publish<P: NotificationPayload>(_ payload: P) {
-        
-        // The notification name is extracted from the payload object, and the payload
-        // object is wrapped in a Notification which is then posted by the NotificationCenter.
-        
-        var notification = Notification(name: payload.notificationName)
-        notification.payload = payload
-        notifCtr.post(notification)
+        doPublish(payload.notificationName, payload: payload)
     }
     
     ///
@@ -368,12 +354,20 @@ class Messenger {
     /// - Parameter payload:    The (arbitrary) payload object to be published.
     ///
     func publish(_ notifName: Notification.Name, payload: Any) {
+        Self.doPublish(notifName, payload: payload, object: client)
+    }
+    
+    static func publish(_ notifName: Notification.Name, payload: Any) {
+       doPublish(notifName, payload: payload)
+    }
+    
+    private static func doPublish(_ notifName: Notification.Name, payload: Any, object: Any? = nil) {
         
         // The payload object is wrapped in a Notification which is then posted by the NotificationCenter.
         
         var notification = Notification(name: notifName)
         notification.payload = payload
-        notification.object = client
+        notification.object = nil
         
         notifCtr.post(notification)
     }

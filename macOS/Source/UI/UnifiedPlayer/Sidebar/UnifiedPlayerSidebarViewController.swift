@@ -35,6 +35,10 @@ class UnifiedPlayerSidebarViewController: NSViewController {
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: sidebarView)
+        
+        messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)
+        messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribe(to: .UnifiedPlayer.hideModule, handler: hideModule(forItem:))
     }
     
     override func destroy() {
@@ -108,6 +112,56 @@ class UnifiedPlayerSidebarViewController: NSViewController {
         
 //        sidebarView.insertItems(at: IndexSet(integer: tuneBrowserUIState.sidebarUserFolders.count),
 //                                inParent: UnifiedPlayerSidebarCategory.tuneBrowser, withAnimation: .slideDown)
+    }
+    
+    private func viewChaptersList() {
+
+        if !unifiedPlayerUIState.sidebarItems.contains(.chaptersListItem) {
+            
+            unifiedPlayerUIState.sidebarItems.append(.chaptersListItem)
+            sidebarView.reloadData()
+        }
+        
+        sidebarView.selectItems([UnifiedPlayerSidebarItem.chaptersListItem])
+    }
+    
+    private func closeChaptersList() {
+        
+        guard unifiedPlayerUIState.sidebarItems.count > 1 else {return}
+        
+        unifiedPlayerUIState.sidebarItems.removeLast()
+        sidebarView.reloadData()
+        sidebarView.selectRow(0)
+    }
+    
+    func trackTransitioned(_ notif: TrackTransitionNotification) {
+        
+        if let newTrack = notif.endTrack {
+            
+            if newTrack.hasChapters, preferences.playQueuePreferences.showChaptersList.value {
+                viewChaptersList()
+                
+            } else {
+                closeChaptersList()
+            }
+            
+        } else {
+            closeChaptersList()
+        }
+    }
+    
+    private func hideModule(forItem item: UnifiedPlayerSidebarItem) {
+        
+        switch item.module {
+            
+        case .chaptersList:
+            
+            closeChaptersList()
+            
+        default:
+            
+            return
+        }
     }
 }
 

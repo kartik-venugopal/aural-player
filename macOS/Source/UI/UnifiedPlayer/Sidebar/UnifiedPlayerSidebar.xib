@@ -42,7 +42,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="Evv-nE-Nct">
+                                            <tableCellView id="Evv-nE-Nct" customClass="UnifiedPlayerSidebarCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="183" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -65,15 +65,32 @@
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="bNR-AI-kZ4" userLabel="Close Module Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="166" y="4" width="12" height="16"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark.circle.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Sw8-1k-BRw" customClass="TableButtonCell" customModule="Aural" customModuleProvider="target">
+                                                            <behavior key="behavior" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="12" id="mxZ-d4-GPS"/>
+                                                            <constraint firstAttribute="height" constant="10" id="yrk-eL-GxX"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <action selector="closeModuleAction:" target="Evv-nE-Nct" id="qTK-Cz-x9I"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="bNR-AI-kZ4" firstAttribute="centerY" secondItem="Nxl-mp-uCv" secondAttribute="centerY" id="0Jj-ty-bvL"/>
                                                     <constraint firstItem="Nxl-mp-uCv" firstAttribute="leading" secondItem="ABd-BG-79T" secondAttribute="trailing" constant="6" id="19h-Vm-2W2"/>
                                                     <constraint firstAttribute="trailing" secondItem="Nxl-mp-uCv" secondAttribute="trailing" id="Cra-aD-qUs"/>
                                                     <constraint firstItem="Nxl-mp-uCv" firstAttribute="centerY" secondItem="Evv-nE-Nct" secondAttribute="centerY" id="e1T-Fm-oik"/>
                                                     <constraint firstItem="ABd-BG-79T" firstAttribute="centerY" secondItem="Evv-nE-Nct" secondAttribute="centerY" constant="1" id="gJO-SV-Icc"/>
                                                     <constraint firstItem="ABd-BG-79T" firstAttribute="leading" secondItem="Evv-nE-Nct" secondAttribute="leading" constant="-5" id="nON-CV-0Ih"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bNR-AI-kZ4" secondAttribute="trailing" constant="5" id="qgN-0U-gXe"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="btnClose" destination="bNR-AI-kZ4" id="Oxf-KE-cMG"/>
                                                     <outlet property="imageView" destination="ABd-BG-79T" id="hvO-Wr-3GP"/>
                                                     <outlet property="textField" destination="Nxl-mp-uCv" id="20D-AB-rHl"/>
                                                 </connections>
@@ -103,7 +120,7 @@
                                                     </textField>
                                                     <button toolTip="Create a new playlist" translatesAutoresizingMaskIntoConstraints="NO" id="JvJ-e6-NCg" userLabel="Add Playlist Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="166" y="5.5" width="12.5" height="14"/>
-                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="plus" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hFK-XD-3Be">
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="plus" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hFK-XD-3Be" customClass="TableButtonCell" customModule="Aural" customModuleProvider="target">
                                                             <behavior key="behavior" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -200,5 +217,6 @@
     </objects>
     <resources>
         <image name="plus" catalog="system" width="14" height="13"/>
+        <image name="xmark.circle.fill" catalog="system" width="15" height="15"/>
     </resources>
 </document>
