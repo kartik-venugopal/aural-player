@@ -40,6 +40,7 @@
 		3E10179028D7722B002C0D8E /* EffectsUnitToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */; };
 		3E1341282B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */; };
 		3E13412A2B6F0115009782B6 /* TrackInfoViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */; };
+		3E154A912BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */; };
 		3E1741462801EA0A00772ED1 /* TableCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1741452801EA0A00772ED1 /* TableCellBuilder.swift */; };
 		3E1741482801FDE500772ED1 /* TrackListTableViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1741472801FDE500772ED1 /* TrackListTableViewController+DataSource.swift */; };
 		3E1AEFAC2B7D67320081CF1B /* FavoriteFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AEFAB2B7D67320081CF1B /* FavoriteFolder.swift */; };
@@ -1011,6 +1012,7 @@
 		3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitToggle.swift; sourceTree = "<group>"; };
 		3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+MenuDelegate.swift"; sourceTree = "<group>"; };
 		3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+Theming.swift"; sourceTree = "<group>"; };
+		3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPresetsManagerWindowController.swift; sourceTree = "<group>"; };
 		3E16BE0B280DB48E00CE9FE9 /* PlaylistsUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsUIState.swift; sourceTree = "<group>"; };
 		3E16BE0D280DC73800CE9FE9 /* PlaylistNamesTableViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistNamesTableViewController+DataSource.swift"; sourceTree = "<group>"; };
 		3E16BE0F280DCF7300CE9FE9 /* PlaylistNamesTableViewController+ViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistNamesTableViewController+ViewDelegate.swift"; sourceTree = "<group>"; };
@@ -2963,6 +2965,7 @@
 				3E6C0F7525CEB98600BF0D07 /* EffectsPresetsManager.xib */,
 				3E3633DF2685FB10006A88ED /* EffectsPresetsManagerGenericViewController.swift */,
 				3E6C0F8725CEB98600BF0D07 /* EffectsPresetsManagerViewController.swift */,
+				3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */,
 				3E6C0F7D25CEB98600BF0D07 /* Master */,
 				3E6C0F7225CEB98600BF0D07 /* EQ */,
 				3E6C0F6F25CEB98600BF0D07 /* Pitch */,
@@ -5637,6 +5640,7 @@
 				3EF28DAA2694DDE2005D5B43 /* FontConstants.swift in Sources */,
 				3EFE38EF27864897006F8B8C /* ConcurrentCompositeKeyMap.swift in Sources */,
 				3EFE380927864896006F8B8C /* SortResults.swift in Sources */,
+				3E154A912BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift in Sources */,
 				3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */,
 				3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */,
 				3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */,

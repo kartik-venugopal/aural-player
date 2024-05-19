@@ -23,16 +23,6 @@ class EffectsPresetsManagerViewController: NSViewController {
     
     @IBOutlet weak var tabView: NSTabView!
     
-    private var tabViewButtons: [NSButton] = []
-    
-    @IBOutlet weak var masterPresetsTabViewButton: NSButton!
-    @IBOutlet weak var eqPresetsTabViewButton: NSButton!
-    @IBOutlet weak var pitchPresetsTabViewButton: NSButton!
-    @IBOutlet weak var timePresetsTabViewButton: NSButton!
-    @IBOutlet weak var reverbPresetsTabViewButton: NSButton!
-    @IBOutlet weak var delayPresetsTabViewButton: NSButton!
-    @IBOutlet weak var filterPresetsTabViewButton: NSButton!
-    
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnApply: NSButton!
     @IBOutlet weak var btnRename: NSButton!
@@ -41,9 +31,9 @@ class EffectsPresetsManagerViewController: NSViewController {
     
     private lazy var messenger = Messenger(for: self)
     
-    override var nibName: NSNib.Name? {"EffectsPresetsManager"}
-    
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
         
         viewControllers = [masterPresetsManagerViewController, eqPresetsManagerViewController, pitchPresetsManagerViewController, timePresetsManagerViewController, reverbPresetsManagerViewController, delayPresetsManagerViewController, filterPresetsManagerViewController]
         
@@ -59,8 +49,10 @@ class EffectsPresetsManagerViewController: NSViewController {
     
     override func viewDidAppear() {
         
+        super.viewDidAppear()
+        
         [btnApply, btnRename, btnDelete].forEach {$0.disable()}
-        tabViewAction(masterPresetsTabViewButton)
+        tabView.selectTabViewItem(at: 0)
         
         for unitType: EffectsUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
             messenger.publish(.effectsPresetsManager_reload, payload: unitType)
@@ -70,42 +62,20 @@ class EffectsPresetsManagerViewController: NSViewController {
     private func addSubViews() {
         
         for (index, viewController) in viewControllers.enumerated() {
+            
             tabView.tabViewItem(at: index).view?.addSubview(viewController.view)
+            viewController.view.anchorToSuperview()
         }
-        
-        tabViewButtons = [masterPresetsTabViewButton, eqPresetsTabViewButton, pitchPresetsTabViewButton, timePresetsTabViewButton, reverbPresetsTabViewButton, delayPresetsTabViewButton, filterPresetsTabViewButton]
     }
     
     // Switches the tab group to a particular tab
-    @IBAction func tabViewAction(_ sender: NSButton) {
-        
-        // Set sender button state, reset all other button states
-        tabViewButtons.forEach {$0.off()}
-        sender.on()
-        
-        // Button tag is the tab index
+    @IBAction func switchToTabAction(_ sender: NSToolbarItem) {
+
+        // Toolbar Item tag is the tab index
         tabView.selectTabViewItem(at: sender.tag)
         
         // Reset button states when switching to a new tab.
-        updateButtonStates(0)
-    }
-    
-    @IBAction func previousTabAction(_ sender: Any) {
-        
-        tabView.previousTab(self)
-        
-        tabViewButtons.forEach {
-            $0.onIf($0.tag == tabView.selectedIndex)
-        }
-    }
-    
-    @IBAction func nextTabAction(_ sender: Any) {
-        
-        tabView.nextTab(self)
-        
-        tabViewButtons.forEach {
-            $0.onIf($0.tag == tabView.selectedIndex)
-        }
+        updateButtonStates(numberOfSelectedRows: 0)
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
@@ -120,14 +90,10 @@ class EffectsPresetsManagerViewController: NSViewController {
         messenger.publish(.effectsPresetsManager_apply, payload: effectsUnit)
     }
     
-    @IBAction func doneAction(_ sender: AnyObject) {
-        self.view.window?.close()
-    }
-    
-    private func updateButtonStates(_ selRows: Int) {
+    private func updateButtonStates(numberOfSelectedRows: Int) {
         
-        btnDelete.enableIf(selRows > 0)
-        [btnApply, btnRename].forEach {$0.enableIf(selRows == 1)}
+        btnDelete.enableIf(numberOfSelectedRows > 0)
+        [btnApply, btnRename].forEach {$0.enableIf(numberOfSelectedRows == 1)}
     }
     
     // Returns a view for a single row
@@ -161,6 +127,6 @@ class EffectsPresetsManagerViewController: NSViewController {
     // MARK: Message handling
     
     func managerSelectionChanged(_ numberOfSelectedRows: Int) {
-        updateButtonStates(numberOfSelectedRows)
+        updateButtonStates(numberOfSelectedRows: numberOfSelectedRows)
     }
 }

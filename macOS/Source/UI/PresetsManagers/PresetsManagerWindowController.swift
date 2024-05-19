@@ -26,6 +26,8 @@ class PresetsManagerWindowController: SingletonWindowController, ModalComponentP
     private lazy var effectsPresetsManagerViewLoader: LazyViewLoader<EffectsPresetsManagerViewController> = LazyViewLoader()
     private lazy var effectsPresetsManagerView: NSView = effectsPresetsManagerViewLoader.view
     
+    lazy var effectsPresetsManager: EffectsPresetsManagerWindowController = EffectsPresetsManagerWindowController()
+    
     override var windowNibName: NSNib.Name? {"PresetsManagerWindow"}
     
     private var addedViews: Set<NSView> = Set()
@@ -65,7 +67,8 @@ class PresetsManagerWindowController: SingletonWindowController, ModalComponentP
     }
     
     func showEffectsPresetsManager() {
-        showManager(effectsPresetsManagerView)
+//        showManager(effectsPresetsManagerView)
+        effectsPresetsManager.showWindow(self)
     }
     
     func showThemesManager() {
