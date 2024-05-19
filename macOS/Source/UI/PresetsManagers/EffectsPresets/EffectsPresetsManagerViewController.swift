@@ -96,11 +96,6 @@ class EffectsPresetsManagerViewController: NSViewController {
         [btnApply, btnRename].forEach {$0.enableIf(numberOfSelectedRows == 1)}
     }
     
-    // Returns a view for a single row
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        GenericTableRowView()
-    }
-    
     private var effectsUnit: EffectsUnitType {
         
         switch tabView.selectedIndex {

@@ -14,18 +14,18 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" id="B7Z-zv-4Ag" userLabel="Reverb Presets Table">
+        <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="B7Z-zv-4Ag" userLabel="Reverb Presets Table">
             <rect key="frame" x="0.0" y="0.0" width="300" height="280"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="cL9-tA-gAO">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="280"/>
+                <rect key="frame" x="0.0" y="0.0" width="285" height="280"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="MgD-LE-H3z" userLabel="Reverb Presets Table View">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="275"/>
+                        <rect key="frame" x="0.0" y="0.0" width="285" height="275"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <size key="intercellSpacing" width="3" height="2"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <color key="gridColor" white="0.42990451390000001" alpha="1" colorSpace="calibratedWhite"/>
                         <tableColumns>
                             <tableColumn identifier="cid_ReverbPresetName" width="225" minWidth="225" maxWidth="225" id="gSZ-LM-K8W">
@@ -40,11 +40,11 @@
                                 </textFieldCell>
                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                 <prototypeCellViews>
-                                    <tableCellView id="vEt-kh-ZbH" customClass="PresetsManagerTableCellView" customModule="Aural" customModuleProvider="target">
+                                    <tableCellView id="vEt-kh-ZbH">
                                         <rect key="frame" x="1" y="1" width="225" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5Y-bS-aLU" customClass="EditableTextField" customModule="Aural" customModuleProvider="target">
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5Y-bS-aLU">
                                                 <rect key="frame" x="5" y="2" width="220" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="Lzn-Kp-X4l">
@@ -68,15 +68,14 @@
                         </connections>
                     </tableView>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             </clipView>
             <edgeInsets key="contentInsets" left="0.0" right="0.0" top="5" bottom="0.0"/>
             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="hjx-nr-yOB">
                 <rect key="frame" x="-100" y="-100" width="230" height="15"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
-            <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="XyZ-Gj-QnJ">
-                <rect key="frame" x="-100" y="-100" width="15" height="102"/>
+            <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="XyZ-Gj-QnJ">
+                <rect key="frame" x="285" y="5" width="15" height="275"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <point key="canvasLocation" x="139" y="-105"/>

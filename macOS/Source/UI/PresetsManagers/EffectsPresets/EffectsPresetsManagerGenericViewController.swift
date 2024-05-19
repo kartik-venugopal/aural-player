@@ -98,34 +98,22 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         messenger.publish(.presetsManager_selectionChanged, payload: tableView.numberOfSelectedRows)
     }
     
-    // Returns a view for a single row
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return GenericTableRowView()
-    }
-    
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
+        guard let column = tableColumn,
+              let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? NSTableCellView else {return nil}
+        
         let preset = presetsWrapper.userDefinedPresets[row]
-        return createTextCell(tableView, tableColumn!, row, preset.name)
-    }
-    
-    // Creates a cell view containing text
-    func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String) -> PresetsManagerTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? PresetsManagerTableCellView
-        else {return nil}
-        
-        cell.isSelectedFunction = {[weak tableView] row in
-            tableView?.isRowSelected(row) ?? false
-        }
-        
-        cell.row = row
-        
-        cell.text = text
+        cell.text = preset.name
         cell.textField?.delegate = self
         
         return cell
+    }
+    
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        24
     }
     
     // MARK: Text field delegate functions
@@ -142,8 +130,6 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         
         // No change in preset name. Nothing to be done.
         if newPresetName == oldPresetName {return}
-        
-        editedTextField.textColor = .defaultSelectedLightTextColor
         
         // If new name is empty or a preset with the new name exists, revert to old value.
         if newPresetName.isEmptyAfterTrimming {
