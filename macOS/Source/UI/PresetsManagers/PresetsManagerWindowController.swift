@@ -11,6 +11,8 @@ import Cocoa
 
 class PresetsManagerWindowController: SingletonWindowController, ModalComponentProtocol {
     
+    override var windowNibName: NSNib.Name? {"PresetsManagerWindow"}
+    
     private lazy var layoutsManagerViewController: NSViewController = LayoutsManagerViewController()
     private lazy var layoutsManagerView: NSView = layoutsManagerViewController.view
     
@@ -23,13 +25,6 @@ class PresetsManagerWindowController: SingletonWindowController, ModalComponentP
     private lazy var colorSchemesManagerViewController: NSViewController = ColorSchemesManagerViewController()
     private lazy var colorSchemesManagerView: NSView = colorSchemesManagerViewController.view
     
-    private lazy var effectsPresetsManagerViewLoader: LazyViewLoader<EffectsPresetsManagerViewController> = LazyViewLoader()
-    private lazy var effectsPresetsManagerView: NSView = effectsPresetsManagerViewLoader.view
-    
-    lazy var effectsPresetsManager: EffectsPresetsManagerWindowController = EffectsPresetsManagerWindowController()
-    
-    override var windowNibName: NSNib.Name? {"PresetsManagerWindow"}
-    
     private var addedViews: Set<NSView> = Set()
     
     override func windowDidLoad() {
@@ -37,9 +32,7 @@ class PresetsManagerWindowController: SingletonWindowController, ModalComponentP
     }
     
     override func destroy() {
-        
         addedViews.removeAll()
-        effectsPresetsManagerViewLoader.destroy()
     }
     
     var isModal: Bool {self.window?.isVisible ?? false}
@@ -64,11 +57,6 @@ class PresetsManagerWindowController: SingletonWindowController, ModalComponentP
     
     func showLayoutsManager() {
         showManager(layoutsManagerView)
-    }
-    
-    func showEffectsPresetsManager() {
-//        showManager(effectsPresetsManagerView)
-        effectsPresetsManager.showWindow(self)
     }
     
     func showThemesManager() {

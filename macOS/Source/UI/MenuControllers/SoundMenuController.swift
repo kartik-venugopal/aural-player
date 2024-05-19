@@ -59,7 +59,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private let soundPreferences: SoundPreferences = preferences.soundPreferences
     
-    private lazy var presetsManager: PresetsManagerWindowController = PresetsManagerWindowController.instance
+    lazy var effectsPresetsManager: EffectsPresetsManagerWindowController = .instance
     
     private lazy var messenger = Messenger(for: self)
     
@@ -177,7 +177,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func managePresetsAction(_ sender: Any) {
-        presetsManager.showEffectsPresetsManager()
+        effectsPresetsManager.showWindow(self)
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement

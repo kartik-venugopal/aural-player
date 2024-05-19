@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "speed-orig copy 3.png",
+      "filename" : "e2 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -17,5 +17,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

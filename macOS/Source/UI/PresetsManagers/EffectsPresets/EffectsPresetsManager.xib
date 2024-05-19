@@ -316,7 +316,7 @@ CA
             <toolbar key="toolbar" implicitIdentifier="B5AF642E-BCD1-4D4C-979F-5414ED6139A4" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="T8A-om-LLS">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="C08E83AB-C4C6-4F88-9A65-E1A50A0A6DCA" explicitItemIdentifier="Master" label="Master" paletteLabel="Master" selectable="YES" id="3Vt-Sg-SFP">
-                        <imageReference key="image" image="powerplug.fill" catalog="system" symbolScale="large"/>
+                        <imageReference key="image" image="powerplug.fill" catalog="system" symbolScale="medium"/>
                         <size key="minSize" width="4" height="16"/>
                         <size key="maxSize" width="73" height="16"/>
                         <connections>
@@ -324,14 +324,15 @@ CA
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="EC37CE9E-8A7B-4B90-A605-332701E07506" explicitItemIdentifier="EQ" label="EQ" paletteLabel="EQ" tag="1" selectable="YES" id="tqQ-vy-KUd">
-                        <imageReference key="image" image="slider.vertical.3" catalog="system" symbolScale="large"/>
+                        <imageReference key="image" image="slider.vertical.3" catalog="system" symbolScale="medium"/>
                         <size key="minSize" width="15" height="17"/>
                         <size key="maxSize" width="15" height="17"/>
                         <connections>
                             <action selector="switchToTabAction:" target="PkM-xG-XRf" id="qvd-qg-c4F"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="B688BC2C-6C18-4326-9E52-190657FB9A40" explicitItemIdentifier="Pitch Shift" label="Pitch Shift" paletteLabel="Pitch Shift" tag="2" image="waveform.path.ecg" catalog="system" selectable="YES" id="hSd-Ei-4fi">
+                    <toolbarItem implicitItemIdentifier="B688BC2C-6C18-4326-9E52-190657FB9A40" explicitItemIdentifier="Pitch Shift" label="Pitch Shift" paletteLabel="Pitch Shift" tag="2" selectable="YES" id="hSd-Ei-4fi">
+                        <imageReference key="image" image="waveform.path.ecg" catalog="system" symbolScale="medium"/>
                         <size key="minSize" width="20" height="18"/>
                         <size key="maxSize" width="20" height="18"/>
                         <connections>
@@ -339,7 +340,7 @@ CA
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="C26852F4-0248-4EFB-9D97-68C04112AC15" explicitItemIdentifier="Time Stretch" label="Time Stretch" paletteLabel="Time Stretch" tag="3" selectable="YES" id="edO-Na-Acw">
-                        <imageReference key="image" image="timer" catalog="system" symbolScale="large"/>
+                        <imageReference key="image" image="timer" catalog="system" symbolScale="medium"/>
                         <size key="minSize" width="24" height="18"/>
                         <size key="maxSize" width="24" height="18"/>
                         <connections>
@@ -347,7 +348,7 @@ CA
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="FDB59EFA-42EB-4838-9DB9-FA582916B680" explicitItemIdentifier="Reverb" label="Reverb" paletteLabel="Reverb" tag="4" selectable="YES" id="aSA-UH-qTQ">
-                        <imageReference key="image" image="ReverbTab" symbolScale="large"/>
+                        <imageReference key="image" image="Reverb-ToolbarItem" symbolScale="large"/>
                         <size key="minSize" width="20" height="20"/>
                         <size key="maxSize" width="20" height="20"/>
                         <connections>
@@ -355,7 +356,7 @@ CA
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="617BD7C1-ABAC-44C3-8EAB-2413A1FAA2B4" label="Delay" paletteLabel="Delay" tag="5" selectable="YES" id="Equ-mf-bx6">
-                        <imageReference key="image" image="DelayTab" symbolScale="large"/>
+                        <imageReference key="image" image="Delay-ToolbarItem" symbolScale="large"/>
                         <size key="minSize" width="25" height="16"/>
                         <size key="maxSize" width="25" height="16"/>
                         <connections>
@@ -363,7 +364,7 @@ CA
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="FC049B0A-B86B-4CF0-876F-9980BF84F23F" explicitItemIdentifier="Filter" label="Filter" paletteLabel="Filter" tag="6" selectable="YES" id="eb1-YK-vBZ">
-                        <imageReference key="image" image="FilterTab" symbolScale="large"/>
+                        <imageReference key="image" image="Filter-ToolbarItem" symbolScale="large"/>
                         <size key="minSize" width="20" height="20"/>
                         <size key="maxSize" width="20" height="20"/>
                         <connections>
@@ -401,12 +402,12 @@ CA
         </customObject>
     </objects>
     <resources>
-        <image name="DelayTab" width="23" height="22"/>
-        <image name="FilterTab" width="26" height="26"/>
-        <image name="ReverbTab" width="25" height="25"/>
-        <image name="powerplug.fill" catalog="system" width="25" height="17"/>
-        <image name="slider.vertical.3" catalog="system" width="19" height="18"/>
-        <image name="timer" catalog="system" width="20" height="20"/>
+        <image name="Delay-ToolbarItem" width="23" height="22"/>
+        <image name="Filter-ToolbarItem" width="26" height="26"/>
+        <image name="Reverb-ToolbarItem" width="25" height="25"/>
+        <image name="powerplug.fill" catalog="system" width="20" height="14"/>
+        <image name="slider.vertical.3" catalog="system" width="15" height="14"/>
+        <image name="timer" catalog="system" width="15" height="15"/>
         <image name="waveform.path.ecg" catalog="system" width="16" height="16"/>
     </resources>
 </document>

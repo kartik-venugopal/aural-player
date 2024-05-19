@@ -9,7 +9,7 @@
 //  
 
 import AppKit
-class EffectsPresetsManagerWindowController: NSWindowController {
+class EffectsPresetsManagerWindowController: SingletonWindowController {
     
     override var windowNibName: NSNib.Name? {"EffectsPresetsManager"}
     
