@@ -15,7 +15,7 @@ import Cocoa
 class ThemePopupMenuController: GenericPresetPopupMenuController {
     
     private lazy var creationDialogController: CreateThemeDialogController = CreateThemeDialogController.instance
-    private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
+    private lazy var managerWindowController: UIPresetsManagerWindowController = UIPresetsManagerWindowController.instance
     
     override var descriptionOfPreset: String {"theme"}
     override var descriptionOfPreset_plural: String {"themes"}

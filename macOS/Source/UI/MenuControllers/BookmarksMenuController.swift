@@ -23,7 +23,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
 //    @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem?
     
-    private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
+    private lazy var managerWindowController: UIPresetsManagerWindowController = UIPresetsManagerWindowController.instance
     
     private lazy var messenger = Messenger(for: self)
     

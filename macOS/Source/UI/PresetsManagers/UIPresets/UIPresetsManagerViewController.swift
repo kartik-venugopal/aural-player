@@ -9,15 +9,11 @@
 //
 import Cocoa
 
-class PresetsManagerViewController<O: UserManagedObject>: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+class UIPresetsManagerViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
     
     @IBOutlet weak var tableView: NSTableView!
     
-    @IBOutlet weak var btnDelete: NSButton!
-    @IBOutlet weak var btnApply: NSButton!
-    @IBOutlet weak var btnRename: NSButton?
-    
-    var presetsManager: UserManagedObjects<O>!
+    var presetsManager: (any PresetsManagerProtocol)!
     
     // Needs to be overriden by subclasses.
     var numberOfPresets: Int {
@@ -39,72 +35,24 @@ class PresetsManagerViewController<O: UserManagedObject>: NSViewController, NSTa
     }
     
     func deletePresets(atIndices indices: IndexSet) {
-        presetsManager.deleteObjects(atIndices: indices)
+        _ = presetsManager.deleteObjects(atIndices: indices)
     }
     
     // Needs to be overriden by subclasses.
     func applyPreset(atIndex index: Int) {}
     
-    override func viewDidLoad() {
-        
-        if tableView.headerView != nil {
-            tableView.customizeHeader(heightIncrease: 8, customCellType: PresetsManagerTableHeaderCell.self)
-        }
-    }
-    
     override func viewDidAppear() {
         
-        tableView.reloadData()
-        tableView.deselectAll(self)
-        
-        [btnApply, btnRename, btnDelete].forEach {$0?.disable()}
-    }
-    
-    @IBAction func deleteSelectedPresetsAction(_ sender: AnyObject) {
-        
-        deletePresets(atIndices: tableView.selectedRowIndexes)
+        super.viewDidAppear()
         
         tableView.reloadData()
         tableView.deselectAll(self)
-        updateButtonStates()
-    }
-    
-    @IBAction func applySelectedPresetAction(_ sender: AnyObject) {
-        applyPreset(atIndex: tableView.selectedRow)
-    }
-    
-    @IBAction func renamePresetAction(_ sender: AnyObject) {
-        
-        let rowIndex = tableView.selectedRow
-        let rowView = tableView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        
-        if let editedTextField = (rowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
-            
-            self.view.window?.makeFirstResponder(editedTextField)
-            btnDelete.disable()
-        }
-    }
-    
-    private func updateButtonStates() {
-        
-        let selRows: Int = tableView.numberOfSelectedRows
-        
-        btnDelete.enableIf(selRows > 0)
-        [btnApply, btnRename].forEach {$0?.enableIf(selRows == 1)}
-    }
-    
-    @IBAction func doneAction(_ sender: AnyObject) {
-        self.view.window?.close()
     }
     
     // MARK: Table view delegate functions
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {numberOfPresets}
-    
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return GenericTableRowView()
-    }
     
     // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
@@ -118,7 +66,7 @@ class PresetsManagerViewController<O: UserManagedObject>: NSViewController, NSTa
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        updateButtonStates()
+        Messenger.publish(.PresetsManager.selectionChanged, payload: tableView.numberOfSelectedRows)
     }
     
     // Needs to be overriden by subclasses.
@@ -130,19 +78,17 @@ class PresetsManagerViewController<O: UserManagedObject>: NSViewController, NSTa
         return createTextCell(tableView, column, row, object.name, true)
     }
     
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        24
+    }
+    
     // Creates a cell view containing text
-    func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String, _ editable: Bool) -> PresetsManagerTableCellView? {
+    func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String, _ editable: Bool) -> NSTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? PresetsManagerTableCellView,
+        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? NSTableCellView,
               let textField = cell.textField else {return nil}
         
-        cell.isSelectedFunction = {[weak tableView] row in
-            tableView?.isRowSelected(row) ?? false
-        }
-        
         textField.stringValue = text
-        textField.textColor = .defaultLightTextColor
-        cell.row = row
         
         // Set tool tip on name/track only if text wider than column width
         updateTooltip(forCell: cell, inColumn: column)
@@ -173,7 +119,7 @@ class PresetsManagerViewController<O: UserManagedObject>: NSViewController, NSTa
     // Renames the selected preset.
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        defer {btnDelete.enable()}
+//        defer {btnDelete.enable()}
         
         let rowIndex = tableView.selectedRow
         let rowView = tableView.rowView(atRow: rowIndex, makeIfNecessary: true)

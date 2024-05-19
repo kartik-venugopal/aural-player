@@ -12,9 +12,8 @@ import Cocoa
 /*
  View controller for the manager that allows the user to manage user-defined themes.
  */
-class ThemesManagerViewController: PresetsManagerViewController<Theme> {
+class ThemesManagerViewController: UIPresetsManagerViewController {
     
-    // A view that gives the user a visual preview of what each theme looks like.
     override var nibName: NSNib.Name? {"ThemesManager"}
     
     override func viewDidLoad() {

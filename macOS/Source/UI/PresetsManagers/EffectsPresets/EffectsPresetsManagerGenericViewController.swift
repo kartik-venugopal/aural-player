@@ -23,16 +23,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         
         let unitTypeFilter: (EffectsUnitType) -> Bool = {[weak self] unit in unit == self?.unitType}
         
-        messenger.subscribe(to: .effectsPresetsManager_reload, handler: {[weak self] in self?.doViewDidAppear()},
-                            filter: unitTypeFilter)
-        
-        messenger.subscribe(to: .effectsPresetsManager_apply, handler: {[weak self] in self?.applySelectedPreset()},
-                            filter: unitTypeFilter)
-        
-        messenger.subscribe(to: .effectsPresetsManager_rename, handler: {[weak self] in self?.renameSelectedPreset()},
-                            filter: unitTypeFilter)
-        
-        messenger.subscribe(to: .effectsPresetsManager_delete, handler: {[weak self] in self?.deleteSelectedPresets()},
+        messenger.subscribe(to: .PresetsManager.Effects.reload, handler: {[weak self] in self?.doViewDidAppear()},
                             filter: unitTypeFilter)
     }
     
@@ -41,10 +32,14 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     }
     
     override func viewDidAppear() {
+        
+        super.viewDidAppear()
         doViewDidAppear()
     }
     
     private func doViewDidAppear() {
+        
+        print("VDA: \(self.className)")
         
         tableView.reloadData()
         tableView.deselectAll(self)
@@ -59,7 +54,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         presetsWrapper.deletePresets(atIndices: tableView.selectedRowIndexes)
         tableView.reloadData()
         
-        messenger.publish(.presetsManager_selectionChanged, payload: Int(0))
+        messenger.publish(.PresetsManager.selectionChanged, payload: Int(0))
     }
     
     var selectedPresets: [EffectsUnitPreset] {
@@ -95,7 +90,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        messenger.publish(.presetsManager_selectionChanged, payload: tableView.numberOfSelectedRows)
+        messenger.publish(.PresetsManager.selectionChanged, payload: tableView.numberOfSelectedRows)
     }
     
     // Returns a view for a single column

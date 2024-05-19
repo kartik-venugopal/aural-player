@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class LayoutsManagerViewController: PresetsManagerViewController<WindowLayout> {
+class LayoutsManagerViewController: UIPresetsManagerViewController {
     
     override var nibName: NSNib.Name? {"LayoutsManager"}
     

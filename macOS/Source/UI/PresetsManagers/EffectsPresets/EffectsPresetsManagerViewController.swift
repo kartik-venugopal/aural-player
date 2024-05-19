@@ -38,7 +38,7 @@ class EffectsPresetsManagerViewController: NSViewController {
         viewControllers = [masterPresetsManagerViewController, eqPresetsManagerViewController, pitchPresetsManagerViewController, timePresetsManagerViewController, reverbPresetsManagerViewController, delayPresetsManagerViewController, filterPresetsManagerViewController]
         
         addSubViews()
-        messenger.subscribe(to: .presetsManager_selectionChanged, handler: managerSelectionChanged(_:))
+        messenger.subscribe(to: .PresetsManager.selectionChanged, handler: managerSelectionChanged(numberOfSelectedRows:))
     }
     
     override func destroy() {
@@ -55,7 +55,7 @@ class EffectsPresetsManagerViewController: NSViewController {
         tabView.selectTabViewItem(at: 0)
         
         for unitType: EffectsUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
-            messenger.publish(.effectsPresetsManager_reload, payload: unitType)
+            messenger.publish(.PresetsManager.Effects.reload, payload: unitType)
         }
     }
     
@@ -79,15 +79,15 @@ class EffectsPresetsManagerViewController: NSViewController {
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
-        messenger.publish(.effectsPresetsManager_rename, payload: effectsUnit)
+        displayedViewController.renameSelectedPreset()
     }
     
     @IBAction func deletePresetsAction(_ sender: AnyObject) {
-        messenger.publish(.effectsPresetsManager_delete, payload: effectsUnit)
+        displayedViewController.deleteSelectedPresets()
     }
     
     @IBAction func applyPresetAction(_ sender: AnyObject) {
-        messenger.publish(.effectsPresetsManager_apply, payload: effectsUnit)
+        displayedViewController.applySelectedPreset()
     }
     
     private func updateButtonStates(numberOfSelectedRows: Int) {
@@ -96,32 +96,36 @@ class EffectsPresetsManagerViewController: NSViewController {
         [btnApply, btnRename].forEach {$0.enableIf(numberOfSelectedRows == 1)}
     }
     
-    private var effectsUnit: EffectsUnitType {
+    private var displayedViewController: EffectsPresetsManagerGenericViewController {
         
         switch tabView.selectedIndex {
             
-        case 0: return .master
+        case 0: return masterPresetsManagerViewController
             
-        case 1: return .eq
+        case 1: return eqPresetsManagerViewController
             
-        case 2: return .pitch
+        case 2: return pitchPresetsManagerViewController
             
-        case 3: return .time
+        case 3: return timePresetsManagerViewController
             
-        case 4: return .reverb
+        case 4: return reverbPresetsManagerViewController
             
-        case 5: return .delay
+        case 5: return delayPresetsManagerViewController
             
-        case 6: return .filter
+        case 6: return filterPresetsManagerViewController
             
-        default: return .master
+        default: return masterPresetsManagerViewController
             
         }
     }
     
+    private var effectsUnit: EffectsUnitType {
+        displayedViewController.unitType
+    }
+    
     // MARK: Message handling
     
-    func managerSelectionChanged(_ numberOfSelectedRows: Int) {
+    func managerSelectionChanged(numberOfSelectedRows: Int) {
         updateButtonStates(numberOfSelectedRows: numberOfSelectedRows)
     }
 }

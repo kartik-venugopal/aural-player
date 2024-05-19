@@ -12,7 +12,7 @@ import Cocoa
 /*
  View controller for the manager that allows the user to manage user-defined color schemes.
  */
-class ColorSchemesManagerViewController: PresetsManagerViewController<ColorScheme> {
+class ColorSchemesManagerViewController: UIPresetsManagerViewController {
     
     override var nibName: NSNib.Name? {"ColorSchemesManager"}
     

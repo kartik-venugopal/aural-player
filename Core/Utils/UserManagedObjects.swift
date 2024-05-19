@@ -21,14 +21,31 @@ protocol UserManagedObject: MenuItemMappable {
     var userDefined: Bool {get}
 }
 
+protocol PresetsManagerProtocol {
+    
+    associatedtype Object: UserManagedObject
+    
+    var numberOfUserDefinedObjects: Int {get}
+    
+    func objectExists(named name: String) -> Bool
+    
+    var userDefinedObjects: [Object] {get}
+    
+    func renameObject(named oldName: String, to newName: String)
+    
+    @discardableResult func deleteObjects(atIndices indices: IndexSet) -> [Object]
+}
+
 ///
 /// A utility to perform CRUD operations on an ordered / mapped collection
 /// of **UserManagedObject** objects.
 ///
 /// - SeeAlso: `UserManagedObject`
 ///
-class UserManagedObjects<O: UserManagedObject> {
+class UserManagedObjects<O: UserManagedObject>: PresetsManagerProtocol {
     
+    typealias Object = O
+
     private var userDefinedObjectsMap: OrderedDictionary<String, O> = OrderedDictionary()
     private var systemDefinedObjectsMap: OrderedDictionary<String, O> = OrderedDictionary()
     

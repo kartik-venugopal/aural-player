@@ -16,11 +16,6 @@ class EffectsPresetsManagerWindowController: SingletonWindowController {
     @IBOutlet weak var viewController: EffectsPresetsManagerViewController!
     @IBOutlet weak var toolbar: NSToolbar!
     
-    override func windowDidLoad() {
-        
-        super.windowDidLoad()
-    }
-    
     override func showWindow(_ sender: Any?) {
         
         super.showWindow(sender)

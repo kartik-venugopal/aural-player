@@ -12,7 +12,7 @@ import Cocoa
 /*
  View controller for the manager that allows the user to manage user-defined font schemes.
  */
-class FontSchemesManagerViewController: PresetsManagerViewController<FontScheme> {
+class FontSchemesManagerViewController: UIPresetsManagerViewController {
     
     override var nibName: NSNib.Name? {"FontSchemesManager"}
     
