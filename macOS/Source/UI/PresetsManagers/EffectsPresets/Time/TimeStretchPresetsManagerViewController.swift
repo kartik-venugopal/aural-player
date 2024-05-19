@@ -11,29 +11,14 @@ import Cocoa
 
 class TimeStretchPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var timeView: TimeStretchUnitView!
-    
     override var nibName: NSNib.Name? {"TimeStretchPresetsManager"}
-    
-    var timeStretchUnit: TimeStretchUnitDelegateProtocol = audioGraphDelegate.timeStretchUnit
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
         unitType = .time
-        effectsUnit = timeStretchUnit
-        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeStretchUnit.presets)
-    }
-    
-    override func renderPreview(_ presetName: String) {
-
-        if let preset = timeStretchUnit.presets.object(named: presetName) {
-            renderPreview(preset)
-        }
-    }
-    
-    private func renderPreview(_ preset: TimeStretchPreset) {
-        timeView.applyPreset(preset)
+        effectsUnit = audioGraphDelegate.timeStretchUnit
+        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(audioGraphDelegate.timeStretchUnit.presets)
     }
 }

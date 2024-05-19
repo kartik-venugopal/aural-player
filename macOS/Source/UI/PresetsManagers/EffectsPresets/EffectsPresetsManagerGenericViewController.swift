@@ -12,9 +12,7 @@ import Cocoa
 class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
     
     @IBOutlet weak var tableView: NSTableView!
-    @IBOutlet weak var previewBox: NSBox!
     
-    let graph: AudioGraphDelegateProtocol = audioGraphDelegate
     var effectsUnit: EffectsUnitDelegateProtocol!
     var presetsWrapper: PresetsWrapperProtocol!
     var unitType: EffectsUnitType!
@@ -50,8 +48,6 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         
         tableView.reloadData()
         tableView.deselectAll(self)
-        
-        previewBox.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -62,8 +58,6 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         
         presetsWrapper.deletePresets(atIndices: tableView.selectedRowIndexes)
         tableView.reloadData()
-        
-        previewBox.hide()
         
         messenger.publish(.presetsManager_selectionChanged, payload: Int(0))
     }
@@ -93,8 +87,6 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         }
     }
     
-    func renderPreview(_ presetName: String) {}
-    
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
@@ -103,15 +95,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        
-        let numRows: Int = tableView.numberOfSelectedRows
-        previewBox.showIf(numRows == 1)
-        
-        if numRows == 1, let preset = firstSelectedPreset {
-            renderPreview(preset.name)
-        }
-        
-        messenger.publish(.presetsManager_selectionChanged, payload: numRows)
+        messenger.publish(.presetsManager_selectionChanged, payload: tableView.numberOfSelectedRows)
     }
     
     // Returns a view for a single row

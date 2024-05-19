@@ -11,35 +11,14 @@ import Cocoa
 
 class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var delayView: DelayUnitView!
-    
     override var nibName: NSNib.Name? {"DelayPresetsManager"}
-    
-    var delayUnit: DelayUnitDelegateProtocol = audioGraphDelegate.delayUnit
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
         unitType = .delay
-        effectsUnit = delayUnit
-        presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
-    }
-    
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        delayView.initialize(stateFunction: {.active})
-    }
-    
-    override func renderPreview(_ presetName: String) {
-        
-        if let preset = delayUnit.presets.object(named: presetName) {
-            renderPreview(preset)
-        }
-    }
-    
-    private func renderPreview(_ preset: DelayPreset) {
-        delayView.applyPreset(preset)
+        effectsUnit = audioGraphDelegate.delayUnit
+        presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(audioGraphDelegate.delayUnit.presets)
     }
 }

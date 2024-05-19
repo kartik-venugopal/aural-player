@@ -11,37 +11,14 @@ import Cocoa
 
 class ReverbPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var reverbView: ReverbUnitView!
-    
     override var nibName: NSNib.Name? {"ReverbPresetsManager"}
-    
-    var reverbUnit: ReverbUnitDelegateProtocol {graph.reverbUnit}
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
         unitType = .reverb
-        effectsUnit = reverbUnit
-        presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(reverbUnit.presets)
-    }
-    
-    // TODO: Create a subclass of ReverbUnitView (and for other FX units) that can accept a custom state function.
-    
-//    override func viewDidLoad() {
-//
-//        super.viewDidLoad()
-//        reverbView.initialize(stateFunction: {.active})
-//    }
-    
-    override func renderPreview(_ presetName: String) {
-        
-        if let preset = reverbUnit.presets.object(named: presetName) {
-            renderPreview(preset)
-        }
-    }
-    
-    private func renderPreview(_ preset: ReverbPreset) {
-        reverbView.applyPreset(preset)
+        effectsUnit = audioGraphDelegate.reverbUnit
+        presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(audioGraphDelegate.reverbUnit.presets)
     }
 }

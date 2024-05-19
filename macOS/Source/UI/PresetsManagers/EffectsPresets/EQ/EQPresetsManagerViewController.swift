@@ -11,35 +11,14 @@ import Cocoa
 
 class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var eqView: EQUnitView!
-    
     override var nibName: NSNib.Name? {"EQPresetsManager"}
-    
-    var eqUnit: EQUnitDelegateProtocol {graph.eqUnit}
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
         unitType = .eq
-        effectsUnit = eqUnit
-        presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
-    }
-    
-    override func viewDidLoad() {
-
-        super.viewDidLoad()
-        eqView.initialize(eqStateFunction: {.active}, sliderAction: nil, sliderActionTarget: nil)
-    }
-    
-    override func renderPreview(_ presetName: String) {
-        
-        if let preset = eqUnit.presets.object(named: presetName) {
-            renderPreview(preset)
-        }
-    }
-    
-    private func renderPreview(_ preset: EQPreset) {
-        eqView.applyPreset(preset)
+        effectsUnit = audioGraphDelegate.eqUnit
+        presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(audioGraphDelegate.eqUnit.presets)
     }
 }

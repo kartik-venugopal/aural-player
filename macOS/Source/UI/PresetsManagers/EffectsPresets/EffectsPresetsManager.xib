@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    EffectsPresetsManager.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,7 +38,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="Uko-mV-7bH" userLabel="Playlist tab button">
+                <button tag="4" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uko-mV-7bH" userLabel="Playlist tab button">
                     <rect key="frame" x="220" y="340" width="60" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="zEX-wL-F58" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
@@ -69,7 +60,7 @@
                         <action selector="tabViewAction:" target="-2" id="ymT-6D-WZw"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="OQt-GU-kfk" userLabel="View tab button">
+                <button tag="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OQt-GU-kfk" userLabel="View tab button">
                     <rect key="frame" x="71" y="340" width="40" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="3" imageScaling="proportionallyDown" inset="2" id="ERV-yz-hcS" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
@@ -80,7 +71,7 @@
                         <action selector="tabViewAction:" target="-2" id="a94-Em-CUI"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="GUy-2I-b2H" userLabel="Controls tab button">
+                <button tag="5" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GUy-2I-b2H" userLabel="Controls tab button">
                     <rect key="frame" x="284" y="340" width="50" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="e9g-1s-Dkx" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
@@ -91,7 +82,7 @@
                         <action selector="tabViewAction:" target="-2" id="OwW-Kf-PfC"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="206-SJ-LsE" userLabel="Sound tab button">
+                <button tag="2" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="206-SJ-LsE" userLabel="Sound tab button">
                     <rect key="frame" x="113" y="340" width="50" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="54s-g4-4XL" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
@@ -102,7 +93,7 @@
                         <action selector="tabViewAction:" target="-2" id="XKr-TV-csd"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="mfC-ob-AmW" userLabel="Playback tab button">
+                <button tag="6" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfC-ob-AmW" userLabel="Playback tab button">
                     <rect key="frame" x="336" y="340" width="50" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="fXo-um-gIT" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
@@ -113,7 +104,7 @@
                         <action selector="tabViewAction:" target="-2" id="p8d-mf-64Z"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="JG6-F7-pN8" userLabel="Controls tab button">
+                <button tag="3" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JG6-F7-pN8" userLabel="Controls tab button">
                     <rect key="frame" x="164" y="340" width="50" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="5m8-v3-KrO" customClass="ModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
@@ -124,50 +115,50 @@
                         <action selector="tabViewAction:" target="-2" id="xSg-oz-PvX"/>
                     </connections>
                 </button>
-                <tabView focusRingType="none" appearanceType="aqua" fixedFrame="YES" type="rightTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="iWI-sf-5uJ" userLabel="Tab View">
-                    <rect key="frame" x="3" y="38" width="832" height="300"/>
+                <tabView focusRingType="none" appearanceType="aqua" fixedFrame="YES" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="iWI-sf-5uJ" userLabel="Tab View">
+                    <rect key="frame" x="3" y="43" width="691" height="300"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Master" identifier="0" id="X3Y-yy-Zpf">
                             <view key="view" id="Lje-0R-KbF">
-                                <rect key="frame" x="10" y="7" width="791" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="EQ" identifier="1" id="BLQ-N4-KdC">
                             <view key="view" id="r8b-zP-Lvq">
-                                <rect key="frame" x="10" y="7" width="791" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Pitch" identifier="2" id="OFM-QL-27B">
                             <view key="view" id="Bg4-2c-Zgz">
-                                <rect key="frame" x="10" y="7" width="791" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Time" identifier="3" id="kcB-VX-Xgi">
                             <view key="view" id="WjP-xC-GSC">
-                                <rect key="frame" x="10" y="7" width="791" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Reverb" identifier="4" id="yAa-eZ-iRd">
                             <view key="view" id="hSU-cW-78L">
-                                <rect key="frame" x="10" y="7" width="791" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Delay" identifier="5" id="GpV-Ww-CaW">
                             <view key="view" id="hbO-Tc-YBj">
-                                <rect key="frame" x="10" y="7" width="791" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Filter" identifier="6" id="XPU-J1-Pkv">
                             <view key="view" id="rh4-AT-dDX">
-                                <rect key="frame" x="10" y="7" width="791" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
@@ -179,7 +170,7 @@
                     </userDefinedRuntimeAttributes>
                 </tabView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zZr-o0-aM2">
-                    <rect key="frame" x="147" y="18" width="55" height="19"/>
+                    <rect key="frame" x="147" y="13" width="55" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Apply" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ohN-13-lUD" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -190,7 +181,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Pg-2V-WNd">
-                    <rect key="frame" x="79" y="18" width="63" height="19"/>
+                    <rect key="frame" x="79" y="13" width="63" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Delete" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZCn-vx-OLM" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -204,7 +195,7 @@ CA
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tJD-Au-a5Q">
-                    <rect key="frame" x="624" y="18" width="63" height="19"/>
+                    <rect key="frame" x="624" y="13" width="63" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SC7-st-RsT" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -218,7 +209,7 @@ Gw
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zKS-Rt-w4h">
-                    <rect key="frame" x="12" y="18" width="63" height="19"/>
+                    <rect key="frame" x="12" y="13" width="63" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Rename" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RbB-gF-hLR" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -255,7 +246,168 @@ Gw
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="173" y="238"/>
+            <point key="canvasLocation" x="-926" y="66"/>
         </customView>
+        <window title="Effects Presets Manager" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" toolbarStyle="preference" id="CBT-23-zKw" userLabel="Presets Manager">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="120" y="65" width="746" height="623"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" id="ZES-Cb-mMH">
+                <rect key="frame" x="0.0" y="0.0" width="746" height="623"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <tabView focusRingType="none" appearanceType="aqua" fixedFrame="YES" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="vNB-Me-EvG" userLabel="Tab View">
+                        <rect key="frame" x="27" y="162" width="691" height="300"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="Master" identifier="0" id="PVP-iF-8Ve">
+                                <view key="view" id="FZf-IV-hny">
+                                    <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="EQ" identifier="1" id="SoM-Al-6NB">
+                                <view key="view" id="51i-Lc-bTD">
+                                    <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Pitch" identifier="2" id="5h7-Ws-JIT">
+                                <view key="view" id="gHg-de-7rv">
+                                    <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Time" identifier="3" id="vuB-03-Fgg">
+                                <view key="view" id="LUk-Fs-6SZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Reverb" identifier="4" id="sae-dj-236">
+                                <view key="view" id="VWo-So-6bU">
+                                    <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Delay" identifier="5" id="nIy-mB-HtM">
+                                <view key="view" id="0II-lp-Pvf">
+                                    <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Filter" identifier="6" id="VVM-bP-yvz">
+                                <view key="view" id="Sr7-5y-FpP">
+                                    <rect key="frame" x="0.0" y="0.0" width="691" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P83-c8-8P9" userLabel="Save button">
+                        <rect key="frame" x="599" y="3" width="64" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Eby-1S-d26">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CMg-vu-xXB" userLabel="Cancel button">
+                        <rect key="frame" x="660" y="3" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wto-zq-5Bq">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kC6-LL-olR" userLabel="Save button">
+                        <rect key="frame" x="12" y="3" width="138" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Reset to defaults" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kQO-mo-RMB">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                </subviews>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="B5AF642E-BCD1-4D4C-979F-5414ED6139A4" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="T8A-om-LLS">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="C08E83AB-C4C6-4F88-9A65-E1A50A0A6DCA" explicitItemIdentifier="Master" label="Master" paletteLabel="Master" selectable="YES" id="3Vt-Sg-SFP">
+                        <imageReference key="image" image="powerplug.fill" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="4" height="16"/>
+                        <size key="maxSize" width="73" height="16"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="EC37CE9E-8A7B-4B90-A605-332701E07506" explicitItemIdentifier="EQ" label="EQ" paletteLabel="EQ" tag="1" selectable="YES" id="tqQ-vy-KUd">
+                        <imageReference key="image" image="slider.vertical.3" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="15" height="17"/>
+                        <size key="maxSize" width="15" height="17"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="B688BC2C-6C18-4326-9E52-190657FB9A40" explicitItemIdentifier="Pitch Shift" label="Pitch Shift" paletteLabel="Pitch Shift" tag="2" image="waveform.path.ecg" catalog="system" selectable="YES" id="hSd-Ei-4fi">
+                        <size key="minSize" width="20" height="18"/>
+                        <size key="maxSize" width="20" height="18"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C26852F4-0248-4EFB-9D97-68C04112AC15" explicitItemIdentifier="Time Stretch" label="Time Stretch" paletteLabel="Time Stretch" tag="3" selectable="YES" id="edO-Na-Acw">
+                        <imageReference key="image" image="timer" catalog="system" symbolScale="large"/>
+                        <size key="minSize" width="24" height="18"/>
+                        <size key="maxSize" width="24" height="18"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="FDB59EFA-42EB-4838-9DB9-FA582916B680" explicitItemIdentifier="Reverb" label="Reverb" paletteLabel="Reverb" tag="4" bordered="YES" selectable="YES" id="aSA-UH-qTQ">
+                        <imageReference key="image" image="ReverbTab" symbolScale="large"/>
+                        <size key="minSize" width="20" height="20"/>
+                        <size key="maxSize" width="20" height="20"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="617BD7C1-ABAC-44C3-8EAB-2413A1FAA2B4" label="Delay" paletteLabel="Delay" tag="5" bordered="YES" selectable="YES" id="Equ-mf-bx6">
+                        <imageReference key="image" image="DelayTab" symbolScale="large"/>
+                        <size key="minSize" width="25" height="16"/>
+                        <size key="maxSize" width="25" height="16"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="FC049B0A-B86B-4CF0-876F-9980BF84F23F" explicitItemIdentifier="Filter" label="Filter" paletteLabel="Filter" tag="6" bordered="YES" selectable="YES" id="eb1-YK-vBZ">
+                        <imageReference key="image" image="FilterTab" symbolScale="large"/>
+                        <size key="minSize" width="20" height="20"/>
+                        <size key="maxSize" width="20" height="20"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="nhZ-BR-5Eb"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="3Vt-Sg-SFP"/>
+                    <toolbarItem reference="tqQ-vy-KUd"/>
+                    <toolbarItem reference="hSd-Ei-4fi"/>
+                    <toolbarItem reference="edO-Na-Acw"/>
+                    <toolbarItem reference="aSA-UH-qTQ"/>
+                    <toolbarItem reference="Equ-mf-bx6"/>
+                    <toolbarItem reference="eb1-YK-vBZ"/>
+                    <toolbarItem reference="nhZ-BR-5Eb"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" white="0.15622287330000001" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="-938" y="676.5"/>
+        </window>
     </objects>
+    <resources>
+        <image name="DelayTab" width="23" height="22"/>
+        <image name="FilterTab" width="26" height="26"/>
+        <image name="ReverbTab" width="25" height="25"/>
+        <image name="powerplug.fill" catalog="system" width="25" height="17"/>
+        <image name="slider.vertical.3" catalog="system" width="19" height="18"/>
+        <image name="timer" catalog="system" width="20" height="20"/>
+        <image name="waveform.path.ecg" catalog="system" width="16" height="16"/>
+    </resources>
 </document>
