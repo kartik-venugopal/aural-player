@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class PresetsManagerViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+class PresetsManagerViewController<O: UserManagedObject>: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
     
     @IBOutlet weak var tableView: NSTableView!
     
@@ -17,18 +17,33 @@ class PresetsManagerViewController: NSViewController, NSTableViewDataSource, NST
     @IBOutlet weak var btnApply: NSButton!
     @IBOutlet weak var btnRename: NSButton?
     
-    // Needs to be overriden by subclasses.
-    var numberOfPresets: Int {0}
+    var presetsManager: UserManagedObjects<O>!
     
     // Needs to be overriden by subclasses.
-    func presetExists(named name: String) -> Bool {false}
-    
-    // Needs to be overriden by subclasses.
-    func renamePreset(named name: String, to newName: String) {
+    var numberOfPresets: Int {
+        presetsManager.numberOfUserDefinedObjects
     }
     
     // Needs to be overriden by subclasses.
-    func nameOfPreset(atIndex index: Int) -> String {""}
+    func presetExists(named name: String) -> Bool {
+        presetsManager.objectExists(named: name)
+    }
+    
+    // Needs to be overriden by subclasses.
+    func renamePreset(named name: String, to newName: String) {
+        presetsManager.renameObject(named: name, to: newName)
+    }
+    
+    func nameOfPreset(atIndex index: Int) -> String {
+        presetsManager.userDefinedObjects[index].name
+    }
+    
+    func deletePresets(atIndices indices: IndexSet) {
+        presetsManager.deleteObjects(atIndices: indices)
+    }
+    
+    // Needs to be overriden by subclasses.
+    func applyPreset(atIndex index: Int) {}
     
     override func viewDidLoad() {
         
@@ -53,17 +68,9 @@ class PresetsManagerViewController: NSViewController, NSTableViewDataSource, NST
         tableView.deselectAll(self)
         updateButtonStates()
     }
-
-    // Needs to be overriden by subclasses.
-    func deletePresets(atIndices indices: IndexSet) {
-    }
     
     @IBAction func applySelectedPresetAction(_ sender: AnyObject) {
         applyPreset(atIndex: tableView.selectedRow)
-    }
-    
-    // Needs to be overriden by subclasses.
-    func applyPreset(atIndex index: Int) {
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
@@ -115,7 +122,13 @@ class PresetsManagerViewController: NSViewController, NSTableViewDataSource, NST
     }
     
     // Needs to be overriden by subclasses.
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {nil}
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        guard let column = tableColumn else {return nil}
+        
+        let object = presetsManager.userDefinedObjects[row]
+        return createTextCell(tableView, column, row, object.name, true)
+    }
     
     // Creates a cell view containing text
     func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String, _ editable: Bool) -> PresetsManagerTableCellView? {
@@ -146,18 +159,13 @@ class PresetsManagerViewController: NSViewController, NSTableViewDataSource, NST
         
         // Update tool tips as some may no longer be needed or some new ones may be needed
         
-        if let column = notification.userInfo?["NSTableColumn", NSTableColumn.self] {
+        let rowCount = tableView.numberOfRows
+        guard rowCount > 0, let column = notification.userInfo?["NSTableColumn", NSTableColumn.self] else {return}
+        
+        for index in 0..<rowCount {
             
-            let rowCount = tableView.numberOfRows
-            
-            if rowCount > 0 {
-                
-                for index in 0..<rowCount {
-                    
-                    if let cell = tableView(tableView, viewFor: column, row: index) as? NSTableCellView {
-                        updateTooltip(forCell: cell, inColumn: column)
-                    }
-                }
+            if let cell = tableView(tableView, viewFor: column, row: index) as? NSTableCellView {
+                updateTooltip(forCell: cell, inColumn: column)
             }
         }
     }
