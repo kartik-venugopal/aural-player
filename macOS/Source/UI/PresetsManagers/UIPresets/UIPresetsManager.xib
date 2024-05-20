@@ -24,7 +24,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="120" y="65" width="460" height="449"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
             <view key="contentView" id="A2i-Wm-Jea">
                 <rect key="frame" x="0.0" y="0.0" width="460" height="449"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -83,6 +83,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="applySelectedPresetAction:" target="-2" id="vRU-Fb-pNB"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Ns-fr-5R6">
                         <rect key="frame" x="88" y="4" width="88" height="32"/>
@@ -94,6 +97,9 @@
 CA
 </string>
                         </buttonCell>
+                        <connections>
+                            <action selector="deleteSelectedPresetsAction:" target="-2" id="1gX-h1-Ql0"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eiz-Fi-VU8">
                         <rect key="frame" x="10" y="4" width="83" height="32"/>
@@ -102,12 +108,16 @@ CA
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="renamePresetAction:" target="-2" id="7qh-RZ-NIx"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
             <toolbar key="toolbar" implicitIdentifier="B5AF642E-BCD1-4D4C-979F-5414ED6139A4" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="DBP-kX-VsU">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="C08E83AB-C4C6-4F88-9A65-E1A50A0A6DCA" explicitItemIdentifier="Themes" label="Themes" paletteLabel="Themes" image="paintbrush.fill" catalog="system" selectable="YES" id="ClK-sl-HJ9">
+                    <toolbarItem implicitItemIdentifier="C08E83AB-C4C6-4F88-9A65-E1A50A0A6DCA" explicitItemIdentifier="Themes" label="Themes" paletteLabel="Themes" selectable="YES" id="ClK-sl-HJ9">
+                        <imageReference key="image" image="paintbrush.fill" catalog="system" symbolScale="medium"/>
                         <size key="minSize" width="4" height="16"/>
                         <size key="maxSize" width="73" height="16"/>
                         <connections>

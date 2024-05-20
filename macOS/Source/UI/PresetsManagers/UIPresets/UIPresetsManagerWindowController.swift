@@ -20,10 +20,10 @@ class UIPresetsManagerWindowController: SingletonWindowController, ModalComponen
     @IBOutlet weak var btnApply: NSButton!
     @IBOutlet weak var btnRename: NSButton?
     
-    private lazy var themesManagerViewController: NSViewController = ThemesManagerViewController()
-    private lazy var fontSchemesManagerViewController: NSViewController = FontSchemesManagerViewController()
-    private lazy var colorSchemesManagerViewController: NSViewController = ColorSchemesManagerViewController()
-    private lazy var layoutsManagerViewController: NSViewController = LayoutsManagerViewController()
+    private lazy var themesManagerViewController: ThemesManagerViewController = ThemesManagerViewController()
+    private lazy var fontSchemesManagerViewController: FontSchemesManagerViewController = FontSchemesManagerViewController()
+    private lazy var colorSchemesManagerViewController: ColorSchemesManagerViewController = ColorSchemesManagerViewController()
+    private lazy var layoutsManagerViewController: LayoutsManagerViewController = LayoutsManagerViewController()
     
     private lazy var messenger: Messenger = Messenger(for: self)
     
@@ -136,28 +136,37 @@ class UIPresetsManagerWindowController: SingletonWindowController, ModalComponen
         }
     }
     
-    @IBAction func deleteSelectedPresetsAction(_ sender: AnyObject) {
+    private var displayedViewController: UIPresetsManagerViewController {
         
-//        deletePresets(atIndices: tableView.selectedRowIndexes)
-//        
-//        tableView.reloadData()
-//        tableView.deselectAll(self)
-////        Messenger.publish(.PresetsManager.selectionChanged, payload: tableView.numberOfSelectedRows)
+        switch tabView.selectedIndex {
+            
+        case 0:
+            return themesManagerViewController
+            
+        case 1:
+            return fontSchemesManagerViewController
+            
+        case 2:
+            return colorSchemesManagerViewController
+            
+        case 3:
+            return layoutsManagerViewController
+            
+        default:
+            return themesManagerViewController
+        }
+    }
+    
+    @IBAction func deleteSelectedPresetsAction(_ sender: AnyObject) {
+        displayedViewController.deleteSelectedPresets()
     }
     
     @IBAction func applySelectedPresetAction(_ sender: AnyObject) {
-//        applyPreset(atIndex: tableView.selectedRow)
+        displayedViewController.applySelectedPreset()
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
-        
-//        let rowIndex = tableView.selectedRow
-//        let rowView = tableView.rowView(atRow: rowIndex, makeIfNecessary: true)
-//        
-//        if let editedTextField = (rowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
-//            
-//            tableView.window?.makeFirstResponder(editedTextField)
-//        }
+        displayedViewController.renameSelectedPreset()
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {

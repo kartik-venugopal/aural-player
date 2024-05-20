@@ -25,6 +25,16 @@ class UIPresetsManagerViewController: NSViewController, NSTableViewDataSource, N
         presetsManager.objectExists(named: name)
     }
     
+    func renameSelectedPreset() {
+        
+        let rowIndex = tableView.selectedRow
+        let rowView = tableView.rowView(atRow: rowIndex, makeIfNecessary: true)
+        
+        if let editedTextField = (rowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
+            tableView.window?.makeFirstResponder(editedTextField)
+        }
+    }
+    
     // Needs to be overriden by subclasses.
     func renamePreset(named name: String, to newName: String) {
         presetsManager.renameObject(named: name, to: newName)
@@ -34,16 +44,28 @@ class UIPresetsManagerViewController: NSViewController, NSTableViewDataSource, N
         presetsManager.userDefinedObjects[index].name
     }
     
+    func deleteSelectedPresets() {
+        
+        deletePresets(atIndices: tableView.selectedRowIndexes)
+        
+        tableView.reloadData()
+        tableView.deselectAll(self)
+    }
+    
     func deletePresets(atIndices indices: IndexSet) {
         _ = presetsManager.deleteObjects(atIndices: indices)
+    }
+    
+    func applySelectedPreset() {
+        applyPreset(atIndex: tableView.selectedRow)
     }
     
     // Needs to be overriden by subclasses.
     func applyPreset(atIndex index: Int) {}
     
-    override func viewDidAppear() {
+    override func viewWillAppear() {
         
-        super.viewDidAppear()
+        super.viewWillAppear()
         
         tableView.reloadData()
         tableView.deselectAll(self)
