@@ -39,7 +39,7 @@ class SearchViewController: NSViewController {
     @IBOutlet weak var lblSummary: NSTextField!
     @IBOutlet weak var resultsTable: NSTableView!
     
-    private var searchQuery: SearchQuery = SearchQuery()
+    var searchQuery: SearchQuery = SearchQuery()
     
     // Current search results
     private(set) var searchResults: SearchResults!
@@ -71,28 +71,28 @@ class SearchViewController: NSViewController {
         switch searchQuery.scope {
             
         case .playQueue:
-            
-            searchResults = playQueueDelegate.search(searchQuery)
-            
-            if !searchResults.hasResults {
-                
-                lblSummary.stringValue = "0 results"
-                print("No Results for Query: '\(searchQuery.text)'")
-                return
-            }
-            
-            NSView.showViews(btnPreviousSearch, btnNextSearch)
-            
-            print("Results for Query: '\(searchQuery.text)' ...")
-            lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results") found in Play Queue"
-            
-            for (index, res) in searchResults.results.enumerated() {
-                print("\t\(index + 1): '\(res.location.track.displayName)' at: \((res.location as! PlayQueueSearchResultLocation).index)")
-            }
+            updateSearchResultsForPlayQueue()
             
         default:
-            
             return
+        }
+        
+        if !searchResults.hasResults {
+            
+            lblSummary.stringValue = "0 results"
+            return
+        }
+        
+        NSView.showViews(btnPreviousSearch, btnNextSearch)
+        lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results") found in \(searchQuery.scope.description)"
+    }
+    
+    private func updateSearchResultsForPlayQueue() {
+        
+        searchResults = playQueueDelegate.search(searchQuery)
+        
+        for (index, res) in searchResults.results.enumerated() {
+            print("\t\(index + 1): '\(res.location.track.displayName)' at: \((res.location as! PlayQueueSearchResultLocation).index)")
         }
     }
     
@@ -189,6 +189,7 @@ class SearchViewController: NSViewController {
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {
-        view.window?.close()
+//        view.window?.close()
+        messenger.publish(.Search.done)
     }
 }

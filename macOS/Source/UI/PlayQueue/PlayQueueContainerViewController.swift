@@ -23,7 +23,7 @@ class PlayQueueContainerViewController: NSViewController {
     
     @IBOutlet weak var tabButtonsContainer: NSBox!
     
-    // The tab group that switches between the 4 playlist views
+    // The tab group that switches between the PQ views
     @IBOutlet weak var tabGroup: NSTabView!
     
     @IBOutlet weak var btnSimpleView: TrackListTabButton!
@@ -37,6 +37,8 @@ class PlayQueueContainerViewController: NSViewController {
     
     @IBOutlet weak var simpleViewController: PlayQueueSimpleViewController!
     @IBOutlet weak var expandedViewController: PlayQueueExpandedViewController!
+    lazy var searchViewController: PlayQueueSearchViewController = PlayQueueSearchViewController()
+    
     lazy var controllers: [PlayQueueViewController] = [simpleViewController, expandedViewController]
     
     lazy var searchWindowController: SearchWindowController = .shared
@@ -48,7 +50,7 @@ class PlayQueueContainerViewController: NSViewController {
     lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
     
     var currentViewController: PlayQueueViewController {
-        tabGroup.selectedIndex == 0 ? simpleViewController : expandedViewController
+        playQueueUIState.currentView == .simple ? simpleViewController : expandedViewController
     }
     
     lazy var messenger: Messenger = Messenger(for: self)
@@ -74,8 +76,9 @@ class PlayQueueContainerViewController: NSViewController {
         
         let simpleView = simpleViewController.view
         let prettyView = expandedViewController.view
+        let searchView = searchViewController.view
         
-        for (index, view) in [simpleView, prettyView].enumerated() {
+        for (index, view) in [simpleView, prettyView, searchView].enumerated() {
             
             tabGroup.tabViewItem(at: index).view?.addSubview(view)
             view.anchorToSuperview()
@@ -136,6 +139,7 @@ class PlayQueueContainerViewController: NSViewController {
         messenger.subscribe(to: .PlayQueue.moveTracksToBottom, handler: moveTracksToBottom)
         
         messenger.subscribe(to: .PlayQueue.search, handler: search)
+        messenger.subscribe(to: .Search.done, handler: searchDone)
         
         messenger.subscribe(to: .PlayQueue.exportAsPlaylistFile, handler: exportToPlaylistFile)
         
@@ -257,7 +261,12 @@ class PlayQueueContainerViewController: NSViewController {
     }
     
     func search() {
-        searchWindowController.showWindow(self)
+//        searchWindowController.showWindow(self)
+        tabGroup.selectTabViewItem(at: 2)
+    }
+    
+    private func searchDone() {
+        tabGroup.selectTabViewItem(at: playQueueUIState.currentView == .simple ? 0 : 1)
     }
     
     override func destroy() {
@@ -271,7 +280,10 @@ extension PlayQueueContainerViewController: NSTabViewDelegate {
     
     func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
         
-        playQueueUIState.currentView = tabGroup.selectedIndex == 0 ? .simple : .expanded
+        // Ignore this when searching the PQ
+        if tabGroup.selectedIndex == 2 {return}
+        
+         playQueueUIState.currentView = tabGroup.selectedIndex == 0 ? .simple : .expanded
     }
 }
 

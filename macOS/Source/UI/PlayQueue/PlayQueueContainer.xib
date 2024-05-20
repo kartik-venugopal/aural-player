@@ -130,15 +130,21 @@
                     <rect key="frame" x="0.0" y="36" width="480" height="198"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
-                        <tabViewItem label="Table View" identifier="" id="zbS-38-f2C">
+                        <tabViewItem label="Simple View" identifier="" id="zbS-38-f2C">
                             <view key="view" id="Wj7-Vc-qtx">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="198"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="List View" identifier="" id="RYT-FF-CbI">
+                        <tabViewItem label="Expanded View" identifier="" id="RYT-FF-CbI">
                             <view key="view" id="6OS-gK-fGF">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="182"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="198"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Search" identifier="" id="QTn-0U-y2v">
+                            <view key="view" id="19o-Y0-gWS">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="198"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>

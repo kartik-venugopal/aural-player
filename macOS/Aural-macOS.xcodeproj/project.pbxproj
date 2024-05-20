@@ -575,6 +575,8 @@
 		3ECF71C22B75BE0600FDB69B /* CompactPlayQueueSearchViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF71C12B75BE0600FDB69B /* CompactPlayQueueSearchViewController+TableView.swift */; };
 		3ECFA87D2AE1EB01001096DC /* EffectsContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ECFA87C2AE1EB01001096DC /* EffectsContainer.xib */; };
 		3ECFA87F2AE1EB29001096DC /* EffectsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA87E2AE1EB29001096DC /* EffectsContainerViewController.swift */; };
+		3ECFB6F12BFBCFE20002331A /* PlayQueueSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFB6F02BFBCFE20002331A /* PlayQueueSearchViewController.swift */; };
+		3ECFB6F32BFBD32D0002331A /* SearchNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFB6F22BFBD32D0002331A /* SearchNotifications.swift */; };
 		3ED0A4F027DD016200C7A438 /* ButtonStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0A4EF27DD016200C7A438 /* ButtonStateMachine.swift */; };
 		3ED23857282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED23856282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift */; };
 		3ED2385928207E2C0048CF8E /* FilterBandEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED2385828207E2C0048CF8E /* FilterBandEditorDialog.xib */; };
@@ -1636,6 +1638,8 @@
 		3ECF71C12B75BE0600FDB69B /* CompactPlayQueueSearchViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompactPlayQueueSearchViewController+TableView.swift"; sourceTree = "<group>"; };
 		3ECFA87C2AE1EB01001096DC /* EffectsContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsContainer.xib; sourceTree = "<group>"; };
 		3ECFA87E2AE1EB29001096DC /* EffectsContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsContainerViewController.swift; sourceTree = "<group>"; };
+		3ECFB6F02BFBCFE20002331A /* PlayQueueSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueSearchViewController.swift; sourceTree = "<group>"; };
+		3ECFB6F22BFBD32D0002331A /* SearchNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNotifications.swift; sourceTree = "<group>"; };
 		3ED0A4EF27DD016200C7A438 /* ButtonStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStateMachine.swift; sourceTree = "<group>"; };
 		3ED23856282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterUnitViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		3ED2385828207E2C0048CF8E /* FilterBandEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterBandEditorDialog.xib; sourceTree = "<group>"; };
@@ -2247,6 +2251,7 @@
 				3EC856A72811BA7000647CF4 /* PlayQueueViewController+ContextMenuController.swift */,
 				3E25B65127F7859800D10A5F /* SimpleView */,
 				3E25B65227F785D800D10A5F /* ExpandedView */,
+				3ECFB6EF2BFBCFD20002331A /* Search */,
 				3E47214C282AE3820097F1AB /* TrackListTabButton.swift */,
 				3EDCC4B7282C2223002AF3AE /* PlayQueueUIState.swift */,
 			);
@@ -4070,6 +4075,14 @@
 			path = Container;
 			sourceTree = "<group>";
 		};
+		3ECFB6EF2BFBCFD20002331A /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				3ECFB6F02BFBCFE20002331A /* PlayQueueSearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		3ED2385A28207FAA0048CF8E /* BandEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -4954,6 +4967,7 @@
 				3EFE375927864895006F8B8C /* PlayerNotifications.swift */,
 				3EFE375A27864895006F8B8C /* AudioGraphNotifications.swift */,
 				3E8FF9DF27F63D9B009CEDDD /* PlayQueueNotifications.swift */,
+				3ECFB6F22BFBD32D0002331A /* SearchNotifications.swift */,
 				3EAE9CC12836DBF5004499FE /* LibraryNotifications.swift */,
 				3E836E382868A36F009371D4 /* UnifiedPlayerNotifications.swift */,
 				3ECF71B32B75750300FDB69B /* CompactPlayerNotifications.swift */,
@@ -5654,6 +5668,7 @@
 				3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */,
 				3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */,
 				3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */,
+				3ECFB6F12BFBCFE20002331A /* PlayQueueSearchViewController.swift in Sources */,
 				3E6668BA2ADB658F00BBD119 /* ThemeSetupViewController.swift in Sources */,
 				3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */,
 				3ED2385C28207FD90048CF8E /* FilterBandEditorDialogController.swift in Sources */,
@@ -5701,6 +5716,7 @@
 				3E2000C7267CEEF7008BAB70 /* GesturesPreferencesViewController.swift in Sources */,
 				3E6C39FC26AA169500AF5009 /* FilterPreviewChart.swift in Sources */,
 				3E8836172B6E0AC30009ABE2 /* TrackInfoViewController.swift in Sources */,
+				3ECFB6F32BFBD32D0002331A /* SearchNotifications.swift in Sources */,
 				3EEBC6EC27C14A4B00880DFD /* HorizontalSliderCell.swift in Sources */,
 				3EFE39E527864898006F8B8C /* PersistentModelObject.swift in Sources */,
 				3EFE3A2927864898006F8B8C /* NotificationPayload.swift in Sources */,
