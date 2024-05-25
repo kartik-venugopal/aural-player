@@ -15,9 +15,12 @@ extension SearchViewController: ThemeInitialization {
     func initTheme() {
         
         searchField.font = systemFontScheme.normalFont
+        searchField.textColor = systemColorScheme.primaryTextColor
         
         captionLabels.forEach {
+            
             $0.font = systemFontScheme.smallFont
+            $0.textColor = systemColorScheme.secondaryTextColor
         }
         
         checkBoxes.forEach {
@@ -26,7 +29,8 @@ extension SearchViewController: ThemeInitialization {
         
         btnComparisonType.font = systemFontScheme.smallFont
         
-        lblSummary.font = systemFontScheme.normalFont
+        lblSummary.font = systemFontScheme.smallFont
+        lblSummary.textColor = systemColorScheme.tertiaryTextColor
         
         resultsTable.reloadDataMaintainingSelection()
     }
@@ -57,5 +61,14 @@ extension SearchViewController: FontSchemeObserver {
 extension SearchViewController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
+        
+        searchField.textColor = systemColorScheme.primaryTextColor
+        lblSummary.textColor = systemColorScheme.tertiaryTextColor
+        
+        captionLabels.forEach {
+            $0.textColor = systemColorScheme.secondaryTextColor
+        }
+        
+        resultsTable.reloadDataMaintainingSelection()
     }
 }

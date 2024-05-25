@@ -22,6 +22,9 @@ class SearchViewController: NSViewController {
     
     lazy var captionLabels: [NSTextField] = [lblSeachByCaption, lblComparisonTypeCaption, lblOptionsCaption]
     
+    @IBOutlet weak var settingsBox: NSBox!
+    @IBOutlet weak var settingsBoxHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var btnNextSearch: NSButton!
     @IBOutlet weak var btnPreviousSearch: NSButton!
     
@@ -44,6 +47,8 @@ class SearchViewController: NSViewController {
     // Current search results
     private(set) var searchResults: SearchResults!
     
+    private var isShowingSettings: Bool = false
+    
     private lazy var messenger = Messenger(for: self)
     
     override func viewDidLoad() {
@@ -52,6 +57,8 @@ class SearchViewController: NSViewController {
         
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObserver(self)
+        
+        showOrHideSettingsView()
     }
 
     override func viewDidAppear() {
@@ -83,7 +90,7 @@ class SearchViewController: NSViewController {
             return
         }
         
-        NSView.showViews(btnPreviousSearch, btnNextSearch)
+//        NSView.showViews(btnPreviousSearch, btnNextSearch)
         lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results") found in \(searchQuery.scope.description)"
     }
     
@@ -143,6 +150,24 @@ class SearchViewController: NSViewController {
         
         searchQuery.options.include(.caseSensitive, if: btnSearchCaseSensitive.isOn)
         redoSearchIfPossible()
+    }
+    
+    @IBAction func toggleSettingsViewAction(_ sender: Any) {
+
+        isShowingSettings.toggle()
+        showOrHideSettingsView()
+    }
+    
+    private func showOrHideSettingsView() {
+        
+        NSAnimationContext.runAnimationGroup({ context in
+            
+            context.duration = 0.3
+            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
+            
+            settingsBoxHeightConstraint.animator().constant = isShowingSettings ? 118 : 1
+            
+        }, completionHandler: nil)
     }
     
     //
