@@ -20,33 +20,61 @@ extension SearchViewController: NSTableViewDataSource {
     
 extension SearchViewController: NSTableViewDelegate {
     
+    // Adjust row height based on if the text wraps over to the next line
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        30
+    }
+    
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        false
+    }
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        guard let columnId = tableColumn?.identifier,
-              let cell = tableView.makeView(withIdentifier: columnId, owner: nil) as? NSTableCellView,
+        guard let column = tableColumn?.identifier,
               let result = searchResults?.results[row] else {return nil}
         
-        switch columnId {
+        let builder = TableCellBuilder()
+        let track = result.location.track
+        
+        switch column {
             
-        case .cid_searchResultTrackColumn:
-            cell.text = result.location.track.displayName
+        case .cid_index:
             
-        case .cid_searchResultLocationColumn:
-            cell.text = result.location.description
+//            if track == playQueueDelegate.currentTrack {
+//                builder.withImage(image: .imgPlayFilled, inColor: systemColorScheme.activeControlColor)
+//                
+//            } else {
             
-        case .cid_searchResultMatchedFieldColumn:
-            cell.text = result.match.fieldKey
+                builder.withText(text: "\(row + 1)",
+                                        inFont: systemFontScheme.normalFont, andColor: systemColorScheme.tertiaryTextColor,
+                                        selectedTextColor: systemColorScheme.tertiarySelectedTextColor,
+                                        bottomYOffset: systemFontScheme.tableYOffset)
+//            }
+            
+        case .cid_trackName:
+            
+            let titleAndArtist = track.titleAndArtist
+            
+            if let artist = titleAndArtist.artist {
+                
+                builder.withAttributedText(strings: [(text: artist + "  ", font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor),
+                                                            (text: titleAndArtist.title, font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)],
+                                                  selectedTextColors: [systemColorScheme.secondarySelectedTextColor, systemColorScheme.primarySelectedTextColor],
+                                                  bottomYOffset: systemFontScheme.tableYOffset)
+                
+            } else {
+                
+                builder.withText(text: titleAndArtist.title, inFont: systemFontScheme.normalFont, andColor: systemColorScheme.primaryTextColor,
+                                        selectedTextColor: systemColorScheme.primarySelectedTextColor, bottomYOffset: systemFontScheme.tableYOffset)
+            }
             
         default:
+            
             return nil
         }
         
-        return cell
-    }
-    
-    // Adjust row height based on if the text wraps over to the next line
-    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        26
+        return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
     }
 }
 
