@@ -7,7 +7,7 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
-import Foundation
+import AppKit
 
 ///
 /// A contract for a controller that is responsible for presenting / dismissing a
@@ -17,7 +17,14 @@ protocol AppModeController {
     
     var mode: AppMode {get}
     
+    var mainWindow: NSWindow? {get}
+    
     func presentMode(transitioningFromMode previousMode: AppMode?)
     
     func dismissMode()
+}
+
+extension AppModeController {
+    
+    var mainWindow: NSWindow? {nil}
 }

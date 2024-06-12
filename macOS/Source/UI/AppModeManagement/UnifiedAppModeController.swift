@@ -16,6 +16,8 @@ class UnifiedAppModeController: AppModeController {
 
     private var windowController: UnifiedPlayerWindowController?
     
+    var mainWindow: NSWindow? {windowController?.window}
+    
     private var windowFrame: NSRect? = nil
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {

@@ -22,7 +22,7 @@ struct FilesAndPaths {
 //    static let musicDir: URL = URL(fileURLWithPath: "/Volumes/MBP-Ext-4TB/Projects/Aural-Test/Aural-Music")
     
     #if os(macOS)
-    static let baseDir: URL = musicDir.appendingPathComponent("aural4", isDirectory: true)
+    static let baseDir: URL = musicDir.appendingPathComponent("aural", isDirectory: true)
     #elseif os(iOS)
     static let baseDir: URL = userDocumentsDirectory
     #endif

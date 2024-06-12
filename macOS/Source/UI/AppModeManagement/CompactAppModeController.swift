@@ -16,6 +16,8 @@ class CompactAppModeController: AppModeController {
 
     private var windowController: CompactPlayerWindowController?
     
+    var mainWindow: NSWindow? {windowController?.window}
+    
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)

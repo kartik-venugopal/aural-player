@@ -16,6 +16,33 @@ class AppModeManager {
     
     var currentMode: AppMode? = nil
     
+    var mainWindow: NSWindow? {
+        modeController?.mainWindow
+    }
+    
+    private var modeController: AppModeController? {
+        
+        guard let currentMode = self.currentMode else {return nil}
+        
+        switch currentMode {
+        
+        case .modular:
+            return modularMode
+            
+        case .unified:
+            return unifiedMode
+        
+        case .menuBar:
+            return menuBarMode
+            
+        case .widget:
+            return widgetMode
+            
+        case .compact:
+            return compactMode
+        }
+    }
+    
     private lazy var modularMode: ModularAppModeController = ModularAppModeController()
     
     private lazy var unifiedMode: UnifiedAppModeController = UnifiedAppModeController()
@@ -42,71 +69,29 @@ class AppModeManager {
 //        if appSetup.setupCompleted {
 //            presentMode(appSetup.presentationMode)
 //            
-//        } else if preferences.appModeOnStartup.option == .specific,
-//           let appMode = preferences.appModeOnStartup.mode {
-//
-//            // Present a specific app mode.
-//            presentMode(appMode)
-//
 //        } else {
 //
 //            // Remember app mode from last app launch.
 //            presentMode(lastPresentedAppMode ?? .defaultMode)
 //        }
         
-//        presentMode(.unified)
-        presentMode(.modular)
+        presentMode(.unified)
+//        presentMode(.modular)
 //        presentMode(.compact)
     }
     
     func presentMode(_ newMode: AppMode) {
         
         dismissCurrentMode()
-        
         currentMode = newMode
-        
-        switch newMode {
-        
-        case .modular:
-            
-            modularMode.presentMode(transitioningFromMode: currentMode)
-            
-        case .unified:
-            
-            unifiedMode.presentMode(transitioningFromMode: currentMode)
-        
-        case .menuBar:
-            
-            menuBarMode.presentMode(transitioningFromMode: currentMode)
-            
-        case .widget:
-            
-            widgetMode.presentMode(transitioningFromMode: currentMode)
-            
-        case .compact:
-            
-            compactMode.presentMode(transitioningFromMode: currentMode)
-        }
+        modeController?.presentMode(transitioningFromMode: currentMode)
     }
     
     private func dismissCurrentMode() {
         
-        guard let currentMode = self.currentMode else {return}
+        guard let _ = self.currentMode else {return}
         
-        switch currentMode {
-            
-        case .modular:  modularMode.dismissMode()
-            
-        case .unified:  unifiedMode.dismissMode()
-            
-        case .menuBar: menuBarMode.dismissMode()
-            
-        case .widget:   widgetMode.dismissMode()
-            
-        case .compact:  compactMode.dismissMode()
-            
-        }
-        
+        modeController?.dismissMode()
         colorSchemesManager.stopObserving()
         fontSchemesManager.stopObserving()
     }

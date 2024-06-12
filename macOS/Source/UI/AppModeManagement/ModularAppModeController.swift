@@ -23,13 +23,13 @@ class ModularAppModeController: AppModeController {
     
     var mode: AppMode {.modular}
     
-    private let manager: WindowLayoutsManager = windowLayoutsManager
+    var mainWindow: NSWindow? {windowLayoutsManager.mainWindow}
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {
         
         NSApp.setActivationPolicy(.regular)
         
-        manager.restore()
+        windowLayoutsManager.restore()
         
         // Build Library if not already built or building
         // Give it a higher priority if the Library window is displayed.
@@ -49,6 +49,6 @@ class ModularAppModeController: AppModeController {
     }
     
     func dismissMode() {
-        manager.destroy()
+        windowLayoutsManager.destroy()
     }
 }

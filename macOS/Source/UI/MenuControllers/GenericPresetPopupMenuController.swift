@@ -32,7 +32,7 @@ class GenericPresetPopupMenuController: NSObject {
     
     @IBAction func savePresetAction(_ sender: NSMenuItem) {
         
-        if let contentView = windowLayoutsManager.mainWindow.contentView {
+        if let contentView = appModeManager.mainWindow?.contentView {
             presetNamePopover.show(contentView, .maxX)
         }
     }
