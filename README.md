@@ -83,7 +83,9 @@ Source code for version 4 has moved from the "v4" branch to the main branch.
 
 As of Jan 12, 2024, version 4.0 is being actively developed. I am aiming to release v4.0 by the summer of 2024 - June / July-ish.
 
-Interested in seeing what's going on with the development of v4.0 ? Read about it and see screenshots here: [README-v4.md](https://github.com/kartik-venugopal/aural-player/blob/main/README-v4.md)
+Interested in seeing what's going on with the development of v4.0 ? 
+* [Try it out](https://github.com/kartik-venugopal/aural-player/releases/tag/4.0.0-preview)
+* Read about it and see screenshots here: [README-v4.md](https://github.com/kartik-venugopal/aural-player/blob/main/README-v4.md)
 
 ------------------------------------------------------
 
