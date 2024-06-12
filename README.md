@@ -106,7 +106,7 @@ In addition to v4.0, the following features ***may be*** implemented in the futu
 
 ### Compatibility
 
-This table lists the range of compatible Aural Player versions for your hardware and macOS version. Unless you are using macOS 10.12 Sierra, it is always recommended to use the [latest](https://github.com/kartik-venugopal/aural-player/releases/latest) app version, regardless of your hardware / macOS version.
+This table lists the range of compatible Aural Player versions for your hardware and macOS version.
 
 |              | Intel (x86_64)  | Apple silicon (arm64)|
 | :---:        | :-:             | :-:       |
