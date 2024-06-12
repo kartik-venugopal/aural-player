@@ -75,7 +75,7 @@ extension PlatformImage {
     static let imgWarning: PlatformImage = PlatformImage(named: "Warning")!
     static let imgError: PlatformImage = PlatformImage(named: "Error")!
     
-    static let imgPlayedTrack: PlatformImage = PlatformImage(named: "PlayedTrack")!
+    static let imgPlayedTrack: PlatformImage = PlatformImage(systemSymbolName: "music.quarternote.3")
     
     static let imgPlayerPreview: PlatformImage = PlatformImage(named: "PlayerPreview")!
     static let imgPlaylistPreview: PlatformImage = PlatformImage(named: "Playlist-Padded")!

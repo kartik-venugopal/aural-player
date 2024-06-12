@@ -230,22 +230,40 @@
                                             <items>
                                                 <menuItem title="Album art" id="kXs-09-e6U">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideAlbumArtAction:" target="wsi-Fh-nbO" id="ZAz-0P-CH8"/>
+                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Artist" id="hdo-kt-e6G">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideArtistAction:" target="wsi-Fh-nbO" id="cO1-Ji-4gz"/>
+                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Album" id="Qdo-xq-c7y">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideAlbumAction:" target="wsi-Fh-nbO" id="2IZ-6l-bDR"/>
+                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Current chapter title" id="pW9-Mx-qQV">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideCurrentChapterAction:" target="wsi-Fh-nbO" id="911-7W-bxq"/>
+                                                    </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="DUJ-s4-yo3"/>
                                                 <menuItem title="Main controls" id="qSR-sp-gnB" userLabel="View Player Main Controls">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideMainControlsAction:" target="wsi-Fh-nbO" id="KPo-Xp-n3l"/>
+                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Track position" id="aIX-8L-qwL">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideTrackTimeAction:" target="wsi-Fh-nbO" id="eqM-mE-f29"/>
+                                                    </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="ZzB-pd-ECO"/>
                                                 <menuItem title="Track position display" id="TcD-H5-cSX">
@@ -254,19 +272,31 @@
                                                         <items>
                                                             <menuItem title="Time elapsed" state="on" id="Krp-MA-bqH">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="trackTimeElapsedDisplayTypeAction:" target="wsi-Fh-nbO" id="WEK-Ub-nZQ"/>
+                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Time remaining" tag="1" id="g4g-pK-yJY">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="trackTimeRemainingDisplayTypeAction:" target="wsi-Fh-nbO" id="Y2Y-zy-pPc"/>
+                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Track duration" tag="2" id="jNo-13-SkY">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="trackTimeDurationDisplayTypeAction:" target="wsi-Fh-nbO" id="Bfs-n4-1je"/>
+                                                                </connections>
                                                             </menuItem>
                                                         </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="wsi-Fh-nbO" id="eVT-in-ik6"/>
+                                                        </connections>
                                                     </menu>
                                                 </menuItem>
                                             </items>
                                             <connections>
-                                                <outlet property="delegate" destination="4Lk-lD-juM" id="4Yn-gm-VcT"/>
+                                                <outlet property="delegate" destination="wsi-Fh-nbO" id="qfX-2F-mrS"/>
                                             </connections>
                                         </menu>
                                     </menuItem>
@@ -542,7 +572,7 @@
         </customObject>
         <customObject id="wsi-Fh-nbO" userLabel="Player View Popup Menu Controller (Window)" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="showAlbumMenuItem" destination="Qdo-xq-c7y" id="C1E-dg-v0U"/>
+                <outlet property="showAlbumMenuItem" destination="Qdo-xq-c7y" id="i7b-AI-dxt"/>
                 <outlet property="showArtMenuItem" destination="kXs-09-e6U" id="bun-D3-0qi"/>
                 <outlet property="showArtistMenuItem" destination="hdo-kt-e6G" id="37G-EB-Fys"/>
                 <outlet property="showCurrentChapterMenuItem" destination="pW9-Mx-qQV" id="boc-3b-dpD"/>
