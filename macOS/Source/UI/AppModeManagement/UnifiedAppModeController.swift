@@ -23,7 +23,6 @@ class UnifiedAppModeController: AppModeController {
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)
-        NSApp.menu = nil
         
         windowController = UnifiedPlayerWindowController()
         

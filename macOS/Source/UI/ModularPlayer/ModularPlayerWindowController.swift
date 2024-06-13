@@ -14,6 +14,8 @@ import Cocoa
  */
 class ModularPlayerWindowController: NSWindowController {
     
+    override var windowNibName: NSNib.Name? {"ModularPlayerWindow"}
+    
     @IBOutlet weak var logoImage: TintedImageView!
     
     // The box that encloses the Now Playing info section
@@ -30,25 +32,15 @@ class ModularPlayerWindowController: NSWindowController {
     
     @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
     
-    @IBOutlet weak var mainMenu: NSMenu!
-    
     var eventMonitor: EventMonitor! = EventMonitor()
     
     let controlsPreferences: GesturesControlsPreferences = preferences.controlsPreferences.gestures
     
     lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, settingsMenuIconItem]
     
-    override var windowNibName: NSNib.Name? {"ModularPlayerWindow"}
-    
     lazy var messenger = Messenger(for: self)
     
     // MARK: Setup
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        NSApp.mainMenu = self.mainMenu
-    }
     
     // One-time setup
     override func windowDidLoad() {
@@ -98,16 +90,6 @@ class ModularPlayerWindowController: NSWindowController {
         SingletonPopoverViewController.destroy()
         StringInputPopoverViewController.destroy()
         SingletonWindowController.destroy()
-        
-        mainMenu.items.forEach {$0.hide()}
-        
-        if let auralMenu = mainMenu.item(withTitle: "Aural") {
-            
-            auralMenu.menu?.items.forEach {$0.disable()}
-            auralMenu.show()
-        }
-        
-        NSApp.mainMenu = nil
     }
     
     // MARK: Actions -----------------------------------------------------------

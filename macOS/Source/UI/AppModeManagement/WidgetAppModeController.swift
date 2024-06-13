@@ -27,8 +27,8 @@ class WidgetAppModeController: AppModeController {
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
-        NSApp.setActivationPolicy(.regular)
-        NSApp.menu = nil
+        NSApp.setActivationPolicy(.accessory)
+        NSApp.activate(ignoringOtherApps: true)
         
         windowController = WidgetPlayerWindowController()
         windowController?.showWindow(self)

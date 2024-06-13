@@ -29,8 +29,6 @@ class UnifiedPlayerWindowController: NSWindowController {
     // The tab group that switches between the 4 playlist views
     @IBOutlet weak var tabGroup: NSTabView!
     
-    @IBOutlet weak var mainMenu: NSMenu!
-    
     lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, btnToggleSidebar, settingsMenuIconItem]
     
     lazy var playerController: UnifiedPlayerViewController = UnifiedPlayerViewController()
@@ -56,12 +54,6 @@ class UnifiedPlayerWindowController: NSWindowController {
     var eventMonitor: EventMonitor! = EventMonitor()
     
     var gesturesPreferences: GesturesControlsPreferences {preferences.controlsPreferences.gestures}
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        NSApp.mainMenu = self.mainMenu
-    }
     
     // One-time setup
     override func windowDidLoad() {
