@@ -21,7 +21,7 @@ class CompactAppModeController: AppModeController {
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)
-        NSApp.menu = nil
+        NSApp.menu = (NSApp.delegate as? AppDelegate)?.mainMenu
         
         windowController = CompactPlayerWindowController()
         windowController?.showWindow(self)
@@ -29,6 +29,8 @@ class CompactAppModeController: AppModeController {
         // Build Library if not already built or building
         // Always give it a low priority (not user-interactive through any UI components).
 //        libraryDelegate.buildLibraryIfNotBuilt(immediate: false)
+        
+        reactivateApp(previousMode: previousMode)
     }
     
     func dismissMode() {

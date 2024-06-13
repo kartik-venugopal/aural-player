@@ -16,6 +16,8 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    @IBOutlet weak var mainMenu: NSMenu!
+    
     lazy var messenger = Messenger(for: self)
     
     override init() {

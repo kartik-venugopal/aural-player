@@ -28,6 +28,7 @@ class ModularAppModeController: AppModeController {
     func presentMode(transitioningFromMode previousMode: AppMode?) {
         
         NSApp.setActivationPolicy(.regular)
+        NSApp.menu = (NSApp.delegate as? AppDelegate)?.mainMenu
         
         windowLayoutsManager.restore()
         
@@ -35,17 +36,7 @@ class ModularAppModeController: AppModeController {
         // Give it a higher priority if the Library window is displayed.
 //        libraryDelegate.buildLibraryIfNotBuilt(immediate: manager.isShowingLibrary)
         
-        // If this is not a transition from a different app mode, we don't need to execute the hack below.
-        if previousMode == nil || previousMode == .modular {return}
-        
-        // HACK - Because of an Apple bug, the main menu will not be usable until the app loses and then regains focus.
-        // The following code simulates the user action of activating another app and then activating this app after a
-        // short time interval.
-        NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock").first?.activate(options: [])
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: {
-            NSApp.activate(ignoringOtherApps: true)
-        })
+        reactivateApp(previousMode: previousMode)
     }
     
     func dismissMode() {

@@ -23,6 +23,7 @@ class UnifiedAppModeController: AppModeController {
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)
+        NSApp.menu = (NSApp.delegate as? AppDelegate)?.mainMenu
         
         windowController = UnifiedPlayerWindowController()
         
@@ -31,6 +32,8 @@ class UnifiedAppModeController: AppModeController {
         }
         
         windowController?.showWindow(self)
+        
+        reactivateApp(previousMode: previousMode)
         
         // Build Library if not already built or building
         // Always give it a high priority.

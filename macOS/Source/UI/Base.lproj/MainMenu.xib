@@ -14,7 +14,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="mainMenu" destination="XkB-HC-4o3" id="4R1-GM-1tw"/>
+            </connections>
+        </customObject>
         <customObject id="RpY-aa-Z01" customClass="AuralMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="qXQ-AJ-SLV" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
