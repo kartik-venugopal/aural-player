@@ -22,25 +22,10 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
     
     override func showWindow(_ sender: Any?) {
         
-        switch appModeManager.currentMode {
-            
-        case .modular:
-            theWindow.showCentered(relativeTo: windowLayoutsManager.mainWindow)
-            
-        case .unified:
-            
-            if let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "unifiedPlayer"}) {
-                theWindow.showCentered(relativeTo: window)
-            }
-            
-        case .compact:
-            
-            if let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "compactPlayer"}) {
-                theWindow.showCentered(relativeTo: window)
-            }
-            
-        default:
-            return
+        if let mainWindow = appModeManager.mainWindow {
+            theWindow.showCentered(relativeTo: mainWindow)
+        } else {
+            theWindow.showCenteredOnScreen()
         }
     }
     

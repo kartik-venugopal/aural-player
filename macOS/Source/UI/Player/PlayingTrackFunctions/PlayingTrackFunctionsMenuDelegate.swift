@@ -150,9 +150,7 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
 
         
         // TODO: Is this really needed ???
-        if appModeManager.currentMode == .modular {
-            windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
-        }
+        appModeManager.mainWindow?.makeKeyAndOrderFront(self)
         
         // Show popover relative to player view
         bookmarkNamePopover.show(playerView, NSRectEdge.maxX)
@@ -183,9 +181,7 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
                 updatedFavoritesFiles.contains(playingTrack.file) else {return}
         
         // TODO: Is this really required ???
-        if appModeManager.currentMode == .modular {
-            windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
-        }
+        appModeManager.mainWindow?.makeKeyAndOrderFront(self)
         
         updateFavoriteButtonState()
         

@@ -1738,45 +1738,6 @@ CA
                             <menuItem title="Window corner radius" id="znv-Nb-GMS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="sSH-Bm-diX"/>
-                            <menuItem title=" Window Layout" image="WindowLayout-Small" id="rgz-rU-0Qd" userLabel="Window Layout">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Window Layout" id="Y93-Rr-RGP">
-                                    <items>
-                                        <menuItem isSeparatorItem="YES" id="mLi-fy-Rnt"/>
-                                        <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="Tfc-WW-7eG">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Horizontal full stack" image="WindowLayout-HorizontalStack" id="adx-do-cAy">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Big bottom play queue" image="WindowLayout-BigBottomPlaylist" id="qpR-HW-myz">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Big right play queue" image="WindowLayout-BigRightPlaylist" id="Wvc-Uc-DSG">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Big left play queue" image="WindowLayout-BigLeftPlaylist" id="RqM-yq-AWj">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Vertical player and play queue" image="WindowLayout-VerticalPlayerAndPlaylist" id="cII-KM-X0L">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Horizontal player and play queue" image="WindowLayout-HorizontalPlayerAndPlaylist" id="xCU-g0-EmY">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Compact cornered" image="WindowLayout-CompactCornered" id="b3C-vt-iY4">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="   Save current layout" indentationLevel="1" id="OoN-ki-4Av" userLabel="Save current layout">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="   Manage layouts" indentationLevel="1" id="XEI-Xh-lco" userLabel="Manage layouts">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -1814,16 +1775,7 @@ CA
         <image name="Update" width="15" height="15"/>
         <image name="UserGuide" width="16" height="14"/>
         <image name="WindowLayout" width="20" height="20"/>
-        <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-CompactCornered" width="30" height="20"/>
-        <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
         <image name="WindowLayout-Menu" width="15" height="15"/>
-        <image name="WindowLayout-Small" width="13" height="13"/>
-        <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-VerticalStack" width="30" height="20"/>
         <image name="arrow.2.squarepath" catalog="system" width="19" height="14"/>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
         <image name="arrow.down.to.line" catalog="system" width="13" height="16"/>

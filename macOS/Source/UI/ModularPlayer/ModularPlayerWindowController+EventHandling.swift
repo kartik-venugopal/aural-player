@@ -1,5 +1,5 @@
 //
-//  MainWindowController+EventHandling.swift
+//  ModularPlayerWindowController+EventHandling.swift
 //  Aural
 //
 //  Copyright © 2024 Kartik Venugopal. All rights reserved.
@@ -10,7 +10,7 @@
 
 import Cocoa
 
-extension MainWindowController {
+extension ModularPlayerWindowController {
     
     private var gesturesPreferences: GesturesControlsPreferences {preferences.controlsPreferences.gestures}
     

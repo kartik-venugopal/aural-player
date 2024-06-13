@@ -166,7 +166,7 @@ extension PlaylistViewController: NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
+        appModeManager.mainWindow?.makeKeyAndOrderFront(self)
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
@@ -195,7 +195,7 @@ extension PlaylistViewController: NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
+        appModeManager.mainWindow?.makeKeyAndOrderFront(self)
     }
     
     @IBAction func favoriteAlbumAction(_ sender: NSMenuItem) {
@@ -223,7 +223,7 @@ extension PlaylistViewController: NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
+        appModeManager.mainWindow?.makeKeyAndOrderFront(self)
     }
     
     @IBAction func favoriteGenreAction(_ sender: NSMenuItem) {
@@ -251,7 +251,7 @@ extension PlaylistViewController: NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
+        appModeManager.mainWindow?.makeKeyAndOrderFront(self)
     }
     
     @IBAction func favoriteDecadeAction(_ sender: NSMenuItem) {
@@ -279,7 +279,7 @@ extension PlaylistViewController: NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
+        appModeManager.mainWindow?.makeKeyAndOrderFront(self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one

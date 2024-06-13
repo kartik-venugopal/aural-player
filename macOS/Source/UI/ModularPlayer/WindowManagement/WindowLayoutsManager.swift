@@ -33,7 +33,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         let userDefinedLayouts: [WindowLayout] = persistentState?.userLayouts?.compactMap
         {WindowLayout(persistentState: $0)} ?? []
         
-        let mainWindowLoader = WindowLoader(windowID: .main, windowControllerType: MainWindowController.self)
+        let mainWindowLoader = WindowLoader(windowID: .main, windowControllerType: ModularPlayerWindowController.self)
         windowLoaders.append(mainWindowLoader)
         
         for windowID in WindowID.allCases {
@@ -278,18 +278,11 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     
     var persistentState: WindowLayoutsPersistentState {
         
-        let userLayouts = userDefinedObjects.map {WindowLayoutPersistentState(layout: $0)}
-        let currentAppMode = appModeManager.currentMode
+        let userLayoutsState = userDefinedObjects.map {WindowLayoutPersistentState(layout: $0)}
         
-        if currentAppMode == .modular {
-            
-            let systemLayout = WindowLayoutPersistentState(layout: currentWindowLayout)
-            return WindowLayoutsPersistentState(systemLayout: systemLayout, userLayouts: userLayouts)
-            
-        } else {
-            
-            let systemLayout = WindowLayoutPersistentState(layout: savedLayout ?? defaultLayout)
-            return WindowLayoutsPersistentState(systemLayout: systemLayout, userLayouts: userLayouts)
-        }
+        let systemLayout = appModeManager.currentMode == .modular ? currentWindowLayout : (savedLayout ?? defaultLayout)
+        let systemLayoutState = WindowLayoutPersistentState(layout: systemLayout)
+        
+        return WindowLayoutsPersistentState(systemLayout: systemLayoutState, userLayouts: userLayoutsState)
     }
 }

@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="ModularPlayerWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnMinimize" destination="L4p-3A-TgZ" id="gVO-Qi-bKj"/>
                 <outlet property="btnQuit" destination="zFi-Se-R21" id="qaB-7L-gbg"/>
@@ -516,7 +516,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <accessibility identifier="main"/>
-            <point key="canvasLocation" x="-56" y="-549"/>
+            <point key="canvasLocation" x="-6" y="-149"/>
         </window>
         <customObject id="dFu-9T-Cey" customClass="AuralMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="qFA-s7-21q" customClass="PlayQueueMenuController" customModule="Aural" customModuleProvider="target">

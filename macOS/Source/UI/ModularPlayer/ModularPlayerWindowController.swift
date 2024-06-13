@@ -1,5 +1,5 @@
 //
-//  MainWindowController.swift
+//  ModularPlayerWindowController.swift
 //  Aural
 //
 //  Copyright © 2024 Kartik Venugopal. All rights reserved.
@@ -12,7 +12,7 @@ import Cocoa
 /*
     Window controller for the main application window.
  */
-class MainWindowController: NSWindowController {
+class ModularPlayerWindowController: NSWindowController {
     
     @IBOutlet weak var logoImage: TintedImageView!
     
@@ -38,7 +38,7 @@ class MainWindowController: NSWindowController {
     
     lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, settingsMenuIconItem]
     
-    override var windowNibName: NSNib.Name? {"MainWindow"}
+    override var windowNibName: NSNib.Name? {"ModularPlayerWindow"}
     
     lazy var messenger = Messenger(for: self)
     
@@ -145,7 +145,7 @@ class MainWindowController: NSWindowController {
     }
 }
 
-extension MainWindowController: ColorSchemeObserver {
+extension ModularPlayerWindowController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
         
