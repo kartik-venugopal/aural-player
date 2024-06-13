@@ -22,43 +22,25 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
     @IBOutlet weak var toggleVisualizerMenuItem: NSMenuItem!
     
-    @IBOutlet weak var playerViewMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var applyThemeMenuItem: NSMenuItem!
-    @IBOutlet weak var saveThemeMenuItem: NSMenuItem!
-    @IBOutlet weak var createThemeMenuItem: NSMenuItem!
-    @IBOutlet weak var manageThemesMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var applyFontSchemeMenuItem: NSMenuItem!
-    @IBOutlet weak var saveFontSchemeMenuItem: NSMenuItem!
-    @IBOutlet weak var manageFontSchemesMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
-    @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
-    @IBOutlet weak var manageColorSchemesMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
-    
     @IBOutlet weak var cornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
-    private let player: PlaybackInfoDelegateProtocol = playbackInfoDelegate
-    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedObjects.isEmpty)
-        toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
+        toggleChaptersListMenuItem.enableIf(playbackInfoDelegate.chapterCount > 0)
         
         let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
         
-        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
-        manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedObjects > 0))
+//        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
+//        manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedObjects > 0))
+//        
+//        [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
+//        manageFontSchemesMenuItem.enableIf(!showingModalComponent && (fontSchemesManager.numberOfUserDefinedObjects > 0))
+//        
+//        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
+//        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedObjects > 0))
         
-        [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
-        manageFontSchemesMenuItem.enableIf(!showingModalComponent && (fontSchemesManager.numberOfUserDefinedObjects > 0))
-        
-        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
-        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedObjects > 0))
+        //        manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedObjects.isEmpty)
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state

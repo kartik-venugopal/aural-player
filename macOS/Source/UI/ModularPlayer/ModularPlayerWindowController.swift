@@ -104,22 +104,6 @@ class ModularPlayerWindowController: NSWindowController {
         theWindow.miniaturize(self)
     }
     
-    @IBAction func unifiedModeAction(_ sender: AnyObject) {
-        appModeManager.presentMode(.unified)
-    }
-    
-    @IBAction func menuBarModeAction(_ sender: AnyObject) {
-        appModeManager.presentMode(.menuBar)
-    }
-    
-    @IBAction func compactModeAction(_ sender: AnyObject) {
-        appModeManager.presentMode(.compact)
-    }
-    
-    @IBAction func widgetModeAction(_ sender: AnyObject) {
-        appModeManager.presentMode(.widget)
-    }
-    
     // MARK: Message handling -----------------------------------------------------------
     
     func changeWindowCornerRadius(_ radius: CGFloat) {

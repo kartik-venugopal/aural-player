@@ -155,28 +155,31 @@
                                     <menuItem title="Modular (multiple windows)" id="vqB-R3-eER">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="modularModeAction:" target="-2" id="iT6-Ba-laz"/>
+                                            <action selector="modularModeAction:" target="OtO-cl-ubN" id="S6z-Kd-dzo"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Compact (single compact window)" id="lDW-RP-IDY">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="compactModeAction:" target="-2" id="wWK-Ey-5dq"/>
+                                            <action selector="compactModeAction:" target="OtO-cl-ubN" id="1QV-Qi-U7m"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Menu Bar (macOS menu bar)" id="qUd-g2-853">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="menuBarModeAction:" target="-2" id="u0o-yT-Bnx"/>
+                                            <action selector="menuBarModeAction:" target="OtO-cl-ubN" id="dei-Hc-hji"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Widget (floating mini window)" id="KMl-dm-ab8">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="widgetModeAction:" target="-2" id="aOF-Kh-twD"/>
+                                            <action selector="widgetModeAction:" target="OtO-cl-ubN" id="xu9-hr-0ag"/>
                                         </connections>
                                     </menuItem>
                                 </items>
+                                <connections>
+                                    <outlet property="delegate" destination="OtO-cl-ubN" id="kfu-hx-jG9"/>
+                                </connections>
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
@@ -591,6 +594,7 @@
             </connections>
             <point key="canvasLocation" x="460" y="-78"/>
         </customView>
+        <customObject id="OtO-cl-ubN" customClass="AppModeSubMenuController" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
         <image name="AppTitle" width="117" height="32"/>

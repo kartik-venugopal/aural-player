@@ -413,7 +413,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2024 Kartik Venugopal.</string>
 	<key>NSMainNibFile</key>
-	<string>Application</string>
+	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>UIAppFonts</key>

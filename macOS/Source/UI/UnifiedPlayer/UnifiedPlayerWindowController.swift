@@ -147,22 +147,6 @@ class UnifiedPlayerWindowController: NSWindowController {
         theWindow.miniaturize(self)
     }
     
-    @IBAction func modularModeAction(_ sender: AnyObject) {
-        appModeManager.presentMode(.modular)
-    }
-    
-    @IBAction func compactModeAction(_ sender: AnyObject) {
-        appModeManager.presentMode(.compact)
-    }
-    
-    @IBAction func menuBarModeAction(_ sender: AnyObject) {
-        appModeManager.presentMode(.menuBar)
-    }
-    
-    @IBAction func widgetModeAction(_ sender: AnyObject) {
-        appModeManager.presentMode(.widget)
-    }
-    
     @IBAction func showEffectsPanelAction(_ sender: AnyObject) {
         playerController.presentAsSheet(effectsSheetViewController)
     }

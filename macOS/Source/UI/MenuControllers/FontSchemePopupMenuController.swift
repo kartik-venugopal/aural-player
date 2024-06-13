@@ -14,6 +14,9 @@ import Cocoa
  */
 class FontSchemePopupMenuController: GenericPresetPopupMenuController {
     
+    //    @IBOutlet weak var applyFontSchemeMenuItem: NSMenuItem!
+    //    @IBOutlet weak var saveFontSchemeMenuItem: NSMenuItem!
+    
     private lazy var customizationDialogController: FontSchemesWindowController = FontSchemesWindowController.instance
     private lazy var managerWindowController: UIPresetsManagerWindowController = UIPresetsManagerWindowController.instance
     

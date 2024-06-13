@@ -18,16 +18,6 @@ class SettingsPopupMenuController: NSObject, NSMenuDelegate {
 //    @IBOutlet weak var showLibraryMenuItem: NSMenuItem!
     @IBOutlet weak var showEffectsMenuItem: NSMenuItem!
     
-    @IBOutlet weak var applyThemeMenuItem: NSMenuItem!
-    @IBOutlet weak var saveThemeMenuItem: NSMenuItem!
-    @IBOutlet weak var createThemeMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var applyFontSchemeMenuItem: NSMenuItem!
-    @IBOutlet weak var saveFontSchemeMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
-    @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
-    
     @IBOutlet weak var cornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
@@ -40,8 +30,8 @@ class SettingsPopupMenuController: NSObject, NSMenuDelegate {
         showEffectsMenuItem.onIf(windowLayoutsManager.isShowingEffects)
         
         // These items should be enabled only if there is no modal component currently shown.
-        let isShowingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
-        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem, applyFontSchemeMenuItem, saveFontSchemeMenuItem, applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!isShowingModalComponent)}
+//        let isShowingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
+//        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem, applyFontSchemeMenuItem, saveFontSchemeMenuItem, applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!isShowingModalComponent)}
         
         cornerRadiusStepper.integerValue = playerUIState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"

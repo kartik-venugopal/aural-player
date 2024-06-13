@@ -14,6 +14,9 @@ import Cocoa
  */
 class ColorSchemePopupMenuController: GenericPresetPopupMenuController {
     
+    //    @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
+    //    @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
+    
     private lazy var customizationDialogController: ColorSchemesWindowController = ColorSchemesWindowController.instance
     private lazy var managerWindowController: UIPresetsManagerWindowController = UIPresetsManagerWindowController.instance
     

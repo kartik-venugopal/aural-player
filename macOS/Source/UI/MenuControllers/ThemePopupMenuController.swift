@@ -14,6 +14,10 @@ import Cocoa
  */
 class ThemePopupMenuController: GenericPresetPopupMenuController {
     
+    //    @IBOutlet weak var applyThemeMenuItem: NSMenuItem!
+    //    @IBOutlet weak var saveThemeMenuItem: NSMenuItem!
+    //    @IBOutlet weak var createThemeMenuItem: NSMenuItem!
+    
     private lazy var creationDialogController: CreateThemeDialogController = CreateThemeDialogController.instance
     private lazy var managerWindowController: UIPresetsManagerWindowController = UIPresetsManagerWindowController.instance
     

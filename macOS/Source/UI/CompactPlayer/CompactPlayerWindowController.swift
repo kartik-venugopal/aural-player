@@ -14,8 +14,6 @@ class CompactPlayerWindowController: NSWindowController {
     
     override var windowNibName: NSNib.Name? {"CompactPlayerWindow"}
     
-    @IBOutlet weak var mainMenu: NSMenu!
-    
     @IBOutlet weak var rootContainerBox: NSBox!
     
     @IBOutlet weak var logoImage: TintedImageView!
@@ -37,12 +35,6 @@ class CompactPlayerWindowController: NSWindowController {
     private var appMovingWindow: Bool = false
     
     var eventMonitor: EventMonitor! = EventMonitor()
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        NSApp.mainMenu = self.mainMenu
-    }
     
     override func windowDidLoad() {
         
@@ -76,11 +68,6 @@ class CompactPlayerWindowController: NSWindowController {
         
         messenger.subscribe(to: .CompactPlayer.changeWindowCornerRadius, handler: changeWindowCornerRadius)
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrackInPlayQueue)
-        
-        messenger.subscribe(to: .CompactPlayer.switchToModularMode, handler: switchToModularMode)
-        messenger.subscribe(to: .CompactPlayer.switchToUnifiedMode, handler: switchToUnifiedMode)
-        messenger.subscribe(to: .CompactPlayer.switchToMenuBarMode, handler: switchToMenuBarMode)
-        messenger.subscribe(to: .CompactPlayer.switchToWidgetMode, handler: switchToWidgetMode)
         
         setUpEventHandling()
     }
@@ -187,10 +174,6 @@ class CompactPlayerWindowController: NSWindowController {
         showPlayQueue()
     }
     
-    private func transferViewState() {
-        compactPlayerUIState.windowLocation = theWindow.frame.origin
-    }
-    
     func changeWindowCornerRadius() {
         rootContainerBox.cornerRadius = compactPlayerUIState.cornerRadius
     }
@@ -199,44 +182,8 @@ class CompactPlayerWindowController: NSWindowController {
         updateDisplayedTabState()
     }
     
-    @IBAction func modularModeAction(_ sender: AnyObject) {
-        switchToModularMode()
-    }
-    
-    @IBAction func unifiedModeAction(_ sender: AnyObject) {
-        switchToUnifiedMode()
-    }
-    
-    @IBAction func menuBarModeAction(_ sender: AnyObject) {
-        switchToMenuBarMode()
-    }
-    
-    @IBAction func widgetModeAction(_ sender: AnyObject) {
-        switchToWidgetMode()
-    }
-    
-    private func switchToModularMode() {
-        
-        transferViewState()
-        appModeManager.presentMode(.modular)
-    }
-    
-    private func switchToUnifiedMode() {
-        
-        transferViewState()
-        appModeManager.presentMode(.unified)
-    }
-    
-    private func switchToMenuBarMode() {
-        
-        transferViewState()
-        appModeManager.presentMode(.menuBar)
-    }
-    
-    private func switchToWidgetMode() {
-        
-        transferViewState()
-        appModeManager.presentMode(.widget)
+    private func transferViewState() {
+        compactPlayerUIState.windowLocation = theWindow.frame.origin
     }
     
     // Minimizes the window (and any child windows)

@@ -83,30 +83,30 @@
                                                 <menuItem title="Unified (single window)" id="o9R-oZ-Xwn">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="unifiedModeAction:" target="-2" id="8HF-Wl-wzd"/>
+                                                        <action selector="unifiedModeAction:" target="gac-gc-PIi" id="n9M-MM-yT3"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem title="Compact (single compact window)" id="6Ha-ZH-zPx">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="compactModeAction:" target="-2" id="nuD-WQ-xcN"/>
+                                                        <action selector="compactModeAction:" target="gac-gc-PIi" id="i9c-g3-cn8"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem title="Menu Bar (macOS menu bar)" id="JoQ-8i-wTl">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="menuBarModeAction:" target="-2" id="iHV-Vb-E8O"/>
+                                                        <action selector="menuBarModeAction:" target="gac-gc-PIi" id="2JL-mr-BiR"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem title="Widget (floating mini window)" id="zIp-0Y-NQx">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="widgetModeAction:" target="-2" id="2qo-8F-aJd"/>
+                                                        <action selector="widgetModeAction:" target="gac-gc-PIi" id="2iB-ea-Efh"/>
                                                     </connections>
                                                 </menuItem>
                                             </items>
                                             <connections>
-                                                <outlet property="delegate" destination="bsC-mz-7dU" id="ePf-yr-fgv"/>
+                                                <outlet property="delegate" destination="gac-gc-PIi" id="vVy-1l-foF"/>
                                             </connections>
                                         </menu>
                                     </popUpButtonCell>
@@ -606,6 +606,7 @@
                 <outlet property="theMenu" destination="yiL-Aw-PVn" id="c2M-BL-loH"/>
             </connections>
         </customObject>
+        <customObject id="gac-gc-PIi" customClass="AppModeSubMenuController" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
         <image name="AppTitle" width="117" height="32"/>
