@@ -70,7 +70,7 @@ class EffectsWindowController: NSWindowController {
     // MARK: Message handling
     
     private func initSubscriptions() {
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(_:))
     }
     
     // ------------------------------------------------------------------------

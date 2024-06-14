@@ -66,25 +66,27 @@ class AppModeManager {
     
     func presentApp() {
         
-//        if appSetup.setupCompleted {
-//            presentMode(appSetup.presentationMode)
-//            
-//        } else {
-//
-//            // Remember app mode from last app launch.
-//            presentMode(lastPresentedAppMode ?? .defaultMode)
-//        }
+        if appSetup.setupCompleted {
+            presentMode(appSetup.presentationMode)
+            
+        } else {
+
+            // Remember app mode from last app launch.
+            presentMode(lastPresentedAppMode ?? .defaultMode)
+        }
         
-        presentMode(.unified)
+//        presentMode(.unified)
 //        presentMode(.modular)
 //        presentMode(.compact)
     }
     
     func presentMode(_ newMode: AppMode) {
         
+        let previousMode = currentMode
         dismissCurrentMode()
+        
         currentMode = newMode
-        modeController?.presentMode(transitioningFromMode: currentMode)
+        modeController?.presentMode(transitioningFromMode: previousMode)
     }
     
     private func dismissCurrentMode() {

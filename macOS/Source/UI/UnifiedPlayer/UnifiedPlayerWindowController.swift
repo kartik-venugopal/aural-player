@@ -112,7 +112,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     }
     
     private func initSubscriptions() {
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(_:))
     }
     
     override func destroy() {

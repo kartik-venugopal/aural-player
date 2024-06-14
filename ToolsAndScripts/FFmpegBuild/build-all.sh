@@ -27,15 +27,14 @@ function createXCFrameworkForLib {
     libName=$1
     lib=$2
     
-    iOSLibraries=""
-    
-    for arch in ${architectures[@]}; do
-        iOSLibraries="${iOSLibraries} -library dylibs/iOS/${arch}/${lib} -headers headers/iOS/${arch}/${libName}"
-    done
+#    iOSLibraries=""
+#    
+#    for arch in ${architectures[@]}; do
+#        iOSLibraries="${iOSLibraries} -library dylibs/iOS/${arch}/${lib} -headers headers/iOS/${arch}/${libName}"
+#    done
     
     xcrun xcodebuild -create-xcframework \
         -library "dylibs/macOS/${lib}" -headers "headers/macOS/${libName}" \
-        ${iOSLibraries} \
         -output "xcframeworks/${libName}.xcframework"
 }
 
@@ -52,8 +51,8 @@ function runIOSBuild {
 }
 
 runMacOSBuild
-runIOSBuild
+#runIOSBuild
 createXCFrameworks
-cleanUp
+#cleanUp
 
 echo "\nAll done !\n"

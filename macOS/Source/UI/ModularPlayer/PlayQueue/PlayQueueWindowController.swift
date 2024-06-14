@@ -51,7 +51,7 @@ class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
         
         changeWindowCornerRadius(playerUIState.cornerRadius)
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(_:))
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)

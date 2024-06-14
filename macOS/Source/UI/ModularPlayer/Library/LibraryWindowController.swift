@@ -113,7 +113,7 @@ class LibraryWindowController: NSWindowController {
         
         messenger.subscribe(to: .Library.showBrowserTabForItem, handler: showBrowserTab(forItem:))
         messenger.subscribe(to: .Library.showBrowserTabForCategory, handler: showBrowserTab(forCategory:))
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(_:))
         
         fontSchemesManager.registerObserver(self)
         

@@ -27,6 +27,6 @@ class WindowCornerRadiusMenuItemView: NSView {
         playerUIState.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
         
-        messenger.publish(.Player.UI.changeCornerRadius, payload: playerUIState.cornerRadius)
+        messenger.publish(.View.changeWindowCornerRadius, payload: playerUIState.cornerRadius)
     }
 }

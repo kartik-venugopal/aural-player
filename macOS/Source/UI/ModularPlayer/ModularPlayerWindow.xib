@@ -564,43 +564,6 @@
             </connections>
             <point key="canvasLocation" x="-16" y="272"/>
         </customView>
-        <customView id="BN4-kh-WZm" userLabel="Window corner radius editor view" customClass="WindowCornerRadiusMenuItemView" customModule="Aural" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="260" height="28"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cGH-xg-46p">
-                    <rect key="frame" x="46" y="2" width="156" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="JF4-09-NXt">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nSP-eL-OR4">
-                    <rect key="frame" x="188" y="2" width="39" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="4cf-1c-qbL">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxR-4k-v2o" userLabel="Radius Stepper">
-                    <rect key="frame" x="230" y="2" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="20" doubleValue="3" id="p7H-TU-bYJ"/>
-                    <connections>
-                        <action selector="cornerRadiusStepperAction:" target="BN4-kh-WZm" id="DKv-Qo-6Nf"/>
-                    </connections>
-                </stepper>
-            </subviews>
-            <connections>
-                <outlet property="cornerRadiusStepper" destination="rxR-4k-v2o" id="DMN-Kp-UbD"/>
-                <outlet property="lblCornerRadius" destination="nSP-eL-OR4" id="91t-zG-X0G"/>
-            </connections>
-            <point key="canvasLocation" x="17" y="181.5"/>
-        </customView>
         <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="theMenu" destination="yiL-Aw-PVn" id="c2M-BL-loH"/>

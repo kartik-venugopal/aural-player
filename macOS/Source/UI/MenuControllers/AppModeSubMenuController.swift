@@ -12,6 +12,30 @@ import AppKit
 
 class AppModeSubMenuController: NSObject, NSMenuDelegate {
     
+    @IBOutlet weak var modularModeMenuItem: NSMenuItem!
+    @IBOutlet weak var unifiedModeMenuItem: NSMenuItem!
+    @IBOutlet weak var compactModeMenuItem: NSMenuItem!
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        [modularModeMenuItem, unifiedModeMenuItem, compactModeMenuItem].forEach {$0?.off()}
+        
+        switch appModeManager.currentMode {
+            
+        case .modular:
+            modularModeMenuItem?.on()
+            
+        case .unified:
+            unifiedModeMenuItem?.on()
+            
+        case .compact:
+            compactModeMenuItem?.on()
+            
+        default:
+            break
+        }
+    }
+    
     @IBAction func modularModeAction(_ sender: NSMenuItem) {
         appModeManager.presentMode(.modular)
     }

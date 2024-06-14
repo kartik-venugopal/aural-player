@@ -47,7 +47,7 @@ class ChaptersListWindowController: NSWindowController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
         
         rootContainer?.cornerRadius = playerUIState.cornerRadius
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(_:))
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {

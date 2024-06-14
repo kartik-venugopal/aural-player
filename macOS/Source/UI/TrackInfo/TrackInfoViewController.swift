@@ -102,7 +102,7 @@ class TrackInfoViewController: NSViewController {
                                     msg.updatedFields.contains(.art)})
         
         messenger.subscribe(to: .Player.trackInfo_refresh, handler: refresh)
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(_:))
     }
     
     override func viewWillAppear() {

@@ -29,7 +29,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         toggleChaptersListMenuItem.enableIf(playbackInfoDelegate.chapterCount > 0)
         
-        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
+//        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
         
 //        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
 //        manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedObjects > 0))
@@ -46,7 +46,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuWillOpen(_ menu: NSMenu) {
         
-        [togglePlayQueueMenuItem, toggleEffectsMenuItem].forEach {$0?.show()}
+//        [togglePlayQueueMenuItem, toggleEffectsMenuItem].forEach {$0?.show()}
         
 //        togglePlaylistMenuItem.onIf(windowLayoutsManager.isShowingPlaylist)
 //        toggleEffectsMenuItem.onIf(windowLayoutsManager.isShowingEffects)
@@ -59,20 +59,24 @@ class ViewMenuController: NSObject, NSMenuDelegate {
  
     // Shows/hides the playlist window
     @IBAction func togglePlayQueueAction(_ sender: AnyObject) {
-        windowLayoutsManager.toggleWindow(withId: .playQueue)
+        Messenger.publish(.View.togglePlayQueue)
     }
     
     // Shows/hides the effects window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        windowLayoutsManager.toggleWindow(withId: .effects)
+        Messenger.publish(.View.toggleEffects)
     }
     
     // Shows/hides the chapters list window
     @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
-//        windowLayoutsManager.toggleChaptersListWindow()
+        Messenger.publish(.View.toggleChaptersList)
     }
     
     @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
-        windowLayoutsManager.toggleWindow(withId: .visualizer)
+        Messenger.publish(.View.toggleVisualizer)
+    }
+    
+    @IBAction func toggleTrackInfoAction(_ sender: AnyObject) {
+        Messenger.publish(.View.toggleTrackInfo)
     }
 }

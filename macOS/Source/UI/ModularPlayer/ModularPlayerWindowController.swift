@@ -70,11 +70,16 @@ class ModularPlayerWindowController: NSWindowController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: buttonColorChangeReceivers)
         
-        changeWindowCornerRadius(playerUIState.cornerRadius)
+        changeWindowCornerRadius(to: playerUIState.cornerRadius)
     }
     
     private func initSubscriptions() {
-        messenger.subscribe(to: .Player.UI.changeCornerRadius, handler: changeWindowCornerRadius(_:))
+        
+        messenger.subscribe(to: .View.togglePlayQueue, handler: togglePlayQueue)
+        messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
+        messenger.subscribe(to: .View.toggleChaptersList, handler: toggleChaptersList)
+        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
     }
     
     override func destroy() {
@@ -106,7 +111,23 @@ class ModularPlayerWindowController: NSWindowController {
     
     // MARK: Message handling -----------------------------------------------------------
     
-    func changeWindowCornerRadius(_ radius: CGFloat) {
+    private func togglePlayQueue() {
+        windowLayoutsManager.toggleWindow(withId: .playQueue)
+    }
+    
+    private func toggleEffects() {
+        windowLayoutsManager.toggleWindow(withId: .effects)
+    }
+    
+    private func toggleChaptersList() {
+        windowLayoutsManager.toggleWindow(withId: .chaptersList)
+    }
+    
+    private func toggleVisualizer() {
+        windowLayoutsManager.toggleWindow(withId: .visualizer)
+    }
+    
+    func changeWindowCornerRadius(to radius: CGFloat) {
         rootContainerBox.cornerRadius = radius
     }
 }
