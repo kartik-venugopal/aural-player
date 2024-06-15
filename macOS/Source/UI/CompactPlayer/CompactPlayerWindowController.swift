@@ -20,7 +20,10 @@ class CompactPlayerWindowController: NSWindowController {
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
     @IBOutlet weak var btnPresentationModeMenu: NSPopUpButton!
-    @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
+    @IBOutlet weak var btnViewMenu: NSPopUpButton!
+    
+    private var viewPopupMenuContainer: ViewPopupMenuContainer = .init()
+    private lazy var settingsMenuIconItem: TintedIconMenuItem = viewPopupMenuContainer.menuIconItem
     
     private lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnPresentationModeMenu, btnMinimize, settingsMenuIconItem]
     
@@ -40,9 +43,9 @@ class CompactPlayerWindowController: NSWindowController {
     
     override func windowDidLoad() {
         
-        window?.isMovableByWindowBackground = true
-        window?.center()
+        super.windowDidLoad()
         
+        initWindow()
         initFromPersistentState()
         
         tabView.tabViewItem(at: 0).view?.addSubview(playerViewController.view)
@@ -75,6 +78,15 @@ class CompactPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrackInPlayQueue)
         
         setUpEventHandling()
+    }
+    
+    private func initWindow() {
+        
+        window?.isMovableByWindowBackground = true
+        window?.center()
+        
+        viewPopupMenuContainer.forceLoadingOfView()
+        btnViewMenu.menu?.importItems(from: viewPopupMenuContainer.popupMenu)
     }
     
     private func initFromPersistentState() {

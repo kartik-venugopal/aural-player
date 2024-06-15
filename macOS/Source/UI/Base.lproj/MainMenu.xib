@@ -94,11 +94,15 @@
         <customObject id="JTq-Lm-LsR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="cornerRadiusStepper" destination="pad-HQ-OkH" id="605-zh-olP"/>
+                <outlet property="createThemeMenuItem" destination="Z4Q-0t-ZOZ" id="Ig0-s7-Adw"/>
                 <outlet property="lblCornerRadius" destination="Zug-e2-ouS" id="Ahv-Xb-EYR"/>
                 <outlet property="manageColorSchemesMenuItem" destination="VWA-XP-cmU" id="Hbn-2q-wdh"/>
                 <outlet property="manageFontSchemesMenuItem" destination="FqL-Sf-s6n" id="OQv-oB-qBE"/>
                 <outlet property="manageThemesMenuItem" destination="stz-BR-aN4" id="Brs-cH-yaD"/>
                 <outlet property="manageWindowLayoutsMenuItem" destination="mZT-V7-7dk" id="AbW-MD-nHg"/>
+                <outlet property="saveCurrentColorSchemeMenuItem" destination="jXZ-lW-Sqx" id="nSY-Qb-abf"/>
+                <outlet property="saveCurrentFontSchemeMenuItem" destination="hkK-FX-79c" id="1Xv-Uy-1gf"/>
+                <outlet property="saveCurrentThemeMenuItem" destination="j4n-kJ-rb3" id="qhW-4M-Pn8"/>
                 <outlet property="saveCurrentWindowLayoutMenuItem" destination="r1q-cR-Y36" id="JLz-ke-oyM"/>
                 <outlet property="toggleChaptersListMenuItem" destination="qSA-FE-7m5" id="G8P-gu-gNN"/>
                 <outlet property="toggleEffectsMenuItem" destination="VRp-xb-WM7" id="fJX-9x-2zg"/>

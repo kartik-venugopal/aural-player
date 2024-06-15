@@ -16,5 +16,4 @@ class ViewPopupMenuContainer: NSViewController {
     
     @IBOutlet weak var popupMenu: NSMenu!
     @IBOutlet weak var menuIconItem: TintedIconMenuItem!
-    @IBOutlet weak var viewMenuController: ViewMenuController!
 }

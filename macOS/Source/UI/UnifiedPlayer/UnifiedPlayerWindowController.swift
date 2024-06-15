@@ -24,7 +24,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     @IBOutlet weak var btnViewMenu: NSPopUpButton!
     
     private var viewPopupMenuContainer: ViewPopupMenuContainer = .init()
-    private var settingsMenuIconItem: TintedIconMenuItem!
+    private lazy var settingsMenuIconItem: TintedIconMenuItem = viewPopupMenuContainer.menuIconItem
     
     @IBOutlet weak var rootSplitView: NSSplitView!
     @IBOutlet weak var browserSplitView: NSSplitView!
@@ -106,6 +106,11 @@ class UnifiedPlayerWindowController: NSWindowController {
         browserSplitView.subviews.first?.showIf(unifiedPlayerUIState.isSidebarShown)
         
         tabGroup.addAndAnchorSubView(forController: playQueueController)
+        tabGroup.selectTabViewItem(at: 0)
+        
+        viewPopupMenuContainer.forceLoadingOfView()
+        btnViewMenu.menu?.importItems(from: viewPopupMenuContainer.popupMenu)
+        
 //        tabGroup.addAndAnchorSubView(forController: libraryTracksController)
 //        tabGroup.addAndAnchorSubView(forController: libraryArtistsController)
 //        tabGroup.addAndAnchorSubView(forController: libraryAlbumsController)
@@ -115,22 +120,6 @@ class UnifiedPlayerWindowController: NSWindowController {
 //        tabGroup.addAndAnchorSubView(forController: tuneBrowserViewController)
 //
 //        tabGroup.addAndAnchorSubView(forController: playlistsViewController)
-        
-        tabGroup.selectTabViewItem(at: 0)
-        
-        viewPopupMenuContainer.forceLoadingOfView()
-        
-        let items = viewPopupMenuContainer.popupMenu.items
-        
-        for item in items {
-            viewPopupMenuContainer.popupMenu.removeItem(item)
-        }
-        
-        btnViewMenu.menu?.items = items
-        btnViewMenu.menu?.delegate = viewPopupMenuContainer.viewMenuController
-        self.settingsMenuIconItem = viewPopupMenuContainer.menuIconItem
-        
-        print("Menu has: \(btnViewMenu.menu?.items.count ?? 0) items")
     }
     
     override func destroy() {

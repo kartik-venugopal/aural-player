@@ -403,7 +403,11 @@
         <customObject id="Ro6-ma-Phw" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="cornerRadiusStepper" destination="a6U-4Z-ph9" id="bD4-3N-Npy"/>
+                <outlet property="createThemeMenuItem" destination="tlJ-bT-sqn" id="oey-jT-8dM"/>
                 <outlet property="lblCornerRadius" destination="aoN-1d-cnL" id="vva-aI-HUt"/>
+                <outlet property="saveCurrentColorSchemeMenuItem" destination="lgm-PH-ECA" id="tEV-oI-Sdw"/>
+                <outlet property="saveCurrentFontSchemeMenuItem" destination="Nga-dK-elm" id="s6Z-ED-Opz"/>
+                <outlet property="saveCurrentThemeMenuItem" destination="Bxa-Iq-aIO" id="qmv-7T-DQ4"/>
                 <outlet property="saveCurrentWindowLayoutMenuItem" destination="tC2-xb-Xzp" id="bFD-oR-0SX"/>
                 <outlet property="toggleChaptersListMenuItem" destination="EF3-EJ-g9z" id="rBk-jg-tsQ"/>
                 <outlet property="toggleEffectsMenuItem" destination="EMc-En-1DG" id="0OS-ut-4dc"/>

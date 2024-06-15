@@ -12,9 +12,9 @@
                 <outlet property="btnMinimize" destination="OWA-YG-E9q" id="I0j-6B-149"/>
                 <outlet property="btnPresentationModeMenu" destination="wA6-bg-jfE" id="kTW-X6-cdU"/>
                 <outlet property="btnQuit" destination="ZT2-MQ-uY4" id="pbY-tb-nLf"/>
+                <outlet property="btnViewMenu" destination="ffQ-8V-6KC" id="BFq-30-zF8"/>
                 <outlet property="logoImage" destination="kRO-cS-abr" id="o2u-23-NjN"/>
                 <outlet property="rootContainerBox" destination="MQS-Uc-HUi" id="Rj3-4K-Can"/>
-                <outlet property="settingsMenuIconItem" destination="jF6-Ok-k1J" id="YhT-Ag-Gg6"/>
                 <outlet property="tabView" destination="CxA-Md-TyN" id="FSX-4w-zyB"/>
                 <outlet property="window" destination="ybg-B4-A9D" id="ZBx-bV-Sgc"/>
             </connections>
@@ -66,145 +66,7 @@
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="52g-EZ-dDA">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="cellTitle"/>
-                                        <menu key="menu" autoenablesItems="NO" id="Bhd-cR-b4E">
-                                            <items>
-                                                <menuItem hidden="YES" id="jF6-Ok-k1J" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                                    <imageReference key="image" image="Hamburger" symbolScale="medium"/>
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Hamburger"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </menuItem>
-                                                <menuItem title="Player" id="BQn-Yq-vQk" userLabel="Player">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                </menuItem>
-                                                <menuItem title="Play Queue" id="Mrs-Bh-3AU" userLabel="Play Queue">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                </menuItem>
-                                                <menuItem title="Effects" id="JQP-n6-B5o">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                </menuItem>
-                                                <menuItem title="Chapters List" id="5ya-Z0-y1v">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                </menuItem>
-                                                <menuItem title="Track Info" id="lsw-pi-g5q">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="wCx-MY-MIk"/>
-                                                <menuItem title="Player view" id="8wf-g9-uKY" userLabel="Player View">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Player view" id="Oyw-eS-HDg">
-                                                        <items>
-                                                            <menuItem title="Scroll track info text" state="on" indentationLevel="2" id="ecA-5M-DtZ">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Show seek position" state="on" indentationLevel="2" id="MGI-V4-Lod">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Seek position display" indentationLevel="2" id="8Qz-Rt-MXv">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <menu key="submenu" title="Seek position display" id="ekz-ZO-i4a">
-                                                                    <items>
-                                                                        <menuItem title="Time elapsed" state="on" id="Bpy-xd-WOj" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
-                                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                                        </menuItem>
-                                                                        <menuItem title="Time remaining" tag="1" id="hZW-qV-AL5" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
-                                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                                        </menuItem>
-                                                                        <menuItem title="Track duration" tag="2" id="5jA-HD-rVz" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
-                                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                                        </menuItem>
-                                                                    </items>
-                                                                </menu>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="EQj-Rf-yun"/>
-                                                <menuItem title="Theme" id="WSy-5M-OTj" userLabel="Theme">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Theme" showsStateColumn="NO" id="xTD-f8-SdW">
-                                                        <items>
-                                                            <menuItem isSeparatorItem="YES" id="0sx-Fs-mRw"/>
-                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="1t4-s6-xV3">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </menuItem>
-                                                <menuItem title="Font scheme" id="KOI-5l-JjL">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Font scheme" showsStateColumn="NO" id="GY3-aQ-WGT">
-                                                        <items>
-                                                            <menuItem isSeparatorItem="YES" id="ZK8-6D-QIt"/>
-                                                            <menuItem title="Standard" indentationLevel="1" id="MZp-1f-Xrp">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Rounded" indentationLevel="1" id="Ti3-ir-Dlw">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Programmer" indentationLevel="1" id="Ufz-8I-Rgy">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Futuristic" indentationLevel="1" id="cPJ-5N-O1v">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Novelist" indentationLevel="1" id="cZE-mL-VZr">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Soy Sauce" indentationLevel="1" id="Zmb-fI-yjE">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Gothic" indentationLevel="1" id="gyR-tF-Z0I">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Papyrus" indentationLevel="1" id="qJZ-UA-ilp">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="hGa-Od-LjA">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </menuItem>
-                                                <menuItem title="Color scheme" id="aj0-JE-3SC" userLabel="Color scheme">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="FHZ-bY-Vnt">
-                                                        <items>
-                                                            <menuItem isSeparatorItem="YES" id="mbT-j9-lz7"/>
-                                                            <menuItem title="Lava" indentationLevel="1" id="RsE-k6-sav">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Black &amp; aqua" indentationLevel="1" id="nLT-dh-aMo" userLabel="Black &amp; aqua">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Black &amp; green" indentationLevel="1" id="bS8-ld-aiV">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Gray &amp; red" indentationLevel="1" id="cqV-e3-Qej">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="White blight" indentationLevel="1" id="hxD-Se-ogL">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Gloomy day" indentationLevel="1" id="Neq-qV-vUw">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Brownie" indentationLevel="1" id="PVH-S1-APR">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="3gA-2j-4WR">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="tbL-IM-v32"/>
-                                                <menuItem title="Window corner radius" id="cdx-hA-Zdw">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                </menuItem>
-                                            </items>
-                                        </menu>
+                                        <menu key="menu" autoenablesItems="NO" id="Bhd-cR-b4E"/>
                                     </popUpButtonCell>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="310-AZ-UYp"/>
@@ -328,7 +190,6 @@
     </objects>
     <resources>
         <image name="AppTitle" width="117" height="32"/>
-        <image name="Hamburger" width="10" height="7"/>
         <image name="minus" catalog="system" width="14" height="4"/>
         <image name="square.grid.2x2" catalog="system" width="15" height="14"/>
         <image name="xmark" catalog="system" width="14" height="13"/>

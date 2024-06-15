@@ -51,6 +51,18 @@ extension NSMenu {
         recreateMenu(insertingItemsAt: index, withTitles: mappableItems.map {$0.name},
                      action: action, target: target, indentationLevel: indentationLevel)
     }
+    
+    func importItems(from otherMenu: NSMenu) {
+        
+        let items = otherMenu.items
+        
+        for item in items {
+            otherMenu.removeItem(item)
+        }
+        
+        self.items = items
+        self.delegate = otherMenu.delegate
+    }
 }
 
 extension NSPopUpButton {

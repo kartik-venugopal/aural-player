@@ -24,8 +24,14 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var toggleVisualizerMenuItem: NSMenuItem!
     
     @IBOutlet weak var manageThemesMenuItem: NSMenuItem!
+    @IBOutlet weak var createThemeMenuItem: NSMenuItem!
+    @IBOutlet weak var saveCurrentThemeMenuItem: NSMenuItem!
+    
     @IBOutlet weak var manageFontSchemesMenuItem: NSMenuItem!
+    @IBOutlet weak var saveCurrentFontSchemeMenuItem: NSMenuItem!
+    
     @IBOutlet weak var manageColorSchemesMenuItem: NSMenuItem!
+    @IBOutlet weak var saveCurrentColorSchemeMenuItem: NSMenuItem!
     
     @IBOutlet weak var windowLayoutsMenuItem: NSMenuItem!
     @IBOutlet weak var saveCurrentWindowLayoutMenuItem: NSMenuItem!
@@ -62,6 +68,11 @@ class ViewMenuController: NSObject, NSMenuDelegate {
 
             toggleTrackInfoMenuItem.onIf(isShowingTrackInfo)
             toggleTrackInfoMenuItem.enableIf(isShowingTrackInfo || isPlaying)
+        }
+        
+        // Can't save current theme/scheme in Compact mode (can't customize, so saving is irrelevant)
+        [createThemeMenuItem, saveCurrentThemeMenuItem, saveCurrentFontSchemeMenuItem, saveCurrentColorSchemeMenuItem].forEach {
+            $0?.showIf(appModeManager.currentMode != .compact)
         }
         
         // Window Layouts only relevant in Modular mode
