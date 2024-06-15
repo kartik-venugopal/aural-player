@@ -197,6 +197,9 @@
                                                                     <action selector="showOrHidePlaybackPositionAction:" target="gF1-jg-yeJ" id="nWK-1M-LLO"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Scroll track info text" id="6nf-xz-Qzc">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                            </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="QIK-XF-WQD"/>
                                                             <menuItem title="Playback position display" id="eFE-oQ-dY3">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -235,7 +238,7 @@
                                                     <menu key="submenu" title="Theme" showsStateColumn="NO" id="Uo3-IE-YSc">
                                                         <items>
                                                             <menuItem isSeparatorItem="YES" id="end-21-kUh"/>
-                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="7ET-rc-9Yr">
+                                                            <menuItem title="Poolside.fm" id="7ET-rc-9Yr">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="iBX-Gc-cxj" id="YXr-eh-zuJ"/>
@@ -265,55 +268,55 @@
                                                     <menu key="submenu" title="Font scheme" showsStateColumn="NO" id="jzT-Jm-871">
                                                         <items>
                                                             <menuItem isSeparatorItem="YES" id="QRO-W5-RsE"/>
-                                                            <menuItem title="Standard" indentationLevel="1" id="43j-ji-ycl">
+                                                            <menuItem title="Standard" id="43j-ji-ycl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="9ZN-DE-PiX"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Rounded" indentationLevel="1" id="eQL-Ub-yN2">
+                                                            <menuItem title="Rounded" id="eQL-Ub-yN2">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="JcW-rx-Adk"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Programmer" indentationLevel="1" id="wd9-v0-USI">
+                                                            <menuItem title="Programmer" id="wd9-v0-USI">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="7lr-f3-IwJ"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Futuristic" indentationLevel="1" id="zp0-54-BsY">
+                                                            <menuItem title="Futuristic" id="zp0-54-BsY">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="Xr9-rt-c1s"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Novelist" indentationLevel="1" id="rKV-Kl-mba">
+                                                            <menuItem title="Novelist" id="rKV-Kl-mba">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="kgD-uc-MOe"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Soy Sauce" indentationLevel="1" id="vch-4n-9oL">
+                                                            <menuItem title="Soy Sauce" id="vch-4n-9oL">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="Tv6-2N-FBQ"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Gothic" indentationLevel="1" id="pc7-RT-aH8">
+                                                            <menuItem title="Gothic" id="pc7-RT-aH8">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="TjV-Nc-SHI"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Papyrus" indentationLevel="1" id="gjG-cI-Cmn">
+                                                            <menuItem title="Papyrus" id="gjG-cI-Cmn">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="jwU-cV-Deo"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="laX-wc-TQz">
+                                                            <menuItem title="Poolside.fm" id="laX-wc-TQz">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="jyH-lC-gOA" id="7Xs-Jo-Gpt"/>
@@ -344,49 +347,49 @@
                                                     <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="7oK-Kd-rX4">
                                                         <items>
                                                             <menuItem isSeparatorItem="YES" id="GtB-hU-uN6"/>
-                                                            <menuItem title="Lava" indentationLevel="1" id="sNL-Wk-hye">
+                                                            <menuItem title="Lava" id="sNL-Wk-hye">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="gtc-ve-7oa"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Black &amp; aqua" indentationLevel="1" id="Q49-Xm-uru" userLabel="Black &amp; aqua">
+                                                            <menuItem title="Black &amp; aqua" id="Q49-Xm-uru" userLabel="Black &amp; aqua">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="4QJ-pj-gq3"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Black &amp; green" indentationLevel="1" id="e6H-rX-5qX">
+                                                            <menuItem title="Black &amp; green" id="e6H-rX-5qX">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="OBG-05-7fK"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Gray &amp; red" indentationLevel="1" id="FJ3-SF-NSo">
+                                                            <menuItem title="Gray &amp; red" id="FJ3-SF-NSo">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="rmT-GJ-QDE"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="White blight" indentationLevel="1" id="41Q-2F-UWV">
+                                                            <menuItem title="White blight" id="41Q-2F-UWV">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="KZL-Fq-qqU"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Gloomy day" indentationLevel="1" id="w3W-IL-Xys">
+                                                            <menuItem title="Gloomy day" id="w3W-IL-Xys">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="4bl-jj-rA5"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Brownie" indentationLevel="1" id="ROY-4K-3en">
+                                                            <menuItem title="Brownie" id="ROY-4K-3en">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="OTK-Qb-Q5V"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="n7e-jY-Srs">
+                                                            <menuItem title="Poolside.fm" id="n7e-jY-Srs">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applyPresetAction:" target="df9-sN-idv" id="pi5-UN-9oY"/>

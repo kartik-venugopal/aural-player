@@ -488,7 +488,6 @@
                                             <outlet property="view" destination="9cJ-NH-tTK" id="UwT-Wh-ImU"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem isSeparatorItem="YES" id="DRR-U8-9rR"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
