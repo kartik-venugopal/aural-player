@@ -50,6 +50,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        userDefaults.set(false, forKey: "NSFullScreenMenuItemEverywhere")
+    }
+    
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         

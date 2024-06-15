@@ -10,7 +10,7 @@
 import Cocoa
 
 class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
-
+    
     private lazy var managerWindowController: UIPresetsManagerWindowController = UIPresetsManagerWindowController.instance
     
     override var descriptionOfPreset: String {"layout"}
@@ -39,5 +39,12 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
     
     @IBAction func manageLayoutsAction(_ sender: Any) {
         managerWindowController.showLayoutsManager()
+    }
+    
+    override func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        if appModeManager.currentMode == .modular {
+            super.menuNeedsUpdate(menu)
+        }
     }
 }

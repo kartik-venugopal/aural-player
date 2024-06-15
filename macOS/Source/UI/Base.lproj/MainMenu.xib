@@ -95,10 +95,17 @@
             <connections>
                 <outlet property="cornerRadiusStepper" destination="pad-HQ-OkH" id="605-zh-olP"/>
                 <outlet property="lblCornerRadius" destination="Zug-e2-ouS" id="Ahv-Xb-EYR"/>
+                <outlet property="manageColorSchemesMenuItem" destination="VWA-XP-cmU" id="Hbn-2q-wdh"/>
+                <outlet property="manageFontSchemesMenuItem" destination="FqL-Sf-s6n" id="OQv-oB-qBE"/>
+                <outlet property="manageThemesMenuItem" destination="stz-BR-aN4" id="Brs-cH-yaD"/>
+                <outlet property="manageWindowLayoutsMenuItem" destination="mZT-V7-7dk" id="AbW-MD-nHg"/>
+                <outlet property="saveCurrentWindowLayoutMenuItem" destination="r1q-cR-Y36" id="JLz-ke-oyM"/>
                 <outlet property="toggleChaptersListMenuItem" destination="qSA-FE-7m5" id="G8P-gu-gNN"/>
                 <outlet property="toggleEffectsMenuItem" destination="VRp-xb-WM7" id="fJX-9x-2zg"/>
                 <outlet property="togglePlayQueueMenuItem" destination="qz6-NG-pXu" id="NrG-XF-Pha"/>
+                <outlet property="toggleTrackInfoMenuItem" destination="ed8-W1-CfC" id="hg8-jq-wp2"/>
                 <outlet property="toggleVisualizerMenuItem" destination="AMl-XT-MAB" id="tS5-W0-Q0e"/>
+                <outlet property="windowLayoutsMenuItem" destination="54V-bV-0Yv" id="hSo-KK-BeG"/>
             </connections>
         </customObject>
         <customObject id="xNz-Ln-gBB" customClass="AppModeSubMenuController" customModule="Aural" customModuleProvider="target">
@@ -843,7 +850,12 @@ CA
                                     <action selector="toggleChaptersListAction:" target="JTq-Lm-LsR" id="PXV-Ux-0sW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Visualizer" image="waveform" catalog="system" keyEquivalent="4" id="AMl-XT-MAB">
+                            <menuItem title="   Track Info" image="info" catalog="system" keyEquivalent="4" id="ed8-W1-CfC">
+                                <connections>
+                                    <action selector="toggleTrackInfoAction:" target="JTq-Lm-LsR" id="26y-YP-qlU"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Visualizer" image="waveform" catalog="system" keyEquivalent="5" id="AMl-XT-MAB">
                                 <connections>
                                     <action selector="toggleVisualizerAction:" target="JTq-Lm-LsR" id="ryI-uW-0hf"/>
                                 </connections>
@@ -957,7 +969,7 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title=" Save current theme" image="doc.badge.gearshape" catalog="system" id="hkK-FX-79c" userLabel="Save current scheme">
+                            <menuItem title=" Save current scheme" image="doc.badge.gearshape" catalog="system" id="hkK-FX-79c" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="savePresetAction:" target="Tt2-hR-zeD" id="XLI-hX-SLO"/>
@@ -1036,7 +1048,7 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title=" Save current theme" image="doc.badge.gearshape" catalog="system" id="jXZ-lW-Sqx" userLabel="Save current scheme">
+                            <menuItem title=" Save current scheme" image="doc.badge.gearshape" catalog="system" id="jXZ-lW-Sqx" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="savePresetAction:" target="FUx-6H-JiE" id="2i4-y6-etP"/>
@@ -1114,7 +1126,7 @@ CA
                                     <action selector="savePresetAction:" target="ARU-wE-JsS" id="GRf-zY-T6g"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Manage layouts" image="pencil" catalog="system" id="mZT-V7-7dk" userLabel="Manage layouts">
+                            <menuItem title=" Manage window layouts" image="pencil" catalog="system" id="mZT-V7-7dk" userLabel="Manage layouts">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageLayoutsAction:" target="ARU-wE-JsS" id="lWO-HH-WvK"/>

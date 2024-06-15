@@ -59,8 +59,6 @@ extension GenericPresetPopupMenuController: NSMenuDelegate {
         //        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
         //        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedObjects > 0))
                 
-                //        manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedObjects.isEmpty)
-        
         theMenu.insertItem(NSMenuItem.createDescriptor(title: "Built-in \(descriptionOfPreset_plural)"), at: 0)
         theMenu.insertItem(NSMenuItem.separator(), at: 0)
         

@@ -20,13 +20,31 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var togglePlayQueueMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
     @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
+    @IBOutlet weak var toggleTrackInfoMenuItem: NSMenuItem!
     @IBOutlet weak var toggleVisualizerMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var manageThemesMenuItem: NSMenuItem!
+    @IBOutlet weak var manageFontSchemesMenuItem: NSMenuItem!
+    @IBOutlet weak var manageColorSchemesMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var windowLayoutsMenuItem: NSMenuItem!
+    @IBOutlet weak var saveCurrentWindowLayoutMenuItem: NSMenuItem!
+    @IBOutlet weak var manageWindowLayoutsMenuItem: NSMenuItem!
     
     @IBOutlet weak var cornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
     func menuNeedsUpdate(_ menu: NSMenu) {
+        
         toggleChaptersListMenuItem.enableIf(playbackInfoDelegate.chapterCount > 0)
+        
+        let isCompactMode = appModeManager.currentMode == .compact
+        toggleTrackInfoMenuItem.showIf(isCompactMode)
+        
+        manageWindowLayoutsMenuItem?.enableIf(windowLayoutsManager.numberOfUserDefinedObjects > 0)
+        manageThemesMenuItem?.enableIf(themesManager.numberOfUserDefinedObjects > 0)
+        manageFontSchemesMenuItem?.enableIf(fontSchemesManager.numberOfUserDefinedObjects > 0)
+        manageColorSchemesMenuItem?.enableIf(colorSchemesManager.numberOfUserDefinedObjects > 0)
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -36,6 +54,20 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         toggleEffectsMenuItem.onIf(appModeManager.isShowingEffects)
         toggleChaptersListMenuItem.onIf(appModeManager.isShowingChaptersList)
         toggleVisualizerMenuItem.onIf(appModeManager.isShowingVisualizer)
+        
+        if appModeManager.currentMode == .compact {
+            
+            let isPlaying = playbackInfoDelegate.state.isPlayingOrPaused
+            let isShowingTrackInfo = appModeManager.isShowingTrackInfo
+
+            toggleTrackInfoMenuItem.onIf(isShowingTrackInfo)
+            toggleTrackInfoMenuItem.enableIf(isShowingTrackInfo || isPlaying)
+        }
+        
+        // Window Layouts only relevant in Modular mode
+        [windowLayoutsMenuItem, saveCurrentWindowLayoutMenuItem, manageWindowLayoutsMenuItem].forEach {
+            $0?.showIf(appModeManager.currentMode == .modular)
+        }
         
         cornerRadiusStepper.integerValue = playerUIState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"

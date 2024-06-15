@@ -21,7 +21,10 @@ class UnifiedPlayerWindowController: NSWindowController {
     @IBOutlet weak var btnMinimize: TintedImageButton!
     @IBOutlet weak var btnToggleSidebar: TintedImageButton!
     @IBOutlet weak var btnPresentationModeMenu: NSPopUpButton!
-    @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
+    @IBOutlet weak var btnViewMenu: NSPopUpButton!
+    
+    private var viewPopupMenuContainer: ViewPopupMenuContainer = .init()
+    private var settingsMenuIconItem: TintedIconMenuItem!
     
     @IBOutlet weak var rootSplitView: NSSplitView!
     @IBOutlet weak var browserSplitView: NSSplitView!
@@ -114,6 +117,20 @@ class UnifiedPlayerWindowController: NSWindowController {
 //        tabGroup.addAndAnchorSubView(forController: playlistsViewController)
         
         tabGroup.selectTabViewItem(at: 0)
+        
+        viewPopupMenuContainer.forceLoadingOfView()
+        
+        let items = viewPopupMenuContainer.popupMenu.items
+        
+        for item in items {
+            viewPopupMenuContainer.popupMenu.removeItem(item)
+        }
+        
+        btnViewMenu.menu?.items = items
+        btnViewMenu.menu?.delegate = viewPopupMenuContainer.viewMenuController
+        self.settingsMenuIconItem = viewPopupMenuContainer.menuIconItem
+        
+        print("Menu has: \(btnViewMenu.menu?.items.count ?? 0) items")
     }
     
     override func destroy() {

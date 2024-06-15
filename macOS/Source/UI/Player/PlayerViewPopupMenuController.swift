@@ -14,14 +14,17 @@ import Cocoa
     e.g. show/hide album art or adjust seek time format.
  */
 class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
-    
+
     @IBOutlet weak var showArtMenuItem: NSMenuItem!
-    @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
-    @IBOutlet weak var showPlaybackPositionMenuItem: NSMenuItem!
-    
     @IBOutlet weak var showArtistMenuItem: NSMenuItem!
     @IBOutlet weak var showAlbumMenuItem: NSMenuItem!
     @IBOutlet weak var showCurrentChapterMenuItem: NSMenuItem!
+    
+    // Only in Compact mode
+    @IBOutlet weak var scrollTrackInfoMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
+    @IBOutlet weak var showPlaybackPositionMenuItem: NSMenuItem!
     
     @IBOutlet weak var playbackPositionElapsedMenuItem: NSMenuItem!
     @IBOutlet weak var playbackPositionRemainingMenuItem: NSMenuItem!
@@ -43,6 +46,8 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             hasChapters = track.hasChapters
         }
         
+        showArtMenuItem.onIf(playerUIState.showAlbumArt)
+        
         showArtistMenuItem.showIf(hasArtist)
         showArtistMenuItem.onIf(playerUIState.showArtist)
         
@@ -52,11 +57,16 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         showCurrentChapterMenuItem.showIf(hasChapters)
         showCurrentChapterMenuItem.onIf(playerUIState.showCurrentChapter)
         
-        showArtMenuItem.onIf(playerUIState.showAlbumArt)
+        scrollTrackInfoMenuItem.showIf(appModeManager.currentMode == .compact)
+        scrollTrackInfoMenuItem.onIf(compactPlayerUIState.trackInfoScrollingEnabled)
         
         showMainControlsMenuItem.onIf(playerUIState.showControls)
         
         showPlaybackPositionMenuItem.onIf(playerUIState.showPlaybackPosition)
+        
+        if appModeManager.currentMode == .compact {
+            showPlaybackPositionMenuItem.title = "Show playback position"
+        }
         
         [playbackPositionElapsedMenuItem, playbackPositionRemainingMenuItem, playbackPositionTrackDurationMenuItem].forEach {$0.off()}
         
@@ -93,6 +103,12 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         
         playerUIState.showCurrentChapter.toggle()
         Messenger.publish(.Player.showOrHideCurrentChapter)
+    }
+    
+    @IBAction func toggleTrackInfoScrollingAction(_ sender: NSMenuItem) {
+        
+        compactPlayerUIState.trackInfoScrollingEnabled.toggle()
+        Messenger.publish(.CompactPlayer.toggleTrackInfoScrolling)
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {

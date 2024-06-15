@@ -70,7 +70,7 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         let isPlaying = playbackInfoDelegate.state.isPlayingOrPaused
 
         // Cannot show Track Info view if no track is currently playing
-        showTrackInfoMenuItem.showIf(compactPlayerUIState.displayedView == .trackInfo || isPlaying)
+        showTrackInfoMenuItem.enableIf(compactPlayerUIState.displayedView == .trackInfo || isPlaying)
         
         showChaptersListMenuItem.enableIf(isPlaying && playbackInfoDelegate.chapterCount > 0)
         

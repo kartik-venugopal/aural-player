@@ -54,6 +54,8 @@
 		3E2000C9267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2000C8267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift */; };
 		3E2207EC2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2207EB2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift */; };
 		3E2207EE2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2207ED2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift */; };
+		3E2207F02C1E08F700ED286A /* ViewPopupMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2207EF2C1E08F700ED286A /* ViewPopupMenu.xib */; };
+		3E2207F22C1E0BE500ED286A /* ViewPopupMenuContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2207F12C1E0BE500ED286A /* ViewPopupMenuContainer.swift */; };
 		3E2331EF2AE036E4004A5473 /* PlayQueueContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2331EE2AE036E4004A5473 /* PlayQueueContainerViewController.swift */; };
 		3E2331F12AE03728004A5473 /* PlayQueueContainerViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2331F02AE03728004A5473 /* PlayQueueContainerViewController+Actions.swift */; };
 		3E2331F32AE088DB004A5473 /* UnifiedPlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2331F22AE088DB004A5473 /* UnifiedPlayerUIPersistentState.swift */; };
@@ -1039,6 +1041,8 @@
 		3E2000C8267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E2207EB2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifiedPlayerWindowController+View.swift"; sourceTree = "<group>"; };
 		3E2207ED2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompactPlayerWindowController+View.swift"; sourceTree = "<group>"; };
+		3E2207EF2C1E08F700ED286A /* ViewPopupMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewPopupMenu.xib; sourceTree = "<group>"; };
+		3E2207F12C1E0BE500ED286A /* ViewPopupMenuContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPopupMenuContainer.swift; sourceTree = "<group>"; };
 		3E2331EE2AE036E4004A5473 /* PlayQueueContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueContainerViewController.swift; sourceTree = "<group>"; };
 		3E2331F02AE03728004A5473 /* PlayQueueContainerViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayQueueContainerViewController+Actions.swift"; sourceTree = "<group>"; };
 		3E2331F22AE088DB004A5473 /* UnifiedPlayerUIPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPlayerUIPersistentState.swift; sourceTree = "<group>"; };
@@ -2161,6 +2165,8 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0F2025CEB98500BF0D07 /* ModularPlayerWindow.xib */,
+				3E2207EF2C1E08F700ED286A /* ViewPopupMenu.xib */,
+				3E2207F12C1E0BE500ED286A /* ViewPopupMenuContainer.swift */,
 				3E6C0F1F25CEB98500BF0D07 /* ModularPlayerWindowController.swift */,
 				3E466C8E27FA296C00342C30 /* ModularPlayerWindowController+EventHandling.swift */,
 				3E6C0F1D25CEB98500BF0D07 /* Player */,
@@ -5314,6 +5320,7 @@
 				3E6C127125CEBE0600BF0D07 /* FilterPresetsManager.xib in Resources */,
 				3E6C125625CEBE0600BF0D07 /* EffectsPresetsManager.xib in Resources */,
 				3E6C126F25CEBE0600BF0D07 /* TimeStretchPresetsManager.xib in Resources */,
+				3E2207F02C1E08F700ED286A /* ViewPopupMenu.xib in Resources */,
 				3ECF71BE2B75B4BC00FDB69B /* CompactPlayQueueSearch.xib in Resources */,
 				3EAF96F028DCE1B6008561A7 /* AnironRegular.ttf in Resources */,
 				3E47D2342815A5BD00938F20 /* ControlStatesColorScheme.xib in Resources */,
@@ -5853,6 +5860,7 @@
 				3EAFB5F4267FEE6400F0DC96 /* NSTabViewExtensions.swift in Sources */,
 				3EFE391D27864897006F8B8C /* DateExtensions.swift in Sources */,
 				3EFE386F27864896006F8B8C /* FilterUnit.swift in Sources */,
+				3E2207F22C1E0BE500ED286A /* ViewPopupMenuContainer.swift in Sources */,
 				3EFE39A727864897006F8B8C /* ColorPersistentState.swift in Sources */,
 				3EAFB5EC267FEC5C00F0DC96 /* NSViewExtensions.swift in Sources */,
 				3EAFB5F6267FEE9D00F0DC96 /* NSWindowExtensions.swift in Sources */,

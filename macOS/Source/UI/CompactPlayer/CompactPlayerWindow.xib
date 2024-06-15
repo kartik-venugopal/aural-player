@@ -77,33 +77,18 @@
                                                 </menuItem>
                                                 <menuItem title="Player" id="BQn-Yq-vQk" userLabel="Player">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="showPlayerAction:" target="9Am-6j-VlW" id="8BC-L4-hra"/>
-                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Play Queue" id="Mrs-Bh-3AU" userLabel="Play Queue">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="showPlayQueueAction:" target="9Am-6j-VlW" id="JA6-Cs-Lxb"/>
-                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Effects" id="JQP-n6-B5o">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="toggleEffectsAction:" target="9Am-6j-VlW" id="e2j-fc-ZdU"/>
-                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Chapters List" id="5ya-Z0-y1v">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="showChaptersListAction:" target="9Am-6j-VlW" id="Hl6-kX-1Xy"/>
-                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Track Info" id="lsw-pi-g5q">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="showTrackInfoAction:" target="9Am-6j-VlW" id="eIE-ms-Qmm"/>
-                                                    </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="wCx-MY-MIk"/>
                                                 <menuItem title="Player view" id="8wf-g9-uKY" userLabel="Player View">
@@ -112,15 +97,9 @@
                                                         <items>
                                                             <menuItem title="Scroll track info text" state="on" indentationLevel="2" id="ecA-5M-DtZ">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="toggleTrackInfoScrollingAction:" target="9Am-6j-VlW" id="rCH-Pq-J4G"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Show seek position" state="on" indentationLevel="2" id="MGI-V4-Lod">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="toggleShowSeekPositionAction:" target="9Am-6j-VlW" id="I0P-hC-RqY"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Seek position display" indentationLevel="2" id="8Qz-Rt-MXv">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -128,21 +107,12 @@
                                                                     <items>
                                                                         <menuItem title="Time elapsed" state="on" id="Bpy-xd-WOj" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                                                            <connections>
-                                                                                <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="rN7-6e-Ko2"/>
-                                                                            </connections>
                                                                         </menuItem>
                                                                         <menuItem title="Time remaining" tag="1" id="hZW-qV-AL5" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                                                            <connections>
-                                                                                <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="1uT-1V-Fdx"/>
-                                                                            </connections>
                                                                         </menuItem>
                                                                         <menuItem title="Track duration" tag="2" id="5jA-HD-rVz" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                                                            <connections>
-                                                                                <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="7Rv-9w-k7d"/>
-                                                                            </connections>
                                                                         </menuItem>
                                                                     </items>
                                                                 </menu>
@@ -158,14 +128,8 @@
                                                             <menuItem isSeparatorItem="YES" id="0sx-Fs-mRw"/>
                                                             <menuItem title="Poolside.fm" indentationLevel="1" id="1t4-s6-xV3">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="VNs-7z-6xS" id="3ma-mp-hbX"/>
-                                                                </connections>
                                                             </menuItem>
                                                         </items>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="VNs-7z-6xS" id="sKB-EP-ff4"/>
-                                                        </connections>
                                                     </menu>
                                                 </menuItem>
                                                 <menuItem title="Font scheme" id="KOI-5l-JjL">
@@ -175,62 +139,32 @@
                                                             <menuItem isSeparatorItem="YES" id="ZK8-6D-QIt"/>
                                                             <menuItem title="Standard" indentationLevel="1" id="MZp-1f-Xrp">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="xV3-cC-YyK"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Rounded" indentationLevel="1" id="Ti3-ir-Dlw">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="ysc-dW-MNe"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Programmer" indentationLevel="1" id="Ufz-8I-Rgy">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="cMQ-1S-bMO"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Futuristic" indentationLevel="1" id="cPJ-5N-O1v">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="ilu-Ll-SeQ"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Novelist" indentationLevel="1" id="cZE-mL-VZr">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="eG2-Hl-Lhk"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Soy Sauce" indentationLevel="1" id="Zmb-fI-yjE">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="vsN-HE-5zt"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Gothic" indentationLevel="1" id="gyR-tF-Z0I">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="cGo-aN-unW"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Papyrus" indentationLevel="1" id="qJZ-UA-ilp">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="mdh-xr-Oyn"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Poolside.fm" indentationLevel="1" id="hGa-Od-LjA">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="RIV-fl-9fB" id="sag-Zp-Fv7"/>
-                                                                </connections>
                                                             </menuItem>
                                                         </items>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="RIV-fl-9fB" id="ac6-s8-wE0"/>
-                                                        </connections>
                                                     </menu>
                                                 </menuItem>
                                                 <menuItem title="Color scheme" id="aj0-JE-3SC" userLabel="Color scheme">
@@ -240,69 +174,36 @@
                                                             <menuItem isSeparatorItem="YES" id="mbT-j9-lz7"/>
                                                             <menuItem title="Lava" indentationLevel="1" id="RsE-k6-sav">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="8gB-Dc-wiN"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Black &amp; aqua" indentationLevel="1" id="nLT-dh-aMo" userLabel="Black &amp; aqua">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="fqP-L7-LHs"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Black &amp; green" indentationLevel="1" id="bS8-ld-aiV">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="QwO-Uf-Bhx"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Gray &amp; red" indentationLevel="1" id="cqV-e3-Qej">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="ozu-WX-4MZ"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="White blight" indentationLevel="1" id="hxD-Se-ogL">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="bRJ-6P-dPR"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Gloomy day" indentationLevel="1" id="Neq-qV-vUw">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="Rq0-jS-Thi"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Brownie" indentationLevel="1" id="PVH-S1-APR">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="rZN-gF-0Tx"/>
-                                                                </connections>
                                                             </menuItem>
                                                             <menuItem title="Poolside.fm" indentationLevel="1" id="3gA-2j-4WR">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applyPresetAction:" target="1AV-wk-fXj" id="8ft-m8-wRv"/>
-                                                                </connections>
                                                             </menuItem>
                                                         </items>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="1AV-wk-fXj" id="f1j-h9-UJO"/>
-                                                        </connections>
                                                     </menu>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="tbL-IM-v32"/>
                                                 <menuItem title="Window corner radius" id="cdx-hA-Zdw">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <outlet property="view" destination="9TP-Jv-q57" id="mcc-3z-e9x"/>
-                                                    </connections>
                                                 </menuItem>
                                             </items>
-                                            <connections>
-                                                <outlet property="delegate" destination="9Am-6j-VlW" id="K1R-FG-YI3"/>
-                                            </connections>
                                         </menu>
                                     </popUpButtonCell>
                                     <constraints>
@@ -423,101 +324,6 @@
             <accessibility identifier="main"/>
             <point key="canvasLocation" x="-369" y="-491"/>
         </window>
-        <customObject id="9Am-6j-VlW" userLabel="Compact Player View Popup Menu Controller (Window)" customClass="CompactPlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="cornerRadiusStepper" destination="CXC-fJ-vs0" id="U3Y-u4-gXz"/>
-                <outlet property="lblCornerRadius" destination="M3o-Oh-fXf" id="eg6-S0-uqv"/>
-                <outlet property="scrollingEnabledMenuItem" destination="ecA-5M-DtZ" id="5Rx-wg-jij"/>
-                <outlet property="seekPositionDisplayTypeMenuItem" destination="8Qz-Rt-MXv" id="7JD-UJ-fVc"/>
-                <outlet property="showChaptersListMenuItem" destination="5ya-Z0-y1v" id="qqD-OL-93N"/>
-                <outlet property="showPlayQueueMenuItem" destination="Mrs-Bh-3AU" id="TBC-du-pcJ"/>
-                <outlet property="showPlaybackPositionMenuItem" destination="MGI-V4-Lod" id="G34-hx-xt7"/>
-                <outlet property="showPlayerMenuItem" destination="BQn-Yq-vQk" id="An1-0w-Xwc"/>
-                <outlet property="showTrackInfoMenuItem" destination="lsw-pi-g5q" id="txl-WN-OKD"/>
-                <outlet property="timeElapsedMenuItem" destination="Bpy-xd-WOj" id="abj-Ud-uvh"/>
-                <outlet property="timeRemainingMenuItem" destination="hZW-qV-AL5" id="SOT-gI-VgQ"/>
-                <outlet property="toggleEffectsMenuItem" destination="JQP-n6-B5o" id="bi7-5p-PyE"/>
-                <outlet property="trackDurationMenuItem" destination="5jA-HD-rVz" id="Djk-aj-igU"/>
-            </connections>
-        </customObject>
-        <customObject id="1AV-wk-fXj" userLabel="Color Scheme Popup Menu Controller (Window)" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="theMenu" destination="FHZ-bY-Vnt" id="cWn-YX-5fW"/>
-            </connections>
-        </customObject>
-        <customObject id="RIV-fl-9fB" userLabel="Font Scheme Popup Menu Controller (Window)" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="theMenu" destination="GY3-aQ-WGT" id="ofi-el-bfz"/>
-            </connections>
-        </customObject>
-        <customObject id="VNs-7z-6xS" userLabel="Theme Popup Menu Controller (Window)" customClass="ThemePopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="theMenu" destination="xTD-f8-SdW" id="CBb-xa-ZZR"/>
-            </connections>
-        </customObject>
-        <customView id="9TP-Jv-q57" userLabel="Window corner radius editor view (in window)">
-            <rect key="frame" x="0.0" y="0.0" width="220" height="25"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rbh-Fx-dud">
-                    <rect key="frame" x="21" y="5" width="138" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="BuH-FL-mbs">
-                        <font key="font" size="12" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M3o-Oh-fXf">
-                    <rect key="frame" x="154" y="5" width="39" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="HD8-VE-Yj0">
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CXC-fJ-vs0" userLabel="Radius Stepper">
-                    <rect key="frame" x="196" y="0.0" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" refusesFirstResponder="YES" focusRingType="none" alignment="left" maxValue="20" doubleValue="3" id="TSc-WI-MLL"/>
-                    <connections>
-                        <action selector="cornerRadiusStepperAction:" target="9Am-6j-VlW" id="Dji-dK-f6S"/>
-                    </connections>
-                </stepper>
-            </subviews>
-            <point key="canvasLocation" x="-288" y="361"/>
-        </customView>
-        <customView id="2ju-OD-fU0" userLabel="Window corner radius editor view (in menu)">
-            <rect key="frame" x="0.0" y="0.0" width="249" height="25"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Gz-eb-pyh">
-                    <rect key="frame" x="36" y="5" width="150" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="6ud-Gz-OCG">
-                        <font key="font" size="12" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scl-nL-etF">
-                    <rect key="frame" x="184" y="5" width="39" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="auO-Yf-mv3">
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f1C-od-0eT" userLabel="Radius Stepper">
-                    <rect key="frame" x="226" y="0.0" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" refusesFirstResponder="YES" focusRingType="none" alignment="left" maxValue="20" doubleValue="3" id="Zoa-3C-oOL"/>
-                </stepper>
-            </subviews>
-            <point key="canvasLocation" x="-273.5" y="360.5"/>
-        </customView>
         <customObject id="d3D-uK-EOp" customClass="AppModeSubMenuController" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
