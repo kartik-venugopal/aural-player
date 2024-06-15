@@ -28,9 +28,10 @@ class ModularPlayerWindowController: NSWindowController {
     @IBOutlet weak var btnMinimize: TintedImageButton!
     
     @IBOutlet weak var btnPresentationModeMenu: NSPopUpButton!
-    @IBOutlet weak var btnSettingsMenu: NSPopUpButton!
+    @IBOutlet weak var btnViewMenu: NSPopUpButton!
     
-    @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
+    private var viewPopupMenuContainer: ViewPopupMenuContainer = .init()
+    private lazy var settingsMenuIconItem: TintedIconMenuItem = viewPopupMenuContainer.menuIconItem
     
     var eventMonitor: EventMonitor! = EventMonitor()
     
@@ -62,15 +63,11 @@ class ModularPlayerWindowController: NSWindowController {
     private func initWindow() {
         
         theWindow.makeKeyAndOrderFront(self)
-        
         containerBox.addSubview(playerViewController.view)
-        
-        colorSchemesManager.registerSchemeObserver(self)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: logoImage)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: buttonColorChangeReceivers)
-        
         changeWindowCornerRadius(to: playerUIState.cornerRadius)
+        
+        viewPopupMenuContainer.forceLoadingOfView()
+        btnViewMenu.menu?.importItems(from: viewPopupMenuContainer.popupMenu)
     }
     
     private func initSubscriptions() {
@@ -80,6 +77,11 @@ class ModularPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .View.toggleChaptersList, handler: toggleChaptersList)
         messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
+        
+        colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: logoImage)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: buttonColorChangeReceivers)
     }
     
     override func destroy() {
