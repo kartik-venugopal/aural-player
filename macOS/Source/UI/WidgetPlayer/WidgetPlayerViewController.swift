@@ -13,12 +13,12 @@ import AppKit
 class WidgetPlayerViewController: PlayerViewController {
     
     @IBOutlet weak var scrollingEnabledMenuItem: NSMenuItem!
-    @IBOutlet weak var showTrackTimeMenuItem: NSMenuItem!
+    @IBOutlet weak var showPlaybackPositionMenuItem: NSMenuItem!
     @IBOutlet weak var seekPositionDisplayTypeMenuItem: NSMenuItem!
     
-    @IBOutlet weak var timeElapsedMenuItem: TrackTimeDisplayTypeMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem: TrackTimeDisplayTypeMenuItem!
-    @IBOutlet weak var trackDurationMenuItem: TrackTimeDisplayTypeMenuItem!
+    @IBOutlet weak var timeElapsedMenuItem: PlaybackPositionDisplayTypeMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem: PlaybackPositionDisplayTypeMenuItem!
+    @IBOutlet weak var trackDurationMenuItem: PlaybackPositionDisplayTypeMenuItem!
     
     private lazy var seekPositionDisplayTypeItems: [NSMenuItem] = [timeElapsedMenuItem, timeRemainingMenuItem, trackDurationMenuItem]
     
@@ -32,8 +32,8 @@ class WidgetPlayerViewController: PlayerViewController {
         trackDurationMenuItem.displayType = .duration
     }
     
-    override var showTrackTime: Bool {
-        widgetPlayerUIState.showTrackTime
+    override var showPlaybackPosition: Bool {
+        widgetPlayerUIState.showPlaybackPosition
     }
     
     override var displaysChapterIndicator: Bool {
@@ -62,9 +62,9 @@ class WidgetPlayerViewController: PlayerViewController {
         setUpScrollingTrackInfoView()
     }
     
-    override func showOrHideTrackTime() {
+    override func showOrHidePlaybackPosition() {
         
-        super.showOrHideTrackTime()
+        super.showOrHidePlaybackPosition()
         layoutScrollingTrackTextView()
     }
     
@@ -80,14 +80,14 @@ class WidgetPlayerViewController: PlayerViewController {
     
     @IBAction func toggleShowSeekPositionAction(_ sender: NSMenuItem) {
         
-        widgetPlayerUIState.showTrackTime.toggle()
+        widgetPlayerUIState.showPlaybackPosition.toggle()
         layoutScrollingTrackTextView()
     }
     
-    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: TrackTimeDisplayTypeMenuItem) {
+    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: PlaybackPositionDisplayTypeMenuItem) {
         
-        playerUIState.trackTimeDisplayType = sender.displayType
-        setTrackTimeDisplayType(to: playerUIState.trackTimeDisplayType)
+        playerUIState.playbackPositionDisplayType = sender.displayType
+        setPlaybackPositionDisplayType(to: playerUIState.playbackPositionDisplayType)
     }
     
     override func updateDuration(for track: Track?) {
@@ -103,14 +103,14 @@ extension WidgetPlayerViewController: NSMenuDelegate {
         
         scrollingEnabledMenuItem.onIf(widgetPlayerUIState.trackInfoScrollingEnabled)
         
-        seekPositionDisplayTypeMenuItem.showIf(widgetPlayerUIState.showTrackTime)
+        seekPositionDisplayTypeMenuItem.showIf(widgetPlayerUIState.showPlaybackPosition)
         
-        showTrackTimeMenuItem.onIf(widgetPlayerUIState.showTrackTime)
-        guard widgetPlayerUIState.showTrackTime else {return}
+        showPlaybackPositionMenuItem.onIf(widgetPlayerUIState.showPlaybackPosition)
+        guard widgetPlayerUIState.showPlaybackPosition else {return}
         
         seekPositionDisplayTypeItems.forEach {$0.off()}
         
-        switch playerUIState.trackTimeDisplayType {
+        switch playerUIState.playbackPositionDisplayType {
         
         case .elapsed:
             
@@ -127,6 +127,6 @@ extension WidgetPlayerViewController: NSMenuDelegate {
     }
 }
 
-class TrackTimeDisplayTypeMenuItem: NSMenuItem {
-    var displayType: TrackTimeDisplayType = .elapsed
+class PlaybackPositionDisplayTypeMenuItem: NSMenuItem {
+    var displayType: PlaybackPositionDisplayType = .elapsed
 }

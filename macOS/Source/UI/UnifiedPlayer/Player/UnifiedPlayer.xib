@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,7 +23,7 @@
                 <outlet property="functionsMenuDelegate" destination="YDH-Lw-Yxg" id="eQY-NZ-Yd8"/>
                 <outlet property="functionsMenuItem" destination="lV5-HH-E3d" id="01e-xt-Ogh"/>
                 <outlet property="infoBox" destination="7BY-ME-fle" id="N5a-6I-eKG"/>
-                <outlet property="lblTrackTime" destination="i4S-AL-UJd" id="h45-XF-9t0"/>
+                <outlet property="lblPlaybackPosition" destination="i4S-AL-UJd" id="h45-XF-9t0"/>
                 <outlet property="lblVolume" destination="N4q-3Q-hsG" id="u8S-s9-gSB"/>
                 <outlet property="multilineTrackTextView" destination="T0r-Cf-1AZ" id="wTB-Wl-2QU"/>
                 <outlet property="seekSlider" destination="oEj-bG-GWe" id="3Dk-vf-tFK"/>
@@ -262,7 +261,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="697" height="70"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="RdT-fa-WIX">
                                     <rect key="frame" x="0.0" y="0.0" width="697" height="70"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" editable="NO" selectable="NO" horizontallyResizable="YES" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="I8f-EI-P2l">
                                             <rect key="frame" x="0.0" y="0.0" width="697" height="70"/>

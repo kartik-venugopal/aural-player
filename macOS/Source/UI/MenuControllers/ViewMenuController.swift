@@ -26,27 +26,11 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        
         toggleChaptersListMenuItem.enableIf(playbackInfoDelegate.chapterCount > 0)
-        
-//        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
-        
-//        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
-//        manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedObjects > 0))
-//        
-//        [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
-//        manageFontSchemesMenuItem.enableIf(!showingModalComponent && (fontSchemesManager.numberOfUserDefinedObjects > 0))
-//        
-//        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
-//        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedObjects > 0))
-        
-        //        manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedObjects.isEmpty)
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuWillOpen(_ menu: NSMenu) {
-        
-//        [togglePlayQueueMenuItem, toggleEffectsMenuItem].forEach {$0?.show()}
         
         togglePlayQueueMenuItem.onIf(appModeManager.isShowingPlayQueue)
         toggleEffectsMenuItem.onIf(appModeManager.isShowingEffects)

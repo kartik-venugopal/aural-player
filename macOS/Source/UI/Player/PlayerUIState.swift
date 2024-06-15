@@ -21,9 +21,9 @@ class PlayerUIState {
     var showCurrentChapter: Bool
     
     var showControls: Bool
-    var showTrackTime: Bool
+    var showPlaybackPosition: Bool
     
-    var trackTimeDisplayType: TrackTimeDisplayType
+    var playbackPositionDisplayType: PlaybackPositionDisplayType
     
     init(persistentState: ModularPlayerUIPersistentState?) {
         
@@ -35,9 +35,9 @@ class PlayerUIState {
         showCurrentChapter = persistentState?.showCurrentChapter ?? PlayerUIDefaults.showCurrentChapter
         
         showControls = persistentState?.showControls ?? PlayerUIDefaults.showControls
-        showTrackTime = persistentState?.showTrackTime ?? PlayerUIDefaults.showTrackTime
+        showPlaybackPosition = persistentState?.showPlaybackPosition ?? PlayerUIDefaults.showPlaybackPosition
         
-        trackTimeDisplayType = persistentState?.trackTimeDisplayType ?? PlayerUIDefaults.trackTimeDisplayType
+        playbackPositionDisplayType = persistentState?.playbackPositionDisplayType ?? PlayerUIDefaults.playbackPositionDisplayType
     }
     
     var persistentState: ModularPlayerUIPersistentState {
@@ -48,8 +48,8 @@ class PlayerUIState {
                                        showAlbum: showAlbum,
                                        showCurrentChapter: showCurrentChapter,
                                        showControls: showControls,
-                                       showTrackTime: showTrackTime,
-                                       trackTimeDisplayType: trackTimeDisplayType)
+                                       showPlaybackPosition: showPlaybackPosition,
+                                       playbackPositionDisplayType: playbackPositionDisplayType)
     }
 }
 
@@ -63,7 +63,7 @@ struct PlayerUIDefaults {
     static let showCurrentChapter: Bool = true
     
     static let showControls: Bool = true
-    static let showTrackTime: Bool = true
+    static let showPlaybackPosition: Bool = true
     
-    static let trackTimeDisplayType: TrackTimeDisplayType = .elapsed
+    static let playbackPositionDisplayType: PlaybackPositionDisplayType = .elapsed
 }

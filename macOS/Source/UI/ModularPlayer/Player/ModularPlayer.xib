@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,7 +23,7 @@
                 <outlet property="functionsMenuDelegate" destination="DlG-hJ-3cs" id="mxR-hr-gs4"/>
                 <outlet property="functionsMenuItem" destination="gVO-3W-k3p" id="pdc-JI-bP7"/>
                 <outlet property="infoBox" destination="Bp8-ZH-oj4" id="Z2Z-fX-1Ne"/>
-                <outlet property="lblTrackTime" destination="UMU-Of-gsK" id="scX-sn-NR5"/>
+                <outlet property="lblPlaybackPosition" destination="UMU-Of-gsK" id="scX-sn-NR5"/>
                 <outlet property="lblVolume" destination="JA2-KP-B0h" id="dSZ-MR-prm"/>
                 <outlet property="multilineTrackTextView" destination="mEf-IM-kjw" id="98f-bZ-ZqG"/>
                 <outlet property="seekSlider" destination="Oms-36-T5n" id="Rp8-bp-vHf"/>
@@ -72,7 +71,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="Chc-FL-7dK">
                                     <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" editable="NO" selectable="NO" horizontallyResizable="YES" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="lcR-Xs-exq">
                                             <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>

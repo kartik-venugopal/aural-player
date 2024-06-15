@@ -21,7 +21,7 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
     
     @IBOutlet weak var scrollingTrackTextView: ScrollingTrackTextView!
     
-    @IBOutlet weak var lblTrackTime: NSTextField!
+    @IBOutlet weak var lblPlaybackPosition: NSTextField!
     
     // Toggle buttons (their images change)
     @IBOutlet weak var btnPlayPause: NSButton!
@@ -108,24 +108,24 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
     
     private var artViewConstraints: LayoutConstraintsManager!
     private var textViewConstraints: LayoutConstraintsManager!
-    private var lblTrackTimeConstraints: LayoutConstraintsManager!
+    private var lblPlaybackPositionConstraints: LayoutConstraintsManager!
     private var seekSliderConstraints: LayoutConstraintsManager!
     
     private static let chapterChangePollingTaskId: String = "ChapterChangePollingTask"
     
-    var showTrackTime: Bool {
-        playerUIState.showTrackTime
+    var showPlaybackPosition: Bool {
+        playerUIState.showPlaybackPosition
     }
     
     var displaysChapterIndicator: Bool {
         true
     }
     
-    var trackTimeFont: NSFont {
+    var playbackPositionFont: NSFont {
         systemFontScheme.normalFont
     }
     
-    var trackTimeColor: NSColor {
+    var playbackPositionColor: NSColor {
         systemColorScheme.primaryTextColor
     }
     
@@ -200,7 +200,7 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         artViewConstraints.setHeight(46)
         
         // Constraint managers
-        lblTrackTimeConstraints = LayoutConstraintsManager(for: lblTrackTime)
+        lblPlaybackPositionConstraints = LayoutConstraintsManager(for: lblPlaybackPosition)
         seekSliderConstraints = LayoutConstraintsManager(for: seekSlider)
         textViewConstraints = LayoutConstraintsManager(for: scrollingTextViewContainerBox)
         
@@ -208,8 +208,8 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         seekSliderConstraints.setLeading(relatedToLeadingOf: scrollingTrackTextView, offset: -1)
         seekSliderConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -Self.distanceBetweenControlsAndInfo)
         
-        lblTrackTimeConstraints.setHeight(scrollingTrackTextView.height)
-        lblTrackTimeConstraints.centerVerticallyInSuperview(offset: 0)
+        lblPlaybackPositionConstraints.setHeight(scrollingTrackTextView.height)
+        lblPlaybackPositionConstraints.centerVerticallyInSuperview(offset: 0)
         
         layoutScrollingTrackTextView()
         scrollingTrackTextView.scrollingEnabled = widgetPlayerUIState.trackInfoScrollingEnabled
@@ -226,11 +226,11 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         
         guard let track = playbackDelegate.playingTrack else {return 0}
         
-        let widthOfWidestNumber = String.widthOfWidestNumber(forFont: trackTimeFont)
+        let widthOfWidestNumber = String.widthOfWidestNumber(forFont: playbackPositionFont)
         let duration = track.duration
         
-        let trackTimes = ValueFormatter.formatTrackTimes(0, duration, 0)
-        let widthOfTimeRemainingString = CGFloat(trackTimes.remaining.count)
+        let playbackPositions = ValueFormatter.formatPlaybackPositions(0, duration, 0)
+        let widthOfTimeRemainingString = CGFloat(playbackPositions.remaining.count)
 
         return widthOfTimeRemainingString * widthOfWidestNumber
     }
@@ -239,24 +239,24 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         
         var labelWidth: CGFloat = 0
         
-        if showTrackTime {
+        if showPlaybackPosition {
             
-            lblTrackTimeConstraints.removeAll(withAttributes: [.width, .trailing])
+            lblPlaybackPositionConstraints.removeAll(withAttributes: [.width, .trailing])
             labelWidth = widthForSeekPosLabel + 5 // Compute the required width and add some padding.
             
-            lblTrackTimeConstraints.setWidth(labelWidth)
-            lblTrackTimeConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -Self.distanceBetweenControlsAndInfo)
+            lblPlaybackPositionConstraints.setWidth(labelWidth)
+            lblPlaybackPositionConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -Self.distanceBetweenControlsAndInfo)
         }
         
         // Text view
         textViewConstraints.removeAll(withAttributes: [.trailing])
         textViewConstraints.setTrailing(relatedToLeadingOf: btnRepeat,
-                                        offset: -(Self.distanceBetweenControlsAndInfo + (showTrackTime ? labelWidth : 1)))
+                                        offset: -(Self.distanceBetweenControlsAndInfo + (showPlaybackPosition ? labelWidth : 1)))
     }
     
     func setUpPlaybackControls() {
         
-        lblTrackTime.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.toggleTrackTimeDisplayTypeAction(_:))))
+        lblPlaybackPosition.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.togglePlaybackPositionDisplayTypeAction(_:))))
         
         if var peekingPreviousTrackButton = btnPreviousTrack as? TrackPeekingButtonProtocol {
             
@@ -359,7 +359,7 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         let isPlayingTrack = track != nil
         seekSlider.enableIf(isPlayingTrack)
         seekSlider.showIf(isPlayingTrack)
-        lblTrackTime.showIf(isPlayingTrack && showTrackTime)
+        lblPlaybackPosition.showIf(isPlayingTrack && showPlaybackPosition)
         playbackLoopChanged()
         
         // Seek timer tasks
@@ -423,7 +423,7 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
     func fontSchemeChanged() {
         
         updateTrackTextViewFonts()
-        lblTrackTime.font = trackTimeFont
+        lblPlaybackPosition.font = playbackPositionFont
         lblVolume.font = volumeLevelFont
     }
     
@@ -481,7 +481,7 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         
         artViewTintColorChanged(systemColorScheme.secondaryTextColor)
         
-        lblTrackTime.textColor = trackTimeColor
+        lblPlaybackPosition.textColor = playbackPositionColor
         
         [btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach {
             $0?.colorChanged(systemColorScheme.buttonColor)
@@ -561,8 +561,8 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         messenger.subscribe(to: .Player.showOrHideAlbum, handler: showOrHideAlbum)
         messenger.subscribe(to: .Player.showOrHideCurrentChapter, handler: showOrHideCurrentChapter)
         messenger.subscribe(to: .Player.showOrHideMainControls, handler: showOrHideMainControls)
-        messenger.subscribe(to: .Player.showOrHideTrackTime, handler: showOrHideTrackTime)
-        messenger.subscribe(to: .Player.setTrackTimeDisplayType, handler: setTrackTimeDisplayType(to:))
+        messenger.subscribe(to: .Player.showOrHidePlaybackPosition, handler: showOrHidePlaybackPosition)
+        messenger.subscribe(to: .Player.setPlaybackPositionDisplayType, handler: setPlaybackPositionDisplayType(to:))
         
         messenger.subscribe(to: .Player.trackInfo, handler: showTrackInfo)
     }
@@ -709,10 +709,10 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         messenger.publish(.Player.playbackLoopChanged)
     }
     
-    @IBAction func toggleTrackTimeDisplayTypeAction(_ sender: NSTextField) {
+    @IBAction func togglePlaybackPositionDisplayTypeAction(_ sender: NSTextField) {
         
-        playerUIState.trackTimeDisplayType = playerUIState.trackTimeDisplayType.toggle()
-        setTrackTimeDisplayType(to: playerUIState.trackTimeDisplayType)
+        playerUIState.playbackPositionDisplayType = playerUIState.playbackPositionDisplayType.toggle()
+        setPlaybackPositionDisplayType(to: playerUIState.playbackPositionDisplayType)
     }
     
     func updateSeekPosition() {
@@ -720,8 +720,8 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         let seekPosn = playbackDelegate.seekPosition
         seekSlider.doubleValue = seekPosn.percentageElapsed
         
-        lblTrackTime.stringValue = ValueFormatter.formatTrackTime(elapsedSeconds: seekPosn.timeElapsed, duration: seekPosn.trackDuration,
-                                                                  percentageElapsed: seekPosn.percentageElapsed, trackTimeDisplayType: playerUIState.trackTimeDisplayType)
+        lblPlaybackPosition.stringValue = ValueFormatter.formatPlaybackPosition(elapsedSeconds: seekPosn.timeElapsed, duration: seekPosn.trackDuration,
+                                                                  percentageElapsed: seekPosn.percentageElapsed, playbackPositionDisplayType: playerUIState.playbackPositionDisplayType)
         
         for task in seekTimerTaskQueue.tasks {
             task()
@@ -937,17 +937,17 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         
     }
     
-    func showOrHideTrackTime() {
+    func showOrHidePlaybackPosition() {
         
-        lblTrackTime.showIf(playbackDelegate.playingTrack != nil && showTrackTime)
+        lblPlaybackPosition.showIf(playbackDelegate.playingTrack != nil && showPlaybackPosition)
         updateSeekTimerState()
     }
     
-    func setTrackTimeDisplayType(to format: TrackTimeDisplayType) {
+    func setPlaybackPositionDisplayType(to format: PlaybackPositionDisplayType) {
         
         let seekPosn = playbackDelegate.seekPosition
-        lblTrackTime.stringValue = ValueFormatter.formatTrackTime(elapsedSeconds: seekPosn.timeElapsed, duration: seekPosn.trackDuration,
-                                                                  percentageElapsed: seekPosn.percentageElapsed, trackTimeDisplayType: playerUIState.trackTimeDisplayType)
+        lblPlaybackPosition.stringValue = ValueFormatter.formatPlaybackPosition(elapsedSeconds: seekPosn.timeElapsed, duration: seekPosn.trackDuration,
+                                                                  percentageElapsed: seekPosn.percentageElapsed, playbackPositionDisplayType: playerUIState.playbackPositionDisplayType)
         
         updateSeekTimerState()
     }
@@ -1018,8 +1018,8 @@ extension PlayerViewController: ThemeInitialization {
         
         updateTrackTextViewFontsAndColors()
         
-        lblTrackTime.font = trackTimeFont
-        lblTrackTime.textColor = trackTimeColor
+        lblPlaybackPosition.font = playbackPositionFont
+        lblPlaybackPosition.textColor = playbackPositionColor
         
         lblVolume.font = volumeLevelFont
         lblVolume.textColor = volumeLevelColor

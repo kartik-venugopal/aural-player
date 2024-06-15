@@ -37,7 +37,7 @@ class UnifiedPlayerViewController: PlayerViewController {
         // Assume controls are hidden
         
         // Check if we need to update track time
-        if playerUIState.showTrackTime && playerUIState.trackTimeDisplayType != .duration {
+        if playerUIState.showPlaybackPosition && playerUIState.playbackPositionDisplayType != .duration {
             return true
         }
         

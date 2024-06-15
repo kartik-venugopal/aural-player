@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,7 +22,7 @@
                 <outlet property="btnUnifiedMode" destination="fOP-lC-pbG" id="HD3-04-Sef"/>
                 <outlet property="btnVolume" destination="lt1-d9-2mN" id="hKv-Yp-vBu"/>
                 <outlet property="btnWidgetMode" destination="d0q-xP-bTY" id="ohB-MM-ujb"/>
-                <outlet property="lblTrackTime" destination="D24-2X-fE6" id="XWd-QC-B4g"/>
+                <outlet property="lblPlaybackPosition" destination="D24-2X-fE6" id="XWd-QC-B4g"/>
                 <outlet property="lblVolume" destination="KgP-XY-h6e" id="eR1-JY-aBL"/>
                 <outlet property="logoImage" destination="sz6-pu-dBE" id="sKk-0i-xZe"/>
                 <outlet property="multilineTrackTextView" destination="336-LV-XbM" id="xAF-Sg-s3z"/>
@@ -329,7 +328,7 @@ DQ
                             <autoresizingMask key="autoresizingMask"/>
                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="m8E-23-sb7">
                                 <rect key="frame" x="0.0" y="0.0" width="210" height="70"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <textView focusRingType="none" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="RZo-dd-cn3">
                                         <rect key="frame" x="0.0" y="0.0" width="210" height="70"/>
@@ -360,7 +359,7 @@ DQ
                 </view>
             </subviews>
             <connections>
-                <outlet property="lblTrackTime" destination="D24-2X-fE6" id="hUk-Fv-dL5"/>
+                <outlet property="lblPlaybackPosition" destination="D24-2X-fE6" id="hUk-Fv-dL5"/>
                 <outlet property="seekSlider" destination="m0V-zo-4fd" id="Q9r-fI-qhF"/>
                 <outlet property="seekSliderCell" destination="vca-5L-2ob" id="hWK-bR-wzS"/>
             </connections>
@@ -378,6 +377,6 @@ DQ
         <image name="forward.end" catalog="system" width="13" height="13"/>
         <image name="repeat" catalog="system" width="17" height="14"/>
         <image name="shuffle" catalog="system" width="18" height="14"/>
-        <image name="speaker.wave.2" catalog="system" width="24" height="18"/>
+        <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
     </resources>
 </document>

@@ -184,7 +184,7 @@ class AuralPlayerNode: AVAudioPlayerNode {
 
         // If an exact start frame is specified, use it.
         // Otherwise, multiply sample rate by the new seek time in seconds to obtain the start frame.
-        var firstFrame: AVAudioFramePosition = startFrame ?? AVAudioFramePosition.fromTrackTime(startTime, sampleRate)
+        var firstFrame: AVAudioFramePosition = startFrame ?? AVAudioFramePosition.fromPlaybackPosition(startTime, sampleRate)
 
         var lastFrame: AVAudioFramePosition
         var segmentEndTime: Double
@@ -193,7 +193,7 @@ class AuralPlayerNode: AVAudioPlayerNode {
         if let theEndTime = endTime {
 
             // Use loop end time to calculate the last frame. Ensure the last frame doesn't go past the actual last frame in the file. Rounding may cause this problem.
-            lastFrame = min(AVAudioFramePosition.fromTrackTime(theEndTime, sampleRate), lastFrameInFile)
+            lastFrame = min(AVAudioFramePosition.fromPlaybackPosition(theEndTime, sampleRate), lastFrameInFile)
             segmentEndTime = theEndTime
 
         } else {
@@ -215,7 +215,7 @@ class AuralPlayerNode: AVAudioPlayerNode {
         }
 
         // If startFrame is specified, use it to calculate a precise start time.
-        let segmentStartTime: Double = startFrame?.toTrackTime(sampleRate) ?? startTime
+        let segmentStartTime: Double = startFrame?.toPlaybackPosition(sampleRate) ?? startTime
         return PlaybackSegment(session, playingFile, firstFrame, lastFrame, AVAudioFrameCount(frameCount),
                                segmentStartTime, segmentEndTime)
     }

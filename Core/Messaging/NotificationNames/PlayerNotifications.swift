@@ -180,10 +180,10 @@ extension Notification.Name {
         static let showOrHideMainControls = Notification.Name("player_showOrHideMainControls")
         
         // Commands the player to show or hide the seek time elapsed/remaining displays.
-        static let showOrHideTrackTime = Notification.Name("player_showOrHideTrackTime")
+        static let showOrHidePlaybackPosition = Notification.Name("player_showOrHidePlaybackPosition")
         
         // Commands the player to set the format of the seek time elapsed display to a specific format.
-        static let setTrackTimeDisplayType = Notification.Name("player_setTrackTimeDisplayType")
+        static let setPlaybackPositionDisplayType = Notification.Name("player_setPlaybackPositionDisplayType")
         
         // ----------------------------------------------------------------------------------------
         

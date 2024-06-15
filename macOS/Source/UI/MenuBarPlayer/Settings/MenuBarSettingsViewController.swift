@@ -50,7 +50,7 @@ class MenuBarSettingsViewController: NSViewController {
         btnShowArtist.onIf(menuBarPlayerUIState.showArtist)
         btnShowChapterTitle.onIf(menuBarPlayerUIState.showCurrentChapter)
         
-        switch playerUIState.trackTimeDisplayType {
+        switch playerUIState.playbackPositionDisplayType {
             
         case .elapsed:
             btnTimeElapsed.on()
@@ -96,9 +96,9 @@ class MenuBarSettingsViewController: NSViewController {
         messenger.publish(.MenuBarPlayer.togglePlayQueue)
     }
     
-    @IBAction func trackTimeDisplayTypeAction(_ sender: RadioButton) {
+    @IBAction func playbackPositionDisplayTypeAction(_ sender: RadioButton) {
         
-        let displayType: TrackTimeDisplayType
+        let displayType: PlaybackPositionDisplayType
         
         switch sender.tag {
             
@@ -115,8 +115,8 @@ class MenuBarSettingsViewController: NSViewController {
             return
         }
         
-        playerUIState.trackTimeDisplayType = displayType
-        messenger.publish(.Player.setTrackTimeDisplayType, payload: displayType)
+        playerUIState.playbackPositionDisplayType = displayType
+        messenger.publish(.Player.setPlaybackPositionDisplayType, payload: displayType)
     }
     
     @IBAction func closeAction(_ sender: NSButton) {

@@ -11,11 +11,11 @@ import AVFoundation
 
 extension AVAudioFramePosition {
     
-    static func fromTrackTime(_ trackTime: Double, _ sampleRate: Double) -> AVAudioFramePosition {
-        return AVAudioFramePosition(round(trackTime * sampleRate))
+    static func fromPlaybackPosition(_ playbackPosition: Double, _ sampleRate: Double) -> AVAudioFramePosition {
+        return AVAudioFramePosition(round(playbackPosition * sampleRate))
     }
     
-    func toTrackTime(_ sampleRate: Double) -> Double {
+    func toPlaybackPosition(_ sampleRate: Double) -> Double {
         return Double(self) / sampleRate
     }
 }

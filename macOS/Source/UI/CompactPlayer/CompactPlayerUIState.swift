@@ -29,7 +29,7 @@ class CompactPlayerUIState {
     
     var trackInfoScrollingEnabled: Bool
     
-    var showTrackTime: Bool
+    var showPlaybackPosition: Bool
     
     init(persistentState: CompactPlayerUIPersistentState?) {
         
@@ -38,7 +38,7 @@ class CompactPlayerUIState {
         
         trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
         
-        showTrackTime = persistentState?.showTrackTime ?? true
+        showPlaybackPosition = persistentState?.showPlaybackPosition ?? true
     }
     
     var persistentState: CompactPlayerUIPersistentState {
@@ -52,7 +52,7 @@ class CompactPlayerUIState {
         return CompactPlayerUIPersistentState(windowLocation: windowLocation,
                                               cornerRadius: cornerRadius,
                                               trackInfoScrollingEnabled: trackInfoScrollingEnabled,
-                                              showTrackTime: showTrackTime)
+                                              showPlaybackPosition: showPlaybackPosition)
     }
 }
 

@@ -207,7 +207,6 @@
 		3E6C121F25CEBDE600BF0D07 /* ControlsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F2925CEB98500BF0D07 /* ControlsPreferences.xib */; };
 		3E6C122125CEBDE600BF0D07 /* ColorSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1E25CEB98500BF0D07 /* ColorSchemePopupMenuController.swift */; };
 		3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F3925CEB98600BF0D07 /* SoundPreferences.xib */; };
-		3E6C122325CEBDE600BF0D07 /* SettingsPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F2325CEB98500BF0D07 /* SettingsPopupMenuController.swift */; };
 		3E6C122525CEBDE600BF0D07 /* PlaybackPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F2F25CEB98500BF0D07 /* PlaybackPreferencesViewController.swift */; };
 		3E6C122725CEBDE600BF0D07 /* ControlsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F2A25CEB98500BF0D07 /* ControlsPreferencesViewController.swift */; };
 		3E6C122925CEBDE600BF0D07 /* ModularPlayerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1F25CEB98500BF0D07 /* ModularPlayerWindowController.swift */; };
@@ -343,7 +342,7 @@
 		3E6C130125CEBE8F00BF0D07 /* JumpToTimeEditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104D25CEB98600BF0D07 /* JumpToTimeEditorWindowController.swift */; };
 		3E6C130325CEBE8F00BF0D07 /* MetadataTrackInfoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103725CEB98600BF0D07 /* MetadataTrackInfoSource.swift */; };
 		3E6C130525CEBE8F00BF0D07 /* WindowLayoutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105025CEB98600BF0D07 /* WindowLayoutsManager.swift */; };
-		3E6C130925CEBE8F00BF0D07 /* SeekTimeFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */; };
+		3E6C130925CEBE8F00BF0D07 /* PlaybackPositionDisplayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104525CEB98600BF0D07 /* PlaybackPositionDisplayType.swift */; };
 		3E6C130B25CEBE8F00BF0D07 /* FileSystemTrackInfoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103B25CEB98600BF0D07 /* FileSystemTrackInfoSource.swift */; };
 		3E6C130C25CEBE8F00BF0D07 /* WindowLayoutPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */; };
 		3E6C130E25CEBE8F00BF0D07 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103825CEB98600BF0D07 /* PopoverContentView.swift */; };
@@ -1219,7 +1218,6 @@
 		3E6C0F1F25CEB98500BF0D07 /* ModularPlayerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModularPlayerWindowController.swift; sourceTree = "<group>"; };
 		3E6C0F2025CEB98500BF0D07 /* ModularPlayerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModularPlayerWindow.xib; sourceTree = "<group>"; };
 		3E6C0F2225CEB98500BF0D07 /* WindowLayoutPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutPopupMenuController.swift; sourceTree = "<group>"; };
-		3E6C0F2325CEB98500BF0D07 /* SettingsPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPopupMenuController.swift; sourceTree = "<group>"; };
 		3E6C0F2625CEB98500BF0D07 /* PlayQueuePreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayQueuePreferences.xib; sourceTree = "<group>"; };
 		3E6C0F2725CEB98500BF0D07 /* PlayQueuePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueuePreferencesViewController.swift; sourceTree = "<group>"; };
 		3E6C0F2925CEB98500BF0D07 /* ControlsPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlsPreferences.xib; sourceTree = "<group>"; };
@@ -1367,7 +1365,7 @@
 		3E6C103C25CEB98600BF0D07 /* CoverArtTrackInfoSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtTrackInfoSource.swift; sourceTree = "<group>"; };
 		3E6C103E25CEB98600BF0D07 /* AudioTrackInfoSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrackInfoSource.swift; sourceTree = "<group>"; };
 		3E6C104225CEB98600BF0D07 /* ModularPlayer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModularPlayer.xib; sourceTree = "<group>"; };
-		3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekTimeFormats.swift; sourceTree = "<group>"; };
+		3E6C104525CEB98600BF0D07 /* PlaybackPositionDisplayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPositionDisplayType.swift; sourceTree = "<group>"; };
 		3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewPopupMenuController.swift; sourceTree = "<group>"; };
 		3E6C104D25CEB98600BF0D07 /* JumpToTimeEditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpToTimeEditorWindowController.swift; sourceTree = "<group>"; };
 		3E6C104E25CEB98600BF0D07 /* JumpToTimeEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JumpToTimeEditorDialog.xib; sourceTree = "<group>"; };
@@ -3219,7 +3217,6 @@
 				3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */,
 				3E6C0F1E25CEB98500BF0D07 /* ColorSchemePopupMenuController.swift */,
 				3E6C0F2225CEB98500BF0D07 /* WindowLayoutPopupMenuController.swift */,
-				3E6C0F2325CEB98500BF0D07 /* SettingsPopupMenuController.swift */,
 				3E6C0FDE25CEB98600BF0D07 /* HistoryMenuControllers.swift */,
 				3E6C0FDF25CEB98600BF0D07 /* PlaylistMenuController.swift */,
 				3E6C0FE025CEB98600BF0D07 /* PlaybackMenuController.swift */,
@@ -3978,7 +3975,7 @@
 			isa = PBXGroup;
 			children = (
 				3E8C7917269C40FC005E78D1 /* UserInputMode.swift */,
-				3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */,
+				3E6C104525CEB98600BF0D07 /* PlaybackPositionDisplayType.swift */,
 				3E8C791D269C4196005E78D1 /* PlaylistViewSelector.swift */,
 				3EC29A5E27865CB500B29551 /* Images.swift */,
 				3EAFB5F9267FEEEA00F0DC96 /* NSImageExtensions.swift */,
@@ -5988,13 +5985,12 @@
 				3E8FF9DE27F634D7009CEDDD /* MetadataType.swift in Sources */,
 				3EFE39E127864898006F8B8C /* PlaybackProfilePersistentState.swift in Sources */,
 				3EFE391327864897006F8B8C /* URLExtensions.swift in Sources */,
-				3E6C130925CEBE8F00BF0D07 /* SeekTimeFormats.swift in Sources */,
+				3E6C130925CEBE8F00BF0D07 /* PlaybackPositionDisplayType.swift in Sources */,
 				3E2B755B2BED81B90096AB2F /* LegacyControlsPreferences.swift in Sources */,
 				3EFE398F27864897006F8B8C /* PlaybackProfiles.swift in Sources */,
 				3E9D707127C1E30100CAC4F1 /* DevicesViewController.swift in Sources */,
 				3E46AEE12BD4863C00789A91 /* LastFMPreferences.swift in Sources */,
 				3E6C12D825CEBE8100BF0D07 /* SeekTimerTaskQueue.swift in Sources */,
-				3E6C122325CEBDE600BF0D07 /* SettingsPopupMenuController.swift in Sources */,
 				3EB3A60E26A744C80060487C /* SingletonPopoverViewController.swift in Sources */,
 				3E10178E28D7713B002C0D8E /* FFmpegMetadataReader.swift in Sources */,
 				3E4A90FE27F79AFA003A6C80 /* WindowID.swift in Sources */,

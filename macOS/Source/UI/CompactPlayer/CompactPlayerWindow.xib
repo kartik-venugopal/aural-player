@@ -126,19 +126,19 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <menu key="submenu" title="Seek position display" id="ekz-ZO-i4a">
                                                                     <items>
-                                                                        <menuItem title="Time elapsed" state="on" id="Bpy-xd-WOj" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                        <menuItem title="Time elapsed" state="on" id="Bpy-xd-WOj" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                             <connections>
                                                                                 <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="rN7-6e-Ko2"/>
                                                                             </connections>
                                                                         </menuItem>
-                                                                        <menuItem title="Time remaining" tag="1" id="hZW-qV-AL5" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                        <menuItem title="Time remaining" tag="1" id="hZW-qV-AL5" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                             <connections>
                                                                                 <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="1uT-1V-Fdx"/>
                                                                             </connections>
                                                                         </menuItem>
-                                                                        <menuItem title="Track duration" tag="2" id="5jA-HD-rVz" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                        <menuItem title="Track duration" tag="2" id="5jA-HD-rVz" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                             <connections>
                                                                                 <action selector="changeSeekPositionDisplayTypeAction:" target="9Am-6j-VlW" id="7Rv-9w-k7d"/>
@@ -431,9 +431,9 @@
                 <outlet property="seekPositionDisplayTypeMenuItem" destination="8Qz-Rt-MXv" id="7JD-UJ-fVc"/>
                 <outlet property="showChaptersListMenuItem" destination="5ya-Z0-y1v" id="qqD-OL-93N"/>
                 <outlet property="showPlayQueueMenuItem" destination="Mrs-Bh-3AU" id="TBC-du-pcJ"/>
+                <outlet property="showPlaybackPositionMenuItem" destination="MGI-V4-Lod" id="G34-hx-xt7"/>
                 <outlet property="showPlayerMenuItem" destination="BQn-Yq-vQk" id="An1-0w-Xwc"/>
                 <outlet property="showTrackInfoMenuItem" destination="lsw-pi-g5q" id="txl-WN-OKD"/>
-                <outlet property="showTrackTimeMenuItem" destination="MGI-V4-Lod" id="G34-hx-xt7"/>
                 <outlet property="timeElapsedMenuItem" destination="Bpy-xd-WOj" id="abj-Ud-uvh"/>
                 <outlet property="timeRemainingMenuItem" destination="hZW-qV-AL5" id="SOT-gI-VgQ"/>
                 <outlet property="toggleEffectsMenuItem" destination="JQP-n6-B5o" id="bi7-5p-PyE"/>

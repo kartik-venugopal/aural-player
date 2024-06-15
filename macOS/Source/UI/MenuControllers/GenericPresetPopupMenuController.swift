@@ -48,6 +48,19 @@ extension GenericPresetPopupMenuController: NSMenuDelegate {
     
     override func awakeFromNib() {
         
+        //        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
+                
+        //        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
+        //        manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedObjects > 0))
+        //
+        //        [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
+        //        manageFontSchemesMenuItem.enableIf(!showingModalComponent && (fontSchemesManager.numberOfUserDefinedObjects > 0))
+        //
+        //        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
+        //        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedObjects > 0))
+                
+                //        manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedObjects.isEmpty)
+        
         theMenu.insertItem(NSMenuItem.createDescriptor(title: "Built-in \(descriptionOfPreset_plural)"), at: 0)
         theMenu.insertItem(NSMenuItem.separator(), at: 0)
         

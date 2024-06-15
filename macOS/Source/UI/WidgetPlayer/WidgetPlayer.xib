@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -257,19 +256,19 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Seek position display" id="TBs-tP-j8q">
                                                         <items>
-                                                            <menuItem title="Time elapsed" state="on" id="Fax-Qw-7a9" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                            <menuItem title="Time elapsed" state="on" id="Fax-Qw-7a9" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="IkQ-3b-gGL"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Time remaining" tag="1" id="4M7-PM-McI" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                            <menuItem title="Time remaining" tag="1" id="4M7-PM-McI" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="FG8-iG-wqW"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Track duration" tag="2" id="2Uw-dq-NqZ" customClass="TrackTimeDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                            <menuItem title="Track duration" tag="2" id="2Uw-dq-NqZ" customClass="PlaybackPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="O8M-so-6zf"/>
@@ -594,7 +593,7 @@
                                 <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="35" id="x29-1E-zNF"/>
                             </constraints>
                             <connections>
-                                <outlet property="lblTrackTime" destination="iv0-Qr-jOE" id="cfj-RX-rgQ"/>
+                                <outlet property="lblPlaybackPosition" destination="iv0-Qr-jOE" id="cfj-RX-rgQ"/>
                                 <outlet property="seekSlider" destination="oBR-SZ-2k2" id="F4W-yv-Xo5"/>
                                 <outlet property="seekSliderCell" destination="ovd-HG-pIx" id="ghM-zZ-Pnd"/>
                             </connections>
@@ -639,7 +638,7 @@
                 <outlet property="btnSeekForward" destination="KtZ-rZ-MnJ" id="y88-yg-AHC"/>
                 <outlet property="btnShuffle" destination="Hat-OP-WNr" id="URm-je-RdN"/>
                 <outlet property="btnVolume" destination="cQe-K3-rAJ" id="Asv-yB-bbx"/>
-                <outlet property="lblTrackTime" destination="iv0-Qr-jOE" id="odb-oG-uH1"/>
+                <outlet property="lblPlaybackPosition" destination="iv0-Qr-jOE" id="odb-oG-uH1"/>
                 <outlet property="lblVolume" destination="5Wc-og-czo" id="kHS-IC-PIC"/>
                 <outlet property="scrollingEnabledMenuItem" destination="Kmj-co-2pl" id="sEH-pY-Bv8"/>
                 <outlet property="scrollingTextViewContainerBox" destination="4eB-tw-tmb" id="Gsy-fe-Lmp"/>
@@ -647,7 +646,7 @@
                 <outlet property="seekPositionDisplayTypeMenuItem" destination="1kM-98-n5Y" id="Upi-zI-ERa"/>
                 <outlet property="seekSlider" destination="oBR-SZ-2k2" id="vpD-ju-zWN"/>
                 <outlet property="seekSliderCell" destination="ovd-HG-pIx" id="MeP-i3-tuI"/>
-                <outlet property="showTrackTimeMenuItem" destination="h7t-6S-pQK" id="D1u-kE-Zmd"/>
+                <outlet property="showPlaybackPositionMenuItem" destination="h7t-6S-pQK" id="D1u-kE-Zmd"/>
                 <outlet property="timeElapsedMenuItem" destination="Fax-Qw-7a9" id="Jay-54-cx8"/>
                 <outlet property="timeRemainingMenuItem" destination="4M7-PM-McI" id="iFg-e8-Mkg"/>
                 <outlet property="trackDurationMenuItem" destination="2Uw-dq-NqZ" id="5PV-Xm-3ZR"/>

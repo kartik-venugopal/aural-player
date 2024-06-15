@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -98,7 +97,7 @@
                                             <font key="font" size="13" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="trackTimeDisplayTypeAction:" target="-2" id="tqx-2J-K1J"/>
+                                            <action selector="playbackPositionDisplayTypeAction:" target="-2" id="tqx-2J-K1J"/>
                                         </connections>
                                     </button>
                                     <button tag="1" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ggm-yA-8AJ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
@@ -109,7 +108,7 @@
                                             <font key="font" size="13" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="trackTimeDisplayTypeAction:" target="-2" id="ZvR-bD-cEj"/>
+                                            <action selector="playbackPositionDisplayTypeAction:" target="-2" id="ZvR-bD-cEj"/>
                                         </connections>
                                     </button>
                                     <button tag="2" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LcT-R3-ZXs" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
@@ -120,7 +119,7 @@
                                             <font key="font" size="13" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="trackTimeDisplayTypeAction:" target="-2" id="chY-ON-A2G"/>
+                                            <action selector="playbackPositionDisplayTypeAction:" target="-2" id="chY-ON-A2G"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -167,7 +166,7 @@ Scheme</string>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <clipView key="contentView" copiesOnScroll="NO" id="VWH-sg-eHf">
                                                                 <rect key="frame" x="1" y="1" width="213" height="188"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" viewBased="YES" id="Yxq-Bi-hXX">
                                                                         <rect key="frame" x="0.0" y="0.0" width="213" height="188"/>
@@ -189,11 +188,11 @@ Scheme</string>
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="LGh-PY-8G2">
-                                                                                        <rect key="frame" x="2" y="0.0" width="200" height="26"/>
+                                                                                        <rect key="frame" x="12" y="0.0" width="207" height="26"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KS8-YW-sxY" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="200" height="26"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="207" height="26"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="D83-RB-eUT">
                                                                                                     <font key="font" usesAppearanceFont="YES"/>
@@ -240,7 +239,7 @@ Scheme</string>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <clipView key="contentView" copiesOnScroll="NO" id="gzE-lr-e6k">
                                                                 <rect key="frame" x="1" y="1" width="213" height="188"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" viewBased="YES" id="KcU-j0-iUL">
                                                                         <rect key="frame" x="0.0" y="0.0" width="213" height="188"/>
@@ -262,11 +261,11 @@ Scheme</string>
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="KMq-zO-Gwi">
-                                                                                        <rect key="frame" x="2" y="0.0" width="219" height="26"/>
+                                                                                        <rect key="frame" x="12" y="0.0" width="207" height="26"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tPh-F7-XeG" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="219" height="26"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="207" height="26"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="htU-2G-urZ">
                                                                                                     <font key="font" usesAppearanceFont="YES"/>
@@ -311,7 +310,7 @@ Scheme</string>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <clipView key="contentView" copiesOnScroll="NO" id="2fA-aZ-TPg">
                                                                 <rect key="frame" x="1" y="1" width="213" height="188"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" viewBased="YES" id="3Zn-EX-JyT">
                                                                         <rect key="frame" x="0.0" y="0.0" width="213" height="188"/>
@@ -333,11 +332,11 @@ Scheme</string>
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="6Sq-x9-iuP">
-                                                                                        <rect key="frame" x="2" y="0.0" width="219" height="26"/>
+                                                                                        <rect key="frame" x="12" y="0.0" width="207" height="26"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9J-LF-fR8" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="219" height="26"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="207" height="26"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="va2-pn-Bvn">
                                                                                                     <font key="font" usesAppearanceFont="YES"/>

@@ -25,13 +25,13 @@ struct WidgetPlayerUIPersistentState: Codable {
     let cornerRadius: CGFloat?
     
     let trackInfoScrollingEnabled: Bool?
-    let showTrackTime: Bool?
+    let showPlaybackPosition: Bool?
     
-    init(windowFrame: NSRectPersistentState?, cornerRadius: CGFloat?, trackInfoScrollingEnabled: Bool?, showTrackTime: Bool?) {
+    init(windowFrame: NSRectPersistentState?, cornerRadius: CGFloat?, trackInfoScrollingEnabled: Bool?, showPlaybackPosition: Bool?) {
         self.windowFrame = windowFrame
         self.cornerRadius = cornerRadius
         self.trackInfoScrollingEnabled = trackInfoScrollingEnabled
-        self.showTrackTime = showTrackTime
+        self.showPlaybackPosition = showPlaybackPosition
     }
     
     init(legacyPersistentState: LegacyControlBarPlayerUIPersistentState?) {
@@ -51,6 +51,6 @@ struct WidgetPlayerUIPersistentState: Codable {
         self.cornerRadius = legacyPersistentState?.cornerRadius?.clamped(to: WidgetPlayerUIState.cornerRadiusRange)
         
         self.trackInfoScrollingEnabled = legacyPersistentState?.trackInfoScrollingEnabled
-        self.showTrackTime = legacyPersistentState?.showSeekPosition
+        self.showPlaybackPosition = legacyPersistentState?.showSeekPosition
     }
 }

@@ -27,6 +27,6 @@ extension Notification.Name {
         
         static let toggleShowSeekPosition = Notification.Name("compactPlayer_toggleShowSeekPosition")
         
-        static let changeTrackTimeDisplayType = Notification.Name("compactPlayer_changeTrackTimeDisplayType")
+        static let changePlaybackPositionDisplayType = Notification.Name("compactPlayer_changePlaybackPositionDisplayType")
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +17,7 @@
                 <outlet property="btnShuffle" destination="rQh-C1-rOv" id="Cro-7C-S3o"/>
                 <outlet property="btnVolume" destination="cPN-nw-17n" id="i0u-of-VNb"/>
                 <outlet property="functionsMenuContainerBox" destination="OOx-gC-SDs" id="1j0-vu-zOo"/>
-                <outlet property="lblTrackTime" destination="jjR-wK-cgP" id="ZnI-HJ-dMO"/>
+                <outlet property="lblPlaybackPosition" destination="jjR-wK-cgP" id="ZnI-HJ-dMO"/>
                 <outlet property="lblVolume" destination="Rp8-xb-bFV" id="Moe-u0-LyG"/>
                 <outlet property="scrollingTextViewContainerBox" destination="kbf-Yl-MG7" id="B2K-9Q-74A"/>
                 <outlet property="scrollingTrackTextView" destination="ct7-SQ-RNY" id="TJZ-J7-Gmi"/>

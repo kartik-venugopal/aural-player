@@ -261,7 +261,7 @@
                                                 <menuItem title="Track position" id="aIX-8L-qwL">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="showOrHideTrackTimeAction:" target="wsi-Fh-nbO" id="eqM-mE-f29"/>
+                                                        <action selector="showOrHidePlaybackPositionAction:" target="wsi-Fh-nbO" id="eqM-mE-f29"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="ZzB-pd-ECO"/>
@@ -272,19 +272,19 @@
                                                             <menuItem title="Time elapsed" state="on" id="Krp-MA-bqH">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="trackTimeElapsedDisplayTypeAction:" target="wsi-Fh-nbO" id="WEK-Ub-nZQ"/>
+                                                                    <action selector="playbackPositionElapsedDisplayTypeAction:" target="wsi-Fh-nbO" id="WEK-Ub-nZQ"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Time remaining" tag="1" id="g4g-pK-yJY">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="trackTimeRemainingDisplayTypeAction:" target="wsi-Fh-nbO" id="Y2Y-zy-pPc"/>
+                                                                    <action selector="playbackPositionRemainingDisplayTypeAction:" target="wsi-Fh-nbO" id="Y2Y-zy-pPc"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Track duration" tag="2" id="jNo-13-SkY">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="trackTimeDurationDisplayTypeAction:" target="wsi-Fh-nbO" id="Bfs-n4-1je"/>
+                                                                    <action selector="playbackPositionDurationDisplayTypeAction:" target="wsi-Fh-nbO" id="Bfs-n4-1je"/>
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
@@ -542,15 +542,15 @@
         </customObject>
         <customObject id="wsi-Fh-nbO" userLabel="Player View Popup Menu Controller (Window)" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="playbackPositionElapsedMenuItem" destination="Krp-MA-bqH" id="bgr-Xy-dpr"/>
+                <outlet property="playbackPositionRemainingMenuItem" destination="g4g-pK-yJY" id="1f3-ot-4yw"/>
+                <outlet property="playbackPositionTrackDurationMenuItem" destination="jNo-13-SkY" id="Ero-Sn-0CX"/>
                 <outlet property="showAlbumMenuItem" destination="Qdo-xq-c7y" id="i7b-AI-dxt"/>
                 <outlet property="showArtMenuItem" destination="kXs-09-e6U" id="bun-D3-0qi"/>
                 <outlet property="showArtistMenuItem" destination="hdo-kt-e6G" id="37G-EB-Fys"/>
                 <outlet property="showCurrentChapterMenuItem" destination="pW9-Mx-qQV" id="boc-3b-dpD"/>
                 <outlet property="showMainControlsMenuItem" destination="qSR-sp-gnB" id="1zS-fF-VKt"/>
-                <outlet property="showTrackTimeMenuItem" destination="aIX-8L-qwL" id="zz1-j5-kRP"/>
-                <outlet property="trackDurationMenuItem" destination="jNo-13-SkY" id="Ero-Sn-0CX"/>
-                <outlet property="trackTimeElapsedMenuItem" destination="Krp-MA-bqH" id="bgr-Xy-dpr"/>
-                <outlet property="trackTimeRemainingMenuItem" destination="g4g-pK-yJY" id="1f3-ot-4yw"/>
+                <outlet property="showPlaybackPositionMenuItem" destination="aIX-8L-qwL" id="zz1-j5-kRP"/>
             </connections>
         </customObject>
         <customView id="9cJ-NH-tTK" userLabel="Window corner radius editor view (in window)" customClass="WindowCornerRadiusMenuItemView" customModule="Aural" customModuleProvider="target">

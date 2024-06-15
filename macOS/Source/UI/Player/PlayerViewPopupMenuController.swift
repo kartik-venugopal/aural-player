@@ -17,19 +17,15 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var showArtMenuItem: NSMenuItem!
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
-    @IBOutlet weak var showTrackTimeMenuItem: NSMenuItem!
+    @IBOutlet weak var showPlaybackPositionMenuItem: NSMenuItem!
     
     @IBOutlet weak var showArtistMenuItem: NSMenuItem!
     @IBOutlet weak var showAlbumMenuItem: NSMenuItem!
     @IBOutlet weak var showCurrentChapterMenuItem: NSMenuItem!
     
-    @IBOutlet weak var trackTimeElapsedMenuItem: NSMenuItem!
-    @IBOutlet weak var trackTimeRemainingMenuItem: NSMenuItem!
-    @IBOutlet weak var trackDurationMenuItem: NSMenuItem!
-    
-    private let player: PlaybackInfoDelegateProtocol = playbackInfoDelegate
-    
-    private lazy var messenger = Messenger(for: self)
+    @IBOutlet weak var playbackPositionElapsedMenuItem: NSMenuItem!
+    @IBOutlet weak var playbackPositionRemainingMenuItem: NSMenuItem!
+    @IBOutlet weak var playbackPositionTrackDurationMenuItem: NSMenuItem!
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuWillOpen(_ menu: NSMenu) {
@@ -40,7 +36,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         var hasAlbum: Bool = false
         var hasChapters: Bool = false
         
-        if let track = player.playingTrack {
+        if let track = playbackInfoDelegate.playingTrack {
             
             hasArtist = track.artist != nil
             hasAlbum = track.album != nil
@@ -60,17 +56,17 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         
         showMainControlsMenuItem.onIf(playerUIState.showControls)
         
-        showTrackTimeMenuItem.onIf(playerUIState.showTrackTime)
+        showPlaybackPositionMenuItem.onIf(playerUIState.showPlaybackPosition)
         
-        [trackTimeElapsedMenuItem, trackTimeRemainingMenuItem, trackDurationMenuItem].forEach {$0.off()}
+        [playbackPositionElapsedMenuItem, playbackPositionRemainingMenuItem, playbackPositionTrackDurationMenuItem].forEach {$0.off()}
         
-        switch playerUIState.trackTimeDisplayType {
+        switch playerUIState.playbackPositionDisplayType {
             
-        case .elapsed:          trackTimeElapsedMenuItem.on()
+        case .elapsed:          playbackPositionElapsedMenuItem.on()
             
-        case .remaining:        trackTimeRemainingMenuItem.on()
+        case .remaining:        playbackPositionRemainingMenuItem.on()
             
-        case .duration:         trackDurationMenuItem.on()
+        case .duration:         playbackPositionTrackDurationMenuItem.on()
             
         }
     }
@@ -78,54 +74,54 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
         
         playerUIState.showAlbumArt.toggle()
-        messenger.publish(.Player.showOrHideAlbumArt)
+        Messenger.publish(.Player.showOrHideAlbumArt)
     }
     
     @IBAction func showOrHideArtistAction(_ sender: NSMenuItem) {
         
         playerUIState.showArtist.toggle()
-        messenger.publish(.Player.showOrHideArtist)
+        Messenger.publish(.Player.showOrHideArtist)
     }
     
     @IBAction func showOrHideAlbumAction(_ sender: NSMenuItem) {
         
         playerUIState.showAlbum.toggle()
-        messenger.publish(.Player.showOrHideAlbum)
+        Messenger.publish(.Player.showOrHideAlbum)
     }
     
     @IBAction func showOrHideCurrentChapterAction(_ sender: NSMenuItem) {
         
         playerUIState.showCurrentChapter.toggle()
-        messenger.publish(.Player.showOrHideCurrentChapter)
+        Messenger.publish(.Player.showOrHideCurrentChapter)
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
         
         playerUIState.showControls.toggle()
-        messenger.publish(.Player.showOrHideMainControls)
+        Messenger.publish(.Player.showOrHideMainControls)
     }
     
-    @IBAction func showOrHideTrackTimeAction(_ sender: NSMenuItem) {
+    @IBAction func showOrHidePlaybackPositionAction(_ sender: NSMenuItem) {
         
-        playerUIState.showTrackTime.toggle()
-        messenger.publish(.Player.showOrHideTrackTime)
+        playerUIState.showPlaybackPosition.toggle()
+        Messenger.publish(.Player.showOrHidePlaybackPosition)
     }
     
-    @IBAction func trackTimeElapsedDisplayTypeAction(_ sender: NSMenuItem) {
-        setTrackTimeDisplayType(to: .elapsed)
+    @IBAction func playbackPositionElapsedDisplayTypeAction(_ sender: NSMenuItem) {
+        setPlaybackPositionDisplayType(to: .elapsed)
     }
     
-    @IBAction func trackTimeRemainingDisplayTypeAction(_ sender: NSMenuItem) {
-        setTrackTimeDisplayType(to: .remaining)
+    @IBAction func playbackPositionRemainingDisplayTypeAction(_ sender: NSMenuItem) {
+        setPlaybackPositionDisplayType(to: .remaining)
     }
     
-    @IBAction func trackTimeDurationDisplayTypeAction(_ sender: NSMenuItem) {
-        setTrackTimeDisplayType(to: .duration)
+    @IBAction func playbackPositionDurationDisplayTypeAction(_ sender: NSMenuItem) {
+        setPlaybackPositionDisplayType(to: .duration)
     }
     
-    private func setTrackTimeDisplayType(to type: TrackTimeDisplayType) {
+    private func setPlaybackPositionDisplayType(to type: PlaybackPositionDisplayType) {
         
-        playerUIState.trackTimeDisplayType = type
-        messenger.publish(.Player.setTrackTimeDisplayType, payload: type)
+        playerUIState.playbackPositionDisplayType = type
+        Messenger.publish(.Player.setPlaybackPositionDisplayType, payload: type)
     }
 }

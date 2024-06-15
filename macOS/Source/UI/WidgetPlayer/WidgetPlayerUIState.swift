@@ -21,7 +21,7 @@ class WidgetPlayerUIState {
     
     var trackInfoScrollingEnabled: Bool
     
-    var showTrackTime: Bool
+    var showPlaybackPosition: Bool
     
     init(persistentState: WidgetPlayerUIPersistentState?) {
         
@@ -30,7 +30,7 @@ class WidgetPlayerUIState {
         
         trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
         
-        showTrackTime = persistentState?.showTrackTime ?? true
+        showPlaybackPosition = persistentState?.showPlaybackPosition ?? true
     }
     
     var persistentState: WidgetPlayerUIPersistentState {
@@ -44,6 +44,6 @@ class WidgetPlayerUIState {
         return WidgetPlayerUIPersistentState(windowFrame: windowFrame,
                                                  cornerRadius: cornerRadius,
                                                  trackInfoScrollingEnabled: trackInfoScrollingEnabled,
-                                                 showTrackTime: showTrackTime)
+                                                 showPlaybackPosition: showPlaybackPosition)
     }
 }

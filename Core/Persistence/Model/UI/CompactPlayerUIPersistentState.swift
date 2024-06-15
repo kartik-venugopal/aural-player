@@ -25,5 +25,5 @@ struct CompactPlayerUIPersistentState: Codable {
     let cornerRadius: CGFloat?
     
     let trackInfoScrollingEnabled: Bool?
-    let showTrackTime: Bool?
+    let showPlaybackPosition: Bool?
 }

@@ -19,12 +19,12 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
     
     @IBOutlet weak var scrollingEnabledMenuItem: NSMenuItem!
-    @IBOutlet weak var showTrackTimeMenuItem: NSMenuItem!
+    @IBOutlet weak var showPlaybackPositionMenuItem: NSMenuItem!
     @IBOutlet weak var seekPositionDisplayTypeMenuItem: NSMenuItem!
     
-    @IBOutlet weak var timeElapsedMenuItem: TrackTimeDisplayTypeMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem: TrackTimeDisplayTypeMenuItem!
-    @IBOutlet weak var trackDurationMenuItem: TrackTimeDisplayTypeMenuItem!
+    @IBOutlet weak var timeElapsedMenuItem: PlaybackPositionDisplayTypeMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem: PlaybackPositionDisplayTypeMenuItem!
+    @IBOutlet weak var trackDurationMenuItem: PlaybackPositionDisplayTypeMenuItem!
     
     var seekPositionDisplayTypeItems: [NSMenuItem] = []
     
@@ -75,14 +75,14 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         showChaptersListMenuItem.enableIf(isPlaying && playbackInfoDelegate.chapterCount > 0)
         
         scrollingEnabledMenuItem.onIf(compactPlayerUIState.trackInfoScrollingEnabled)
-        showTrackTimeMenuItem.onIf(compactPlayerUIState.showTrackTime)
-        seekPositionDisplayTypeMenuItem.showIf(compactPlayerUIState.showTrackTime)
+        showPlaybackPositionMenuItem.onIf(compactPlayerUIState.showPlaybackPosition)
+        seekPositionDisplayTypeMenuItem.showIf(compactPlayerUIState.showPlaybackPosition)
         
-        if compactPlayerUIState.showTrackTime {
+        if compactPlayerUIState.showPlaybackPosition {
             
             seekPositionDisplayTypeItems.forEach {$0.off()}
             
-            switch playerUIState.trackTimeDisplayType {
+            switch playerUIState.playbackPositionDisplayType {
                 
             case .elapsed:
                 timeElapsedMenuItem.on()
@@ -142,13 +142,13 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func toggleShowSeekPositionAction(_ sender: NSMenuItem) {
         
-        compactPlayerUIState.showTrackTime.toggle()
+        compactPlayerUIState.showPlaybackPosition.toggle()
         messenger.publish(.CompactPlayer.toggleShowSeekPosition)
     }
     
-    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: TrackTimeDisplayTypeMenuItem) {
+    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: PlaybackPositionDisplayTypeMenuItem) {
         
-        playerUIState.trackTimeDisplayType = sender.displayType
-        messenger.publish(.Player.setTrackTimeDisplayType, payload: sender.displayType)
+        playerUIState.playbackPositionDisplayType = sender.displayType
+        messenger.publish(.Player.setPlaybackPositionDisplayType, payload: sender.displayType)
     }
 }

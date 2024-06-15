@@ -22,8 +22,8 @@ class CompactPlayerViewController: PlayerViewController {
         startTrackingView(options: [.activeAlways, .mouseEnteredAndExited])
     }
     
-    override var showTrackTime: Bool {
-        compactPlayerUIState.showTrackTime
+    override var showPlaybackPosition: Bool {
+        compactPlayerUIState.showPlaybackPosition
     }
     
     override func updateTrackTextView(for track: Track?, playingChapterTitle: String? = nil) {
@@ -48,9 +48,9 @@ class CompactPlayerViewController: PlayerViewController {
         setUpScrollingTrackInfoView()
     }
     
-    override func showOrHideTrackTime() {
+    override func showOrHidePlaybackPosition() {
         
-        super.showOrHideTrackTime()
+        super.showOrHidePlaybackPosition()
         layoutScrollingTrackTextView()
     }
     
@@ -62,10 +62,10 @@ class CompactPlayerViewController: PlayerViewController {
     
     override func layoutScrollingTrackTextView() {
         
-        let showTrackTime: Bool = compactPlayerUIState.showTrackTime
+        let showPlaybackPosition: Bool = compactPlayerUIState.showPlaybackPosition
         
-        scrollingTextViewContainerBox.setFrameSize(NSSize(width: showTrackTime ? 200 : 280, height: 26))
-        scrollingTrackTextView.setFrameSize(NSSize(width: showTrackTime ? 200 : 280, height: 26))
+        scrollingTextViewContainerBox.setFrameSize(NSSize(width: showPlaybackPosition ? 200 : 280, height: 26))
+        scrollingTrackTextView.setFrameSize(NSSize(width: showPlaybackPosition ? 200 : 280, height: 26))
         
         scrollingTrackTextView.update()
     }
@@ -78,14 +78,14 @@ class CompactPlayerViewController: PlayerViewController {
     
     @IBAction func toggleShowSeekPositionAction(_ sender: NSMenuItem) {
         
-        compactPlayerUIState.showTrackTime.toggle()
+        compactPlayerUIState.showPlaybackPosition.toggle()
         layoutScrollingTrackTextView()
     }
     
-    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: TrackTimeDisplayTypeMenuItem) {
+    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: PlaybackPositionDisplayTypeMenuItem) {
         
-        playerUIState.trackTimeDisplayType = sender.displayType
-        setTrackTimeDisplayType(to: playerUIState.trackTimeDisplayType)
+        playerUIState.playbackPositionDisplayType = sender.displayType
+        setPlaybackPositionDisplayType(to: playerUIState.playbackPositionDisplayType)
     }
     
     override func showTrackInfoView() {

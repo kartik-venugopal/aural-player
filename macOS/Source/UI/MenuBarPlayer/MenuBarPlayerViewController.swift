@@ -45,11 +45,11 @@ class MenuBarPlayerViewController: PlayerViewController {
         super.shouldEnableSeekTimer && view.superview != nil
     }
     
-    override var showTrackTime: Bool {
-        compactPlayerUIState.showTrackTime
+    override var showPlaybackPosition: Bool {
+        compactPlayerUIState.showPlaybackPosition
     }
     
-    override var trackTimeFont: NSFont {
+    override var playbackPositionFont: NSFont {
         systemFontScheme.smallFont
     }
     

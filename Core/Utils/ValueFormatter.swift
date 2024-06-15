@@ -28,9 +28,9 @@ class ValueFormatter {
     static let oneHour = 60 * oneMin
     
     // Given the elapsed time, in seconds, for a playing track, and its duration (also in seconds), returns 2 formatted strings: 1 - Formatted elapsed time, and 2 - Formatted time remaining. See formatSecondsToHMS()
-    static func formatTrackTime(elapsedSeconds: Double, duration: Double, percentageElapsed: Double, trackTimeDisplayType: TrackTimeDisplayType) -> String {
+    static func formatPlaybackPosition(elapsedSeconds: Double, duration: Double, percentageElapsed: Double, playbackPositionDisplayType: PlaybackPositionDisplayType) -> String {
         
-        switch trackTimeDisplayType {
+        switch playbackPositionDisplayType {
          
         case .elapsed:
 
@@ -50,7 +50,7 @@ class ValueFormatter {
     }
     
     // Given the elapsed time, in seconds, for a playing track, and its duration (also in seconds), returns 2 formatted strings: 1 - Formatted elapsed time, and 2 - Formatted time remaining. See formatSecondsToHMS()
-    static func formatTrackTimes(_ elapsedSeconds: Double, _ duration: Double, _ percentageElapsed: Double) -> (elapsed: String, remaining: String) {
+    static func formatPlaybackPositions(_ elapsedSeconds: Double, _ duration: Double, _ percentageElapsed: Double) -> (elapsed: String, remaining: String) {
         
         var remainingString: String
         

@@ -24,11 +24,11 @@ struct ModularPlayerUIPersistentState: Codable {
     let showCurrentChapter: Bool?
     
     let showControls: Bool?
-    let showTrackTime: Bool?
+    let showPlaybackPosition: Bool?
     
-    let trackTimeDisplayType: TrackTimeDisplayType?
+    let playbackPositionDisplayType: PlaybackPositionDisplayType?
     
-    init(cornerRadius: CGFloat?, showAlbumArt: Bool?, showArtist: Bool?, showAlbum: Bool?, showCurrentChapter: Bool?, showControls: Bool?, showTrackTime: Bool?, trackTimeDisplayType: TrackTimeDisplayType?) {
+    init(cornerRadius: CGFloat?, showAlbumArt: Bool?, showArtist: Bool?, showAlbum: Bool?, showCurrentChapter: Bool?, showControls: Bool?, showPlaybackPosition: Bool?, playbackPositionDisplayType: PlaybackPositionDisplayType?) {
         
         self.cornerRadius = cornerRadius
         
@@ -37,8 +37,8 @@ struct ModularPlayerUIPersistentState: Codable {
         self.showAlbum = showAlbum
         self.showCurrentChapter = showCurrentChapter
         self.showControls = showControls
-        self.showTrackTime = showTrackTime
-        self.trackTimeDisplayType = trackTimeDisplayType
+        self.showPlaybackPosition = showPlaybackPosition
+        self.playbackPositionDisplayType = playbackPositionDisplayType
     }
     
     init(legacyPersistentState: LegacyPlayerUIPersistentState?, legacyWindowAppearanceState: LegacyWindowAppearancePersistentState?) {
@@ -51,8 +51,8 @@ struct ModularPlayerUIPersistentState: Codable {
         self.showCurrentChapter = legacyPersistentState?.showCurrentChapter
         
         self.showControls = legacyPersistentState?.showControls
-        self.showTrackTime = legacyPersistentState?.showTimeElapsedRemaining
+        self.showPlaybackPosition = legacyPersistentState?.showTimeElapsedRemaining
         
-        self.trackTimeDisplayType = nil
+        self.playbackPositionDisplayType = nil
     }
 }

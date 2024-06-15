@@ -1,5 +1,5 @@
 //
-//  SeekTimeFormats.swift
+//  PlaybackPositionDisplayType.swift
 //  Aural
 //
 //  Copyright © 2024 Kartik Venugopal. All rights reserved.
@@ -9,11 +9,11 @@
 //
 
 ///
-/// Enumeration of all possible formats in which the current track time / position is displayed.
+/// Enumeration of all possible formats in which the current playback position is displayed.
 ///
 import Foundation
 
-enum TrackTimeDisplayType: String, CaseIterable, Codable {
+enum PlaybackPositionDisplayType: String, CaseIterable, Codable {
     
     case elapsed
     case remaining
