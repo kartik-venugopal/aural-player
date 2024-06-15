@@ -75,7 +75,7 @@ extension ColorScheme {
     
     static let grayRed: ColorScheme = .init(name: "Gray & red", systemDefined: true,
                                                
-                                               backgroundColor: .white20Percent,
+                                               backgroundColor: PlatformColor(white: 0.1225),
                                                buttonColor: .white55Percent,
                                                
                                                captionTextColor: .white40Percent,
@@ -90,9 +90,9 @@ extension ColorScheme {
                                                
                                                textSelectionColor: .black,
                                                
-                                            activeControlColor: .red,
-                                               inactiveControlColor: .black,
-                                               suppressedControlColor: PlatformColor(red: 0.75, green: 0, blue: 0))
+                                            activeControlColor: PlatformColor(red: 0.777746456185567, green: 0.17426582771233134, blue: 0.12780412229666493),
+                                            inactiveControlColor: .white22Percent,
+                                               suppressedControlColor: PlatformColor(red: 0.5, green: 0.10164300227543215, blue: 0.07177490018553201))
     
     static let whiteBlight: ColorScheme = .init(name: "White blight", systemDefined: true,
                                                 
