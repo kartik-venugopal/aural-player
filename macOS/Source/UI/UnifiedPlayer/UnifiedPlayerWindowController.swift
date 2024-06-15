@@ -20,7 +20,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
     @IBOutlet weak var btnToggleSidebar: TintedImageButton!
-    @IBOutlet weak var presentationModeMenuItem: TintedIconMenuItem!
+    @IBOutlet weak var btnPresentationModeMenu: NSPopUpButton!
     @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
     
     @IBOutlet weak var rootSplitView: NSSplitView!
@@ -29,7 +29,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     // The tab group that switches between the 4 playlist views
     @IBOutlet weak var tabGroup: NSTabView!
     
-    lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, btnToggleSidebar, settingsMenuIconItem]
+    lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnPresentationModeMenu, btnMinimize, btnToggleSidebar, settingsMenuIconItem]
     
     lazy var playerViewController: UnifiedPlayerViewController = UnifiedPlayerViewController()
     lazy var effectsSheetViewController: EffectsSheetViewController = .init()

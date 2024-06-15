@@ -10,9 +10,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CompactPlayerWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnMinimize" destination="OWA-YG-E9q" id="I0j-6B-149"/>
+                <outlet property="btnPresentationModeMenu" destination="wA6-bg-jfE" id="kTW-X6-cdU"/>
                 <outlet property="btnQuit" destination="ZT2-MQ-uY4" id="pbY-tb-nLf"/>
                 <outlet property="logoImage" destination="kRO-cS-abr" id="o2u-23-NjN"/>
-                <outlet property="presentationModeMenuItem" destination="4fO-Xj-39P" id="tff-5M-JAl"/>
                 <outlet property="rootContainerBox" destination="MQS-Uc-HUi" id="Rj3-4K-Can"/>
                 <outlet property="settingsMenuIconItem" destination="jF6-Ok-k1J" id="YhT-Ag-Gg6"/>
                 <outlet property="tabView" destination="CxA-Md-TyN" id="FSX-4w-zyB"/>
@@ -40,7 +40,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Minimize" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWA-YG-E9q" userLabel="Minimize Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="41" y="406" width="14.5" height="10"/>
+                                    <rect key="frame" x="41" y="407" width="14.5" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="minus" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="axesIndependently" inset="2" id="0g1-om-Ujd">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -316,19 +316,16 @@
                                     <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="2Hm-AK-QNc"/>
                                 </imageView>
                                 <popUpButton toolTip="Change presentation mode" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wA6-bg-jfE" userLabel="Presentation Mode Menu">
-                                    <rect key="frame" x="23" y="403" width="16" height="15"/>
+                                    <rect key="frame" x="22" y="402" width="18" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="9A6-gF-XEj">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="cellTitle"/>
                                         <menu key="menu" autoenablesItems="NO" id="ofP-Jg-utp">
                                             <items>
-                                                <menuItem hidden="YES" id="4fO-Xj-39P" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                                    <imageReference key="image" image="WindowLayout" symbolScale="medium"/>
+                                                <menuItem hidden="YES" id="4fO-Xj-39P">
+                                                    <imageReference key="image" image="square.grid.2x2" catalog="system" symbolScale="medium"/>
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="WindowLayout"/>
-                                                    </userDefinedRuntimeAttributes>
                                                 </menuItem>
                                                 <menuItem title="Modular (multiple windows)" id="CmI-6l-s4S">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -526,8 +523,8 @@
     <resources>
         <image name="AppTitle" width="117" height="32"/>
         <image name="Hamburger" width="10" height="7"/>
-        <image name="WindowLayout" width="20" height="20"/>
         <image name="minus" catalog="system" width="14" height="4"/>
+        <image name="square.grid.2x2" catalog="system" width="15" height="14"/>
         <image name="xmark" catalog="system" width="14" height="13"/>
     </resources>
 </document>

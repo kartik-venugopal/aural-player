@@ -19,8 +19,10 @@ class CompactPlayerWindowController: NSWindowController {
     @IBOutlet weak var logoImage: TintedImageView!
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
-    @IBOutlet weak var presentationModeMenuItem: TintedIconMenuItem!
+    @IBOutlet weak var btnPresentationModeMenu: NSPopUpButton!
     @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
+    
+    private lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnPresentationModeMenu, btnMinimize, settingsMenuIconItem]
     
     @IBOutlet weak var tabView: NSTabView!
     let playerViewController: CompactPlayerViewController = .init()
@@ -240,12 +242,8 @@ extension CompactPlayerWindowController: ColorSchemeObserver {
         rootContainerBox.fillColor = systemColorScheme.backgroundColor
         logoImage.contentTintColor = systemColorScheme.captionTextColor
         
-        [btnQuit, btnMinimize].forEach {
-            $0.contentTintColor = systemColorScheme.buttonColor
-        }
-        
-        [presentationModeMenuItem, settingsMenuIconItem].forEach {
-            $0?.colorChanged(systemColorScheme.buttonColor)
+        buttonColorChangeReceivers.forEach {
+            $0.colorChanged(systemColorScheme.buttonColor)
         }
     }
 }

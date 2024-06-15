@@ -22,18 +22,3 @@ class TintedIconMenuItem: NSMenuItem, ColorSchemePropertyChangeReceiver {
         image = baseImage?.tintedUsingCIFilterWithColor(newColor)
     }
 }
-
-class TintedSymbolMenuItem: NSMenuItem, ColorSchemePropertyChangeReceiver {
-    
-    // A base image that is used as an image template.
-    @IBInspectable var baseImage: NSImage?
-    
-    func colorChanged(_ newColor: PlatformColor) {
-        
-        image = baseImage?.filledWithColor(newColor)
-        
-        if #available(macOS 12.0, *) {
-            print(image?.symbolConfiguration.attributeKeys)
-        }
-    }
-}

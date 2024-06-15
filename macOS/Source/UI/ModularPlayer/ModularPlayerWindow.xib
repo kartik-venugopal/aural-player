@@ -15,7 +15,6 @@
                 <outlet property="btnSettingsMenu" destination="hiE-G6-T2s" id="4bk-VK-3Q3"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
                 <outlet property="logoImage" destination="efk-uj-yYR" id="GYw-BM-8nr"/>
-                <outlet property="presentationModeMenuItem" destination="gWg-It-t7n" id="x8G-qC-RlN"/>
                 <outlet property="rootContainerBox" destination="s2a-4T-trI" id="1FZ-Uj-KKg"/>
                 <outlet property="settingsMenuIconItem" destination="HM2-5O-u4Z" id="42o-4C-DNC"/>
                 <outlet property="window" destination="7ng-jb-SCK" id="iPt-b2-wep"/>
@@ -56,7 +55,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Minimize" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="41" y="175" width="14.5" height="10"/>
+                                    <rect key="frame" x="41" y="176" width="14.5" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="minus" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="axesIndependently" inset="2" id="vzp-6D-Pbu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -77,11 +76,6 @@
                                                 <menuItem hidden="YES" id="gWg-It-t7n">
                                                     <imageReference key="image" image="square.grid.2x2" catalog="system" symbolScale="medium"/>
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage">
-                                                            <imageReference key="value" image="square.grid.2x2" catalog="system" symbolScale="medium"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </menuItem>
                                                 <menuItem title="Unified (single window)" id="o9R-oZ-Xwn">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
