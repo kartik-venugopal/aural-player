@@ -114,6 +114,10 @@ class UnifiedPlayerViewController: PlayerViewController {
         self.presentAsSheet(trackInfoSheetViewController)
     }
     
+    var isShowingTrackInfo: Bool {
+        trackInfoSheetViewController.isShowingView
+    }
+    
     override func setUpColorSchemePropertyObservation() {
         
         super.setUpColorSchemePropertyObservation()

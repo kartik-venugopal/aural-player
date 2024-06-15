@@ -185,6 +185,10 @@ extension NSView {
 
 extension NSViewController {
     
+    var isShowingView: Bool {
+        view.isShown
+    }
+    
     func forceLoadingOfView() {
         
         if !self.isViewLoaded {

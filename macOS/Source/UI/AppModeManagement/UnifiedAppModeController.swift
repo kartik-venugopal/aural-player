@@ -13,13 +13,33 @@ import Cocoa
 class UnifiedAppModeController: AppModeController {
     
     var mode: AppMode {.unified}
-
+    
     private var windowController: UnifiedPlayerWindowController?
     
     var mainWindow: NSWindow? {windowController?.window}
     
-    private var windowFrame: NSRect? = nil
+    var isShowingPlayer: Bool {true}
     
+    var isShowingPlayQueue: Bool {
+        windowController?.isShowingPlayQueue ?? false
+    }
+    
+    var isShowingEffects: Bool {
+        windowController?.isShowingEffects ?? false
+    }
+    
+    var isShowingChaptersList: Bool {
+        windowController?.isShowingChaptersList ?? false
+    }
+    
+    var isShowingVisualizer: Bool {
+        windowController?.isShowingVisualizer ?? false
+    }
+    
+    var isShowingTrackInfo: Bool {
+        windowController?.isShowingTrackInfo ?? false
+    }
+
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)

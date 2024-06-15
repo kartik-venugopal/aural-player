@@ -20,8 +20,20 @@ import Cocoa
 /// low level of user interaction. It will typically be used when running the application in the "background".
 ///
 class WidgetAppModeController: AppModeController {
-
+    
     var mode: AppMode {.widget}
+    
+    var isShowingPlayer: Bool {true}
+    
+    var isShowingPlayQueue: Bool {true}
+    
+    var isShowingEffects: Bool {true}
+    
+    var isShowingChaptersList: Bool {true}
+    
+    var isShowingVisualizer: Bool {true}
+    
+    var isShowingTrackInfo: Bool {true}
 
     private var windowController: WidgetPlayerWindowController?
     

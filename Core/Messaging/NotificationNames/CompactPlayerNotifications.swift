@@ -19,7 +19,6 @@ extension Notification.Name {
         
         static let showPlayer = Notification.Name("compactPlayer_showPlayer")
         static let showPlayQueue = Notification.Name("compactPlayer_showPlayQueue")
-        static let toggleEffects = Notification.Name("compactPlayer_toggleEffects")
         static let showSearch = Notification.Name("compactPlayer_showSearch")
         static let showChaptersList = Notification.Name("compactPlayer_showChaptersList")
         static let showTrackInfo = Notification.Name("compactPlayer_showTrackInfo")
@@ -29,12 +28,5 @@ extension Notification.Name {
         static let toggleShowSeekPosition = Notification.Name("compactPlayer_toggleShowSeekPosition")
         
         static let changeTrackTimeDisplayType = Notification.Name("compactPlayer_changeTrackTimeDisplayType")
-        
-        static let changeWindowCornerRadius = Notification.Name("compactPlayer_changeWindowCornerRadius")
-        
-        static let switchToModularMode = Notification.Name("compactPlayer_switchToModularMode")
-        static let switchToUnifiedMode = Notification.Name("compactPlayer_switchToUnifiedMode")
-        static let switchToMenuBarMode = Notification.Name("compactPlayer_switchToMenuBarMode")
-        static let switchToWidgetMode = Notification.Name("compactPlayer_switchToWidgetMode")
     }
 }

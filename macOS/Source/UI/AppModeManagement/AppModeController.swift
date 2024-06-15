@@ -22,6 +22,18 @@ protocol AppModeController {
     func presentMode(transitioningFromMode previousMode: AppMode?)
     
     func dismissMode()
+    
+    var isShowingPlayer: Bool {get}
+    
+    var isShowingPlayQueue: Bool {get}
+    
+    var isShowingEffects: Bool {get}
+    
+    var isShowingChaptersList: Bool {get}
+    
+    var isShowingVisualizer: Bool {get}
+    
+    var isShowingTrackInfo: Bool {get}
 }
 
 extension AppModeController {

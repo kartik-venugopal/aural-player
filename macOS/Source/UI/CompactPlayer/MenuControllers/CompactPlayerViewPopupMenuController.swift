@@ -104,7 +104,7 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         compactPlayerUIState.cornerRadius = CGFloat(cornerRadiusStepper.floatValue)
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
         
-        messenger.publish(.CompactPlayer.changeWindowCornerRadius)
+//        messenger.publish(.CompactPlayer.changeWindowCornerRadius)
     }
     
     // Shows the Player view
@@ -119,7 +119,7 @@ class CompactPlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     // Shows/hides the effects view
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        messenger.publish(.CompactPlayer.toggleEffects)
+//        messenger.publish(.CompactPlayer.toggleEffects)
     }
     
     // Shows the Chapters List view

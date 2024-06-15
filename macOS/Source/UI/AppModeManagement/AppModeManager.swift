@@ -20,6 +20,30 @@ class AppModeManager {
         modeController?.mainWindow
     }
     
+    var isShowingPlayer: Bool {
+        modeController?.isShowingPlayer ?? false
+    }
+    
+    var isShowingPlayQueue: Bool {
+        modeController?.isShowingPlayQueue ?? false
+    }
+    
+    var isShowingEffects: Bool {
+        modeController?.isShowingEffects ?? false
+    }
+    
+    var isShowingChaptersList: Bool {
+        modeController?.isShowingChaptersList ?? false
+    }
+    
+    var isShowingVisualizer: Bool {
+        modeController?.isShowingVisualizer ?? false
+    }
+    
+    var isShowingTrackInfo: Bool {
+        modeController?.isShowingTrackInfo ?? false
+    }
+    
     private var modeController: AppModeController? {
         
         guard let currentMode = self.currentMode else {return nil}

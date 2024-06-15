@@ -59,14 +59,17 @@ class CompactPlayerWindowController: NSWindowController {
         
         messenger.subscribe(to: .Effects.sheetDismissed, handler: effectsSheetDismissed)
         
-        messenger.subscribe(to: .CompactPlayer.showPlayer, handler: showPlayer)
-        messenger.subscribe(to: .CompactPlayer.showPlayQueue, handler: showPlayQueue)
-        messenger.subscribe(to: .CompactPlayer.showSearch, handler: showSearch)
-        messenger.subscribe(to: .CompactPlayer.showChaptersList, handler: showChaptersList)
-        messenger.subscribe(to: .CompactPlayer.toggleEffects, handler: toggleEffects)
-        messenger.subscribe(to: .CompactPlayer.showTrackInfo, handler: showTrackInfo)
+        messenger.subscribe(to: .View.CompactPlayer.showPlayer, handler: showPlayer)
         
-        messenger.subscribe(to: .CompactPlayer.changeWindowCornerRadius, handler: changeWindowCornerRadius)
+        messenger.subscribe(to: .View.togglePlayQueue, handler: showPlayQueue)
+        messenger.subscribe(to: .PlayQueue.search, handler: showSearch)
+        
+        messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
+        messenger.subscribe(to: .View.toggleChaptersList, handler: showChaptersList)
+        messenger.subscribe(to: .View.toggleTrackInfo, handler: showTrackInfo)
+//        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
+        
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrackInPlayQueue)
         
         setUpEventHandling()
@@ -80,7 +83,7 @@ class CompactPlayerWindowController: NSWindowController {
             window?.setFrameOrigin(rememberedLocation)
         }
         
-        changeWindowCornerRadius()
+        changeWindowCornerRadius(to: compactPlayerUIState.cornerRadius)
     }
     
     override func destroy() {
@@ -174,7 +177,7 @@ class CompactPlayerWindowController: NSWindowController {
         showPlayQueue()
     }
     
-    func changeWindowCornerRadius() {
+    func changeWindowCornerRadius(to radius: CGFloat) {
         rootContainerBox.cornerRadius = compactPlayerUIState.cornerRadius
     }
     

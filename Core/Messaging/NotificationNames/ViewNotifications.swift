@@ -21,5 +21,10 @@ extension Notification.Name {
         static let toggleTrackInfo = Notification.Name("view_toggleTrackInfo")
         
         static let changeWindowCornerRadius = Notification.Name("view_changeWindowCornerRadius")
+        
+        struct CompactPlayer {
+            
+            static let showPlayer = Notification.Name("view_compactPlayer_showPlayer")
+        }
     }
 }

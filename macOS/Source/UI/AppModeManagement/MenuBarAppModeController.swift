@@ -22,6 +22,18 @@ import Cocoa
 class MenuBarAppModeController: NSObject, AppModeController {
 
     var mode: AppMode {.menuBar}
+    
+    var isShowingPlayer: Bool {true}
+    
+    var isShowingPlayQueue: Bool {true}
+    
+    var isShowingEffects: Bool {true}
+    
+    var isShowingChaptersList: Bool {true}
+    
+    var isShowingVisualizer: Bool {true}
+    
+    var isShowingTrackInfo: Bool {true}
 
     private var statusItem: NSStatusItem?
     private var rootMenu: NSMenu!

@@ -13,11 +13,35 @@ import AppKit
 class CompactAppModeController: AppModeController {
 
     var mode: AppMode {.compact}
-
+    
     private var windowController: CompactPlayerWindowController?
     
     var mainWindow: NSWindow? {windowController?.window}
     
+    var isShowingPlayer: Bool {
+        windowController?.isShowingPlayer ?? false
+    }
+    
+    var isShowingPlayQueue: Bool {
+        windowController?.isShowingPlayQueue ?? false
+    }
+    
+    var isShowingEffects: Bool {
+        windowController?.isShowingEffects ?? false
+    }
+    
+    var isShowingChaptersList: Bool {
+        windowController?.isShowingChaptersList ?? false
+    }
+    
+    var isShowingVisualizer: Bool {
+        windowController?.isShowingVisualizer ?? false
+    }
+    
+    var isShowingTrackInfo: Bool {
+        windowController?.isShowingTrackInfo ?? false
+    }
+
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)

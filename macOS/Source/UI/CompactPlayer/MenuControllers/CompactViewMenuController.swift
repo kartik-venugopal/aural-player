@@ -14,19 +14,19 @@ class CompactViewMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger: Messenger = .init(for: self)
     
-    @IBAction func modularModeAction(_ sender: AnyObject) {
-        messenger.publish(.CompactPlayer.switchToModularMode)
-    }
-    
-    @IBAction func unifiedModeAction(_ sender: AnyObject) {
-        messenger.publish(.CompactPlayer.switchToUnifiedMode)
-    }
-    
-    @IBAction func menuBarModeAction(_ sender: AnyObject) {
-        messenger.publish(.CompactPlayer.switchToMenuBarMode)
-    }
-    
-    @IBAction func widgetModeAction(_ sender: AnyObject) {
-        messenger.publish(.CompactPlayer.switchToWidgetMode)
-    }
+//    @IBAction func modularModeAction(_ sender: AnyObject) {
+//        messenger.publish(.CompactPlayer.switchToModularMode)
+//    }
+//    
+//    @IBAction func unifiedModeAction(_ sender: AnyObject) {
+//        messenger.publish(.CompactPlayer.switchToUnifiedMode)
+//    }
+//    
+//    @IBAction func menuBarModeAction(_ sender: AnyObject) {
+//        messenger.publish(.CompactPlayer.switchToMenuBarMode)
+//    }
+//    
+//    @IBAction func widgetModeAction(_ sender: AnyObject) {
+//        messenger.publish(.CompactPlayer.switchToWidgetMode)
+//    }
 }

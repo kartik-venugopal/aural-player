@@ -26,8 +26,8 @@ extension UnifiedPlayerWindowController {
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
         
         let loc = event.locationInWindow
-        let locInPlayerView = playerController.view.convert(loc, from: nil)
-        let hit: Bool = playerController.view.frame.contains(locInPlayerView)
+        let locInPlayerView = playerViewController.view.convert(loc, from: nil)
+        let hit: Bool = playerViewController.view.frame.contains(locInPlayerView)
         
         if hit, let scrollDirection = event.gestureDirection {
             

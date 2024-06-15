@@ -31,8 +31,8 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, btnToggleSidebar, settingsMenuIconItem]
     
-    lazy var playerController: UnifiedPlayerViewController = UnifiedPlayerViewController()
-    private lazy var effectsSheetViewController: EffectsSheetViewController = .init()
+    lazy var playerViewController: UnifiedPlayerViewController = UnifiedPlayerViewController()
+    lazy var effectsSheetViewController: EffectsSheetViewController = .init()
     
     private lazy var sidebarController: UnifiedPlayerSidebarViewController = UnifiedPlayerSidebarViewController()
     
@@ -66,7 +66,6 @@ class UnifiedPlayerWindowController: NSWindowController {
         theWindow.delegate = self
         
         setUpEventHandling()
-        initSubscriptions()
         
         super.windowDidLoad()
         
@@ -75,6 +74,12 @@ class UnifiedPlayerWindowController: NSWindowController {
         
         messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        
+        messenger.subscribe(to: .View.togglePlayQueue, handler: showPlayQueue)
+        messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
+        messenger.subscribe(to: .View.toggleChaptersList, handler: showChaptersList)
+//        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         
         messenger.subscribe(to: .Application.willExit, handler: preApplicationExit)
         
@@ -89,10 +94,10 @@ class UnifiedPlayerWindowController: NSWindowController {
         
         theWindow.makeKeyAndOrderFront(self)
         
-        changeWindowCornerRadius(playerUIState.cornerRadius)
-        playerController.forceLoadingOfView()
+        changeWindowCornerRadius(to: playerUIState.cornerRadius)
+        playerViewController.forceLoadingOfView()
         
-        rootSplitView.addAndAnchorSubView(playerController.view, underArrangedSubviewAt: 0)
+        rootSplitView.addAndAnchorSubView(playerViewController.view, underArrangedSubviewAt: 0)
         browserSplitView.addAndAnchorSubView(sidebarController.view, underArrangedSubviewAt: 0)
         browserSplitView.delegate = self
         browserSplitView.subviews.first?.showIf(unifiedPlayerUIState.isSidebarShown)
@@ -111,10 +116,6 @@ class UnifiedPlayerWindowController: NSWindowController {
         tabGroup.selectTabViewItem(at: 0)
     }
     
-    private func initSubscriptions() {
-        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(_:))
-    }
-    
     override func destroy() {
         
         close()
@@ -124,7 +125,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         
 //        [playerController, sidebarController, playQueueController, libraryTracksController, libraryArtistsController, libraryAlbumsController, libraryGenresController, libraryDecadesController, tuneBrowserViewController, playlistsViewController].forEach {$0.destroy()}
         
-        [playerController, sidebarController, playQueueController].forEach {$0.destroy()}
+        [playerViewController, sidebarController, playQueueController].forEach {$0.destroy()}
         
         messenger.unsubscribeFromAll()
     }
@@ -148,7 +149,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     }
     
     @IBAction func showEffectsPanelAction(_ sender: AnyObject) {
-        playerController.presentAsSheet(effectsSheetViewController)
+        showEffects()
     }
     
     @IBAction func toggleSidebarAction(_ sender: AnyObject) {
@@ -159,7 +160,19 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     // MARK: Message handling -----------------------------------------------------------
     
-    func changeWindowCornerRadius(_ radius: CGFloat) {
+    private func toggleEffects() {
+        attachedSheetViewController == effectsSheetViewController ? hideEffects() : showEffects()
+    }
+    
+    private func showEffects() {
+        playerViewController.presentAsSheet(effectsSheetViewController)
+    }
+    
+    private func hideEffects() {
+        effectsSheetViewController.endSheet()
+    }
+    
+    func changeWindowCornerRadius(to radius: CGFloat) {
         rootContainerBox.cornerRadius = radius
     }
     
@@ -177,17 +190,23 @@ class UnifiedPlayerWindowController: NSWindowController {
         switch item.module {
             
         case .playQueue:
-            
-            tabGroup.selectTabViewItem(at: 0)
+            showPlayQueue()
             
         case .chaptersList:
-            
-            tabGroup.selectLastTabViewItem(self)
+            showChaptersList()
             
         default:
             
             return
         }
+    }
+    
+    private func showPlayQueue() {
+        tabGroup.selectTabViewItem(at: 0)
+    }
+    
+    private func showChaptersList() {
+        tabGroup.selectLastTabViewItem(self)
     }
     
     private func hideModule(forItem item: UnifiedPlayerSidebarItem) {
@@ -210,7 +229,7 @@ class UnifiedPlayerWindowController: NSWindowController {
             tabGroup.addAndAnchorSubView(forController: chaptersListController)
         }
         
-        tabGroup.selectLastTabViewItem(self)
+        showChaptersList()
     }
     
     private func closeChaptersList() {
@@ -261,6 +280,6 @@ extension UnifiedPlayerWindowController: ColorSchemeObserver {
 extension UnifiedPlayerWindowController: NSWindowDelegate {
     
     func windowDidResize(_ notification: Notification) {
-        playerController.windowResized()
+        playerViewController.windowResized()
     }
 }

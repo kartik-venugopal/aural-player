@@ -23,6 +23,28 @@ class ModularAppModeController: AppModeController {
     
     var mode: AppMode {.modular}
     
+    var isShowingPlayer: Bool {true}
+    
+    var isShowingPlayQueue: Bool {
+        windowLayoutsManager.isShowingWindow(withId: .playQueue)
+    }
+    
+    var isShowingEffects: Bool {
+        windowLayoutsManager.isShowingWindow(withId: .effects)
+    }
+    
+    var isShowingChaptersList: Bool {
+        windowLayoutsManager.isShowingWindow(withId: .chaptersList)
+    }
+    
+    var isShowingVisualizer: Bool {
+        windowLayoutsManager.isShowingWindow(withId: .visualizer)
+    }
+    
+    var isShowingTrackInfo: Bool {
+        windowLayoutsManager.isShowingWindow(withId: .trackInfo)
+    }
+    
     var mainWindow: NSWindow? {windowLayoutsManager.mainWindow}
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {

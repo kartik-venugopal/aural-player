@@ -52,6 +52,8 @@
 		3E2000C5267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2000C4267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift */; };
 		3E2000C7267CEEF7008BAB70 /* GesturesPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2000C6267CEEF7008BAB70 /* GesturesPreferencesViewController.swift */; };
 		3E2000C9267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2000C8267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift */; };
+		3E2207EC2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2207EB2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift */; };
+		3E2207EE2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2207ED2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift */; };
 		3E2331EF2AE036E4004A5473 /* PlayQueueContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2331EE2AE036E4004A5473 /* PlayQueueContainerViewController.swift */; };
 		3E2331F12AE03728004A5473 /* PlayQueueContainerViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2331F02AE03728004A5473 /* PlayQueueContainerViewController+Actions.swift */; };
 		3E2331F32AE088DB004A5473 /* UnifiedPlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2331F22AE088DB004A5473 /* UnifiedPlayerUIPersistentState.swift */; };
@@ -1036,6 +1038,8 @@
 		3E2000C4267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeysPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E2000C6267CEEF7008BAB70 /* GesturesPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E2000C8267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferencesViewController.swift; sourceTree = "<group>"; };
+		3E2207EB2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifiedPlayerWindowController+View.swift"; sourceTree = "<group>"; };
+		3E2207ED2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompactPlayerWindowController+View.swift"; sourceTree = "<group>"; };
 		3E2331EE2AE036E4004A5473 /* PlayQueueContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueContainerViewController.swift; sourceTree = "<group>"; };
 		3E2331F02AE03728004A5473 /* PlayQueueContainerViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayQueueContainerViewController+Actions.swift"; sourceTree = "<group>"; };
 		3E2331F22AE088DB004A5473 /* UnifiedPlayerUIPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPlayerUIPersistentState.swift; sourceTree = "<group>"; };
@@ -3484,6 +3488,7 @@
 			children = (
 				3E7638AA2857D88B00461F4D /* UnifiedPlayerWindow.xib */,
 				3E7638AC2857D9F600461F4D /* UnifiedPlayerWindowController.swift */,
+				3E2207EB2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift */,
 				3EC793782B7409B900AF7E9E /* UnifiedPlayerWindowController+Support.swift */,
 				3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */,
 				3E51CCEE285E896B002CBEF2 /* Sidebar */,
@@ -3922,6 +3927,7 @@
 			children = (
 				3EBFF5A92B52C0F70056D5B4 /* CompactPlayerWindow.xib */,
 				3EBFF5A72B52C0CC0056D5B4 /* CompactPlayerWindowController.swift */,
+				3E2207ED2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift */,
 				3EA800FC2B588BDF00039268 /* CompactPlayerWindowController+EventHandling.swift */,
 				3ECF71AC2B755ACF00FDB69B /* CompactPlayerUIState.swift */,
 				3ECF71B02B7571BD00FDB69B /* Player */,
@@ -5507,6 +5513,7 @@
 				3EFE397727864897006F8B8C /* CloseFileHandlesAction.swift in Sources */,
 				3E3975462688894C0055887E /* WidgetSeekSliderCell.swift in Sources */,
 				3E7638AF2857DA3F00461F4D /* UnifiedAppModeController.swift in Sources */,
+				3E2207EC2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift in Sources */,
 				3EA6C62F2AD6AAA100B75166 /* FFmpegFileContext.swift in Sources */,
 				3E5864A02B76DD0000BDB5A6 /* PlayerViewController.swift in Sources */,
 				3EFE37E327864896006F8B8C /* Preferences.swift in Sources */,
@@ -5958,6 +5965,7 @@
 				3E62979D26A3CEBF00C96AB8 /* Restorable.swift in Sources */,
 				3EFE3A4927864898006F8B8C /* VorbisCommentParser.swift in Sources */,
 				3E6C125B25CEBE0600BF0D07 /* ReverbPresetsManagerViewController.swift in Sources */,
+				3E2207EE2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift in Sources */,
 				3EFE37F927864896006F8B8C /* GesturesControlsPreferences.swift in Sources */,
 				3E7EC9052B92593200FDE39B /* PlaylistHistoryItem.swift in Sources */,
 				3E6C12CE25CEBE6700BF0D07 /* ReverbUnitView.swift in Sources */,

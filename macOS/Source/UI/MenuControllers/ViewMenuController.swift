@@ -48,31 +48,31 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
 //        [togglePlayQueueMenuItem, toggleEffectsMenuItem].forEach {$0?.show()}
         
-//        togglePlaylistMenuItem.onIf(windowLayoutsManager.isShowingPlaylist)
-//        toggleEffectsMenuItem.onIf(windowLayoutsManager.isShowingEffects)
-//        toggleChaptersListMenuItem.onIf(windowLayoutsManager.isShowingChaptersList)
-//        toggleVisualizerMenuItem.onIf(windowLayoutsManager.isShowingVisualizer)
+        togglePlayQueueMenuItem.onIf(appModeManager.isShowingPlayQueue)
+        toggleEffectsMenuItem.onIf(appModeManager.isShowingEffects)
+        toggleChaptersListMenuItem.onIf(appModeManager.isShowingChaptersList)
+        toggleVisualizerMenuItem.onIf(appModeManager.isShowingVisualizer)
         
         cornerRadiusStepper.integerValue = playerUIState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
     }
  
     // Shows/hides the playlist window
-    @IBAction func togglePlayQueueAction(_ sender: AnyObject) {
+    @IBAction func togglePlayQueueAction(_ sender: NSMenuItem) {
         Messenger.publish(.View.togglePlayQueue)
     }
     
     // Shows/hides the effects window
-    @IBAction func toggleEffectsAction(_ sender: AnyObject) {
+    @IBAction func toggleEffectsAction(_ sender: NSMenuItem) {
         Messenger.publish(.View.toggleEffects)
     }
     
     // Shows/hides the chapters list window
-    @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
+    @IBAction func toggleChaptersListAction(_ sender: NSMenuItem) {
         Messenger.publish(.View.toggleChaptersList)
     }
     
-    @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
+    @IBAction func toggleVisualizerAction(_ sender: NSMenuItem) {
         Messenger.publish(.View.toggleVisualizer)
     }
     
