@@ -36,7 +36,7 @@ class UnifiedPlayerSidebarViewController: NSViewController {
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: sidebarView)
         
-        messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)
+        messenger.subscribe(to: .View.toggleChaptersList, handler: viewChaptersList)
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribe(to: .UnifiedPlayer.hideModule, handler: hideModule(forItem:))
     }

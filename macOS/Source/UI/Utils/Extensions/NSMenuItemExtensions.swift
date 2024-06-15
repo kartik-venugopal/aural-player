@@ -68,6 +68,13 @@ extension NSPopUpButton {
     }
 }
 
+extension NSPopUpButton: ColorSchemePropertyChangeReceiver {
+    
+    override func colorChanged(_ newColor: PlatformColor) {
+        contentTintColor = newColor
+    }
+}
+
 extension NSMenuItem {
     
     convenience init(title: String) {

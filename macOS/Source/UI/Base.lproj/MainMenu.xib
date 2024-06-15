@@ -108,19 +108,7 @@
                 <outlet property="unifiedModeMenuItem" destination="hhz-um-hPz" id="Ulh-yM-e41"/>
             </connections>
         </customObject>
-        <customObject id="HUO-VF-fKB" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="showAlbumMenuItem" destination="olr-mv-XaV" id="9y7-Zb-paD"/>
-                <outlet property="showArtMenuItem" destination="jid-Ha-OhB" id="rKh-4a-MHH"/>
-                <outlet property="showArtistMenuItem" destination="0ti-mw-8H4" id="VKX-Jd-uCq"/>
-                <outlet property="showCurrentChapterMenuItem" destination="u9N-GU-9tl" id="pvR-7D-4Ht"/>
-                <outlet property="showMainControlsMenuItem" destination="1j6-Wv-gID" id="Cg0-fw-gqj"/>
-                <outlet property="showTrackTimeMenuItem" destination="a34-aW-mEK" id="3Nl-Mc-teh"/>
-                <outlet property="trackDurationMenuItem" destination="za4-By-ECH" id="DU7-sH-nIv"/>
-                <outlet property="trackTimeElapsedMenuItem" destination="pHp-2z-5wg" id="eWe-04-2Gz"/>
-                <outlet property="trackTimeRemainingMenuItem" destination="Cmb-Jk-eis" id="52y-Nh-xLV"/>
-            </connections>
-        </customObject>
+        <customObject id="HUO-VF-fKB" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="sne-aF-WNT" customClass="ThemePopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="theMenu" destination="EHc-8g-9dG" id="JAS-dL-hsY"/>
@@ -188,83 +176,6 @@
                         <connections>
                             <outlet property="delegate" destination="RpY-aa-Z01" id="ltM-xo-loM"/>
                         </connections>
-                    </menu>
-                </menuItem>
-                <menuItem title="Play Queue" id="Bns-9g-qAg" userLabel="Play Queue">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Play Queue" autoenablesItems="NO" id="mj0-Xo-9UX">
-                        <items>
-                            <menuItem title=" Play selected track" image="play" catalog="system" id="pex-tg-Rmc" userLabel="Play selected track/group">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="Z2i-9w-D84"/>
-                            <menuItem title=" Import files / folders" image="plus.rectangle.on.folder" catalog="system" keyEquivalent="o" id="kml-xq-yDB"/>
-                            <menuItem title=" Import and play files / folders" image="plus.rectangle.on.folder" catalog="system" keyEquivalent="o" id="XuL-u8-1cb" userLabel="Add and play files / folders">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                            </menuItem>
-                            <menuItem title=" Export as playlist file" image="arrow.right.doc.on.clipboard" catalog="system" keyEquivalent="s" id="r57-3U-prt"/>
-                            <menuItem isSeparatorItem="YES" id="hMV-Zz-dNQ"/>
-                            <menuItem title=" Remove selected tracks" image="xmark.bin" catalog="system" id="Mx0-9H-K2o" userLabel="Remove selected tracks">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title=" Crop selected tracks" id="Wte-Y6-ApM" userLabel="Crop selection">
-                                <imageReference key="image" image="scissors" catalog="system" symbolScale="small"/>
-                                <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
-                            </menuItem>
-                            <menuItem title=" Remove all tracks" image="trash" catalog="system" id="Yb4-Th-Cuy">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="bkb-RY-t1s"/>
-                            <menuItem title=" Select all tracks" image="list.bullet.rectangle.fill" catalog="system" keyEquivalent="a" id="TYh-3m-DH0"/>
-                            <menuItem title=" Clear selection" image="square.slash" catalog="system" id="kGh-EP-mOf" userLabel="Clear selection">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title=" Invert selection" image="arrow.left.arrow.right" catalog="system" id="i2i-BH-DB2" userLabel="Invert selection">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="lfd-5N-Qpl"/>
-                            <menuItem title=" Move selected tracks up" image="arrow.up" catalog="system" keyEquivalent="" id="x50-ka-4z0">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
-                            </menuItem>
-                            <menuItem title=" Move selected tracks to top" image="arrow.up.to.line" catalog="system" keyEquivalent="" id="TeN-GZ-4C5" userLabel="Move selected tracks to top">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
-                            </menuItem>
-                            <menuItem title=" Move selected tracks down" image="arrow.down" catalog="system" keyEquivalent="" id="EvN-T2-rcJ">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
-                            </menuItem>
-                            <menuItem title=" Move selected tracks to bottom" image="arrow.down.to.line" catalog="system" keyEquivalent="" id="5RC-Mz-njC" userLabel="Move selected tracks to bottom">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="h7B-wo-7Bd"/>
-                            <menuItem title=" Search play queue" image="magnifyingglass" catalog="system" keyEquivalent="f" id="GVe-9w-VJV"/>
-                            <menuItem title=" Sort play queue" image="arrow.up.arrow.down" catalog="system" keyEquivalent="s" id="tfL-Xn-Fip" userLabel="Sort playlist">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="45R-6R-rSP"/>
-                            <menuItem title=" Page up" image="arrow.up" catalog="system" keyEquivalent="" id="X9j-M7-jwq" userLabel="Page up">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title=" Page down" image="arrow.down" catalog="system" keyEquivalent="" id="ngH-Cf-fbR" userLabel="Page down">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title=" Scroll to top" image="arrow.up.to.line" catalog="system" keyEquivalent="" id="TO5-RX-ra6">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
-                            </menuItem>
-                            <menuItem title=" Scroll to bottom" image="arrow.down.to.line" catalog="system" keyEquivalent="" id="L3U-1l-PDT" userLabel="Scroll to bottom of playlist">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
-                            </menuItem>
-                        </items>
                     </menu>
                 </menuItem>
                 <menuItem title="Playback" id="gGA-Nl-MGc" userLabel="Playback">
@@ -680,6 +591,83 @@ CA
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Play Queue" id="Bns-9g-qAg" userLabel="Play Queue">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Play Queue" autoenablesItems="NO" id="mj0-Xo-9UX">
+                        <items>
+                            <menuItem title=" Play selected track" image="play" catalog="system" id="pex-tg-Rmc" userLabel="Play selected track/group">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Z2i-9w-D84"/>
+                            <menuItem title=" Import files / folders" image="plus.rectangle.on.folder" catalog="system" keyEquivalent="o" id="kml-xq-yDB"/>
+                            <menuItem title=" Import and play files / folders" image="plus.rectangle.on.folder" catalog="system" keyEquivalent="o" id="XuL-u8-1cb" userLabel="Add and play files / folders">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            </menuItem>
+                            <menuItem title=" Export as playlist file" image="arrow.right.doc.on.clipboard" catalog="system" keyEquivalent="s" id="r57-3U-prt"/>
+                            <menuItem isSeparatorItem="YES" id="hMV-Zz-dNQ"/>
+                            <menuItem title=" Remove selected tracks" image="xmark.bin" catalog="system" id="Mx0-9H-K2o" userLabel="Remove selected tracks">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title=" Crop selected tracks" id="Wte-Y6-ApM" userLabel="Crop selection">
+                                <imageReference key="image" image="scissors" catalog="system" symbolScale="small"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                            </menuItem>
+                            <menuItem title=" Remove all tracks" image="trash" catalog="system" id="Yb4-Th-Cuy">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="bkb-RY-t1s"/>
+                            <menuItem title=" Select all tracks" image="list.bullet.rectangle.fill" catalog="system" keyEquivalent="a" id="TYh-3m-DH0"/>
+                            <menuItem title=" Clear selection" image="square.slash" catalog="system" id="kGh-EP-mOf" userLabel="Clear selection">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title=" Invert selection" image="arrow.left.arrow.right" catalog="system" id="i2i-BH-DB2" userLabel="Invert selection">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="lfd-5N-Qpl"/>
+                            <menuItem title=" Move selected tracks up" image="arrow.up" catalog="system" keyEquivalent="" id="x50-ka-4z0">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                            </menuItem>
+                            <menuItem title=" Move selected tracks to top" image="arrow.up.to.line" catalog="system" keyEquivalent="" id="TeN-GZ-4C5" userLabel="Move selected tracks to top">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                            </menuItem>
+                            <menuItem title=" Move selected tracks down" image="arrow.down" catalog="system" keyEquivalent="" id="EvN-T2-rcJ">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                            </menuItem>
+                            <menuItem title=" Move selected tracks to bottom" image="arrow.down.to.line" catalog="system" keyEquivalent="" id="5RC-Mz-njC" userLabel="Move selected tracks to bottom">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="h7B-wo-7Bd"/>
+                            <menuItem title=" Search play queue" image="magnifyingglass" catalog="system" keyEquivalent="f" id="GVe-9w-VJV"/>
+                            <menuItem title=" Sort play queue" image="arrow.up.arrow.down" catalog="system" keyEquivalent="s" id="tfL-Xn-Fip" userLabel="Sort playlist">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="45R-6R-rSP"/>
+                            <menuItem title=" Page up" image="arrow.up" catalog="system" keyEquivalent="" id="X9j-M7-jwq" userLabel="Page up">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title=" Page down" image="arrow.down" catalog="system" keyEquivalent="" id="ngH-Cf-fbR" userLabel="Page down">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title=" Scroll to top" image="arrow.up.to.line" catalog="system" keyEquivalent="" id="TO5-RX-ra6">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                            </menuItem>
+                            <menuItem title=" Scroll to bottom" image="arrow.down.to.line" catalog="system" keyEquivalent="" id="L3U-1l-PDT" userLabel="Scroll to bottom of playlist">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="History" id="yIf-Rx-BsM" userLabel="History">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="History" autoenablesItems="NO" id="Dcb-WG-hNt">
@@ -800,38 +788,10 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" autoenablesItems="NO" id="T1n-Dj-czW">
                         <items>
-                            <menuItem title=" Play Queue" state="on" image="music.note.list" catalog="system" keyEquivalent="1" id="qz6-NG-pXu" userLabel="Playlist">
-                                <connections>
-                                    <action selector="togglePlayQueueAction:" target="JTq-Lm-LsR" id="QJu-PJ-0MJ"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="VRp-xb-WM7" userLabel="Effects">
-                                <connections>
-                                    <action selector="toggleEffectsAction:" target="JTq-Lm-LsR" id="Fp4-Ou-ufM"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Chapters list" image="ToggleChaptersList-Small" keyEquivalent="3" id="qSA-FE-7m5">
-                                <connections>
-                                    <action selector="toggleChaptersListAction:" target="JTq-Lm-LsR" id="PXV-Ux-0sW"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Visualizer" image="ToggleVisualizer-Small" keyEquivalent="4" id="AMl-XT-MAB">
-                                <connections>
-                                    <action selector="toggleVisualizerAction:" target="JTq-Lm-LsR" id="ryI-uW-0hf"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="faT-9w-gzY"/>
-                            <menuItem title=" Presentation mode" image="WindowLayout-Menu" id="vmI-H7-Q44">
+                            <menuItem title=" Presentation mode" image="square.grid.2x2" catalog="system" id="vmI-H7-Q44">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Presentation mode" id="K7b-bv-Xmo">
                                     <items>
-                                        <menuItem hidden="YES" id="Nh7-4f-ejT" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                            <imageReference key="image" image="WindowLayout" symbolScale="medium"/>
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="WindowLayout"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </menuItem>
                                         <menuItem title="Modular (multiple windows)" id="qRK-wL-elt">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -868,82 +828,26 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="hUq-D5-Mja"/>
-                            <menuItem title="   Player view" indentationLevel="1" id="pbG-jK-RgB" userLabel="Player view">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="   Player view" autoenablesItems="NO" id="Ywj-H0-vfx">
-                                    <items>
-                                        <menuItem title="Album art" id="jid-Ha-OhB">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showOrHideAlbumArtAction:" target="HUO-VF-fKB" id="bFX-nn-5tU"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Artist" id="0ti-mw-8H4">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showOrHideArtistAction:" target="HUO-VF-fKB" id="PK6-hE-sIp"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Album" id="olr-mv-XaV">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showOrHideAlbumAction:" target="HUO-VF-fKB" id="7L4-eA-463"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Current chapter title" id="u9N-GU-9tl">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showOrHideCurrentChapterAction:" target="HUO-VF-fKB" id="LG0-CB-Cqg"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="ZPC-g1-F5W"/>
-                                        <menuItem title="Main controls" id="1j6-Wv-gID" userLabel="View Player Main Controls">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showOrHideMainControlsAction:" target="HUO-VF-fKB" id="rMq-XM-duv"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Playback position" id="a34-aW-mEK">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showOrHideTrackTimeAction:" target="HUO-VF-fKB" id="HzX-qm-Hye"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="R6w-qZ-o7p"/>
-                                        <menuItem title="Playback position display" id="5HN-cV-6kt">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Playback position display" id="nc4-7y-mkl">
-                                                <items>
-                                                    <menuItem title="Time elapsed" id="pHp-2z-5wg">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="trackTimeElapsedDisplayTypeAction:" target="HUO-VF-fKB" id="JBZ-pr-o1z"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Time remaining" tag="1" id="Cmb-Jk-eis">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="trackTimeRemainingDisplayTypeAction:" target="HUO-VF-fKB" id="osc-PA-qiM"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Track duration" tag="2" id="za4-By-ECH">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="trackTimeDurationDisplayTypeAction:" target="HUO-VF-fKB" id="HjL-Jm-eba"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                                <connections>
-                                                    <outlet property="delegate" destination="HUO-VF-fKB" id="Kt7-BC-phk"/>
-                                                </connections>
-                                            </menu>
-                                        </menuItem>
-                                    </items>
-                                    <connections>
-                                        <outlet property="delegate" destination="HUO-VF-fKB" id="Z9C-xQ-aU6"/>
-                                    </connections>
-                                </menu>
+                            <menuItem isSeparatorItem="YES" id="faT-9w-gzY"/>
+                            <menuItem title=" Play Queue" state="on" image="music.note.list" catalog="system" keyEquivalent="1" id="qz6-NG-pXu" userLabel="Playlist">
+                                <connections>
+                                    <action selector="togglePlayQueueAction:" target="JTq-Lm-LsR" id="QJu-PJ-0MJ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="VRp-xb-WM7" userLabel="Effects">
+                                <connections>
+                                    <action selector="toggleEffectsAction:" target="JTq-Lm-LsR" id="Fp4-Ou-ufM"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Chapters list" image="ToggleChaptersList-Small" keyEquivalent="3" id="qSA-FE-7m5">
+                                <connections>
+                                    <action selector="toggleChaptersListAction:" target="JTq-Lm-LsR" id="PXV-Ux-0sW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Visualizer" image="ToggleVisualizer-Small" keyEquivalent="4" id="AMl-XT-MAB">
+                                <connections>
+                                    <action selector="toggleVisualizerAction:" target="JTq-Lm-LsR" id="ryI-uW-0hf"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="lhn-qh-04n"/>
                             <menuItem title="   Theme" indentationLevel="1" id="zQG-l2-eVK" userLabel="Theme">
@@ -1153,54 +1057,54 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="vEN-ai-wkC"/>
-                            <menuItem title=" Window Layout" image="WindowLayout-Small" id="54V-bV-0Yv" userLabel="Window Layout">
+                            <menuItem title=" Window Layout" image="uiwindow.split.2x1" catalog="system" id="54V-bV-0Yv" userLabel="Window Layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Window Layout" id="fGS-p2-B4l">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="m3b-U9-DmA"/>
-                                        <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="895-XH-ur7">
+                                        <menuItem title="Vertical full stack" id="895-XH-ur7">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyPresetAction:" target="ARU-wE-JsS" id="7ca-Kg-QMb"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Horizontal full stack" image="WindowLayout-HorizontalStack" id="4XH-HT-2V4">
+                                        <menuItem title="Horizontal full stack" id="4XH-HT-2V4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyPresetAction:" target="ARU-wE-JsS" id="EOx-cD-KnW"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Big bottom play queue" image="WindowLayout-BigBottomPlaylist" id="jDD-h3-g2d">
+                                        <menuItem title="Big bottom play queue" id="jDD-h3-g2d">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyPresetAction:" target="ARU-wE-JsS" id="jgC-0a-GFT"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Big right play queue" image="WindowLayout-BigRightPlaylist" id="BwZ-En-aiD">
+                                        <menuItem title="Big right play queue" id="BwZ-En-aiD">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyPresetAction:" target="ARU-wE-JsS" id="dls-cs-Cbe"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Big left play queue" image="WindowLayout-BigLeftPlaylist" id="EA2-lX-2f0">
+                                        <menuItem title="Big left play queue" id="EA2-lX-2f0">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyPresetAction:" target="ARU-wE-JsS" id="GSN-on-k6C"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Vertical player and play queue" image="WindowLayout-VerticalPlayerAndPlaylist" id="j0t-qu-Gbz">
+                                        <menuItem title="Vertical player and play queue" id="j0t-qu-Gbz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyPresetAction:" target="ARU-wE-JsS" id="Fxu-UD-flD"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Horizontal player and play queue" image="WindowLayout-HorizontalPlayerAndPlaylist" id="ybr-qf-bha">
+                                        <menuItem title="Horizontal player and play queue" id="ybr-qf-bha">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyPresetAction:" target="ARU-wE-JsS" id="GYQ-aB-KxY"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Compact cornered" image="WindowLayout-CompactCornered" id="HA6-0R-MMo">
+                                        <menuItem title="Compact cornered" id="HA6-0R-MMo">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyPresetAction:" target="ARU-wE-JsS" id="Y0L-IE-sGa"/>
@@ -1405,7 +1309,7 @@ CA
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RdI-Ey-O72">
-                    <rect key="frame" x="46" y="2" width="156" height="22"/>
+                    <rect key="frame" x="46" y="1" width="156" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="uEr-lr-SQZ">
                         <font key="font" metaFont="system"/>
@@ -1414,7 +1318,7 @@ CA
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zug-e2-ouS">
-                    <rect key="frame" x="188" y="2" width="39" height="22"/>
+                    <rect key="frame" x="188" y="1" width="39" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="pS8-yD-xCT">
                         <font key="font" metaFont="system"/>
@@ -1452,17 +1356,6 @@ CA
         <image name="ToggleVisualizer-Small" width="14" height="14"/>
         <image name="Update" width="15" height="15"/>
         <image name="UserGuide" width="16" height="14"/>
-        <image name="WindowLayout" width="20" height="20"/>
-        <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-CompactCornered" width="30" height="20"/>
-        <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
-        <image name="WindowLayout-Menu" width="15" height="15"/>
-        <image name="WindowLayout-Small" width="13" height="13"/>
-        <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
-        <image name="WindowLayout-VerticalStack" width="30" height="20"/>
         <image name="arrow.2.squarepath" catalog="system" width="19" height="14"/>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
         <image name="arrow.down.to.line" catalog="system" width="13" height="16"/>
@@ -1503,11 +1396,13 @@ CA
         <image name="speaker.slash" catalog="system" width="14" height="16"/>
         <image name="speaker.wave.1" catalog="system" width="16" height="14"/>
         <image name="speaker.wave.3" catalog="system" width="22" height="15"/>
+        <image name="square.grid.2x2" catalog="system" width="15" height="14"/>
         <image name="square.slash" catalog="system" width="15" height="17"/>
         <image name="stop" catalog="system" width="14" height="13"/>
         <image name="text.insert" catalog="system" width="16" height="13"/>
         <image name="timer" catalog="system" width="15" height="15"/>
         <image name="trash" catalog="system" width="15" height="17"/>
+        <image name="uiwindow.split.2x1" catalog="system" width="18" height="14"/>
         <image name="waveform.path.ecg" catalog="system" width="16" height="16"/>
         <image name="xmark.bin" catalog="system" width="19" height="14"/>
     </resources>

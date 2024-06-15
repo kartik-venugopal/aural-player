@@ -26,8 +26,8 @@ class ModularPlayerWindowController: NSWindowController {
     
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
-    @IBOutlet weak var presentationModeMenuItem: TintedIconMenuItem!
     
+    @IBOutlet weak var btnPresentationModeMenu: NSPopUpButton!
     @IBOutlet weak var btnSettingsMenu: NSPopUpButton!
     
     @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
@@ -36,7 +36,7 @@ class ModularPlayerWindowController: NSWindowController {
     
     let controlsPreferences: GesturesControlsPreferences = preferences.controlsPreferences.gestures
     
-    lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnMinimize, presentationModeMenuItem, settingsMenuIconItem]
+    lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnPresentationModeMenu, btnMinimize, settingsMenuIconItem]
     
     lazy var messenger = Messenger(for: self)
     

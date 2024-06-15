@@ -72,12 +72,12 @@ class UnifiedPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .UnifiedPlayer.showModule, handler: showModule(forItem:))
         messenger.subscribe(to: .UnifiedPlayer.hideModule, handler: hideModule(forItem:))
         
-        messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)
+        messenger.subscribe(to: .View.toggleChaptersList, handler: viewChaptersList)
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .View.togglePlayQueue, handler: showPlayQueue)
         messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
-        messenger.subscribe(to: .View.toggleChaptersList, handler: showChaptersList)
+        messenger.subscribe(to: .View.toggleChaptersList, handler: viewChaptersList)
 //        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         

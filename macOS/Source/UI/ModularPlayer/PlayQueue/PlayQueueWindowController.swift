@@ -54,13 +54,7 @@ class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(_:))
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
-        messenger.subscribe(to: .PlayQueue.viewChaptersList, handler: viewChaptersList)
-        
         setUpEventHandling()
-    }
-    
-    private func viewChaptersList() {
-        windowLayoutsManager.showWindow(withId: .chaptersList)
     }
     
     func trackTransitioned(_ notif: TrackTransitionNotification) {

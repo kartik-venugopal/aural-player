@@ -100,7 +100,5 @@ extension Notification.Name {
         static let pageDown = Notification.Name("playQueue_pageDown")
         
         static let search = Notification.Name("playQueue_search")
-        
-        static let viewChaptersList = Notification.Name("playQueue_viewChaptersList")
     }
 }
