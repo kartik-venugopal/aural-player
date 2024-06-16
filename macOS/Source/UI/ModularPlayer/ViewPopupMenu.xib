@@ -26,10 +26,16 @@
                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Hamburger"/>
                     </userDefinedRuntimeAttributes>
                 </menuItem>
-                <menuItem title="Play Queue" id="PVu-em-g7u">
+                <menuItem title="Player" id="PVu-em-g7u">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="togglePlayQueueAction:" target="Ro6-ma-Phw" id="3BZ-P7-tW9"/>
+                        <action selector="showPlayerAction:" target="Ro6-ma-Phw" id="k0r-Df-yPU"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Play Queue" id="YMp-Mn-vwN">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="togglePlayQueueAction:" target="Ro6-ma-Phw" id="wo6-T5-iYV"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Library" hidden="YES" enabled="NO" id="DRo-7Q-HFC">
@@ -411,7 +417,8 @@
                 <outlet property="saveCurrentWindowLayoutMenuItem" destination="tC2-xb-Xzp" id="bFD-oR-0SX"/>
                 <outlet property="toggleChaptersListMenuItem" destination="EF3-EJ-g9z" id="rBk-jg-tsQ"/>
                 <outlet property="toggleEffectsMenuItem" destination="EMc-En-1DG" id="0OS-ut-4dc"/>
-                <outlet property="togglePlayQueueMenuItem" destination="PVu-em-g7u" id="gX9-Gn-pW6"/>
+                <outlet property="togglePlayQueueMenuItem" destination="YMp-Mn-vwN" id="PiD-aY-lrs"/>
+                <outlet property="togglePlayerMenuItem" destination="PVu-em-g7u" id="9u5-u8-hG8"/>
                 <outlet property="toggleTrackInfoMenuItem" destination="rxD-Gp-Awn" id="4By-RL-oGM"/>
                 <outlet property="toggleVisualizerMenuItem" destination="KUn-VA-Fam" id="VjW-lm-GgS"/>
                 <outlet property="windowLayoutsMenuItem" destination="RlY-rw-Ay5" id="2o0-rs-c08"/>
@@ -457,6 +464,7 @@
         </customView>
         <customObject id="25c-GL-z4R" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="playbackPositionDisplayTypeMenuItem" destination="cja-3E-Z03" id="X6P-Ki-vFH"/>
                 <outlet property="playbackPositionElapsedMenuItem" destination="BGU-Ew-B7Y" id="D1K-EM-nn2"/>
                 <outlet property="playbackPositionRemainingMenuItem" destination="wvs-gW-Hm3" id="fC6-3F-TzY"/>
                 <outlet property="playbackPositionTrackDurationMenuItem" destination="BqA-Sr-eY6" id="926-Hb-814"/>

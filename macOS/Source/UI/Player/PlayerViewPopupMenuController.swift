@@ -26,12 +26,19 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
     @IBOutlet weak var showPlaybackPositionMenuItem: NSMenuItem!
     
+    @IBOutlet weak var playbackPositionDisplayTypeMenuItem: NSMenuItem!
     @IBOutlet weak var playbackPositionElapsedMenuItem: NSMenuItem!
     @IBOutlet weak var playbackPositionRemainingMenuItem: NSMenuItem!
     @IBOutlet weak var playbackPositionTrackDurationMenuItem: NSMenuItem!
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuWillOpen(_ menu: NSMenu) {
+        
+        guard appModeManager.currentMode != .compact else {
+            
+            updateForCompactMode()
+            return
+        }
         
         // Player view:
         
@@ -62,11 +69,29 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         
         showMainControlsMenuItem.onIf(playerUIState.showControls)
         
-        showPlaybackPositionMenuItem.onIf(playerUIState.showPlaybackPosition)
+        updatePlaybackPositionAndDisplayType()
+    }
+    
+    private func updateForCompactMode() {
         
-        if appModeManager.currentMode == .compact {
-            showPlaybackPositionMenuItem.title = "Show playback position"
+        [showArtMenuItem, showArtistMenuItem, showAlbumMenuItem, showCurrentChapterMenuItem, showMainControlsMenuItem].forEach {
+            $0?.hide()
         }
+        
+        showPlaybackPositionMenuItem.title = "Show playback position"
+        
+        scrollTrackInfoMenuItem.onIf(compactPlayerUIState.trackInfoScrollingEnabled)
+        showPlaybackPositionMenuItem.onIf(compactPlayerUIState.showPlaybackPosition)
+        
+        updatePlaybackPositionAndDisplayType()
+    }
+    
+    private func updatePlaybackPositionAndDisplayType() {
+        
+        showPlaybackPositionMenuItem.onIf(compactPlayerUIState.showPlaybackPosition)
+        playbackPositionDisplayTypeMenuItem.showIf(compactPlayerUIState.showPlaybackPosition)
+        
+        guard compactPlayerUIState.showPlaybackPosition else {return}
         
         [playbackPositionElapsedMenuItem, playbackPositionRemainingMenuItem, playbackPositionTrackDurationMenuItem].forEach {$0.off()}
         

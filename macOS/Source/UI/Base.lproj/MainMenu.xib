@@ -128,7 +128,8 @@
                 <outlet property="saveCurrentWindowLayoutMenuItem" destination="r1q-cR-Y36" id="JLz-ke-oyM"/>
                 <outlet property="toggleChaptersListMenuItem" destination="qSA-FE-7m5" id="G8P-gu-gNN"/>
                 <outlet property="toggleEffectsMenuItem" destination="VRp-xb-WM7" id="fJX-9x-2zg"/>
-                <outlet property="togglePlayQueueMenuItem" destination="qz6-NG-pXu" id="NrG-XF-Pha"/>
+                <outlet property="togglePlayQueueMenuItem" destination="YV7-MC-ayp" id="A0J-e7-yTi"/>
+                <outlet property="togglePlayerMenuItem" destination="qz6-NG-pXu" id="Qum-dJ-T0u"/>
                 <outlet property="toggleTrackInfoMenuItem" destination="ed8-W1-CfC" id="hg8-jq-wp2"/>
                 <outlet property="toggleVisualizerMenuItem" destination="AMl-XT-MAB" id="tS5-W0-Q0e"/>
                 <outlet property="windowLayoutsMenuItem" destination="54V-bV-0Yv" id="hSo-KK-BeG"/>
@@ -922,12 +923,18 @@ CA
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="faT-9w-gzY"/>
-                            <menuItem title=" Play Queue" state="on" image="music.note.list" catalog="system" keyEquivalent="1" id="qz6-NG-pXu" userLabel="Playlist">
+                            <menuItem title=" Player" keyEquivalent="0" id="qz6-NG-pXu" userLabel="Player">
+                                <imageReference key="image" image="playpause" catalog="system" symbolScale="small"/>
                                 <connections>
-                                    <action selector="togglePlayQueueAction:" target="JTq-Lm-LsR" id="QJu-PJ-0MJ"/>
+                                    <action selector="showPlayerAction:" target="JTq-Lm-LsR" id="cjC-Xb-oHS"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Effects" state="on" image="slider.vertical.3" catalog="system" keyEquivalent="2" id="VRp-xb-WM7" userLabel="Effects">
+                            <menuItem title=" Play Queue" image="music.note.list" catalog="system" keyEquivalent="1" id="YV7-MC-ayp" userLabel="Play Queue">
+                                <connections>
+                                    <action selector="togglePlayQueueAction:" target="JTq-Lm-LsR" id="W2s-EU-yH5"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Effects" image="slider.vertical.3" catalog="system" keyEquivalent="2" id="VRp-xb-WM7" userLabel="Effects">
                                 <connections>
                                     <action selector="toggleEffectsAction:" target="JTq-Lm-LsR" id="Fp4-Ou-ufM"/>
                                 </connections>
@@ -937,7 +944,7 @@ CA
                                     <action selector="toggleChaptersListAction:" target="JTq-Lm-LsR" id="PXV-Ux-0sW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="   Track Info" image="info" catalog="system" keyEquivalent="4" id="ed8-W1-CfC">
+                            <menuItem title=" Track Info" image="info" catalog="system" keyEquivalent="4" id="ed8-W1-CfC">
                                 <connections>
                                     <action selector="toggleTrackInfoAction:" target="JTq-Lm-LsR" id="26y-YP-qlU"/>
                                 </connections>
@@ -1483,6 +1490,7 @@ CA
         <image name="pause" catalog="system" width="9" height="13"/>
         <image name="pencil" catalog="system" width="14" height="13"/>
         <image name="play" catalog="system" width="12" height="13"/>
+        <image name="playpause" catalog="system" width="17" height="11"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="plus.rectangle.on.folder" catalog="system" width="19" height="15"/>
         <image name="power" catalog="system" width="15" height="16"/>

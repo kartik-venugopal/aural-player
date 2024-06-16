@@ -17,6 +17,7 @@ import Cocoa
 class ViewMenuController: NSObject, NSMenuDelegate {
     
     // Menu items whose states are toggled when they (or others) are clicked
+    @IBOutlet weak var togglePlayerMenuItem: NSMenuItem!
     @IBOutlet weak var togglePlayQueueMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
     @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
@@ -56,6 +57,10 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuWillOpen(_ menu: NSMenu) {
         
+        let isCompactMode = appModeManager.currentMode == .compact
+        
+        togglePlayerMenuItem.showIf(isCompactMode)
+        togglePlayerMenuItem.onIf(isCompactMode && compactPlayerUIState.displayedView == .player)
         togglePlayQueueMenuItem.onIf(appModeManager.isShowingPlayQueue)
         toggleEffectsMenuItem.onIf(appModeManager.isShowingEffects)
         toggleChaptersListMenuItem.onIf(appModeManager.isShowingChaptersList)
@@ -72,7 +77,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         // Can't save current theme/scheme in Compact mode (can't customize, so saving is irrelevant)
         [createThemeMenuItem, saveCurrentThemeMenuItem, saveCurrentFontSchemeMenuItem, saveCurrentColorSchemeMenuItem].forEach {
-            $0?.showIf(appModeManager.currentMode != .compact)
+            $0?.showIf(!isCompactMode)
         }
         
         // Window Layouts only relevant in Modular mode
@@ -82,6 +87,11 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         cornerRadiusStepper.integerValue = playerUIState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
+    }
+    
+    // Compact mode only
+    @IBAction func showPlayerAction(_ sender: NSMenuItem) {
+        Messenger.publish(.View.CompactPlayer.showPlayer)
     }
  
     // Shows/hides the playlist window
