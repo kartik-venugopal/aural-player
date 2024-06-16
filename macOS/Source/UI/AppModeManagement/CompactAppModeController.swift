@@ -45,7 +45,7 @@ class CompactAppModeController: AppModeController {
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)
-        NSApp.menu = (NSApp.delegate as? AppDelegate)?.mainMenu
+        NSApp.menu = appDelegate.mainMenu
         
         windowController = CompactPlayerWindowController()
         windowController?.showWindow(self)

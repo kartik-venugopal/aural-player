@@ -34,11 +34,35 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         
         messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: updateSummary)
         messenger.subscribeAsync(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
+        messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
+        
+        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        
+        messenger.subscribe(to: .PlayQueue.addTracks, handler: importFilesAndFolders)
+        
+        messenger.subscribe(to: .PlayQueue.removeTracks, handler: removeTracks)
+        messenger.subscribe(to: .PlayQueue.cropSelection, handler: cropSelection)
+        messenger.subscribe(to: .PlayQueue.removeAllTracks, handler: removeAllTracks)
+        
+        messenger.subscribe(to: .PlayQueue.playSelectedTrack, handler: playSelectedTrack)
+        
+        messenger.subscribe(to: .PlayQueue.selectAllTracks, handler: selectAll)
+        messenger.subscribe(to: .PlayQueue.clearSelection, handler: clearSelection)
+        messenger.subscribe(to: .PlayQueue.invertSelection, handler: invertSelection)
         
         messenger.subscribe(to: .PlayQueue.pageUp, handler: pageUp)
         messenger.subscribe(to: .PlayQueue.pageDown, handler: pageDown)
         messenger.subscribe(to: .PlayQueue.scrollToTop, handler: scrollToTop)
         messenger.subscribe(to: .PlayQueue.scrollToBottom, handler: scrollToBottom)
+        
+        messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
+        
+        messenger.subscribe(to: .PlayQueue.moveTracksUp, handler: moveTracksUp)
+        messenger.subscribe(to: .PlayQueue.moveTracksDown, handler: moveTracksDown)
+        messenger.subscribe(to: .PlayQueue.moveTracksToTop, handler: moveTracksToTop)
+        messenger.subscribe(to: .PlayQueue.moveTracksToBottom, handler: moveTracksToBottom)
+        
+        messenger.subscribe(to: .PlayQueue.exportAsPlaylistFile, handler: exportTrackList)
     }
     
     // MARK: Notification handling ----------------------------------------------------------------------------------

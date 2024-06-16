@@ -17,6 +17,9 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var mainMenu: NSMenu!
+    @IBOutlet weak var playbackMenuRootItem: NSMenuItem!
+    @IBOutlet weak var soundMenuRootItem: NSMenuItem!
+    @IBOutlet weak var playQueueMenuRootItem: NSMenuItem!
     
     lazy var messenger = Messenger(for: self)
     

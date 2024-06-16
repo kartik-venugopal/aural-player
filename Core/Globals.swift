@@ -20,6 +20,8 @@ fileprivate let logger: Logger = .init()
 
 fileprivate var needToMigrateLegacySettings: Bool = false
 
+let appDelegate: AppDelegate = NSApp.delegate as! AppDelegate
+
 let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
 let appPersistentState: AppPersistentState = {
     

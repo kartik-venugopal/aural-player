@@ -190,47 +190,27 @@ class PlayQueueViewController: TrackListTableViewController {
         is playing, it may have moved.
      */
     
-    @discardableResult override func moveTracksUp() -> Bool {
-
-        if super.moveTracksUp() {
-            
-            updateSummary()
-            return true
-        }
+    override func doMoveTracksUp() {
         
-        return false
+        super.doMoveTracksUp()
+        updateSummary()
     }
 
-    @discardableResult override func moveTracksDown() -> Bool {
-
-        if super.moveTracksDown() {
-            
-            updateSummary()
-            return true
-        }
+    override func doMoveTracksDown() {
         
-        return false
+        super.doMoveTracksDown()
+        updateSummary()
     }
 
-    @discardableResult override func moveTracksToTop() -> Bool {
-
-        if super.moveTracksToTop() {
-            
-            updateSummary()
-            return true
-        }
+    override func doMoveTracksToTop() {
         
-        return false
+        super.doMoveTracksToTop()
+        updateSummary()
     }
 
-    @discardableResult override func moveTracksToBottom() -> Bool {
-
-        if super.moveTracksToBottom() {
-            
-            updateSummary()
-            return true
-        }
+    override func doMoveTracksToBottom() {
         
-        return false
+        super.doMoveTracksToBottom()
+        updateSummary()
     }
 }

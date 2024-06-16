@@ -57,6 +57,7 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
         let pqSize = playQueueDelegate.size
         let pqHasTracks = pqSize > 0
         let moreThanOneTrack = pqSize > 1
+        let notAllTracksSelected = selRows.count < pqSize
         
         var playingTrackSelected = false
         if let currentTrackIndex = playQueue.currentTrackIndex, selRows.contains(currentTrackIndex) {
@@ -65,8 +66,8 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
         
         playSelectedTrackItem.enableIf(selRows.count == 1 && (!playingTrackSelected))
         
-        [exportToPlaylistItem, removeAllTracksItem, searchItem, 
-         pageUpItem, pageDownItem, scrollToTopItem, scrollToBottomItem].forEach {
+        [exportToPlaylistItem, removeAllTracksItem, selectAllTracksItem, invertSelectionItem, searchItem,
+         pageUpItem, pageDownItem, scrollToTopItem, scrollToBottomItem, searchItem].forEach {
             
             $0.enableIf(pqHasTracks)
         }
@@ -78,7 +79,7 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
         [cropSelectedTracksItem, moveSelectedTracksUpItem,
          moveSelectedTracksToTopItem, moveSelectedTracksDownItem, moveSelectedTracksToBottomItem].forEach {
             
-            $0.enableIf(hasSelRows && moreThanOneTrack)
+            $0.enableIf(hasSelRows && moreThanOneTrack && notAllTracksSelected)
         }
         
         sortItem.enableIf(pqSize >= 2)

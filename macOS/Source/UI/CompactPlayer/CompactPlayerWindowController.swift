@@ -78,6 +78,7 @@ class CompactPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrackInPlayQueue)
         
         setUpEventHandling()
+        updateMainMenuState()
     }
     
     private func initWindow() {
@@ -141,6 +142,8 @@ class CompactPlayerWindowController: NSWindowController {
     }
     
     func toggleEffects() {
+        
+        defer {updateMainMenuState()}
         
         if compactPlayerUIState.displayedView == .effects {
             
@@ -241,6 +244,15 @@ class CompactPlayerWindowController: NSWindowController {
         } else {
             eventMonitor.pauseMonitoring()
         }
+        
+        updateMainMenuState()
+    }
+    
+    private func updateMainMenuState() {
+        
+        appDelegate.playbackMenuRootItem.enableIf(compactPlayerUIState.displayedView == .player)
+        appDelegate.soundMenuRootItem.enableIf(compactPlayerUIState.displayedView.equalsOneOf(.player, .effects))
+        appDelegate.playQueueMenuRootItem.enableIf(compactPlayerUIState.displayedView == .playQueue)
     }
 }
 

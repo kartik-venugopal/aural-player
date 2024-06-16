@@ -266,10 +266,15 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
     }
     
     // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
-    @discardableResult func moveTracksUp() -> Bool {
+    func moveTracksUp() {
 
-        guard atLeastTwoRowsAndNotAllSelected else {return false}
-
+        if atLeastTwoRowsAndNotAllSelected {
+            doMoveTracksUp()
+        }
+    }
+    
+    func doMoveTracksUp() {
+        
         let results = trackList.moveTracksUp(from: selectedRows)
         
         moveAndReloadItems(results.sorted(by: <))
@@ -277,14 +282,17 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         if let minRow = selectedRows.min() {
             tableView.scrollRowToVisible(minRow)
         }
-        
-        return true
     }
 
     // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
-    @discardableResult func moveTracksDown() -> Bool {
-
-        guard atLeastTwoRowsAndNotAllSelected else {return false}
+    func moveTracksDown() {
+        
+        if atLeastTwoRowsAndNotAllSelected {
+            doMoveTracksDown()
+        }
+    }
+    
+    func doMoveTracksDown() {
 
         let results = trackList.moveTracksDown(from: selectedRows)
         
@@ -293,8 +301,6 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         if let minRow = selectedRows.min() {
             tableView.scrollRowToVisible(minRow)
         }
-        
-        return true
     }
 
     // Rearranges tracks within the view that have been reordered
@@ -308,44 +314,48 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
     }
 
     // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
-    @discardableResult func moveTracksToTop() -> Bool {
-
+    func moveTracksToTop() {
+        
+        if atLeastTwoRowsAndNotAllSelected {
+            doMoveTracksToTop()
+        }
+    }
+    
+    func doMoveTracksToTop() {
+        
         let selectedRows = self.selectedRows
-        let selectedRowCount = self.selectedRowCount
-        
-        guard atLeastTwoRowsAndNotAllSelected else {return false}
-        
         let results = trackList.moveTracksToTop(from: selectedRows)
         
         // Move the rows
         removeAndInsertItems(results.sorted(by: <))
         
         // Refresh the relevant rows
-        guard let maxSelectedRow = selectedRows.max() else {return true}
+        guard let maxSelectedRow = selectedRows.max() else {return}
         
         tableView.reloadRows(0...maxSelectedRow)
         
         // Select all the same rows but now at the top
         tableView.scrollToTop()
         tableView.selectRows(0..<selectedRowCount)
-        
-        return true
     }
 
     // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
-    @discardableResult func moveTracksToBottom() -> Bool {
-
+    func moveTracksToBottom() {
+        
+        if atLeastTwoRowsAndNotAllSelected {
+            doMoveTracksToBottom()
+        }
+    }
+    
+    func doMoveTracksToBottom() {
+        
         let selectedRows = self.selectedRows
-        let selectedRowCount = self.selectedRowCount
-        
-        guard atLeastTwoRowsAndNotAllSelected else {return false}
-        
         let results = trackList.moveTracksToBottom(from: selectedRows)
         
         // Move the rows
         removeAndInsertItems(results.sorted(by: >))
         
-        guard let minSelectedRow = selectedRows.min() else {return true}
+        guard let minSelectedRow = selectedRows.min() else {return}
         
         let lastRow = self.lastRow
         
@@ -356,8 +366,6 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         let firstSelectedRow = lastRow - selectedRowCount + 1
         tableView.selectRows(firstSelectedRow...lastRow)
         tableView.scrollToBottom()
-        
-        return true
     }
     
     func scrollRowToVisible(_ row: Int) {
