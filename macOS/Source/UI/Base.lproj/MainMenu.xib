@@ -72,6 +72,28 @@
                 <outlet property="twoOctavesBelowMenuItem" destination="1iB-nf-nDK" id="uDy-9V-q5p"/>
             </connections>
         </customObject>
+        <customObject id="YXK-dI-G9P" customClass="PlayQueueMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="clearSelectionItem" destination="kGh-EP-mOf" id="vXS-K1-ZAA"/>
+                <outlet property="cropSelectedTracksItem" destination="Wte-Y6-ApM" id="5HD-vb-3YC"/>
+                <outlet property="exportToPlaylistItem" destination="r57-3U-prt" id="ZRw-k5-v3G"/>
+                <outlet property="invertSelectionItem" destination="i2i-BH-DB2" id="Vlc-KN-RrJ"/>
+                <outlet property="moveSelectedTracksDownItem" destination="EvN-T2-rcJ" id="ty1-ng-HyG"/>
+                <outlet property="moveSelectedTracksToBottomItem" destination="5RC-Mz-njC" id="fdt-HR-r2v"/>
+                <outlet property="moveSelectedTracksToTopItem" destination="TeN-GZ-4C5" id="Z6S-Os-7Ok"/>
+                <outlet property="moveSelectedTracksUpItem" destination="x50-ka-4z0" id="H0J-Pb-7WF"/>
+                <outlet property="pageDownItem" destination="ngH-Cf-fbR" id="1jG-Mf-4ug"/>
+                <outlet property="pageUpItem" destination="X9j-M7-jwq" id="dBS-we-WAl"/>
+                <outlet property="playSelectedTrackItem" destination="pex-tg-Rmc" id="CGv-CM-JZN"/>
+                <outlet property="removeAllTracksItem" destination="Yb4-Th-Cuy" id="ot0-hI-boK"/>
+                <outlet property="removeSelectedTracksItem" destination="Mx0-9H-K2o" id="vPC-GA-kEp"/>
+                <outlet property="scrollToBottomItem" destination="L3U-1l-PDT" id="Gp6-08-Lbo"/>
+                <outlet property="scrollToTopItem" destination="TO5-RX-ra6" id="LKI-QA-fvI"/>
+                <outlet property="searchItem" destination="GVe-9w-VJV" id="fsL-8W-vrY"/>
+                <outlet property="selectAllTracksItem" destination="TYh-3m-DH0" id="haI-ZE-rP8"/>
+                <outlet property="sortItem" destination="tfL-Xn-Fip" id="RNy-Rl-Wae"/>
+            </connections>
+        </customObject>
         <customObject id="7Mj-fX-Ivy" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="recentItemsMenu" destination="O8Z-ZZ-NUj" id="c3M-Yd-t4b"/>
@@ -610,19 +632,33 @@
 DQ
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="playSelectedTrackAction:" target="YXK-dI-G9P" id="MIA-sG-C7o"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Z2i-9w-D84"/>
-                            <menuItem title=" Import files / folders" image="plus.rectangle.on.folder" catalog="system" keyEquivalent="o" id="kml-xq-yDB"/>
+                            <menuItem title=" Import files / folders" image="plus.rectangle.on.folder" catalog="system" keyEquivalent="o" id="kml-xq-yDB">
+                                <connections>
+                                    <action selector="importFilesAndFoldersAction:" target="YXK-dI-G9P" id="pyV-qu-R5h"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title=" Import and play files / folders" image="plus.rectangle.on.folder" catalog="system" keyEquivalent="o" id="XuL-u8-1cb" userLabel="Add and play files / folders">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
-                            <menuItem title=" Export as playlist file" image="arrow.right.doc.on.clipboard" catalog="system" keyEquivalent="s" id="r57-3U-prt"/>
+                            <menuItem title=" Export as playlist file" image="arrow.right.doc.on.clipboard" catalog="system" keyEquivalent="s" id="r57-3U-prt">
+                                <connections>
+                                    <action selector="exportAsPlaylistFileAction:" target="YXK-dI-G9P" id="SWl-A4-OYC"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="hMV-Zz-dNQ"/>
                             <menuItem title=" Remove selected tracks" image="xmark.bin" catalog="system" id="Mx0-9H-K2o" userLabel="Remove selected tracks">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="removeSelectedTracksAction:" target="YXK-dI-G9P" id="Q0d-3S-72D"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Crop selected tracks" id="Wte-Y6-ApM" userLabel="Crop selection">
                                 <imageReference key="image" image="scissors" catalog="system" symbolScale="small"/>
@@ -630,52 +666,99 @@ CA
 CA
 </string>
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="cropSelectedTracksAction:" target="YXK-dI-G9P" id="Kd4-SL-hKW"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Remove all tracks" image="trash" catalog="system" id="Yb4-Th-Cuy">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
+                                <connections>
+                                    <action selector="removeAllTracksAction:" target="YXK-dI-G9P" id="3Z3-m3-KQF"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bkb-RY-t1s"/>
-                            <menuItem title=" Select all tracks" image="list.bullet.rectangle.fill" catalog="system" keyEquivalent="a" id="TYh-3m-DH0"/>
+                            <menuItem title=" Select all tracks" image="list.bullet.rectangle.fill" catalog="system" keyEquivalent="a" id="TYh-3m-DH0">
+                                <connections>
+                                    <action selector="selectAllTracksAction:" target="YXK-dI-G9P" id="YEg-eS-geZ"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title=" Clear selection" image="square.slash" catalog="system" id="kGh-EP-mOf" userLabel="Clear selection">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="clearSelectionAction:" target="YXK-dI-G9P" id="cVf-RT-Z2E"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Invert selection" image="arrow.left.arrow.right" catalog="system" id="i2i-BH-DB2" userLabel="Invert selection">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="invertSelectionAction:" target="YXK-dI-G9P" id="9Ip-UV-Bfn"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="lfd-5N-Qpl"/>
                             <menuItem title=" Move selected tracks up" image="arrow.up" catalog="system" keyEquivalent="" id="x50-ka-4z0">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="moveTracksUpAction:" target="YXK-dI-G9P" id="4Sh-UQ-mS3"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Move selected tracks to top" image="arrow.up.to.line" catalog="system" keyEquivalent="" id="TeN-GZ-4C5" userLabel="Move selected tracks to top">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                                <connections>
+                                    <action selector="moveTracksToTopAction:" target="YXK-dI-G9P" id="vQB-bO-GNW"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Move selected tracks down" image="arrow.down" catalog="system" keyEquivalent="" id="EvN-T2-rcJ">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="moveTracksDownAction:" target="YXK-dI-G9P" id="6fB-pD-0z4"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Move selected tracks to bottom" image="arrow.down.to.line" catalog="system" keyEquivalent="" id="5RC-Mz-njC" userLabel="Move selected tracks to bottom">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                                <connections>
+                                    <action selector="moveTracksToBottomAction:" target="YXK-dI-G9P" id="pa4-YA-yPF"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="h7B-wo-7Bd"/>
-                            <menuItem title=" Search play queue" image="magnifyingglass" catalog="system" keyEquivalent="f" id="GVe-9w-VJV"/>
+                            <menuItem title=" Search play queue" image="magnifyingglass" catalog="system" keyEquivalent="f" id="GVe-9w-VJV">
+                                <connections>
+                                    <action selector="searchAction:" target="YXK-dI-G9P" id="MKe-ig-7S0"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title=" Sort play queue" image="arrow.up.arrow.down" catalog="system" keyEquivalent="s" id="tfL-Xn-Fip" userLabel="Sort playlist">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="45R-6R-rSP"/>
                             <menuItem title=" Page up" image="arrow.up" catalog="system" keyEquivalent="" id="X9j-M7-jwq" userLabel="Page up">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="pageUpAction:" target="YXK-dI-G9P" id="fgc-vs-DRa"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Page down" image="arrow.down" catalog="system" keyEquivalent="" id="ngH-Cf-fbR" userLabel="Page down">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="pageDownAction:" target="YXK-dI-G9P" id="qJt-iV-77c"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Scroll to top" image="arrow.up.to.line" catalog="system" keyEquivalent="" id="TO5-RX-ra6">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="scrollToTopAction:" target="YXK-dI-G9P" id="VBs-xJ-DBd"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Scroll to bottom" image="arrow.down.to.line" catalog="system" keyEquivalent="" id="L3U-1l-PDT" userLabel="Scroll to bottom of playlist">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="scrollToBottomAction:" target="YXK-dI-G9P" id="0dm-ra-rc0"/>
+                                </connections>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="YXK-dI-G9P" id="krA-6z-wIS"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="History" id="yIf-Rx-BsM" userLabel="History">
