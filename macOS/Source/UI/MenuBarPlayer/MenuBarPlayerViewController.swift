@@ -45,10 +45,6 @@ class MenuBarPlayerViewController: PlayerViewController {
         super.shouldEnableSeekTimer && view.superview != nil
     }
     
-    override var showPlaybackPosition: Bool {
-        compactPlayerUIState.showPlaybackPosition
-    }
-    
     override var playbackPositionFont: NSFont {
         systemFontScheme.smallFont
     }

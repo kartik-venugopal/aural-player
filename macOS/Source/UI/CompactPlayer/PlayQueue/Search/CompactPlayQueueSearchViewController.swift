@@ -103,7 +103,7 @@ class CompactPlayQueueSearchViewController: NSViewController {
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {
-        messenger.publish(.CompactPlayer.showPlayQueue)
+        messenger.publish(.View.togglePlayQueue)
     }
 }
 

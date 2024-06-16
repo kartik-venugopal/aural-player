@@ -48,6 +48,13 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         let isCompactMode = appModeManager.currentMode == .compact
         toggleTrackInfoMenuItem.showIf(isCompactMode)
         
+        if isCompactMode {
+            
+            let isShowingTrackInfo = appModeManager.isShowingTrackInfo
+            let isPlaying = playbackInfoDelegate.state.isPlayingOrPaused
+            toggleTrackInfoMenuItem.enableIf(isShowingTrackInfo || isPlaying)
+        }
+        
         manageWindowLayoutsMenuItem?.enableIf(windowLayoutsManager.numberOfUserDefinedObjects > 0)
         manageThemesMenuItem?.enableIf(themesManager.numberOfUserDefinedObjects > 0)
         manageFontSchemesMenuItem?.enableIf(fontSchemesManager.numberOfUserDefinedObjects > 0)
@@ -67,12 +74,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         toggleVisualizerMenuItem.onIf(appModeManager.isShowingVisualizer)
         
         if appModeManager.currentMode == .compact {
-            
-            let isPlaying = playbackInfoDelegate.state.isPlayingOrPaused
-            let isShowingTrackInfo = appModeManager.isShowingTrackInfo
-
-            toggleTrackInfoMenuItem.onIf(isShowingTrackInfo)
-            toggleTrackInfoMenuItem.enableIf(isShowingTrackInfo || isPlaying)
+            toggleTrackInfoMenuItem.onIf(appModeManager.isShowingTrackInfo)
         }
         
         // Can't save current theme/scheme in Compact mode (can't customize, so saving is irrelevant)

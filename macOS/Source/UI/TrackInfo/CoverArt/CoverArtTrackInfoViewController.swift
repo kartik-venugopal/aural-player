@@ -114,4 +114,16 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
 class CompactPlayerCoverArtTrackInfoViewController: CoverArtTrackInfoViewController {
     
     override var nibName: NSNib.Name? {"CompactPlayerCoverArtTrackInfo"}
+    
+    override func viewWillAppear() {
+        
+        super.viewWillAppear()
+        
+        var showTextView = false
+        if let displayedTrack = TrackInfoViewContext.displayedTrack {
+            showTextView = displayedTrack.art != nil
+        }
+        
+        textView.enclosingScrollView?.showIf(showTextView)
+    }
 }

@@ -17,16 +17,7 @@ extension Notification.Name {
     
     struct CompactPlayer {
         
-        static let showPlayer = Notification.Name("compactPlayer_showPlayer")
-        static let showPlayQueue = Notification.Name("compactPlayer_showPlayQueue")
         static let showSearch = Notification.Name("compactPlayer_showSearch")
-        static let showChaptersList = Notification.Name("compactPlayer_showChaptersList")
-        static let showTrackInfo = Notification.Name("compactPlayer_showTrackInfo")
-        
         static let toggleTrackInfoScrolling = Notification.Name("compactPlayer_toggleTrackInfoScrolling")
-        
-        static let toggleShowSeekPosition = Notification.Name("compactPlayer_toggleShowSeekPosition")
-        
-        static let changePlaybackPositionDisplayType = Notification.Name("compactPlayer_changePlaybackPositionDisplayType")
     }
 }

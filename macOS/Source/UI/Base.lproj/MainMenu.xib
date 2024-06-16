@@ -401,7 +401,11 @@
                         <items>
                             <menuItem title=" Output Device" image="hifispeaker.fill" catalog="system" id="Q15-fa-cNY" userLabel="Output Device">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Output Device" id="WXF-J5-SVu"/>
+                                <menu key="submenu" title=" Output Device" id="WXF-J5-SVu">
+                                    <connections>
+                                        <outlet property="delegate" destination="CYF-bp-BH0" id="SKR-Bo-SUI"/>
+                                    </connections>
+                                </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="TVv-Fs-U8I"/>
                             <menuItem title=" Mute / Unmute" image="speaker.slash" catalog="system" keyEquivalent="m" id="QZD-oa-u6y" userLabel="Mute/Unmute">

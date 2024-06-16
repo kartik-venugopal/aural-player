@@ -81,17 +81,17 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         showPlaybackPositionMenuItem.title = "Show playback position"
         
         scrollTrackInfoMenuItem.onIf(compactPlayerUIState.trackInfoScrollingEnabled)
-        showPlaybackPositionMenuItem.onIf(compactPlayerUIState.showPlaybackPosition)
+        showPlaybackPositionMenuItem.onIf(playerUIState.showPlaybackPosition)
         
         updatePlaybackPositionAndDisplayType()
     }
     
     private func updatePlaybackPositionAndDisplayType() {
         
-        showPlaybackPositionMenuItem.onIf(compactPlayerUIState.showPlaybackPosition)
-        playbackPositionDisplayTypeMenuItem.showIf(compactPlayerUIState.showPlaybackPosition)
+        showPlaybackPositionMenuItem.onIf(playerUIState.showPlaybackPosition)
+        playbackPositionDisplayTypeMenuItem.showIf(playerUIState.showPlaybackPosition)
         
-        guard compactPlayerUIState.showPlaybackPosition else {return}
+        guard playerUIState.showPlaybackPosition else {return}
         
         [playbackPositionElapsedMenuItem, playbackPositionRemainingMenuItem, playbackPositionTrackDurationMenuItem].forEach {$0.off()}
         

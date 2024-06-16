@@ -22,8 +22,16 @@ class CompactPlayerViewController: PlayerViewController {
         startTrackingView(options: [.activeAlways, .mouseEnteredAndExited])
     }
     
+    override func setUpCommandHandling() {
+        
+        super.setUpCommandHandling()
+        
+        messenger.subscribe(to: .CompactPlayer.toggleTrackInfoScrolling, handler: toggleTrackInfoScrolling)
+        messenger.subscribe(to: .View.toggleTrackInfo, handler: showTrackInfo)
+    }
+    
     override var showPlaybackPosition: Bool {
-        compactPlayerUIState.showPlaybackPosition
+        playerUIState.showPlaybackPosition
     }
     
     override func updateTrackTextView(for track: Track?, playingChapterTitle: String? = nil) {
@@ -62,7 +70,7 @@ class CompactPlayerViewController: PlayerViewController {
     
     override func layoutScrollingTrackTextView() {
         
-        let showPlaybackPosition: Bool = compactPlayerUIState.showPlaybackPosition
+        let showPlaybackPosition: Bool = playerUIState.showPlaybackPosition
         
         scrollingTextViewContainerBox.setFrameSize(NSSize(width: showPlaybackPosition ? 200 : 280, height: 26))
         scrollingTrackTextView.setFrameSize(NSSize(width: showPlaybackPosition ? 200 : 280, height: 26))
@@ -71,6 +79,10 @@ class CompactPlayerViewController: PlayerViewController {
     }
     
     @IBAction func toggleTrackInfoScrollingAction(_ sender: NSMenuItem) {
+        toggleTrackInfoScrolling()
+    }
+    
+    private func toggleTrackInfoScrolling() {
         
         compactPlayerUIState.trackInfoScrollingEnabled = scrollingTrackTextView.scrollingEnabled
         scrollingTrackTextView.scrollingEnabled.toggle()
@@ -78,7 +90,7 @@ class CompactPlayerViewController: PlayerViewController {
     
     @IBAction func toggleShowSeekPositionAction(_ sender: NSMenuItem) {
         
-        compactPlayerUIState.showPlaybackPosition.toggle()
+        playerUIState.showPlaybackPosition.toggle()
         layoutScrollingTrackTextView()
     }
     
@@ -88,9 +100,9 @@ class CompactPlayerViewController: PlayerViewController {
         setPlaybackPositionDisplayType(to: playerUIState.playbackPositionDisplayType)
     }
     
-    override func showTrackInfoView() {
-        messenger.publish(.CompactPlayer.showTrackInfo)
-    }
+//    override func showTrackInfoView() {
+//        messenger.publish(.View.toggleTrackInfo)
+//    }
     
     // MARK: Auto-hide of playing track functions menu button ----------------------------------------
     

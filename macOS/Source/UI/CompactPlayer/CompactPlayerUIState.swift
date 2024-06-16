@@ -24,21 +24,12 @@ class CompactPlayerUIState {
         return window.origin
     }
     
-    var cornerRadius: CGFloat
-    private static let defaultCornerRadius: CGFloat = 3
-    
     var trackInfoScrollingEnabled: Bool
-    
-    var showPlaybackPosition: Bool
     
     init(persistentState: CompactPlayerUIPersistentState?) {
         
         windowLocation = persistentState?.windowLocation?.toNSPoint()
-        cornerRadius = persistentState?.cornerRadius ?? Self.defaultCornerRadius
-        
         trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
-        
-        showPlaybackPosition = persistentState?.showPlaybackPosition ?? true
     }
     
     var persistentState: CompactPlayerUIPersistentState {
@@ -50,9 +41,7 @@ class CompactPlayerUIState {
         }
         
         return CompactPlayerUIPersistentState(windowLocation: windowLocation,
-                                              cornerRadius: cornerRadius,
-                                              trackInfoScrollingEnabled: trackInfoScrollingEnabled,
-                                              showPlaybackPosition: showPlaybackPosition)
+                                              trackInfoScrollingEnabled: trackInfoScrollingEnabled)
     }
 }
 

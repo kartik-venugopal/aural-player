@@ -571,8 +571,6 @@
 		3ECF71AF2B755AF700FDB69B /* CompactPlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF71AE2B755AF700FDB69B /* CompactPlayerUIPersistentState.swift */; };
 		3ECF71B22B7571D200FDB69B /* CompactPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF71B12B7571D200FDB69B /* CompactPlayer.xib */; };
 		3ECF71B42B75750300FDB69B /* CompactPlayerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF71B32B75750300FDB69B /* CompactPlayerNotifications.swift */; };
-		3ECF71B72B758E1B00FDB69B /* CompactViewMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF71B62B758E1B00FDB69B /* CompactViewMenuController.swift */; };
-		3ECF71B92B7595C900FDB69B /* CompactPlayerViewPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF71B82B7595C900FDB69B /* CompactPlayerViewPopupMenuController.swift */; };
 		3ECF71BC2B75B48E00FDB69B /* CompactPlayQueueSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF71BB2B75B48E00FDB69B /* CompactPlayQueueSearchViewController.swift */; };
 		3ECF71BE2B75B4BC00FDB69B /* CompactPlayQueueSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF71BD2B75B4BC00FDB69B /* CompactPlayQueueSearch.xib */; };
 		3ECF71C02B75B77B00FDB69B /* CompactPlayQueueSearchResultsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF71BF2B75B77B00FDB69B /* CompactPlayQueueSearchResultsTableView.swift */; };
@@ -1638,8 +1636,6 @@
 		3ECF71AE2B755AF700FDB69B /* CompactPlayerUIPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayerUIPersistentState.swift; sourceTree = "<group>"; };
 		3ECF71B12B7571D200FDB69B /* CompactPlayer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactPlayer.xib; sourceTree = "<group>"; };
 		3ECF71B32B75750300FDB69B /* CompactPlayerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayerNotifications.swift; sourceTree = "<group>"; };
-		3ECF71B62B758E1B00FDB69B /* CompactViewMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactViewMenuController.swift; sourceTree = "<group>"; };
-		3ECF71B82B7595C900FDB69B /* CompactPlayerViewPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayerViewPopupMenuController.swift; sourceTree = "<group>"; };
 		3ECF71BB2B75B48E00FDB69B /* CompactPlayQueueSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayQueueSearchViewController.swift; sourceTree = "<group>"; };
 		3ECF71BD2B75B4BC00FDB69B /* CompactPlayQueueSearch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactPlayQueueSearch.xib; sourceTree = "<group>"; };
 		3ECF71BF2B75B77B00FDB69B /* CompactPlayQueueSearchResultsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayQueueSearchResultsTableView.swift; sourceTree = "<group>"; };
@@ -3937,7 +3933,6 @@
 				3EC793842B746C6000AF7E9E /* PlayQueue */,
 				3E8B8C382BF004AB0025D60B /* ChaptersList */,
 				3E2EA6E72BD322D7001ABFEE /* TrackInfo */,
-				3ECF71B52B758DEF00FDB69B /* MenuControllers */,
 			);
 			path = CompactPlayer;
 			sourceTree = "<group>";
@@ -4055,15 +4050,6 @@
 				3EB805E02B7987B1005E464A /* CompactPlayerViewController.swift */,
 			);
 			path = Player;
-			sourceTree = "<group>";
-		};
-		3ECF71B52B758DEF00FDB69B /* MenuControllers */ = {
-			isa = PBXGroup;
-			children = (
-				3ECF71B62B758E1B00FDB69B /* CompactViewMenuController.swift */,
-				3ECF71B82B7595C900FDB69B /* CompactPlayerViewPopupMenuController.swift */,
-			);
-			path = MenuControllers;
 			sourceTree = "<group>";
 		};
 		3ECF71BA2B75B45100FDB69B /* Search */ = {
@@ -5791,7 +5777,6 @@
 				3EFB64952772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift in Sources */,
 				3EFE3A2127864898006F8B8C /* TrackNotPlayedNotification.swift in Sources */,
 				3E46AEDE2BD485D200789A91 /* LastFM_WSClient.swift in Sources */,
-				3ECF71B92B7595C900FDB69B /* CompactPlayerViewPopupMenuController.swift in Sources */,
 				3EFE3A6727864898006F8B8C /* TrackIOErrors.swift in Sources */,
 				3EFE383327864896006F8B8C /* GroupMoveResult.swift in Sources */,
 				3E10175628D741E7002C0D8E /* MediaKeyTapInternals.swift in Sources */,
@@ -6088,7 +6073,6 @@
 				3E6C128325CEBE1800BF0D07 /* TintedImageButton.swift in Sources */,
 				3EFE39EF27864898006F8B8C /* FixedSizeLRUArray.swift in Sources */,
 				3E6C12A025CEBE2700BF0D07 /* TintedImageView.swift in Sources */,
-				3ECF71B72B758E1B00FDB69B /* CompactViewMenuController.swift in Sources */,
 				3E6C12A625CEBE2700BF0D07 /* ToggleMenuItem.swift in Sources */,
 				3E46AEDF2BD485D200789A91 /* LastFM_WSClientProtocol.swift in Sources */,
 				3ED0A4F027DD016200C7A438 /* ButtonStateMachine.swift in Sources */,

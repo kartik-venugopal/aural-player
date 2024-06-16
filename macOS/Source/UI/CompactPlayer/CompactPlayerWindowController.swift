@@ -97,7 +97,7 @@ class CompactPlayerWindowController: NSWindowController {
             window?.setFrameOrigin(rememberedLocation)
         }
         
-        changeWindowCornerRadius(to: compactPlayerUIState.cornerRadius)
+        changeWindowCornerRadius(to: playerUIState.cornerRadius)
     }
     
     override func destroy() {
@@ -177,9 +177,6 @@ class CompactPlayerWindowController: NSWindowController {
     }
     
     func showChaptersList() {
-        
-        print(tabView.tabViewItems)
-        
         tabView.selectTabViewItem(at: 3)
     }
     
@@ -192,7 +189,7 @@ class CompactPlayerWindowController: NSWindowController {
     }
     
     func changeWindowCornerRadius(to radius: CGFloat) {
-        rootContainerBox.cornerRadius = compactPlayerUIState.cornerRadius
+        rootContainerBox.cornerRadius = playerUIState.cornerRadius
     }
     
     private func effectsSheetDismissed() {

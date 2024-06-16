@@ -22,8 +22,5 @@ import UIKit
 struct CompactPlayerUIPersistentState: Codable {
     
     let windowLocation: NSPointPersistentState?
-    let cornerRadius: CGFloat?
-    
     let trackInfoScrollingEnabled: Bool?
-    let showPlaybackPosition: Bool?
 }
