@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,7 +34,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <view id="aXk-ne-Q1U" userLabel="Now Playing View">
+        <view id="aXk-ne-Q1U" userLabel="Now Playing View" customClass="DragDroppablePlayerView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="866" height="130"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -261,7 +262,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="697" height="70"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="RdT-fa-WIX">
                                     <rect key="frame" x="0.0" y="0.0" width="697" height="70"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView focusRingType="none" editable="NO" selectable="NO" horizontallyResizable="YES" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="I8f-EI-P2l">
                                             <rect key="frame" x="0.0" y="0.0" width="697" height="70"/>

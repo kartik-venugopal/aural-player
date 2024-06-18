@@ -30,11 +30,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view id="r06-wm-d8d" userLabel="Player View">
+        <view id="r06-wm-d8d" userLabel="Player View" customClass="DragDroppablePlayerView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mew-iu-3Fx" userLabel="Cover Art" customClass="RoundedImageView" customModule="Aural" customModuleProvider="target">
+                <imageView wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mew-iu-3Fx" userLabel="Cover Art" customClass="CompactPlayerArtView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="10" y="110" width="280" height="280"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="280" id="Fpl-oq-yoc"/>

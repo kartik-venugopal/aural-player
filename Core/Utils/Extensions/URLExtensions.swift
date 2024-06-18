@@ -63,6 +63,18 @@ extension URL {
         (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
     }
     
+    static func atLeastOneSupportedURL(in urls: [URL]) -> Bool {
+        
+        for url in urls {
+            
+            if url.isSupportedFile || url.isDirectory || url.isAliasOrSymLink {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     // Computes the size of a file, and returns a convenient representation
     var size: FileSize {
         
