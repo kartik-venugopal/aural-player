@@ -67,7 +67,7 @@ class PresetLayoutPreviewView: NSView {
         
         // Effects Window
         if let effectsWindowOrigin = layout.effectsWindowFrame?.origin {
-            renderPreview(effectsWindowOrigin, WindowLayoutPresets.effectsWindowWidth, WindowLayoutPresets.effectsWindowHeight, .imgEffectsPreview)
+            renderPreview(effectsWindowOrigin, WindowLayoutPresets.effectsWindowWidth, WindowLayoutPresets.effectsWindowHeight, .imgEffects)
         }
         
         // Play Queue Window
