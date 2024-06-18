@@ -23,7 +23,7 @@ extension PlayQueueContainerViewController {
         tabButtons.first(where: {$0.tag == tabIndex})?.select()
         
         // Button tag is the tab index
-        tabGroup.selectTabViewItem(at: tabIndex)
+        playQueueTabGroup.selectTabViewItem(at: tabIndex)
         playQueueUIState.currentView = PlayQueueView(rawValue: tabIndex)!
     }
     

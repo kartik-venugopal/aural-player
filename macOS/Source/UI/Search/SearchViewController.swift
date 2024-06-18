@@ -14,6 +14,7 @@ class SearchViewController: NSViewController {
     
     override var nibName: NSNib.Name? {"Search"}
     
+    @IBOutlet weak var lblCaption: NSTextField!
     @IBOutlet weak var searchField: NSSearchField!
     
     @IBOutlet weak var lblSeachByCaption: NSTextField!
@@ -39,6 +40,8 @@ class SearchViewController: NSViewController {
     
     lazy var checkBoxes: [CheckBox] = [btnSearchByName, btnSearchByArtist, btnSearchByTitle, btnSearchByAlbum, btnSearchCaseSensitive]
     
+    lazy var settingsFields: [NSView] = captionLabels + checkBoxes + [btnComparisonType]
+    
     @IBOutlet weak var lblSummary: NSTextField!
     @IBOutlet weak var resultsTable: NSTableView!
     
@@ -57,8 +60,16 @@ class SearchViewController: NSViewController {
         
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
         
         showOrHideSettingsView()
+        
+        // Offset the caption label a bit to the right.
+        if appModeManager.currentMode == .modular,
+            let lblCaptionLeadingConstraint = lblCaption.superview?.constraints.first(where: {$0.firstAttribute == .leading}) {
+            
+            lblCaptionLeadingConstraint.constant = 23
+        }
     }
 
     override func viewDidAppear() {
@@ -160,6 +171,10 @@ class SearchViewController: NSViewController {
     
     private func showOrHideSettingsView() {
         
+        if isShowingSettings {
+            NSView.showViews(settingsFields)
+        }
+        
         NSAnimationContext.runAnimationGroup({ context in
             
             context.duration = 0.3
@@ -168,6 +183,10 @@ class SearchViewController: NSViewController {
             settingsBoxHeightConstraint.animator().constant = isShowingSettings ? 118 : 1
             
         }, completionHandler: nil)
+        
+        if !isShowingSettings {
+            NSView.hideViews(settingsFields)
+        }
     }
     
     //

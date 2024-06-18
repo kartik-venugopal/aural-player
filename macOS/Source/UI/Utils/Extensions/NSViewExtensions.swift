@@ -139,8 +139,16 @@ extension NSView {
     static func showViews(_ views: NSView...) {
         views.forEach {$0.show()}
     }
+    
+    static func showViews(_ views: [NSView]) {
+        views.forEach {$0.show()}
+    }
 
     static func hideViews(_ views: NSView...) {
+        views.forEach {$0.hide()}
+    }
+    
+    static func hideViews(_ views: [NSView]) {
         views.forEach {$0.hide()}
     }
     

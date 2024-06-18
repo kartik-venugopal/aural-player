@@ -14,6 +14,9 @@ extension SearchViewController: ThemeInitialization {
     
     func initTheme() {
         
+        lblCaption.font = systemFontScheme.captionFont
+        lblCaption.textColor = systemColorScheme.captionTextColor
+        
         searchField.font = systemFontScheme.normalFont
         searchField.textColor = systemColorScheme.primaryTextColor
         
@@ -40,6 +43,8 @@ extension SearchViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {
         
+        lblCaption.font = systemFontScheme.captionFont
+        
         searchField.font = systemFontScheme.normalFont
         
         captionLabels.forEach {
@@ -61,6 +66,8 @@ extension SearchViewController: FontSchemeObserver {
 extension SearchViewController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
+        
+        lblCaption.textColor = systemColorScheme.captionTextColor
         
         searchField.textColor = systemColorScheme.primaryTextColor
         lblSummary.textColor = systemColorScheme.tertiaryTextColor

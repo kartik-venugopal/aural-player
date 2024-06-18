@@ -14,6 +14,9 @@ class PlayQueueContainerViewController: NSViewController {
     
     override var nibName: NSNib.Name? {"PlayQueueContainer"}
     
+    @IBOutlet weak var containerTabGroup: NSTabView!
+    @IBOutlet weak var containerView: NSView!
+    
     @IBOutlet weak var lblCaption: NSTextField!
     @IBOutlet weak var lblTracksSummary: NSTextField!
     @IBOutlet weak var lblDurationSummary: NSTextField!
@@ -24,7 +27,7 @@ class PlayQueueContainerViewController: NSViewController {
     @IBOutlet weak var tabButtonsContainer: NSBox!
     
     // The tab group that switches between the PQ views
-    @IBOutlet weak var tabGroup: NSTabView!
+    @IBOutlet weak var playQueueTabGroup: NSTabView!
     
     @IBOutlet weak var btnSimpleView: TrackListTabButton!
     @IBOutlet weak var btnExpandedView: TrackListTabButton!
@@ -40,8 +43,6 @@ class PlayQueueContainerViewController: NSViewController {
     lazy var searchViewController: PlayQueueSearchViewController = PlayQueueSearchViewController()
     
     lazy var controllers: [PlayQueueViewController] = [simpleViewController, expandedViewController]
-    
-    lazy var searchWindowController: SearchWindowController = .shared
     
     lazy var fileOpenDialog = DialogsAndAlerts.openFilesAndFoldersDialog
     
@@ -68,6 +69,7 @@ class PlayQueueContainerViewController: NSViewController {
     
     func initializeView() {
         
+        // Offset the caption label a bit to the right.
         if appModeManager.currentMode == .modular,
             let lblCaptionLeadingConstraint = lblCaption.superview?.constraints.first(where: {$0.firstAttribute == .leading}) {
             
@@ -78,9 +80,15 @@ class PlayQueueContainerViewController: NSViewController {
         let prettyView = expandedViewController.view
         let searchView = searchViewController.view
         
-        for (index, view) in [simpleView, prettyView, searchView].enumerated() {
+        for (index, view) in [simpleView, prettyView].enumerated() {
             
-            tabGroup.tabViewItem(at: index).view?.addSubview(view)
+            playQueueTabGroup.tabViewItem(at: index).view?.addSubview(view)
+            view.anchorToSuperview()
+        }
+        
+        for (index, view) in [containerView, searchView].compactMap({$0}).enumerated() {
+            
+            containerTabGroup.tabViewItem(at: index).view?.addSubview(view)
             view.anchorToSuperview()
         }
         
@@ -262,11 +270,13 @@ class PlayQueueContainerViewController: NSViewController {
     
     func search() {
 //        searchWindowController.showWindow(self)
-        tabGroup.selectTabViewItem(at: 2)
+//        playQueueTabGroup.selectTabViewItem(at: 2)
+        containerTabGroup.selectTabViewItem(at: 1)
     }
     
     private func searchDone() {
-        tabGroup.selectTabViewItem(at: playQueueUIState.currentView == .simple ? 0 : 1)
+//        playQueueTabGroup.selectTabViewItem(at: playQueueUIState.currentView == .simple ? 0 : 1)
+        containerTabGroup.selectTabViewItem(at: 0)
     }
     
     override func destroy() {
@@ -281,9 +291,9 @@ extension PlayQueueContainerViewController: NSTabViewDelegate {
     func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
         
         // Ignore this when searching the PQ
-        if tabGroup.selectedIndex == 2 {return}
+        if playQueueTabGroup.selectedIndex == 2 {return}
         
-         playQueueUIState.currentView = tabGroup.selectedIndex == 0 ? .simple : .expanded
+         playQueueUIState.currentView = playQueueTabGroup.selectedIndex == 0 ? .simple : .expanded
     }
 }
 

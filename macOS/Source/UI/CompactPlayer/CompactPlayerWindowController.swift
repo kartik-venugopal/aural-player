@@ -116,7 +116,9 @@ class CompactPlayerWindowController: NSWindowController {
         
         messenger.unsubscribeFromAll()
         
-        NSApp.mainMenu = nil
+        [appDelegate.playbackMenuRootItem, appDelegate.soundMenuRootItem, appDelegate.playQueueMenuRootItem].forEach {
+            $0?.enable()
+        }
     }
     
     func showPlayer() {
