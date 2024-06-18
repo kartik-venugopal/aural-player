@@ -465,7 +465,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Less Bass" keyEquivalent="1" id="4qE-A4-xdk">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                             <connections>
                                                 <action selector="decreaseBassAction:" target="CYF-bp-BH0" id="AbT-HE-PSJ"/>
                                             </connections>
@@ -478,7 +478,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Less Mids" keyEquivalent="2" id="3aR-uU-eAu" userLabel="Less Mids">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                             <connections>
                                                 <action selector="decreaseMidsAction:" target="CYF-bp-BH0" id="hLs-qo-pxY"/>
                                             </connections>
@@ -491,7 +491,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Less Treble" keyEquivalent="3" id="Qo4-k1-HYv">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                             <connections>
                                                 <action selector="decreaseTrebleAction:" target="CYF-bp-BH0" id="xpC-LA-btn"/>
                                             </connections>

@@ -73,9 +73,9 @@ class PlayQueueContainer: NSView, ColorSchemeObserver {
         
         removeAllTrackingAreas()
         updateTrackingAreas()
-
-        viewsToShowOnMouseOver.forEach {$0.hide()}
-        viewsToHideOnMouseOver.forEach {$0.show()}
+        
+        NSView.showViews(viewsToShowOnMouseOver)
+        NSView.hideViews(viewsToHideOnMouseOver)
     }
     
     // Signals the view to start tracking mouse movements.

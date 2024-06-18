@@ -37,6 +37,8 @@ extension ColorSchemesManager {
         }
         propertyObservers.removeAll()
         schemeObservers.removeAll()
+        
+        print("Stopped observing")
     }
     
     func registerSchemeObserver(_ observer: ColorSchemeObserver) {

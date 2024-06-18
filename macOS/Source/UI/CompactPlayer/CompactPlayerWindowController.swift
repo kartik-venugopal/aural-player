@@ -105,7 +105,9 @@ class CompactPlayerWindowController: NSWindowController {
         
         close()
         
-        [playerViewController, playQueueViewController, searchViewController].forEach {
+        [playerViewController, playQueueViewController, searchViewController,
+         chaptersListViewController, effectsSheetViewController, trackInfoViewController].forEach {
+            
             $0.destroy()
         }
         
