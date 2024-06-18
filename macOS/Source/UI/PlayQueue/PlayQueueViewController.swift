@@ -128,7 +128,7 @@ class PlayQueueViewController: TrackListTableViewController {
         }
     }
     
-    private func tracksAdded(_ notif: PlayQueueTracksAddedNotification) {
+    func tracksAdded(_ notif: PlayQueueTracksAddedNotification) {
         tracksAdded(at: notif.trackIndices)
     }
     
@@ -212,5 +212,19 @@ class PlayQueueViewController: TrackListTableViewController {
         
         super.doMoveTracksToBottom()
         updateSummary()
+    }
+    
+    func tracksRemoved(firstRemovedRow: Int) {
+        
+        // Update all rows from the first (i.e. smallest index) removed row, down to the end of the track list.
+        let lastRowAfterRemove = playQueueDelegate.size - 1
+        
+        // Tell the playlist view that the number of rows has changed (should result in removal of rows)
+        noteNumberOfRowsChanged()
+        
+        // This will be true unless a contiguous block of tracks was removed from the bottom of the track list.
+        if firstRemovedRow <= lastRowAfterRemove {
+            reloadTableRows(firstRemovedRow...lastRowAfterRemove)
+        }
     }
 }

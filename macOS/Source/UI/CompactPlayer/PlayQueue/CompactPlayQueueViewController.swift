@@ -32,11 +32,8 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         messenger.subscribeAsync(to: .PlayQueue.startedAddingTracks, handler: startedAddingTracks)
         messenger.subscribeAsync(to: .PlayQueue.doneAddingTracks, handler: doneAddingTracks)
         
-        messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: updateSummary)
-        messenger.subscribeAsync(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
+        messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
         messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
-        
-        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .PlayQueue.addTracks, handler: importFilesAndFolders)
         
@@ -54,8 +51,6 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         messenger.subscribe(to: .PlayQueue.pageDown, handler: pageDown)
         messenger.subscribe(to: .PlayQueue.scrollToTop, handler: scrollToTop)
         messenger.subscribe(to: .PlayQueue.scrollToBottom, handler: scrollToBottom)
-        
-        messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
         
         messenger.subscribe(to: .PlayQueue.moveTracksUp, handler: moveTracksUp)
         messenger.subscribe(to: .PlayQueue.moveTracksDown, handler: moveTracksDown)
@@ -118,10 +113,26 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         lblDurationSummary.textColor = systemColorScheme.secondaryTextColor
     }
     
+    override func tracksAdded(_ notif: PlayQueueTracksAddedNotification) {
+        
+        super.tracksAdded(notif)
+        updateSummary()
+    }
+    
     override func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         super.trackTransitioned(notification)
         updateSummary()
+    }
+    
+    override func removeTracks() {
+        
+        super.removeTracks()
+        
+        // Check for at least 1 row (and also get the minimum index).
+        if let firstRemovedRow = selectedRows.min() {
+            tracksRemoved(firstRemovedRow: firstRemovedRow)
+        }
     }
     
     override func initTheme() {

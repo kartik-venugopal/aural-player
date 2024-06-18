@@ -145,6 +145,7 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
     func removeTracks() {
         
         _ = trackList.removeTracks(at: selectedRows)
+        clearSelection()
         // TODO: Publish a notif with the removed track indices so that sibling TrackList Table VCs can refresh (and self).
         updateSummary()
     }
@@ -408,21 +409,6 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
     
     func tracksAppended() {
         tableView.noteNumberOfRowsChanged()
-    }
-    
-    func tracksRemoved(at indices: IndexSet) {
-        
-        tableView.removeRows(at: indices, withAnimation: .slideUp)
-        
-        guard hasIndexColumn, let firstRemovedRow = indices.min() else {return}
-        
-        // Update all rows from the first (i.e. smallest index) removed row, down to the end of the track list.
-        let lastRowAfterRemove = trackList.size - 1
-        
-        // This will be true unless a contiguous block of tracks was removed from the bottom of the track list.
-        if firstRemovedRow <= lastRowAfterRemove {
-            tableView.reloadRows(firstRemovedRow...lastRowAfterRemove, columns: [0])
-        }
     }
     
     func fontSchemeChanged() {

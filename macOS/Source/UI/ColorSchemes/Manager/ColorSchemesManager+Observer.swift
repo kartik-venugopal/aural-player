@@ -47,7 +47,7 @@ extension ColorSchemesManager {
         
         if let themeInitialingObserver = observer as? ThemeInitialization {
             
-            print("ThemeInit for \(observer.className)")
+//            print("ThemeInit for \(observer.className)")
             themeInitialingObserver.initTheme()
         } else {
             observer.colorSchemeChanged()
