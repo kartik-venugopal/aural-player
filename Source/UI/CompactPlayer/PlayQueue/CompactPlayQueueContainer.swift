@@ -24,6 +24,6 @@ class CompactPlayQueueContainer: PlayQueueContainer {
         allButtons = [btnImportTracks, btnExport,
                       btnRemoveTracks, btnCropTracks, btnRemoveAllTracks,
                       btnMoveTracksUp, btnMoveTracksDown, btnMoveTracksToTop, btnMoveTracksToBottom,
-                      btnSearch, sortTintedIconMenuItem]
+                      btnSearch, btnSortPopup]
     }
 }

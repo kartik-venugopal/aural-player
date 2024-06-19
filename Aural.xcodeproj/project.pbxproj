@@ -3202,7 +3202,6 @@
 				3E0217902C23490E00865AC2 /* TrackList */,
 				3E0217982C23490E00865AC2 /* UI */,
 				3E0217D22C23490E00865AC2 /* Utils */,
-				3E0217D32C23490E00865AC2 /* Aural.xcassets */,
 				3E0217D42C23490E00865AC2 /* Globals.swift */,
 			);
 			path = Core;
@@ -4569,6 +4568,7 @@
 			isa = PBXGroup;
 			children = (
 				3E86B5062C234A420097746A /* buildingLibrary.gif */,
+				3E0217D32C23490E00865AC2 /* Aural.xcassets */,
 				3E6C115325CEB9C100BF0D07 /* Assets.xcassets */,
 			);
 			path = Resources;

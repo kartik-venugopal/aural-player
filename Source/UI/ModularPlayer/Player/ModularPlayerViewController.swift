@@ -16,8 +16,7 @@ class ModularPlayerViewController: PlayerViewController {
     
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var controlsBox: NSBox!
-    @IBOutlet weak var functionsButton: NSPopUpButton!
-    @IBOutlet weak var functionsMenuItem: TintedIconMenuItem!
+    @IBOutlet weak var btnFunctionsMenu: NSPopUpButton!
     @IBOutlet weak var functionsMenuDelegate: PlayingTrackFunctionsMenuDelegate!
     
     override var shouldEnableSeekTimer: Bool {
@@ -73,7 +72,7 @@ class ModularPlayerViewController: PlayerViewController {
         infoBox.fillColor = systemColorScheme.backgroundColor
         controlsBox.fillColor = systemColorScheme.backgroundColor
         
-        functionsMenuItem.colorChanged(systemColorScheme.buttonColor)
+        btnFunctionsMenu.colorChanged(systemColorScheme.buttonColor)
     }
     
     override func updateTrackTextViewFontsAndColors() {
@@ -87,7 +86,7 @@ class ModularPlayerViewController: PlayerViewController {
         infoBox.fillColor = systemColorScheme.backgroundColor
         controlsBox.fillColor = systemColorScheme.backgroundColor
         
-        functionsMenuItem.colorChanged(systemColorScheme.buttonColor)
+        btnFunctionsMenu.colorChanged(systemColorScheme.buttonColor)
     }
     
     override func updateTrackInfo(for track: Track?, playingChapterTitle: String? = nil) {
@@ -95,7 +94,7 @@ class ModularPlayerViewController: PlayerViewController {
         super.updateTrackInfo(for: track, playingChapterTitle: playingChapterTitle)
         
         artView.showIf(playerUIState.showAlbumArt)
-        functionsButton.showIf(track != nil)
+        btnFunctionsMenu.showIf(track != nil)
     }
     
     override func showTrackInfoView() {
@@ -115,7 +114,7 @@ class ModularPlayerViewController: PlayerViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, handler: multilineTrackTextView.backgroundColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperties: [\.primaryTextColor, \.secondaryTextColor, \.tertiaryTextColor], changeReceiver: multilineTrackTextView)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.secondaryTextColor, handler: artViewTintColorChanged(_:))
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: functionsMenuItem)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnFunctionsMenu)
     }
     
     override func trackChanged(to newTrack: Track?) {
@@ -125,8 +124,8 @@ class ModularPlayerViewController: PlayerViewController {
         // If playback stopped, hide/dismiss the functions menu.
         if newTrack == nil {
             
-            functionsButton.hide()
-            functionsButton.menu?.cancelTracking()
+            btnFunctionsMenu.hide()
+            btnFunctionsMenu.menu?.cancelTracking()
         }
     }
     

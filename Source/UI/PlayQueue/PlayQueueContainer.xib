@@ -324,12 +324,12 @@
                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="OkT-Fu-DdS" userLabel="Play Queue Tab Group">
-                    <rect key="frame" x="0.0" y="36" width="480" height="198"/>
+                    <rect key="frame" x="0.0" y="35" width="480" height="199"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Simple View" identifier="" id="zbS-38-f2C">
                             <view key="view" id="Wj7-Vc-qtx">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="198"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="199"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
@@ -502,17 +502,14 @@
                     </connections>
                 </button>
                 <popUpButton hidden="YES" toolTip="Sort the play queue" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KXN-hH-zTo" userLabel="Sort">
-                    <rect key="frame" x="288" y="5" width="23" height="14"/>
+                    <rect key="frame" x="288" y="5" width="21" height="13"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="axesIndependently" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="Gde-vx-lXP" id="946-hm-hq7">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" showsStateColumn="NO" id="C2X-H1-I6M">
                             <items>
-                                <menuItem image="Sort" hidden="YES" id="Gde-vx-lXP" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem image="arrow.up.arrow.down" catalog="system" hidden="YES" id="Gde-vx-lXP">
                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Sort"/>
-                                    </userDefinedRuntimeAttributes>
                                 </menuItem>
                                 <menuItem title="Sort by track name" id="vSN-Bw-uqm">
                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -567,12 +564,12 @@
                         </menu>
                     </popUpButtonCell>
                     <constraints>
-                        <constraint firstAttribute="height" constant="14" id="QEm-b5-NqC"/>
-                        <constraint firstAttribute="width" constant="18" id="mLG-7d-HZO"/>
+                        <constraint firstAttribute="height" constant="13" id="QEm-b5-NqC"/>
+                        <constraint firstAttribute="width" constant="16" id="mLG-7d-HZO"/>
                     </constraints>
                 </popUpButton>
                 <button hidden="YES" toolTip="Export tracks to a playlist file" translatesAutoresizingMaskIntoConstraints="NO" id="qAh-tT-FUN" userLabel="Export" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="323" y="5.5" width="13" height="12"/>
+                    <rect key="frame" x="321" y="5.5" width="13" height="12"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="doc.text" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KD1-1G-lB1">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -586,7 +583,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" toolTip="Scroll one page up" translatesAutoresizingMaskIntoConstraints="NO" id="dKD-ej-8l7" userLabel="Page Up" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="351" y="4.5" width="13.5" height="17"/>
+                    <rect key="frame" x="349" y="4.5" width="13.5" height="17"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrowtriangle.up" catalog="system" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="Rqn-LF-jcY">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -600,7 +597,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" toolTip="Scroll one page down" translatesAutoresizingMaskIntoConstraints="NO" id="s9j-Si-mwF" userLabel="Page Down" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="365" y="4.5" width="13.5" height="17"/>
+                    <rect key="frame" x="363" y="4.5" width="13.5" height="17"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrowtriangle.down" catalog="system" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="fJS-fW-WI0">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -614,8 +611,8 @@
                     </connections>
                 </button>
                 <button hidden="YES" toolTip="Scroll to the top" translatesAutoresizingMaskIntoConstraints="NO" id="fTC-f4-YZK" userLabel="Scroll to Top" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="390" y="7" width="10" height="10"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ScrollToTop" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7vA-kH-cIg">
+                    <rect key="frame" x="388" y="4.5" width="10" height="15"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.up.to.line.square" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7vA-kH-cIg">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -628,8 +625,8 @@
                     </connections>
                 </button>
                 <button hidden="YES" toolTip="Scroll to the bottom" translatesAutoresizingMaskIntoConstraints="NO" id="MMP-UE-Pvd" userLabel="Scroll to Bottom" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="406" y="7" width="10" height="10"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ScrollToBottom" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0pj-O4-tNY">
+                    <rect key="frame" x="404" y="4.5" width="10" height="15"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.down.to.line.square" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0pj-O4-tNY">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -763,15 +760,15 @@
     <resources>
         <image name="Artists_Menu" width="20" height="20"/>
         <image name="Genres_Menu" width="20" height="20"/>
-        <image name="ScrollToBottom" width="33" height="37"/>
-        <image name="ScrollToTop" width="33" height="37"/>
         <image name="ShowInFinder" width="15" height="15"/>
-        <image name="Sort" width="35" height="25"/>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
         <image name="arrow.down.to.line.alt" catalog="system" width="13" height="14"/>
+        <image name="arrow.down.to.line.square" catalog="system" width="15" height="14"/>
         <image name="arrow.right.arrow.left" catalog="system" width="16" height="17"/>
         <image name="arrow.up" catalog="system" width="13" height="14"/>
+        <image name="arrow.up.arrow.down" catalog="system" width="18" height="15"/>
         <image name="arrow.up.to.line.alt" catalog="system" width="13" height="14"/>
+        <image name="arrow.up.to.line.square" catalog="system" width="15" height="14"/>
         <image name="arrowtriangle.down" catalog="system" width="14" height="13"/>
         <image name="arrowtriangle.up" catalog="system" width="14" height="13"/>
         <image name="calendar" catalog="system" width="16" height="14"/>

@@ -27,7 +27,7 @@ extension ModularPlayerViewController {
     override func mouseEntered(with event: NSEvent) {
 
         if multilineTrackTextView.trackInfo != nil {
-            functionsButton.show()
+            btnFunctionsMenu.show()
         }
         
         if !playerUIState.showControls {
@@ -38,7 +38,7 @@ extension ModularPlayerViewController {
     override func mouseExited(with event: NSEvent) {
 
         if multilineTrackTextView.trackInfo != nil {
-            functionsButton.hide()
+            btnFunctionsMenu.hide()
         }
         
         if !playerUIState.showControls {

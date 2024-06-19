@@ -92,7 +92,6 @@
                                                         <constraint firstItem="7Pg-Hp-DfM" firstAttribute="leading" secondItem="59l-fK-a8W" secondAttribute="leading" constant="8" id="ySn-kh-Z5R"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="btnPlay" destination="BOO-0W-5Mb" id="NEf-df-vkY"/>
                                                         <outlet property="textField" destination="7Pg-Hp-DfM" id="4f1-Kn-WkM"/>
                                                     </connections>
                                                 </tableCellView>

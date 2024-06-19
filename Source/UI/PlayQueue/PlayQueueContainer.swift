@@ -31,7 +31,6 @@ class PlayQueueContainer: NSView, ColorSchemeObserver {
     
     @IBOutlet weak var btnSearch: NSButton!
     @IBOutlet weak var btnSortPopup: NSPopUpButton!
-    @IBOutlet weak var sortTintedIconMenuItem: TintedIconMenuItem!
     
     @IBOutlet weak var btnExport: NSButton!
     
@@ -64,7 +63,7 @@ class PlayQueueContainer: NSView, ColorSchemeObserver {
         
         viewsToHideOnMouseOver = [lblTracksSummary, lblDurationSummary]
         
-        allButtons = [btnImportTracks, btnRemoveTracks, btnCropTracks, btnRemoveAllTracks, btnMoveTracksUp, btnMoveTracksDown, btnMoveTracksToTop, btnMoveTracksToBottom, btnClearSelection, btnInvertSelection, btnSearch, sortTintedIconMenuItem, btnExport, btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom]
+        allButtons = [btnImportTracks, btnRemoveTracks, btnCropTracks, btnRemoveAllTracks, btnMoveTracksUp, btnMoveTracksDown, btnMoveTracksToTop, btnMoveTracksToBottom, btnClearSelection, btnInvertSelection, btnSearch, btnSortPopup, btnExport, btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom]
     }
     
     override func viewDidEndLiveResize() {

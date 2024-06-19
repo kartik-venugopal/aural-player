@@ -27,7 +27,8 @@ extension NSImage {
     static let imgLibrary: NSImage = NSImage(named: "Library")!
     static let imgPlaylist: NSImage = NSImage(systemSymbolName: "list.dash")
     
-    static let imgPlay: NSImage = NSImage(named: "Play")!
+//    static let imgPlay: NSImage = NSImage(named: "Play")!
+    static let imgPlay: NSImage = NSImage(systemSymbolName: "play")
     static let imgPlayFilled: NSImage = NSImage(systemSymbolName: "play.fill")
     
     static let imgPause: NSImage = NSImage(named: "Pause")!

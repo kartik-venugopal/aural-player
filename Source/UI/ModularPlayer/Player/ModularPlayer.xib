@@ -10,6 +10,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ModularPlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="artView" destination="igo-tR-LRb" id="Xr1-tS-zUj"/>
+                <outlet property="btnFunctionsMenu" destination="iwf-qn-PJh" id="TGD-JM-Xof"/>
                 <outlet property="btnLoop" destination="uWb-3U-Pvr" id="ew9-Xm-OVj"/>
                 <outlet property="btnNextTrack" destination="C5J-gb-Juv" id="xN4-Jl-1al"/>
                 <outlet property="btnPlayPause" destination="h0i-s5-xcg" id="Mk8-yP-5qS"/>
@@ -20,7 +21,6 @@
                 <outlet property="btnShuffle" destination="MbK-5D-p2O" id="bJs-kW-4Jq"/>
                 <outlet property="btnVolume" destination="tIh-JF-jbL" id="odU-21-mI2"/>
                 <outlet property="controlsBox" destination="tlk-RM-S0u" id="LTR-5y-vk2"/>
-                <outlet property="functionsButton" destination="iwf-qn-PJh" id="TGD-JM-Xof"/>
                 <outlet property="functionsMenuDelegate" destination="DlG-hJ-3cs" id="mxR-hr-gs4"/>
                 <outlet property="functionsMenuItem" destination="gVO-3W-k3p" id="pdc-JI-bP7"/>
                 <outlet property="infoBox" destination="Bp8-ZH-oj4" id="Z2Z-fX-1Ne"/>
@@ -118,8 +118,8 @@
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" autoenablesItems="NO" id="owc-w6-7Hd">
                                         <items>
-                                            <menuItem hidden="YES" id="gVO-3W-k3p" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                                <imageReference key="image" image="Ellipsis" symbolScale="medium"/>
+                                            <menuItem hidden="YES" id="gVO-3W-k3p">
+                                                <imageReference key="image" image="ellipsis" catalog="system" symbolScale="medium"/>
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Ellipsis"/>
@@ -351,6 +351,7 @@
         <image name="backward.end" catalog="system" width="13" height="13"/>
         <image name="bookmark" catalog="system" width="14" height="16"/>
         <image name="clock.arrow.2.circlepath" catalog="system" width="18" height="15"/>
+        <image name="ellipsis" catalog="system" width="14" height="5"/>
         <image name="forward" catalog="system" width="19" height="12"/>
         <image name="forward.end" catalog="system" width="13" height="13"/>
         <image name="heart" catalog="system" width="16" height="14"/>
