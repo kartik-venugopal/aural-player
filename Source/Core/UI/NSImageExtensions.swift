@@ -14,7 +14,7 @@ import Cocoa
 import UIKit
 #endif
 
-extension PlatformImage {
+extension NSImage {
     
 #if os(macOS)
     
@@ -105,7 +105,7 @@ extension PlatformImage {
     
 #endif
     
-    func copy(ofSize size: CGSize) -> PlatformImage {
+    func copy(ofSize size: CGSize) -> NSImage {
         
         let copy = imageCopy()
         
@@ -116,7 +116,7 @@ extension PlatformImage {
         return copy
     }
     
-    func imageCopy() -> PlatformImage {
-        self.copy() as! PlatformImage
+    func imageCopy() -> NSImage {
+        self.copy() as! NSImage
     }
 }

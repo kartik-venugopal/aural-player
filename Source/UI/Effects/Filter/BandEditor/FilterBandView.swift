@@ -312,11 +312,11 @@ class FilterBandView: NSView {
         redrawSliders()
     }
     
-    func buttonColorChanged(_ newColor: PlatformColor) {
+    func buttonColorChanged(_ newColor: NSColor) {
         [presetCutoffsIconMenuItem, presetRangesIconMenuItem].forEach {$0?.colorChanged(newColor)}
     }
 
-    func primaryTextColorChanged(_ newColor: PlatformColor) {
+    func primaryTextColorChanged(_ newColor: NSColor) {
         
         if let popupMenuCell = filterTypeMenu.cell as? EffectsUnitPopupMenuCell {
             
@@ -327,7 +327,7 @@ class FilterBandView: NSView {
         lblFrequencies.textColor = newColor
     }
     
-    func secondaryTextColorChanged(_ newColor: PlatformColor) {
+    func secondaryTextColorChanged(_ newColor: NSColor) {
         functionCaptionLabels.forEach {$0.textColor = newColor}
     }
     

@@ -983,7 +983,6 @@
 		3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */; };
 		3EFB64952772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */; };
 		3EFB9ED626A68B1F00EA8440 /* MetadataTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB9ED526A68B1F00EA8440 /* MetadataTrackInfoViewController.swift */; };
-		3EFE3B0A27864958006F8B8C /* TypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFE3B0927864958006F8B8C /* TypeAliases.swift */; };
 		3EFFEB8027D9CB25006A333B /* ColorSchemesManager+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFEB7F27D9CB25006A333B /* ColorSchemesManager+Observer.swift */; };
 		3EFFEB8727D9D33D006A333B /* FontSchemesManager+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFEB8627D9D33D006A333B /* FontSchemesManager+Observer.swift */; };
 /* End PBXBuildFile section */
@@ -2070,7 +2069,6 @@
 		3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchSliderCell.swift; sourceTree = "<group>"; };
 		3EFB64942772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateCheckButton.swift; sourceTree = "<group>"; };
 		3EFB9ED526A68B1F00EA8440 /* MetadataTrackInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTrackInfoViewController.swift; sourceTree = "<group>"; };
-		3EFE3B0927864958006F8B8C /* TypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAliases.swift; sourceTree = "<group>"; };
 		3EFFEB7F27D9CB25006A333B /* ColorSchemesManager+Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorSchemesManager+Observer.swift"; sourceTree = "<group>"; };
 		3EFFEB8627D9D33D006A333B /* FontSchemesManager+Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontSchemesManager+Observer.swift"; sourceTree = "<group>"; };
 		6C1EFB702B51CC7C005E67D9 /* LibraryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryMonitor.swift; sourceTree = "<group>"; };
@@ -3924,7 +3922,6 @@
 				3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */,
 				3E0397E72B83EB73004454DB /* AppDelegate+Init.swift */,
 				3E0397E92B83EC27004454DB /* AppDelegate+TearDown.swift */,
-				3EFE3B0927864958006F8B8C /* TypeAliases.swift */,
 				3E0217D52C23490E00865AC2 /* Core */,
 				3E6C112C25CEB98700BF0D07 /* MediaKeyHandling */,
 				3EF84D882835E6E9004EF57B /* LibraryMonitoring */,
@@ -5426,7 +5423,6 @@
 				3E02185E2C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift in Sources */,
 				3E0218722C23490E00865AC2 /* AppSetupNotifications.swift in Sources */,
 				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
-				3EFE3B0A27864958006F8B8C /* TypeAliases.swift in Sources */,
 				3E36BD3D26A6902F00B6E28B /* AudioTrackInfoViewController.swift in Sources */,
 				3E4C763D2AD774DA00DDED45 /* AppSetupWindowController.swift in Sources */,
 				3E0218BD2C23490E00865AC2 /* MarkLastPlaybackPositionAction.swift in Sources */,

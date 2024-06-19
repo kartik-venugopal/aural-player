@@ -25,7 +25,7 @@ class EffectsUnitStateObserverRegistry {
     
     private var auReverseRegistry: [NSObject: String] = [:]
     
-    private var kvoTokens: KVOTokens<ColorScheme, PlatformColor> = KVOTokens()
+    private var kvoTokens: KVOTokens<ColorScheme, NSColor> = KVOTokens()
     
     private init() {
         
@@ -195,7 +195,7 @@ extension TextualFXUnitStateObserver {
         textColor = systemColorScheme.colorForEffectsUnitState(newState)
     }
     
-    func colorForCurrentStateChanged(to newColor: PlatformColor) {
+    func colorForCurrentStateChanged(to newColor: NSColor) {
         textColor = newColor
     }
 }

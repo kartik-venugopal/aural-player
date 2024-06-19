@@ -152,7 +152,7 @@ class ColorScheme: NSObject, UserManagedObject {
         kvoTokens.invalidate()
     }
     
-    private var kvoTokens: KVOTokens<ColorScheme, PlatformColor> = KVOTokens()
+    private var kvoTokens: KVOTokens<ColorScheme, NSColor> = KVOTokens()
     
     // Applies another color scheme to this scheme.
     func applyScheme(_ scheme: ColorScheme) {
@@ -186,7 +186,7 @@ class ColorScheme: NSObject, UserManagedObject {
         ColorSchemePersistentState(self)
     }
     
-    func colorForEffectsUnitState(_ state: EffectsUnitState) -> PlatformColor {
+    func colorForEffectsUnitState(_ state: EffectsUnitState) -> NSColor {
         
         switch state {
             

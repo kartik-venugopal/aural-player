@@ -100,15 +100,15 @@ extension FavoritesTableViewController: ColorSchemeObserver {
         tableView.reloadData()
     }
     
-    func tableTextColorChanged(_ newColor: PlatformColor) {
+    func tableTextColorChanged(_ newColor: NSColor) {
         tableView.reloadData()
     }
     
-    func selectedTextColorChanged(_ newColor: PlatformColor) {
+    func selectedTextColorChanged(_ newColor: NSColor) {
         tableView.reloadRows(tableView.selectedRowIndexes)
     }
     
-    func textSelectionColorChanged(_ newColor: PlatformColor) {
+    func textSelectionColorChanged(_ newColor: NSColor) {
         tableView.redoRowSelection()
     }
 }

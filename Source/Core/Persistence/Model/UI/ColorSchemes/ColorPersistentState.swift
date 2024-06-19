@@ -39,7 +39,7 @@ struct ColorPersistentState: Codable {
     #if os(macOS)
     
     // Maps an NSColor to a ColorPersistentState object that can be persisted.
-    init(color: PlatformColor) {
+    init(color: NSColor) {
         
         self.colorSpace = color.colorSpace.colorSpaceModel.rawValue
         self.alpha = color.alphaComponent
@@ -79,7 +79,7 @@ struct ColorPersistentState: Codable {
     }
     
     // Dummy implementation (meant to be overriden).
-    func toColor() -> PlatformColor? {
+    func toColor() -> NSColor? {
         
         guard let colorSpace = self.colorSpace else {return nil}
         

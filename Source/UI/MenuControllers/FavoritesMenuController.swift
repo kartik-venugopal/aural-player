@@ -59,7 +59,7 @@ class GenericFavoritesMenuController: NSObject, NSMenuDelegate {
         {[]}
     }
     
-    var itemImageFunction: (Favorite) -> PlatformImage? {
+    var itemImageFunction: (Favorite) -> NSImage? {
         {_ in nil}
     }
     
@@ -99,7 +99,7 @@ class FavoriteTracksMenuController: GenericFavoritesMenuController {
         {favoritesDelegate.allFavoriteTracks}
     }
     
-    override var itemImageFunction: (Favorite) -> PlatformImage? {
+    override var itemImageFunction: (Favorite) -> NSImage? {
         {fav in (fav as? FavoriteTrack)?.track.art?.image ?? .imgPlayedTrack}
     }
 }
@@ -112,7 +112,7 @@ class FavoriteArtistsMenuController: GenericFavoritesMenuController {
         {favoritesDelegate.allFavoriteArtists}
     }
     
-    override var itemImageFunction: (Favorite) -> PlatformImage? {
+    override var itemImageFunction: (Favorite) -> NSImage? {
         {_ in .imgArtistGroup_menu}
     }
 }
@@ -123,7 +123,7 @@ class FavoriteAlbumsMenuController: GenericFavoritesMenuController {
         {favoritesDelegate.allFavoriteAlbums}
     }
     
-    override var itemImageFunction: (Favorite) -> PlatformImage? {
+    override var itemImageFunction: (Favorite) -> NSImage? {
         
         {fav in
             
@@ -142,7 +142,7 @@ class FavoriteGenresMenuController: GenericFavoritesMenuController {
         {favoritesDelegate.allFavoriteGenres}
     }
     
-    override var itemImageFunction: (Favorite) -> PlatformImage? {
+    override var itemImageFunction: (Favorite) -> NSImage? {
         {_ in .imgGenreGroup}
     }
 }
@@ -153,7 +153,7 @@ class FavoriteDecadesMenuController: GenericFavoritesMenuController {
         {favoritesDelegate.allFavoriteDecades}
     }
     
-    override var itemImageFunction: (Favorite) -> PlatformImage? {
+    override var itemImageFunction: (Favorite) -> NSImage? {
         {_ in .imgDecadeGroup}
     }
 }
@@ -164,7 +164,7 @@ class FavoriteFoldersMenuController: GenericFavoritesMenuController {
         {favoritesDelegate.allFavoriteFolders}
     }
     
-    override var itemImageFunction: (Favorite) -> PlatformImage? {
+    override var itemImageFunction: (Favorite) -> NSImage? {
         {_ in .imgFileSystem}
     }
 }
@@ -175,7 +175,7 @@ class FavoritePlaylistFilesMenuController: GenericFavoritesMenuController {
         {favoritesDelegate.allFavoritePlaylistFiles}
     }
     
-    override var itemImageFunction: (Favorite) -> PlatformImage? {
+    override var itemImageFunction: (Favorite) -> NSImage? {
         {_ in .imgPlaylist}
     }
 }

@@ -104,7 +104,7 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
         super.colorSchemeChanged()
     }
     
-    override func primaryTextColorChanged(_ newColor: PlatformColor) {
+    override func primaryTextColorChanged(_ newColor: NSColor) {
         
         lblNoArt.textColor = newColor
         super.primaryTextColorChanged(newColor)

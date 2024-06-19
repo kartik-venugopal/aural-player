@@ -17,18 +17,18 @@ class TableCellBuilder {
     static let noCell: TableCellBuilder = .init(cellFactory: {_,_ in nil})
     
     private var text: String? = nil
-    private var font: PlatformFont? = nil
+    private var font: NSFont? = nil
     private var alignment: NSTextAlignment? = nil
     private var bottomYOffset: CGFloat? = nil
     private var centerYOffset: CGFloat? = nil
-    private var textColor: PlatformColor? = nil
-    private var selectedTextColor: PlatformColor? = nil
+    private var textColor: NSColor? = nil
+    private var selectedTextColor: NSColor? = nil
     
     private var attributedText: NSAttributedString? = nil
     private var selectedAttributedText: NSAttributedString? = nil
 
-    private var image: PlatformImage? = nil
-    private var imageColor: PlatformColor? = nil
+    private var image: NSImage? = nil
+    private var imageColor: NSColor? = nil
     
     private let cellFactory: TableCellCreationFunction
     
@@ -50,7 +50,7 @@ class TableCellBuilder {
         self.cellFactory = cellFactory
     }
     
-    @discardableResult func withText(text: String, inFont font: PlatformFont, andColor color: PlatformColor, selectedTextColor: PlatformColor, bottomYOffset: CGFloat? = nil, centerYOffset: CGFloat? = nil) -> TableCellBuilder {
+    @discardableResult func withText(text: String, inFont font: NSFont, andColor color: NSColor, selectedTextColor: NSColor, bottomYOffset: CGFloat? = nil, centerYOffset: CGFloat? = nil) -> TableCellBuilder {
         
         self.text = text
         
@@ -70,7 +70,7 @@ class TableCellBuilder {
         return self
     }
     
-    @discardableResult func withAttributedText(strings: [(text: String, font: PlatformFont, color: PlatformColor)], selectedTextColors: [PlatformColor], bottomYOffset: CGFloat? = nil, centerYOffset: CGFloat? = nil) -> TableCellBuilder {
+    @discardableResult func withAttributedText(strings: [(text: String, font: NSFont, color: NSColor)], selectedTextColors: [NSColor], bottomYOffset: CGFloat? = nil, centerYOffset: CGFloat? = nil) -> TableCellBuilder {
         
         var attStr: NSMutableAttributedString = strings[0].text.attributed(font: strings[0].font, color: strings[0].color)
         var selAttStr: NSMutableAttributedString = strings[0].text.attributed(font: strings[0].font, color: selectedTextColors[0])
@@ -98,7 +98,7 @@ class TableCellBuilder {
         return self
     }
     
-    @discardableResult func withImage(image: PlatformImage, inColor color: PlatformColor? = nil) -> TableCellBuilder {
+    @discardableResult func withImage(image: NSImage, inColor color: NSColor? = nil) -> TableCellBuilder {
         
         self.image = image
         self.imageColor = color

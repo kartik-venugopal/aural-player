@@ -117,7 +117,7 @@ enum LibrarySidebarCategory: String, CaseIterable, CustomStringConvertible {
         }
     }
     
-    var image: PlatformImage {
+    var image: NSImage {
         
         switch self {
             
@@ -152,12 +152,12 @@ class LibrarySidebarItem: Equatable {
     
     var displayName: String
     let browserTab: LibraryBrowserTab
-    let image: PlatformImage?
+    let image: NSImage?
     
     let tuneBrowserFolder: FileSystemFolderItem?
     let tuneBrowserTree: FileSystemTree?
     
-    init(displayName: String, browserTab: LibraryBrowserTab, tuneBrowserFolder: FileSystemFolderItem? = nil, tuneBrowserTree: FileSystemTree? = nil, image: PlatformImage? = nil) {
+    init(displayName: String, browserTab: LibraryBrowserTab, tuneBrowserFolder: FileSystemFolderItem? = nil, tuneBrowserTree: FileSystemTree? = nil, image: NSImage? = nil) {
         
         self.displayName = displayName
         self.browserTab = browserTab

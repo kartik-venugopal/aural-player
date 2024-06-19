@@ -154,7 +154,7 @@ extension LibrarySidebarViewController: FontSchemeObserver, ColorSchemeObserver 
         sidebarView.reloadDataMaintainingSelection()
     }
     
-    func fontChanged(to newFont: PlatformFont, forProperty property: KeyPath<FontScheme, PlatformFont>) {
+    func fontChanged(to newFont: NSFont, forProperty property: KeyPath<FontScheme, NSFont>) {
         sidebarView.reloadDataMaintainingSelection()
     }
     
@@ -164,19 +164,19 @@ extension LibrarySidebarViewController: FontSchemeObserver, ColorSchemeObserver 
         sidebarView.reloadDataMaintainingSelection()
     }
     
-    func backgroundColorChanged(_ newColor: PlatformColor) {
+    func backgroundColorChanged(_ newColor: NSColor) {
         sidebarView.setBackgroundColor(systemColorScheme.backgroundColor)
     }
     
-    func textColorOrButtonColorChanged(_ newColor: PlatformColor) {
+    func textColorOrButtonColorChanged(_ newColor: NSColor) {
         sidebarView.reloadDataMaintainingSelection()
     }
     
-    func selectedTextColorChanged(_ newColor: PlatformColor) {
+    func selectedTextColorChanged(_ newColor: NSColor) {
         sidebarView.reloadRows(sidebarView.selectedRowIndexes)
     }
     
-    func textSelectionColorChanged(_ newColor: PlatformColor) {
+    func textSelectionColorChanged(_ newColor: NSColor) {
         sidebarView.redoRowSelection()
     }
 }

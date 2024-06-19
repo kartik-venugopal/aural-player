@@ -281,13 +281,13 @@ extension TuneBrowserViewController: ColorSchemeObserver {
         imgHomeIcon.contentTintColor = systemColorScheme.buttonColor
     }
     
-    fileprivate func backgroundColorChanged(_ newColor: PlatformColor) {
+    fileprivate func backgroundColorChanged(_ newColor: NSColor) {
         
         rootContainer.fillColor = newColor
         pathControlWidget.backgroundColor = newColor
     }
     
-    fileprivate func primaryTextColorChanged(_ newColor: PlatformColor) {
+    fileprivate func primaryTextColorChanged(_ newColor: NSColor) {
         updatePathControlItemTheming()
     }
 }

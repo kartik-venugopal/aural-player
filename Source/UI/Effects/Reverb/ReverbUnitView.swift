@@ -74,7 +74,7 @@ class ReverbUnitView: NSView {
         reverbSpaceMenu.redraw()
     }
     
-    func updatePopupMenuColor(_ newColor: PlatformColor) {
+    func updatePopupMenuColor(_ newColor: NSColor) {
         
         if let popupMenuCell = reverbSpaceMenu.cell as? EffectsUnitPopupMenuCell {
             popupMenuCell.tintColor = newColor

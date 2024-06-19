@@ -121,7 +121,7 @@ class PlayQueueViewController: TrackListTableViewController {
     
     // MARK: Notification / command handling ----------------------------------------------------------------------------------------
     
-    func activeControlColorChanged(_ newColor: PlatformColor) {
+    func activeControlColorChanged(_ newColor: NSColor) {
         
         if let playingTrackIndex = playQueueDelegate.currentTrackIndex {
             tableView.reloadRows([playingTrackIndex])

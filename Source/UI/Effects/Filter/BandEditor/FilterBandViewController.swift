@@ -96,7 +96,7 @@ extension FilterBandViewController: ColorSchemeObserver {
         bandView.colorSchemeChanged()
     }
     
-    func unitStateColorChanged(_ newColor: PlatformColor) {
+    func unitStateColorChanged(_ newColor: NSColor) {
         bandView.redrawSliders()
     }
 }

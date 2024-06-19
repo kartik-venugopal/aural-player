@@ -185,7 +185,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         timeStretchUnitView.colorChanged(forUnitState: timeStretchUnit.state)
     }
     
-    override func activeControlColorChanged(_ newColor: PlatformColor) {
+    override func activeControlColorChanged(_ newColor: NSColor) {
         
         super.activeControlColorChanged(newColor)
         
@@ -194,7 +194,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         }
     }
     
-    override func inactiveControlColorChanged(_ newColor: PlatformColor) {
+    override func inactiveControlColorChanged(_ newColor: NSColor) {
         
         super.inactiveControlColorChanged(newColor)
         
@@ -203,7 +203,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         }
     }
     
-    override func suppressedControlColorChanged(_ newColor: PlatformColor) {
+    override func suppressedControlColorChanged(_ newColor: NSColor) {
         
         super.suppressedControlColorChanged(newColor)
         

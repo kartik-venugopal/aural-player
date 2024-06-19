@@ -203,21 +203,21 @@ extension EffectsContainerViewController: ColorSchemeObserver {
         tabViewButtons.forEach {$0.redraw()}
     }
     
-    private func activeControlColorChanged(_ newColor: PlatformColor) {
+    private func activeControlColorChanged(_ newColor: NSColor) {
         updateTabButtons(forUnitState: .active, newColor: newColor)
     }
     
-    private func inactiveControlColorChanged(_ newColor: PlatformColor) {
+    private func inactiveControlColorChanged(_ newColor: NSColor) {
         
         updateTabButtons(forUnitState: .bypassed, newColor: newColor)
         devicesTabViewButton.redraw()
     }
     
-    private func suppressedControlColorChanged(_ newColor: PlatformColor) {
+    private func suppressedControlColorChanged(_ newColor: NSColor) {
         updateTabButtons(forUnitState: .suppressed, newColor: newColor)
     }
     
-    private func updateTabButtons(forUnitState unitState: EffectsUnitState, newColor: PlatformColor) {
+    private func updateTabButtons(forUnitState unitState: EffectsUnitState, newColor: NSColor) {
         
         if graph.masterUnit.state == unitState {
             masterTabViewButton.redraw()
@@ -252,7 +252,7 @@ extension EffectsContainerViewController: ColorSchemeObserver {
         }
     }
     
-    private func buttonColorChanged(_ newColor: PlatformColor) {
+    private func buttonColorChanged(_ newColor: NSColor) {
         tabViewButtons[tabView.selectedIndex].redraw()
     }
 }

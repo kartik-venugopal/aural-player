@@ -8,7 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 
-import Foundation
+import AppKit
 
 class AlbumGroup: Group {
     
@@ -107,7 +107,7 @@ class AlbumGroup: Group {
         return false
     }
     
-    var art: PlatformImage {
+    var art: NSImage {
         
         // There's only 1 Track in the Album, just use its art.
         if tracks.count == 1, let theTrack = tracks.first, let theArt = theTrack.art?.image {
@@ -142,12 +142,12 @@ class AlbumGroup: Group {
         
         // The files in the folder correspond exactly to the album tracks. Use art, if present.
         let albumArtFile = parentFolder.appendingPathComponent(Self.albumArtFileName, isDirectory: false)
-        if albumArtFile.exists, let image = PlatformImage(contentsOf: albumArtFile) {
+        if albumArtFile.exists, let image = NSImage(contentsOf: albumArtFile) {
             return image
         }
         
         let folderArtFile = parentFolder.appendingPathComponent(Self.folderArtFileName, isDirectory: false)
-        if folderArtFile.exists, let image = PlatformImage(contentsOf: folderArtFile) {
+        if folderArtFile.exists, let image = NSImage(contentsOf: folderArtFile) {
             return image
         }
         

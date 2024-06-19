@@ -205,15 +205,15 @@ extension LibraryImportedPlaylistsViewController: ColorSchemeObserver {
         }
     }
     
-    func textColorChanged(_ newColor: PlatformColor) {
+    func textColorChanged(_ newColor: NSColor) {
         outlineView.reloadDataMaintainingSelection()
     }
     
-    func selectedTextColorChanged(_ newColor: PlatformColor) {
+    func selectedTextColorChanged(_ newColor: NSColor) {
         outlineView.reloadRows(selectedRows)
     }
     
-    func textSelectionColorChanged(_ newColor: PlatformColor) {
+    func textSelectionColorChanged(_ newColor: NSColor) {
         outlineView.redoRowSelection()
     }
 }

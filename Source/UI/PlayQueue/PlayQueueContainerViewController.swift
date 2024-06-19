@@ -337,7 +337,7 @@ extension PlayQueueContainerViewController: ColorSchemeObserver {
         updateSummary()
     }
     
-    func secondaryTextColorChanged(_ newColor: PlatformColor) {
+    func secondaryTextColorChanged(_ newColor: NSColor) {
         updateSummary()
     }
 }

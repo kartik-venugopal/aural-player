@@ -226,7 +226,7 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
         redrawSliders()
     }
     
-    func activeControlColorChanged(_ newColor: PlatformColor) {
+    func activeControlColorChanged(_ newColor: NSColor) {
         
         guard self.effectsUnit.state == .active else {return}
         
@@ -234,7 +234,7 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
         redrawSliders()
     }
     
-    func inactiveControlColorChanged(_ newColor: PlatformColor) {
+    func inactiveControlColorChanged(_ newColor: NSColor) {
         
         if self.effectsUnit.state == .bypassed {
             btnBypass.contentTintColor = newColor
@@ -243,7 +243,7 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
         redrawSliders()
     }
     
-    func suppressedControlColorChanged(_ newColor: PlatformColor) {
+    func suppressedControlColorChanged(_ newColor: NSColor) {
         
         guard self.effectsUnit.state == .suppressed else {return}
         

@@ -8,7 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
-import Foundation
+import AppKit
 
 enum UnifiedPlayerModule: String, CaseIterable, CustomStringConvertible {
     
@@ -131,7 +131,7 @@ enum UnifiedPlayerModule: String, CaseIterable, CustomStringConvertible {
 //        }
     }
     
-    var image: PlatformImage {
+    var image: NSImage {
         
         switch self {
             

@@ -7,7 +7,7 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Foundation
+import AppKit
 
 ///
 /// An enumeration of all the effects unit types.
@@ -49,7 +49,7 @@ enum EffectsUnitType: Int {
         }
     }
     
-    var icon: PlatformImage {
+    var icon: NSImage {
 
         switch self {
         

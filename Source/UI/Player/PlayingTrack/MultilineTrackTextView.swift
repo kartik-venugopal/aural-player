@@ -236,11 +236,11 @@ class MenuBarPlayingTrackTextView: MultilineTrackTextView {
 
 extension MultilineTrackTextView: ColorSchemePropertyChangeReceiver {
     
-    func backgroundColorChanged(_ newColor: PlatformColor) {
+    func backgroundColorChanged(_ newColor: NSColor) {
         self.backgroundColor = systemColorScheme.backgroundColor
     }
     
-    func colorChanged(_ newColor: PlatformColor) {
+    func colorChanged(_ newColor: NSColor) {
         update()
     }
 }

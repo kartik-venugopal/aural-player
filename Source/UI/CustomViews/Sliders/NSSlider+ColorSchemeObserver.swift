@@ -12,7 +12,7 @@ import Cocoa
 
 extension NSSlider: ColorSchemePropertyChangeReceiver {
     
-    func colorChanged(_ newColor: PlatformColor) {
+    func colorChanged(_ newColor: NSColor) {
         redraw()
     }
 }

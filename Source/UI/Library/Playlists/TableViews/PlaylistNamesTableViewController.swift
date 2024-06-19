@@ -211,7 +211,7 @@
 //
 //extension PlaylistNamesTableViewController: ColorSchemePropertyObserver {
 //    
-//    func colorChanged(to newColor: PlatformColor, forProperty property: ColorSchemeProperty) {
+//    func colorChanged(to newColor: NSColor, forProperty property: ColorSchemeProperty) {
 //        
 //        switch property {
 //            

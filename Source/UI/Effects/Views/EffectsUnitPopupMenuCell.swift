@@ -16,7 +16,7 @@ class EffectsUnitPopupMenuCell: NicerPopupMenuCell {
     override var arrowXMargin: CGFloat {10}
     override var arrowYMargin: CGFloat {7}
     
-    var tintColor: PlatformColor = systemColorScheme.buttonColor {
+    var tintColor: NSColor = systemColorScheme.buttonColor {
         
         didSet {
             redraw()

@@ -158,7 +158,7 @@ class PlaylistTracksViewController: TrackListTableViewController {
     
     // MARK: Notification handling
     
-    func colorChanged(to newColor: PlatformColor, forProperty property: ColorSchemeProperty) {
+    func colorChanged(to newColor: NSColor, forProperty property: ColorSchemeProperty) {
         
         switch property {
             

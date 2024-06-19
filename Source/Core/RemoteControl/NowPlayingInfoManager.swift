@@ -7,6 +7,8 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
+
+import AppKit
 import MediaPlayer
 
 ///
@@ -31,7 +33,7 @@ class NowPlayingInfoManager: NSObject {
     private static let optimalArtworkSize: CGSize = CGSize(width: 50, height: 50)
     
     /// An image to display when the currently playing track does not have any associated cover art, resized to an optimal size for display in Control Center.
-    private static let defaultArtwork: PlatformImage = .imgPlayingArt.copy(ofSize: optimalArtworkSize)
+    private static let defaultArtwork: NSImage = .imgPlayingArt.copy(ofSize: optimalArtworkSize)
     
     /// A flag used to prevent unnecessary redundant updates.
     private var preTrackChange: Bool = false

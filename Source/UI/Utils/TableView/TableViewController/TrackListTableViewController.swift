@@ -423,15 +423,15 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         updateSummary()
     }
     
-    func textColorChanged(_ newColor: PlatformColor) {
+    func textColorChanged(_ newColor: NSColor) {
         tableView.reloadDataMaintainingSelection()
     }
     
-    func selectedTextColorChanged(_ newColor: PlatformColor) {
+    func selectedTextColorChanged(_ newColor: NSColor) {
         tableView.reloadRows(selectedRows)
     }
     
-    func textSelectionColorChanged(_ newColor: PlatformColor) {
+    func textSelectionColorChanged(_ newColor: NSColor) {
         tableView.redoRowSelection()
     }
 }

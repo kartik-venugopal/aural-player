@@ -15,7 +15,7 @@ extension NSTableView {
         registerForDraggedTypes([.data, .fileURL])
     }
     
-    func setBackgroundColor(_ color: PlatformColor) {
+    func setBackgroundColor(_ color: NSColor) {
         
         backgroundColor = color
         enclosingScrollView?.backgroundColor = color
@@ -182,11 +182,11 @@ extension NSTableView: ColorSchemePropertyChangeReceiver {
         reloadDataMaintainingSelection()
     }
     
-    func colorChanged(_ newColor: PlatformColor) {
+    func colorChanged(_ newColor: NSColor) {
         setBackgroundColor(newColor)
     }
     
-//    func colorChanged(to newColor: PlatformColor, forProperty property: ColorSchemeProperty) {
+//    func colorChanged(to newColor: NSColor, forProperty property: ColorSchemeProperty) {
 //        
 //        switch property {
 //            

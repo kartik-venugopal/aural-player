@@ -63,13 +63,13 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
         primaryTextColorChanged(systemColorScheme.primaryTextColor)
     }
     
-    func backgroundColorChanged(_ newColor: PlatformColor) {
+    func backgroundColorChanged(_ newColor: NSColor) {
         textView.setBackgroundColor(newColor)
     }
     
-    func primaryTextColorChanged(_ newColor: PlatformColor) {
+    func primaryTextColorChanged(_ newColor: NSColor) {
         textView.textColor = newColor
     }
     
-    func secondaryTextColorChanged(_ newColor: PlatformColor) {}
+    func secondaryTextColorChanged(_ newColor: NSColor) {}
 }

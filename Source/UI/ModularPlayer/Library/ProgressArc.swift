@@ -16,10 +16,10 @@ import Cocoa
 //class ProgressArc: NSView {
 //    
 //    /// Color of the background arc.
-//    let backgroundArcColor: PlatformColor = .white15Percent
+//    let backgroundArcColor: NSColor = .white15Percent
 //    
 //    /// Color of the background arc.
-//    let foregroundArcColor: PlatformColor = ColorScheme.lava.activeControlColor
+//    let foregroundArcColor: NSColor = ColorScheme.lava.activeControlColor
 //    
 //    /// Thickness of the background arc.
 //    lazy var backgroundArcLineWidth: CGFloat = 16
@@ -28,7 +28,7 @@ import Cocoa
 //    lazy var foregroundArcLineWidth: CGFloat = 6
 //    
 //    /// Font to be used for rendered text.
-//    let textFont: PlatformFont = fontSchemesManager.systemScheme.prominentFont
+//    let textFont: NSFont = fontSchemesManager.systemScheme.prominentFont
 //    
 //    /// Center of the rendered arcs.
 //    lazy var arcCenter: CGPoint = CGPoint(x: bounds.centerX, y: bounds.centerY)
@@ -160,7 +160,7 @@ extension String {
     ///
     /// Converts this ``String`` to a ``NSAttributedString`` with the given font and color as attributes.
     ///
-    func attributed(withFont font: PlatformFont, andColor color: PlatformColor) -> NSAttributedString {
+    func attributed(withFont font: NSFont, andColor color: NSColor) -> NSAttributedString {
         return NSAttributedString(string: self, attributes: [.font: font, .foregroundColor: color])
     }
 }

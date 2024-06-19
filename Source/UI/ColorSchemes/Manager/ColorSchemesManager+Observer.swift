@@ -22,11 +22,11 @@ protocol ColorSchemePropertyObserver where Self: NSObject {
 
 protocol ColorSchemePropertyChangeReceiver {
     
-    func colorChanged(_ newColor: PlatformColor)
+    func colorChanged(_ newColor: NSColor)
 }
 
-typealias ColorSchemePropertyChangeHandler = (PlatformColor) -> Void
-typealias ColorSchemeProperty = KeyPath<ColorScheme, PlatformColor>
+typealias ColorSchemePropertyChangeHandler = (NSColor) -> Void
+typealias ColorSchemeProperty = KeyPath<ColorScheme, NSColor>
 
 extension ColorSchemesManager {
     

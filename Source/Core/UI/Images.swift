@@ -11,119 +11,119 @@
     Container for images used by the UI
 */
 
-import Foundation
+import AppKit
 
-extension PlatformImage {
+extension NSImage {
     
     convenience init(systemSymbolName: String) {
         self.init(systemSymbolName: systemSymbolName, accessibilityDescription: nil)!
     }
     
-    static let imgPlayQueueTableView: PlatformImage = PlatformImage(systemSymbolName: "list.dash")
-    static let imgPlayQueueExpandedView: PlatformImage = PlatformImage(systemSymbolName: "text.below.photo.rtl")
+    static let imgPlayQueueTableView: NSImage = NSImage(systemSymbolName: "list.dash")
+    static let imgPlayQueueExpandedView: NSImage = NSImage(systemSymbolName: "text.below.photo.rtl")
     
-    static let imgPlayQueue: PlatformImage = imgPlayQueueTableView
-    static let imgEffects: PlatformImage = PlatformImage(systemSymbolName: "slider.vertical.3")
-    static let imgLibrary: PlatformImage = PlatformImage(named: "Library")!
-    static let imgPlaylist: PlatformImage = PlatformImage(systemSymbolName: "list.dash")
+    static let imgPlayQueue: NSImage = imgPlayQueueTableView
+    static let imgEffects: NSImage = NSImage(systemSymbolName: "slider.vertical.3")
+    static let imgLibrary: NSImage = NSImage(named: "Library")!
+    static let imgPlaylist: NSImage = NSImage(systemSymbolName: "list.dash")
     
-    static let imgPlay: PlatformImage = PlatformImage(named: "Play")!
-    static let imgPlayFilled: PlatformImage = PlatformImage(systemSymbolName: "play.fill")
+    static let imgPlay: NSImage = NSImage(named: "Play")!
+    static let imgPlayFilled: NSImage = NSImage(systemSymbolName: "play.fill")
     
-    static let imgPause: PlatformImage = PlatformImage(named: "Pause")!
+    static let imgPause: NSImage = NSImage(named: "Pause")!
     
-    static let imgChecked: PlatformImage = PlatformImage(named: "Checked")!
-    static let imgNotChecked: PlatformImage = PlatformImage(named: "NotChecked")!
+    static let imgChecked: NSImage = NSImage(named: "Checked")!
+    static let imgNotChecked: NSImage = NSImage(named: "NotChecked")!
     
-    static let imgInfo: PlatformImage = PlatformImage(systemSymbolName: "info")
+    static let imgInfo: NSImage = NSImage(systemSymbolName: "info")
     
-    static let imgPlayingArt: PlatformImage = PlatformImage(systemSymbolName: "music.quarternote.3")
+    static let imgPlayingArt: NSImage = NSImage(systemSymbolName: "music.quarternote.3")
     
-    static let imgSave: PlatformImage = PlatformImage(named: "Save")!
+    static let imgSave: NSImage = NSImage(named: "Save")!
     
-    static let imgFavorite: PlatformImage = PlatformImage(systemSymbolName: "heart")
-    static let imgBookmark: PlatformImage = PlatformImage(systemSymbolName: "bookmark")
+    static let imgFavorite: NSImage = NSImage(systemSymbolName: "heart")
+    static let imgBookmark: NSImage = NSImage(systemSymbolName: "bookmark")
     
-    static let imgVolumeZero: PlatformImage = PlatformImage(systemSymbolName: "volume")
-    static let imgVolumeLow: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.1")
-    static let imgVolumeMedium: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.2")
-    static let imgVolumeHigh: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.3")
-    static let imgMute: PlatformImage = PlatformImage(systemSymbolName: "volume.slash")
+    static let imgVolumeZero: NSImage = NSImage(systemSymbolName: "volume")
+    static let imgVolumeLow: NSImage = NSImage(systemSymbolName: "speaker.wave.1")
+    static let imgVolumeMedium: NSImage = NSImage(systemSymbolName: "speaker.wave.2")
+    static let imgVolumeHigh: NSImage = NSImage(systemSymbolName: "speaker.wave.3")
+    static let imgMute: NSImage = NSImage(systemSymbolName: "volume.slash")
     
-    static let imgRepeatOne: PlatformImage = PlatformImage(systemSymbolName: "repeat.1")
-    static let imgRepeat: PlatformImage = PlatformImage(systemSymbolName: "repeat")
+    static let imgRepeatOne: NSImage = NSImage(systemSymbolName: "repeat.1")
+    static let imgRepeat: NSImage = NSImage(systemSymbolName: "repeat")
     
-    static let imgShuffle: PlatformImage = PlatformImage(systemSymbolName: "shuffle")
+    static let imgShuffle: NSImage = NSImage(systemSymbolName: "shuffle")
     
-    static let imgLoop: PlatformImage = PlatformImage(named: "Loop")!
-    static let imgLoopStarted: PlatformImage = PlatformImage(named: "LoopStarted")!
+    static let imgLoop: NSImage = NSImage(named: "Loop")!
+    static let imgLoopStarted: NSImage = NSImage(named: "LoopStarted")!
     
-    static let imgSwitch: PlatformImage = PlatformImage(systemSymbolName: "power")
+    static let imgSwitch: NSImage = NSImage(systemSymbolName: "power")
     
-    static let imgRememberSettings: PlatformImage = PlatformImage(systemSymbolName: "clock.arrow.2.circlepath")
+    static let imgRememberSettings: NSImage = NSImage(systemSymbolName: "clock.arrow.2.circlepath")
     
-    static let imgHistory: PlatformImage = PlatformImage(systemSymbolName: "clock")
-    static let imgHistory_playlist_padded: PlatformImage = PlatformImage(named: "History_PaddedPlaylist")!
+    static let imgHistory: NSImage = NSImage(systemSymbolName: "clock")
+    static let imgHistory_playlist_padded: NSImage = NSImage(named: "History_PaddedPlaylist")!
     
     // Displayed in the playlist view
-    static let imgGroup: PlatformImage = PlatformImage(named: "Group")!
+    static let imgGroup: NSImage = NSImage(named: "Group")!
     
     // Displayed in the History menu
-    static let imgGroup_menu: PlatformImage = PlatformImage(named: "Group-Menu")!
+    static let imgGroup_menu: NSImage = NSImage(named: "Group-Menu")!
     
     // Images displayed in alerts
-    static let imgWarning: PlatformImage = PlatformImage(named: "Warning")!
-    static let imgError: PlatformImage = PlatformImage(named: "Error")!
+    static let imgWarning: NSImage = NSImage(named: "Warning")!
+    static let imgError: NSImage = NSImage(named: "Error")!
     
-    static let imgPlayedTrack: PlatformImage = PlatformImage(systemSymbolName: "music.quarternote.3")
+    static let imgPlayedTrack: NSImage = NSImage(systemSymbolName: "music.quarternote.3")
     
-    static let imgPlayerPreview: PlatformImage = PlatformImage(named: "PlayerPreview")!
-    static let imgPlaylistPreview: PlatformImage = PlatformImage(named: "Playlist-Padded")!
-    static let imgEffectsPreview: PlatformImage = PlatformImage(named: "EffectsView-On")!
+    static let imgPlayerPreview: NSImage = NSImage(named: "PlayerPreview")!
+    static let imgPlaylistPreview: NSImage = NSImage(named: "Playlist-Padded")!
+    static let imgEffectsPreview: NSImage = NSImage(named: "EffectsView-On")!
     
-    static let imgDisclosure_collapsed: PlatformImage = PlatformImage(named: "DisclosureTriangle-Collapsed")!
-    static let imgDisclosure_expanded: PlatformImage = PlatformImage(named: "DisclosureTriangle-Expanded")!
+    static let imgDisclosure_collapsed: NSImage = NSImage(named: "DisclosureTriangle-Collapsed")!
+    static let imgDisclosure_expanded: NSImage = NSImage(named: "DisclosureTriangle-Expanded")!
     
-    static let imgGreenCheck: PlatformImage = PlatformImage(named: "GreenCheck")!
+    static let imgGreenCheck: NSImage = NSImage(named: "GreenCheck")!
     
     // --------------- Device type icons -------------------
     
-    static let imgDeviceType_builtIn: PlatformImage = PlatformImage(systemSymbolName: "speaker.wave.2.fill")
-    static let imgDeviceType_headphones: PlatformImage = PlatformImage(systemSymbolName: "headphones")
-    static let imgDeviceType_bluetooth: PlatformImage = PlatformImage(named: "DeviceType_Bluetooth")!
-    static let imgDeviceType_displayPort: PlatformImage = PlatformImage(named: "DeviceType_DisplayPort")!
-    static let imgDeviceType_hdmi: PlatformImage = PlatformImage(named: "DeviceType_HDMI")!
-    static let imgDeviceType_usb: PlatformImage = PlatformImage(named: "DeviceType_USB")!
-    static let imgDeviceType_pci: PlatformImage = PlatformImage(named: "DeviceType_PCI")!
-    static let imgDeviceType_firewire: PlatformImage = PlatformImage(named: "DeviceType_FireWire")!
-    static let imgDeviceType_thunderbolt: PlatformImage = PlatformImage(named: "DeviceType_Thunderbolt")!
-    static let imgDeviceType_virtual: PlatformImage = PlatformImage(systemSymbolName: "waveform")
-    static let imgDeviceType_airplay: PlatformImage = PlatformImage(systemSymbolName: "airplayaudio")
-    static let imgDeviceType_aggregate: PlatformImage = PlatformImage(named: "DeviceType_Aggregate")!
-    static let imgDeviceType_avb: PlatformImage = PlatformImage(named: "DeviceType_AVB")!
+    static let imgDeviceType_builtIn: NSImage = NSImage(systemSymbolName: "speaker.wave.2.fill")
+    static let imgDeviceType_headphones: NSImage = NSImage(systemSymbolName: "headphones")
+    static let imgDeviceType_bluetooth: NSImage = NSImage(named: "DeviceType_Bluetooth")!
+    static let imgDeviceType_displayPort: NSImage = NSImage(named: "DeviceType_DisplayPort")!
+    static let imgDeviceType_hdmi: NSImage = NSImage(named: "DeviceType_HDMI")!
+    static let imgDeviceType_usb: NSImage = NSImage(named: "DeviceType_USB")!
+    static let imgDeviceType_pci: NSImage = NSImage(named: "DeviceType_PCI")!
+    static let imgDeviceType_firewire: NSImage = NSImage(named: "DeviceType_FireWire")!
+    static let imgDeviceType_thunderbolt: NSImage = NSImage(named: "DeviceType_Thunderbolt")!
+    static let imgDeviceType_virtual: NSImage = NSImage(systemSymbolName: "waveform")
+    static let imgDeviceType_airplay: NSImage = NSImage(systemSymbolName: "airplayaudio")
+    static let imgDeviceType_aggregate: NSImage = NSImage(named: "DeviceType_Aggregate")!
+    static let imgDeviceType_avb: NSImage = NSImage(named: "DeviceType_AVB")!
     
     // --------------- Playlist group icons -----------------
     
-    static let imgTracks: PlatformImage = PlatformImage(named: "Tracks")!
-    static let imgArtistGroup: PlatformImage = PlatformImage(named: "Artists")!
-    static let imgAlbumGroup: PlatformImage = PlatformImage(named: "Albums")!
-    static let imgGenreGroup: PlatformImage = PlatformImage(named: "Genres")!
-    static let imgDecadeGroup: PlatformImage = PlatformImage(systemSymbolName: "calendar")
-    static let imgFileSystem: PlatformImage = PlatformImage(systemSymbolName: "folder")
+    static let imgTracks: NSImage = NSImage(named: "Tracks")!
+    static let imgArtistGroup: NSImage = NSImage(named: "Artists")!
+    static let imgAlbumGroup: NSImage = NSImage(named: "Albums")!
+    static let imgGenreGroup: NSImage = NSImage(named: "Genres")!
+    static let imgDecadeGroup: NSImage = NSImage(systemSymbolName: "calendar")
+    static let imgFileSystem: NSImage = NSImage(systemSymbolName: "folder")
     
-    static let imgArtistGroup_menu: PlatformImage = PlatformImage(named: "Artists_Menu")!
-    static let imgAlbumGroup_menu: PlatformImage = PlatformImage(named: "Albums_Menu")!
+    static let imgArtistGroup_menu: NSImage = NSImage(named: "Artists_Menu")!
+    static let imgAlbumGroup_menu: NSImage = NSImage(named: "Albums_Menu")!
     
     // --------------- Effects Unit icons -----------------
 
-    static let imgMasterUnit: PlatformImage = PlatformImage(systemSymbolName: "powerplug.fill")
-    static let imgEQUnit: PlatformImage = PlatformImage(systemSymbolName: "slider.vertical.3")
-    static let imgPitchShiftUnit: PlatformImage = PlatformImage(systemSymbolName: "waveform.path.ecg")
-    static let imgTimeStretchUnit: PlatformImage = PlatformImage(systemSymbolName: "timer")
-    static let imgReverbUnit: PlatformImage = PlatformImage(named: "ReverbTab")!
-    static let imgDelayUnit: PlatformImage = PlatformImage(named: "DelayTab")!
-    static let imgFilterUnit: PlatformImage = PlatformImage(named: "FilterTab")!
-    static let imgAudioUnit: PlatformImage = PlatformImage(named: "AUTab")!
+    static let imgMasterUnit: NSImage = NSImage(systemSymbolName: "powerplug.fill")
+    static let imgEQUnit: NSImage = NSImage(systemSymbolName: "slider.vertical.3")
+    static let imgPitchShiftUnit: NSImage = NSImage(systemSymbolName: "waveform.path.ecg")
+    static let imgTimeStretchUnit: NSImage = NSImage(systemSymbolName: "timer")
+    static let imgReverbUnit: NSImage = NSImage(named: "ReverbTab")!
+    static let imgDelayUnit: NSImage = NSImage(named: "DelayTab")!
+    static let imgFilterUnit: NSImage = NSImage(named: "FilterTab")!
+    static let imgAudioUnit: NSImage = NSImage(named: "AUTab")!
     
     #if os(iOS)
     

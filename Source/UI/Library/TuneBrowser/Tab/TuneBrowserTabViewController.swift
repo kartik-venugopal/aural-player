@@ -232,15 +232,15 @@ extension TuneBrowserTabViewController: ColorSchemeObserver {
         lblSummary.textColor = systemColorScheme.secondaryTextColor
     }
     
-    func textColorChanged(_ newColor: PlatformColor) {
+    func textColorChanged(_ newColor: NSColor) {
         browserView.reloadDataMaintainingSelection()
     }
     
-    func selectedTextColorChanged(_ newColor: PlatformColor) {
+    func selectedTextColorChanged(_ newColor: NSColor) {
         browserView.reloadRows(browserView.selectedRowIndexes)
     }
     
-    func textSelectionColorChanged(_ newColor: PlatformColor) {
+    func textSelectionColorChanged(_ newColor: NSColor) {
         browserView.redoRowSelection()
     }
 }

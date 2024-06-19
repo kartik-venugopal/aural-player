@@ -35,7 +35,7 @@ class TintedImageButton: NSButton {
         image?.isTemplate = true
     }
     
-    override func colorChanged(_ newColor: PlatformColor) {
+    override func colorChanged(_ newColor: NSColor) {
         contentTintColor = newColor
     }
 }
@@ -120,14 +120,14 @@ class FillableImageButton: NSButton {
         isReTinting = false
     }
     
-    override func colorChanged(_ newColor: PlatformColor) {
+    override func colorChanged(_ newColor: NSColor) {
         self.contentTintColor = newColor
     }
 }
 
 extension NSButton: ColorSchemePropertyChangeReceiver {
     
-    @objc func colorChanged(_ newColor: PlatformColor) {
+    @objc func colorChanged(_ newColor: NSColor) {
         redraw()
     }
 }

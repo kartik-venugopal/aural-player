@@ -82,7 +82,7 @@ extension NSPopUpButton {
 
 extension NSPopUpButton: ColorSchemePropertyChangeReceiver {
     
-    override func colorChanged(_ newColor: PlatformColor) {
+    override func colorChanged(_ newColor: NSColor) {
         contentTintColor = newColor
     }
 }

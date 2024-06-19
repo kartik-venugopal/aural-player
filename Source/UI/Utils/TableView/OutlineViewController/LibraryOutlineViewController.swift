@@ -69,7 +69,7 @@ class LibraryOutlineViewController: NSViewController, NSOutlineViewDelegate, Fon
         messenger.unsubscribeFromAll()
     }
     
-    func colorChanged(to newColor: PlatformColor, forProperty property: ColorSchemeProperty) {
+    func colorChanged(to newColor: NSColor, forProperty property: ColorSchemeProperty) {
         
         if property == \.backgroundColor {
             outlineView.setBackgroundColor(newColor)
@@ -378,15 +378,15 @@ class LibraryOutlineViewController: NSViewController, NSOutlineViewDelegate, Fon
         outlineView.colorSchemeChanged()
     }
     
-    func textColorChanged(_ newColor: PlatformColor) {
+    func textColorChanged(_ newColor: NSColor) {
         outlineView.reloadDataMaintainingSelection()
     }
     
-    func selectedTextColorChanged(_ newColor: PlatformColor) {
+    func selectedTextColorChanged(_ newColor: NSColor) {
         outlineView.reloadRows(selectedRows)
     }
     
-    func textSelectionColorChanged(_ newColor: PlatformColor) {
+    func textSelectionColorChanged(_ newColor: NSColor) {
         outlineView.redoRowSelection()
     }
 }

@@ -85,13 +85,13 @@ extension FilterBandEditorDialogController: ColorSchemeObserver {
         lblCaption.textColor = systemColorScheme.captionTextColor
     }
     
-    private func buttonColorChanged(_ newColor: PlatformColor) {
+    private func buttonColorChanged(_ newColor: NSColor) {
         
         btnClose.contentTintColor = newColor
         btnDone.redraw()
     }
     
-    private func primaryTextColorChanged(_ newColor: PlatformColor) {
+    private func primaryTextColorChanged(_ newColor: NSColor) {
         btnDone.redraw()
     }
 }

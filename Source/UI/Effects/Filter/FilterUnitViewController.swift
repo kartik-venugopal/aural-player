@@ -244,48 +244,48 @@ class FilterUnitViewController: EffectsUnitViewController {
         filterUnitView.redrawChart()
     }
     
-    private func backgroundColorChanged(_ newColor: PlatformColor) {
+    private func backgroundColorChanged(_ newColor: NSColor) {
         bandsTableView.setBackgroundColor(newColor)
     }
     
-    private func buttonColorChanged(_ newColor: PlatformColor) {
+    private func buttonColorChanged(_ newColor: NSColor) {
         
         // Edit buttons
         bandsTableView.reloadAllRows(columns: [4])
         addButtonMenuIcon.colorChanged(newColor)
     }
     
-    private func primaryTextColorChanged(_ newColor: PlatformColor) {
+    private func primaryTextColorChanged(_ newColor: NSColor) {
         bandsTableView.reloadAllRows(columns: [3])
     }
     
-    private func secondaryTextColorChanged(_ newColor: PlatformColor) {
+    private func secondaryTextColorChanged(_ newColor: NSColor) {
         
         bandsTableView.reloadAllRows(columns: [2])
         lblSummary.textColor = newColor
     }
     
-    private func primarySelectedTextColorChanged(_ newColor: PlatformColor) {
+    private func primarySelectedTextColorChanged(_ newColor: NSColor) {
         bandsTableView.reloadRows(bandsTableView.selectedRowIndexes.toArray())
     }
     
-    private func secondarySelectedTextColorChanged(_ newColor: PlatformColor) {
+    private func secondarySelectedTextColorChanged(_ newColor: NSColor) {
         bandsTableView.reloadRows(bandsTableView.selectedRowIndexes.toArray())
     }
     
-    override func activeControlColorChanged(_ newColor: PlatformColor) {
+    override func activeControlColorChanged(_ newColor: NSColor) {
         
         super.activeControlColorChanged(newColor)
         filterUnitView.redrawChart()
     }
     
-    override func inactiveControlColorChanged(_ newColor: PlatformColor) {
+    override func inactiveControlColorChanged(_ newColor: NSColor) {
         
         super.inactiveControlColorChanged(newColor)
         filterUnitView.redrawChart()
     }
     
-    override func suppressedControlColorChanged(_ newColor: PlatformColor) {
+    override func suppressedControlColorChanged(_ newColor: NSColor) {
         
         super.suppressedControlColorChanged(newColor)
         filterUnitView.redrawChart()

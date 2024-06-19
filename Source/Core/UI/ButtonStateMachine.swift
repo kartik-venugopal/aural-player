@@ -23,7 +23,7 @@ class ButtonStateMachine<E>: NSObject, ColorSchemeObserver where E: Hashable {
     struct StateMapping {
         
         let state: E
-        let image: PlatformImage
+        let image: NSImage
         let colorProperty: ColorSchemeProperty
         let toolTip: String?
     }
@@ -85,7 +85,7 @@ class ButtonStateMachine<E>: NSObject, ColorSchemeObserver where E: Hashable {
         updateButtonColor()
     }
     
-//    func colorChanged(_ newColor: PlatformColor) {
+//    func colorChanged(_ newColor: NSColor) {
 //        
 //        if button.toolTip!.equalsOneOf("Play", "Pause") {
 //            print("btnPlay is: \(button.className)")

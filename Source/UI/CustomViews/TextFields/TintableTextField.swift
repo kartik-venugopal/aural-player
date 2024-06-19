@@ -12,21 +12,21 @@ import Cocoa
 
 extension NSTextField: ColorSchemePropertyChangeReceiver {
     
-    func colorChanged(_ newColor: PlatformColor) {
+    func colorChanged(_ newColor: NSColor) {
         textColor = newColor
     }
 }
 
 //extension NSTextField: FontSchemeObserver {
 //    
-//    func fontChanged(to newFont: PlatformFont, forProperty property: KeyPath<FontScheme, PlatformFont>) {
+//    func fontChanged(to newFont: NSFont, forProperty property: KeyPath<FontScheme, NSFont>) {
 //        font = newFont
 //    }
 //}
 
 extension NSTextView {
     
-    func setBackgroundColor(_ newColor: PlatformColor) {
+    func setBackgroundColor(_ newColor: NSColor) {
         
         backgroundColor = newColor
         enclosingScrollView?.backgroundColor = newColor

@@ -171,7 +171,7 @@ class AppSetupWindowController: NSWindowController {
 
 extension NSPathControlItem {
     
-    func setTitleColor(_ color: PlatformColor) {
+    func setTitleColor(_ color: NSColor) {
         attributedTitle = title.attributed(withFont: AppSetupWindowController.pathControlFont, andColor: color)
     }
 }

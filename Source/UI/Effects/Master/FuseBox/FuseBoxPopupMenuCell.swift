@@ -17,7 +17,7 @@ class FuseBoxPopupMenuCell: NSPopUpButtonCell {
     var arrowXMargin: CGFloat {10}
     var arrowYMargin: CGFloat {7}
     
-    var tintColor: PlatformColor = systemColorScheme.buttonColor {
+    var tintColor: NSColor = systemColorScheme.buttonColor {
         
         didSet {
             redraw()

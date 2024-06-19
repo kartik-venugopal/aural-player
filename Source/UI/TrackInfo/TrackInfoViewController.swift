@@ -174,11 +174,11 @@ protocol TrackInfoViewProtocol where Self: NSViewController {
     
     func colorSchemeChanged()
     
-    func backgroundColorChanged(_ newColor: PlatformColor)
+    func backgroundColorChanged(_ newColor: NSColor)
     
-    func primaryTextColorChanged(_ newColor: PlatformColor)
+    func primaryTextColorChanged(_ newColor: NSColor)
     
-    func secondaryTextColorChanged(_ newColor: PlatformColor)
+    func secondaryTextColorChanged(_ newColor: NSColor)
     
     var view: NSView {get}
     

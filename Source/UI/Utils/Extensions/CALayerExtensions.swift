@@ -15,11 +15,11 @@ extension CAShapeLayer {
     ///
     /// Convenience initializer to create a ``CAShapeLayer`` with a rectangle path and fill it with a solid color.
     ///
-    convenience init(fillingRect rect: CGRect, withColor color: PlatformColor) {
+    convenience init(fillingRect rect: CGRect, withColor color: NSColor) {
         
         self.init()
         
-        self.path = PlatformBezierPath(rect: rect).cgPath
+        self.path = NSBezierPath(rect: rect).cgPath
         self.fillColor = color.cgColor
     }
     
@@ -28,11 +28,11 @@ extension CAShapeLayer {
     ///
     /// - Parameter radius:     Rounding radius for the rectangle.
     ///
-    convenience init(fillingRoundedRect rect: CGRect, radius: CGFloat, withColor color: PlatformColor) {
+    convenience init(fillingRoundedRect rect: CGRect, radius: CGFloat, withColor color: NSColor) {
         
         self.init()
         
-        self.path = PlatformBezierPath(roundedRect: rect, cornerRadius: radius).cgPath
+        self.path = NSBezierPath(roundedRect: rect, cornerRadius: radius).cgPath
         self.fillColor = color.cgColor
     }
 }

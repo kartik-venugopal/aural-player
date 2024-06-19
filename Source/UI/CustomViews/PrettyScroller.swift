@@ -75,7 +75,7 @@ extension PrettyScroller: ColorSchemeObserver {
 
 extension PrettyScroller: ColorSchemePropertyChangeReceiver {
     
-    func colorChanged(_ newColor: PlatformColor) {
+    func colorChanged(_ newColor: NSColor) {
         redraw()
     }
 }

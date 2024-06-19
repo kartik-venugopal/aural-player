@@ -8,7 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 
-import Foundation
+import AppKit
 import CoreGraphics
 
 ///
@@ -16,12 +16,12 @@ import CoreGraphics
 ///
 struct CoverArt {
     
-    let image: PlatformImage
+    let image: NSImage
     let metadata: ImageMetadata?
     
     init?(imageFile: URL) {
         
-        guard let image = PlatformImage(contentsOf: imageFile) else {return nil}
+        guard let image = NSImage(contentsOf: imageFile) else {return nil}
         self.image = image
         
         do {
@@ -38,7 +38,7 @@ struct CoverArt {
     
     init?(imageData: Data) {
         
-        guard let image = PlatformImage(data: imageData) else {return nil}
+        guard let image = NSImage(data: imageData) else {return nil}
         
         self.image = image
         self.metadata = ParserUtils.getImageMetadata(imageData as NSData)

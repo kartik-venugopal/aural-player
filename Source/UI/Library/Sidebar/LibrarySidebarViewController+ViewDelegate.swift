@@ -49,7 +49,7 @@ extension LibrarySidebarViewController: NSOutlineViewDelegate {
         return nil
     }
     
-    private func createNameCell(_ outlineView: NSOutlineView, _ text: String, font: NSFont, textColor: NSColor, image: NSImage? = nil, imageColor: PlatformColor? = nil) -> NSTableCellView? {
+    private func createNameCell(_ outlineView: NSOutlineView, _ text: String, font: NSFont, textColor: NSColor, image: NSImage? = nil, imageColor: NSColor? = nil) -> NSTableCellView? {
         
         guard let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("name"), owner: nil)
             as? NSTableCellView else {return nil}

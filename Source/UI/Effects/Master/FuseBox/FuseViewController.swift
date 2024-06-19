@@ -85,15 +85,15 @@ extension FuseViewController: ColorSchemeObserver {
         imgBypass.unitStateChanged(to: effectsUnit.state)
     }
     
-    func activeControlColorChanged(_ newColor: PlatformColor) {
+    func activeControlColorChanged(_ newColor: NSColor) {
         controlStateColorChanged(forState: .active)
     }
     
-    func inactiveControlColorChanged(_ newColor: PlatformColor) {
+    func inactiveControlColorChanged(_ newColor: NSColor) {
         controlStateColorChanged(forState: .bypassed)
     }
     
-    func suppressedControlColorChanged(_ newColor: PlatformColor) {
+    func suppressedControlColorChanged(_ newColor: NSColor) {
         controlStateColorChanged(forState: .suppressed)
     }
     

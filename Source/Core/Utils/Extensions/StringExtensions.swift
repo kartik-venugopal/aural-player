@@ -304,7 +304,7 @@ extension String {
                   style: style)
     }
     
-    func attributed(font: PlatformFont, color: PlatformColor, lineSpacing: CGFloat? = nil) -> NSMutableAttributedString {
+    func attributed(font: NSFont, color: NSColor, lineSpacing: CGFloat? = nil) -> NSMutableAttributedString {
         
         var attributes: [NSAttributedString.Key : Any] = [.font: font, .foregroundColor: color]
         

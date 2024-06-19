@@ -121,10 +121,10 @@ class AuralTableCellView: NSTableCellView {
     
     var rowIsSelected: Bool {rowSelectionStateFunction()}
     
-    var unselectedTextColor: PlatformColor?
+    var unselectedTextColor: NSColor?
     var unselectedAttributedText: NSAttributedString?
     
-    var selectedTextColor: PlatformColor?
+    var selectedTextColor: NSColor?
     var selectedAttributedText: NSAttributedString?
     
     lazy var textFieldConstraintsManager = LayoutConstraintsManager(for: textField!)

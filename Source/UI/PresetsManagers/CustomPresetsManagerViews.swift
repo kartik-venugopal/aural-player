@@ -57,11 +57,11 @@ import Cocoa
 // Used to change text field selection cursor and text color
 class EditableTextField: NSTextField {
     
-    var editTextColor: PlatformColor {
+    var editTextColor: NSColor {
         systemColorScheme.primarySelectedTextColor
     }
     
-    var editCursorColor: PlatformColor {
+    var editCursorColor: NSColor {
         systemColorScheme.primarySelectedTextColor
     }
     
@@ -89,11 +89,11 @@ class EditableTextField: NSTextField {
 //
 //class EditableLibraryTextField: EditableTextField {
 //    
-//    override var editTextColor: PlatformColor {
+//    override var editTextColor: NSColor {
 //        systemColorScheme.primaryTextColor
 //    }
 //    
-//    override var editCursorColor: PlatformColor {
+//    override var editCursorColor: NSColor {
 //        systemColorScheme.primaryTextColor
 //    }
 //}

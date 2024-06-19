@@ -30,7 +30,7 @@ class TintedImageView: NSImageView {
 
 extension NSImageView: ColorSchemePropertyChangeReceiver {
     
-    func colorChanged(_ newColor: PlatformColor) {
+    func colorChanged(_ newColor: NSColor) {
         contentTintColor = newColor
     }
 }

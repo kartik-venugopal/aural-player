@@ -207,7 +207,7 @@ class MasterUnitViewController: EffectsUnitViewController {
         masterUnitView.redrawMenuAndToggle()
     }
     
-    override func activeControlColorChanged(_ newColor: PlatformColor) {
+    override func activeControlColorChanged(_ newColor: NSColor) {
         
         super.activeControlColorChanged(newColor)
         
@@ -216,7 +216,7 @@ class MasterUnitViewController: EffectsUnitViewController {
         }
     }
     
-    override func inactiveControlColorChanged(_ newColor: PlatformColor) {
+    override func inactiveControlColorChanged(_ newColor: NSColor) {
         
         super.inactiveControlColorChanged(newColor)
         

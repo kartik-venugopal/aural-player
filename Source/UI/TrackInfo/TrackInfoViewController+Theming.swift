@@ -72,7 +72,7 @@ extension TrackInfoViewController: ColorSchemeObserver {
         }
     }
     
-    func backgroundColorChanged(_ newColor: PlatformColor) {
+    func backgroundColorChanged(_ newColor: NSColor) {
         
         rootContainer?.fillColor = newColor
         tabButtonsBox.fillColor = newColor
@@ -82,7 +82,7 @@ extension TrackInfoViewController: ColorSchemeObserver {
         }
     }
     
-    func primaryTextColorChanged(_ newColor: PlatformColor) {
+    func primaryTextColorChanged(_ newColor: NSColor) {
         
         updateTrackTitle()
         
@@ -91,7 +91,7 @@ extension TrackInfoViewController: ColorSchemeObserver {
         }
     }
     
-    func secondaryTextColorChanged(_ newColor: PlatformColor) {
+    func secondaryTextColorChanged(_ newColor: NSColor) {
         
         updateTrackTitle()
         
@@ -100,11 +100,11 @@ extension TrackInfoViewController: ColorSchemeObserver {
         }
     }
     
-    func buttonColorChanged(_ newColor: PlatformColor) {
+    func buttonColorChanged(_ newColor: NSColor) {
         tabButtons[tabView.selectedIndex].redraw()
     }
     
-    func inactiveControlColorChanged(_ newColor: PlatformColor) {
+    func inactiveControlColorChanged(_ newColor: NSColor) {
         
         for button in tabButtons {
             

@@ -59,7 +59,7 @@ class MusicBrainzRESTClient {
     ///
     /// Tries to retrieve cover art, given the name of an artist and an associated release (album / track title).
     ///
-    /// - Returns an PlatformImage containing cover art, if found. nil if no cover art was found.
+    /// - Returns an NSImage containing cover art, if found. nil if no cover art was found.
     ///
     func getCoverArt(forArtist artist: String, andReleaseTitle releaseTitle: String) throws -> CoverArt? {
         
@@ -225,7 +225,7 @@ class MusicBrainzRESTClient {
     ///
     /// Given a release, queries its "front cover" art image to obtain image data.
     ///
-    /// - Returns an optional PlatformImage, if image data was found. nil if no image data was found.
+    /// - Returns an optional NSImage, if image data was found. nil if no image data was found.
     ///
     /// - throws any error that was thrown while making the request.
     ///
@@ -239,7 +239,7 @@ class MusicBrainzRESTClient {
                     
                     let data: Data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders, timeout: httpTimeout)
                     
-                    // Construct an PlatformImage from the raw data.
+                    // Construct an NSImage from the raw data.
                     return CoverArt(imageData: data)
                     
                 } catch {continue}
