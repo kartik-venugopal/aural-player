@@ -159,7 +159,6 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             
             mainWindow.addChildWindow(actualWindow, ordered: .below)
             actualWindow.setFrame(window.frame, display: true)
-//            actualWindow.show()
             loader(withID: window.id).showWindow()
         }
         
@@ -213,8 +212,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             
         } else {
             
-            mainWindow.addChildWindow(window, ordered: .above)
-//            window.show()
+            mainWindow.addChildWindow(window, ordered: .below)
             loader(withID: id).showWindow()
             window.orderFront(self)
         }
@@ -223,7 +221,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     func showWindow(withId id: WindowID) {
         
         let childWindow = getWindow(forId: id)
-        mainWindow.addChildWindow(childWindow, ordered: .above)
+        mainWindow.addChildWindow(childWindow, ordered: .below)
         childWindow.show()
     }
     

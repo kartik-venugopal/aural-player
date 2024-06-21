@@ -41,7 +41,6 @@
                 <outlet property="repeatOneMenuItem" destination="yqj-zI-XeB" id="l2N-d2-VHy"/>
                 <outlet property="replayChapterMenuItem" destination="msb-lH-dz5" id="Z04-fQ-YXy"/>
                 <outlet property="replayTrackMenuItem" destination="N3k-FM-m3S" id="v6q-rd-whl"/>
-                <outlet property="rootMenuItem" destination="gGA-Nl-MGc" id="bjX-pV-9Oy"/>
                 <outlet property="seekBackwardMenuItem" destination="p5N-4m-q97" id="zm0-uk-CYs"/>
                 <outlet property="seekBackwardSecondaryMenuItem" destination="p0F-MH-vRY" id="8gH-rl-Ra9"/>
                 <outlet property="seekForwardMenuItem" destination="5Xg-01-Mqq" id="QTI-Cy-DaC"/>
@@ -71,7 +70,6 @@
                 <outlet property="rate3MenuItem" destination="eso-Or-Tzu" id="XLH-z7-NrT"/>
                 <outlet property="rate4MenuItem" destination="9VC-gr-wqr" id="tZV-Es-93P"/>
                 <outlet property="rememberSettingsMenuItem" destination="j4s-Ty-bl0" id="Ic0-KN-8Qw"/>
-                <outlet property="rootMenuItem" destination="PxC-vY-BDh" id="elB-Og-ePt"/>
                 <outlet property="timeMenu" destination="YC1-ir-EQq" id="8ot-IS-Onf"/>
                 <outlet property="twoOctavesAboveMenuItem" destination="rAq-0v-oKF" id="7qH-Cy-RYp"/>
                 <outlet property="twoOctavesBelowMenuItem" destination="1iB-nf-nDK" id="uDy-9V-q5p"/>
@@ -92,7 +90,6 @@
                 <outlet property="playSelectedTrackItem" destination="pex-tg-Rmc" id="CGv-CM-JZN"/>
                 <outlet property="removeAllTracksItem" destination="Yb4-Th-Cuy" id="ot0-hI-boK"/>
                 <outlet property="removeSelectedTracksItem" destination="Mx0-9H-K2o" id="vPC-GA-kEp"/>
-                <outlet property="rootMenuItem" destination="Bns-9g-qAg" id="P02-PN-1QF"/>
                 <outlet property="scrollToBottomItem" destination="L3U-1l-PDT" id="Gp6-08-Lbo"/>
                 <outlet property="scrollToTopItem" destination="TO5-RX-ra6" id="LKI-QA-fvI"/>
                 <outlet property="searchItem" destination="GVe-9w-VJV" id="fsL-8W-vrY"/>

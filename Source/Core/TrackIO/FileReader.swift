@@ -27,19 +27,11 @@ class FileReader: FileReaderProtocol {
     ///
     let ffmpegReader: FFmpegFileReader = FFmpegFileReader()
     
-    var hits: AtomicIntCounter = .init()
-    var misses: AtomicIntCounter = .init()
-    var missedFiles: ConcurrentSet<URL> = .init()
-    
     func getPrimaryMetadata(for file: URL) throws -> PrimaryMetadata {
         
         if let cachedMetadata = metadataRegistry[file] {
-            hits.increment()
             return cachedMetadata
         }
-        
-        misses.increment()
-        missedFiles.insert(file)
         
         let metadata = file.isNativelySupported ?
             try avfReader.getPrimaryMetadata(for: file) :

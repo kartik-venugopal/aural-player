@@ -12,7 +12,6 @@
                 <outlet property="menuIconItem" destination="6Q0-gd-Smz" id="6b0-bw-6be"/>
                 <outlet property="popupMenu" destination="Hpr-0K-HWV" id="soi-dA-wX6"/>
                 <outlet property="view" destination="WDa-Ij-3dd" id="pm4-fV-Wlk"/>
-                <outlet property="viewMenuController" destination="Ro6-ma-Phw" id="uPp-Uu-tNU"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>

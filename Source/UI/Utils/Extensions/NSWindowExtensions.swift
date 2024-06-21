@@ -80,7 +80,10 @@ extension NSWindow {
         
         center()
         setIsVisible(true)
-        makeKeyAndOrderFront(self)
+        
+        if canBecomeKey {
+            makeKeyAndOrderFront(self)
+        }
     }
 }
 

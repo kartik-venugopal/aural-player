@@ -8,7 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AudioUnitsViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="addAudioUnitMenuIconItem" destination="Bcn-gB-UfW" id="pY2-BS-Q1K"/>
                 <outlet property="btnAudioUnitsMenu" destination="skz-J4-Bsf" id="ec1-IT-ner"/>
                 <outlet property="btnRemove" destination="FZh-10-i3P" id="QwF-fi-k2W"/>
                 <outlet property="lblSummary" destination="mkl-Sn-IJm" id="i4g-VL-dDq"/>
@@ -123,7 +122,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Audio Unit settings" wantsLayer="YES" id="jrf-Hh-PYN" userLabel="Edit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="6" width="12" height="12"/>
+                                                        <rect key="frame" x="5" y="2.5" width="12.5" height="19"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gear" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hgj-gj-LvP" customClass="TableButtonCell" customModule="Aural" customModuleProvider="target">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

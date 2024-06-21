@@ -22,7 +22,6 @@
                 <outlet property="btnVolume" destination="tIh-JF-jbL" id="odU-21-mI2"/>
                 <outlet property="controlsBox" destination="tlk-RM-S0u" id="LTR-5y-vk2"/>
                 <outlet property="functionsMenuDelegate" destination="DlG-hJ-3cs" id="mxR-hr-gs4"/>
-                <outlet property="functionsMenuItem" destination="gVO-3W-k3p" id="pdc-JI-bP7"/>
                 <outlet property="infoBox" destination="Bp8-ZH-oj4" id="Z2Z-fX-1Ne"/>
                 <outlet property="lblPlaybackPosition" destination="UMU-Of-gsK" id="scX-sn-NR5"/>
                 <outlet property="lblVolume" destination="JA2-KP-B0h" id="dSZ-MR-prm"/>
@@ -72,7 +71,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="Chc-FL-7dK">
                                     <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" editable="NO" selectable="NO" horizontallyResizable="YES" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="lcR-Xs-exq">
                                             <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
