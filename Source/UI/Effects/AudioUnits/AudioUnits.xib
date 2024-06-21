@@ -155,7 +155,7 @@
                     </scroller>
                 </scrollView>
                 <popUpButton toolTip="Add an Audio Unit" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="skz-J4-Bsf" userLabel="Add Button">
-                    <rect key="frame" x="387" y="19" width="17" height="12"/>
+                    <rect key="frame" x="387" y="17" width="20" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="MtC-pC-BEV">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -176,7 +176,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Remove selected Audio Units" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FZh-10-i3P" userLabel="Remove Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="405" y="21" width="14.5" height="9"/>
+                    <rect key="frame" x="407" y="19" width="14.5" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="minus" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tWh-Db-cIG">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -189,7 +189,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mkl-Sn-IJm" userLabel="Bands summary" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="53" y="11" width="255" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="31 bands (31 active)" id="HQN-B8-TTr" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2 Audio Units" id="HQN-B8-TTr" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

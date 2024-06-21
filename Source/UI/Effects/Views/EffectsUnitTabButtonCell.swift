@@ -43,7 +43,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         // Raise the selected tab image by a few pixels so it is prominent
         let imgRect = cellFrame.insetBy(dx: xInset, dy: yInset).offsetBy(dx: 0, dy: isSelected ? -1 : 0)
         
-        self.image? = self.image!.tintedWithColor(imageColor)
+        self.image = self.image?.tintedWithColor(imageColor)
         
         self.image?.draw(in: imgRect)
         

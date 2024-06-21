@@ -154,7 +154,12 @@ class EffectsContainerViewController: NSViewController {
     // MARK: Message handling
     
     private func initSubscriptions() {
+        
         messenger.subscribe(to: .Effects.showEffectsUnitTab, handler: showTab(_:))
+        
+        messenger.subscribeAsync(to: .Effects.auStateChanged, handler: {[weak self] in
+            self?.auTabViewButton.redraw()
+        })
     }
 
     func showTab(_ effectsUnitType: EffectsUnitType) {

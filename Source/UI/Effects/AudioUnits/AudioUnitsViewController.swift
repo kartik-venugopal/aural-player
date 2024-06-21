@@ -64,7 +64,11 @@ class AudioUnitsViewController: NSViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, handler: inactiveControlColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.suppressedControlColor, handler: suppressedControlColorChanged(_:))
         
-        messenger.subscribe(to: .Effects.auStateChanged, handler: updateSummary)
+        messenger.subscribeAsync(to: .Effects.auStateChanged, handler: {[weak self] in
+            
+            self?.tableView.reloadData()
+            self?.updateSummary()
+        })
     }
     
     override func destroy() {

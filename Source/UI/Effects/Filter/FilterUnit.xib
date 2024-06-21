@@ -295,7 +295,7 @@
                     </scroller>
                 </scrollView>
                 <popUpButton toolTip="Add a band" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jlg-W2-xKP" userLabel="Add band popup menu">
-                    <rect key="frame" x="371" y="14" width="17" height="12"/>
+                    <rect key="frame" x="371" y="14" width="20" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="6Qz-9c-fjD">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -334,7 +334,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <button toolTip="Remove selected bands" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eoX-Qm-XCX" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="390" y="14" width="13.5" height="14"/>
+                    <rect key="frame" x="391" y="16" width="14.5" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="minus" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jIr-k5-UU9">
                         <behavior key="behavior" lightByContents="YES"/>

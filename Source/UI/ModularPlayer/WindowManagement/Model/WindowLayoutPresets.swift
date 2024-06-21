@@ -13,7 +13,7 @@ fileprivate var screenVisibleFrame: NSRect {
     NSScreen.main!.visibleFrame
 }
 
-fileprivate let playQueueHeight_verticalFullStack: CGFloat = 340
+fileprivate let playQueueHeight_verticalFullStack: CGFloat = 225
 fileprivate let playQueueHeight_verticalPlayerAndPlayQueue: CGFloat = 500
 fileprivate let playQueueHeight_bigBottomPlayQueue: CGFloat = 500
 
