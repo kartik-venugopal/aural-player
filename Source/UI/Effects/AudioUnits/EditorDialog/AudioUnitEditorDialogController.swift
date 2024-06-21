@@ -56,6 +56,8 @@ class AudioUnitEditorDialogController: NSWindowController {
     
     override func windowDidLoad() {
         
+        super.windowDidLoad()
+        
         window?.isMovableByWindowBackground = true
         rootContainer.anchorToSuperview()
         
@@ -77,16 +79,17 @@ class AudioUnitEditorDialogController: NSWindowController {
             strongSelf.theWindow.resize(curWindowSize.width - widthDelta, curWindowSize.height - heightDelta)
         }
         
-        lblTitle.stringValue = "\(audioUnit.name) v\(audioUnit.version)"
+        lblTitle.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
         
         initFactoryPresets()
         initUserPresets()
         
-//        //fontSchemesManager.registerObserver(lblTitle, forProperty: \.captionFont)
+        fontSchemesManager.registerObserver(self)
         
-//        colorSchemesManager.registerObserver(rootContainer, forProperty: \.backgroundColor)
-//        colorSchemesManager.registerObserver(btnClose, forProperty: \.buttonColor)
-//        colorSchemesManager.registerObserver(lblTitle, forProperty: \.captionTextColor)
+        colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainer)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblTitle)
     }
     
     private func initFactoryPresets() {
@@ -213,5 +216,40 @@ class AudioUnitFactoryPresetsMenuDelegate: NSObject, NSMenuDelegate {
                 menu.addItem(withTitle: preset.name)
             }
         }
+    }
+}
+
+extension AudioUnitEditorDialogController: FontSchemeObserver {
+    
+    func fontSchemeChanged() {
+        lblTitle.font = systemFontScheme.captionFont
+    }
+}
+
+extension AudioUnitEditorDialogController: ColorSchemeObserver {
+    
+    func colorSchemeChanged() {
+        
+        rootContainer.fillColor = systemColorScheme.backgroundColor
+        lblTitle.textColor = systemColorScheme.captionTextColor
+        btnClose.colorChanged(systemColorScheme.buttonColor)
+    }
+}
+
+///
+/// Prevents the AU editor window from moving when some custom AU views are manipulated (eg. circular sliders)
+///
+class AUViewContainer: MouseTrackingView {
+
+    override func mouseEntered(with event: NSEvent) {
+        
+        super.mouseEntered(with: event)
+        window?.isMovable = false
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        
+        super.mouseExited(with: event)
+        window?.isMovable = true
     }
 }
