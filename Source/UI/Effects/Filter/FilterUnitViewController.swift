@@ -23,7 +23,7 @@ class FilterUnitViewController: EffectsUnitViewController {
     @IBOutlet weak var filterUnitView: FilterUnitView!
     @IBOutlet weak var bandsTableView: NSTableView!
     @IBOutlet weak var lblSummary: NSTextField!
-    @IBOutlet weak var addButtonMenuIcon: TintedIconMenuItem!
+    @IBOutlet weak var btnAddBandMenu: NSPopUpButton!
     
     var bandEditors: [LazyWindowLoader<FilterBandEditorDialogController>] = []
     
@@ -252,7 +252,7 @@ class FilterUnitViewController: EffectsUnitViewController {
         
         // Edit buttons
         bandsTableView.reloadAllRows(columns: [4])
-        addButtonMenuIcon.colorChanged(newColor)
+        btnAddBandMenu.colorChanged(newColor)
     }
     
     private func primaryTextColorChanged(_ newColor: NSColor) {

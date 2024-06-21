@@ -28,7 +28,6 @@ class AudioUnitsViewController: NSViewController {
     private var editorDialogs: [String: AudioUnitEditorDialogController] = [:]
     
     @IBOutlet weak var btnAudioUnitsMenu: NSPopUpButton!
-    @IBOutlet weak var addAudioUnitMenuIconItem: TintedIconMenuItem!
     @IBOutlet weak var btnRemove: TintedImageButton!
     
     // ------------------------------------------------------------------------
@@ -58,7 +57,7 @@ class AudioUnitsViewController: NSViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.primarySelectedTextColor, handler: primarySelectedTextColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.textSelectionColor, handler: textSelectionColorChanged(_:))
         
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: [btnRemove, addAudioUnitMenuIconItem])
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: [btnRemove, btnAudioUnitsMenu])
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, handler: buttonColorChanged(_:))
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, handler: activeControlColorChanged(_:))
@@ -197,7 +196,7 @@ extension AudioUnitsViewController: ThemeInitialization {
         lblSummary.textColor = systemColorScheme.secondaryTextColor
         
         btnRemove.contentTintColor = systemColorScheme.buttonColor
-        addAudioUnitMenuIconItem.colorChanged(systemColorScheme.buttonColor)
+        btnAudioUnitsMenu.colorChanged(systemColorScheme.buttonColor)
     }
 }
 
@@ -217,7 +216,7 @@ extension AudioUnitsViewController: ColorSchemeObserver {
         tableView.colorSchemeChanged()
         
         btnRemove.contentTintColor = systemColorScheme.buttonColor
-        addAudioUnitMenuIconItem.colorChanged(systemColorScheme.buttonColor)
+        btnAudioUnitsMenu.colorChanged(systemColorScheme.buttonColor)
         
         lblSummary.textColor = systemColorScheme.secondaryTextColor
     }

@@ -63,16 +63,16 @@ class PresetLayoutPreviewView: NSView {
         guard let layout = self.layout else {return}
 
         // Main Window
-        renderPreview(layout.mainWindowFrame.origin, 480, 200, .imgPlayerPreview)
+        renderPreview(layout.mainWindowFrame.origin, 480, 200, .imgPlay.tintedWithColor(.white))
         
         // Effects Window
         if let effectsWindowOrigin = layout.effectsWindowFrame?.origin {
-            renderPreview(effectsWindowOrigin, WindowLayoutPresets.effectsWindowWidth, WindowLayoutPresets.effectsWindowHeight, .imgEffects)
+            renderPreview(effectsWindowOrigin, WindowLayoutPresets.effectsWindowWidth, WindowLayoutPresets.effectsWindowHeight, .imgEffects.tintedWithColor(.white))
         }
         
         // Play Queue Window
         if let playQueueWindowFrame = layout.playQueueWindowFrame {
-            renderPreview(playQueueWindowFrame, .imgPlaylistPreview)
+            renderPreview(playQueueWindowFrame, .imgPlayQueue.tintedWithColor(.white))
         }
     }
     

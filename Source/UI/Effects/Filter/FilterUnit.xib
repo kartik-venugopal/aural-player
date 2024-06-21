@@ -8,8 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FilterUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="addButtonMenuIcon" destination="hUl-m1-80y" id="qmt-Cy-QHT"/>
                 <outlet property="bandsTableView" destination="DV5-Bt-Uye" id="X8x-tO-L2Q"/>
+                <outlet property="btnAddBandMenu" destination="Jlg-W2-xKP" id="4YI-pE-On2"/>
                 <outlet property="btnBypass" destination="N6p-bI-VWV" id="5UH-co-PWL"/>
                 <outlet property="filterUnitView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="lblSummary" destination="cxN-B9-8Gf" id="JBz-fr-u7e"/>
@@ -263,7 +263,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Audio Unit settings" wantsLayer="YES" id="wF2-5l-iXB" userLabel="Edit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="6" y="6" width="12" height="12"/>
+                                                        <rect key="frame" x="6" y="6.5" width="11.5" height="12"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gear" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="CDy-I9-z4u" customClass="TableButtonCell" customModule="Aural" customModuleProvider="target">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -302,11 +302,8 @@
                         <font key="font" size="11" name="Play-Regular"/>
                         <menu key="menu" showsStateColumn="NO" id="aZJ-2U-46k">
                             <items>
-                                <menuItem image="plus" catalog="system" hidden="YES" id="hUl-m1-80y" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem image="plus" catalog="system" hidden="YES" id="hUl-m1-80y">
                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Plus"/>
-                                    </userDefinedRuntimeAttributes>
                                 </menuItem>
                                 <menuItem title="Band stop band" id="czf-Me-j81">
                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -386,7 +383,6 @@
     </objects>
     <resources>
         <image name="Ellipsis" width="40" height="10"/>
-        <image name="Plus" width="18" height="18"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="minus" catalog="system" width="14" height="4"/>
         <image name="plus" catalog="system" width="14" height="13"/>

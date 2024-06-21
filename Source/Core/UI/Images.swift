@@ -24,7 +24,7 @@ extension NSImage {
     
     static let imgPlayQueue: NSImage = imgPlayQueueTableView
     static let imgEffects: NSImage = NSImage(systemSymbolName: "slider.vertical.3")
-    static let imgLibrary: NSImage = NSImage(named: "Library")!
+//    static let imgLibrary: NSImage = NSImage(named: "Library")!
     static let imgPlaylist: NSImage = NSImage(systemSymbolName: "list.dash")
     
 //    static let imgPlay: NSImage = NSImage(named: "Play")!
@@ -39,8 +39,6 @@ extension NSImage {
     static let imgInfo: NSImage = NSImage(systemSymbolName: "info")
     
     static let imgPlayingArt: NSImage = NSImage(systemSymbolName: "music.quarternote.3")
-    
-    static let imgSave: NSImage = NSImage(named: "Save")!
     
     static let imgFavorite: NSImage = NSImage(systemSymbolName: "heart")
     static let imgBookmark: NSImage = NSImage(systemSymbolName: "bookmark")
@@ -64,7 +62,6 @@ extension NSImage {
     static let imgRememberSettings: NSImage = NSImage(systemSymbolName: "clock.arrow.2.circlepath")
     
     static let imgHistory: NSImage = NSImage(systemSymbolName: "clock")
-    static let imgHistory_playlist_padded: NSImage = NSImage(named: "History_PaddedPlaylist")!
     
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!
@@ -77,13 +74,6 @@ extension NSImage {
     static let imgError: NSImage = NSImage(named: "Error")!
     
     static let imgPlayedTrack: NSImage = NSImage(systemSymbolName: "music.quarternote.3")
-    
-    static let imgPlayerPreview: NSImage = NSImage(named: "PlayerPreview")!
-    static let imgPlaylistPreview: NSImage = NSImage(named: "Playlist-Padded")!
-    static let imgEffectsPreview: NSImage = NSImage(named: "EffectsView-On")!
-    
-    static let imgDisclosure_collapsed: NSImage = NSImage(named: "DisclosureTriangle-Collapsed")!
-    static let imgDisclosure_expanded: NSImage = NSImage(named: "DisclosureTriangle-Expanded")!
     
     static let imgGreenCheck: NSImage = NSImage(named: "GreenCheck")!
     
