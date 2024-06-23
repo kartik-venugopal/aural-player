@@ -3,19 +3,18 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AudioUnitEditorDialogController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnClose" destination="3Q3-wo-olL" id="hbY-Wi-sUs"/>
-                <outlet property="btnFactoryPresets" destination="ycQ-s6-6PN" id="NNf-Kb-CS1"/>
-                <outlet property="btnSavePreset" destination="AlZ-mk-WMx" id="oY9-ar-yqN"/>
-                <outlet property="btnUserPresets" destination="xoa-Kv-Cdv" id="iEb-mo-dsy"/>
-                <outlet property="lblFactoryPresets" destination="lF8-Ap-UiM" id="xcg-Oj-rSC"/>
+                <outlet property="factoryPresetsMenu" destination="BKO-Q6-0B9" id="4gU-My-7IO"/>
                 <outlet property="lblTitle" destination="LAn-Sl-fSv" id="AML-EE-2ml"/>
-                <outlet property="lblUserPresets" destination="uYN-5k-nw5" id="DU8-2M-Rd0"/>
+                <outlet property="presetsMenuIcon" destination="Eed-Ow-tIJ" id="KlC-59-sRe"/>
                 <outlet property="rootContainer" destination="zM8-Mm-Hhs" id="xEO-6Q-XOQ"/>
+                <outlet property="userPresetsMenu" destination="ETN-QU-IIZ" id="alN-rh-5Os"/>
                 <outlet property="viewContainer" destination="cer-qR-hth" id="EcQ-Lz-v4Q"/>
                 <outlet property="window" destination="Qil-RJ-vDn" id="QUv-DB-VyP"/>
             </connections>
@@ -32,7 +31,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="6" titlePosition="noTitle" id="zM8-Mm-Hhs" userLabel="Root Container">
+                    <box boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="zM8-Mm-Hhs" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="16A-Bz-VXK">
@@ -40,25 +39,6 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="fillColor" white="0.20140029958911709" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </box>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-Sl-fSv" userLabel="Title" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="30" y="555" width="572" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="brS-hb-IVm"/>
-                        </constraints>
-                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="5Qg-En-hdT">
-                            <font key="font" size="12" name="Play-Regular"/>
-                            <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="cer-qR-hth" userLabel="Container">
-                        <rect key="frame" x="15" y="15" width="600" height="500"/>
-                        <view key="contentView" id="1ii-lT-xnk" customClass="AUViewContainer" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        </view>
-                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Close window" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Q3-wo-olL" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="7" y="559.5" width="11.5" height="10"/>
@@ -77,97 +57,86 @@ Gw
                             <action selector="closeAction:" target="-2" id="YzF-vv-v5q"/>
                         </connections>
                     </button>
-                    <popUpButton toolTip="Load factory preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ycQ-s6-6PN" userLabel="Factory Presets Menu">
-                        <rect key="frame" x="118" y="533" width="20" height="10"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="axesIndependently" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="jP6-1W-RK6">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="11" name="Play-Regular"/>
-                            <menu key="menu" showsStateColumn="NO" id="4mc-3n-qws">
-                                <items>
-                                    <menuItem image="arrowtriangle.down.fill" catalog="system" hidden="YES" id="aKj-xg-HMj">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                        <connections>
-                            <action selector="applyFactoryPresetAction:" target="-2" id="OF8-Wq-GuI"/>
-                        </connections>
-                    </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lF8-Ap-UiM" userLabel="Factory Presets Label">
-                        <rect key="frame" x="15" y="525" width="109" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Factory Presets:" id="CeW-wh-nlf">
-                            <font key="font" size="13" name="Play-Regular"/>
-                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-Sl-fSv" userLabel="Title" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="30" y="555" width="572" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="brS-hb-IVm"/>
+                        </constraints>
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="5Qg-En-hdT">
+                            <font key="font" size="12" name="Play-Regular"/>
+                            <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton toolTip="Load user preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoa-Kv-Cdv" userLabel="User Presets Menu">
-                        <rect key="frame" x="574" y="535" width="25" height="10"/>
-                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="axesIndependently" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="5tb-b3-35u">
+                    <popUpButton toolTip="Presets" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lLZ-8M-jYj" userLabel="Presets Menu">
+                        <rect key="frame" x="603" y="558" width="17" height="12"/>
+                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="fjU-eR-byU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="11" name="Play-Regular"/>
-                            <menu key="menu" showsStateColumn="NO" id="bb8-d9-OFk">
+                            <font key="font" metaFont="cellTitle"/>
+                            <menu key="menu" id="bUL-Q8-PTf">
                                 <items>
-                                    <menuItem image="DisclosureTriangle-Expanded" hidden="YES" id="aL9-pv-KEL">
+                                    <menuItem hidden="YES" id="Eed-Ow-tIJ" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                        <imageReference key="image" image="Hamburger" symbolScale="medium"/>
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Hamburger"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </menuItem>
+                                    <menuItem title="Factory presets" id="9f8-c3-qyP">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" id="BKO-Q6-0B9"/>
+                                    </menuItem>
+                                    <menuItem title="User presets" hidden="YES" id="93m-LA-O0m">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="User presets" id="ETN-QU-IIZ">
+                                            <items>
+                                                <menuItem title="Item 1" id="LxP-gd-qfc">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Item 2" id="CRc-LT-dJ8">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Item 3" id="FLA-kY-W6C">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </menuItem>
+                                    <menuItem title="Save preset" hidden="YES" id="uZI-Ug-onX">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
                                 </items>
+                                <connections>
+                                    <outlet property="delegate" destination="kSg-eJ-Bdl" id="pXc-33-OdK"/>
+                                </connections>
                             </menu>
                         </popUpButtonCell>
                         <constraints>
-                            <constraint firstAttribute="width" constant="20" id="BwC-vJ-cgz"/>
-                            <constraint firstAttribute="height" constant="10" id="tSd-wM-R1C"/>
+                            <constraint firstAttribute="height" constant="12" id="DDq-uQ-SKI"/>
+                            <constraint firstAttribute="width" constant="12" id="tfY-Md-lJe"/>
                         </constraints>
-                        <connections>
-                            <action selector="applyUserPresetAction:" target="-2" id="4pQ-H3-t1f"/>
-                        </connections>
                     </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uYN-5k-nw5" userLabel="User Presets Label">
-                        <rect key="frame" x="486" y="525" width="94" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="Yjd-VZ-7ig"/>
-                            <constraint firstAttribute="width" constant="90" id="sCF-kY-UBB"/>
-                        </constraints>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="User Presets:" id="uin-aN-mUd">
-                            <font key="font" size="13" name="Play-Regular"/>
-                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button toolTip="Save new preset" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AlZ-mk-WMx" userLabel="Save">
-                        <rect key="frame" x="600" y="533" width="12" height="12"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="VDp-oI-5Sy">
-                            <behavior key="behavior" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="12" id="I0K-ha-gSJ"/>
-                            <constraint firstAttribute="height" constant="12" id="z0O-2a-F6v"/>
-                        </constraints>
-                        <connections>
-                            <action selector="saveUserPresetAction:" target="-2" id="Y2W-fT-nn8"/>
-                        </connections>
-                    </button>
+                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="cer-qR-hth" userLabel="Container">
+                        <rect key="frame" x="15" y="15" width="600" height="525"/>
+                        <view key="contentView" id="1ii-lT-xnk" customClass="AUViewContainer" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="525"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="uYN-5k-nw5" firstAttribute="top" secondItem="LAn-Sl-fSv" secondAttribute="bottom" constant="10" id="2Mc-LY-Mdt"/>
+                    <constraint firstItem="lLZ-8M-jYj" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" constant="10" id="6En-7X-y3C"/>
                     <constraint firstAttribute="trailing" secondItem="LAn-Sl-fSv" secondAttribute="trailing" constant="30" id="D0W-BZ-LXt"/>
-                    <constraint firstAttribute="trailing" secondItem="xoa-Kv-Cdv" secondAttribute="trailing" constant="31" id="F72-bY-emg"/>
                     <constraint firstAttribute="trailing" secondItem="cer-qR-hth" secondAttribute="trailing" constant="15" id="Gzl-Mn-7il"/>
                     <constraint firstItem="LAn-Sl-fSv" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" id="HIe-IZ-qfO"/>
                     <constraint firstItem="3Q3-wo-olL" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" constant="13" id="JTh-B7-gn0"/>
                     <constraint firstItem="cer-qR-hth" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="15" id="Ous-cn-Cn2"/>
                     <constraint firstAttribute="bottom" secondItem="cer-qR-hth" secondAttribute="bottom" constant="15" id="QCS-mf-oPA"/>
                     <constraint firstItem="3Q3-wo-olL" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="7" id="fVB-Fc-grk"/>
-                    <constraint firstItem="xoa-Kv-Cdv" firstAttribute="leading" secondItem="uYN-5k-nw5" secondAttribute="trailing" constant="1" id="kCI-WH-bvS"/>
                     <constraint firstItem="LAn-Sl-fSv" firstAttribute="leading" secondItem="3Q3-wo-olL" secondAttribute="trailing" constant="13.5" id="mwM-OM-thO"/>
-                    <constraint firstItem="xoa-Kv-Cdv" firstAttribute="top" secondItem="LAn-Sl-fSv" secondAttribute="bottom" constant="10" id="ozG-uc-Cac"/>
-                    <constraint firstAttribute="trailing" secondItem="AlZ-mk-WMx" secondAttribute="trailing" constant="18" id="pcn-2Z-NZD"/>
-                    <constraint firstItem="cer-qR-hth" firstAttribute="top" secondItem="uYN-5k-nw5" secondAttribute="bottom" constant="10" id="rVx-6F-zrA"/>
-                    <constraint firstItem="AlZ-mk-WMx" firstAttribute="top" secondItem="xoa-Kv-Cdv" secondAttribute="top" id="zVn-ec-vH7"/>
+                    <constraint firstItem="cer-qR-hth" firstAttribute="top" secondItem="lLZ-8M-jYj" secondAttribute="bottom" constant="18" id="o4F-5t-D1K"/>
+                    <constraint firstAttribute="trailing" secondItem="lLZ-8M-jYj" secondAttribute="trailing" constant="10" id="pxD-ZX-nKJ"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
@@ -177,11 +146,15 @@ Gw
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="146" y="156"/>
         </window>
+        <customObject id="kSg-eJ-Bdl" customClass="AudioUnitPresetsMenuDelegate" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="saveUserPresetMenuItem" destination="uZI-Ug-onX" id="kOC-am-Tw5"/>
+                <outlet property="userPresetsMenuItem" destination="93m-LA-O0m" id="32c-m8-XWG"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
-        <image name="DisclosureTriangle-Expanded" width="8" height="8"/>
-        <image name="Save" width="26" height="26"/>
-        <image name="arrowtriangle.down.fill" catalog="system" width="14" height="13"/>
+        <image name="Hamburger" width="10" height="7"/>
         <image name="xmark" catalog="system" width="14" height="13"/>
     </resources>
 </document>

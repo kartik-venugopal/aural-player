@@ -11,8 +11,8 @@ import Cocoa
 
 extension NSMenu {
     
-    func addItem(withTitle title: String) {
-        addItem(withTitle: title, action: nil, keyEquivalent: "")
+    func addItem(withTitle title: String, action: Selector? = nil) {
+        addItem(withTitle: title, action: action, keyEquivalent: "")
     }
     
     func recreateMenu(insertingItemsAt index: Int, withTitles titles: [String],

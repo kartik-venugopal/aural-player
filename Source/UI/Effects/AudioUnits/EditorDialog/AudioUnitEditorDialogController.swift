@@ -21,16 +21,14 @@ class AudioUnitEditorDialogController: NSWindowController {
     @IBOutlet weak var btnClose: TintedImageButton!
     
     @IBOutlet weak var lblTitle: NSTextField!
+    @IBOutlet weak var factoryPresetsMenu: NSMenu!
+    @IBOutlet weak var userPresetsMenu: NSMenu!
+    @IBOutlet weak var presetsMenuIcon: TintedIconMenuItem!
+    
     @IBOutlet weak var viewContainer: NSBox!
     
-    @IBOutlet weak var lblFactoryPresets: NSTextField!
-    @IBOutlet weak var btnFactoryPresets: NSPopUpButton!
-    
-    @IBOutlet weak var lblUserPresets: NSTextField!
-    @IBOutlet weak var btnUserPresets: NSPopUpButton!
-    @IBOutlet weak var btnSavePreset: TintedImageButton!
-    
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
+    lazy var messenger = Messenger(for: self)
     
     // ------------------------------------------------------------------------
     
@@ -38,8 +36,7 @@ class AudioUnitEditorDialogController: NSWindowController {
     
     var audioUnit: HostedAudioUnitDelegateProtocol!
     
-    var factoryPresetsMenuDelegate: AudioUnitFactoryPresetsMenuDelegate!
-    var userPresetsMenuDelegate: AudioUnitUserPresetsMenuDelegate!
+    lazy var userPresetsMenuDelegate: AudioUnitUserPresetsMenuDelegate = AudioUnitUserPresetsMenuDelegate(for: audioUnit, applyPresetAction: #selector(self.applyUserPresetAction(_:)), target: self)
     
     // ------------------------------------------------------------------------
     
@@ -49,9 +46,6 @@ class AudioUnitEditorDialogController: NSWindowController {
         
         self.init()
         self.audioUnit = audioUnit
-        
-        self.factoryPresetsMenuDelegate = AudioUnitFactoryPresetsMenuDelegate(for: audioUnit)
-        self.userPresetsMenuDelegate = AudioUnitUserPresetsMenuDelegate(for: audioUnit)
     }
     
     override func windowDidLoad() {
@@ -81,29 +75,31 @@ class AudioUnitEditorDialogController: NSWindowController {
         
         lblTitle.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
         
-        initFactoryPresets()
-        initUserPresets()
+        if let factoryPresets = audioUnit?.factoryPresets {
+            
+            for preset in factoryPresets.sorted(by: {$0.name < $1.name}) {
+                
+                let item = NSMenuItem(title: preset.name, action: #selector(applyFactoryPresetAction(_:)), keyEquivalent: "")
+                item.target = self
+                factoryPresetsMenu.addItem(item)
+            }
+        }
+        
+        userPresetsMenu.delegate = userPresetsMenuDelegate
+        
+        changeWindowCornerRadius(to: playerUIState.cornerRadius)
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         
         fontSchemesManager.registerObserver(self)
         
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainer)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: [btnClose, presetsMenuIcon])
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblTitle)
     }
     
-    private func initFactoryPresets() {
-        
-        let shouldShowFactoryPresets: Bool = self.audioUnit?.factoryPresets.isNonEmpty ?? false
-        [lblFactoryPresets, btnFactoryPresets].forEach {$0?.showIf(shouldShowFactoryPresets)}
-        btnFactoryPresets.menu?.delegate = self.factoryPresetsMenuDelegate
-    }
-    
-    private func initUserPresets() {
-        
-        let shouldShowUserPresets: Bool = self.audioUnit?.supportsUserPresets ?? false
-        [lblUserPresets, btnUserPresets, btnSavePreset].forEach {$0?.showIf(shouldShowUserPresets)}
-        btnUserPresets.menu?.delegate = self.userPresetsMenuDelegate
+    func changeWindowCornerRadius(to radius: CGFloat) {
+        rootContainer.cornerRadius = radius
     }
     
     // ------------------------------------------------------------------------
@@ -114,108 +110,21 @@ class AudioUnitEditorDialogController: NSWindowController {
         theWindow.showCenteredOnScreen()
     }
     
-    @IBAction func applyFactoryPresetAction(_ sender: Any) {
-        
-        if let presetName = btnFactoryPresets.titleOfSelectedItem {
-            audioUnit.applyFactoryPreset(named: presetName)
-        }
+    @IBAction func applyFactoryPresetAction(_ sender: NSMenuItem) {
+        audioUnit.applyFactoryPreset(named: sender.title)
     }
     
-    @IBAction func applyUserPresetAction(_ sender: Any) {
-        
-        if let presetName = btnUserPresets.titleOfSelectedItem {
-            audioUnit.applyPreset(named: presetName)
-        }
+    @IBAction func applyUserPresetAction(_ sender: NSMenuItem) {
+        audioUnit.applyPreset(named: sender.title)
     }
     
     // Displays a popover to allow the user to name the new custom preset.
     @IBAction func saveUserPresetAction(_ sender: AnyObject) {
-        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
+        userPresetsPopover.show(rootContainer, .maxX)
     }
     
     @IBAction func closeAction(_ sender: Any) {
         theWindow.close()
-    }
-}
-
-// ------------------------------------------------------------------------
-
-// MARK: StringInputReceiver
-
-extension AudioUnitEditorDialogController: StringInputReceiver {
-    
-    var inputPrompt: String {
-        return "Enter a new preset name:"
-    }
-    
-    var defaultValue: String? {
-        return "<New preset>"
-    }
-    
-    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
-        
-        let presets = audioUnit.presets
-        
-        if presets.objectExists(named: string) {
-            return (false, "Preset with this name already exists !")
-        } else {
-            return (true, nil)
-        }
-    }
-    
-    // Receives a new EQ preset name and saves the new preset
-    func acceptInput(_ string: String) {
-        audioUnit.savePreset(named: string)
-    }
-}
-
-class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
-    
-    var audioUnit: HostedAudioUnitDelegateProtocol!
-    
-    convenience init(for audioUnit: HostedAudioUnitDelegateProtocol) {
-
-        self.init()
-        self.audioUnit = audioUnit
-    }
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        while menu.items.count > 1 {
-            menu.removeItem(at: 1)
-        }
-        
-        if let userPresets = audioUnit?.presets {
-            
-            for preset in userPresets.userDefinedObjects.sorted(by: {$0.name < $1.name}) {
-                menu.addItem(withTitle: preset.name)
-            }
-        }
-    }
-}
-
-class AudioUnitFactoryPresetsMenuDelegate: NSObject, NSMenuDelegate {
-    
-    var audioUnit: HostedAudioUnitDelegateProtocol!
-    
-    convenience init(for audioUnit: HostedAudioUnitDelegateProtocol) {
-
-        self.init()
-        self.audioUnit = audioUnit
-    }
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-
-        while menu.items.count > 1 {
-            menu.removeItem(at: 1)
-        }
-        
-        if let factoryPresets = audioUnit?.factoryPresets {
-            
-            for preset in factoryPresets.sorted(by: {$0.name < $1.name}) {
-                menu.addItem(withTitle: preset.name)
-            }
-        }
     }
 }
 
@@ -232,6 +141,7 @@ extension AudioUnitEditorDialogController: ColorSchemeObserver {
         
         rootContainer.fillColor = systemColorScheme.backgroundColor
         lblTitle.textColor = systemColorScheme.captionTextColor
+        presetsMenuIcon.colorChanged(systemColorScheme.buttonColor)
         btnClose.colorChanged(systemColorScheme.buttonColor)
     }
 }

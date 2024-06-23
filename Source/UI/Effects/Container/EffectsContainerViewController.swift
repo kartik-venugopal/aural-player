@@ -116,8 +116,7 @@ class EffectsContainerViewController: NSViewController {
         devicesTabViewButton.stateFunction = {.bypassed}
         
         // Select Master tab view by default
-        doTabViewAction(masterTabViewButton)
-//        doTabViewAction(timeTabViewButton)
+        showTab(.master)
     }
 
     override func destroy() {
@@ -156,33 +155,30 @@ class EffectsContainerViewController: NSViewController {
     private func initSubscriptions() {
         
         messenger.subscribe(to: .Effects.showEffectsUnitTab, handler: showTab(_:))
-        
-        messenger.subscribeAsync(to: .Effects.auStateChanged, handler: {[weak self] in
-            self?.auTabViewButton.redraw()
-        })
+        messenger.subscribeAsync(to: .Effects.auStateChanged, handler: auTabViewButton.redraw)
     }
 
     func showTab(_ effectsUnitType: EffectsUnitType) {
         
         switch effectsUnitType {
         
-        case .master: tabViewAction(masterTabViewButton)
+        case .master: doTabViewAction(masterTabViewButton)
 
-        case .eq: tabViewAction(eqTabViewButton)
+        case .eq: doTabViewAction(eqTabViewButton)
 
-        case .pitch: tabViewAction(pitchTabViewButton)
+        case .pitch: doTabViewAction(pitchTabViewButton)
 
-        case .time: tabViewAction(timeTabViewButton)
+        case .time: doTabViewAction(timeTabViewButton)
 
-        case .reverb: tabViewAction(reverbTabViewButton)
+        case .reverb: doTabViewAction(reverbTabViewButton)
 
-        case .delay: tabViewAction(delayTabViewButton)
+        case .delay: doTabViewAction(delayTabViewButton)
 
-        case .filter: tabViewAction(filterTabViewButton)
+        case .filter: doTabViewAction(filterTabViewButton)
             
-        case .au: tabViewAction(auTabViewButton)
+        case .au: doTabViewAction(auTabViewButton)
             
-        case .devices:  tabViewAction(devicesTabViewButton)
+        case .devices:  doTabViewAction(devicesTabViewButton)
 
         }
     }
