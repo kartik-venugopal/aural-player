@@ -34,7 +34,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnPresentationModeMenu, btnMinimize, btnToggleSidebar, settingsMenuIconItem]
     
-    lazy var playerViewController: UnifiedPlayerViewController = UnifiedPlayerViewController()
+    lazy var playerViewController: UnifiedPlayerViewController = .init()
     lazy var effectsSheetViewController: EffectsSheetViewController = .init()
     
     private lazy var sidebarController: UnifiedPlayerSidebarViewController = UnifiedPlayerSidebarViewController()
@@ -61,6 +61,8 @@ class UnifiedPlayerWindowController: NSWindowController {
     // One-time setup
     override func windowDidLoad() {
         
+        super.windowDidLoad()
+        
         // TODO: Clean this up
         theWindow.setIsVisible(false)
         initWindow()
@@ -70,19 +72,20 @@ class UnifiedPlayerWindowController: NSWindowController {
         
         setUpEventHandling()
         
-        super.windowDidLoad()
+        if unifiedPlayerUIState.sidebarItems.contains(.chaptersListItem) {
+            addChaptersListView()
+        }
         
         messenger.subscribe(to: .UnifiedPlayer.showModule, handler: showModule(forItem:))
         messenger.subscribe(to: .UnifiedPlayer.hideModule, handler: hideModule(forItem:))
-        
-        messenger.subscribe(to: .View.toggleChaptersList, handler: viewChaptersList)
-        messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .View.togglePlayQueue, handler: showPlayQueue)
         messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
         messenger.subscribe(to: .View.toggleChaptersList, handler: viewChaptersList)
 //        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
+        
+        messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .Application.willExit, handler: preApplicationExit)
         
@@ -235,11 +238,15 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     private func viewChaptersList() {
         
+        addChaptersListView()
+        showChaptersList()
+    }
+    
+    private func addChaptersListView() {
+        
         if tabGroup.tabViewItems.count == 1 {
             tabGroup.addAndAnchorSubView(forController: chaptersListController)
         }
-        
-        showChaptersList()
     }
     
     private func closeChaptersList() {

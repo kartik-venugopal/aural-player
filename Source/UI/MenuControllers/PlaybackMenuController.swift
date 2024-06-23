@@ -85,7 +85,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         jumpToTimeMenuItem?.enableIf(isPlayingOrPaused)
         
         // Enabled only if playing/paused
-        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
+        let showingModalComponent: Bool = NSApp.isShowingModalComponent
         
         showInPlayQueueMenuItem.enableIf(isPlayingOrPaused && isShowingPlayQueue)
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach {$0?.enableIf(isPlayingOrPaused)}

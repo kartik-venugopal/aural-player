@@ -32,7 +32,18 @@ extension CompactPlayerWindowController {
         if let swipeDirection = event.gestureDirection {
             
             if swipeDirection.isHorizontal {
-                compactPlayerUIState.displayedView == .player ? handleTrackChange(swipeDirection) : handlePageUpDown(swipeDirection)
+                
+                switch compactPlayerUIState.displayedView {
+                    
+                case .player:
+                    handleTrackChange(swipeDirection)
+                    
+                case .playQueue:
+                    handlePageUpDown(swipeDirection)
+                    
+                default:
+                    return event
+                }
                 
             } else if compactPlayerUIState.displayedView == .playQueue {
                 
@@ -88,7 +99,7 @@ extension CompactPlayerWindowController {
         }
         
         // Seeking forward (do not allow residual scroll)
-        if scrollDirection == .right && isResidualScroll(event) {
+        if scrollDirection == .right && event.isResidualScroll {
             return
         }
         
@@ -111,38 +122,5 @@ extension CompactPlayerWindowController {
         if gesturesPreferences.allowPlayQueueScrollingPageUpDown.value {
             messenger.publish(swipeDirection == .left ? .PlayQueue.pageUp : .PlayQueue.pageDown)
         }
-    }
-    
-    /*
-        "Residual scrolling" occurs when seeking forward to the end of a playing track (scrolling right), resulting in the next track playing while the scroll is still occurring. Inertia (i.e. the momentum phase of the scroll) can cause scrolling, and hence seeking, to continue after the new track has begun playing. This is undesirable behavior. The scrolling should stop when the new track begins playing.
-     
-        To prevent residual scrolling, we need to take into account the following variables:
-        - the time when the scroll session began
-        - the time when the new track began playing
-        - the time interval between this event and the last event
-     
-        Returns a value indicating whether or not this event constitutes residual scroll.
-     */
-    private func isResidualScroll(_ event: NSEvent) -> Bool {
-    
-        // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
-        if let playingTrackStartTime = playbackInfoDelegate.playingTrackStartTime,
-           let scrollSessionStartTime = ScrollSession.sessionStartTime,
-            scrollSessionStartTime < playingTrackStartTime {
-        
-            // If the time interval between this event and the last one in the scroll session is within the maximum allowed gap between events, it is a part of the previous scroll session
-            let lastEventTime = ScrollSession.lastEventTime ?? 0
-            
-            // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
-            if (event.timestamp - lastEventTime) < ScrollSession.maxTimeGapSeconds {
-                
-                // Mark the timestamp of this event (for future events), but do not process it
-                ScrollSession.updateLastEventTime(event)
-                return true
-            }
-        }
-        
-        // Not residual scroll
-        return false
     }
 }

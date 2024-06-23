@@ -15,8 +15,28 @@ extension UnifiedPlayerWindowController {
     // Registers handlers for keyboard events and trackpad/mouse gestures (NSEvent).
     func setUpEventHandling() {
         
+        eventMonitor.registerHandler(forEventType: .keyDown, self.handleKeyDown(_:))
         eventMonitor.registerHandler(forEventType: .scrollWheel, self.handleScroll(_:))
+        eventMonitor.registerHandler(forEventType: .swipe, self.handleSwipe(_:))
+        
         eventMonitor.startMonitoring()
+    }
+    
+    // Handles a single key press event. Returns nil if the event has been successfully handled (or needs to be suppressed),
+    // returns the same event otherwise.
+    func handleKeyDown(_ event: NSEvent) -> NSEvent? {
+
+        // One-off special case: Without this, a space key press (for play/pause) is not sent to main window
+        // Send the space key event to the main window unless a modal component is currently displayed
+        if event.charactersIgnoringModifiers == " ",
+           !NSApp.isShowingModalComponent {
+            
+            window?.makeFirstResponder(window)
+            self.window?.keyDown(with: event)
+            return nil
+        }
+
+        return event
     }
     
     // Handles a single scroll event
@@ -60,7 +80,7 @@ extension UnifiedPlayerWindowController {
         }
         
         // Seeking forward (do not allow residual scroll)
-        if scrollDirection == .right && isResidualScroll(event) {
+        if scrollDirection == .right && event.isResidualScroll {
             return
         }
         
@@ -71,34 +91,30 @@ extension UnifiedPlayerWindowController {
         }
     }
     
-    /*
-        "Residual scrolling" occurs when seeking forward to the end of a playing track (scrolling right), resulting in the next track playing while the scroll is still occurring. Inertia (i.e. the momentum phase of the scroll) can cause scrolling, and hence seeking, to continue after the new track has begun playing. This is undesirable behavior. The scrolling should stop when the new track begins playing.
-     
-        To prevent residual scrolling, we need to take into account the following variables:
-        - the time when the scroll session began
-        - the time when the new track began playing
-        - the time interval between this event and the last event
-     
-        Returns a value indicating whether or not this event constitutes residual scroll.
-     */
-    func isResidualScroll(_ event: NSEvent) -> Bool {
-        
-        // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
-        guard let playingTrackStartTime = playbackInfoDelegate.playingTrackStartTime,
-              let scrollSessionStartTime = ScrollSession.sessionStartTime,
-              scrollSessionStartTime < playingTrackStartTime else {return false}
-        
-        // If the time interval between this event and the last one in the scroll session is within the maximum allowed gap between events, it is a part of the previous scroll session
-        let lastEventTime = ScrollSession.lastEventTime ?? 0
-        
-        // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
-        if (event.timestamp - lastEventTime) < ScrollSession.maxTimeGapSeconds {
+    // Handles a single swipe event
+    func handleSwipe(_ event: NSEvent) -> NSEvent? {
+
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
+
+        if event.window === self.window,
+           !NSApp.isShowingModalComponent,
+           let swipeDirection = event.gestureDirection, swipeDirection.isHorizontal {
             
-            // Mark the timestamp of this event (for future events), but do not process it
-            ScrollSession.updateLastEventTime(event)
-            return true
+            // TODO: Figure out where the mouse cursor is. If over player, trackChange ... if over PQ, pageUp/Down/scrollTopBottom
+
+            handleTrackChange(swipeDirection)
         }
+
+        return event
+    }
+    
+    func handleTrackChange(_ swipeDirection: GestureDirection) {
         
-        return false
+        if gesturesPreferences.allowTrackChange.value {
+            
+            // Publish the command notification
+            messenger.publish(swipeDirection == .left ? .Player.previousTrack : .Player.nextTrack)
+        }
     }
 }

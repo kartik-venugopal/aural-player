@@ -24,8 +24,6 @@ class UnifiedPlayerSidebarViewController: NSViewController {
         
         super.viewDidLoad()
         
-        unifiedPlayerUIState.sidebarItems = [.playQueueItem]
-        
         sidebarView.reloadData()
         unifiedPlayerUIState.sidebarItems.forEach {sidebarView.collapseItem($0)}
         sidebarView.selectRow(0)

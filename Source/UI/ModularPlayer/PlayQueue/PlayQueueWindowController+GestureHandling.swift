@@ -28,7 +28,7 @@ extension PlayQueueWindowController {
         // Also, ignore any swipe events that weren't performed over the playlist window
         // (they trigger other functions if performed over the main window)
         
-        if !windowLayoutsManager.isShowingModalComponent,
+        if !NSApp.isShowingModalComponent,
            let eventWindow = event.window, eventWindow == theWindow,
            let swipeDirection = event.gestureDirection {
             

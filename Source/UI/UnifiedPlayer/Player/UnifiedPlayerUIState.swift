@@ -14,7 +14,7 @@ class UnifiedPlayerUIState {
     var windowFrame: NSRect?
     var isSidebarShown: Bool = true
     
-    var sidebarItems: [UnifiedPlayerSidebarItem] = []
+    var sidebarItems: [UnifiedPlayerSidebarItem] = [.playQueueItem]
     var sidebarSelectedItem: UnifiedPlayerSidebarItem? = nil {
         
         didSet {

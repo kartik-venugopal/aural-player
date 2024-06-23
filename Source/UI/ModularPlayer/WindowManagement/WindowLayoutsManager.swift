@@ -86,13 +86,6 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         systemDefinedObjects.forEach {WindowLayoutPresets.recompute(layout: $0, gap: windowGap)}
     }
     
-    var isShowingModalComponent: Bool {
-        
-        NSApp.modalComponents.contains(where: {$0.isModal}) ||
-            StringInputPopoverViewController.isShowingAPopover ||
-            NSApp.modalWindow != nil
-    }
-    
     // MARK - Core functionality ----------------------------------------------------
     
     func restore() {

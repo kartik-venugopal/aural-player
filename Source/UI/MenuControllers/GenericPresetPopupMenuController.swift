@@ -48,7 +48,7 @@ extension GenericPresetPopupMenuController: NSMenuDelegate {
     
     override func awakeFromNib() {
         
-        //        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
+        //        let showingModalComponent: Bool = NSApp.isShowingModalComponent
                 
         //        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
         //        manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedObjects > 0))

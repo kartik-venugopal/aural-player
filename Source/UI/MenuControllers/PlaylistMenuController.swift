@@ -59,7 +59,7 @@
 //    
 //    func menuNeedsUpdate(_ menu: NSMenu) {
 //        
-//        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
+//        let showingModalComponent: Bool = NSApp.isShowingModalComponent
 //
 ////        if windowLayoutsManager.isChaptersListWindowKey {
 ////

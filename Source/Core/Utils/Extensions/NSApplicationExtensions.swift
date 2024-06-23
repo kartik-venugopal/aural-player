@@ -22,6 +22,13 @@ extension NSApplication {
     var modalComponents: [ModalComponentProtocol] {
         windows.compactMap {$0.windowController as? ModalComponentProtocol}
     }
+    
+    var isShowingModalComponent: Bool {
+        
+        modalComponents.contains(where: {$0.isModal}) ||
+            StringInputPopoverViewController.isShowingAPopover ||
+            modalWindow != nil
+    }
 }
 
 #endif
