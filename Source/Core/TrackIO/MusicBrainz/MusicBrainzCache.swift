@@ -138,9 +138,7 @@ class MusicBrainzCache: PersistentModelObject {
             
             do {
 
-#if os(macOS)
                 try coverArt.image.writeToFile(fileType: .jpeg, file: file)
-#endif
                 self.onDiskReleasesCache[artist, title] = file
                 
             } catch {
@@ -173,9 +171,7 @@ class MusicBrainzCache: PersistentModelObject {
             
             do {
             
-#if os(macOS)
                 try coverArt.image.writeToFile(fileType: .jpeg, file: file)
-#endif
                 self.onDiskRecordingsCache[artist, title] = file
                 
             } catch {

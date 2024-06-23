@@ -10,10 +10,6 @@
 
 import Foundation
 
-#if os(iOS)
-import UIKit
-#endif
-
 ///
 /// Persistent state for the Control Bar app mode's UI.
 ///

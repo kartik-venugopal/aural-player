@@ -22,8 +22,6 @@ import AVFoundation
 ///
 protocol AudioGraphDelegateProtocol {
     
-#if os(macOS)
-    
     var availableDevices: [AudioDevice] {get}
     var numberOfDevices: Int {get}
     
@@ -34,14 +32,10 @@ protocol AudioGraphDelegateProtocol {
     var outputDeviceBufferSize: Int {get set}
     var outputDeviceSampleRate: Double {get}
     
-#endif
-    
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     var volume: Float {get set}
     
     var formattedVolume: String {get}
-    
-    #if os(macOS)
     
     /*
      Increases the player volume by a small increment. Returns the new player volume.
@@ -56,8 +50,6 @@ protocol AudioGraphDelegateProtocol {
      The "inputMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The input mode will affect the amount by which the volume is decreased.
      */
     func decreaseVolume(inputMode: UserInputMode) -> Float
-    
-    #endif
     
     var muted: Bool {get set}
     
@@ -89,15 +81,11 @@ protocol AudioGraphDelegateProtocol {
     
     var soundProfiles: SoundProfiles {get}
     
-#if os(macOS)
-    
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     
     func pauseRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func resumeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
-    
-#endif
     
     var visualizationAnalysisBufferSize: Int {get}
 }

@@ -9,8 +9,6 @@
 //
 import Foundation
 
-#if os(macOS)
-
 ///
 /// Persistent state for the Tune Browser.
 ///
@@ -55,5 +53,3 @@ struct TuneBrowserSidebarItemPersistentState: Codable {
     let folderURL: URL?
     let treeURL: URL?
 }
-
-#endif

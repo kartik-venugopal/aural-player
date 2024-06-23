@@ -17,8 +17,6 @@ import AVFoundation
 ///
 protocol AudioGraphProtocol: PlayerGraphProtocol {
     
-    #if os(macOS)
-    
     var availableDevices: [AudioDevice] {get}
     var numberOfDevices: Int {get}
     var systemDevice: AudioDevice {get}
@@ -26,8 +24,6 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var indexOfOutputDevice: Int {get}
     var outputDeviceBufferSize: Int {get set}
     var outputDeviceSampleRate: Double {get}
-    
-    #endif
     
     var volume: Float {get set}
     var pan: Float {get set}
@@ -52,14 +48,10 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     func captureSystemSoundProfile()
     func restoreSystemSoundProfile()
     
-#if os(macOS)
-    
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func pauseRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func resumeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
-    
-#endif
     
     // Shuts down the audio graph, releasing all its resources
     func tearDown()

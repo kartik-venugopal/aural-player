@@ -485,12 +485,10 @@
 		3E0219EC2C23498700865AC2 /* build-release.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D62C23498700865AC2 /* build-release.sh */; };
 		3E0219ED2C23498700865AC2 /* exportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D72C23498700865AC2 /* exportOptions.plist */; };
 		3E0219EE2C23498700865AC2 /* build-all.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D92C23498700865AC2 /* build-all.sh */; };
-		3E0219EF2C23498700865AC2 /* build-iOS.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DA2C23498700865AC2 /* build-iOS.sh */; };
 		3E0219F02C23498700865AC2 /* build-macOS.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DB2C23498700865AC2 /* build-macOS.sh */; };
 		3E0219F12C23498700865AC2 /* common.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DC2C23498700865AC2 /* common.sh */; };
 		3E0219F22C23498700865AC2 /* ffmpeg-4.4.tar.bz2 in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DD2C23498700865AC2 /* ffmpeg-4.4.tar.bz2 */; };
 		3E0219F32C23498700865AC2 /* ffmpeg-7.0.1.tar.xz in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */; };
-		3E0219F42C23498700865AC2 /* iOS.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DF2C23498700865AC2 /* iOS.sh */; };
 		3E0219F52C23498700865AC2 /* macOS.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E02C23498700865AC2 /* macOS.sh */; };
 		3E0219F62C23498700865AC2 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E12C23498700865AC2 /* README.txt */; };
 		3E0219F72C23498700865AC2 /* copyright.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E32C23498700865AC2 /* copyright.sh */; };
@@ -1496,12 +1494,10 @@
 		3E0219D62C23498700865AC2 /* build-release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-release.sh"; sourceTree = "<group>"; };
 		3E0219D72C23498700865AC2 /* exportOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportOptions.plist; sourceTree = "<group>"; };
 		3E0219D92C23498700865AC2 /* build-all.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-all.sh"; sourceTree = "<group>"; };
-		3E0219DA2C23498700865AC2 /* build-iOS.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-iOS.sh"; sourceTree = "<group>"; };
 		3E0219DB2C23498700865AC2 /* build-macOS.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-macOS.sh"; sourceTree = "<group>"; };
 		3E0219DC2C23498700865AC2 /* common.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = common.sh; sourceTree = "<group>"; };
 		3E0219DD2C23498700865AC2 /* ffmpeg-4.4.tar.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-4.4.tar.bz2"; sourceTree = "<group>"; };
 		3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-7.0.1.tar.xz"; sourceTree = "<group>"; };
-		3E0219DF2C23498700865AC2 /* iOS.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iOS.sh; sourceTree = "<group>"; };
 		3E0219E02C23498700865AC2 /* macOS.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = macOS.sh; sourceTree = "<group>"; };
 		3E0219E12C23498700865AC2 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3E0219E32C23498700865AC2 /* copyright.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyright.sh; sourceTree = "<group>"; };
@@ -3269,12 +3265,10 @@
 			isa = PBXGroup;
 			children = (
 				3E0219D92C23498700865AC2 /* build-all.sh */,
-				3E0219DA2C23498700865AC2 /* build-iOS.sh */,
 				3E0219DB2C23498700865AC2 /* build-macOS.sh */,
 				3E0219DC2C23498700865AC2 /* common.sh */,
 				3E0219DD2C23498700865AC2 /* ffmpeg-4.4.tar.bz2 */,
 				3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */,
-				3E0219DF2C23498700865AC2 /* iOS.sh */,
 				3E0219E02C23498700865AC2 /* macOS.sh */,
 				3E0219E12C23498700865AC2 /* README.txt */,
 			);
@@ -5261,7 +5255,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E0219F42C23498700865AC2 /* iOS.sh in Resources */,
 				3E0219EB2C23498700865AC2 /* dmg-background.png in Resources */,
 				3E2EA6ED2BD32C88001ABFEE /* CompactPlayerTrackInfo.xib in Resources */,
 				3E31B6752B97C5F400AA0067 /* TrackInfoSheetView.xib in Resources */,
@@ -5275,7 +5268,6 @@
 				3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */,
 				3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */,
 				3E8B8C3A2BF004E50025D60B /* CompactChaptersList.xib in Resources */,
-				3E0219EF2C23498700865AC2 /* build-iOS.sh in Resources */,
 				3E6C125A25CEBE0600BF0D07 /* EQPresetsManager.xib in Resources */,
 				3EAD418F2829D35900763A12 /* PlayQueueExpandedView.xib in Resources */,
 				3E36BD3126A68E9800B6E28B /* LyricsTrackInfo.xib in Resources */,

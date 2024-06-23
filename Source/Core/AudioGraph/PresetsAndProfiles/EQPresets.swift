@@ -14,8 +14,6 @@ import Foundation
 ///
 class EQPresets: EffectsUnitPresets<EQPreset> {
     
-    #if os(macOS)
-    
     /// Default EQ preset.
     static let flatPreset: EQPreset = EQPreset(name: "Flat", state: .active, bands: [Float](repeating: 0, count: 15),
                                                            globalGain: 0, systemDefined: true)
@@ -66,61 +64,6 @@ class EQPresets: EffectsUnitPresets<EQPreset> {
         EQPreset(name: "Vocal", state: .active, bands: [-20.0, -20.0, -20.0, -20.0, -20.0, 12.0, 14.0, 14.0, 14.0, 12.0, 12.0, -20.0, -20.0, -20.0, -20.0],
                  globalGain: 0, systemDefined: true)
     ]
-    
-    #elseif os(iOS)
-    
-    /// Default EQ preset.
-    fileprivate static let flatPreset: EQPreset = EQPreset(name: "Flat", state: .active, bands: [Float](repeating: 0, count: 10),
-                                                           globalGain: 0, systemDefined: true)
-    
-    fileprivate static let systemDefinedPresets: [EQPreset] = [
-
-        flatPreset,
-        
-        EQPreset(name: "High bass and treble", state: .active, bands: [15, 12.5, 10, 0, 0, 0, 0, 10, 12.5, 15],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Dance", state: .active, bands: [0, 7, 4, 0, -1, -2, -4, 0, 4, 5],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Electronic", state: .active, bands: [7, 6.5, 0, -2, -5, 0, 0, 0, 6.5, 7],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Hip Hop", state: .active, bands: [7, 7, 0, 0, -3, -3, -2, 1, 1, 7],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Jazz", state: .active, bands: [0, 3, 0, 0, -3, -3, 0, 0, 3, 5],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Latin", state: .active, bands: [8, 5, 0, 0, -4, -4, -4, 0, 6, 8],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Lounge", state: .active, bands: [-5, -2, 0, 2, 4, 3, 0, 0, 3, 0],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Piano", state: .active, bands: [1, -1, -3, 0, 1, -1, 2, 3, 1, 2],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Pop", state: .active, bands: [-2, -1.5, 0, 3, 7, 7, 3.5, 0, -2, -3],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "R&B", state: .active, bands: [0, 7, 4, -3, -5, -4.5, -2, -1.5, 0, 1.5],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Rock", state: .active, bands: [5, 3, 1.5, 0, -5, -6, -2.5, 0, 2.5, 4],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Soft", state: .active, bands: [0, 1, 2, 6, 8, 10, 12, 12, 13, 14],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Karaoke", state: .active, bands: [8, 6, 4, -20, -20, -20, -20, 4, 6, 8],
-                 globalGain: 0, systemDefined: true),
-        
-        EQPreset(name: "Vocal", state: .active, bands: [-20, -20, -20, 12, 14, 14, 12, -20, -20, -20],
-                 globalGain: 0, systemDefined: true)
-    ]
-    
-    #endif
     
     init(persistentState: EQUnitPersistentState?) {
         

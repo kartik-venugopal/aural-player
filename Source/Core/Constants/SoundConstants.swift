@@ -19,7 +19,6 @@ struct SoundConstants {
     static let audibleRangeMin: Float = 20      // 20 Hz
     static let audibleRangeMax: Float = 20000   // 20 KHz
     
-    static let ISOStandard10BandEQFrequencies: [Float] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
     static let ISOStandard15BandEQFrequencies: [Float] = [25, 40, 63, 100, 160, 250, 400, 630, 1000, 1600, 2500, 4000, 6300, 10000, 16000]
     
     static let subBass_min: Float = audibleRangeMin

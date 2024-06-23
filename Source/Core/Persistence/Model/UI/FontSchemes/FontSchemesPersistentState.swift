@@ -10,10 +10,6 @@
 
 import Foundation
 
-#if os(iOS)
-import UIKit
-#endif
-
 ///
 /// Encapsulates all persistent state for application font schemes.
 ///
@@ -58,8 +54,6 @@ struct FontSchemePersistentState: Codable {
     
     let tableYOffset: CGFloat?
     
-#if os(macOS)
-
     // When saving app state to disk
     init(_ scheme: FontScheme) {
 
@@ -100,6 +94,4 @@ struct FontSchemePersistentState: Codable {
         
         self.tableYOffset = legacyPersistentState.playlist?.trackTextYOffset
     }
-    
-#endif
 }

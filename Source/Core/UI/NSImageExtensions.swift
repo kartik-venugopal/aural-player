@@ -8,15 +8,9 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 
-#if os(macOS)
 import Cocoa
-#elseif os(iOS)
-import UIKit
-#endif
 
 extension NSImage {
-    
-#if os(macOS)
     
     convenience init(gradientColors: [NSColor], imageSize: NSSize) {
         
@@ -103,15 +97,10 @@ extension NSImage {
         return tmg
     }
     
-#endif
-    
     func copy(ofSize size: CGSize) -> NSImage {
         
         let copy = imageCopy()
-        
-        #if os(macOS)
         copy.size = size
-        #endif
         
         return copy
     }

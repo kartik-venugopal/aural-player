@@ -24,8 +24,6 @@ import AVFoundation
 ///
 class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
-#if os(macOS)
-    
     var availableDevices: [AudioDevice] {graph.availableDevices}
     
     var numberOfDevices: Int {graph.numberOfDevices}
@@ -49,8 +47,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     var outputDeviceSampleRate: Double {graph.outputDeviceSampleRate}
-    
-#endif
     
     var masterUnit: MasterUnitDelegateProtocol
     var eqUnit: EQUnitDelegateProtocol
@@ -108,8 +104,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         filterUnit = FilterUnitDelegate(for: graph.filterUnit)
         audioUnits = graph.audioUnits.map {HostedAudioUnitDelegate(for: $0)}
         
-        #if os(macOS)
-        
         // Set output device based on user preference
         
         // Check if remembered device is available (based on name and UID).
@@ -118,8 +112,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             
             self.graph.outputDevice = foundDevice
         }
-        
-        #endif
         
         graph.captureSystemSoundProfile()
         
@@ -205,9 +197,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         let delegate = HostedAudioUnitDelegate(for: audioUnit)
         audioUnits.append(delegate)
         
-#if os(macOS)
         fxUnitStateObserverRegistry.observeAU(delegate)
-#endif
         
         return (audioUnit: delegate, index: index)
     }
@@ -216,15 +206,11 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         graph.removeAudioUnits(at: indices)
         
-#if os(macOS)
         defer {fxUnitStateObserverRegistry.compositeAUStateUpdated()}
-#endif
         
         let descendingIndices = indices.sortedDescending()
         return descendingIndices.map {audioUnits.remove(at: $0)}
     }
-    
-#if os(macOS)
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
         graph.registerRenderObserver(observer)
@@ -241,8 +227,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func resumeRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
         graph.resumeRenderObserver(observer)
     }
-    
-#endif
     
     // MARK: Message handling
     

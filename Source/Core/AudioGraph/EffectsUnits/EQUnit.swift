@@ -24,11 +24,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     
     init(persistentState: EQUnitPersistentState?) {
         
-        #if os(macOS)
         node = FifteenBandEQNode()
-        #elseif os(iOS)
-        node = TenBandEQNode()
-        #endif
         
         presets = EQPresets(persistentState: persistentState)
         super.init(unitType: .eq, unitState: persistentState?.state ?? AudioGraphDefaults.eqState, renderQuality: persistentState?.renderQuality)

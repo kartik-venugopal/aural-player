@@ -8,11 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 
-#if os(macOS)
 import Cocoa
-#elseif os(iOS)
-import UIKit
-#endif
 
 ///
 /// Encapsulates persistent state for a single NSColor.
@@ -35,8 +31,6 @@ struct ColorPersistentState: Codable {
     var black: CGFloat? = nil
     
     private static let defaultAlpha: CGFloat = 1.0
-    
-    #if os(macOS)
     
     // Maps an NSColor to a ColorPersistentState object that can be persisted.
     init(color: NSColor) {
@@ -108,6 +102,4 @@ struct ColorPersistentState: Codable {
             return nil
         }
     }
-    
-    #endif
 }

@@ -32,8 +32,6 @@ struct ThemePersistentState: Codable {
     let colorScheme: ColorSchemePersistentState?
     let cornerRadius: CGFloat?
     
-#if os(macOS)
-    
     init(_ theme: Theme) {
         
         self.name = theme.name
@@ -41,6 +39,4 @@ struct ThemePersistentState: Codable {
         self.colorScheme = ColorSchemePersistentState(theme.colorScheme)
         self.cornerRadius = theme.cornerRadius
     }
-    
-#endif
 }

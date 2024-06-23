@@ -175,13 +175,8 @@ class RemoteCommandManager: NSObject {
     /// - returns: Status indicating the result of executing the received command.
     ///
     @objc func handleSkipBackward(_ event: MPSkipIntervalCommandEvent) -> MPRemoteCommandHandlerStatus {
-        
-        #if os(macOS)
+
         messenger.publish(.Player.seekBackward, payload: UserInputMode.discrete)
-        #elseif os(iOS)
-        messenger.publish(.Player.seekBackward)
-        #endif
-        
         return .success
     }
     
@@ -194,12 +189,7 @@ class RemoteCommandManager: NSObject {
     ///
     @objc func handleSkipForward(_ event: MPSkipIntervalCommandEvent) -> MPRemoteCommandHandlerStatus {
         
-        #if os(macOS)
         messenger.publish(.Player.seekForward, payload: UserInputMode.discrete)
-        #elseif os(iOS)
-        messenger.publish(.Player.seekForward)
-        #endif
-        
         return .success
     }
     

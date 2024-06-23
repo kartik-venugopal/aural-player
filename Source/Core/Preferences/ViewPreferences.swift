@@ -7,8 +7,6 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-#if os(macOS)
-
 import Foundation
 
 ///
@@ -32,5 +30,3 @@ class ViewPreferences {
         legacyPreferences?.deleteAll()
     }
 }
-
-#endif

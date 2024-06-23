@@ -8,10 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 import Foundation
-
-#if os(macOS)
 import Cocoa
-#endif
 
 extension URL {
     
@@ -113,8 +110,6 @@ extension URL {
         var kindOfFile: String?
         var lastOpened: Date?
         
-        #if os(macOS)
-        
         if let mditem = MDItemCreate(nil, path as CFString),
             let mdnames = MDItemCopyAttributeNames(mditem),
             let mdattrs = MDItemCopyAttributes(mditem, mdnames) as? [String: Any] {
@@ -122,8 +117,6 @@ extension URL {
             kindOfFile = mdattrs[kMDItemKind as String, String.self]
             lastOpened = mdattrs[kMDItemLastUsedDate as String, Date.self]
         }
-        
-        #endif
         
         do {
 
@@ -341,8 +334,6 @@ extension URL {
         return "..." + path
     }
     
-    #if os(macOS)
-    
     // Opens a Finder window, with the given file selected within it
     func showInFinder() {
         NSWorkspace.shared.activateFileViewerSelecting([self])
@@ -351,8 +342,6 @@ extension URL {
     static func showInFinder(_ urls: [URL]) {
         NSWorkspace.shared.activateFileViewerSelecting(urls)
     }
-    
-    #endif
 }
 
 struct FileAttributes {

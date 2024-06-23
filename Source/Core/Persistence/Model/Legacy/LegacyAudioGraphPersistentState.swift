@@ -13,9 +13,7 @@ import AVFoundation
 
 struct LegacyAudioGraphPersistentState: Codable {
 
-#if os(macOS)
     let outputDevice: AudioDevicePersistentState?
-#endif
     
     let volume: Float?
     let muted: Bool?

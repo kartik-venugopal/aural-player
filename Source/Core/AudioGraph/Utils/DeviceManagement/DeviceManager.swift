@@ -7,8 +7,6 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-#if os(macOS)
-
 import AVFoundation
 
 fileprivate var deviceChangeHandler: () -> Void = {}
@@ -127,5 +125,3 @@ extension Notification.Name {
     // Signifies that the default system output device has changed.
     static let deviceManager_defaultDeviceChanged = Notification.Name("deviceManager_defaultDeviceChanged")
 }
-
-#endif

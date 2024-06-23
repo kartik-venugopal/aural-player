@@ -8,13 +8,9 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
-#if os(macOS)
-
 import AppKit
 let appVersion: String = NSApp.appVersion
 let appSetup: AppSetup = .shared
-
-#endif
 
 fileprivate let logger: Logger = .init()
 
@@ -57,12 +53,8 @@ let appPersistentState: AppPersistentState = {
 let userDefaults: UserDefaults = .standard
 let preferences: Preferences = Preferences(defaults: userDefaults, needToMigrateLegacySettings: needToMigrateLegacySettings)
 
-#if os(macOS)
-
 let appModeManager: AppModeManager = AppModeManager(persistentState: appPersistentState.ui,
                                                     preferences: preferences.viewPreferences)
-
-#endif
 
 fileprivate let playQueue: PlayQueue = PlayQueue()
 
@@ -135,8 +127,6 @@ let lastFMClient: LastFM_WSClientProtocol = LastFM_WSClient(cache: lastFMCache)
 // Fast Fourier Transform
 let fft: FFT = FFT()
 
-#if os(macOS)
-
 let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: appPersistentState.ui?.windowLayout,
                                                                       viewPreferences: preferences.viewPreferences)
 
@@ -163,8 +153,6 @@ let mediaKeyHandler: MediaKeyHandler = MediaKeyHandler(preferences.controlsPrefe
 
 //let libraryMonitor: LibraryMonitor = .init(libraryPersistentState: appPersistentState.library)
 
-#endif
-
 let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, playQueue: playQueueDelegate, audioGraph: audioGraphDelegate,
                                                                       preferences: preferences)
 
@@ -188,8 +176,6 @@ var persistentStateOnExit: AppPersistentState {
     
     persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
     
-#if os(macOS)
-    
     persistentState.ui = UIPersistentState(appMode: appModeManager.currentMode,
                                            windowLayout: windowLayoutsManager.persistentState,
                                            themes: themesManager.persistentState,
@@ -204,9 +190,6 @@ var persistentStateOnExit: AppPersistentState {
                                            
                                            playQueue: playQueueUIState.persistentState,
                                            visualizer: visualizerUIState.persistentState)
-    
-#endif
-    
     
     persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
     

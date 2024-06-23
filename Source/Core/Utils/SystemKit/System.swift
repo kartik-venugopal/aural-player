@@ -17,18 +17,7 @@ public class System {
     
     /// Number of physical cores on this machine.
     public static var physicalCores: Int {
-        
-        #if os(macOS)
-        
         Int(hostBasicInfo.physical_cpu)
-        
-        #elseif os(iOS)
-        
-        var cores: Int = 1
-        sysctlbyname("hw.physicalcpu", nil, &cores, nil, 0)
-        return max(cores, 1)
-        
-        #endif
     }
     
     ///

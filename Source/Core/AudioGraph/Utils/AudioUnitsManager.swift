@@ -23,20 +23,12 @@ class AudioUnitsManager {
     
     init() {
         
-        #if os(macOS)
-        
         self.audioUnits = componentManager.components {component, _ in
             
             Self.acceptedComponentTypes.contains(component.componentType) &&
                 !Self.componentsBlackList.contains(component.name)
             
         }.sorted(by: {$0.name < $1.name})
-        
-        #elseif os(iOS)
-        
-        self.audioUnits = []
-        
-        #endif
     }
     
     func audioUnit(ofType type: OSType, andSubType subType: OSType) -> AVAudioUnitComponent? {

@@ -13,13 +13,9 @@ import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 
-#if os(macOS)
 import Cocoa
-#endif
 
 extension String {
-    
-#if os(macOS)
     
     func truncate(font: NSFont, maxWidth: CGFloat) -> String {
         
@@ -78,8 +74,6 @@ extension String {
         let size: CGSize = self.size(withAttributes: [.font: font])
         return Int(ceil(size.width / lineWidth))
     }
-    
-    #endif
     
     func withEncodingAndNullsRemoved() -> String {
         (self.removingPercentEncoding ?? self).removingOccurrences(of: "\0")
@@ -275,8 +269,6 @@ extension String {
         self.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? self.replacingOccurrences(of: " ", with: "%20")
     }
     
-#if os(macOS)
-    
     func draw(in rect: NSRect, withFont font: NSFont, andColor color: NSColor) {
         self.draw(in: rect, withAttributes: [.font: font, .foregroundColor: color])
     }
@@ -389,8 +381,6 @@ extension String {
         }
     }
     
-    #endif
-    
     func utf8EncodedString()-> String {
         
         let messageData = self.data(using: .utf8)
@@ -441,8 +431,6 @@ extension Substring.SubSequence {
     }
 }
 
-#if os(macOS)
-
 extension NSParagraphStyle {
     
     static let centeredText: NSMutableParagraphStyle = {
@@ -468,8 +456,6 @@ extension NSMutableParagraphStyle {
         self.lineSpacing = lineSpacing
     }
 }
-
-#endif
 
 extension NSMutableAttributedString {
     

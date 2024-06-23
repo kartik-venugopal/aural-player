@@ -35,9 +35,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     private let audioUnitsManager: AudioUnitsManager
     
-#if os(macOS)
     private let deviceManager: DeviceManager
-#endif
     
     // Effects units
     var masterUnit: MasterUnit
@@ -56,12 +54,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     private lazy var messenger = Messenger(for: self)
     
     let visualizationAnalysisBufferSize: Int = 2048
-    
-#if os(iOS)
-
-let audioSession: AVAudioSession = .sharedInstance()
-    
-    #endif
     
     // Used by callbacks
     fileprivate lazy var unmanagedReferenceToSelf: UnsafeMutableRawPointer = Unmanaged.passUnretained(self).toOpaque()
@@ -82,9 +74,7 @@ let audioSession: AVAudioSession = .sharedInstance()
         
         outputNode = audioEngine.outputNode
         
-#if os(macOS)
         deviceManager = DeviceManager(outputAudioUnit: outputNode.audioUnit!)
-#endif
         
         eqUnit = EQUnit(persistentState: persistentState?.eqUnit)
         pitchShiftUnit = PitchShiftUnit(persistentState: persistentState?.pitchShiftUnit)
@@ -118,8 +108,6 @@ let audioSession: AVAudioSession = .sharedInstance()
         
         soundProfiles = SoundProfiles(persistentState: persistentState?.soundProfiles)
         
-#if os(macOS)
-        
         audioGraphInstance = self
         
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
@@ -127,34 +115,8 @@ let audioSession: AVAudioSession = .sharedInstance()
         
         deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
         
-#elseif os(iOS)
-
-        setUpAudioSession()
-
-#endif
-        
         audioEngine.start()
     }
-    
-#if os(iOS)
-    
-    ///
-    /// Sets preferred buffer size, sample rate, and other parameters for the audio session.
-    ///
-    func setUpAudioSession() {
-        
-        do {
-            
-            try audioSession.setCategory(.playback)
-            try audioSession.setActive(true)
-            try audioSession.setPreferredSampleRate(48000)
-            
-        } catch {
-            fatalError("Could not set Audio Session active error: \(error.localizedDescription).")
-        }
-    }
-    
-#endif
     
     func applySoundProfile(_ profile: SoundProfile) {
         
@@ -224,8 +186,6 @@ let audioSession: AVAudioSession = .sharedInstance()
         set {auxMixer.muted = newValue}
     }
     
-#if os(macOS)
-    
     // MARK: Device management ----------------------------------
     
     var availableDevices: [AudioDevice] {deviceManager.allDevices}
@@ -260,8 +220,6 @@ let audioSession: AVAudioSession = .sharedInstance()
         // Send out a notification
         messenger.publish(.AudioGraph.outputDeviceChanged)
     }
-    
-#endif
     
     // MARK: Audio Units management ----------------------------------
     
@@ -302,8 +260,6 @@ let audioSession: AVAudioSession = .sharedInstance()
 
     var persistentState: AudioGraphPersistentState {
         
-        #if os(macOS)
-        
         AudioGraphPersistentState(outputDevice: AudioDevicePersistentState(name: outputDevice.name,
                                                                            uid: outputDevice.uid),
                                   volume: volume,
@@ -320,26 +276,8 @@ let audioSession: AVAudioSession = .sharedInstance()
                                   audioUnitPresets: audioUnitPresets.persistentState,
                                   soundProfiles: soundProfiles.persistentState)
         
-        #elseif os(iOS)
-        
-        AudioGraphPersistentState(volume: volume,
-                                  muted: muted,
-                                  pan: pan,
-                                  masterUnit: masterUnit.appPersistentState,
-                                  eqUnit: eqUnit.appPersistentState,
-                                  pitchShiftUnit: pitchShiftUnit.appPersistentState,
-                                  timeStretchUnit: timeStretchUnit.appPersistentState,
-                                  reverbUnit: reverbUnit.appPersistentState,
-                                  delayUnit: delayUnit.appPersistentState,
-                                  filterUnit: filterUnit.appPersistentState,
-                                  audioUnits: audioUnits.map {$0.appPersistentState},
-                                  soundProfiles: soundProfiles.appPersistentState)
-        
-        #endif
     }
 }
-
-#if os(macOS)
 
 // MARK: Callbacks (render observer)
 
@@ -431,5 +369,3 @@ fileprivate func sampleRateChanged(inRefCon: UnsafeMutableRawPointer,
         renderObserver?.deviceSampleRateChanged(newSampleRate: audioGraphInstance.outputDeviceSampleRate)
     }
 }
-
-#endif

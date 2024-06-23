@@ -103,16 +103,12 @@ extension AppDelegate {
         // Force initialization of objects that would not be initialized soon enough otherwise
         // (they are not referred to in code that is executed on app startup).
         
-    #if os(macOS)
-        
 //        _ = libraryDelegate
         _ = mediaKeyHandler
         
         DispatchQueue.global(qos: .background).async {
             self.cleanUpLegacyFolders()
         }
-        
-    #endif
         
         _ = remoteControlManager
     }

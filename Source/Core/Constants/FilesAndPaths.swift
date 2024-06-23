@@ -21,11 +21,7 @@ struct FilesAndPaths {
     static let musicDir: URL = homeDir.appendingPathComponent("/Music", isDirectory: true).resolvedURL
 //    static let musicDir: URL = URL(fileURLWithPath: "/Volumes/MBP-Ext-4TB/Projects/Aural-Test/Aural-Music")
     
-    #if os(macOS)
     static let baseDir: URL = musicDir.appendingPathComponent("aural", isDirectory: true)
-    #elseif os(iOS)
-    static let baseDir: URL = userDocumentsDirectory
-    #endif
     
     static let userDocumentsDirectory: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     

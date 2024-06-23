@@ -26,9 +26,7 @@ class Preferences {
     var playbackPreferences: PlaybackPreferences
     var soundPreferences: SoundPreferences
     
-#if os(macOS)
     var viewPreferences: ViewPreferences
-#endif
     
     var historyPreferences: HistoryPreferences
     var controlsPreferences: ControlsPreferences
@@ -46,9 +44,7 @@ class Preferences {
         soundPreferences = SoundPreferences(controlsPreferences: controlsPreferences.gestures,
                                             legacyPreferences: needToMigrateLegacySettings ? LegacySoundPreferences.init(dict) : nil)
         
-#if os(macOS)
         viewPreferences = ViewPreferences()
-#endif
         
         historyPreferences = HistoryPreferences(legacyPreferences: needToMigrateLegacySettings ? LegacyHistoryPreferences() : nil)
         metadataPreferences = MetadataPreferences()

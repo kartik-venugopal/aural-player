@@ -59,8 +59,6 @@ struct ColorSchemePersistentState: Codable {
     let inactiveControlColor: ColorPersistentState?
     let suppressedControlColor: ColorPersistentState?
     
-    #if os(macOS)
-    
     // When saving app state to disk
     init(_ scheme: ColorScheme) {
         
@@ -108,6 +106,4 @@ struct ColorSchemePersistentState: Codable {
         self.inactiveControlColor = legacyPersistentState?.effects?.bypassedUnitStateColor
         self.suppressedControlColor = legacyPersistentState?.effects?.suppressedUnitStateColor
     }
-    
-    #endif
 }

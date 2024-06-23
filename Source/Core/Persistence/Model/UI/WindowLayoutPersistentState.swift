@@ -32,8 +32,6 @@ struct WindowLayoutPersistentState: Codable {
     let mainWindowFrame: NSRectPersistentState?
     let displayedWindows: [LayoutWindowPersistentState]?
     
-#if os(macOS)
-    
     init(layout: WindowLayout) {
         
         self.name = layout.name
@@ -41,23 +39,16 @@ struct WindowLayoutPersistentState: Codable {
         self.mainWindowFrame = NSRectPersistentState(rect: layout.mainWindowFrame)
         self.displayedWindows = layout.displayedWindows.map {LayoutWindowPersistentState(window: $0)}
     }
-    
-#endif
 }
 
 struct LayoutWindowPersistentState: Codable {
     
-#if os(macOS)
-    
     let id: WindowID?
     let frame: NSRectPersistentState?
 
-    
     init(window: LayoutWindow) {
         
         self.id = window.id
         self.frame = NSRectPersistentState(rect: window.frame)
     }
-    
-#endif
 }

@@ -19,7 +19,6 @@ import AVFoundation
 /// No instances of this type are to be used directly, as this class is only intended to be used as a base
 /// class for concrete Equalizer nodes that define a specific number and configuration of bands.
 ///
-/// - SeeAlso: `TenBandEQNode`
 /// - SeeAlso: `FifteenBandEQNode`
 ///
 class ParametricEQNode: AVAudioUnitEQ {
@@ -126,23 +125,6 @@ class ParametricEQNode: AVAudioUnitEQ {
             let band = bands[$0]
             band.gain = (band.gain - decrement).clamped(to: Self.validGainRange)
         }
-    }
-}
-
-///
-/// A specialized **ParametricEQNode** that represents an ISO standard 10-band Equalizer.
-///
-class TenBandEQNode: ParametricEQNode {
-    
-    override var frequencies: [Float] {SoundConstants.ISOStandard10BandEQFrequencies}
-    override var bandwidth: Float {1}
-    
-    override var bassBandIndexes: [Int] {[0, 1, 2]}
-    override var midBandIndexes: [Int] {[3, 4, 5, 6]}
-    override var trebleBandIndexes: [Int] {[7, 8, 9]}
-    
-    init() {
-        super.init(10)
     }
 }
 

@@ -8,8 +8,6 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 
-#if os(macOS)
-
 import AppKit
 
 extension NSApplication {
@@ -30,5 +28,3 @@ extension NSApplication {
             modalWindow != nil
     }
 }
-
-#endif

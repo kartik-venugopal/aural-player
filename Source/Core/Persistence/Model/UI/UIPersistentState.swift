@@ -9,8 +9,6 @@
 //
 import Foundation
 
-#if os(macOS)
-
 ///
 /// Encapsulates all persistent state for the application UI.
 ///
@@ -74,5 +72,3 @@ struct UIPersistentState: Codable {
 //        self.tuneBrowser = nil
     }
 }
-
-#endif

@@ -115,19 +115,4 @@ extension NSImage {
     static let imgDelayUnit: NSImage = NSImage(named: "DelayTab")!
     static let imgFilterUnit: NSImage = NSImage(named: "FilterTab")!
     static let imgAudioUnit: NSImage = NSImage(named: "AUTab")!
-    
-    #if os(iOS)
-    
-    ///
-    /// Convenience initializer to match the signature of the equivalent initializer on iOS.
-    ///
-    convenience init?(systemSymbolName name: String, accessibilityDescription: String?) {
-        self.init(systemName: name)
-    }
-    
-    convenience init?(contentsOf file: URL) {
-        self.init(contentsOfFile: file.path)
-    }
-    
-    #endif
 }

@@ -16,9 +16,7 @@ struct AppPersistentState: Codable {
     
     var appVersion: String?
     
-    #if os(macOS)
     var ui: UIPersistentState?
-    #endif
     
     var playQueue: PlayQueuePersistentState?
     var audioGraph: AudioGraphPersistentState?
