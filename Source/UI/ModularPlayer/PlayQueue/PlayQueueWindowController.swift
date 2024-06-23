@@ -78,7 +78,9 @@ class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
     // MARK: Actions ----------------------------------------------------------------------------------
     
     @IBAction func closeAction(_ sender: NSButton) {
+        
         windowLayoutsManager.toggleWindow(withId: .playQueue)
+        appDelegate.playQueueMenuRootItem.disable()
     }
     
     // MARK: Notification handling ----------------------------------------------------------------------------------

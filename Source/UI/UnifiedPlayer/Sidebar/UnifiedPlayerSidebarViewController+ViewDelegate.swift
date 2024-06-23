@@ -69,6 +69,7 @@ extension UnifiedPlayerSidebarViewController: NSOutlineViewDelegate {
         cell.imageColor = textColor
         
         cell.btnClose.showIf(sidebarItem.module != .playQueue)
+        cell.btnClose.toolTip = "Close \(sidebarItem.module.rawValue)"
         
         return cell
     }

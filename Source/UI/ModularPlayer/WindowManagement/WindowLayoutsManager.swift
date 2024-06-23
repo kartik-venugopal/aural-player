@@ -163,6 +163,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         }
         
         mainWindow.makeKeyAndOrderFront(self)
+        appDelegate.playQueueMenuRootItem.enableIf(isShowingPlayQueue)
     }
     
     var currentWindowLayout: WindowLayout {
@@ -233,9 +234,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     }
     
     func isShowingWindow(withId id: WindowID) -> Bool {
-        
-        let loader = loader(withID: id)
-        return loader.isWindowLoaded && loader.window.isVisible
+        loader(withID: id).isWindowVisible
     }
     
     func isWindowLoaded(withId id: WindowID) -> Bool {

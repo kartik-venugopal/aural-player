@@ -114,7 +114,9 @@ class ModularPlayerWindowController: NSWindowController {
     // MARK: Message handling -----------------------------------------------------------
     
     private func togglePlayQueue() {
+        
         windowLayoutsManager.toggleWindow(withId: .playQueue)
+        appDelegate.playQueueMenuRootItem.enableIf(windowLayoutsManager.isShowingPlayQueue)
     }
     
     private func toggleEffects() {

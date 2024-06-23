@@ -171,7 +171,9 @@ class UnifiedPlayerWindowController: NSWindowController {
     }
     
     private func showEffects() {
+        
         playerViewController.presentAsSheet(effectsSheetViewController)
+        appDelegate.playQueueMenuRootItem.disable()
     }
     
     private func hideEffects() {
@@ -208,11 +210,15 @@ class UnifiedPlayerWindowController: NSWindowController {
     }
     
     private func showPlayQueue() {
+        
         tabGroup.selectTabViewItem(at: 0)
+        appDelegate.playQueueMenuRootItem.enable()
     }
     
     private func showChaptersList() {
+        
         tabGroup.selectLastTabViewItem(self)
+        appDelegate.playQueueMenuRootItem.disable()
     }
     
     private func hideModule(forItem item: UnifiedPlayerSidebarItem) {
@@ -220,11 +226,9 @@ class UnifiedPlayerWindowController: NSWindowController {
         switch item.module {
             
         case .chaptersList:
-            
             closeChaptersList()
             
         default:
-            
             return
         }
     }

@@ -151,7 +151,7 @@ DQ
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-Fk-tAG" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="29" y="244.5" width="419" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Show chapters list window (if track has chapters)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="03P-Ux-pSb">
+                    <buttonCell key="cell" type="check" title="Show chapters list (if track has chapters)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="03P-Ux-pSb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>

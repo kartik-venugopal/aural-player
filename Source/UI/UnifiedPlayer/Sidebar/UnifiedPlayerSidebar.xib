@@ -65,7 +65,7 @@
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="bNR-AI-kZ4" userLabel="Close Module Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                                    <button toolTip="Close" translatesAutoresizingMaskIntoConstraints="NO" id="bNR-AI-kZ4" userLabel="Close Module Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="166" y="4" width="12" height="16"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark.circle.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Sw8-1k-BRw" customClass="TableButtonCell" customModule="Aural" customModuleProvider="target">
                                                             <behavior key="behavior" lightByContents="YES"/>

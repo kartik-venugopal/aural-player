@@ -20,6 +20,10 @@ class WindowLoader: DestroyableAndRestorable {
     
     var isWindowLoaded: Bool = false
     
+    var isWindowVisible: Bool {
+        isWindowLoaded && window.isVisible
+    }
+    
     init<T>(windowID: WindowID, windowControllerType: T.Type) where T: NSWindowController {
         
         self.windowID = windowID
