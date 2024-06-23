@@ -40,9 +40,6 @@ class StartPlaybackAction: PlaybackChainAction {
         // Start playback
         player.play(newTrack, context.requestParams.startPosition ?? 0, context.requestParams.endPosition)
         
-        let df = DateFormatter(format: "H:mm:ss.SSS")
-        print("Finshed playing: \(df.string(from: Date()))")
-        
         // Inform observers of the track change/transition.
         messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
                                                       endTrack: context.requestedTrack, endState: .playing))

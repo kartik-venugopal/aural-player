@@ -15,12 +15,7 @@ class UnifiedPlayerUIState {
     var isSidebarShown: Bool = true
     
     var sidebarItems: [UnifiedPlayerSidebarItem] = [.playQueueItem]
-    var sidebarSelectedItem: UnifiedPlayerSidebarItem? = nil {
-        
-        didSet {
-            print("SelItem: \(sidebarSelectedItem?.module.description ?? "<None>")")
-        }
-    }
+    var sidebarSelectedItem: UnifiedPlayerSidebarItem? = nil
     
     init(persistentState: UnifiedPlayerUIPersistentState?) {
         
