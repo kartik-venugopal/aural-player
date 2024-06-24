@@ -809,6 +809,7 @@
 		3E7C35FE26AADD2A00B3552D /* FilterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */; };
 		3E7C360126AADFA000B3552D /* FilterBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C360026AADFA000B3552D /* FilterBandView.swift */; };
 		3E7C978D268BB8BE00287158 /* NSLayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C978C268BB8BE00287158 /* NSLayoutConstraintExtensions.swift */; };
+		3E804D222C29F7840049AC27 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E804D212C29F7840049AC27 /* GestureHandler.swift */; };
 		3E836E332868964D009371D4 /* PlayQueueContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E836E322868964D009371D4 /* PlayQueueContainer.xib */; };
 		3E836E3B2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */; };
 		3E86B5072C234A420097746A /* buildingLibrary.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E86B5062C234A420097746A /* buildingLibrary.gif */; };
@@ -1861,6 +1862,7 @@
 		3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetView.swift; sourceTree = "<group>"; };
 		3E7C360026AADFA000B3552D /* FilterBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandView.swift; sourceTree = "<group>"; };
 		3E7C978C268BB8BE00287158 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
+		3E804D212C29F7840049AC27 /* GestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		3E836E322868964D009371D4 /* PlayQueueContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayQueueContainer.xib; sourceTree = "<group>"; };
 		3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifiedPlayerWindowController+EventHandling.swift"; sourceTree = "<group>"; };
 		3E86B5062C234A420097746A /* buildingLibrary.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = buildingLibrary.gif; sourceTree = "<group>"; };
@@ -4774,6 +4776,7 @@
 				3EAFB5EA267FEC4500F0DC96 /* Extensions */,
 				3E634D742846B895008A47EC /* TableView */,
 				3EA89D962699F0240021CDB9 /* EventMonitor.swift */,
+				3E804D212C29F7840049AC27 /* GestureHandler.swift */,
 				3EA89D9A2699F50C0021CDB9 /* ScrollSession.swift */,
 				3EA89D9D2699F5270021CDB9 /* GestureDirection.swift */,
 				3ECF275B26A5567000974120 /* FontSet.swift */,
@@ -5418,6 +5421,7 @@
 				3E02185E2C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift in Sources */,
 				3E0218722C23490E00865AC2 /* AppSetupNotifications.swift in Sources */,
 				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
+				3E804D222C29F7840049AC27 /* GestureHandler.swift in Sources */,
 				3E36BD3D26A6902F00B6E28B /* AudioTrackInfoViewController.swift in Sources */,
 				3E4C763D2AD774DA00DDED45 /* AppSetupWindowController.swift in Sources */,
 				3E0218BD2C23490E00865AC2 /* MarkLastPlaybackPositionAction.swift in Sources */,

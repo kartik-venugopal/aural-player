@@ -54,41 +54,10 @@ extension UnifiedPlayerWindowController {
             // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
             // Vertical scroll = volume control, horizontal scroll = seeking
             
-            scrollDirection.isVertical ? handleVolumeControl(event, scrollDirection) : handleSeek(event, scrollDirection)
+            scrollDirection.isVertical ? GestureHandler.handleVolumeControl(event, scrollDirection) : GestureHandler.handleSeek(event, scrollDirection)
         }
         
         return event
-    }
-    
-    func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
-        
-        if gesturesPreferences.allowVolumeControl.value,
-           ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
-        
-            // Scroll up = increase volume, scroll down = decrease volume
-            messenger.publish(scrollDirection == .up ?.Player.increaseVolume : .Player.decreaseVolume, payload: UserInputMode.continuous)
-        }
-    }
-    
-    func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
-        
-        guard gesturesPreferences.allowSeeking.value else {return}
-        
-        // If no track is playing, seeking cannot be performed
-        if playbackInfoDelegate.state.isStopped {
-            return
-        }
-        
-        // Seeking forward (do not allow residual scroll)
-        if scrollDirection == .right && event.isResidualScroll {
-            return
-        }
-        
-        if ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
-            
-            // Scroll left = seek backward, scroll right = seek forward
-            messenger.publish(scrollDirection == .left ? .Player.seekBackward : .Player.seekForward, payload: UserInputMode.continuous)
-        }
     }
     
     // Handles a single swipe event
@@ -103,18 +72,9 @@ extension UnifiedPlayerWindowController {
             
             // TODO: Figure out where the mouse cursor is. If over player, trackChange ... if over PQ, pageUp/Down/scrollTopBottom
 
-            handleTrackChange(swipeDirection)
+            GestureHandler.handleTrackChange(swipeDirection)
         }
 
         return event
-    }
-    
-    func handleTrackChange(_ swipeDirection: GestureDirection) {
-        
-        if gesturesPreferences.allowTrackChange.value {
-            
-            // Publish the command notification
-            messenger.publish(swipeDirection == .left ? .Player.previousTrack : .Player.nextTrack)
-        }
     }
 }

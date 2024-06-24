@@ -32,23 +32,9 @@ extension PlayQueueWindowController {
            let eventWindow = event.window, eventWindow == theWindow,
            let swipeDirection = event.gestureDirection {
             
-            swipeDirection.isHorizontal ? handlePageUpDown(swipeDirection) : handleScrollTopBottom(swipeDirection)
+            swipeDirection.isHorizontal ? GestureHandler.handlePageUpDown(swipeDirection) : GestureHandler.handleScrollTopBottom(swipeDirection)
         }
         
         return event
-    }
-    
-    private func handleScrollTopBottom(_ swipeDirection: GestureDirection) {
-        
-        if gesturesPreferences.allowPlayQueueScrollingTopToBottom.value {
-            messenger.publish(swipeDirection == .up ? .PlayQueue.scrollToTop : .PlayQueue.scrollToBottom)
-        }
-    }
-    
-    private func handlePageUpDown(_ swipeDirection: GestureDirection) {
-        
-        if gesturesPreferences.allowPlayQueueScrollingPageUpDown.value {
-            messenger.publish(swipeDirection == .left ? .PlayQueue.pageUp : .PlayQueue.pageDown)
-        }
     }
 }
