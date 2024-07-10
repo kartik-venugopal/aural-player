@@ -140,9 +140,17 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     // MARK: Audio engine functions ----------------------------------
     
+    var playerOutputFormat: AVAudioFormat {
+        playerNode.outputFormat(forBus: 0)
+    }
+    
     func reconnectPlayerNode(withFormat format: AVAudioFormat) {
         
-        audioEngine.reconnect(outputOf: playerNode, toInputOf: auxMixer, withFormat: format)
+        if playerOutputFormat != format {
+            audioEngine.reconnect(outputOf: playerNode, toInputOf: auxMixer, withFormat: format)
+        } else {
+            print("No change in format!")
+        }
         
 //        let fileSampleRate = format.sampleRate
 //        

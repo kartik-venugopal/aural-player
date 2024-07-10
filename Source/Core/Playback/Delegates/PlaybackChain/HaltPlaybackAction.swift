@@ -26,8 +26,10 @@ class HaltPlaybackAction: PlaybackChainAction {
             
             player.stop()
             
-            // TODO: What if the requested track is the same as the current track ? Should we not close the context then ???
-            playingTrack.playbackContext?.close()
+            // If repeating the same (playing) track, don't close the context.
+            if context.requestedTrack != playingTrack {
+                playingTrack.playbackContext?.close()
+            }
         }
         
         chain.proceed(context)

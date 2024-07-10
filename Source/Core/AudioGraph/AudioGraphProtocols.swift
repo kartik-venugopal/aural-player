@@ -24,6 +24,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var indexOfOutputDevice: Int {get}
     var outputDeviceBufferSize: Int {get set}
     var outputDeviceSampleRate: Double {get}
+    var playerOutputFormat: AVAudioFormat {get}
     
     var volume: Float {get set}
     var pan: Float {get set}

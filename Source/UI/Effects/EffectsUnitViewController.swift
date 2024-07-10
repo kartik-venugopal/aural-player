@@ -19,7 +19,7 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
     
     // Presets controls
     @IBOutlet weak var presetsAndSettingsMenuButton: NSPopUpButton!
-    @IBOutlet weak var presetsAndSettingsMenuIconItem: TintedIconMenuItem!
+    @IBOutlet weak var presetsAndSettingsMenuIconItem: NSMenuItem!
     @IBOutlet weak var loadPresetsMenuItem: NSMenuItem!
     @IBOutlet weak var presetsAndSettingsMenu: NSMenu!
     lazy var userPresetsPopover: StringInputPopoverViewController = .create(self)
@@ -175,7 +175,8 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
         
         colorSchemesManager.registerSchemeObserver(self)
         
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: presetsAndSettingsMenuIconItem)
+//        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: presetsAndSettingsMenuIconItem)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: presetsAndSettingsMenuButton)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.secondaryTextColor, changeReceivers: functionCaptionLabels)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.primaryTextColor, changeReceivers: functionValueLabels)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: buttons)
@@ -209,7 +210,8 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
     func colorSchemeChanged() {
         
         btnBypass.contentTintColor = systemColorScheme.colorForEffectsUnitState(self.effectsUnit.state)
-        presetsAndSettingsMenuIconItem.colorChanged(systemColorScheme.buttonColor)
+//        presetsAndSettingsMenuIconItem.colorChanged(systemColorScheme.buttonColor)
+        presetsAndSettingsMenuButton.colorChanged(systemColorScheme.buttonColor)
         
         functionCaptionLabels.forEach {
             $0.textColor = systemColorScheme.secondaryTextColor

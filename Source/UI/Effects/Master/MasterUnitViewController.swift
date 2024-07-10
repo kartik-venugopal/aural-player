@@ -19,6 +19,7 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     @IBOutlet weak var masterUnitView: MasterUnitView!
     @IBOutlet weak var btnRememberSettings: EffectsUnitToggle!
+    @IBOutlet weak var lblRememberSettings: NSTextField!
     
 //    private lazy var btnRememberSettingsStateMachine: ButtonStateMachine<Bool> = ButtonStateMachine(initialState: false, mappings: [
 //        ButtonStateMachine.StateMapping(state: false, image: .imgRememberSettings, colorProperty: \.inactiveControlColor, toolTip: "Remember all sound settings for this track"),
@@ -170,6 +171,8 @@ class MasterUnitViewController: EffectsUnitViewController {
         // Apply sound profile if there is one for the new track and if the preferences allow it
         if let newTrack = notification.endTrack {
             
+            [btnRememberSettings, lblRememberSettings].forEach {$0?.show()}
+            
             if soundProfiles.hasFor(newTrack) {
                 
                 messenger.publish(.Effects.updateEffectsUnitView, payload: EffectsUnitType.master)
@@ -180,14 +183,16 @@ class MasterUnitViewController: EffectsUnitViewController {
             }
 
             // HACK: To make the tool tip appear (without hiding / showing)
-            btnRememberSettings.moveX(to: 13)
+//            btnRememberSettings.moveX(to: 13)
             
         } else {
+            
+            [btnRememberSettings, lblRememberSettings].forEach {$0?.hide()}
             
             messenger.publish(.Effects.updateEffectsUnitView, payload: EffectsUnitType.master)
             
             // HACK: To make the tool tip disappear (without hiding / showing)
-            btnRememberSettings.moveX(to: -50)
+//            btnRememberSettings.moveX(to: -50)
         }
     }
     

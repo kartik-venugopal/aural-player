@@ -71,7 +71,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="Chc-FL-7dK">
                                     <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView focusRingType="none" editable="NO" selectable="NO" horizontallyResizable="YES" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="lcR-Xs-exq">
                                             <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
@@ -120,9 +120,6 @@
                                             <menuItem hidden="YES" id="gVO-3W-k3p">
                                                 <imageReference key="image" image="ellipsis" catalog="system" symbolScale="medium"/>
                                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Ellipsis"/>
-                                                </userDefinedRuntimeAttributes>
                                             </menuItem>
                                             <menuItem title="  Add this track to Favorites" image="heart" catalog="system" id="FrP-jc-kMJ" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -342,7 +339,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="Ellipsis" width="40" height="10"/>
         <image name="Loop" width="18" height="25"/>
         <image name="Play" width="40" height="40"/>
         <image name="PlayingArt" width="237" height="237"/>

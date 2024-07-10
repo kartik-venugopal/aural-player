@@ -71,7 +71,7 @@ extension GenericPresetPopupMenuController: NSMenuDelegate {
         
         menu.recreateMenu(insertingItemsAt: 3, withTitles: userDefinedPresets.map {$0.name},
                           action: #selector(self.applyPresetAction(_:)), target: self,
-                          indentationLevel: 1)
+                          indentationLevel: 0)
         
         let showDescriptors: Bool = numberOfUserDefinedPresets > 0
 

@@ -16,6 +16,18 @@ import Cocoa
 @IBDesignable
 class EffectsUnitToggle: NSButton, FXUnitStateObserver {
     
+    override var state: NSControl.StateValue {
+        
+        get {
+            super.state
+        }
+        
+        set {
+            super.state = newValue
+            redraw()
+        }
+    }
+    
     func redraw(forState newState: EffectsUnitState) {
         
         let tintColor = systemColorScheme.colorForEffectsUnitState(newState)

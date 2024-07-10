@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MasterUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="moJ-jS-aMf" id="1c7-3L-xKO"/>
-                <outlet property="btnRememberSettings" destination="zQa-Sk-jsP" id="c8I-h1-6Po"/>
+                <outlet property="btnRememberSettings" destination="FHb-xi-klu" id="3Ik-9E-RZB"/>
+                <outlet property="lblRememberSettings" destination="EjT-qM-WKh" id="PTZ-Tc-z3g"/>
                 <outlet property="loadPresetsMenuItem" destination="3Rk-uS-j0Z" id="qir-Si-lpG"/>
                 <outlet property="masterUnitView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
                 <outlet property="presetsAndSettingsMenu" destination="GNL-Vn-rAm" id="Tw6-X2-3Wj"/>
@@ -48,14 +49,9 @@
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" showsStateColumn="NO" id="wAk-l0-VwJ">
                             <items>
-                                <menuItem hidden="YES" id="bE8-u7-FFo" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                    <imageReference key="image" image="Ellipsis" symbolScale="default" renderingMode="original"/>
+                                <menuItem hidden="YES" id="bE8-u7-FFo">
+                                    <imageReference key="image" image="ellipsis" catalog="system" symbolScale="medium"/>
                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage">
-                                            <imageReference key="value" image="Ellipsis" symbolScale="default" renderingMode="original"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
                                 </menuItem>
                                 <menuItem title="Load preset" id="3Rk-uS-j0Z">
                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -74,19 +70,7 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <button hidden="YES" toolTip="Remember all sound settings for this track" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zQa-Sk-jsP" userLabel="Remember Settings Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="-50" y="89" width="17" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="clock.arrow.2.circlepath" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="X5A-LV-v56">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <color key="contentTintColor" white="0.23582202404529065" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <action selector="rememberSettingsAction:" target="-2" id="psj-cQ-h5y"/>
-                    </connections>
-                </button>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36D-nM-bZT" userLabel="Fuse Box Menu Button">
+                <popUpButton toolTip="Activate / deactivate individual effects units from the Fuse Box" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36D-nM-bZT" userLabel="Fuse Box Menu Button">
                     <rect key="frame" x="107" y="109" width="256" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Fuse Box" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="wea-rf-Blp" id="cjG-Ys-hHL" customClass="FuseBoxPopupMenuCell" customModule="Aural" customModuleProvider="target">
@@ -99,7 +83,7 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EjT-qM-WKh" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EjT-qM-WKh" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="152" y="56" width="260" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Remember FX settings for this track" id="OrX-uA-h3f">
@@ -108,13 +92,16 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FHb-xi-klu" customClass="EffectsUnitToggle" customModule="Aural" customModuleProvider="target">
+                <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FHb-xi-klu" customClass="EffectsUnitToggle" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="117" y="53" width="28" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NotChecked" imagePosition="left" alignment="left" alternateImage="Checked" controlSize="small" state="on" imageScaling="axesIndependently" inset="2" id="fqr-5C-fbn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="rememberSettingsAction:" target="-2" id="ZiQ-Z6-w8r"/>
+                    </connections>
                 </button>
             </subviews>
             <connections>
@@ -127,9 +114,8 @@
     </objects>
     <resources>
         <image name="Checked" width="200" height="200"/>
-        <image name="Ellipsis" width="40" height="10"/>
         <image name="NotChecked" width="200" height="200"/>
         <image name="bolt.fill" catalog="system" width="13" height="17"/>
-        <image name="clock.arrow.2.circlepath" catalog="system" width="18" height="15"/>
+        <image name="ellipsis" catalog="system" width="14" height="5"/>
     </resources>
 </document>

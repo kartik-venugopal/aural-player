@@ -104,18 +104,11 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         
         do {
             
-            let t1 = CFAbsoluteTimeGetCurrent()
-            var d1: Double = 0
-            var d2: Double = 0
-            
             // If a seek position was specified, ask the decoder to seek
             // within the stream.
             if let theSeekPosition = seekPosition {
                 
                 try decoder.seek(to: theSeekPosition)
-                
-                let t2 = CFAbsoluteTimeGetCurrent()
-                d1 = t2 - t1
                 
                 // If the seek took the decoder to EOF, signal completion of playback
                 // and don't do any scheduling.
@@ -132,27 +125,13 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
                     
                     return
                 }
-                
-                let t3 = CFAbsoluteTimeGetCurrent()
-                d2 = t3 - t2
             }
-            
-            let t3 = CFAbsoluteTimeGetCurrent()
             
             // Schedule one buffer for immediate playback
             decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, from: seekPosition ?? 0, immediatePlayback: true, maxSampleCount: context.sampleCountForImmediatePlayback)
             
-            let t4 = CFAbsoluteTimeGetCurrent()
-            let d3 = t4 - t3
-            
             // Schedule a second buffer asynchronously, for later, to avoid a gap in playback.
             decodeAndScheduleOneBufferAsync(for: session, context: context, decoder: decoder, maxSampleCount: context.sampleCountForDeferredPlayback)
-            
-            let t5 = CFAbsoluteTimeGetCurrent()
-            let d4 = t5 - t4
-            let total = t5 - t1
-            
-//            print("\niDAS() Total: \(total)\nd1: \(d1)\nd2: \(d2)\nd3: \(d3)\nd4: \(d4)\n")
             
         } catch {
             
