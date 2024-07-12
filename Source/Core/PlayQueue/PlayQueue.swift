@@ -1,4 +1,4 @@
-import Foundation
+import AVFoundation
 
 class PlayQueue: TrackList, PlayQueueProtocol {
     
@@ -14,7 +14,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     }
     
     var currentTrackIndex: Int? = nil
-
+    
     var repeatMode: RepeatMode = .defaultMode
     var shuffleMode: ShuffleMode = .defaultMode
     
@@ -165,6 +165,44 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             
             currentTrackIndex = newPlayingTrackIndex
         }
+    }
+    
+    func prepareForGaplessPlayback() -> Bool {
+     
+        var audioFormatsSet: Set<AVAudioFormat> = Set()
+        
+        for track in _tracks.values {
+            
+            do {
+                
+                try trackReader.prepareForPlayback(track: track, immediate: false)
+                
+                if let audioFormat = track.playbackContext?.audioFormat {
+                    
+                    audioFormatsSet.insert(audioFormat)
+                    
+                    if audioFormatsSet.count > 1 {
+                        
+                        print("More than 1 AudioFormat detected, gapless playback not possible.")
+                        return false
+                    }
+                    
+                } else {
+                    
+                    print("Unable to prepare for gapless playback: No audio ctx")
+                    // TODO: Log an error
+                    return false
+                }
+                
+            } catch {
+                
+                print("Unable to prepare for gapless playback: error \(error)")
+                // TODO: Log an error
+                return false
+            }
+        }
+        
+        return audioFormatsSet.count == 1
     }
     
     override func preTrackLoad() {
