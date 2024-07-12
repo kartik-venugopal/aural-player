@@ -921,6 +921,10 @@
 		3EC079492B78559C008CB68C /* MenuBarSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC079482B78559C008CB68C /* MenuBarSettingsViewController.swift */; };
 		3EC083652B5B3DCB001934DA /* AppSetupThemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC083642B5B3DCB001934DA /* AppSetupThemePreviewView.swift */; };
 		3EC530E5284BB69C0036207C /* TableDragDropContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC530E4284BB69C0036207C /* TableDragDropContext.swift */; };
+		3EC742572C41C1C200C100DE /* AVFScheduler+Looping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC742562C41C1C200C100DE /* AVFScheduler+Looping.swift */; };
+		3EC742592C41C44B00C100DE /* Player+Looping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC742582C41C44B00C100DE /* Player+Looping.swift */; };
+		3EC7425B2C41C4A100C100DE /* Player+Gapless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC7425A2C41C4A100C100DE /* Player+Gapless.swift */; };
+		3EC7425D2C41C6E300C100DE /* AVFScheduler+Gapless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC7425C2C41C6E300C100DE /* AVFScheduler+Gapless.swift */; };
 		3EC793792B7409B900AF7E9E /* UnifiedPlayerWindowController+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC793782B7409B900AF7E9E /* UnifiedPlayerWindowController+Support.swift */; };
 		3EC7937F2B745E0800AF7E9E /* EffectsSheetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EC7937E2B745E0800AF7E9E /* EffectsSheetView.xib */; };
 		3EC793812B745E1200AF7E9E /* EffectsSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC793802B745E1200AF7E9E /* EffectsSheetViewController.swift */; };
@@ -1999,6 +2003,10 @@
 		3EC530E8284BC56E0036207C /* LibrarySidebarViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibrarySidebarViewController+DataSource.swift"; sourceTree = "<group>"; };
 		3EC62B6528512F0600995264 /* Playlists.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Playlists.xib; sourceTree = "<group>"; };
 		3EC62B6728512F2400995264 /* PlaylistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsViewController.swift; sourceTree = "<group>"; };
+		3EC742562C41C1C200C100DE /* AVFScheduler+Looping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFScheduler+Looping.swift"; sourceTree = "<group>"; };
+		3EC742582C41C44B00C100DE /* Player+Looping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player+Looping.swift"; sourceTree = "<group>"; };
+		3EC7425A2C41C4A100C100DE /* Player+Gapless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player+Gapless.swift"; sourceTree = "<group>"; };
+		3EC7425C2C41C6E300C100DE /* AVFScheduler+Gapless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFScheduler+Gapless.swift"; sourceTree = "<group>"; };
 		3EC7936E2B73C34600AF7E9E /* LibraryArtistsView+TableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryArtistsView+TableCells.swift"; sourceTree = "<group>"; };
 		3EC793702B73C41000AF7E9E /* LibraryAlbumsView+TableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryAlbumsView+TableCells.swift"; sourceTree = "<group>"; };
 		3EC793722B73C45500AF7E9E /* LibraryGenresView+TableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryGenresView+TableCells.swift"; sourceTree = "<group>"; };
@@ -2662,6 +2670,8 @@
 			isa = PBXGroup;
 			children = (
 				3E0216D32C23490E00865AC2 /* AVFScheduler.swift */,
+				3EC742562C41C1C200C100DE /* AVFScheduler+Looping.swift */,
+				3EC7425C2C41C6E300C100DE /* AVFScheduler+Gapless.swift */,
 			);
 			path = AVFoundation;
 			sourceTree = "<group>";
@@ -2714,6 +2724,8 @@
 				3E0216E82C23490E00865AC2 /* PlaybackSession.swift */,
 				3E0216E92C23490E00865AC2 /* PlaybackState.swift */,
 				3E0216EA2C23490E00865AC2 /* Player.swift */,
+				3EC742582C41C44B00C100DE /* Player+Looping.swift */,
+				3EC7425A2C41C4A100C100DE /* Player+Gapless.swift */,
 				3E0216EB2C23490E00865AC2 /* PlayerProtocol.swift */,
 				3E0216EC2C23490E00865AC2 /* PlayerSeekResult.swift */,
 			);
@@ -5420,6 +5432,7 @@
 				3E9792E326A24EFF0010BE99 /* AppModeController.swift in Sources */,
 				3E02185E2C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift in Sources */,
 				3E0218722C23490E00865AC2 /* AppSetupNotifications.swift in Sources */,
+				3EC7425B2C41C4A100C100DE /* Player+Gapless.swift in Sources */,
 				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
 				3E804D222C29F7840049AC27 /* GestureHandler.swift in Sources */,
 				3E36BD3D26A6902F00B6E28B /* AudioTrackInfoViewController.swift in Sources */,
@@ -5777,6 +5790,7 @@
 				3E02199A2C23490E00865AC2 /* MenuItemMappable.swift in Sources */,
 				3E2000C7267CEEF7008BAB70 /* GesturesPreferencesViewController.swift in Sources */,
 				3E0218072C23490E00865AC2 /* ReverbUnitProtocol.swift in Sources */,
+				3EC7425D2C41C6E300C100DE /* AVFScheduler+Gapless.swift in Sources */,
 				3E02191F2C23490E00865AC2 /* RemoteCommandManager.swift in Sources */,
 				3E6C39FC26AA169500AF5009 /* FilterPreviewChart.swift in Sources */,
 				3E02199D2C23490E00865AC2 /* TimeUtils.swift in Sources */,
@@ -6200,10 +6214,12 @@
 				3E2976132629473500459272 /* WindowCornerRadiusMenuItemView.swift in Sources */,
 				3E0218DC2C23490E00865AC2 /* PlayerProtocol.swift in Sources */,
 				3E0218AB2C23490E00865AC2 /* GroupingPlaylistPersistentState.swift in Sources */,
+				3EC742572C41C1C200C100DE /* AVFScheduler+Looping.swift in Sources */,
 				3E9E591025DB6B150064EB5F /* ModularAppModeController.swift in Sources */,
 				3E02199E2C23490E00865AC2 /* UnsafeBuffer.swift in Sources */,
 				3E1572AC2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift in Sources */,
 				3E3ACFA72C224823006945B8 /* CompactPlayerArtView.swift in Sources */,
+				3EC742592C41C44B00C100DE /* Player+Looping.swift in Sources */,
 				3E0218FF2C23490E00865AC2 /* PlayQueueDelegate+Sequencing.swift in Sources */,
 				3EFAA8D12B710C30001A6682 /* ChaptersListViewController+Theming.swift in Sources */,
 				3E0218532C23490E00865AC2 /* FixedSizeLRUArray.swift in Sources */,

@@ -28,6 +28,17 @@ fileprivate typealias TrackProducer = () -> Track?
 ///
 class PlaybackDelegate: PlaybackDelegateProtocol {
     
+    func beginGaplessPlayback() {
+        
+        guard playQueue.prepareForGaplessPlayback() else {
+            
+            print("NO GO !")
+            return
+        }
+        
+        player.playGapless(tracks: playQueue.tracks)
+    }
+    
     // The actual player
     let player: PlayerProtocol
     

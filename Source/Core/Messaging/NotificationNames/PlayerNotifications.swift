@@ -64,6 +64,8 @@ extension Notification.Name {
         // Commands the player to play, pause, or resume playback
         static let playOrPause = Notification.Name("player_playOrPause")
         
+        static let beginGaplessPlayback = Notification.Name("player_beginGaplessPlayback")
+        
         // Commands the player to stop playback
         static let stop = Notification.Name("player_stop")
         

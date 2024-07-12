@@ -16,6 +16,14 @@ import AVFoundation
 ///
 class FFmpegScheduler: PlaybackSchedulerProtocol {
     
+    func playGapless(tracks: [Track], currentSession: PlaybackSession) {
+        
+    }
+    
+    func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track]) {
+        
+    }
+    
     ///
     /// The number of audio buffers currently scheduled for playback by the player, for a given session.
     ///

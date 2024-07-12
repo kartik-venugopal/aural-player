@@ -122,6 +122,10 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         messenger.publish(.Player.playOrPause)
     }
     
+    @IBAction func beginGaplessPlaybackAction(_ sender: AnyObject) {
+        messenger.publish(.Player.beginGaplessPlayback)
+    }
+    
     @IBAction func stopAction(_ sender: AnyObject) {
         messenger.publish(.Player.stop)
     }

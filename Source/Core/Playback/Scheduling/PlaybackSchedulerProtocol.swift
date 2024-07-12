@@ -12,7 +12,7 @@ import Foundation
 ///
 /// A functional contract for scheduling audio data from tracks for playback.
 ///
-protocol PlaybackSchedulerProtocol {
+protocol PlaybackSchedulerProtocol: GaplessSchedulerProtocol {
     
     // Schedule and play the track (specified by the given playback session), starting at the given start position
     func playTrack(_ playbackSession: PlaybackSession, _ startPosition: Double)
@@ -38,4 +38,11 @@ protocol PlaybackSchedulerProtocol {
 
     // Clears any previously scheduled audio segments, and stops playback.
     func stop()
+}
+
+protocol GaplessSchedulerProtocol {
+    
+    func playGapless(tracks: [Track], currentSession: PlaybackSession)
+    
+    func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track])
 }

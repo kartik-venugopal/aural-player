@@ -29,6 +29,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
      */
     func togglePlayPause()
     
+    func beginGaplessPlayback()
+    
     /* 
         Plays the track at a given index in the player playlist.
  

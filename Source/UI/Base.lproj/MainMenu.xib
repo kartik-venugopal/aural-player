@@ -230,6 +230,18 @@
                                     <action selector="playOrPauseAction:" target="qXQ-AJ-SLV" id="mz8-X4-qA3"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="  Begin Gapless Playback" image="play" catalog="system" keyEquivalent=" " id="y5o-W4-GGY" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Play"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Pause"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="play" catalog="system"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="pause" catalog="system"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="beginGaplessPlaybackAction:" target="qXQ-AJ-SLV" id="e7q-Dz-UY3"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title=" Stop" image="stop" catalog="system" keyEquivalent="." id="OKd-9e-Yoo" userLabel="Stop">
                                 <connections>
                                     <action selector="stopAction:" target="qXQ-AJ-SLV" id="Byy-Ag-c1u"/>

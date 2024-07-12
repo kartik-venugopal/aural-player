@@ -14,7 +14,7 @@ import Foundation
 ///
 /// The Player is responsible for initiating playback, pause / resume / stop, seeking, and segment looping.
 ///
-protocol PlayerProtocol {
+protocol PlayerProtocol: GaplessPlaybackProtocol {
     
     // Plays a given track, starting from a given position (used for bookmarks)
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?)
@@ -76,4 +76,11 @@ protocol PlayerProtocol {
         The TimeInterval is relative to the last system start time, i.e. it is the systemUpTime. See ProcessInfo.processInfo.systemUpTime.
      */
     var playingTrackStartTime: TimeInterval? {get}
+}
+
+protocol GaplessPlaybackProtocol {
+    
+    func playGapless(tracks: [Track])
+    
+    func seekGapless(track: Track, toTime time: Double) -> PlayerSeekResult
 }

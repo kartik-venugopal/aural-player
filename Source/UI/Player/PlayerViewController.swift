@@ -533,6 +533,7 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         messenger.subscribe(to: .Player.increaseVolume, handler: increaseVolume(inputMode:))
         
         messenger.subscribe(to: .Player.playOrPause, handler: playOrPause)
+        messenger.subscribe(to: .Player.beginGaplessPlayback, handler: beginGaplessPlayback)
         messenger.subscribe(to: .Player.stop, handler: stop)
         messenger.subscribe(to: .Player.replayTrack, handler: replayTrack)
         messenger.subscribe(to: .Player.previousTrack, handler: previousTrack)
@@ -598,6 +599,10 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
             btnPlayPauseStateMachine.setState(playbackDelegate.state)
             updateSeekTimerState()
         }
+    }
+    
+    func beginGaplessPlayback() {
+        playbackDelegate.beginGaplessPlayback()
     }
     
     func performTrackPlayback(_ command: TrackPlaybackCommandNotification) {
