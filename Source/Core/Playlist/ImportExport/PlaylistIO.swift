@@ -38,7 +38,10 @@ class PlaylistIO: PlaylistIOProtocol {
     
     // Load playlist from file into current playlist.
     static func loadPlaylist(fromFile playlistFile: URL) -> FileSystemPlaylist? {
-        return M3UPlaylistIO.loadPlaylist(fromFile: playlistFile)
+        
+        return playlistFile.lowerCasedExtension.hasPrefix("m3u") ?
+        M3UPlaylistIO.loadPlaylist(fromFile: playlistFile) :
+        CueSheetIO.loadPlaylist(fromFile: playlistFile)
     }
     
     static func readFileAsString(_ file: URL) -> String? {

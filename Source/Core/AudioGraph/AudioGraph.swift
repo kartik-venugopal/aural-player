@@ -148,17 +148,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         if playerOutputFormat != format {
             audioEngine.reconnect(outputOf: playerNode, toInputOf: auxMixer, withFormat: format)
-        } else {
-            print("No change in format!")
         }
-        
-//        let fileSampleRate = format.sampleRate
-//        
-//        do {
-//            try audioSession.setPreferredSampleRate(fileSampleRate)
-//        } catch {
-//            print("\nError setting session sample rate to \(fileSampleRate): \(error)")
-//        }
     }
     
     func clearSoundTails() {
