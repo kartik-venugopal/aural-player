@@ -28,17 +28,6 @@ fileprivate typealias TrackProducer = () -> Track?
 ///
 class PlaybackDelegate: PlaybackDelegateProtocol {
     
-    func beginGaplessPlayback() {
-        
-        guard playQueue.prepareForGaplessPlayback() else {
-            
-            print("NO GO !")
-            return
-        }
-        
-        player.playGapless(tracks: playQueue.tracks)
-    }
-    
     // The actual player
     let player: PlayerProtocol
     
@@ -72,6 +61,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         // Subscribe to notifications
         messenger.subscribe(to: .Application.willExit, handler: onAppExit)
         messenger.subscribeAsync(to: .Player.trackPlaybackCompleted, handler: trackPlaybackCompleted(_:))
+        messenger.subscribeAsync(to: .Player.gaplessTrackPlaybackCompleted, handler: gaplessTrackPlaybackCompleted(_:))
         messenger.subscribe(to: .PlayQueue.playingTrackRemoved, handler: doStop(_:))
 
         // Commands
@@ -114,6 +104,22 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     
     private func beginPlayback() {
         doPlay({playQueue.start()}, PlaybackParams.defaultParams())
+    }
+    
+    func beginGaplessPlayback() {
+        
+        guard playQueue.prepareForGaplessPlayback() else {
+            
+            print("NO GO !")
+            return
+        }
+        
+        _ = playQueueDelegate.start()
+        player.playGapless(tracks: playQueue.tracks)
+        
+        // Inform observers of the track change/transition.
+        messenger.publish(TrackTransitionNotification(beginTrack: nil, beginState: .stopped,
+                                                      endTrack: playQueue.tracks.first, endState: player.state))
     }
     
     func previousTrack() {
@@ -422,6 +428,18 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, 0, nil, PlaybackParams.defaultParams())
         
         trackPlaybackCompletedChain.execute(requestContext)
+    }
+    
+    func gaplessTrackPlaybackCompleted(_ session: PlaybackSession) {
+        
+        let beginTrack = session.track
+        
+        if let subsequentTrack = playQueueDelegate.subsequent() {
+            session.track = subsequentTrack
+        }
+        
+        messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: player.state,
+                                                      endTrack: session.track, endState: player.state))
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there

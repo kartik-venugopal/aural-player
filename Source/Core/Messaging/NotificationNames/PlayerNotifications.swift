@@ -33,6 +33,8 @@ extension Notification.Name {
         // Signifies that the currently playing track has completed playback.
         static let trackPlaybackCompleted = Notification.Name("player_trackPlaybackCompleted")
         
+        static let gaplessTrackPlaybackCompleted = Notification.Name("player_gaplessTrackPlaybackCompleted")
+        
         // Signifies that an error occurred and the player was unable to play the requested track.
         static let trackNotPlayed = Notification.Name("player_trackNotPlayed")
         

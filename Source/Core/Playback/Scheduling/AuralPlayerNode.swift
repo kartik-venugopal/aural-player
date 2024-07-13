@@ -98,6 +98,25 @@ class AuralPlayerNode: AVAudioPlayerNode {
         super.pause()
     }
     
+    func scheduleFile(session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler,
+                         playingFile: AVAudioFile) {
+
+        
+        super.scheduleFile(playingFile, at: nil,
+                           completionCallbackType: completionCallbackType) {_ in
+            
+            self.resetSeekPositionState()
+            
+            if let nodeTime = self.lastRenderTime, let playerTime = self.playerTime(forNodeTime: nodeTime) {
+                
+                self.numFramesCorrection = playerTime.sampleTime
+                self.correctionAppliedForSegment = true
+            }
+            
+            self.completionCallbackQueue.async {completionHandler(session)}
+        }
+    }
+    
     func scheduleSegment(session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler,
                          startTime: Double, endTime: Double? = nil,
                          playingFile: AVAudioFile, startFrame: AVAudioFramePosition? = nil,
@@ -108,26 +127,30 @@ class AuralPlayerNode: AVAudioPlayerNode {
         scheduleSegment(segment, completionHandler, immediatePlayback)
         return segment
     }
+    
+    private func resetSeekPositionState(startFrame: AVAudioFramePosition = 0, startTime: Double = 0) {
+        
+        // Advance the last seek position to the new position
+        self.startFrame = startFrame
+        cachedSeekPosn = startTime
+        
+        // Reset this flag for the new segment
+        correctionAppliedForSegment = false
+    }
 
     func scheduleSegment(_ segment: PlaybackSegment, _ completionHandler: @escaping SessionCompletionHandler, _ immediatePlayback: Bool = true) {
 
         // The start frame and seek position should be reset only if this segment will be played immediately.
         // If it is being scheduled for the future, doing this will cause inaccurate seek position values.
         if immediatePlayback {
-            
-            // Advance the last seek position to the new position
-            startFrame = segment.firstFrame
-            cachedSeekPosn = segment.startTime
-            
-            // Reset this flag for the new segment
-            correctionAppliedForSegment = false
+            resetSeekPositionState(startFrame: segment.firstFrame, startTime: segment.startTime)
         }
         
         scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil,
-                        completionCallbackType: completionCallbackType,
-                        completionHandler: {callbackType in
+                        completionCallbackType: completionCallbackType) {_ in
+            
             self.completionCallbackQueue.async {completionHandler(segment.session)}
-        })
+        }
     }
     
     ///

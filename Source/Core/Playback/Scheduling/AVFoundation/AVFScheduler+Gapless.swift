@@ -14,8 +14,19 @@ extension AVFScheduler {
     
     func playGapless(tracks: [Track], currentSession: PlaybackSession) {
         
-        seekGapless(toTime: 0, currentSession: currentSession, beginPlayback: true,
-                    otherTracksToSchedule: tracks.count > 1 ? Array(tracks[1..<tracks.count]) : [])
+        let otherTracksToSchedule = tracks.count > 1 ? Array(tracks[1..<tracks.count]) : []
+        
+        guard let playbackCtx = currentSession.track.playbackContext as? AVFPlaybackContext,
+              let audioFile = playbackCtx.audioFile else {
+            return
+        }
+        
+        playerNode.scheduleFile(session: currentSession,
+                                completionHandler: gaplessSegmentCompletionHandler(currentSession),
+                                playingFile: audioFile)
+        
+        playerNode.play()
+        scheduleSubsequentTracks(otherTracksToSchedule)
     }
     
     func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track]) {
@@ -49,10 +60,9 @@ extension AVFScheduler {
                 
                 if let file = (track.playbackContext as? AVFPlaybackContext)?.audioFile {
                     
-                    _ = self.playerNode.scheduleSegment(session: session,
-                                                        completionHandler: self.gaplessSegmentCompletionHandler(session),
-                                                        startTime: 0,
-                                                        playingFile: file)
+                    self.playerNode.scheduleFile(session: session,
+                                                 completionHandler: self.gaplessSegmentCompletionHandler(session),
+                                                 playingFile: file)
                     
                     print("Scheduled \(track)")
                 }
@@ -77,7 +87,7 @@ extension AVFScheduler {
     
     // Signal track playback completion
     func trackCompletedGapless(_ session: PlaybackSession) {
-        messenger.publish(.Player.trackPlaybackCompleted, payload: session)
+        messenger.publish(.Player.gaplessTrackPlaybackCompleted, payload: session)
     }
     
     // Computes a segment completion handler closure, given a playback session.

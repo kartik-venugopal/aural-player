@@ -36,7 +36,7 @@ class PlaybackSession: Hashable {
     private(set) static var currentSession: PlaybackSession?
     
     // The track associated with this session
-    let track: Track
+    var track: Track
     
     // A ⇋ B playback loop, if there is one
     private(set) var loop: PlaybackLoop?
