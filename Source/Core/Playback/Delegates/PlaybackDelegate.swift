@@ -44,6 +44,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     let stopPlaybackChain: StopPlaybackChain
     let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
+    var isInGaplessPlaybackMode: Bool {
+        player.isInGaplessPlaybackMode
+    }
+    
     private(set) lazy var messenger = Messenger(for: self)
     
     init(_ player: PlayerProtocol, playQueue: PlayQueueProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
@@ -243,11 +247,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     // It occurs, for instance, when seeking backward/forward.
     private func attemptSeek(_ seekPosn: Double) {
         
-        if state.isPlayingOrPaused, let track = playingTrack {
+        guard state.isPlayingOrPaused, let track = playingTrack else {return}
+        
+        let seekResult = player.attemptSeekToTime(track, seekPosn)
+        
+        if seekResult.trackPlaybackCompleted {
             
-            let seekResult = player.attemptSeekToTime(track, seekPosn)
-            
-            if seekResult.trackPlaybackCompleted {
+            if isInGaplessPlaybackMode {
+                
+                if let currentSession = PlaybackSession.currentSession {
+                    gaplessTrackPlaybackCompleted(currentSession)
+                }
+                
+            } else {
                 doTrackPlaybackCompleted()
             }
         }
@@ -433,13 +445,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     func gaplessTrackPlaybackCompleted(_ session: PlaybackSession) {
         
         let beginTrack = session.track
+        let beginState = player.state
         
         if let subsequentTrack = playQueueDelegate.subsequent() {
+            
             session.track = subsequentTrack
+            
+        } else {
+            
+            playQueueDelegate.stop()
+            player.stop()
         }
         
-        messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: player.state,
-                                                      endTrack: session.track, endState: player.state))
+        messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
+                                                      endTrack: PlaybackSession.currentSession?.track, endState: player.state))
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there

@@ -32,6 +32,8 @@ class Player: PlayerProtocol {
     
     private(set) lazy var messenger = Messenger(for: self)
     
+    var isInGaplessPlaybackMode: Bool = false
+    
     var state: PlaybackState = .stopped {
 
         didSet {
@@ -143,7 +145,23 @@ class Player: PlayerProtocol {
         // Create a new identical session (for the track that is playing), and perform a seek within it
         if !playbackCompleted, let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
             
-            scheduler.seekToTime(newSession, actualSeekTime, state == .playing)
+            if isInGaplessPlaybackMode {
+                
+                if let currentTrackIndex = playQueueDelegate.currentTrackIndex {
+                    
+                    let otherTracks = currentTrackIndex < (playQueueDelegate.size - 1) ? 
+                    Array(playQueueDelegate.tracks[(currentTrackIndex + 1)..<playQueueDelegate.size]) : []
+                    
+                    scheduler.seekGapless(toTime: actualSeekTime, 
+                                          currentSession: newSession, 
+                                          beginPlayback: state == .playing,
+                                          otherTracksToSchedule: otherTracks)
+                }
+                
+            } else {
+                scheduler.seekToTime(newSession, actualSeekTime, state == .playing)
+            }
+            
             messenger.publish(.Player.seekPerformed)
         }
         

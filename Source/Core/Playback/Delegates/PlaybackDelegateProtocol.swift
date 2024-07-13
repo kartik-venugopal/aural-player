@@ -31,6 +31,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     func beginGaplessPlayback()
     
+    var isInGaplessPlaybackMode: Bool {get}
+    
     /* 
         Plays the track at a given index in the player playlist.
  

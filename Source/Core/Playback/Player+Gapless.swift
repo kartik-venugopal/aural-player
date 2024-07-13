@@ -20,6 +20,8 @@ extension Player: GaplessPlaybackProtocol {
             return
         }
         
+        isInGaplessPlaybackMode = true
+        
         // Disconnect player from audio graph and reconnect with the file's processing format
         graph.reconnectPlayerNode(withFormat: audioFormat)
 
@@ -28,11 +30,5 @@ extension Player: GaplessPlaybackProtocol {
         scheduler.playGapless(tracks: tracks, currentSession: session)
 
         state = .playing
-    }
-    
-    func seekGapless(track: Track, toTime time: Double) -> PlayerSeekResult {
-        
-        // TODO: Implement this!
-        .init(actualSeekPosition: time, loopRemoved: false, trackPlaybackCompleted: false)
     }
 }

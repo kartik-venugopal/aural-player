@@ -39,8 +39,10 @@ extension AVFScheduler {
             return
         }
         
-        _ = playerNode.scheduleSegment(session: currentSession, completionHandler: gaplessSegmentCompletionHandler(currentSession),
-                                       startTime: seconds, playingFile: audioFile)
+        _ = playerNode.scheduleSegment(session: currentSession,
+                                       completionHandler: gaplessSegmentCompletionHandler(currentSession),
+                                       startTime: seconds, 
+                                       playingFile: audioFile)
 
         // Don't start playing if player is paused
         if beginPlayback {

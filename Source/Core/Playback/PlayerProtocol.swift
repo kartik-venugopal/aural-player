@@ -80,7 +80,7 @@ protocol PlayerProtocol: GaplessPlaybackProtocol {
 
 protocol GaplessPlaybackProtocol {
     
-    func playGapless(tracks: [Track])
+    var isInGaplessPlaybackMode: Bool {get}
     
-    func seekGapless(track: Track, toTime time: Double) -> PlayerSeekResult
+    func playGapless(tracks: [Track])
 }
