@@ -118,6 +118,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             return
         }
         
+        doBeginGaplessPlayback()
+    }
+    
+    private func doBeginGaplessPlayback() {
+        
         _ = playQueueDelegate.start()
         player.playGapless(tracks: playQueue.tracks)
         
@@ -446,8 +451,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         let beginTrack = session.track
         let beginState = player.state
+        let finishedLastTrack = playQueueDelegate.currentTrackIndex == playQueueDelegate.size - 1
         
         if let subsequentTrack = playQueueDelegate.subsequent() {
+            
+            // TODO: What if Repeat All is set ??? Call beginGaplessPlayback() again !
+            if finishedLastTrack, playQueueDelegate.repeatAndShuffleModes.repeatMode == .all {
+                
+                playQueueDelegate.stop()
+                player.stop()
+                
+                doBeginGaplessPlayback()
+                return
+            }
             
             session.track = subsequentTrack
             
