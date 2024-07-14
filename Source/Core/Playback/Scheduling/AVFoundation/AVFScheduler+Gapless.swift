@@ -21,6 +21,8 @@ extension AVFScheduler {
             return
         }
         
+        playerNode.resetSeekPositionState()
+        
         playerNode.scheduleFile(session: currentSession,
                                 completionHandler: gaplessSegmentCompletionHandler(currentSession),
                                 playingFile: audioFile)

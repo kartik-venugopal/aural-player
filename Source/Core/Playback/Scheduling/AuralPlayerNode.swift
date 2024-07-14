@@ -139,7 +139,7 @@ class AuralPlayerNode: AVAudioPlayerNode {
         return segment
     }
     
-    private func resetSeekPositionState(startFrame: AVAudioFramePosition = 0, startTime: Double = 0) {
+    func resetSeekPositionState(startFrame: AVAudioFramePosition = 0, startTime: Double = 0) {
         
         // Advance the last seek position to the new position
         self.startFrame = startFrame

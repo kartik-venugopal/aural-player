@@ -455,11 +455,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         if let subsequentTrack = playQueueDelegate.subsequent() {
             
-            // TODO: What if Repeat All is set ??? Call beginGaplessPlayback() again !
             if finishedLastTrack, playQueueDelegate.repeatAndShuffleModes.repeatMode == .all {
                 
                 playQueueDelegate.stop()
                 player.stop()
+                
+                messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
+                                                              endTrack: nil, endState: .stopped))
                 
                 doBeginGaplessPlayback()
                 return
