@@ -53,4 +53,8 @@ class Queue<T: Any> {
         let copy = array
         return copy
     }
+    
+    func removeAll() {
+        array.removeAll()
+    }
 }

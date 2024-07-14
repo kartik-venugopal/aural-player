@@ -451,9 +451,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         let beginTrack = session.track
         let beginState = player.state
-        let finishedLastTrack = playQueueDelegate.currentTrackIndex == playQueueDelegate.size - 1
         
         if let subsequentTrack = playQueueDelegate.subsequent() {
+            
+            let finishedLastTrack = playQueueDelegate.currentTrackIndex == playQueueDelegate.size - 1
             
             if finishedLastTrack, playQueueDelegate.repeatAndShuffleModes.repeatMode == .all {
                 
@@ -470,6 +471,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             session.track = subsequentTrack
             
         } else {
+            
+            // Finished last track in Play Queue, not repeating
             
             playQueueDelegate.stop()
             player.stop()

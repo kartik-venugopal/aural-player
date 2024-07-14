@@ -81,17 +81,12 @@ extension AVFScheduler {
         guard PlaybackSession.isCurrent(session) else {return}
         
         if playerNode.isPlaying {
-            trackCompletedGapless(session)
+            gaplessTrackCompleted(session)
             
         } else {
             // Player is paused
-            trackCompletedWhilePaused = true
+            gaplessTrackCompletedWhilePaused = true
         }
-    }
-    
-    // Signal track playback completion
-    func trackCompletedGapless(_ session: PlaybackSession) {
-        messenger.publish(.Player.gaplessTrackPlaybackCompleted, payload: session)
     }
     
     // Computes a segment completion handler closure, given a playback session.
@@ -100,5 +95,9 @@ extension AVFScheduler {
         return {(_ session: PlaybackSession) -> Void in
             self.gaplessSegmentCompleted(session)
         }
+    }
+    
+    func gaplessTrackCompleted(_ session: PlaybackSession) {
+        messenger.publish(.Player.gaplessTrackPlaybackCompleted, payload: session)
     }
 }

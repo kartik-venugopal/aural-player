@@ -106,13 +106,6 @@ class AuralPlayerNode: AVAudioPlayerNode {
                            completionCallbackType: completionCallbackType) {_ in
             
             self.resetSeekPositionState()
-            
-            if let nodeTime = self.lastRenderTime, let playerTime = self.playerTime(forNodeTime: nodeTime) {
-                
-                self.numFramesCorrection = playerTime.sampleTime
-                self.correctionAppliedForSegment = true
-            }
-            
             self.completionCallbackQueue.async {completionHandler(session)}
         }
     }
@@ -147,6 +140,12 @@ class AuralPlayerNode: AVAudioPlayerNode {
         
         // Reset this flag for the new segment
         correctionAppliedForSegment = false
+        
+        if isPlaying, let nodeTime = self.lastRenderTime, let playerTime = self.playerTime(forNodeTime: nodeTime) {
+            
+            self.numFramesCorrection = playerTime.sampleTime
+            self.correctionAppliedForSegment = true
+        }
     }
 
     func scheduleSegment(_ segment: PlaybackSegment, _ completionHandler: @escaping SessionCompletionHandler, _ immediatePlayback: Bool = true) {
@@ -176,13 +175,6 @@ class AuralPlayerNode: AVAudioPlayerNode {
                         completionCallbackType: completionCallbackType) {_ in
             
             self.resetSeekPositionState()
-            
-            if let nodeTime = self.lastRenderTime, let playerTime = self.playerTime(forNodeTime: nodeTime) {
-                
-                self.numFramesCorrection = playerTime.sampleTime
-                self.correctionAppliedForSegment = true
-            }
-            
             self.completionCallbackQueue.async {completionHandler(segment.session)}
         }
     }

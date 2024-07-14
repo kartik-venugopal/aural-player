@@ -16,14 +16,6 @@ import AVFoundation
 ///
 class FFmpegScheduler: PlaybackSchedulerProtocol {
     
-    func playGapless(tracks: [Track], currentSession: PlaybackSession) {
-        
-    }
-    
-    func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track]) {
-        
-    }
-    
     ///
     /// The number of audio buffers currently scheduled for playback by the player, for a given session.
     ///
@@ -32,6 +24,11 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     /// 2. whether or not a scheduling task was successful and whether or not playback should begin.
     ///
     var scheduledBufferCounts: [PlaybackSession: AtomicIntCounter] = [:]
+    
+    lazy var gaplessTracksQueue: Queue<Track> = Queue()
+    lazy var gaplessScheduledBufferCounts: [Track: AtomicIntCounter] = [:]
+    lazy var currentGaplessTrack: Track? = nil
+    lazy var gaplessTrackCompletedWhilePaused: Bool = false
     
     // Player node used for actual playback
     let playerNode: AuralPlayerNode
@@ -108,7 +105,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     /// If the **seekPosition** parameter given is greater than the currently playing file's audio stream duration, this function
     /// will signal completion of playback for the file.
     ///
-    func initiateDecodingAndScheduling(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, from seekPosition: Double? = nil) {
+    fileprivate func initiateDecodingAndScheduling(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, from seekPosition: Double? = nil) {
         
         do {
             
@@ -139,7 +136,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, from: seekPosition ?? 0, immediatePlayback: true, maxSampleCount: context.sampleCountForImmediatePlayback)
             
             // Schedule a second buffer asynchronously, for later, to avoid a gap in playback.
-            decodeAndScheduleOneBufferAsync(for: session, context: context, decoder: decoder, maxSampleCount: context.sampleCountForDeferredPlayback)
+            decodeAndScheduleOneBufferAsync(for: session, context: context, decoder: decoder)
             
         } catch {
             
@@ -160,12 +157,13 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     /// 2. Since the task is enqueued on an OperationQueue (whose underlying queue is the global DispatchQueue),
     /// this function will not block the caller, i.e. the main thread, while the task executes.
     ///
-    func decodeAndScheduleOneBufferAsync(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, maxSampleCount: Int32) {
+    func decodeAndScheduleOneBufferAsync(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder) {
         
         if decoder.eof {return}
         
         self.schedulingOpQueue.addOperation {
-            self.decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, immediatePlayback: false, maxSampleCount: maxSampleCount)
+            self.decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, immediatePlayback: false,
+                                            maxSampleCount: context.sampleCountForDeferredPlayback)
         }
     }
 
@@ -227,7 +225,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         if !decoder.eof {
 
             // If EOF has not been reached, continue recursively decoding / scheduling.
-            self.decodeAndScheduleOneBufferAsync(for: session, context: playbackCtx, decoder: decoder, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
+            self.decodeAndScheduleOneBufferAsync(for: session, context: playbackCtx, decoder: decoder)
 
         } else if let bufferCount = scheduledBufferCounts[session], bufferCount.isZero {
             
@@ -272,11 +270,14 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         
         scheduledBufferCounts.removeAll()
         trackCompletedWhilePaused = false
+        
+        gaplessTracksQueue.removeAll()
+        gaplessScheduledBufferCounts.removeAll()
+        currentGaplessTrack = nil
+        gaplessTrackCompletedWhilePaused = false
     }
     
     func seekToTime(_ session: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool) {
-        
-        let t1 = CFAbsoluteTimeGetCurrent()
         
         // Check if there's a complete loop defined. If so, defer to playLoop().
         if let loop = session.loop, loop.isComplete {
@@ -292,34 +293,16 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             return
         }
         
-        let t2 = CFAbsoluteTimeGetCurrent()
-        let d1 = t2 - t1
-        
         stop()
-        
-        let t3 = CFAbsoluteTimeGetCurrent()
-        let d2 = t3 - t2
         
         scheduledBufferCounts[session] = AtomicCounter()
         decoder.framesNeedTimestamps.setValue(false)
         
-        let t4 = CFAbsoluteTimeGetCurrent()
-        let d3 = t4 - t3
-        
         initiateDecodingAndScheduling(for: session, context: thePlaybackCtx, decoder: decoder, from: seconds)
-        
-        let t5 = CFAbsoluteTimeGetCurrent()
-        let d4 = t5 - t4
         
         if let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive, beginPlayback {
             playerNode.play()
         }
-        
-        let t6 = CFAbsoluteTimeGetCurrent()
-        let d5 = t6 - t5
-        let total = t6 - t1
-        
-//        print("\nSeek Total: \(total)\nd1: \(d1)\nd2: \(d2)\nd3: \(d3)\nd4: \(d4)\nd5: \(d5)\n")
     }
     
     ///

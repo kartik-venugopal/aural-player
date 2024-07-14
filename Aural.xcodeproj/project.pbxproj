@@ -632,6 +632,7 @@
 		3E6668B52ADB55A400BBD119 /* WindowLayoutSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6668B42ADB55A400BBD119 /* WindowLayoutSetupViewController.swift */; };
 		3E6668B82ADB651500BBD119 /* ThemeSetup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6668B72ADB651500BBD119 /* ThemeSetup.xib */; };
 		3E6668BA2ADB658F00BBD119 /* ThemeSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6668B92ADB658F00BBD119 /* ThemeSetupViewController.swift */; };
+		3E68B8292C4433EE00F65D43 /* FFmpegScheduler+Gapless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68B8282C4433EE00F65D43 /* FFmpegScheduler+Gapless.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115325CEB9C100BF0D07 /* Assets.xcassets */; };
 		3E6C11B925CEBDAD00BF0D07 /* MediaKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C113425CEB98700BF0D07 /* MediaKeyHandler.swift */; };
@@ -1682,6 +1683,7 @@
 		3E6668B42ADB55A400BBD119 /* WindowLayoutSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutSetupViewController.swift; sourceTree = "<group>"; };
 		3E6668B72ADB651500BBD119 /* ThemeSetup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeSetup.xib; sourceTree = "<group>"; };
 		3E6668B92ADB658F00BBD119 /* ThemeSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSetupViewController.swift; sourceTree = "<group>"; };
+		3E68B8282C4433EE00F65D43 /* FFmpegScheduler+Gapless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FFmpegScheduler+Gapless.swift"; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E6C0EC925CEB3EE00BF0D07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2682,8 +2684,9 @@
 		3E0216D72C23490E00865AC2 /* FFmpeg */ = {
 			isa = PBXGroup;
 			children = (
-				3E0216D52C23490E00865AC2 /* FFmpegLoopScheduling.swift */,
 				3E0216D62C23490E00865AC2 /* FFmpegScheduler.swift */,
+				3E68B8282C4433EE00F65D43 /* FFmpegScheduler+Gapless.swift */,
+				3E0216D52C23490E00865AC2 /* FFmpegLoopScheduling.swift */,
 			);
 			path = FFmpeg;
 			sourceTree = "<group>";
@@ -6110,6 +6113,7 @@
 				3E02182E2C23490E00865AC2 /* FFmpegChannelLayoutsMapper.swift in Sources */,
 				3E0218D12C23490E00865AC2 /* ShuffleSequence.swift in Sources */,
 				3E0218542C23490E00865AC2 /* HistoryDelegateProtocol.swift in Sources */,
+				3E68B8292C4433EE00F65D43 /* FFmpegScheduler+Gapless.swift in Sources */,
 				3E9C12112622208F00D90EA4 /* Theme.swift in Sources */,
 				3E0219202C23490E00865AC2 /* RemoteControlManager.swift in Sources */,
 				3ECF71AD2B755ACF00FDB69B /* CompactPlayerUIState.swift in Sources */,
