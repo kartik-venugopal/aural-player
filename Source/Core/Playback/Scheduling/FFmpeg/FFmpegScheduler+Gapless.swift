@@ -14,15 +14,12 @@ extension FFmpegScheduler {
     
     func playGapless(tracks: [Track], currentSession: PlaybackSession) {
         
-        let firstTrack = tracks[0]
-        let otherTracksToSchedule = tracks.count > 1 ? Array(tracks[1..<tracks.count]) : []
-        
-        for track in otherTracksToSchedule {
-            gaplessTracksQueue.enqueue(track)
-        }
-        
-        currentGaplessTrack = firstTrack
-        gaplessScheduledBufferCounts[firstTrack] = AtomicIntCounter()
+        doPlayGapless(firstTrack: tracks[0],
+                      otherTracks: tracks.count > 1 ? Array(tracks[1..<tracks.count]) : [],
+                      currentSession: currentSession)
+    }
+    
+    fileprivate func doPlayGapless(firstTrack: Track, fromTime time: Double? = nil, otherTracks: [Track], currentSession: PlaybackSession) {
         
         guard let thePlaybackCtx = firstTrack.playbackContext as? FFmpegPlaybackContext,
                 let decoder = thePlaybackCtx.decoder else {
@@ -32,9 +29,16 @@ extension FFmpegScheduler {
             return
         }
         
+        for track in otherTracks {
+            gaplessTracksQueue.enqueue(track)
+        }
+        
+        currentGaplessTrack = firstTrack
+        gaplessScheduledBufferCounts[firstTrack] = AtomicIntCounter()
+        
         decoder.framesNeedTimestamps.setValue(false)
         
-        initiateGaplessDecodingAndScheduling(for: currentSession, context: thePlaybackCtx, decoder: decoder, from: nil)
+        initiateGaplessDecodingAndScheduling(for: currentSession, context: thePlaybackCtx, decoder: decoder, from: time)
         
         // Check that at least one audio buffer was successfully scheduled, before beginning playback.
         if let bufferCount = gaplessScheduledBufferCounts[firstTrack], bufferCount.isPositive {
@@ -50,11 +54,14 @@ extension FFmpegScheduler {
     
     func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track]) {
         
+        stop()
+        doPlayGapless(firstTrack: currentSession.track, fromTime: seconds, otherTracks: otherTracksToSchedule, currentSession: currentSession)
     }
     
     // MARK: Support functions
     
-    fileprivate func initiateGaplessDecodingAndScheduling(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, from seekPosition: Double? = nil) {
+    fileprivate func initiateGaplessDecodingAndScheduling(for session: PlaybackSession, context: FFmpegPlaybackContext, 
+                                                          decoder: FFmpegDecoder, from seekPosition: Double? = nil) {
         
         do {
             

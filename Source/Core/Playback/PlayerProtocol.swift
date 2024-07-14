@@ -17,7 +17,7 @@ import Foundation
 protocol PlayerProtocol: GaplessPlaybackProtocol {
     
     // Plays a given track, starting from a given position (used for bookmarks)
-    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?)
+    func play(_ track: Track, _ startPosition: Double?, _ endPosition: Double?)
     
     // Pauses the currently playing track
     func pause()

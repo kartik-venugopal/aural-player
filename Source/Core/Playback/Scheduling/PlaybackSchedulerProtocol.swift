@@ -15,7 +15,7 @@ import Foundation
 protocol PlaybackSchedulerProtocol: GaplessSchedulerProtocol {
     
     // Schedule and play the track (specified by the given playback session), starting at the given start position
-    func playTrack(_ playbackSession: PlaybackSession, _ startPosition: Double)
+    func playTrack(_ playbackSession: PlaybackSession, _ startPosition: Double?)
     
     // Schedule playback of a segment loop (specified by the given playback session), starting at the loop's start time. Begin playback if beginPlayback is true.
     func playLoop(_ playbackSession: PlaybackSession, _ beginPlayback: Bool)

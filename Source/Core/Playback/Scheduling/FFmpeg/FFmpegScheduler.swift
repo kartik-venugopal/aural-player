@@ -60,7 +60,13 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         self.playerNode = playerNode
     }
     
-    func playTrack(_ session: PlaybackSession, _ startPosition: Double) {
+    func playTrack(_ session: PlaybackSession, _ startPosition: Double? = nil) {
+        doPlayTrack(in: session, from: startPosition)
+    }
+    
+    func doPlayTrack(in session: PlaybackSession, from startPosition: Double? = nil) {
+        
+        stop()
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext, let decoder = thePlaybackCtx.decoder else {
 
@@ -69,7 +75,6 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             return
         }
         
-        stop()
         scheduledBufferCounts[session] = AtomicCounter()
         decoder.framesNeedTimestamps.setValue(false)
         
@@ -84,6 +89,34 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             // This should NEVER happen. If it does, it indicates a bug (some kind of race condition)
             // or that something's wrong with the file.
             NSLog("WARNING: No buffers scheduled for track \(session.track.displayName) ... cannot begin playback.")
+        }
+    }
+    
+    func seekToTime(_ session: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool) {
+        
+        // Check if there's a complete loop defined. If so, defer to playLoop().
+        if let loop = session.loop, loop.isComplete {
+            
+            playLoop(session, seconds, beginPlayback)
+            return
+        }
+        
+        stop()
+        
+        guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext, let decoder = thePlaybackCtx.decoder else {
+
+            // This should NEVER happen. If it does, it indicates a bug (track was not prepared for playback).
+            NSLog("Unable to seek within track \(session.track.displayName) because it has no playback context.")
+            return
+        }
+        
+        scheduledBufferCounts[session] = AtomicCounter()
+        decoder.framesNeedTimestamps.setValue(false)
+        
+        initiateDecodingAndScheduling(for: session, context: thePlaybackCtx, decoder: decoder, from: seconds)
+        
+        if let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive, beginPlayback {
+            playerNode.play()
         }
     }
     
@@ -275,34 +308,6 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         gaplessScheduledBufferCounts.removeAll()
         currentGaplessTrack = nil
         gaplessTrackCompletedWhilePaused = false
-    }
-    
-    func seekToTime(_ session: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool) {
-        
-        // Check if there's a complete loop defined. If so, defer to playLoop().
-        if let loop = session.loop, loop.isComplete {
-            
-            playLoop(session, seconds, beginPlayback)
-            return
-        }
-        
-        guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext, let decoder = thePlaybackCtx.decoder else {
-
-            // This should NEVER happen. If it does, it indicates a bug (track was not prepared for playback).
-            NSLog("Unable to seek within track \(session.track.displayName) because it has no playback context.")
-            return
-        }
-        
-        stop()
-        
-        scheduledBufferCounts[session] = AtomicCounter()
-        decoder.framesNeedTimestamps.setValue(false)
-        
-        initiateDecodingAndScheduling(for: session, context: thePlaybackCtx, decoder: decoder, from: seconds)
-        
-        if let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive, beginPlayback {
-            playerNode.play()
-        }
     }
     
     ///

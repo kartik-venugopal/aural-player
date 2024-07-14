@@ -42,8 +42,8 @@ class AVFScheduler: PlaybackSchedulerProtocol {
     // MARK: Track scheduling, playback, and seeking functions -------------------------------------------------------------------------------------------
     
     // Start track playback from a given position expressed in seconds
-    func playTrack(_ session: PlaybackSession, _ startPosition: Double) {
-        seekToTime(session, startPosition, true)
+    func playTrack(_ session: PlaybackSession, _ startPosition: Double? = nil) {
+        seekToTime(session, startPosition ?? 0, true)
     }
 
     // Seeks to a certain position (seconds) in the specified track. Returns the calculated start frame.

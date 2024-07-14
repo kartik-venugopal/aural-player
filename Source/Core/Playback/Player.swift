@@ -55,7 +55,7 @@ class Player: PlayerProtocol {
         messenger.subscribeAsync(to: .AudioGraph.graphChanged, handler: audioGraphChanged(_:))
     }
     
-    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
+    func play(_ track: Track, _ startPosition: Double? = nil, _ endPosition: Double? = nil) {
         
         guard let audioFormat = track.playbackContext?.audioFormat else {
             
@@ -72,7 +72,7 @@ class Player: PlayerProtocol {
         if let end = endPosition {
 
             // Segment loop is defined
-            PlaybackSession.defineLoop(startPosition, end)
+            PlaybackSession.defineLoop(startPosition ?? 0, end)
             scheduler.playLoop(session, true)
 
         } else {
