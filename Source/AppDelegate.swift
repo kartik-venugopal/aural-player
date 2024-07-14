@@ -72,6 +72,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             postLaunch()
         }
         
+//        playQueueDelegate.loadTracks(from: [URL(fileURLWithPath: "/Users/kven/Music/Vampire Weekend - Contra CDRip 2010 [Cov+CD][Bubanee]public edition/Contra.cue")])
+        
 //        SearchWindowController.shared.showWindow(self)
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

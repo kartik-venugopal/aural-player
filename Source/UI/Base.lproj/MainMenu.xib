@@ -230,8 +230,8 @@
                                     <action selector="playOrPauseAction:" target="qXQ-AJ-SLV" id="mz8-X4-qA3"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Begin Gapless Playback" image="play" catalog="system" keyEquivalent=" " id="y5o-W4-GGY" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title=" Begin Gapless Playback" image="play" catalog="system" keyEquivalent=" " id="y5o-W4-GGY" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Play"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Pause"/>

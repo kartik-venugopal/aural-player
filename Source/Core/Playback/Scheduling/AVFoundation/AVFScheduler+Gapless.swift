@@ -39,7 +39,7 @@ extension AVFScheduler {
             return
         }
         
-        _ = playerNode.scheduleSegment(session: currentSession,
+        _ = playerNode.scheduleGaplessSegment(session: currentSession,
                                        completionHandler: gaplessSegmentCompletionHandler(currentSession),
                                        startTime: seconds, 
                                        playingFile: audioFile)

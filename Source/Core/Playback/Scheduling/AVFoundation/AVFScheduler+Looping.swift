@@ -62,6 +62,8 @@ extension AVFScheduler {
               let audioFile = playbackCtx.audioFile else {return}
 
         // nil parameter indicates no specific end time (i.e. end of track is implied).
+        // immediatePlayback is set to false because this segment will play only after the current loop segment
+        // is finished.
         _ = playerNode.scheduleSegment(session: session, completionHandler: segmentCompletionHandler(session),
                                        startTime: loopEndTime, endTime: nil, playingFile: audioFile,
                                        startFrame: newSegmentStartFrame, immediatePlayback: false)

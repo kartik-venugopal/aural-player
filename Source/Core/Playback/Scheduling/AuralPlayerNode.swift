@@ -128,6 +128,17 @@ class AuralPlayerNode: AVAudioPlayerNode {
         return segment
     }
     
+    func scheduleGaplessSegment(session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler,
+                         startTime: Double, endTime: Double? = nil,
+                         playingFile: AVAudioFile, startFrame: AVAudioFramePosition? = nil,
+                         immediatePlayback: Bool = true) -> PlaybackSegment? {
+
+        guard let segment = computeSegment(session, startTime, endTime, playingFile, startFrame) else {return nil}
+        
+        scheduleGaplessSegment(segment, immediatePlayback: immediatePlayback, completionHandler: completionHandler)
+        return segment
+    }
+    
     private func resetSeekPositionState(startFrame: AVAudioFramePosition = 0, startTime: Double = 0) {
         
         // Advance the last seek position to the new position
@@ -148,6 +159,29 @@ class AuralPlayerNode: AVAudioPlayerNode {
         
         scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil,
                         completionCallbackType: completionCallbackType) {_ in
+            
+            self.completionCallbackQueue.async {completionHandler(segment.session)}
+        }
+    }
+    
+    func scheduleGaplessSegment(_ segment: PlaybackSegment, immediatePlayback: Bool = true, completionHandler: @escaping SessionCompletionHandler) {
+
+        // The start frame and seek position should be reset only if this segment will be played immediately.
+        // If it is being scheduled for the future, doing this will cause inaccurate seek position values.
+        if immediatePlayback {
+            resetSeekPositionState(startFrame: segment.firstFrame, startTime: segment.startTime)
+        }
+        
+        scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil,
+                        completionCallbackType: completionCallbackType) {_ in
+            
+            self.resetSeekPositionState()
+            
+            if let nodeTime = self.lastRenderTime, let playerTime = self.playerTime(forNodeTime: nodeTime) {
+                
+                self.numFramesCorrection = playerTime.sampleTime
+                self.correctionAppliedForSegment = true
+            }
             
             self.completionCallbackQueue.async {completionHandler(segment.session)}
         }
