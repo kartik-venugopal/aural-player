@@ -114,6 +114,10 @@ protocol SequencingProtocol {
     
     func setRepeatAndShuffleModes(repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
+    var repeatMode: RepeatMode {get}
+    
+    var shuffleMode: ShuffleMode{get}
+    
     // Returns the current repeat and shuffle modes
     var repeatAndShuffleModes: RepeatAndShuffleModes {get}
 }

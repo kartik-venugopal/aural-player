@@ -10,7 +10,7 @@
 
 import AppKit
 
-class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObserver {
+class PlayerViewController: NSViewController {
     
     @IBOutlet weak var artView: NSImageView!
     
@@ -404,126 +404,6 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         seekTimerTaskQueue.dequeueTask(Self.chapterChangePollingTaskId)
     }
     
-    func setUpTheming() {
-        
-        fontSchemesManager.registerObserver(self)
-        colorSchemesManager.registerSchemeObservers(self)
-        
-        setUpColorSchemePropertyObservation()
-    }
-    
-    func setUpColorSchemePropertyObservation() {
-        
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: volumeSlider)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, changeReceivers: [seekSlider, volumeSlider])
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, changeReceivers: [seekSlider, volumeSlider])
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: [btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].compactMap {$0})
-    }
-    
-    func fontSchemeChanged() {
-        
-        updateTrackTextViewFonts()
-        lblPlaybackPosition.font = playbackPositionFont
-        lblVolume.font = volumeLevelFont
-    }
-    
-    func updateTrackTextViewFonts() {
-        // To be overriden!
-    }
-    
-    func updateTrackTextViewFontsAndColors() {
-        // To be overriden!
-    }
-    
-    func updateMultilineTrackTextViewFontsAndColors() {
-        
-        multilineTrackTextView.titleFont = multilineTrackTextTitleFont
-        multilineTrackTextView.artistAlbumFont = multilineTrackTextArtistAlbumFont
-        multilineTrackTextView.chapterTitleFont = multilineTrackTextChapterTitleFont
-        
-        multilineTrackTextView.backgroundColor = systemColorScheme.backgroundColor
-        multilineTrackTextView.titleColor = multilineTrackTextTitleColor
-        multilineTrackTextView.artistAlbumColor = multilineTrackTextArtistAlbumColor
-        multilineTrackTextView.chapterTitleColor = multilineTrackTextChapterTitleColor
-        
-        multilineTrackTextView.update()
-    }
-    
-    func updateScrollingTrackTextViewFontsAndColors() {
-        
-        scrollingTrackTextView.font = scrollingTrackTextFont
-        scrollingTextViewContainerBox.fillColor = systemColorScheme.backgroundColor
-        scrollingTrackTextView.titleTextColor = scrollingTrackTextTitleColor
-        scrollingTrackTextView.artistTextColor = scrollingTrackTextArtistColor
-        
-        layoutScrollingTrackTextView()
-        scrollingTrackTextView.update()
-    }
-    
-    func updateMultilineTrackTextViewFonts() {
-        
-        multilineTrackTextView.titleFont = multilineTrackTextTitleFont
-        multilineTrackTextView.artistAlbumFont = multilineTrackTextArtistAlbumFont
-        multilineTrackTextView.chapterTitleFont = multilineTrackTextChapterTitleFont
-        
-        multilineTrackTextView.update()
-    }
-    
-    func updateScrollingTrackTextViewFonts() {
-        
-        scrollingTrackTextView.font = scrollingTrackTextFont
-        layoutScrollingTrackTextView()
-    }
-    
-    func colorSchemeChanged() {
-        
-        updateTrackTextViewColors()
-        
-        artViewTintColorChanged(systemColorScheme.secondaryTextColor)
-        
-        lblPlaybackPosition.textColor = playbackPositionColor
-        
-        [btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach {
-            $0?.colorChanged(systemColorScheme.buttonColor)
-        }
-        
-        btnVolume.colorChanged(systemColorScheme.buttonColor)
-        
-        seekSlider.redraw()
-        volumeSlider.redraw()
-        lblVolume.textColor = volumeLevelColor
-    }
-    
-    func updateTrackTextViewColors() {
-        // To be overriden!
-    }
-    
-    func updateMultilineTrackTextViewColors() {
-        
-        multilineTrackTextView.backgroundColor = systemColorScheme.backgroundColor
-        multilineTrackTextView.titleColor = multilineTrackTextTitleColor
-        multilineTrackTextView.artistAlbumColor = multilineTrackTextArtistAlbumColor
-        multilineTrackTextView.chapterTitleColor = multilineTrackTextChapterTitleColor
-        
-        multilineTrackTextView.update()
-    }
-    
-    func updateScrollingTrackTextViewColors() {
-        
-        scrollingTextViewContainerBox.fillColor = systemColorScheme.backgroundColor
-        scrollingTrackTextView.titleTextColor = scrollingTrackTextTitleColor
-        scrollingTrackTextView.artistTextColor = scrollingTrackTextArtistColor
-        scrollingTrackTextView.update()
-    }
-    
-    func artViewTintColorChanged(_ newColor: NSColor) {
-        
-        // Re-tint the default playing track cover art, if no track cover art is displayed.
-        if playbackDelegate.playingTrack?.art == nil {
-            artView.contentTintColor = newColor
-        }
-    }
-    
     func setUpCommandHandling() {
         
         messenger.subscribeAsync(to: .Player.playTrack, handler: performTrackPlayback(_:))
@@ -568,22 +448,10 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         messenger.subscribe(to: .Player.trackInfo, handler: showTrackInfo)
     }
     
-    @IBAction func togglePlayPauseAction(_ sender: NSButton) {
-        playOrPause()
-    }
-    
-    @IBAction func previousTrackAction(_ sender: NSButton) {
-        previousTrack()
-    }
-    
     func previousTrack() {
         playbackDelegate.previousTrack()
     }
     
-    @IBAction func nextTrackAction(_ sender: NSButton) {
-        nextTrack()
-    }
-
     func nextTrack() {
         playbackDelegate.nextTrack()
     }
@@ -642,26 +510,10 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         }
     }
     
-    @IBAction func seekSliderAction(_ sender: NSSlider) {
-        
-        playbackDelegate.seekToPercentage(seekSlider.doubleValue)
-        updateSeekPosition()
-    }
-    
-    // Seeks backward within the currently playing track
-    @IBAction func seekBackwardAction(_ sender: NSButton) {
-        seekBackward(inputMode: .discrete)
-    }
-    
     func seekBackward(inputMode: UserInputMode) {
         
         playbackDelegate.seekBackward(inputMode)
         updateSeekPosition()
-    }
-    
-    // Seeks forward within the currently playing track
-    @IBAction func seekForwardAction(_ sender: NSButton) {
-        seekForward(inputMode: .discrete)
     }
     
     func seekForward(inputMode: UserInputMode) {
@@ -702,22 +554,12 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
     // Override this in subclasses!
     func showTrackInfoView() {}
     
-    @IBAction func toggleLoopAction(_ sender: NSButton) {
-        toggleLoop()
-    }
-    
     func toggleLoop() {
         
         guard playbackDelegate.state.isPlayingOrPaused else {return}
         
         playbackDelegate.toggleLoop()
         messenger.publish(.Player.playbackLoopChanged)
-    }
-    
-    @IBAction func togglePlaybackPositionDisplayTypeAction(_ sender: NSTextField) {
-        
-        playerUIState.playbackPositionDisplayType = playerUIState.playbackPositionDisplayType.toggle()
-        setPlaybackPositionDisplayType(to: playerUIState.playbackPositionDisplayType)
     }
     
     func updateSeekPosition() {
@@ -813,12 +655,6 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         messenger.publish(.Player.playbackLoopChanged)
     }
     
-    @IBAction func volumeAction(_ sender: NSSlider) {
-        
-        audioGraphDelegate.volume = volumeSlider.floatValue
-        volumeChanged(volume: audioGraphDelegate.volume, muted: audioGraphDelegate.muted, updateSlider: false)
-    }
-    
     // Decreases the volume by a certain preset decrement
     func decreaseVolume(inputMode: UserInputMode) {
         
@@ -831,10 +667,6 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         
         let newVolume = audioGraphDelegate.increaseVolume(inputMode: inputMode)
         volumeChanged(volume: newVolume, muted: audioGraph.muted)
-    }
-    
-    @IBAction func muteOrUnmuteAction(_ sender: NSButton) {
-        muteOrUnmute()
     }
     
     func muteOrUnmute() {
@@ -886,16 +718,8 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
         }
     }
     
-    @IBAction func toggleRepeatModeAction(_ sender: NSButton) {
-        toggleRepeatMode()
-    }
-    
     func toggleRepeatMode() {
         updateRepeatAndShuffleControls(modes: playQueueDelegate.toggleRepeatMode())
-    }
-    
-    @IBAction func toggleShuffleModeAction(_ sender: NSButton) {
-        toggleShuffleMode()
     }
     
     func toggleShuffleMode() {
@@ -1014,30 +838,5 @@ class PlayerViewController: NSViewController, FontSchemeObserver, ColorSchemeObs
     
     override func destroy() {
         messenger.unsubscribeFromAll()
-    }
-}
-
-extension PlayerViewController: ThemeInitialization {
-    
-    @objc func initTheme() {
-        
-        updateTrackTextViewFontsAndColors()
-        
-        lblPlaybackPosition.font = playbackPositionFont
-        lblPlaybackPosition.textColor = playbackPositionColor
-        
-        lblVolume.font = volumeLevelFont
-        lblVolume.textColor = volumeLevelColor
-        
-        artViewTintColorChanged(systemColorScheme.secondaryTextColor)
-        
-        [btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach {
-            $0?.colorChanged(systemColorScheme.buttonColor)
-        }
-        
-        btnVolume.colorChanged(systemColorScheme.buttonColor)
-        
-        seekSlider.redraw()
-        volumeSlider.redraw()
     }
 }

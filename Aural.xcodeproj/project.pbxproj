@@ -953,6 +953,8 @@
 		3ED23857282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED23856282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift */; };
 		3ED2385928207E2C0048CF8E /* FilterBandEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED2385828207E2C0048CF8E /* FilterBandEditorDialog.xib */; };
 		3ED2385C28207FD90048CF8E /* FilterBandEditorDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2385B28207FD90048CF8E /* FilterBandEditorDialogController.swift */; };
+		3ED65A532C45BA3000859677 /* PlayerViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */; };
+		3ED65A552C45BAD000859677 /* PlayerViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */; };
 		3ED8E74A281482C9002E313F /* TableImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E749281482C9002E313F /* TableImageCell.swift */; };
 		3ED8E74F2814A312002E313F /* GeneralColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E74D2814A312002E313F /* GeneralColorSchemeViewController.swift */; };
 		3ED8E7502814A312002E313F /* GeneralColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8E74E2814A312002E313F /* GeneralColorScheme.xib */; };
@@ -2042,6 +2044,8 @@
 		3ED23856282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterUnitViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		3ED2385828207E2C0048CF8E /* FilterBandEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterBandEditorDialog.xib; sourceTree = "<group>"; };
 		3ED2385B28207FD90048CF8E /* FilterBandEditorDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandEditorDialogController.swift; sourceTree = "<group>"; };
+		3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Actions.swift"; sourceTree = "<group>"; };
+		3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Theming.swift"; sourceTree = "<group>"; };
 		3ED8E749281482C9002E313F /* TableImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableImageCell.swift; sourceTree = "<group>"; };
 		3ED8E74D2814A312002E313F /* GeneralColorSchemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3ED8E74E2814A312002E313F /* GeneralColorScheme.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralColorScheme.xib; sourceTree = "<group>"; };
@@ -4349,6 +4353,8 @@
 		3E6C0FDD25CEB98600BF0D07 /* MenuControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0FE025CEB98600BF0D07 /* PlaybackMenuController.swift */,
+				3E6C0FE725CEB98600BF0D07 /* SoundMenuController.swift */,
 				3E7AF10428065441006DC98F /* PlayQueueMenuController.swift */,
 				3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */,
 				3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */,
@@ -4357,12 +4363,10 @@
 				3E6C0F2225CEB98500BF0D07 /* WindowLayoutPopupMenuController.swift */,
 				3E6C0FDE25CEB98600BF0D07 /* HistoryMenuControllers.swift */,
 				3E6C0FDF25CEB98600BF0D07 /* PlaylistMenuController.swift */,
-				3E6C0FE025CEB98600BF0D07 /* PlaybackMenuController.swift */,
 				3E6C0FE425CEB98600BF0D07 /* AuralMenuController.swift */,
 				3E6C0FE525CEB98600BF0D07 /* ViewMenuController.swift */,
 				3E8729832C1B98AE00EA88C2 /* AppModeSubMenuController.swift */,
 				3E6C0FE625CEB98600BF0D07 /* DockMenuController.swift */,
-				3E6C0FE725CEB98600BF0D07 /* SoundMenuController.swift */,
 				3E6C0FE825CEB98600BF0D07 /* SupportMenuController.swift */,
 				3E6C0FE925CEB98600BF0D07 /* BookmarksMenuController.swift */,
 				3E6C0FEA25CEB98600BF0D07 /* FavoritesMenuController.swift */,
@@ -4476,6 +4480,8 @@
 			isa = PBXGroup;
 			children = (
 				3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */,
+				3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */,
+				3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */,
 				3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */,
 				3E6C101F25CEB98600BF0D07 /* PlayerUIState.swift */,
 				3E3ACFA42C22435A006945B8 /* DragDroppablePlayerView.swift */,
@@ -5997,6 +6003,7 @@
 				3EBF293526869A1200D87021 /* PreferencesPopupMenuCell.swift in Sources */,
 				3E0218D92C23490E00865AC2 /* PlaybackSession.swift in Sources */,
 				3EAFB60B267FF2B900F0DC96 /* PreferencesSliderCell.swift in Sources */,
+				3ED65A532C45BA3000859677 /* PlayerViewController+Actions.swift in Sources */,
 				3E0218862C23490E00865AC2 /* AudioGraphPersistentState.swift in Sources */,
 				3E6C121825CEBDE500BF0D07 /* PreferencesWindowController.swift in Sources */,
 				3E3579D226837D3D009522A0 /* UIPresetsManagerViewController.swift in Sources */,
@@ -6153,6 +6160,7 @@
 				3E0219572C23490E00865AC2 /* SearchOptions.swift in Sources */,
 				3E6C128325CEBE1800BF0D07 /* TintedImageButton.swift in Sources */,
 				3E0218312C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift in Sources */,
+				3ED65A552C45BAD000859677 /* PlayerViewController+Theming.swift in Sources */,
 				3E0217FD2C23490E00865AC2 /* EQUnit.swift in Sources */,
 				3E02182D2C23490E00865AC2 /* FavoritesDelegateProtocol.swift in Sources */,
 				3E6C12A025CEBE2700BF0D07 /* TintedImageView.swift in Sources */,

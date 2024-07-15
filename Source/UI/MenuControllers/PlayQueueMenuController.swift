@@ -14,6 +14,7 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var playSelectedTrackItem: NSMenuItem!
     
+    @IBOutlet weak var importFilesItem: NSMenuItem!
     @IBOutlet weak var exportToPlaylistItem: NSMenuItem!
     
     @IBOutlet weak var removeSelectedTracksItem: NSMenuItem!
@@ -64,7 +65,11 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
             playingTrackSelected = true
         }
         
+        let notInGaplessMode = !playbackDelegate.isInGaplessPlaybackMode
+        
         playSelectedTrackItem.enableIf(selRows.count == 1 && (!playingTrackSelected))
+        
+        importFilesItem.enableIf(notInGaplessMode)
         
         [exportToPlaylistItem, removeAllTracksItem, selectAllTracksItem, invertSelectionItem, searchItem,
          pageUpItem, pageDownItem, scrollToTopItem, scrollToBottomItem, searchItem].forEach {
@@ -72,17 +77,16 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
             $0.enableIf(pqHasTracks)
         }
         
-        [removeSelectedTracksItem, clearSelectionItem].forEach {
-            $0.enableIf(hasSelRows)
-        }
+        removeSelectedTracksItem.enableIf(hasSelRows && notInGaplessMode)
+        clearSelectionItem.enableIf(hasSelRows)
         
         [cropSelectedTracksItem, moveSelectedTracksUpItem,
          moveSelectedTracksToTopItem, moveSelectedTracksDownItem, moveSelectedTracksToBottomItem].forEach {
             
-            $0.enableIf(hasSelRows && moreThanOneTrack && notAllTracksSelected)
+            $0.enableIf(hasSelRows && moreThanOneTrack && notAllTracksSelected && notInGaplessMode)
         }
         
-        sortItem.enableIf(pqSize >= 2)
+        sortItem.enableIf(moreThanOneTrack && notInGaplessMode)
     }
     
     // Plays the selected play queue track.

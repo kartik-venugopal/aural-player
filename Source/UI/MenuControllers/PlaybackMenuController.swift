@@ -49,6 +49,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Playback shuffle modes
     @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
+    @IBOutlet weak var toggleShuffleModeMenuItem: NSMenuItem!
     
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
@@ -75,11 +76,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let isPlayingOrPaused = playbackState.isPlayingOrPaused
         let isShowingPlayQueue = appModeManager.currentMode == .modular ? windowLayoutsManager.isShowingPlayQueue : true
         let noTrack = playbackState == .stopped
-        
         let isShowingSearchDialog = NSApp.windows.first(where: {$0.identifier?.rawValue == "search"})?.isVisible ?? false
+        let notInGaplessMode = !playbackDelegate.isInGaplessPlaybackMode
+        let hasChapters = playbackInfo.chapterCount > 0
         
         // Play/pause enabled if at least one track available
-        // TODO: Disable if search dialog is shown
+        // TODO: REVISIT THIS !!! Disable if search dialog is shown
         playOrPauseMenuItem.enableIf(playQueue.size > 0 && !isShowingSearchDialog)
         
         gaplessPlaybackMenuItem.enableIf(noTrack && playQueue.size > 1)
@@ -91,31 +93,39 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let showingModalComponent: Bool = NSApp.isShowingModalComponent
         
         showInPlayQueueMenuItem.enableIf(isPlayingOrPaused && isShowingPlayQueue)
-        [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach {$0?.enableIf(isPlayingOrPaused)}
+        [replayTrackMenuItem, detailedInfoMenuItem].forEach {$0?.enableIf(isPlayingOrPaused)}
+        loopMenuItem.enableIf(isPlayingOrPaused && notInGaplessMode)
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
 
         [previousTrackMenuItem, nextTrackMenuItem].forEach {$0.enableIf(!noTrack && !showingModalComponent)}
         
         // These items should be enabled only if there is a playing track and it has chapter markings
-        [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem, loopChapterMenuItem].forEach {$0?.enableIf(playbackInfo.chapterCount > 0)}
+        [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem].forEach {$0?.enableIf(hasChapters)}
+        loopChapterMenuItem.enableIf(hasChapters && notInGaplessMode)
         
-        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach {$0?.enableIf(isPlayingOrPaused && !showingModalComponent)}
+        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach {
+            $0?.enableIf(isPlayingOrPaused && !showingModalComponent)
+        }
         
-//        rememberLastPositionMenuItem.enableIf(isPlayingOrPaused)
+        [repeatOneMenuItem, shuffleOnMenuItem, toggleShuffleModeMenuItem].forEach {
+            $0.enableIf(notInGaplessMode)
+        }
+        
+        rememberLastPositionMenuItem.enableIf(isPlayingOrPaused && notInGaplessMode)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
         
-//        updateRepeatAndShuffleMenuItemStates()
+        updateRepeatAndShuffleMenuItemStates()
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
-//        rememberLastPositionMenuItem.showIf(playbackPreferences.rememberLastPositionOption.value == .individualTracks)
-//        
-//        if let playingTrack = playbackInfo.playingTrack {
-//            rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))
-//        }
+        rememberLastPositionMenuItem.showIf(!playbackPreferences.rememberLastPositionForAllTracks.value)
+        
+        if let playingTrack = playbackInfo.playingTrack {
+            rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))
+        }
     }
     
     // MARK: Basic playback functions (tracks)
@@ -257,24 +267,24 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Updates the menu item states per the current playback modes
     private func updateRepeatAndShuffleMenuItemStates() {
         
-//        let modes = playQueue.repeatAndShuffleModes
-//        
-//        shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
-//        shuffleOnMenuItem.onIf(modes.shuffleMode == .on)
-//        
-//        [repeatOffMenuItem, repeatOneMenuItem, repeatAllMenuItem].forEach {$0?.off()}
-//        
-//        switch modes.repeatMode {
-//            
-//        case .off:
-//            repeatOffMenuItem.on()
-//            
-//        case .all:
-//            repeatAllMenuItem.on()
-//            
-//        case .one:
-//            repeatOneMenuItem.on()
-//        }
+        let modes = playQueue.repeatAndShuffleModes
+        
+        shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
+        shuffleOnMenuItem.onIf(modes.shuffleMode == .on)
+        
+        [repeatOffMenuItem, repeatOneMenuItem, repeatAllMenuItem].forEach {$0?.off()}
+        
+        switch modes.repeatMode {
+            
+        case .off:
+            repeatOffMenuItem.on()
+            
+        case .all:
+            repeatAllMenuItem.on()
+            
+        case .one:
+            repeatOneMenuItem.on()
+        }
     }
     
     deinit {

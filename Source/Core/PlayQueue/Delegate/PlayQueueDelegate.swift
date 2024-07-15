@@ -48,6 +48,14 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     var currentTrackIndex: Int? {playQueue.currentTrackIndex}
     
+    var repeatMode: RepeatMode {
+        playQueue.repeatMode
+    }
+    
+    var shuffleMode: ShuffleMode {
+        playQueue.shuffleMode
+    }
+    
     lazy var messenger: Messenger = .init(for: self)
     
     init(playQueue: PlayQueueProtocol, persistentState: PlayQueuePersistentState?) {

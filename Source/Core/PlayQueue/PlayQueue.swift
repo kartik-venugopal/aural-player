@@ -208,7 +208,20 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             }
         }
         
-        return audioFormatsSet.count == 1
+        let success = audioFormatsSet.count == 1
+        
+        if success {
+            
+            if repeatMode == .one {
+                repeatMode = .off
+            }
+            
+            if shuffleMode == .on {
+                shuffleMode = .off
+            }
+        }
+        
+        return success
     }
     
     override func preTrackLoad() {

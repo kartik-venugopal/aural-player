@@ -50,6 +50,7 @@
                 <outlet property="shuffleOffMenuItem" destination="Sv9-wN-8z1" id="fWq-zU-CJ5"/>
                 <outlet property="shuffleOnMenuItem" destination="cbv-9G-Lwo" id="Fht-5Y-k3E"/>
                 <outlet property="stopMenuItem" destination="OKd-9e-Yoo" id="Kiw-wI-Wt2"/>
+                <outlet property="toggleShuffleModeMenuItem" destination="yje-NM-3Lm" id="6jn-3q-wNu"/>
             </connections>
         </customObject>
         <customObject id="CYF-bp-BH0" customClass="SoundMenuController" customModule="Aural" customModuleProvider="target">
@@ -81,6 +82,7 @@
                 <outlet property="clearSelectionItem" destination="kGh-EP-mOf" id="vXS-K1-ZAA"/>
                 <outlet property="cropSelectedTracksItem" destination="Wte-Y6-ApM" id="5HD-vb-3YC"/>
                 <outlet property="exportToPlaylistItem" destination="r57-3U-prt" id="ZRw-k5-v3G"/>
+                <outlet property="importFilesItem" destination="kml-xq-yDB" id="Klh-bY-pJi"/>
                 <outlet property="invertSelectionItem" destination="i2i-BH-DB2" id="Vlc-KN-RrJ"/>
                 <outlet property="moveSelectedTracksDownItem" destination="EvN-T2-rcJ" id="ty1-ng-HyG"/>
                 <outlet property="moveSelectedTracksToBottomItem" destination="5RC-Mz-njC" id="fdt-HR-r2v"/>
@@ -662,9 +664,6 @@ DQ
                                 <connections>
                                     <action selector="importFilesAndFoldersAction:" target="YXK-dI-G9P" id="pyV-qu-R5h"/>
                                 </connections>
-                            </menuItem>
-                            <menuItem title=" Import and play files / folders" image="plus.rectangle.on.folder" catalog="system" keyEquivalent="o" id="XuL-u8-1cb" userLabel="Add and play files / folders">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
                             <menuItem title=" Export as playlist file" image="arrow.right.doc.on.clipboard" catalog="system" keyEquivalent="s" id="r57-3U-prt">
                                 <connections>
