@@ -133,14 +133,40 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     
     func previousTrack() {
         
-        if state != .stopped {
+        guard state.isPlayingOrPaused else {return}
+        
+        if isInGaplessPlaybackMode {
+            
+            let beginTrack = playQueue.currentTrack
+            let beginState = player.state
+            
+            let endTrack = playQueue.previous()
+            player.playGapless(tracks: playQueue.tracksPendingPlayback)
+            
+            messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
+                                                          endTrack: endTrack, endState: player.state))
+            
+        } else {
             doPlay({playQueue.previous()})
         }
     }
     
     func nextTrack() {
         
-        if state != .stopped {
+        guard state.isPlayingOrPaused else {return}
+        
+        if isInGaplessPlaybackMode {
+            
+            let beginTrack = playQueue.currentTrack
+            let beginState = player.state
+            
+            let endTrack = playQueue.next()
+            player.playGapless(tracks: playQueue.tracksPendingPlayback)
+            
+            messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
+                                                          endTrack: endTrack, endState: player.state))
+            
+        } else {
             doPlay({playQueue.next()})
         }
     }
@@ -339,16 +365,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     // It occurs, for instance, when clicking on the seek bar, or using the "Jump to time" function.
     private func forceSeek(_ seekPosn: Double) {
         
-        if state.isPlayingOrPaused, let track = playingTrack {
+        guard state.isPlayingOrPaused, let track = playingTrack else {return}
+        
+        let seekResult = player.forceSeekToTime(track, seekPosn)
+        
+        if seekResult.trackPlaybackCompleted {
+            doTrackPlaybackCompleted()
             
-            let seekResult = player.forceSeekToTime(track, seekPosn)
-            
-            if seekResult.trackPlaybackCompleted {
-                doTrackPlaybackCompleted()
-                
-            } else if seekResult.loopRemoved {
-                messenger.publish(.Player.playbackLoopChanged)
-            }
+        } else if seekResult.loopRemoved {
+            messenger.publish(.Player.playbackLoopChanged)
         }
     }
     
@@ -367,15 +392,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     }
     
     var playingTrack: Track? {
-        return state.isPlayingOrPaused ? playQueue.currentTrack : nil
+        state.isPlayingOrPaused ? playQueue.currentTrack : nil
     }
     
     var playingTrackStartTime: TimeInterval? {
-        return player.playingTrackStartTime
+        player.playingTrackStartTime
     }
     
     var playbackLoop: PlaybackLoop? {
-        return player.playbackLoop
+        player.playbackLoop
     }
     
     var playbackLoopState: PlaybackLoopState {

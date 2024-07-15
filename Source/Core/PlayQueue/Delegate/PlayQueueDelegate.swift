@@ -33,6 +33,8 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     let playQueue: PlayQueueProtocol
 
     var tracks: [Track] {playQueue.tracks}
+    
+    var tracksPendingPlayback: [Track] {playQueue.tracksPendingPlayback}
 
     var size: Int {playQueue.size}
 

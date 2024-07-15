@@ -121,17 +121,6 @@ class AuralPlayerNode: AVAudioPlayerNode {
         return segment
     }
     
-    func scheduleGaplessSegment(session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler,
-                         startTime: Double, endTime: Double? = nil,
-                         playingFile: AVAudioFile, startFrame: AVAudioFramePosition? = nil,
-                         immediatePlayback: Bool = true) -> PlaybackSegment? {
-
-        guard let segment = computeSegment(session, startTime, endTime, playingFile, startFrame) else {return nil}
-        
-        scheduleGaplessSegment(segment, immediatePlayback: immediatePlayback, completionHandler: completionHandler)
-        return segment
-    }
-    
     func resetSeekPositionState(startFrame: AVAudioFramePosition = 0, startTime: Double = 0) {
         
         // Advance the last seek position to the new position
@@ -161,6 +150,17 @@ class AuralPlayerNode: AVAudioPlayerNode {
             
             self.completionCallbackQueue.async {completionHandler(segment.session)}
         }
+    }
+    
+    func scheduleGaplessSegment(session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler,
+                         startTime: Double, endTime: Double? = nil,
+                         playingFile: AVAudioFile, startFrame: AVAudioFramePosition? = nil,
+                         immediatePlayback: Bool = true) -> PlaybackSegment? {
+
+        guard let segment = computeSegment(session, startTime, endTime, playingFile, startFrame) else {return nil}
+        
+        scheduleGaplessSegment(segment, immediatePlayback: immediatePlayback, completionHandler: completionHandler)
+        return segment
     }
     
     func scheduleGaplessSegment(_ segment: PlaybackSegment, immediatePlayback: Bool = true, completionHandler: @escaping SessionCompletionHandler) {

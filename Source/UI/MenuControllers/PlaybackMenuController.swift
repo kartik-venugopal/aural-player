@@ -19,6 +19,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Menu items whose states are toggled when they (or others) are clicked
     
     @IBOutlet weak var playOrPauseMenuItem: NSMenuItem!     // Needs to be toggled
+    @IBOutlet weak var gaplessPlaybackMenuItem: NSMenuItem!
     @IBOutlet weak var stopMenuItem: NSMenuItem!
 
     @IBOutlet weak var previousTrackMenuItem: NSMenuItem!
@@ -80,6 +81,8 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         // Play/pause enabled if at least one track available
         // TODO: Disable if search dialog is shown
         playOrPauseMenuItem.enableIf(playQueue.size > 0 && !isShowingSearchDialog)
+        
+        gaplessPlaybackMenuItem.enableIf(noTrack && playQueue.size > 1)
         
         stopMenuItem.enableIf(!noTrack)
         jumpToTimeMenuItem?.enableIf(isPlayingOrPaused)

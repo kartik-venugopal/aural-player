@@ -15,6 +15,12 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     var currentTrackIndex: Int? = nil
     
+    var tracksPendingPlayback: [Track] {
+        
+        guard let currentTrackIndex = self.currentTrackIndex else {return []}
+        return Array(tracks[currentTrackIndex..<tracks.count])
+    }
+    
     var repeatMode: RepeatMode = .defaultMode
     var shuffleMode: ShuffleMode = .defaultMode
     

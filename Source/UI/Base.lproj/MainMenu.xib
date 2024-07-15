@@ -27,6 +27,7 @@
         <customObject id="qXQ-AJ-SLV" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="detailedInfoMenuItem" destination="5RG-cG-bTv" id="fkL-IB-0CL"/>
+                <outlet property="gaplessPlaybackMenuItem" destination="y5o-W4-GGY" id="4gu-7J-mRh"/>
                 <outlet property="jumpToTimeMenuItem" destination="iTN-3t-xfn" id="hzB-NT-r4x"/>
                 <outlet property="loopChapterMenuItem" destination="paH-a9-iy2" id="nGs-2W-8Mi"/>
                 <outlet property="loopMenuItem" destination="0dG-Em-a2U" id="Bhd-eD-7aG"/>

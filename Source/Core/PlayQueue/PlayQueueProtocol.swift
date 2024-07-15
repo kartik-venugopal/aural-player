@@ -8,6 +8,8 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     
     var currentTrackIndex: Int? {get}
     
+    var tracksPendingPlayback: [Track] {get}
+    
     // MARK: Mutating functions ---------------------------------------------------------------
     
     // Adds tracks to the end of the queue, i.e. "Play Later"

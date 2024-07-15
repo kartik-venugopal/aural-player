@@ -8,6 +8,8 @@ protocol PlayQueueDelegateProtocol: TrackListProtocol, SequencingProtocol, Histo
     
     var currentTrackIndex: Int? {get}
     
+    var tracksPendingPlayback: [Track] {get}
+    
     // MARK: Mutating functions ---------------------------------------------------------------
     
     // Tracks loaded directly from the file system (either Finder or on startup)

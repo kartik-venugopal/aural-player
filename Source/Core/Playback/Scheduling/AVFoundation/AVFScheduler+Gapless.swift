@@ -67,8 +67,6 @@ extension AVFScheduler {
                     self.playerNode.scheduleFile(session: session,
                                                  completionHandler: self.gaplessSegmentCompletionHandler(session),
                                                  playingFile: file)
-                    
-                    print("Scheduled \(track)")
                 }
             }
         }
