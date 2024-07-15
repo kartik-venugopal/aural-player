@@ -34,7 +34,7 @@ extension PlayerViewController: ThemeInitialization {
         volumeSlider.redraw()
     }
     
-    func setUpTheming() {
+    @objc func setUpTheming() {
         
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObservers(self)
@@ -42,11 +42,11 @@ extension PlayerViewController: ThemeInitialization {
         setUpColorSchemePropertyObservation()
     }
     
-    func updateTrackTextViewFontsAndColors() {
+    @objc func updateTrackTextViewFontsAndColors() {
         // To be overriden!
     }
     
-    func updateMultilineTrackTextViewFontsAndColors() {
+    @objc func updateMultilineTrackTextViewFontsAndColors() {
         
         multilineTrackTextView.titleFont = multilineTrackTextTitleFont
         multilineTrackTextView.artistAlbumFont = multilineTrackTextArtistAlbumFont
@@ -60,7 +60,7 @@ extension PlayerViewController: ThemeInitialization {
         multilineTrackTextView.update()
     }
     
-    func updateScrollingTrackTextViewFontsAndColors() {
+    @objc func updateScrollingTrackTextViewFontsAndColors() {
         
         scrollingTrackTextView.font = scrollingTrackTextFont
         scrollingTextViewContainerBox.fillColor = systemColorScheme.backgroundColor
@@ -85,7 +85,7 @@ extension PlayerViewController: FontSchemeObserver {
         // To be overriden!
     }
     
-    func updateMultilineTrackTextViewFonts() {
+    @objc func updateMultilineTrackTextViewFonts() {
         
         multilineTrackTextView.titleFont = multilineTrackTextTitleFont
         multilineTrackTextView.artistAlbumFont = multilineTrackTextArtistAlbumFont
@@ -94,7 +94,7 @@ extension PlayerViewController: FontSchemeObserver {
         multilineTrackTextView.update()
     }
     
-    func updateScrollingTrackTextViewFonts() {
+    @objc func updateScrollingTrackTextViewFonts() {
         
         scrollingTrackTextView.font = scrollingTrackTextFont
         layoutScrollingTrackTextView()
@@ -103,7 +103,7 @@ extension PlayerViewController: FontSchemeObserver {
 
 extension PlayerViewController: ColorSchemeObserver {
     
-    func colorSchemeChanged() {
+    @objc func colorSchemeChanged() {
         
         updateTrackTextViewColors()
         
@@ -122,7 +122,7 @@ extension PlayerViewController: ColorSchemeObserver {
         lblVolume.textColor = volumeLevelColor
     }
     
-    func setUpColorSchemePropertyObservation() {
+    @objc func setUpColorSchemePropertyObservation() {
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: volumeSlider)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, changeReceivers: [seekSlider, volumeSlider])
@@ -130,11 +130,11 @@ extension PlayerViewController: ColorSchemeObserver {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: [btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].compactMap {$0})
     }
     
-    func updateTrackTextViewColors() {
+    @objc func updateTrackTextViewColors() {
         // To be overriden!
     }
     
-    func updateMultilineTrackTextViewColors() {
+    @objc func updateMultilineTrackTextViewColors() {
         
         multilineTrackTextView.backgroundColor = systemColorScheme.backgroundColor
         multilineTrackTextView.titleColor = multilineTrackTextTitleColor
@@ -144,7 +144,7 @@ extension PlayerViewController: ColorSchemeObserver {
         multilineTrackTextView.update()
     }
     
-    func updateScrollingTrackTextViewColors() {
+    @objc func updateScrollingTrackTextViewColors() {
         
         scrollingTextViewContainerBox.fillColor = systemColorScheme.backgroundColor
         scrollingTrackTextView.titleTextColor = scrollingTrackTextTitleColor
@@ -152,7 +152,7 @@ extension PlayerViewController: ColorSchemeObserver {
         scrollingTrackTextView.update()
     }
     
-    func artViewTintColorChanged(_ newColor: NSColor) {
+    @objc func artViewTintColorChanged(_ newColor: NSColor) {
         
         // Re-tint the default playing track cover art, if no track cover art is displayed.
         if playbackDelegate.playingTrack?.art == nil {

@@ -16,7 +16,7 @@ class PlayQueueViewController: TrackListTableViewController {
     var playQueueView: PlayQueueView {
         .simple
     }
-
+    
     override var isTrackListBeingModified: Bool {playQueueDelegate.isBeingModified}
     
     override var trackList: TrackListProtocol! {playQueueDelegate}
@@ -34,10 +34,10 @@ class PlayQueueViewController: TrackListTableViewController {
     @IBOutlet weak var favoriteMenuItem: NSMenuItem!
     
     @IBOutlet weak var favoriteTrackMenuItem: NSMenuItem!
-//    @IBOutlet weak var favoriteArtistMenuItem: NSMenuItem!
-//    @IBOutlet weak var favoriteAlbumMenuItem: NSMenuItem!
-//    @IBOutlet weak var favoriteGenreMenuItem: NSMenuItem!
-//    @IBOutlet weak var favoriteDecadeMenuItem: NSMenuItem!
+    //    @IBOutlet weak var favoriteArtistMenuItem: NSMenuItem!
+    //    @IBOutlet weak var favoriteAlbumMenuItem: NSMenuItem!
+    //    @IBOutlet weak var favoriteGenreMenuItem: NSMenuItem!
+    //    @IBOutlet weak var favoriteDecadeMenuItem: NSMenuItem!
     @IBOutlet weak var favoriteFolderMenuItem: NSMenuItem!
     
     @IBOutlet weak var moveTracksUpMenuItem: NSMenuItem!
@@ -48,7 +48,7 @@ class PlayQueueViewController: TrackListTableViewController {
     @IBOutlet weak var contextMenu: NSMenu!
     @IBOutlet weak var infoMenuItem: NSMenuItem!
     
-//    @IBOutlet weak var playlistNamesMenu: NSMenu!
+    //    @IBOutlet weak var playlistNamesMenu: NSMenu!
     
     // Popup view that displays a brief notification when a selected track is added/removed to/from the Favorites list
     lazy var infoPopup: InfoPopupViewController = .instance
@@ -78,7 +78,7 @@ class PlayQueueViewController: TrackListTableViewController {
             
             contextMenu.delegate = self
             
-//            for item in contextMenu.items + favoriteMenu.items + playlistNamesMenu.items {
+            //            for item in contextMenu.items + favoriteMenu.items + playlistNamesMenu.items {
             for item in contextMenu.items + favoriteMenu.items {
                 item.target = self
             }
@@ -133,11 +133,11 @@ class PlayQueueViewController: TrackListTableViewController {
     }
     
     func trackTransitioned(_ notification: TrackTransitionNotification) {
-    
+        
         let refreshIndexes: [Int] = Set([notification.beginTrack, notification.endTrack]
-                                            .compactMap {$0})
-                                            .compactMap {playQueueDelegate.indexOfTrack($0)}
-
+            .compactMap {$0})
+            .compactMap {playQueueDelegate.indexOfTrack($0)}
+        
         // If this is not done async, the row view could get garbled.
         // (because of other potential simultaneous updates - e.g. PlayingTrackInfoUpdated)
         DispatchQueue.main.async {
@@ -186,32 +186,56 @@ class PlayQueueViewController: TrackListTableViewController {
     }
     
     /**
-        The Play Queue needs to update the summary in the case when tracks were reordered, because, if a track
-        is playing, it may have moved.
+     The Play Queue needs to update the summary in the case when tracks were reordered, because, if a track
+     is playing, it may have moved.
      */
     
     override func doMoveTracksUp() {
         
+        if checkForGaplessMode() {return}
+        
         super.doMoveTracksUp()
         updateSummary()
     }
-
+    
     override func doMoveTracksDown() {
+        
+        if checkForGaplessMode() {return}
         
         super.doMoveTracksDown()
         updateSummary()
     }
-
+    
     override func doMoveTracksToTop() {
+        
+        if checkForGaplessMode() {return}
         
         super.doMoveTracksToTop()
         updateSummary()
     }
-
+    
     override func doMoveTracksToBottom() {
+        
+        if checkForGaplessMode() {return}
         
         super.doMoveTracksToBottom()
         updateSummary()
+    }
+    
+    private func checkForGaplessMode() -> Bool {
+        
+        if playbackDelegate.isInGaplessPlaybackMode {
+            
+            DispatchQueue.main.async {
+                
+                NSAlert.showInfo(withTitle: "Function unavailable",
+                                 andText: "Reordering of Play Queue tracks is not possible while in gapless playback mode.")
+            }
+            
+            return true
+        }
+        
+        return false
     }
     
     func tracksRemoved(firstRemovedRow: Int) {

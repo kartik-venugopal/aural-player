@@ -24,4 +24,12 @@ enum RepeatMode: String, CaseIterable, Codable {
     
     // Repeat one track forever
     case one
+    
+    func toggleMode() -> RepeatMode {
+        playbackDelegate.isInGaplessPlaybackMode ? toggleOffOrAll() : toggleCase()
+    }
+    
+    private func toggleOffOrAll() -> RepeatMode {
+        self == .off ? .all : .off
+    }
 }

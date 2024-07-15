@@ -46,7 +46,7 @@ extension PlayerViewController {
     
     @IBAction func togglePlaybackPositionDisplayTypeAction(_ sender: NSTextField) {
         
-        playerUIState.playbackPositionDisplayType = playerUIState.playbackPositionDisplayType.toggle()
+        playerUIState.playbackPositionDisplayType = playerUIState.playbackPositionDisplayType.toggleCase()
         setPlaybackPositionDisplayType(to: playerUIState.playbackPositionDisplayType)
     }
     
@@ -65,6 +65,13 @@ extension PlayerViewController {
     }
     
     @IBAction func toggleShuffleModeAction(_ sender: NSButton) {
+        
+        guard !playbackDelegate.isInGaplessPlaybackMode else {
+            
+            NSAlert.showInfo(withTitle: "Function unavailable", andText: "Shuffling is not possible while in gapless playback mode.")
+            return
+        }
+        
         toggleShuffleMode()
     }
 }

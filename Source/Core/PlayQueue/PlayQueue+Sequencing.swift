@@ -224,12 +224,12 @@ extension PlayQueue {
 
     // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> RepeatAndShuffleModes {
-        setRepeatMode(repeatMode.toggle())
+        setRepeatMode(repeatMode.toggleMode())
     }
     
     // Toggles between shuffle modes. See ShuffleMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleShuffleMode() -> RepeatAndShuffleModes {
-        setShuffleMode(shuffleMode.toggle())
+        setShuffleMode(shuffleMode.toggleCase())
     }
     
     var repeatAndShuffleModes: RepeatAndShuffleModes {

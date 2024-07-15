@@ -47,6 +47,7 @@
                 <outlet property="seekForwardMenuItem" destination="5Xg-01-Mqq" id="QTI-Cy-DaC"/>
                 <outlet property="seekForwardSecondaryMenuItem" destination="3oO-vN-aWk" id="0S0-Wd-XeL"/>
                 <outlet property="showInPlayQueueMenuItem" destination="4jN-mX-32n" id="iQv-sz-B4L"/>
+                <outlet property="shuffleModeSubMenuItem" destination="WRV-Fi-cbo" id="ujP-UX-5FS"/>
                 <outlet property="shuffleOffMenuItem" destination="Sv9-wN-8z1" id="fWq-zU-CJ5"/>
                 <outlet property="shuffleOnMenuItem" destination="cbv-9G-Lwo" id="Fht-5Y-k3E"/>
                 <outlet property="stopMenuItem" destination="OKd-9e-Yoo" id="Kiw-wI-Wt2"/>
@@ -329,7 +330,7 @@
                             <menuItem isSeparatorItem="YES" id="lGE-K5-jMm"/>
                             <menuItem title=" Repeat Mode" image="repeat" catalog="system" id="uFb-O9-O68" userLabel="Repeat Mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Repeat Mode" id="FCV-2Q-hxO">
+                                <menu key="submenu" title=" Repeat Mode" autoenablesItems="NO" id="FCV-2Q-hxO">
                                     <items>
                                         <menuItem title="Off" id="i2h-hZ-Nq7">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -360,7 +361,7 @@
                             </menuItem>
                             <menuItem title=" Shuffle Mode" image="shuffle" catalog="system" id="WRV-Fi-cbo" userLabel="Shuffle Mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Shuffle Mode" id="ICK-Dz-gE9">
+                                <menu key="submenu" title=" Shuffle Mode" autoenablesItems="NO" id="ICK-Dz-gE9">
                                     <items>
                                         <menuItem title="Off" id="Sv9-wN-8z1">
                                             <modifierMask key="keyEquivalentModifierMask"/>

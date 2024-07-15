@@ -58,6 +58,16 @@ extension TrackListTableViewController: NSTableViewDataSource {
         
         if isTrackListBeingModified {return false}
         
+        // TODO: Move this to the PQ, this is not valid for the Library or other track lists.
+        if playbackDelegate.isInGaplessPlaybackMode {
+            
+            DispatchQueue.main.async {
+                NSAlert.showInfo(withTitle: "Function unavailable", andText: "Reordering of Play Queue tracks is not possible while in gapless playback mode.")
+            }
+            
+            return false
+        }
+        
         if let sourceTable = info.draggingSource as? NSTableView {
             
             // TODO: PQ can override the helper functions with options for 'clearQueue' and 'autoplay'.

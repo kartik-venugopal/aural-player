@@ -33,6 +33,17 @@ extension NSAlert {
         _ = shared.runModal()
     }
     
+    static func showInfo(withTitle title: String, andText text: String) {
+        
+        shared.messageText = title
+        shared.informativeText = text
+        
+        shared.alertStyle = .informational
+        shared.icon = .imgInfo
+        
+        _ = shared.runModal()
+    }
+    
     ///
     /// Shows an informational / error alert, with the given title and informational text,  and returns
     /// a response depending on which alert button was clicked.

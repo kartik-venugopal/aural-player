@@ -17,7 +17,7 @@ extension CaseIterable where Self: RawRepresentable, AllCases == [Self], RawValu
     //
     // This is useful when switching from one case to the next.
     //
-    func toggle() -> Self {
+    func toggleCase() -> Self {
         
         let cases = Self.allCases
         guard let myIndex = cases.firstIndex(where: {$0 == self}) else {return self}

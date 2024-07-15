@@ -50,6 +50,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
     @IBOutlet weak var toggleShuffleModeMenuItem: NSMenuItem!
+    @IBOutlet weak var shuffleModeSubMenuItem: NSMenuItem!
     
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
@@ -108,7 +109,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
             $0?.enableIf(isPlayingOrPaused && !showingModalComponent)
         }
         
-        [repeatOneMenuItem, shuffleOnMenuItem, toggleShuffleModeMenuItem].forEach {
+        [repeatOneMenuItem, shuffleOnMenuItem, toggleShuffleModeMenuItem, shuffleModeSubMenuItem].forEach {
             $0.enableIf(notInGaplessMode)
         }
         

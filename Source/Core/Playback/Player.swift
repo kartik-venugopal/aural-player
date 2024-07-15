@@ -194,7 +194,7 @@ class Player: PlayerProtocol {
         } else {    // No loop
             
             let nodePos = playerNode.seekPosition
-            print("Time: \(nodePos) for \(session.track) of duration: \(session.track.duration)")
+//            print("Time: \(nodePos) for \(session.track) of duration: \(session.track.duration)")
             return min(max(0, nodePos), session.track.duration)
         }
     }

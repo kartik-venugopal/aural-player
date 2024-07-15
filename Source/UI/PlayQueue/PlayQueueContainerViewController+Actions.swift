@@ -55,6 +55,8 @@ extension PlayQueueContainerViewController {
     }
     
     @IBAction func cropSelectionAction(_ sender: Any) {
+        
+        if checkForGaplessMode() {return}
         cropSelection()
     }
     
@@ -81,6 +83,8 @@ extension PlayQueueContainerViewController {
     }
     
     @IBAction func moveTracksUpAction(_ sender: Any) {
+        
+        if checkForGaplessMode() {return}
         moveTracksUp()
     }
     
@@ -104,6 +108,8 @@ extension PlayQueueContainerViewController {
     }
     
     @IBAction func moveTracksDownAction(_ sender: Any) {
+        
+        if checkForGaplessMode() {return}
         moveTracksDown()
     }
     
@@ -127,6 +133,8 @@ extension PlayQueueContainerViewController {
     }
     
     @IBAction func moveTracksToTopAction(_ sender: Any) {
+        
+        if checkForGaplessMode() {return}
         moveTracksToTop()
     }
     
@@ -158,6 +166,8 @@ extension PlayQueueContainerViewController {
     }
 
     @IBAction func moveTracksToBottomAction(_ sender: Any) {
+        
+        if checkForGaplessMode() {return}
         moveTracksToBottom()
     }
     
@@ -189,6 +199,22 @@ extension PlayQueueContainerViewController {
         currentViewController.scrollToBottom()
         
         updateSummary()
+    }
+    
+    private func checkForGaplessMode() -> Bool {
+        
+        if playbackDelegate.isInGaplessPlaybackMode {
+            
+            DispatchQueue.main.async {
+                
+                NSAlert.showInfo(withTitle: "Function unavailable",
+                                 andText: "Reordering of Play Queue tracks is not possible while in gapless playback mode.")
+            }
+            
+            return true
+        }
+        
+        return false
     }
     
     @IBAction func clearSelectionAction(_ sender: NSButton) {
