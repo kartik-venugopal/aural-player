@@ -327,12 +327,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///  ```
     ///
     func stopScheduling() {
-        
-        if schedulingOpQueue.operationCount > 0 {
-            
-            schedulingOpQueue.cancelAllOperations()
-            schedulingOpQueue.waitUntilAllOperationsAreFinished()
-        }
+        schedulingOpQueue.cancelOpsAndWait()
     }
     
     // Computes a segment completion handler closure, given a playback session.

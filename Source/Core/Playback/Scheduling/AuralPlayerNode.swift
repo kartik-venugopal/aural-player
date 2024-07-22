@@ -105,7 +105,10 @@ class AuralPlayerNode: AVAudioPlayerNode {
         super.scheduleFile(playingFile, at: nil,
                            completionCallbackType: completionCallbackType) {_ in
             
-            self.resetSeekPositionState()
+            if PlaybackSession.isCurrent(session) {
+                self.resetSeekPositionState()
+            }
+            
             self.completionCallbackQueue.async {completionHandler(session)}
         }
     }
@@ -174,7 +177,10 @@ class AuralPlayerNode: AVAudioPlayerNode {
         scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil,
                         completionCallbackType: completionCallbackType) {_ in
             
-            self.resetSeekPositionState()
+            if PlaybackSession.isCurrent(segment.session) {
+                self.resetSeekPositionState()
+            }
+            
             self.completionCallbackQueue.async {completionHandler(segment.session)}
         }
     }

@@ -31,6 +31,7 @@
             <connections>
                 <outlet property="chaptersMenu" destination="ZBm-wF-2ER" id="fSh-IS-sbQ"/>
                 <outlet property="contextMenu" destination="Cdz-XH-gVz" id="PJ8-LC-a0A"/>
+                <outlet property="cropSelectionMenuItem" destination="P2t-mU-c8U" id="jd8-O9-zkm"/>
                 <outlet property="favoriteFolderMenuItem" destination="Aem-Rh-zL1" id="VV9-lJ-QlX"/>
                 <outlet property="favoriteMenu" destination="YdI-S6-ECx" id="RFJ-yA-R4k"/>
                 <outlet property="favoriteMenuItem" destination="zUu-GT-tTB" id="9o7-Jc-NiQ"/>
@@ -43,6 +44,7 @@
                 <outlet property="moveTracksUpMenuItem" destination="xhD-0V-jMz" id="cFF-Dt-aHw"/>
                 <outlet property="playNextMenuItem" destination="74g-y8-018" id="TZv-U9-EY6"/>
                 <outlet property="playNowMenuItem" destination="yLf-Z8-HKY" id="9nW-FU-XsD"/>
+                <outlet property="removeSelectedTracksMenuItem" destination="q5r-Ka-hvq" id="BDh-Sh-iqn"/>
                 <outlet property="viewChaptersListMenuItem" destination="wSF-DA-Xzf" id="GWd-Vd-H90"/>
             </connections>
         </customObject>
@@ -50,6 +52,7 @@
             <connections>
                 <outlet property="chaptersMenu" destination="ZBm-wF-2ER" id="tAk-nt-o9q"/>
                 <outlet property="contextMenu" destination="Cdz-XH-gVz" id="Lk6-BH-9CW"/>
+                <outlet property="cropSelectionMenuItem" destination="P2t-mU-c8U" id="bLv-ys-hgF"/>
                 <outlet property="favoriteFolderMenuItem" destination="Aem-Rh-zL1" id="UPW-nd-Qfx"/>
                 <outlet property="favoriteMenu" destination="YdI-S6-ECx" id="65n-dk-dHS"/>
                 <outlet property="favoriteMenuItem" destination="zUu-GT-tTB" id="wDg-HS-ZCB"/>
@@ -62,6 +65,7 @@
                 <outlet property="moveTracksUpMenuItem" destination="xhD-0V-jMz" id="iAh-xH-17D"/>
                 <outlet property="playNextMenuItem" destination="74g-y8-018" id="M8c-mJ-Tcy"/>
                 <outlet property="playNowMenuItem" destination="yLf-Z8-HKY" id="MX3-ax-gFl"/>
+                <outlet property="removeSelectedTracksMenuItem" destination="q5r-Ka-hvq" id="bdS-eV-d2n"/>
                 <outlet property="viewChaptersListMenuItem" destination="wSF-DA-Xzf" id="GtB-Dr-Q3q"/>
             </connections>
         </customObject>

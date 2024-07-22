@@ -25,6 +25,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
     // This is required because, in rare cases, some file segments may complete when they've reached close to the end, even if the last frame has not played yet.
     var trackCompletedWhilePaused: Bool = false
     
+    lazy var gaplessTracksQueue: Queue<Track> = Queue()
     var gaplessTrackCompletedWhilePaused: Bool = false
 
     // Caches a previously computed/scheduled playback segment, when a segment loop is defined, in order to prevent redundant computations.
@@ -102,6 +103,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
         playerNode.stop()
         trackCompletedWhilePaused = false
         gaplessTrackCompletedWhilePaused = false
+        gaplessTracksQueue.removeAll()
     }
     
     // MARK: Completion handler functions -------------------------------------------------------

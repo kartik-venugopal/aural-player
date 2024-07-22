@@ -26,6 +26,9 @@ class PlayQueueViewController: TrackListTableViewController {
     @IBOutlet weak var playNowMenuItem: NSMenuItem!
     @IBOutlet weak var playNextMenuItem: NSMenuItem!
     
+    @IBOutlet weak var removeSelectedTracksMenuItem: NSMenuItem!
+    @IBOutlet weak var cropSelectionMenuItem: NSMenuItem!
+    
     @IBOutlet weak var viewChaptersListMenuItem: NSMenuItem!
     @IBOutlet weak var jumpToChapterMenuItem: NSMenuItem!
     @IBOutlet weak var chaptersMenu: NSMenu!

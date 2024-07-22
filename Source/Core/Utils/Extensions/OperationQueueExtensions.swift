@@ -41,4 +41,13 @@ extension OperationQueue {
             self.qualityOfService = .background
         }
     }
+    
+    func cancelOpsAndWait() {
+        
+        if operationCount > 0 {
+            
+            cancelAllOperations()
+            waitUntilAllOperationsAreFinished()
+        }
+    }
 }

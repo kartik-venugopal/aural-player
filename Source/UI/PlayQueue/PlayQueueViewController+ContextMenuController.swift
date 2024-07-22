@@ -31,7 +31,7 @@ extension PlayQueueViewController: NSMenuDelegate {
         
         let atLeastOneRowSelected = selectedRowCount >= 1
         let oneRowSelected = selectedRowCount == 1
-        
+        let notInGaplessMode = !playbackDelegate.isInGaplessPlaybackMode
         var playingTrackSelected = false
         if let currentTrackIndex = playQueueDelegate.currentTrackIndex, selectedRows.contains(currentTrackIndex) {
             playingTrackSelected = true
@@ -39,11 +39,13 @@ extension PlayQueueViewController: NSMenuDelegate {
         
         playNowMenuItem.showIf(oneRowSelected && (!playingTrackSelected))
         
+        
+        
         [favoriteMenuItem, infoMenuItem].forEach {
             $0.showIf(oneRowSelected)
         }
         
-        playNextMenuItem.showIf(atLeastOneRowSelected && playbackInfoDelegate.state.isPlayingOrPaused && !playingTrackSelected)
+        playNextMenuItem.showIf(atLeastOneRowSelected && playbackInfoDelegate.state.isPlayingOrPaused && !playingTrackSelected && notInGaplessMode)
         
         // TODO: playlist names menu should have a separate delegate so that the menu
         // is not unnecessarily updated until required.
@@ -81,7 +83,7 @@ extension PlayQueueViewController: NSMenuDelegate {
         }
         
         [moveTracksUpMenuItem, moveTracksDownMenuItem, moveTracksToTopMenuItem, moveTracksToBottomMenuItem].forEach {
-            $0?.showIf(atLeastOneRowSelected)
+            $0?.showIf(atLeastOneRowSelected && notInGaplessMode)
         }
         
         let titlePrefix = favoritesDelegate.favoriteExists(track: theClickedTrack) ? "Remove" : "Add"

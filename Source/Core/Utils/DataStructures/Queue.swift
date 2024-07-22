@@ -22,6 +22,10 @@ class Queue<T: Any> {
         array.append(item)
     }
     
+    func enqueueAll(_ items: [T]) {
+        array.append(contentsOf: items)
+    }
+    
     func dequeue() -> T? {
         
         if array.count > 0 {

@@ -28,7 +28,9 @@ extension AVFScheduler {
                                 playingFile: audioFile)
         
         playerNode.play()
-        scheduleSubsequentTracks(otherTracksToSchedule)
+        
+        gaplessTracksQueue.enqueueAll(otherTracksToSchedule)
+        scheduleSubsequentTrack(forSession: currentSession)
     }
     
     func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track]) {
@@ -51,24 +53,19 @@ extension AVFScheduler {
             playerNode.play()
         }
      
-        scheduleSubsequentTracks(otherTracksToSchedule)
+        gaplessTracksQueue.enqueueAll(otherTracksToSchedule)
+        scheduleSubsequentTrack(forSession: currentSession)
     }
     
-    private func scheduleSubsequentTracks(_ tracks: [Track]) {
+    private func scheduleSubsequentTrack(forSession session: PlaybackSession) {
         
-        guard let session = PlaybackSession.currentSession else {return}
+        guard let subsequentTrack = gaplessTracksQueue.dequeue() else {return}
         
-        DispatchQueue.global(qos: .background).async {
+        if let file = (subsequentTrack.playbackContext as? AVFPlaybackContext)?.audioFile {
             
-            for track in tracks {
-                
-                if let file = (track.playbackContext as? AVFPlaybackContext)?.audioFile {
-                    
-                    self.playerNode.scheduleFile(session: session,
-                                                 completionHandler: self.gaplessSegmentCompletionHandler(session),
-                                                 playingFile: file)
-                }
-            }
+            self.playerNode.scheduleFile(session: session,
+                                         completionHandler: self.gaplessSegmentCompletionHandler(session),
+                                         playingFile: file)
         }
     }
     
@@ -96,6 +93,8 @@ extension AVFScheduler {
     }
     
     func gaplessTrackCompleted(_ session: PlaybackSession) {
+        
+        scheduleSubsequentTrack(forSession: session)
         messenger.publish(.Player.gaplessTrackPlaybackCompleted, payload: session)
     }
 }
