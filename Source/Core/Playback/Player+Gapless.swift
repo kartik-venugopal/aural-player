@@ -14,6 +14,8 @@ extension Player: GaplessPlaybackProtocol {
     
     func playGapless(tracks: [Track]) {
         
+        stop()
+        
         guard let track = tracks.first, let audioFormat = track.playbackContext?.audioFormat else {
             
             NSLog("Player.play() - Unable to play gapless because no audio format is set in its playback context.")

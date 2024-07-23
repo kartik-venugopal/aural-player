@@ -42,6 +42,8 @@ extension PlayQueueContainerViewController {
     
     func removeTracks() {
         
+        if checkForGaplessMode(actionText: "Removing Play Queue tracks") {return}
+        
         // Check for at least 1 row (and also get the minimum index).
         guard let firstRemovedRow = currentViewController.selectedRows.min() else {return}
         
@@ -56,7 +58,7 @@ extension PlayQueueContainerViewController {
     
     @IBAction func cropSelectionAction(_ sender: Any) {
         
-        if checkForGaplessMode() {return}
+        if checkForGaplessMode(actionText: "Reodering of Play Queue tracks") {return}
         cropSelection()
     }
     
@@ -84,7 +86,7 @@ extension PlayQueueContainerViewController {
     
     @IBAction func moveTracksUpAction(_ sender: Any) {
         
-        if checkForGaplessMode() {return}
+        if checkForGaplessMode(actionText: "Reodering of Play Queue tracks") {return}
         moveTracksUp()
     }
     
@@ -109,7 +111,7 @@ extension PlayQueueContainerViewController {
     
     @IBAction func moveTracksDownAction(_ sender: Any) {
         
-        if checkForGaplessMode() {return}
+        if checkForGaplessMode(actionText: "Reodering of Play Queue tracks") {return}
         moveTracksDown()
     }
     
@@ -134,7 +136,7 @@ extension PlayQueueContainerViewController {
     
     @IBAction func moveTracksToTopAction(_ sender: Any) {
         
-        if checkForGaplessMode() {return}
+        if checkForGaplessMode(actionText: "Reodering of Play Queue tracks") {return}
         moveTracksToTop()
     }
     
@@ -167,7 +169,7 @@ extension PlayQueueContainerViewController {
 
     @IBAction func moveTracksToBottomAction(_ sender: Any) {
         
-        if checkForGaplessMode() {return}
+        if checkForGaplessMode(actionText: "Reodering of Play Queue tracks") {return}
         moveTracksToBottom()
     }
     
@@ -201,14 +203,14 @@ extension PlayQueueContainerViewController {
         updateSummary()
     }
     
-    private func checkForGaplessMode() -> Bool {
+    private func checkForGaplessMode(actionText: String) -> Bool {
         
         if playbackDelegate.isInGaplessPlaybackMode {
             
             DispatchQueue.main.async {
                 
                 NSAlert.showInfo(withTitle: "Function unavailable",
-                                 andText: "Reordering of Play Queue tracks is not possible while in gapless playback mode.")
+                                 andText: "\(actionText) is not possible while in gapless playback mode.")
             }
             
             return true

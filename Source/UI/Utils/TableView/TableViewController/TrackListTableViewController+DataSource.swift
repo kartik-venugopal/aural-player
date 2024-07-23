@@ -58,17 +58,17 @@ extension TrackListTableViewController: NSTableViewDataSource {
         
         if isTrackListBeingModified {return false}
         
-        // TODO: Move this to the PQ, this is not valid for the Library or other track lists.
-        if playbackDelegate.isInGaplessPlaybackMode {
-            
-            DispatchQueue.main.async {
-                NSAlert.showInfo(withTitle: "Function unavailable", andText: "Reordering of Play Queue tracks is not possible while in gapless playback mode.")
-            }
-            
-            return false
-        }
-        
         if let sourceTable = info.draggingSource as? NSTableView {
+            
+            // TODO: Move this to the PQ, this is not valid for the Library or other track lists.
+            if playbackDelegate.isInGaplessPlaybackMode {
+                
+                DispatchQueue.main.async {
+                    NSAlert.showInfo(withTitle: "Function unavailable", andText: "Reordering of Play Queue tracks is not possible while in gapless playback mode.")
+                }
+                
+                return false
+            }
             
             // TODO: PQ can override the helper functions with options for 'clearQueue' and 'autoplay'.
             // Figure out the user requirements / use cases.
@@ -105,6 +105,16 @@ extension TrackListTableViewController: NSTableViewDataSource {
 //            }
             
         } else if let files = info.urls {
+            
+            // TODO: Move this to the PQ, this is not valid for the Library or other track lists.
+            if playbackDelegate.isInGaplessPlaybackMode {
+                
+                DispatchQueue.main.async {
+                    NSAlert.showInfo(withTitle: "Function unavailable", andText: "Adding tracks to the Play Queue is not possible while in gapless playback mode.")
+                }
+                
+                return false
+            }
             
             // If adding at the end of the list, just do an "append" instead of an "insert"
             if row == trackList.size {

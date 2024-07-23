@@ -39,7 +39,9 @@ extension PlayQueueViewController: NSMenuDelegate {
         
         playNowMenuItem.showIf(oneRowSelected && (!playingTrackSelected))
         
-        
+        [removeSelectedTracksMenuItem, cropSelectionMenuItem].forEach {
+            $0?.showIf(atLeastOneRowSelected && notInGaplessMode)
+        }
         
         [favoriteMenuItem, infoMenuItem].forEach {
             $0.showIf(oneRowSelected)
