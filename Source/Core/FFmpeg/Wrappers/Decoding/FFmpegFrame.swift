@@ -30,7 +30,7 @@ class FFmpegFrame {
     ///
     /// Number of channels of audio data.
     ///
-    var channelCount: Int32 {avFrame.channels}
+    var channelCount: Int32 {avFrame.ch_layout.nb_channels}
     
     lazy var intChannelCount: Int = Int(channelCount)
 

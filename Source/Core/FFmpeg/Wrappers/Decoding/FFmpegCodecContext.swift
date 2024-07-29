@@ -24,9 +24,9 @@ class FFmpegCodecContext {
     
     let codecID: AVCodecID
     
-    var channelLayout: UInt64 {avContext.channel_layout}
+    var channelLayout: AVChannelLayout {avContext.ch_layout}
     
-    var channels: Int32 {avContext.channels}
+    var channels: Int32 {avContext.ch_layout.nb_channels}
     
     var sampleFormat: AVSampleFormat {avContext.sample_fmt}
     
@@ -52,7 +52,7 @@ class FFmpegCodecContext {
         }
     }
     
-    init(codecPointer: UnsafeMutablePointer<AVCodec>!, codecParams: FFmpegCodecParameters) throws {
+    init(codecPointer: UnsafePointer<AVCodec>!, codecParams: FFmpegCodecParameters) throws {
         
         self.pointer = avcodec_alloc_context3(codecPointer)
         self.codecID = codecParams.codecID

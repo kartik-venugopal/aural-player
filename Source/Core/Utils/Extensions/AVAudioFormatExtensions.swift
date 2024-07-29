@@ -26,7 +26,7 @@ extension AVAudioFormat {
     ///
     convenience init?(from ffmpegFormat: FFmpegAudioFormat) {
         
-        guard let avfChannelLayout: AVAudioChannelLayout = FFmpegChannelLayoutsMapper.mapLayout(ffmpegLayout: ffmpegFormat.channelLayout.id) else {
+        guard let avfChannelLayout: AVAudioChannelLayout = ffmpegFormat.channelLayout.avfLayout else {
             return nil
         }
         

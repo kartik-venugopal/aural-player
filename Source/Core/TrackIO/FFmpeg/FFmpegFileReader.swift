@@ -211,7 +211,7 @@ class FFmpegFileReader: FileReaderProtocol {
             audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
             
             audioInfo.numChannels = Int(audioStream.channelCount)
-            audioInfo.channelLayout = audioStream.channelLayout.readableString
+            audioInfo.channelLayout = audioStream.channelLayout.description
         }
         
         metadata.audioInfo = audioInfo

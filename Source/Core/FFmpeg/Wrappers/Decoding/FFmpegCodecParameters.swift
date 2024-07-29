@@ -34,7 +34,7 @@ class FFmpegCodecParameters {
     ///
     var sampleRate: Int32 {avParams.sample_rate}
     
-    var channels: Int32 {avParams.channels}
+    var channels: Int32 {avParams.ch_layout.nb_channels}
     
     init(pointer: UnsafeMutablePointer<AVCodecParameters>) {
         self.pointer = pointer

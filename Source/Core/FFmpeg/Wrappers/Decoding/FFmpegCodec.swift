@@ -18,7 +18,7 @@ class FFmpegCodec {
     ///
     /// A pointer to the encapsulated AVCodec object.
     ///
-    var pointer: UnsafeMutablePointer<AVCodec>!
+    var pointer: UnsafePointer<AVCodec>!
     
     ///
     /// The encapsulated AVCodec object.
@@ -66,7 +66,7 @@ class FFmpegCodec {
         self.context = try .init(codecPointer: pointer, codecParams: params)
     }
     
-    static func findDecoder(fromParams params: FFmpegCodecParameters) throws -> UnsafeMutablePointer<AVCodec> {
+    static func findDecoder(fromParams params: FFmpegCodecParameters) throws -> UnsafePointer<AVCodec> {
         
         let codecID = params.codecID
         

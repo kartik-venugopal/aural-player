@@ -51,12 +51,12 @@ class FFmpegResamplingContext {
     ///
     /// The channel layout of the input samples.
     ///
-    var inputChannelLayout: UInt64? {
+    var inputChannelLayout: AVChannelLayout? {
         
         didSet {
             
-            if let channelLayout = inputChannelLayout {
-                av_opt_set_channel_layout(rawPointer, "in_channel_layout", Int64(channelLayout), 0)
+            if var inputChannelLayout = self.inputChannelLayout {
+                av_opt_set_chlayout(rawPointer, "in_chlayout", &inputChannelLayout, 0)
             }
         }
     }
@@ -64,12 +64,12 @@ class FFmpegResamplingContext {
     ///
     /// The (desired) channel layout of the output samples.
     ///
-    var outputChannelLayout: UInt64? {
+    var outputChannelLayout: AVChannelLayout? {
         
         didSet {
             
-            if let channelLayout = outputChannelLayout {
-                av_opt_set_channel_layout(rawPointer, "out_channel_layout", Int64(channelLayout), 0)
+            if var outputChannelLayout = self.outputChannelLayout {
+                av_opt_set_chlayout(rawPointer, "out_chlayout", &outputChannelLayout, 0)
             }
         }
     }
@@ -183,7 +183,7 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
     ///
     private static let standardSampleFormat: AVSampleFormat = AV_SAMPLE_FMT_FLTP
     
-    init?(channelLayout: UInt64, sampleRate: Int64, inputSampleFormat: AVSampleFormat) {
+    init?(channelLayout: FFmpegChannelLayout, sampleRate: Int64, inputSampleFormat: AVSampleFormat) {
         
         super.init()
         
@@ -191,8 +191,8 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
         // NOTE - Our output channel layout will be the same as that of the input, since we don't
         // need to do any upmixing / downmixing here.
         
-        self.inputChannelLayout = channelLayout
-        self.outputChannelLayout = channelLayout
+        self.inputChannelLayout = channelLayout.avChannelLayout
+        self.outputChannelLayout = channelLayout.avChannelLayout
         
         // Set the input / output sample rates as options prior to resampling.
         // NOTE - Our output sample rate will be the same as that of the input, since we don't

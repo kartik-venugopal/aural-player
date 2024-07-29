@@ -52,7 +52,7 @@ class FFmpegAudioCodec: FFmpegCodec {
     ///
     /// Describes the number and physical / spatial arrangement of the channels. (e.g. "5.1 surround" or "stereo")
     ///
-    var channelLayout: FFmpegChannelLayout = .zero
+    var channelLayout: FFmpegChannelLayout = .init(avChannelLayout: AVChannelLayout_Stereo)
     
     ///
     /// Instantiates an AudioCodec object, given a pointer to its parameters.
@@ -68,7 +68,7 @@ class FFmpegAudioCodec: FFmpegCodec {
         
         // Correct channel layout if necessary.
         // NOTE - This is necessary for some files like WAV files that don't specify a channel layout.
-        self.channelLayout = FFmpegChannelLayout(id: context.channelLayout, channelCount: context.channels)
+        self.channelLayout = FFmpegChannelLayout(avChannelLayout: context.channelLayout)
         
         // Use multithreading to speed up decoding.
         self.context.threadCount = Self.threadCount
@@ -83,7 +83,7 @@ class FFmpegAudioCodec: FFmpegCodec {
         // Some streams may contain the wrong header information. So, recompute these
         // values after opening the codec.
         
-        self.channelLayout = FFmpegChannelLayout(id: context.channelLayout, channelCount: context.channels)
+        self.channelLayout = FFmpegChannelLayout(avChannelLayout: context.channelLayout)
         self.sampleFormat = FFmpegSampleFormat(encapsulating: context.sampleFormat)
     }
     

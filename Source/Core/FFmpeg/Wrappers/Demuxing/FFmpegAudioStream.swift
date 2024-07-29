@@ -82,9 +82,9 @@ class FFmpegAudioStream: FFmpegStreamProtocol {
     
     var sampleRate: Int32 {codecParams.sample_rate}
     
-    var channelCount: Int32 {codecParams.channels}
+    var channelCount: Int32 {codecParams.ch_layout.nb_channels}
     
-    lazy var channelLayout: FFmpegChannelLayout = FFmpegChannelLayout(id: codecParams.channel_layout, channelCount: channelCount)
+    lazy var channelLayout: FFmpegChannelLayout = FFmpegChannelLayout(avChannelLayout: codecParams.ch_layout)
     
     ///
     /// All metadata key / value pairs available for this stream.

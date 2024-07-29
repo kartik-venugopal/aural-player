@@ -95,7 +95,6 @@
 		3E02182B2C23490E00865AC2 /* FavoritesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161A2C23490E00865AC2 /* FavoritesDelegate.swift */; };
 		3E02182C2C23490E00865AC2 /* FavoritesDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161B2C23490E00865AC2 /* FavoritesDelegate+Init.swift */; };
 		3E02182D2C23490E00865AC2 /* FavoritesDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161C2C23490E00865AC2 /* FavoritesDelegateProtocol.swift */; };
-		3E02182E2C23490E00865AC2 /* FFmpegChannelLayoutsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161E2C23490E00865AC2 /* FFmpegChannelLayoutsMapper.swift */; };
 		3E02182F2C23490E00865AC2 /* FFmpegCoverArtReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161F2C23490E00865AC2 /* FFmpegCoverArtReader.swift */; };
 		3E0218302C23490E00865AC2 /* FFmpegDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216202C23490E00865AC2 /* FFmpegDecoder.swift */; };
 		3E0218312C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216212C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift */; };
@@ -121,7 +120,6 @@
 		3E0218452C23490E00865AC2 /* FFmpegChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216382C23490E00865AC2 /* FFmpegChapter.swift */; };
 		3E0218462C23490E00865AC2 /* FFmpegResamplingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216392C23490E00865AC2 /* FFmpegResamplingContext.swift */; };
 		3E0218472C23490E00865AC2 /* FFmpegSampleFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02163A2C23490E00865AC2 /* FFmpegSampleFormat.swift */; };
-		3E0218482C23490E00865AC2 /* ffmpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E02163C2C23490E00865AC2 /* ffmpeg.c */; };
 		3E0218492C23490E00865AC2 /* AlbumGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02163F2C23490E00865AC2 /* AlbumGroup.swift */; };
 		3E02184A2C23490E00865AC2 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216402C23490E00865AC2 /* Group.swift */; };
 		3E02184B2C23490E00865AC2 /* Grouping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216412C23490E00865AC2 /* Grouping.swift */; };
@@ -484,12 +482,8 @@
 		3E0219EB2C23498700865AC2 /* dmg-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D42C23498700865AC2 /* dmg-background.png */; };
 		3E0219EC2C23498700865AC2 /* build-release.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D62C23498700865AC2 /* build-release.sh */; };
 		3E0219ED2C23498700865AC2 /* exportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D72C23498700865AC2 /* exportOptions.plist */; };
-		3E0219EE2C23498700865AC2 /* build-all.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D92C23498700865AC2 /* build-all.sh */; };
-		3E0219F02C23498700865AC2 /* build-macOS.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DB2C23498700865AC2 /* build-macOS.sh */; };
-		3E0219F12C23498700865AC2 /* common.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DC2C23498700865AC2 /* common.sh */; };
-		3E0219F22C23498700865AC2 /* ffmpeg-4.4.tar.bz2 in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DD2C23498700865AC2 /* ffmpeg-4.4.tar.bz2 */; };
+		3E0219EE2C23498700865AC2 /* build-ffmpeg.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D92C23498700865AC2 /* build-ffmpeg.sh */; };
 		3E0219F32C23498700865AC2 /* ffmpeg-7.0.1.tar.xz in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */; };
-		3E0219F52C23498700865AC2 /* macOS.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E02C23498700865AC2 /* macOS.sh */; };
 		3E0219F62C23498700865AC2 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E12C23498700865AC2 /* README.txt */; };
 		3E0219F72C23498700865AC2 /* copyright.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E32C23498700865AC2 /* copyright.sh */; };
 		3E0219F82C23498700865AC2 /* copyright.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E42C23498700865AC2 /* copyright.txt */; };
@@ -1101,7 +1095,6 @@
 		3E02161A2C23490E00865AC2 /* FavoritesDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegate.swift; sourceTree = "<group>"; };
 		3E02161B2C23490E00865AC2 /* FavoritesDelegate+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoritesDelegate+Init.swift"; sourceTree = "<group>"; };
 		3E02161C2C23490E00865AC2 /* FavoritesDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegateProtocol.swift; sourceTree = "<group>"; };
-		3E02161E2C23490E00865AC2 /* FFmpegChannelLayoutsMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegChannelLayoutsMapper.swift; sourceTree = "<group>"; };
 		3E02161F2C23490E00865AC2 /* FFmpegCoverArtReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegCoverArtReader.swift; sourceTree = "<group>"; };
 		3E0216202C23490E00865AC2 /* FFmpegDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegDecoder.swift; sourceTree = "<group>"; };
 		3E0216212C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FFmpegDecoder+PCMBuffer.swift"; sourceTree = "<group>"; };
@@ -1127,7 +1120,6 @@
 		3E0216382C23490E00865AC2 /* FFmpegChapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegChapter.swift; sourceTree = "<group>"; };
 		3E0216392C23490E00865AC2 /* FFmpegResamplingContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegResamplingContext.swift; sourceTree = "<group>"; };
 		3E02163A2C23490E00865AC2 /* FFmpegSampleFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegSampleFormat.swift; sourceTree = "<group>"; };
-		3E02163C2C23490E00865AC2 /* ffmpeg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffmpeg.c; sourceTree = "<group>"; };
 		3E02163D2C23490E00865AC2 /* ffmpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffmpeg.h; sourceTree = "<group>"; };
 		3E02163F2C23490E00865AC2 /* AlbumGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumGroup.swift; sourceTree = "<group>"; };
 		3E0216402C23490E00865AC2 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -1502,12 +1494,8 @@
 		3E0219D42C23498700865AC2 /* dmg-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dmg-background.png"; sourceTree = "<group>"; };
 		3E0219D62C23498700865AC2 /* build-release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-release.sh"; sourceTree = "<group>"; };
 		3E0219D72C23498700865AC2 /* exportOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportOptions.plist; sourceTree = "<group>"; };
-		3E0219D92C23498700865AC2 /* build-all.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-all.sh"; sourceTree = "<group>"; };
-		3E0219DB2C23498700865AC2 /* build-macOS.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-macOS.sh"; sourceTree = "<group>"; };
-		3E0219DC2C23498700865AC2 /* common.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = common.sh; sourceTree = "<group>"; };
-		3E0219DD2C23498700865AC2 /* ffmpeg-4.4.tar.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-4.4.tar.bz2"; sourceTree = "<group>"; };
+		3E0219D92C23498700865AC2 /* build-ffmpeg.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-ffmpeg.sh"; sourceTree = "<group>"; };
 		3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-7.0.1.tar.xz"; sourceTree = "<group>"; };
-		3E0219E02C23498700865AC2 /* macOS.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = macOS.sh; sourceTree = "<group>"; };
 		3E0219E12C23498700865AC2 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3E0219E32C23498700865AC2 /* copyright.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyright.sh; sourceTree = "<group>"; };
 		3E0219E42C23498700865AC2 /* copyright.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = copyright.txt; sourceTree = "<group>"; };
@@ -2322,7 +2310,6 @@
 		3E0216292C23490E00865AC2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3E02161E2C23490E00865AC2 /* FFmpegChannelLayoutsMapper.swift */,
 				3E02161F2C23490E00865AC2 /* FFmpegCoverArtReader.swift */,
 				3E0216202C23490E00865AC2 /* FFmpegDecoder.swift */,
 				3E0216212C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift */,
@@ -2378,10 +2365,9 @@
 		3E02163E2C23490E00865AC2 /* FFmpeg */ = {
 			isa = PBXGroup;
 			children = (
+				3E02163D2C23490E00865AC2 /* ffmpeg.h */,
 				3E0216292C23490E00865AC2 /* Utils */,
 				3E02163B2C23490E00865AC2 /* Wrappers */,
-				3E02163C2C23490E00865AC2 /* ffmpeg.c */,
-				3E02163D2C23490E00865AC2 /* ffmpeg.h */,
 			);
 			path = FFmpeg;
 			sourceTree = "<group>";
@@ -3288,12 +3274,8 @@
 		3E0219E22C23498700865AC2 /* FFmpegBuild */ = {
 			isa = PBXGroup;
 			children = (
-				3E0219D92C23498700865AC2 /* build-all.sh */,
-				3E0219DB2C23498700865AC2 /* build-macOS.sh */,
-				3E0219DC2C23498700865AC2 /* common.sh */,
-				3E0219DD2C23498700865AC2 /* ffmpeg-4.4.tar.bz2 */,
+				3E0219D92C23498700865AC2 /* build-ffmpeg.sh */,
 				3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */,
-				3E0219E02C23498700865AC2 /* macOS.sh */,
 				3E0219E12C23498700865AC2 /* README.txt */,
 			);
 			path = FFmpegBuild;
@@ -5300,10 +5282,8 @@
 				3E36BD3126A68E9800B6E28B /* LyricsTrackInfo.xib in Resources */,
 				3EA3062A2AD8A831006692FE /* PresentationModeSetup.xib in Resources */,
 				3E0219C02C23497D00865AC2 /* AlegreyaSansSC-Regular.ttf in Resources */,
-				3E0219F02C23498700865AC2 /* build-macOS.sh in Resources */,
 				3E6C12BD25CEBE6700BF0D07 /* EQUnit.xib in Resources */,
 				3E0219EC2C23498700865AC2 /* build-release.sh in Resources */,
-				3E0219F52C23498700865AC2 /* macOS.sh in Resources */,
 				3E0219C72C23497D00865AC2 /* Exo-Medium.ttf in Resources */,
 				3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */,
 				3EA3CE6725E3FD9E00BC7D07 /* FontSchemesManager.xib in Resources */,
@@ -5335,7 +5315,6 @@
 				3E6C121525CEBDE500BF0D07 /* ViewPreferences.xib in Resources */,
 				3E6C126125CEBE0600BF0D07 /* LayoutsManager.xib in Resources */,
 				3E6C123525CEBDF400BF0D07 /* ChaptersList.xib in Resources */,
-				3E0219F12C23498700865AC2 /* common.sh in Resources */,
 				3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */,
 				3E0219CC2C23497D00865AC2 /* neo-latina-withNums.ttf in Resources */,
 				3E0219CD2C23497D00865AC2 /* Papyrus.ttf in Resources */,
@@ -5372,7 +5351,7 @@
 				3E47D2342815A5BD00938F20 /* ControlStatesColorScheme.xib in Resources */,
 				3E0219C82C23497D00865AC2 /* futura light bt.ttf in Resources */,
 				3EC079422B7848A3008CB68C /* MenuBarPlayQueue.xib in Resources */,
-				3E0219EE2C23498700865AC2 /* build-all.sh in Resources */,
+				3E0219EE2C23498700865AC2 /* build-ffmpeg.sh in Resources */,
 				3E25B65627F7875700D10A5F /* PlayQueueSimpleView.xib in Resources */,
 				3EC079472B78549F008CB68C /* MenuBarSettings.xib in Resources */,
 				3E6C12ED25CEBE8100BF0D07 /* DelayUnit.xib in Resources */,
@@ -5411,7 +5390,6 @@
 				3E2D09DD2AD4C5440062D3C9 /* RenderQualityMenu.xib in Resources */,
 				3E2C4BD02B38D46400FC65DD /* Search.xib in Resources */,
 				3E0219C42C23497D00865AC2 /* ChicagoFLF.ttf in Resources */,
-				3E0219F22C23498700865AC2 /* ffmpeg-4.4.tar.bz2 in Resources */,
 				3E6C121425CEBDE500BF0D07 /* ModularPlayerWindow.xib in Resources */,
 				3E0219CA2C23497D00865AC2 /* monaco.ttf in Resources */,
 				3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */,
@@ -5923,7 +5901,6 @@
 				3E0218302C23490E00865AC2 /* FFmpegDecoder.swift in Sources */,
 				3E0218F32C23490E00865AC2 /* GroupingPlaylist.swift in Sources */,
 				3E2207F22C1E0BE500ED286A /* ViewPopupMenuContainer.swift in Sources */,
-				3E0218482C23490E00865AC2 /* ffmpeg.c in Sources */,
 				3E0219912C23490E00865AC2 /* Logger.swift in Sources */,
 				3E0219922C23490E00865AC2 /* System.swift in Sources */,
 				3E0218472C23490E00865AC2 /* FFmpegSampleFormat.swift in Sources */,
@@ -6117,7 +6094,6 @@
 				3E02193C2C23490E00865AC2 /* MetadataType.swift in Sources */,
 				3E36BD4E26A6AA5A00B6E28B /* TableViewRepresentations.swift in Sources */,
 				3E0219562C23490E00865AC2 /* SearchFields.swift in Sources */,
-				3E02182E2C23490E00865AC2 /* FFmpegChannelLayoutsMapper.swift in Sources */,
 				3E0218D12C23490E00865AC2 /* ShuffleSequence.swift in Sources */,
 				3E0218542C23490E00865AC2 /* HistoryDelegateProtocol.swift in Sources */,
 				3E68B8292C4433EE00F65D43 /* FFmpegScheduler+Gapless.swift in Sources */,
