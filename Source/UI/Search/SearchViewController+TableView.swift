@@ -74,7 +74,14 @@ extension SearchViewController: NSTableViewDelegate {
             return nil
         }
         
-        return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
+        let cell = builder.buildGenericCell(ofType: CompactPlayQueueSearchResultIndexCell.self, forTableView: tableView, forColumnWithId: column, inRow: row)
+        
+        if column == .cid_index {
+            cell?.index = row + 1
+            cell?.playQueueTrackIndex = (result.location as? PlayQueueSearchResultLocation)?.index ?? 0
+        }
+        
+        return cell
     }
 }
 

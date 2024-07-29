@@ -74,13 +74,8 @@ class CompactPlayQueueSearchResultsTableView: AuralTableView {
     
     private func cellForRow(_ row: Int) -> CompactPlayQueueSearchResultIndexCell? {
         
-        guard row >= 0,
-              let cell = view(atColumn: 0, row: row, makeIfNecessary: false) as? CompactPlayQueueSearchResultIndexCell else {
-            
-            return nil
-        }
-        
-        return cell
+        guard row >= 0 else {return nil}
+        return view(atColumn: 0, row: row, makeIfNecessary: false) as? CompactPlayQueueSearchResultIndexCell
     }
 }
 

@@ -158,6 +158,58 @@ class TableCellBuilder {
         return cell
     }
     
+    func buildGenericCell<T: AuralTableCellView>(ofType type: T.Type, forTableView tableView: NSTableView, forColumnWithId columnId: NSUserInterfaceItemIdentifier, inRow row: Int) -> T? {
+
+        guard let cell = tableView.makeView(withIdentifier: columnId, owner: nil) as? T else {return nil}
+        
+        if let attributedText = self.attributedText, let selectedAttributedText = self.selectedAttributedText {
+            
+            cell.attributedText = attributedText
+            
+            cell.unselectedAttributedText = attributedText
+            cell.selectedAttributedText = selectedAttributedText
+            
+        } else if let text = self.text, let selectedTextColor = self.selectedTextColor {
+            
+            cell.text = text
+            cell.textFont = self.font
+            cell.textColor = self.textColor
+            
+            cell.unselectedTextColor = self.textColor
+            cell.selectedTextColor = selectedTextColor
+        }
+        
+        if let alignment = self.alignment {
+            cell.textField?.alignment = alignment
+        }
+        
+        if let bottomYOffset = self.bottomYOffset {
+            cell.realignTextBottom(yOffset: bottomYOffset)
+            
+        } else if let centerYOffset = self.centerYOffset {
+            cell.realignTextCenterY(yOffset: centerYOffset)
+        }
+        
+        cell.textField?.showIf(attributedText != nil || text != nil)
+        
+        if let image = self.image {
+            
+            cell.image = image
+            
+            if let imageColor = self.imageColor {
+                cell.imageColor = imageColor
+            }
+        }
+        
+        cell.imageView?.showIf(image != nil)
+        
+        cell.rowSelectionStateFunction = {[weak tableView] in
+            tableView?.selectedRowIndexes.contains(row) ?? false
+        }
+        
+        return cell
+    }
+    
     func buildCell(forOutlineView outlineView: NSOutlineView, forColumnWithId columnId: NSUserInterfaceItemIdentifier, havingItem item: Any) -> AuralTableCellView? {
 
         guard let cell = cellFactory(outlineView, columnId) else {return nil}

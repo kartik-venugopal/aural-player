@@ -254,13 +254,24 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Wl-fi-MAf" userLabel="Play Action" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="235" y="287" width="29.5" height="12"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tsw-B9-Z7g">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="playResultAction:" target="jrU-2c-JGF" id="Dlz-xr-hwN"/>
+                    </connections>
+                </button>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw4-ZG-Aj9" userLabel="Results Table">
                     <rect key="frame" x="15" y="37" width="465" height="349"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="RlX-Bl-Tqc">
                         <rect key="frame" x="1" y="1" width="463" height="347"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="24" rowSizeStyle="automatic" headerView="1Rx-VA-4ps" viewBased="YES" id="jrU-2c-JGF">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="24" rowSizeStyle="automatic" headerView="1Rx-VA-4ps" viewBased="YES" id="jrU-2c-JGF" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="463" height="319"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="17" height="0.0"/>
@@ -279,7 +290,7 @@ Gw
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="bMC-F6-CrY" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView id="bMC-F6-CrY" customClass="CompactPlayQueueSearchResultIndexCell" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="0.0" width="48" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -334,6 +345,7 @@ Gw
                                 </tableColumns>
                                 <connections>
                                     <action trigger="doubleAction" selector="playSearchResultAction:" target="-2" id="4ZQ-2L-iiq"/>
+                                    <outlet property="btnPlay" destination="2Wl-fi-MAf" id="I4F-lK-3qm"/>
                                     <outlet property="dataSource" destination="-2" id="NKU-17-IUe"/>
                                     <outlet property="delegate" destination="-2" id="cBF-0l-YgX"/>
                                 </connections>
@@ -381,5 +393,6 @@ Gw
     </objects>
     <resources>
         <image name="gearshape.fill" catalog="system" width="16" height="16"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
     </resources>
 </document>

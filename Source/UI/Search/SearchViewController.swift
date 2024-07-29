@@ -43,7 +43,7 @@ class SearchViewController: NSViewController {
     lazy var settingsFields: [NSView] = captionLabels + checkBoxes + [btnComparisonType]
     
     @IBOutlet weak var lblSummary: NSTextField!
-    @IBOutlet weak var resultsTable: NSTableView!
+    @IBOutlet weak var resultsTable: CompactPlayQueueSearchResultsTableView!
     
     var searchQuery: SearchQuery = SearchQuery()
     
@@ -86,6 +86,8 @@ class SearchViewController: NSViewController {
     // Called when any of the search criteria have changed, performs a new search
     private func updateSearch() {
         
+        defer {resultsTable.startTracking()}
+        
         switch searchQuery.scope {
             
         case .playQueue:
@@ -102,7 +104,8 @@ class SearchViewController: NSViewController {
         }
         
 //        NSView.showViews(btnPreviousSearch, btnNextSearch)
-        lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results") found in \(searchQuery.scope.description)"
+//        lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results") found in \(searchQuery.scope.description)"
+        lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results")"
     }
     
     private func updateSearchResultsForPlayQueue() {
