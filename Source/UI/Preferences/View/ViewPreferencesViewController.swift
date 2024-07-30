@@ -11,6 +11,10 @@ import Cocoa
 
 class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
+    override var nibName: NSNib.Name? {"ViewPreferences"}
+    
+    @IBOutlet weak var btnWindowMagnetism: CheckBox!
+    
     @IBOutlet weak var btnSnapToWindows: CheckBox!
     
     @IBOutlet weak var lblWindowGapCaption: NSTextField!
@@ -19,13 +23,15 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     @IBOutlet weak var btnSnapToScreen: CheckBox!
     
-    override var nibName: NSNib.Name? {"ViewPreferences"}
+    private static let disabledControlTooltip: String = "<This preference is only applicable to the \"Modular\" app mode>"
     
     var preferencesView: NSView {self.view}
     
+    let viewPrefs = preferences.viewPreferences
+    
     func resetFields() {
         
-        let viewPrefs = preferences.viewPreferences
+        btnWindowMagnetism.onIf(viewPrefs.windowMagnetism.value)
         
         btnSnapToWindows.onIf(viewPrefs.snapToWindows.value)
         gapStepper.floatValue = viewPrefs.windowGap.value
@@ -35,18 +41,25 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         btnSnapToScreen.onIf(viewPrefs.snapToScreen.value)
         
         if appModeManager.currentMode != .modular {
+            disableIrrelevantControls()
+        }
+    }
+    
+    private func disableIrrelevantControls() {
+        
+        btnWindowMagnetism.toolTip = Self.disabledControlTooltip
+        btnWindowMagnetism.disable()
+        
+        [btnSnapToWindows, gapStepper].forEach {
             
-            [btnSnapToWindows, gapStepper].forEach {
-                
-                $0?.toolTip = "<This preference is only applicable to the \"Modular\" app mode>"
-                $0?.disable()
-            }
+            $0?.toolTip = Self.disabledControlTooltip
+            $0?.disable()
+        }
+        
+        [lblWindowGapCaption, lblWindowGap].forEach {
             
-            [lblWindowGapCaption, lblWindowGap].forEach {
-                
-                $0?.toolTip = "<This preference is only applicable to the \"Modular\" app mode>"
-                $0?.textColor = .disabledControlTextColor
-            }
+            $0?.toolTip = Self.disabledControlTooltip
+            $0?.textColor = .disabledControlTextColor
         }
     }
     
@@ -60,7 +73,17 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
 
     func save() throws {
         
-        let viewPrefs = preferences.viewPreferences
+        let oldMagnetismValue = viewPrefs.windowMagnetism.value
+        viewPrefs.windowMagnetism.value = btnWindowMagnetism.isOn
+        
+        if viewPrefs.windowMagnetism.value != oldMagnetismValue {
+            
+            if viewPrefs.windowMagnetism.value {
+                windowLayoutsManager.applyMagnetism()
+            } else {
+                windowLayoutsManager.removeMagnetism()
+            }
+        }
         
         viewPrefs.snapToWindows.value = btnSnapToWindows.isOn
 

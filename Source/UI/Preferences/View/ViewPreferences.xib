@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="btnSnapToScreen" destination="lLF-UP-XoA" id="GbA-xi-isP"/>
                 <outlet property="btnSnapToWindows" destination="DUF-2F-cuz" id="lRt-Qo-CT3"/>
+                <outlet property="btnWindowMagnetism" destination="DhU-QU-Pvk" id="6ZL-jS-dr6"/>
                 <outlet property="gapStepper" destination="JM6-3k-x8N" id="QeI-Qi-F1T"/>
                 <outlet property="lblWindowGap" destination="raN-A4-2KT" id="rJW-kh-qoM"/>
                 <outlet property="lblWindowGapCaption" destination="VBM-JL-EGo" id="i3F-Re-scj"/>
@@ -23,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zby-SI-fNg">
-                    <rect key="frame" x="18" y="432" width="132" height="20"/>
+                    <rect key="frame" x="18" y="382" width="132" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window snapping" id="bBS-el-1Ja">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -32,7 +33,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBM-JL-EGo">
-                    <rect key="frame" x="58" y="388" width="205" height="20"/>
+                    <rect key="frame" x="58" y="338" width="205" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gap between windows when snapped:" id="vBe-K4-yLt">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -41,7 +42,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="raN-A4-2KT" userLabel="Window gap value">
-                    <rect key="frame" x="263" y="388" width="35" height="20"/>
+                    <rect key="frame" x="263" y="338" width="35" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="0px" id="SX5-qn-SOs">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hHp-xe-8z8">
@@ -54,7 +55,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JM6-3k-x8N" userLabel="Window gap Stepper">
-                    <rect key="frame" x="299" y="386" width="15" height="22"/>
+                    <rect key="frame" x="299" y="336" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" maxValue="25" id="HkQ-J3-crQ"/>
                     <connections>
@@ -62,9 +63,9 @@
                     </connections>
                 </stepper>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DUF-2F-cuz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="38" y="410" width="239" height="20"/>
+                    <rect key="frame" x="38" y="360" width="449" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Snap app windows to each other" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="zcX-Xj-qB5">
+                    <buttonCell key="cell" type="check" title="Snap app windows to each other (when in proximity)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="zcX-Xj-qB5">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -72,14 +73,34 @@
                         <action selector="snapToWindowsAction:" target="-2" id="7Cp-Kl-iCT"/>
                     </connections>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DhU-QU-Pvk" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="38" y="418" width="417" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Auxiliary windows move together with the main player window" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="DIW-Em-Tmh">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="snapToWindowsAction:" target="-2" id="fbJ-qc-kJI"/>
+                    </connections>
+                </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLF-UP-XoA" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="38" y="358" width="323" height="20"/>
+                    <rect key="frame" x="38" y="308" width="323" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Snap app windows to screen corners and edges" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9Tk-y7-Lp0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvw-Oi-kSf">
+                    <rect key="frame" x="18" y="440" width="274" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window magnetism" id="kju-m3-4JX">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="139" y="168"/>
         </view>

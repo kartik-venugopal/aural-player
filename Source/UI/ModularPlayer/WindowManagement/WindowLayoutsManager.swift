@@ -82,6 +82,18 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         systemDefinedObject(named: WindowLayoutPresets.defaultLayout.name)!
     }
     
+    var auxiliaryWindows: [NSWindow] {
+        NSApp.windows.filter {$0.isVisible && $0.windowID != .main}
+    }
+    
+    var auxiliaryWindowsForModules: [NSWindow] {
+        auxiliaryWindows.filter {$0.windowID != nil}
+    }
+    
+    var windowMagnetismEnabled: Bool {
+        preferences.viewPreferences.windowMagnetism.value
+    }
+    
     func recomputeSystemDefinedLayouts() {
         systemDefinedObjects.forEach {WindowLayoutPresets.recompute(layout: $0, gap: windowGap)}
     }
@@ -142,7 +154,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         
         mainWindow.setFrameOrigin(layout.mainWindowFrame.origin)
         
-        mainWindow.childWindows?.forEach {
+        auxiliaryWindowsForModules.forEach {
             $0.hide()
         }
         
@@ -150,7 +162,10 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             
             let actualWindow = getWindow(forId: window.id)
             
-            mainWindow.addChildWindow(actualWindow, ordered: .below)
+            if windowMagnetismEnabled {
+                mainWindow.addChildWindow(actualWindow, ordered: .below)
+            }
+                
             actualWindow.setFrame(window.frame, display: true)
             loader(withID: window.id).showWindow()
         }
@@ -163,7 +178,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         
         var windows: [LayoutWindow] = []
         
-        for child in mainWindow.childWindows ?? [] {
+        for child in auxiliaryWindowsForModules {
             
             if let windowID = child.windowID {
                 windows.append(LayoutWindow(id: windowID, frame: child.frame))
@@ -206,7 +221,10 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             
         } else {
             
-            mainWindow.addChildWindow(window, ordered: .below)
+            if windowMagnetismEnabled {
+                mainWindow.addChildWindow(window, ordered: .below)
+            }
+            
             loader(withID: id).showWindow()
             window.orderFront(self)
         }
@@ -215,7 +233,11 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     func showWindow(withId id: WindowID) {
         
         let childWindow = getWindow(forId: id)
-        mainWindow.addChildWindow(childWindow, ordered: .below)
+        
+        if windowMagnetismEnabled {
+            mainWindow.addChildWindow(childWindow, ordered: .below)
+        }
+        
         childWindow.show()
     }
     
@@ -263,7 +285,26 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     // MARK: Miscellaneous functions ------------------------------------
 
     func addChildWindow(_ window: NSWindow) {
-        mainWindow.addChildWindow(window, ordered: .above)
+        
+        if windowMagnetismEnabled {
+            mainWindow.addChildWindow(window, ordered: .below)
+        }
+    }
+    
+    func applyMagnetism() {
+        
+        for window in auxiliaryWindows {
+            mainWindow.addChildWindow(window, ordered: .below)
+        }
+    }
+    
+    func removeMagnetism() {
+        
+        mainWindow.childWindows?.forEach {
+            
+            mainWindow.removeChildWindow($0)
+            $0.show()
+        }
     }
     
     var persistentState: WindowLayoutsPersistentState {

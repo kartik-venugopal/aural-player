@@ -17,6 +17,9 @@ class ViewPreferences {
     private static let keyPrefix: String = "view"
     private typealias Defaults = PreferencesDefaults.View
     
+    lazy var windowMagnetism: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).windowMagnetism",
+                                                                    defaultValue: Defaults.windowMagnetism)
+    
     lazy var snapToWindows: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).snap.toWindows",
                                                                     defaultValue: Defaults.snapToWindows)
     

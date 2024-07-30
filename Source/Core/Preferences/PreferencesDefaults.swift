@@ -72,6 +72,7 @@ struct PreferencesDefaults {
     ///
     struct View {
         
+        static let windowMagnetism: Bool = true
         static let snapToWindows: Bool = true
         static let snapToScreen: Bool = true
         static let windowGap: Float = 0
