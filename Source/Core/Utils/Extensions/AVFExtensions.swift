@@ -37,6 +37,7 @@ extension AVAudioMixerNode {
 
 extension AVAudioChannelLayout {
     
+    static let mono: AVAudioChannelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_Mono)!
     static let stereo: AVAudioChannelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_Stereo)!
 
     static func defaultDescription(channelCount: Int32) -> String {
@@ -99,7 +100,7 @@ extension AVAssetTrack {
         format.toString()
     }
 }
-
+ 
 extension FourCharCode {
     
     // Create a String representation of a FourCC

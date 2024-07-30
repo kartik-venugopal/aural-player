@@ -78,7 +78,10 @@ class FFmpegDecoder {
     
     let resampleCtx: FFmpegAVAEResamplingContext?
     
-    private(set) lazy var audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount, channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
+    private(set) lazy var audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, 
+                                                                             channelCount: codec.channelCount,
+                                                                             channelLayout: codec.channelLayout,
+                                                                             sampleFormat: codec.sampleFormat)
     
     private(set) lazy var channelCount: Int = Int(audioFormat.channelCount)
     

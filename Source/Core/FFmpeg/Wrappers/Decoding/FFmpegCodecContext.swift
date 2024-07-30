@@ -26,8 +26,6 @@ class FFmpegCodecContext {
     
     var channelLayout: AVChannelLayout {avContext.ch_layout}
     
-    var channels: Int32 {avContext.ch_layout.nb_channels}
-    
     var sampleFormat: AVSampleFormat {avContext.sample_fmt}
     
     var threadCount: Int32 {

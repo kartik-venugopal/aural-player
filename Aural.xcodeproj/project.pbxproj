@@ -969,6 +969,8 @@
 		3EEC6ECD2BD85F8900BC5D32 /* TrackInfoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC6ECC2BD85F8900BC5D32 /* TrackInfoSource.swift */; };
 		3EEFBCB32BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFBCB22BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift */; };
 		3EEFBCB52BEECC9100F90BE7 /* ScreenArrangement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEFBCB42BEECC9100F90BE7 /* ScreenArrangement.swift */; };
+		3EF020472C597E74005A841B /* AVChannel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF020462C597E74005A841B /* AVChannel+Extensions.swift */; };
+		3EF020492C597E88005A841B /* AVChannelLayout+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF020482C597E88005A841B /* AVChannelLayout+Extensions.swift */; };
 		3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */; };
 		3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */; };
 		3EF172F526A989BA00BB4556 /* EffectsUnitLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF172F426A989BA00BB4556 /* EffectsUnitLabels.swift */; };
@@ -2054,6 +2056,8 @@
 		3EEC6ECC2BD85F8900BC5D32 /* TrackInfoSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoSource.swift; sourceTree = "<group>"; };
 		3EEFBCB22BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayQueueWindowController+GestureHandling.swift"; sourceTree = "<group>"; };
 		3EEFBCB42BEECC9100F90BE7 /* ScreenArrangement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenArrangement.swift; sourceTree = "<group>"; };
+		3EF020462C597E74005A841B /* AVChannel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVChannel+Extensions.swift"; sourceTree = "<group>"; };
+		3EF020482C597E88005A841B /* AVChannelLayout+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVChannelLayout+Extensions.swift"; sourceTree = "<group>"; };
 		3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTheme.xib; sourceTree = "<group>"; };
 		3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeDialogController.swift; sourceTree = "<group>"; };
 		3EF172F426A989BA00BB4556 /* EffectsUnitLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitLabels.swift; sourceTree = "<group>"; };
@@ -2368,6 +2372,7 @@
 				3E02163D2C23490E00865AC2 /* ffmpeg.h */,
 				3E0216292C23490E00865AC2 /* Utils */,
 				3E02163B2C23490E00865AC2 /* Wrappers */,
+				3EF020452C597E57005A841B /* Support */,
 			);
 			path = FFmpeg;
 			sourceTree = "<group>";
@@ -5121,6 +5126,15 @@
 			path = GeneratedView;
 			sourceTree = "<group>";
 		};
+		3EF020452C597E57005A841B /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3EF020462C597E74005A841B /* AVChannel+Extensions.swift */,
+				3EF020482C597E88005A841B /* AVChannelLayout+Extensions.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		3EF84D882835E6E9004EF57B /* LibraryMonitoring */ = {
 			isa = PBXGroup;
 			children = (
@@ -5508,6 +5522,7 @@
 				3E6C129125CEBE1800BF0D07 /* ColorSchemeHistory.swift in Sources */,
 				3E0219292C23490E00865AC2 /* ApeV2Parser.swift in Sources */,
 				3E0218252C23490E00865AC2 /* ValueConversions.swift in Sources */,
+				3EF020472C597E74005A841B /* AVChannel+Extensions.swift in Sources */,
 				3E6C122125CEBDE600BF0D07 /* ColorSchemePopupMenuController.swift in Sources */,
 				3E0219612C23490E00865AC2 /* TrackComparisons.swift in Sources */,
 				3E6C128E25CEBE1800BF0D07 /* ColorSchemePreset.swift in Sources */,
@@ -5552,6 +5567,7 @@
 				3E2207EC2C1D9A1900ED286A /* UnifiedPlayerWindowController+View.swift in Sources */,
 				3E0219312C23490E00865AC2 /* FFmpegMetadataParser.swift in Sources */,
 				3E0218762C23490E00865AC2 /* EffectsNotifications.swift in Sources */,
+				3EF020492C597E88005A841B /* AVChannelLayout+Extensions.swift in Sources */,
 				3E5864A02B76DD0000BDB5A6 /* PlayerViewController.swift in Sources */,
 				3E0218062C23490E00865AC2 /* ReverbUnit.swift in Sources */,
 				3E0218C72C23490E00865AC2 /* PlaybackInfoDelegateProtocol.swift in Sources */,
