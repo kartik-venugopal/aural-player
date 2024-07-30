@@ -5,7 +5,7 @@ NOTE - Pay attention to licensing requirements / considerations if / when distri
 
 Pre-requisites (need to be installed on this system):
 
-1 - Xcode 12.2 or a later version. macOS SDK version must be 11.0 or greater (for arm64).
+1 - Xcode 15.2 or a later version. macOS SDK version must be 11.0 or greater (for arm64).
 2 - Homebrew (Instructions here: https://brew.sh/)
 3 - nasm - assembler for x86 (Run "brew install nasm" ... after installing Homebrew)
 4 - clang - C compiler (Run "xcode-select --install")
@@ -28,7 +28,7 @@ Steps:
     
 5 - (Optional) Using the lipo command, verify that the dylibs inside the XCFrameworks are indeed universal, supporting both x86_64 and arm64 architectures.
 
-    Example command:    "lipo -info xcframeworks/libavcodec.xcframework/macos-arm64_x86_64/libavcodec.58.dylib"
-    Example output:     "Architectures in the fat file: xcframeworks/libavcodec.xcframework/macos-arm64_x86_64//libavcodec.58.dylib are: x86_64 arm64"
+    Example command:    "lipo -info xcframeworks/libavcodec.xcframework/macos-arm64_x86_64/libavcodec.61.dylib"
+    Example output:     "Architectures in the fat file: xcframeworks/libavcodec.xcframework/macos-arm64_x86_64/libavcodec.61.dylib are: x86_64 arm64"
     
 6 - Copy (and replace if necessary) the XCFrameworks into the "Frameworks" group in the Aural Xcode project.
