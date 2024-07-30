@@ -1,5 +1,5 @@
-Instructions to build universal FFmpeg shared libaries (.dylib) from source.
-These binaries can run on both Intel x86_64 and arm64 (i.e. M1) architectures.
+Instructions to build universal FFmpeg XCFrameworks from source.
+These binaries can run on both Intel x86_64 and arm64 (i.e. Apple Silicon) architectures.
 
 NOTE - Pay attention to licensing requirements / considerations if / when distributing these libraries.
 
@@ -19,16 +19,16 @@ Steps:
 
 3 - Run "./build-ffmpeg.sh" and wait till it is finished executing.
 
-4 - The newly built FFmpeg shared libraries will be in the subdirectory "sharedLibs". There should be 4 of them:
+4 - The newly built FFmpeg XCFrameworks will be in the subdirectory "xcframeworks". There should be 4 of them:
 
-    1 - libavcodec.(version).dylib
-    2 - libavformat.(version).dylib
-    3 - libavutil.(version).dylib
-    4 - libswresample.(version).dylib)
+    1 - libavcodec.xcframework
+    2 - libavformat.xcframework
+    3 - libavutil.xcframework
+    4 - libswresample.xcframework
     
-5 - (Optional) Using the lipo command, verify that the dylibs are indeed universal, supporting both x86_64 and arm64 architectures.
+5 - (Optional) Using the lipo command, verify that the dylibs inside the XCFrameworks are indeed universal, supporting both x86_64 and arm64 architectures.
 
-    Example command:    "lipo -info sharedLibs/libavcodec.58.dylib"
-    Example output:     "Architectures in the fat file: sharedLibs/libavcodec.58.dylib are: x86_64 arm64"
+    Example command:    "lipo -info xcframeworks/libavcodec.xcframework/macos-arm64_x86_64/libavcodec.58.dylib"
+    Example output:     "Architectures in the fat file: xcframeworks/libavcodec.xcframework/macos-arm64_x86_64//libavcodec.58.dylib are: x86_64 arm64"
     
-6 - Copy the shared libraries into the "Frameworks" group in the Xcode project (replace existing files).
+6 - Copy (and replace if necessary) the XCFrameworks into the "Frameworks" group in the Aural Xcode project.
