@@ -479,16 +479,6 @@
 		3E0219D12C23497D00865AC2 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219BD2C23497D00865AC2 /* shufen.regular.ttf */; };
 		3E0219D22C23497D00865AC2 /* WalterTurncoat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219BE2C23497D00865AC2 /* WalterTurncoat.ttf */; };
 		3E0219EA2C23498700865AC2 /* appIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D32C23498700865AC2 /* appIcon.icns */; };
-		3E0219EB2C23498700865AC2 /* dmg-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D42C23498700865AC2 /* dmg-background.png */; };
-		3E0219EC2C23498700865AC2 /* build-release.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D62C23498700865AC2 /* build-release.sh */; };
-		3E0219ED2C23498700865AC2 /* exportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D72C23498700865AC2 /* exportOptions.plist */; };
-		3E0219EE2C23498700865AC2 /* build-ffmpeg.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D92C23498700865AC2 /* build-ffmpeg.sh */; };
-		3E0219F32C23498700865AC2 /* ffmpeg-7.0.1.tar.xz in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */; };
-		3E0219F62C23498700865AC2 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E12C23498700865AC2 /* README.txt */; };
-		3E0219F72C23498700865AC2 /* copyright.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E32C23498700865AC2 /* copyright.sh */; };
-		3E0219F82C23498700865AC2 /* copyright.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E42C23498700865AC2 /* copyright.txt */; };
-		3E0219F92C23498700865AC2 /* xml-copyright.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E52C23498700865AC2 /* xml-copyright.sh */; };
-		3E0219FA2C23498700865AC2 /* unused.rb in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219E72C23498700865AC2 /* unused.rb */; };
 		3E0397E82B83EB73004454DB /* AppDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0397E72B83EB73004454DB /* AppDelegate+Init.swift */; };
 		3E0397EA2B83EC27004454DB /* AppDelegate+TearDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0397E92B83EC27004454DB /* AppDelegate+TearDown.swift */; };
 		3E045D06281322450069DEFE /* TrackInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E045D05281322450069DEFE /* TrackInfoWindow.xib */; };
@@ -5278,7 +5268,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E0219EB2C23498700865AC2 /* dmg-background.png in Resources */,
 				3E2EA6ED2BD32C88001ABFEE /* CompactPlayerTrackInfo.xib in Resources */,
 				3E31B6752B97C5F400AA0067 /* TrackInfoSheetView.xib in Resources */,
 				3E6EFFA32815309500C813AC /* TextColorScheme.xib in Resources */,
@@ -5297,7 +5286,6 @@
 				3EA3062A2AD8A831006692FE /* PresentationModeSetup.xib in Resources */,
 				3E0219C02C23497D00865AC2 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3E6C12BD25CEBE6700BF0D07 /* EQUnit.xib in Resources */,
-				3E0219EC2C23498700865AC2 /* build-release.sh in Resources */,
 				3E0219C72C23497D00865AC2 /* Exo-Medium.ttf in Resources */,
 				3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */,
 				3EA3CE6725E3FD9E00BC7D07 /* FontSchemesManager.xib in Resources */,
@@ -5305,12 +5293,9 @@
 				3E6C12CB25CEBE6700BF0D07 /* TimeStretchUnit.xib in Resources */,
 				3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */,
 				3E0219C92C23497D00865AC2 /* Metamorphous-Regular.ttf in Resources */,
-				3E0219F72C23498700865AC2 /* copyright.sh in Resources */,
 				3E0219D02C23497D00865AC2 /* roundornoncommercial.regular.otf in Resources */,
-				3E0219ED2C23498700865AC2 /* exportOptions.plist in Resources */,
 				3EBF238F2BF66D090069B6B1 /* ChaptersListWindow.xib in Resources */,
 				3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */,
-				3E0219F32C23498700865AC2 /* ffmpeg-7.0.1.tar.xz in Resources */,
 				3EE2AD042A1FF71300D7BA7D /* AUParameterControl.xib in Resources */,
 				3E4C763B2AD7713400DDED45 /* AppSetupWindow.xib in Resources */,
 				3E6C12C825CEBE6700BF0D07 /* ReverbUnit.xib in Resources */,
@@ -5322,7 +5307,6 @@
 				3E7638AB2857D88B00461F4D /* UnifiedPlayerWindow.xib in Resources */,
 				3E6C121D25CEBDE600BF0D07 /* Preferences.xib in Resources */,
 				3EA3335B2AE098620041B4FA /* MenuBarPlayer.xib in Resources */,
-				3E0219F62C23498700865AC2 /* README.txt in Resources */,
 				3E2C4BD72B38E5E600FC65DD /* SearchWindow.xib in Resources */,
 				3EC7937F2B745E0800AF7E9E /* EffectsSheetView.xib in Resources */,
 				3ED2385928207E2C0048CF8E /* FilterBandEditorDialog.xib in Resources */,
@@ -5352,7 +5336,6 @@
 				3E0219EA2C23498700865AC2 /* appIcon.icns in Resources */,
 				3E0219A12C23490E00865AC2 /* Aural.xcassets in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* ModularPlayer.xib in Resources */,
-				3E0219FA2C23498700865AC2 /* unused.rb in Resources */,
 				3E6C12C225CEBE6700BF0D07 /* MasterUnit.xib in Resources */,
 				3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */,
 				3E8B8C352BEF59960025D60B /* LastFMPreferences.xib in Resources */,
@@ -5365,7 +5348,6 @@
 				3E47D2342815A5BD00938F20 /* ControlStatesColorScheme.xib in Resources */,
 				3E0219C82C23497D00865AC2 /* futura light bt.ttf in Resources */,
 				3EC079422B7848A3008CB68C /* MenuBarPlayQueue.xib in Resources */,
-				3E0219EE2C23498700865AC2 /* build-ffmpeg.sh in Resources */,
 				3E25B65627F7875700D10A5F /* PlayQueueSimpleView.xib in Resources */,
 				3EC079472B78549F008CB68C /* MenuBarSettings.xib in Resources */,
 				3E6C12ED25CEBE8100BF0D07 /* DelayUnit.xib in Resources */,
@@ -5386,7 +5368,6 @@
 				3EBFF5AA2B52C0F70056D5B4 /* CompactPlayerWindow.xib in Resources */,
 				3E31B6722B97C20100AA0067 /* TrackInfo.xib in Resources */,
 				3ECF71B22B7571D200FDB69B /* CompactPlayer.xib in Resources */,
-				3E0219F82C23498700865AC2 /* copyright.txt in Resources */,
 				3E6C122C25CEBDE600BF0D07 /* HistoryPreferences.xib in Resources */,
 				3E43227D2687D65F009E8ADB /* WidgetPlayer.xib in Resources */,
 				3E6C12AD25CEBE2700BF0D07 /* StringInputPopover.xib in Resources */,
@@ -5399,7 +5380,6 @@
 				3E25B65027F7818900D10A5F /* PlayQueueWindow.xib in Resources */,
 				3E91932925E0CF5D00F30F81 /* FontSchemeFonts.xib in Resources */,
 				3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */,
-				3E0219F92C23498700865AC2 /* xml-copyright.sh in Resources */,
 				3E0219C12C23497D00865AC2 /* AlmendraSC-Regular.ttf in Resources */,
 				3E2D09DD2AD4C5440062D3C9 /* RenderQualityMenu.xib in Resources */,
 				3E2C4BD02B38D46400FC65DD /* Search.xib in Resources */,
@@ -6406,7 +6386,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview2";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview3";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6419,7 +6399,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview2";
+				MARKETING_VERSION = "4.0.0-preview3";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/FFmpeg/ffmpeg.h;
@@ -6439,7 +6419,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview2";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview3";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6452,7 +6432,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview2";
+				MARKETING_VERSION = "4.0.0-preview3";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/FFmpeg/ffmpeg.h;
