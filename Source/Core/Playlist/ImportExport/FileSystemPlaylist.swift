@@ -18,5 +18,11 @@ struct FileSystemPlaylist {
     let file: URL
     
     // URLs of tracks in this playlist
-    let tracks: [URL]
+    let tracks: [FileSystemPlaylistTrack]
+}
+
+struct FileSystemPlaylistTrack {
+    
+    let file: URL
+    let chapters: [Chapter]
 }

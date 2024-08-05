@@ -73,7 +73,10 @@ extension TrackList: TrackListFileSystemLoadingProtocol {
     fileprivate func readPlaylistFile(_ playlistFile: URL) {
         
         if let loadedPlaylist = PlaylistIO.loadPlaylist(fromFile: playlistFile) {
-            loadedPlaylist.tracks.forEach(session.readTrack(forFile:))
+            
+            loadedPlaylist.tracks.forEach {
+                session.readTrack(forFile: $0.file, withChapters: $0.chapters)
+            }
         }
         
         // TODO: else mark error in session ??? What to do with playlists with 0 tracks ???

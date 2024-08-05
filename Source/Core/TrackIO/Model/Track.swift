@@ -99,6 +99,7 @@ class Track: Hashable, PlaylistItem, PlayableItem {
     var auxiliaryMetadata: [String: MetadataEntry] = [:]
     
     var chapters: [Chapter] = []
+    var chaptersLoadedFromCUESheet: Bool = false
     var hasChapters: Bool {!chapters.isEmpty}
     
     var fileSystemInfo: FileSystemInfo
@@ -154,9 +155,17 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         self.duration = metadata.duration
         self.durationIsAccurate = metadata.durationIsAccurate
         
-        self.chapters = metadata.chapters
+        if !chaptersLoadedFromCUESheet {
+            self.chapters = metadata.chapters
+        }
         
         self.art = metadata.art
+    }
+    
+    func setChaptersFromCUEFile(_ chapters: [Chapter]) {
+        
+        self.chapters = chapters
+        self.chaptersLoadedFromCUESheet = true
     }
     
     func setAuxiliaryMetadata(_ metadata: AuxiliaryMetadata) {

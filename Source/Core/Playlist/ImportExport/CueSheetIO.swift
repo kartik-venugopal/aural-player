@@ -54,7 +54,11 @@ class CueSheetIO: PlaylistIOProtocol {
                 tracksWithChapters[file.file] = file.chapters
                 
                 print("File: \(file.file.path)")
-                print("Chapters: \n\(file.chapters.map {$0.title + "\n"})")
+                print("Chapters: \(file.chapters.count)")
+                
+                for c in file.chapters {
+                    print("\(c.startTime): \(c.title)")
+                }
                 
                 if file.chapters.count == 1 {
                     
@@ -73,7 +77,7 @@ class CueSheetIO: PlaylistIOProtocol {
             }
         }
         
-        return FileSystemPlaylist(file: playlistFile, tracks: [])
+        return FileSystemPlaylist(file: playlistFile, tracks: tracksWithChapters.map {file, chapters in FileSystemPlaylistTrack(file: file, chapters: chapters)})
     }
 
     private static func readFile(_ playlistFile: URL, _ rootIndentLevel: Int) -> (file: URL, chapters: [Chapter])? {
