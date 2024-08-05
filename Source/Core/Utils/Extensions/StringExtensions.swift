@@ -174,11 +174,11 @@ extension String {
     }
     
     func trim() -> String { 
-        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
     func capitalizingFirstLetter() -> String {
-        return prefix(1).uppercased() + (self.count > 1 ? self.substring(range: 1..<self.count) : "")
+        prefix(1).uppercased() + (self.count > 1 ? self.substring(range: 1..<self.count) : "")
     }
 
     subscript (index: Int) -> Character {

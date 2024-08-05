@@ -917,6 +917,8 @@
 		3EC793862B746C6D00AF7E9E /* CompactPlayQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC793852B746C6D00AF7E9E /* CompactPlayQueueViewController.swift */; };
 		3EC793882B74700900AF7E9E /* CompactPlayQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EC793872B74700900AF7E9E /* CompactPlayQueue.xib */; };
 		3EC856A82811BA7000647CF4 /* PlayQueueViewController+ContextMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC856A72811BA7000647CF4 /* PlayQueueViewController+ContextMenuController.swift */; };
+		3EC869032C615BAA006CA63E /* CueSheetIO+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC869022C615BAA006CA63E /* CueSheetIO+Model.swift */; };
+		3EC869052C615D90006CA63E /* CueSheetIO+Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC869042C615D90006CA63E /* CueSheetIO+Parser.swift */; };
 		3EC9E67426A5E1EB00C17302 /* TableViewDragDropExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */; };
 		3ECBF3062619D58500AD5C30 /* AudioUnitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBF3052619D58500AD5C30 /* AudioUnitsViewController.swift */; };
 		3ECBF3082619D58E00AD5C30 /* AudioUnits.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ECBF3072619D58E00AD5C30 /* AudioUnits.xib */; };
@@ -2004,6 +2006,8 @@
 		3EC793852B746C6D00AF7E9E /* CompactPlayQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayQueueViewController.swift; sourceTree = "<group>"; };
 		3EC793872B74700900AF7E9E /* CompactPlayQueue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactPlayQueue.xib; sourceTree = "<group>"; };
 		3EC856A72811BA7000647CF4 /* PlayQueueViewController+ContextMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayQueueViewController+ContextMenuController.swift"; sourceTree = "<group>"; };
+		3EC869022C615BAA006CA63E /* CueSheetIO+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CueSheetIO+Model.swift"; sourceTree = "<group>"; };
+		3EC869042C615D90006CA63E /* CueSheetIO+Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CueSheetIO+Parser.swift"; sourceTree = "<group>"; };
 		3EC9E67326A5E1EB00C17302 /* TableViewDragDropExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDragDropExtensions.swift; sourceTree = "<group>"; };
 		3ECBF3052619D58500AD5C30 /* AudioUnitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitsViewController.swift; sourceTree = "<group>"; };
 		3ECBF3072619D58E00AD5C30 /* AudioUnits.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnits.xib; sourceTree = "<group>"; };
@@ -2752,6 +2756,8 @@
 			isa = PBXGroup;
 			children = (
 				3E0216FB2C23490E00865AC2 /* CueSheetIO.swift */,
+				3EC869042C615D90006CA63E /* CueSheetIO+Parser.swift */,
+				3EC869022C615BAA006CA63E /* CueSheetIO+Model.swift */,
 				3E0216FC2C23490E00865AC2 /* FileSystemPlaylist.swift */,
 				3E0216FD2C23490E00865AC2 /* M3UPlaylistIO.swift */,
 				3E0216FE2C23490E00865AC2 /* PlaylistIO.swift */,
@@ -5889,6 +5895,7 @@
 				3E0218B32C23490E00865AC2 /* PlayQueuePersistentState.swift in Sources */,
 				3E02180E2C23490E00865AC2 /* FilterPresets.swift in Sources */,
 				3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */,
+				3EC869032C615BAA006CA63E /* CueSheetIO+Model.swift in Sources */,
 				3EE2CC3326811074002C1B29 /* NSTableViewExtensions.swift in Sources */,
 				3E02198B2C23490E00865AC2 /* OrderedDictionaryExtensions.swift in Sources */,
 				3E0218442C23490E00865AC2 /* FFmpegChannelLayout.swift in Sources */,
@@ -6010,6 +6017,7 @@
 				3E0218E22C23490E00865AC2 /* GroupMoveResult.swift in Sources */,
 				3E0218802C23490E00865AC2 /* TuneBrowserNotifications.swift in Sources */,
 				3E6C12C525CEBE6700BF0D07 /* ReverbUnitViewController.swift in Sources */,
+				3EC869052C615D90006CA63E /* CueSheetIO+Parser.swift in Sources */,
 				3E02187E2C23490E00865AC2 /* PresetsManagerNotifications.swift in Sources */,
 				3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */,
 				3E0217F82C23490E00865AC2 /* DelayUnitProtocol.swift in Sources */,

@@ -75,7 +75,7 @@ extension TrackList: TrackListFileSystemLoadingProtocol {
         if let loadedPlaylist = PlaylistIO.loadPlaylist(fromFile: playlistFile) {
             
             loadedPlaylist.tracks.forEach {
-                session.readTrack(forFile: $0.file, withChapters: $0.chapters)
+                session.readTrack(forFile: $0.file, withCueSheetMetadata: $0.cueSheetMetadata)
             }
         }
         

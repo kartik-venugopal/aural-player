@@ -102,6 +102,6 @@ class M3UPlaylistIO: PlaylistIOProtocol {
             }
         }
         
-        return FileSystemPlaylist(file: playlistFile, tracks: tracks.map {FileSystemPlaylistTrack(file: $0, chapters: [])})
+        return FileSystemPlaylist(file: playlistFile, tracks: tracks.map {FileSystemPlaylistTrack(file: $0, cueSheetMetadata: nil)})
     }
 }

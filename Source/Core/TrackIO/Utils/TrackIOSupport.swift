@@ -63,19 +63,12 @@ class TrackLoadSession {
     
     var tracksCount: Int {tracks.count}
     
-    func readTrack(forFile file: URL, withChapters chapters: [Chapter]? = nil) {
+    func readTrack(forFile file: URL, withCueSheetMetadata metadata: CueSheetMetadata? = nil) {
         
         guard tracks[file] == nil else {return}
         
         let trackInList: Track? = loader.findTrack(forFile: file)
-        let track = trackInList ?? Track(file)
-        
-        if let chapters = chapters {
-            track.setChaptersFromCUEFile(chapters)
-        }
-        
-        print("Track \(track) has \(track.chapters.count) chapters")
-        
+        let track = trackInList ?? Track(file, cueSheetMetadata: metadata)
         let trackRead: TrackRead = TrackRead(track: track,
                                              result: trackInList != nil ? .existsInTrackList : .addedToTrackList)
         

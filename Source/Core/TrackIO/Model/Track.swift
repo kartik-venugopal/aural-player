@@ -98,20 +98,23 @@ class Track: Hashable, PlaylistItem, PlayableItem {
     // Non-essential metadata
     var auxiliaryMetadata: [String: MetadataEntry] = [:]
     
+    var cueSheetMetadata: CueSheetMetadata?
+    
     var chapters: [Chapter] = []
-    var chaptersLoadedFromCUESheet: Bool = false
     var hasChapters: Bool {!chapters.isEmpty}
     
     var fileSystemInfo: FileSystemInfo
     var audioInfo: AudioInfo?
     
-    init(_ file: URL, fileMetadata: FileMetadata? = nil) {
+    init(_ file: URL, cueSheetMetadata: CueSheetMetadata? = nil, fileMetadata: FileMetadata? = nil) {
 
         self.file = file
         self.defaultDisplayName = file.nameWithoutExtension
         self.fileSystemInfo = FileSystemInfo(file: file, fileName: self.defaultDisplayName)
         
         self.isNativelySupported = file.isNativelySupported
+        
+        self.cueSheetMetadata = cueSheetMetadata
         
         if let theFileMetadata = fileMetadata {
             setPrimaryMetadata(from: theFileMetadata)
@@ -125,15 +128,24 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         
         guard let metadata: PrimaryMetadata = allMetadata.primary else {return}
         
-        self.title = metadata.title
+        self.title = metadata.title ?? cueSheetMetadata?.title
         
-        self.theArtist = metadata.artist
-        self.albumArtist = metadata.albumArtist
+        self.theArtist = metadata.artist ?? cueSheetMetadata?.performer
+        self.albumArtist = metadata.albumArtist ?? cueSheetMetadata?.albumPerformer
         self.performer = metadata.performer
         
-        self.album = metadata.album
-        self.genre = metadata.genre
+        // If Cue sheet performer has not been used, and it's available, use it
+        if metadata.artist != nil, self.performer == nil {
+            self.performer = cueSheetMetadata?.performer
+        }
+        
+        self.album = metadata.album ?? cueSheetMetadata?.album
+        self.genre = metadata.genre ?? cueSheetMetadata?.genre
         self.year = metadata.year
+        
+        if self.year == nil, let cueSheetDate = cueSheetMetadata?.date {
+            self.year = Int(cueSheetDate)
+        }
         
         self.composer = metadata.composer
         self.conductor = metadata.conductor
@@ -155,17 +167,30 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         self.duration = metadata.duration
         self.durationIsAccurate = metadata.durationIsAccurate
         
-        if !chaptersLoadedFromCUESheet {
+        if metadata.chapters.isNonEmpty {
             self.chapters = metadata.chapters
+            
+        } else if let cueSheetChapters = cueSheetMetadata?.chapters, cueSheetChapters.isNonEmpty {
+            self.chapters = cueSheetChapters
+        }
+        
+        if let lastChapter = self.chapters.last, lastChapter.duration == 0 {
+            
+            // Correct the end time of the last chapter, if necessary.
+            lastChapter.correctEndTimeAndDuration(endTime: metadata.duration)
         }
         
         self.art = metadata.art
-    }
-    
-    func setChaptersFromCUEFile(_ chapters: [Chapter]) {
         
-        self.chapters = chapters
-        self.chaptersLoadedFromCUESheet = true
+        // Cue sheet metadata
+        
+        if let cueSheetDiscID = cueSheetMetadata?.discID {
+            auxiliaryMetadata["DiscID"] = MetadataEntry(format: .other, key: "DiscID", value: cueSheetDiscID)
+        }
+        
+        if let cueSheetComment = cueSheetMetadata?.comment {
+            auxiliaryMetadata["Comment"] = MetadataEntry(format: .other, key: "Comment", value: cueSheetComment)
+        }
     }
     
     func setAuxiliaryMetadata(_ metadata: AuxiliaryMetadata) {

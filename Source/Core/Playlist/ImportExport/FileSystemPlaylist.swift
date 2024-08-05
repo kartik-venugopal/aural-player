@@ -24,5 +24,24 @@ struct FileSystemPlaylist {
 struct FileSystemPlaylistTrack {
     
     let file: URL
-    let chapters: [Chapter]
+    let cueSheetMetadata: CueSheetMetadata?
+}
+
+class CueSheetMetadata {
+    
+    var chapters: [Chapter]?
+    
+    // Overall album info
+    
+    var album: String?
+    var albumPerformer: String?
+    var genre: String?
+    var date: String?
+    var discID: String?
+    var comment: String?
+
+    // Track-specific info
+    
+    var performer: String?
+    var title: String?
 }

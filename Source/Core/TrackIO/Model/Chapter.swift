@@ -30,23 +30,22 @@ class Chapter {
         self.endTime = endTime
         
         // Use duration if provided. Otherwise, compute it from the start and end times.
-        self.duration = duration == nil ? max(endTime - startTime, 0) : duration!
+        self.duration = duration ?? max(endTime - startTime, 0)
     }
     
-    init?(persistentState: ChapterPersistentState, index: Int) {
+    convenience init?(persistentState: ChapterPersistentState, index: Int) {
         
         guard let startTime = persistentState.startTime, let endTime = persistentState.endTime else {return nil}
         
-        if let title = persistentState.title, !title.isEmptyAfterTrimming {
-            self.title = title
+        let title: String
+        
+        if let theTitle = persistentState.title, !theTitle.isEmptyAfterTrimming {
+            title = theTitle
         } else {
-            self.title = "Chapter \(index + 1)"
+            title = "Chapter \(index + 1)"
         }
         
-        self.startTime = startTime
-        self.endTime = endTime
-        
-        self.duration = max(endTime - startTime, 0)
+        self.init(title: title, startTime: startTime, endTime: endTime)
     }
     
     // Convenience function to determine if a given track position lies within this chapter's time bounds

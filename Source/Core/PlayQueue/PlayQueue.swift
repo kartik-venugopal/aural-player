@@ -214,7 +214,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         let success = audioFormatsSet.count == 1
         
         guard success else {
-            throw GaplessPlaybackNotPossibleError("More than 1 AudioFormat detected, gapless playback not possible.")
+            throw GaplessPlaybackNotPossibleError("The tracks in the Play Queue do not all have the same audio format.")
         }
         
         if repeatMode == .one {

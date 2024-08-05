@@ -18,217 +18,90 @@ class CueSheetIO: PlaylistIOProtocol {
         
     }
     
-    private static let prefix_comment: String = "REM"
-
-    private static let prefix_file: String = "FILE"
-    private static let prefix_track: String = "TRACK"
-
-    private static let trackFormat_audio: String = "AUDIO"
-
-    private static let prefix_title: String = "TITLE"
-    private static let prefix_index: String = "INDEX"
-
-    private static let prefix_performer: String = "PERFORMER"
-    private static let prefix_songwriter: String = "SONGWRITER"
-
-    private static var cursor: Int = 0
-    private static var lines: [String] = []
-    private static var line: String = ""
-
     static func loadPlaylist(fromFile playlistFile: URL) -> FileSystemPlaylist? {
 
-        guard let fileContents: String = PlaylistIO.readFileAsString(playlistFile) else {return nil}
+        guard let cueSheet = parseCueSheet(fromFile: playlistFile) else {return nil}
 
-        lines = fileContents.components(separatedBy: .newlines)
-
-        var tracksWithChapters: [URL: [Chapter]] = [:]
-        cursor = 0
-
-        while cursor < lines.count {
-
-            line = lines[cursor].trim()
-
-            if line.starts(with: prefix_file), let file = readFile(playlistFile, 0) {
+        let parentDir = playlistFile.parentDir
+        
+        let tracks: [FileSystemPlaylistTrack] = cueSheet.files.compactMap {
+            Self.mapCueSheetFileToPlaylistTrack($0, inParentDir: parentDir, forCueSheet: cueSheet)
+        }
+        
+        return FileSystemPlaylist(file: playlistFile, tracks: tracks)
+    }
+    
+    private static func mapCueSheetFileToPlaylistTrack(_ cueSheetFile: CueSheetFile, inParentDir parentDir: URL, forCueSheet cueSheet: CueSheet) -> FileSystemPlaylistTrack? {
+        
+        let file = parentDir.appendingPathComponent(cueSheetFile.filename, isDirectory: false)
+        
+        let cueSheetTracks = cueSheetFile.tracks
+        guard cueSheetTracks.isNonEmpty else {return nil}
+        
+        let metadata: CueSheetMetadata = getMetadataFromCueSheet(cueSheet)
+        
+        if cueSheetTracks.count == 1 {
+            
+            if let cueSheetTrack = cueSheetTracks.first {
+            
+                metadata.performer = cueSheetTrack.performer
+                metadata.title = cueSheetTrack.title
+            }
+            
+        } else {
+            
+            func correctNumber(_ number: Double) -> Double {
+                (number.isNaN || number < 0) ? 0 : number
+            }
+            
+            // Multiple tracks for file, map to chapters
+            
+            let sortedTracks = cueSheetTracks.sorted(by: {($0.startTime ?? 0) < ($1.startTime ?? 0)})
+            metadata.chapters = []
+            
+            for (index, track) in sortedTracks.enumerated() {
                 
-//                let track = Track(, fileMetadata: )
-                tracksWithChapters[file.file] = file.chapters
+                let title = Self.chapterTitleForCueSheetTrack(track) ?? "Chapter \(index + 1)"
+                let start = track.startTime ?? 0
                 
-                print("File: \(file.file.path)")
-                print("Chapters: \(file.chapters.count)")
+                // Use start times to compute end times and durations
+                let end = index == sortedTracks.lastIndex ? 0 : (sortedTracks[index + 1].startTime ?? 0)
                 
-                for c in file.chapters {
-                    print("\(c.startTime): \(c.title)")
-                }
+                // Validate the time fields for NaN and negative values
+                let correctedStart = correctNumber(start)
+                let correctedEnd = correctNumber(end)
                 
-                if file.chapters.count == 1 {
-                    
-                    // Single track, no chapters
-                    
-                    var metadata: PrimaryMetadata
-                    if let chapter = file.chapters.first {
-                        
-                        metadata = PrimaryMetadata()
-                        metadata.title = chapter.title
-                    }
-                }
-
-            } else {
-                cursor.increment()
+                metadata.chapters?.append(Chapter(title: title,
+                                                  startTime: correctedStart,
+                                                  endTime: correctedEnd))
             }
         }
         
-        return FileSystemPlaylist(file: playlistFile, tracks: tracksWithChapters.map {file, chapters in FileSystemPlaylistTrack(file: file, chapters: chapters)})
+        return FileSystemPlaylistTrack(file: file, cueSheetMetadata: metadata)
     }
-
-    private static func readFile(_ playlistFile: URL, _ rootIndentLevel: Int) -> (file: URL, chapters: [Chapter])? {
-
-        var tokens = line.components(separatedBy: " ")
-
-        var chapterTitlesAndStartTimes: [(title: String?, startTime: Double)] = []
-        var chapters: [Chapter] = []
-
-        if tokens.count < 2 {return nil}
-
-        tokens.remove(at: 0)
-        tokens.removeLast()
-
-        let filePath: String = (tokens.count == 1 ? tokens[0] : tokens.joined(separator: " ")).removingOccurrences(of: "\"")
-
-        cursor.increment()
-
-        while cursor < lines.count {
-
-            line = lines[cursor]
-            let indentLevel = line.prefix(while: {$0 == " "}).count
-
-            // Terminate
-            if !line.isEmptyAfterTrimming && indentLevel <= rootIndentLevel {
-                break
-            }
-
-            line = line.trim()
-
-            if line.starts(with: prefix_track) {
-
-                if let chapter = readTrack(indentLevel) {
-                    chapterTitlesAndStartTimes.append(chapter)
-                }
-
-            } else {
-                cursor.increment()
-            }
+    
+    private static func chapterTitleForCueSheetTrack(_ track: CueSheetTrack) -> String? {
+        
+        guard let theTitle = track.title else {return nil}
+            
+        if let performer = track.performer {
+            return "\(performer) - \(theTitle)"
+        } else {
+            return theTitle
         }
-
-        let playlistFolder: URL = playlistFile.deletingLastPathComponent()
-        let url = playlistFolder.appendingPathComponent(filePath, isDirectory: false)
-
-        chapterTitlesAndStartTimes.sort(by: {$0.startTime < $1.startTime})
-
-        for index in 0..<chapterTitlesAndStartTimes.count {
-
-            let title = chapterTitlesAndStartTimes[index].title
-            let start = chapterTitlesAndStartTimes[index].startTime
-
-            // Use start times to compute end times and durations
-
-            let end = index == chapterTitlesAndStartTimes.count - 1 ? 0 : chapterTitlesAndStartTimes[index + 1].startTime
-            let duration = end - start
-
-            // Validate the time fields for NaN and negative values
-            let correctedStart = (start.isNaN || start < 0) ? 0 : start
-            let correctedEnd = (end.isNaN || end < 0) ? 0 : end
-            let correctedDuration = (duration.isNaN || duration < 0) ? nil : duration
-
-            chapters.append(Chapter(title: title ?? String(format: "Chapter %d", index + 1), startTime: correctedStart, endTime: correctedEnd, duration: correctedDuration))
-        }
-
-        return (url, chapters)
     }
-
-    private static func readTrack(_ rootIndentLevel: Int) -> (title: String?, startTime: Double)? {
-
-        // Verify that it's an audio track
-        let trackTokens = line.components(separatedBy: " ")
-        if trackTokens.count < 3 || !trackTokens.contains(trackFormat_audio) {return nil}
-
-        cursor.increment()
-
-        var title: String?
-        var performer: String?
-        var songwriter: String?
-        var index: Double?
-
-        // Read performer, title, start time
-        while cursor < lines.count {
-
-            line = lines[cursor]
-            let indentLevel = line.prefix(while: {$0 == " "}).count
-
-            let trimmedLine = line.trim()
-
-            // Terminate if indentation has reduced to the same level as the root TRACK element
-            if !trimmedLine.isEmpty && indentLevel <= rootIndentLevel {
-                break
-            }
-
-            line = trimmedLine
-
-            if line.starts(with: prefix_title) {
-                title = readTitleOrPerformer()
-
-            } else if line.starts(with: prefix_performer) {
-                performer = readTitleOrPerformer()
-
-            } else if line.starts(with: prefix_songwriter) {
-                songwriter = readTitleOrPerformer()
-
-            } else if index == nil && line.starts(with: prefix_index) {
-                index = readIndex()
-            }
-
-            cursor.increment()
-        }
-
-        guard let theIndex = index else {return nil}
-
-        var chapterTitle: String? = nil
-
-        if let theTitle = title, performer != nil || songwriter != nil {
-
-            chapterTitle = "\(performer ?? songwriter ?? "") - \(theTitle)"
-
-        } else if let theTitle = title {
-
-            chapterTitle = theTitle
-        }
-
-        return (chapterTitle, theIndex)
-    }
-
-    private static func readTitleOrPerformer() -> String? {
-
-        let tokens = line.components(separatedBy: " ")
-        if tokens.count < 2 {return nil}
-
-        return tokens.suffix(from: 1).joined(separator: " ").removingOccurrences(of: "\"")
-    }
-
-    private static func readIndex() -> Double? {
-
-        let tokens = line.components(separatedBy: " ")
-        if tokens.count < 3 || tokens[1] != "01" {return nil}
-
-        // mm:ss:ff (ff = frames ... 1/75 second)
-        let timeTokens = tokens[2].components(separatedBy: ":")
-
-        if timeTokens.count >= 3, let minutes = Double(timeTokens[0]), let seconds = Double(timeTokens[1]), let frames = Double(timeTokens[2]) {
-            return (minutes * 60.0) + seconds + (frames / 75.0)
-        }
-
-        return nil
-    }
-
-    private static func readTrackStartTime() -> Double? {
-        return nil
+    
+    private static func getMetadataFromCueSheet(_ cueSheet: CueSheet) -> CueSheetMetadata {
+        
+        let metadata: CueSheetMetadata = .init()
+        
+        metadata.album = cueSheet.album
+        metadata.albumPerformer = cueSheet.albumPerformer
+        metadata.comment = cueSheet.comment
+        metadata.date = cueSheet.date
+        metadata.discID = cueSheet.discID
+        metadata.genre = cueSheet.genre
+        
+        return metadata
     }
 }
