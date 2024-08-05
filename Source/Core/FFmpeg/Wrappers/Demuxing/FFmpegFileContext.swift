@@ -252,9 +252,14 @@ class FFmpegFileContext {
             
             throw PacketReadError(readResult)
         }
+        
+        guard avPacket.stream_index == stream.index else {
+            
+            NSLog("Packet strem index doesn't match index of source stream.")
+            return nil
+        }
 
-        let packet = FFmpegPacket(encapsulating: avPacket)
-        return packet.streamIndex == stream.index ? packet : nil
+        return FFmpegPacket(encapsulating: avPacket)
     }
     
     ///

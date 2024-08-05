@@ -22,11 +22,6 @@ class FFmpegPacket {
     var avPacket: AVPacket
     
     ///
-    /// Index of the stream from which this packet was read.
-    ///
-    var streamIndex: Int32 {avPacket.stream_index}
-    
-    ///
     /// Size, in bytes, of this packet's data.
     ///
     var size: Int32 {avPacket.size}
