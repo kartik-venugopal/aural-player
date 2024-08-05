@@ -96,6 +96,18 @@ class M3UPlaylistIO: PlaylistIOProtocol {
                 
                 let resolvedURL = url.resolvedURL
                 
+                guard resolvedURL.exists else {
+                    
+                    NSLog("Error while parsing M3U Playlist '\(playlistFile.lastPathComponent)': File not found - '\(resolvedURL.path)'")
+                    continue
+                }
+                
+                guard resolvedURL.isSupportedAudioFile else {
+                    
+                    NSLog("Error while parsing M3U Playlist '\(playlistFile.lastPathComponent)': File not supported - '\(resolvedURL.path)'")
+                    continue
+                }
+                
                 if resolvedURL.exists && resolvedURL.isSupportedAudioFile {
                     tracks.append(resolvedURL)
                 }

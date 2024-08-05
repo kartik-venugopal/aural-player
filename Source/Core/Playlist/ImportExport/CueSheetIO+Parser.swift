@@ -77,16 +77,18 @@ extension CueSheetIO {
         return cueSheet
     }
     
+    private static let character_doubleQuote: String = "\""
+    
     private static func parseFile(_ playlistFile: URL, _ rootIndentLevel: Int) -> CueSheetFile? {
-
+        
         var tokens = line.components(separatedBy: " ")
         if tokens.count < 2 {return nil}
 
         // Remove "FILE" and "<FileFormat>" tokens
-        tokens.remove(at: 0)
+        tokens.removeFirst()
         tokens.removeLast()
 
-        let filename: String = (tokens.count == 1 ? tokens[0] : tokens.joined(separator: " ")).removingOccurrences(of: "\"")
+        let filename: String = (tokens.count == 1 ? tokens[0] : tokens.joined(separator: " ")).removingOccurrences(of: character_doubleQuote)
         let cueSheetFile: CueSheetFile = .init(filename: filename)
 
         cursor.increment()

@@ -135,7 +135,7 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         self.performer = metadata.performer
         
         // If Cue sheet performer has not been used, and it's available, use it
-        if metadata.artist != nil, self.performer == nil {
+        if metadata.artist != nil, self.performer == nil, cueSheetMetadata?.performer != metadata.artist {
             self.performer = cueSheetMetadata?.performer
         }
         
@@ -189,7 +189,11 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         }
         
         if let cueSheetComment = cueSheetMetadata?.comment {
-            auxiliaryMetadata["Comment"] = MetadataEntry(format: .other, key: "Comment", value: cueSheetComment)
+            
+            let hasExistingCommentField = auxiliaryMetadata.contains(where: {$1.key == "Comment"})
+            let key = hasExistingCommentField ? "Additional Comment" : "Comment"
+            
+            auxiliaryMetadata[key] = MetadataEntry(format: .other, key: key, value: cueSheetComment)
         }
     }
     

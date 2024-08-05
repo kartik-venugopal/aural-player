@@ -22,18 +22,29 @@ class CueSheetIO: PlaylistIOProtocol {
 
         guard let cueSheet = parseCueSheet(fromFile: playlistFile) else {return nil}
 
-        let parentDir = playlistFile.parentDir
-        
         let tracks: [FileSystemPlaylistTrack] = cueSheet.files.compactMap {
-            Self.mapCueSheetFileToPlaylistTrack($0, inParentDir: parentDir, forCueSheet: cueSheet)
+            Self.mapCueSheetFileToPlaylistTrack($0, inPlaylistFile: playlistFile, forCueSheet: cueSheet)
         }
         
         return FileSystemPlaylist(file: playlistFile, tracks: tracks)
     }
     
-    private static func mapCueSheetFileToPlaylistTrack(_ cueSheetFile: CueSheetFile, inParentDir parentDir: URL, forCueSheet cueSheet: CueSheet) -> FileSystemPlaylistTrack? {
+    private static func mapCueSheetFileToPlaylistTrack(_ cueSheetFile: CueSheetFile, inPlaylistFile playlistFile: URL, forCueSheet cueSheet: CueSheet) -> FileSystemPlaylistTrack? {
+
+        let parentDir = playlistFile.parentDir
+        let file = parentDir.appendingPathComponent(cueSheetFile.filename, isDirectory: false).resolvedURL
         
-        let file = parentDir.appendingPathComponent(cueSheetFile.filename, isDirectory: false)
+        guard file.exists else {
+            
+            NSLog("Error while parsing Cue Sheet '\(playlistFile.lastPathComponent)': File not found - '\(file.path)'")
+            return nil
+        }
+        
+        guard file.isSupportedAudioFile else {
+            
+            NSLog("Error while parsing Cue Sheet '\(playlistFile.lastPathComponent)': File not supported - '\(file.path)'")
+            return nil
+        }
         
         let cueSheetTracks = cueSheetFile.tracks
         guard cueSheetTracks.isNonEmpty else {return nil}

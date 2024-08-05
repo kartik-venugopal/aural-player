@@ -25,7 +25,20 @@ class MetadataTrackInfoSource: TrackInfoSource {
         trackInfo.append(KeyValuePair(key: "Artist", value: track.artist ?? TrackInfoConstants.value_unknown))
         trackInfo.append(KeyValuePair(key: "Album", value: track.album ?? TrackInfoConstants.value_unknown))
         trackInfo.append(KeyValuePair(key: "Genre", value: track.genre ?? TrackInfoConstants.value_unknown))
-
+        
+        func appendKVPairFor(key: String, value: Any?) {
+            
+            if let theValue = value {
+                trackInfo.append(KeyValuePair(key: key, value: "\(theValue)"))
+            }
+        }
+        
+        appendKVPairFor(key: "Year", value: track.year)
+        appendKVPairFor(key: "Performer", value: track.performer)
+        appendKVPairFor(key: "Composer", value: track.composer)
+        appendKVPairFor(key: "Lyricist", value: track.lyricist)
+        appendKVPairFor(key: "Conductor", value: track.conductor)
+        
         if let trackNum = track.trackNumber {
 
             if let totalTracks = track.totalTracks, totalTracks > 0 {
