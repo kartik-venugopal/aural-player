@@ -52,7 +52,7 @@
                         <size key="offset" width="-2" height="-2"/>
                         <color key="color" red="0.1848081282" green="0.1848081282" blue="0.1848081282" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </shadow>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayingArt" id="uO2-6C-ibm"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="music.quarternote.3" catalog="system" id="uO2-6C-ibm"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="roundingRadius">
                             <real key="value" value="2"/>
@@ -341,7 +341,6 @@
     <resources>
         <image name="Loop" width="18" height="25"/>
         <image name="Play" width="40" height="40"/>
-        <image name="PlayingArt" width="237" height="237"/>
         <image name="backward" catalog="system" width="19" height="12"/>
         <image name="backward.end" catalog="system" width="13" height="13"/>
         <image name="bookmark" catalog="system" width="14" height="16"/>
@@ -352,6 +351,7 @@
         <image name="heart" catalog="system" width="16" height="14"/>
         <image name="heart.slash" catalog="system" width="16" height="17"/>
         <image name="info" catalog="system" width="11" height="16"/>
+        <image name="music.quarternote.3" catalog="system" width="18" height="15"/>
         <image name="repeat" catalog="system" width="17" height="14"/>
         <image name="shuffle" catalog="system" width="18" height="14"/>
         <image name="speaker.wave.3" catalog="system" width="27" height="19"/>

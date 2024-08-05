@@ -110,14 +110,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         doPlay({playQueue.start()}, PlaybackParams.defaultParams())
     }
     
-    func beginGaplessPlayback() {
+    func beginGaplessPlayback() throws {
         
-        guard playQueue.prepareForGaplessPlayback() else {
-            
-            print("NO GO !")
-            return
-        }
-        
+        try playQueue.prepareForGaplessPlayback()
         doBeginGaplessPlayback()
     }
     

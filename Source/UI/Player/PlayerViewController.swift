@@ -470,7 +470,17 @@ class PlayerViewController: NSViewController {
     }
     
     func beginGaplessPlayback() {
-        playbackDelegate.beginGaplessPlayback()
+        
+        do {
+            try playbackDelegate.beginGaplessPlayback()
+            
+        } catch {
+            
+            let errorMsg = (error as? GaplessPlaybackNotPossibleError)?.message ?? "Unknown Error"
+            
+            NSAlert.showError(withTitle: "Gapless Playback not possible",
+                             andText: "Error: \(errorMsg)")
+        }
     }
     
     func performTrackPlayback(_ command: TrackPlaybackCommandNotification) {

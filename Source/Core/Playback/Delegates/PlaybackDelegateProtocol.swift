@@ -29,7 +29,7 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
      */
     func togglePlayPause()
     
-    func beginGaplessPlayback()
+    func beginGaplessPlayback() throws
     
     var isInGaplessPlaybackMode: Bool {get}
     

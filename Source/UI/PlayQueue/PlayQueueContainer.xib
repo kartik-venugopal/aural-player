@@ -217,7 +217,7 @@
                         <action selector="trackInfoAction:" target="kd5-kG-XlG" id="742-TT-Fpw"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Show these tracks in Finder" image="ShowInFinder" id="Zlz-qH-EeU" userLabel="Show track in Finder">
+                <menuItem title="  Show these tracks in Finder" image="folder" catalog="system" id="Zlz-qH-EeU" userLabel="Show track in Finder">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showInFinderAction:" target="kd5-kG-XlG" id="6D6-VL-zwW"/>
@@ -763,7 +763,6 @@
     <resources>
         <image name="Artists_Menu" width="20" height="20"/>
         <image name="Genres_Menu" width="20" height="20"/>
-        <image name="ShowInFinder" width="15" height="15"/>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
         <image name="arrow.down.to.line.alt" catalog="system" width="13" height="14"/>
         <image name="arrow.down.to.line.square" catalog="system" width="15" height="14"/>

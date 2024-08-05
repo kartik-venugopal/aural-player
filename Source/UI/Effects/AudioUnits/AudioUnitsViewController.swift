@@ -141,7 +141,6 @@ class AudioUnitsViewController: NSViewController {
             
         default:
             return
-            
         }
         
         dialog.showWindow(self)

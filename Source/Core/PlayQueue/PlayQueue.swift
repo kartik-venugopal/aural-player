@@ -173,9 +173,10 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         }
     }
     
-    func prepareForGaplessPlayback() -> Bool {
+    func prepareForGaplessPlayback() throws {
      
         var audioFormatsSet: Set<AVAudioFormat> = Set()
+        var errorMsg: String? = nil
         
         for track in _tracks.values {
             
@@ -189,39 +190,42 @@ class PlayQueue: TrackList, PlayQueueProtocol {
                     
                     if audioFormatsSet.count > 1 {
                         
-                        print("More than 1 AudioFormat detected, gapless playback not possible.")
-                        return false
+                        errorMsg = "The tracks in the Play Queue do not all have the same audio format."
+                        break
                     }
                     
                 } else {
                     
-                    print("Unable to prepare for gapless playback: No audio ctx")
-                    // TODO: Log an error
-                    return false
+                    errorMsg = "Unable to prepare for gapless playback: No audio context for track: \(track)."
+                    break
                 }
                 
             } catch {
                 
-                print("Unable to prepare for gapless playback: error \(error)")
-                // TODO: Log an error
-                return false
+                errorMsg = "Unable to prepare track \(track) for gapless playback: \(error)"
+                break
             }
+        }
+        
+        if let theErrorMsg = errorMsg {
+            throw GaplessPlaybackNotPossibleError(theErrorMsg)
         }
         
         let success = audioFormatsSet.count == 1
         
-        if success {
-            
-            if repeatMode == .one {
-                repeatMode = .off
-            }
-            
-            if shuffleMode == .on {
-                shuffleMode = .off
-            }
+        guard success else {
+            throw GaplessPlaybackNotPossibleError("More than 1 AudioFormat detected, gapless playback not possible.")
         }
         
-        return success
+        if repeatMode == .one {
+            repeatMode = .off
+        }
+        
+        if shuffleMode == .on {
+            shuffleMode = .off
+        }
+        
+        print("\nGapless audio format: \(audioFormatsSet.first!)")
     }
     
     override func preTrackLoad() {
@@ -229,6 +233,8 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     }
     
     override func firstTrackLoaded(atIndex index: Int) {
+        
+        print("PQ: \(_tracks.values[0].chapters.count) chapters")
         
         // Use for autoplay
         if autoplay.value {

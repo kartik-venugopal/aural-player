@@ -24,7 +24,7 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     func loadTracks(from urls: [URL], atPosition position: Int?, params: PlayQueueTrackLoadParams)
     
     // Returns whether or not gapless playback is possible.
-    func prepareForGaplessPlayback() -> Bool
+    func prepareForGaplessPlayback() throws
 }
 
 extension PlayQueueProtocol {
