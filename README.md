@@ -247,6 +247,10 @@ Please [email me](mailto:kartikv2017@gmail.com) if you're interested in helping 
 
 NOTE - I am ***not*** looking for help with app development at the moment, but if this changes, I will post an update.
 
+## How to support me
+
+I am a one-man team with a full-time job and a full-time life, developing this app only out of love. If you would like to make a financial donation to me for my efforts, you may do so via **PayPal** using the email ID: **kartikv.de@gmail.com**
+
 ## Third party code attributions
 
 * [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
