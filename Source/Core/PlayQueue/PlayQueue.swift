@@ -234,8 +234,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     override func firstTrackLoaded(atIndex index: Int) {
         
-        print("PQ: \(_tracks.values[0].chapters.count) chapters")
-        
         // Use for autoplay
         if autoplay.value {
             playbackDelegate.play(trackAtIndex: index, .defaultParams())

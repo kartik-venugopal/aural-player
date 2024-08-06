@@ -47,7 +47,11 @@ class CueSheetIO: PlaylistIOProtocol {
         }
         
         let cueSheetTracks = cueSheetFile.tracks
-        guard cueSheetTracks.isNonEmpty else {return nil}
+        
+        // No tracks, just filename
+        guard cueSheetTracks.isNonEmpty else {
+            return .init(file: file, cueSheetMetadata: nil)
+        }
         
         let metadata: CueSheetMetadata = getMetadataFromCueSheet(cueSheet)
         
@@ -71,9 +75,10 @@ class CueSheetIO: PlaylistIOProtocol {
             metadata.chapters = []
             
             for (index, track) in sortedTracks.enumerated() {
+
+                guard let start = track.startTime else {continue}
                 
                 let title = Self.chapterTitleForCueSheetTrack(track) ?? "Chapter \(index + 1)"
-                let start = track.startTime ?? 0
                 
                 // Use start times to compute end times and durations
                 let end = index == sortedTracks.lastIndex ? 0 : (sortedTracks[index + 1].startTime ?? 0)
@@ -85,6 +90,17 @@ class CueSheetIO: PlaylistIOProtocol {
                 metadata.chapters?.append(Chapter(title: title,
                                                   startTime: correctedStart,
                                                   endTime: correctedEnd))
+            }
+            
+            if let chapters = metadata.chapters, chapters.count == 1 {
+                
+                metadata.chapters = nil
+                
+                if let track = sortedTracks.first(where: {$0.startTime == chapters[0].startTime}) {
+                    
+                    metadata.performer = track.performer
+                    metadata.title = track.title
+                }
             }
         }
         
