@@ -240,10 +240,10 @@ class FFmpegFileContext {
         var avPacket = AVPacket()
         
         // Try to read a packet.
-        let readResult: Int32 = av_read_frame(pointer, &avPacket)
+        let readResult: ResultCode = av_read_frame(pointer, &avPacket)
         
         // If the read fails, log a message and throw an error.
-        guard readResult >= 0 else {
+        guard readResult.isNonNegative else {
             
             // No need to log a message for EOF as it is considered harmless.
             if !readResult.isEOF {

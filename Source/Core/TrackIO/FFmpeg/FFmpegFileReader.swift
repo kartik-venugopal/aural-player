@@ -191,16 +191,17 @@ class FFmpegFileReader: FileReaderProtocol {
     private func doGetAuxiliaryMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, andMap metadataMap: FFmpegMappedMetadata, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, usingParsers relevantParsers: [FFmpegMetadataParser]) -> AuxiliaryMetadata {
         
         var metadata = AuxiliaryMetadata()
-        
-        // Load audio metadata.
-        
         var audioInfo = AudioInfo()
+        metadata.audioInfo = audioInfo
         
         audioInfo.format = fctx.formatLongName
-        
-        audioInfo.codec = (playbackContext as? FFmpegPlaybackContext)?.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
-        
         audioInfo.bitRate = (Double(fctx.bitRate) / Double(FileSize.KB)).roundedInt
+        
+        guard let ffmpegPlaybackCtx = playbackContext as? FFmpegPlaybackContext else {
+            return metadata
+        }
+        
+        audioInfo.codec = ffmpegPlaybackCtx.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
         
         if let audioStream = fctx.bestAudioStream {
             
@@ -211,10 +212,8 @@ class FFmpegFileReader: FileReaderProtocol {
             audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
             
             audioInfo.numChannels = Int(audioStream.channelCount)
-            audioInfo.channelLayout = audioStream.channelLayout.description
+            audioInfo.channelLayout = ffmpegPlaybackCtx.audioFormat.channelLayoutString
         }
-        
-        metadata.audioInfo = audioInfo
         
         return metadata
     }

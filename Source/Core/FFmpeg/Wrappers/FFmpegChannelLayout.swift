@@ -28,7 +28,7 @@ class FFmpegChannelLayout {
     }()
 
     
-    init(avChannelLayout: AVChannelLayout) {
+    init(encapsulating avChannelLayout: AVChannelLayout) {
         
         self.avChannelLayout = avChannelLayout
         self.numberOfChannels = avChannelLayout.nb_channels

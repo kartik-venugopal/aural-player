@@ -127,3 +127,10 @@ class FFmpegCodecContext {
         avcodec_free_context(&pointer)
     }
 }
+
+extension AVCodecID {
+    
+    var name: String {
+        String(cString: avcodec_get_name(self))
+    }
+}

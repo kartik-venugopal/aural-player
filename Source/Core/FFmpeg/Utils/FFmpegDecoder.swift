@@ -107,7 +107,6 @@ class FFmpegDecoder {
         
         self.stream = theAudioStream
         self.codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
-        try codec.open()
         
         if codec.sampleFormat.needsFormatConversion {
             

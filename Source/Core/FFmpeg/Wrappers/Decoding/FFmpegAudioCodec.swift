@@ -10,9 +10,46 @@
 import Foundation
 
 ///
-/// Encapsulates an ffmpeg audio codec that decodes audio data packets into raw (PCM) frames.
+/// Encapsulates an ffmpeg **AVCodec** struct, and provides convenient Swift-style access to its functions and member variables.
 ///
-class FFmpegAudioCodec: FFmpegCodec {
+class FFmpegAudioCodec {
+    
+    ///
+    /// A pointer to the encapsulated AVCodec object.
+    ///
+    var pointer: UnsafePointer<AVCodec>!
+    
+    ///
+    /// The encapsulated AVCodec object.
+    ///
+    var avCodec: AVCodec {pointer.pointee}
+    
+    ///
+    /// A context for the encapsulated AVCodec object.
+    ///
+    let context: FFmpegCodecContext
+    
+    ///
+    /// Decoding parameters for the encapsulated AVCodec object.
+    ///
+    let params: FFmpegCodecParameters
+    
+    ///
+    /// The unique identifier of the encapsulated AVCodec object.
+    ///
+    var id: UInt32 {avCodec.id.rawValue}
+    
+    ///
+    /// The name of the encapsulated AVCodec object.
+    ///
+    var name: String {String(cString: avCodec.name)}
+    
+    ///
+    /// The long name of the encapsulated AVCodec object.
+    ///
+    var longName: String {String(cString: avCodec.long_name)}
+    
+    var isOpen: Bool = false
     
     ///
     /// Constant value to use as the number of parallel threads to use when decoding.
@@ -42,49 +79,66 @@ class FFmpegAudioCodec: FFmpegCodec {
     ///
     /// PCM format of the samples.
     ///
-    var sampleFormat: FFmpegSampleFormat = FFmpegSampleFormat(encapsulating: AVSampleFormat(0))
+    lazy var sampleFormat: FFmpegSampleFormat = FFmpegSampleFormat(encapsulating: context.sampleFormat)
     
     ///
     /// Number of channels of audio data.
     ///
-    var channelCount: Int32 = 0
+    var channelCount: Int32 {
+        channelLayout.numberOfChannels
+    }
     
     ///
     /// Describes the number and physical / spatial arrangement of the channels. (e.g. "5.1 surround" or "stereo")
     ///
-    var channelLayout: FFmpegChannelLayout = .init(avChannelLayout: AVChannelLayout_Stereo)
+    lazy var channelLayout: FFmpegChannelLayout = .init(encapsulating: context.channelLayout)
     
     ///
     /// Instantiates an AudioCodec object, given a pointer to its parameters.
     ///
     /// - Parameter paramsPointer: A pointer to parameters for the associated AVCodec object.
     ///
-    override init(fromParameters paramsPointer: UnsafeMutablePointer<AVCodecParameters>) throws {
+    init(fromParameters paramsPointer: UnsafeMutablePointer<AVCodecParameters>) throws {
         
-        try super.init(fromParameters: paramsPointer)
+        self.params = .init(pointer: paramsPointer)
+        self.pointer = try Self.findDecoder(fromParams: params)
         
-        self.sampleFormat = FFmpegSampleFormat(encapsulating: context.sampleFormat)
-        self.channelCount = params.channels
-        
-        // Correct channel layout if necessary.
-        // NOTE - This is necessary for some files like WAV files that don't specify a channel layout.
-        self.channelLayout = FFmpegChannelLayout(avChannelLayout: context.channelLayout)
+        // Allocate a context for the codec.
+        self.context = try .init(codecPointer: pointer, codecParams: params)
         
         // Use multithreading to speed up decoding.
         self.context.threadCount = Self.threadCount
         self.context.threadType = Self.threadType
+        
+        try open()
     }
     
-    override func open() throws {
+    private static func findDecoder(fromParams params: FFmpegCodecParameters) throws -> UnsafePointer<AVCodec> {
         
-        try super.open()
+        let codecID = params.codecID
         
-        // The channel layout / sample format may change as a result of opening the codec.
-        // Some streams may contain the wrong header information. So, recompute these
-        // values after opening the codec.
+        guard let pointer = avcodec_find_decoder(codecID) else {
+            throw CodecInitializationError(description: "Unable to find required codec '\(codecID.name)'")
+        }
         
-        self.channelLayout = FFmpegChannelLayout(avChannelLayout: context.channelLayout)
-        self.sampleFormat = FFmpegSampleFormat(encapsulating: context.sampleFormat)
+        return pointer
+    }
+    
+    ///
+    /// Opens the codec for decoding.
+    ///
+    /// - throws: **DecoderInitializationError** if the codec cannot be opened.
+    ///
+    private func open() throws {
+        
+        let codecOpenResult: ResultCode = avcodec_open2(context.pointer, pointer, nil)
+        if codecOpenResult.isNonZero {
+            
+            NSLog("Failed to open codec '\(name)'. Error: \(codecOpenResult.errorDescription))")
+            throw DecoderInitializationError(codecOpenResult)
+        }
+        
+        isOpen = true
     }
     
     ///
