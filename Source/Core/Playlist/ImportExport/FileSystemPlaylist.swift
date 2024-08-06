@@ -27,7 +27,7 @@ struct FileSystemPlaylistTrack {
     let cueSheetMetadata: CueSheetMetadata?
 }
 
-class CueSheetMetadata {
+class CueSheetMetadata: Codable {
     
     var chapters: [Chapter]?
     

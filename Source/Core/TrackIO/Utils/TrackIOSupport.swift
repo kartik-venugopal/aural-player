@@ -26,6 +26,8 @@ class TrackLoadSession {
     
     private var triggeredFirstReadCallback: Bool = false
     
+    var playQueuePersistentState: PlayQueuePersistentState?
+    
     init(forLoader loader: TrackListFileSystemLoadingProtocol, withPriority priority: DispatchQoS.QoSClass, urls: [URL], insertionIndex: Int?) {
         
         self.loader = loader
@@ -49,6 +51,8 @@ class TrackLoadSession {
         
         self.batchSize = self.queue.maxConcurrentOperationCount
         
+        self.playQueuePersistentState = appPersistentState.playQueue
+        
         loader.preTrackLoad()
     }
     
@@ -68,7 +72,10 @@ class TrackLoadSession {
         guard tracks[file] == nil else {return}
         
         let trackInList: Track? = loader.findTrack(forFile: file)
-        let track = trackInList ?? Track(file, cueSheetMetadata: metadata)
+        
+        // TODO: Only read Cue Sheet Metadata for the PQ, not the Library or other TrackLists
+        
+        let track = trackInList ?? Track(file, cueSheetMetadata: metadata ?? playQueuePersistentState?.cueSheetMetadata(forFile: file))
         let trackRead: TrackRead = TrackRead(track: track,
                                              result: trackInList != nil ? .existsInTrackList : .addedToTrackList)
         

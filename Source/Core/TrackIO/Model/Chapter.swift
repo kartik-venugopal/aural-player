@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Represents a single chapter marking within a track.
 ///
-class Chapter {
+class Chapter: Codable {
     
     // Title may be changed / corrected after chapter object is created
     var title: String

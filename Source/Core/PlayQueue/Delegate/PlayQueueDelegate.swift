@@ -334,7 +334,8 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     var persistentState: PlayQueuePersistentState {
         
         let repeatAndShuffleModes = playQueue.repeatAndShuffleModes
-        return .init(tracks: tracks.map {$0.file}, repeatMode: repeatAndShuffleModes.repeatMode, shuffleMode: repeatAndShuffleModes.shuffleMode,
+        
+        return .init(tracks: tracks, repeatMode: repeatAndShuffleModes.repeatMode, shuffleMode: repeatAndShuffleModes.shuffleMode,
                      history: self.historyPersistentState)
     }
     

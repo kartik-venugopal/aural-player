@@ -35,10 +35,10 @@ extension PlayQueueDelegate {
             
         case .rememberFromLastAppLaunch:
             
-            if let files = persistentState?.tracks, files.isNonEmpty {
+            if let tracks = persistentState?.tracks, tracks.isNonEmpty {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-                loadTracks(from: files, params: pqParmsWithAutoplayAndNoHistory)
+                loadTracks(from: tracks, params: pqParmsWithAutoplayAndNoHistory)
             }
             
         case .loadPlaylistFile:
