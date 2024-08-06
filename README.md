@@ -19,6 +19,7 @@
   * [Known issues (and solutions)](#known-issues-and-solutions)
   * [Contact and conversation](#contact-and-conversation)
   * [How to contribute](#how-to-contribute)
+  * [How to support me](#how-to-support-me)
   * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
   * [License](#license)
