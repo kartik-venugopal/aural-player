@@ -10,7 +10,7 @@
 import AVFoundation
 import Accelerate
 
-fileprivate let bytesInAFloat: Int = MemoryLayout<Float>.size
+let bytesInAFloat: Int = MemoryLayout<Float>.size
 
 ///
 /// Performs conversion of PCM audio samples to the standard format suitable for playback in an **AVAudioEngine**,

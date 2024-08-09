@@ -110,7 +110,7 @@ class FFmpegDecoder {
         
         if codec.sampleFormat.needsFormatConversion {
             
-            guard let resampleCtx = FFmpegAVAEResamplingContext(channelLayout: codec.channelLayout,
+            guard let resampleCtx = FFmpegAVAEResamplingContext(inputChannelLayout: codec.channelLayout,
                                                                 sampleRate: Int64(codec.sampleRate),
                                                                 inputSampleFormat: codec.sampleFormat.avFormat) else {
                 

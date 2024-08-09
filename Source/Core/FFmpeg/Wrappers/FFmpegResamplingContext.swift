@@ -183,7 +183,7 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
     ///
     private static let standardSampleFormat: AVSampleFormat = AV_SAMPLE_FMT_FLTP
     
-    init?(channelLayout: FFmpegChannelLayout, sampleRate: Int64, inputSampleFormat: AVSampleFormat) {
+    init?(inputChannelLayout: FFmpegChannelLayout, outputChannelLayout: FFmpegChannelLayout? = nil, sampleRate: Int64, inputSampleFormat: AVSampleFormat) {
         
         super.init()
         
@@ -191,8 +191,8 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
         // NOTE - Our output channel layout will be the same as that of the input, since we don't
         // need to do any upmixing / downmixing here.
         
-        self.inputChannelLayout = channelLayout.avChannelLayout
-        self.outputChannelLayout = channelLayout.avChannelLayout
+        self.inputChannelLayout = inputChannelLayout.avChannelLayout
+        self.outputChannelLayout = outputChannelLayout?.avChannelLayout ?? self.inputChannelLayout
         
         // Set the input / output sample rates as options prior to resampling.
         // NOTE - Our output sample rate will be the same as that of the input, since we don't
@@ -213,12 +213,12 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
     
     @inline(__always)
     func convertFrame(_ frame: FFmpegFrame,
-                      andStoreIn outputDataPointers: UnsafeMutablePointer<BytePointer?>) {
+                      andStoreIn outputDataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>, outputChannelCount: Int? = nil) {
         
         let sampleCount = frame.sampleCount
         
         // Access the input data as pointers from the frame being resampled.
-        frame.dataPointers.withMemoryRebound(to: UnsafePointer<UInt8>?.self, capacity: frame.intChannelCount) {inputDataPointers in
+        frame.dataPointers.withMemoryRebound(to: UnsafePointer<UInt8>?.self, capacity: outputChannelCount ?? frame.intChannelCount) {inputDataPointers in
             
             convert(inputDataPointer: inputDataPointers, inputSampleCount: sampleCount,
                     outputDataPointer: outputDataPointers, outputSampleCount: sampleCount)

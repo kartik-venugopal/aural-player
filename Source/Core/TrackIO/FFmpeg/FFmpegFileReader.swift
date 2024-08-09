@@ -192,12 +192,13 @@ class FFmpegFileReader: FileReaderProtocol {
         
         var metadata = AuxiliaryMetadata()
         var audioInfo = AudioInfo()
-        metadata.audioInfo = audioInfo
         
         audioInfo.format = fctx.formatLongName
         audioInfo.bitRate = (Double(fctx.bitRate) / Double(FileSize.KB)).roundedInt
         
         guard let ffmpegPlaybackCtx = playbackContext as? FFmpegPlaybackContext else {
+            
+            metadata.audioInfo = audioInfo
             return metadata
         }
         
@@ -215,6 +216,7 @@ class FFmpegFileReader: FileReaderProtocol {
             audioInfo.channelLayout = ffmpegPlaybackCtx.audioFormat.channelLayoutString
         }
         
+        metadata.audioInfo = audioInfo
         return metadata
     }
     
