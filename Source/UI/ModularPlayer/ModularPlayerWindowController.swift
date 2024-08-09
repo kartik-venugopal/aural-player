@@ -76,6 +76,7 @@ class ModularPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
         messenger.subscribe(to: .View.toggleChaptersList, handler: toggleChaptersList)
         messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
+        messenger.subscribe(to: .View.toggleWaveform, handler: toggleWaveform)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         
         colorSchemesManager.registerSchemeObserver(self)
@@ -129,6 +130,10 @@ class ModularPlayerWindowController: NSWindowController {
     
     private func toggleVisualizer() {
         windowLayoutsManager.toggleWindow(withId: .visualizer)
+    }
+    
+    private func toggleWaveform() {
+        windowLayoutsManager.toggleWindow(withId: .waveform)
     }
     
     func changeWindowCornerRadius(to radius: CGFloat) {

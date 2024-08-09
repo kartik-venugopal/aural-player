@@ -31,9 +31,9 @@ extension WaveformRenderOperation {
     ///
     /// - Returns:                          An object containing all the info necessary to render a waveform image for the given data set.
     ///
-    func sliceAudioFile(withRange slice: CountableRange<Int>, andDownsampleTo targetSamples: Int) -> WaveformRenderData? {
+    func analyzeAudioFile(withRange slice: CountableRange<Int>, andDownsampleTo targetSamples: Int) -> WaveformRenderData? {
         
-        print("Slicing track ... \(slice)")
+        print("Analyzing track ... \(slice)")
         
         // MARK: Set up an ``AVAssetReader`` for sample reading.
         

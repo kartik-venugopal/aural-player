@@ -33,7 +33,7 @@ extension WaveformRenderOperation {
     ///
     /// - Returns:                          An object containing all the info necessary to render a waveform image for the given data set.
     ///
-    func sliceFFmpegTrack(withRange slice: CountableRange<Int>, andDownsampleTo targetSamples: Int) -> WaveformRenderData? {
+    func analyzeFFmpegTrack(withRange slice: CountableRange<Int>, andDownsampleTo targetSamples: Int) -> WaveformRenderData? {
         
         // Validate the method arguments.
         guard

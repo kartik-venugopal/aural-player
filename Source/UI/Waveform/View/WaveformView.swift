@@ -27,15 +27,6 @@ class WaveformView: NSView, SampleReceiver {
     
     static let noiseFloor: CGFloat = -50
     
-    func setSamples(_ samples: [[Float]]) {
-        
-        self.samples = samples
-        
-        DispatchQueue.main.async {
-            self.needsDisplay = true
-        }
-    }
-    
     var clickRecognizer: NSClickGestureRecognizer!
     
     var _audioFile: URL?
@@ -51,8 +42,24 @@ class WaveformView: NSView, SampleReceiver {
     
     var samples: [[Float]] = [[],[]]
     
+    func setSamples(_ samples: [[Float]]) {
+        
+        self.samples = samples
+        
+        DispatchQueue.main.async {
+            self.redraw()
+        }
+    }
+    
     var samplesProgress: CGFloat {
         CGFloat(samples[0].count) / bounds.width
+    }
+    
+    func resetState() {
+        
+        samples = [[],[]]
+        baseLayerComplete = false
+        redraw()
     }
     
     // Between 0 and 1
@@ -67,7 +74,7 @@ class WaveformView: NSView, SampleReceiver {
                 self.progress = 1
             }
             
-            needsDisplay = true
+            redraw()
         }
     }
     
@@ -198,7 +205,6 @@ class WaveformView: NSView, SampleReceiver {
             let mask = CAShapeLayer()
             mask.frame = CGRect(x: 0, y: 0, width: scaledWidth * progress, height: scaledHeight)
             mask.removeAllAnimations()
-            mask.backgroundColor = NSColor.red.cgColor
             progressLayer.mask = mask
         }
         
@@ -206,6 +212,17 @@ class WaveformView: NSView, SampleReceiver {
             baseLayerComplete = true
         }
     }
+}
+
+extension WaveformView: ColorSchemeObserver {
+    
+    func colorSchemeChanged() {
+        
+        baseLayerComplete = false
+        redraw()
+    }
+    
+    // TODO: Respond to activeControlColor + inactiveControlColor changes
 }
 
 fileprivate extension Array where Element == Float {

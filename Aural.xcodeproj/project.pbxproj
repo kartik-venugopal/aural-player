@@ -793,6 +793,11 @@
 		3E7C35FE26AADD2A00B3552D /* FilterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */; };
 		3E7C360126AADFA000B3552D /* FilterBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C360026AADFA000B3552D /* FilterBandView.swift */; };
 		3E7C978D268BB8BE00287158 /* NSLayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C978C268BB8BE00287158 /* NSLayoutConstraintExtensions.swift */; };
+		3E7E9F432C666F330011DE8E /* WaveformRenderOperation+AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7E9F422C666F330011DE8E /* WaveformRenderOperation+AudioFile.swift */; };
+		3E7E9F452C66ADD20011DE8E /* WaveformWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7E9F442C66ADD20011DE8E /* WaveformWindow.xib */; };
+		3E7E9F482C66AFB30011DE8E /* Waveform.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7E9F472C66AFB30011DE8E /* Waveform.xib */; };
+		3E7E9F4C2C66B06F0011DE8E /* WaveformViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7E9F4B2C66B06F0011DE8E /* WaveformViewController.swift */; };
+		3E7E9F4E2C66B1AF0011DE8E /* WaveformWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7E9F4D2C66B1AF0011DE8E /* WaveformWindowController.swift */; };
 		3E804D222C29F7840049AC27 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E804D212C29F7840049AC27 /* GestureHandler.swift */; };
 		3E836E332868964D009371D4 /* PlayQueueContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E836E322868964D009371D4 /* PlayQueueContainer.xib */; };
 		3E836E3B2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */; };
@@ -983,8 +988,6 @@
 		3EF4CDA32C65909C00A5922D /* AVFAudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD882C65909C00A5922D /* AVFAudioContext.swift */; };
 		3EF4CDA42C65909C00A5922D /* WaveformRenderData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD892C65909C00A5922D /* WaveformRenderData.swift */; };
 		3EF4CDA52C65909C00A5922D /* WaveformRenderOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */; };
-		3EF4CDA62C65909C00A5922D /* WaveformRenderOperation+AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD8C2C65909C00A5922D /* WaveformRenderOperation+AudioFile.swift */; };
-		3EF4CDA72C65909C00A5922D /* WaveformRenderOperation+AVF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD8D2C65909C00A5922D /* WaveformRenderOperation+AVF.swift */; };
 		3EF4CDA82C65909C00A5922D /* WaveformRenderOperation+FFmpeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD8E2C65909C00A5922D /* WaveformRenderOperation+FFmpeg.swift */; };
 		3EF4CDA92C65909C00A5922D /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD902C65909C00A5922D /* WaveformView.swift */; };
 		3EF4CDAA2C65909C00A5922D /* WaveformView+Caching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD912C65909C00A5922D /* WaveformView+Caching.swift */; };
@@ -1874,6 +1877,11 @@
 		3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetView.swift; sourceTree = "<group>"; };
 		3E7C360026AADFA000B3552D /* FilterBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandView.swift; sourceTree = "<group>"; };
 		3E7C978C268BB8BE00287158 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
+		3E7E9F422C666F330011DE8E /* WaveformRenderOperation+AudioFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformRenderOperation+AudioFile.swift"; sourceTree = "<group>"; };
+		3E7E9F442C66ADD20011DE8E /* WaveformWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaveformWindow.xib; sourceTree = "<group>"; };
+		3E7E9F472C66AFB30011DE8E /* Waveform.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Waveform.xib; sourceTree = "<group>"; };
+		3E7E9F4B2C66B06F0011DE8E /* WaveformViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformViewController.swift; sourceTree = "<group>"; };
+		3E7E9F4D2C66B1AF0011DE8E /* WaveformWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformWindowController.swift; sourceTree = "<group>"; };
 		3E804D212C29F7840049AC27 /* GestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		3E836E322868964D009371D4 /* PlayQueueContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayQueueContainer.xib; sourceTree = "<group>"; };
 		3E836E3A2868B9FD009371D4 /* UnifiedPlayerWindowController+EventHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifiedPlayerWindowController+EventHandling.swift"; sourceTree = "<group>"; };
@@ -2091,8 +2099,6 @@
 		3EF4CD882C65909C00A5922D /* AVFAudioContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVFAudioContext.swift; sourceTree = "<group>"; };
 		3EF4CD892C65909C00A5922D /* WaveformRenderData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformRenderData.swift; sourceTree = "<group>"; };
 		3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformRenderOperation.swift; sourceTree = "<group>"; };
-		3EF4CD8C2C65909C00A5922D /* WaveformRenderOperation+AudioFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformRenderOperation+AudioFile.swift"; sourceTree = "<group>"; };
-		3EF4CD8D2C65909C00A5922D /* WaveformRenderOperation+AVF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformRenderOperation+AVF.swift"; sourceTree = "<group>"; };
 		3EF4CD8E2C65909C00A5922D /* WaveformRenderOperation+FFmpeg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformRenderOperation+FFmpeg.swift"; sourceTree = "<group>"; };
 		3EF4CD902C65909C00A5922D /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		3EF4CD912C65909C00A5922D /* WaveformView+Caching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+Caching.swift"; sourceTree = "<group>"; };
@@ -5210,6 +5216,8 @@
 		3EF4CD872C65909C00A5922D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3E7E9F472C66AFB30011DE8E /* Waveform.xib */,
+				3E7E9F4B2C66B06F0011DE8E /* WaveformViewController.swift */,
 				3EF4CD902C65909C00A5922D /* WaveformView.swift */,
 				3EF4CD912C65909C00A5922D /* WaveformView+Caching.swift */,
 				3EF4CD922C65909C00A5922D /* WaveformView+FileIO.swift */,
@@ -5234,8 +5242,7 @@
 			children = (
 				3EF4CD8A2C65909C00A5922D /* Support */,
 				3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */,
-				3EF4CD8C2C65909C00A5922D /* WaveformRenderOperation+AudioFile.swift */,
-				3EF4CD8D2C65909C00A5922D /* WaveformRenderOperation+AVF.swift */,
+				3E7E9F422C666F330011DE8E /* WaveformRenderOperation+AudioFile.swift */,
 				3EF4CD8E2C65909C00A5922D /* WaveformRenderOperation+FFmpeg.swift */,
 			);
 			path = WaveformRenderOperation;
@@ -5244,10 +5251,12 @@
 		3EF4CD942C65909C00A5922D /* Waveform */ = {
 			isa = PBXGroup;
 			children = (
+				3E7E9F442C66ADD20011DE8E /* WaveformWindow.xib */,
+				3E7E9F4D2C66B1AF0011DE8E /* WaveformWindowController.swift */,
+				3EF4CD872C65909C00A5922D /* View */,
 				3EF4CD7B2C65909C00A5922D /* ImageCaching */,
 				3EF4CD7F2C65909C00A5922D /* Support */,
 				3EF4CD862C65909C00A5922D /* Utils */,
-				3EF4CD872C65909C00A5922D /* View */,
 				3EF4CD8F2C65909C00A5922D /* WaveformRenderOperation */,
 			);
 			name = Waveform;
@@ -5449,6 +5458,7 @@
 				3E6C125E25CEBE0600BF0D07 /* ReverbPresetsManager.xib in Resources */,
 				3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */,
 				3E8C370D2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib in Resources */,
+				3E7E9F482C66AFB30011DE8E /* Waveform.xib in Resources */,
 				3E6C126025CEBE0600BF0D07 /* UIPresetsManager.xib in Resources */,
 				3E6C12D925CEBE8100BF0D07 /* FilterUnit.xib in Resources */,
 				3E36BD4426A6908200B6E28B /* CoverArtTrackInfo.xib in Resources */,
@@ -5497,6 +5507,7 @@
 				3EBFF5AA2B52C0F70056D5B4 /* CompactPlayerWindow.xib in Resources */,
 				3E31B6722B97C20100AA0067 /* TrackInfo.xib in Resources */,
 				3ECF71B22B7571D200FDB69B /* CompactPlayer.xib in Resources */,
+				3E7E9F452C66ADD20011DE8E /* WaveformWindow.xib in Resources */,
 				3E6C122C25CEBDE600BF0D07 /* HistoryPreferences.xib in Resources */,
 				3E43227D2687D65F009E8ADB /* WidgetPlayer.xib in Resources */,
 				3E6C12AD25CEBE2700BF0D07 /* StringInputPopover.xib in Resources */,
@@ -5726,7 +5737,6 @@
 				3E02198C2C23490E00865AC2 /* OrderedSetExtensions.swift in Sources */,
 				3E0218492C23490E00865AC2 /* AlbumGroup.swift in Sources */,
 				3E0218AD2C23490E00865AC2 /* LibraryPersistentState.swift in Sources */,
-				3EF4CDA72C65909C00A5922D /* WaveformRenderOperation+AVF.swift in Sources */,
 				3E62979A26A3CD3800C96AB8 /* Destroyable.swift in Sources */,
 				3E02187F2C23490E00865AC2 /* SearchNotifications.swift in Sources */,
 				3E0218AA2C23490E00865AC2 /* FavoritePersistentState.swift in Sources */,
@@ -5760,6 +5770,7 @@
 				3E0218392C23490E00865AC2 /* FFmpegAudioCodec.swift in Sources */,
 				3E02195E2C23490E00865AC2 /* SearchType.swift in Sources */,
 				3E0218D52C23490E00865AC2 /* PlaybackContextProtocol.swift in Sources */,
+				3E7E9F4E2C66B1AF0011DE8E /* WaveformWindowController.swift in Sources */,
 				3E02189A2C23490E00865AC2 /* MenuBarPlayerUIPersistentState.swift in Sources */,
 				3E02195C2C23490E00865AC2 /* SearchResults.swift in Sources */,
 				3E6EFFA42815309500C813AC /* TextColorSchemeViewController.swift in Sources */,
@@ -5973,6 +5984,7 @@
 				3E59656B283BF91C00AF43FF /* ControlsContainerView.swift in Sources */,
 				3E6C11B925CEBDAD00BF0D07 /* MediaKeyHandler.swift in Sources */,
 				3E2000C5267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift in Sources */,
+				3E7E9F432C666F330011DE8E /* WaveformRenderOperation+AudioFile.swift in Sources */,
 				3E0219932C23490E00865AC2 /* AppVersion.swift in Sources */,
 				3E0217E22C23490E00865AC2 /* VariableRateNode.swift in Sources */,
 				3E02182F2C23490E00865AC2 /* FFmpegCoverArtReader.swift in Sources */,
@@ -6184,6 +6196,7 @@
 				3E0219222C23490E00865AC2 /* CommonAVAssetParser.swift in Sources */,
 				3E51CCF2285E899E002CBEF2 /* UnifiedPlayerSidebarViewController.swift in Sources */,
 				3E02195B2C23490E00865AC2 /* SearchResultMatch.swift in Sources */,
+				3E7E9F4C2C66B06F0011DE8E /* WaveformViewController.swift in Sources */,
 				3E0217E72C23490E00865AC2 /* EffectsUnitDelegate.swift in Sources */,
 				3E0218D72C23490E00865AC2 /* PlaybackParams.swift in Sources */,
 				3E02193F2C23490E00865AC2 /* MusicBrainzArtist.swift in Sources */,
@@ -6280,7 +6293,6 @@
 				3E6C128325CEBE1800BF0D07 /* TintedImageButton.swift in Sources */,
 				3E0218312C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift in Sources */,
 				3ED65A552C45BAD000859677 /* PlayerViewController+Theming.swift in Sources */,
-				3EF4CDA62C65909C00A5922D /* WaveformRenderOperation+AudioFile.swift in Sources */,
 				3E0217FD2C23490E00865AC2 /* EQUnit.swift in Sources */,
 				3EF4CDB02C65934700A5922D /* ConcurrentArray.swift in Sources */,
 				3E02182D2C23490E00865AC2 /* FavoritesDelegateProtocol.swift in Sources */,

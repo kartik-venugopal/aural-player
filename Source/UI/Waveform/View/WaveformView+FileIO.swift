@@ -20,6 +20,7 @@ extension WaveformView {
             guard newFile != audioFile, let audioFile = newFile else {return}
             
             self._audioFile = newFile
+            self.resetState()
             
             if let lookup = lookUpCache(forFile: audioFile) {
                 

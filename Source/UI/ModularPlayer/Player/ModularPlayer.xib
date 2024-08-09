@@ -30,7 +30,6 @@
                 <outlet property="seekSliderCell" destination="35O-O1-uMM" id="PT6-7a-ID3"/>
                 <outlet property="view" destination="ywj-Sd-BS4" id="jKH-HR-Rfs"/>
                 <outlet property="volumeSlider" destination="WCG-m2-qac" id="7Af-3M-19n"/>
-                <outlet property="waveformView" destination="R0f-e0-e1U" id="hsa-Cj-pjy"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -176,10 +175,6 @@
                                     <constraint firstAttribute="width" constant="11" id="883-MV-7ai"/>
                                 </constraints>
                             </popUpButton>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R0f-e0-e1U" customClass="WaveformView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="-76" y="-77" width="456" height="147"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="iwf-qn-PJh" firstAttribute="top" secondItem="UMU-Of-gsK" secondAttribute="bottom" constant="3" id="bAT-au-IPI"/>

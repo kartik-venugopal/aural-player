@@ -23,6 +23,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
     @IBOutlet weak var toggleTrackInfoMenuItem: NSMenuItem!
     @IBOutlet weak var toggleVisualizerMenuItem: NSMenuItem!
+    @IBOutlet weak var toggleWaveformMenuItem: NSMenuItem!
     
     @IBOutlet weak var manageThemesMenuItem: NSMenuItem!
     @IBOutlet weak var createThemeMenuItem: NSMenuItem!
@@ -117,5 +118,9 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func toggleTrackInfoAction(_ sender: AnyObject) {
         Messenger.publish(.View.toggleTrackInfo)
+    }
+    
+    @IBAction func toggleWaveformAction(_ sender: AnyObject) {
+        Messenger.publish(.View.toggleWaveform)
     }
 }

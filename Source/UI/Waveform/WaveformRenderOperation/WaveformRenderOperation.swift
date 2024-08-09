@@ -149,7 +149,7 @@ final class WaveformRenderOperation: Operation {
         // on them.
         
         if !isCancelled {
-            _ = sliceTrack(withRange: sampleRange, andDownsampleTo: targetSamples)
+            _ = analyzeTrack(withRange: sampleRange, andDownsampleTo: targetSamples)
         }
             
         finish()
@@ -158,7 +158,7 @@ final class WaveformRenderOperation: Operation {
     ///
     /// Delegates to an appropriate sample reading function depending on file format.
     ///
-    func sliceTrack(withRange slice: CountableRange<Int>, andDownsampleTo targetSamples: Int) -> WaveformRenderData? {
+    func analyzeTrack(withRange slice: CountableRange<Int>, andDownsampleTo targetSamples: Int) -> WaveformRenderData? {
         
         guard !isCancelled else {return nil}
         
@@ -167,13 +167,13 @@ final class WaveformRenderOperation: Operation {
         if audioContext.audioFile.isNativelySupported {
             
             let start = CFAbsoluteTimeGetCurrent()
-            data = sliceAudioFile(withRange: slice, andDownsampleTo: targetSamples)
+            data = analyzeAudioFile(withRange: slice, andDownsampleTo: targetSamples)
             
             let end = CFAbsoluteTimeGetCurrent()
             print("Sliced track in: \(String(format: "%.3f", end - start)) secs")
             
         } else {
-            data = sliceFFmpegTrack(withRange: slice, andDownsampleTo: targetSamples)
+            data = analyzeFFmpegTrack(withRange: slice, andDownsampleTo: targetSamples)
         }
         
         return data

@@ -139,6 +139,7 @@
                 <outlet property="togglePlayerMenuItem" destination="qz6-NG-pXu" id="Qum-dJ-T0u"/>
                 <outlet property="toggleTrackInfoMenuItem" destination="ed8-W1-CfC" id="hg8-jq-wp2"/>
                 <outlet property="toggleVisualizerMenuItem" destination="AMl-XT-MAB" id="tS5-W0-Q0e"/>
+                <outlet property="toggleWaveformMenuItem" destination="mPQ-9t-4Pz" id="Tz9-bq-9eX"/>
                 <outlet property="windowLayoutsMenuItem" destination="54V-bV-0Yv" id="hSo-KK-BeG"/>
             </connections>
         </customObject>
@@ -972,6 +973,11 @@ CA
                             <menuItem title="  Visualizer" image="waveform" catalog="system" keyEquivalent="5" id="AMl-XT-MAB">
                                 <connections>
                                     <action selector="toggleVisualizerAction:" target="JTq-Lm-LsR" id="ryI-uW-0hf"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Waveform" image="waveform" catalog="system" keyEquivalent="6" id="mPQ-9t-4Pz" userLabel="Waveform">
+                                <connections>
+                                    <action selector="toggleWaveformAction:" target="JTq-Lm-LsR" id="nrX-kf-eA6"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="lhn-qh-04n"/>

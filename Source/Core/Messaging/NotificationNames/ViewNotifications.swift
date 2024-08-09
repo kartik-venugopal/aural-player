@@ -19,6 +19,7 @@ extension Notification.Name {
         static let toggleChaptersList = Notification.Name("view_toggleChaptersList")
         static let toggleVisualizer = Notification.Name("view_toggleVisualizer")
         static let toggleTrackInfo = Notification.Name("view_toggleTrackInfo")
+        static let toggleWaveform = Notification.Name("view_toggleWaveform")
         
         static let changeWindowCornerRadius = Notification.Name("view_changeWindowCornerRadius")
         

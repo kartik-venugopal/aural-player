@@ -14,8 +14,6 @@ class ModularPlayerViewController: PlayerViewController {
     
     override var nibName: NSNib.Name? {"ModularPlayer"}
     
-    @IBOutlet weak var waveformView: WaveformView!
-    
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var controlsBox: NSBox!
     @IBOutlet weak var btnFunctionsMenu: NSPopUpButton!
@@ -53,8 +51,6 @@ class ModularPlayerViewController: PlayerViewController {
         
         super.viewDidLoad()
         startTrackingView(options: [.activeAlways, .mouseEnteredAndExited])
-        
-        waveformView.audioFile = URL(fileURLWithPath: "/Volumes/MBP-Ext-4TB/Projects/Aural-Test/muthu.wav")
     }
     
     override func updateTrackTextView(for track: Track?, playingChapterTitle: String? = nil) {

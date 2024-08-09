@@ -68,6 +68,11 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
                 
                 windowLoaders.append(WindowLoader(windowID: .visualizer, windowControllerType: VisualizerWindowController.self))
                 
+            case .waveform:
+                
+                windowLoaders.append(WindowLoader(windowID: .waveform, windowControllerType: WaveformWindowController.self))
+                
+                
             default:
                 
                 continue
