@@ -19,11 +19,10 @@ extension WaveformView {
             
             if newFile == audioFile {return}
             
+            self._audioFile = newFile
             resetState()
             
             guard let audioFile = newFile else {return}
-            
-            self._audioFile = newFile
             
             if let lookup = lookUpCache(forFile: audioFile) {
                 

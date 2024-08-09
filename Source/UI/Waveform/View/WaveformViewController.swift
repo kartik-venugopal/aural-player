@@ -37,22 +37,33 @@ class WaveformViewController: NSViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
         
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribe(to: .Player.playbackStateChanged, handler: playbackStateChanged)
+    }
+    
+    private func updateProgress() {
+        waveformView.progress = playbackInfoDelegate.seekPosition.percentageElapsed / 100.0
     }
     
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         let endTrack = notification.endTrack
+        
         waveformView.audioFile = endTrack?.file
         
         if endTrack == nil {
-            seekTimer.stop()
+            seekTimer.pause()
         } else {
             seekTimer.startOrResume()
         }
     }
     
-    private func updateProgress() {
-        waveformView.progress = playbackInfoDelegate.seekPosition.percentageElapsed / 100.0
+    private func playbackStateChanged() {
+        
+        if playbackInfoDelegate.state == .playing {
+            seekTimer.startOrResume()
+        } else {
+            seekTimer.pause()
+        }
     }
 }
 

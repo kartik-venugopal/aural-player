@@ -32,6 +32,10 @@ class RepeatingTaskExecutor {
     
     private var state: TimerState
     
+    var isRunning: Bool {
+        state == .running
+    }
+    
     init(intervalMillis: Int, task: @escaping () -> Void, queue: DispatchQueue) {
         
         self.interval = intervalMillis
