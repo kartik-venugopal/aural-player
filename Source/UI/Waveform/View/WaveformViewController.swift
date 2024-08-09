@@ -38,6 +38,7 @@ class WaveformViewController: NSViewController {
         
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribe(to: .Player.playbackStateChanged, handler: playbackStateChanged)
+        messenger.subscribeAsync(to: .Player.seekPerformed, handler: updateProgress)
     }
     
     private func updateProgress() {

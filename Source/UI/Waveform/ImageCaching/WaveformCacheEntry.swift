@@ -8,30 +8,21 @@
 import Foundation
 import CoreGraphics
 
-protocol WaveformImageCacheable {
-    
-    var imageSize: CGSize {get}
-}
-
 struct WaveformCacheLookup {
     
     let entry: WaveformCacheEntry
     let data: WaveformCacheData
 }
 
-///
-/// Represents a single waveform image cache entry.
-///
-/// **Notes**
-///
-/// * Instances of this class will *not* contain any image data
-/// (i.e. NSImage / UIImage). But they will contain info (a mapping
-/// of audio file -> image file) that can be used to create an
-/// NSImage / UIImage from an image file on disk.
-///
-/// * Entries of this kind will be stored in ``UserDefaults``, so they
-/// must conform to ``Codable``.
-///
+struct WaveformPersistentState: Codable {
+    
+    let entries: [WaveformCacheEntryPersistentState]?
+    
+    init(entries: [WaveformCacheEntry]) {
+        self.entries = entries.map {.init(entry: $0)}
+    }
+}
+
 class WaveformCacheEntry: Codable, CustomStringConvertible {
     
     /// Unique identifier.
@@ -60,11 +51,42 @@ class WaveformCacheEntry: Codable, CustomStringConvertible {
         self.lastOpenedTimestamp = CFAbsoluteTimeGetCurrent()
     }
     
+    init?(persistentState: WaveformCacheEntryPersistentState) {
+        
+        guard let uuid = persistentState.uuid,
+              let audioFile = persistentState.audioFile,
+              let imageSize = persistentState.imageSize else {
+            
+            return nil
+        }
+            
+        self.uuid = uuid
+        self.audioFile = audioFile
+        self.imageSize = imageSize
+        self.lastOpenedTimestamp = persistentState.lastOpenedTimestamp ?? CFAbsoluteTimeGetCurrent()
+    }
+    
     ///
     /// Updates the "last opened" timestamp to the current time.
     ///
     func updateLastOpenedTimestamp() {
         lastOpenedTimestamp = CFAbsoluteTimeGetCurrent()
+    }
+}
+
+struct WaveformCacheEntryPersistentState: Codable {
+    
+    let uuid: String?
+    let audioFile: URL?
+    let imageSize: CGSize?
+    let lastOpenedTimestamp: CFAbsoluteTime?
+    
+    init(entry: WaveformCacheEntry) {
+        
+        self.uuid = entry.uuid
+        self.audioFile = entry.audioFile
+        self.imageSize = entry.imageSize
+        self.lastOpenedTimestamp = entry.lastOpenedTimestamp
     }
 }
 

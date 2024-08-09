@@ -32,10 +32,13 @@ class WaveformView: NSView, SampleReceiver {
     var _audioFile: URL?
     var renderOp: WaveformRenderOperation?
     
+    var waveformSize: NSSize = .zero
+    
     required init?(coder: NSCoder) {
-        
+
         super.init(coder: coder)
         
+        self.waveformSize = self.bounds.size
         self.wantsLayer = true
         addGestureRecognizers()
         
@@ -218,7 +221,7 @@ class WaveformView: NSView, SampleReceiver {
         
         // ------------------------------------------------------------------------------------------
         
-        // MARK: Render the layer's contents in the graphics context.
+        // MARK: Set up the mask layer (for progress)
         
         baseLayer.path = path.cgPath
         self.layer?.addSublayer(baseLayer)

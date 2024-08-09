@@ -103,28 +103,11 @@ extension AppDelegate {
         // Force initialization of objects that would not be initialized soon enough otherwise
         // (they are not referred to in code that is executed on app startup).
         
-//        _ = libraryDelegate
+        //        _ = libraryDelegate
         _ = mediaKeyHandler
-        
-        DispatchQueue.global(qos: .background).async {
-            self.cleanUpLegacyFolders()
-        }
-        
         _ = remoteControlManager
-    }
-    
-    ///
-    /// Clean up (delete) file system folders that were used by previous app versions that had the transcoder and/or recorder.
-    ///
-    private func cleanUpLegacyFolders() {
         
-        let transcoderDir = FilesAndPaths.subDirectory(named: "transcoderStore")
-        let artDir = FilesAndPaths.subDirectory(named: "albumArt")
-        let recordingsDir = FilesAndPaths.subDirectory(named: "recordings")
-        
-        for folder in [transcoderDir, artDir, recordingsDir] {
-            folder.delete()
-        }
+        WaveformView.initializeImageCache()
     }
     
     func beginPeriodicPersistence() {

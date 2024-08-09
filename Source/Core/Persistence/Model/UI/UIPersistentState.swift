@@ -29,9 +29,10 @@ struct UIPersistentState: Codable {
     
     let playQueue: PlayQueueUIPersistentState?
     let visualizer: VisualizerUIPersistentState?
+    let waveform: WaveformPersistentState?
 //    let tuneBrowser: TuneBrowserUIPersistentState?
     
-    init(appMode: AppMode?, windowLayout: WindowLayoutsPersistentState?, themes: ThemesPersistentState?, fontSchemes: FontSchemesPersistentState?, colorSchemes: ColorSchemesPersistentState?, modularPlayer: ModularPlayerUIPersistentState?, unifiedPlayer: UnifiedPlayerUIPersistentState?, menuBarPlayer: MenuBarPlayerUIPersistentState?, widgetPlayer: WidgetPlayerUIPersistentState?, compactPlayer: CompactPlayerUIPersistentState?, playQueue: PlayQueueUIPersistentState?, visualizer: VisualizerUIPersistentState?) {
+    init(appMode: AppMode?, windowLayout: WindowLayoutsPersistentState?, themes: ThemesPersistentState?, fontSchemes: FontSchemesPersistentState?, colorSchemes: ColorSchemesPersistentState?, modularPlayer: ModularPlayerUIPersistentState?, unifiedPlayer: UnifiedPlayerUIPersistentState?, menuBarPlayer: MenuBarPlayerUIPersistentState?, widgetPlayer: WidgetPlayerUIPersistentState?, compactPlayer: CompactPlayerUIPersistentState?, playQueue: PlayQueueUIPersistentState?, visualizer: VisualizerUIPersistentState?, waveform: WaveformPersistentState?) {
         
         self.appMode = appMode
         
@@ -48,6 +49,7 @@ struct UIPersistentState: Codable {
         
         self.playQueue = playQueue
         self.visualizer = visualizer
+        self.waveform = waveform
 //        self.tuneBrowser = tuneBrowser
     }
     
@@ -69,6 +71,7 @@ struct UIPersistentState: Codable {
         
         self.playQueue = nil
         self.visualizer = nil
+        self.waveform = nil
 //        self.tuneBrowser = nil
     }
 }

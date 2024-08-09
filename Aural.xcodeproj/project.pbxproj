@@ -990,7 +990,6 @@
 		3EF4CDA52C65909C00A5922D /* WaveformRenderOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */; };
 		3EF4CDA82C65909C00A5922D /* WaveformRenderOperation+FFmpeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD8E2C65909C00A5922D /* WaveformRenderOperation+FFmpeg.swift */; };
 		3EF4CDA92C65909C00A5922D /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD902C65909C00A5922D /* WaveformView.swift */; };
-		3EF4CDAA2C65909C00A5922D /* WaveformView+Caching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD912C65909C00A5922D /* WaveformView+Caching.swift */; };
 		3EF4CDAB2C65909C00A5922D /* WaveformView+FileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD922C65909C00A5922D /* WaveformView+FileIO.swift */; };
 		3EF4CDAC2C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD932C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift */; };
 		3EF4CDAE2C6591D800A5922D /* FFmpegWaveformDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CDAD2C6591D800A5922D /* FFmpegWaveformDecoder.swift */; };
@@ -2101,7 +2100,6 @@
 		3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformRenderOperation.swift; sourceTree = "<group>"; };
 		3EF4CD8E2C65909C00A5922D /* WaveformRenderOperation+FFmpeg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformRenderOperation+FFmpeg.swift"; sourceTree = "<group>"; };
 		3EF4CD902C65909C00A5922D /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
-		3EF4CD912C65909C00A5922D /* WaveformView+Caching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+Caching.swift"; sourceTree = "<group>"; };
 		3EF4CD922C65909C00A5922D /* WaveformView+FileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+FileIO.swift"; sourceTree = "<group>"; };
 		3EF4CD932C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+GestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3EF4CDAD2C6591D800A5922D /* FFmpegWaveformDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegWaveformDecoder.swift; sourceTree = "<group>"; };
@@ -5219,7 +5217,6 @@
 				3E7E9F472C66AFB30011DE8E /* Waveform.xib */,
 				3E7E9F4B2C66B06F0011DE8E /* WaveformViewController.swift */,
 				3EF4CD902C65909C00A5922D /* WaveformView.swift */,
-				3EF4CD912C65909C00A5922D /* WaveformView+Caching.swift */,
 				3EF4CD922C65909C00A5922D /* WaveformView+FileIO.swift */,
 				3EF4CD932C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift */,
 			);
@@ -5680,7 +5677,6 @@
 				3E02182B2C23490E00865AC2 /* FavoritesDelegate.swift in Sources */,
 				3E43227F2687DE35009E8ADB /* WidgetPlayerWindowController.swift in Sources */,
 				3E02188B2C23490E00865AC2 /* MasterUnitPersistentState.swift in Sources */,
-				3EF4CDAA2C65909C00A5922D /* WaveformView+Caching.swift in Sources */,
 				3E3975462688894C0055887E /* WidgetSeekSliderCell.swift in Sources */,
 				3E7638AF2857DA3F00461F4D /* UnifiedAppModeController.swift in Sources */,
 				3E02186A2C23490E00865AC2 /* PlayQueueTracksAddedNotifications.swift in Sources */,

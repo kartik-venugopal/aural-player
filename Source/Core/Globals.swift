@@ -189,7 +189,8 @@ var persistentStateOnExit: AppPersistentState {
                                            compactPlayer: compactPlayerUIState.persistentState,
                                            
                                            playQueue: playQueueUIState.persistentState,
-                                           visualizer: visualizerUIState.persistentState)
+                                           visualizer: visualizerUIState.persistentState,
+                                           waveform: WaveformView.persistentState)
     
     persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
     
