@@ -38,6 +38,10 @@ class WaveformView: NSView, SampleReceiver {
         
         self.wantsLayer = true
         addGestureRecognizers()
+        
+        colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, handler: activeControlColorChanged(_:))
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, handler: inactiveControlColorChanged(_:))
     }
     
     var samples: [[Float]] = [[],[]]
@@ -58,6 +62,7 @@ class WaveformView: NSView, SampleReceiver {
     func resetState() {
         
         samples = [[],[]]
+        progress = 0
         baseLayerComplete = false
         redraw()
     }
@@ -80,6 +85,28 @@ class WaveformView: NSView, SampleReceiver {
     
     var baseLayerComplete: Bool = false
     
+    var maskLayer: CALayer? {
+        
+        if let subLayers = layer?.sublayers, subLayers.count >= 2 {
+            return subLayers[1].mask
+        }
+        
+        return nil
+    }
+    
+    var baseLayer: CAShapeLayer? {
+        layer?.sublayers?.first as? CAShapeLayer
+    }
+    
+    var progressLayer: CAShapeLayer? {
+        
+        if let subLayers = layer?.sublayers, subLayers.count >= 2 {
+            return subLayers[1] as? CAShapeLayer
+        }
+        
+        return nil
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         
         super.draw(dirtyRect)
@@ -95,11 +122,10 @@ class WaveformView: NSView, SampleReceiver {
         
         guard !baseLayerComplete else {
             
-            if let subLayers = layer?.sublayers, subLayers.count >= 2 {
+            if let maskLayer = self.maskLayer {
                 
-                let mask = subLayers[1].mask
-                mask?.frame = CGRect(x: 0, y: 0, width: scaledWidth * progress, height: scaledHeight)
-                mask?.removeAllAnimations()
+                maskLayer.frame = CGRect(x: 0, y: 0, width: scaledWidth * progress, height: scaledHeight)
+                maskLayer.removeAllAnimations()
             }
             return
         }
@@ -112,11 +138,11 @@ class WaveformView: NSView, SampleReceiver {
         
         // MARK: Create and configure a CALayer to do the drawing.
         
-        let layer = CAShapeLayer()
-        layer.frame = CGRect(x: 0, y: 0, width: scaledWidth, height: scaledHeight)
-        layer.strokeColor = systemColorScheme.inactiveControlColor.cgColor
-        layer.fillColor = NSColor.clear.cgColor
-        layer.lineWidth = 1.0
+        let baseLayer = CAShapeLayer()
+        baseLayer.frame = CGRect(x: 0, y: 0, width: scaledWidth, height: scaledHeight)
+        baseLayer.strokeColor = systemColorScheme.inactiveControlColor.cgColor
+        baseLayer.fillColor = NSColor.clear.cgColor
+        baseLayer.lineWidth = 1.0
         
         // ------------------------------------------------------------------------------------------
         
@@ -194,16 +220,17 @@ class WaveformView: NSView, SampleReceiver {
         
         // MARK: Render the layer's contents in the graphics context.
         
-        layer.path = path.cgPath
-        self.layer?.addSublayer(layer)
+        baseLayer.path = path.cgPath
+        self.layer?.addSublayer(baseLayer)
         
-        if let progressLayer = layer.deepCopy() as? CAShapeLayer {
+        if let progressLayer = baseLayer.deepCopy() as? CAShapeLayer {
             
             progressLayer.strokeColor = systemColorScheme.activeControlColor.cgColor
             self.layer?.addSublayer(progressLayer)
             
             let mask = CAShapeLayer()
             mask.frame = CGRect(x: 0, y: 0, width: scaledWidth * progress, height: scaledHeight)
+            mask.backgroundColor = progressLayer.strokeColor
             mask.removeAllAnimations()
             progressLayer.mask = mask
         }
@@ -219,10 +246,23 @@ extension WaveformView: ColorSchemeObserver {
     func colorSchemeChanged() {
         
         baseLayerComplete = false
+        
+        baseLayer?.strokeColor = systemColorScheme.inactiveControlColor.cgColor
+        progressLayer?.strokeColor = systemColorScheme.activeControlColor.cgColor
+        maskLayer?.backgroundColor = progressLayer?.strokeColor
+        
         redraw()
     }
     
-    // TODO: Respond to activeControlColor + inactiveControlColor changes
+    func activeControlColorChanged(_ newColor: NSColor) {
+        
+        progressLayer?.strokeColor = newColor.cgColor
+        maskLayer?.backgroundColor = progressLayer?.strokeColor
+    }
+    
+    func inactiveControlColorChanged(_ newColor: NSColor) {
+        baseLayer?.strokeColor = newColor.cgColor
+    }
 }
 
 fileprivate extension Array where Element == Float {
@@ -248,43 +288,5 @@ extension [[Float]] {
         
         // Return the maximum value within ``allMaximums``.
         return Float(allMaximums.max() ?? 0)
-    }
-}
-
-import Cocoa
-
-extension CALayer {
-    
-    func deepCopy() -> CALayer? {
-        
-        try? NSKeyedUnarchiver.unarchivedObject(
-                ofClass: CALayer.self,
-                from: try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false))
-    }
-}
-
-extension NSBezierPath {
-    
-    /// Unified logger.
-//    private static let logger: Logger = Logger(subsystem: "Aural", category: "NSBezierPath")
-    
-    // MARK: Properties
-    
-    // ------------------------------------------------------------------------------
-
-    // MARK: Initializers / functions
-    
-    ///
-    /// A convenience function to draw a line between 2 points specified as tuples of ``CGFloat``.
-    ///
-    /// Performs 2 distinct steps:
-    ///
-    /// - Move to the ``from`` point.
-    /// - Draw a line to the ``to`` point.
-    ///
-    func line(from: (x: CGFloat, y: CGFloat), to: (x: CGFloat, y: CGFloat)) {
-        
-        move(to: CGPoint(x: from.x, y: from.y))
-        line(to: CGPoint(x: to.x, y: to.y))
     }
 }

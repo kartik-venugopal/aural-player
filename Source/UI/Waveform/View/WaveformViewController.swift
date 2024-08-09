@@ -21,19 +21,38 @@ class WaveformViewController: NSViewController {
     
     lazy var messenger: Messenger = .init(for: self)
     
+    lazy var seekTimer: RepeatingTaskExecutor = RepeatingTaskExecutor(intervalMillis: 250,
+                                                                      task: {[weak self] in
+                                                                        self?.updateProgress()},
+                                                                      queue: .main)
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
 
         fontSchemesManager.registerObserver(self)
+        
         colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainer)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
         
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
     }
     
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-        waveformView.audioFile = notification.endTrack?.file
+        let endTrack = notification.endTrack
+        waveformView.audioFile = endTrack?.file
+        
+        if endTrack == nil {
+            seekTimer.stop()
+        } else {
+            seekTimer.startOrResume()
+        }
+    }
+    
+    private func updateProgress() {
+        waveformView.progress = playbackInfoDelegate.seekPosition.percentageElapsed / 100.0
     }
 }
 
@@ -50,7 +69,5 @@ extension WaveformViewController: ColorSchemeObserver {
         
         rootContainer.fillColor = systemColorScheme.backgroundColor
         lblCaption.textColor = systemColorScheme.captionTextColor
-        
-//        waveformView.progressColor = sys
     }
 }

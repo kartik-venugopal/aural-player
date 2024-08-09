@@ -62,6 +62,20 @@ public extension NSBezierPath {
         self.stroke()
     }
     
+    ///
+    /// A convenience function to draw a line between 2 points specified as tuples of ``CGFloat``.
+    ///
+    /// Performs 2 distinct steps:
+    ///
+    /// - Move to the ``from`` point.
+    /// - Draw a line to the ``to`` point.
+    ///
+    func line(from: (x: CGFloat, y: CGFloat), to: (x: CGFloat, y: CGFloat)) {
+        
+        move(to: CGPoint(x: from.x, y: from.y))
+        line(to: CGPoint(x: to.x, y: to.y))
+    }
+    
     static func fillRoundedRect(_ rect: NSRect, radius: CGFloat, withColor color: NSColor) {
         NSBezierPath(roundedRect: rect, xRadius: radius, yRadius: radius).fill(withColor: color)
     }

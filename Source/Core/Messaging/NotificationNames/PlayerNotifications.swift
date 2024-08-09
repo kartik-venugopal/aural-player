@@ -92,6 +92,9 @@ extension Notification.Name {
         // Commands the player to seek forward within the currently playing track (secondary seek function - allows a different seek interval)
         static let seekForward_secondary = Notification.Name("player_seekForward_secondary")
         
+        // Commands the player to seek to a specific percentage (of duration) within the currently playing track
+        static let seekToPercentage = Notification.Name("player_seekToPercentage")
+        
         // Commands the player to seek to a specific position within the currently playing track
         static let jumpToTime = Notification.Name("player_jumpToTime")
         
@@ -116,8 +119,6 @@ extension Notification.Name {
         
         // Commands the player to toggle the current chapter playback loop
         static let toggleChapterLoop = Notification.Name("player_toggleChapterLoop")
-        
-        
         
         // MARK: Other player commands
         

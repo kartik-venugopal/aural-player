@@ -25,8 +25,12 @@ extension PlayerViewController {
     }
     
     @IBAction func seekSliderAction(_ sender: NSSlider) {
+        seekToPercentage(seekSlider.doubleValue)
+    }
+    
+    func seekToPercentage(_ percentage: Double) {
         
-        playbackDelegate.seekToPercentage(seekSlider.doubleValue)
+        playbackDelegate.seekToPercentage(percentage)
         updateSeekPosition()
     }
     

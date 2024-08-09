@@ -61,11 +61,11 @@ extension WaveformView: NSGestureRecognizerDelegate {
         
         /// The location of the tap within this view.
         let tapLocation = recognizer.location(in: self)
-        let percentage: Float = Float(tapLocation.x * 100 / bounds.width)
+        let percentage: Double = Double(tapLocation.x * 100 / bounds.width)
+        self.progress = percentage / 100
         
         // Broadcast a notification informing observers of the progress change.
-        let notif: Notification = .init(name: .waveformView_progressChanged, object: nil, userInfo: ["percentage": percentage])
-        NotificationCenter.default.post(notif)
+        Messenger.publish(.Player.seekToPercentage, payload: percentage)
     }
 }
 

@@ -36,3 +36,13 @@ extension CAShapeLayer {
         self.fillColor = color.cgColor
     }
 }
+
+extension CALayer {
+    
+    func deepCopy() -> CALayer? {
+        
+        try? NSKeyedUnarchiver.unarchivedObject(
+                ofClass: CALayer.self,
+                from: try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false))
+    }
+}

@@ -422,6 +422,7 @@ class PlayerViewController: NSViewController {
         messenger.subscribe(to: .Player.seekForward, handler: seekForward(inputMode:))
         messenger.subscribe(to: .Player.seekBackward_secondary, handler: seekBackward_secondary)
         messenger.subscribe(to: .Player.seekForward_secondary, handler: seekForward_secondary)
+        messenger.subscribe(to: .Player.seekToPercentage, handler: seekToPercentage(_:))
         messenger.subscribe(to: .Player.jumpToTime, handler: jumpToTime(_:))
         messenger.subscribe(to: .Player.toggleLoop, handler: toggleLoop)
         
