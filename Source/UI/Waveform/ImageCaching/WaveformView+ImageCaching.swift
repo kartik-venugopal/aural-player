@@ -43,13 +43,9 @@ extension WaveformView {
             
             guard let persistentState = appPersistentState.ui?.waveform?.entries else {return}
             
-            var ctr = 0
-            
             for entry in persistentState {
                 
                 guard let newEntry = WaveformCacheEntry(persistentState: entry) else {continue}
-                
-                ctr.increment()
                 
                 let audioFile = newEntry.audioFile
                 
@@ -65,9 +61,6 @@ extension WaveformView {
                     dataCache[newEntry.uuid] = data
                 }
             }
-            
-            print("Initialized Waveform Cache with \(ctr) entries for files:")
-            print(cache.map.keys.map {$0.path})
         }
     }
     
@@ -77,7 +70,7 @@ extension WaveformView {
         
         let entry: WaveformCacheEntry = .init(audioFile: audioFile, imageSize: waveformSize)
         let dataFile = Self.cacheBaseDirectory.appendingPathComponent("\(entry.uuid).json")
-        let data = WaveformCacheData(samples: self.samples)
+        let data = WaveformCacheData(samples: samples)
         
         if Self.cache[audioFile] == nil {
             Self.cache[audioFile] = ConcurrentArray()
@@ -95,6 +88,7 @@ extension WaveformView {
     func lookUpCache(forFile file: URL) -> WaveformCacheLookup? {
         
         guard let entryMatchingImageSize = Self.cache[file]?.array.first(where: {$0.imageSize == bounds.size}) else {return nil}
+        entryMatchingImageSize.updateLastOpenedTimestamp()
         
         print("Cache HIT for file: \(file.lastPathComponent) !")
         
@@ -127,11 +121,11 @@ extension WaveformView {
             if let jsonString = String(data: data, encoding: .utf8) {
                 try jsonString.write(to: file, atomically: true, encoding: .utf8)
             } else {
-                NSLog("Error saving app state config file: Unable to create String from JSON data.")
+                NSLog("Error saving waveform cache data file: Unable to create String from JSON data.")
             }
             
         } catch let error as NSError {
-           NSLog("Error saving app state config file: %@", error.description)
+           NSLog("Error saving waveform cache data file: %@", error.description)
         }
     }
     
@@ -144,7 +138,7 @@ extension WaveformView {
             return try decoder.decode(S.self, from: jsonData)
             
         } catch let error as NSError {
-            NSLog("Error loading app state config file: %@", error.description)
+            NSLog("Error loading waveform cache data file: %@", error.description)
         }
         
         return nil

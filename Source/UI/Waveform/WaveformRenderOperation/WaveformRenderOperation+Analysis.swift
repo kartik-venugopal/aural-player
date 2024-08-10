@@ -14,8 +14,6 @@ import Accelerate
 ///
 extension WaveformRenderOperation {
     
-    static let chunkSize: AVAudioFrameCount = 44100 * 10
-    
     /// Scalar to convert samples in the range [-1, 1] to samples in the range [-32768, 32767]
     static let vsMulScalar: [Float] = [32768]
     
@@ -31,74 +29,43 @@ extension WaveformRenderOperation {
     ///
     /// - Returns:                          An object containing all the info necessary to render a waveform image for the given data set.
     ///
-    func analyzeAudioFile(withRange slice: CountableRange<Int>, andDownsampleTo targetSamples: Int) -> WaveformRenderData? {
-        
-        print("Analyzing track ... \(slice)")
+    func analyzeAudioFile(andDownsampleTo targetSamples: AVAudioFrameCount) {
         
         // MARK: Set up an ``AVAssetReader`` for sample reading.
         
         // Validate the method arguments and initialize an ``AVAssetReader``.
-        guard
-            !slice.isEmpty,
-            targetSamples > 0,
-            let avfFile = audioContext.avfFile
-        else {
-            return nil
-        }
+        guard targetSamples > 0 else {return}
         
-        let audioFile = avfFile.audioFile
-        let channelCount = avfFile.channelCount
-        let sampleRate: CMTimeScale = avfFile.sampleRate
-        
-        ///
-        /// Number of channels to be rendered.
-        ///
-        /// **Notes**
-        ///
-        /// If the file contains Ambisonics-encoded surround, we will render only the first channel.
-        ///
-        let outputChannelCount: Int = min(channelCount, 2)
-        
-        var pcmBufferLength: Int = 0
-        let pcmBufferCapacity = Self.chunkSize
-        
-        guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: pcmBufferCapacity) else {return nil}
+        let channelCount = decoder.channelCount
+        let outputChannelCount: AVAudioChannelCount = min(channelCount, 2)
         
         // ------------------------------------------------------------------------------------------
         
         // MARK: Compute parameters and allocate buffers for the sample reading / processing loop.
         
         /// The results of the downsampling.
-        var result: WaveformRenderData = WaveformRenderData(outputChannelCount: outputChannelCount)
+        var renderData: WaveformRenderData = WaveformRenderData(outputChannelCount: outputChannelCount)
         
         /// Number of samples read per pixel rendered.
-        let samplesPerPixel = max(1, slice.count / targetSamples)
+        let samplesPerPixel: AVAudioFrameCount = AVAudioFrameCount(max(1, decoder.totalSamples / AVAudioFramePosition(targetSamples)))
         
         /// Finite impulse response (FIR) filter for downsampling.
-        let filter = [Float](repeating: 1.0 / Float(samplesPerPixel), count: samplesPerPixel)
+        let filter = [Float](repeating: 1.0 / Float(samplesPerPixel), count: Int(samplesPerPixel))
         
         // ------------------------------------------------------------------------------------------
         
         // MARK: Allocate sample processing buffers.
         
-        ///
-        /// Number of ``Float`` values each planar sample buffer can store.
-        ///
-        /// **Notes**
-        ///
-        /// This capacity will be updated (i.e. increased) as needed over processing
-        /// loop iterations.
-        ///
-        let processingBufferCapacity: Int = samplesPerPixel + Int(pcmBufferCapacity)
+        let processingBufferCapacity: Int = Int(samplesPerPixel + waveformDecodingChunkSize)
         
         /// Number of samples each buffer currently contains.
-        var processingBufferLength: Int = 0
+        var processingBufferLength: AVAudioFrameCount = 0
         
         /// Float buffers that will hold samples in planar form during downsampling.
-        var processingBuffers: [UnsafeMutablePointer<Float>] = (0..<outputChannelCount).map {_ in
+        var processingBuffers: Float2DBuffer = (0..<outputChannelCount).map {_ in
             
             // Allocate a ``Float`` buffer for each rendered output channel.
-            UnsafeMutablePointer<Float>.allocate(capacity: processingBufferCapacity)
+            FloatPointer.allocate(capacity: processingBufferCapacity)
         }
         
         // Ensure that the buffers do not outlive the function, to
@@ -112,18 +79,12 @@ extension WaveformRenderOperation {
         
         // ------------------------------------------------------------------------------------------
         
-        /// The total number of samples to be read (per channel) from the audio file (equal to the count of the slice).
-        let totalSamplesToRead: Int32 = Int32(slice.count)
-
-        /// The total number of samples read (per channel) so far.
-        var totalSamplesRead: Int32 = 0
-        
         // MARK: Read / process samples in a loop.
         var loops: Int = 0
         
-        while audioFile.framePosition < avfFile.totalSamples {
+        while !decoder.reachedEOF {
             
-            guard !isCancelled else {return nil}
+            guard !isCancelled else {return}
             
             // ------------------------------------------------------------------------------------------
             
@@ -131,21 +92,13 @@ extension WaveformRenderOperation {
             
             do {
                 
-                try audioFile.read(into: pcmBuffer)
+                processingBufferLength += try decoder.decode(intoBuffer: &processingBuffers, 
+                                                             currentBufferLength: processingBufferLength)
                 loops += 1
-                pcmBufferLength = Int(pcmBuffer.frameLength)
-                totalSamplesRead += Int32(pcmBuffer.frameLength)
                 
             } catch {
                 print("IO Error: \(error)")
             }
-            
-            // ------------------------------------------------------------------------------------------
-            
-            // MARK: Copy over samples from PCM buffer into processing buffers
-            
-            self.copy(samplesIn: pcmBuffer, to: &processingBuffers, offset: processingBufferLength, outputChannelCount: outputChannelCount)
-            processingBufferLength += pcmBufferLength
             
             // ------------------------------------------------------------------------------------------
             
@@ -164,7 +117,7 @@ extension WaveformRenderOperation {
             guard samplesToProcess > 0 else {continue}
             
             processAudioFileSamples(from: &processingBuffers,
-                              result: &result,
+                              renderData: &renderData,
                               samplesToProcess: samplesToProcess,
                               outputChannelCount: outputChannelCount,
                               downSampledLength: downSampledLength,
@@ -185,10 +138,12 @@ extension WaveformRenderOperation {
             // of the buffer for the next processing loop iteration.
             processingBufferLength -= samplesToProcess
             
-            for channel in 0..<outputChannelCount {
+            let intSamplesToProcess = Int(samplesToProcess)
+            
+            for channel in 0..<Int(outputChannelCount) {
                 
                 cblas_scopy(unprocessedSampleCount,
-                            processingBuffers[channel].advanced(by: samplesToProcess), 1,
+                            processingBuffers[channel].advanced(by: intSamplesToProcess), 1,
                             processingBuffers[channel], 1)
             }
         }
@@ -203,50 +158,24 @@ extension WaveformRenderOperation {
         
         if samplesToProcess > 0 {
             
-            guard !isCancelled else {return nil}
+            guard !isCancelled else {return}
             
             /// We will render only one more pixel.
-            let downSampledLength = 1
+            let downSampledLength = AVAudioFrameCount(1)
             
             /// Number of samples processed per rendered pixel.
             let samplesPerPixel = samplesToProcess
             
             /// Finite impulse response (FIR) filter for downsampling.
-            let filter = [Float](repeating: 1.0 / Float(samplesPerPixel), count: samplesPerPixel)
+            let filter = [Float](repeating: 1.0 / Float(samplesPerPixel), count: Int(samplesPerPixel))
             
             processAudioFileSamples(from: &processingBuffers,
-                              result: &result,
+                              renderData: &renderData,
                               samplesToProcess: samplesToProcess,
                               outputChannelCount: outputChannelCount,
                               downSampledLength: downSampledLength,
                               samplesPerPixel: samplesPerPixel,
                               filter: filter)
-        }
-        
-//            print("\(totalSamplesRead) read, total: \(totalSamplesToRead)")
-            print("Processed: \(sp), in \(loops) loops")
-        
-        // ------------------------------------------------------------------------------------------
-        
-        // MARK: Prepare and return the result.
-        return result
-    }
-    
-    private func copy(samplesIn pcmBuffer: AVAudioPCMBuffer, to processingBuffers: inout [UnsafeMutablePointer<Float>], offset: Int, outputChannelCount: Int) {
-        
-        guard let srcPointers = pcmBuffer.floatChannelData else {return}
-        
-        let sampleCount = Int32(pcmBuffer.frameLength)
-        
-        // NOTE - The following copy operation assumes a non-interleaved output format (i.e. the standard Core Audio format).
-        
-        // Iterate through all the channels.
-        for channelIndex in 0..<outputChannelCount {
-            
-            // Use Accelerate to perform the copy optimally, starting at the given offset.
-            cblas_scopy(sampleCount,
-                        srcPointers[channelIndex], 1,
-                        processingBuffers[channelIndex].advanced(by: offset), 1)
         }
     }
     
@@ -270,16 +199,16 @@ extension WaveformRenderOperation {
     ///
     /// - Parameter filter:                         Finite impulse response (FIR) filter for downsampling.
     ///
-    func processAudioFileSamples(from planarSamplesBuffers: inout [UnsafeMutablePointer<Float>],
-                           result: inout WaveformRenderData,
-                           samplesToProcess: Int,
-                           outputChannelCount: Int,
-                           downSampledLength: Int,
-                           samplesPerPixel: Int,
+    func processAudioFileSamples(from planarSamplesBuffers: inout Float2DBuffer,
+                           renderData: inout WaveformRenderData,
+                           samplesToProcess: AVAudioFrameCount,
+                           outputChannelCount: AVAudioChannelCount,
+                           downSampledLength: AVAudioFrameCount,
+                           samplesPerPixel: AVAudioFrameCount,
                            filter: [Float]) {
         
         let sampleCount = vDSP_Length(samplesToProcess)
-        var downSampledData = [Float](repeating: 0.0, count: downSampledLength)
+        var downSampledData = [Float](repeating: 0.0, count: Int(downSampledLength))
         
         // Convert the parameters to the required types for Accelerate.
         
@@ -323,17 +252,17 @@ extension WaveformRenderOperation {
                         samplesPerPixel_vDSP_Length)
             
             // Append the new data to the existing result data.
-            result.appendData(downSampledData, forChannel: channel)
+            renderData.appendData(downSampledData, forChannel: channel)
         }
         
-        sampleReceiver.setSamples(result.inSamples)
+        sampleReceiver.setSamples(renderData.samples)
         sp += Int32(samplesToProcess)
     }
     
     ///
     /// Converts power / amplitude samples from a ``Float`` buffer to clipped (logarithmic) decibel values.
     ///
-    func process(normalizedSamples: UnsafeMutablePointer<Float>, count: Int) {
+    func process(normalizedSamples: FloatPointer, count: AVAudioFrameCount) {
         
         // Convert samples to a log scale.
         

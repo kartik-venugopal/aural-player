@@ -47,7 +47,7 @@ class FFT: Destroyable {
     private var realp: [Float] = []
     private var imagp: [Float] = []
     
-    private var transferBuffer: UnsafeMutablePointer<Float> = .allocate(capacity: 0)
+    private var transferBuffer: FloatPointer = .allocate(capacity: 0)
     private var window: [Float] = []
     private var windowSize: Int = 512
     private var windowSize_vDSPLength: vDSP_Length = 512
@@ -58,7 +58,7 @@ class FFT: Destroyable {
     private var zeroDBReference: Float = 0.1
     
     private var magnitudes: [Float] = []
-    private(set) var normalizedMagnitudes: UnsafeMutablePointer<Float> = .allocate(capacity: 0)
+    private(set) var normalizedMagnitudes: FloatPointer = .allocate(capacity: 0)
     
     func setUp(sampleRate: Float, bufferSize: Int) {
         

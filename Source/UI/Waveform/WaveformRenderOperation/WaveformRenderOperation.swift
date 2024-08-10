@@ -15,15 +15,11 @@ final class WaveformRenderOperation: Operation {
     // MARK: State
     
     /// The audio context used to build the waveform
-    let audioContext: WaveformAudioContext
+    let decoder: WaveformDecoderProtocol
     
     let sampleReceiver: SampleReceiver
     
-    /// Size of waveform image to render
-    let imageSize: CGSize
-    
-    /// Range of samples within audio asset to build waveform for
-    let sampleRange: CountableRange<Int>
+    let targetSamples: AVAudioFrameCount
     
     ///
     /// Any operations spawned by this operation.
@@ -64,13 +60,12 @@ final class WaveformRenderOperation: Operation {
     
     // MARK: Initialization
     
-    init(audioContext: WaveformAudioContext, sampleReceiver: SampleReceiver, imageSize: CGSize,
+    init(decoder: WaveformDecoderProtocol, sampleReceiver: SampleReceiver, imageSize: CGSize,
          completionHandler: @escaping () -> ()) {
         
-        self.audioContext = audioContext
+        self.decoder = decoder
         self.sampleReceiver = sampleReceiver
-        self.imageSize = imageSize
-        self.sampleRange = 0..<audioContext.totalSamples
+        self.targetSamples = AVAudioFrameCount(imageSize.width)
         self.completionHandler = completionHandler
         
         super.init()
@@ -131,51 +126,14 @@ final class WaveformRenderOperation: Operation {
     ///
     private func render() {
         
-        // Validate the render parameters (image size, sample range).
-        
-        guard
-            !sampleRange.isEmpty,
-            imageSize.width > 0, imageSize.height > 0
-        else {
-            finish()
-            return
-        }
-        
-        let targetSamples = Int(imageSize.width)
-        
-        // ----------------------------------------------------------------------------
-        
-        // Step 1 - Read samples from the audio file and perform downsampling
-        // on them.
-        
         if !isCancelled {
-            _ = analyzeTrack(withRange: sampleRange, andDownsampleTo: targetSamples)
+            
+            let start = CFAbsoluteTimeGetCurrent()
+            analyzeAudioFile(andDownsampleTo: targetSamples)
+            let end = CFAbsoluteTimeGetCurrent()
+            print("Analyzed track in: \(String(format: "%.3f", end - start)) secs")
         }
             
         finish()
-    }
-    
-    ///
-    /// Delegates to an appropriate sample reading function depending on file format.
-    ///
-    func analyzeTrack(withRange slice: CountableRange<Int>, andDownsampleTo targetSamples: Int) -> WaveformRenderData? {
-        
-        guard !isCancelled else {return nil}
-        
-        var data: WaveformRenderData? = nil
-        
-        if audioContext.audioFile.isNativelySupported {
-            
-            let start = CFAbsoluteTimeGetCurrent()
-            data = analyzeAudioFile(withRange: slice, andDownsampleTo: targetSamples)
-            
-            let end = CFAbsoluteTimeGetCurrent()
-            print("Sliced track in: \(String(format: "%.3f", end - start)) secs")
-            
-        } else {
-            data = analyzeFFmpegTrack(withRange: slice, andDownsampleTo: targetSamples)
-        }
-        
-        return data
     }
 }

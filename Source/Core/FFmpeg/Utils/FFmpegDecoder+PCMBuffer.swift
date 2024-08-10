@@ -10,8 +10,6 @@
 import AVFoundation
 import Accelerate
 
-let bytesInAFloat: Int = MemoryLayout<Float>.size
-
 ///
 /// Performs conversion of PCM audio samples to the standard format suitable for playback in an **AVAudioEngine**,
 /// i.e. 32-bit floating point non-interleaved (aka planar).
@@ -55,7 +53,7 @@ extension FFmpegDecoder {
             // NOTE - The following copy operation assumes a non-interleaved output format (i.e. the standard Core Audio format).
             
             // Temporarily bind the input sample buffers as floating point numbers, and perform the copy.
-            frame.dataPointers.withMemoryRebound(to: UnsafeMutablePointer<Float>.self, capacity: channelCount) {srcPointers in
+            frame.dataPointers.withMemoryRebound(to: FloatPointer.self, capacity: channelCount) {srcPointers in
                 
                 let firstSampleIndex = Int(frame.firstSampleIndex)
 

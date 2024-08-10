@@ -7,7 +7,12 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
+
 import CoreGraphics
+import Accelerate
+
+let bytesInAFloat: Int = MemoryLayout<Float>.size
+typealias FloatPointer = UnsafeMutablePointer<Float>
 
 extension FloatingPoint {
     
@@ -69,4 +74,18 @@ extension Float {
 
 extension CGFloat {
     var roundedInt: Int {lroundf(Float(self))}
+}
+
+extension Array where Element == Float {
+
+    ///
+    /// An efficient way to find the maximum value in a ``Float`` array
+    /// using Accelerate.
+    ///
+    var fastMax: Float {
+
+        var max: Float = 0
+        vDSP_maxv(self, 1, &max, UInt(count))
+        return max
+    }
 }

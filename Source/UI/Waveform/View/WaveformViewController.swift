@@ -26,6 +26,8 @@ class WaveformViewController: NSViewController {
                                                                         self?.updateProgress()},
                                                                       queue: .main)
     
+    var appeared: Bool = false
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -37,8 +39,23 @@ class WaveformViewController: NSViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
         
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
-        messenger.subscribe(to: .Player.playbackStateChanged, handler: playbackStateChanged)
+        messenger.subscribe(to: .Player.playbackStateChanged, handler: updateForCurrentPlaybackState)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: updateProgress)
+    }
+    
+    override func viewWillDisappear() {
+        
+        super.viewWillDisappear()
+        print("Disappearing ...")
+        seekTimer.pause()
+    }
+    
+    override func viewWillAppear() {
+        
+        super.viewWillAppear()
+        print("Appearing ...")
+        
+        updateForTrack(playbackInfoDelegate.playingTrack)
     }
     
     override func destroy() {
@@ -53,18 +70,20 @@ class WaveformViewController: NSViewController {
     
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-        let endTrack = notification.endTrack
-        
-        waveformView.audioFile = endTrack?.file
-        
-        if endTrack == nil {
-            seekTimer.pause()
+        if let window = view.window, window.isVisible {
+            updateForTrack(notification.endTrack)
         } else {
-            seekTimer.startOrResume()
+            print("Not updating WaveformView. Window: \(view.window), \(view.window?.isVisible)")
         }
     }
     
-    private func playbackStateChanged() {
+    private func updateForTrack(_ track: Track?) {
+        
+        waveformView.audioFile = track?.file
+        updateForCurrentPlaybackState()
+    }
+    
+    private func updateForCurrentPlaybackState() {
         
         if playbackInfoDelegate.state == .playing {
             seekTimer.startOrResume()

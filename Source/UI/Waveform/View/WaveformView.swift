@@ -35,6 +35,16 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
     
     var waveformSize: NSSize = .zero
     
+    override var frame: NSRect {
+        
+        get {super.frame}
+        
+        set {
+            super.frame = newValue
+            waveformSize = bounds.size
+        }
+    }
+    
     required init?(coder: NSCoder) {
 
         super.init(coder: coder)
@@ -283,28 +293,9 @@ extension WaveformView: ColorSchemeObserver {
     }
 }
 
-fileprivate extension Array where Element == Float {
-
-    ///
-    /// An efficient way to find the maximum value in a ``Float`` array
-    /// using Accelerate.
-    ///
-    func fastMax() -> Float {
-
-        var max: Float = 0
-        vDSP_maxv(self, 1, &max, UInt(count))
-        return max
-    }
-}
-
 extension [[Float]] {
     
     var sampleMax: Float {
-       
-        // Use Accelerate to compute the maximums for each channel efficiently.
-        let allMaximums = self.map {$0.fastMax()}
-        
-        // Return the maximum value within ``allMaximums``.
-        return Float(allMaximums.max() ?? 0)
+       (self.map {$0.fastMax}).max() ?? 0
     }
 }

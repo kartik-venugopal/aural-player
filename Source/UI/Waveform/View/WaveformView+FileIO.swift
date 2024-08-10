@@ -17,7 +17,11 @@ extension WaveformView {
         
         set(newFile) {
             
-            if newFile == audioFile {return}
+            if newFile == audioFile {
+                
+                print("SAME FILE, doing nothing ...")
+                return
+            }
             
             self._audioFile = newFile
             
@@ -36,28 +40,34 @@ extension WaveformView {
             return
         }
         
-        WaveformAudioContext.load(fromAudioFile: audioFile) {audioContext in
+        guard let decoder = createDecoder() else {return}
             
-            DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            self.renderOp = WaveformRenderOperation(decoder: decoder,
+                                                    sampleReceiver: self,
+                                                    imageSize: self.waveformSize) {
                 
-                guard self.audioFile == audioContext?.audioFile else { return }
-
-                guard let audioContext = audioContext else {
-                    
-                    NSLog("WaveformView failed to load URL: \(audioFile)")
-                    return
-                }
-
-                self.renderOp = WaveformRenderOperation(audioContext: audioContext,
-                                                        sampleReceiver: self,
-                                                        imageSize: self.bounds.size) {
-                    
-                    self.cacheCurrentWaveform()
-                    print("Done!")
-                }
-                
-                self.renderOp?.start()
+                self.cacheCurrentWaveform()
+                print("Done!")
             }
+            
+            self.renderOp?.start()
         }
+    }
+    
+    private func createDecoder() -> WaveformDecoderProtocol? {
+       
+        // Check the type of file to determine how to load information.
+        guard let audioFile = self.audioFile else {return nil}
+        
+        if audioFile.isNativelySupported {
+            return AVFWaveformDecoder(file: audioFile)
+            
+        } else if audioFile.isSupportedAudioFile {
+            return try? FFmpegWaveformDecoder(for: audioFile)
+        }
+        
+        return nil
     }
 }

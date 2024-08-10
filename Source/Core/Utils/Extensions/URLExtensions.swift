@@ -30,6 +30,10 @@ extension URL {
         SupportedTypes.nativeAudioExtensions.contains(lowerCasedExtension)
     }
     
+    var isNonNativelySupported: Bool {
+        SupportedTypes.nonNativeAudioExtensions.contains(lowerCasedExtension)
+    }
+    
     var isSupportedAudioFile: Bool {
         SupportedTypes.allAudioExtensions.contains(lowerCasedExtension)
     }
