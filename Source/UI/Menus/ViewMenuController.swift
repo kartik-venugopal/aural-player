@@ -73,6 +73,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         toggleEffectsMenuItem.onIf(appModeManager.isShowingEffects)
         toggleChaptersListMenuItem.onIf(appModeManager.isShowingChaptersList)
         toggleVisualizerMenuItem.onIf(appModeManager.isShowingVisualizer)
+        toggleWaveformMenuItem.onIf(appModeManager.isShowingWaveform)
         
         if appModeManager.currentMode == .compact {
             toggleTrackInfoMenuItem.onIf(appModeManager.isShowingTrackInfo)

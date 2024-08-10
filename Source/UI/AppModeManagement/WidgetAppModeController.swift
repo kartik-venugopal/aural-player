@@ -34,6 +34,8 @@ class WidgetAppModeController: AppModeController {
     var isShowingVisualizer: Bool {true}
     
     var isShowingTrackInfo: Bool {true}
+    
+    var isShowingWaveform: Bool {false}
 
     private var windowController: WidgetPlayerWindowController?
     

@@ -36,6 +36,10 @@ class UnifiedAppModeController: AppModeController {
         windowController?.isShowingVisualizer ?? false
     }
     
+    var isShowingWaveform: Bool {
+        windowController?.isShowingWaveform ?? false
+    }
+    
     var isShowingTrackInfo: Bool {
         windowController?.isShowingTrackInfo ?? false
     }

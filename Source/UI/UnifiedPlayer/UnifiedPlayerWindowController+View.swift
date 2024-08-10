@@ -29,6 +29,10 @@ extension UnifiedPlayerWindowController {
         false
     }
     
+    var isShowingWaveform: Bool {
+        rootSplitView.subviews[1].isShown
+    }
+    
     var isShowingTrackInfo: Bool {
         playerViewController.isShowingTrackInfo
     }

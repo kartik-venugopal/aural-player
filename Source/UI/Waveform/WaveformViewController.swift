@@ -74,14 +74,15 @@ class WaveformViewController: NSViewController {
         waveformView.progress = playbackInfoDelegate.seekPosition.percentageElapsed / 100.0
     }
     
+    ///
+    /// Vertical centering with respect to the main Waveform view.
+    /// 
     private func repositionChannelLabels() {
         
         let verticalMargin = (waveformView.height / 4) - (lblLeftChannel.height / 2)
         
         lblLeftChannelTopConstraint.constant = verticalMargin
         lblRightChannelBottomConstraint.constant = -verticalMargin
-        
-        print("Vert. Margin: \(verticalMargin)")
     }
     
     private func updateChannelLabels() {

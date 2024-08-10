@@ -64,6 +64,12 @@
                         <action selector="toggleVisualizerAction:" target="Ro6-ma-Phw" id="vc6-Pv-lul"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Waveform" id="cW7-0w-nDZ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleWaveformAction:" target="Ro6-ma-Phw" id="kw2-pe-Isj"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="y9v-7f-Vob"/>
                 <menuItem title="Player view" id="gVI-M1-z9R" userLabel="Player View">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -420,6 +426,7 @@
                 <outlet property="togglePlayerMenuItem" destination="PVu-em-g7u" id="9u5-u8-hG8"/>
                 <outlet property="toggleTrackInfoMenuItem" destination="rxD-Gp-Awn" id="4By-RL-oGM"/>
                 <outlet property="toggleVisualizerMenuItem" destination="KUn-VA-Fam" id="VjW-lm-GgS"/>
+                <outlet property="toggleWaveformMenuItem" destination="cW7-0w-nDZ" id="xun-JC-ZmV"/>
                 <outlet property="windowLayoutsMenuItem" destination="RlY-rw-Ay5" id="2o0-rs-c08"/>
             </connections>
         </customObject>

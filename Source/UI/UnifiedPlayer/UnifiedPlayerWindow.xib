@@ -58,21 +58,28 @@
                         <rect key="frame" x="10" y="10" width="780" height="448"/>
                         <subviews>
                             <customView misplaced="YES" id="t3V-ob-vQ4" userLabel="Now Playing View">
-                                <rect key="frame" x="0.0" y="0.0" width="780" height="186"/>
+                                <rect key="frame" x="0.0" y="0.0" width="780" height="131"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="125" id="aJ1-DK-cFV"/>
+                                    <constraint firstAttribute="height" constant="130" id="aJ1-DK-cFV"/>
+                                </constraints>
+                            </customView>
+                            <customView misplaced="YES" id="CsQ-68-xi3" userLabel="Waveform View">
+                                <rect key="frame" x="0.0" y="132" width="780" height="131"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="VHY-6x-NRf"/>
                                 </constraints>
                             </customView>
                             <customView misplaced="YES" id="sBp-Ce-vQS" userLabel="Browser View">
-                                <rect key="frame" x="0.0" y="187" width="780" height="261"/>
+                                <rect key="frame" x="0.0" y="264" width="780" height="184"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ExY-pd-fXH" userLabel="Browser Split View">
-                                        <rect key="frame" x="0.0" y="0.0" width="780" height="322"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="780" height="216"/>
                                         <subviews>
                                             <customView misplaced="YES" id="ogN-Y4-Drt" userLabel="Sidebar View">
-                                                <rect key="frame" x="0.0" y="0.0" width="141" height="322"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="141" height="216"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="cL1-Gv-wfN"/>
@@ -80,11 +87,11 @@
                                                 </constraints>
                                             </customView>
                                             <customView misplaced="YES" id="uue-3o-CCX" userLabel="Detail View">
-                                                <rect key="frame" x="142" y="0.0" width="638" height="322"/>
+                                                <rect key="frame" x="142" y="0.0" width="638" height="216"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="3Ep-XV-pMg" userLabel="Tab View">
-                                                        <rect key="frame" x="10" y="0.0" width="619" height="312"/>
+                                                        <rect key="frame" x="10" y="25" width="619" height="206"/>
                                                         <font key="font" metaFont="system"/>
                                                     </tabView>
                                                 </subviews>
@@ -111,6 +118,7 @@
                             </customView>
                         </subviews>
                         <holdingPriorities>
+                            <real value="250"/>
                             <real value="250"/>
                             <real value="250"/>
                         </holdingPriorities>

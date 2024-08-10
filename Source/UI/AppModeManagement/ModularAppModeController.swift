@@ -41,6 +41,10 @@ class ModularAppModeController: AppModeController {
         windowLayoutsManager.isShowingWindow(withId: .visualizer)
     }
     
+    var isShowingWaveform: Bool {
+        windowLayoutsManager.isShowingWindow(withId: .waveform)
+    }
+    
     var isShowingTrackInfo: Bool {
         windowLayoutsManager.isShowingWindow(withId: .trackInfo)
     }

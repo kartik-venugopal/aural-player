@@ -36,4 +36,8 @@ extension CompactPlayerWindowController {
     var isShowingVisualizer: Bool {
         false
     }
+    
+    var isShowingWaveform: Bool {
+        false
+    }
 }

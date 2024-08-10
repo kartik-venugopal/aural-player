@@ -3365,8 +3365,6 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0F2025CEB98500BF0D07 /* ModularPlayerWindow.xib */,
-				3E2207EF2C1E08F700ED286A /* ViewPopupMenu.xib */,
-				3E2207F12C1E0BE500ED286A /* ViewPopupMenuContainer.swift */,
 				3E6C0F1F25CEB98500BF0D07 /* ModularPlayerWindowController.swift */,
 				3E466C8E27FA296C00342C30 /* ModularPlayerWindowController+EventHandling.swift */,
 				3E6C0F1D25CEB98500BF0D07 /* Player */,
@@ -3977,10 +3975,9 @@
 		3E6C0F1A25CEB98500BF0D07 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */,
+				3E6C0FDD25CEB98600BF0D07 /* Menus */,
 				3E4C76392AD7701300DDED45 /* AppSetup */,
 				3E9E58FC25DB6B150064EB5F /* AppModeManagement */,
-				3E6C0FDD25CEB98600BF0D07 /* MenuControllers */,
 				3E10179128D791ED002C0D8E /* ModularPlayer */,
 				3E7638A92857D7F800461F4D /* UnifiedPlayer */,
 				3EBFF5A62B52C0B20056D5B4 /* CompactPlayer */,
@@ -4375,9 +4372,12 @@
 			path = AboutDialog;
 			sourceTree = "<group>";
 		};
-		3E6C0FDD25CEB98600BF0D07 /* MenuControllers */ = {
+		3E6C0FDD25CEB98600BF0D07 /* Menus */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */,
+				3E2207EF2C1E08F700ED286A /* ViewPopupMenu.xib */,
+				3E2207F12C1E0BE500ED286A /* ViewPopupMenuContainer.swift */,
 				3E6C0FE025CEB98600BF0D07 /* PlaybackMenuController.swift */,
 				3E6C0FE725CEB98600BF0D07 /* SoundMenuController.swift */,
 				3E7AF10428065441006DC98F /* PlayQueueMenuController.swift */,
@@ -4396,7 +4396,7 @@
 				3E6C0FE925CEB98600BF0D07 /* BookmarksMenuController.swift */,
 				3E6C0FEA25CEB98600BF0D07 /* FavoritesMenuController.swift */,
 			);
-			path = MenuControllers;
+			path = Menus;
 			sourceTree = "<group>";
 		};
 		3E6C0FED25CEB98600BF0D07 /* Effects */ = {

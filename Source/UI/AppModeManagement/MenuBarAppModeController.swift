@@ -31,7 +31,9 @@ class MenuBarAppModeController: NSObject, AppModeController {
     
     var isShowingChaptersList: Bool {true}
     
-    var isShowingVisualizer: Bool {true}
+    var isShowingVisualizer: Bool {false}
+    
+    var isShowingWaveform: Bool {false}
     
     var isShowingTrackInfo: Bool {true}
 

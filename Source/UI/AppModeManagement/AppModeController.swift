@@ -33,6 +33,8 @@ protocol AppModeController {
     
     var isShowingVisualizer: Bool {get}
     
+    var isShowingWaveform: Bool {get}
+    
     var isShowingTrackInfo: Bool {get}
 }
 
