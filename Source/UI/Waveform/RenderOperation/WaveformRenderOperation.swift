@@ -121,7 +121,7 @@ final class WaveformRenderOperation: Operation {
         let start = CFAbsoluteTimeGetCurrent()
         analyzeAudioFile(andDownsampleTo: targetSamples)
         let end = CFAbsoluteTimeGetCurrent()
-        print("Analyzed track in: \(String(format: "%.3f", end - start)) secs")
+        print("Analyzed track \(decoder.file.lastPathComponent) in: \(String(format: "%.3f", end - start)) secs")
         
         finish()
     }

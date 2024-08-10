@@ -33,7 +33,10 @@ class AVFWaveformDecoder: WaveformDecoderProtocol {
     private var sampleCountFromLastRead: AVAudioFrameCount = 1
     
     var reachedEOF: Bool {
-        (audioFile.framePosition >= totalSamples) || (totalSamplesRead >= totalSamples) || (sampleCountFromLastRead == 0)
+        
+        (audioFile.framePosition >= totalSamples) || 
+        (totalSamplesRead >= totalSamples) ||
+        (sampleCountFromLastRead == 0)
     }
 
     init?(file: URL) {

@@ -17,6 +17,9 @@ extension WaveformRenderOperation {
     /// Scalar to convert samples in the range [-1, 1] to samples in the range [-32768, 32767]
     static let vsMulScalar: [Float] = [32768]
     
+    static let maxConsecutiveIOErrors: Int = 3
+    static let maxTotalIOErrors: Int = 10
+    
     // MARK: Sample reading
     
     ///
@@ -81,6 +84,9 @@ extension WaveformRenderOperation {
         
         // MARK: Read / process samples in a loop.
         
+        var consecutiveIOErrors: Int = 0
+        var totalIOErrors: Int = 0
+        
         while !decoder.reachedEOF {
             
             guard !isCancelled else {return}
@@ -94,7 +100,27 @@ extension WaveformRenderOperation {
                 processingBufferLength += try decoder.decode(intoBuffer: &processingBuffers, 
                                                              currentBufferLength: processingBufferLength)
             } catch {
-                NSLog("Waveform Decoder IO Error: \(error)")
+                
+                NSLog("Waveform Decoder IO Error: \(error.localizedDescription)")
+                
+                consecutiveIOErrors.increment()
+                totalIOErrors.increment()
+                
+                if consecutiveIOErrors >= Self.maxConsecutiveIOErrors {
+                    
+                    NSLog("Encountered too many consecutive IO errors. Terminating analysis loop.")
+                    break
+                    
+                } else if totalIOErrors > Self.maxTotalIOErrors {
+                    
+                    NSLog("Encountered too many total IO errors. Terminating analysis loop.")
+                    break
+                }
+            }
+            
+            // Reset the error counter if the read after a failed iteration succeeds.
+            if consecutiveIOErrors > 0 {
+                consecutiveIOErrors = 0
             }
             
             // ------------------------------------------------------------------------------------------
@@ -174,6 +200,8 @@ extension WaveformRenderOperation {
                               samplesPerPixel: samplesPerPixel,
                               filter: filter)
         }
+        
+        print("Done with analysis of: \(decoder.file.lastPathComponent)")
     }
     
     // -------------------------------------------------------------------------------------------------------------------
