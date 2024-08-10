@@ -137,7 +137,7 @@ class ModularPlayerWindowController: NSWindowController {
     }
     
     func changeWindowCornerRadius(to radius: CGFloat) {
-        rootContainerBox.cornerRadius = radius
+        rootContainerBox.cornerRadius = radius.clamped(to: 0...20)
     }
 }
 

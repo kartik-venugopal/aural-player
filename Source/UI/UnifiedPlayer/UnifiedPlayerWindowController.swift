@@ -191,7 +191,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     }
     
     func changeWindowCornerRadius(to radius: CGFloat) {
-        rootContainerBox.cornerRadius = radius
+        rootContainerBox.cornerRadius = radius.clamped(to: 0...20)
     }
     
     private func showModule(forItem item: UnifiedPlayerSidebarItem) {

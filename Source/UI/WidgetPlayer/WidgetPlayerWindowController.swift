@@ -60,7 +60,7 @@ class WidgetPlayerWindowController: NSWindowController, NSWindowDelegate, NSMenu
     @IBAction func cornerRadiusStepperAction(_ sender: NSStepper) {
         
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
-        rootContainerBox.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
+        rootContainerBox.cornerRadius = CGFloat(cornerRadiusStepper.integerValue).clamped(to: 0...15)
         uiState.cornerRadius = rootContainerBox.cornerRadius
     }
     
