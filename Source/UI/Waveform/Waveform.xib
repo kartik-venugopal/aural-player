@@ -9,9 +9,12 @@
         <customObject id="-2" userLabel="File's Owner" customClass="WaveformViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="lblCaption" destination="em0-1s-tIJ" id="KvX-9y-PlS"/>
+                <outlet property="lblLeftChannel" destination="7gh-Ye-WEa" id="Jaa-jp-wyf"/>
+                <outlet property="lblRightChannel" destination="qNd-Ra-Yg4" id="TJR-0M-q5I"/>
                 <outlet property="rootContainer" destination="YAt-nt-kSl" id="PrP-oB-kIG"/>
                 <outlet property="view" destination="c22-O7-iKe" id="MC2-BP-E35"/>
                 <outlet property="waveformView" destination="zJD-x7-zZS" id="bkr-BS-zNO"/>
+                <outlet property="waveformViewLeadingConstraint" destination="ag7-Ro-4Aq" id="dZk-fp-hSO"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -39,16 +42,44 @@
                                 </textFieldCell>
                             </textField>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="zJD-x7-zZS" customClass="WaveformView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="15" y="20" width="450" height="120"/>
+                                <rect key="frame" x="35" y="20" width="430" height="120"/>
                             </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7gh-Ye-WEa" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="5" y="99" width="25" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="8b0-KE-6wg"/>
+                                    <constraint firstAttribute="width" constant="21" id="YZJ-0K-A3O"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="L" id="Bbg-Fq-tCI">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qNd-Ra-Yg4" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="5" y="40" width="25" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="aGE-3R-HSY"/>
+                                    <constraint firstAttribute="width" constant="21" id="eqy-K0-Ae8"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="R" id="JG1-RT-hnI">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="7gh-Ye-WEa" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="7" id="3bw-2c-MyG"/>
                             <constraint firstItem="em0-1s-tIJ" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="34" id="Qqt-ey-S64"/>
-                            <constraint firstItem="zJD-x7-zZS" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="15" id="ag7-Ro-4Aq"/>
+                            <constraint firstAttribute="bottom" secondItem="qNd-Ra-Yg4" secondAttribute="bottom" constant="40" id="Uxg-RP-JhM"/>
+                            <constraint firstItem="zJD-x7-zZS" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="35" id="ag7-Ro-4Aq"/>
                             <constraint firstAttribute="trailing" secondItem="zJD-x7-zZS" secondAttribute="trailing" constant="15" id="dFI-gG-5Oq"/>
                             <constraint firstItem="zJD-x7-zZS" firstAttribute="top" secondItem="em0-1s-tIJ" secondAttribute="bottom" constant="28" id="mgc-kG-X2U"/>
                             <constraint firstItem="em0-1s-tIJ" firstAttribute="top" secondItem="n2X-vU-d4R" secondAttribute="top" constant="7" id="r1P-aH-Tj1"/>
                             <constraint firstAttribute="bottom" secondItem="zJD-x7-zZS" secondAttribute="bottom" constant="20" symbolic="YES" id="tnD-31-idZ"/>
+                            <constraint firstItem="7gh-Ye-WEa" firstAttribute="top" secondItem="n2X-vU-d4R" secondAttribute="top" constant="79" id="yIW-Np-bk2"/>
+                            <constraint firstItem="qNd-Ra-Yg4" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="7" id="ycM-T2-Bod"/>
                         </constraints>
                     </view>
                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
