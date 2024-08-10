@@ -20,40 +20,44 @@ extension WaveformView {
             if newFile == audioFile {return}
             
             self._audioFile = newFile
+            
             resetState()
+            analyzeAudioFile()
+        }
+    }
+    
+    func analyzeAudioFile() {
+        
+        guard let audioFile = self.audioFile else {return}
+        
+        if let lookup = lookUpCache(forFile: audioFile) {
             
-            guard let audioFile = newFile else {return}
+            self.setSamples(lookup.data.samples)
+            return
+        }
+        
+        WaveformAudioContext.load(fromAudioFile: audioFile) {audioContext in
             
-            if let lookup = lookUpCache(forFile: audioFile) {
+            DispatchQueue.main.async {
                 
-                self.setSamples(lookup.data.samples)
-                return
-            }
-            
-            WaveformAudioContext.load(fromAudioFile: audioFile) {audioContext in
-                
-                DispatchQueue.main.async {
-                    
-                    guard self.audioFile == audioContext?.audioFile else { return }
+                guard self.audioFile == audioContext?.audioFile else { return }
 
-                    guard let audioContext = audioContext else {
-                        
-                        NSLog("WaveformView failed to load URL: \(audioFile)")
-                        return
-                    }
-
-                    self.renderOp = WaveformRenderOperation(audioContext: audioContext,
-                                                            sampleReceiver: self,
-                                                            imageSize: self.bounds.size) {
-                        
-                        self.cacheCurrentWaveform()
-                        print("Done!")
-                    }
+                guard let audioContext = audioContext else {
                     
-                    self.renderOp?.start()
+                    NSLog("WaveformView failed to load URL: \(audioFile)")
+                    return
                 }
+
+                self.renderOp = WaveformRenderOperation(audioContext: audioContext,
+                                                        sampleReceiver: self,
+                                                        imageSize: self.bounds.size) {
+                    
+                    self.cacheCurrentWaveform()
+                    print("Done!")
+                }
+                
+                self.renderOp?.start()
             }
-            
         }
     }
 }

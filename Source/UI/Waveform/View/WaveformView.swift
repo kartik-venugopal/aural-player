@@ -110,6 +110,14 @@ class WaveformView: NSView, SampleReceiver {
         return nil
     }
     
+    override func viewDidEndLiveResize() {
+        
+        super.viewDidEndLiveResize()
+        
+        resetState()
+        analyzeAudioFile()
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         
         super.draw(dirtyRect)

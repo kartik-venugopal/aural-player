@@ -20,9 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box fixedFrame="YES" boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="YAt-nt-kSl" userLabel="Waveform Container">
+                <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="YAt-nt-kSl" userLabel="Waveform Container">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" id="n2X-vU-d4R">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,19 +38,28 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJD-x7-zZS" customClass="WaveformView" customModule="Aural" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="zJD-x7-zZS" customClass="WaveformView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="15" y="20" width="450" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="em0-1s-tIJ" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="34" id="Qqt-ey-S64"/>
+                            <constraint firstItem="zJD-x7-zZS" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="15" id="ag7-Ro-4Aq"/>
+                            <constraint firstAttribute="trailing" secondItem="zJD-x7-zZS" secondAttribute="trailing" constant="15" id="dFI-gG-5Oq"/>
+                            <constraint firstItem="zJD-x7-zZS" firstAttribute="top" secondItem="em0-1s-tIJ" secondAttribute="bottom" constant="28" id="mgc-kG-X2U"/>
                             <constraint firstItem="em0-1s-tIJ" firstAttribute="top" secondItem="n2X-vU-d4R" secondAttribute="top" constant="7" id="r1P-aH-Tj1"/>
+                            <constraint firstAttribute="bottom" secondItem="zJD-x7-zZS" secondAttribute="bottom" constant="20" symbolic="YES" id="tnD-31-idZ"/>
                         </constraints>
                     </view>
                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 </box>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="YAt-nt-kSl" secondAttribute="trailing" id="7Ze-Ez-amj"/>
+                <constraint firstAttribute="bottom" secondItem="YAt-nt-kSl" secondAttribute="bottom" id="kCC-Mz-fpy"/>
+                <constraint firstItem="YAt-nt-kSl" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="v8Q-RJ-Zkt"/>
+                <constraint firstItem="YAt-nt-kSl" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="zZd-wn-Eng"/>
+            </constraints>
             <point key="canvasLocation" x="139" y="154"/>
         </customView>
     </objects>
