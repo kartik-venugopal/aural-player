@@ -132,6 +132,13 @@ extension ColorSchemesManager {
         propertyObservers[property]?.removeValue(forKey: observer.hashValue)
     }
     
+    func removePropertyObservers(_ observer: ColorSchemePropertyObserver, forProperties properties: ColorSchemeProperty...) {
+        
+        for property in properties {
+            propertyObservers[property]?.removeValue(forKey: observer.hashValue)
+        }
+    }
+    
     func removeSchemeObserver(_ observer: ColorSchemeObserver) {
         schemeObservers.removeValue(forKey: observer.hashValue)
     }

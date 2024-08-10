@@ -27,7 +27,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
     
     static let noiseFloor: CGFloat = -50
     
-    var eventMonitor: EventMonitor! = EventMonitor()
+    var eventMonitor: EventMonitor!
     var clickRecognizer: NSClickGestureRecognizer!
     
     var _audioFile: URL?
@@ -51,6 +51,12 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         
         self.waveformSize = self.bounds.size
         self.wantsLayer = true
+        
+        prepareToAppear()
+    }
+    
+    func prepareToAppear() {
+        
         setUpGestureHandling()
         
         colorSchemesManager.registerSchemeObserver(self)
@@ -58,10 +64,23 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, handler: inactiveControlColorChanged(_:))
     }
     
+    func prepareToDisappear() {
+        
+        destroy()
+        
+        colorSchemesManager.removeSchemeObserver(self)
+        colorSchemesManager.removePropertyObservers(self, forProperties: \.activeControlColor, \.inactiveControlColor)
+    }
+    
     func destroy() {
         
-        eventMonitor.stopMonitoring()
-        eventMonitor = nil
+        renderOp?.cancel()
+        renderOp = nil
+        
+        _audioFile = nil
+        samples = [[],[]]
+        
+        deactivateGestureHandling()
     }
     
     var samples: [[Float]] = [[],[]]
@@ -80,6 +99,9 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
     }
     
     func resetState() {
+        
+        renderOp?.cancel()
+        renderOp = nil
         
         samples = [[],[]]
         progress = 0
@@ -233,11 +255,8 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
                 let height = CGFloat(CGFloat(sample - minVal) * sampleDrawingScale)
                 let x_CGFloat = CGFloat(x)
                 
-                if height.isZero || height.isNaN {
-                    
-                    print("WTF!")
-                    continue
-                }
+                // TODO: Print out such invalid values and fix the scaling.
+                if height.isZero || height.isNaN {continue}
                 
                 // TODO: Clamp values to prevent zero or negative height lines
                 path.line(from: (x_CGFloat, verticalMiddle - height), to: (x_CGFloat, verticalMiddle + height))

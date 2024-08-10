@@ -34,21 +34,25 @@ extension WaveformView {
         
         guard let audioFile = self.audioFile else {return}
         
-        if let lookup = lookUpCache(forFile: audioFile) {
-            
-            self.setSamples(lookup.data.samples)
-            return
-        }
-        
-        guard let decoder = createDecoder() else {return}
-            
         DispatchQueue.global(qos: .userInteractive).async {
+            
+            if let lookup = self.lookUpCache(forFile: audioFile) {
+                
+                self.setSamples(lookup.data.samples)
+                return
+            }
+            
+            guard let decoder = self.createDecoder(forFile: audioFile) else {return}
             
             self.renderOp = WaveformRenderOperation(decoder: decoder,
                                                     sampleReceiver: self,
                                                     imageSize: self.waveformSize) {
                 
-                self.cacheCurrentWaveform()
+                if let renderOp = self.renderOp, !renderOp.isCancelled {
+                    self.cacheCurrentWaveform()
+                }
+                
+                self.renderOp = nil
                 print("Done!")
             }
             
@@ -56,10 +60,9 @@ extension WaveformView {
         }
     }
     
-    private func createDecoder() -> WaveformDecoderProtocol? {
+    private func createDecoder(forFile audioFile: URL) -> WaveformDecoderProtocol? {
        
         // Check the type of file to determine how to load information.
-        guard let audioFile = self.audioFile else {return nil}
         
         if audioFile.isNativelySupported {
             return AVFWaveformDecoder(file: audioFile)

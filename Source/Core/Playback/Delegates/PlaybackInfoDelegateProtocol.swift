@@ -33,6 +33,8 @@ protocol PlaybackInfoDelegateProtocol {
     // Returns the currently playing (or paused) track, if there is one
     var playingTrack: Track? {get}
     
+    var hasPlayingTrack: Bool {get}
+    
     // For the currently playing track, returns the total number of defined chapter markings
     var chapterCount: Int {get}
     

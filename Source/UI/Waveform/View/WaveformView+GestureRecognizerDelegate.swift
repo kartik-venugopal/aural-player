@@ -33,6 +33,7 @@ extension WaveformView: NSGestureRecognizerDelegate {
     // Registers handlers for keyboard events and trackpad/mouse gestures (NSEvent).
     func setUpGestureHandling() {
         
+        eventMonitor = EventMonitor()
         eventMonitor.registerHandler(forEventType: .scrollWheel, self.handleScroll(_:))
         eventMonitor.startMonitoring()
         
@@ -42,14 +43,29 @@ extension WaveformView: NSGestureRecognizerDelegate {
         addGestureRecognizer(clickRecognizer)
     }
     
+    func deactivateGestureHandling() {
+        
+        eventMonitor.stopMonitoring()
+        eventMonitor = nil
+        
+        clickRecognizer.delegate = nil
+        removeGestureRecognizer(clickRecognizer)
+        clickRecognizer = nil
+    }
+    
     // -----------------------------------------------------------------------------------------------
     
     @objc func handleClick(_ recognizer: NSGestureRecognizer) {
-        handleSeek(initiatedBy: recognizer)
+        
+        if playbackInfoDelegate.hasPlayingTrack {
+            handleSeek(initiatedBy: recognizer)
+        }
     }
     
     // Handles a single scroll event
     func handleScroll(_ event: NSEvent) -> NSEvent? {
+        
+        guard playbackInfoDelegate.hasPlayingTrack else {return event}
 
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
@@ -58,9 +74,11 @@ extension WaveformView: NSGestureRecognizerDelegate {
         if event.window === self.window,
            !NSApp.isShowingModalComponent,
            let scrollDirection = event.gestureDirection {
-
+            
             // Vertical scroll = volume control, horizontal scroll = seeking
-            scrollDirection.isVertical ? GestureHandler.handleVolumeControl(event, scrollDirection) : GestureHandler.handleSeek(event, scrollDirection)
+            if scrollDirection.isHorizontal {
+                GestureHandler.handleSeek(event, scrollDirection)
+            }
         }
 
         return event

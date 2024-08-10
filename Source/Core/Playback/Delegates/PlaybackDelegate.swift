@@ -390,6 +390,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         state.isPlayingOrPaused ? playQueue.currentTrack : nil
     }
     
+    var hasPlayingTrack: Bool {
+        playQueue.currentTrack != nil
+    }
+    
     var playingTrackStartTime: TimeInterval? {
         player.playingTrackStartTime
     }

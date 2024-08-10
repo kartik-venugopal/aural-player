@@ -46,15 +46,16 @@ class WaveformViewController: NSViewController {
     override func viewWillDisappear() {
         
         super.viewWillDisappear()
-        print("Disappearing ...")
+        
+        waveformView.prepareToDisappear()
         seekTimer.pause()
     }
     
     override func viewWillAppear() {
         
         super.viewWillAppear()
-        print("Appearing ...")
         
+        waveformView.prepareToAppear()
         updateForTrack(playbackInfoDelegate.playingTrack)
     }
     
@@ -81,6 +82,7 @@ class WaveformViewController: NSViewController {
         
         waveformView.audioFile = track?.file
         updateForCurrentPlaybackState()
+        updateProgress()
     }
     
     private func updateForCurrentPlaybackState() {

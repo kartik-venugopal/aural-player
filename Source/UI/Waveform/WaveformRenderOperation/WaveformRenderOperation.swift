@@ -21,10 +21,10 @@ final class WaveformRenderOperation: Operation {
     
     let targetSamples: AVAudioFrameCount
     
-//    var childOperations: [Operation] = []
+    //    var childOperations: [Operation] = []
     
     // -------------------------------------------------------------------------------------------------------------------
-
+    
     // MARK: - NSOperation Overrides
     
     override var isAsynchronous: Bool {true}
@@ -117,14 +117,13 @@ final class WaveformRenderOperation: Operation {
     ///
     private func render() {
         
-        if !isCancelled {
-            
-            let start = CFAbsoluteTimeGetCurrent()
-            analyzeAudioFile(andDownsampleTo: targetSamples)
-            let end = CFAbsoluteTimeGetCurrent()
-            print("Analyzed track in: \(String(format: "%.3f", end - start)) secs")
-        }
-            
+        guard !isCancelled else {return}
+        
+        let start = CFAbsoluteTimeGetCurrent()
+        analyzeAudioFile(andDownsampleTo: targetSamples)
+        let end = CFAbsoluteTimeGetCurrent()
+        print("Analyzed track in: \(String(format: "%.3f", end - start)) secs")
+        
         finish()
     }
 }
