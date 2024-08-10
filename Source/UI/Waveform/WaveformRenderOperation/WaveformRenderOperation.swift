@@ -21,16 +21,7 @@ final class WaveformRenderOperation: Operation {
     
     let targetSamples: AVAudioFrameCount
     
-    ///
-    /// Any operations spawned by this operation.
-    ///
-    /// **Notes**
-    ///
-    /// By keeping references to these operations in an
-    /// instance member, they can be managed from
-    /// anywhere in the class.
-    ///
-    var childOperations: [Operation] = []
+//    var childOperations: [Operation] = []
     
     // -------------------------------------------------------------------------------------------------------------------
 

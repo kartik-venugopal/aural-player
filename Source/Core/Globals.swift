@@ -14,6 +14,15 @@ let appSetup: AppSetup = .shared
 
 fileprivate let logger: Logger = .init()
 
+let jsonDecoder: JSONDecoder = JSONDecoder()
+
+let jsonEncoder: JSONEncoder = {
+    
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+    return encoder
+}()
+
 fileprivate var needToMigrateLegacySettings: Bool = false
 
 let appDelegate: AppDelegate = NSApp.delegate as! AppDelegate
@@ -38,7 +47,7 @@ let appPersistentState: AppPersistentState = {
             
             needToMigrateLegacySettings = true
             
-            if let legacyPersistentState: LegacyAppPersistentState = persistenceManager.load(type: LegacyAppPersistentState.self) {
+            if let legacyPersistentState: LegacyAppPersistentState = persistenceManager.load(objectOfType: LegacyAppPersistentState.self) {
                 
                 // Attempt migration and return the mapped instance.
                 print("Mapped persistent state from app version: \(appVersionString)\n")
@@ -47,7 +56,7 @@ let appPersistentState: AppPersistentState = {
         }
     }
     
-    return persistenceManager.load(type: AppPersistentState.self) ?? .defaults
+    return persistenceManager.load(objectOfType: AppPersistentState.self) ?? .defaults
 }()
 
 let userDefaults: UserDefaults = .standard

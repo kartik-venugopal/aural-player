@@ -993,6 +993,7 @@
 		3EF72D6E2B71AB2B005166BF /* DiscreteCircularSlider+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF72D6D2B71AB2B005166BF /* DiscreteCircularSlider+Support.swift */; };
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
 		3EFA0C0C2C67B5A9006FB326 /* WaveformDecoderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0C0B2C67B5A9006FB326 /* WaveformDecoderProtocol.swift */; };
+		3EFA0C0E2C67C8E3006FB326 /* Codable+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0C0D2C67C8E3006FB326 /* Codable+Utils.swift */; };
 		3EFAA8D12B710C30001A6682 /* ChaptersListViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8D02B710C30001A6682 /* ChaptersListViewController+Theming.swift */; };
 		3EFAA8D52B7146AC001A6682 /* ChaptersListSearchFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */; };
 		3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */; };
@@ -2104,6 +2105,7 @@
 		3EF84DA92836359B004EF57B /* LibrarySidebar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibrarySidebar.xib; sourceTree = "<group>"; };
 		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
 		3EFA0C0B2C67B5A9006FB326 /* WaveformDecoderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformDecoderProtocol.swift; sourceTree = "<group>"; };
+		3EFA0C0D2C67C8E3006FB326 /* Codable+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Utils.swift"; sourceTree = "<group>"; };
 		3EFAA8D02B710C30001A6682 /* ChaptersListViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChaptersListViewController+Theming.swift"; sourceTree = "<group>"; };
 		3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListSearchFieldCell.swift; sourceTree = "<group>"; };
 		3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchSliderCell.swift; sourceTree = "<group>"; };
@@ -3219,6 +3221,7 @@
 				3E0217CC2C23490E00865AC2 /* RepeatingTaskExecutor.swift */,
 				3E0217CD2C23490E00865AC2 /* TimeIntervalFormatter.swift */,
 				3E0217CE2C23490E00865AC2 /* TimeUtils.swift */,
+				3EFA0C0D2C67C8E3006FB326 /* Codable+Utils.swift */,
 				3E0217CF2C23490E00865AC2 /* UnsafeBuffer.swift */,
 				3E0217D02C23490E00865AC2 /* UserManagedObjects.swift */,
 				3E0217D12C23490E00865AC2 /* ValueFormatter.swift */,
@@ -6030,6 +6033,7 @@
 				3E0219922C23490E00865AC2 /* System.swift in Sources */,
 				3E0218472C23490E00865AC2 /* FFmpegSampleFormat.swift in Sources */,
 				3EAFB5EC267FEC5C00F0DC96 /* NSViewExtensions.swift in Sources */,
+				3EFA0C0E2C67C8E3006FB326 /* Codable+Utils.swift in Sources */,
 				3E02199C2C23490E00865AC2 /* TimeIntervalFormatter.swift in Sources */,
 				3E0218CE2C23490E00865AC2 /* PlaybackSequence.swift in Sources */,
 				3EAFB5F6267FEE9D00F0DC96 /* NSWindowExtensions.swift in Sources */,

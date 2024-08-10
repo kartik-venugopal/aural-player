@@ -32,7 +32,7 @@ extension AppDelegate {
                 if recurringPersistenceOpQueue.operationCount == 0 {
                     
                     // If the recurring persistence task is not running, save state normally.
-                    persistenceManager.save(_persistentStateOnExit)
+                    persistenceManager.save(persistentState: _persistentStateOnExit)
                     
                 } else {
                     
@@ -64,7 +64,7 @@ extension AppDelegate {
             if tearDownOpQueue.operationCount == 0 {
                 
                 recurringPersistenceOpQueue.addOperation {
-                    persistenceManager.save(_persistentStateOnExit)
+                    persistenceManager.save(persistentState: _persistentStateOnExit)
                 }
             }
         }

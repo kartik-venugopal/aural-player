@@ -8,16 +8,6 @@
 import Foundation
 //import CoreGraphics
 
-fileprivate var encoder: JSONEncoder = {
-    
-    let encoder = JSONEncoder()
-    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-    
-    return encoder
-}()
-
-fileprivate let decoder: JSONDecoder = JSONDecoder()
-
 extension WaveformView {
     
     static let cacheBaseDirectory: URL = FilesAndPaths.subDirectory(named: "waveformCache")
@@ -57,7 +47,7 @@ extension WaveformView {
                 
                 let dataFile = cacheBaseDirectory.appendingPathComponent("\(newEntry.uuid).json")
                 
-                if let data = load(type: WaveformCacheData.self, fromFile: dataFile) {
+                if let data = WaveformCacheData.load(fromFile: dataFile) {
                     dataCache[newEntry.uuid] = data
                 }
             }
@@ -81,7 +71,7 @@ extension WaveformView {
         Self.dataCache[entry.uuid] = data
 
         DispatchQueue.global(qos: .background).async {
-            Self.save(data, toFile: dataFile)
+            data.save(toFile: dataFile)
         }
     }
     
@@ -90,57 +80,19 @@ extension WaveformView {
         guard let entryMatchingImageSize = Self.cache[file]?.array.first(where: {$0.imageSize == bounds.size}) else {return nil}
         entryMatchingImageSize.updateLastOpenedTimestamp()
         
-        print("Cache HIT for file: \(file.lastPathComponent) !")
-        
         if let inMemoryData = Self.dataCache[entryMatchingImageSize.uuid] {
-            
-            print("IN-MEMORY Cache HIT for file: \(file.lastPathComponent) !")
             return WaveformCacheLookup(entry: entryMatchingImageSize, data: inMemoryData)
         }
         
         let dataFile = Self.cacheBaseDirectory.appendingPathComponent("\(entryMatchingImageSize.uuid).json")
         
-        if let data = Self.load(type: WaveformCacheData.self, fromFile: dataFile) {
+        if let data = WaveformCacheData.load(fromFile: dataFile) {
             return WaveformCacheLookup(entry: entryMatchingImageSize, data: data)
             
         } else {
-            print("Couldn't get data from disk")
+            
+            NSLog("Couldn't get data from disk for file: \(dataFile.path)")
+            return nil
         }
-        
-        return nil
-    }
-    
-    fileprivate static func save<S>(_ state: S, toFile file: URL) where S: Codable {
-        
-        file.parentDir.createDirectory()
-        
-        do {
-            
-            let data = try encoder.encode(state)
-            
-            if let jsonString = String(data: data, encoding: .utf8) {
-                try jsonString.write(to: file, atomically: true, encoding: .utf8)
-            } else {
-                NSLog("Error saving waveform cache data file: Unable to create String from JSON data.")
-            }
-            
-        } catch let error as NSError {
-           NSLog("Error saving waveform cache data file: %@", error.description)
-        }
-    }
-    
-    fileprivate static func load<S>(type: S.Type, fromFile file: URL) -> S? where S: Codable {
-        
-        do {
-            
-            let jsonString = try String(contentsOf: file, encoding: .utf8)
-            guard let jsonData = jsonString.data(using: .utf8) else {return nil}
-            return try decoder.decode(S.self, from: jsonData)
-            
-        } catch let error as NSError {
-            NSLog("Error loading waveform cache data file: %@", error.description)
-        }
-        
-        return nil
     }
 }
