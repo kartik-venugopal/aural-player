@@ -31,6 +31,7 @@ enum UnifiedPlayerModule: String, CaseIterable, CustomStringConvertible {
     case playQueue = "Play Queue"
     case chaptersList = "Chapters List"
     case trackInfo = "Track Info"
+    case waveform = "Waveform"
     
     var isTopLevelItem: Bool {
         self.equalsOneOf(.playQueue, .chaptersList, .trackInfo)
@@ -146,6 +147,10 @@ enum UnifiedPlayerModule: String, CaseIterable, CustomStringConvertible {
         case .trackInfo:
             
             return .imgInfo
+            
+        case .waveform:
+            
+            return .imgWaveform
             
             //        case .library:
             //

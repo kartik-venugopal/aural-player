@@ -34,7 +34,10 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnPresentationModeMenu, btnMinimize, btnToggleSidebar, settingsMenuIconItem]
     
+    // MARK: View Controllers ----------------------------------------
+    
     lazy var playerViewController: UnifiedPlayerViewController = .init()
+    lazy var waveformViewController: UnifiedPlayerWaveformContainerViewController = .init()
     lazy var effectsSheetViewController: EffectsSheetViewController = .init()
     
     private lazy var sidebarController: UnifiedPlayerSidebarViewController = UnifiedPlayerSidebarViewController()
@@ -83,6 +86,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
         messenger.subscribe(to: .View.toggleChaptersList, handler: viewChaptersList)
 //        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
+        messenger.subscribe(to: .View.toggleWaveform, handler: toggleWaveform)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
@@ -104,6 +108,9 @@ class UnifiedPlayerWindowController: NSWindowController {
         playerViewController.forceLoadingOfView()
         
         rootSplitView.addAndAnchorSubView(playerViewController.view, underArrangedSubviewAt: 0)
+        rootSplitView.addAndAnchorSubView(waveformViewController.view, underArrangedSubviewAt: 1)
+        showOrHideWaveform()
+        
         browserSplitView.addAndAnchorSubView(sidebarController.view, underArrangedSubviewAt: 0)
         browserSplitView.delegate = self
         browserSplitView.subviews.first?.showIf(unifiedPlayerUIState.isSidebarShown)
@@ -210,6 +217,16 @@ class UnifiedPlayerWindowController: NSWindowController {
             
             return
         }
+    }
+    
+    private func toggleWaveform() {
+        
+        unifiedPlayerUIState.isWaveformShown.toggle()
+        showOrHideWaveform()
+    }
+    
+    private func showOrHideWaveform() {
+        rootSplitView.subviews[1].showIf(unifiedPlayerUIState.isWaveformShown)
     }
     
     private func showPlayQueue() {

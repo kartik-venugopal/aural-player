@@ -14,4 +14,5 @@ struct UnifiedPlayerUIPersistentState: Codable {
     
     let windowFrame: NSRectPersistentState?
     let isSidebarShown: Bool?
+    let isWaveformShown: Bool?
 }

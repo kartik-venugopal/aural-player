@@ -115,4 +115,6 @@ extension NSImage {
     static let imgDelayUnit: NSImage = NSImage(named: "DelayTab")!
     static let imgFilterUnit: NSImage = NSImage(named: "FilterTab")!
     static let imgAudioUnit: NSImage = NSImage(named: "AUTab")!
+    
+    static let imgWaveform: NSImage = NSImage(systemSymbolName: "waveform")
 }

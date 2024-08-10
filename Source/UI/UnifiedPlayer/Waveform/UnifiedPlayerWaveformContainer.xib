@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="UnifiedPlayerWaveformContainerViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="rootContainer" destination="y1h-dx-n2j" id="bVK-0Q-SFc"/>
+                <outlet property="view" destination="rTH-zx-cKF" id="BoZ-X0-jz5"/>
+                <outlet property="waveformContainer" destination="p63-XN-zaI" id="OkF-e5-4VL"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="rTH-zx-cKF">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="y1h-dx-n2j" userLabel="Root Container">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
+                    <view key="contentView" id="wAY-QY-fEO">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RV5-am-kzB" userLabel="Waveform Container">
+                                <rect key="frame" x="0.0" y="20" width="465" height="60"/>
+                                <view key="contentView" id="p63-XN-zaI">
+                                    <rect key="frame" x="0.0" y="0.0" width="465" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </box>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="RV5-am-kzB" firstAttribute="top" secondItem="wAY-QY-fEO" secondAttribute="top" constant="20" id="6WK-mK-a13"/>
+                            <constraint firstAttribute="trailing" secondItem="RV5-am-kzB" secondAttribute="trailing" constant="15" id="JTh-KD-EbP"/>
+                            <constraint firstItem="RV5-am-kzB" firstAttribute="leading" secondItem="wAY-QY-fEO" secondAttribute="leading" id="SbI-yq-qVE"/>
+                            <constraint firstAttribute="bottom" secondItem="RV5-am-kzB" secondAttribute="bottom" constant="20" id="w5c-T2-SPP"/>
+                        </constraints>
+                    </view>
+                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstItem="y1h-dx-n2j" firstAttribute="top" secondItem="rTH-zx-cKF" secondAttribute="top" id="BuV-fZ-gWW"/>
+                <constraint firstItem="y1h-dx-n2j" firstAttribute="leading" secondItem="rTH-zx-cKF" secondAttribute="leading" id="RNq-oR-eMP"/>
+                <constraint firstAttribute="trailing" secondItem="y1h-dx-n2j" secondAttribute="trailing" id="YcY-kx-MM5"/>
+                <constraint firstAttribute="bottom" secondItem="y1h-dx-n2j" secondAttribute="bottom" id="pM8-hw-eb2"/>
+            </constraints>
+            <point key="canvasLocation" x="123" y="154"/>
+        </view>
+    </objects>
+</document>

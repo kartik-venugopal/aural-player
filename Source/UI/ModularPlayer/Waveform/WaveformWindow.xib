@@ -62,7 +62,7 @@
                             <action selector="closeAction:" target="-2" id="umh-ZW-dNM"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v1W-SX-ldk" userLabel="Caption Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v1W-SX-ldk" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="37" y="170" width="214" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="210" id="AMT-EA-cdW"/>

@@ -17,7 +17,10 @@ class WaveformViewController: NSViewController {
     @IBOutlet weak var waveformView: WaveformView!
     
     @IBOutlet weak var lblLeftChannel: NSTextField!
+    @IBOutlet weak var lblLeftChannelTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var lblRightChannel: NSTextField!
+    @IBOutlet weak var lblRightChannelBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var waveformViewLeadingConstraint: NSLayoutConstraint!
     
@@ -57,6 +60,7 @@ class WaveformViewController: NSViewController {
         super.viewWillAppear()
         
         waveformView.prepareToAppear()
+        repositionChannelLabels()
         updateForTrack(playbackInfoDelegate.playingTrack)
     }
     
@@ -68,6 +72,16 @@ class WaveformViewController: NSViewController {
     
     private func updateProgress() {
         waveformView.progress = playbackInfoDelegate.seekPosition.percentageElapsed / 100.0
+    }
+    
+    private func repositionChannelLabels() {
+        
+        let verticalMargin = (waveformView.height / 4) - (lblLeftChannel.height / 2)
+        
+        lblLeftChannelTopConstraint.constant = verticalMargin
+        lblRightChannelBottomConstraint.constant = -verticalMargin
+        
+        print("Vert. Margin: \(verticalMargin)")
     }
     
     private func updateChannelLabels() {
