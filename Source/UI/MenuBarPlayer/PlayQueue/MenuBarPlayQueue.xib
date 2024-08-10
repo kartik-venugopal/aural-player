@@ -23,7 +23,7 @@
                 <outlet property="lblDurationSummary" destination="f5H-sF-fPv" id="XPv-H0-ry7"/>
                 <outlet property="lblTracksSummary" destination="PRj-0v-wta" id="t3s-VL-IVQ"/>
                 <outlet property="progressSpinner" destination="gPh-vb-4rz" id="uyh-y2-I1Q"/>
-                <outlet property="rootContainerBox" destination="kwr-fd-aU0" id="oOP-s0-oz7"/>
+                <outlet property="rootContainerBox" destination="O84-WY-PHV" id="xU6-12-S55"/>
                 <outlet property="sortOptionsBox" destination="2tK-hP-pIH" id="Hfq-Uq-D47"/>
                 <outlet property="tableView" destination="nkK-F4-3gg" id="6ds-Yx-8HJ"/>
                 <outlet property="view" destination="kwr-fd-aU0" id="w3e-vK-P5I"/>
@@ -38,6 +38,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
+                    <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" id="O84-WY-PHV" userLabel="Root Container">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="XQb-fb-OH3">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                    </box>
                     <scrollView borderType="none" horizontalLineScroll="55" horizontalPageScroll="10" verticalLineScroll="55" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" id="Sp4-Eu-V8D" userLabel="Scroll View">
                         <rect key="frame" x="0.0" y="49" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

@@ -50,6 +50,14 @@ class MenuBarPlayQueueViewController: CompactPlayQueueViewController {
         btnClose.colorChanged(systemColorScheme.buttonColor)
     }
     
+    override func initTheme() {
+        
+        super.initTheme()
+        
+        rootContainerBox.fillColor = systemColorScheme.backgroundColor
+        btnClose.colorChanged(systemColorScheme.buttonColor)
+    }
+    
     @IBAction func showSortOptionsAction(_ sender: Any) {
         
         sortOptionsBox.showIf(sortOptionsBox.isHidden)
