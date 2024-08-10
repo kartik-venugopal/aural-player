@@ -30,10 +30,11 @@ extension WaveformView: NSGestureRecognizerDelegate {
     
     // MARK: Gesture recognizer initialization
     
-    ///
-    /// Initializes and adds all the required gesture recognizers for the view.
-    ///
-    func addGestureRecognizers() {
+    // Registers handlers for keyboard events and trackpad/mouse gestures (NSEvent).
+    func setUpGestureHandling() {
+        
+        eventMonitor.registerHandler(forEventType: .scrollWheel, self.handleScroll(_:))
+        eventMonitor.startMonitoring()
         
         // Pinch, pan, and tap gesture recognizers.
         clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.handleClick(_:)))
@@ -43,18 +44,26 @@ extension WaveformView: NSGestureRecognizerDelegate {
     
     // -----------------------------------------------------------------------------------------------
     
-    // MARK: Gesture handling functions
-    
-    ///
-    /// Handles a single pan gesture.
-    ///
-    @objc func handlePanGesture(_ recognizer: NSPanGestureRecognizer) {
-        
+    @objc func handleClick(_ recognizer: NSGestureRecognizer) {
         handleSeek(initiatedBy: recognizer)
     }
     
-    @objc func handleClick(_ recognizer: NSGestureRecognizer) {
-        handleSeek(initiatedBy: recognizer)
+    // Handles a single scroll event
+    func handleScroll(_ event: NSEvent) -> NSEvent? {
+
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
+
+        // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
+        if event.window === self.window,
+           !NSApp.isShowingModalComponent,
+           let scrollDirection = event.gestureDirection {
+
+            // Vertical scroll = volume control, horizontal scroll = seeking
+            scrollDirection.isVertical ? GestureHandler.handleVolumeControl(event, scrollDirection) : GestureHandler.handleSeek(event, scrollDirection)
+        }
+
+        return event
     }
     
     private func handleSeek(initiatedBy recognizer: NSGestureRecognizer) {

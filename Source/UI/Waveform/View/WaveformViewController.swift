@@ -41,6 +41,12 @@ class WaveformViewController: NSViewController {
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: updateProgress)
     }
     
+    override func destroy() {
+        
+        waveformView.destroy()
+        messenger.unsubscribeFromAll()
+    }
+    
     private func updateProgress() {
         waveformView.progress = playbackInfoDelegate.seekPosition.percentageElapsed / 100.0
     }

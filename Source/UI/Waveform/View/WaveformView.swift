@@ -23,10 +23,11 @@ protocol SampleReceiver {
 ///
 /// - SeeAlso:      https://github.com/fulldecent/FDWaveformView
 ///
-class WaveformView: NSView, SampleReceiver {
+class WaveformView: NSView, SampleReceiver, Destroyable {
     
     static let noiseFloor: CGFloat = -50
     
+    var eventMonitor: EventMonitor! = EventMonitor()
     var clickRecognizer: NSClickGestureRecognizer!
     
     var _audioFile: URL?
@@ -40,11 +41,17 @@ class WaveformView: NSView, SampleReceiver {
         
         self.waveformSize = self.bounds.size
         self.wantsLayer = true
-        addGestureRecognizers()
+        setUpGestureHandling()
         
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, handler: activeControlColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.inactiveControlColor, handler: inactiveControlColorChanged(_:))
+    }
+    
+    func destroy() {
+        
+        eventMonitor.stopMonitoring()
+        eventMonitor = nil
     }
     
     var samples: [[Float]] = [[],[]]

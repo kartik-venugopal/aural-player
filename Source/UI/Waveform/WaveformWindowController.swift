@@ -15,10 +15,7 @@ class WaveformWindowController: NSWindowController {
     override var windowNibName: NSNib.Name? {"WaveformWindow"}
     
     @IBOutlet weak var btnClose: TintedImageButton!
-    
     private lazy var btnCloseConstraints: LayoutConstraintsManager = LayoutConstraintsManager(for: btnClose)
-    
-    lazy var messenger: Messenger = Messenger(for: self)
     
     private let viewController: WaveformViewController = .init()
     
