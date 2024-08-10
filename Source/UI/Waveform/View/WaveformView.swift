@@ -128,6 +128,22 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         }
     }
     
+    var loopStartProgress: CGFloat? = nil {
+        
+        didSet {
+            
+            if let loopStartProgress = self.loopStartProgress {
+                maskLayerStartX = loopStartProgress * self.width
+            } else {
+                maskLayerStartX = nil
+            }
+
+            redraw()
+        }
+    }
+    
+    var maskLayerStartX: CGFloat? = nil
+    
     var baseLayerComplete: Bool = false
     
     var maskLayer: CALayer? {
@@ -177,7 +193,8 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
             
             if let maskLayer = self.maskLayer {
                 
-                maskLayer.frame = CGRect(x: 0, y: 0, width: scaledWidth * progress, height: scaledHeight)
+                let frameX = maskLayerStartX ?? 0
+                maskLayer.frame = CGRect(x: frameX, y: 0, width: max(2, (scaledWidth * progress)) - frameX, height: scaledHeight)
                 maskLayer.removeAllAnimations()
             }
             return
@@ -279,7 +296,9 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
             self.layer?.addSublayer(progressLayer)
             
             let mask = CAShapeLayer()
-            mask.frame = CGRect(x: 0, y: 0, width: scaledWidth * progress, height: scaledHeight)
+            
+            let frameX = maskLayerStartX ?? 0
+            mask.frame = CGRect(x: frameX, y: 0, width: max(2, (scaledWidth * progress)) - frameX, height: scaledHeight)
             mask.backgroundColor = progressLayer.strokeColor
             mask.removeAllAnimations()
             progressLayer.mask = mask

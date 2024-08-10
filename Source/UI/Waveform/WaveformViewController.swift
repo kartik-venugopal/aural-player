@@ -45,6 +45,7 @@ class WaveformViewController: NSViewController {
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribe(to: .Player.playbackStateChanged, handler: updateForCurrentPlaybackState)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: updateProgress)
+        messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
     }
     
     override func viewWillDisappear() {
@@ -114,10 +115,23 @@ class WaveformViewController: NSViewController {
         }
     }
     
+    private func playbackLoopChanged() {
+        
+        if let playingTrack = playbackInfoDelegate.playingTrack, let loop = playbackInfoDelegate.playbackLoop {
+            waveformView.loopStartProgress = loop.startTime / playingTrack.duration
+            
+        } else {
+            
+            waveformView.loopStartProgress = nil
+            return
+        }
+    }
+    
     private func updateForTrack(_ track: Track?) {
         
         waveformView.audioFile = track?.file
         updateForCurrentPlaybackState()
+        playbackLoopChanged()
         updateProgress()
         updateChannelLabels()
     }

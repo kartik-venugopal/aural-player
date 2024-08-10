@@ -200,8 +200,6 @@ extension WaveformRenderOperation {
                               samplesPerPixel: samplesPerPixel,
                               filter: filter)
         }
-        
-        print("Done with analysis of: \(decoder.file.lastPathComponent)")
     }
     
     // -------------------------------------------------------------------------------------------------------------------
