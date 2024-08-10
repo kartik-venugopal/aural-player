@@ -32,6 +32,7 @@ extension WaveformView {
         
         DispatchQueue.global(qos: .userInteractive).async {
             
+            print("Searching for size: \(self.waveformSize.width)")
             if let lookup = Self.lookUpCache(forFile: audioFile, matchingImageSize: self.waveformSize) {
                 
                 self.setSamples(lookup.data.samples)

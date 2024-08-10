@@ -48,6 +48,8 @@ class WaveformViewController: NSViewController {
         messenger.subscribe(to: .Player.playbackStateChanged, handler: updateForCurrentPlaybackState)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: updateProgress)
         messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
+        
+        repositionChannelLabels()
     }
     
     override func viewWillDisappear() {
@@ -63,7 +65,12 @@ class WaveformViewController: NSViewController {
         super.viewWillAppear()
         
         waveformView.prepareToAppear()
-        repositionChannelLabels()
+        updateChannelLabels()
+    }
+    
+    override func viewDidAppear() {
+        
+        super.viewDidAppear()
         updateForTrack(playbackInfoDelegate.playingTrack)
     }
     
@@ -86,6 +93,8 @@ class WaveformViewController: NSViewController {
         
         lblLeftChannelTopConstraint.constant = verticalMargin
         lblRightChannelBottomConstraint.constant = -verticalMargin
+        
+        view.layoutSubtreeIfNeeded()
     }
     
     private func updateChannelLabels() {
@@ -108,6 +117,8 @@ class WaveformViewController: NSViewController {
             [lblLeftChannel, lblRightChannel].forEach {$0?.show()}
             waveformViewLeadingConstraint.constant = Self.waveformViewLeadingConstant_stereo
         }
+        
+        view.layoutSubtreeIfNeeded()
     }
     
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
@@ -130,12 +141,12 @@ class WaveformViewController: NSViewController {
     }
     
     private func updateForTrack(_ track: Track?) {
-        
+
+        updateChannelLabels()
         waveformView.audioFile = track?.file
         updateForCurrentPlaybackState()
         playbackLoopChanged()
         updateProgress()
-        updateChannelLabels()
     }
     
     private func updateForCurrentPlaybackState() {
