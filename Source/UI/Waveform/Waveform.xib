@@ -8,90 +8,61 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="WaveformViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="lblCaption" destination="em0-1s-tIJ" id="KvX-9y-PlS"/>
-                <outlet property="lblLeftChannel" destination="7gh-Ye-WEa" id="Jaa-jp-wyf"/>
-                <outlet property="lblRightChannel" destination="qNd-Ra-Yg4" id="TJR-0M-q5I"/>
-                <outlet property="rootContainer" destination="YAt-nt-kSl" id="PrP-oB-kIG"/>
-                <outlet property="view" destination="c22-O7-iKe" id="MC2-BP-E35"/>
-                <outlet property="waveformView" destination="zJD-x7-zZS" id="bkr-BS-zNO"/>
-                <outlet property="waveformViewLeadingConstraint" destination="ag7-Ro-4Aq" id="dZk-fp-hSO"/>
+                <outlet property="lblLeftChannel" destination="b2f-yR-Asq" id="dwY-XD-Gtx"/>
+                <outlet property="lblRightChannel" destination="acf-lk-TCe" id="hqV-dN-5ha"/>
+                <outlet property="view" destination="xvf-DY-fK4" id="E28-ig-1dl"/>
+                <outlet property="waveformView" destination="owK-uM-eza" id="aSG-gV-1PG"/>
+                <outlet property="waveformViewLeadingConstraint" destination="C8C-3t-dY3" id="D8v-Qo-zmo"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+        <view misplaced="YES" id="xvf-DY-fK4">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="YAt-nt-kSl" userLabel="Waveform Container">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
-                    <view key="contentView" id="n2X-vU-d4R">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="em0-1s-tIJ" userLabel="Caption Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="32" y="168" width="214" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="210" id="B8R-Fw-ieS"/>
-                                    <constraint firstAttribute="height" constant="25" id="W0k-ey-eD2"/>
-                                </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Waveform" id="fcg-Mk-ZDJ">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="zJD-x7-zZS" customClass="WaveformView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="35" y="20" width="430" height="120"/>
-                            </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7gh-Ye-WEa" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="5" y="99" width="25" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="8b0-KE-6wg"/>
-                                    <constraint firstAttribute="width" constant="21" id="YZJ-0K-A3O"/>
-                                </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="L" id="Bbg-Fq-tCI">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qNd-Ra-Yg4" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="5" y="40" width="25" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="aGE-3R-HSY"/>
-                                    <constraint firstAttribute="width" constant="21" id="eqy-K0-Ae8"/>
-                                </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="R" id="JG1-RT-hnI">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="7gh-Ye-WEa" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="7" id="3bw-2c-MyG"/>
-                            <constraint firstItem="em0-1s-tIJ" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="34" id="Qqt-ey-S64"/>
-                            <constraint firstAttribute="bottom" secondItem="qNd-Ra-Yg4" secondAttribute="bottom" constant="40" id="Uxg-RP-JhM"/>
-                            <constraint firstItem="zJD-x7-zZS" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="35" id="ag7-Ro-4Aq"/>
-                            <constraint firstAttribute="trailing" secondItem="zJD-x7-zZS" secondAttribute="trailing" constant="15" id="dFI-gG-5Oq"/>
-                            <constraint firstItem="zJD-x7-zZS" firstAttribute="top" secondItem="em0-1s-tIJ" secondAttribute="bottom" constant="28" id="mgc-kG-X2U"/>
-                            <constraint firstItem="em0-1s-tIJ" firstAttribute="top" secondItem="n2X-vU-d4R" secondAttribute="top" constant="7" id="r1P-aH-Tj1"/>
-                            <constraint firstAttribute="bottom" secondItem="zJD-x7-zZS" secondAttribute="bottom" constant="20" symbolic="YES" id="tnD-31-idZ"/>
-                            <constraint firstItem="7gh-Ye-WEa" firstAttribute="top" secondItem="n2X-vU-d4R" secondAttribute="top" constant="79" id="yIW-Np-bk2"/>
-                            <constraint firstItem="qNd-Ra-Yg4" firstAttribute="leading" secondItem="n2X-vU-d4R" secondAttribute="leading" constant="7" id="ycM-T2-Bod"/>
-                        </constraints>
-                    </view>
-                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                </box>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="owK-uM-eza" customClass="WaveformView" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="0.0" width="450" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="Hd8-wW-LYr"/>
+                    </constraints>
+                </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b2f-yR-Asq" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="-2" y="20" width="25" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="0Jr-V6-nBC"/>
+                        <constraint firstAttribute="width" constant="21" id="tND-0E-L7C"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="L" id="5GD-hq-FcG">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="acf-lk-TCe" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="-2" y="78" width="25" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="21" id="WV0-11-BjJ"/>
+                        <constraint firstAttribute="height" constant="22" id="s0q-ok-orR"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="R" id="c2J-81-z7M">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="YAt-nt-kSl" secondAttribute="trailing" id="7Ze-Ez-amj"/>
-                <constraint firstAttribute="bottom" secondItem="YAt-nt-kSl" secondAttribute="bottom" id="kCC-Mz-fpy"/>
-                <constraint firstItem="YAt-nt-kSl" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="v8Q-RJ-Zkt"/>
-                <constraint firstItem="YAt-nt-kSl" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="zZd-wn-Eng"/>
+                <constraint firstItem="acf-lk-TCe" firstAttribute="leading" secondItem="xvf-DY-fK4" secondAttribute="leading" id="4T9-50-aSy"/>
+                <constraint firstAttribute="trailing" secondItem="owK-uM-eza" secondAttribute="trailing" id="7kt-9S-nuC"/>
+                <constraint firstItem="acf-lk-TCe" firstAttribute="top" secondItem="owK-uM-eza" secondAttribute="top" constant="20" id="9z2-Lw-esc"/>
+                <constraint firstItem="owK-uM-eza" firstAttribute="leading" secondItem="xvf-DY-fK4" secondAttribute="leading" constant="30" id="C8C-3t-dY3"/>
+                <constraint firstItem="b2f-yR-Asq" firstAttribute="leading" secondItem="xvf-DY-fK4" secondAttribute="leading" id="Lbr-pT-HsL"/>
+                <constraint firstItem="b2f-yR-Asq" firstAttribute="bottom" secondItem="owK-uM-eza" secondAttribute="bottom" constant="-20" id="OMY-yA-JKp"/>
+                <constraint firstAttribute="bottom" secondItem="owK-uM-eza" secondAttribute="bottom" id="bdv-NN-gDx"/>
+                <constraint firstItem="b2f-yR-Asq" firstAttribute="top" secondItem="xvf-DY-fK4" secondAttribute="top" constant="79" id="iG0-T4-oC2"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="154"/>
-        </customView>
+            <point key="canvasLocation" x="139" y="-111"/>
+        </view>
     </objects>
 </document>

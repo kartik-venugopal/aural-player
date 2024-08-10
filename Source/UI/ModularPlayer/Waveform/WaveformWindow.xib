@@ -9,6 +9,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="WaveformWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnClose" destination="HYe-BX-2tD" id="thv-PG-92e"/>
+                <outlet property="lblCaption" destination="v1W-SX-ldk" id="Nyp-S7-shU"/>
+                <outlet property="rootContainer" destination="mGd-sN-EnT" id="SdP-Ho-FaM"/>
+                <outlet property="waveformContainer" destination="klk-sb-tfE" id="KK9-Je-8Z2"/>
                 <outlet property="window" destination="gsx-WM-eCh" id="Qid-EL-tKz"/>
             </connections>
         </customObject>
@@ -26,6 +29,25 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
+                    <box fixedFrame="YES" boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="mGd-sN-EnT" userLabel="Root Container">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="6tR-dL-x1J">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <box fixedFrame="YES" boxType="custom" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mj5-Bm-hn6" userLabel="Waveform Container">
+                                    <rect key="frame" x="10" y="25" width="455" height="120"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <view key="contentView" id="klk-sb-tfE">
+                                        <rect key="frame" x="0.0" y="0.0" width="455" height="120"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                </box>
+                            </subviews>
+                        </view>
+                        <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </box>
                     <button toolTip="Close this window" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="HYe-BX-2tD" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="10" y="178.5" width="11.5" height="14"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="fWx-HM-e9p">
@@ -40,10 +62,24 @@
                             <action selector="closeAction:" target="-2" id="umh-ZW-dNM"/>
                         </connections>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v1W-SX-ldk" userLabel="Caption Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="37" y="170" width="214" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="210" id="AMT-EA-cdW"/>
+                            <constraint firstAttribute="height" constant="25" id="gT2-4s-q45"/>
+                        </constraints>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Waveform" id="NC7-IT-dYV">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="HYe-BX-2tD" firstAttribute="leading" secondItem="k3u-7c-czC" secondAttribute="leading" constant="10" id="Kr6-Fp-WQK"/>
+                    <constraint firstItem="v1W-SX-ldk" firstAttribute="top" secondItem="k3u-7c-czC" secondAttribute="top" constant="5" id="XYH-dZ-lpz"/>
                     <constraint firstItem="HYe-BX-2tD" firstAttribute="top" secondItem="k3u-7c-czC" secondAttribute="top" constant="10" id="f5M-MT-gjM"/>
+                    <constraint firstItem="v1W-SX-ldk" firstAttribute="leading" secondItem="HYe-BX-2tD" secondAttribute="trailing" constant="18" id="uLQ-i6-Q6e"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
@@ -52,7 +88,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <accessibility identifier="main"/>
-            <point key="canvasLocation" x="-6" y="-149"/>
+            <point key="canvasLocation" x="148" y="-117"/>
         </window>
     </objects>
     <resources>

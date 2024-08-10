@@ -14,9 +14,6 @@ class WaveformViewController: NSViewController {
     
     override var nibName: NSNib.Name? {"Waveform"}
     
-    @IBOutlet weak var rootContainer: NSBox!
-    @IBOutlet weak var lblCaption: NSTextField!
-    
     @IBOutlet weak var waveformView: WaveformView!
     
     @IBOutlet weak var lblLeftChannel: NSTextField!
@@ -40,8 +37,6 @@ class WaveformViewController: NSViewController {
         fontSchemesManager.registerObserver(self)
         
         colorSchemesManager.registerSchemeObserver(self)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainer)
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.secondaryTextColor, changeReceivers: [lblLeftChannel, lblRightChannel])
         
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
@@ -87,7 +82,7 @@ class WaveformViewController: NSViewController {
             }
             
             // Resize the view
-            waveformViewLeadingConstraint.constant = isMono ? 15 : 35
+            waveformViewLeadingConstraint.constant = isMono ? 5 : 30
             
         } else {
             
@@ -126,7 +121,7 @@ extension WaveformViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {
         
-        [lblCaption, lblLeftChannel, lblRightChannel].forEach {
+        [lblLeftChannel, lblRightChannel].forEach {
             $0.font = systemFontScheme.captionFont
         }
     }
@@ -135,9 +130,6 @@ extension WaveformViewController: FontSchemeObserver {
 extension WaveformViewController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
-        
-        rootContainer.fillColor = systemColorScheme.backgroundColor
-        lblCaption.textColor = systemColorScheme.captionTextColor
         
         [lblLeftChannel, lblRightChannel].forEach {
             $0?.textColor = systemColorScheme.secondaryTextColor
