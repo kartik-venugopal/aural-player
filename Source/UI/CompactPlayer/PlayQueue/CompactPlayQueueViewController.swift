@@ -127,12 +127,15 @@ class CompactPlayQueueViewController: PlayQueueViewController {
     
     override func removeTracks() {
         
-        super.removeTracks()
+        _ = trackList.removeTracks(at: selectedRows)
+        updateSummary()
         
         // Check for at least 1 row (and also get the minimum index).
         if let firstRemovedRow = selectedRows.min() {
             tracksRemoved(firstRemovedRow: firstRemovedRow)
         }
+        
+        clearSelection()
     }
     
     override func initTheme() {
