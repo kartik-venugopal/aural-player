@@ -982,7 +982,7 @@
 		3EF4CDA52C65909C00A5922D /* WaveformRenderOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */; };
 		3EF4CDA92C65909C00A5922D /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD902C65909C00A5922D /* WaveformView.swift */; };
 		3EF4CDAB2C65909C00A5922D /* WaveformView+FileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD922C65909C00A5922D /* WaveformView+FileIO.swift */; };
-		3EF4CDAC2C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD932C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift */; };
+		3EF4CDAC2C65909C00A5922D /* WaveformView+GestureHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD932C65909C00A5922D /* WaveformView+GestureHandling.swift */; };
 		3EF4CDAE2C6591D800A5922D /* FFmpegWaveformDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CDAD2C6591D800A5922D /* FFmpegWaveformDecoder.swift */; };
 		3EF4CDB02C65934700A5922D /* ConcurrentArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CDAF2C65934700A5922D /* ConcurrentArray.swift */; };
 		3EF72D6C2B71AAF5005166BF /* DiscreteCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF72D6B2B71AAF5005166BF /* DiscreteCircularSlider.swift */; };
@@ -2087,7 +2087,7 @@
 		3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformRenderOperation.swift; sourceTree = "<group>"; };
 		3EF4CD902C65909C00A5922D /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		3EF4CD922C65909C00A5922D /* WaveformView+FileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+FileIO.swift"; sourceTree = "<group>"; };
-		3EF4CD932C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+GestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
+		3EF4CD932C65909C00A5922D /* WaveformView+GestureHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+GestureHandling.swift"; sourceTree = "<group>"; };
 		3EF4CDAD2C6591D800A5922D /* FFmpegWaveformDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegWaveformDecoder.swift; sourceTree = "<group>"; };
 		3EF4CDAF2C65934700A5922D /* ConcurrentArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentArray.swift; sourceTree = "<group>"; };
 		3EF72D6B2B71AAF5005166BF /* DiscreteCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteCircularSlider.swift; sourceTree = "<group>"; };
@@ -5188,7 +5188,7 @@
 			children = (
 				3EF4CD902C65909C00A5922D /* WaveformView.swift */,
 				3EF4CD922C65909C00A5922D /* WaveformView+FileIO.swift */,
-				3EF4CD932C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift */,
+				3EF4CD932C65909C00A5922D /* WaveformView+GestureHandling.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6368,7 +6368,7 @@
 				3E6668B52ADB55A400BBD119 /* WindowLayoutSetupViewController.swift in Sources */,
 				3E0218612C23490E00865AC2 /* RepeatAndShuffleModesCommandNotification.swift in Sources */,
 				3E02197C2C23490E00865AC2 /* AVAudioFramePositionExtensions.swift in Sources */,
-				3EF4CDAC2C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift in Sources */,
+				3EF4CDAC2C65909C00A5922D /* WaveformView+GestureHandling.swift in Sources */,
 				3E0218F82C23490E00865AC2 /* PlaylistItem.swift in Sources */,
 				3E1741462801EA0A00772ED1 /* TableCellBuilder.swift in Sources */,
 				3E59A175262C9EDA006DF775 /* WindowLoader.swift in Sources */,

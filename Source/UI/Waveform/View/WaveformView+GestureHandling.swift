@@ -1,8 +1,11 @@
 //
-//  WaveformView+GestureRecognizerDelegate.swift
-//  Periphony: Spatial Audio Player
-//  Copyright © Oli Larkin Plug-ins Ltd. 2022. All rights reserved.
-//  Developed by Kartik Venugopal
+//  WaveformView+GestureHandling.swift
+//  Aural
+//
+//  Copyright © 2024 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
 //
 
 import AppKit
@@ -18,7 +21,7 @@ extension WaveformView: NSGestureRecognizerDelegate {
     
     // -----------------------------------------------------------------------------------------------
     
-    // MARK: ``PlatformGestureRecognizerDelegate`` functions
+    // MARK: ``NSGestureRecognizerDelegate`` functions
     
     ///
     /// Always recognize simultaneously with other recognizers.

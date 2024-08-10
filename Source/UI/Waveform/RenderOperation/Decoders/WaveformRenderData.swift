@@ -1,12 +1,14 @@
 //
 //  WaveformRenderData.swift
-//  Periphony: Spatial Audio Player
-//  Copyright © Oli Larkin Plug-ins Ltd. 2022. All rights reserved.
-//  Developed by Kartik Venugopal
+//  Aural
+//
+//  Copyright © 2024 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
 //
 
 import AVFoundation
-import Accelerate
 
 ///
 /// Container for all the necessary waveform data required for rendering an image.

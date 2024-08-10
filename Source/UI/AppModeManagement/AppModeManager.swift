@@ -40,6 +40,10 @@ class AppModeManager {
         modeController?.isShowingVisualizer ?? false
     }
     
+    var isShowingWaveform: Bool {
+        modeController?.isShowingWaveform ?? false
+    }
+    
     var isShowingTrackInfo: Bool {
         modeController?.isShowingTrackInfo ?? false
     }
