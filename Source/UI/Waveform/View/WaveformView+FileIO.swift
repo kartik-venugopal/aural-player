@@ -17,11 +17,7 @@ extension WaveformView {
         
         set(newFile) {
             
-            if newFile == audioFile {
-                
-                print("SAME FILE, doing nothing ...")
-                return
-            }
+            if newFile == audioFile {return}
             
             self._audioFile = newFile
             
@@ -36,7 +32,7 @@ extension WaveformView {
         
         DispatchQueue.global(qos: .userInteractive).async {
             
-            if let lookup = self.lookUpCache(forFile: audioFile) {
+            if let lookup = Self.lookUpCache(forFile: audioFile, matchingImageSize: self.waveformSize) {
                 
                 self.setSamples(lookup.data.samples)
                 return
@@ -49,7 +45,7 @@ extension WaveformView {
                                                     imageSize: self.waveformSize) {
                 
                 if let renderOp = self.renderOp, !renderOp.isCancelled {
-                    self.cacheCurrentWaveform()
+                    Self.addToCache(waveformData: self.samples, forAudioFile: audioFile, renderedForImageSize: self.waveformSize)
                 }
                 
                 self.renderOp = nil

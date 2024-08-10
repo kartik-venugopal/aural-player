@@ -25,7 +25,7 @@ protocol SampleReceiver {
 ///
 class WaveformView: NSView, SampleReceiver, Destroyable {
     
-    static let noiseFloor: CGFloat = -50
+    static let noiseFloor: Float = -50
     
     var eventMonitor: EventMonitor!
     var clickRecognizer: NSClickGestureRecognizer!

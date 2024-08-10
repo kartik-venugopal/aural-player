@@ -1,25 +1,25 @@
-////
-////  WaveformView+ImageCaching.swift
-////  Periphony: Spatial Audio Player
-////  Copyright © Oli Larkin Plug-ins Ltd. 2022. All rights reserved.
-////  Developed by Kartik Venugopal
-////
+//
+//  WaveformView+Caching.swift
+//  Aural
+//
+//  Copyright © 2024 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
 //
 import Foundation
-//import CoreGraphics
 
 extension WaveformView {
     
     static let cacheBaseDirectory: URL = FilesAndPaths.subDirectory(named: "waveformCache")
-    
     static let cache: ConcurrentMap<URL, ConcurrentArray<WaveformCacheEntry>> = ConcurrentMap()
     static let dataCache: ConcurrentMap<String, WaveformCacheData> = ConcurrentMap()
     
     static var persistentState: WaveformPersistentState {
-        WaveformPersistentState(entries: cache.map.values.flatMap {$0.array})
+        WaveformPersistentState(cacheEntries: cache.map.values.flatMap {$0.array})
     }
     
-    public static func initializeImageCache() {
+    static func initializeImageCache() {
         
         DispatchQueue.global(qos: .utility).async {
             
@@ -31,7 +31,7 @@ extension WaveformView {
                 return
             }
             
-            guard let persistentState = appPersistentState.ui?.waveform?.entries else {return}
+            guard let persistentState = appPersistentState.ui?.waveform?.cacheEntries else {return}
             
             for entry in persistentState {
                 
@@ -54,45 +54,40 @@ extension WaveformView {
         }
     }
     
-    func cacheCurrentWaveform() {
+    static func addToCache(waveformData data: [[Float]], forAudioFile audioFile: URL, renderedForImageSize imageSize: NSSize) {
         
-        guard let audioFile = self.audioFile else {return}
+        let entry: WaveformCacheEntry = .init(audioFile: audioFile, imageSize: imageSize)
+        let dataFile = cacheBaseDirectory.appendingPathComponent("\(entry.uuid).json")
+        let data = WaveformCacheData(samples: data)
         
-        let entry: WaveformCacheEntry = .init(audioFile: audioFile, imageSize: waveformSize)
-        let dataFile = Self.cacheBaseDirectory.appendingPathComponent("\(entry.uuid).json")
-        let data = WaveformCacheData(samples: samples)
-        
-        if Self.cache[audioFile] == nil {
-            Self.cache[audioFile] = ConcurrentArray()
+        if cache[audioFile] == nil {
+            cache[audioFile] = ConcurrentArray()
         }
         
         // Add it to the cache, mapped to the audio file.
-        Self.cache[audioFile]?.append(entry)
-        Self.dataCache[entry.uuid] = data
+        cache[audioFile]?.append(entry)
+        dataCache[entry.uuid] = data
 
         DispatchQueue.global(qos: .background).async {
             data.save(toFile: dataFile)
         }
     }
     
-    func lookUpCache(forFile file: URL) -> WaveformCacheLookup? {
+    static func lookUpCache(forFile file: URL, matchingImageSize imageSize: NSSize) -> WaveformCacheLookup? {
         
-        guard let entryMatchingImageSize = Self.cache[file]?.array.first(where: {$0.imageSize == bounds.size}) else {return nil}
+        guard let entryMatchingImageSize = cache[file]?.array.first(where: {$0.imageSize == imageSize}) else {return nil}
         entryMatchingImageSize.updateLastOpenedTimestamp()
         
-        if let inMemoryData = Self.dataCache[entryMatchingImageSize.uuid] {
+        if let inMemoryData = dataCache[entryMatchingImageSize.uuid] {
             return WaveformCacheLookup(entry: entryMatchingImageSize, data: inMemoryData)
         }
         
-        let dataFile = Self.cacheBaseDirectory.appendingPathComponent("\(entryMatchingImageSize.uuid).json")
+        let dataFile = cacheBaseDirectory.appendingPathComponent("\(entryMatchingImageSize.uuid).json")
         
         if let data = WaveformCacheData.load(fromFile: dataFile) {
             return WaveformCacheLookup(entry: entryMatchingImageSize, data: data)
-            
-        } else {
-            
-            NSLog("Couldn't get data from disk for file: \(dataFile.path)")
-            return nil
         }
+        
+        return nil
     }
 }

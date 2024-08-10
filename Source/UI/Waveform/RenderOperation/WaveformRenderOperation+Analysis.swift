@@ -80,7 +80,6 @@ extension WaveformRenderOperation {
         // ------------------------------------------------------------------------------------------
         
         // MARK: Read / process samples in a loop.
-        var loops: Int = 0
         
         while !decoder.reachedEOF {
             
@@ -94,10 +93,8 @@ extension WaveformRenderOperation {
                 
                 processingBufferLength += try decoder.decode(intoBuffer: &processingBuffers, 
                                                              currentBufferLength: processingBufferLength)
-                loops += 1
-                
             } catch {
-                print("IO Error: \(error)")
+                NSLog("Waveform Decoder IO Error: \(error)")
             }
             
             // ------------------------------------------------------------------------------------------
@@ -237,7 +234,7 @@ extension WaveformRenderOperation {
             
             // ------------------------------------------------------------------------------------------
             
-            // MARK: Let waveform options further process the samples (in place).
+            // MARK: Further process the samples (in place).
             
             process(normalizedSamples: planarBuffer, count: samplesToProcess)
             
@@ -256,7 +253,6 @@ extension WaveformRenderOperation {
         }
         
         sampleReceiver.setSamples(renderData.samples)
-        sp += Int32(samplesToProcess)
     }
     
     ///
@@ -264,7 +260,7 @@ extension WaveformRenderOperation {
     ///
     func process(normalizedSamples: FloatPointer, count: AVAudioFrameCount) {
         
-        // Convert samples to a log scale.
+        // Convert Amplitude samples to a log scale (Decibels).
         
         //            var zero: Float = 32768.0
         var zero: Float = 65536
@@ -275,9 +271,7 @@ extension WaveformRenderOperation {
         // Clip to [noiseFloor, 0].
         
         var ceil: Float = 0.0
-        var noiseFloorFloat = Float(WaveformView.noiseFloor)
-        vDSP_vclip(normalizedSamples, 1, &noiseFloorFloat, &ceil, normalizedSamples, 1, vDSP_Length_count)
+        var noiseFloor = WaveformView.noiseFloor
+        vDSP_vclip(normalizedSamples, 1, &noiseFloor, &ceil, normalizedSamples, 1, vDSP_Length_count)
     }
 }
-
-var sp: Int32 = 0

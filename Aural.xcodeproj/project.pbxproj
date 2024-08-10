@@ -976,11 +976,7 @@
 		3EF30D0D28DC6FE900CB09EA /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 3EF30D0C28DC6FE900CB09EA /* DequeModule */; };
 		3EF30D0F28DC6FE900CB09EA /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 3EF30D0E28DC6FE900CB09EA /* OrderedCollections */; };
 		3EF4CD952C65909C00A5922D /* WaveformCacheEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD762C65909C00A5922D /* WaveformCacheEntry.swift */; };
-		3EF4CD962C65909C00A5922D /* WaveformView+ImageCaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD772C65909C00A5922D /* WaveformView+ImageCaching.swift */; };
-		3EF4CD9A2C65909C00A5922D /* GesturePressType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD7C2C65909C00A5922D /* GesturePressType.swift */; };
-		3EF4CD9C2C65909C00A5922D /* WaveformScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD7E2C65909C00A5922D /* WaveformScale.swift */; };
-		3EF4CDA02C65909C00A5922D /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD832C65909C00A5922D /* Int+Extensions.swift */; };
-		3EF4CDA12C65909C00A5922D /* PlatformScreen+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD842C65909C00A5922D /* PlatformScreen+Additions.swift */; };
+		3EF4CD962C65909C00A5922D /* WaveformView+Caching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD772C65909C00A5922D /* WaveformView+Caching.swift */; };
 		3EF4CDA32C65909C00A5922D /* AVFWaveformDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD882C65909C00A5922D /* AVFWaveformDecoder.swift */; };
 		3EF4CDA42C65909C00A5922D /* WaveformRenderData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD892C65909C00A5922D /* WaveformRenderData.swift */; };
 		3EF4CDA52C65909C00A5922D /* WaveformRenderOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */; };
@@ -994,6 +990,7 @@
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
 		3EFA0C0C2C67B5A9006FB326 /* WaveformDecoderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0C0B2C67B5A9006FB326 /* WaveformDecoderProtocol.swift */; };
 		3EFA0C0E2C67C8E3006FB326 /* Codable+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0C0D2C67C8E3006FB326 /* Codable+Utils.swift */; };
+		3EFA0C102C67DF21006FB326 /* WaveformPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0C0F2C67DF21006FB326 /* WaveformPersistentState.swift */; };
 		3EFAA8D12B710C30001A6682 /* ChaptersListViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8D02B710C30001A6682 /* ChaptersListViewController+Theming.swift */; };
 		3EFAA8D52B7146AC001A6682 /* ChaptersListSearchFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */; };
 		3EFB64932772361D00D47A6B /* TimeStretchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */; };
@@ -2082,11 +2079,7 @@
 		3EF28DA72694DDC8005D5B43 /* FontConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConstants.swift; sourceTree = "<group>"; };
 		3EF28DB82694E42C005D5B43 /* AppMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMode.swift; sourceTree = "<group>"; };
 		3EF4CD762C65909C00A5922D /* WaveformCacheEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformCacheEntry.swift; sourceTree = "<group>"; };
-		3EF4CD772C65909C00A5922D /* WaveformView+ImageCaching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+ImageCaching.swift"; sourceTree = "<group>"; };
-		3EF4CD7C2C65909C00A5922D /* GesturePressType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GesturePressType.swift; sourceTree = "<group>"; };
-		3EF4CD7E2C65909C00A5922D /* WaveformScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformScale.swift; sourceTree = "<group>"; };
-		3EF4CD832C65909C00A5922D /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
-		3EF4CD842C65909C00A5922D /* PlatformScreen+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlatformScreen+Additions.swift"; sourceTree = "<group>"; };
+		3EF4CD772C65909C00A5922D /* WaveformView+Caching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaveformView+Caching.swift"; sourceTree = "<group>"; };
 		3EF4CD882C65909C00A5922D /* AVFWaveformDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVFWaveformDecoder.swift; sourceTree = "<group>"; };
 		3EF4CD892C65909C00A5922D /* WaveformRenderData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformRenderData.swift; sourceTree = "<group>"; };
 		3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformRenderOperation.swift; sourceTree = "<group>"; };
@@ -2106,6 +2099,7 @@
 		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
 		3EFA0C0B2C67B5A9006FB326 /* WaveformDecoderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformDecoderProtocol.swift; sourceTree = "<group>"; };
 		3EFA0C0D2C67C8E3006FB326 /* Codable+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Utils.swift"; sourceTree = "<group>"; };
+		3EFA0C0F2C67DF21006FB326 /* WaveformPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformPersistentState.swift; sourceTree = "<group>"; };
 		3EFAA8D02B710C30001A6682 /* ChaptersListViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChaptersListViewController+Theming.swift"; sourceTree = "<group>"; };
 		3EFAA8D42B7146AC001A6682 /* ChaptersListSearchFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListSearchFieldCell.swift; sourceTree = "<group>"; };
 		3EFB64922772361D00D47A6B /* TimeStretchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStretchSliderCell.swift; sourceTree = "<group>"; };
@@ -2626,6 +2620,7 @@
 				3E0216B42C23490E00865AC2 /* PersistentModelObject.swift */,
 				3E0216B52C23490E00865AC2 /* PlaybackProfilePersistentState.swift */,
 				3E0216B62C23490E00865AC2 /* PlaylistsPersistentState.swift */,
+				3EFA0C0F2C67DF21006FB326 /* WaveformPersistentState.swift */,
 				3E0216B72C23490E00865AC2 /* PlayQueuePersistentState.swift */,
 			);
 			path = Model;
@@ -3376,6 +3371,7 @@
 				3E10179228D79203002C0D8E /* Library */,
 				3E10179428D793B1002C0D8E /* Effects */,
 				3E2C4BD52B38E5D300FC65DD /* Search */,
+				3EFA0C112C67E3DD006FB326 /* Waveform */,
 			);
 			path = ModularPlayer;
 			sourceTree = "<group>";
@@ -5173,38 +5169,18 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		3EF4CD7B2C65909C00A5922D /* ImageCaching */ = {
+		3EF4CD7B2C65909C00A5922D /* Caching */ = {
 			isa = PBXGroup;
 			children = (
+				3EF4CD772C65909C00A5922D /* WaveformView+Caching.swift */,
 				3EF4CD762C65909C00A5922D /* WaveformCacheEntry.swift */,
-				3EF4CD772C65909C00A5922D /* WaveformView+ImageCaching.swift */,
 			);
-			path = ImageCaching;
-			sourceTree = "<group>";
-		};
-		3EF4CD7F2C65909C00A5922D /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				3EF4CD7C2C65909C00A5922D /* GesturePressType.swift */,
-				3EF4CD7E2C65909C00A5922D /* WaveformScale.swift */,
-			);
-			path = Support;
-			sourceTree = "<group>";
-		};
-		3EF4CD862C65909C00A5922D /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				3EF4CD832C65909C00A5922D /* Int+Extensions.swift */,
-				3EF4CD842C65909C00A5922D /* PlatformScreen+Additions.swift */,
-			);
-			path = Utils;
+			path = Caching;
 			sourceTree = "<group>";
 		};
 		3EF4CD872C65909C00A5922D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3E7E9F472C66AFB30011DE8E /* Waveform.xib */,
-				3E7E9F4B2C66B06F0011DE8E /* WaveformViewController.swift */,
 				3EF4CD902C65909C00A5922D /* WaveformView.swift */,
 				3EF4CD922C65909C00A5922D /* WaveformView+FileIO.swift */,
 				3EF4CD932C65909C00A5922D /* WaveformView+GestureRecognizerDelegate.swift */,
@@ -5223,26 +5199,24 @@
 			path = Decoders;
 			sourceTree = "<group>";
 		};
-		3EF4CD8F2C65909C00A5922D /* WaveformRenderOperation */ = {
+		3EF4CD8F2C65909C00A5922D /* RenderOperation */ = {
 			isa = PBXGroup;
 			children = (
 				3EF4CD8B2C65909C00A5922D /* WaveformRenderOperation.swift */,
 				3E7E9F422C666F330011DE8E /* WaveformRenderOperation+Analysis.swift */,
 				3EF4CD8A2C65909C00A5922D /* Decoders */,
 			);
-			path = WaveformRenderOperation;
+			path = RenderOperation;
 			sourceTree = "<group>";
 		};
 		3EF4CD942C65909C00A5922D /* Waveform */ = {
 			isa = PBXGroup;
 			children = (
-				3E7E9F442C66ADD20011DE8E /* WaveformWindow.xib */,
-				3E7E9F4D2C66B1AF0011DE8E /* WaveformWindowController.swift */,
+				3E7E9F472C66AFB30011DE8E /* Waveform.xib */,
+				3E7E9F4B2C66B06F0011DE8E /* WaveformViewController.swift */,
 				3EF4CD872C65909C00A5922D /* View */,
-				3EF4CD7B2C65909C00A5922D /* ImageCaching */,
-				3EF4CD7F2C65909C00A5922D /* Support */,
-				3EF4CD862C65909C00A5922D /* Utils */,
-				3EF4CD8F2C65909C00A5922D /* WaveformRenderOperation */,
+				3EF4CD8F2C65909C00A5922D /* RenderOperation */,
+				3EF4CD7B2C65909C00A5922D /* Caching */,
 			);
 			name = Waveform;
 			path = Source/UI/Waveform;
@@ -5285,6 +5259,15 @@
 				3EF84DA5283632ED004EF57B /* LibrarySidebarItems.swift */,
 			);
 			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		3EFA0C112C67E3DD006FB326 /* Waveform */ = {
+			isa = PBXGroup;
+			children = (
+				3E7E9F442C66ADD20011DE8E /* WaveformWindow.xib */,
+				3E7E9F4D2C66B1AF0011DE8E /* WaveformWindowController.swift */,
+			);
+			path = Waveform;
 			sourceTree = "<group>";
 		};
 		3EFB9ECB26A6887200EA8440 /* Popovers */ = {
@@ -5596,6 +5579,7 @@
 				3E02188A2C23490E00865AC2 /* FilterUnitPersistentState.swift in Sources */,
 				3E02185C2C23490E00865AC2 /* AutoplayCommandNotification.swift in Sources */,
 				3E6C123E25CEBDF400BF0D07 /* ChaptersListTableHeaderCell.swift in Sources */,
+				3EFA0C102C67DF21006FB326 /* WaveformPersistentState.swift in Sources */,
 				3E0218342C23490E00865AC2 /* FFmpegFrameBuffer.swift in Sources */,
 				3E6C123825CEBDF400BF0D07 /* ChaptersListViewController.swift in Sources */,
 				3E0217F42C23490E00865AC2 /* ReverbUnitDelegateProtocol.swift in Sources */,
@@ -5716,7 +5700,6 @@
 				3E0218942C23490E00865AC2 /* LegacyHistoryPersistentState.swift in Sources */,
 				3E02182A2C23490E00865AC2 /* FavoriteTrack.swift in Sources */,
 				3E0218F52C23490E00865AC2 /* GroupType.swift in Sources */,
-				3EF4CD9A2C65909C00A5922D /* GesturePressType.swift in Sources */,
 				3E6C12F025CEBE8100BF0D07 /* DelayUnitViewController.swift in Sources */,
 				3E02198C2C23490E00865AC2 /* OrderedSetExtensions.swift in Sources */,
 				3E0218492C23490E00865AC2 /* AlbumGroup.swift in Sources */,
@@ -6130,7 +6113,6 @@
 				3E0219442C23490E00865AC2 /* MusicBrainzCache.swift in Sources */,
 				3E6C12AC25CEBE2700BF0D07 /* RangeSlider.swift in Sources */,
 				3E2000C9267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift in Sources */,
-				3EF4CDA12C65909C00A5922D /* PlatformScreen+Additions.swift in Sources */,
 				3E62979D26A3CEBF00C96AB8 /* Restorable.swift in Sources */,
 				3E6C125B25CEBE0600BF0D07 /* ReverbPresetsManagerViewController.swift in Sources */,
 				3E2207EE2C1DA04A00ED286A /* CompactPlayerWindowController+View.swift in Sources */,
@@ -6148,7 +6130,7 @@
 				3EC869052C615D90006CA63E /* CueSheetIO+Parser.swift in Sources */,
 				3E02187E2C23490E00865AC2 /* PresetsManagerNotifications.swift in Sources */,
 				3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */,
-				3EF4CD962C65909C00A5922D /* WaveformView+ImageCaching.swift in Sources */,
+				3EF4CD962C65909C00A5922D /* WaveformView+Caching.swift in Sources */,
 				3E0217F82C23490E00865AC2 /* DelayUnitProtocol.swift in Sources */,
 				3E43227B2687D531009E8ADB /* ScrollingTrackTextView.swift in Sources */,
 				3EA89D9B2699F50C0021CDB9 /* ScrollSession.swift in Sources */,
@@ -6252,7 +6234,6 @@
 				3E0218512C23490E00865AC2 /* PlaylistHistoryItem.swift in Sources */,
 				3E0219592C23490E00865AC2 /* SearchResult.swift in Sources */,
 				3E0219242C23490E00865AC2 /* ITunesParser.swift in Sources */,
-				3EF4CDA02C65909C00A5922D /* Int+Extensions.swift in Sources */,
 				3E0219302C23490E00865AC2 /* FFmpegMappedMetadata.swift in Sources */,
 				3E51F34A262AFF310048452F /* ThemesManagerViewController.swift in Sources */,
 				3E0218FD2C23490E00865AC2 /* PlayQueueDelegate+History.swift in Sources */,
@@ -6347,7 +6328,6 @@
 				3EC742572C41C1C200C100DE /* AVFScheduler+Looping.swift in Sources */,
 				3E9E591025DB6B150064EB5F /* ModularAppModeController.swift in Sources */,
 				3E02199E2C23490E00865AC2 /* UnsafeBuffer.swift in Sources */,
-				3EF4CD9C2C65909C00A5922D /* WaveformScale.swift in Sources */,
 				3E1572AC2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift in Sources */,
 				3E3ACFA72C224823006945B8 /* CompactPlayerArtView.swift in Sources */,
 				3EC742592C41C44B00C100DE /* Player+Looping.swift in Sources */,

@@ -7,7 +7,6 @@
 
 import AVFoundation
 import Accelerate
-import AppKit
 
 /// Operation used for rendering waveform images
 final class WaveformRenderOperation: Operation {

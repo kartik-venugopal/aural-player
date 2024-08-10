@@ -8,31 +8,10 @@
 import Foundation
 import CoreGraphics
 
-struct WaveformCacheLookup {
-    
-    let entry: WaveformCacheEntry
-    let data: WaveformCacheData
-}
-
-struct WaveformPersistentState: Codable {
-    
-    let entries: [WaveformCacheEntryPersistentState]?
-    
-    init(entries: [WaveformCacheEntry]) {
-        self.entries = entries.map {.init(entry: $0)}
-    }
-}
-
-class WaveformCacheEntry: Codable, CustomStringConvertible {
+class WaveformCacheEntry: Codable {
     
     /// Unique identifier.
     let uuid: String
-    
-    /// Conformance to ``CustomStringConvertible``.
-    var description: String {
-        "WaveformImageCacheEntry - UUID: \(uuid). AudioFile: \(audioFile.lastPathComponent), imageSize: \(imageSize), lastOpenedTimestamp: \(lastOpenedTimestamp)"
-    }
-    
     let audioFile: URL
     let imageSize: CGSize
     
@@ -74,23 +53,26 @@ class WaveformCacheEntry: Codable, CustomStringConvertible {
     }
 }
 
-struct WaveformCacheEntryPersistentState: Codable {
+extension WaveformCacheEntry: CustomStringConvertible {
     
-    let uuid: String?
-    let audioFile: URL?
-    let imageSize: CGSize?
-    let lastOpenedTimestamp: CFAbsoluteTime?
-    
-    init(entry: WaveformCacheEntry) {
-        
-        self.uuid = entry.uuid
-        self.audioFile = entry.audioFile
-        self.imageSize = entry.imageSize
-        self.lastOpenedTimestamp = entry.lastOpenedTimestamp
+    var description: String {
+        "WaveformImageCacheEntry - UUID: \(uuid). AudioFile: \(audioFile.lastPathComponent), imageSize: \(imageSize), lastOpenedTimestamp: \(lastOpenedTimestamp)"
     }
 }
 
+///
+/// Downsampled data to be cached for a single waveform render.
+///
 struct WaveformCacheData: Codable {
     
     let samples: [[Float]]
+}
+
+///
+/// Container type to hold the result of a successful cache lookup.
+///
+struct WaveformCacheLookup {
+    
+    let entry: WaveformCacheEntry
+    let data: WaveformCacheData
 }
