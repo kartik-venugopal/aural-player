@@ -194,7 +194,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
             if let maskLayer = self.maskLayer {
                 
                 let frameX = maskLayerStartX ?? 0
-                maskLayer.frame = CGRect(x: frameX, y: 0, width: max(2, (scaledWidth * progress)) - frameX, height: scaledHeight)
+                maskLayer.frame = CGRect(x: frameX, y: 0, width: max(0, (scaledWidth * progress) - frameX), height: scaledHeight)
                 maskLayer.removeAllAnimations()
             }
             return
@@ -298,7 +298,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
             let mask = CAShapeLayer()
             
             let frameX = maskLayerStartX ?? 0
-            mask.frame = CGRect(x: frameX, y: 0, width: max(2, (scaledWidth * progress)) - frameX, height: scaledHeight)
+            mask.frame = CGRect(x: frameX, y: 0, width: max(0, (scaledWidth * progress) - frameX), height: scaledHeight)
             mask.backgroundColor = progressLayer.strokeColor
             mask.removeAllAnimations()
             progressLayer.mask = mask

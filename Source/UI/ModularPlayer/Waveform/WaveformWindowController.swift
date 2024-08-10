@@ -46,6 +46,12 @@ class WaveformWindowController: NSWindowController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
     }
     
+    override func destroy() {
+        
+        close()
+        viewController.destroy()
+    }
+    
     @IBAction func closeAction(_ sender: NSButton) {
         windowLayoutsManager.toggleWindow(withId: .waveform)
     }

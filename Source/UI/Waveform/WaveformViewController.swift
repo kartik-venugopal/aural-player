@@ -23,6 +23,8 @@ class WaveformViewController: NSViewController {
     @IBOutlet weak var lblRightChannelBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var waveformViewLeadingConstraint: NSLayoutConstraint!
+    private static let waveformViewLeadingConstant_mono: CGFloat = 5
+    private static let waveformViewLeadingConstant_stereo: CGFloat = 30
     
     lazy var messenger: Messenger = .init(for: self)
     
@@ -98,13 +100,13 @@ class WaveformViewController: NSViewController {
             }
             
             // Resize the view
-            waveformViewLeadingConstraint.constant = isMono ? 5 : 30
+            waveformViewLeadingConstraint.constant = isMono ? Self.waveformViewLeadingConstant_mono : Self.waveformViewLeadingConstant_stereo
             
         } else {
             
             // No playing track
             [lblLeftChannel, lblRightChannel].forEach {$0?.show()}
-            waveformViewLeadingConstraint.constant = 35
+            waveformViewLeadingConstraint.constant = Self.waveformViewLeadingConstant_stereo
         }
     }
     

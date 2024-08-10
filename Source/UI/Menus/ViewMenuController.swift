@@ -48,6 +48,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         let isCompactMode = appModeManager.currentMode == .compact
         toggleTrackInfoMenuItem.showIf(isCompactMode)
+        toggleWaveformMenuItem.showIf(!isCompactMode)
         
         if isCompactMode {
             

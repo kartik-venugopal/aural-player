@@ -48,11 +48,15 @@ extension WaveformView: NSGestureRecognizerDelegate {
     
     func deactivateGestureHandling() {
         
-        eventMonitor.stopMonitoring()
+        eventMonitor?.stopMonitoring()
         eventMonitor = nil
         
-        clickRecognizer.delegate = nil
-        removeGestureRecognizer(clickRecognizer)
+        clickRecognizer?.delegate = nil
+        
+        if let clickRecognizer = self.clickRecognizer {
+            removeGestureRecognizer(clickRecognizer)
+        }
+        
         clickRecognizer = nil
     }
     
