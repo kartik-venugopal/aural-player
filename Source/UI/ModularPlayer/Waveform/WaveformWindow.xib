@@ -8,87 +8,69 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="WaveformWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnClose" destination="HYe-BX-2tD" id="thv-PG-92e"/>
-                <outlet property="lblCaption" destination="v1W-SX-ldk" id="Nyp-S7-shU"/>
-                <outlet property="rootContainer" destination="mGd-sN-EnT" id="SdP-Ho-FaM"/>
-                <outlet property="waveformContainer" destination="klk-sb-tfE" id="KK9-Je-8Z2"/>
-                <outlet property="window" destination="gsx-WM-eCh" id="Qid-EL-tKz"/>
+                <outlet property="window" destination="Vi4-i3-7LT" id="kzF-od-IkP"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window identifier="waveform" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingIdentifier="main" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="gsx-WM-eCh" userLabel="Waveform Window" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
-            <windowStyleMask key="styleMask" resizable="YES" fullSizeContentView="YES"/>
-            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="335" y="100" width="480" height="200"/>
+        <window identifier="waveform" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Vi4-i3-7LT" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="283" y="305" width="480" height="200"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="480" height="200"/>
             <value key="maxSize" type="size" width="2000" height="200"/>
-            <view key="contentView" id="k3u-7c-czC">
+            <view key="contentView" id="wzl-dp-Hza">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box fixedFrame="YES" boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="mGd-sN-EnT" userLabel="Root Container">
+                    <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="kFh-u4-fjB">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" id="6tR-dL-x1J">
+                        <view key="contentView" id="QJw-m3-14s">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <box fixedFrame="YES" boxType="custom" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mj5-Bm-hn6" userLabel="Waveform Container">
-                                    <rect key="frame" x="10" y="25" width="455" height="120"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView" id="klk-sb-tfE">
-                                        <rect key="frame" x="0.0" y="0.0" width="455" height="120"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </view>
-                                </box>
-                            </subviews>
                         </view>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </box>
-                    <button toolTip="Close this window" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="HYe-BX-2tD" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="178.5" width="11.5" height="14"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="fWx-HM-e9p">
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="kFh-u4-fjB" secondAttribute="trailing" id="09B-6B-OnV"/>
+                    <constraint firstItem="kFh-u4-fjB" firstAttribute="leading" secondItem="wzl-dp-Hza" secondAttribute="leading" id="FcO-v6-gjQ"/>
+                    <constraint firstAttribute="bottom" secondItem="kFh-u4-fjB" secondAttribute="bottom" id="d76-s8-uJu"/>
+                    <constraint firstItem="kFh-u4-fjB" firstAttribute="top" secondItem="wzl-dp-Hza" secondAttribute="top" id="fP5-MT-AkF"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="139" y="58"/>
+        </window>
+        <window identifier="effects" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingIdentifier="effects" titleVisibility="hidden" id="LYw-qA-8Ft" userLabel="Effects Window" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="225" y="78" width="480" height="200"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <value key="minSize" type="size" width="480" height="200"/>
+            <value key="maxSize" type="size" width="2000" height="200"/>
+            <view key="contentView" id="BTt-EI-fiH">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <button toolTip="Hide the effects panel" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h6f-H9-3pO" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="10" y="175.5" width="11.5" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="rTg-bo-fkC">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="10" id="AUj-nV-iEB"/>
-                            <constraint firstAttribute="width" constant="11" id="gE2-Wa-AQg"/>
-                        </constraints>
-                        <connections>
-                            <action selector="closeAction:" target="-2" id="umh-ZW-dNM"/>
-                        </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v1W-SX-ldk" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="37" y="170" width="214" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="210" id="AMT-EA-cdW"/>
-                            <constraint firstAttribute="height" constant="25" id="gT2-4s-q45"/>
-                        </constraints>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Waveform" id="NC7-IT-dYV">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="HYe-BX-2tD" firstAttribute="leading" secondItem="k3u-7c-czC" secondAttribute="leading" constant="10" id="Kr6-Fp-WQK"/>
-                    <constraint firstItem="v1W-SX-ldk" firstAttribute="top" secondItem="k3u-7c-czC" secondAttribute="top" constant="5" id="XYH-dZ-lpz"/>
-                    <constraint firstItem="HYe-BX-2tD" firstAttribute="top" secondItem="k3u-7c-czC" secondAttribute="top" constant="10" id="f5M-MT-gjM"/>
-                    <constraint firstItem="v1W-SX-ldk" firstAttribute="leading" secondItem="HYe-BX-2tD" secondAttribute="trailing" constant="18" id="uLQ-i6-Q6e"/>
-                </constraints>
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <accessibility identifier="main"/>
-            <point key="canvasLocation" x="148" y="-117"/>
+            <accessibility identifier="effects"/>
+            <point key="canvasLocation" x="-99" y="342"/>
         </window>
     </objects>
     <resources>
