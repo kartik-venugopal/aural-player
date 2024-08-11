@@ -22,12 +22,17 @@ class WaveformWindowController: NSWindowController {
     @IBOutlet weak var waveformContainer: NSBox!
     private let viewController: WaveformViewController = .init()
     
+    lazy var messenger = Messenger(for: self)
+    
     override func windowDidLoad() {
         
         super.windowDidLoad()
         
         waveformContainer.addSubview(viewController.view)
         viewController.view.anchorToSuperview()
+        changeWindowCornerRadius(to: playerUIState.cornerRadius)
+        
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         
         fontSchemesManager.registerObserver(self)
         
@@ -40,7 +45,13 @@ class WaveformWindowController: NSWindowController {
     override func destroy() {
         
         close()
+        
+        messenger.unsubscribeFromAll()
         viewController.destroy()
+    }
+    
+    func changeWindowCornerRadius(to radius: CGFloat) {
+        rootContainer.cornerRadius = radius.clamped(to: 0...20)
     }
     
     @IBAction func closeAction(_ sender: NSButton) {

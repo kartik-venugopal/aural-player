@@ -51,6 +51,7 @@ class ModularPlayerViewController: PlayerViewController {
         
         super.viewDidLoad()
         startTrackingView(options: [.activeAlways, .mouseEnteredAndExited])
+        
     }
     
     override func updateTrackTextView(for track: Track?, playingChapterTitle: String? = nil) {
@@ -92,9 +93,7 @@ class ModularPlayerViewController: PlayerViewController {
     override func updateTrackInfo(for track: Track?, playingChapterTitle: String? = nil) {
         
         super.updateTrackInfo(for: track, playingChapterTitle: playingChapterTitle)
-        
         artView.showIf(playerUIState.showAlbumArt)
-        btnFunctionsMenu.showIf(track != nil)
     }
     
     override func showTrackInfoView() {
