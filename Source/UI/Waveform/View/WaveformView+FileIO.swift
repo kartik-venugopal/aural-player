@@ -32,10 +32,9 @@ extension WaveformView {
         
         DispatchQueue.global(qos: .userInteractive).async {
             
-            print("Searching for size: \(self.waveformSize.width)")
             if let lookup = Self.lookUpCache(forFile: audioFile, matchingImageSize: self.waveformSize) {
                 
-                self.setSamples(lookup.data.samples)
+                self.setSamples(lookup.data.samples, forFile: audioFile)
                 return
             }
             
@@ -43,14 +42,15 @@ extension WaveformView {
             
             self.renderOp = WaveformRenderOperation(decoder: decoder,
                                                     sampleReceiver: self,
-                                                    imageSize: self.waveformSize) {
+                                                    imageSize: self.waveformSize) {finishedOp in
                 
-                if let renderOp = self.renderOp, !renderOp.isCancelled {
-                    Self.addToCache(waveformData: self.samples, forAudioFile: audioFile, renderedForImageSize: self.waveformSize)
+                if finishedOp.isFinished && finishedOp.analysisSucceeded {
+                    Self.addToCache(waveformData: self.samples, forAudioFile: audioFile, renderedForImageSize: finishedOp.imageSize)
                 }
                 
-                self.renderOp = nil
-                print("Done!")
+                if self.renderOp == finishedOp {
+                    self.renderOp = nil
+                }
             }
             
             self.renderOp?.start()

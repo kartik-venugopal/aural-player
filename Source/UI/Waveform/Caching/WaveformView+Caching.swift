@@ -68,8 +68,6 @@ extension WaveformView {
         cache[audioFile]?.append(entry)
         dataCache[entry.uuid] = data
         
-        print("Added for size: \(imageSize.width)")
-
         DispatchQueue.global(qos: .background).async {
             data.save(toFile: dataFile)
         }
@@ -78,12 +76,9 @@ extension WaveformView {
     static func lookUpCache(forFile file: URL, matchingImageSize imageSize: NSSize) -> WaveformCacheLookup? {
         
         guard let entryMatchingImageSize = cache[file]?.array.first(where: {$0.imageSize == imageSize}) else {
-            
-            print("CACHE MISS !!!")
             return nil
         }
         
-        print("CACHE HIT !!!")
         entryMatchingImageSize.updateLastOpenedTimestamp()
         
         if let inMemoryData = dataCache[entryMatchingImageSize.uuid] {

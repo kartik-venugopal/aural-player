@@ -21,7 +21,10 @@ final class WaveformRenderOperation: Operation {
     
     let sampleReceiver: SampleReceiver
     
+    let imageSize: NSSize
     let targetSamples: AVAudioFrameCount
+    
+    var analysisSucceeded: Bool = false
     
     //    var childOperations: [Operation] = []
     
@@ -44,7 +47,7 @@ final class WaveformRenderOperation: Operation {
     // MARK: - Private state
     
     ///  Handler called when the rendering has completed. nil NSImage indicates that there was an error during processing.
-    private let completionHandler: () -> ()
+    private let completionHandler: (WaveformRenderOperation) -> ()
     
     /// Quality of service for the render operation.
     private static let qOS: DispatchQoS.QoSClass = .userInteractive
@@ -54,17 +57,21 @@ final class WaveformRenderOperation: Operation {
     // MARK: Initialization
     
     init(decoder: WaveformDecoderProtocol, sampleReceiver: SampleReceiver, imageSize: CGSize,
-         completionHandler: @escaping () -> ()) {
+         completionHandler: @escaping (WaveformRenderOperation) -> ()) {
         
         self.decoder = decoder
         self.sampleReceiver = sampleReceiver
+        self.imageSize = imageSize
         self.targetSamples = AVAudioFrameCount(imageSize.width)
         self.completionHandler = completionHandler
         
         super.init()
         
         self.completionBlock = {[weak self] in
-            self?.completionHandler()
+            
+            if let strongSelf = self {
+                strongSelf.completionHandler(strongSelf)
+            }
         }
     }
     
@@ -121,11 +128,7 @@ final class WaveformRenderOperation: Operation {
         
         guard !isCancelled else {return}
         
-        let start = CFAbsoluteTimeGetCurrent()
-        analyzeAudioFile(andDownsampleTo: targetSamples)
-        let end = CFAbsoluteTimeGetCurrent()
-        print("Analyzed track \(decoder.file.lastPathComponent) in: \(String(format: "%.3f", end - start)) secs")
-        
+        self.analysisSucceeded = analyzeAudioFile(andDownsampleTo: targetSamples)
         finish()
     }
 }

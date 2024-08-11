@@ -32,12 +32,12 @@ extension WaveformRenderOperation {
     ///
     /// - Returns:                          An object containing all the info necessary to render a waveform image for the given data set.
     ///
-    func analyzeAudioFile(andDownsampleTo targetSamples: AVAudioFrameCount) {
+    func analyzeAudioFile(andDownsampleTo targetSamples: AVAudioFrameCount) -> Bool {
         
         // MARK: Set up an ``AVAssetReader`` for sample reading.
         
         // Validate the method arguments and initialize an ``AVAssetReader``.
-        guard targetSamples > 0 else {return}
+        guard targetSamples > 0 else {return false}
         
         let channelCount = decoder.channelCount
         let outputChannelCount: AVAudioChannelCount = min(channelCount, 2)
@@ -89,7 +89,7 @@ extension WaveformRenderOperation {
         
         while !decoder.reachedEOF {
             
-            guard !isCancelled else {return}
+            guard !isCancelled else {return false}
             
             // ------------------------------------------------------------------------------------------
             
@@ -181,7 +181,7 @@ extension WaveformRenderOperation {
         
         if samplesToProcess > 0 {
             
-            guard !isCancelled else {return}
+            guard !isCancelled else {return false}
             
             /// We will render only one more pixel.
             let downSampledLength = AVAudioFrameCount(1)
@@ -200,6 +200,8 @@ extension WaveformRenderOperation {
                               samplesPerPixel: samplesPerPixel,
                               filter: filter)
         }
+        
+        return true
     }
     
     // -------------------------------------------------------------------------------------------------------------------
@@ -278,7 +280,7 @@ extension WaveformRenderOperation {
             renderData.appendData(downSampledData, forChannel: channel)
         }
         
-        sampleReceiver.setSamples(renderData.samples)
+        sampleReceiver.setSamples(renderData.samples, forFile: decoder.file)
     }
     
     ///

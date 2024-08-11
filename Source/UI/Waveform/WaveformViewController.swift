@@ -48,8 +48,6 @@ class WaveformViewController: NSViewController {
         messenger.subscribe(to: .Player.playbackStateChanged, handler: updateForCurrentPlaybackState)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: updateProgress)
         messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
-        
-        repositionChannelLabels()
     }
     
     override func viewWillDisappear() {
@@ -65,6 +63,7 @@ class WaveformViewController: NSViewController {
         super.viewWillAppear()
         
         waveformView.prepareToAppear()
+        repositionChannelLabels()
         updateChannelLabels()
     }
     

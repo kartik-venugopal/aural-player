@@ -14,7 +14,7 @@ import os
 
 protocol SampleReceiver {
     
-    func setSamples(_ samples: [[Float]])
+    func setSamples(_ samples: [[Float]], forFile audioFile: URL)
 }
 
 ///
@@ -88,7 +88,10 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
     
     var samples: [[Float]] = [[],[]]
     
-    func setSamples(_ samples: [[Float]]) {
+    func setSamples(_ samples: [[Float]], forFile audioFile: URL) {
+        
+        // IMPORTANT - This check prevents cancelled (rogue) operations from corrupting the samples.
+        guard audioFile == self.audioFile else {return}
         
         self.samples = samples
         
