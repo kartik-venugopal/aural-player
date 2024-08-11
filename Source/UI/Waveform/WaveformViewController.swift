@@ -44,10 +44,10 @@ class WaveformViewController: NSViewController {
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.secondaryTextColor, changeReceivers: [lblLeftChannel, lblRightChannel])
         
-        messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
-        messenger.subscribe(to: .Player.playbackStateChanged, handler: updateForCurrentPlaybackState)
+        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribeAsync(to: .Player.playbackStateChanged, handler: updateForCurrentPlaybackState)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: updateProgress)
-        messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
+        messenger.subscribeAsync(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
     }
     
     override func viewWillDisappear() {
