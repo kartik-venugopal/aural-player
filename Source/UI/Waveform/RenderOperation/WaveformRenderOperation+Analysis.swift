@@ -280,7 +280,7 @@ extension WaveformRenderOperation {
             renderData.appendData(downSampledData, forChannel: channel)
         }
         
-        sampleReceiver.setSamples(renderData.samples, forFile: decoder.file)
+        sampleReceiver.setSamples(renderData.samples, fromRenderOp: self, forFile: decoder.file)
     }
     
     ///

@@ -14,7 +14,7 @@ import os
 
 protocol SampleReceiver {
     
-    func setSamples(_ samples: [[Float]], forFile audioFile: URL)
+    func setSamples(_ samples: [[Float]], fromRenderOp renderOp: WaveformRenderOperation, forFile audioFile: URL)
 }
 
 ///
@@ -88,10 +88,10 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
     
     var samples: [[Float]] = [[],[]]
     
-    func setSamples(_ samples: [[Float]], forFile audioFile: URL) {
+    func setSamples(_ samples: [[Float]], fromRenderOp renderOp: WaveformRenderOperation, forFile audioFile: URL) {
         
         // IMPORTANT - This check prevents cancelled (rogue) operations from corrupting the samples.
-        guard audioFile == self.audioFile else {return}
+        guard renderOp == self.renderOp, audioFile == self.audioFile else {return}
         
         self.samples = samples
         
@@ -175,6 +175,14 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         return nil
     }
     
+    private var sizeBeforeLiveResize: NSSize = .zero
+    
+    override func viewWillStartLiveResize() {
+        
+        super.viewWillStartLiveResize()
+        sizeBeforeLiveResize = bounds.size
+    }
+    
     override func viewDidEndLiveResize() {
         
         super.viewDidEndLiveResize()
@@ -189,19 +197,17 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         
         let samplesToDraw = self.samples
         
-//        let scaleFactor: CGFloat = window?.screen?.backingScaleFactor ?? NSScreen.main!.backingScaleFactor
-        let scaleFactor: CGFloat = 1
-        let scaledImageSize = bounds
-        
-        let scaledWidth = scaledImageSize.width
-        let scaledHeight = scaledImageSize.height
+        let correctedWidth = inLiveResize ? sizeBeforeLiveResize.width : bounds.width
+        let imgSize = NSMakeSize(correctedWidth, bounds.height)
+        let imgWidth = imgSize.width
+        let imgHeight = imgSize.height
         
         guard !baseLayerComplete else {
             
             if let maskLayer = self.maskLayer {
                 
                 let frameX = maskLayerStartX ?? 0
-                maskLayer.frame = CGRect(x: frameX, y: 0, width: max(0, (scaledWidth * progress) - frameX), height: scaledHeight)
+                maskLayer.frame = CGRect(x: frameX, y: 0, width: max(0, (imgWidth * progress) - frameX), height: imgHeight)
                 maskLayer.removeAllAnimations()
             }
             return
@@ -216,7 +222,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         // MARK: Create and configure a CALayer to do the drawing.
         
         let baseLayer = CAShapeLayer()
-        baseLayer.frame = CGRect(x: 0, y: 0, width: scaledWidth, height: scaledHeight)
+        baseLayer.frame = CGRect(x: 0, y: 0, width: imgWidth, height: imgHeight)
         baseLayer.strokeColor = systemColorScheme.inactiveControlColor.cgColor
         baseLayer.fillColor = NSColor.clear.cgColor
         baseLayer.lineWidth = 1.0
@@ -235,7 +241,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         let maxVal: Float = samplesToDraw.sampleMax
         
         /// The height of the waveform for each individual audio channel.
-        let channelHeight = scaledHeight / CGFloat(channelCount)
+        let channelHeight = imgHeight / CGFloat(channelCount)
         
         /// Half of ``channelHeight``.
         let halfChannelHeight = channelHeight / 2
@@ -246,7 +252,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         if maxVal == minVal {
             sampleDrawingScale = 0
         } else {
-            sampleDrawingScale = (channelHeight * scaleFactor) / 2 / CGFloat(maxVal - minVal)
+            sampleDrawingScale = halfChannelHeight / CGFloat(maxVal - minVal)
         }
         
         /// This bezier path will contain all our data points (lines).
@@ -265,11 +271,11 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
             // MARK: Draw a zero amplitude line across the vertical center of the waveform.
 
             /// The halfway point along the Y axis.
-            let verticalMiddle = (CGFloat(channelCount - index - 1) * channelHeight + halfChannelHeight) * scaleFactor
+            let verticalMiddle = (CGFloat(channelCount - index - 1) * channelHeight + halfChannelHeight)
             
             // Draw 3 lines, to prevent the zero amplitude indicator from disappearing.
             
-            let lineEndX = scaledWidth * scaleFactor
+            let lineEndX = imgWidth
             
             path.line(from: (x: 0, y: verticalMiddle), to: (x: lineEndX, y: verticalMiddle))
             
@@ -283,7 +289,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
                 let x_CGFloat = CGFloat(x)
                 
                 // TODO: Print out such invalid values and fix the scaling.
-                if height.isZero || height.isNaN {continue}
+                if height <= 0 || height.isNaN {continue}
                 
                 // TODO: Clamp values to prevent zero or negative height lines
                 path.line(from: (x_CGFloat, verticalMiddle - height), to: (x_CGFloat, verticalMiddle + height))
@@ -305,7 +311,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
             let mask = CAShapeLayer()
             
             let frameX = maskLayerStartX ?? 0
-            mask.frame = CGRect(x: frameX, y: 0, width: max(0, (scaledWidth * progress) - frameX), height: scaledHeight)
+            mask.frame = CGRect(x: frameX, y: 0, width: max(0, (imgWidth * progress) - frameX), height: imgHeight)
             mask.backgroundColor = progressLayer.strokeColor
             mask.removeAllAnimations()
             progressLayer.mask = mask

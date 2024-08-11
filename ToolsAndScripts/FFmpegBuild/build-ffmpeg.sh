@@ -179,6 +179,10 @@ function configureFFmpeg {
     --disable-sdl2 \
     --disable-videotoolbox \
     --disable-securetransport \
+    --disable-libxcb \
+    --disable-libxcb-shm \
+    --disable-libxcb-xfixes \
+    --disable-libxcb-shape \
     --enable-demuxer=$demuxersToEnable \
     --enable-parser=$parsersToEnable \
     --enable-decoder=$decodersToEnable \
