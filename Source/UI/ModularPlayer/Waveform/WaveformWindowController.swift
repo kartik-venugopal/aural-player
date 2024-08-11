@@ -15,33 +15,26 @@ class WaveformWindowController: NSWindowController {
     override var windowNibName: NSNib.Name? {"WaveformWindow"}
     
     @IBOutlet weak var btnClose: TintedImageButton!
-    private lazy var btnCloseConstraints: LayoutConstraintsManager = LayoutConstraintsManager(for: btnClose)
     
     @IBOutlet weak var rootContainer: NSBox!
     @IBOutlet weak var lblCaption: NSTextField!
     
-    @IBOutlet weak var waveformContainer: NSView!
+    @IBOutlet weak var waveformContainer: NSBox!
     private let viewController: WaveformViewController = .init()
     
     override func windowDidLoad() {
         
         super.windowDidLoad()
         
-//        waveformContainer.addSubview(viewController.view)
-//        viewController.view.anchorToSuperview()
+        waveformContainer.addSubview(viewController.view)
+        viewController.view.anchorToSuperview()
         
-        // Bring the 'X' (Close) button to the front and constrain it.
-//        btnClose.bringToFront()
-//
-//        btnCloseConstraints.setLeading(relatedToLeadingOf: btnClose.superview!, offset: 10)
-//        btnCloseConstraints.setTop(relatedToTopOf: btnClose.superview!, offset: 15)
+        fontSchemesManager.registerObserver(self)
         
-//        fontSchemesManager.registerObserver(self)
-//        
-//        colorSchemesManager.registerSchemeObserver(self)
-//        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainer)
-//        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
-//        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
+        colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceivers: [rootContainer, waveformContainer])
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
     }
     
     override func destroy() {
@@ -58,7 +51,7 @@ class WaveformWindowController: NSWindowController {
 extension WaveformWindowController: FontSchemeObserver {
     
     func fontSchemeChanged() {
-//        lblCaption.font = systemFontScheme.captionFont
+        lblCaption.font = systemFontScheme.captionFont
     }
 }
 
@@ -66,8 +59,8 @@ extension WaveformWindowController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
         
-//        rootContainer.fillColor = systemColorScheme.backgroundColor
-//        btnClose.colorChanged(systemColorScheme.buttonColor)
-//        lblCaption.textColor = systemColorScheme.captionTextColor
+        [rootContainer, waveformContainer].forEach {$0.fillColor = systemColorScheme.backgroundColor}
+        btnClose.colorChanged(systemColorScheme.buttonColor)
+        lblCaption.textColor = systemColorScheme.captionTextColor
     }
 }

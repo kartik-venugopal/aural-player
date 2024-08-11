@@ -88,36 +88,36 @@ class WaveformViewController: NSViewController {
     ///
     private func repositionChannelLabels() {
         
-//        let verticalMargin = (waveformView.height / 4) - (lblLeftChannel.height / 2)
-//        
-//        lblLeftChannelTopConstraint.constant = verticalMargin
-//        lblRightChannelBottomConstraint.constant = -verticalMargin
-//        
-//        view.layoutSubtreeIfNeeded()
+        let verticalMargin = (waveformView.height / 4) - (lblLeftChannel.height / 2)
+        
+        lblLeftChannelTopConstraint.constant = verticalMargin
+        lblRightChannelBottomConstraint.constant = -verticalMargin
+        
+        view.layoutSubtreeIfNeeded()
     }
     
     private func updateChannelLabels() {
         
-//        if let track = playbackInfoDelegate.playingTrack,
-//           let audioFormat = track.playbackContext?.audioFormat {
-//            
-//            let isMono: Bool = audioFormat.channelCount < 2
-//            
-//            [lblLeftChannel, lblRightChannel].forEach {
-//                $0?.hideIf(isMono)
-//            }
-//            
-//            // Resize the view
-//            waveformViewLeadingConstraint.constant = isMono ? Self.waveformViewLeadingConstant_mono : Self.waveformViewLeadingConstant_stereo
-//            
-//        } else {
-//            
-//            // No playing track
-//            [lblLeftChannel, lblRightChannel].forEach {$0?.show()}
-//            waveformViewLeadingConstraint.constant = Self.waveformViewLeadingConstant_stereo
-//        }
-//        
-//        view.layoutSubtreeIfNeeded()
+        if let track = playbackInfoDelegate.playingTrack,
+           let audioFormat = track.playbackContext?.audioFormat {
+            
+            let isMono: Bool = audioFormat.channelCount < 2
+            
+            [lblLeftChannel, lblRightChannel].forEach {
+                $0?.hideIf(isMono)
+            }
+            
+            // Resize the view
+            waveformViewLeadingConstraint.constant = isMono ? Self.waveformViewLeadingConstant_mono : Self.waveformViewLeadingConstant_stereo
+            
+        } else {
+            
+            // No playing track
+            [lblLeftChannel, lblRightChannel].forEach {$0?.show()}
+            waveformViewLeadingConstraint.constant = Self.waveformViewLeadingConstant_stereo
+        }
+        
+        view.layoutSubtreeIfNeeded()
     }
     
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
