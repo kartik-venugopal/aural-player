@@ -34,7 +34,7 @@ extension WaveformView {
             
             if let lookup = Self.lookUpCache(forFile: audioFile, matchingImageSize: self.waveformSize) {
                 
-                self.setSamples(lookup.data.samples, forFile: audioFile)
+                self.setCachedSamples(lookup.data.samples, forFile: audioFile)
                 return
             }
             
