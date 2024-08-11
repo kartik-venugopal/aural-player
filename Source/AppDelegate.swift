@@ -33,17 +33,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        copyOverV3State()
     }
     
-    private func copyOverV3State() {
-        
-        let src = URL(fileURLWithPath: "/Users/kven/Music/aural/state.json")
-        let dest = URL(fileURLWithPath: "/Users/kven/Music/aural4/state.json")
-        
-        if dest.exists {
-            dest.rename(to: URL(fileURLWithPath: "/Users/kven/Music/aural4/muthu_\(Date().serializableStringAsHMS)_state.json"))
-        }
-        
-        try? FileManager.default.copyItem(at: src, to: dest)
-    }
+//    private func copyOverV3State() {
+//        
+//        let src = URL(fileURLWithPath: "/Users/kven/Music/aural/state.json")
+//        let dest = URL(fileURLWithPath: "/Users/kven/Music/aural4/state.json")
+//        
+//        if dest.exists {
+//            dest.rename(to: URL(fileURLWithPath: "/Users/kven/Music/aural4/muthu_\(Date().serializableStringAsHMS)_state.json"))
+//        }
+//        
+//        try? FileManager.default.copyItem(at: src, to: dest)
+//    }
     
     /// Make sure all logging is done to the app's log file
     private func configureLogging() {
@@ -71,8 +71,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             postLaunch()
         }
-        
-//        playQueueDelegate.loadTracks(from: [URL(fileURLWithPath: "/Users/kven/Music/Vampire Weekend - Contra CDRip 2010 [Cov+CD][Bubanee]public edition/Contra.cue")])
         
 //        SearchWindowController.shared.showWindow(self)
         

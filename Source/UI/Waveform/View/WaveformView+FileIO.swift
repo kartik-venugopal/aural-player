@@ -21,7 +21,7 @@ extension WaveformView {
             
             self._audioFile = newFile
             
-            resetState()
+            resetState(resetProgress: true)
             analyzeAudioFile()
         }
     }

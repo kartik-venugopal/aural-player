@@ -104,13 +104,17 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         CGFloat(samples[0].count) / bounds.width
     }
     
-    func resetState() {
+    func resetState(resetProgress: Bool) {
         
         renderOp?.cancel()
         renderOp = nil
         
         samples = [[],[]]
-        progress = 0
+        
+        if resetProgress {
+            progress = 0
+        }
+            
         baseLayerComplete = false
         redraw()
     }
@@ -175,7 +179,7 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         
         super.viewDidEndLiveResize()
         
-        resetState()
+        resetState(resetProgress: false)
         analyzeAudioFile()
     }
     
