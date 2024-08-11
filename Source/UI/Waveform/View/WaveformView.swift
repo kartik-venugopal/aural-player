@@ -100,6 +100,18 @@ class WaveformView: NSView, SampleReceiver, Destroyable {
         }
     }
     
+    func setCachedSamples(_ samples: [[Float]], forFile audioFile: URL) {
+        
+        // IMPORTANT - This check prevents cancelled (rogue) operations from corrupting the samples.
+        guard audioFile == self.audioFile else {return}
+        
+        self.samples = samples
+        
+        DispatchQueue.main.async {
+            self.redraw()
+        }
+    }
+    
     var samplesProgress: CGFloat {
         CGFloat(samples[0].count) / bounds.width
     }
