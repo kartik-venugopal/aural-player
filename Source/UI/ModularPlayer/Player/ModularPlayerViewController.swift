@@ -51,7 +51,6 @@ class ModularPlayerViewController: PlayerViewController {
         
         super.viewDidLoad()
         startTrackingView(options: [.activeAlways, .mouseEnteredAndExited])
-        
     }
     
     override func updateTrackTextView(for track: Track?, playingChapterTitle: String? = nil) {

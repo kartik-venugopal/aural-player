@@ -96,7 +96,7 @@
             <rect key="contentRect" x="225" y="78" width="480" height="200"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="480" height="200"/>
-            <value key="maxSize" type="size" width="2000" height="200"/>
+            <value key="maxSize" type="size" width="10000" height="200"/>
             <view key="contentView" id="BTt-EI-fiH">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

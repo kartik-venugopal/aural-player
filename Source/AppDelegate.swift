@@ -63,14 +63,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Force eager loading of persistent state
         _ = appPersistentState
         
-        initializeMetadataComponents()
-        
         if appSetup.setupRequired {
             performAppSetup()
             
         } else {
             postLaunch()
         }
+        
+        initializeMetadataComponents()
         
 //        SearchWindowController.shared.showWindow(self)
         
