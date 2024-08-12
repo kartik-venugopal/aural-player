@@ -261,6 +261,8 @@ I am a one-man team with a full-time job and a full-time life, developing this a
 
 ## Contributor attributions
 
+App user [LesterJitsi](https://github.com/LesterJitsi) has provided great feedback and suggsted numerous improvements over the past couple of years.
+
 App user [VisualisationExpo](https://github.com/VisualisationExpo) designed the new app icon (as of v3.22.0).
 
 App user [yougotwill](https://github.com/yougotwill) made numerous suggestions for improvements and features, provided a lot of valuable feedback, and designed the Poolside.fm theme.
