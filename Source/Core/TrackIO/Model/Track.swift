@@ -147,7 +147,7 @@ class Track: Hashable, PlaylistItem, PlayableItem {
             self.year = Int(cueSheetDate)
         }
         
-        self.composer = metadata.composer
+        self.composer = metadata.composer ?? cueSheetMetadata?.composer
         self.conductor = metadata.conductor
         self.lyricist = metadata.lyricist
         

@@ -15,7 +15,7 @@ import Foundation
 class CueSheetIO: PlaylistIOProtocol {
     
     static func savePlaylist(tracks: [Track], toFile file: URL) {
-        
+        // Exporting as .cue not supported
     }
     
     static func loadPlaylist(fromFile playlistFile: URL) -> FileSystemPlaylist? {
