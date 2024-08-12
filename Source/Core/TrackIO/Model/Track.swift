@@ -130,13 +130,13 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         
         self.title = metadata.title ?? cueSheetMetadata?.title
         
-        self.theArtist = metadata.artist ?? cueSheetMetadata?.performer
-        self.albumArtist = metadata.albumArtist ?? cueSheetMetadata?.albumPerformer
+        self.theArtist = metadata.artist ?? cueSheetMetadata?.artist
+        self.albumArtist = metadata.albumArtist ?? cueSheetMetadata?.albumArtist
         self.performer = metadata.performer
         
         // If Cue sheet performer has not been used, and it's available, use it
-        if metadata.artist != nil, self.performer == nil, cueSheetMetadata?.performer != metadata.artist {
-            self.performer = cueSheetMetadata?.performer
+        if metadata.artist != nil, self.performer == nil, cueSheetMetadata?.artist != metadata.artist {
+            self.performer = cueSheetMetadata?.artist
         }
         
         self.album = metadata.album ?? cueSheetMetadata?.album
@@ -174,11 +174,7 @@ class Track: Hashable, PlaylistItem, PlayableItem {
             self.chapters = cueSheetChapters
         }
         
-        if let lastChapter = self.chapters.last, lastChapter.duration == 0 {
-            
-            // Correct the end time of the last chapter, if necessary.
-            lastChapter.correctEndTimeAndDuration(endTime: metadata.duration)
-        }
+        correctChapterTimes()
         
         self.art = metadata.art
         
@@ -194,6 +190,51 @@ class Track: Hashable, PlaylistItem, PlayableItem {
             let key = hasExistingCommentField ? "Additional Comment" : "Comment"
             
             auxiliaryMetadata[key] = MetadataEntry(format: .other, key: key, value: cueSheetComment)
+        }
+        
+        for (key, value) in cueSheetMetadata?.auxiliaryMetadata ?? [:] {
+            
+            let hasExistingKey = auxiliaryMetadata.contains(where: {$1.key == key})
+            let theKey = hasExistingKey ? "(Cue sheet) \(key)" : key
+            
+            auxiliaryMetadata[theKey] = MetadataEntry(format: .other, key: theKey, value: value)
+        }
+    }
+    
+    private func correctChapterTimes() {
+        
+        if let lastChapter = self.chapters.last, lastChapter.endTime == 0 || lastChapter.duration == 0 {
+            
+            // Correct the end time of the last chapter, if necessary.
+            lastChapter.correctEndTimeAndDuration(endTime: self.duration)
+        }
+        
+        guard chapters.count > 1 else {return}
+        
+        var previousChapter = chapters[0]
+        
+        for index in 1..<chapters.count {
+            
+            let chapter = chapters[index]
+            
+            if chapter.startTime == 0 {
+                chapter.correctStartTimeAndDuration(startTime: previousChapter.endTime)
+            }
+            
+            previousChapter = chapter
+        }
+        
+        var nextChapter = chapters[1]
+        
+        for index in 0..<(chapters.lastIndex) {
+            
+            nextChapter = chapters[index + 1]
+            
+            let chapter = chapters[index]
+            
+            if chapter.endTime == 0 {
+                chapter.correctEndTimeAndDuration(endTime: nextChapter.startTime)
+            }
         }
     }
     

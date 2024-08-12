@@ -1,5 +1,5 @@
 //
-//  ffmpeg.h
+//  bridge.h
 //  Aural
 //
 //  Copyright © 2024 Kartik Venugopal. All rights reserved.
@@ -14,6 +14,8 @@
 #import <libavutil/channel_layout.h>
 #import <libavutil/opt.h>
 #import <libswresample/swresample.h>
+
+#import "libcue.h"
 
 /**
  * The error code corresponding to end of file (EOF). Defined in <libavutil/error.h>.

@@ -525,6 +525,8 @@
 		3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontScheme.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */; };
 		3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */; };
+		3E2EFC5E2C6AD031000E238D /* build-libcue.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E2EFC572C6AD031000E238D /* build-libcue.sh */; };
+		3E2EFC5F2C6AD031000E238D /* libcue-2.3.0.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3E2EFC582C6AD031000E238D /* libcue-2.3.0.zip */; };
 		3E2FA5ED2B72260200DD6A20 /* CircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2FA5EC2B72260200DD6A20 /* CircularSlider.swift */; };
 		3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */; };
 		3E308D1D268A356300B0FD60 /* UpdatesDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */; };
@@ -784,6 +786,15 @@
 		3E7204C32B85404F00E40D87 /* ImageTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7204C12B85404F00E40D87 /* ImageTabButtonCell.swift */; };
 		3E7204C42B85404F00E40D87 /* TrackListViewsButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7204C22B85404F00E40D87 /* TrackListViewsButtonCell.swift */; };
 		3E7204C62B854BFB00E40D87 /* UnifiedPlayerViewController+AutoHide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7204C52B854BFB00E40D87 /* UnifiedPlayerViewController+AutoHide.swift */; };
+		3E74578A2C6A78A90086C888 /* libcue.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7457882C6A789A0086C888 /* libcue.xcframework */; };
+		3E74578B2C6A78A90086C888 /* libcue.xcframework in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3E7457882C6A789A0086C888 /* libcue.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3E7457932C6A795D0086C888 /* LibCueCDText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E74578D2C6A795D0086C888 /* LibCueCDText.swift */; };
+		3E7457942C6A795D0086C888 /* LibCuePTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E74578E2C6A795D0086C888 /* LibCuePTI.swift */; };
+		3E7457952C6A795D0086C888 /* LibCueREM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E74578F2C6A795D0086C888 /* LibCueREM.swift */; };
+		3E7457962C6A795D0086C888 /* LibCueCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7457902C6A795D0086C888 /* LibCueCD.swift */; };
+		3E7457972C6A795D0086C888 /* LibCueTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7457912C6A795D0086C888 /* LibCueTrack.swift */; };
+		3E74579A2C6A7D220086C888 /* LibCueErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7457992C6A7D220086C888 /* LibCueErrors.swift */; };
+		3E74579C2C6A8CB60086C888 /* LibCueMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E74579B2C6A8CB60086C888 /* LibCueMapper.swift */; };
 		3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E752743267F32A60092BB89 /* RoundedImageView.swift */; };
 		3E758B06281DDA5900BBE872 /* EffectsWindowRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E758B05281DDA5900BBE872 /* EffectsWindowRootView.swift */; };
 		3E7638AB2857D88B00461F4D /* UnifiedPlayerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7638AA2857D88B00461F4D /* UnifiedPlayerWindow.xib */; };
@@ -1013,6 +1024,7 @@
 				3E86B50F2C234B430097746A /* libavutil.xcframework in Embed Libraries */,
 				3E86B5112C234B440097746A /* libswresample.xcframework in Embed Libraries */,
 				3E86B50D2C234B420097746A /* libavformat.xcframework in Embed Libraries */,
+				3E74578B2C6A78A90086C888 /* libcue.xcframework in Embed Libraries */,
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1132,7 +1144,7 @@
 		3E0216382C23490E00865AC2 /* FFmpegChapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegChapter.swift; sourceTree = "<group>"; };
 		3E0216392C23490E00865AC2 /* FFmpegResamplingContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegResamplingContext.swift; sourceTree = "<group>"; };
 		3E02163A2C23490E00865AC2 /* FFmpegSampleFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegSampleFormat.swift; sourceTree = "<group>"; };
-		3E02163D2C23490E00865AC2 /* ffmpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffmpeg.h; sourceTree = "<group>"; };
+		3E02163D2C23490E00865AC2 /* bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
 		3E02163F2C23490E00865AC2 /* AlbumGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumGroup.swift; sourceTree = "<group>"; };
 		3E0216402C23490E00865AC2 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		3E0216412C23490E00865AC2 /* Grouping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grouping.swift; sourceTree = "<group>"; };
@@ -1578,6 +1590,8 @@
 		3E2ED4A425DBAD8400732E79 /* FontScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontScheme.swift; sourceTree = "<group>"; };
 		3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreset.swift; sourceTree = "<group>"; };
 		3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesManager.swift; sourceTree = "<group>"; };
+		3E2EFC572C6AD031000E238D /* build-libcue.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-libcue.sh"; sourceTree = "<group>"; };
+		3E2EFC582C6AD031000E238D /* libcue-2.3.0.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "libcue-2.3.0.zip"; sourceTree = "<group>"; };
 		3E2FA5EC2B72260200DD6A20 /* CircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularSlider.swift; sourceTree = "<group>"; };
 		3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatesDialog.xib; sourceTree = "<group>"; };
 		3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesDialogController.swift; sourceTree = "<group>"; };
@@ -1862,6 +1876,14 @@
 		3E7204C12B85404F00E40D87 /* ImageTabButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTabButtonCell.swift; sourceTree = "<group>"; };
 		3E7204C22B85404F00E40D87 /* TrackListViewsButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackListViewsButtonCell.swift; sourceTree = "<group>"; };
 		3E7204C52B854BFB00E40D87 /* UnifiedPlayerViewController+AutoHide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifiedPlayerViewController+AutoHide.swift"; sourceTree = "<group>"; };
+		3E7457882C6A789A0086C888 /* libcue.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libcue.xcframework; sourceTree = "<group>"; };
+		3E74578D2C6A795D0086C888 /* LibCueCDText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibCueCDText.swift; sourceTree = "<group>"; };
+		3E74578E2C6A795D0086C888 /* LibCuePTI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibCuePTI.swift; sourceTree = "<group>"; };
+		3E74578F2C6A795D0086C888 /* LibCueREM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibCueREM.swift; sourceTree = "<group>"; };
+		3E7457902C6A795D0086C888 /* LibCueCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibCueCD.swift; sourceTree = "<group>"; };
+		3E7457912C6A795D0086C888 /* LibCueTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibCueTrack.swift; sourceTree = "<group>"; };
+		3E7457992C6A7D220086C888 /* LibCueErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibCueErrors.swift; sourceTree = "<group>"; };
+		3E74579B2C6A8CB60086C888 /* LibCueMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibCueMapper.swift; sourceTree = "<group>"; };
 		3E752743267F32A60092BB89 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		3E758B05281DDA5900BBE872 /* EffectsWindowRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsWindowRootView.swift; sourceTree = "<group>"; };
 		3E7638AA2857D88B00461F4D /* UnifiedPlayerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnifiedPlayerWindow.xib; sourceTree = "<group>"; };
@@ -2124,6 +2146,7 @@
 				3EF30D0B28DC6FE900CB09EA /* Collections in Frameworks */,
 				3EF30D0F28DC6FE900CB09EA /* OrderedCollections in Frameworks */,
 				3E86B50E2C234B430097746A /* libavutil.xcframework in Frameworks */,
+				3E74578A2C6A78A90086C888 /* libcue.xcframework in Frameworks */,
 				3EF30D0D28DC6FE900CB09EA /* DequeModule in Frameworks */,
 				3E86B5102C234B440097746A /* libswresample.xcframework in Frameworks */,
 			);
@@ -2400,7 +2423,6 @@
 		3E02163E2C23490E00865AC2 /* FFmpeg */ = {
 			isa = PBXGroup;
 			children = (
-				3E02163D2C23490E00865AC2 /* ffmpeg.h */,
 				3E0216292C23490E00865AC2 /* Utils */,
 				3E02163B2C23490E00865AC2 /* Wrappers */,
 				3EF020452C597E57005A841B /* Support */,
@@ -2459,6 +2481,7 @@
 				3E0216532C23490E00865AC2 /* Library+Build.swift */,
 				3E0216542C23490E00865AC2 /* LibraryDelegate.swift */,
 				3E0216552C23490E00865AC2 /* LibraryProtocols.swift */,
+				3E0216432C23490E00865AC2 /* Grouping */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -3231,12 +3254,13 @@
 		3E0217D52C23490E00865AC2 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3E02163D2C23490E00865AC2 /* bridge.h */,
 				3E0216092C23490E00865AC2 /* AudioGraph */,
 				3E02160E2C23490E00865AC2 /* Bookmarks */,
 				3E0216132C23490E00865AC2 /* Constants */,
 				3E02161D2C23490E00865AC2 /* Favorites */,
 				3E02163E2C23490E00865AC2 /* FFmpeg */,
-				3E0216432C23490E00865AC2 /* Grouping */,
+				3E74578C2C6A79140086C888 /* LibCue */,
 				3E02164D2C23490E00865AC2 /* History */,
 				3E0216512C23490E00865AC2 /* LastFM */,
 				3E0216562C23490E00865AC2 /* Library */,
@@ -3263,6 +3287,7 @@
 				3E0219A42C23497200865AC2 /* libavformat.xcframework */,
 				3E0219A52C23497200865AC2 /* libavutil.xcframework */,
 				3E0219A62C23497200865AC2 /* libswresample.xcframework */,
+				3E7457882C6A789A0086C888 /* libcue.xcframework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -3346,6 +3371,7 @@
 			children = (
 				3E0219D82C23498700865AC2 /* AppBundle */,
 				3E0219E22C23498700865AC2 /* FFmpegBuild */,
+				3E2EFC5C2C6AD031000E238D /* LibCueBuild */,
 				3E0219E82C23498700865AC2 /* SourceCode */,
 			);
 			path = ToolsAndScripts;
@@ -3592,6 +3618,15 @@
 				3E63620526850C84006F5A2A /* Utils */,
 			);
 			path = FontSchemes;
+			sourceTree = "<group>";
+		};
+		3E2EFC5C2C6AD031000E238D /* LibCueBuild */ = {
+			isa = PBXGroup;
+			children = (
+				3E2EFC572C6AD031000E238D /* build-libcue.sh */,
+				3E2EFC582C6AD031000E238D /* libcue-2.3.0.zip */,
+			);
+			path = LibCueBuild;
 			sourceTree = "<group>";
 		};
 		3E308D19268A333D00B0FD60 /* UpdatesDialog */ = {
@@ -4651,6 +4686,36 @@
 			path = Playlist;
 			sourceTree = "<group>";
 		};
+		3E74578C2C6A79140086C888 /* LibCue */ = {
+			isa = PBXGroup;
+			children = (
+				3E74579B2C6A8CB60086C888 /* LibCueMapper.swift */,
+				3E7457922C6A795D0086C888 /* Wrappers */,
+				3E7457982C6A7D130086C888 /* Support */,
+			);
+			path = LibCue;
+			sourceTree = "<group>";
+		};
+		3E7457922C6A795D0086C888 /* Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				3E7457902C6A795D0086C888 /* LibCueCD.swift */,
+				3E7457912C6A795D0086C888 /* LibCueTrack.swift */,
+				3E74578D2C6A795D0086C888 /* LibCueCDText.swift */,
+				3E74578E2C6A795D0086C888 /* LibCuePTI.swift */,
+				3E74578F2C6A795D0086C888 /* LibCueREM.swift */,
+			);
+			path = Wrappers;
+			sourceTree = "<group>";
+		};
+		3E7457982C6A7D130086C888 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3E7457992C6A7D220086C888 /* LibCueErrors.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		3E7638A92857D7F800461F4D /* UnifiedPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -5421,6 +5486,7 @@
 				3E6C12C825CEBE6700BF0D07 /* ReverbUnit.xib in Resources */,
 				3E0219C22C23497D00865AC2 /* AnironRegular.ttf in Resources */,
 				3E86B5072C234A420097746A /* buildingLibrary.gif in Resources */,
+				3E2EFC5E2C6AD031000E238D /* build-libcue.sh in Resources */,
 				3E045D06281322450069DEFE /* TrackInfoWindow.xib in Resources */,
 				3E0219C32C23497D00865AC2 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3ED8E7502814A312002E313F /* GeneralColorScheme.xib in Resources */,
@@ -5485,6 +5551,7 @@
 				3E6C126825CEBE0600BF0D07 /* PitchShiftPresetsManager.xib in Resources */,
 				3E6C125925CEBE0600BF0D07 /* BookmarksManager.xib in Resources */,
 				3E6C121F25CEBDE600BF0D07 /* ControlsPreferences.xib in Resources */,
+				3E2EFC5F2C6AD031000E238D /* libcue-2.3.0.zip in Resources */,
 				3E0219CE2C23497D00865AC2 /* Play-Regular.ttf in Resources */,
 				3EBFF5AA2B52C0F70056D5B4 /* CompactPlayerWindow.xib in Resources */,
 				3E31B6722B97C20100AA0067 /* TrackInfo.xib in Resources */,
@@ -5739,6 +5806,7 @@
 				3E5F943625E571A6002DEF80 /* DiscoBall.swift in Sources */,
 				3E6C12B225CEBE5800BF0D07 /* DockMenuController.swift in Sources */,
 				3E3633E02685FB10006A88ED /* EffectsPresetsManagerGenericViewController.swift in Sources */,
+				3E74579A2C6A7D220086C888 /* LibCueErrors.swift in Sources */,
 				3E02184F2C23490E00865AC2 /* HistoryItem.swift in Sources */,
 				3E0218C82C23490E00865AC2 /* AVFScheduler.swift in Sources */,
 				3E0218142C23490E00865AC2 /* TimeStretchPresets.swift in Sources */,
@@ -5746,6 +5814,7 @@
 				3E0218892C23490E00865AC2 /* EQUnitPersistentState.swift in Sources */,
 				3E0219462C23490E00865AC2 /* MusicBrainzRESTClient.swift in Sources */,
 				3E02190F2C23490E00865AC2 /* GesturesControlsPreferences.swift in Sources */,
+				3E7457962C6A795D0086C888 /* LibCueCD.swift in Sources */,
 				3E0218B92C23490E00865AC2 /* StartPlaybackChain.swift in Sources */,
 				3EAFB60F267FF35900F0DC96 /* EffectsUnitSliderCell.swift in Sources */,
 				3E2EA6EF2BD330AB001ABFEE /* CompactPlayerTrackInfoViewController.swift in Sources */,
@@ -5839,6 +5908,7 @@
 				3E6C127025CEBE0600BF0D07 /* FilterPresetBandsViewDelegate.swift in Sources */,
 				3E6C12E625CEBE8100BF0D07 /* FilterBandViewController.swift in Sources */,
 				3E0219322C23490E00865AC2 /* AudioInfo.swift in Sources */,
+				3E7457952C6A795D0086C888 /* LibCueREM.swift in Sources */,
 				3E6C12DC25CEBE8100BF0D07 /* FilterChart.swift in Sources */,
 				3E02189C2C23490E00865AC2 /* NSPointPersistentState.swift in Sources */,
 				3E6C125C25CEBE0600BF0D07 /* FilterPresetsManagerViewController.swift in Sources */,
@@ -6208,6 +6278,7 @@
 				3E5F943725E571A6002DEF80 /* SpectrogramBar.swift in Sources */,
 				3E5F942D25E57190002DEF80 /* SpectrogramFFTData.swift in Sources */,
 				3E6C12A325CEBE2700BF0D07 /* StringInputPopoverViewController.swift in Sources */,
+				3E74579C2C6A8CB60086C888 /* LibCueMapper.swift in Sources */,
 				3E02192D2C23490E00865AC2 /* VorbisCommentParser.swift in Sources */,
 				3E6C12AF25CEBE2700BF0D07 /* StringInputReceiver.swift in Sources */,
 				3E0218A62C23490E00865AC2 /* WidgetPlayerUIPersistentState.swift in Sources */,
@@ -6292,8 +6363,10 @@
 				3E0217D62C23490E00865AC2 /* FileWatcher.swift in Sources */,
 				3E0397E82B83EB73004454DB /* AppDelegate+Init.swift in Sources */,
 				3E7204C62B854BFB00E40D87 /* UnifiedPlayerViewController+AutoHide.swift in Sources */,
+				3E7457932C6A795D0086C888 /* LibCueCDText.swift in Sources */,
 				3E0219862C23490E00865AC2 /* LanguageExtensions.swift in Sources */,
 				3E0218BF2C23490E00865AC2 /* TrackPlaybackCompletedChain.swift in Sources */,
+				3E7457942C6A795D0086C888 /* LibCuePTI.swift in Sources */,
 				3E6C12A825CEBE2700BF0D07 /* TriStateLabel.swift in Sources */,
 				3E0219992C23490E00865AC2 /* KVOTokens.swift in Sources */,
 				3E0218FC2C23490E00865AC2 /* PlayQueueDelegate.swift in Sources */,
@@ -6312,6 +6385,7 @@
 				3E0219622C23490E00865AC2 /* TrackListSort.swift in Sources */,
 				3E7181C32B6C5A350006F66B /* FontScheme+Presets.swift in Sources */,
 				3E0218292C23490E00865AC2 /* FavoritePlaylistFile.swift in Sources */,
+				3E7457972C6A795D0086C888 /* LibCueTrack.swift in Sources */,
 				3E02196E2C23490E00865AC2 /* UserInputMode.swift in Sources */,
 				3EB1A8112826D14F00866012 /* ThemablePopupButton.swift in Sources */,
 				3E0217EF2C23490E00865AC2 /* MasterUnitDelegate.swift in Sources */,
@@ -6539,12 +6613,15 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../Frameworks",
+					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = "4.0.0-preview5";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/FFmpeg/ffmpeg.h;
+				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -6573,12 +6650,15 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../Frameworks",
+					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = "4.0.0-preview5";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/FFmpeg/ffmpeg.h;
+				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

@@ -18,7 +18,7 @@ class Chapter: Codable {
     var title: String
     
     // Time bounds of this chapter
-    let startTime: Double
+    var startTime: Double
     var endTime: Double
     var duration: Double
     
@@ -31,6 +31,16 @@ class Chapter: Codable {
         
         // Use duration if provided. Otherwise, compute it from the start and end times.
         self.duration = duration ?? max(endTime - startTime, 0)
+    }
+    
+    init(title: String, startTime: Double, duration: Double?) {
+        
+        self.title = title
+        
+        self.startTime = startTime
+        self.duration = duration ?? 0
+        
+        self.endTime = startTime + self.duration
     }
     
     convenience init?(persistentState: ChapterPersistentState, index: Int) {
@@ -56,6 +66,12 @@ class Chapter: Codable {
     func correctEndTimeAndDuration(endTime: Double) {
         
         self.endTime = endTime
+        self.duration = max(endTime - startTime, 0)
+    }
+    
+    func correctStartTimeAndDuration(startTime: Double) {
+        
+        self.startTime = startTime
         self.duration = max(endTime - startTime, 0)
     }
    

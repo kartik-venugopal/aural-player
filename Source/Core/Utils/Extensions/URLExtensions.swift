@@ -188,6 +188,10 @@ extension URL {
         }
     }
     
+    func findFileWithoutExtensionNamed(_ fileName: String) -> URL? {
+        children?.first(where: {$0.nameWithoutExtension == fileName})
+    }
+    
     // Deletes a file / directory recursively (i.e. all children will be deleted, if it is a directory).
     func delete(recursive: Bool = true) {
         

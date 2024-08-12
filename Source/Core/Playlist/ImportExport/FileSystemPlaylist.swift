@@ -34,7 +34,7 @@ class CueSheetMetadata: Codable {
     // Overall album info
     
     var album: String?
-    var albumPerformer: String?
+    var albumArtist: String?
     var genre: String?
     var date: String?
     var discID: String?
@@ -42,6 +42,32 @@ class CueSheetMetadata: Codable {
 
     // Track-specific info
     
-    var performer: String?
     var title: String?
+    var artist: String?
+    var composer: String?
+    
+    // Auxiliary info
+    
+    var songwriter: String?
+    var arranger: String?
+    var message: String?
+    
+    lazy var auxiliaryMetadata: [String: String] = {
+        
+        var metadata: [String: String] = [:]
+        
+        if let songwriter = self.songwriter {
+            metadata["Songwriter"] = songwriter
+        }
+        
+        if let arraner = self.arranger {
+            metadata["Arranger"] = arranger
+        }
+        
+        if let message = self.message {
+            metadata["Message"] = message
+        }
+        
+        return metadata
+    }()
 }

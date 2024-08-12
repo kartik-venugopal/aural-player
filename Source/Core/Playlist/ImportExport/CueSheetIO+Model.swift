@@ -10,31 +10,31 @@
 
 import Foundation
 
-class CueSheet {
-    
-    var files: [CueSheetFile] = []
-    
-    var album: String?
-    var albumPerformer: String?
-    var genre: String?
-    var date: String?
-    var discID: String?
-    var comment: String?
-}
-
-class CueSheetFile {
-    
-    let filename: String
-    var tracks: [CueSheetTrack] = []
-    
-    init(filename: String) {
-        self.filename = filename
-    }
-}
-
-struct CueSheetTrack {
-    
-    let title: String?
-    let performer: String?
-    let startTime: Double?
-}
+//class CueSheet {
+//    
+//    var files: [CueSheetFile] = []
+//    
+//    var album: String?
+//    var albumPerformer: String?
+//    var genre: String?
+//    var date: String?
+//    var discID: String?
+//    var comment: String?
+//}
+//
+//class CueSheetFile {
+//    
+//    let filename: String
+//    var tracks: [CueSheetTrack] = []
+//    
+//    init(filename: String) {
+//        self.filename = filename
+//    }
+//}
+//
+//struct CueSheetTrack {
+//    
+//    let title: String?
+//    let performer: String?
+//    let startTime: Double?
+//}
