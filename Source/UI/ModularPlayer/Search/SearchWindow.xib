@@ -52,9 +52,6 @@
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                     <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="snapLevel">
-                    <integer key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <accessibility identifier="search"/>
             <point key="canvasLocation" x="217" y="230.5"/>

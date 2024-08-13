@@ -525,8 +525,6 @@
 		3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontScheme.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */; };
 		3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */; };
-		3E2EFC5E2C6AD031000E238D /* build-libcue.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E2EFC572C6AD031000E238D /* build-libcue.sh */; };
-		3E2EFC5F2C6AD031000E238D /* libcue-2.3.0.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3E2EFC582C6AD031000E238D /* libcue-2.3.0.zip */; };
 		3E2FA5ED2B72260200DD6A20 /* CircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2FA5EC2B72260200DD6A20 /* CircularSlider.swift */; };
 		3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */; };
 		3E308D1D268A356300B0FD60 /* UpdatesDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */; };
@@ -4178,9 +4176,9 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0F7525CEB98600BF0D07 /* EffectsPresetsManager.xib */,
+				3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */,
 				3E3633DF2685FB10006A88ED /* EffectsPresetsManagerGenericViewController.swift */,
 				3E6C0F8725CEB98600BF0D07 /* EffectsPresetsManagerViewController.swift */,
-				3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */,
 				3E6C0F7D25CEB98600BF0D07 /* Master */,
 				3E6C0F7225CEB98600BF0D07 /* EQ */,
 				3E6C0F6F25CEB98600BF0D07 /* Pitch */,
@@ -5486,7 +5484,6 @@
 				3E6C12C825CEBE6700BF0D07 /* ReverbUnit.xib in Resources */,
 				3E0219C22C23497D00865AC2 /* AnironRegular.ttf in Resources */,
 				3E86B5072C234A420097746A /* buildingLibrary.gif in Resources */,
-				3E2EFC5E2C6AD031000E238D /* build-libcue.sh in Resources */,
 				3E045D06281322450069DEFE /* TrackInfoWindow.xib in Resources */,
 				3E0219C32C23497D00865AC2 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3ED8E7502814A312002E313F /* GeneralColorScheme.xib in Resources */,
@@ -5551,7 +5548,6 @@
 				3E6C126825CEBE0600BF0D07 /* PitchShiftPresetsManager.xib in Resources */,
 				3E6C125925CEBE0600BF0D07 /* BookmarksManager.xib in Resources */,
 				3E6C121F25CEBDE600BF0D07 /* ControlsPreferences.xib in Resources */,
-				3E2EFC5F2C6AD031000E238D /* libcue-2.3.0.zip in Resources */,
 				3E0219CE2C23497D00865AC2 /* Play-Regular.ttf in Resources */,
 				3EBFF5AA2B52C0F70056D5B4 /* CompactPlayerWindow.xib in Resources */,
 				3E31B6722B97C20100AA0067 /* TrackInfo.xib in Resources */,
@@ -6602,7 +6598,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview6";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview7";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6618,7 +6614,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview6";
+				MARKETING_VERSION = "4.0.0-preview7";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;
@@ -6639,7 +6635,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview6";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview7";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6655,7 +6651,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview6";
+				MARKETING_VERSION = "4.0.0-preview7";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;

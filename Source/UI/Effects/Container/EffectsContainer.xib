@@ -108,7 +108,6 @@
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="A4C-Nd-64T" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="system"/>
-                            <imageReference key="image" image="powerplug.fill" catalog="system" symbolScale="large"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="imgWidth">
                                     <integer key="value" value="15"/>
@@ -285,7 +284,6 @@
         <image name="FilterTab" width="26" height="26"/>
         <image name="ReverbTab" width="25" height="25"/>
         <image name="hifispeaker.fill" catalog="system" width="13" height="16"/>
-        <image name="powerplug.fill" catalog="system" width="25" height="17"/>
         <image name="slider.vertical.3" catalog="system" width="19" height="18"/>
         <image name="timer" catalog="system" width="20" height="20"/>
         <image name="waveform.path.ecg" catalog="system" width="16" height="16"/>

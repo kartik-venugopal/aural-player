@@ -10,12 +10,15 @@
 
 import AppKit
 
-class FuseBoxPopupMenuCell: NSPopUpButtonCell {
+class FuseBoxPopupMenuCell: NSButtonCell {
     
     var cellInsetY: CGFloat {1}
     var rectRadius: CGFloat {2}
-    var arrowXMargin: CGFloat {10}
+    var arrowXMargin: CGFloat {20}
     var arrowYMargin: CGFloat {7}
+    
+    var imageWidth: CGFloat {48}
+    var imageHeight: CGFloat {40}
     
     var tintColor: NSColor = systemColorScheme.buttonColor {
         
@@ -24,11 +27,11 @@ class FuseBoxPopupMenuCell: NSPopUpButtonCell {
         }
     }
     
-    var arrowWidth: CGFloat {5}
-    var arrowHeight: CGFloat {7}
+    var arrowWidth: CGFloat {7}
+    var arrowHeight: CGFloat {10}
     var arrowLineWidth: CGFloat {2}
     
-    var titleFont: NSFont {systemFontScheme.normalFont}
+    var titleFont: NSFont {systemFontScheme.prominentFont}
     
     override func awakeFromNib() {
         
@@ -39,22 +42,25 @@ class FuseBoxPopupMenuCell: NSPopUpButtonCell {
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         
         title.string.drawCentered(in: withFrame,
-                                  withFont: titleFont, andColor: tintColor, yOffset: 1)
+                                  withFont: titleFont, andColor: tintColor, xOffset: 12, yOffset: 1)
         
         return withFrame
     }
     
-    override func drawImage(withFrame cellFrame: NSRect, in controlView: NSView) {
-        image?.tintedWithColor(tintColor).draw(in: NSMakeRect(10, 3, 18, 18))
+    override func drawImage(_ image: NSImage, withFrame frame: NSRect, in controlView: NSView) {
+        
+        let btnFrame = controlView.frame
+        let y = (btnFrame.height - imageHeight) / 2
+        
+        image.tintedWithColor(tintColor).draw(in: NSMakeRect(20, y, imageWidth, imageHeight))
     }
     
-    override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
+    override func drawBezel(withFrame frame: NSRect, in controlView: NSView) {
         
-        let drawRect = cellFrame.insetBy(dx: 0, dy: -5)
-        NSBezierPath.strokeRoundedRect(drawRect.insetBy(dx: 0.5, dy: 0.5), radius: rectRadius, withColor: tintColor)
+        NSBezierPath.strokeRoundedRect(frame.insetBy(dx: 0.5, dy: 0.5), radius: rectRadius, withColor: tintColor)
         
         // Draw arrow
-        let x = drawRect.maxX - arrowXMargin - arrowWidth, y = drawRect.maxY - ((drawRect.height - arrowHeight) / 2) + 1
+        let x = frame.maxX - arrowXMargin - arrowWidth, y = frame.maxY - ((frame.height - arrowHeight) / 2) + 1
         GraphicsUtils.drawArrow(tintColor, origin: NSMakePoint(x, y), dx: arrowWidth, dy: arrowHeight, lineWidth: arrowLineWidth)
     }
     
@@ -62,10 +68,14 @@ class FuseBoxPopupMenuCell: NSPopUpButtonCell {
 }
 
 extension FuseBoxPopupMenuCell: FXUnitStateObserver {
+    
+    func redraw() {
+        controlView?.redraw()
+    }
 
     func unitStateChanged(to newState: EffectsUnitState) {
         
         tintColor = systemColorScheme.colorForEffectsUnitState(newState)
-        (controlView as? NSPopUpButton)?.contentTintColor = tintColor
+        (controlView as? NSButton)?.contentTintColor = tintColor
     }
 }

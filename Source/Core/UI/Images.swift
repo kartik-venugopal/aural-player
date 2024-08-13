@@ -19,6 +19,10 @@ extension NSImage {
         self.init(systemSymbolName: systemSymbolName, accessibilityDescription: nil)!
     }
     
+    static func image(fromSystemSymbolNamed systemSymbolName: String, fallingBackToSymbolNamed fallbackSymbolName: String) -> NSImage {
+        .init(systemSymbolName: systemSymbolName, accessibilityDescription: nil) ?? .init(systemSymbolName: fallbackSymbolName, accessibilityDescription: nil)!
+    }
+    
     static let imgPlayQueueTableView: NSImage = NSImage(systemSymbolName: "list.dash")
     static let imgPlayQueueExpandedView: NSImage = NSImage(systemSymbolName: "text.below.photo.rtl")
     
@@ -77,6 +81,9 @@ extension NSImage {
     
     static let imgGreenCheck: NSImage = NSImage(named: "GreenCheck")!
     
+    static let imgScrollToTop: NSImage = .image(fromSystemSymbolNamed: "arrow.up.to.line.square", fallingBackToSymbolNamed: "arrow.up.square")
+    static let imgScrollToBottom: NSImage = .image(fromSystemSymbolNamed: "arrow.down.to.line.square", fallingBackToSymbolNamed: "arrow.down.square")
+    
     // --------------- Device type icons -------------------
     
     static let imgDeviceType_builtIn: NSImage = NSImage(systemSymbolName: "speaker.wave.2.fill")
@@ -107,7 +114,7 @@ extension NSImage {
     
     // --------------- Effects Unit icons -----------------
 
-    static let imgMasterUnit: NSImage = NSImage(systemSymbolName: "powerplug.fill")
+    static let imgMasterUnit: NSImage = .image(fromSystemSymbolNamed: "powerplug.fill", fallingBackToSymbolNamed: "bolt.fill")
     static let imgEQUnit: NSImage = NSImage(systemSymbolName: "slider.vertical.3")
     static let imgPitchShiftUnit: NSImage = NSImage(systemSymbolName: "waveform.path.ecg")
     static let imgTimeStretchUnit: NSImage = NSImage(systemSymbolName: "timer")

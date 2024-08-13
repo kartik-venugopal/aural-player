@@ -72,6 +72,15 @@ class EffectsContainerViewController: NSViewController {
         
         super.viewDidLoad()
         
+        // Fallback image on older systems
+        masterTabViewButton.image = .imgMasterUnit
+        
+        if System.osVersion.majorVersion == 11, let cell = masterTabViewButton.cell as? EffectsUnitTabButtonCell {
+            
+            cell.imgWidth = 13
+            cell.imgHeight = 13
+        }
+        
         // Initialize all sub-views
         initTabGroup()
         

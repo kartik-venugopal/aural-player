@@ -283,14 +283,14 @@ extension String {
     }
     
     // Draws text, centered, within an NSRect, with a certain font and color
-    func drawCentered(in rect: NSRect, withFont font: NSFont, andColor color: NSColor, yOffset: CGFloat = 0, style: NSParagraphStyle? = nil) {
+    func drawCentered(in rect: NSRect, withFont font: NSFont, andColor color: NSColor, xOffset: CGFloat = 0, yOffset: CGFloat = 0, style: NSParagraphStyle? = nil) {
         
         // Compute size and origin
         let size: CGSize = self.size(withFont: font)
         let sx = (rect.width - size.width) / 2
         let sy = (rect.height - size.height) / 2 - 1
         
-        self.draw(in: NSRect(x: sx, y: sy + yOffset, width: size.width, height: size.height),
+        self.draw(in: NSRect(x: sx + xOffset, y: sy + yOffset, width: size.width, height: size.height),
                   withFont: font,
                   andColor: color,
                   style: style)

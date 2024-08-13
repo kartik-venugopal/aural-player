@@ -48,9 +48,9 @@
                     </buttonCell>
                 </button>
                 <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pLg-Zx-z1o" userLabel="Info - Seek length primary" customClass="ContextHelpButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="491" y="400" width="15" height="15"/>
+                    <rect key="frame" x="491" y="405" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="iXw-b2-VxL">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="info.circle" catalog="system" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="iXw-b2-VxL">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -251,9 +251,9 @@
                     </userDefinedRuntimeAttributes>
                 </textField>
                 <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-p6-5ZK" userLabel="Info - Seek length primary" customClass="ContextHelpButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="166" y="399" width="15" height="15"/>
+                    <rect key="frame" x="166" y="404" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="QI3-6Y-8pI">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="info.circle" catalog="system" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="QI3-6Y-8pI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -323,6 +323,6 @@
         </view>
     </objects>
     <resources>
-        <image name="WhatIsThis" width="26" height="26"/>
+        <image name="info.circle" catalog="system" width="15" height="15"/>
     </resources>
 </document>

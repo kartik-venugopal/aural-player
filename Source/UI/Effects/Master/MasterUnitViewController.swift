@@ -18,8 +18,8 @@ class MasterUnitViewController: EffectsUnitViewController {
     // MARK: UI fields
     
     @IBOutlet weak var masterUnitView: MasterUnitView!
-    @IBOutlet weak var btnRememberSettings: EffectsUnitToggle!
-    @IBOutlet weak var lblRememberSettings: NSTextField!
+//    @IBOutlet weak var btnRememberSettings: EffectsUnitToggle!
+//    @IBOutlet weak var lblRememberSettings: NSTextField!
     
 //    private lazy var btnRememberSettingsStateMachine: ButtonStateMachine<Bool> = ButtonStateMachine(initialState: false, mappings: [
 //        ButtonStateMachine.StateMapping(state: false, image: .imgRememberSettings, colorProperty: \.inactiveControlColor, toolTip: "Remember all sound settings for this track"),
@@ -65,6 +65,13 @@ class MasterUnitViewController: EffectsUnitViewController {
     // ------------------------------------------------------------------------
     
     // MARK: Actions
+    
+    @IBAction func fuseBoxMenuPopupAction(_ sender: NSButton) {
+        
+        var location = masterUnitView.btnFuseBoxMenu.frame.origin
+        location.y -= 10 // Menu appears below the button
+        sender.menu?.popUp(positioning: sender.menu?.item(at: 0), at: location, in: view)
+    }
     
     @IBAction override func bypassAction(_ sender: AnyObject) {
         
@@ -134,12 +141,12 @@ class MasterUnitViewController: EffectsUnitViewController {
         if soundProfiles.hasFor(playingTrack) {
             
             messenger.publish(.Effects.deleteSoundProfile)
-            btnRememberSettings.off()
+//            btnRememberSettings.off()
             
         } else {
             
             messenger.publish(.Effects.saveSoundProfile)
-            btnRememberSettings.on()
+//            btnRememberSettings.on()
         }
     }
     
@@ -171,15 +178,15 @@ class MasterUnitViewController: EffectsUnitViewController {
         // Apply sound profile if there is one for the new track and if the preferences allow it
         if let newTrack = notification.endTrack {
             
-            [btnRememberSettings, lblRememberSettings].forEach {$0?.show()}
+//            [btnRememberSettings, lblRememberSettings].forEach {$0?.show()}
             
             if soundProfiles.hasFor(newTrack) {
                 
                 messenger.publish(.Effects.updateEffectsUnitView, payload: EffectsUnitType.master)
-                btnRememberSettings.on()
+//                btnRememberSettings.on()
                 
             } else {
-                btnRememberSettings.off()
+//                btnRememberSettings.off()
             }
 
             // HACK: To make the tool tip appear (without hiding / showing)
@@ -187,7 +194,7 @@ class MasterUnitViewController: EffectsUnitViewController {
             
         } else {
             
-            [btnRememberSettings, lblRememberSettings].forEach {$0?.hide()}
+//            [btnRememberSettings, lblRememberSettings].forEach {$0?.hide()}
             
             messenger.publish(.Effects.updateEffectsUnitView, payload: EffectsUnitType.master)
             

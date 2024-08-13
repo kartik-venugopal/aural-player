@@ -701,7 +701,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bkb-RY-t1s"/>
-                            <menuItem title=" Select all tracks" image="list.bullet.rectangle.fill" catalog="system" keyEquivalent="a" id="TYh-3m-DH0">
+                            <menuItem title=" Select all tracks" image="list.bullet.rectangle" catalog="system" keyEquivalent="a" id="TYh-3m-DH0">
                                 <connections>
                                     <action selector="selectAllTracksAction:" target="YXK-dI-G9P" id="YEg-eS-geZ"/>
                                 </connections>
@@ -1504,7 +1504,7 @@ CA
         <image name="info" catalog="system" width="9" height="12"/>
         <image name="left" catalog="system" width="9" height="12"/>
         <image name="list.bullet" catalog="system" width="16" height="12"/>
-        <image name="list.bullet.rectangle.fill" catalog="system" width="18" height="14"/>
+        <image name="list.bullet.rectangle" catalog="system" width="18" height="14"/>
         <image name="list.dash" catalog="system" width="16" height="11"/>
         <image name="magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="music.note.list" catalog="system" width="16" height="15"/>

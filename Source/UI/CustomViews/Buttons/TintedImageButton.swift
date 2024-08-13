@@ -41,32 +41,6 @@ class TintedImageButton: NSButton {
 }
 
 @IBDesignable
-class WhiteImageButton: NSButton {
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        image?.isTemplate = false
-    }
-    
-    // A base image that is used as an image template.
-    @IBInspectable var baseImage: NSImage? {
-        
-        // Re-tint the image whenever the base image is updated.
-        didSet {
-            self.image = baseImage?.filledWithColor(.white)
-        }
-    }
-    
-    override var image: NSImage? {
-        
-        didSet {
-            image?.isTemplate = false
-        }
-    }
-}
-
-@IBDesignable
 class FillableImageButton: NSButton {
     
     override var contentTintColor: NSColor? {

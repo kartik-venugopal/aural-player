@@ -179,9 +179,6 @@
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                     <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="snapLevel">
-                    <integer key="value" value="9"/>
-                </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <accessibility identifier="main"/>
             <point key="canvasLocation" x="-369" y="-491"/>

@@ -11,7 +11,7 @@ import Cocoa
 
 class MasterUnitView: NSView {
     
-    @IBOutlet weak var btnFuseBoxMenu: NSPopUpButton!
+    @IBOutlet weak var btnFuseBoxMenu: NSButton!
     @IBOutlet weak var fuseBoxMenuButtonCell: FuseBoxPopupMenuCell!
     @IBOutlet weak var btnRememberSettings: EffectsUnitToggle!
     

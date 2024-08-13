@@ -9,6 +9,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EffectsPresetsManagerWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="masterUnitToolbarItem" destination="3Vt-Sg-SFP" id="wGi-Jb-Y8h"/>
                 <outlet property="toolbar" destination="T8A-om-LLS" id="ODw-9O-UAU"/>
                 <outlet property="viewController" destination="PkM-xG-XRf" id="rsC-k3-om2"/>
                 <outlet property="window" destination="CBT-23-zKw" id="J2i-nQ-01v"/>
@@ -132,7 +133,6 @@ CA
             <toolbar key="toolbar" implicitIdentifier="B5AF642E-BCD1-4D4C-979F-5414ED6139A4" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="T8A-om-LLS">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="C08E83AB-C4C6-4F88-9A65-E1A50A0A6DCA" explicitItemIdentifier="Master" label="Master" paletteLabel="Master" selectable="YES" id="3Vt-Sg-SFP">
-                        <imageReference key="image" image="powerplug.fill" catalog="system" symbolScale="medium"/>
                         <size key="minSize" width="4" height="16"/>
                         <size key="maxSize" width="73" height="16"/>
                         <connections>
@@ -221,7 +221,6 @@ CA
         <image name="Delay-ToolbarItem" width="23" height="22"/>
         <image name="Filter-ToolbarItem" width="26" height="26"/>
         <image name="Reverb-ToolbarItem" width="25" height="25"/>
-        <image name="powerplug.fill" catalog="system" width="20" height="14"/>
         <image name="slider.vertical.3" catalog="system" width="15" height="14"/>
         <image name="timer" catalog="system" width="15" height="15"/>
         <image name="waveform.path.ecg" catalog="system" width="16" height="16"/>

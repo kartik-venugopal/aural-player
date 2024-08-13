@@ -10,8 +10,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MasterUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="moJ-jS-aMf" id="1c7-3L-xKO"/>
-                <outlet property="btnRememberSettings" destination="FHb-xi-klu" id="3Ik-9E-RZB"/>
-                <outlet property="lblRememberSettings" destination="EjT-qM-WKh" id="PTZ-Tc-z3g"/>
                 <outlet property="loadPresetsMenuItem" destination="3Rk-uS-j0Z" id="qir-Si-lpG"/>
                 <outlet property="masterUnitView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
                 <outlet property="presetsAndSettingsMenu" destination="GNL-Vn-rAm" id="Tw6-X2-3Wj"/>
@@ -70,21 +68,8 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <popUpButton toolTip="Activate / deactivate individual effects units from the Fuse Box" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36D-nM-bZT" userLabel="Fuse Box Menu Button">
-                    <rect key="frame" x="107" y="109" width="256" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Fuse Box" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="wea-rf-Blp" id="cjG-Ys-hHL" customClass="FuseBoxPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="6wD-Is-bV3">
-                            <items>
-                                <menuItem title="Fuse Box" state="on" image="bolt.fill" catalog="system" hidden="YES" id="wea-rf-Blp"/>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EjT-qM-WKh" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="152" y="56" width="260" height="24"/>
+                    <rect key="frame" x="160" y="21" width="260" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Remember FX settings for this track" id="OrX-uA-h3f">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -93,7 +78,7 @@
                     </textFieldCell>
                 </textField>
                 <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FHb-xi-klu" customClass="EffectsUnitToggle" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="117" y="53" width="28" height="32"/>
+                    <rect key="frame" x="125" y="18" width="28" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NotChecked" imagePosition="left" alignment="left" alternateImage="Checked" controlSize="small" state="on" imageScaling="axesIndependently" inset="2" id="fqr-5C-fbn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -103,19 +88,34 @@
                         <action selector="rememberSettingsAction:" target="-2" id="ZiQ-Z6-w8r"/>
                     </connections>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r2B-xL-42y">
+                    <rect key="frame" x="126" y="58" width="227" height="75"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Fuse Box" bezelStyle="shadowlessSquare" image="FuseBox" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fqV-nn-8Iq" customClass="FuseBoxPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="fuseBoxMenuPopupAction:" target="-2" id="S4i-cm-mab"/>
+                        <outlet property="menu" destination="fzV-0p-u5c" id="wFh-n9-WAJ"/>
+                    </connections>
+                </button>
             </subviews>
             <connections>
-                <outlet property="btnFuseBoxMenu" destination="36D-nM-bZT" id="mog-dJ-pDK"/>
+                <outlet property="btnFuseBoxMenu" destination="r2B-xL-42y" id="Ihh-7Q-Z70"/>
                 <outlet property="btnRememberSettings" destination="FHb-xi-klu" id="3no-W5-Dfe"/>
-                <outlet property="fuseBoxMenuButtonCell" destination="cjG-Ys-hHL" id="8rp-rB-cfc"/>
+                <outlet property="fuseBoxMenuButtonCell" destination="fqV-nn-8Iq" id="wZa-8w-Bp1"/>
             </connections>
             <point key="canvasLocation" x="139" y="153"/>
         </view>
+        <menu id="fzV-0p-u5c" userLabel="Fuse Box Menu">
+            <point key="canvasLocation" x="74" y="382"/>
+        </menu>
     </objects>
     <resources>
         <image name="Checked" width="200" height="200"/>
+        <image name="FuseBox" width="512" height="415"/>
         <image name="NotChecked" width="200" height="200"/>
-        <image name="bolt.fill" catalog="system" width="13" height="17"/>
         <image name="ellipsis" catalog="system" width="14" height="5"/>
     </resources>
 </document>

@@ -11,6 +11,7 @@ import Cocoa
 
 class VisualizerContainer: NSBox {
     
+    @IBOutlet weak var btnClose: NSButton!
     @IBOutlet weak var optionsBox: NSBox!
     
     override func viewDidEndLiveResize() {
@@ -21,6 +22,7 @@ class VisualizerContainer: NSBox {
         self.updateTrackingAreas()
 
         optionsBox.hide()
+        btnClose.hide()
     }
     
     // Signals the view to start tracking mouse movements.
@@ -45,10 +47,14 @@ class VisualizerContainer: NSBox {
     }
     
     override func mouseEntered(with event: NSEvent) {
+        
         optionsBox.show()
+        btnClose.show()
     }
     
     override func mouseExited(with event: NSEvent) {
+        
         optionsBox.hide()
+        btnClose.hide()
     }
 }
