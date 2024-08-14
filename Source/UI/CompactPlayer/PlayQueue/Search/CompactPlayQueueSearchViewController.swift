@@ -65,7 +65,8 @@ class CompactPlayQueueSearchViewController: NSViewController {
         }
         
         lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results") found"
-        resultsTable.startTracking()
+        resultsTable.forceUpdateTrackingAreas()
+        resultsTable.searchUpdated()
     }
     
     private func noResultsFound() {

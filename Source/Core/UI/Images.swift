@@ -81,9 +81,6 @@ extension NSImage {
     
     static let imgGreenCheck: NSImage = NSImage(named: "GreenCheck")!
     
-    static let imgScrollToTop: NSImage = .image(fromSystemSymbolNamed: "arrow.up.to.line.square", fallingBackToSymbolNamed: "arrow.up.square")
-    static let imgScrollToBottom: NSImage = .image(fromSystemSymbolNamed: "arrow.down.to.line.square", fallingBackToSymbolNamed: "arrow.down.square")
-    
     // --------------- Device type icons -------------------
     
     static let imgDeviceType_builtIn: NSImage = NSImage(systemSymbolName: "speaker.wave.2.fill")

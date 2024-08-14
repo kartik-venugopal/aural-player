@@ -45,11 +45,6 @@ class PlayQueueContainer: NSView, ColorSchemeObserver {
     
     override func awakeFromNib() {
         
-        // These 2 images cannot be configured in the XIB because they use newer system symbols (not available on BigSur 11.x)
-        // Use fallback images on older systems.
-        btnScrollToTop?.image = .imgScrollToTop
-        btnScrollToBottom?.image = .imgScrollToBottom
-        
         setUpSubviewsForAutoHide()
         
         colorSchemesManager.registerSchemeObserver(self)

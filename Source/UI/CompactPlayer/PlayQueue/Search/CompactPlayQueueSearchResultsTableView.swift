@@ -13,6 +13,7 @@ import AppKit
 class CompactPlayQueueSearchResultsTableView: AuralTableView {
     
     @IBOutlet weak var btnPlay: NSButton!
+    @IBOutlet weak var btnBox: NSBox!
     
     private var cellShowingPlayButton: CompactPlayQueueSearchResultIndexCell?
     
@@ -24,46 +25,76 @@ class CompactPlayQueueSearchResultsTableView: AuralTableView {
     
     func reset() {
         
-        btnPlay.hide()
+        btnBox.hide()
+        
         cellShowingPlayButton = nil
         stopTracking()
     }
     
+    func searchUpdated() {
+        btnBox.hide()
+    }
+    
+    private var lastScrollEventTime: Double = 0
+    private static let minTimeIntervalBetweenButtonHideAndShow: Double = 0.125
+    
     override func scrollWheel(with event: NSEvent) {
         
         super.scrollWheel(with: event)
-        btnPlay.hide()
+        
+        btnBox.hide()
+        
+        lastScrollEventTime = CFAbsoluteTimeGetCurrent()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.minTimeIntervalBetweenButtonHideAndShow) {
+            
+            let timePassedBetweenEvents = (CFAbsoluteTimeGetCurrent() - self.lastScrollEventTime) > Self.minTimeIntervalBetweenButtonHideAndShow
+            
+            if timePassedBetweenEvents, let window = self.window {
+                self.showAtLocation(window.mouseLocationOutsideOfEventStream)
+            }
+        }
     }
     
     override func mouseMoved(with event: NSEvent) {
         
         super.mouseMoved(with: event)
+        showAtLocation(event.locationInWindow)
+    }
+    
+    private func showAtLocation(_ location: NSPoint) {
         
         cellShowingPlayButton = nil
-        btnPlay.hide()
+        btnBox.hide()
         
         // If no results displayed, do nothing
         guard numberOfRows > 0 else {return}
         
-        let row = row(at: self.convert(event.locationInWindow, from: nil))
+        let row = row(at: self.convert(location, from: nil))
+        
         guard let cell = cellForRow(row),
               let rowView = view(atColumn: 0, row: row, makeIfNecessary: false) else {return}
         
         let rowHeight = rowView.height / 2
-        let btnHeight = btnPlay.height / 2
-        let firstColumnWidth = tableColumns.first!.width / 2
-        let btnWidth = btnPlay.width / 2
+        let btnHeight = btnBox.height / 2
         
         guard let containerView = self.enclosingScrollView?.superview else {return}
         
-        let btnLocationInContainerView = containerView.convert(NSMakePoint(rowView.frame.minX + firstColumnWidth - btnWidth - 2,
-                                                                           rowView.frame.minY + rowHeight - btnHeight - 3),
+        let btnLocationInContainerView = containerView.convert(NSMakePoint(rowView.frame.minX,
+                                                                           rowView.frame.minY + rowHeight - btnHeight - 1),
                                                                from: rowView)
         
+        let contViewFrame = enclosingScrollView!.frame
+        let boxRect = NSRect(origin: btnLocationInContainerView, size: btnBox.size)
+        
+        guard NSContainsRect(contViewFrame, boxRect) else {return}
+        
+        btnBox.fillColor = self.selectedRowIndexes.contains(row) ? systemColorScheme.textSelectionColor : systemColorScheme.backgroundColor
         btnPlay.contentTintColor = systemColorScheme.activeControlColor
-        btnPlay.setFrameOrigin(btnLocationInContainerView)
-        btnPlay.bringToFront()
-        btnPlay.show()
+        
+        btnBox.setFrameOrigin(btnLocationInContainerView)
+        btnBox.bringToFront()
+        btnBox.show()
         
         cellShowingPlayButton = cell
     }

@@ -397,16 +397,16 @@
                         </connections>
                     </button>
                     <popUpButton hidden="YES" toolTip="Sort the Play Queue" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aBL-E4-FyY" userLabel="Sort">
-                        <rect key="frame" x="242" y="11" width="23" height="14"/>
+                        <rect key="frame" x="242" y="14" width="19" height="9"/>
                         <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="axesIndependently" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="ah3-Us-I4W" id="4DG-iX-YP5">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" showsStateColumn="NO" id="PP7-yi-bSz">
                                 <items>
-                                    <menuItem image="Sort" hidden="YES" id="ah3-Us-I4W" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <menuItem image="arrow.up.arrow.down" catalog="system" hidden="YES" id="ah3-Us-I4W" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Sort"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="arrow.up.arrow.down" catalog="system"/>
                                         </userDefinedRuntimeAttributes>
                                     </menuItem>
                                     <menuItem title="Sort by track name" id="B4P-a1-d06">
@@ -462,8 +462,8 @@
                             </menu>
                         </popUpButtonCell>
                         <constraints>
-                            <constraint firstAttribute="width" constant="18" id="FFn-Mk-IPT"/>
-                            <constraint firstAttribute="height" constant="14" id="M6Z-2g-Gbw"/>
+                            <constraint firstAttribute="width" constant="14" id="FFn-Mk-IPT"/>
+                            <constraint firstAttribute="height" constant="9" id="M6Z-2g-Gbw"/>
                         </constraints>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ILg-fo-rF1" userLabel="Play Queue Caption Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
@@ -491,7 +491,6 @@
                     <constraint firstItem="rGi-Br-hY8" firstAttribute="centerY" secondItem="EEM-hK-rk8" secondAttribute="centerY" id="GlG-h3-FHh"/>
                     <constraint firstItem="pcR-HY-5FP" firstAttribute="leading" secondItem="8Vi-ax-FQk" secondAttribute="trailing" constant="15" id="IRK-bo-zz9"/>
                     <constraint firstAttribute="bottom" secondItem="xTF-ma-4qy" secondAttribute="bottom" constant="10" id="JjW-Lc-7JF"/>
-                    <constraint firstItem="aBL-E4-FyY" firstAttribute="centerY" secondItem="M1d-v2-GBv" secondAttribute="centerY" id="TKM-jR-vqP"/>
                     <constraint firstItem="ILg-fo-rF1" firstAttribute="leading" secondItem="el0-VE-Ib7" secondAttribute="leading" constant="25" id="Uiv-0W-eZk"/>
                     <constraint firstItem="M4Y-BC-T8J" firstAttribute="centerY" secondItem="sb4-QZ-Nqd" secondAttribute="centerY" id="Zba-h8-1u4"/>
                     <constraint firstItem="aBL-E4-FyY" firstAttribute="leading" secondItem="M1d-v2-GBv" secondAttribute="trailing" constant="5" id="buk-BK-wnV"/>
@@ -504,6 +503,7 @@
                     <constraint firstItem="8Vi-ax-FQk" firstAttribute="centerY" secondItem="d0w-w8-fA7" secondAttribute="centerY" id="l4A-82-xZN"/>
                     <constraint firstItem="8Vi-ax-FQk" firstAttribute="leading" secondItem="d0w-w8-fA7" secondAttribute="trailing" constant="8" id="lYe-zs-rum"/>
                     <constraint firstItem="rGi-Br-hY8" firstAttribute="leading" secondItem="EEM-hK-rk8" secondAttribute="trailing" constant="15" id="lsg-FP-eOq"/>
+                    <constraint firstItem="aBL-E4-FyY" firstAttribute="bottom" secondItem="M1d-v2-GBv" secondAttribute="bottom" id="r2H-be-zra"/>
                     <constraint firstItem="3Of-aL-sDz" firstAttribute="centerY" secondItem="M4Y-BC-T8J" secondAttribute="centerY" id="vKq-mr-18F"/>
                     <constraint firstItem="pcR-HY-5FP" firstAttribute="centerY" secondItem="d0w-w8-fA7" secondAttribute="centerY" id="vQF-Vb-obe"/>
                 </constraints>
@@ -521,7 +521,6 @@
                     <outlet property="btnSortPopup" destination="aBL-E4-FyY" id="GSm-CH-E1g"/>
                     <outlet property="lblDurationSummary" destination="FMM-38-eg8" id="gzg-Vq-Nbf"/>
                     <outlet property="lblTracksSummary" destination="E3H-PZ-zam" id="bkB-oU-qqb"/>
-                    <outlet property="sortTintedIconMenuItem" destination="ah3-Us-I4W" id="9ly-s0-F2d"/>
                 </connections>
             </view>
             <point key="canvasLocation" x="-274" y="39"/>
@@ -570,10 +569,10 @@
         </customView>
     </objects>
     <resources>
-        <image name="Sort" width="35" height="25"/>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
         <image name="arrow.down.to.line.alt" catalog="system" width="13" height="14"/>
         <image name="arrow.up" catalog="system" width="13" height="14"/>
+        <image name="arrow.up.arrow.down" catalog="system" width="18" height="15"/>
         <image name="arrow.up.to.line.alt" catalog="system" width="13" height="14"/>
         <image name="doc.text" catalog="system" width="14" height="16"/>
         <image name="magnifyingglass" catalog="system" width="16" height="15"/>

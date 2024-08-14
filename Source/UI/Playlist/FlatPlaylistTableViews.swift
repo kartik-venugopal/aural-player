@@ -39,11 +39,18 @@ class AuralTableView: NSTableView {
         isTracking = false
         self.removeAllTrackingAreas()
     }
+    
+    func forceUpdateTrackingAreas() {
+        
+        isTracking = true
+        removeAllTrackingAreas()
+        updateTrackingAreas()
+    }
  
     override func updateTrackingAreas() {
         
-        if isTracking && self.trackingAreas.isEmpty {
-        
+        if isTracking, !trackingAreas.contains(where: {$0.rect == bounds}) {
+            
             // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
             addTrackingArea(NSTrackingArea(rect: self.bounds, options: [.activeAlways, .mouseEnteredAndExited, .mouseMoved], owner: self, userInfo: nil))
             

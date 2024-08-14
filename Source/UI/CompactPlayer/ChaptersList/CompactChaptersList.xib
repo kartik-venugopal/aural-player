@@ -271,9 +271,6 @@
                     <constraint firstItem="9Sz-7u-rW6" firstAttribute="top" secondItem="aRq-vc-jb3" secondAttribute="top" constant="5" id="IK3-KZ-tYg"/>
                     <constraint firstItem="9Sz-7u-rW6" firstAttribute="leading" secondItem="aRq-vc-jb3" secondAttribute="leading" constant="25" id="OUX-5Q-mAg"/>
                 </constraints>
-                <connections>
-                    <outlet property="lblTracksSummary" destination="fy1-rH-GTj" id="RSy-1p-olt"/>
-                </connections>
             </view>
             <point key="canvasLocation" x="-785" y="-1"/>
         </box>

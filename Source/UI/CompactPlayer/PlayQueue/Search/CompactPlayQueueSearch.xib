@@ -33,17 +33,28 @@
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
                     </textField>
-                    <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOO-0W-5Mb" userLabel="Play Action" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="135" y="189" width="29.5" height="12"/>
+                    <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5V3-G6-h2J" userLabel="Button Container">
+                        <rect key="frame" x="61" y="138" width="30" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ndg-05-oGY">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="playResultAction:" target="Z0G-Hb-SQ9" id="TPa-md-QHH"/>
-                        </connections>
-                    </button>
+                        <view key="contentView" id="PEz-aA-dPU">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOO-0W-5Mb" userLabel="Play Action" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="5" width="24.5" height="11"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ndg-05-oGY">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="playResultAction:" target="Z0G-Hb-SQ9" id="TPa-md-QHH"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                        <color key="fillColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                    </box>
                     <scrollView focusRingType="none" borderType="none" horizontalLineScroll="55" horizontalPageScroll="10" verticalLineScroll="55" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" id="5Re-ue-mAr">
                         <rect key="frame" x="0.0" y="40" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -51,7 +62,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="285" height="300"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView identifier="tid_CompactPlayQueueSearch" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="50" viewBased="YES" id="Z0G-Hb-SQ9" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
+                                <tableView identifier="tid_CompactPlayQueueSearch" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="50" viewBased="YES" id="Z0G-Hb-SQ9" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="5"/>
@@ -170,6 +181,7 @@
                                     </tableColumns>
                                     <connections>
                                         <action trigger="doubleAction" selector="playResultAction:" target="-2" id="8lq-0A-gEd"/>
+                                        <outlet property="btnBox" destination="5V3-G6-h2J" id="2rC-8n-UDf"/>
                                         <outlet property="btnPlay" destination="BOO-0W-5Mb" id="WdD-Rp-NIq"/>
                                         <outlet property="dataSource" destination="-2" id="dtc-dZ-C5Q"/>
                                         <outlet property="delegate" destination="-2" id="fp3-6J-eCO"/>
@@ -212,10 +224,6 @@
                         </connections>
                     </button>
                 </subviews>
-                <connections>
-                    <outlet property="btnPlay" destination="BOO-0W-5Mb" id="eo2-H4-iNq"/>
-                    <outlet property="searchTable" destination="Z0G-Hb-SQ9" id="D0x-Sv-mgn"/>
-                </connections>
             </view>
             <point key="canvasLocation" x="-274" y="39"/>
         </box>

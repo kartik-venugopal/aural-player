@@ -20,6 +20,8 @@ extension CompactPlayQueueSearchViewController: NSTableViewDataSource {
     
 extension CompactPlayQueueSearchViewController: NSTableViewDelegate {
     
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {false}
+    
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         AuralTableRowView()

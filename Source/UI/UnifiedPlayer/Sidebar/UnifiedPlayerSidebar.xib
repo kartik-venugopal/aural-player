@@ -140,7 +140,7 @@
                                                     <constraint firstItem="wX8-ov-6gi" firstAttribute="centerY" secondItem="h67-Pz-MAb" secondAttribute="centerY" id="y54-cI-8ci"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="btnAddPlaylist" destination="JvJ-e6-NCg" id="cCL-rQ-eyq"/>
+                                                    <outlet property="btnAddPlaylist" destination="JvJ-e6-NCg" id="SaN-wo-Mfv"/>
                                                     <outlet property="imageView" destination="Aoi-6W-g4t" id="h4i-wq-DgV"/>
                                                     <outlet property="textField" destination="wX8-ov-6gi" id="nbn-hp-5yB"/>
                                                 </connections>
@@ -160,24 +160,11 @@
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <button hidden="YES" toolTip="Create a new playlist" translatesAutoresizingMaskIntoConstraints="NO" id="ysg-Wn-k9k" userLabel="Add Playlist Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="166" y="5.5" width="12.5" height="14"/>
-                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="plus" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XEH-vV-kJR">
-                                                            <behavior key="behavior" lightByContents="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="10" id="8p2-7Z-r9w"/>
-                                                            <constraint firstAttribute="width" constant="12" id="IaD-TH-5aE"/>
-                                                        </constraints>
-                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="Fon-ZB-W3K" firstAttribute="centerY" secondItem="u9O-Am-4ho" secondAttribute="centerY" id="9bP-EY-k3P"/>
-                                                    <constraint firstAttribute="trailing" secondItem="ysg-Wn-k9k" secondAttribute="trailing" constant="5" id="Qgi-YQ-fxC"/>
                                                     <constraint firstItem="Fon-ZB-W3K" firstAttribute="leading" secondItem="u9O-Am-4ho" secondAttribute="leading" constant="22" id="WO8-gN-bhT"/>
                                                     <constraint firstAttribute="trailing" secondItem="Fon-ZB-W3K" secondAttribute="trailing" constant="5" id="eeF-H9-vIR"/>
-                                                    <constraint firstItem="ysg-Wn-k9k" firstAttribute="centerY" secondItem="u9O-Am-4ho" secondAttribute="centerY" id="opt-Lv-07R"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="Fon-ZB-W3K" id="FzR-cS-qng"/>

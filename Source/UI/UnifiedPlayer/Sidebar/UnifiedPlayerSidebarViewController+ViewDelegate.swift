@@ -165,3 +165,15 @@ class UnifiedPlayerSidebarRowView: AuralTableRowView {
         super.didAddSubview(subview)
     }
 }
+
+class PlaylistSidebarCategoryCell: NSTableCellView {
+    
+    @IBOutlet weak var btnAddPlaylist: NSButton!
+    
+    func updateAddButton(withAction action: Selector, onTarget target: NSViewController) {
+        
+        btnAddPlaylist.contentTintColor = systemColorScheme.buttonColor
+        btnAddPlaylist.action = action
+        btnAddPlaylist.target = target
+    }
+}

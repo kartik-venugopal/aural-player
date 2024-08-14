@@ -29,7 +29,7 @@ extension FontScheme {
                                            tableYOffset: -1)
     
     static let programmer: FontScheme = .init(name: FontSchemePreset.programmer.name, systemDefined: true,
-                                              captionFont: programmerFontSet.captionFont(size: 14),
+                                              captionFont: programmerFontSet.captionFont(size: 12),
                                               normalFont: programmerFontSet.mainFont(size: 12),
                                               prominentFont: programmerFontSet.mainFont(size: 14),
                                               smallFont: programmerFontSet.mainFont(size: 11),
