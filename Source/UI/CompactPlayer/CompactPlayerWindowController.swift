@@ -58,7 +58,7 @@ class CompactPlayerWindowController: NSWindowController {
         searchViewController.view.anchorToSuperview()
         chaptersListViewController.view.anchorToSuperview()
         
-        tabView.selectTabViewItem(at: 2)
+        tabView.selectTabViewItem(at: 0)
         
         colorSchemesManager.registerSchemeObserver(self)
         

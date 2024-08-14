@@ -324,11 +324,6 @@ DQ
                     </connections>
                 </view>
             </subviews>
-            <connections>
-                <outlet property="lblPlaybackPosition" destination="D24-2X-fE6" id="hUk-Fv-dL5"/>
-                <outlet property="seekSlider" destination="m0V-zo-4fd" id="Q9r-fI-qhF"/>
-                <outlet property="seekSliderCell" destination="vca-5L-2ob" id="hWK-bR-wzS"/>
-            </connections>
             <point key="canvasLocation" x="-231" y="445"/>
         </view>
     </objects>

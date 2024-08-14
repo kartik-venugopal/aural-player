@@ -196,8 +196,8 @@ class PlayerViewController: NSViewController {
         scrollingTrackTextView.anchorToSuperview()
         
         artViewConstraints = LayoutConstraintsManager(for: artView)
-        artViewConstraints.setWidth(46)
-        artViewConstraints.setHeight(46)
+        artViewConstraints.setWidth(48)
+        artViewConstraints.setHeight(48)
         
         // Constraint managers
         lblPlaybackPositionConstraints = LayoutConstraintsManager(for: lblPlaybackPosition)

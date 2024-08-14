@@ -189,10 +189,9 @@
                                     </connections>
                                 </slider>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iv0-Qr-jOE" userLabel="Seek Position" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="206" y="13" width="70" height="24"/>
+                                    <rect key="frame" x="203" y="10" width="73" height="30"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="66" id="Jse-nZ-XrD"/>
-                                        <constraint firstAttribute="height" constant="24" id="NAa-Yp-eLP"/>
+                                        <constraint firstAttribute="height" constant="30" id="NAa-Yp-eLP"/>
                                     </constraints>
                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="-956:67:67" id="3e8-F6-O4p" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -203,8 +202,8 @@
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zmm-Kt-3Gg">
                                     <rect key="frame" x="21" y="1" width="48" height="48"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="48" id="kRD-y8-ogZ"/>
                                         <constraint firstAttribute="width" constant="48" id="mTZ-if-aUN"/>
+                                        <constraint firstAttribute="height" constant="48" id="t1E-gW-Nmv"/>
                                     </constraints>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="5Pa-eM-25Q"/>
                                 </imageView>
@@ -583,11 +582,6 @@
                                 <constraint firstItem="sFw-RL-2ra" firstAttribute="centerY" secondItem="rMK-zd-YvE" secondAttribute="centerY" id="w7d-2K-Wvn"/>
                                 <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="35" id="x29-1E-zNF"/>
                             </constraints>
-                            <connections>
-                                <outlet property="lblPlaybackPosition" destination="iv0-Qr-jOE" id="cfj-RX-rgQ"/>
-                                <outlet property="seekSlider" destination="oBR-SZ-2k2" id="F4W-yv-Xo5"/>
-                                <outlet property="seekSliderCell" destination="ovd-HG-pIx" id="ghM-zZ-Pnd"/>
-                            </connections>
                         </view>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="aLE-rA-Cxd"/>
