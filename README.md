@@ -19,7 +19,6 @@
   * [Known issues (and solutions)](#known-issues-and-solutions)
   * [Contact and conversation](#contact-and-conversation)
   * [How to contribute](#how-to-contribute)
-  * [How to support me](#how-to-support-me)
   * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
   * [License](#license)
@@ -247,10 +246,6 @@ I would love to localize Aural Player so that it is more comfortable to use for 
 Please [email me](mailto:kartikv2017@gmail.com) if you're interested in helping with this !
 
 NOTE - I am ***not*** looking for help with app development at the moment, but if this changes, I will post an update.
-
-## How to support me
-
-I am a one-man team with a full-time job and a full-time life, developing this app only out of love. If you would like to make a financial donation to me for my efforts, you may do so via **PayPal** using the email ID: **kartikv.de@gmail.com**
 
 ## Third party code attributions
 
