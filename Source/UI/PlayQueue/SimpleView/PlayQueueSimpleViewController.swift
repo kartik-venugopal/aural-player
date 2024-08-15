@@ -22,51 +22,119 @@ class PlayQueueSimpleViewController: PlayQueueViewController {
     
     // MARK: Table view delegate / data source --------------------------------------------------------------------------------------------------------
     
-    override func view(forColumn column: NSUserInterfaceItemIdentifier, row: Int, track: Track) -> TableCellBuilder {
+    override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let builder = TableCellBuilder()
+        guard let track = trackList[row], let column = tableColumn?.identifier else {return nil}
         
         switch column {
             
         case .cid_index:
             
+            let builder = TableCellBuilder()
+            
             if track == playQueueDelegate.currentTrack {
-                return builder.withImage(image: .imgPlayFilled, inColor: systemColorScheme.activeControlColor)
+                builder.withImage(image: .imgPlayFilled, inColor: systemColorScheme.activeControlColor)
                 
             } else {
-                return builder.withText(text: "\(row + 1)",
+                builder.withText(text: "\(row + 1)",
                                         inFont: systemFontScheme.normalFont, andColor: systemColorScheme.tertiaryTextColor,
                                         selectedTextColor: systemColorScheme.tertiarySelectedTextColor,
                                         bottomYOffset: systemFontScheme.tableYOffset)
             }
             
+            return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
+            
         case .cid_trackName:
             
             let titleAndArtist = track.titleAndArtist
+            guard let cell = tableView.makeView(withIdentifier: .cid_trackName, owner: nil) as? AttrCellView else {return nil}
             
             if let artist = titleAndArtist.artist {
-                
-                return builder.withAttributedText(strings: [(text: artist + "  ", font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor),
-                                                            (text: titleAndArtist.title, font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)],
-                                                  selectedTextColors: [systemColorScheme.secondarySelectedTextColor, systemColorScheme.primarySelectedTextColor],
-                                                  bottomYOffset: systemFontScheme.tableYOffset)
+                cell.update(artist: artist, title: titleAndArtist.title)
                 
             } else {
-                
-                return builder.withText(text: titleAndArtist.title, inFont: systemFontScheme.normalFont, andColor: systemColorScheme.primaryTextColor,
-                                        selectedTextColor: systemColorScheme.primarySelectedTextColor, bottomYOffset: systemFontScheme.tableYOffset)
+                cell.update(title: titleAndArtist.title)
             }
+            
+            cell.realignTextBottom(yOffset: systemFontScheme.tableYOffset)
+            
+            cell.row = row
+            cell.rowSelectionStateFunction = {[weak tableView] in
+                tableView?.selectedRowIndexes.contains(row) ?? false
+            }
+            
+            return cell
             
         case .cid_duration:
             
-            return builder.withText(text: ValueFormatter.formatSecondsToHMS(track.duration),
+            let builder = TableCellBuilder()
+            
+            builder.withText(text: ValueFormatter.formatSecondsToHMS(track.duration),
                                     inFont: systemFontScheme.normalFont, andColor: systemColorScheme.tertiaryTextColor,
                                     selectedTextColor: systemColorScheme.tertiarySelectedTextColor,
                                     bottomYOffset: systemFontScheme.tableYOffset)
             
+            return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
+            
         default:
             
-            return .noCell
+            return nil
         }
+    }
+}
+
+class AttrCellView: NSTableCellView {
+    
+    var row: Int = -1
+    var rowSelectionStateFunction: () -> Bool = {false}
+    
+    var rowIsSelected: Bool {rowSelectionStateFunction()}
+    
+    var attrText: NSAttributedString?
+    var selectedAttributedText: NSAttributedString?
+    
+    lazy var textFieldConstraintsManager = LayoutConstraintsManager(for: textField!)
+    
+    func update(artist: String, title: String) {
+        
+        let muthu = "\(artist) ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)
+        
+        let selMuthu = "\(artist) ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondarySelectedTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primarySelectedTextColor)
+        
+        let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        style.lineBreakMode = .byTruncatingTail
+        muthu.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, muthu.length))
+        
+        self.attributedText = muthu
+        self.attrText = muthu
+        self.selectedAttributedText = selMuthu
+    }
+    
+    func update(title: String) {
+        
+        let muthu = title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)
+        let selMuthu = title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primarySelectedTextColor)
+        
+        let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        style.lineBreakMode = .byTruncatingTail
+        muthu.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, muthu.length))
+        
+        self.attributedText = muthu
+        self.attrText = muthu
+        self.selectedAttributedText = selMuthu
+    }
+    
+    override var backgroundStyle: NSView.BackgroundStyle {
+        
+        didSet {
+            self.attributedText = rowIsSelected ? self.selectedAttributedText : self.attrText
+        }
+    }
+    
+    // Constraints
+    func realignTextBottom(yOffset: CGFloat) {
+        
+        textFieldConstraintsManager.removeAll(withAttributes: [.bottom])
+        textFieldConstraintsManager.setBottom(relatedToBottomOf: self, offset: yOffset)
     }
 }

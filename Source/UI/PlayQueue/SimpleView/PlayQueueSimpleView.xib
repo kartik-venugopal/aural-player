@@ -93,7 +93,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="sQN-39-9YE" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView id="sQN-39-9YE" customClass="AttrCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="44" y="2" width="337" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
