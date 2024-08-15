@@ -22,6 +22,14 @@ class PlayQueueSimpleViewController: PlayQueueViewController {
     
     // MARK: Table view delegate / data source --------------------------------------------------------------------------------------------------------
     
+    override func moveTracks(from sourceIndices: IndexSet, to destRow: Int) {
+        
+        super.moveTracks(from: sourceIndices, to: destRow)
+        
+        // Tell the other (sibling) table to refresh
+        messenger.publish(.PlayQueue.refresh, payload: [PlayQueueView.expanded])
+    }
+    
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         guard let track = trackList[row], let column = tableColumn?.identifier else {return nil}

@@ -49,7 +49,7 @@ class TrackInfoKVListViewController: NSViewController, TrackInfoViewProtocol {
                 Amout of spacing between this line of text and the next line. Nil value indicates no spacing.
                 Non-nil value will result in a line break being added to the text (to separate lines).
      */
-    private func appendString(text: String, font: NSFont, color: NSColor, lineSpacing: CGFloat? = nil) {
+    func appendString(text: String, font: NSFont, color: NSColor, lineSpacing: CGFloat? = nil) {
         
         var attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
         let style = NSMutableParagraphStyle()

@@ -326,6 +326,10 @@ extension PlayQueueContainerViewController {
         
         // Re-select the tracks that were moved.
         currentViewController.tableView.selectRows(destRows)
+        
+        if let minSelRow = destRows.min() {
+            currentViewController.tableView.scrollRowToVisible(minSelRow)
+        }
     }
     
 //    func enqueueAndPlayNow(_ command: EnqueueAndPlayNowCommand) {

@@ -70,7 +70,11 @@ class PlayQueueViewController: TrackListTableViewController {
         
         messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: tracksAdded(_:))
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
-        messenger.subscribe(to: .PlayQueue.refresh, handler: tableView.reloadData)
+        messenger.subscribe(to: .PlayQueue.refresh, handler: tableView.reloadData, filter: {[weak self] (views: [PlayQueueView]) in
+            
+            guard let selfPQView = self?.playQueueView else {return false}
+            return views.contains(selfPQView)
+        })
     }
     
     override func viewWillAppear() {
@@ -93,7 +97,7 @@ class PlayQueueViewController: TrackListTableViewController {
     }
     
     override func notifyReloadTable() {
-        messenger.publish(.PlayQueue.refresh)
+        messenger.publish(.PlayQueue.refresh, payload: PlayQueueView.allCases)
     }
     
     override func destroy() {

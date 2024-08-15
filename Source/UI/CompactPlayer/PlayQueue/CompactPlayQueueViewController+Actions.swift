@@ -43,4 +43,20 @@ extension CompactPlayQueueViewController {
     @IBAction func searchAction(_ sender: Any) {
         messenger.publish(.PlayQueue.search)
     }
+    
+    func playNext() {
+        
+        let destRows = playQueueDelegate.moveTracksToPlayNext(from: selectedRows)
+        tableView.reloadData()
+        
+        // The current playing track index may have changed as a result of this operation.
+        updateSummary()
+        
+        // Re-select the tracks that were moved.
+        tableView.selectRows(destRows)
+        
+        if let minSelRow = destRows.min() {
+            tableView.scrollRowToVisible(minSelRow)
+        }
+    }
 }

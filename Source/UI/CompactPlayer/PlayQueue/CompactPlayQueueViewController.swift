@@ -37,6 +37,8 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         
         messenger.subscribe(to: .PlayQueue.addTracks, handler: importFilesAndFolders)
         
+        messenger.subscribe(to: .PlayQueue.playNext, handler: playNext)
+        
         messenger.subscribe(to: .PlayQueue.removeTracks, handler: removeTracks)
         messenger.subscribe(to: .PlayQueue.cropSelection, handler: cropSelection)
         messenger.subscribe(to: .PlayQueue.removeAllTracks, handler: removeAllTracks)

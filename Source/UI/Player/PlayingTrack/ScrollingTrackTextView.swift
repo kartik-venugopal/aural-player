@@ -71,7 +71,7 @@ class ScrollingTrackTextView: NSView {
     let spacing: CGFloat = 50
     
     /// Amount of time the text is delayed before scrolling
-    var delay: TimeInterval = 2 {
+    var delay: TimeInterval = 1 {
         didSet {updateTraits()}
     }
 

@@ -185,7 +185,9 @@ class PlayQueueContainerViewController: NSViewController {
         playQueueDelegate.removeAllTracks()
         
         // Tell the play queue UI to refresh its views.
-        messenger.publish(.PlayQueue.refresh)
+        controllers.forEach {
+            $0.tableView.reloadData()
+        }
         
         updateSummary()
     }

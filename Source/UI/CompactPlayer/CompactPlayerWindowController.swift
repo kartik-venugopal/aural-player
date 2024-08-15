@@ -71,7 +71,10 @@ class CompactPlayerWindowController: NSWindowController {
         
         messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
         messenger.subscribe(to: .View.toggleChaptersList, handler: showChaptersList)
+        
         messenger.subscribe(to: .View.toggleTrackInfo, handler: showTrackInfo)
+        messenger.subscribe(to: .Player.trackInfo, handler: showTrackInfo)
+        
 //        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         

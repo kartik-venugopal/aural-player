@@ -299,8 +299,8 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         
         moveAndReloadItems(results.sorted(by: >))
         
-        if let minRow = selectedRows.min() {
-            tableView.scrollRowToVisible(minRow)
+        if let maxRow = selectedRows.max() {
+            tableView.scrollRowToVisible(maxRow)
         }
     }
 
@@ -337,7 +337,7 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         
         // Select all the same rows but now at the top
         tableView.scrollToTop()
-        tableView.selectRows(0..<selectedRowCount)
+        tableView.selectRows(0..<selectedRows.count)
     }
 
     // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
@@ -364,7 +364,7 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         tableView.reloadRows(minSelectedRow...lastRow)
         
         // Select all the same items but now at the bottom
-        let firstSelectedRow = lastRow - selectedRowCount + 1
+        let firstSelectedRow = lastRow - selectedRows.count + 1
         tableView.selectRows(firstSelectedRow...lastRow)
         tableView.scrollToBottom()
     }

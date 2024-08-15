@@ -30,3 +30,4 @@ macOS/Frameworks/libavcodec.58.dylib
 ToolsAndScripts/FFmpegBuild/xcframeworks/libavcodec.xcframework/Info.plist
 macOS/Aural-macOS.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 macOS/Aural-macOS.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate
+.periphery.yml

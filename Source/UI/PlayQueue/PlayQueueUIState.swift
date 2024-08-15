@@ -26,7 +26,7 @@ class PlayQueueUIState: PersistentModelObject {
     }
 }
 
-enum PlayQueueView: Int, Codable {
+enum PlayQueueView: Int, CaseIterable, Codable {
     
     case simple
     case expanded

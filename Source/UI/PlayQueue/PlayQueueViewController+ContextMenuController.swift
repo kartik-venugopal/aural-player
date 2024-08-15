@@ -89,7 +89,7 @@ extension PlayQueueViewController: NSMenuDelegate {
         }
         
         let titlePrefix = favoritesDelegate.favoriteExists(track: theClickedTrack) ? "Remove" : "Add"
-        favoriteTrackMenuItem.title = "\(titlePrefix) this track"
+        favoriteTrackMenuItem.title = "\(titlePrefix) track '\(theClickedTrack)'"
         
 //        if let artist = theClickedTrack.artist {
 //            
