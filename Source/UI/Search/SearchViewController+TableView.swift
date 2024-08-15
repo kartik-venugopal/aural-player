@@ -69,6 +69,8 @@ extension SearchViewController: NSTableViewDelegate {
                                         selectedTextColor: systemColorScheme.primarySelectedTextColor, bottomYOffset: systemFontScheme.tableYOffset)
             }
             
+            return builder.buildCell(forTableView: tableView, forColumnWithId: .cid_trackName, inRow: row)
+            
         default:
             
             return nil

@@ -225,6 +225,28 @@
                         <action selector="toggleSettingsViewAction:" target="-2" id="a9K-ju-pFN"/>
                     </connections>
                 </button>
+                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Wgu-Hs-vml" userLabel="Button Container">
+                    <rect key="frame" x="235" y="278" width="45" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="PST-rd-3Lr">
+                        <rect key="frame" x="0.0" y="0.0" width="45" height="30"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jmJ-ll-8F1" userLabel="Play Action" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="5" width="24.5" height="11"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="OVA-LL-Mbc">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="playResultAction:" target="jrU-2c-JGF" id="bE4-16-wUW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="fillColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                </box>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nvb-2M-b2o" userLabel="Done button">
                     <rect key="frame" x="420" y="3" width="60" height="19"/>
                     <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bKf-9f-xav">
@@ -254,31 +276,20 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Wl-fi-MAf" userLabel="Play Action" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="235" y="287" width="29.5" height="12"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tsw-B9-Z7g">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="playResultAction:" target="jrU-2c-JGF" id="Dlz-xr-hwN"/>
-                    </connections>
-                </button>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw4-ZG-Aj9" userLabel="Results Table">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw4-ZG-Aj9" userLabel="Results Table">
                     <rect key="frame" x="15" y="37" width="465" height="349"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="RlX-Bl-Tqc">
-                        <rect key="frame" x="1" y="1" width="463" height="347"/>
+                        <rect key="frame" x="0.0" y="0.0" width="465" height="349"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="24" rowSizeStyle="automatic" headerView="1Rx-VA-4ps" viewBased="YES" id="jrU-2c-JGF" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="463" height="319"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" id="jrU-2c-JGF" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="465" height="349"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="17" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_Index" width="49.5" minWidth="45" maxWidth="80" id="aYA-JS-tx4">
+                                    <tableColumn identifier="cid_Index" width="45" minWidth="45" maxWidth="80" id="aYA-JS-tx4">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Index">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -291,11 +302,11 @@ Gw
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="bMC-F6-CrY" customClass="CompactPlayQueueSearchResultIndexCell" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="0.0" width="48" height="24"/>
+                                                <rect key="frame" x="18" y="0.0" width="43" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sla-Cx-CNi">
-                                                        <rect key="frame" x="0.0" y="4" width="48" height="16"/>
+                                                        <rect key="frame" x="0.0" y="4" width="43" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="bPw-iL-ZHs">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -310,7 +321,7 @@ Gw
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Name" width="384.5" minWidth="40" maxWidth="1000" id="YOq-Dd-FG8">
+                                    <tableColumn identifier="cid_Name" width="371" minWidth="40" maxWidth="1000" id="YOq-Dd-FG8">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -323,11 +334,11 @@ Gw
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="3oJ-Ve-UAc" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="72.5" y="0.0" width="381" height="24"/>
+                                                <rect key="frame" x="78" y="0.0" width="368" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10d-XA-Igb">
-                                                        <rect key="frame" x="0.0" y="4" width="381" height="16"/>
+                                                        <rect key="frame" x="0.0" y="4" width="368" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="aL8-zz-7hx">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -345,7 +356,8 @@ Gw
                                 </tableColumns>
                                 <connections>
                                     <action trigger="doubleAction" selector="playSearchResultAction:" target="-2" id="4ZQ-2L-iiq"/>
-                                    <outlet property="btnPlay" destination="2Wl-fi-MAf" id="I4F-lK-3qm"/>
+                                    <outlet property="btnBox" destination="Wgu-Hs-vml" id="bJd-pX-lV9"/>
+                                    <outlet property="btnPlay" destination="jmJ-ll-8F1" id="2wn-4j-WdX"/>
                                     <outlet property="dataSource" destination="-2" id="NKU-17-IUe"/>
                                     <outlet property="delegate" destination="-2" id="cBF-0l-YgX"/>
                                 </connections>
@@ -356,14 +368,15 @@ Gw
                         <rect key="frame" x="-100" y="-100" width="458" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="0MK-Cf-xUZ">
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="0MK-Cf-xUZ" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="clipView" destination="RlX-Bl-Tqc" id="ETc-ca-PvY"/>
+                            <outlet property="contentView" destination="jrU-2c-JGF" id="fUy-hS-EUS"/>
+                            <outlet property="scrollView" destination="xw4-ZG-Aj9" id="5A8-zJ-YeV"/>
+                        </connections>
                     </scroller>
-                    <tableHeaderView key="headerView" wantsLayer="YES" id="1Rx-VA-4ps">
-                        <rect key="frame" x="0.0" y="0.0" width="463" height="28"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </tableHeaderView>
                 </scrollView>
             </subviews>
             <constraints>
