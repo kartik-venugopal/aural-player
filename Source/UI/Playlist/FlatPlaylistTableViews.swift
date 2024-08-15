@@ -167,23 +167,22 @@ class AuralTableCellView: NSTableCellView {
     func backgroundStyleChanged() {
         
         if rowIsSelected {
-
-            if let selectedTextColor = self.selectedTextColor {
-                textColor = selectedTextColor
-                
-            } else if let selectedAttributedText = self.selectedAttributedText {
+            
+            if let selectedAttributedText = self.selectedAttributedText {
                 attributedText = selectedAttributedText
+
+            } else if let selectedTextColor = self.selectedTextColor {
+                textColor = selectedTextColor
             }
             
         } else {
             
-            if let unselectedTextColor = self.unselectedTextColor {
-                textColor = unselectedTextColor
-                
-            } else if let unselectedAttributedText = self.unselectedAttributedText {
+            if let unselectedAttributedText = self.unselectedAttributedText {
                 attributedText = unselectedAttributedText
+                
+            } else if let unselectedTextColor = self.unselectedTextColor {
+                textColor = unselectedTextColor
             }
-            
         }
     }
 }

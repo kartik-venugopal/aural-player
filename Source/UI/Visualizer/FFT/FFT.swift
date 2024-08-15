@@ -104,7 +104,9 @@ class FFT: Destroyable {
             
             imagp.withUnsafeMutableBufferPointer {imagPtr in
                 
-                var output: DSPSplitComplex = DSPSplitComplex(realp: realPtr.baseAddress!, imagp: imagPtr.baseAddress!)
+                guard let realPtrAddress = realPtr.baseAddress, let imagPtrAddress = imagPtr.baseAddress else {return}
+                
+                var output: DSPSplitComplex = DSPSplitComplex(realp: realPtrAddress, imagp: imagPtrAddress)
                 
                 transferBuffer.withMemoryRebound(to: DSPComplex.self, capacity: windowSize) {dspComplexStream in
                     vDSP_ctoz(dspComplexStream, 2, &output, 1, halfBufferSize_UInt)
