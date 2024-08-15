@@ -29,12 +29,12 @@
 #
 
 # Directory containing the Aural Player Xcode project.
-export projectDir="../../../macOS"
+export projectDir="../.."
 
 echo "Reading build version from Aural Player project ..."
 
 # Get release version from the project.
-export releaseVersion=$(xcodebuild -project $projectDir/Aural-macOS.xcodeproj -showBuildSettings | grep MARKETING_VERSION | cut -d'=' -f2 | tr -d ' ')
+export releaseVersion=$(xcodebuild -project $projectDir/Aural.xcodeproj -showBuildSettings | grep MARKETING_VERSION | cut -d'=' -f2 | tr -d ' ')
 
 # Destination directory where the app bundle / DMG image will be stored.
 export releaseDir="./Aural Player ${releaseVersion}"
@@ -57,7 +57,7 @@ function buildAppBundle {
     fi
 
     # Build an Xcode archive.
-    xcodebuild -project $projectDir/Aural-macOS.xcodeproj -config Release -scheme Aural -archivePath "${archive}" archive
+    xcodebuild -project $projectDir/Aural.xcodeproj -config Release -scheme Aural -archivePath "${archive}" archive
     
     # Export the app bundle from the archive.
     xcodebuild -archivePath "${archive}" -exportArchive -exportPath "${releaseDir}" -exportOptionsPlist exportOptions.plist
@@ -99,15 +99,16 @@ function buildDMG {
 }
 
 # Determine build type based on program argument.
-#if [[ $1 == "app" ]]
-#then
-#    buildAppBundle
-#elif [[ $1 == "dmg" || $1 == "" ]]
-#then
-#    buildDMG
-#else
-#    echo "Invalid argument supplied: '$1'. Valid argument values include 'app', 'dmg', or no value."
-#    exit 1
-#fi
-#
-#echo "Done"
+if [[ $1 == "app" ]]
+then
+    buildAppBundle
+elif [[ $1 == "dmg" || $1 == "" ]]
+then
+    buildDMG
+else
+    echo "Invalid argument supplied: '$1'. Valid argument values include 'app', 'dmg', or no value."
+    exit 1
+fi
+
+open .
+echo "Done"

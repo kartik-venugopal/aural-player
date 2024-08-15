@@ -1656,6 +1656,9 @@
 		3E55639F269D642B00864598 /* ChaptersListTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListTableCellView.swift; sourceTree = "<group>"; };
 		3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3E5864A12B76EC8700BDB5A6 /* MenuBarPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewController.swift; sourceTree = "<group>"; };
+		3E5896082C6E6D6E00BB9EBC /* NewREADME.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NewREADME.md; sourceTree = "<group>"; };
+		3E5896092C6E6D6E00BB9EBC /* README-v4.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README-v4.md"; sourceTree = "<group>"; };
+		3E58960A2C6E6D6E00BB9EBC /* Release Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
 		3E59656A283BF91C00AF43FF /* ControlsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsContainerView.swift; sourceTree = "<group>"; };
 		3E59656C283BF9CE00AF43FF /* LibraryTracksControlsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTracksControlsContainer.swift; sourceTree = "<group>"; };
 		3E59A174262C9EDA006DF775 /* WindowLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLoader.swift; sourceTree = "<group>"; };
@@ -3806,6 +3809,16 @@
 			path = Themes;
 			sourceTree = "<group>";
 		};
+		3E58960B2C6E6D6E00BB9EBC /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				3E5896082C6E6D6E00BB9EBC /* NewREADME.md */,
+				3E5896092C6E6D6E00BB9EBC /* README-v4.md */,
+				3E58960A2C6E6D6E00BB9EBC /* Release Notes.md */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
 		3E59E9CE2B52100E001DDCE9 /* Tracks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3975,6 +3988,7 @@
 				3E6C0EC125CEB3ED00BF0D07 /* Source */,
 				3E0219A72C23497200865AC2 /* Frameworks */,
 				3E6C114C25CEB9C100BF0D07 /* Resources */,
+				3E58960B2C6E6D6E00BB9EBC /* Documentation */,
 				3E0219BF2C23497D00865AC2 /* Fonts */,
 				3E6C0EC025CEB3ED00BF0D07 /* Products */,
 				3E0219E92C23498700865AC2 /* ToolsAndScripts */,
