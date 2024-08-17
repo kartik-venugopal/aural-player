@@ -29,18 +29,34 @@ struct AudioGraphPersistentState: Codable {
     let reverbUnit: ReverbUnitPersistentState?
     let delayUnit: DelayUnitPersistentState?
     let filterUnit: FilterUnitPersistentState?
+    let replayGainUnit: ReplayGainUnitPersistentState?
     
     let audioUnits: [AudioUnitPersistentState]?
     let audioUnitPresets: AudioUnitPresetsPersistentState?
     
     let soundProfiles: [SoundProfilePersistentState]?
     
-    init(outputDevice: AudioDevicePersistentState?, volume: Float?, muted: Bool?, pan: Float?, masterUnit: MasterUnitPersistentState?, eqUnit: EQUnitPersistentState?, pitchShiftUnit: PitchShiftUnitPersistentState?, timeStretchUnit: TimeStretchUnitPersistentState?, reverbUnit: ReverbUnitPersistentState?, delayUnit: DelayUnitPersistentState?, filterUnit: FilterUnitPersistentState?, audioUnits: [AudioUnitPersistentState]?, audioUnitPresets: AudioUnitPresetsPersistentState?, soundProfiles: [SoundProfilePersistentState]?) {
+    init(outputDevice: AudioDevicePersistentState?,
+         volume: Float?,
+         muted: Bool?,
+         pan: Float?,
+         masterUnit: MasterUnitPersistentState?,
+         eqUnit: EQUnitPersistentState?,
+         pitchShiftUnit: PitchShiftUnitPersistentState?,
+         timeStretchUnit: TimeStretchUnitPersistentState?,
+         reverbUnit: ReverbUnitPersistentState?,
+         delayUnit: DelayUnitPersistentState?,
+         filterUnit: FilterUnitPersistentState?,
+         replayGainUnit: ReplayGainUnitPersistentState?,
+         audioUnits: [AudioUnitPersistentState]?,
+         audioUnitPresets: AudioUnitPresetsPersistentState?,
+         soundProfiles: [SoundProfilePersistentState]?) {
         
         self.outputDevice = outputDevice
         self.volume = volume
         self.muted = muted
         self.pan = pan
+        
         self.masterUnit = masterUnit
         self.eqUnit = eqUnit
         self.pitchShiftUnit = pitchShiftUnit
@@ -48,7 +64,9 @@ struct AudioGraphPersistentState: Codable {
         self.reverbUnit = reverbUnit
         self.delayUnit = delayUnit
         self.filterUnit = filterUnit
+        self.replayGainUnit = replayGainUnit
         self.audioUnits = audioUnits
+        
         self.audioUnitPresets = audioUnitPresets
         self.soundProfiles = soundProfiles
     }
@@ -68,6 +86,7 @@ struct AudioGraphPersistentState: Codable {
         self.reverbUnit = ReverbUnitPersistentState(legacyPersistentState: legacyPersistentState?.reverbUnit)
         self.delayUnit = DelayUnitPersistentState(legacyPersistentState: legacyPersistentState?.delayUnit)
         self.filterUnit = FilterUnitPersistentState(legacyPersistentState: legacyPersistentState?.filterUnit)
+        self.replayGainUnit = nil
         
         self.audioUnits = legacyPersistentState?.audioUnits?.map {AudioUnitPersistentState(legacyPersistentState: $0)}
         self.audioUnitPresets = AudioUnitPresetsPersistentState(legacyPersistentState: legacyPersistentState?.audioUnitPresets)

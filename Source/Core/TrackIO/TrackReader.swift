@@ -80,6 +80,7 @@ class TrackReader {
     func computePlaybackContext(for track: Track) throws {
         
         track.playbackContext = try fileReader.getPlaybackMetadata(for: track.file)
+        track.playbackContext?.replayGain = track.replayGain
         
         // If duration has changed as a result of precise computation, set it in the track and send out an update notification
         if !track.durationIsAccurate, let playbackContext = track.playbackContext, track.duration != playbackContext.duration {

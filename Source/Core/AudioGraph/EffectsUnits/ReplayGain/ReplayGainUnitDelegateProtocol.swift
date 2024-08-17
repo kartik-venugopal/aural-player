@@ -20,7 +20,11 @@ protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var preAmp: Float {get set}
     
+    func applyGain(_ replayGain: ReplayGain?)
+    
     var appliedGain: Float {get}
+    
+    var hasAppliedGain: Bool {get}
     
     var effectiveGain: Float {get}
 }

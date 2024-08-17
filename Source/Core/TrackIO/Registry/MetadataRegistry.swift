@@ -47,7 +47,6 @@ class MetadataRegistry: PersistentModelObject {
     
     func loadMetadataForFiles(files: Set<URL>, completionHandler: @escaping () -> ()) {
 
-        print("\nMetadataRegistry: Reading \(files.count) files ...")
         let start = Date()
         
         DispatchQueue.global(qos: .userInteractive).async {
@@ -62,11 +61,8 @@ class MetadataRegistry: PersistentModelObject {
                 }
             }
             
-            print("MetadataRegistry: Waiting to finish reading \(self.opQueue.operationCount) files ...")
             self.opQueue.waitUntilAllOperationsAreFinished()
             
-            let end = Date()
-            print("MetadataRegistry: Done reading files in \(end.timeIntervalSince(start)) secs.!")
             completionHandler()
         }
     }

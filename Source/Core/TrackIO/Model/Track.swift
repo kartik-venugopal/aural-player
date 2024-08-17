@@ -103,6 +103,8 @@ class Track: Hashable, PlaylistItem, PlayableItem {
     var chapters: [Chapter] = []
     var hasChapters: Bool {!chapters.isEmpty}
     
+    var replayGain: ReplayGain? = nil
+    
     var fileSystemInfo: FileSystemInfo
     var audioInfo: AudioInfo?
     
@@ -199,6 +201,8 @@ class Track: Hashable, PlaylistItem, PlayableItem {
             
             auxiliaryMetadata[theKey] = MetadataEntry(format: .other, key: theKey, value: value)
         }
+        
+        self.replayGain = metadata.replayGain
     }
     
     private func correctChapterTimes() {

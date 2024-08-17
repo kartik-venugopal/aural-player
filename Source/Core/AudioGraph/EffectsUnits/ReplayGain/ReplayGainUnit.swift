@@ -13,8 +13,8 @@ import AVFoundation
 class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     
     let node: ReplayGainNode
-    let presets: EQPresets
-    var currentPreset: EQPreset? = nil
+    let presets: ReplayGainPresets
+    var currentPreset: ReplayGainPreset? = nil
     
     var mode: ReplayGainMode {
         
@@ -54,16 +54,22 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         node.globalGain
     }
     
-    init(persistentState: EQUnitPersistentState?) {
+    init(persistentState: ReplayGainUnitPersistentState?) {
         
         node = ReplayGainNode()
-        presets = EQPresets(persistentState: persistentState)
-        mode = .trackGain
-        preAmp = 0
+
+        mode = persistentState?.mode ?? AudioGraphDefaults.replayGainMode
+        replayGain = nil
+        preAmp = persistentState?.preAmp ?? AudioGraphDefaults.replayGainPreAmp
+        
+        presets = ReplayGainPresets(persistentState: persistentState)
         
         super.init(unitType: .replayGain, 
                    unitState: persistentState?.state ?? AudioGraphDefaults.replayGainState,
                    renderQuality: persistentState?.renderQuality)
+        
+        parmsChanged()
+        node.preAmp = preAmp
 
         if let currentPresetName = persistentState?.currentPresetName,
             let matchingPreset = presets.object(named: currentPresetName) {
@@ -82,17 +88,13 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         node.bypass = !isActive
     }
     
-    var globalGain: Float {
-        node.globalGain
-    }
-    
     override var avNodes: [AVAudioNode] {[node]}
     
     override func savePreset(named presetName: String) {
         
-//        let newPreset = EQPreset(name: presetName, state: .active, bands: bands, globalGain: globalGain, systemDefined: false)
-//        presets.addObject(newPreset)
-//        currentPreset = newPreset
+        let newPreset = ReplayGainPreset(name: presetName, state: .active, mode: mode, preAmp: preAmp, systemDefined: false)
+        presets.addObject(newPreset)
+        currentPreset = newPreset
     }
     
     override func applyPreset(named presetName: String) {
@@ -104,14 +106,14 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         }
     }
     
-    func applyPreset(_ preset: EQPreset) {
+    func applyPreset(_ preset: ReplayGainPreset) {
         
-//        bands = preset.bands
-//        globalGain = preset.globalGain
+        self.mode = preset.mode
+        self.preAmp = preset.preAmp
     }
     
-    var settingsAsPreset: EQPreset {
-        EQPreset(name: "eqSettings", state: state, bands: [], globalGain: globalGain, systemDefined: false)
+    var settingsAsPreset: ReplayGainPreset {
+        ReplayGainPreset(name: "replayGainSettings", state: state, mode: mode, preAmp: preAmp, systemDefined: false)
     }
     
     private func invalidateCurrentPreset() {
@@ -126,9 +128,9 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         
         guard let matchingPreset = presets.object(named: presetName) else {return}
         
-//        if matchingPreset.equalToOtherPreset(globalGain: self.globalGain, bands: self.bands) {
-//            self.currentPreset = matchingPreset
-//        }
+        if matchingPreset.equalToOtherPreset(mode: mode, preAmp: preAmp) {
+            self.currentPreset = matchingPreset
+        }
     }
     
     private func presetsDeleted(_ presetNames: [String]) {
@@ -139,13 +141,13 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         }
     }
     
-//    var persistentState: EQUnitPersistentState {
-//
-//        EQUnitPersistentState(state: state,
-//                              userPresets: presets.userDefinedObjects.map {EQPresetPersistentState(preset: $0)},
-//                              currentPresetName: currentPreset?.name,
-//                              renderQuality: renderQualityPersistentState,
-//                              globalGain: globalGain,
-//                              bands: bands)
-//    }
+    var persistentState: ReplayGainUnitPersistentState {
+
+        ReplayGainUnitPersistentState(state: state,
+                                      userPresets: presets.userDefinedObjects.map {ReplayGainPresetPersistentState(preset: $0)},
+                                      currentPresetName: currentPreset?.name,
+                                      renderQuality: renderQualityPersistentState,
+                                      mode: mode,
+                                      preAmp: preAmp)
+    }
 }

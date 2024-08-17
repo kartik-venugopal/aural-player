@@ -42,31 +42,31 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         super.awakeFromNib()
         
         self.effectsUnit = graph.replayGainUnit
-        self.presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(audioGraph.eqUnit.presets)
+        self.presetsWrapper = PresetsWrapper<ReplayGainPreset, ReplayGainPresets>(audioGraph.replayGainUnit.presets)
         
         if let popupMenuCell = modeMenuButton.cell as? EffectsUnitPopupMenuCell {
             fxUnitStateObserverRegistry.registerObserver(popupMenuCell, forFXUnit: graph.replayGainUnit)
         }
     }
     
-    override func oneTimeSetup() {
+    override func initControls() {
         
-        super.oneTimeSetup()
-//        eqUnitView.initialize(eqStateFunction: unitStateFunction,
-//                              sliderAction: #selector(self.eqSliderAction(_:)), sliderActionTarget: self)
-        initializeView()
-    }
-    
-    private func initializeView() {
-        
+        super.initControls()
+
         modeMenuButton.selectItem(withTitle: replayGainUnit.mode.description)
         preAmpSlider.floatValue = replayGainUnit.preAmp
         
-        lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+        let descriptionOfMode = replayGainUnit.hasAppliedGain ? "  (\(replayGainUnit.mode.description))" : ""
+        lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB\(descriptionOfMode)"
+        
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
         lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
+    }
+    
+    override func initSubscriptions() {
         
-        fxUnitStateObserverRegistry.registerObserver(preAmpSlider!, forFXUnit: effectsUnit)
+        super.initSubscriptions()
+        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: initControls)
     }
     
     @IBAction func modeAction(_ sender: NSPopUpButton) {
@@ -75,7 +75,9 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         replayGainUnit.mode = .fromDescription(modeDescription) ?? .defaultMode
         
-        lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+        let descriptionOfMode = replayGainUnit.hasAppliedGain ? "  (\(replayGainUnit.mode.description))" : ""
+        lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB\(descriptionOfMode)"
+        
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
         lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
     }
@@ -83,7 +85,6 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     @IBAction func preAmpAction(_ sender: NSSlider) {
         
         replayGainUnit.preAmp = sender.floatValue
-        print(replayGainUnit.preAmp)
         
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
         lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"

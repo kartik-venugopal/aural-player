@@ -24,8 +24,16 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         set {unit.preAmp = newValue}
     }
     
+    func applyGain(_ replayGain: ReplayGain?) {
+        unit.replayGain = replayGain
+    }
+    
     var appliedGain: Float {
         unit.appliedGain
+    }
+    
+    var hasAppliedGain: Bool {
+        unit.replayGain != nil
     }
     
     var effectiveGain: Float {

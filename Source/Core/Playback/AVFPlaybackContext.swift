@@ -25,6 +25,9 @@ class AVFPlaybackContext: PlaybackContextProtocol {
     
     var duration: Double {computedDuration}
     
+    // Will be set by TrackReader
+    var replayGain: ReplayGain? = nil
+    
     init(for audioFile: AVAudioFile) {
 
         self.audioFile = audioFile

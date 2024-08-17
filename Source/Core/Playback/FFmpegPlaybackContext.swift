@@ -58,6 +58,9 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
     
     var duration: Double {fileContext?.duration ?? 0}
     
+    // Will be set by TrackReader
+    var replayGain: ReplayGain? = nil
+    
     init(for file: URL) throws {
         
         self.file = file

@@ -16,4 +16,14 @@ struct ReplayGain {
     let trackPeak: Float?
     let albumGain: Float?
     let albumPeak: Float?
+    
+    init?(trackGain: Float? = nil, trackPeak: Float? = nil, albumGain: Float? = nil, albumPeak: Float? = nil) {
+        
+        guard trackGain != nil || albumGain != nil else {return nil}
+        
+        self.trackGain = trackGain
+        self.trackPeak = trackPeak
+        self.albumGain = albumGain
+        self.albumPeak = albumPeak
+    }
 }

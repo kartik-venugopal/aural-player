@@ -83,7 +83,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         reverbUnit = ReverbUnit(persistentState: persistentState?.reverbUnit)
         delayUnit = DelayUnit(persistentState: persistentState?.delayUnit)
         filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)
-        replayGainUnit = ReplayGainUnit(persistentState: nil)
+        replayGainUnit = ReplayGainUnit(persistentState: persistentState?.replayGainUnit)
         
         self.audioUnitsManager = audioUnitsManager
         audioUnits = []
@@ -100,7 +100,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState, presets: presets))
         }
         
-        let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit]
+        let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit]
         masterUnit = MasterUnit(persistentState: persistentState?.masterUnit, nativeSlaveUnits: nativeSlaveUnits,
                                 audioUnits: audioUnits)
         
@@ -272,6 +272,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
                                   reverbUnit: reverbUnit.persistentState,
                                   delayUnit: delayUnit.persistentState,
                                   filterUnit: filterUnit.persistentState,
+                                  replayGainUnit: replayGainUnit.persistentState,
                                   audioUnits: audioUnits.map {$0.persistentState},
                                   audioUnitPresets: audioUnitPresets.persistentState,
                                   soundProfiles: soundProfiles.persistentState)
