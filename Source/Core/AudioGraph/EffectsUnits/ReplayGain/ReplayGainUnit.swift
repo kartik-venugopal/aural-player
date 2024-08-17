@@ -46,6 +46,10 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         }
     }
     
+    var effectiveGain: Float {
+        node.globalGain
+    }
+    
     init(persistentState: EQUnitPersistentState?) {
         
         node = ReplayGainNode()
@@ -57,8 +61,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
                    unitState: persistentState?.state ?? AudioGraphDefaults.replayGainState,
                    renderQuality: persistentState?.renderQuality)
 
-        globalGain = persistentState?.globalGain ?? AudioGraphDefaults.eqGlobalGain
-        
         if let currentPresetName = persistentState?.currentPresetName,
             let matchingPreset = presets.object(named: currentPresetName) {
             
@@ -77,13 +79,7 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     }
     
     var globalGain: Float {
-        
-        get {node.globalGain}
-        
-        set {
-            node.globalGain = newValue
-            invalidateCurrentPreset()
-        }
+        node.globalGain
     }
     
     override var avNodes: [AVAudioNode] {[node]}

@@ -45,6 +45,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var reverbUnit: ReverbUnit
     var delayUnit: DelayUnit
     var filterUnit: FilterUnit
+    var replayGainUnit: ReplayGainUnit
     var audioUnits: [HostedAudioUnit]
     
     var soundProfiles: SoundProfiles
@@ -82,6 +83,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         reverbUnit = ReverbUnit(persistentState: persistentState?.reverbUnit)
         delayUnit = DelayUnit(persistentState: persistentState?.delayUnit)
         filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)
+        replayGainUnit = ReplayGainUnit(persistentState: nil)
         
         self.audioUnitsManager = audioUnitsManager
         audioUnits = []

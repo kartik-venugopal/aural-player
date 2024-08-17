@@ -37,6 +37,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var reverbUnit: ReverbUnit {get}
     var delayUnit: DelayUnit {get}
     var filterUnit: FilterUnit {get}
+    var replayGainUnit: ReplayGainUnit {get}
     
     var audioUnits: [HostedAudioUnit] {get}
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)?

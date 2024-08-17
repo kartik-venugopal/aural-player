@@ -19,6 +19,8 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     var replayGain: ReplayGain? {get set}
     
     var preAmp: Float {get set}
+    
+    var effectiveGain: Float {get}
 }
 
 enum ReplayGainMode: Int, Codable {

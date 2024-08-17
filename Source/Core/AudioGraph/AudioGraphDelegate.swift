@@ -55,6 +55,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     var reverbUnit: ReverbUnitDelegateProtocol
     var delayUnit: DelayUnitDelegateProtocol
     var filterUnit: FilterUnitDelegateProtocol
+    var replayGainUnit: ReplayGainUnitDelegateProtocol
     var audioUnits: [HostedAudioUnitDelegateProtocol]
     
     var allUnits: [EffectsUnitDelegateProtocol] {
@@ -102,6 +103,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         reverbUnit = ReverbUnitDelegate(for: graph.reverbUnit)
         delayUnit = DelayUnitDelegate(for: graph.delayUnit)
         filterUnit = FilterUnitDelegate(for: graph.filterUnit)
+        replayGainUnit = ReplayGainUnitDelegate(for: graph.replayGainUnit)
         audioUnits = graph.audioUnits.map {HostedAudioUnitDelegate(for: $0)}
         
         // Set output device based on user preference

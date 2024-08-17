@@ -70,6 +70,7 @@ protocol AudioGraphDelegateProtocol {
     var reverbUnit: ReverbUnitDelegateProtocol {get}
     var delayUnit: DelayUnitDelegateProtocol {get}
     var filterUnit: FilterUnitDelegateProtocol {get}
+    var replayGainUnit: ReplayGainUnitDelegateProtocol {get}
     
     var audioUnits: [HostedAudioUnitDelegateProtocol] {get}
     var audioUnitsStateFunction: EffectsUnitStateFunction {get}
