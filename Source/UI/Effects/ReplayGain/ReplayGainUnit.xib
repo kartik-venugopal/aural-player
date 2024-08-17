@@ -6,10 +6,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="DelayUnitViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="ReplayGainUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="0Oi-jb-bmq" id="dap-fq-cQl"/>
-                <outlet property="delayUnitView" destination="tFM-tl-kaj" id="vJA-5O-k2M"/>
+                <outlet property="lblAppliedGain" destination="38g-mP-xOa" id="akW-qc-Cvo"/>
+                <outlet property="lblPreAmp" destination="uIb-6C-Dgf" id="4KQ-yg-RQo"/>
+                <outlet property="lblTotalGain" destination="9O2-qH-CYt" id="QHR-BA-ZN1"/>
+                <outlet property="modeMenuButton" destination="MJF-dG-Epe" id="8Mo-35-wc8"/>
+                <outlet property="preAmpSlider" destination="ngp-pO-uWT" id="vJQ-0f-POm"/>
                 <outlet property="presetsAndSettingsMenu" destination="TaJ-YU-Bx8" id="5aU-Wz-oW9"/>
                 <outlet property="presetsAndSettingsMenuButton" destination="aWr-na-Gft" id="NtQ-RJ-K45"/>
                 <outlet property="presetsAndSettingsMenuIconItem" destination="yH6-SM-gen" id="fc8-1J-E4b"/>
@@ -132,6 +136,9 @@
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <connections>
+                                <action selector="modeAction:" target="-2" id="cfx-Gc-gXy"/>
+                            </connections>
                         </popUpButton>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cG0-Qq-OUs" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="10" y="71" width="94" height="24"/>
@@ -165,7 +172,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="ub4-KK-30I" customClass="SymmetricEffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
-                                <action selector="delayFeedbackAction:" target="-2" id="GEF-H3-wdi"/>
+                                <action selector="preAmpAction:" target="-2" id="Phx-W2-0oz"/>
                             </connections>
                         </slider>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ob7-3G-QFa" userLabel="-20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">

@@ -59,7 +59,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     var audioUnits: [HostedAudioUnitDelegateProtocol]
     
     var allUnits: [EffectsUnitDelegateProtocol] {
-        [masterUnit, eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit] + audioUnits
+        [masterUnit, eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit] + audioUnits
     }
     
     private(set) lazy var audioUnitsStateFunction: EffectsUnitStateFunction = {[weak self] in

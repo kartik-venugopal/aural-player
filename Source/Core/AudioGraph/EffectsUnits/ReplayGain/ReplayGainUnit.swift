@@ -46,6 +46,10 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         }
     }
     
+    var appliedGain: Float {
+        node.replayGain
+    }
+    
     var effectiveGain: Float {
         node.globalGain
     }

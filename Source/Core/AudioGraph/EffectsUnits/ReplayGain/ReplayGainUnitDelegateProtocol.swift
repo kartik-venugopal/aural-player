@@ -20,5 +20,7 @@ protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var preAmp: Float {get set}
     
+    var appliedGain: Float {get}
+    
     var effectiveGain: Float {get}
 }

@@ -20,10 +20,41 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     
     var preAmp: Float {get set}
     
+    var appliedGain: Float {get}
+    
     var effectiveGain: Float {get}
 }
 
 enum ReplayGainMode: Int, Codable {
     
-    case trackGain, albumGain
+    case albumGain, trackGain
+    
+    static let defaultMode: ReplayGainMode = .albumGain
+    
+    var description: String {
+        
+        switch self {
+            
+        case .albumGain:
+            return "Album gain"
+            
+        case .trackGain:
+            return "Track gain"
+        }
+    }
+    
+    static func fromDescription(_ description: String) -> ReplayGainMode? {
+        
+        switch description {
+            
+        case "Album gain":
+            return .albumGain
+            
+        case "Track gain":
+            return .trackGain
+            
+        default:
+            return nil
+        }
+    }
 }

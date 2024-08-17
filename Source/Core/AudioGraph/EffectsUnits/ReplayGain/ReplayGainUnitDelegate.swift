@@ -24,6 +24,10 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         set {unit.preAmp = newValue}
     }
     
+    var appliedGain: Float {
+        unit.appliedGain
+    }
+    
     var effectiveGain: Float {
         unit.effectiveGain
     }

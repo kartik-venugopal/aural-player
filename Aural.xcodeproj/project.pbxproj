@@ -5264,8 +5264,8 @@
 			children = (
 				3ED373C12C70B62200836511 /* ReplayGainUnitProtocol.swift */,
 				3ED373E32C70D99400836511 /* ReplayGainUnitDelegateProtocol.swift */,
-				3ED373E52C70DA4800836511 /* ReplayGainUnitDelegate.swift */,
 				3ED373DA2C70CC8100836511 /* ReplayGainUnit.swift */,
+				3ED373E52C70DA4800836511 /* ReplayGainUnitDelegate.swift */,
 			);
 			path = ReplayGain;
 			sourceTree = "<group>";
