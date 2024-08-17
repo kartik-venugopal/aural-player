@@ -252,6 +252,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func preTrackPlayback(_ notification: PreTrackPlaybackNotification) {
         
+        // TODO: Apply ReplayGain here
+        
         let oldTrack = notification.oldTrack
         let newTrack = notification.newTrack
         

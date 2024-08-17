@@ -77,6 +77,13 @@ class ID3AVFParser: AVFMetadataParser {
     
     private let infoKeys_TXXX: [String: String] = ["albumartist": "Album Artist", "compatible_brands": "Compatible Brands", "gn_extdata": "Gracenote Data"]
     
+    private let key_TXXXInfo: AVMetadataExtraAttributeKey = AVMetadataExtraAttributeKey(rawValue: "info")
+    
+    private let key_replayGain_trackGain: String = "replaygain_track_gain"
+    private let key_replayGain_trackPeak: String = "replaygain_track_peak"
+    private let key_replayGain_albumGain: String = "replaygain_album_gain"
+    private let key_replayGain_albumPeak: String = "replaygain_album_peak"
+    
     private func readableKey(_ key: String) -> String {
         return auxiliaryFields[key] ?? key.capitalizingFirstLetter()
     }
@@ -180,6 +187,47 @@ class ID3AVFParser: AVFMetadataParser {
         return nil
     }
     
+    func getReplayGain(from metadataMap: AVFMappedMetadata) -> ReplayGain? {
+        
+        var trackGain: Float?
+        var trackPeak: Float?
+        var albumGain: Float?
+        var albumPeak: Float?
+        
+        for item in metadataMap.avAsset.metadata.filter({$0.keySpace == .id3}) {
+            
+            guard let key = item.keyAsString, let value = item.valueAsString else {continue}
+            
+            guard key == "TXXX", let attrs = item.extraAttributes, !attrs.isEmpty, let infoKey = attrs[key_TXXXInfo] else {continue}
+            
+            let infoKeyStr = String(describing: infoKey)
+            
+            if infoKeyStr.hasPrefix("replaygain") {
+                print("\(infoKeyStr) = \(value)")
+            }
+            
+            switch infoKeyStr {
+                
+            case key_replayGain_trackGain:
+                trackGain = Float(value.removingOccurrences(of: "dB").trim())
+                
+            case key_replayGain_trackPeak:
+                trackPeak = Float(value)
+                
+            case key_replayGain_albumGain:
+                albumGain = Float(value.removingOccurrences(of: "dB").trim())
+                
+            case key_replayGain_albumPeak:
+                albumPeak = Float(value)
+                
+            default:
+                continue
+            }
+        }
+        
+        return ReplayGain(trackGain: trackGain, trackPeak: trackPeak, albumGain: albumGain, albumPeak: albumPeak)
+    }
+    
     func getAuxiliaryMetadata(_ metadataMap: AVFMappedMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
@@ -196,7 +244,7 @@ class ID3AVFParser: AVFMetadataParser {
             if replaceableKeyFields.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {
                 
                 // TXXX or COMM or WXXX
-                if let infoKey = mapReplaceableKeyField(attrs), !String.isEmpty(infoKey) {
+                if let infoKey = mapReplaceableKeyField(attrs), !String.isEmpty(infoKey), !infoKey.lowercased().hasPrefix("replaygain") {
                     entryKey = infoKey
                 }
                 

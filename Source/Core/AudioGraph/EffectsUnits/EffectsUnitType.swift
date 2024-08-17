@@ -21,6 +21,7 @@ enum EffectsUnitType: Int {
     case reverb
     case delay
     case filter
+    case replayGain
     case au
     case devices
     
@@ -41,6 +42,8 @@ enum EffectsUnitType: Int {
         case .delay:    return "Delay"
             
         case .filter:   return "Filter"
+            
+        case .replayGain:   return "Replay  Gain"
             
         case .au:       return "Audio  Units"
             
@@ -67,6 +70,8 @@ enum EffectsUnitType: Int {
             
         case .filter:   return .imgFilterUnit
             
+        case .replayGain:   return .imgReplayGainUnit
+
         case .au:       return .imgAudioUnit
             
         default:

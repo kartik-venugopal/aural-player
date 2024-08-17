@@ -90,6 +90,8 @@ protocol AVFMetadataParser {
     /// Read a chapter's title from the given collection of metadata items. Returns nil if not present.
     ///
     func getChapterTitle(_ items: [AVMetadataItem]) -> String?
+    
+    func getReplayGain(from metadataMap: AVFMappedMetadata) -> ReplayGain?
 }
 
 ///
@@ -132,4 +134,6 @@ extension AVFMetadataParser {
     func getChapterTitle(_ items: [AVMetadataItem]) -> String? {nil}
     
     func getAuxiliaryMetadata(_ metadataMap: AVFMappedMetadata) -> [String: MetadataEntry] {[:]}
+    
+    func getReplayGain(from metadataMap: AVFMappedMetadata) -> ReplayGain? {nil}
 }

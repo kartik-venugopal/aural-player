@@ -47,11 +47,12 @@ class EffectsContainerViewController: NSViewController {
     @IBOutlet weak var reverbTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var delayTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var replayGainTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var auTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var devicesTabViewButton: EffectsUnitTabButton!
 
     private lazy var tabViewButtons: [EffectsUnitTabButton] = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton,
-                                                                                delayTabViewButton, filterTabViewButton, auTabViewButton, devicesTabViewButton]
+                                                                                delayTabViewButton, filterTabViewButton, replayGainTabViewButton, auTabViewButton, devicesTabViewButton]
     
     // ------------------------------------------------------------------------
     
@@ -184,6 +185,8 @@ class EffectsContainerViewController: NSViewController {
         case .delay: doTabViewAction(delayTabViewButton)
 
         case .filter: doTabViewAction(filterTabViewButton)
+            
+        case .replayGain: doTabViewAction(replayGainTabViewButton)
             
         case .au: doTabViewAction(auTabViewButton)
             

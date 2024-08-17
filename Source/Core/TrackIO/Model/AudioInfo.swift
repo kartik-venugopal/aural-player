@@ -37,4 +37,6 @@ struct AudioInfo {
     
     // A description of the channel layout, eg. "5.1 Surround".
     var channelLayout: String?
+    
+    var replayGain: ReplayGain?
 }

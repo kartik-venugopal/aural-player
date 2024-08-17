@@ -54,6 +54,8 @@ struct PrimaryMetadata {
     
     var art: CoverArt?
     
+    var replayGain: ReplayGain?
+    
     init() {}
     
     init(persistentState: PrimaryMetadataPersistentState) {

@@ -87,6 +87,12 @@ class AVFFileReader: FileReaderProtocol {
         metadata.year = parsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
         metadata.lyrics = cleanUpString(parsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
         
+        metadata.replayGain = parsers.firstNonNilMappedValue {$0.getReplayGain(from: metadataMap)}
+        
+        if let trackGain = metadata.replayGain?.trackGain {
+            print("Metadata replayGain: \(trackGain)")
+        }
+        
         var auxiliaryMetadata: [String: MetadataEntry] = [:]
         
         // Obtain auxiliary metadata from each of the parsers, and put it in the

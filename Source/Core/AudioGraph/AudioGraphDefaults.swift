@@ -48,5 +48,7 @@ struct AudioGraphDefaults {
 
     static let filterState: EffectsUnitState = .bypassed
     
+    static let replayGainState: EffectsUnitState = .bypassed
+    
     static let auState: EffectsUnitState = .active
 }

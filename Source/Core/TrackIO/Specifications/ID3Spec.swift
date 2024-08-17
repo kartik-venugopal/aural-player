@@ -241,7 +241,14 @@ struct ID3_V24Spec {
     
     static let key_mediaType: String = "TMED"
     
+    static let key_userInfoText: String = AVMetadataKey.id3MetadataKeyUserText.rawValue
+    
+    static let key_replayGain_trackGain: String = ""
+//    static let key_replayGain_trackGain: String = ""
+    
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_lyricist, key_originalLyricist, key_discNumber, key_trackNumber, key_year, key_originalReleaseYear, key_date, key_bpm, key_art, key_lyrics, key_syncLyrics]
+    
+    static let replayGainKeys: [String] = [key_userInfoText]
     
     static let auxiliaryFields: [String: String] = {
         
