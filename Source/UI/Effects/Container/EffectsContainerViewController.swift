@@ -29,11 +29,13 @@ class EffectsContainerViewController: NSViewController {
     private let reverbViewController: ReverbUnitViewController = ReverbUnitViewController()
     private let delayViewController: DelayUnitViewController = DelayUnitViewController()
     private let filterViewController: FilterUnitViewController = FilterUnitViewController()
+    private let replayGainViewController: ReplayGainUnitViewController = ReplayGainUnitViewController()
+    
     private let auViewController: AudioUnitsViewController = AudioUnitsViewController()
     private let devicesViewController: DevicesViewController = DevicesViewController()
     
     private lazy var viewControllers = [masterViewController, eqViewController, pitchViewController, timeViewController,
-                                        reverbViewController, delayViewController, filterViewController]
+                                        reverbViewController, delayViewController, filterViewController, replayGainViewController, auViewController, devicesViewController]
 
     // Tab view and its buttons
 
@@ -100,7 +102,7 @@ class EffectsContainerViewController: NSViewController {
     
     private func initTabGroup() {
         
-        for (index, viewController) in (viewControllers + [auViewController, devicesViewController]).enumerated() {
+        for (index, viewController) in viewControllers.enumerated() {
             
             tabView.tabViewItem(at: index).view?.addSubview(viewController.view)
             viewController.view.anchorToSuperview()
@@ -113,6 +115,7 @@ class EffectsContainerViewController: NSViewController {
         fxUnitStateObserverRegistry.registerObserver(reverbTabViewButton, forFXUnit: audioGraphDelegate.reverbUnit)
         fxUnitStateObserverRegistry.registerObserver(delayTabViewButton, forFXUnit: audioGraphDelegate.delayUnit)
         fxUnitStateObserverRegistry.registerObserver(filterTabViewButton, forFXUnit: audioGraphDelegate.filterUnit)
+        fxUnitStateObserverRegistry.registerObserver(replayGainTabViewButton, forFXUnit: audioGraphDelegate.replayGainUnit)
         
         fxUnitStateObserverRegistry.registerAUObserver(auTabViewButton)
         
@@ -258,6 +261,10 @@ extension EffectsContainerViewController: ColorSchemeObserver {
         
         if graph.filterUnit.state == unitState {
             filterTabViewButton.redraw()
+        }
+        
+        if graph.replayGainUnit.state == unitState {
+            replayGainTabViewButton.redraw()
         }
         
         if graph.audioUnitsStateFunction() == unitState {
