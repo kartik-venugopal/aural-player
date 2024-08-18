@@ -54,8 +54,10 @@ class VorbisCommentParser: FFmpegMetadataParser {
     private let key_language = "language"
     private let key_compilation = "compilation"
     
-    private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre, key_performer,
-    key_disc, key_totalDiscs, key_discTotal, key_track, key_trackTotal, key_totalTracks] + keys_artist + keys_year)
+    private lazy var essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre, key_performer,
+                                                  key_disc, key_totalDiscs, key_discTotal, key_track, key_trackTotal, key_totalTracks] + keys_artist + keys_year).union(keys_replayGain)
+    
+    private let keys_replayGain: Set<String> = [ID3_V24Spec.key_replayGain_trackGain, ID3_V24Spec.key_replayGain_albumGain, ID3_V24Spec.key_replayGain_trackPeak, ID3_V24Spec.key_replayGain_albumPeak]
     
     func mapMetadata(_ metadataMap: FFmpegMappedMetadata) {
         
@@ -418,5 +420,36 @@ class VorbisCommentParser: FFmpegMetadataParser {
         }
         
         return metadata
+    }
+    
+    func getReplayGain(from metadataMap: FFmpegMappedMetadata) -> ReplayGain? {
+        
+        var trackGain: Float?
+        var trackPeak: Float?
+        var albumGain: Float?
+        var albumPeak: Float?
+        
+        for (key, value) in metadataMap.vorbisMetadata.essentialFields.filter({$0.key.contains("replaygain_")}) {
+            
+            switch key {
+                
+            case ID3_V24Spec.key_replayGain_trackGain:
+                trackGain = Float(value.removingOccurrences(of: "dB").trim())
+                
+            case ID3_V24Spec.key_replayGain_trackPeak:
+                trackPeak = Float(value)
+                
+            case ID3_V24Spec.key_replayGain_albumGain:
+                albumGain = Float(value.removingOccurrences(of: "dB").trim())
+                
+            case ID3_V24Spec.key_replayGain_albumPeak:
+                albumPeak = Float(value)
+                
+            default:
+                continue
+            }
+        }
+        
+        return ReplayGain(trackGain: trackGain, trackPeak: trackPeak, albumGain: albumGain, albumPeak: albumPeak)
     }
 }

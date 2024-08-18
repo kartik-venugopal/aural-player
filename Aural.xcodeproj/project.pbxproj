@@ -962,6 +962,7 @@
 		3ED373ED2C70EBB400836511 /* ReplayGainUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED373EC2C70EBB400836511 /* ReplayGainUnitViewController.swift */; };
 		3ED373EF2C71392E00836511 /* ReplayGainUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED373EE2C71392E00836511 /* ReplayGainUnitPersistentState.swift */; };
 		3ED373F12C713ACE00836511 /* ReplayGainPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED373F02C713ACE00836511 /* ReplayGainPresets.swift */; };
+		3ED373F52C71803F00836511 /* FFmpegPacketSideData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED373F42C71803F00836511 /* FFmpegPacketSideData.swift */; };
 		3ED65A532C45BA3000859677 /* PlayerViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */; };
 		3ED65A552C45BAD000859677 /* PlayerViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */; };
 		3ED8E74A281482C9002E313F /* TableImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E749281482C9002E313F /* TableImageCell.swift */; };
@@ -2094,6 +2095,7 @@
 		3ED373EC2C70EBB400836511 /* ReplayGainUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGainUnitViewController.swift; sourceTree = "<group>"; };
 		3ED373EE2C71392E00836511 /* ReplayGainUnitPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGainUnitPersistentState.swift; sourceTree = "<group>"; };
 		3ED373F02C713ACE00836511 /* ReplayGainPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGainPresets.swift; sourceTree = "<group>"; };
+		3ED373F42C71803F00836511 /* FFmpegPacketSideData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegPacketSideData.swift; sourceTree = "<group>"; };
 		3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Actions.swift"; sourceTree = "<group>"; };
 		3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Theming.swift"; sourceTree = "<group>"; };
 		3ED8E749281482C9002E313F /* TableImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableImageCell.swift; sourceTree = "<group>"; };
@@ -2371,6 +2373,7 @@
 			isa = PBXGroup;
 			children = (
 				3E02162A2C23490E00865AC2 /* FFmpegAudioCodec.swift */,
+				3ED373F42C71803F00836511 /* FFmpegPacketSideData.swift */,
 				3E02162C2C23490E00865AC2 /* FFmpegCodecContext.swift */,
 				3E02162D2C23490E00865AC2 /* FFmpegCodecParameters.swift */,
 				3E02162E2C23490E00865AC2 /* FFmpegFrame.swift */,
@@ -6526,6 +6529,7 @@
 				3E0218052C23490E00865AC2 /* PitchShiftUnitProtocol.swift in Sources */,
 				3E2976132629473500459272 /* WindowCornerRadiusMenuItemView.swift in Sources */,
 				3E0218DC2C23490E00865AC2 /* PlayerProtocol.swift in Sources */,
+				3ED373F52C71803F00836511 /* FFmpegPacketSideData.swift in Sources */,
 				3E0218AB2C23490E00865AC2 /* GroupingPlaylistPersistentState.swift in Sources */,
 				3EC742572C41C1C200C100DE /* AVFScheduler+Looping.swift in Sources */,
 				3E9E591025DB6B150064EB5F /* ModularAppModeController.swift in Sources */,

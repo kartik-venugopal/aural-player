@@ -93,6 +93,8 @@ protocol FFmpegMetadataParser {
     /// Returns a map of key -> MetadataEntry.
     ///
     func getAuxiliaryMetadata(_ metadataMap: FFmpegMappedMetadata) -> [String: MetadataEntry]
+    
+    func getReplayGain(from metadataMap: FFmpegMappedMetadata) -> ReplayGain?
 }
 
 // Default function implementations
@@ -123,4 +125,6 @@ extension FFmpegMetadataParser {
     func isDRMProtected(_ metadataMap: FFmpegMappedMetadata) -> Bool? {nil}
     
     func getAuxiliaryMetadata(_ metadataMap: FFmpegMappedMetadata) -> [String: MetadataEntry] {[:]}
+    
+    func getReplayGain(from metadataMap: FFmpegMappedMetadata) -> ReplayGain? {nil}
 }

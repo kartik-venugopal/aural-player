@@ -13,6 +13,7 @@
 #import <libavutil/error.h>
 #import <libavutil/channel_layout.h>
 #import <libavutil/opt.h>
+#import <libavutil/replaygain.h>
 #import <libswresample/swresample.h>
 
 #import "libcue.h"

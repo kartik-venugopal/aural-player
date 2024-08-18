@@ -89,6 +89,9 @@ class FFmpegAudioStream: FFmpegStreamProtocol {
     ///
     lazy var metadata: [String: String] = FFmpegMetadataReader.read(from: avStream.metadata)
     
+    lazy var replayGain: ReplayGain? = FFmpegPacketSideData(pointer: codecParams.coded_side_data,
+                                                            size: codecParams.nb_coded_side_data).replayGain
+    
     ///
     /// Instantiates this stream object and its associated codec and codec context.
     ///

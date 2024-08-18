@@ -133,6 +133,8 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
         metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
         
+        metadata.replayGain = fctx.bestAudioStream?.replayGain ?? relevantParsers.firstNonNilMappedValue {$0.getReplayGain(from: metadataMap)}
+        
         var auxiliaryMetadata: [String: MetadataEntry] = [:]
         
         for parser in relevantParsers {

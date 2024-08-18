@@ -43,9 +43,11 @@ class ID3FFmpegParser: FFmpegMetadataParser {
     private let keys_compilation: [String] = [ID3_V24Spec.key_compilation, ID3_V22Spec.key_compilation]
     private let keys_mediaType: [String] = [ID3_V24Spec.key_mediaType, ID3_V22Spec.key_mediaType]
     
-    private let essentialFieldKeys: Set<String> = {
+    private let keys_replayGain: Set<String> = [ID3_V24Spec.key_replayGain_trackGain, ID3_V24Spec.key_replayGain_albumGain, ID3_V24Spec.key_replayGain_trackPeak, ID3_V24Spec.key_replayGain_albumPeak]
+    
+    private lazy var essentialFieldKeys: Set<String> = {
         
-        Set<String>().union(ID3_V1Spec.essentialFieldKeys.map {$0.lowercased()}).union(ID3_V22Spec.essentialFieldKeys.map {$0.lowercased()}).union(ID3_V24Spec.essentialFieldKeys.map {$0.lowercased()})
+        Set<String>().union(ID3_V1Spec.essentialFieldKeys.map {$0.lowercased()}).union(ID3_V22Spec.essentialFieldKeys.map {$0.lowercased()}).union(ID3_V24Spec.essentialFieldKeys.map {$0.lowercased()}).union(keys_replayGain)
     }()
     
     private let ignoredKeys: Set<String> = Set([ID3_V24Spec.key_private, ID3_V24Spec.key_tableOfContents, ID3_V24Spec.key_chapter, ID3_V24Spec.key_lyrics, ID3_V22Spec.key_lyrics, ID3_V24Spec.key_syncLyrics, ID3_V22Spec.key_syncLyrics].map {$0.lowercased()})
@@ -68,7 +70,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         for key in metadataMap.map.keys {
 
             let lcKey = key.lowercased().trim()
-
+            
             if !ignoredKeys.contains(lcKey) {
 
                 if essentialFieldKeys.contains(lcKey) {
@@ -169,7 +171,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
 
         return nil
     }
-
+    
     func getDuration(_ metadataMap: FFmpegMappedMetadata) -> Double? {
 
         if let durationStr = keys_duration.firstNonNilMappedValue({metadataMap.id3Metadata.essentialFields[$0]}) {
@@ -208,5 +210,36 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         }
         
         return metadata
+    }
+    
+    func getReplayGain(from metadataMap: FFmpegMappedMetadata) -> ReplayGain? {
+        
+        var trackGain: Float?
+        var trackPeak: Float?
+        var albumGain: Float?
+        var albumPeak: Float?
+        
+        for (key, value) in metadataMap.vorbisMetadata.essentialFields.filter({$0.key.contains("replaygain_")}) {
+            
+            switch key {
+                
+            case ID3_V24Spec.key_replayGain_trackGain:
+                trackGain = Float(value.removingOccurrences(of: "dB").trim())
+                
+            case ID3_V24Spec.key_replayGain_trackPeak:
+                trackPeak = Float(value)
+                
+            case ID3_V24Spec.key_replayGain_albumGain:
+                albumGain = Float(value.removingOccurrences(of: "dB").trim())
+                
+            case ID3_V24Spec.key_replayGain_albumPeak:
+                albumPeak = Float(value)
+                
+            default:
+                continue
+            }
+        }
+        
+        return ReplayGain(trackGain: trackGain, trackPeak: trackPeak, albumGain: albumGain, albumPeak: albumPeak)
     }
 }
