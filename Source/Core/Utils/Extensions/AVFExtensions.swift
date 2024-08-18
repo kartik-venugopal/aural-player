@@ -129,6 +129,8 @@ extension AudioFormatFlags {
 
 extension AVMetadataItem {
     
+    static let keyPrefix_iTunesLongForm_lowercased: String = "com.apple.itunes."
+    
     var commonKeyAsString: String? {
         return commonKey?.rawValue
     }
@@ -191,6 +193,16 @@ extension AVMetadataItem {
         
         return "0"
     }
+}
+
+extension AVMetadataExtraAttributeKey {
+ 
+    static let key_info: AVMetadataExtraAttributeKey = AVMetadataExtraAttributeKey(rawValue: "info")
+}
+
+extension AVMetadataKeySpace {
+    
+    static let iTunesLongForm: AVMetadataKeySpace = AVMetadataKeySpace(rawValue: ITunesSpec.longForm_keySpaceID)
 }
 
 extension Data {

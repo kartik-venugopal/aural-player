@@ -45,15 +45,9 @@ class ID3AVFParser: AVFMetadataParser {
     private let keys_compilation: [String] = [ID3_V24Spec.key_compilation, ID3_V22Spec.key_compilation]
     private let keys_mediaType: [String] = [ID3_V24Spec.key_mediaType, ID3_V22Spec.key_mediaType]
     
-    private let essentialFieldKeys: Set<String> = {
-        
-        var keys: Set<String> = Set<String>()
-        keys = keys.union(ID3_V1Spec.essentialFieldKeys)
-        keys = keys.union(ID3_V22Spec.essentialFieldKeys)
-        keys = keys.union(ID3_V24Spec.essentialFieldKeys)
-        
-        return keys
-    }()
+    private let essentialFieldKeys: Set<String> = ID3_V1Spec.essentialFieldKeys
+        .union(ID3_V22Spec.essentialFieldKeys)
+        .union(ID3_V24Spec.essentialFieldKeys)
     
     private let ignoredKeys: Set<String> = [ID3_V24Spec.key_private, ID3_V24Spec.key_tableOfContents, ID3_V24Spec.key_chapter, ID3_V24Spec.key_lyrics, ID3_V22Spec.key_lyrics, ID3_V24Spec.key_syncLyrics, ID3_V22Spec.key_syncLyrics]
     
@@ -66,23 +60,14 @@ class ID3AVFParser: AVFMetadataParser {
         return map
     }()
     
-    private let replaceableKeyFields: Set<String> = {
+    private let replaceableKeyFields: Set<String> = ID3_V22Spec.replaceableKeyFields.union(ID3_V24Spec.replaceableKeyFields)
+    
+    private let infoKeys_TXXX: [String: String] = [
         
-        var keys: Set<String> = Set<String>()
-        keys = keys.union(ID3_V22Spec.replaceableKeyFields)
-        keys = keys.union(ID3_V24Spec.replaceableKeyFields)
-        
-        return keys
-    }()
-    
-    private let infoKeys_TXXX: [String: String] = ["albumartist": "Album Artist", "compatible_brands": "Compatible Brands", "gn_extdata": "Gracenote Data"]
-    
-    private let key_TXXXInfo: AVMetadataExtraAttributeKey = AVMetadataExtraAttributeKey(rawValue: "info")
-    
-    private let key_replayGain_trackGain: String = "replaygain_track_gain"
-    private let key_replayGain_trackPeak: String = "replaygain_track_peak"
-    private let key_replayGain_albumGain: String = "replaygain_album_gain"
-    private let key_replayGain_albumPeak: String = "replaygain_album_peak"
+        "albumartist": "Album Artist",
+        "compatible_brands": "Compatible Brands", 
+        "gn_extdata": "Gracenote Data"
+    ]
     
     private func readableKey(_ key: String) -> String {
         return auxiliaryFields[key] ?? key.capitalizingFirstLetter()
@@ -198,26 +183,22 @@ class ID3AVFParser: AVFMetadataParser {
             
             guard let key = item.keyAsString, let value = item.valueAsString else {continue}
             
-            guard key == "TXXX", let attrs = item.extraAttributes, !attrs.isEmpty, let infoKey = attrs[key_TXXXInfo] else {continue}
+            guard key == "TXXX", let attrs = item.extraAttributes, !attrs.isEmpty, let infoKey = attrs[.key_info] else {continue}
             
             let infoKeyStr = String(describing: infoKey)
             
-            if infoKeyStr.hasPrefix("replaygain") {
-                print("\(infoKeyStr) = \(value)")
-            }
-            
             switch infoKeyStr {
                 
-            case key_replayGain_trackGain:
+            case ID3_V24Spec.key_replayGain_trackGain:
                 trackGain = Float(value.removingOccurrences(of: "dB").trim())
                 
-            case key_replayGain_trackPeak:
+            case ID3_V24Spec.key_replayGain_trackPeak:
                 trackPeak = Float(value)
                 
-            case key_replayGain_albumGain:
+            case ID3_V24Spec.key_replayGain_albumGain:
                 albumGain = Float(value.removingOccurrences(of: "dB").trim())
                 
-            case key_replayGain_albumPeak:
+            case ID3_V24Spec.key_replayGain_albumPeak:
                 albumPeak = Float(value)
                 
             default:

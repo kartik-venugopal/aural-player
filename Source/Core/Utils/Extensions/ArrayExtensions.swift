@@ -243,7 +243,7 @@ extension Array {
     }
 }
 
-extension Array {
+extension Sequence {
     
     func firstNonNilMappedValue<R>(_ mapFunc: (Element) -> R?) ->R? {
 

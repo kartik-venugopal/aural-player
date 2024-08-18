@@ -30,7 +30,7 @@ struct ID3_V1Spec {
     
     static let key_trackNumber = "Album track"
     
-    static let essentialFieldKeys: [String] = [key_title, key_artist, key_album, key_genre, key_trackNumber, key_year]
+    static let essentialFieldKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_trackNumber, key_year]
     
     static let auxiliaryFields: [String: String] = ["Comment": "Comment"]
 }
@@ -73,13 +73,13 @@ struct ID3_V22Spec {
     
     static let key_language: String = "TLA"
     static let key_playCounter: String = "CNT"
-    static let replaceableKeyFields: [String] = ["TXX", "COM", "WXX"]
+    static let replaceableKeyFields: Set<String> = ["TXX", "COM", "WXX"]
     static let key_GEO: String = "GEO"
     static let key_compilation: String = "TCP"
     static let key_UFI: String = "UFI"
     static let key_mediaType: String = "TMT"
     
-    static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_lyricist, key_originalLyricist, key_discNumber, key_trackNumber, key_year, key_originalReleaseYear, key_date, key_bpm, key_art, key_lyrics, key_syncLyrics]
+    static let essentialFieldKeys: Set<String> = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_lyricist, key_originalLyricist, key_discNumber, key_trackNumber, key_year, key_originalReleaseYear, key_date, key_bpm, key_art, key_lyrics, key_syncLyrics]
     
     static let auxiliaryFields: [String: String] = {
         
@@ -225,7 +225,7 @@ struct ID3_V24Spec {
     static let key_GEOB: String = AVMetadataKey.id3MetadataKeyGeneralEncapsulatedObject.rawValue
     static let key_playCounter: String = AVMetadataKey.id3MetadataKeyPlayCounter.rawValue
     
-    static let replaceableKeyFields: [String] = [AVMetadataKey.id3MetadataKeyUserText.rawValue, AVMetadataKey.id3MetadataKeyComments.rawValue, AVMetadataKey.id3MetadataKeyUserURL.rawValue]
+    static let replaceableKeyFields: Set<String> = [AVMetadataKey.id3MetadataKeyUserText.rawValue, AVMetadataKey.id3MetadataKeyComments.rawValue, AVMetadataKey.id3MetadataKeyUserURL.rawValue]
     
     static let key_language: String = AVMetadataKey.id3MetadataKeyLanguage.rawValue
     static let key_compilation: String = "TCMP"
@@ -243,10 +243,12 @@ struct ID3_V24Spec {
     
     static let key_userInfoText: String = AVMetadataKey.id3MetadataKeyUserText.rawValue
     
-    static let key_replayGain_trackGain: String = ""
-//    static let key_replayGain_trackGain: String = ""
+    static let key_replayGain_trackGain: String = "replaygain_track_gain"
+    static let key_replayGain_trackPeak: String = "replaygain_track_peak"
+    static let key_replayGain_albumGain: String = "replaygain_album_gain"
+    static let key_replayGain_albumPeak: String = "replaygain_album_peak"
     
-    static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_lyricist, key_originalLyricist, key_discNumber, key_trackNumber, key_year, key_originalReleaseYear, key_date, key_bpm, key_art, key_lyrics, key_syncLyrics]
+    static let essentialFieldKeys: Set<String> = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_lyricist, key_originalLyricist, key_discNumber, key_trackNumber, key_year, key_originalReleaseYear, key_date, key_bpm, key_art, key_lyrics, key_syncLyrics]
     
     static let replayGainKeys: [String] = [key_userInfoText]
     
