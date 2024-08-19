@@ -231,20 +231,20 @@ class FFmpegPlaybackResamplingContext: FFmpegResamplingContext {
 ///
 class FFmpegReplayGainScanResamplingContext: FFmpegResamplingContext {
     
-    private static let ebur128AnalysisSampleFormat: AVSampleFormat = AV_SAMPLE_FMT_S16
-    
-    init?(inputChannelLayout: FFmpegChannelLayout, sampleRate: Int64, inputSampleFormat: AVSampleFormat) {
+    init?(channelLayout: FFmpegChannelLayout, sampleRate: Int64, 
+          inputSampleFormat: AVSampleFormat,
+          outputSampleFormat: AVSampleFormat) {
         
         super.init()
         
-        self.inputChannelLayout = inputChannelLayout.avChannelLayout
+        self.inputChannelLayout = channelLayout.avChannelLayout
         self.outputChannelLayout = self.inputChannelLayout
         
         self.inputSampleRate = sampleRate
         self.outputSampleRate = sampleRate
         
         self.inputSampleFormat = inputSampleFormat
-        self.outputSampleFormat = Self.ebur128AnalysisSampleFormat
+        self.outputSampleFormat = outputSampleFormat
         
         initialize()
     }

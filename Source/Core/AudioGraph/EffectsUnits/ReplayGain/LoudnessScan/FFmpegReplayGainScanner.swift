@@ -21,8 +21,55 @@ class FFmpegReplayGainScanner: ReplayGainScanner {
     
     let file: URL
     
-    init(file: URL) {
+    let ctx: FFmpegFileContext
+    let stream: FFmpegAudioStream
+    let codec: FFmpegAudioCodec
+    var swr: FFmpegReplayGainScanResamplingContext? = nil
+    
+    let channelCount: Int
+    let sampleRate: Int
+    let sampleFormat: AVSampleFormat
+    var targetFormat: AVSampleFormat
+    
+    let ebur128: EBUR128State
+    
+    var outputData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = nil
+
+    var consecutiveErrors: Int = 0
+    var eof: Bool = false
+    
+    init(file: URL) throws {
+        
         self.file = file
+        
+        self.ctx = try FFmpegFileContext(for: file)
+        
+        guard let theAudioStream = ctx.bestAudioStream else {
+            throw FormatContextInitializationError(description: "\nUnable to find audio stream in file: '\(file.path)'")
+        }
+        
+        self.stream = theAudioStream
+        self.codec = try FFmpegAudioCodec(fromParameters: theAudioStream.avStream.codecpar)
+        
+        channelCount = Int(codec.channelCount)
+        sampleFormat = codec.sampleFormat.avFormat
+        sampleRate = Int(codec.sampleRate)
+        
+        ebur128 = try EBUR128State(channelCount: channelCount, sampleRate: sampleRate, mode: .samplePeak)
+        
+        self.targetFormat = sampleFormat
+        
+        // We need signed 16-bit integers (interleaved)
+        if let theTargetFormat = codec.sampleFormat.conversionFormatForEBUR128 {
+            
+            self.targetFormat = theTargetFormat
+            
+            swr = FFmpegReplayGainScanResamplingContext(channelLayout: codec.channelLayout,
+                                                        sampleRate: Int64(sampleRate),
+                                                        inputSampleFormat: sampleFormat,
+                                                        outputSampleFormat: theTargetFormat)
+            outputData = .allocate(capacity: 1)
+        }
     }
     
     func scan(_ completionHandler: @escaping (EBUR128AnalysisResult) -> Void) {
@@ -31,8 +78,28 @@ class FFmpegReplayGainScanner: ReplayGainScanner {
             
             do {
                 
-                if let result: EBUR128AnalysisResult = try self.doScan() {
-                    completionHandler(result)
+                var result: EBUR128AnalysisResult?
+                
+                switch self.targetFormat {
+                    
+                case AV_SAMPLE_FMT_S16:
+                    result = try self.scanAsInt16()
+                    
+                case AV_SAMPLE_FMT_S32:
+                    result = try self.scanAsInt32()
+                    
+                case AV_SAMPLE_FMT_FLT:
+                    result = try self.scanAsFloat()
+                    
+                case AV_SAMPLE_FMT_DBL:
+                    result = try self.scanAsDouble()
+                    
+                default:
+                    break
+                }
+                
+                if let theResult = result {
+                    completionHandler(theResult)
                 } else {
                     print("No result")
                 }
@@ -46,115 +113,9 @@ class FFmpegReplayGainScanner: ReplayGainScanner {
         }
     }
     
-    private func doScan() throws -> EBUR128AnalysisResult? {
+    func cleanUpAfterScan() {
         
-        var ctr: Int = 0
-        
-        var swr: FFmpegReplayGainScanResamplingContext?
-        var channelCount: Int = 0
-        
-        var outputData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>!
-        
-        defer {
-            outputData?[0]?.deallocate()
-            outputData?.deallocate()
-        }
-        
-        var ebur128: EBUR128State?
-        
-        var consecutiveErrors: Int = 0
-        var eof: Bool = false
-        
-        do {
-            
-            let ctx = try FFmpegFileContext(for: file)
-            
-            guard let stream = ctx.bestAudioStream else {return nil}
-            let codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
-            
-            channelCount = Int(codec.channelCount)
-            
-            ebur128 = try EBUR128State(channelCount: channelCount, sampleRate: Int(codec.sampleRate), mode: .samplePeak)
-            
-            // We need signed 16-bit integers (interleaved)
-            if codec.sampleFormat.avFormat != AV_SAMPLE_FMT_S16 {
-                
-                swr = FFmpegReplayGainScanResamplingContext(inputChannelLayout: codec.channelLayout, sampleRate: Int64(codec.sampleRate), inputSampleFormat: codec.sampleFormat.avFormat)
-                outputData = .allocate(capacity: 1)
-            }
-            
-            var curSize: Int = 0
-            let sizeOfInt16TimesChannelCount = MemoryLayout<Int16>.size * channelCount
-            
-            while !eof, consecutiveErrors < 3 {
-                
-                do {
-                    
-                    guard let pkt = try ctx.readPacket(from: stream) else {
-                        
-                        consecutiveErrors += 1
-                        continue
-                    }
-                    
-                    let frames = try codec.decode(packet: pkt)
-                    
-                    for frame in frames.frames {
-                        
-                        // Only 1 buffer since interleaved. Capacity = sampleCount * number of bytes in Int16 * channelCount
-                        let newSize = frame.intSampleCount * sizeOfInt16TimesChannelCount
-                        
-                        if newSize > curSize {
-                            
-                            outputData?[0] = .allocate(capacity: newSize)
-                            curSize = newSize
-                        }
-                        
-                        swr?.convertFrame(frame, andStoreIn: outputData)
-                        
-                        let pointer: UnsafeMutablePointer<UInt8>? = outputData?[0] ?? frame.dataPointers[0]
-                        
-                        pointer?.withMemoryRebound(to: Int16.self, capacity: frame.intSampleCount) {pointer in
-                            
-                            do {
-                                
-                                try ebur128?.addFramesAsInt16(framesPointer: pointer, frameCount: frame.intSampleCount)
-                                consecutiveErrors = 0
-                                
-                            } catch let err as EBUR128Error {
-                                print(err.description)
-                                
-                            } catch {
-                                print("Unknown error: \(error.localizedDescription)")
-                            }
-                        }
-                    }
-                    
-                } catch let err as DecoderError {
-                    
-                    eof = err.isEOF
-                    
-                    if !err.isEOF {
-                        
-                        consecutiveErrors += 1
-                        print("Error: \(err.code.errorDescription) after reading \(ctr) packets")
-                    }
-                    
-                } catch let err as PacketReadError {
-                    
-                    eof = err.isEOF
-                    
-                    if !err.isEOF {
-                        
-                        consecutiveErrors += 1
-                        print("Error: \(err.code.errorDescription) after reading \(ctr) packets")
-                    }
-                }
-            }
-            
-        } catch {
-            print("Error: \(error) after reading \(ctr) packets")
-        }
-        
-        return consecutiveErrors >= 3 ? nil : try ebur128?.analyze()
+        outputData?[0]?.deallocate()
+        outputData?.deallocate()
     }
 }

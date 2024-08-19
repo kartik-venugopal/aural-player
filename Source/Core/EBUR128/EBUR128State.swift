@@ -49,6 +49,33 @@ class EBUR128State {
         }
     }
     
+    func addFramesAsInt32(framesPointer: UnsafeMutablePointer<Int32>, frameCount: Int) throws {
+        
+        let result = ebur128_add_frames_int(self.pointer, framesPointer, frameCount)
+        
+        if result.isEBUR128Failure {
+            throw EBURFrameAddError(resultCode: result, frameCount: frameCount)
+        }
+    }
+    
+    func addFramesAsFloat(framesPointer: UnsafeMutablePointer<Float>, frameCount: Int) throws {
+        
+        let result = ebur128_add_frames_float(self.pointer, framesPointer, frameCount)
+        
+        if result.isEBUR128Failure {
+            throw EBURFrameAddError(resultCode: result, frameCount: frameCount)
+        }
+    }
+    
+    func addFramesAsDouble(framesPointer: UnsafeMutablePointer<Double>, frameCount: Int) throws {
+        
+        let result = ebur128_add_frames_double(self.pointer, framesPointer, frameCount)
+        
+        if result.isEBUR128Failure {
+            throw EBURFrameAddError(resultCode: result, frameCount: frameCount)
+        }
+    }
+    
     func analyze() throws -> EBUR128AnalysisResult {
         
         let loudness = try computeLoudness()

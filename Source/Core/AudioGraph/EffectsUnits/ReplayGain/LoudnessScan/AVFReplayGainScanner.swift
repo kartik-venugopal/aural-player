@@ -14,10 +14,40 @@ class AVFReplayGainScanner: ReplayGainScanner {
     
     let file: URL
     
+    private let audioFile: AVAudioFile
+    
+    private let audioFormat: AVAudioFormat
+    private let analysisFormat: AVAudioFormat
+    
+    private let channelLayout: AVAudioChannelLayout
+    private let channelCount: AVAudioChannelCount
+    private let sampleRate: Double
+    private let totalSamples: AVAudioFramePosition
+    
+    private let ebur128: EBUR128State
+    
+    private static let analysisSampleFormat: AVAudioCommonFormat = .pcmFormatFloat32
     private static let chunkSize: AVAudioFrameCount = 5 * 44100
     
-    init(file: URL) {
+    init(file: URL) throws {
+        
         self.file = file
+        
+        self.audioFile = try AVAudioFile(forReading: file)
+        
+        self.totalSamples = audioFile.length
+        self.audioFormat = audioFile.processingFormat
+        self.channelCount = audioFormat.channelCount
+        self.sampleRate = audioFormat.sampleRate
+        
+        ebur128 = try EBUR128State(channelCount: Int(channelCount), sampleRate: Int(sampleRate), mode: .samplePeak)
+        
+        self.channelLayout = audioFormat.channelLayout ?? .defaultLayoutForChannelCount(channelCount)
+        
+        self.analysisFormat = .init(commonFormat: Self.analysisSampleFormat,
+                                                  sampleRate: sampleRate,
+                                                  interleaved: true,
+                                                  channelLayout: channelLayout)
     }
     
     func scan(_ completionHandler: @escaping (EBUR128AnalysisResult) -> Void) {
@@ -45,26 +75,7 @@ class AVFReplayGainScanner: ReplayGainScanner {
         
         do {
             
-            var time: Double = 0, st: Double = 0
-            var ebur128: EBUR128State?
-            
-            let audioFile = try AVAudioFile(forReading: file)
-            
-            let totalSamples = audioFile.length
             var samplesRead: AVAudioFramePosition = 0
-            
-            let audioFormat = audioFile.processingFormat
-            let channelCount = audioFormat.channelCount
-            let sampleRate = audioFormat.sampleRate
-            
-            ebur128 = try EBUR128State(channelCount: Int(channelCount), sampleRate: Int(sampleRate), mode: .samplePeak)
-            
-            let channelLayout = audioFormat.channelLayout ?? .defaultLayoutForChannelCount(channelCount)
-            
-            let analysisFormat: AVAudioFormat = .init(commonFormat: .pcmFormatInt16,
-                                                      sampleRate: sampleRate,
-                                                      interleaved: true,
-                                                      channelLayout: channelLayout)
             
             guard let readBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: Self.chunkSize),
                   let analyzeBuffer = AVAudioPCMBuffer(pcmFormat: analysisFormat, frameCapacity: Self.chunkSize) else {return nil}
@@ -79,13 +90,10 @@ class AVFReplayGainScanner: ReplayGainScanner {
                 
                 try converter.convert(to: analyzeBuffer, from: readBuffer)
                 
-                guard let int16Buffer = analyzeBuffer.int16ChannelData else {return nil}
-                
-                st = CFAbsoluteTimeGetCurrent()
+                guard let floatBuffer = analyzeBuffer.floatChannelData else {return nil}
                 
                 do {
-                    
-                    try ebur128?.addFramesAsInt16(framesPointer: int16Buffer[0], frameCount: Int(analyzeBuffer.frameLength))
+                    try ebur128.addFramesAsFloat(framesPointer: floatBuffer[0], frameCount: Int(analyzeBuffer.frameLength))
                     
                 } catch let err as EBUR128Error {
                     print(err.description)
@@ -93,11 +101,9 @@ class AVFReplayGainScanner: ReplayGainScanner {
                 } catch {
                     print("Unknown error: \(error.localizedDescription)")
                 }
-                
-                time += CFAbsoluteTimeGetCurrent() - st
             }
-            
-            return try ebur128?.analyze()
+         
+            return try ebur128.analyze()
             
         } catch {
             

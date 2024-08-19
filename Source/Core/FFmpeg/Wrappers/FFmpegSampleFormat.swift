@@ -133,6 +133,23 @@ struct FFmpegSampleFormat {
             
         }
     }
+    
+    var conversionFormatForEBUR128: AVSampleFormat? {
+        
+        switch avFormat {
+            
+        case AV_SAMPLE_FMT_U8, AV_SAMPLE_FMT_U8P, AV_SAMPLE_FMT_S16P :       return AV_SAMPLE_FMT_S16
+            
+        case AV_SAMPLE_FMT_S32P:      return AV_SAMPLE_FMT_S32
+            
+        case AV_SAMPLE_FMT_FLTP:      return AV_SAMPLE_FMT_FLT
+            
+        case AV_SAMPLE_FMT_S64, AV_SAMPLE_FMT_S64P, AV_SAMPLE_FMT_DBLP:      return AV_SAMPLE_FMT_DBL
+            
+        default:                      return nil    // Does NOT need conversion
+            
+        }
+    }
 }
 
 extension AVSampleFormat: Hashable {
