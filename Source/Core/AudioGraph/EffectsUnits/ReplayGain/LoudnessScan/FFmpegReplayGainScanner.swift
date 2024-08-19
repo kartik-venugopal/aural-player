@@ -69,7 +69,7 @@ class FFmpegReplayGainScanner: ReplayGainScanner {
             
             let ctx = try FFmpegFileContext(for: file)
             
-            guard let stream = ctx.bestAudioStream else {return .noResult}
+            guard let stream = ctx.bestAudioStream else {return nil}
             let codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
             
             channelCount = Int(codec.channelCount)
