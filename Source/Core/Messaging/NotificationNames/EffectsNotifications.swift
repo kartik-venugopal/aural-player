@@ -135,5 +135,11 @@ extension Notification.Name {
             // Notifies the filter unit that one of its bands' bypass state has been updated. Payload includes the band index.
             static let bandBypassStateUpdated = Notification.Name("effects_filterUnit_bandBypassStateUpdated")
         }
+        
+        struct ReplayGainUnit {
+            
+            static let scanInitiated = Notification.Name("effects_replayGainUnit_scanInitiated")
+            static let scanCompleted = Notification.Name("effects_replayGainUnit_scanCompleted")
+        }
     }
 }

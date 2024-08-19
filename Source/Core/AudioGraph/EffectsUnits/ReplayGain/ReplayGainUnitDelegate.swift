@@ -39,4 +39,33 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     var effectiveGain: Float {
         unit.effectiveGain
     }
+    
+    var isScanning: Bool {_isScanning.value}
+    private var _isScanning: AtomicBool = AtomicBool(value: false)
+    
+    func initiateScan(forFile file: URL) {
+        
+        do {
+            
+            let scanner = try ReplayGainScanner(file: file)
+            
+            _isScanning.setTrue()
+            Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
+            
+            scanner.scan {[weak self] replayGain in
+                
+                guard let strongSelf = self else {return}
+                
+                strongSelf.unit.replayGain = replayGain
+                strongSelf._isScanning.setFalse()
+                
+                Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
+            }
+            
+        } catch {
+            
+            _isScanning.setFalse()
+            print("Scan failed: \(error.localizedDescription)")
+        }
+    }
 }

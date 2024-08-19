@@ -10,14 +10,7 @@
 
 import Foundation
 
-protocol ReplayGainScanner {
-    
-    var file: URL {get}
-    
-    func scan(_ completionHandler: @escaping (EBUR128AnalysisResult) -> Void)
-}
-
-class FFmpegReplayGainScanner: ReplayGainScanner {
+class FFmpegReplayGainScanner: EBUR128LoudnessScannerProtocol {
     
     let file: URL
     
@@ -72,13 +65,13 @@ class FFmpegReplayGainScanner: ReplayGainScanner {
         }
     }
     
-    func scan(_ completionHandler: @escaping (EBUR128AnalysisResult) -> Void) {
+    func scan(_ completionHandler: @escaping (EBUR128AnalysisResult?) -> Void) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             
             do {
                 
-                var result: EBUR128AnalysisResult?
+                var result: EBUR128AnalysisResult? = nil
                 
                 switch self.targetFormat {
                     
@@ -98,11 +91,7 @@ class FFmpegReplayGainScanner: ReplayGainScanner {
                     break
                 }
                 
-                if let theResult = result {
-                    completionHandler(theResult)
-                } else {
-                    print("No result")
-                }
+                completionHandler(result)
                 
             } catch let err as EBUR128Error {
                 print("Error: \(err.description)")

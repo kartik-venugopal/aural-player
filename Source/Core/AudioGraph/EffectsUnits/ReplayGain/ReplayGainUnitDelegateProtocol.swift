@@ -27,4 +27,8 @@ protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     var hasAppliedGain: Bool {get}
     
     var effectiveGain: Float {get}
+    
+    func initiateScan(forFile file: URL)
+    
+    var isScanning: Bool {get}
 }

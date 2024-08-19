@@ -32,9 +32,19 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     
     private func parmsChanged() {
         
-        let replayGainDB = mode == .preferTrackGain ?
-        (replayGain?.trackGain ?? replayGain?.albumGain) :
-        (replayGain?.albumGain ?? replayGain?.trackGain)
+        let replayGainDB: Float?
+        
+        switch mode {
+            
+        case .preferAlbumGain:
+            replayGainDB = replayGain?.albumGain ?? replayGain?.trackGain
+            
+        case .preferTrackGain:
+            replayGainDB = replayGain?.trackGain ?? replayGain?.albumGain
+            
+        case .trackGainOnly:
+            replayGainDB = replayGain?.trackGain
+        }
         
         node.replayGain = replayGainDB ?? 0
     }

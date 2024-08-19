@@ -63,11 +63,14 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         preAmpSlider.floatValue = replayGainUnit.preAmp
         
-        if replayGainUnit.hasAppliedGain {
-            lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+        if !replayGainUnit.isScanning {
             
-        } else {
-            lblAppliedGain.stringValue = "<None>"
+            if replayGainUnit.hasAppliedGain {
+                lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+                
+            } else {
+                lblAppliedGain.stringValue = "<None>"
+            }
         }
         
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
@@ -77,14 +80,16 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
+        
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: initControls)
+        
+        messenger.subscribeAsync(to: .Effects.ReplayGainUnit.scanInitiated, handler: scanInitiated)
+        messenger.subscribeAsync(to: .Effects.ReplayGainUnit.scanCompleted, handler: scanCompleted)
     }
     
     @IBAction func modeAction(_ sender: NSPopUpButton) {
         
-        guard let modeDescription = sender.titleOfSelectedItem else {return}
-        
-        replayGainUnit.mode = .init(rawValue: sender.tag) ?? .defaultMode
+        replayGainUnit.mode = .init(rawValue: sender.selectedTag()) ?? .defaultMode
         
         if replayGainUnit.hasAppliedGain {
             lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
@@ -102,6 +107,16 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         replayGainUnit.preAmp = sender.floatValue
         
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
+        lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
+    }
+    
+    private func scanInitiated() {
+        lblAppliedGain.stringValue = "Analyzing file loudness ..."
+    }
+    
+    private func scanCompleted() {
+        
+        lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
         lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
     }
 }

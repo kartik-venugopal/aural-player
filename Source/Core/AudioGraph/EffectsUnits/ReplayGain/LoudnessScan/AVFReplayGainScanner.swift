@@ -10,7 +10,7 @@
 
 import AVFoundation
 
-class AVFReplayGainScanner: ReplayGainScanner {
+class AVFReplayGainScanner: EBUR128LoudnessScannerProtocol {
     
     let file: URL
     
@@ -50,17 +50,12 @@ class AVFReplayGainScanner: ReplayGainScanner {
                                                   channelLayout: channelLayout)
     }
     
-    func scan(_ completionHandler: @escaping (EBUR128AnalysisResult) -> Void) {
+    func scan(_ completionHandler: @escaping (EBUR128AnalysisResult?) -> Void) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             
             do {
-                
-                if let result: EBUR128AnalysisResult = try self.doScan() {
-                    completionHandler(result)
-                } else {
-                    print("No result")
-                }
+                completionHandler(try self.doScan())
                 
             } catch let err as EBUR128Error {
                 print("Error: \(err.description)")
