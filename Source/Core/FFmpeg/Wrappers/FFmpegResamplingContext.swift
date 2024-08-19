@@ -163,6 +163,20 @@ class FFmpegResamplingContext {
 
         swr_convert(resampleCtx, outputDataPointer, outputSampleCount, inputDataPointer, inputSampleCount)
     }
+    
+    @inline(__always)
+    func convertFrame(_ frame: FFmpegFrame,
+                      andStoreIn outputDataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>, outputChannelCount: Int? = nil) {
+        
+        let sampleCount = frame.sampleCount
+        
+        // Access the input data as pointers from the frame being resampled.
+        frame.dataPointers.withMemoryRebound(to: UnsafePointer<UInt8>?.self, capacity: outputChannelCount ?? frame.intChannelCount) {inputDataPointers in
+            
+            convert(inputDataPointer: inputDataPointers, inputSampleCount: sampleCount,
+                    outputDataPointer: outputDataPointers, outputSampleCount: sampleCount)
+        }
+    }
 
     /// Frees the context.
     deinit {
@@ -173,7 +187,7 @@ class FFmpegResamplingContext {
 ///
 /// Special case for conversion to the Canonical **CoreAudio** format for **AVAudioEngine** playback.
 ///
-class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
+class FFmpegPlaybackResamplingContext: FFmpegResamplingContext {
     
     ///
     /// The standard (i.e. "canonical") audio sample format preferred by Core Audio on macOS.
@@ -210,18 +224,28 @@ class FFmpegAVAEResamplingContext: FFmpegResamplingContext {
         
         initialize()
     }
+}
+
+///
+/// Special case for conversion to the Canonical **CoreAudio** format for **AVAudioEngine** playback.
+///
+class FFmpegReplayGainScanResamplingContext: FFmpegResamplingContext {
     
-    @inline(__always)
-    func convertFrame(_ frame: FFmpegFrame,
-                      andStoreIn outputDataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>, outputChannelCount: Int? = nil) {
+    private static let ebur128AnalysisSampleFormat: AVSampleFormat = AV_SAMPLE_FMT_S16
+    
+    init?(inputChannelLayout: FFmpegChannelLayout, sampleRate: Int64, inputSampleFormat: AVSampleFormat) {
         
-        let sampleCount = frame.sampleCount
+        super.init()
         
-        // Access the input data as pointers from the frame being resampled.
-        frame.dataPointers.withMemoryRebound(to: UnsafePointer<UInt8>?.self, capacity: outputChannelCount ?? frame.intChannelCount) {inputDataPointers in
-            
-            convert(inputDataPointer: inputDataPointers, inputSampleCount: sampleCount,
-                    outputDataPointer: outputDataPointers, outputSampleCount: sampleCount)
-        }
+        self.inputChannelLayout = inputChannelLayout.avChannelLayout
+        self.outputChannelLayout = self.inputChannelLayout
+        
+        self.inputSampleRate = sampleRate
+        self.outputSampleRate = sampleRate
+        
+        self.inputSampleFormat = inputSampleFormat
+        self.outputSampleFormat = Self.ebur128AnalysisSampleFormat
+        
+        initialize()
     }
 }

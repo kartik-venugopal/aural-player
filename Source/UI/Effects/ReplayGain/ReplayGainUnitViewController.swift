@@ -19,6 +19,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     // MARK: UI fields
     
     @IBOutlet weak var modeMenuButton: NSPopUpButton!
+    @IBOutlet weak var sourceMenuButton: NSPopUpButton!
     
     @IBOutlet weak var lblAppliedGain: NSTextField!
     
@@ -47,17 +48,27 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         if let popupMenuCell = modeMenuButton.cell as? EffectsUnitPopupMenuCell {
             fxUnitStateObserverRegistry.registerObserver(popupMenuCell, forFXUnit: graph.replayGainUnit)
         }
+        
+        if let popupMenuCell = sourceMenuButton.cell as? EffectsUnitPopupMenuCell {
+            fxUnitStateObserverRegistry.registerObserver(popupMenuCell, forFXUnit: graph.replayGainUnit)
+        }
     }
     
     override func initControls() {
         
         super.initControls()
 
+        sourceMenuButton.selectItem(withTitle: "Metadata or analysis")
         modeMenuButton.selectItem(withTitle: replayGainUnit.mode.description)
+        
         preAmpSlider.floatValue = replayGainUnit.preAmp
         
-        let descriptionOfMode = replayGainUnit.hasAppliedGain ? "  (\(replayGainUnit.mode.description))" : ""
-        lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB\(descriptionOfMode)"
+        if replayGainUnit.hasAppliedGain {
+            lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+            
+        } else {
+            lblAppliedGain.stringValue = "<None>"
+        }
         
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
         lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
@@ -73,10 +84,14 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         guard let modeDescription = sender.titleOfSelectedItem else {return}
         
-        replayGainUnit.mode = .fromDescription(modeDescription) ?? .defaultMode
+        replayGainUnit.mode = .init(rawValue: sender.tag) ?? .defaultMode
         
-        let descriptionOfMode = replayGainUnit.hasAppliedGain ? "  (\(replayGainUnit.mode.description))" : ""
-        lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB\(descriptionOfMode)"
+        if replayGainUnit.hasAppliedGain {
+            lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+            
+        } else {
+            lblAppliedGain.stringValue = "<None>"
+        }
         
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
         lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"

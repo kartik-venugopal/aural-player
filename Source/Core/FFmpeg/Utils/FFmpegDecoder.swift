@@ -76,7 +76,7 @@ class FFmpegDecoder {
     ///
     let frameQueue: Queue<FFmpegFrame> = Queue<FFmpegFrame>()
     
-    let resampleCtx: FFmpegAVAEResamplingContext?
+    let resampleCtx: FFmpegPlaybackResamplingContext?
     
     private(set) lazy var audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, 
                                                                              channelCount: codec.channelCount,
@@ -110,7 +110,7 @@ class FFmpegDecoder {
         
         if codec.sampleFormat.needsFormatConversion {
             
-            guard let resampleCtx = FFmpegAVAEResamplingContext(inputChannelLayout: codec.channelLayout,
+            guard let resampleCtx = FFmpegPlaybackResamplingContext(inputChannelLayout: codec.channelLayout,
                                                                 sampleRate: Int64(codec.sampleRate),
                                                                 inputSampleFormat: codec.sampleFormat.avFormat) else {
                 

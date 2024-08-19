@@ -60,6 +60,39 @@ extension AVAudioChannelLayout {
             
         }
     }
+    
+    static func defaultLayoutForChannelCount(_ channelCount: AVAudioChannelCount) -> AVAudioChannelLayout {
+        
+        switch channelCount {
+            
+        case 1:
+            return .mono
+            
+        case 2:
+            return .stereo
+            
+        case 3:
+            return .init(layoutTag: kAudioChannelLayoutTag_WAVE_2_1)!
+            
+        case 4:
+            return .init(layoutTag: kAudioChannelLayoutTag_Quadraphonic)!
+            
+        case 5:
+            return .init(layoutTag: kAudioChannelLayoutTag_Pentagonal)!
+            
+        case 6:
+            return .init(layoutTag: kAudioChannelLayoutTag_WAVE_5_1_A)!
+            
+        case 7:
+            return .init(layoutTag: kAudioChannelLayoutTag_WAVE_6_1)!
+            
+        case 8:
+            return .init(layoutTag: kAudioChannelLayoutTag_WAVE_7_1)!
+            
+        default:
+            return .stereo
+        }
+    }
 }
 
 extension AudioChannelLayout {

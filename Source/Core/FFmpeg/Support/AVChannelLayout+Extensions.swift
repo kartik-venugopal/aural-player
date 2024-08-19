@@ -75,35 +75,6 @@ extension AVChannelLayout {
     }
     
     private var defaultLayoutForChannelCount: AVAudioChannelLayout {
-        
-        switch self.nb_channels {
-            
-        case 1:
-            return .mono
-            
-        case 2:
-            return .stereo
-            
-        case 3:
-            return AVAudioChannelLayout.init(layoutTag: kAudioChannelLayoutTag_WAVE_2_1)!
-            
-        case 4:
-            return AVAudioChannelLayout.init(layoutTag: kAudioChannelLayoutTag_Quadraphonic)!
-            
-        case 5:
-            return AVAudioChannelLayout.init(layoutTag: kAudioChannelLayoutTag_Pentagonal)!
-            
-        case 6:
-            return AVAudioChannelLayout.init(layoutTag: kAudioChannelLayoutTag_WAVE_5_1_A)!
-            
-        case 7:
-            return AVAudioChannelLayout.init(layoutTag: kAudioChannelLayoutTag_WAVE_6_1)!
-            
-        case 8:
-            return AVAudioChannelLayout.init(layoutTag: kAudioChannelLayoutTag_WAVE_7_1)!
-            
-        default:
-            return .stereo
-        }
+        .defaultLayoutForChannelCount(AVAudioChannelCount(self.nb_channels))
     }
 }

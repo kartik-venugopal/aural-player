@@ -27,34 +27,22 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
 
 enum ReplayGainMode: Int, Codable {
     
-    case albumGain, trackGain
+    case preferAlbumGain, preferTrackGain, trackGainOnly
     
-    static let defaultMode: ReplayGainMode = .albumGain
+    static let defaultMode: ReplayGainMode = .preferAlbumGain
     
     var description: String {
         
         switch self {
             
-        case .albumGain:
-            return "Album gain"
+        case .preferAlbumGain:
+            return "Album gain (or Track gain)"
             
-        case .trackGain:
-            return "Track gain"
-        }
-    }
-    
-    static func fromDescription(_ description: String) -> ReplayGainMode? {
-        
-        switch description {
+        case .preferTrackGain:
+            return "Track gain (or Album gain)"
             
-        case "Album gain":
-            return .albumGain
-            
-        case "Track gain":
-            return .trackGain
-            
-        default:
-            return nil
+        case .trackGainOnly:
+            return "Track gain only"
         }
     }
 }

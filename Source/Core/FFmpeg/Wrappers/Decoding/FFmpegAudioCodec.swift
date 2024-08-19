@@ -93,6 +93,8 @@ class FFmpegAudioCodec {
     ///
     lazy var channelLayout: FFmpegChannelLayout = .init(encapsulating: context.channelLayout)
     
+    var replayGain: ReplayGain? = nil
+    
     ///
     /// Instantiates an AudioCodec object, given a pointer to its parameters.
     ///
@@ -111,6 +113,12 @@ class FFmpegAudioCodec {
         self.context.threadType = Self.threadType
         
         try open()
+        
+        if let sideDataPtr = context.avContext.coded_side_data {
+            
+            self.replayGain = FFmpegPacketSideData(pointer: sideDataPtr,
+                                                   size: context.avContext.nb_coded_side_data).replayGain
+        }
     }
     
     private static func findDecoder(fromParams params: FFmpegCodecParameters) throws -> UnsafePointer<AVCodec> {

@@ -16,6 +16,8 @@
 #import <libavutil/replaygain.h>
 #import <libswresample/swresample.h>
 
+#import "ebur128.h"
+
 #import "libcue.h"
 
 /**

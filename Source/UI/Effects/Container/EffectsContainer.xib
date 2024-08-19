@@ -237,11 +237,19 @@
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="speaker.plus" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hX2-iA-YX8" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imgWidth">
+                                    <integer key="value" value="19"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imgHeight">
+                                    <integer key="value" value="14"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </buttonCell>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Replay Gain unit (Bypassed by Master unit)"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Replay Gain unit (Bypassed)"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Replay Gain unit (Active)"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Replay gain unit (Bypassed by Master unit)"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Replay gain unit (Bypassed)"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Replay gain unit (Active)"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="tabViewAction:" target="-2" id="elO-QZ-Xsn"/>

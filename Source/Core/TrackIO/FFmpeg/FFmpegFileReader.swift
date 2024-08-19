@@ -77,7 +77,8 @@ class FFmpegFileReader: FileReaderProtocol {
         let fctx = try FFmpegFileContext(for: file)
         
         // The file must have an audio stream, otherwise it's invalid.
-        guard fctx.bestAudioStream != nil else {throw NoAudioTracksError(file)}
+        guard let stream = fctx.bestAudioStream else {throw NoAudioTracksError(file)}
+        let codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
         
         // Construct a metadata map for this track, using the file context.
         let metadataMap = FFmpegMappedMetadata(for: fctx)
@@ -87,10 +88,10 @@ class FFmpegFileReader: FileReaderProtocol {
         allParsers.forEach {$0.mapMetadata(metadataMap)}
         let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
         
-        return try doGetPrimaryMetadata(for: file, fromCtx: fctx, andMap: metadataMap, usingParsers: relevantParsers)
+        return try doGetPrimaryMetadata(for: file, fromCtx: fctx, stream: stream, codec: codec, andMap: metadataMap, usingParsers: relevantParsers)
     }
     
-    private func doGetPrimaryMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, andMap metadataMap: FFmpegMappedMetadata, usingParsers relevantParsers: [FFmpegMetadataParser]) throws -> PrimaryMetadata {
+    private func doGetPrimaryMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, stream: FFmpegAudioStream, codec: FFmpegAudioCodec, andMap metadataMap: FFmpegMappedMetadata, usingParsers relevantParsers: [FFmpegMetadataParser]) throws -> PrimaryMetadata {
         
         var metadata = PrimaryMetadata()
 
@@ -133,7 +134,7 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
         metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
         
-        metadata.replayGain = fctx.bestAudioStream?.replayGain ?? relevantParsers.firstNonNilMappedValue {$0.getReplayGain(from: metadataMap)}
+        metadata.replayGain = codec.replayGain ?? relevantParsers.firstNonNilMappedValue {$0.getReplayGain(from: metadataMap)}
         
         var auxiliaryMetadata: [String: MetadataEntry] = [:]
         
@@ -233,7 +234,8 @@ class FFmpegFileReader: FileReaderProtocol {
             let fctx = try FFmpegFileContext(for: file)
             
             // The file must have an audio stream, otherwise it's invalid.
-            guard fctx.bestAudioStream != nil else {throw NoAudioTracksError(file)}
+            guard let stream = fctx.bestAudioStream else {throw NoAudioTracksError(file)}
+            let codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
             
             // Construct a metadata map for this track, using the file context.
             let metadataMap = FFmpegMappedMetadata(for: fctx)
@@ -243,7 +245,7 @@ class FFmpegFileReader: FileReaderProtocol {
             allParsers.forEach {$0.mapMetadata(metadataMap)}
             let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
             
-            metadata.primary = try doGetPrimaryMetadata(for: file, fromCtx: fctx, andMap: metadataMap, usingParsers: relevantParsers)
+            metadata.primary = try doGetPrimaryMetadata(for: file, fromCtx: fctx, stream: stream, codec: codec, andMap: metadataMap, usingParsers: relevantParsers)
             metadata.auxiliary = doGetAuxiliaryMetadata(for: file, fromCtx: fctx, andMap: metadataMap, loadingAudioInfoFrom: nil, usingParsers: relevantParsers)
             
             if let imageData = fctx.bestImageStream?.attachedPic.data {
