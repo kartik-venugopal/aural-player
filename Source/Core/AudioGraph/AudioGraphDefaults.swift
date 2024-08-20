@@ -51,6 +51,11 @@ struct AudioGraphDefaults {
     static let replayGainState: EffectsUnitState = .bypassed
     static let replayGainMode: ReplayGainMode = .preferAlbumGain
     static let replayGainPreAmp: Float = 0
+    static let replayGainPreventClipping: Bool = true
+    
+    static let replayGainDataSource: ReplayGainDataSource = .metadataOrAnalysis
+    static let replayGainTargetLoudness: ReplayGainTargetLoudness = .minus18
+    static let replayGainMaxPeakLevel: ReplayGainMaxPeakLevel = .zero
     
     static let auState: EffectsUnitState = .active
 }

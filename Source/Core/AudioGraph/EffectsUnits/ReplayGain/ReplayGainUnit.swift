@@ -32,12 +32,27 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     
     var preAmp: Float {
         
-        didSet {
-            node.preAmp = preAmp
-        }
+        get {node.preAmp}
+        set {node.preAmp = newValue}
     }
     
     var preventClipping: Bool {
+        
+        didSet {
+            parmsChanged()
+        }
+    }
+    
+    var dataSource: ReplayGainDataSource
+    
+    var targetLoudness: ReplayGainTargetLoudness {
+        
+        didSet {
+            parmsChanged()
+        }
+    }
+    
+    var maxPeakLevel: ReplayGainMaxPeakLevel {
         
         didSet {
             parmsChanged()
@@ -88,11 +103,15 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     init(persistentState: ReplayGainUnitPersistentState?) {
         
         node = ReplayGainNode()
+        node.preAmp = persistentState?.preAmp ?? AudioGraphDefaults.replayGainPreAmp
 
         mode = persistentState?.mode ?? AudioGraphDefaults.replayGainMode
         replayGain = nil
-        preAmp = persistentState?.preAmp ?? AudioGraphDefaults.replayGainPreAmp
-        preventClipping = false
+        preventClipping = persistentState?.preventClipping ?? AudioGraphDefaults.replayGainPreventClipping
+        
+        targetLoudness = persistentState?.targetLoudness ?? AudioGraphDefaults.replayGainTargetLoudness
+        maxPeakLevel = persistentState?.maxPeakLevel ?? AudioGraphDefaults.replayGainMaxPeakLevel
+        dataSource = persistentState?.dataSource ?? AudioGraphDefaults.replayGainDataSource
         
         presets = ReplayGainPresets(persistentState: persistentState)
         
@@ -101,7 +120,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
                    renderQuality: persistentState?.renderQuality)
         
         parmsChanged()
-        node.preAmp = preAmp
 
         if let currentPresetName = persistentState?.currentPresetName,
             let matchingPreset = presets.object(named: currentPresetName) {
@@ -180,6 +198,10 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
                                       currentPresetName: currentPreset?.name,
                                       renderQuality: renderQualityPersistentState,
                                       mode: mode,
-                                      preAmp: preAmp)
+                                      preAmp: preAmp,
+                                      preventClipping: preventClipping,
+                                      dataSource: dataSource,
+                                      targetLoudness: targetLoudness,
+                                      maxPeakLevel: maxPeakLevel)
     }
 }

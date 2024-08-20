@@ -10,7 +10,27 @@
 
 import Foundation
 
+// TODO: Caching of ReplayGain scan data
+
 class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUnitDelegateProtocol {
+    
+    var dataSource: ReplayGainDataSource {
+        
+        get {unit.dataSource}
+        set {unit.dataSource = newValue}
+    }
+    
+    var targetLoudness: ReplayGainTargetLoudness {
+        
+        get {unit.targetLoudness}
+        set {unit.targetLoudness = newValue}
+    }
+    
+    var maxPeakLevel: ReplayGainMaxPeakLevel {
+        
+        get {unit.maxPeakLevel}
+        set {unit.maxPeakLevel = newValue}
+    }
     
     var mode: ReplayGainMode {
         

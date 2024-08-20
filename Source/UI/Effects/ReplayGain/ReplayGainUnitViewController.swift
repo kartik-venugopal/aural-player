@@ -29,6 +29,21 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     
     // ------------------------------------------------------------------------
     
+    // MARK: Settings menu items
+    
+    @IBOutlet weak var dataSourceMenuItem_metadataOrAnalysis: NSMenuItem!
+    @IBOutlet weak var dataSourceMenuItem_metadataOnly: NSMenuItem!
+    @IBOutlet weak var dataSourceMenuItem_analysisOnly: NSMenuItem!
+    
+    @IBOutlet weak var targetLoudnessMenuItem_minus18: NSMenuItem!
+    @IBOutlet weak var targetLoudnessMenuItem_minus14: NSMenuItem!
+    @IBOutlet weak var targetLoudnessSelectorView: DecibelSelectorView!
+    
+    @IBOutlet weak var maxPeakLevelMenuItem_zero: NSMenuItem!
+    @IBOutlet weak var maxPeakLevelSelectorView: DecibelSelectorView!
+    
+    // -------------
+    
     // MARK: Services, utilities, helpers, and properties
     
     private var replayGainUnit: ReplayGainUnitDelegateProtocol = audioGraphDelegate.replayGainUnit
@@ -157,5 +172,33 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         if replayGainUnit.state == .suppressed {
             btnPreventClipping.redraw(forState: .suppressed)
         }
+    }
+}
+
+extension ReplayGainUnitViewController {
+    
+    override func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        super.menuNeedsUpdate(menu)
+        
+        [targetLoudnessMenuItem_minus18, targetLoudnessMenuItem_minus14].forEach {$0.off()}
+        
+        targetLoudnessSelectorView.btnCustomDecibel.off()
+        targetLoudnessSelectorView.decibelStepper.disable()
+        
+        switch replayGainUnit.targetLoudness {
+            
+        case .minus18:
+            targetLoudnessMenuItem_minus18.on()
+            
+        case .minus14:
+            targetLoudnessMenuItem_minus14.on()
+            
+        case .custom(let targetLoudness):
+            targetLoudnessSelectorView.setCustomCheckboxState(.on)
+        }
+        
+        targetLoudnessSelectorView.decibelStepper.floatValue = replayGainUnit.targetLoudness.decibels
+        
     }
 }

@@ -25,6 +25,22 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     var appliedGain: Float {get}
     
     var effectiveGain: Float {get}
+    
+    var dataSource: ReplayGainDataSource {get set}
+    
+    var targetLoudness: ReplayGainTargetLoudness {get set}
+    
+    var maxPeakLevel: ReplayGainMaxPeakLevel {get set}
+    
+    /*
+     
+     TODO:
+     
+     1 - Source (metadata / analysis)
+     2 - Configurable target loudness (-18 dB default)
+     3 - Configurable peak level (0 db default)
+     
+     */
 }
 
 enum ReplayGainMode: Int, Codable {
@@ -45,6 +61,48 @@ enum ReplayGainMode: Int, Codable {
             
         case .trackGainOnly:
             return "Track gain only"
+        }
+    }
+}
+
+enum ReplayGainDataSource: Int, Codable {
+    
+    case metadataOrAnalysis, metadataOnly, analysisOnly
+}
+
+enum ReplayGainTargetLoudness: Codable {
+    
+    case minus18, minus14, custom(targetLoudness: Float)
+    
+    var decibels: Float {
+        
+        switch self {
+            
+        case .minus18:
+            return -18
+            
+        case .minus14:
+            return -14
+            
+        case .custom(let customDecibels):
+            return customDecibels
+        }
+    }
+}
+
+enum ReplayGainMaxPeakLevel: Codable {
+    
+    case zero, custom(maxPeakLevel: Float)
+    
+    var decibels: Float {
+        
+        switch self {
+            
+        case .zero:
+            return 0
+            
+        case .custom(let customDecibels):
+            return customDecibels
         }
     }
 }

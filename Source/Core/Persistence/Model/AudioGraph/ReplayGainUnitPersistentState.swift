@@ -19,8 +19,13 @@ struct ReplayGainUnitPersistentState: Codable {
     
     let mode: ReplayGainMode?
     let preAmp: Float?
+    let preventClipping: Bool?
+
+    let dataSource: ReplayGainDataSource?
+    let targetLoudness: ReplayGainTargetLoudness?
+    let maxPeakLevel: ReplayGainMaxPeakLevel?
     
-    init(state: EffectsUnitState?, userPresets: [ReplayGainPresetPersistentState]?, currentPresetName: String?, renderQuality: Int?, mode: ReplayGainMode?, preAmp: Float?) {
+    init(state: EffectsUnitState?, userPresets: [ReplayGainPresetPersistentState]?, currentPresetName: String?, renderQuality: Int?, mode: ReplayGainMode?, preAmp: Float?, preventClipping: Bool?, dataSource: ReplayGainDataSource?, targetLoudness: ReplayGainTargetLoudness?, maxPeakLevel: ReplayGainMaxPeakLevel?) {
         
         self.state = state
         self.userPresets = userPresets
@@ -29,6 +34,11 @@ struct ReplayGainUnitPersistentState: Codable {
         
         self.mode = mode
         self.preAmp = preAmp
+        self.preventClipping = preventClipping
+        
+        self.dataSource = dataSource
+        self.targetLoudness = targetLoudness
+        self.maxPeakLevel = maxPeakLevel
     }
 }
 

@@ -803,6 +803,7 @@
 		3E772EC22C73F1B900DC3137 /* FFmpegReplayGainScanner+Int32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E772EBE2C73F1B900DC3137 /* FFmpegReplayGainScanner+Int32.swift */; };
 		3E772EC32C73F1B900DC3137 /* FFmpegReplayGainScanner+Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E772EBF2C73F1B900DC3137 /* FFmpegReplayGainScanner+Float.swift */; };
 		3E772EC52C73F80D00DC3137 /* ReplayGainScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E772EC42C73F80C00DC3137 /* ReplayGainScanner.swift */; };
+		3E772EC82C7535D500DC3137 /* DecibelSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E772EC72C7535D500DC3137 /* DecibelSelectorView.swift */; };
 		3E7AF10528065441006DC98F /* PlayQueueMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AF10428065441006DC98F /* PlayQueueMenuController.swift */; };
 		3E7C35FE26AADD2A00B3552D /* FilterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */; };
 		3E7C360126AADFA000B3552D /* FilterBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C360026AADFA000B3552D /* FilterBandView.swift */; };
@@ -1918,6 +1919,7 @@
 		3E772EBE2C73F1B900DC3137 /* FFmpegReplayGainScanner+Int32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FFmpegReplayGainScanner+Int32.swift"; sourceTree = "<group>"; };
 		3E772EBF2C73F1B900DC3137 /* FFmpegReplayGainScanner+Float.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FFmpegReplayGainScanner+Float.swift"; sourceTree = "<group>"; };
 		3E772EC42C73F80C00DC3137 /* ReplayGainScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGainScanner.swift; sourceTree = "<group>"; };
+		3E772EC72C7535D500DC3137 /* DecibelSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecibelSelectorView.swift; sourceTree = "<group>"; };
 		3E7AF10428065441006DC98F /* PlayQueueMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueMenuController.swift; sourceTree = "<group>"; };
 		3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetView.swift; sourceTree = "<group>"; };
 		3E7C360026AADFA000B3552D /* FilterBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandView.swift; sourceTree = "<group>"; };
@@ -4757,6 +4759,14 @@
 			path = UnifiedPlayer;
 			sourceTree = "<group>";
 		};
+		3E772EC62C7535B300DC3137 /* DecibelSelector */ = {
+			isa = PBXGroup;
+			children = (
+				3E772EC72C7535D500DC3137 /* DecibelSelectorView.swift */,
+			);
+			path = DecibelSelector;
+			sourceTree = "<group>";
+		};
 		3E81BCD5284AA7FD00927E4A /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -5331,6 +5341,7 @@
 			children = (
 				3ED373EA2C70E4F500836511 /* ReplayGainUnit.xib */,
 				3ED373EC2C70EBB400836511 /* ReplayGainUnitViewController.swift */,
+				3E772EC62C7535B300DC3137 /* DecibelSelector */,
 			);
 			path = ReplayGain;
 			sourceTree = "<group>";
@@ -5871,6 +5882,7 @@
 				3E5864A22B76EC8700BDB5A6 /* MenuBarPlayerViewController.swift in Sources */,
 				3E0219642C23490E00865AC2 /* SortedTrackList.swift in Sources */,
 				3E02194F2C23490E00865AC2 /* TrackIOSupport.swift in Sources */,
+				3E772EC82C7535D500DC3137 /* DecibelSelectorView.swift in Sources */,
 				3E0217F52C23490E00865AC2 /* TimeStretchUnitDelegate.swift in Sources */,
 				3E02192B2C23490E00865AC2 /* DefaultFFMpegMetadataParser.swift in Sources */,
 				3E0218792C23490E00865AC2 /* LibraryNotifications.swift in Sources */,

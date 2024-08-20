@@ -26,6 +26,12 @@ protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var appliedGain: Float {get}
     
+    var dataSource: ReplayGainDataSource {get set}
+    
+    var targetLoudness: ReplayGainTargetLoudness {get set}
+    
+    var maxPeakLevel: ReplayGainMaxPeakLevel {get set}
+    
     var hasAppliedGain: Bool {get}
     
     var effectiveGain: Float {get}

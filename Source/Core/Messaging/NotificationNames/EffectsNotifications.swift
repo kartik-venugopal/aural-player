@@ -140,6 +140,9 @@ extension Notification.Name {
             
             static let scanInitiated = Notification.Name("effects_replayGainUnit_scanInitiated")
             static let scanCompleted = Notification.Name("effects_replayGainUnit_scanCompleted")
+            
+            static let targetLoudnessChanged = Notification.Name("effects_replayGainUnit_targetLoudnessChanged")
+            static let maxPeakLevelChanged = Notification.Name("effects_replayGainUnit_maxPeakLevelChanged")
         }
     }
 }
