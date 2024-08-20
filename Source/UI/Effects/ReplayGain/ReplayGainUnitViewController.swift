@@ -19,14 +19,13 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     // MARK: UI fields
     
     @IBOutlet weak var modeMenuButton: NSPopUpButton!
-    @IBOutlet weak var sourceMenuButton: NSPopUpButton!
     
-    @IBOutlet weak var lblAppliedGain: NSTextField!
+    @IBOutlet weak var lblGain: NSTextField!
     
     @IBOutlet weak var preAmpSlider: EffectsUnitSlider!
     @IBOutlet weak var lblPreAmp: NSTextField!
     
-    @IBOutlet weak var lblTotalGain: NSTextField!
+    @IBOutlet weak var btnPreventClipping: EffectsUnitToggle!
     
     // ------------------------------------------------------------------------
     
@@ -49,16 +48,13 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
             fxUnitStateObserverRegistry.registerObserver(popupMenuCell, forFXUnit: graph.replayGainUnit)
         }
         
-        if let popupMenuCell = sourceMenuButton.cell as? EffectsUnitPopupMenuCell {
-            fxUnitStateObserverRegistry.registerObserver(popupMenuCell, forFXUnit: graph.replayGainUnit)
-        }
+        fxUnitStateObserverRegistry.registerObserver(btnPreventClipping, forFXUnit: audioGraphDelegate.replayGainUnit)
     }
     
     override func initControls() {
         
         super.initControls()
 
-        sourceMenuButton.selectItem(withTitle: "Metadata or analysis")
         modeMenuButton.selectItem(withTitle: replayGainUnit.mode.description)
         
         preAmpSlider.floatValue = replayGainUnit.preAmp
@@ -66,15 +62,15 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         if !replayGainUnit.isScanning {
             
             if replayGainUnit.hasAppliedGain {
-                lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+                lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
                 
             } else {
-                lblAppliedGain.stringValue = "<None>"
+                lblGain.stringValue = "<None>"
             }
         }
         
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
-        lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
+        btnPreventClipping.onIf(replayGainUnit.preventClipping)
     }
     
     override func initSubscriptions() {
@@ -92,31 +88,74 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         replayGainUnit.mode = .init(rawValue: sender.selectedTag()) ?? .defaultMode
         
         if replayGainUnit.hasAppliedGain {
-            lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+            lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
             
         } else {
-            lblAppliedGain.stringValue = "<None>"
+            lblGain.stringValue = "<None>"
         }
         
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
-        lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
     }
     
     @IBAction func preAmpAction(_ sender: NSSlider) {
         
         replayGainUnit.preAmp = sender.floatValue
-        
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
-        lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
+    }
+    
+    @IBAction func preventClippingAction(_ sender: EffectsUnitToggle) {
+        
+        replayGainUnit.preventClipping = sender.isOn
+        
+        if !replayGainUnit.isScanning {
+            
+            if replayGainUnit.hasAppliedGain {
+                lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+                
+            } else {
+                lblGain.stringValue = "<None>"
+            }
+        }
     }
     
     private func scanInitiated() {
-        lblAppliedGain.stringValue = "Analyzing file loudness ..."
+        lblGain.stringValue = "Analyzing file loudness ..."
     }
     
     private func scanCompleted() {
+        lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+    }
+    
+    override func colorSchemeChanged() {
         
-        lblAppliedGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
-        lblTotalGain.stringValue = "\(String(format: "%.2f", replayGainUnit.effectiveGain)) dB"
+        super.colorSchemeChanged()
+        btnPreventClipping.redraw(forState: replayGainUnit.state)
+    }
+    
+    override func activeControlColorChanged(_ newColor: NSColor) {
+        
+        super.activeControlColorChanged(newColor)
+        
+        if replayGainUnit.state == .active {
+            btnPreventClipping.redraw(forState: .active)
+        }
+    }
+    
+    override func inactiveControlColorChanged(_ newColor: NSColor) {
+        
+        super.inactiveControlColorChanged(newColor)
+        
+        if replayGainUnit.state == .bypassed {
+            btnPreventClipping.redraw(forState: .bypassed)
+        }
+    }
+    
+    override func suppressedControlColorChanged(_ newColor: NSColor) {
+        
+        super.suppressedControlColorChanged(newColor)
+        
+        if replayGainUnit.state == .suppressed {
+            btnPreventClipping.redraw(forState: .suppressed)
+        }
     }
 }

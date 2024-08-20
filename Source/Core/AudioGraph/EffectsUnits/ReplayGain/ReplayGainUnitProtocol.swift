@@ -20,6 +20,8 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     
     var preAmp: Float {get set}
     
+    var preventClipping: Bool {get set}
+    
     var appliedGain: Float {get}
     
     var effectiveGain: Float {get}

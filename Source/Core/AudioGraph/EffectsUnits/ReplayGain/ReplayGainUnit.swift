@@ -30,6 +30,34 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         }
     }
     
+    var preAmp: Float {
+        
+        didSet {
+            node.preAmp = preAmp
+        }
+    }
+    
+    var preventClipping: Bool {
+        
+        didSet {
+            parmsChanged()
+        }
+    }
+    
+    private var computedTrackGain: Float? {
+        
+        preventClipping ?
+        replayGain?.trackGainToPreventClipping ?? replayGain?.trackGain :
+        replayGain?.trackGain
+    }
+    
+    private var computedAlbumGain: Float? {
+        
+        preventClipping ?
+        replayGain?.albumGainToPreventClipping ?? replayGain?.albumGain :
+        replayGain?.albumGain
+    }
+    
     private func parmsChanged() {
         
         let replayGainDB: Float?
@@ -37,23 +65,16 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         switch mode {
             
         case .preferAlbumGain:
-            replayGainDB = replayGain?.albumGain ?? replayGain?.trackGain
+            replayGainDB = computedAlbumGain ?? computedTrackGain
             
         case .preferTrackGain:
-            replayGainDB = replayGain?.trackGain ?? replayGain?.albumGain
+            replayGainDB = computedTrackGain ?? computedAlbumGain
             
         case .trackGainOnly:
-            replayGainDB = replayGain?.trackGain
+            replayGainDB = computedTrackGain
         }
         
         node.replayGain = replayGainDB ?? 0
-    }
-    
-    var preAmp: Float {
-        
-        didSet {
-            node.preAmp = preAmp
-        }
     }
     
     var appliedGain: Float {
@@ -71,6 +92,7 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         mode = persistentState?.mode ?? AudioGraphDefaults.replayGainMode
         replayGain = nil
         preAmp = persistentState?.preAmp ?? AudioGraphDefaults.replayGainPreAmp
+        preventClipping = false
         
         presets = ReplayGainPresets(persistentState: persistentState)
         

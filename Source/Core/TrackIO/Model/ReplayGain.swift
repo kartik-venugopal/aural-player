@@ -18,6 +18,7 @@ struct ReplayGain {
     
     let albumGain: Float?
     let albumPeak: Float?
+    let albumGainToPreventClipping: Float?
     
     private static let maxPeak: Float = 1
     
@@ -25,22 +26,17 @@ struct ReplayGain {
         
         guard trackGain != nil || albumGain != nil else {return nil}
         
+        func gainToPreventClipping(gain: Float, peak: Float) -> Float {
+            
+            let newPeak = pow(10.0, gain / 20) * peak
+            return newPeak > Self.maxPeak ? gain - (20 * log10(newPeak / Self.maxPeak)) : gain
+        }
+        
         self.trackGain = trackGain
         self.trackPeak = trackPeak
         
-        var trackGainToPreventClipping: Float
-        
         if let theTrackGain = trackGain, let theTrackPeak = trackPeak {
-            
-            trackGainToPreventClipping = theTrackGain
-            
-            let newPeak = pow(10.0, theTrackGain / 20) * theTrackPeak
-            
-            if newPeak > Self.maxPeak {
-                trackGainToPreventClipping -= (20 * log10(newPeak / Self.maxPeak))
-            }
-            
-            self.trackGainToPreventClipping = trackGainToPreventClipping
+            self.trackGainToPreventClipping = gainToPreventClipping(gain: theTrackGain, peak: theTrackPeak)
             
         } else {
             self.trackGainToPreventClipping = nil
@@ -48,6 +44,12 @@ struct ReplayGain {
         
         self.albumGain = albumGain
         self.albumPeak = albumPeak
+        
+        if let theAlbumGain = albumGain, let theAlbumPeak = albumPeak {
+            self.albumGainToPreventClipping = gainToPreventClipping(gain: theAlbumGain, peak: theAlbumPeak)
+        } else {
+            self.albumGainToPreventClipping = nil
+        }
     }
     
     init(ebur128AnalysisResult: EBUR128AnalysisResult) {
@@ -58,5 +60,6 @@ struct ReplayGain {
         
         self.albumGain = nil
         self.albumPeak = nil
+        self.albumGainToPreventClipping = nil
     }
 }

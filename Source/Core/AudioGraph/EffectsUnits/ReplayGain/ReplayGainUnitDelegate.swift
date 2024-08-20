@@ -24,6 +24,12 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         set {unit.preAmp = newValue}
     }
     
+    var preventClipping: Bool {
+        
+        get {unit.preventClipping}
+        set {unit.preventClipping = newValue}
+    }
+    
     func applyGain(_ replayGain: ReplayGain?) {
         unit.replayGain = replayGain
     }
