@@ -275,7 +275,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
                                   replayGainUnit: replayGainUnit.persistentState,
                                   audioUnits: audioUnits.map {$0.persistentState},
                                   audioUnitPresets: audioUnitPresets.persistentState,
-                                  soundProfiles: soundProfiles.persistentState)
+                                  soundProfiles: soundProfiles.persistentState,
+                                  replayGainAnalysisCache: replayGainScanner.persistentState)
         
     }
 }

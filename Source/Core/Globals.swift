@@ -109,6 +109,8 @@ let playbackDelegate: PlaybackDelegateProtocol = {
 
 var playbackInfoDelegate: PlaybackInfoDelegateProtocol {playbackDelegate}
 
+let replayGainScanner = ReplayGainScanner(persistentState: appPersistentState.audioGraph?.replayGainAnalysisCache)
+
 var historyDelegate: HistoryDelegateProtocol {playQueueDelegate}
 
 var favoritesDelegate: FavoritesDelegateProtocol {_favoritesDelegate}

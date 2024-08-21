@@ -25,7 +25,6 @@ class EBUR128State {
     let mode: EBUR128Mode
     
     static let targetLoudness: Double = -18
-    static let maxPeak: Double = 1
     
     init(channelCount: Int, sampleRate: Int, mode: EBUR128Mode) throws {
         
@@ -141,7 +140,7 @@ enum EBUR128Mode {
     }
 }
 
-struct EBUR128AnalysisResult {
+struct EBUR128AnalysisResult: Codable {
     
     let loudness: Double
     let peak: Double

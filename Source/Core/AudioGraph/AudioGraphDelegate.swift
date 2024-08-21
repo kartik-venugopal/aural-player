@@ -275,15 +275,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         }
         
         // Replay gain ------------------------------------------------------------
-        
-        // TODO: Only do this if using metadata
-//        print("Applying replay gain: \(newTrack?.playbackContext?.replayGain?.trackGain) for new track: \(newTrack)")
-//        replayGainUnit.applyGain(newTrack?.playbackContext?.replayGain)
-        replayGainUnit.applyGain(nil)
-        
-        if let newTrackFile = newTrack?.file {
-            replayGainUnit.initiateScan(forFile: newTrackFile)
-        }
+        replayGainUnit.applyReplayGain(forTrack: newTrack)
     }
     
     @inline(__always)

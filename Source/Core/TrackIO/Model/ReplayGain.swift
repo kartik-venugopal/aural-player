@@ -35,8 +35,9 @@ struct ReplayGain {
     
     private func gainToPreventClipping(gain: Float, peak: Float, usingMaxPeakLevel maxPeakLevel: Float) -> Float {
         
+        let maxPeak = pow(10.0, maxPeakLevel / 20.0)
         let newPeak = pow(10.0, gain / 20) * peak
-        return newPeak > maxPeakLevel ? gain - (20 * log10(newPeak / maxPeakLevel)) : gain
+        return newPeak > maxPeak ? gain - (20 * log10(newPeak / maxPeak)) : gain
     }
     
     mutating func applyClippingPrevention(usingMaxPeakLevel maxPeakLevel: Float) {

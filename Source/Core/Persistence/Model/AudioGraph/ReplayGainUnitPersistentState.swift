@@ -59,3 +59,8 @@ struct ReplayGainPresetPersistentState: Codable {
         self.preventClipping = preset.preventClipping
     }
 }
+
+struct ReplayGainAnalysisCachePersistentState: Codable {
+    
+    let cache: [URL: EBUR128AnalysisResult]?
+}

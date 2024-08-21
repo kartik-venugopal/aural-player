@@ -19,26 +19,55 @@ protocol EBUR128LoudnessScannerProtocol {
 
 class ReplayGainScanner {
     
-    let file: URL
-    let scanner: EBUR128LoudnessScannerProtocol
+    let cache: ConcurrentMap<URL, EBUR128AnalysisResult> = ConcurrentMap()
     
-    init(file: URL) throws {
+    init(persistentState: ReplayGainAnalysisCachePersistentState?) {
         
-        self.file = file
-        scanner = file.isNativelySupported ? try AVFReplayGainScanner(file: file) : try FFmpegReplayGainScanner(file: file)
+        guard let cache = persistentState?.cache else {return}
+        
+        for (file, result) in cache {
+            self.cache[file] = result
+        }
+        
+        print("ReplayGainScanner.init() read \(self.cache.count) cache entries")
     }
     
-    func scan(_ completionHandler: @escaping (ReplayGain?) -> Void) {
+    func scan(forFile file: URL, _ completionHandler: @escaping (ReplayGain?) -> Void) throws {
         
-        lazy var filePath = file.path
+        // First, check the cache
+        if let theResult = cache[file] {
+            
+            // Cache hit
+            print("ReplayGainScanner.init() CACHE HIT !!! \(theResult.replayGain) for file \(file.lastPathComponent)")
+            completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
+            return
+        }
         
-        scanner.scan {ebur128Result in
+        print("ReplayGainScanner.init() CACHE MISS for file \(file.lastPathComponent)")
+        
+        // Cache miss, initiate a scan
+        
+        let scanner: EBUR128LoudnessScannerProtocol = file.isNativelySupported ?
+        try AVFReplayGainScanner(file: file) :
+        try FFmpegReplayGainScanner(file: file)
+        
+        scanner.scan {[weak self] ebur128Result in
             
             if let theResult = ebur128Result {
+                
+                // Scan succeeded, cache the result
+                self?.cache[file] = theResult
                 completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
+                
             } else {
+                
+                // Scan failed
                 completionHandler(nil)
             }
         }
+    }
+    
+    var persistentState: ReplayGainAnalysisCachePersistentState {
+        .init(cache: cache.map)
     }
 }

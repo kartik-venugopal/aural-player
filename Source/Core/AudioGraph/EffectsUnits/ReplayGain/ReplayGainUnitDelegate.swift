@@ -14,6 +14,8 @@ import Foundation
 
 class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUnitDelegateProtocol {
     
+    static let cache: ConcurrentMap<URL, EBUR128AnalysisResult> = ConcurrentMap()
+    
     var dataSource: ReplayGainDataSource {
         
         get {unit.dataSource}
@@ -63,16 +65,51 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     var isScanning: Bool {_isScanning.value}
     private var _isScanning: AtomicBool = AtomicBool(value: false)
     
-    func initiateScan(forFile file: URL) {
+    func applyReplayGain(forTrack track: Track?) {
+        
+        guard let theTrack = track else {
+            
+            unit.replayGain = nil
+            return
+        }
+        
+        switch unit.dataSource {
+            
+        case .metadataOrAnalysis:
+            
+            if let replayGain = theTrack.replayGain {
+                
+                // Has metadata
+                unit.replayGain = replayGain
+                print("Found RG metadata: \(replayGain.trackGain ?? -100) for \(theTrack)")
+                
+            } else {
+                
+                // Analyze
+                analyze(file: theTrack.file)
+                print("No RG metadata for \(theTrack), analyzing ...")
+            }
+            
+        case .metadataOnly:
+            
+            print("Applying RG metadata: \(theTrack.replayGain?.trackGain ?? -100) for \(theTrack)")
+            unit.replayGain = theTrack.replayGain
+            
+        case .analysisOnly:
+            
+            print("Analyzing \(theTrack)")
+            analyze(file: theTrack.file)
+        }
+    }
+    
+    private func analyze(file: URL) {
         
         do {
-            
-            let scanner = try ReplayGainScanner(file: file)
             
             _isScanning.setTrue()
             Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
             
-            scanner.scan {[weak self] replayGain in
+            try replayGainScanner.scan(forFile: file) {[weak self] (replayGain: ReplayGain?) in
                 
                 guard let strongSelf = self else {return}
                 

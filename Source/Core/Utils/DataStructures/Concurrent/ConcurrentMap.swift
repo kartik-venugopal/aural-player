@@ -18,6 +18,10 @@ class ConcurrentMap<T: Hashable, U: Any> {
     
     private(set) var map: [T: U] = [:]
     
+    var count: Int {
+        map.count
+    }
+    
     subscript(_ key: T) -> U? {
         
         get {

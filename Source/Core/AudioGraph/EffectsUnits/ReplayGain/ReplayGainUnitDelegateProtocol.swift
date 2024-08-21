@@ -12,6 +12,8 @@ import Foundation
 
 protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
+    func applyReplayGain(forTrack track: Track?)
+    
     var mode: ReplayGainMode {get set}
     
     // NOTE - Replay gain values will be set upon track change (values derived from metadata).
@@ -22,8 +24,6 @@ protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var preventClipping: Bool {get set}
     
-    func applyGain(_ replayGain: ReplayGain?)
-    
     var appliedGain: Float {get}
     
     var dataSource: ReplayGainDataSource {get set}
@@ -33,8 +33,6 @@ protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     var hasAppliedGain: Bool {get}
     
     var effectiveGain: Float {get}
-    
-    func initiateScan(forFile file: URL)
     
     var isScanning: Bool {get}
 }
