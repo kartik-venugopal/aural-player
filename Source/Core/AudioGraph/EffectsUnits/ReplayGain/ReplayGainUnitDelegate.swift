@@ -20,12 +20,6 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         set {unit.dataSource = newValue}
     }
     
-    var targetLoudness: ReplayGainTargetLoudness {
-        
-        get {unit.targetLoudness}
-        set {unit.targetLoudness = newValue}
-    }
-    
     var maxPeakLevel: ReplayGainMaxPeakLevel {
         
         get {unit.maxPeakLevel}

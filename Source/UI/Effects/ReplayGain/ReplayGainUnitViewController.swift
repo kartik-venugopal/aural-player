@@ -35,10 +35,6 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     @IBOutlet weak var dataSourceMenuItem_metadataOnly: NSMenuItem!
     @IBOutlet weak var dataSourceMenuItem_analysisOnly: NSMenuItem!
     
-    @IBOutlet weak var targetLoudnessMenuItem_minus18: NSMenuItem!
-    @IBOutlet weak var targetLoudnessMenuItem_minus14: NSMenuItem!
-    @IBOutlet weak var targetLoudnessSelectorView: DecibelSelectorView!
-    
     @IBOutlet weak var maxPeakLevelMenuItem_zero: NSMenuItem!
     @IBOutlet weak var maxPeakLevelSelectorView: DecibelSelectorView!
     
@@ -181,24 +177,51 @@ extension ReplayGainUnitViewController {
         
         super.menuNeedsUpdate(menu)
         
-        [targetLoudnessMenuItem_minus18, targetLoudnessMenuItem_minus14].forEach {$0.off()}
-        
-        targetLoudnessSelectorView.btnCustomDecibel.off()
-        targetLoudnessSelectorView.decibelStepper.disable()
-        
-        switch replayGainUnit.targetLoudness {
-            
-        case .minus18:
-            targetLoudnessMenuItem_minus18.on()
-            
-        case .minus14:
-            targetLoudnessMenuItem_minus14.on()
-            
-        case .custom(let targetLoudness):
-            targetLoudnessSelectorView.setCustomCheckboxState(.on)
+        [dataSourceMenuItem_metadataOrAnalysis, dataSourceMenuItem_metadataOnly, dataSourceMenuItem_analysisOnly].forEach {
+            $0?.off()
         }
         
-        targetLoudnessSelectorView.decibelStepper.floatValue = replayGainUnit.targetLoudness.decibels
+        switch replayGainUnit.dataSource {
+            
+        case .metadataOrAnalysis:
+            dataSourceMenuItem_metadataOrAnalysis.on()
+            
+        case .metadataOnly:
+            dataSourceMenuItem_metadataOnly.on()
+            
+        case .analysisOnly:
+            dataSourceMenuItem_analysisOnly.on()
+        }
         
+        switch replayGainUnit.maxPeakLevel {
+            
+        case .zero:
+            
+            maxPeakLevelMenuItem_zero.on()
+            maxPeakLevelSelectorView.setCustomCheckboxState(.off)
+            
+        case .custom(let maxPeakLevel):
+            
+            maxPeakLevelMenuItem_zero.off()
+            maxPeakLevelSelectorView.setCustomCheckboxState(.on)
+        }
+        
+        maxPeakLevelSelectorView.prepareToAppear()
+    }
+    
+    @IBAction func dataSourceAction(_ sender: NSMenuItem) {
+        replayGainUnit.dataSource = .init(rawValue: sender.tag) ?? .metadataOrAnalysis
+    }
+    
+    @IBAction func maxPeakLevelAction(_ sender: NSMenuItem) {
+        
+        replayGainUnit.maxPeakLevel = .zero
+        maxPeakLevelSelectorView.setCustomCheckboxState(.off)
+    }
+    
+    @IBAction func customMaxPeakLevelCheckboxAction(_ sender: CheckBox) {
+        
+        maxPeakLevelSelectorView.setCustomCheckboxState(sender.state)
+        maxPeakLevelMenuItem_zero.onIf(maxPeakLevelSelectorView.btnCustomDecibel.isOff)
     }
 }

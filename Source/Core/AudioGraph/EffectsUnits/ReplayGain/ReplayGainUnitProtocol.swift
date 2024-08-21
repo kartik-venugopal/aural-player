@@ -28,8 +28,6 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     
     var dataSource: ReplayGainDataSource {get set}
     
-    var targetLoudness: ReplayGainTargetLoudness {get set}
-    
     var maxPeakLevel: ReplayGainMaxPeakLevel {get set}
     
     /*
@@ -68,26 +66,6 @@ enum ReplayGainMode: Int, Codable {
 enum ReplayGainDataSource: Int, Codable {
     
     case metadataOrAnalysis, metadataOnly, analysisOnly
-}
-
-enum ReplayGainTargetLoudness: Codable {
-    
-    case minus18, minus14, custom(targetLoudness: Float)
-    
-    var decibels: Float {
-        
-        switch self {
-            
-        case .minus18:
-            return -18
-            
-        case .minus14:
-            return -14
-            
-        case .custom(let customDecibels):
-            return customDecibels
-        }
-    }
 }
 
 enum ReplayGainMaxPeakLevel: Codable {

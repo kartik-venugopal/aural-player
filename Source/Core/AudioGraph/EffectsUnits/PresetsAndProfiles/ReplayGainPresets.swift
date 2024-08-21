@@ -23,11 +23,13 @@ class ReplayGainPreset: EffectsUnitPreset {
     
     let mode: ReplayGainMode
     let preAmp: Float
+    let preventClipping: Bool
     
-    init(name: String, state: EffectsUnitState, mode: ReplayGainMode, preAmp: Float, systemDefined: Bool) {
+    init(name: String, state: EffectsUnitState, mode: ReplayGainMode, preAmp: Float, preventClipping: Bool, systemDefined: Bool) {
         
         self.mode = mode
         self.preAmp = preAmp
+        self.preventClipping = preventClipping
         
         super.init(name: name, state: state, systemDefined: systemDefined)
     }
@@ -40,11 +42,12 @@ class ReplayGainPreset: EffectsUnitPreset {
         
         self.mode = mode
         self.preAmp = preAmp
+        self.preventClipping = persistentState.preventClipping ?? AudioGraphDefaults.replayGainPreventClipping
         
         super.init(name: name, state: unitState, systemDefined: false)
     }
     
-    func equalToOtherPreset(mode: ReplayGainMode, preAmp: Float) -> Bool {
-        self.mode == mode && Float.valuesEqual(self.preAmp, preAmp, tolerance: 0.001)
+    func equalToOtherPreset(mode: ReplayGainMode, preAmp: Float, preventClipping: Bool) -> Bool {
+        self.mode == mode && Float.valuesEqual(self.preAmp, preAmp, tolerance: 0.001) && self.preventClipping == preventClipping
     }
 }

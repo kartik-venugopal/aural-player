@@ -19,13 +19,10 @@
                 <outlet property="maxPeakLevelSelectorView" destination="7tV-ol-wCL" id="bKs-Y0-fTn"/>
                 <outlet property="modeMenuButton" destination="MJF-dG-Epe" id="8Mo-35-wc8"/>
                 <outlet property="preAmpSlider" destination="ngp-pO-uWT" id="vJQ-0f-POm"/>
-                <outlet property="presetsAndSettingsMenu" destination="TaJ-YU-Bx8" id="5aU-Wz-oW9"/>
+                <outlet property="presetsAndSettingsMenu" destination="hG2-4q-Wg7" id="lHQ-Bf-2In"/>
                 <outlet property="presetsAndSettingsMenuButton" destination="aWr-na-Gft" id="NtQ-RJ-K45"/>
                 <outlet property="presetsAndSettingsMenuIconItem" destination="yH6-SM-gen" id="fc8-1J-E4b"/>
                 <outlet property="renderQualityMenu" destination="QdN-fd-QH0" id="QZL-i9-FPA"/>
-                <outlet property="targetLoudnessMenuItem_minus14" destination="F0a-e5-Ge6" id="R99-yM-0xJ"/>
-                <outlet property="targetLoudnessMenuItem_minus18" destination="sK2-GI-Uga" id="IYJ-Ns-ZLk"/>
-                <outlet property="targetLoudnessSelectorView" destination="Rxh-Mh-WvQ" id="cvI-eP-YPv"/>
                 <outlet property="view" destination="eXu-49-wDq" id="ENz-f9-LMp"/>
             </connections>
         </customObject>
@@ -63,41 +60,34 @@
                                         <items>
                                             <menuItem title="Metadata (or analysis if no metadata present)" id="5rn-qY-y6D" userLabel="Metadata or Analysis">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="dataSourceAction:" target="-2" id="LbA-SR-dJG"/>
+                                                </connections>
                                             </menuItem>
-                                            <menuItem title="Metadata only (no analysis)" id="MvS-R2-mfL">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Analysis only (ignore metadata)" id="oAW-lt-z2d" userLabel="Analysis only (ignore metadata)">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </menuItem>
-                                <menuItem title="Target loudness" id="h4D-He-C6n" userLabel="Target loudness">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <menu key="submenu" title="Target loudness" id="JDW-A5-fKK">
-                                        <items>
-                                            <menuItem title="-18 dB" id="sK2-GI-Uga" userLabel="-18dB">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="-14 dB" id="F0a-e5-Ge6">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Custom" id="Omq-mk-D0F" userLabel="Custom">
+                                            <menuItem title="Metadata only (no analysis)" tag="1" id="MvS-R2-mfL">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                 <connections>
-                                                    <outlet property="view" destination="Rxh-Mh-WvQ" id="En0-Gr-0S8"/>
+                                                    <action selector="dataSourceAction:" target="-2" id="FsR-7X-Pyt"/>
+                                                </connections>
+                                            </menuItem>
+                                            <menuItem title="Analysis only (ignore metadata)" tag="2" id="oAW-lt-z2d" userLabel="Analysis only (ignore metadata)">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="dataSourceAction:" target="-2" id="6YC-yY-ffW"/>
                                                 </connections>
                                             </menuItem>
                                         </items>
                                     </menu>
                                 </menuItem>
-                                <menuItem title="Max. peak level (for clipping prevention)" id="xHZ-rH-KCn" userLabel="Target loudness">
+                                <menuItem title="Max. peak level (for clipping prevention)" id="xHZ-rH-KCn" userLabel="Max. peak level">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <menu key="submenu" title="Max. peak level (for clipping prevention)" id="EbX-JJ-3B7">
                                         <items>
                                             <menuItem title="0 dB" id="soD-cA-mVk" userLabel="-18dB">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="maxPeakLevelAction:" target="-2" id="Jdw-Nt-c4l"/>
+                                                </connections>
                                             </menuItem>
                                             <menuItem title="Custom" id="aOa-qM-qs9" userLabel="Custom">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -207,7 +197,7 @@
                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ngp-pO-uWT" userLabel="Pre-amp Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="140" y="60" width="150" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="ub4-KK-30I" customClass="SymmetricEffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
+                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-15" maxValue="15" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="ub4-KK-30I" customClass="SymmetricEffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
                                 <action selector="preAmpAction:" target="-2" id="Phx-W2-0oz"/>
                             </connections>
@@ -215,7 +205,7 @@
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ob7-3G-QFa" userLabel="-20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="100" y="57" width="35" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-20" id="PF4-7v-Mk9">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-15" id="PF4-7v-Mk9">
                                 <font key="font" size="11" name="Play-Regular"/>
                                 <color key="textColor" white="0.3952263224" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -224,7 +214,7 @@
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HkG-br-QNW" userLabel="20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="294" y="57" width="35" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="+20" id="nmd-q7-pKl">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="+15" id="nmd-q7-pKl">
                                 <font key="font" size="11" name="Play-Regular"/>
                                 <color key="textColor" white="0.3952263224" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -265,49 +255,12 @@
             </subviews>
             <point key="canvasLocation" x="139" y="153"/>
         </view>
-        <customView id="Rxh-Mh-WvQ" userLabel="Target Loudness Selection View" customClass="TargetLoudnessSelectorView" customModule="Aural" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="206" height="28"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UDg-6r-jqv">
-                    <rect key="frame" x="101" y="1" width="76" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="-18.0 dB" id="fT1-Ge-oj9">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wph-gM-mqC" userLabel="Radius Stepper">
-                    <rect key="frame" x="185" y="2" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="5" minValue="-300" maxValue="-50" doubleValue="-180" id="ftQ-rK-X0R"/>
-                    <connections>
-                        <action selector="decibelStepperAction:" target="Rxh-Mh-WvQ" id="KkB-P7-BCw"/>
-                    </connections>
-                </stepper>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dva-UQ-luM" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="11" y="4.5" width="100" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Custom" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="LgP-La-p20">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="13" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-            </subviews>
-            <connections>
-                <outlet property="btnCustomDecibel" destination="Dva-UQ-luM" id="DmR-nX-QG6"/>
-                <outlet property="decibelStepper" destination="wph-gM-mqC" id="mVs-y1-Q99"/>
-                <outlet property="lblDecibel" destination="UDg-6r-jqv" id="9JM-7z-3wx"/>
-            </connections>
-            <point key="canvasLocation" x="2" y="351"/>
-        </customView>
         <customView id="7tV-ol-wCL" userLabel="Max Peak Level Selection View" customClass="MaxPeakLevelSelectorView" customModule="Aural" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="206" height="28"/>
+            <rect key="frame" x="0.0" y="0.0" width="197" height="28"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XWM-n3-cUs">
-                    <rect key="frame" x="112" y="1" width="65" height="22"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XWM-n3-cUs" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="107" y="3" width="65" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="0.0 dB" id="onX-gZ-Svg">
                         <font key="font" metaFont="system"/>
@@ -316,7 +269,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Et4-b5-2YZ" userLabel="Radius Stepper">
-                    <rect key="frame" x="185" y="2" width="15" height="22"/>
+                    <rect key="frame" x="175" y="3" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="5" minValue="-50" id="XaE-vC-yet"/>
                     <connections>
@@ -324,12 +277,15 @@
                     </connections>
                 </stepper>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kn9-VI-9ho" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="11" y="4.5" width="100" height="20"/>
+                    <rect key="frame" x="8" y="5.5" width="90" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Custom" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="VQf-WD-CSY">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="customMaxPeakLevelCheckboxAction:" target="-2" id="tuz-Ec-9j9"/>
+                    </connections>
                 </button>
             </subviews>
             <connections>
@@ -337,7 +293,7 @@
                 <outlet property="decibelStepper" destination="Et4-b5-2YZ" id="Jry-Fm-6Lf"/>
                 <outlet property="lblDecibel" destination="XWM-n3-cUs" id="6Gf-Tl-zaL"/>
             </connections>
-            <point key="canvasLocation" x="2" y="426"/>
+            <point key="canvasLocation" x="-2.5" y="426"/>
         </customView>
     </objects>
     <resources>

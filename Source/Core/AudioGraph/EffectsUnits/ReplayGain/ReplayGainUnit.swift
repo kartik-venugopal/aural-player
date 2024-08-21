@@ -45,13 +45,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     
     var dataSource: ReplayGainDataSource
     
-    var targetLoudness: ReplayGainTargetLoudness {
-        
-        didSet {
-            parmsChanged()
-        }
-    }
-    
     var maxPeakLevel: ReplayGainMaxPeakLevel {
         
         didSet {
@@ -109,7 +102,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         replayGain = nil
         preventClipping = persistentState?.preventClipping ?? AudioGraphDefaults.replayGainPreventClipping
         
-        targetLoudness = persistentState?.targetLoudness ?? AudioGraphDefaults.replayGainTargetLoudness
         maxPeakLevel = persistentState?.maxPeakLevel ?? AudioGraphDefaults.replayGainMaxPeakLevel
         dataSource = persistentState?.dataSource ?? AudioGraphDefaults.replayGainDataSource
         
@@ -142,7 +134,9 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     
     override func savePreset(named presetName: String) {
         
-        let newPreset = ReplayGainPreset(name: presetName, state: .active, mode: mode, preAmp: preAmp, systemDefined: false)
+        let newPreset = ReplayGainPreset(name: presetName, state: .active,
+                                         mode: mode, preAmp: preAmp, preventClipping: preventClipping,
+                                         systemDefined: false)
         presets.addObject(newPreset)
         currentPreset = newPreset
     }
@@ -163,7 +157,9 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     }
     
     var settingsAsPreset: ReplayGainPreset {
-        ReplayGainPreset(name: "replayGainSettings", state: state, mode: mode, preAmp: preAmp, systemDefined: false)
+        ReplayGainPreset(name: "replayGainSettings", state: state,
+                         mode: mode, preAmp: preAmp, preventClipping: preventClipping,
+                         systemDefined: false)
     }
     
     private func invalidateCurrentPreset() {
@@ -178,7 +174,7 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         
         guard let matchingPreset = presets.object(named: presetName) else {return}
         
-        if matchingPreset.equalToOtherPreset(mode: mode, preAmp: preAmp) {
+        if matchingPreset.equalToOtherPreset(mode: mode, preAmp: preAmp, preventClipping: preventClipping) {
             self.currentPreset = matchingPreset
         }
     }
@@ -201,7 +197,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
                                       preAmp: preAmp,
                                       preventClipping: preventClipping,
                                       dataSource: dataSource,
-                                      targetLoudness: targetLoudness,
                                       maxPeakLevel: maxPeakLevel)
     }
 }

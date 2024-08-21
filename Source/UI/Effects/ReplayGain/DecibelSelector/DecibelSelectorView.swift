@@ -17,10 +17,24 @@ class DecibelSelectorView: NSView {
     @IBOutlet weak var btnCustomDecibel: CheckBox!
     @IBOutlet weak var lblDecibel: NSTextField!
     
-    var replayGainUnit: ReplayGainUnitDelegateProtocol!
+    lazy var replayGainUnit: ReplayGainUnitDelegateProtocol = audioGraphDelegate.replayGainUnit
+    
+    ///
+    /// Stepper value is 10x target value, so divide by 10.
+    ///
+    var decibelValue: Float {
+        
+        get {
+            decibelStepper.floatValue / 10.0
+        }
+        
+        set {
+            decibelStepper.floatValue = newValue * 10.0
+        }
+    }
     
     var formattedDecibelString: String {
-        String(format: "%.2f dB", decibelStepper.floatValue)
+        String(format: "%.2f dB", decibelValue)
     }
     
     override func awakeFromNib() {
@@ -43,28 +57,24 @@ class DecibelSelectorView: NSView {
     }
 }
 
-class TargetLoudnessSelectorView: DecibelSelectorView {
-    
-    override func prepareToAppear() {
-        
-        decibelStepper.floatValue = replayGainUnit.targetLoudness.decibels
-        lblDecibel.stringValue = formattedDecibelString
-    }
-    
-    @IBAction override func decibelStepperAction(_ sender: NSStepper) {
-
-        super.decibelStepperAction(sender)
-        
-        replayGainUnit.targetLoudness = .custom(targetLoudness: decibelStepper.floatValue)
-        Messenger.publish(.Effects.ReplayGainUnit.targetLoudnessChanged)
-    }
-}
-
 class MaxPeakLevelSelectorView: DecibelSelectorView {
     
     override func prepareToAppear() {
         
-        decibelStepper.floatValue = replayGainUnit.maxPeakLevel.decibels
+        switch replayGainUnit.maxPeakLevel {
+            
+        case .zero:
+            
+            btnCustomDecibel.off()
+            decibelStepper.disable()
+            
+        case .custom(_):
+            
+            btnCustomDecibel.on()
+            decibelStepper.enable()
+        }
+        
+        decibelValue = replayGainUnit.maxPeakLevel.decibels
         lblDecibel.stringValue = formattedDecibelString
     }
     
@@ -72,7 +82,7 @@ class MaxPeakLevelSelectorView: DecibelSelectorView {
 
         super.decibelStepperAction(sender)
         
-        replayGainUnit.maxPeakLevel = .custom(maxPeakLevel: decibelStepper.floatValue)
+        replayGainUnit.maxPeakLevel = .custom(maxPeakLevel: decibelValue)
         Messenger.publish(.Effects.ReplayGainUnit.maxPeakLevelChanged)
     }
 }
