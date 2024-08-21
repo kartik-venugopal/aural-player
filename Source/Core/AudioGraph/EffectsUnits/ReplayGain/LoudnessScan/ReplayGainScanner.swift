@@ -38,12 +38,12 @@ class ReplayGainScanner {
         if let theResult = cache[file] {
             
             // Cache hit
-            print("ReplayGainScanner.init() CACHE HIT !!! \(theResult.replayGain) for file \(file.lastPathComponent)")
+            print("\nReplayGainScanner.init() CACHE HIT !!! \(theResult.replayGain) for file \(file.lastPathComponent)")
             completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
             return
         }
         
-        print("ReplayGainScanner.init() CACHE MISS for file \(file.lastPathComponent)")
+        print("\nReplayGainScanner.init() CACHE MISS for file \(file.lastPathComponent)")
         
         // Cache miss, initiate a scan
         

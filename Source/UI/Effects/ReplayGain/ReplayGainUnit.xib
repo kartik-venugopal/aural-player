@@ -18,6 +18,7 @@
                 <outlet property="maxPeakLevelMenuItem_zero" destination="soD-cA-mVk" id="IKz-lH-vke"/>
                 <outlet property="maxPeakLevelSelectorView" destination="7tV-ol-wCL" id="bKs-Y0-fTn"/>
                 <outlet property="modeMenuButton" destination="MJF-dG-Epe" id="8Mo-35-wc8"/>
+                <outlet property="modeMenuButtonCell" destination="QJF-Wc-9uh" id="3XF-F6-9ps"/>
                 <outlet property="preAmpSlider" destination="ngp-pO-uWT" id="vJQ-0f-POm"/>
                 <outlet property="presetsAndSettingsMenu" destination="hG2-4q-Wg7" id="lHQ-Bf-2In"/>
                 <outlet property="presetsAndSettingsMenuButton" destination="aWr-na-Gft" id="NtQ-RJ-K45"/>
@@ -144,11 +145,11 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MJF-dG-Epe" userLabel="Replay Gain Mode Menu">
-                            <rect key="frame" x="115" y="128" width="206" height="22"/>
+                            <rect key="frame" x="115" y="128" width="240" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="push" title="Album gain (or Track gain)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="O4j-Nu-90i" id="QJF-Wc-9uh" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                            <popUpButtonCell key="cell" type="push" title="Album gain (or Track gain)" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="O4j-Nu-90i" id="QJF-Wc-9uh" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="smallSystem"/>
+                                <font key="font" metaFont="system"/>
                                 <menu key="menu" id="JNf-gw-Itj">
                                     <items>
                                         <menuItem title="Album gain (or Track gain)" id="O4j-Nu-90i" userLabel="Album gain / Track gain">

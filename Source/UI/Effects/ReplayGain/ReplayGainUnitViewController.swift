@@ -19,6 +19,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     // MARK: UI fields
     
     @IBOutlet weak var modeMenuButton: NSPopUpButton!
+    @IBOutlet weak var modeMenuButtonCell: EffectsUnitPopupMenuCell!
     
     @IBOutlet weak var lblGain: NSTextField!
     
@@ -55,10 +56,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         self.effectsUnit = graph.replayGainUnit
         self.presetsWrapper = PresetsWrapper<ReplayGainPreset, ReplayGainPresets>(audioGraph.replayGainUnit.presets)
         
-        if let popupMenuCell = modeMenuButton.cell as? EffectsUnitPopupMenuCell {
-            fxUnitStateObserverRegistry.registerObserver(popupMenuCell, forFXUnit: graph.replayGainUnit)
-        }
-        
+        fxUnitStateObserverRegistry.registerObserver(modeMenuButtonCell, forFXUnit: graph.replayGainUnit)
         fxUnitStateObserverRegistry.registerObserver(btnPreventClipping, forFXUnit: audioGraphDelegate.replayGainUnit)
     }
     
@@ -137,10 +135,18 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
     }
     
+    override func fontSchemeChanged() {
+        
+        super.fontSchemeChanged()
+        modeMenuButton.redraw()
+    }
+    
     override func colorSchemeChanged() {
         
         super.colorSchemeChanged()
+        
         btnPreventClipping.redraw(forState: replayGainUnit.state)
+        modeMenuButtonCell.tintColor = systemColorScheme.colorForEffectsUnitState(replayGainUnit.state)
     }
     
     override func activeControlColorChanged(_ newColor: NSColor) {
@@ -148,7 +154,9 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         super.activeControlColorChanged(newColor)
         
         if replayGainUnit.state == .active {
+            
             btnPreventClipping.redraw(forState: .active)
+            modeMenuButtonCell.tintColor = systemColorScheme.colorForEffectsUnitState(.active)
         }
     }
     
@@ -157,7 +165,9 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         super.inactiveControlColorChanged(newColor)
         
         if replayGainUnit.state == .bypassed {
+            
             btnPreventClipping.redraw(forState: .bypassed)
+            modeMenuButtonCell.tintColor = systemColorScheme.colorForEffectsUnitState(.bypassed)
         }
     }
     
@@ -166,7 +176,9 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         super.suppressedControlColorChanged(newColor)
         
         if replayGainUnit.state == .suppressed {
+            
             btnPreventClipping.redraw(forState: .suppressed)
+            modeMenuButtonCell.tintColor = systemColorScheme.colorForEffectsUnitState(.suppressed)
         }
     }
 }
@@ -200,7 +212,7 @@ extension ReplayGainUnitViewController {
             maxPeakLevelMenuItem_zero.on()
             maxPeakLevelSelectorView.setCustomCheckboxState(.off)
             
-        case .custom(let maxPeakLevel):
+        case .custom(_):
             
             maxPeakLevelMenuItem_zero.off()
             maxPeakLevelSelectorView.setCustomCheckboxState(.on)
