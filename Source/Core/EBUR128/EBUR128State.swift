@@ -81,17 +81,8 @@ class EBUR128State {
         let loudness = try computeLoudness()
         let peak = try computePeak()
         let replayGain = Self.targetLoudness - loudness
-        var replayGainToPreventClipping: Double = replayGain
         
-        let newPeak = pow(10.0, replayGain / 20) * peak
-        
-        if newPeak > Self.maxPeak {
-            
-            let adjustment = 20 * log10(newPeak / Self.maxPeak)
-            replayGainToPreventClipping -= adjustment
-        }
-        
-        return EBUR128AnalysisResult(loudness: loudness, peak: peak, replayGain: replayGain, replayGainToPreventClipping: replayGainToPreventClipping)
+        return EBUR128AnalysisResult(loudness: loudness, peak: peak, replayGain: replayGain)
     }
     
     func computeLoudness() throws -> Double {
@@ -154,7 +145,5 @@ struct EBUR128AnalysisResult {
     
     let loudness: Double
     let peak: Double
-    
     let replayGain: Double
-    let replayGainToPreventClipping: Double
 }

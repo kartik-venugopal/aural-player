@@ -26,6 +26,11 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     var replayGain: ReplayGain? {
         
         didSet {
+            
+            if preventClipping {
+                replayGain?.applyClippingPrevention(usingMaxPeakLevel: maxPeakLevel.decibels)
+            }
+            
             parmsChanged()
         }
     }
@@ -48,6 +53,11 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     var maxPeakLevel: ReplayGainMaxPeakLevel {
         
         didSet {
+            
+            if preventClipping {
+                replayGain?.applyClippingPrevention(usingMaxPeakLevel: maxPeakLevel.decibels)
+            }
+            
             parmsChanged()
         }
     }
