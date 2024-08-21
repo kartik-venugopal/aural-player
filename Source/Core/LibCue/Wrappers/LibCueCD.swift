@@ -14,8 +14,27 @@ class LibCueCD {
     
     let file: URL
     
-    let rems: [LibCueREM]
-    lazy var date: String? = rems.first(where: {$0.type == .date})?.value
+    let rems: [LibCueREMType: LibCueREM]
+    
+    lazy var date: String? = rems[.date]?.value
+    
+    lazy var replayGain_albumGain: Float? = {
+        
+        if let gainStr = self.rems[.replayGain_albumGain]?.value.lowerCasedAndTrimmed().removingOccurrences(of: "db") {
+            return Float(gainStr)
+        }
+        
+        return nil
+    }()
+    
+    lazy var replayGain_albumPeak: Float? = {
+        
+        if let gainStr = self.rems[.replayGain_albumPeak]?.value.trim() {
+            return Float(gainStr)
+        }
+        
+        return nil
+    }()
     
     let cdTexts: [LibCueCDText]
     lazy var title: String? = cdTexts.first(where: {$0.pti == .title})?.value
@@ -67,12 +86,16 @@ class LibCueCD {
         
         if let remPtr = cd_get_rem(cdPtr) {
             
-            self.rems = LibCueREMType.allCases.compactMap {remType in
-                LibCueREM(type: remType, pointer: remPtr)
+            var map: [LibCueREMType: LibCueREM] = [:]
+            
+            LibCueREMType.allCases.forEach {remType in
+                map[remType] = LibCueREM(type: remType, pointer: remPtr)
             }
             
+            self.rems = map
+            
         } else {
-            self.rems = []
+            self.rems = [:]
         }
     }
 }

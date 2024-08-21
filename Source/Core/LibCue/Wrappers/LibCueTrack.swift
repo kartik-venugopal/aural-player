@@ -23,8 +23,26 @@ class LibCueTrack {
     let preGap: Double?
     let postGap: Double?
     
-    let rems: [LibCueREM]
-    lazy var date: String? = rems.first(where: {$0.type == .date})?.value
+    let rems: [LibCueREMType: LibCueREM]
+    lazy var date: String? = rems[.date]?.value
+    
+    lazy var replayGain_trackGain: Float? = {
+        
+        if let gainStr = self.rems[.replayGain_trackGain]?.value.lowerCasedAndTrimmed().removingOccurrences(of: "db") {
+            return Float(gainStr)
+        }
+        
+        return nil
+    }()
+    
+    lazy var replayGain_trackPeak: Float? = {
+        
+        if let gainStr = self.rems[.replayGain_trackPeak]?.value.trim() {
+            return Float(gainStr)
+        }
+        
+        return nil
+    }()
     
     let cdTexts: [LibCueCDText]
     lazy var title: String? = cdTexts.first(where: {$0.pti == .title})?.value
@@ -80,12 +98,16 @@ class LibCueTrack {
         
         if let remPtr = track_get_rem(pointer) {
             
-            self.rems = LibCueREMType.allCases.compactMap {remType in
-                LibCueREM(type: remType, pointer: remPtr)
+            var map: [LibCueREMType: LibCueREM] = [:]
+            
+            LibCueREMType.allCases.forEach {remType in
+                map[remType] = LibCueREM(type: remType, pointer: remPtr)
             }
             
+            self.rems = map
+            
         } else {
-            self.rems = []
+            self.rems = [:]
         }
     }
 }

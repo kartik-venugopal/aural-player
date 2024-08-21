@@ -77,6 +77,9 @@ class LibCueMapper {
         metadata.genre = cd.genre
         metadata.date = cd.date
         
+        metadata.replayGain = .init(albumGain: cd.replayGain_albumGain,
+                                    albumPeak: cd.replayGain_albumPeak)
+        
         return metadata
     }
     
@@ -88,6 +91,11 @@ class LibCueMapper {
         metadata.albumArtist = cd.performer
         metadata.genre = cd.genre
         metadata.date = cd.date
+        
+        metadata.replayGain = .init(trackGain: track.replayGain_trackGain,
+                                    trackPeak: track.replayGain_trackPeak,
+                                    albumGain: cd.replayGain_albumGain,
+                                    albumPeak: cd.replayGain_albumPeak)
         
         metadata.artist = track.performer
         metadata.title = track.title

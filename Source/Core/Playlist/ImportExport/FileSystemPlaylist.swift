@@ -39,7 +39,9 @@ class CueSheetMetadata: Codable {
     var date: String?
     var discID: String?
     var comment: String?
-
+    
+    var replayGain: ReplayGain?
+    
     // Track-specific info
     
     var title: String?

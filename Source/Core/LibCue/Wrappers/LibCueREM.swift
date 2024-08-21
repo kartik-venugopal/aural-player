@@ -26,18 +26,15 @@ class LibCueREM {
 
 enum LibCueREMType: CaseIterable {
     
-//    REM_DATE,    /* date of cd/track */
-//    REM_REPLAYGAIN_ALBUM_GAIN,
-//    REM_REPLAYGAIN_ALBUM_PEAK,
-//    REM_REPLAYGAIN_TRACK_GAIN,
-//    REM_REPLAYGAIN_TRACK_PEAK,
-//    REM_END        /* terminating REM (for stepping through REMs) */
-    
-    case date, end
+    case date, replayGain_albumGain, replayGain_albumPeak, replayGain_trackGain, replayGain_trackPeak, end
     
     private static var mappings: [RemType: LibCueREMType] = [
         
         REM_DATE: .date,
+        REM_REPLAYGAIN_ALBUM_GAIN: .replayGain_albumGain,
+        REM_REPLAYGAIN_ALBUM_PEAK: .replayGain_albumPeak,
+        REM_REPLAYGAIN_TRACK_GAIN: .replayGain_trackGain,
+        REM_REPLAYGAIN_TRACK_PEAK: .replayGain_trackPeak,
         REM_END: .end
     ]
     
@@ -46,7 +43,27 @@ enum LibCueREMType: CaseIterable {
     }
     
     var remType: RemType {
-        return self == .date ? REM_DATE : REM_END
+        
+        switch self {
+            
+        case .date:
+            return REM_DATE
+            
+        case .replayGain_albumGain:
+            return REM_REPLAYGAIN_ALBUM_GAIN
+            
+        case .replayGain_albumPeak:
+            return REM_REPLAYGAIN_ALBUM_PEAK
+            
+        case .replayGain_trackGain:
+            return REM_REPLAYGAIN_TRACK_GAIN
+            
+        case .replayGain_trackPeak:
+            return REM_REPLAYGAIN_TRACK_PEAK
+            
+        case .end:
+            return REM_END
+        }
     }
 }
 

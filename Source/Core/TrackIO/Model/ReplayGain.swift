@@ -10,7 +10,7 @@
 
 import Foundation
 
-struct ReplayGain {
+struct ReplayGain: Codable {
     
     let trackGain: Float?
     let trackPeak: Float?

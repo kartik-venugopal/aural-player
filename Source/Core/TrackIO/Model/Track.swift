@@ -202,7 +202,7 @@ class Track: Hashable, PlaylistItem, PlayableItem {
             auxiliaryMetadata[theKey] = MetadataEntry(format: .other, key: theKey, value: value)
         }
         
-        self.replayGain = metadata.replayGain
+        self.replayGain = metadata.replayGain ?? cueSheetMetadata?.replayGain
     }
     
     private func correctChapterTimes() {
