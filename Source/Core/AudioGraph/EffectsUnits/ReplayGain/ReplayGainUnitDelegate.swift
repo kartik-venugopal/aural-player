@@ -70,6 +70,9 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         guard let theTrack = track else {
             
             unit.replayGain = nil
+            replayGainScanner.cancelOngoingScan()
+            Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
+            
             return
         }
         
@@ -84,6 +87,9 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
                 print("Found RG metadata: \(replayGain.trackGain ?? -100) for \(theTrack)")
                 
             } else {
+                
+                // First reset replay gain (before analysis)
+                unit.replayGain = nil
                 
                 // Analyze
                 analyze(file: theTrack.file)

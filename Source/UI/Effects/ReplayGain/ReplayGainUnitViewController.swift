@@ -89,12 +89,17 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: initControls)
         
         messenger.subscribeAsync(to: .Effects.ReplayGainUnit.scanInitiated, handler: scanInitiated)
-        messenger.subscribeAsync(to: .Effects.ReplayGainUnit.scanCompleted, handler: scanCompleted)
+        messenger.subscribeAsync(to: .Effects.ReplayGainUnit.scanCompleted, handler: updateGainLabel)
     }
     
     @IBAction func modeAction(_ sender: NSPopUpButton) {
         
         replayGainUnit.mode = .init(rawValue: sender.selectedTag()) ?? .defaultMode
+        updateGainLabel()
+        lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
+    }
+    
+    private func updateGainLabel() {
         
         if replayGainUnit.hasAppliedGain {
             lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
@@ -102,8 +107,6 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         } else {
             lblGain.stringValue = "<None>"
         }
-        
-        lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
     }
     
     @IBAction func preAmpAction(_ sender: NSSlider) {
@@ -117,22 +120,12 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         replayGainUnit.preventClipping = sender.isOn
         
         if !replayGainUnit.isScanning {
-            
-            if replayGainUnit.hasAppliedGain {
-                lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
-                
-            } else {
-                lblGain.stringValue = "<None>"
-            }
+            updateGainLabel()
         }
     }
     
     private func scanInitiated() {
         lblGain.stringValue = "Analyzing file loudness ..."
-    }
-    
-    private func scanCompleted() {
-        lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
     }
     
     override func fontSchemeChanged() {

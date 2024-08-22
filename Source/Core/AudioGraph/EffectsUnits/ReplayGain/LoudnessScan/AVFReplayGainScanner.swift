@@ -26,8 +26,12 @@ class AVFReplayGainScanner: EBUR128LoudnessScannerProtocol {
     
     private let ebur128: EBUR128State
     
+    private(set) var isCancelled: Bool = false
+    
     private static let analysisSampleFormat: AVAudioCommonFormat = .pcmFormatFloat32
     private static let chunkSize: AVAudioFrameCount = 5 * 44100
+    private static let maxConsecutiveIOErrors: Int = 3
+    private static let maxTotalIOErrors: Int = 10
     
     init(file: URL) throws {
         
@@ -78,32 +82,65 @@ class AVFReplayGainScanner: EBUR128LoudnessScannerProtocol {
             guard let converter: AVAudioConverter = .init(from: audioFormat,
                                                           to: analysisFormat) else {return nil}
             
-            while samplesRead < totalSamples {
-                
-                try audioFile.read(into: readBuffer)
-                samplesRead += AVAudioFramePosition(readBuffer.frameLength)
-                
-                try converter.convert(to: analyzeBuffer, from: readBuffer)
-                
-                guard let floatBuffer = analyzeBuffer.floatChannelData else {return nil}
+            var eof: Bool = false
+            var sampleCountFromLastRead: AVAudioFramePosition = 0
+            var consecutiveIOErrors: Int = 0
+            var totalIOErrors: Int = 0
+            
+            while (!isCancelled) && (!eof) {
                 
                 do {
+                    
+                    try audioFile.read(into: readBuffer)
+                    sampleCountFromLastRead = AVAudioFramePosition(readBuffer.frameLength)
+                    samplesRead += sampleCountFromLastRead
+                    
+                    try converter.convert(to: analyzeBuffer, from: readBuffer)
+                    
+                    guard let floatBuffer = analyzeBuffer.floatChannelData else {return nil}
+                    
                     try ebur128.addFramesAsFloat(framesPointer: floatBuffer[0], frameCount: Int(analyzeBuffer.frameLength))
                     
-                } catch let err as EBUR128Error {
-                    print(err.description)
+                    // Reset the error counter if the read after a failed iteration succeeds.
+                    if consecutiveIOErrors > 0 {
+                        consecutiveIOErrors = 0
+                    }
                     
                 } catch {
-                    print("Unknown error: \(error.localizedDescription)")
+                    
+                    let description = (error as? EBUR128Error)?.description ?? error.localizedDescription
+                    NSLog("Waveform Decoder IO Error: \(description)")
+                    
+                    consecutiveIOErrors.increment()
+                    totalIOErrors.increment()
+                    
+                    if consecutiveIOErrors >= Self.maxConsecutiveIOErrors {
+                        
+                        NSLog("Encountered too many consecutive IO errors. Terminating scan loop.")
+                        break
+                        
+                    } else if totalIOErrors > Self.maxTotalIOErrors {
+                        
+                        NSLog("Encountered too many total IO errors. Terminating scan loop.")
+                        break
+                    }
                 }
+                
+                eof = (audioFile.framePosition >= totalSamples) ||
+                (samplesRead >= totalSamples) ||
+                (sampleCountFromLastRead == 0)
             }
          
-            return try ebur128.analyze()
+            return isCancelled || (!eof) ? nil : try ebur128.analyze()
             
         } catch {
             
             print("Error: \(error.localizedDescription)")
             return nil
         }
+    }
+    
+    func cancel() {
+        isCancelled = true
     }
 }

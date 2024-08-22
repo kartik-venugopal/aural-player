@@ -26,8 +26,6 @@ final class WaveformRenderOperation: Operation {
     
     var analysisSucceeded: Bool = false
     
-    //    var childOperations: [Operation] = []
-    
     // -------------------------------------------------------------------------------------------------------------------
     
     // MARK: - NSOperation Overrides

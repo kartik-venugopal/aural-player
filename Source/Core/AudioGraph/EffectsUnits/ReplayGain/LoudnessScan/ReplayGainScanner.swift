@@ -15,11 +15,17 @@ protocol EBUR128LoudnessScannerProtocol {
     var file: URL {get}
     
     func scan(_ completionHandler: @escaping (EBUR128AnalysisResult?) -> Void)
+    
+    func cancel()
+    
+    var isCancelled: Bool {get}
 }
 
 class ReplayGainScanner {
     
     let cache: ConcurrentMap<URL, EBUR128AnalysisResult> = ConcurrentMap()
+    
+    private var scanOp: ReplayGainScannerOperation? = nil
     
     init(persistentState: ReplayGainAnalysisCachePersistentState?) {
         
@@ -34,24 +40,28 @@ class ReplayGainScanner {
     
     func scan(forFile file: URL, _ completionHandler: @escaping (ReplayGain?) -> Void) throws {
         
+        cancelOngoingScan()
+        
         // First, check the cache
-        if let theResult = cache[file] {
-            
-            // Cache hit
-            print("\nReplayGainScanner.init() CACHE HIT !!! \(theResult.replayGain) for file \(file.lastPathComponent)")
-            completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
-            return
-        }
+//        if let theResult = cache[file] {
+//            
+//            // Cache hit
+//            print("\nReplayGainScanner.init() CACHE HIT !!! \(theResult.replayGain) for file \(file.lastPathComponent)")
+//            completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
+//            return
+//        }
         
         print("\nReplayGainScanner.init() CACHE MISS for file \(file.lastPathComponent)")
         
         // Cache miss, initiate a scan
         
-        let scanner: EBUR128LoudnessScannerProtocol = file.isNativelySupported ?
-        try AVFReplayGainScanner(file: file) :
-        try FFmpegReplayGainScanner(file: file)
-        
-        scanner.scan {[weak self] ebur128Result in
+        scanOp = try ReplayGainScannerOperation(file: file) {[weak self] finishedScanOp, ebur128Result in
+            
+            // A previously scheduled scan op may finish just before being cancelled. This check
+            // will prevent rogue completion handler execution.
+            guard self?.scanOp == finishedScanOp else {return}
+            
+            print("Finished ? \(finishedScanOp.isFinished)")
             
             if let theResult = ebur128Result {
                 
@@ -64,7 +74,17 @@ class ReplayGainScanner {
                 // Scan failed
                 completionHandler(nil)
             }
+            
+            self?.scanOp = nil
         }
+        
+        scanOp?.start()
+    }
+    
+    func cancelOngoingScan() {
+        
+        scanOp?.cancel()
+        scanOp = nil
     }
     
     var persistentState: ReplayGainAnalysisCachePersistentState {

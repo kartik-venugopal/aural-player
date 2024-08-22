@@ -26,6 +26,8 @@ class FFmpegReplayGainScanner: EBUR128LoudnessScannerProtocol {
     
     let ebur128: EBUR128State
     
+    private(set) var isCancelled: Bool = false
+    
     var outputData: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! = nil
 
     var consecutiveErrors: Int = 0
@@ -106,5 +108,9 @@ class FFmpegReplayGainScanner: EBUR128LoudnessScannerProtocol {
         
         outputData?[0]?.deallocate()
         outputData?.deallocate()
+    }
+    
+    func cancel() {
+        isCancelled = true
     }
 }
