@@ -22,7 +22,9 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     
     var preventClipping: Bool {get set}
     
-    var appliedGain: Float {get}
+    var appliedGain: Float? {get}
+    
+    var appliedGainType: ReplayGainType? {get}
     
     var effectiveGain: Float {get}
     
@@ -60,6 +62,15 @@ enum ReplayGainMode: Int, Codable {
         case .trackGainOnly:
             return "Track gain only"
         }
+    }
+}
+
+enum ReplayGainType {
+    
+    case albumGain, trackGain
+    
+    var description: String {
+        self == .albumGain ? "Album gain" : "Track gain"
     }
 }
 

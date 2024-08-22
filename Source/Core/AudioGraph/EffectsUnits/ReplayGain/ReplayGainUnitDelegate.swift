@@ -10,8 +10,6 @@
 
 import Foundation
 
-// TODO: Caching of ReplayGain scan data
-
 class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUnitDelegateProtocol {
     
     static let cache: ConcurrentMap<URL, EBUR128AnalysisResult> = ConcurrentMap()
@@ -19,7 +17,11 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     var dataSource: ReplayGainDataSource {
         
         get {unit.dataSource}
-        set {unit.dataSource = newValue}
+        
+        set {
+            unit.dataSource = newValue
+            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
+        }
     }
     
     var maxPeakLevel: ReplayGainMaxPeakLevel {
@@ -31,6 +33,11 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     var mode: ReplayGainMode {
         
         get {unit.mode}
+        
+        // TODO: When the mode changes, if effective dataSource == .analysis and
+        // changing from album gain to track gain, need to perform a scan
+        
+        // TODO: If dataSource == analysis and new mode is albumGain, perform an album scan
         set {unit.mode = newValue}
     }
     
@@ -50,8 +57,12 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         unit.replayGain = replayGain
     }
     
-    var appliedGain: Float {
+    var appliedGain: Float? {
         unit.appliedGain
+    }
+    
+    var appliedGainType: ReplayGainType? {
+        unit.appliedGainType
     }
     
     var hasAppliedGain: Bool {
@@ -84,7 +95,6 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
                 
                 // Has metadata
                 unit.replayGain = replayGain
-                print("Found RG metadata: \(replayGain.trackGain ?? -100) for \(theTrack)")
                 
             } else {
                 
@@ -93,17 +103,12 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
                 
                 // Analyze
                 analyze(file: theTrack.file)
-                print("No RG metadata for \(theTrack), analyzing ...")
             }
             
         case .metadataOnly:
-            
-            print("Applying RG metadata: \(theTrack.replayGain?.trackGain ?? -100) for \(theTrack)")
             unit.replayGain = theTrack.replayGain
             
         case .analysisOnly:
-            
-            print("Analyzing \(theTrack)")
             analyze(file: theTrack.file)
         }
     }
@@ -128,7 +133,7 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         } catch {
             
             _isScanning.setFalse()
-            print("Scan failed: \(error.localizedDescription)")
+            Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
         }
     }
 }

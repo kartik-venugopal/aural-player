@@ -25,11 +25,10 @@ extension FFmpegReplayGainScanner {
                     try self.ebur128.addFramesAsInt16(framesPointer: pointer, frameCount: frame.intSampleCount)
                     self.consecutiveErrors = 0
                     
-                } catch let err as EBUR128Error {
-                    print(err.description)
-                    
                 } catch {
-                    print("Unknown error: \(error.localizedDescription)")
+                    
+                    consecutiveErrors.increment()
+                    print((error as? EBUR128Error)?.description ?? error.localizedDescription)
                 }
             }
         }
@@ -46,11 +45,10 @@ extension FFmpegReplayGainScanner {
                     try self.ebur128.addFramesAsInt32(framesPointer: pointer, frameCount: frame.intSampleCount)
                     self.consecutiveErrors = 0
                     
-                } catch let err as EBUR128Error {
-                    print(err.description)
-                    
                 } catch {
-                    print("Unknown error: \(error.localizedDescription)")
+                    
+                    consecutiveErrors.increment()
+                    print((error as? EBUR128Error)?.description ?? error.localizedDescription)
                 }
             }
         }
@@ -67,11 +65,10 @@ extension FFmpegReplayGainScanner {
                     try self.ebur128.addFramesAsFloat(framesPointer: pointer, frameCount: frame.intSampleCount)
                     self.consecutiveErrors = 0
                     
-                } catch let err as EBUR128Error {
-                    print(err.description)
-                    
                 } catch {
-                    print("Unknown error: \(error.localizedDescription)")
+                    
+                    consecutiveErrors.increment()
+                    print((error as? EBUR128Error)?.description ?? error.localizedDescription)
                 }
             }
         }
@@ -88,11 +85,10 @@ extension FFmpegReplayGainScanner {
                     try self.ebur128.addFramesAsDouble(framesPointer: pointer, frameCount: frame.intSampleCount)
                     self.consecutiveErrors = 0
                     
-                } catch let err as EBUR128Error {
-                    print(err.description)
-                    
                 } catch {
-                    print("Unknown error: \(error.localizedDescription)")
+                    
+                    consecutiveErrors.increment()
+                    print((error as? EBUR128Error)?.description ?? error.localizedDescription)
                 }
             }
         }
@@ -115,7 +111,7 @@ extension FFmpegReplayGainScanner {
                     
                     guard let pkt = try ctx.readPacket(from: stream) else {
                         
-                        consecutiveErrors += 1
+                        consecutiveErrors.increment()
                         continue
                     }
                     
@@ -142,16 +138,16 @@ extension FFmpegReplayGainScanner {
                     
                     if !err.isEOF {
                         
-                        consecutiveErrors += 1
+                        consecutiveErrors.increment()
                         print("Error: \(err.code.errorDescription)")
                     }
                 }
             }
             
         } catch {
-            print("Error: \(error)")
+            print("Error: \(error.localizedDescription)")
         }
         
-        return isCancelled || consecutiveErrors >= 3 ? nil : try ebur128.analyze()
+        return isCancelled || (consecutiveErrors >= 3) || (!eof) ? nil : try ebur128.analyze()
     }
 }

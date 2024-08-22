@@ -54,7 +54,7 @@ class FFmpegWaveformDecoder: WaveformDecoderProtocol {
         self.fileCtx = try FFmpegFileContext(for: file)
         
         guard let theAudioStream = fileCtx.bestAudioStream else {
-            throw FormatContextInitializationError(description: "\nUnable to find audio stream in file: '\(fileCtx.filePath)'")
+            throw FormatContextInitializationError(description: "Unable to find audio stream in file: '\(fileCtx.filePath)'")
         }
         
         self.stream = theAudioStream

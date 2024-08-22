@@ -102,7 +102,7 @@ class FFmpegDecoder {
         self.fileCtx = fileContext
         
         guard let theAudioStream = fileContext.bestAudioStream else {
-            throw FormatContextInitializationError(description: "\nUnable to find audio stream in file: '\(fileContext.filePath)'")
+            throw FormatContextInitializationError(description: "Unable to find audio stream in file: '\(fileContext.filePath)'")
         }
         
         self.stream = theAudioStream

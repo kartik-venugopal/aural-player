@@ -43,15 +43,12 @@ class ReplayGainScanner {
         cancelOngoingScan()
         
         // First, check the cache
-//        if let theResult = cache[file] {
-//            
-//            // Cache hit
-//            print("\nReplayGainScanner.init() CACHE HIT !!! \(theResult.replayGain) for file \(file.lastPathComponent)")
-//            completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
-//            return
-//        }
-        
-        print("\nReplayGainScanner.init() CACHE MISS for file \(file.lastPathComponent)")
+        if let theResult = cache[file] {
+            
+            // Cache hit
+            completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
+            return
+        }
         
         // Cache miss, initiate a scan
         
@@ -60,8 +57,6 @@ class ReplayGainScanner {
             // A previously scheduled scan op may finish just before being cancelled. This check
             // will prevent rogue completion handler execution.
             guard self?.scanOp == finishedScanOp else {return}
-            
-            print("Finished ? \(finishedScanOp.isFinished)")
             
             if let theResult = ebur128Result {
                 

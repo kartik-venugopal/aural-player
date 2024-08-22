@@ -80,24 +80,35 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         
         let replayGainDB: Float?
         
+        lazy var albumGain = computedAlbumGain
+        lazy var trackGain = computedTrackGain
+        
         switch mode {
             
         case .preferAlbumGain:
-            replayGainDB = computedAlbumGain ?? computedTrackGain
+            
+            replayGainDB = albumGain ?? trackGain
+            appliedGainType = albumGain != nil ? .albumGain : (trackGain != nil ? .trackGain : nil)
             
         case .preferTrackGain:
-            replayGainDB = computedTrackGain ?? computedAlbumGain
+            
+            replayGainDB = trackGain ?? albumGain
+            appliedGainType = trackGain != nil ? .trackGain : (albumGain != nil ? .albumGain : nil)
             
         case .trackGainOnly:
-            replayGainDB = computedTrackGain
+            
+            replayGainDB = trackGain
+            appliedGainType = trackGain != nil ? .trackGain : nil
         }
         
         node.replayGain = replayGainDB ?? 0
     }
     
-    var appliedGain: Float {
-        node.replayGain
+    var appliedGain: Float? {
+        self.replayGain == nil ? nil : node.replayGain
     }
+    
+    private(set) var appliedGainType: ReplayGainType? = nil
     
     var effectiveGain: Float {
         node.globalGain

@@ -22,7 +22,9 @@ protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var preventClipping: Bool {get set}
     
-    var appliedGain: Float {get}
+    var appliedGain: Float? {get}
+    
+    var appliedGainType: ReplayGainType? {get}
     
     var dataSource: ReplayGainDataSource {get set}
     

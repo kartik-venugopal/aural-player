@@ -69,13 +69,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         preAmpSlider.floatValue = replayGainUnit.preAmp
         
         if !replayGainUnit.isScanning {
-            
-            if replayGainUnit.hasAppliedGain {
-                lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
-                
-            } else {
-                lblGain.stringValue = "<None>"
-            }
+            updateGainLabel()
         }
         
         lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
@@ -101,8 +95,8 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     
     private func updateGainLabel() {
         
-        if replayGainUnit.hasAppliedGain {
-            lblGain.stringValue = "\(String(format: "%.2f", replayGainUnit.appliedGain)) dB  (\(replayGainUnit.mode.description))"
+        if let appliedGain = replayGainUnit.appliedGain, let appliedGainType = replayGainUnit.appliedGainType {
+            lblGain.stringValue = "\(String(format: "%.2f", appliedGain)) dB  (\(appliedGainType.description))"
             
         } else {
             lblGain.stringValue = "<None>"
@@ -215,7 +209,9 @@ extension ReplayGainUnitViewController {
     }
     
     @IBAction func dataSourceAction(_ sender: NSMenuItem) {
+        
         replayGainUnit.dataSource = .init(rawValue: sender.tag) ?? .metadataOrAnalysis
+        updateGainLabel()
     }
     
     @IBAction func maxPeakLevelAction(_ sender: NSMenuItem) {

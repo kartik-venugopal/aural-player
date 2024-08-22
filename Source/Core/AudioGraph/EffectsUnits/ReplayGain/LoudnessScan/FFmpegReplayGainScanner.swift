@@ -40,7 +40,7 @@ class FFmpegReplayGainScanner: EBUR128LoudnessScannerProtocol {
         self.ctx = try FFmpegFileContext(for: file)
         
         guard let theAudioStream = ctx.bestAudioStream else {
-            throw FormatContextInitializationError(description: "\nUnable to find audio stream in file: '\(file.path)'")
+            throw FormatContextInitializationError(description: "Unable to find audio stream in file: '\(file.path)'")
         }
         
         self.stream = theAudioStream
@@ -95,11 +95,8 @@ class FFmpegReplayGainScanner: EBUR128LoudnessScannerProtocol {
                 
                 completionHandler(result)
                 
-            } catch let err as EBUR128Error {
-                print("Error: \(err.description)")
-                
             } catch {
-                print("Error: \(error)")
+                print((error as? EBUR128Error)?.description ?? error.localizedDescription)
             }
         }
     }
