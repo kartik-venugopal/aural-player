@@ -65,7 +65,7 @@ struct ReplayGain: Codable {
         }
     }
     
-    init(ebur128AnalysisResult: EBUR128AnalysisResult) {
+    init(ebur128AnalysisResult: EBUR128TrackAnalysisResult) {
         
         self.trackGain = Float(ebur128AnalysisResult.replayGain)
         self.trackPeak = Float(ebur128AnalysisResult.peak)

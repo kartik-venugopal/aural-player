@@ -33,7 +33,7 @@ class FFmpegReplayGainScanner: EBUR128LoudnessScannerProtocol {
     var consecutiveErrors: Int = 0
     var eof: Bool = false
     
-    init(file: URL) throws {
+    required init(file: URL) throws {
         
         self.file = file
         
@@ -67,37 +67,24 @@ class FFmpegReplayGainScanner: EBUR128LoudnessScannerProtocol {
         }
     }
     
-    func scan(_ completionHandler: @escaping (EBUR128AnalysisResult?) -> Void) {
+    func scan() throws -> EBUR128TrackAnalysisResult {
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        switch self.targetFormat {
             
-            do {
-                
-                var result: EBUR128AnalysisResult? = nil
-                
-                switch self.targetFormat {
-                    
-                case AV_SAMPLE_FMT_S16:
-                    result = try self.scanAsInt16()
-                    
-                case AV_SAMPLE_FMT_S32:
-                    result = try self.scanAsInt32()
-                    
-                case AV_SAMPLE_FMT_FLT:
-                    result = try self.scanAsFloat()
-                    
-                case AV_SAMPLE_FMT_DBL:
-                    result = try self.scanAsDouble()
-                    
-                default:
-                    break
-                }
-                
-                completionHandler(result)
-                
-            } catch {
-                print((error as? EBUR128Error)?.description ?? error.localizedDescription)
-            }
+        case AV_SAMPLE_FMT_S16:
+            return try self.scanAsInt16()
+            
+        case AV_SAMPLE_FMT_S32:
+            return try self.scanAsInt32()
+            
+        case AV_SAMPLE_FMT_FLT:
+            return try self.scanAsFloat()
+            
+        case AV_SAMPLE_FMT_DBL:
+            return try self.scanAsDouble()
+            
+        default:
+            return try self.scanAsInt16()
         }
     }
     

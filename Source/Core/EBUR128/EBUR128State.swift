@@ -25,6 +25,7 @@ class EBUR128State {
     let mode: EBUR128Mode
     
     static let targetLoudness: Double = -18
+    static let assumedPeak: Double = 1
     
     init(channelCount: Int, sampleRate: Int, mode: EBUR128Mode) throws {
         
@@ -75,16 +76,16 @@ class EBUR128State {
         }
     }
     
-    func analyze() throws -> EBUR128AnalysisResult {
+    func analyze() throws -> EBUR128TrackAnalysisResult {
         
         let loudness = try computeLoudness()
         let peak = try computePeak()
         let replayGain = Self.targetLoudness - loudness
         
-        return EBUR128AnalysisResult(loudness: loudness, peak: peak, replayGain: replayGain)
+        return EBUR128TrackAnalysisResult(loudness: loudness, peak: peak, replayGain: replayGain)
     }
     
-    func computeLoudness() throws -> Double {
+    private func computeLoudness() throws -> Double {
         
         var loudness: Double = 0
         let result: EBUR128ResultCode = ebur128_loudness_global(self.pointer, &loudness)
@@ -96,13 +97,11 @@ class EBUR128State {
         return loudness
     }
     
-    func computePeak() throws -> Double {
+    private func computePeak() throws -> Double {
         
         var peaks: [Double] = []
         var result: EBUR128ResultCode = 0
-        
         var peak: Double = 0
-        
         let analysisFunction: PeakAnalysisFunction = self.mode == .samplePeak ? ebur128_sample_peak : ebur128_true_peak
         
         for channel in 0..<channelCount {
@@ -117,6 +116,21 @@ class EBUR128State {
         }
         
         return peaks.max() ?? 1
+    }
+    
+    static func computeAlbumLoudnessAndPeak(with eburs: [EBUR128State],
+                                            andTrackResults trackResults: [EBUR128TrackAnalysisResult]) throws -> EBUR128AlbumAnalysisResult {
+        
+        var pointers: [UnsafeMutablePointer<ebur128_state>?] = eburs.map {$0.pointer}
+        var albumLoudness: Double = 0
+        
+        ebur128_loudness_global_multiple(&pointers, eburs.count, &albumLoudness)
+        let albumPeak = trackResults.map {$0.peak}.max() ?? Self.assumedPeak
+        
+        return EBUR128AlbumAnalysisResult(albumLoudness: albumLoudness, 
+                                          albumPeak: albumPeak,
+                                          albumReplayGain: Self.targetLoudness - albumLoudness,
+                                          trackResults: trackResults)
     }
     
     deinit {
@@ -140,9 +154,18 @@ enum EBUR128Mode {
     }
 }
 
-struct EBUR128AnalysisResult: Codable {
+struct EBUR128TrackAnalysisResult: Codable {
     
     let loudness: Double
     let peak: Double
     let replayGain: Double
+}
+
+struct EBUR128AlbumAnalysisResult: Codable {
+    
+    let albumLoudness: Double
+    let albumPeak: Double
+    let albumReplayGain: Double
+    
+    let trackResults: [EBUR128TrackAnalysisResult]
 }

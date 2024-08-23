@@ -14,7 +14,7 @@ fileprivate typealias EBUR128FramesAddFunction = (UnsafeMutablePointer<UInt8>?, 
 
 extension FFmpegReplayGainScanner {
     
-    func scanAsInt16() throws -> EBUR128AnalysisResult? {
+    func scanAsInt16() throws -> EBUR128TrackAnalysisResult {
         
         try doScan {pointer, frame in
             
@@ -34,7 +34,7 @@ extension FFmpegReplayGainScanner {
         }
     }
     
-    func scanAsInt32() throws -> EBUR128AnalysisResult? {
+    func scanAsInt32() throws -> EBUR128TrackAnalysisResult {
         
         try doScan {pointer, frame in
             
@@ -54,7 +54,7 @@ extension FFmpegReplayGainScanner {
         }
     }
     
-    func scanAsFloat() throws -> EBUR128AnalysisResult? {
+    func scanAsFloat() throws -> EBUR128TrackAnalysisResult {
         
         try doScan {pointer, frame in
             
@@ -74,7 +74,7 @@ extension FFmpegReplayGainScanner {
         }
     }
     
-    func scanAsDouble() throws -> EBUR128AnalysisResult? {
+    func scanAsDouble() throws -> EBUR128TrackAnalysisResult {
         
         try doScan {pointer, frame in
             
@@ -94,60 +94,62 @@ extension FFmpegReplayGainScanner {
         }
     }
     
-    fileprivate func doScan(addFramesFunction: EBUR128FramesAddFunction) throws -> EBUR128AnalysisResult? {
+    fileprivate func doScan(addFramesFunction: EBUR128FramesAddFunction) throws -> EBUR128TrackAnalysisResult {
         
         defer {
             self.cleanUpAfterScan()
         }
         
-        do {
+        var mostRecentError: Error? = nil
+        var curSize: Int = 0
+        let sizeOfAFrame = codec.sampleFormat.size * channelCount
+        
+        while !isCancelled, !eof, consecutiveErrors < 3 {
             
-            var curSize: Int = 0
-            let sizeOfAFrame = codec.sampleFormat.size * channelCount
-            
-            while !isCancelled, !eof, consecutiveErrors < 3 {
+            do {
                 
-                do {
+                guard let pkt = try ctx.readPacket(from: stream) else {
                     
-                    guard let pkt = try ctx.readPacket(from: stream) else {
+                    consecutiveErrors.increment()
+                    continue
+                }
+                
+                let frames = try codec.decode(packet: pkt)
+                
+                for frame in frames.frames {
+                    
+                    // Only 1 buffer since interleaved. Capacity = sampleCount * number of bytes in Int16 * channelCount
+                    let newSize = frame.intSampleCount * sizeOfAFrame
+                    
+                    if newSize > curSize {
                         
-                        consecutiveErrors.increment()
-                        continue
+                        outputData?[0] = .allocate(capacity: newSize)
+                        curSize = newSize
                     }
                     
-                    let frames = try codec.decode(packet: pkt)
-                    
-                    for frame in frames.frames {
-                        
-                        // Only 1 buffer since interleaved. Capacity = sampleCount * number of bytes in Int16 * channelCount
-                        let newSize = frame.intSampleCount * sizeOfAFrame
-                        
-                        if newSize > curSize {
-                            
-                            outputData?[0] = .allocate(capacity: newSize)
-                            curSize = newSize
-                        }
-                        
-                        swr?.convertFrame(frame, andStoreIn: outputData)
-                        addFramesFunction(outputData?[0] ?? frame.dataPointers[0], frame)
-                    }
-                    
-                } catch let err as CodedError {
-                    
-                    eof = err.isEOF
-                    
-                    if !err.isEOF {
-                        
-                        consecutiveErrors.increment()
-                        print("Error: \(err.code.errorDescription)")
-                    }
+                    swr?.convertFrame(frame, andStoreIn: outputData)
+                    addFramesFunction(outputData?[0] ?? frame.dataPointers[0], frame)
+                }
+                
+            } catch let err as CodedError {
+                
+                eof = err.isEOF
+                mostRecentError = err
+                
+                if !err.isEOF {
+                    consecutiveErrors.increment()
                 }
             }
-            
-        } catch {
-            print("Error: \(error.localizedDescription)")
         }
         
-        return isCancelled || (consecutiveErrors >= 3) || (!eof) ? nil : try ebur128.analyze()
+        if isCancelled {
+            throw EBURAnalysisInterruptedError(rootCause: mostRecentError, message: "Operation was cancelled.")
+        } else if consecutiveErrors >= 3 {
+            throw EBURAnalysisInterruptedError(rootCause: mostRecentError, message: "Too many consecutive errors encountered.")
+        } else if !eof {
+            throw EBURAnalysisInterruptedError(rootCause: mostRecentError, message: "Did not reach EOF.")
+        }
+        
+        return try ebur128.analyze()
     }
 }

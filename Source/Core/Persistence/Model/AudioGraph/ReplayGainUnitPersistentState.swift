@@ -62,5 +62,5 @@ struct ReplayGainPresetPersistentState: Codable {
 
 struct ReplayGainAnalysisCachePersistentState: Codable {
     
-    let cache: [URL: EBUR128AnalysisResult]?
+    let cache: [URL: EBUR128TrackAnalysisResult]?
 }

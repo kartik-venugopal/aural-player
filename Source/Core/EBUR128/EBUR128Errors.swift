@@ -73,3 +73,19 @@ class EBURAnalysisError: EBUR128Error {
         super.init(description: "EBUR128 failed to analyze frames. Result code: \(resultCode)")
     }
 }
+
+class EBURAnalysisInterruptedError: Error, CustomStringConvertible {
+    
+    let rootCause: Error?
+    let message: String?
+    
+    var description: String {
+        message ?? rootCause?.localizedDescription ?? "Unknown error"
+    }
+    
+    init(rootCause: Error?, message: String) {
+        
+        self.rootCause = rootCause
+        self.message = message
+    }
+}

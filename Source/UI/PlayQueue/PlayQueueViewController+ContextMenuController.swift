@@ -29,6 +29,9 @@ extension PlayQueueViewController: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        let selectedRows = self.selectedRows
+        let selectedRowCount = selectedRows.count
+        
         let atLeastOneRowSelected = selectedRowCount >= 1
         let oneRowSelected = selectedRowCount == 1
         let notInGaplessMode = !playbackDelegate.isInGaplessPlaybackMode

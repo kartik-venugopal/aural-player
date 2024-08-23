@@ -477,7 +477,8 @@
 		3E0219D12C23497D00865AC2 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219BD2C23497D00865AC2 /* shufen.regular.ttf */; };
 		3E0219D22C23497D00865AC2 /* WalterTurncoat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219BE2C23497D00865AC2 /* WalterTurncoat.ttf */; };
 		3E0219EA2C23498700865AC2 /* appIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E0219D32C23498700865AC2 /* appIcon.icns */; };
-		3E0328252C77BF7000A389B6 /* ReplayGainScannerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0328242C77BF7000A389B6 /* ReplayGainScannerOperation.swift */; };
+		3E0328252C77BF7000A389B6 /* ReplayGainTrackScannerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0328242C77BF7000A389B6 /* ReplayGainTrackScannerOperation.swift */; };
+		3E0328272C794D1200A389B6 /* ReplayGainAlbumScannerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0328262C794D1200A389B6 /* ReplayGainAlbumScannerOperation.swift */; };
 		3E0397E82B83EB73004454DB /* AppDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0397E72B83EB73004454DB /* AppDelegate+Init.swift */; };
 		3E0397EA2B83EC27004454DB /* AppDelegate+TearDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0397E92B83EC27004454DB /* AppDelegate+TearDown.swift */; };
 		3E045D06281322450069DEFE /* TrackInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E045D05281322450069DEFE /* TrackInfoWindow.xib */; };
@@ -1544,7 +1545,8 @@
 		3E0219E42C23498700865AC2 /* copyright.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = copyright.txt; sourceTree = "<group>"; };
 		3E0219E52C23498700865AC2 /* xml-copyright.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "xml-copyright.sh"; sourceTree = "<group>"; };
 		3E0219E72C23498700865AC2 /* unused.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = unused.rb; sourceTree = "<group>"; };
-		3E0328242C77BF7000A389B6 /* ReplayGainScannerOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGainScannerOperation.swift; sourceTree = "<group>"; };
+		3E0328242C77BF7000A389B6 /* ReplayGainTrackScannerOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGainTrackScannerOperation.swift; sourceTree = "<group>"; };
+		3E0328262C794D1200A389B6 /* ReplayGainAlbumScannerOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGainAlbumScannerOperation.swift; sourceTree = "<group>"; };
 		3E0397E72B83EB73004454DB /* AppDelegate+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Init.swift"; sourceTree = "<group>"; };
 		3E0397E92B83EC27004454DB /* AppDelegate+TearDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+TearDown.swift"; sourceTree = "<group>"; };
 		3E045D05281322450069DEFE /* TrackInfoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackInfoWindow.xib; sourceTree = "<group>"; };
@@ -5376,7 +5378,8 @@
 			isa = PBXGroup;
 			children = (
 				3E772EC42C73F80C00DC3137 /* ReplayGainScanner.swift */,
-				3E0328242C77BF7000A389B6 /* ReplayGainScannerOperation.swift */,
+				3E0328242C77BF7000A389B6 /* ReplayGainTrackScannerOperation.swift */,
+				3E0328262C794D1200A389B6 /* ReplayGainAlbumScannerOperation.swift */,
 				3EE882792C72A0DF00E270B8 /* AVFReplayGainScanner.swift */,
 				3EE8827A2C72A0DF00E270B8 /* FFmpegReplayGainScanner.swift */,
 				3E772EBC2C73F1B900DC3137 /* FFmpegReplayGainScanner+Scan.swift */,
@@ -5387,8 +5390,8 @@
 		3EE8827F2C72A11300E270B8 /* EBUR128 */ = {
 			isa = PBXGroup;
 			children = (
-				3EE8827D2C72A11300E270B8 /* EBUR128Errors.swift */,
 				3EE8827E2C72A11300E270B8 /* EBUR128State.swift */,
+				3EE8827D2C72A11300E270B8 /* EBUR128Errors.swift */,
 			);
 			path = EBUR128;
 			sourceTree = "<group>";
@@ -5864,7 +5867,7 @@
 				3E6C125525CEBE0600BF0D07 /* ColorSchemePreviewView.swift in Sources */,
 				3E6C127725CEBE1800BF0D07 /* ColorSchemesManager.swift in Sources */,
 				3EFFEB8027D9CB25006A333B /* ColorSchemesManager+Observer.swift in Sources */,
-				3E0328252C77BF7000A389B6 /* ReplayGainScannerOperation.swift in Sources */,
+				3E0328252C77BF7000A389B6 /* ReplayGainTrackScannerOperation.swift in Sources */,
 				3E6C126A25CEBE0600BF0D07 /* ColorSchemesManagerViewController.swift in Sources */,
 				3E0217FE2C23490E00865AC2 /* EQUnitProtocol.swift in Sources */,
 				3EB3A61926A763870060487C /* ColorSchemesViewProtocol.swift in Sources */,
@@ -6409,6 +6412,7 @@
 				3E0219072C23490E00865AC2 /* LegacyGesturesControlsPreferences.swift in Sources */,
 				3E4A90FE27F79AFA003A6C80 /* WindowID.swift in Sources */,
 				3EEC08B92BDC5F9A008DBF8E /* SearchViewController+Theming.swift in Sources */,
+				3E0328272C794D1200A389B6 /* ReplayGainAlbumScannerOperation.swift in Sources */,
 				3EB3A60B26A7425C0060487C /* SingletonWindowController.swift in Sources */,
 				3EEBC6EE27C16CF700880DFD /* EffectsUnitStateObserverRegistry.swift in Sources */,
 				3E0219342C23490E00865AC2 /* Chapter.swift in Sources */,

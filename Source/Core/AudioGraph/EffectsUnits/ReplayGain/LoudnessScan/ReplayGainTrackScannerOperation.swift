@@ -10,12 +10,12 @@
 
 import Foundation
 
-class ReplayGainScannerOperation: Operation {
+class ReplayGainTrackScannerOperation: Operation {
     
     let file: URL
     
-    private let scanner: EBUR128LoudnessScannerProtocol
-    private let completionHandler: (ReplayGainScannerOperation, EBUR128AnalysisResult?) -> Void
+    private var scanner: EBUR128LoudnessScannerProtocol!
+    private let completionHandler: (ReplayGainTrackScannerOperation, EBUR128TrackAnalysisResult?) -> Void
     
     // -------------------------------------------------------------------------------------------------------------------
     
@@ -31,14 +31,10 @@ class ReplayGainScannerOperation: Operation {
     private var _isFinished = false
     override var isFinished: Bool {_isFinished}
     
-    init(file: URL, completionHandler: @escaping (ReplayGainScannerOperation, EBUR128AnalysisResult?) -> Void) throws {
+    init(file: URL, completionHandler: @escaping (ReplayGainTrackScannerOperation, EBUR128TrackAnalysisResult?) -> Void) {
         
         self.file = file
         self.completionHandler = completionHandler
-        
-        self.scanner = file.isNativelySupported ?
-        try AVFReplayGainScanner(file: file) :
-        try FFmpegReplayGainScanner(file: file)
         
         super.init()
     }
@@ -55,13 +51,21 @@ class ReplayGainScannerOperation: Operation {
         
         DispatchQueue.global(qos: .userInitiated).async {
             
-            self.scanner.scan {[weak self] ebur128Result in
-                
-                if let strongSelf = self {
-                    strongSelf.completionHandler(strongSelf, ebur128Result)
-                }
-            }
+            var result: EBUR128TrackAnalysisResult? = nil
             
+            do {
+                
+                self.scanner = self.file.isNativelySupported ?
+                try AVFReplayGainScanner(file: self.file) :
+                try FFmpegReplayGainScanner(file: self.file)
+                
+                result = try self.scanner.scan()
+                
+            } catch {
+                NSLog("EBUR128 analysis of file '\(self.file.path)' failed. Error: \((error as? EBUR128Error)?.description ?? error.localizedDescription)")
+            }
+
+            self.completionHandler(self, result)
             self.finish()
         }
     }

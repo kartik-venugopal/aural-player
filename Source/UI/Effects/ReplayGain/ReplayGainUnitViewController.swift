@@ -119,7 +119,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     }
     
     private func scanInitiated() {
-        lblGain.stringValue = "Analyzing file loudness ..."
+        lblGain.stringValue = "Analyzing track loudness ..."
     }
     
     override func fontSchemeChanged() {
