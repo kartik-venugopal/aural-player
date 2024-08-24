@@ -242,14 +242,9 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         }
     }
     
-    func setAuxiliaryMetadata(_ metadata: AuxiliaryMetadata) {
-        
-//        self.auxiliaryMetadata = metadata
-        self.audioInfo = metadata.audioInfo
-        self.auxMetadataLoaded = true
+    func setAudioInfo(_ audioInfo: AudioInfo) {
+        self.audioInfo = audioInfo
     }
-    
-    var auxMetadataLoaded: Bool = false
     
     static func == (lhs: Track, rhs: Track) -> Bool {
         return lhs.file == rhs.file

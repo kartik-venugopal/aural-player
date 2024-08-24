@@ -16,6 +16,5 @@ import Foundation
 ///
 struct AuxiliaryMetadata {
     
-    var fileSystemInfo: FileSystemInfo?
     var audioInfo: AudioInfo?
 }

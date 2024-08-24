@@ -53,6 +53,10 @@ class ReplayGainScanner {
         print("ReplayGainScanner.init() read \(self.trackGainCache.count) trackGain cache entries and \(self.albumGainCache.count) albumGain cache entries.")
     }
     
+    func cachedReplayGainData(forTrack track: Track) -> ReplayGain? {
+        trackGainCache[track.file]
+    }
+    
     func scanTrack(file: URL, _ completionHandler: @escaping ReplayGainScanCompletionHandler) {
         
         cancelOngoingScan()

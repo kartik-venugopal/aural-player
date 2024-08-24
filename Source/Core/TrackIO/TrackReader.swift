@@ -160,11 +160,19 @@ class TrackReader {
     ///
     func loadAuxiliaryMetadata(for track: Track) {
         
-        if track.auxMetadataLoaded {return}
+        if track.audioInfo == nil {
+            
+            let auxMetadata = fileReader.getAuxiliaryMetadata(for: track.file, loadingAudioInfoFrom: track.playbackContext)
+            
+            if var audioInfo = auxMetadata.audioInfo {
+
+                audioInfo.replayGainFromMetadata = track.replayGain
+                track.setAudioInfo(audioInfo)
+            }
+            
+            loadArtAsync(for: track)
+        }
         
-        let auxMetadata = fileReader.getAuxiliaryMetadata(for: track.file,
-                                                          loadingAudioInfoFrom: track.playbackContext)
-        track.setAuxiliaryMetadata(auxMetadata)
-        loadArtAsync(for: track)
+        track.audioInfo?.replayGainFromAnalysis = replayGainScanner.cachedReplayGainData(forTrack: track)
     }
 }

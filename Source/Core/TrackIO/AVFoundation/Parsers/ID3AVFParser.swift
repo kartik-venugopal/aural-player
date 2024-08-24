@@ -225,8 +225,13 @@ class ID3AVFParser: AVFMetadataParser {
             if replaceableKeyFields.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {
                 
                 // TXXX or COMM or WXXX
-                if let infoKey = mapReplaceableKeyField(attrs), !String.isEmpty(infoKey), !infoKey.lowercased().hasPrefix("replaygain") {
-                    entryKey = infoKey
+                if let infoKey = attrs[.key_info] as? String, !String.isEmpty(infoKey) {
+                    
+                    if infoKey.lowercased().hasPrefix("replaygain") {
+                        continue
+                    } else {
+                        entryKey = infoKey
+                    }
                 }
                 
             } else if keys_GEOB.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {

@@ -34,11 +34,10 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         
         get {unit.mode}
         
-        // TODO: When the mode changes, if effective dataSource == .analysis and
-        // changing from album gain to track gain, need to perform a scan
-        
-        // TODO: If dataSource == analysis and new mode is albumGain, perform an album scan
-        set {unit.mode = newValue}
+        set {
+            unit.mode = newValue
+            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
+        }
     }
     
     var preAmp: Float {
@@ -118,22 +117,9 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         switch unit.mode {
             
         case .preferAlbumGain:
+            return replayGain.albumGain != nil && (preventClipping ? replayGain.albumPeak != nil : true)
             
-            if preventClipping {
-                return replayGain.albumGain != nil ? replayGain.albumPeak != nil : replayGain.trackPeak != nil
-            }
-            
-            return true
-            
-        case .preferTrackGain:
-            
-            if preventClipping {
-                return replayGain.trackGain != nil ? replayGain.trackPeak != nil : replayGain.albumPeak != nil
-            }
-            
-            return true
-            
-        case .trackGainOnly:
+        case .preferTrackGain, .trackGainOnly:
             return replayGain.trackGain != nil && (preventClipping ? replayGain.trackPeak != nil : true)
         }
     }
