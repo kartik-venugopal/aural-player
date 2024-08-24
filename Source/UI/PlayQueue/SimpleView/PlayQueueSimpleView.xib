@@ -59,7 +59,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2By-Sd-lGF">
-                                                        <rect key="frame" x="10" y="11" width="12" height="10"/>
+                                                        <rect key="frame" x="8" y="11" width="12" height="10"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="10" id="ihf-2D-kBa"/>
                                                             <constraint firstAttribute="width" constant="12" id="jAz-5z-VHY"/>
@@ -71,7 +71,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="tkS-pN-cgb" secondAttribute="trailing" id="BLC-t9-NlC"/>
                                                     <constraint firstAttribute="centerY" secondItem="2By-Sd-lGF" secondAttribute="centerY" constant="1" id="J8a-vM-lbD"/>
                                                     <constraint firstItem="tkS-pN-cgb" firstAttribute="leading" secondItem="5Eo-Qb-3K3" secondAttribute="leading" constant="10" id="mlE-Hg-jUU"/>
-                                                    <constraint firstItem="2By-Sd-lGF" firstAttribute="leading" secondItem="tkS-pN-cgb" secondAttribute="leading" id="qp1-bN-8i7"/>
+                                                    <constraint firstItem="2By-Sd-lGF" firstAttribute="leading" secondItem="tkS-pN-cgb" secondAttribute="leading" constant="-2" id="qp1-bN-8i7"/>
                                                     <constraint firstAttribute="bottom" secondItem="tkS-pN-cgb" secondAttribute="bottom" id="xD8-Nk-dnc"/>
                                                 </constraints>
                                                 <connections>

@@ -2,7 +2,7 @@
 
 ## Replay Gain
 
-A new effects unit has been added - Replay Gain. This new unit will either boost or attenuate the audio signal based on either metadata contained in tracks (eg. ID3, iTunes Norm, Vorbis Comment) or by analyzing the files for loudness/peak information - replay gain values will then be computed based on a target loudness of -18 dBFS. Both track gain and album gain information can be computed and used.
+A new effects unit has been added - Replay Gain. This new unit will either boost or attenuate the audio signal based on either metadata contained in tracks (eg. ID3, iTunes Norm, Vorbis Comment, Cue sheet REM) or by analyzing the files for loudness/peak information - replay gain values will then be computed based on a target loudness of -18 dBFS. Both track gain and album gain information can be computed and used.
 
 NOTES:
 

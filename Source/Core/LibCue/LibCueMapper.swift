@@ -62,7 +62,7 @@ class LibCueMapper {
         let metadata = getMetadataFromCD(cd)
         
         metadata.chapters = cueTracks.enumerated().map {index, cueTrack in
-            Chapter(cueTrack: cueTrack, index: index)
+            Chapter(cueTrack: cueTrack, cueCD: cd, index: index)
         }
         
         return FileSystemPlaylistTrack(file: file, cueSheetMetadata: metadata)
@@ -77,8 +77,8 @@ class LibCueMapper {
         metadata.genre = cd.genre
         metadata.date = cd.date
         
-        metadata.replayGain = .init(albumGain: cd.replayGain_albumGain,
-                                    albumPeak: cd.replayGain_albumPeak)
+        metadata.replayGain = .init(trackGain: cd.replayGain_albumGain,
+                                    trackPeak: cd.replayGain_albumPeak)
         
         return metadata
     }
@@ -111,7 +111,7 @@ class LibCueMapper {
 
 extension Chapter {
     
-    convenience init(cueTrack: LibCueTrack, index: Int) {
+    convenience init(cueTrack: LibCueTrack, cueCD: LibCueCD, index: Int) {
         
         let theTitle: String
         
