@@ -17,6 +17,9 @@ class ReplayGainAlbumScannerOperation: Operation {
     private var scanners: [EBUR128LoudnessScannerProtocol] = []
     private let completionHandler: (ReplayGainAlbumScannerOperation, EBUR128AlbumAnalysisResult?) -> Void
     
+    let eburs: ConcurrentArray<EBUR128State> = .init()
+    let results: ConcurrentArray<EBUR128TrackAnalysisResult> = .init()
+    
     // -------------------------------------------------------------------------------------------------------------------
     
     // MARK: - NSOperation Overrides
@@ -36,11 +39,27 @@ class ReplayGainAlbumScannerOperation: Operation {
         self.files = files
         self.completionHandler = completionHandler
         
-//        self.scanner = file.isNativelySupported ?
-//        try AVFReplayGainScanner(file: file) :
-//        try FFmpegReplayGainScanner(file: file)
-        
         super.init()
+        
+        for file in self.files {
+            
+            addDependency(BlockOperation {
+                
+                do {
+                    
+                    let scanner: EBUR128LoudnessScannerProtocol = file.isNativelySupported ?
+                    try AVFReplayGainScanner(file: file) :
+                    try FFmpegReplayGainScanner(file: file)
+                    
+                    self.eburs.append(scanner.ebur128)
+                    let result = try scanner.scan()
+                    self.results.append(result)
+                    
+                } catch {
+                    NSLog("EBUR128 analysis of file '\(file.path)' failed. Error: \((error as? EBUR128Error)?.description ?? error.localizedDescription)")
+                }
+            })
+        }
     }
     
     override func start() {
@@ -53,19 +72,16 @@ class ReplayGainAlbumScannerOperation: Operation {
         _isExecuting = true
         didChangeValue(forKey: "isExecuting")
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        var result: EBUR128AlbumAnalysisResult? = nil
+        
+        do {
+            result = try EBUR128State.computeAlbumLoudnessAndPeak(with: eburs.array, andTrackResults: results.array)
+        } catch {
             
-            var result: EBUR128AlbumAnalysisResult? = nil
-            
-//            do {
-//                result = try self.scanner.scan()
-//            } catch {
-//                NSLog("EBUR128 analysis of file '\(self.file.path)' failed. Error: \((error as? EBUR128Error)?.description ?? error.localizedDescription)")
-//            }
-
-            self.completionHandler(self, result)
-            self.finish()
         }
+        
+        self.completionHandler(self, result)
+        self.finish()
     }
     
     private func finish() {

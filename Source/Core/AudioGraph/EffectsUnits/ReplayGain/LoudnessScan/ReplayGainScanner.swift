@@ -14,6 +14,8 @@ protocol EBUR128LoudnessScannerProtocol {
     
     var file: URL {get}
     
+    var ebur128: EBUR128State {get}
+    
     init(file: URL) throws
     
     func scan() throws -> EBUR128TrackAnalysisResult
@@ -40,7 +42,7 @@ class ReplayGainScanner {
         print("ReplayGainScanner.init() read \(self.cache.count) cache entries")
     }
     
-    func scan(forFile file: URL, _ completionHandler: @escaping (ReplayGain?) -> Void) throws {
+    func scan(forFile file: URL, _ completionHandler: @escaping (ReplayGain?) -> Void) {
         
         cancelOngoingScan()
         
@@ -54,7 +56,7 @@ class ReplayGainScanner {
         
         // Cache miss, initiate a scan
         
-        scanOp = try ReplayGainTrackScannerOperation(file: file) {[weak self] finishedScanOp, ebur128Result in
+        scanOp = ReplayGainTrackScannerOperation(file: file) {[weak self] finishedScanOp, ebur128Result in
             
             // A previously scheduled scan op may finish just before being cancelled. This check
             // will prevent rogue completion handler execution.

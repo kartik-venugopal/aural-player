@@ -115,24 +115,16 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     
     private func analyze(file: URL) {
         
-        do {
+        _isScanning.setTrue()
+        Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
+        
+        replayGainScanner.scan(forFile: file) {[weak self] (replayGain: ReplayGain?) in
             
-            _isScanning.setTrue()
-            Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
+            guard let strongSelf = self else {return}
             
-            try replayGainScanner.scan(forFile: file) {[weak self] (replayGain: ReplayGain?) in
-                
-                guard let strongSelf = self else {return}
-                
-                strongSelf.unit.replayGain = replayGain
-                strongSelf._isScanning.setFalse()
-                
-                Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
-            }
+            strongSelf.unit.replayGain = replayGain
+            strongSelf._isScanning.setFalse()
             
-        } catch {
-            
-            _isScanning.setFalse()
             Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
         }
     }

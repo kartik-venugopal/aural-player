@@ -24,7 +24,7 @@ class AVFReplayGainScanner: EBUR128LoudnessScannerProtocol {
     private let sampleRate: Double
     private let totalSamples: AVAudioFramePosition
     
-    private let ebur128: EBUR128State
+    let ebur128: EBUR128State
     
     private(set) var isCancelled: Bool = false
     
