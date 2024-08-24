@@ -154,7 +154,12 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
                     
                     beganScanning()
                     let albumFiles = playQueueDelegate.tracks.filter {$0.album == albumName}.map {$0.file}
-                    replayGainScanner.scanAlbum(named: albumName, withFiles: albumFiles, forFile: track.file, completionHandler)
+                    
+                    if albumFiles.count > 1 {
+                        replayGainScanner.scanAlbum(named: albumName, withFiles: albumFiles, forFile: track.file, completionHandler)
+                    } else {
+                        replayGainScanner.scanTrack(file: file, completionHandler)
+                    }
                 }
                 
             case .preferTrackGain, .trackGainOnly:
