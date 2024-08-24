@@ -118,10 +118,10 @@
                             <font key="font" metaFont="system"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="imgWidth">
-                                    <integer key="value" value="15"/>
+                                    <integer key="value" value="18"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="imgHeight">
-                                    <integer key="value" value="10"/>
+                                    <integer key="value" value="12"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </buttonCell>
@@ -234,15 +234,15 @@
                     <button tag="7" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LSF-U5-JJ3" userLabel="Replay Gain button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="396" y="170" width="22" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="speaker.plus" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hX2-iA-YX8" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="speaker" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hX2-iA-YX8" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="imgWidth">
-                                    <integer key="value" value="19"/>
+                                    <integer key="value" value="17"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="imgHeight">
-                                    <integer key="value" value="14"/>
+                                    <integer key="value" value="15"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </buttonCell>
@@ -317,7 +317,7 @@
         <image name="ReverbTab" width="25" height="25"/>
         <image name="hifispeaker.fill" catalog="system" width="13" height="16"/>
         <image name="slider.vertical.3" catalog="system" width="19" height="18"/>
-        <image name="speaker.plus" catalog="system" width="19" height="14"/>
+        <image name="speaker" catalog="system" width="14" height="14"/>
         <image name="timer" catalog="system" width="20" height="20"/>
         <image name="waveform.path.ecg" catalog="system" width="16" height="16"/>
     </resources>

@@ -118,7 +118,7 @@ extension NSImage {
     static let imgReverbUnit: NSImage = NSImage(named: "ReverbTab")!
     static let imgDelayUnit: NSImage = NSImage(named: "DelayTab")!
     static let imgFilterUnit: NSImage = NSImage(named: "FilterTab")!
-    static let imgReplayGainUnit: NSImage = NSImage(systemSymbolName: "speaker.plus")
+    static let imgReplayGainUnit: NSImage = NSImage(systemSymbolName: "speaker")
     static let imgAudioUnit: NSImage = NSImage(named: "AUTab")!
     
     static let imgWaveform: NSImage = NSImage(systemSymbolName: "waveform")
