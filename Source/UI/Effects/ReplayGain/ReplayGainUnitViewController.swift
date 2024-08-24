@@ -119,7 +119,10 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     }
     
     private func scanInitiated() {
-        lblGain.stringValue = "Analyzing \(replayGainUnit.mode == .preferAlbumGain ? "album" : "track") loudness ..."
+        
+        if let scanStatus = replayGainUnit.scanStatus {
+            lblGain.stringValue = scanStatus
+        }
     }
     
     override func fontSchemeChanged() {

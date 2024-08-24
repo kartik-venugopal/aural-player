@@ -75,11 +75,14 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     var isScanning: Bool {_isScanning.value}
     private var _isScanning: AtomicBool = AtomicBool(value: false)
     
+    private(set) var scanStatus: String? = nil
+    
     func applyReplayGain(forTrack track: Track?) {
         
         guard let theTrack = track else {
             
             unit.replayGain = nil
+            self._isScanning.setFalse()
             replayGainScanner.cancelOngoingScan()
             Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
             
@@ -128,12 +131,6 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         
         let file = track.file
         
-        func beganScanning() {
-            
-            _isScanning.setTrue()
-            Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
-        }
-        
         let completionHandler: ReplayGainScanCompletionHandler = {[weak self] (replayGain: ReplayGain?) in
             
             guard let strongSelf = self else {return}
@@ -146,27 +143,26 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         
         DispatchQueue.global(qos: .userInitiated).async {
             
-            switch self.unit.mode {
+            self._isScanning.setTrue()
+            
+            if self.unit.mode == .preferAlbumGain, let albumName = track.album {
                 
-            case .preferAlbumGain:
+                let albumFiles = playQueueDelegate.tracks.filter {$0.album == albumName}.map {$0.file}
                 
-                if let albumName = track.album {
+                if albumFiles.count > 1 {
                     
-                    beganScanning()
-                    let albumFiles = playQueueDelegate.tracks.filter {$0.album == albumName}.map {$0.file}
+                    self.scanStatus = "Analyzing album ..."
+                    Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
                     
-                    if albumFiles.count > 1 {
-                        replayGainScanner.scanAlbum(named: albumName, withFiles: albumFiles, forFile: track.file, completionHandler)
-                    } else {
-                        replayGainScanner.scanTrack(file: file, completionHandler)
-                    }
+                    replayGainScanner.scanAlbum(named: albumName, withFiles: albumFiles, forFile: track.file, completionHandler)
+                    return
                 }
-                
-            case .preferTrackGain, .trackGainOnly:
-                
-                beganScanning()
-                replayGainScanner.scanTrack(file: file, completionHandler)
             }
+            
+            self.scanStatus = "Analyzing track ..."
+            Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
+            
+            replayGainScanner.scanTrack(file: file, completionHandler)
         }
     }
 }

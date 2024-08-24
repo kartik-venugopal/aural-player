@@ -123,7 +123,7 @@ class EBUR128State {
     }
     
     static func computeAlbumLoudnessAndPeak(with eburs: [EBUR128State],
-                                            andTrackResults trackResults: [EBUR128TrackAnalysisResult]) throws -> EBUR128AlbumAnalysisResult {
+                                            andTrackResults trackResults: [EBUR128TrackAnalysisResult]) -> EBUR128AlbumAnalysisResult {
         
         var pointers: [UnsafeMutablePointer<ebur128_state>?] = eburs.map {$0.pointer}
         var albumLoudness: Double = 0

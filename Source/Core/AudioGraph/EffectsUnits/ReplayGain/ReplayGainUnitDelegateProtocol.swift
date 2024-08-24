@@ -35,4 +35,6 @@ protocol ReplayGainUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     var effectiveGain: Float {get}
     
     var isScanning: Bool {get}
+    
+    var scanStatus: String? {get}
 }

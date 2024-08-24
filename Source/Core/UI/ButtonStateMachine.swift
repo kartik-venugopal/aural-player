@@ -85,13 +85,6 @@ class ButtonStateMachine<E>: NSObject, ColorSchemeObserver where E: Hashable {
         updateButtonColor()
     }
     
-//    func colorChanged(_ newColor: NSColor) {
-//        
-//        if button.toolTip!.equalsOneOf("Play", "Pause") {
-//            print("btnPlay is: \(button.className)")
-//        }
-//    }
-    
     private func updateButtonColor() {
         
         if let colorProp = mappings[state]?.colorProperty {

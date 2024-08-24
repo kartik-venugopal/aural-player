@@ -76,16 +76,7 @@ class ReplayGainAlbumScannerOperation: Operation {
         _isExecuting = true
         didChangeValue(forKey: "isExecuting")
         
-        var result: EBUR128AlbumAnalysisResult? = nil
-        
-        print("Starting album computation ... \(eburs.count) eburs, \(results.count) results")
-        
-        do {
-            result = try EBUR128State.computeAlbumLoudnessAndPeak(with: eburs.array, andTrackResults: results.array)
-        } catch {
-            
-        }
-        
+        let result: EBUR128AlbumAnalysisResult = EBUR128State.computeAlbumLoudnessAndPeak(with: eburs.array, andTrackResults: results.array)
         self.completionHandler(self, result)
         self.finish()
     }
@@ -110,8 +101,9 @@ class ReplayGainAlbumScannerOperation: Operation {
     override func cancel() {
         
         super.cancel()
-//        scanner.cancel()
         
-//        print("\nScan op cancelled for file: \(file.lastPathComponent)")
+        for scanner in scanners {
+            scanner.cancel()
+        }
     }
 }

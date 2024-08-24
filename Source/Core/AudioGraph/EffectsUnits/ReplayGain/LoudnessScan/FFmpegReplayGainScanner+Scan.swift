@@ -28,7 +28,7 @@ extension FFmpegReplayGainScanner {
                 } catch {
                     
                     consecutiveErrors.increment()
-                    print((error as? EBUR128Error)?.description ?? error.localizedDescription)
+                    NSLog("Error adding frames to EBUR128 as Int16: \((error as? EBUR128Error)?.description ?? error.localizedDescription)")
                 }
             }
         }
@@ -48,7 +48,7 @@ extension FFmpegReplayGainScanner {
                 } catch {
                     
                     consecutiveErrors.increment()
-                    print((error as? EBUR128Error)?.description ?? error.localizedDescription)
+                    NSLog("Error adding frames to EBUR128 as Int32: \((error as? EBUR128Error)?.description ?? error.localizedDescription)")
                 }
             }
         }
@@ -68,7 +68,7 @@ extension FFmpegReplayGainScanner {
                 } catch {
                     
                     consecutiveErrors.increment()
-                    print((error as? EBUR128Error)?.description ?? error.localizedDescription)
+                    NSLog("Error adding frames to EBUR128 as Float: \((error as? EBUR128Error)?.description ?? error.localizedDescription)")
                 }
             }
         }
@@ -88,7 +88,7 @@ extension FFmpegReplayGainScanner {
                 } catch {
                     
                     consecutiveErrors.increment()
-                    print((error as? EBUR128Error)?.description ?? error.localizedDescription)
+                    NSLog("Error adding frames to EBUR128 as Double: \((error as? EBUR128Error)?.description ?? error.localizedDescription)")
                 }
             }
         }

@@ -125,10 +125,6 @@ class WaveformViewController: NSViewController {
         if let window = view.window, window.isVisible {
             updateForTrack(notification.endTrack)
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            print("renderOp now: \(self.waveformView.renderOp)")
-        }
     }
     
     private func playbackLoopChanged() {

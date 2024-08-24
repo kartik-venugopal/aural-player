@@ -49,8 +49,6 @@ class ReplayGainScanner {
                 self.albumGainCache[albumName] = result
             }
         }
-        
-        print("ReplayGainScanner.init() read \(self.trackGainCache.count) trackGain cache entries and \(self.albumGainCache.count) albumGain cache entries.")
     }
     
     func cachedReplayGainData(forTrack track: Track) -> ReplayGain? {
@@ -104,14 +102,11 @@ class ReplayGainScanner {
         if let theResult = albumGainCache[albumName], theResult.containsResultsForAllFiles(files), let trackResult = trackGainCache[file] {
             
             // Cache hit
-            print("Album cache hit !!!")
             completionHandler(trackResult)
             return
         }
         
         // Cache miss, initiate a scan
-        
-        print("\nScanning album '\(albumName)' with \(files.count) files: \(files.map {$0.lastPathComponent}) ...")
         
         scanOp = ReplayGainAlbumScannerOperation(files: files) {[weak self] finishedScanOp, ebur128Result in
             

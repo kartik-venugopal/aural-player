@@ -224,8 +224,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         if shuffleMode == .on {
             shuffleMode = .off
         }
-        
-        print("\nGapless audio format: \(audioFormatsSet.first!)")
     }
     
     override func preTrackLoad() {

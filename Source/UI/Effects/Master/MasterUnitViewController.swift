@@ -213,6 +213,12 @@ class MasterUnitViewController: EffectsUnitViewController {
         messenger.publish(.Effects.unitStateChanged)
     }
     
+    override func fontSchemeChanged() {
+        
+        super.fontSchemeChanged()
+        masterUnitView.redrawFuseBoxMenu()
+    }
+    
     override func colorSchemeChanged() {
 
         super.colorSchemeChanged()

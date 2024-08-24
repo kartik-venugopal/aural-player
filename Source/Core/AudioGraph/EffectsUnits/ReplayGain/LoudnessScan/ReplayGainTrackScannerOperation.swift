@@ -91,7 +91,5 @@ class ReplayGainTrackScannerOperation: Operation {
         
         super.cancel()
         scanner.cancel()
-        
-        print("\nScan op cancelled for file: \(file.lastPathComponent)")
     }
 }
