@@ -65,12 +65,21 @@ struct ReplayGain: Codable {
         }
     }
     
-    init(ebur128AnalysisResult: EBUR128TrackAnalysisResult) {
+    init(ebur128TrackAnalysisResult: EBUR128TrackAnalysisResult, ebur128AlbumAnalysisResult: EBUR128AlbumAnalysisResult? = nil) {
         
-        self.trackGain = Float(ebur128AnalysisResult.replayGain)
-        self.trackPeak = Float(ebur128AnalysisResult.peak)
+        self.trackGain = Float(ebur128TrackAnalysisResult.replayGain)
+        self.trackPeak = Float(ebur128TrackAnalysisResult.peak)
         
-        self.albumGain = nil
-        self.albumPeak = nil
+        if let albumReplayGain = ebur128AlbumAnalysisResult?.albumReplayGain {
+            self.albumGain = Float(albumReplayGain)
+        } else {
+            self.albumGain = nil
+        }
+        
+        if let albumPeak = ebur128AlbumAnalysisResult?.albumPeak {
+            self.albumPeak = Float(albumPeak)
+        } else {
+            self.albumPeak = nil
+        }
     }
 }

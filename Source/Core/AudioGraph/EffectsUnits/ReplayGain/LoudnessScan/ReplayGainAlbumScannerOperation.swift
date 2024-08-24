@@ -2,7 +2,7 @@
 //  ReplayGainAlbumScannerOperation.swift
 //  Aural
 //
-//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//  Copyright © 2024 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
@@ -11,6 +11,8 @@
 import Foundation
 
 class ReplayGainAlbumScannerOperation: Operation {
+    
+    static let queue: OperationQueue = .init(opCount: System.numberOfActiveCores, qos: .userInitiated)
     
     let files: [URL]
     
@@ -34,7 +36,7 @@ class ReplayGainAlbumScannerOperation: Operation {
     private var _isFinished = false
     override var isFinished: Bool {_isFinished}
     
-    init(files: [URL], completionHandler: @escaping (ReplayGainAlbumScannerOperation, EBUR128AlbumAnalysisResult?) -> Void) throws {
+    init(files: [URL], completionHandler: @escaping (ReplayGainAlbumScannerOperation, EBUR128AlbumAnalysisResult?) -> Void) {
         
         self.files = files
         self.completionHandler = completionHandler
@@ -67,12 +69,16 @@ class ReplayGainAlbumScannerOperation: Operation {
         // Do nothing if any of these flags is set.
         guard !isExecuting, !isFinished, !isCancelled else {return}
         
+        Self.queue.addOperations(dependencies, waitUntilFinished: true)
+        
         // Update state for KVO.
         willChangeValue(forKey: "isExecuting")
         _isExecuting = true
         didChangeValue(forKey: "isExecuting")
         
         var result: EBUR128AlbumAnalysisResult? = nil
+        
+        print("Starting album computation ... \(eburs.count) eburs, \(results.count) results")
         
         do {
             result = try EBUR128State.computeAlbumLoudnessAndPeak(with: eburs.array, andTrackResults: results.array)

@@ -2,7 +2,7 @@
 //  ReplayGainScanner.swift
 //  Aural
 //
-//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//  Copyright © 2024 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
@@ -25,32 +25,43 @@ protocol EBUR128LoudnessScannerProtocol {
     var isCancelled: Bool {get}
 }
 
+typealias ReplayGainScanCompletionHandler = (ReplayGain?) -> Void
+
 class ReplayGainScanner {
     
-    let cache: ConcurrentMap<URL, EBUR128TrackAnalysisResult> = ConcurrentMap()
+    let trackGainCache: ConcurrentMap<URL, ReplayGain> = ConcurrentMap()
+    let albumGainCache: ConcurrentMap<String, AlbumReplayGain> = ConcurrentMap()
     
-    private var scanOp: ReplayGainTrackScannerOperation? = nil
+    private var scanOp: Operation? = nil
     
     init(persistentState: ReplayGainAnalysisCachePersistentState?) {
         
-        guard let cache = persistentState?.cache else {return}
-        
-        for (file, result) in cache {
-            self.cache[file] = result
+        if let trackGainCache = persistentState?.trackGainCache {
+            
+            for (file, result) in trackGainCache {
+                self.trackGainCache[file] = result
+            }
         }
         
-        print("ReplayGainScanner.init() read \(self.cache.count) cache entries")
+        if let albumGainCache = persistentState?.albumGainCache {
+            
+            for (albumName, result) in albumGainCache {
+                self.albumGainCache[albumName] = result
+            }
+        }
+        
+        print("ReplayGainScanner.init() read \(self.trackGainCache.count) trackGain cache entries and \(self.albumGainCache.count) albumGain cache entries.")
     }
     
-    func scan(forFile file: URL, _ completionHandler: @escaping (ReplayGain?) -> Void) {
+    func scanTrack(file: URL, _ completionHandler: @escaping ReplayGainScanCompletionHandler) {
         
         cancelOngoingScan()
         
         // First, check the cache
-        if let theResult = cache[file] {
+        if let theResult = trackGainCache[file] {
             
             // Cache hit
-            completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
+            completionHandler(theResult)
             return
         }
         
@@ -65,8 +76,60 @@ class ReplayGainScanner {
             if let theResult = ebur128Result {
                 
                 // Scan succeeded, cache the result
-                self?.cache[file] = theResult
-                completionHandler(ReplayGain(ebur128AnalysisResult: theResult))
+                let replayGain = ReplayGain(ebur128TrackAnalysisResult: theResult)
+                self?.trackGainCache[file] = replayGain
+                completionHandler(replayGain)
+                
+            } else {
+                
+                // Scan failed
+                completionHandler(nil)
+            }
+            
+            self?.scanOp = nil
+        }
+        
+        scanOp?.start()
+    }
+    
+    func scanAlbum(named albumName: String, withFiles files: [URL], forFile file: URL, _ completionHandler: @escaping ReplayGainScanCompletionHandler) {
+        
+        cancelOngoingScan()
+        
+        // First, check the cache
+        if let theResult = albumGainCache[albumName], theResult.containsResultsForAllFiles(files), let trackResult = trackGainCache[file] {
+            
+            // Cache hit
+            print("Album cache hit !!!")
+            completionHandler(trackResult)
+            return
+        }
+        
+        // Cache miss, initiate a scan
+        
+        print("\nScanning album '\(albumName)' with \(files.count) files: \(files.map {$0.lastPathComponent}) ...")
+        
+        scanOp = ReplayGainAlbumScannerOperation(files: files) {[weak self] finishedScanOp, ebur128Result in
+            
+            // A previously scheduled scan op may finish just before being cancelled. This check
+            // will prevent rogue completion handler execution.
+            guard self?.scanOp == finishedScanOp else {return}
+            
+            if let theAlbumResult = ebur128Result {
+                
+                for (trackFile, trackResult) in theAlbumResult.trackResults {
+                
+                    self?.trackGainCache[trackFile] = ReplayGain(ebur128TrackAnalysisResult: trackResult,
+                                                                 ebur128AlbumAnalysisResult: theAlbumResult)
+                }
+                
+                // Scan succeeded, cache the result
+                self?.albumGainCache[albumName] = AlbumReplayGain(albumName: albumName, files: files,
+                                                                  loudness: theAlbumResult.albumLoudness,
+                                                                  replayGain: theAlbumResult.albumReplayGain,
+                                                                  peak: theAlbumResult.albumPeak)
+                
+                completionHandler(self?.trackGainCache[file])
                 
             } else {
                 
@@ -87,6 +150,6 @@ class ReplayGainScanner {
     }
     
     var persistentState: ReplayGainAnalysisCachePersistentState {
-        .init(cache: cache.map)
+        .init(trackGainCache: trackGainCache.map, albumGainCache: albumGainCache.map)
     }
 }

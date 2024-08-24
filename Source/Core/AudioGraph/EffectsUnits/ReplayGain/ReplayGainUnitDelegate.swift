@@ -2,7 +2,7 @@
 //  ReplayGainUnitDelegate.swift
 //  Aural
 //
-//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//  Copyright © 2024 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
@@ -91,7 +91,7 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
             
         case .metadataOrAnalysis:
             
-            if let replayGain = theTrack.replayGain {
+            if let replayGain = theTrack.replayGain, hasEnoughInfo(replayGain: replayGain) {
                 
                 // Has metadata
                 unit.replayGain = replayGain
@@ -102,23 +102,53 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
                 unit.replayGain = nil
                 
                 // Analyze
-                analyze(file: theTrack.file)
+                analyze(track: theTrack)
             }
             
         case .metadataOnly:
             unit.replayGain = theTrack.replayGain
             
         case .analysisOnly:
-            analyze(file: theTrack.file)
+            analyze(track: theTrack)
         }
     }
     
-    private func analyze(file: URL) {
+    private func hasEnoughInfo(replayGain: ReplayGain) -> Bool {
         
-        _isScanning.setTrue()
-        Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
+        switch unit.mode {
+            
+        case .preferAlbumGain:
+            
+            if preventClipping {
+                return replayGain.albumGain != nil ? replayGain.albumPeak != nil : replayGain.trackPeak != nil
+            }
+            
+            return true
+            
+        case .preferTrackGain:
+            
+            if preventClipping {
+                return replayGain.trackGain != nil ? replayGain.trackPeak != nil : replayGain.albumPeak != nil
+            }
+            
+            return true
+            
+        case .trackGainOnly:
+            return replayGain.trackGain != nil && (preventClipping ? replayGain.trackPeak != nil : true)
+        }
+    }
+    
+    private func analyze(track: Track) {
         
-        replayGainScanner.scan(forFile: file) {[weak self] (replayGain: ReplayGain?) in
+        let file = track.file
+        
+        func beganScanning() {
+            
+            _isScanning.setTrue()
+            Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
+        }
+        
+        let completionHandler: ReplayGainScanCompletionHandler = {[weak self] (replayGain: ReplayGain?) in
             
             guard let strongSelf = self else {return}
             
@@ -126,6 +156,26 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
             strongSelf._isScanning.setFalse()
             
             Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            switch self.unit.mode {
+                
+            case .preferAlbumGain:
+                
+                if let albumName = track.album {
+                    
+                    beganScanning()
+                    let albumFiles = playQueueDelegate.tracks.filter {$0.album == albumName}.map {$0.file}
+                    replayGainScanner.scanAlbum(named: albumName, withFiles: albumFiles, forFile: track.file, completionHandler)
+                }
+                
+            case .preferTrackGain, .trackGainOnly:
+                
+                beganScanning()
+                replayGainScanner.scanTrack(file: file, completionHandler)
+            }
         }
     }
 }

@@ -104,11 +104,15 @@ extension AppDelegate {
         // (they are not referred to in code that is executed on app startup).
         
         //        _ = libraryDelegate
-        _ = mediaKeyHandler
-        _ = remoteControlManager
+        eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
         
         WaveformView.initializeImageCache()
     }
+    
+    ///
+    /// Does nothing ... simply referencing objects in the caller will cause them to be eagerly initialized.
+    ///
+    func eagerlyInitializeObjects(_ object: Any...) {}
     
     func beginPeriodicPersistence() {
         

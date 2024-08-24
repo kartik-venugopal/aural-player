@@ -44,7 +44,7 @@ class AVFReplayGainScanner: EBUR128LoudnessScannerProtocol {
         self.channelCount = audioFormat.channelCount
         self.sampleRate = audioFormat.sampleRate
         
-        ebur128 = try EBUR128State(channelCount: Int(channelCount), sampleRate: Int(sampleRate), mode: .samplePeak)
+        ebur128 = try EBUR128State(file: file, channelCount: Int(channelCount), sampleRate: Int(sampleRate), mode: .samplePeak)
         
         self.channelLayout = audioFormat.channelLayout ?? .defaultLayoutForChannelCount(channelCount)
         

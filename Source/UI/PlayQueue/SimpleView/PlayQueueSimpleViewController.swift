@@ -105,9 +105,9 @@ class AttrCellView: NSTableCellView {
     
     func update(artist: String, title: String) {
         
-        let muthu = "\(artist) ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)
+        let muthu = "\(artist)  ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)
         
-        let selMuthu = "\(artist) ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondarySelectedTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primarySelectedTextColor)
+        let selMuthu = "\(artist)  ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondarySelectedTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primarySelectedTextColor)
         
         let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
         style.lineBreakMode = .byTruncatingTail

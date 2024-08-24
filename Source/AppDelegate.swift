@@ -61,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         // Force eager loading of persistent state
-        _ = appPersistentState
+        eagerlyInitializeObjects(appPersistentState)
         
         if appSetup.setupRequired {
             performAppSetup()
@@ -79,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //            fontSchemesManager.printNumObservers()
 //        }
     }
-    
+
     /// Opens the application with a single file (audio file or playlist)
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
         

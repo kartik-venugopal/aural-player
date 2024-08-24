@@ -50,7 +50,7 @@ class FFmpegReplayGainScanner: EBUR128LoudnessScannerProtocol {
         sampleFormat = codec.sampleFormat.avFormat
         sampleRate = Int(codec.sampleRate)
         
-        ebur128 = try EBUR128State(channelCount: channelCount, sampleRate: sampleRate, mode: .samplePeak)
+        ebur128 = try EBUR128State(file: file, channelCount: channelCount, sampleRate: sampleRate, mode: .samplePeak)
         
         self.targetFormat = sampleFormat
         

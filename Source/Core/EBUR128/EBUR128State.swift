@@ -14,6 +14,8 @@ fileprivate typealias PeakAnalysisFunction = (UnsafeMutablePointer<ebur128_state
 
 class EBUR128State {
     
+    let file: URL
+    
     let pointer: UnsafeMutablePointer<ebur128_state>
     
     var ebur128: ebur128_state {
@@ -27,7 +29,9 @@ class EBUR128State {
     static let targetLoudness: Double = -18
     static let assumedPeak: Double = 1
     
-    init(channelCount: Int, sampleRate: Int, mode: EBUR128Mode) throws {
+    init(file: URL, channelCount: Int, sampleRate: Int, mode: EBUR128Mode) throws {
+        
+        self.file = file
         
         self.channelCount = channelCount
         self.sampleRate = sampleRate
@@ -82,7 +86,7 @@ class EBUR128State {
         let peak = try computePeak()
         let replayGain = Self.targetLoudness - loudness
         
-        return EBUR128TrackAnalysisResult(loudness: loudness, peak: peak, replayGain: replayGain)
+        return EBUR128TrackAnalysisResult(file: self.file, loudness: loudness, peak: peak, replayGain: replayGain)
     }
     
     private func computeLoudness() throws -> Double {
@@ -127,10 +131,16 @@ class EBUR128State {
         ebur128_loudness_global_multiple(&pointers, eburs.count, &albumLoudness)
         let albumPeak = trackResults.map {$0.peak}.max() ?? Self.assumedPeak
         
+        var results: [URL: EBUR128TrackAnalysisResult] = [:]
+        
+        for result in trackResults {
+            results[result.file] = result
+        }
+        
         return EBUR128AlbumAnalysisResult(albumLoudness: albumLoudness, 
                                           albumPeak: albumPeak,
                                           albumReplayGain: Self.targetLoudness - albumLoudness,
-                                          trackResults: trackResults)
+                                          trackResults: results)
     }
     
     deinit {
@@ -156,6 +166,8 @@ enum EBUR128Mode {
 
 struct EBUR128TrackAnalysisResult: Codable {
     
+    let file: URL
+    
     let loudness: Double
     let peak: Double
     let replayGain: Double
@@ -167,5 +179,5 @@ struct EBUR128AlbumAnalysisResult: Codable {
     let albumPeak: Double
     let albumReplayGain: Double
     
-    let trackResults: [EBUR128TrackAnalysisResult]
+    let trackResults: [URL: EBUR128TrackAnalysisResult]
 }
