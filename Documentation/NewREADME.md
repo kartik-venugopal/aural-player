@@ -1,12 +1,11 @@
 <img width="225" src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
 
-<img width="1024" src="https://github.com/kartik-venugopal/aural-player/raw/v4.0/aural4.png"/>
+<img src="https://github.com/user-attachments/assets/fe5e1e99-fa01-4efd-bc4e-e8526f46a960" width="1024"/>
 
 ## Table of Contents
   * [Overview](#overview)
-    + [How it works (under the hood)](#how-it-works-under-the-hood)
-    + [Limitations](#limitations)
-  * [Key features](#key-features)
+    + [Project philosophy](#project-philosophy)
+  * [Standout features](#standout-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
   * [License](#license)
@@ -19,7 +18,7 @@ If you're a long-time user, you'll notice the many improvements in v4 - better a
 
 ### Project philosophy
 
-Aural doesn't aim to be perfect or to be the best player out there. This is an app that aims to be fun, to incorporate ideas from its community of users, and to incrementally improve over time. It wouldn't have made it this far without all the amazing user feedback and bug reports 🙏
+Aural doesn't aim to be perfect or to be the best player out there. This app is about fun, incorporating ideas from its community of users, and evolving and improving over time. It wouldn't have made it this far without all the amazing user feedback, feature requests, and bug reports 🙏
 
 ## Standout features
 
@@ -27,27 +26,17 @@ Aural doesn't aim to be perfect or to be the best player out there. This is an a
 
 Thanks to the power of ffmpeg, you can throw almost any format at Aural and it will probably be able to play it! FLAC, Vorbis, Opus, APE, Musepack, and WMA are some of the many formats supported, in addition to all native (CoreAudio) formats.
 
-If you're an audiophile who needs each track to sound a certain way, you'll appreciate the built-in effects and AU plugin support. Aural can also remember your sound settings per track!
+### Sound tuning and monitoring
 
-Make the app uniquely yours by trying its several fun theming options! 
+If you're an audiophile who needs each track to sound a certain way, you'll appreciate the built-in effects and AU plugin support which means limitless possibilities for tuning and monitoring. Aural can also remember your sound settings per track!
 
-And with a modular UI and multiple app presentation modes, you can mold Aural to fit onto your desktop just the way you want.
+### Personalization
 
+Make the app uniquely yours by trying its several fun theming options!
 
-## Key features
+### Flexible UI footprint
 
-(Comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features))
-
-* Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: FLAC, Vorbis, Monkey's Audio (APE), Opus, & [many more](https://github.com/kartik-venugopal/aural-player/wiki/Features#audio-formats)
-* Supports M3U / M3U8 playlists
-* **Playback:** Bookmarking, segment looping, custom seek intervals, per-track last position memory, chapters support, autoplay, resume last played track.
-* **Effects:** Built-in effects (incl. equalizer), Audio Unit (AU) plug-in support, built-in / custom presets, per-track settings memory.
-* **Library:** Grouping by artist/album/genre/decade, searching, sorting, type selection. File system browser with metadata-based search.
-* **Track information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, etc. Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export. Last.fm scrobbling and love/unlove **(NEW!)**.
-* **Track lists:** *Favorites*, *recently added*, *recently played*, and *most played* lists.
-* **Visualizer:** 3 different visualizations that dance to the music, with customizable colors.
-* **UI:** Modular interface, fully customizable fonts and colors (with gradients), built-in / custom window layouts, configurable window snapping / docking / spacing / corner radius, menu bar mode, control bar (widget) mode.
-* **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, and media control devices / apps.
+With a modular UI and multiple app presentation modes, you can mold Aural to fit onto your desktop just the way you want.
 
 ## Download
 
