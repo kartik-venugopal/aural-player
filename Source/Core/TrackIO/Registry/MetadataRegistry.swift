@@ -10,17 +10,22 @@
 
 import Foundation
 
-class MetadataRegistry: PersistentModelObject {
+class MetadataRegistry: PersistentRootObject {
+    
+    var filename: String {
+        "metadata"
+    }
     
     private let registry: ConcurrentMap<URL, PrimaryMetadata> = ConcurrentMap()
     private let opQueue: OperationQueue = .init(opCount: (Double(System.physicalCores) * 1.5).roundedInt, qos: .userInteractive)
-    lazy var messenger: Messenger = Messenger(for: self)
     
     init(persistentState: MetadataPersistentState?) {
         
-//        for entry in persistentState?.metadata ?? [:] {
-//            registry[entry.key] = PrimaryMetadata(persistentState: entry.value)
-//        }
+        for entry in persistentState?.metadata ?? [:] {
+            registry[entry.key] = PrimaryMetadata(persistentState: entry.value)
+        }
+        
+        print("\nMetadataRegistry: Initialized with \(registry.count) entries.")
     }
     
     subscript(_ key: URL) -> PrimaryMetadata? {
@@ -43,27 +48,5 @@ class MetadataRegistry: PersistentModelObject {
         }
         
         return MetadataPersistentState(metadata: map)
-    }
-    
-    func loadMetadataForFiles(files: Set<URL>, completionHandler: @escaping () -> ()) {
-
-        let start = Date()
-        
-        DispatchQueue.global(qos: .userInteractive).async {
-            
-            for file in files {
-                
-                self.opQueue.addOperation {
-                    
-                    if let metadata = try? fileReader.getPrimaryMetadata(for: file) {
-                        self.registry[file] = metadata
-                    }
-                }
-            }
-            
-            self.opQueue.waitUntilAllOperationsAreFinished()
-            
-            completionHandler()
-        }
     }
 }

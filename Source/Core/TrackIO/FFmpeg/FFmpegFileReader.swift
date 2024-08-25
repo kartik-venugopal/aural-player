@@ -142,7 +142,7 @@ class FFmpegFileReader: FileReaderProtocol {
             parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in auxiliaryMetadata[k] = v}
         }
         
-        metadata.auxiliaryMetadata = auxiliaryMetadata
+        metadata.nonEssentialMetadata = auxiliaryMetadata
         
         if let imageData = metadataMap.fileCtx.bestImageStream?.attachedPic.data {
             metadata.art = CoverArt(imageData: imageData)
@@ -165,7 +165,7 @@ class FFmpegFileReader: FileReaderProtocol {
         }
     }
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
+    func getAudioInfo(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AudioInfo {
         
         do {
             
@@ -184,25 +184,22 @@ class FFmpegFileReader: FileReaderProtocol {
             allParsers.forEach {$0.mapMetadata(metadataMap)}
             let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
             
-            return doGetAuxiliaryMetadata(for: file, fromCtx: fctx, andMap: metadataMap, loadingAudioInfoFrom: playbackContext, usingParsers: relevantParsers)
+            return doGetAudioInfo(for: file, fromCtx: fctx, andMap: metadataMap, loadingAudioInfoFrom: playbackContext, usingParsers: relevantParsers)
             
         } catch {
-            return AuxiliaryMetadata()
+            return AudioInfo()
         }
     }
     
-    private func doGetAuxiliaryMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, andMap metadataMap: FFmpegMappedMetadata, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, usingParsers relevantParsers: [FFmpegMetadataParser]) -> AuxiliaryMetadata {
+    private func doGetAudioInfo(for file: URL, fromCtx fctx: FFmpegFileContext, andMap metadataMap: FFmpegMappedMetadata, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, usingParsers relevantParsers: [FFmpegMetadataParser]) -> AudioInfo {
         
-        var metadata = AuxiliaryMetadata()
         var audioInfo = AudioInfo()
         
         audioInfo.format = fctx.formatLongName
         audioInfo.bitRate = (Double(fctx.bitRate) / Double(FileSize.KB)).roundedInt
         
         guard let ffmpegPlaybackCtx = playbackContext as? FFmpegPlaybackContext else {
-            
-            metadata.audioInfo = audioInfo
-            return metadata
+            return audioInfo
         }
         
         audioInfo.codec = ffmpegPlaybackCtx.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
@@ -219,8 +216,7 @@ class FFmpegFileReader: FileReaderProtocol {
             audioInfo.channelLayout = ffmpegPlaybackCtx.audioFormat.channelLayoutString
         }
         
-        metadata.audioInfo = audioInfo
-        return metadata
+        return audioInfo
     }
     
     func getAllMetadata(for file: URL) -> FileMetadata {
@@ -246,7 +242,7 @@ class FFmpegFileReader: FileReaderProtocol {
             let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
             
             metadata.primary = try doGetPrimaryMetadata(for: file, fromCtx: fctx, stream: stream, codec: codec, andMap: metadataMap, usingParsers: relevantParsers)
-            metadata.auxiliary = doGetAuxiliaryMetadata(for: file, fromCtx: fctx, andMap: metadataMap, loadingAudioInfoFrom: nil, usingParsers: relevantParsers)
+            metadata.audioInfo = doGetAudioInfo(for: file, fromCtx: fctx, andMap: metadataMap, loadingAudioInfoFrom: nil, usingParsers: relevantParsers)
             
             if let imageData = fctx.bestImageStream?.attachedPic.data {
                 metadata.primary?.art = CoverArt(imageData: imageData)

@@ -17,12 +17,18 @@ struct MetadataPersistentState: Codable {
 
 struct PrimaryMetadataPersistentState: Codable {
     
+    
     let title: String?
     let artist: String?
     let albumArtist: String?
     let album: String?
     let genre: String?
     let year: Int?
+    
+    var composer: String?
+    var conductor: String?
+    var performer: String?
+    var lyricist: String?
     
     let trackNumber: Int?
     let totalTracks: Int?
@@ -33,7 +39,15 @@ struct PrimaryMetadataPersistentState: Codable {
     let duration: Double?
     let isProtected: Bool?
     
+    var bpm: Int?
+    
+    var lyrics: String?
+    
+    var nonEssentialMetadata: [String: MetadataEntry] = [:]
+    
     let chapters: [ChapterPersistentState]?
+    
+    var replayGain: ReplayGain?
     
     init(metadata: PrimaryMetadata) {
         
@@ -44,6 +58,11 @@ struct PrimaryMetadataPersistentState: Codable {
         self.genre = metadata.genre
         self.year = metadata.year
         
+        self.composer = metadata.composer
+        self.conductor = metadata.conductor
+        self.performer = metadata.performer
+        self.lyricist = metadata.lyricist
+        
         self.trackNumber = metadata.trackNumber
         self.totalTracks = metadata.totalTracks
         
@@ -53,7 +72,13 @@ struct PrimaryMetadataPersistentState: Codable {
         self.duration = metadata.duration
         self.isProtected = metadata.isProtected
         
+        self.bpm = metadata.bpm
+        self.lyrics = metadata.lyrics
+        self.nonEssentialMetadata = metadata.nonEssentialMetadata
+        
         self.chapters = metadata.chapters.map {ChapterPersistentState(chapter: $0)}
+        
+        self.replayGain = metadata.replayGain
     }
 }
 

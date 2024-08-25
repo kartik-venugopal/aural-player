@@ -12,7 +12,13 @@ import Foundation
 ///
 /// Top-level persistent state object that encapsulates all application state.
 ///
-struct AppPersistentState: Codable {
+struct AppPersistentState: Codable, PersistentRootObject {
+    
+    var filename: String {"state"}
+    
+    var persistentState: AppPersistentState {
+        self
+    }
     
     var appVersion: String?
     

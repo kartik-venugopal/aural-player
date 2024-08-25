@@ -214,7 +214,7 @@
 		3E0218AD2C23490E00865AC2 /* LibraryPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216B12C23490E00865AC2 /* LibraryPersistentState.swift */; };
 		3E0218AE2C23490E00865AC2 /* MetadataPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216B22C23490E00865AC2 /* MetadataPersistentState.swift */; };
 		3E0218AF2C23490E00865AC2 /* MusicBrainzCachePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216B32C23490E00865AC2 /* MusicBrainzCachePersistentState.swift */; };
-		3E0218B02C23490E00865AC2 /* PersistentModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216B42C23490E00865AC2 /* PersistentModelObject.swift */; };
+		3E0218B02C23490E00865AC2 /* PersistentObjectProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216B42C23490E00865AC2 /* PersistentObjectProtocols.swift */; };
 		3E0218B12C23490E00865AC2 /* PlaybackProfilePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216B52C23490E00865AC2 /* PlaybackProfilePersistentState.swift */; };
 		3E0218B22C23490E00865AC2 /* PlaylistsPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216B62C23490E00865AC2 /* PlaylistsPersistentState.swift */; };
 		3E0218B32C23490E00865AC2 /* PlayQueuePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216B72C23490E00865AC2 /* PlayQueuePersistentState.swift */; };
@@ -345,7 +345,6 @@
 		3E0219302C23490E00865AC2 /* FFmpegMappedMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02174E2C23490E00865AC2 /* FFmpegMappedMetadata.swift */; };
 		3E0219312C23490E00865AC2 /* FFmpegMetadataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02174F2C23490E00865AC2 /* FFmpegMetadataParser.swift */; };
 		3E0219322C23490E00865AC2 /* AudioInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217512C23490E00865AC2 /* AudioInfo.swift */; };
-		3E0219332C23490E00865AC2 /* AuxiliaryMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217522C23490E00865AC2 /* AuxiliaryMetadata.swift */; };
 		3E0219342C23490E00865AC2 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217532C23490E00865AC2 /* Chapter.swift */; };
 		3E0219352C23490E00865AC2 /* CoverArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217542C23490E00865AC2 /* CoverArt.swift */; };
 		3E0219362C23490E00865AC2 /* FileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217552C23490E00865AC2 /* FileMetadata.swift */; };
@@ -1269,7 +1268,7 @@
 		3E0216B12C23490E00865AC2 /* LibraryPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryPersistentState.swift; sourceTree = "<group>"; };
 		3E0216B22C23490E00865AC2 /* MetadataPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataPersistentState.swift; sourceTree = "<group>"; };
 		3E0216B32C23490E00865AC2 /* MusicBrainzCachePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzCachePersistentState.swift; sourceTree = "<group>"; };
-		3E0216B42C23490E00865AC2 /* PersistentModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentModelObject.swift; sourceTree = "<group>"; };
+		3E0216B42C23490E00865AC2 /* PersistentObjectProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentObjectProtocols.swift; sourceTree = "<group>"; };
 		3E0216B52C23490E00865AC2 /* PlaybackProfilePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackProfilePersistentState.swift; sourceTree = "<group>"; };
 		3E0216B62C23490E00865AC2 /* PlaylistsPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsPersistentState.swift; sourceTree = "<group>"; };
 		3E0216B72C23490E00865AC2 /* PlayQueuePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueuePersistentState.swift; sourceTree = "<group>"; };
@@ -1400,7 +1399,6 @@
 		3E02174E2C23490E00865AC2 /* FFmpegMappedMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegMappedMetadata.swift; sourceTree = "<group>"; };
 		3E02174F2C23490E00865AC2 /* FFmpegMetadataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegMetadataParser.swift; sourceTree = "<group>"; };
 		3E0217512C23490E00865AC2 /* AudioInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioInfo.swift; sourceTree = "<group>"; };
-		3E0217522C23490E00865AC2 /* AuxiliaryMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuxiliaryMetadata.swift; sourceTree = "<group>"; };
 		3E0217532C23490E00865AC2 /* Chapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		3E0217542C23490E00865AC2 /* CoverArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverArt.swift; sourceTree = "<group>"; };
 		3E0217552C23490E00865AC2 /* FileMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMetadata.swift; sourceTree = "<group>"; };
@@ -2657,7 +2655,7 @@
 				3E0216B12C23490E00865AC2 /* LibraryPersistentState.swift */,
 				3E0216B22C23490E00865AC2 /* MetadataPersistentState.swift */,
 				3E0216B32C23490E00865AC2 /* MusicBrainzCachePersistentState.swift */,
-				3E0216B42C23490E00865AC2 /* PersistentModelObject.swift */,
+				3E0216B42C23490E00865AC2 /* PersistentObjectProtocols.swift */,
 				3E0216B52C23490E00865AC2 /* PlaybackProfilePersistentState.swift */,
 				3E0216B62C23490E00865AC2 /* PlaylistsPersistentState.swift */,
 				3EFA0C0F2C67DF21006FB326 /* WaveformPersistentState.swift */,
@@ -3005,7 +3003,6 @@
 			isa = PBXGroup;
 			children = (
 				3E0217512C23490E00865AC2 /* AudioInfo.swift */,
-				3E0217522C23490E00865AC2 /* AuxiliaryMetadata.swift */,
 				3E0217532C23490E00865AC2 /* Chapter.swift */,
 				3E0217542C23490E00865AC2 /* CoverArt.swift */,
 				3E0217552C23490E00865AC2 /* FileMetadata.swift */,
@@ -5806,7 +5803,6 @@
 				3E6C127D25CEBE1800BF0D07 /* AutoHidingView.swift in Sources */,
 				3E02188C2C23490E00865AC2 /* PitchShiftUnitPersistentState.swift in Sources */,
 				3E5F942C25E57190002DEF80 /* BassFFTData.swift in Sources */,
-				3E0219332C23490E00865AC2 /* AuxiliaryMetadata.swift in Sources */,
 				3E0218282C23490E00865AC2 /* FavoriteGroup.swift in Sources */,
 				3E0218362C23490E00865AC2 /* FFmpegPacketFrames.swift in Sources */,
 				3E0218CC2C23490E00865AC2 /* PlaybackSchedulerProtocol.swift in Sources */,
@@ -5966,7 +5962,7 @@
 				3E6C131225CEBE8F00BF0D07 /* TrackInfoWindowController.swift in Sources */,
 				3EE2AD052A1FF71300D7BA7D /* AUParameterControlViewController.swift in Sources */,
 				3E02194A2C23490E00865AC2 /* ITunesSpec.swift in Sources */,
-				3E0218B02C23490E00865AC2 /* PersistentModelObject.swift in Sources */,
+				3E0218B02C23490E00865AC2 /* PersistentObjectProtocols.swift in Sources */,
 				3E0217E52C23490E00865AC2 /* DelayUnitDelegate.swift in Sources */,
 				3E02181E2C23490E00865AC2 /* Bookmark.swift in Sources */,
 				3E6C12AE25CEBE2700BF0D07 /* DialogsAndAlerts.swift in Sources */,
@@ -6792,7 +6788,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview9";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview10";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6809,7 +6805,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview9";
+				MARKETING_VERSION = "4.0.0-preview10";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;
@@ -6830,7 +6826,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview9";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview10";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6847,7 +6843,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview9";
+				MARKETING_VERSION = "4.0.0-preview10";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;

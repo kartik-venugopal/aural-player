@@ -15,14 +15,14 @@ import Foundation
 struct FileMetadata {
    
     var primary: PrimaryMetadata?
-    var playback: PlaybackContextProtocol?
-    
-    var auxiliary: AuxiliaryMetadata?
+    var audioInfo: AudioInfo?
     
     var isPlayable: Bool {validationError == nil}
     var validationError: DisplayableError?
     
-    init(primary: PrimaryMetadata? = nil) {
+    init(primary: PrimaryMetadata? = nil, audioInfo: AudioInfo? = nil) {
+        
         self.primary = primary
+        self.audioInfo = audioInfo
     }
 }

@@ -37,7 +37,7 @@ protocol FileReaderProtocol {
     ///
     /// Loads all non-essential ("auxiliary") metadata associated with a track, for display in the "Detailed track info" view.
     ///
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AuxiliaryMetadata
+    func getAudioInfo(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AudioInfo
     
     func getAllMetadata(for file: URL) -> FileMetadata
 }

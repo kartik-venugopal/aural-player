@@ -14,7 +14,12 @@ import Foundation
 ///
 class TrackReader {
     
-    static let highPriorityQueue: OperationQueue = .init(opCount: max(4, System.physicalCores), qos: .userInteractive)
+#if DEBUG
+        static let highPriorityQueue: OperationQueue = .init(opCount: max(4, System.physicalCores), qos: .utility)
+#else
+        static let highPriorityQueue: OperationQueue = .init(opCount: max(4, System.physicalCores), qos: .userInitiated)
+#endif
+    
     static let mediumPriorityQueue: OperationQueue = .init(opCount: max(2, System.physicalCores / 2), qos: .utility)
     static let lowPriorityQueue: OperationQueue = .init(opCount: max(2, System.physicalCores / 2), qos: .background)
     
@@ -80,7 +85,6 @@ class TrackReader {
     func computePlaybackContext(for track: Track) throws {
         
         track.playbackContext = try fileReader.getPlaybackMetadata(for: track.file)
-        track.playbackContext?.replayGain = track.replayGain
         
         // If duration has changed as a result of precise computation, set it in the track and send out an update notification
         if !track.durationIsAccurate, let playbackContext = track.playbackContext, track.duration != playbackContext.duration {
@@ -162,13 +166,9 @@ class TrackReader {
         
         if track.audioInfo == nil {
             
-            let auxMetadata = fileReader.getAuxiliaryMetadata(for: track.file, loadingAudioInfoFrom: track.playbackContext)
-            
-            if var audioInfo = auxMetadata.audioInfo {
-
-                audioInfo.replayGainFromMetadata = track.replayGain
-                track.setAudioInfo(audioInfo)
-            }
+            var audioInfo = fileReader.getAudioInfo(for: track.file, loadingAudioInfoFrom: track.playbackContext)
+            audioInfo.replayGainFromMetadata = track.replayGain
+            track.setAudioInfo(audioInfo)
             
             loadArtAsync(for: track)
         }

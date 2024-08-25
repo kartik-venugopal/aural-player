@@ -18,9 +18,6 @@ import Foundation
 ///
 struct PrimaryMetadata {
     
-//    var fileType: String?
-//    var audioFormat: String?
-    
     var title: String?
     var artist: String?
     var albumArtist: String?
@@ -50,7 +47,7 @@ struct PrimaryMetadata {
     
     var lyrics: String?
     
-    var auxiliaryMetadata: [String: MetadataEntry] = [:]
+    var nonEssentialMetadata: [String: MetadataEntry] = [:]
     
     var art: CoverArt?
     
@@ -67,6 +64,11 @@ struct PrimaryMetadata {
         self.genre = persistentState.genre
         self.year = persistentState.year
         
+        self.composer = persistentState.composer
+        self.conductor = persistentState.conductor
+        self.performer = persistentState.performer
+        self.lyricist = persistentState.lyricist
+        
         self.trackNumber = persistentState.trackNumber
         self.totalTracks = persistentState.totalTracks
         
@@ -77,5 +79,9 @@ struct PrimaryMetadata {
         self.isProtected = persistentState.isProtected
         
         self.chapters = (persistentState.chapters ?? []).enumerated().compactMap {Chapter.init(persistentState: $1, index: $0)}
+        
+        self.bpm = persistentState.bpm
+        self.lyrics = persistentState.lyrics
+        self.nonEssentialMetadata = persistentState.nonEssentialMetadata
     }
 }

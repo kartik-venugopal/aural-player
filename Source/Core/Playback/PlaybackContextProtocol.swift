@@ -27,8 +27,6 @@ protocol PlaybackContextProtocol {
     
     var frameCount: Int64 {get}
     
-    var replayGain: ReplayGain? {get set}
-    
     ///
     /// Prepares the context object, and its associated resources (e.g. audio file handle) for track playback.
     /// This function must be called prior to playback.

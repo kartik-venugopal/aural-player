@@ -94,3 +94,10 @@ class AtomicCounter<T: SignedInteger> {
         }
     }
 }
+
+extension AtomicCounter: CustomStringConvertible {
+    
+    var description: String {
+        String(value)
+    }
+}

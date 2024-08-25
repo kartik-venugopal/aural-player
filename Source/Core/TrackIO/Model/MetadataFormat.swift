@@ -12,7 +12,7 @@ import Foundation
 ///
 /// An enumeration of all possible formats of track metadata.
 ///
-enum MetadataFormat: String {
+enum MetadataFormat: String, Codable {
     
     case common
     case iTunes

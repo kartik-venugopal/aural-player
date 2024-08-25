@@ -96,7 +96,7 @@ class Track: Hashable, PlaylistItem, PlayableItem {
     var lyrics: String?
     
     // Non-essential metadata
-    var auxiliaryMetadata: [String: MetadataEntry] = [:]
+    var nonEssentialMetadata: [String: MetadataEntry] = [:]
     
     var cueSheetMetadata: CueSheetMetadata?
     
@@ -153,7 +153,7 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         self.conductor = metadata.conductor
         self.lyricist = metadata.lyricist
         
-        self.auxiliaryMetadata = metadata.auxiliaryMetadata
+        self.nonEssentialMetadata = metadata.nonEssentialMetadata
         
         self.bpm = metadata.bpm
         self.year = metadata.year
@@ -183,23 +183,23 @@ class Track: Hashable, PlaylistItem, PlayableItem {
         // Cue sheet metadata
         
         if let cueSheetDiscID = cueSheetMetadata?.discID {
-            auxiliaryMetadata["DiscID"] = MetadataEntry(format: .other, key: "DiscID", value: cueSheetDiscID)
+            nonEssentialMetadata["DiscID"] = MetadataEntry(format: .other, key: "DiscID", value: cueSheetDiscID)
         }
         
         if let cueSheetComment = cueSheetMetadata?.comment {
             
-            let hasExistingCommentField = auxiliaryMetadata.contains(where: {$1.key == "Comment"})
+            let hasExistingCommentField = nonEssentialMetadata.contains(where: {$1.key == "Comment"})
             let key = hasExistingCommentField ? "Additional Comment" : "Comment"
             
-            auxiliaryMetadata[key] = MetadataEntry(format: .other, key: key, value: cueSheetComment)
+            nonEssentialMetadata[key] = MetadataEntry(format: .other, key: key, value: cueSheetComment)
         }
         
         for (key, value) in cueSheetMetadata?.auxiliaryMetadata ?? [:] {
             
-            let hasExistingKey = auxiliaryMetadata.contains(where: {$1.key == key})
+            let hasExistingKey = nonEssentialMetadata.contains(where: {$1.key == key})
             let theKey = hasExistingKey ? "(Cue sheet) \(key)" : key
             
-            auxiliaryMetadata[theKey] = MetadataEntry(format: .other, key: theKey, value: value)
+            nonEssentialMetadata[theKey] = MetadataEntry(format: .other, key: theKey, value: value)
         }
         
         self.replayGain = metadata.replayGain ?? cueSheetMetadata?.replayGain

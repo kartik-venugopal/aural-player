@@ -4,6 +4,10 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     override var displayName: String {"The Play Queue"}
     
+    override var trackLoadQoS: DispatchQoS.QoSClass {
+        .userInitiated
+    }
+    
     // MARK: Accessor functions
 
     // Stores the currently playing track, if there is one
@@ -249,5 +253,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         }
         
         messenger.publish(.PlayQueue.doneAddingTracks)
+        print("PlayQueue.postTrackLoad() - \(Date.nowTimestampString)")
     }
 }

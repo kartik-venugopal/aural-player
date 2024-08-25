@@ -39,7 +39,6 @@ class FileReader: FileReaderProtocol {
         
         metadataRegistry[file] = metadata
         return metadata
-        
     }
     
     func computeAccurateDuration(for file: URL) -> Double? {
@@ -74,12 +73,12 @@ class FileReader: FileReaderProtocol {
         return art
     }
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
+    func getAudioInfo(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AudioInfo {
         
         // Load aux metadata for the track.
         
         let actualFileReader: FileReaderProtocol = file.isNativelySupported ? avfReader : ffmpegReader
-        return actualFileReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext)
+        return actualFileReader.getAudioInfo(for: file, loadingAudioInfoFrom: playbackContext)
     }
     
     func getAllMetadata(for file: URL) -> FileMetadata {

@@ -27,7 +27,9 @@ fileprivate var needToMigrateLegacySettings: Bool = false
 
 let appDelegate: AppDelegate = NSApp.delegate as! AppDelegate
 
-let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
+let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile,
+                                                                metadataStateFile: FilesAndPaths.metadataStateFile)
+
 let appPersistentState: AppPersistentState = {
     
     // TODO: Replace try? with do {try} and log the error!
@@ -122,7 +124,7 @@ fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQu
 let fileReader: FileReader = FileReader()
 let trackReader: TrackReader = TrackReader(fileReader, coverArtReader)
 
-let metadataRegistry: MetadataRegistry = MetadataRegistry(persistentState: nil)
+let metadataRegistry: MetadataRegistry = MetadataRegistry(persistentState: persistenceManager.loadMetadata())
 
 let coverArtReader: CoverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
 let fileCoverArtReader: FileCoverArtReader = FileCoverArtReader(fileReader)

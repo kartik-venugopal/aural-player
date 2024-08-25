@@ -46,6 +46,11 @@ extension AppDelegate {
                 
                 player.tearDown()
                 audioGraph.tearDown()
+            },
+            
+            // Metadata state
+            BlockOperation {
+                persistenceManager.save(metadataState: metadataRegistry.persistentState)
             }
             
         ], waitUntilFinished: true)

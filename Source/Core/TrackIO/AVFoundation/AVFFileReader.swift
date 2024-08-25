@@ -98,7 +98,7 @@ class AVFFileReader: FileReaderProtocol {
             parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in auxiliaryMetadata[k] = v}
         }
         
-        metadata.auxiliaryMetadata = auxiliaryMetadata
+        metadata.nonEssentialMetadata = auxiliaryMetadata
         
         return metadata
     }
@@ -121,16 +121,14 @@ class AVFFileReader: FileReaderProtocol {
         return AVFPlaybackContext(for: audioFile)
     }
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
+    func getAudioInfo(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AudioInfo {
         
         // Construct a metadata map for this file.
         let metadataMap = AVFMappedMetadata(file: file)
-        return doGetAuxiliaryMetadata(for: file, fromMap: metadataMap, loadingAudioInfoFrom: playbackContext)
+        return doGetAudioInfo(for: file, fromMap: metadataMap, loadingAudioInfoFrom: playbackContext)
     }
     
-    private func doGetAuxiliaryMetadata(for file: URL, fromMap metadataMap: AVFMappedMetadata, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
-        
-        var metadata = AuxiliaryMetadata()
+    private func doGetAudioInfo(for file: URL, fromMap metadataMap: AVFMappedMetadata, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AudioInfo {
         
         // Load audio info for the track.
         
@@ -187,9 +185,7 @@ class AVFFileReader: FileReaderProtocol {
             audioInfo.bitRate = (Double(fileSize.sizeBytes) * 8 / (Double(metadataMap.avAsset.duration.seconds) * Double(FileSize.KB))).roundedInt
         }
         
-        metadata.audioInfo = audioInfo
-        
-        return metadata
+        return audioInfo
     }
     
     func getAllMetadata(for file: URL) -> FileMetadata {
@@ -205,7 +201,7 @@ class AVFFileReader: FileReaderProtocol {
             NSLog("Error retrieving playlist metadata for file: '\(file.path)'. Error: \(error)")
         }
         
-        metadata.auxiliary = doGetAuxiliaryMetadata(for: file, fromMap: metadataMap, loadingAudioInfoFrom: nil)
+        metadata.audioInfo = doGetAudioInfo(for: file, fromMap: metadataMap, loadingAudioInfoFrom: nil)
         
         let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
         metadata.primary?.art = parsers.firstNonNilMappedValue {$0.getArt(metadataMap)}

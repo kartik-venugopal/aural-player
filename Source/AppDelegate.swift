@@ -60,8 +60,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        print("applicationDidFinishLaunching - \(Date.nowTimestampString)")
+        
         // Force eager loading of persistent state
-        eagerlyInitializeObjects(appPersistentState)
+        eagerlyInitializeObjects(appPersistentState, metadataRegistry)
         
         if appSetup.setupRequired {
             performAppSetup()

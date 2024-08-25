@@ -15,13 +15,22 @@ import Foundation
 class PersistenceManager {
     
     let persistentStateFile: URL
+    let metadataStateFile: URL
     
     var persistentStateFileExists: Bool {
         persistentStateFile.exists
     }
 
-    init(persistentStateFile: URL) {
+    init(persistentStateFile: URL, metadataStateFile: URL) {
+        
         self.persistentStateFile = persistentStateFile
+        self.metadataStateFile = metadataStateFile
+    }
+    
+    func save(metadataState: MetadataPersistentState) {
+        
+        metadataStateFile.parentDir.createDirectory()
+        metadataState.save(toFile: metadataStateFile)
     }
     
     func save(persistentState: AppPersistentState) {
@@ -32,5 +41,9 @@ class PersistenceManager {
     
     func load<S>(objectOfType type: S.Type) -> S? where S: Decodable {
         type.load(fromFile: persistentStateFile)
+    }
+    
+    func loadMetadata() -> MetadataPersistentState? {
+        MetadataPersistentState.load(fromFile: metadataStateFile)
     }
 }

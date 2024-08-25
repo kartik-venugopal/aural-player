@@ -29,6 +29,8 @@ struct FilesAndPaths {
     static let persistentStateFileName = "state.json"
     static let persistentStateFile: URL = baseDir.appendingPathComponent(persistentStateFileName, isDirectory: false)
     
+    static let metadataStateFile: URL = baseDir.appendingPathComponent("metadata.json", isDirectory: false)
+    
     static let logFileName = "aural.log"
     static let logFile: URL = baseDir.appendingPathComponent(logFileName, isDirectory: false)
     

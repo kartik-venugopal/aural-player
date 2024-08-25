@@ -79,6 +79,8 @@ extension AppDelegate {
     
     func initializeMetadataComponents() {
         
+        print("initializeMetadataComponents - \(Date.nowTimestampString)")
+        
         playQueueDelegate.initialize(fromPersistentState: appPersistentState.playQueue, appLaunchFiles: filesToOpen)
         favoritesDelegate.initialize(fromPersistentState: appPersistentState.favorites)
         bookmarksDelegate.initialize(fromPersistentState: appPersistentState.bookmarks)

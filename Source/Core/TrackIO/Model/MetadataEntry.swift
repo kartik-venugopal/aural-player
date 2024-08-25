@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Encapsulates a single generic metadata key-value pair.
 ///
-struct MetadataEntry {
+struct MetadataEntry: Codable {
     
     // Type: e.g. ID3 or iTunes
     let format: MetadataFormat
