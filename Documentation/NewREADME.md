@@ -13,11 +13,19 @@
 
 ## Overview
 
-Aural Player is an audio player for macOS. It aims to bring that nostalgic Winamp experience to macOS, emphasizing simplicity, ease of use. and fun! The new 4.0 version brings with it enhanced usability, better aesthetics, and new ways to browse, search, and organize your music collection.
+Aural is an audio file player for macOS. If you loved Winamp on Windows, chances are you'll love Aural 😉 Made for those who still have a bunch of audio files sitting around, the main aims here are ease of use, being able to tinker with sound (if that's your thing), and customizability.
 
-Aural can do a lot, but at its core, it's about drag-drop-and-play. In this online streaming age, if you still have a bunch of audio files collecting dust on your hard drive  ... then this app is for you! Check out the rich new library and file system browser. 
+If you're a long-time user, you'll notice the many improvements in v4 - better aesthetics, enhanced usability, and new ways to browse, search, and organize your music collection. Note - while "preview" releases are available now, v4 is still in development and expected to come out in late 2024.
 
-With far-reaching audio formats support, you can throw almost anything at Aural and it will probably be able to play it :)
+### Project philosophy
+
+Aural doesn't aim to be perfect or to be the best player out there. This is an app that aims to be fun, to incorporate ideas from its community of users, and to incrementally improve over time. It wouldn't have made it this far without all the amazing user feedback and bug reports 🙏
+
+## Standout features
+
+### Extensive audio formats support
+
+Thanks to the power of ffmpeg, you can throw almost any format at Aural and it will probably be able to play it! FLAC, Vorbis, Opus, APE, Musepack, and WMA are some of the many formats supported, in addition to all native (CoreAudio) formats.
 
 If you're an audiophile who needs each track to sound a certain way, you'll appreciate the built-in effects and AU plugin support. Aural can also remember your sound settings per track!
 
@@ -25,9 +33,6 @@ Make the app uniquely yours by trying its several fun theming options!
 
 And with a modular UI and multiple app presentation modes, you can mold Aural to fit onto your desktop just the way you want.
 
-## Project philosophy
-
-Aural doesn't aim to be perfect or to be the best player out there. This is an app that aims to be fun, to incorporate ideas from its community of users, and to incrementally improve over time.
 
 ## Key features
 
