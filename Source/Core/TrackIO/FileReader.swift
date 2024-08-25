@@ -29,7 +29,9 @@ class FileReader: FileReaderProtocol {
     
     func getPrimaryMetadata(for file: URL) throws -> PrimaryMetadata {
         
-        if let cachedMetadata = metadataRegistry[file] {
+        let isCacheEnabled: Bool = preferences.metadataPreferences.cacheTrackMetadata.value
+        
+        if isCacheEnabled, let cachedMetadata = metadataRegistry[file] {
             return cachedMetadata
         }
         
@@ -37,7 +39,10 @@ class FileReader: FileReaderProtocol {
             try avfReader.getPrimaryMetadata(for: file) :
             try ffmpegReader.getPrimaryMetadata(for: file)
         
-        metadataRegistry[file] = metadata
+        if isCacheEnabled {
+            metadataRegistry[file] = metadata
+        }
+        
         return metadata
     }
     

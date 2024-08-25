@@ -19,7 +19,6 @@ protocol FontSchemeObserver {
 
 extension FontSchemesManager {
     
-    // TODO: Call this from AppModeManager.dismissMode()
     func stopObserving() {
         schemeObservers.removeAll()
     }

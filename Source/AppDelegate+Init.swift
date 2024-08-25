@@ -106,7 +106,10 @@ extension AppDelegate {
         // (they are not referred to in code that is executed on app startup).
         
         //        _ = libraryDelegate
-        eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
+        }
         
         WaveformView.initializeImageCache()
     }

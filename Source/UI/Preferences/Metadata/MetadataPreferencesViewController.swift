@@ -15,6 +15,8 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     @IBOutlet weak var tabView: NSTabView!
     
+    @IBOutlet weak var btnCacheTrackMetadata: CheckBox!
+    
     @IBOutlet weak var timeoutStepper: NSStepper!
     @IBOutlet weak var lblTimeout: NSTextField!
     
@@ -28,6 +30,8 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     private var subViews: [PreferencesViewProtocol] = []
     
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
         
         subViews = [musicBrainzPreferencesView, lastFMPreferencesView]
         
@@ -43,6 +47,8 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func resetFields() {
         
+        btnCacheTrackMetadata.onIf(metadataPrefs.cacheTrackMetadata.value)
+        
         timeoutStepper.integerValue = metadataPrefs.httpTimeout.value
         lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
         
@@ -55,6 +61,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func save() throws {
         
+        metadataPrefs.cacheTrackMetadata.value = btnCacheTrackMetadata.isOn
         metadataPrefs.httpTimeout.value = timeoutStepper.integerValue
         
         for subView in subViews {

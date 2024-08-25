@@ -23,11 +23,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="W8Y-oq-0wu">
-            <rect key="frame" x="0.0" y="0.0" width="658" height="400"/>
+            <rect key="frame" x="0.0" y="0.0" width="658" height="340"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xsz-F8-nwx" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="26" y="303.5" width="322" height="32"/>
+                    <rect key="frame" x="26" y="243.5" width="322" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Enable Last.fm scrobbling" bezelStyle="regularSquare" imagePosition="left" inset="2" id="IIp-GZ-RuH">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -35,7 +35,7 @@
                     </buttonCell>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbL-NK-8Bh" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="26" y="276.5" width="588" height="32"/>
+                    <rect key="frame" x="26" y="216.5" width="588" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Enable Last.fm love / unlove   (triggered by changes to 'Favorites' list)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Tq7-gP-dap">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -43,7 +43,7 @@
                     </buttonCell>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nmp-yG-Rvg">
-                    <rect key="frame" x="51" y="238" width="206" height="20"/>
+                    <rect key="frame" x="51" y="178" width="206" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(Not Authenticated)" id="M99-1H-8e9">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -52,7 +52,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TMc-yz-eoY">
-                    <rect key="frame" x="24" y="150" width="342" height="59"/>
+                    <rect key="frame" x="24" y="90" width="342" height="59"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Vta-Jo-7TH">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -62,7 +62,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x96-AG-5VF">
-                    <rect key="frame" x="23" y="109" width="348" height="43"/>
+                    <rect key="frame" x="23" y="49" width="348" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Step 2 - After completing Step 1 in the browser, click &quot;Get Session Key&quot; to obtain a persistent Session Key." id="vfe-PE-dyC">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -71,12 +71,12 @@
                     </textFieldCell>
                 </textField>
                 <imageView focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xIH-qV-9T5" userLabel="Error icon">
-                    <rect key="frame" x="26" y="239" width="18" height="18"/>
+                    <rect key="frame" x="26" y="179" width="18" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="Error" id="L53-Tx-qmk"/>
                 </imageView>
                 <button toolTip="Get a persistent Session Key from Last.fm that will be saved for long-term reuse." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mQT-il-2Px" userLabel="Btn Browse">
-                    <rect key="frame" x="430" y="123" width="174" height="19"/>
+                    <rect key="frame" x="430" y="63" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Get Session Key" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="1Gy-U2-N4s" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -90,7 +90,7 @@ DQ
                     </connections>
                 </button>
                 <button toolTip="Launch Last.fm in the web browser to allow Aural to scrobble to your Last.fm account." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sfq-sD-TN1" userLabel="Btn Browse">
-                    <rect key="frame" x="430" y="184" width="174" height="19"/>
+                    <rect key="frame" x="430" y="124" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Grant Aural Permission" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="bmG-jb-gdt" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -104,7 +104,7 @@ DQ
                     </connections>
                 </button>
                 <button toolTip="Reset the Session Key and redo the authentication process." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HnK-tL-q1v" userLabel="Btn Browse">
-                    <rect key="frame" x="430" y="233" width="174" height="19"/>
+                    <rect key="frame" x="430" y="173" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Re-Authenticate" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="q5y-Xh-Ihf" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

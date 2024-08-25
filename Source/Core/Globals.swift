@@ -166,7 +166,8 @@ let mediaKeyHandler: MediaKeyHandler = MediaKeyHandler(preferences.controlsPrefe
 
 //let libraryMonitor: LibraryMonitor = .init(libraryPersistentState: appPersistentState.library)
 
-let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, playQueue: playQueueDelegate, audioGraph: audioGraphDelegate,
+let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, playQueue: playQueueDelegate, 
+                                                                      audioGraph: audioGraphDelegate,
                                                                       preferences: preferences)
 
 var persistentStateOnExit: AppPersistentState {
@@ -183,9 +184,6 @@ var persistentStateOnExit: AppPersistentState {
     persistentState.playlists = playlistsManager.persistentState
     persistentState.favorites = _favoritesDelegate.persistentState
     persistentState.bookmarks = _bookmarksDelegate.persistentState
-    
-    // TODO: Remove this (not needed?)
-//    persistentState.metadata = metadataRegistry.persistentState
     
     persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
     

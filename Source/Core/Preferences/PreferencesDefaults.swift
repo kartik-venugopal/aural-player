@@ -132,6 +132,7 @@ struct PreferencesDefaults {
     ///
     struct Metadata {
         
+        static let cacheTrackMetadata: Bool = true
         static let httpTimeout: Int = 5
     
         ///

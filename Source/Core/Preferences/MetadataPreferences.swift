@@ -17,6 +17,7 @@ class MetadataPreferences {
     private static let keyPrefix: String = "metadata"
     private typealias Defaults = PreferencesDefaults.Metadata
     
+    lazy var cacheTrackMetadata: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).cacheTrackMetadata", defaultValue: Defaults.cacheTrackMetadata)
     lazy var httpTimeout: UserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).httpTimeout", defaultValue: Defaults.httpTimeout)
     
     let musicBrainz: MusicBrainzPreferences
