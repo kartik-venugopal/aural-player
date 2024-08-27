@@ -90,13 +90,37 @@ class TrackLoadSession {
         
         let tracksToRead = tracks.values.filter {$0.result != .existsInTrackList}.map {$0.track}
         
-        queue.addOperations(tracksToRead.map {track in
+        for track in tracksToRead {
             
-            BlockOperation {
-                trackReader.loadPrimaryMetadata(for: track)
+            if let metadata = metadataRegistry[track.file] {
+                
+                var fileMetadata = FileMetadata()
+                fileMetadata.primary = metadata
+                
+                track.setPrimaryMetadata(from: fileMetadata)
+                
+                if track.art == nil {
+                    track.art = musicBrainzCache.getCoverArt(forTrack: track)
+                }
+                
+            } else {
+                
+                queue.addOperation {
+                    trackReader.loadPrimaryMetadata(for: track)
+                }
             }
-            
-        }, waitUntilFinished: true)
+        }
+        
+        queue.waitUntilAllOperationsAreFinished()
+                                    
+//        queue.addOperations(tracksToRead.map {track in
+//            
+//            BlockOperation {
+//                trackReader.loadPrimaryMetadata(for: track)
+//            }
+//            
+//        }, waitUntilFinished: true)
+        
         markBatchReadErrors()
         
         let newTrackIndices = loader.acceptBatch(fromSession: self)
