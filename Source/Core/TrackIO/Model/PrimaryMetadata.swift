@@ -76,6 +76,8 @@ class PrimaryMetadata {
         self.totalDiscs = persistentState.totalDiscs
         
         self.duration = persistentState.duration ?? 0
+        self.durationIsAccurate = persistentState.durationIsAccurate ?? true
+        
         self.isProtected = persistentState.isProtected
         
         self.chapters = (persistentState.chapters ?? []).enumerated().compactMap {Chapter.init(persistentState: $1, index: $0)}

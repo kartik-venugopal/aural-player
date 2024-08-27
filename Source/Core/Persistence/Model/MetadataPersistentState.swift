@@ -37,6 +37,7 @@ struct PrimaryMetadataPersistentState: Codable {
     let totalDiscs: Int?
     
     let duration: Double?
+    let durationIsAccurate: Bool?
     let isProtected: Bool?
     
     var bpm: Int?
@@ -70,6 +71,8 @@ struct PrimaryMetadataPersistentState: Codable {
         self.totalDiscs = metadata.totalDiscs
         
         self.duration = metadata.duration
+        self.durationIsAccurate = metadata.durationIsAccurate
+        
         self.isProtected = metadata.isProtected
         
         self.bpm = metadata.bpm

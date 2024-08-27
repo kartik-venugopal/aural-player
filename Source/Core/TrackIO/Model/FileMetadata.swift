@@ -20,7 +20,7 @@ struct FileMetadata {
     var isPlayable: Bool {validationError == nil}
     var validationError: DisplayableError?
     
-    init(primary: PrimaryMetadata? = nil, audioInfo: AudioInfo? = nil) {
+    init(primary: PrimaryMetadata, audioInfo: AudioInfo? = nil) {
         
         self.primary = primary
         self.audioInfo = audioInfo
