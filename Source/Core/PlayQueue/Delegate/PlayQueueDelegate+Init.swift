@@ -14,7 +14,7 @@ extension PlayQueueDelegate {
     
     func initialize(fromPersistentState persistentState: PlayQueuePersistentState?, appLaunchFiles: [URL]) {
         
-        print("PlayQueueDelegate.initialize() - \(Date.nowTimestampString)")
+//        print("PlayQueueDelegate.initialize() - \(Date.nowTimestampString)")
         
         lazy var playQueuePreferences = preferences.playQueuePreferences
         lazy var playbackPreferences = preferences.playbackPreferences

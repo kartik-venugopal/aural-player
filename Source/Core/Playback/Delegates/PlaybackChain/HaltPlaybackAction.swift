@@ -25,11 +25,7 @@ class HaltPlaybackAction: PlaybackChainAction {
         if context.currentState != .stopped, let playingTrack = context.currentTrack {
             
             player.stop()
-            
-            // If repeating the same (playing) track, don't close the context.
-            if context.requestedTrack != playingTrack {
-                playingTrack.playbackContext?.close()
-            }
+            playingTrack.playbackContext?.close()
         }
         
         chain.proceed(context)

@@ -127,6 +127,7 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.totalDiscs = discNumberAndTotal?.total
         
         metadata.duration = metadataMap.fileCtx.duration
+//        print("For file: \(file.path), est. method = \(metadataMap.fileCtx.avContext.duration_estimation_method)")
         metadata.durationIsAccurate = metadata.duration > 0 && metadataMap.fileCtx.estimatedDurationIsAccurate
         
         metadata.chapters = metadataMap.fileCtx.chapters.map {Chapter($0)}

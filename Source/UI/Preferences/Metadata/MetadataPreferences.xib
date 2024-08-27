@@ -32,7 +32,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FnG-sc-wtT" userLabel="Timeout Label">
-                    <rect key="frame" x="422" y="392" width="40" height="20"/>
+                    <rect key="frame" x="583" y="392" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5 sec" id="ol3-AL-lgn">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="NbU-Tl-mUc">
@@ -45,7 +45,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ngp-xp-zWL" userLabel="Timeout Stepper">
-                    <rect key="frame" x="462" y="392" width="15" height="22"/>
+                    <rect key="frame" x="623" y="392" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="60" doubleValue="5" id="Mxi-n7-IJc"/>
                     <connections>
@@ -80,6 +80,18 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KEB-oj-wX7">
+                    <rect key="frame" x="497" y="434" width="139" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <string key="toolTip">Clearing the metadata cache may be necessary if your tracks have fresh metadata that is newer than the metadata currently stored in the cache, perhaps as a result of adding metdaata tags.</string>
+                    <buttonCell key="cell" type="roundRect" title="Clear the cache" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2fz-tm-wqQ">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clearCacheAction:" target="-2" id="AMF-ne-d1K"/>
+                    </connections>
                 </button>
             </subviews>
             <point key="canvasLocation" x="148" y="-450"/>

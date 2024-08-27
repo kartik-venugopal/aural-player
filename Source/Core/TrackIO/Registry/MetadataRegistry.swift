@@ -25,7 +25,7 @@ class MetadataRegistry: PersistentRootObject {
             registry[entry.key] = PrimaryMetadata(persistentState: entry.value)
         }
         
-        print("\nMetadataRegistry: Initialized with \(registry.count) entries.")
+        //        print("\nMetadataRegistry: Initialized with \(registry.count) entries.")
     }
     
     subscript(_ key: URL) -> PrimaryMetadata? {
@@ -37,6 +37,10 @@ class MetadataRegistry: PersistentRootObject {
         set {
             registry[key] = newValue
         }
+    }
+    
+    func clearRegistry() {
+        registry.removeAll()
     }
     
     var persistentState: MetadataPersistentState {

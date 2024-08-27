@@ -53,6 +53,13 @@ class TrackReader {
             
             durationIsAccurate = primaryMetadata.durationIsAccurate
             
+//            if !track.file.isNativelySupported {
+//                
+//                if !durationIsAccurate {
+//                    print("For file: \(track.file.path), duration \(primaryMetadata.duration) is inaccurate.")
+//                }
+//            }
+            
         } catch {
             
             fileMetadata.validationError = (error as? DisplayableError) ?? InvalidTrackError(track.file, "Track is not playable.")
@@ -73,8 +80,18 @@ class TrackReader {
                 
                 if let duration = self.fileReader.computeAccurateDuration(for: track.file), duration > 0 {
                     
+//                    print("For file: \(track.file.path), ACCURATE duration is: \(duration)")
+                    
                     track.duration = duration
                     track.durationIsAccurate = true
+                    
+//                    let isCacheEnabled: Bool = preferences.metadataPreferences.cacheTrackMetadata.value
+//                    
+//                    if isCacheEnabled, var metadataInCache = metadataRegistry[track.file] {
+//                        
+//                        print("Updating duration in cache to: \(duration)")
+//                        metadataInCache.duration = duration
+//                    }
                     
                     self.messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
                 }

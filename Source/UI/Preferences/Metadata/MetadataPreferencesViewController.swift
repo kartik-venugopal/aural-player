@@ -55,6 +55,12 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         subViews.forEach {$0.resetFields()}
     }
     
+    @IBAction func clearCacheAction(_ sender: NSButton) {
+        
+        metadataRegistry.clearRegistry()
+        NSAlert.showInfo(withTitle: "Action completed", andText: "The metadata cache has been cleared!")
+    }
+    
     @IBAction func httpTimeoutStepperAction(_ sender: NSStepper) {
         lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
     }

@@ -16,7 +16,7 @@ import Foundation
 ///
 /// The artist / album / genre fields help the playlist categorize tracks into groups also participate in searching and sorting.
 ///
-struct PrimaryMetadata {
+class PrimaryMetadata {
     
     var title: String?
     var artist: String?
