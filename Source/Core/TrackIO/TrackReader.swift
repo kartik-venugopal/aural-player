@@ -9,6 +9,8 @@
 //
 import Foundation
 
+typealias TrackIOCompletionHandler = () -> Void
+
 ///
 /// Handles loading of metadata for a track.
 ///
@@ -23,55 +25,39 @@ class TrackReader {
     static let mediumPriorityQueue: OperationQueue = .init(opCount: max(2, System.physicalCores / 2), qos: .utility)
     static let lowPriorityQueue: OperationQueue = .init(opCount: max(2, System.physicalCores / 2), qos: .background)
     
-    // The delegate object that this object defers all read operations to.
-    private var fileReader: FileReaderProtocol
-    
-    private var coverArtReader: CoverArtReaderProtocol
-    
     private lazy var logger: Logger = .init(for: self)
     
-    init(_ fileReader: FileReaderProtocol, _ coverArtReader: CoverArtReaderProtocol) {
-        
-        self.fileReader = fileReader
-        self.coverArtReader = coverArtReader
-    }
     
     ///
     /// Loads the essential metadata fields that are required for a track to be loaded into the playlist.
     ///
-    func loadPrimaryMetadataAsync(for track: Track, onQueue opQueue: OperationQueue, completionHandler: () -> Void) {
+    func loadPrimaryMetadataAsync(for track: Track, onQueue opQueue: OperationQueue, completionHandler: TrackIOCompletionHandler? = nil) {
         
         if preferences.metadataPreferences.cacheTrackMetadata.value,
             let cachedMetadata = metadataRegistry[track.file] {
 
-            var fileMetadata = FileMetadata(primary: cachedMetadata)
-            fileMetadata.primary = cachedMetadata
+            let fileMetadata = FileMetadata(primary: cachedMetadata)
+            doLoadPrimaryMetadata(for: track, with: fileMetadata, completionHandler: completionHandler)
+            return
         }
         
-        var fileMetadata: FileMetadata!
-        
-        do {
+        opQueue.addOperation {
             
-            let primaryMetadata = try fileReader.getPrimaryMetadata(for: track.file)
-            var fileMetadata = FileMetadata(primary: primaryMetadata)
-            
-//            if !track.file.isNativelySupported {
-//                
-//                if !durationIsAccurate {
-//                    print("For file: \(track.file.path), duration \(primaryMetadata.duration) is inaccurate.")
-//                }
-//            }
-            
-        } catch {
-            
-            fileMetadata.validationError = (error as? DisplayableError) ?? InvalidTrackError(track.file, "Track is not playable.")
-            logger.error("Failed to read metadata for track: '\(track.file.path)'. Error: \(error.localizedDescription)")
+            do {
+                
+                let primaryMetadata = try fileReader.getPrimaryMetadata(for: track.file)
+                let fileMetadata = FileMetadata(primary: primaryMetadata)
+                self.doLoadPrimaryMetadata(for: track, with: fileMetadata, completionHandler: completionHandler)
+                
+            } catch {
+                
+                track.validationError = (error as? DisplayableError) ?? InvalidTrackError(track.file, "Track is not playable.")
+                self.logger.error("Failed to read metadata for track: '\(track.file.path)'. Error: \(error.localizedDescription)")
+            }
         }
-        
-        
     }
     
-    private func doLoadPrimaryMetadata(for track: Track, with metadata: FileMetadata, completionHandler: () -> Void) {
+    private func doLoadPrimaryMetadata(for track: Track, with metadata: FileMetadata, completionHandler: TrackIOCompletionHandler?) {
         
         track.setPrimaryMetadata(from: metadata)
         
@@ -79,20 +65,22 @@ class TrackReader {
             track.art = musicBrainzCache.getCoverArt(forTrack: track)
         }
         
+        let durationIsAccurate = metadata.primary?.durationIsAccurate ?? false
+        
         // For non-native tracks that don't have accurate duration, compute duration async.
         
-        if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !metadata.primary.durationIsAccurate {
+        if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
             computeAccurateDuration(forTrack: track)
         }
         
-        
+        completionHandler?()
     }
     
     func computeAccurateDuration(forTrack track: Track) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             
-            guard let duration = self.fileReader.computeAccurateDuration(for: track.file), duration > 0 else {return}
+            guard let duration = fileReader.computeAccurateDuration(for: track.file), duration > 0 else {return}
             
             track.duration = duration
             track.durationIsAccurate = true
@@ -180,7 +168,7 @@ class TrackReader {
         
         DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
             
-            if let art = self.coverArtReader.getCoverArt(forTrack: track) {
+            if let art = coverArtReader.getCoverArt(forTrack: track) {
                 
                 track.art = art
                 Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))

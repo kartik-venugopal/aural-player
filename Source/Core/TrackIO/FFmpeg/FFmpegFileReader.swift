@@ -222,8 +222,6 @@ class FFmpegFileReader: FileReaderProtocol {
     
     func getAllMetadata(for file: URL) -> FileMetadata {
         
-        var metadata = FileMetadata()
-        
         do {
             
             // Construct an ffmpeg file context for this track.
@@ -242,18 +240,20 @@ class FFmpegFileReader: FileReaderProtocol {
             allParsers.forEach {$0.mapMetadata(metadataMap)}
             let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
             
-            metadata.primary = try doGetPrimaryMetadata(for: file, fromCtx: fctx, stream: stream, codec: codec, andMap: metadataMap, usingParsers: relevantParsers)
+            var metadata = FileMetadata(primary: try doGetPrimaryMetadata(for: file, fromCtx: fctx, stream: stream, codec: codec, andMap: metadataMap, usingParsers: relevantParsers))
             metadata.audioInfo = doGetAudioInfo(for: file, fromCtx: fctx, andMap: metadataMap, loadingAudioInfoFrom: nil, usingParsers: relevantParsers)
             
             if let imageData = fctx.bestImageStream?.attachedPic.data {
                 metadata.primary?.art = CoverArt(imageData: imageData)
             }
             
+            return metadata
+            
         } catch {
+            
             NSLog("Error retrieving metadata for file: '\(file.path)'. Error: \(error)")
+            return FileMetadata(primary: nil)
         }
-        
-        return metadata
     }
     
     func getArt(for file: URL) -> CoverArt? {

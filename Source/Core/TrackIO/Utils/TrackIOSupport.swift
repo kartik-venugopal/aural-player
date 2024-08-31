@@ -90,13 +90,11 @@ class TrackLoadSession {
         
         let tracksToRead = tracks.values.filter {$0.result != .existsInTrackList}.map {$0.track}
         
-        queue.addOperations(tracksToRead.map {track in
-            
-            BlockOperation {
-                trackReader.loadPrimaryMetadata(for: track)
-            }
-            
-        }, waitUntilFinished: true)
+        for track in tracksToRead {
+            trackReader.loadPrimaryMetadataAsync(for: track, onQueue: queue)
+        }
+        
+        queue.waitUntilAllOperationsAreFinished()
         markBatchReadErrors()
         
         let newTrackIndices = loader.acceptBatch(fromSession: self)

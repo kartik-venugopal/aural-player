@@ -122,7 +122,7 @@ var bookmarksDelegate: BookmarksDelegateProtocol {_bookmarksDelegate}
 fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQueueDelegate, playbackDelegate)
 
 let fileReader: FileReader = FileReader()
-let trackReader: TrackReader = TrackReader(fileReader, coverArtReader)
+let trackReader: TrackReader = TrackReader()
 
 let metadataRegistry: MetadataRegistry = MetadataRegistry(persistentState: persistenceManager.loadMetadata())
 

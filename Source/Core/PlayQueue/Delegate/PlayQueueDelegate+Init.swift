@@ -14,7 +14,7 @@ extension PlayQueueDelegate {
     
     func initialize(fromPersistentState persistentState: PlayQueuePersistentState?, appLaunchFiles: [URL]) {
         
-//        print("PlayQueueDelegate.initialize() - \(Date.nowTimestampString)")
+        print("PlayQueueDelegate.initialize() - \(Date.nowTimestampString)")
         
         lazy var playQueuePreferences = preferences.playQueuePreferences
         lazy var playbackPreferences = preferences.playbackPreferences
@@ -92,9 +92,7 @@ extension PlayQueueDelegate {
             let track = Track(trackFile)
             item = TrackHistoryItem(track: track, lastEventTime: lastEventTime, eventCount: eventCount)
             
-            TrackReader.mediumPriorityQueue.addOperation {
-                trackReader.loadPrimaryMetadata(for: track)
-            }
+            trackReader.loadPrimaryMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
             
         case .playlistFile:
             
