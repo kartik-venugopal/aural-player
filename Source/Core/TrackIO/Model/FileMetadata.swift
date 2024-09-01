@@ -12,17 +12,21 @@ import Foundation
 ///
 /// A container for all possible metadata for a file / track.
 ///
-struct FileMetadata {
-   
+class FileMetadata {
+
+    let fileSystemInfo: FileSystemInfo
+    
     var primary: PrimaryMetadata?
+    var cueSheet: CueSheetMetadata?
     var audioInfo: AudioInfo?
     
     var isPlayable: Bool {validationError == nil}
     var validationError: DisplayableError?
     
-    init(primary: PrimaryMetadata?, audioInfo: AudioInfo? = nil) {
-        
-        self.primary = primary
-        self.audioInfo = audioInfo
+    var preparationFailed: Bool = false
+    var preparationError: DisplayableError?
+    
+    init(file: URL) {
+        self.fileSystemInfo = FileSystemInfo(file: file)
     }
 }

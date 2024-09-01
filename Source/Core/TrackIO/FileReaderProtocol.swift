@@ -39,5 +39,5 @@ protocol FileReaderProtocol {
     ///
     func getAudioInfo(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AudioInfo
     
-    func getAllMetadata(for file: URL) -> FileMetadata
+//    func getAllMetadata(for file: URL) -> FileMetadata
 }

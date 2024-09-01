@@ -777,6 +777,7 @@
 		3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */; };
 		3E6C39F826AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C39F726AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift */; };
 		3E6C39FC26AA169500AF5009 /* FilterPreviewChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C39FB26AA169500AF5009 /* FilterPreviewChart.swift */; };
+		3E6E6B792C84CFAD00B87FF6 /* Track+Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E6B782C84CFAD00B87FF6 /* Track+Metadata.swift */; };
 		3E6EFFA32815309500C813AC /* TextColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6EFFA12815309500C813AC /* TextColorScheme.xib */; };
 		3E6EFFA42815309500C813AC /* TextColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EFFA22815309500C813AC /* TextColorSchemeViewController.swift */; };
 		3E7181C32B6C5A350006F66B /* FontScheme+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7181C22B6C5A350006F66B /* FontScheme+Presets.swift */; };
@@ -1890,6 +1891,7 @@
 		3E6C115325CEB9C100BF0D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E6C39F726AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutoffFrequencySliderPreviewCell.swift; sourceTree = "<group>"; };
 		3E6C39FB26AA169500AF5009 /* FilterPreviewChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPreviewChart.swift; sourceTree = "<group>"; };
+		3E6E6B782C84CFAD00B87FF6 /* Track+Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Metadata.swift"; sourceTree = "<group>"; };
 		3E6EFFA12815309500C813AC /* TextColorScheme.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextColorScheme.xib; sourceTree = "<group>"; };
 		3E6EFFA22815309500C813AC /* TextColorSchemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3E7181C02B6B08DD0006F66B /* TuneBrowserTabViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuneBrowserTabViewController+Actions.swift"; sourceTree = "<group>"; };
@@ -3002,11 +3004,13 @@
 		3E02175E2C23490E00865AC2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3E02175D2C23490E00865AC2 /* Track.swift */,
+				3E6E6B782C84CFAD00B87FF6 /* Track+Metadata.swift */,
+				3E0217552C23490E00865AC2 /* FileMetadata.swift */,
+				3E0217562C23490E00865AC2 /* FileSystemInfo.swift */,
 				3E0217512C23490E00865AC2 /* AudioInfo.swift */,
 				3E0217532C23490E00865AC2 /* Chapter.swift */,
 				3E0217542C23490E00865AC2 /* CoverArt.swift */,
-				3E0217552C23490E00865AC2 /* FileMetadata.swift */,
-				3E0217562C23490E00865AC2 /* FileSystemInfo.swift */,
 				3E0217572C23490E00865AC2 /* GroupedTrack.swift */,
 				3E0217582C23490E00865AC2 /* IndexedChapter.swift */,
 				3E0217592C23490E00865AC2 /* MetadataEntry.swift */,
@@ -3015,7 +3019,6 @@
 				3E02175C2C23490E00865AC2 /* PrimaryMetadata.swift */,
 				3E5701952C6EB16A007B8611 /* ReplayGain.swift */,
 				3E8145C52C7A3850005BA9B9 /* AlbumReplayGain.swift */,
-				3E02175D2C23490E00865AC2 /* Track.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6477,6 +6480,7 @@
 				3E0219562C23490E00865AC2 /* SearchFields.swift in Sources */,
 				3E0218D12C23490E00865AC2 /* ShuffleSequence.swift in Sources */,
 				3E0218542C23490E00865AC2 /* HistoryDelegateProtocol.swift in Sources */,
+				3E6E6B792C84CFAD00B87FF6 /* Track+Metadata.swift in Sources */,
 				3E68B8292C4433EE00F65D43 /* FFmpegScheduler+Gapless.swift in Sources */,
 				3E9C12112622208F00D90EA4 /* Theme.swift in Sources */,
 				3E0219202C23490E00865AC2 /* RemoteControlManager.swift in Sources */,

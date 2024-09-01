@@ -27,7 +27,6 @@ class TrackReader {
     
     private lazy var logger: Logger = .init(for: self)
     
-    
     ///
     /// Loads the essential metadata fields that are required for a track to be loaded into the playlist.
     ///
@@ -36,8 +35,7 @@ class TrackReader {
         if preferences.metadataPreferences.cacheTrackMetadata.value,
             let cachedMetadata = metadataRegistry[track.file] {
 
-            let fileMetadata = FileMetadata(primary: cachedMetadata)
-            doLoadPrimaryMetadata(for: track, with: fileMetadata, completionHandler: completionHandler)
+            doLoadPrimaryMetadata(for: track, with: cachedMetadata, completionHandler: completionHandler)
             return
         }
         
@@ -46,26 +44,25 @@ class TrackReader {
             do {
                 
                 let primaryMetadata = try fileReader.getPrimaryMetadata(for: track.file)
-                let fileMetadata = FileMetadata(primary: primaryMetadata)
-                self.doLoadPrimaryMetadata(for: track, with: fileMetadata, completionHandler: completionHandler)
+                self.doLoadPrimaryMetadata(for: track, with: primaryMetadata, completionHandler: completionHandler)
                 
             } catch {
                 
-                track.validationError = (error as? DisplayableError) ?? InvalidTrackError(track.file, "Track is not playable.")
+                track.metadata.validationError = (error as? DisplayableError) ?? InvalidTrackError(track.file, "Track is not playable.")
                 self.logger.error("Failed to read metadata for track: '\(track.file.path)'. Error: \(error.localizedDescription)")
             }
         }
     }
     
-    private func doLoadPrimaryMetadata(for track: Track, with metadata: FileMetadata, completionHandler: TrackIOCompletionHandler?) {
+    private func doLoadPrimaryMetadata(for track: Track, with metadata: PrimaryMetadata, completionHandler: TrackIOCompletionHandler?) {
         
-        track.setPrimaryMetadata(from: metadata)
+        track.metadata.primary = metadata
         
-        if track.art == nil {
-            track.art = musicBrainzCache.getCoverArt(forTrack: track)
+        if metadata.art == nil {
+            metadata.art = musicBrainzCache.getCoverArt(forTrack: track)
         }
         
-        let durationIsAccurate = metadata.primary?.durationIsAccurate ?? false
+        let durationIsAccurate = metadata.durationIsAccurate
         
         // For non-native tracks that don't have accurate duration, compute duration async.
         
@@ -82,8 +79,8 @@ class TrackReader {
             
             guard let duration = fileReader.computeAccurateDuration(for: track.file), duration > 0 else {return}
             
-            track.duration = duration
-            track.durationIsAccurate = true
+            track.metadata.primary?.duration = duration
+            track.metadata.primary?.durationIsAccurate = true
             
             let isCacheEnabled: Bool = preferences.metadataPreferences.cacheTrackMetadata.value
             
@@ -106,7 +103,7 @@ class TrackReader {
         // If duration has changed as a result of precise computation, set it in the track and send out an update notification
         if !track.durationIsAccurate, let playbackContext = track.playbackContext, track.duration != playbackContext.duration {
             
-            track.duration = playbackContext.duration
+            track.metadata.primary?.duration = playbackContext.duration
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
         }
     }
@@ -117,12 +114,12 @@ class TrackReader {
     func prepareForPlayback(track: Track, immediate: Bool = true) throws {
         
         // Make sure track is valid before trying to prep it for playback.
-        if let prepError = track.preparationError {
+        if let prepError = track.metadata.preparationError {
             throw prepError
             
-        } else if let validationError = track.validationError {
+        } else if let validationError = track.metadata.validationError {
             
-            track.preparationError = validationError
+            track.metadata.preparationError = validationError
             throw validationError
         }
         
@@ -147,10 +144,10 @@ class TrackReader {
             
             NSLog("Unable to prepare track \(track.displayName) for playback. Error: \(error)")
             
-            track.preparationFailed = true
+            track.metadata.preparationFailed = true
             
             if let prepError = error as? DisplayableError {
-                track.preparationError = prepError
+                track.metadata.preparationError = prepError
             }
             
             throw error
@@ -170,7 +167,7 @@ class TrackReader {
             
             if let art = coverArtReader.getCoverArt(forTrack: track) {
                 
-                track.art = art
+                track.metadata.primary?.art = art
                 Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
             }
         }
@@ -185,11 +182,11 @@ class TrackReader {
             
             var audioInfo = fileReader.getAudioInfo(for: track.file, loadingAudioInfoFrom: track.playbackContext)
             audioInfo.replayGainFromMetadata = track.replayGain
-            track.setAudioInfo(audioInfo)
+            track.metadata.audioInfo = audioInfo
             
             loadArtAsync(for: track)
         }
         
-        track.audioInfo?.replayGainFromAnalysis = replayGainScanner.cachedReplayGainData(forTrack: track)
+        track.metadata.audioInfo?.replayGainFromAnalysis = replayGainScanner.cachedReplayGainData(forTrack: track)
     }
 }

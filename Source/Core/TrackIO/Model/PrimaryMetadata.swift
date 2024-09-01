@@ -23,7 +23,23 @@ class PrimaryMetadata {
     var albumArtist: String?
     var album: String?
     var genre: String?
-    var year: Int?
+    
+    var year: Int? {
+        
+        didSet {
+            
+            guard let year = self.year else {
+                
+                self.decade = nil
+                return
+            }
+            
+            let firstYearOfDecade = year - (year % 10)
+            self.decade = "\(firstYearOfDecade)'s"
+        }
+    }
+    
+    private(set) var decade: String?
     
     var composer: String?
     var conductor: String?

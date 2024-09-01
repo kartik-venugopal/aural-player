@@ -86,10 +86,10 @@ class FileReader: FileReaderProtocol {
         return actualFileReader.getAudioInfo(for: file, loadingAudioInfoFrom: playbackContext)
     }
     
-    func getAllMetadata(for file: URL) -> FileMetadata {
-        
-        return file.isNativelySupported ?
-            avfReader.getAllMetadata(for: file) :
-            ffmpegReader.getAllMetadata(for: file)
-    }
+//    func getAllMetadata(for file: URL) -> FileMetadata {
+//        
+//        return file.isNativelySupported ?
+//            avfReader.getAllMetadata(for: file) :
+//            ffmpegReader.getAllMetadata(for: file)
+//    }
 }

@@ -16,7 +16,10 @@ class FileSystemInfo {
     
     // The filesystem file that contains the audio track represented by this object
     let file: URL
+    
     let fileName: String
+    let defaultDisplayName: String
+    let isNativelySupported: Bool
     
     // TODO: Should these be recomputed every time ? File attributes (eg. last opened) can change over the course of an app run.
     
@@ -28,9 +31,11 @@ class FileSystemInfo {
     lazy var lastModified: Date? = attributes.lastModified
     lazy var lastOpened: Date? = attributes.lastOpened
     
-    init(file: URL, fileName: String) {
+    init(file: URL) {
         
         self.file = file
-        self.fileName = fileName
+        self.fileName = file.nameWithoutExtension
+        self.isNativelySupported = file.isNativelySupported
+        self.defaultDisplayName = self.fileName
     }
 }

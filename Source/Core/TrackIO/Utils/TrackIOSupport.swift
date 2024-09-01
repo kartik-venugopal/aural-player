@@ -120,7 +120,7 @@ class TrackLoadSession {
         
         for trackRead in self.tracks.values {
             
-            if trackRead.track.validationError != nil {
+            if trackRead.track.metadata.validationError != nil {
                 trackRead.result = .error
             }
         }
