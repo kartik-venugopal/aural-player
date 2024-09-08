@@ -185,7 +185,7 @@ class MusicBrainzCache: PersistentModelObject {
         // Go through the in-memory cache. For all entries that have not been persisted to disk, persist them.
         
         for (artist, releaseTitle, coverArtResult) in releasesCache.entries {
-                
+
             if let coverArt = coverArtResult.art, onDiskReleasesCache[artist, releaseTitle] == nil {
                 persistForRelease(artist: artist, title: releaseTitle, coverArt: coverArt)
             }

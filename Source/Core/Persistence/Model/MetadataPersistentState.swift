@@ -17,7 +17,6 @@ struct MetadataPersistentState: Codable {
 
 struct PrimaryMetadataPersistentState: Codable {
     
-    
     let title: String?
     let artist: String?
     let albumArtist: String?
@@ -49,6 +48,8 @@ struct PrimaryMetadataPersistentState: Codable {
     let chapters: [ChapterPersistentState]?
     
     var replayGain: ReplayGain?
+    
+    var coverArt: CoverArtPersistentState?
     
     init(metadata: PrimaryMetadata) {
         
@@ -82,6 +83,28 @@ struct PrimaryMetadataPersistentState: Codable {
         self.chapters = metadata.chapters.map {ChapterPersistentState(chapter: $0)}
         
         self.replayGain = metadata.replayGain
+//        self.coverArt = .init(coverArt: metadata.art)
+        self.coverArt = nil
+    }
+}
+
+struct CoverArtPersistentState: Codable {
+    
+    let imageData: Data?
+    let metadata: ImageMetadata?
+    
+    init?(coverArt: CoverArt?) {
+        
+        guard let coverArt = coverArt else {return nil}
+        
+        self.imageData = coverArt.imageData
+        self.metadata = coverArt.metadata
+    }
+    
+    init(imageData: Data?, metadata: ImageMetadata?) {
+        
+        self.imageData = imageData
+        self.metadata = metadata
     }
 }
 

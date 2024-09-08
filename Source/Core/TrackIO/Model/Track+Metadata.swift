@@ -39,7 +39,7 @@ extension Track {
     }
     
     var title: String? {
-        metadata.primary?.title
+        metadata.primary?.title ?? metadata.cueSheet?.title
     }
     
     var titleOrDefaultDisplayName: String {
@@ -47,7 +47,7 @@ extension Track {
     }
     
     var artist: String? {
-        metadata.primary?.artist ?? metadata.primary?.albumArtist ?? metadata.primary?.performer
+        metadata.primary?.artist ?? metadata.primary?.albumArtist ?? metadata.primary?.performer ?? cueSheetMetadata?.artist
     }
     
     var artistTitleString: String? {

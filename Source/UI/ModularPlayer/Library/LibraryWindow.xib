@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -52,7 +51,7 @@
                                         <action selector="closeAction:" target="-2" id="r0Y-Mc-e3l"/>
                                     </connections>
                                 </button>
-                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bV3-BU-lI2" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bV3-BU-lI2" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="40" y="471" width="214" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="210" id="u0x-qw-e3d"/>
@@ -184,7 +183,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="970" height="451"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XS0-nB-Lrf" userLabel="Msg Label">
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XS0-nB-Lrf" userLabel="Msg Label">
                                                 <rect key="frame" x="394" y="313" width="183" height="26"/>
                                                 <textFieldCell key="cell" selectable="YES" alignment="center" title="Building Library ..." id="fkM-PF-9MA">
                                                     <font key="font" size="22" name="Play-Regular"/>
@@ -203,7 +202,7 @@
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Xyo-Cp-9vG" customClass="ProgressArc" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="435" y="183" width="100" height="100"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ySc-c4-EDC" userLabel="Percentage Label">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ySc-c4-EDC" userLabel="Percentage Label">
                                                         <rect key="frame" x="18" y="37" width="64" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="1jw-0I-ZPt"/>
@@ -226,7 +225,7 @@
                                                     <outlet property="lblPercentage" destination="ySc-c4-EDC" id="1bp-Ai-A9g"/>
                                                 </connections>
                                             </customView>
-                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-77-nBg" userLabel="Msg 2 Label">
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-77-nBg" userLabel="Msg 2 Label">
                                                 <rect key="frame" x="263" y="112" width="444" height="41"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="41" id="fNf-Hp-ZL9"/>

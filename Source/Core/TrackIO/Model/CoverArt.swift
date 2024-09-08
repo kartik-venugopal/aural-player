@@ -17,38 +17,42 @@ import CoreGraphics
 struct CoverArt {
     
     let image: NSImage
+    let imageData: Data
     let metadata: ImageMetadata?
     
-    init?(imageFile: URL) {
-        
-        guard let image = NSImage(contentsOf: imageFile) else {return nil}
-        self.image = image
+    init?(imageFile: URL, metadata: ImageMetadata? = nil) {
         
         do {
 
             // Read the image file for image metadata.
             let imgData: Data = try Data(contentsOf: imageFile)
-            self.metadata = ParserUtils.getImageMetadata(imgData as NSData)
+            guard let image = NSImage(data: imgData) else {return nil}
+            
+            self.imageData = imgData
+            self.image = image
+            self.metadata = metadata ?? ParserUtils.getImageMetadata(imgData)
             
         } catch {
+            
             NSLog("Warning - Unable to read data from the image file: \(imageFile.path)")
-            self.metadata = nil
+            return nil
         }
     }
     
-    init?(imageData: Data) {
+    init?(imageData: Data, metadata: ImageMetadata? = nil) {
         
         guard let image = NSImage(data: imageData) else {return nil}
         
         self.image = image
-        self.metadata = ParserUtils.getImageMetadata(imageData as NSData)
+        self.metadata = metadata ?? ParserUtils.getImageMetadata(imageData)
+        self.imageData = imageData
     }
 }
 
 ///
 /// Metadata about an image (cover art).
 ///
-struct ImageMetadata {
+struct ImageMetadata: Codable {
     
     // e.g. JPEG/PNG
     var type: String? = nil

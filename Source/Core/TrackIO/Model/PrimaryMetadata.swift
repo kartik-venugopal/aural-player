@@ -67,6 +67,9 @@ class PrimaryMetadata {
     
     var art: CoverArt?
     
+    // Used by the metadata cache to determine whether or not to look for art
+    var hasArt: Bool = false
+    
     var replayGain: ReplayGain?
     
     init() {}
@@ -101,5 +104,14 @@ class PrimaryMetadata {
         self.bpm = persistentState.bpm
         self.lyrics = persistentState.lyrics
         self.nonEssentialMetadata = persistentState.nonEssentialMetadata
+        
+        if let imageData = persistentState.coverArt?.imageData {
+            self.art = CoverArt(imageData: imageData)
+            
+        } else {
+            self.art = nil
+        }
+        
+        self.hasArt = self.art != nil
     }
 }
