@@ -108,9 +108,10 @@ extension PlayQueueDelegate {
             
         case .group:
             
-            if let groupName = state.groupName, let groupType = state.groupType {
-                item = GroupHistoryItem(groupName: groupName, groupType: groupType, lastEventTime: lastEventTime, eventCount: eventCount)
-            }
+//            if let groupName = state.groupName, let groupType = state.groupType {
+//                item = GroupHistoryItem(groupName: groupName, groupType: groupType, lastEventTime: lastEventTime, eventCount: eventCount)
+//            }
+            return nil
         }
         
         return item

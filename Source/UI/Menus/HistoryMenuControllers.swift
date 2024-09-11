@@ -79,16 +79,16 @@ fileprivate func createHistoryMenuItem(_ item: HistoryItem, _ actionTarget: AnyO
     menuItem.target = actionTarget
     
     if let trackItem = item as? TrackHistoryItem {
-        menuItem.image = trackItem.track.art?.image ?? .imgPlayingArt
+        menuItem.image = trackItem.track.art?.downscaledOrOriginalImage ?? .imgPlayingArt
         
     } else if item is PlaylistFileHistoryItem {
         menuItem.image = .imgPlaylist
         
     } else if item is FolderHistoryItem {
         menuItem.image = .imgFileSystem
-        
-    } else if item is GroupHistoryItem {
-        menuItem.image = .imgGroup_menu
+//        
+//    } else if item is GroupHistoryItem {
+//        menuItem.image = .imgGroup_menu
     }
     
     menuItem.image?.size = menuItemCoverArtImageSize

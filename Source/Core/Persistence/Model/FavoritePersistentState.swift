@@ -36,15 +36,17 @@ struct FavoritesPersistentState: Codable {
         self.favoritePlaylistFiles = nil
     }
     
-    init(favoriteTracks: [FavoriteTrackPersistentState]?, favoriteArtists: [FavoriteGroupPersistentState]?, favoriteAlbums: [FavoriteGroupPersistentState]?, favoriteGenres: [FavoriteGroupPersistentState]?, favoriteDecades: [FavoriteGroupPersistentState]?, favoriteFolders: [FavoriteFolderPersistentState]?, favoritePlaylistFiles: [FavoritePlaylistFilePersistentState]?) {
+//    init(favoriteTracks: [FavoriteTrackPersistentStat/*e]?, favoriteArtists: [FavoriteGroupPersistentState]?, favoriteAlbums: [FavoriteGroupPersistentState]?, favoriteGenres: [FavoriteGroupPersistentState]?, favoriteDecades: [FavoriteGroupPersistentState]?, favoriteFolders: [FavoriteFolderPersistentState]?, favoritePlaylistFiles: [FavoritePlaylistFilePersistentState]?) {*/
+        
+        init(favoriteTracks: [FavoriteTrackPersistentState]?, favoriteFolders: [FavoriteFolderPersistentState]?) {
         
         self.favoriteTracks = favoriteTracks
-        self.favoriteArtists = favoriteArtists
-        self.favoriteAlbums = favoriteAlbums
-        self.favoriteGenres = favoriteGenres
-        self.favoriteDecades = favoriteDecades
+        self.favoriteArtists = nil
+        self.favoriteAlbums = nil
+        self.favoriteGenres = nil
+        self.favoriteDecades = nil
         self.favoriteFolders = favoriteFolders
-        self.favoritePlaylistFiles = favoritePlaylistFiles
+        self.favoritePlaylistFiles = nil
     }
 }
 
@@ -111,7 +113,7 @@ struct FavoriteGroupPersistentState: Codable {
     
     var groupName: String? = nil
     
-    init(favorite: FavoriteGroup) {
-        self.groupName = favorite.groupName
-    }
+//    init(favorite: FavoriteGroup) {
+//        self.groupName = favorite.groupName
+//    }
 }

@@ -74,7 +74,7 @@ class PrimaryMetadata {
     
     init() {}
     
-    init(persistentState: PrimaryMetadataPersistentState) {
+    init(persistentState: PrimaryMetadataPersistentState, persistentCoverArt: CoverArt?) {
         
         self.title = persistentState.title
         self.artist = persistentState.artist
@@ -105,13 +105,7 @@ class PrimaryMetadata {
         self.lyrics = persistentState.lyrics
         self.nonEssentialMetadata = persistentState.nonEssentialMetadata
         
-        if let imageData = persistentState.coverArt?.imageData {
-            self.art = CoverArt(imageData: imageData)
-            
-        } else {
-            self.art = nil
-        }
-        
+        self.art = persistentCoverArt
         self.hasArt = self.art != nil
     }
 }

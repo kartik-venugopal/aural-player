@@ -22,7 +22,7 @@ struct PlayingTrackInfo {
     }
     
     var art: NSImage? {
-        track.art?.image
+        track.art?.originalOrDownscaledImage
     }
     
     var artist: String? {

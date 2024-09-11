@@ -155,34 +155,34 @@ extension PlayQueueDelegate {
     
     // MARK: Event handling for Groups ---------------------------------------------------------------
     
-    func groupsAndTracksEnqueued(groups: [Group], tracks: [Track]) {
-        
-        let deDupedTracks: [Track] = tracks.filter {track in
-            !groups.contains(where: {$0.hasTrack(forFile: track.file)})
-        }
-        
-        for group in groups {
-            markEventForGroup(group)
-        }
-        
-        tracksEnqueued(deDupedTracks)
-        
-        messenger.publish(.History.updated)
-    }
-    
-    fileprivate func markEventForGroup(_ group: Group) {
-        
-        let groupKey = GroupHistoryItem.key(forGroupName: group.name, andType: group.type)
-        
-        if let existingHistoryItem: GroupHistoryItem = recentItems[groupKey] as? GroupHistoryItem {
-            markNewEvent(forItem: existingHistoryItem)
-            
-        } else {
-            
-            recentItems[groupKey] = GroupHistoryItem(groupName: group.name, groupType: group.type, lastEventTime: Date())
-            maintainListSize()
-        }
-    }
+//    func groupsAndTracksEnqueued(groups: [Group], tracks: [Track]) {
+//        
+//        let deDupedTracks: [Track] = tracks.filter {track in
+//            !groups.contains(where: {$0.hasTrack(forFile: track.file)})
+//        }
+//        
+//        for group in groups {
+//            markEventForGroup(group)
+//        }
+//        
+//        tracksEnqueued(deDupedTracks)
+//        
+//        messenger.publish(.History.updated)
+//    }
+//    
+//    fileprivate func markEventForGroup(_ group: Group) {
+//        
+//        let groupKey = GroupHistoryItem.key(forGroupName: group.name, andType: group.type)
+//        
+//        if let existingHistoryItem: GroupHistoryItem = recentItems[groupKey] as? GroupHistoryItem {
+//            markNewEvent(forItem: existingHistoryItem)
+//            
+//        } else {
+//            
+//            recentItems[groupKey] = GroupHistoryItem(groupName: group.name, groupType: group.type, lastEventTime: Date())
+//            maintainListSize()
+//        }
+//    }
     
     // MARK: Event handling for Playlists ---------------------------------------------------------------
     
@@ -221,9 +221,9 @@ extension PlayQueueDelegate {
             
         } else if let folderHistoryItem = item as? FolderHistoryItem {
             playFolderItem(folderHistoryItem)
-            
-        } else if let groupHistoryItem = item as? GroupHistoryItem {
-            playGroupItem(groupHistoryItem)
+//            
+//        } else if let groupHistoryItem = item as? GroupHistoryItem {
+//            playGroupItem(groupHistoryItem)
         }
     }
     
@@ -251,11 +251,11 @@ extension PlayQueueDelegate {
 //        }
     }
     
-    private func playGroupItem(_ groupHistoryItem: GroupHistoryItem) {
-        
-//        guard let group = libraryDelegate.findGroup(named: groupHistoryItem.groupName, ofType: groupHistoryItem.groupType) else {return}
-//        enqueueToPlayNow(group: group, clearQueue: false)
-    }
+//    private func playGroupItem(_ groupHistoryItem: GroupHistoryItem) {
+//        
+////        guard let group = libraryDelegate.findGroup(named: groupHistoryItem.groupName, ofType: groupHistoryItem.groupType) else {return}
+////        enqueueToPlayNow(group: group, clearQueue: false)
+//    }
     
     private func playFolderItem(_ folderHistoryItem: FolderHistoryItem) {
         

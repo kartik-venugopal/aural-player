@@ -23,13 +23,13 @@ protocol FavoritesDelegateProtocol {
     
     func addFavorite(track: Track)
     
-    func addFavorite(artist: String)
-
-    func addFavorite(album: String)
-
-    func addFavorite(genre: String)
-    
-    func addFavorite(decade: String)
+//    func addFavorite(artist: String)
+//
+//    func addFavorite(album: String)
+//
+//    func addFavorite(genre: String)
+//    
+//    func addFavorite(decade: String)
     
     func addFavorite(folder: URL)
     
@@ -39,13 +39,13 @@ protocol FavoritesDelegateProtocol {
     
     func removeFavorite(track: Track)
     
-    func removeFavorite(artist: String)
-
-    func removeFavorite(album: String)
-
-    func removeFavorite(genre: String)
-    
-    func removeFavorite(decade: String)
+//    func removeFavorite(artist: String)
+//
+//    func removeFavorite(album: String)
+//
+//    func removeFavorite(genre: String)
+//    
+//    func removeFavorite(decade: String)
     
     func removeFavorite(folder: URL)
     
@@ -63,21 +63,21 @@ protocol FavoritesDelegateProtocol {
     var genresFromFavoriteTracks: Set<String> {get}
     var decadesFromFavoriteTracks: Set<String> {get}
     
-    var allFavoriteArtists: [FavoriteGroup] {get}
-    var numberOfFavoriteArtists: Int {get}
-    func favoriteArtist(atChronologicalIndex index: Int) -> FavoriteGroup?
-    
-    var allFavoriteAlbums: [FavoriteGroup] {get}
-    var numberOfFavoriteAlbums: Int {get}
-    func favoriteAlbum(atChronologicalIndex index: Int) -> FavoriteGroup?
-    
-    var allFavoriteGenres: [FavoriteGroup] {get}
-    var numberOfFavoriteGenres: Int {get}
-    func favoriteGenre(atChronologicalIndex index: Int) -> FavoriteGroup?
-    
-    var allFavoriteDecades: [FavoriteGroup] {get}
-    var numberOfFavoriteDecades: Int {get}
-    func favoriteDecade(atChronologicalIndex index: Int) -> FavoriteGroup?
+//    var allFavoriteArtists: [FavoriteGroup] {get}
+//    var numberOfFavoriteArtists: Int {get}
+//    func favoriteArtist(atChronologicalIndex index: Int) -> FavoriteGroup?
+//    
+//    var allFavoriteAlbums: [FavoriteGroup] {get}
+//    var numberOfFavoriteAlbums: Int {get}
+//    func favoriteAlbum(atChronologicalIndex index: Int) -> FavoriteGroup?
+//    
+//    var allFavoriteGenres: [FavoriteGroup] {get}
+//    var numberOfFavoriteGenres: Int {get}
+//    func favoriteGenre(atChronologicalIndex index: Int) -> FavoriteGroup?
+//    
+//    var allFavoriteDecades: [FavoriteGroup] {get}
+//    var numberOfFavoriteDecades: Int {get}
+//    func favoriteDecade(atChronologicalIndex index: Int) -> FavoriteGroup?
     
     var allFavoriteFolders: [FavoriteFolder] {get}
     var numberOfFavoriteFolders: Int {get}
@@ -89,13 +89,13 @@ protocol FavoritesDelegateProtocol {
     
     func favoriteExists(track: Track) -> Bool
     
-    func favoriteExists(artist: String) -> Bool
-    
-    func favoriteExists(album: String) -> Bool
-    
-    func favoriteExists(genre: String) -> Bool
-    
-    func favoriteExists(decade: String) -> Bool
+//    func favoriteExists(artist: String) -> Bool
+//    
+//    func favoriteExists(album: String) -> Bool
+//    
+//    func favoriteExists(genre: String) -> Bool
+//    
+//    func favoriteExists(decade: String) -> Bool
     
     func favoriteExists(playlistFile: URL) -> Bool
     

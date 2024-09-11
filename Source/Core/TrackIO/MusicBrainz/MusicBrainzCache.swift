@@ -49,44 +49,44 @@ class MusicBrainzCache: PersistentModelObject {
         
         // Initialize the cache with entries that were previously persisted to disk.
             
-        for entry in state?.releases ?? [] {
-            
-            guard let file = entry.file, let artist = entry.artist,
-                  let title = entry.title else {continue}
-            
-            diskIOOpQueue.addOperation {
-                
-                // Ensure that the image file exists and that it contains a valid image.
-                if file.exists, let coverArt = CoverArt(imageFile: file) {
-                    
-                    // Entry is valid, enter it into the cache.
-                    
-                    self.releasesCache[artist, title] = CachedCoverArtResult(art: coverArt)
-                    self.onDiskReleasesCache[artist, title] = file
-                }
-            }
-        }
-            
-        for entry in state?.recordings ?? [] {
-            
-            guard let file = entry.file, let artist = entry.artist,
-                  let title = entry.title else {continue}
-            
-            diskIOOpQueue.addOperation {
-                
-                // Ensure that the image file exists and that it contains a valid image.
-                if file.exists, let coverArt = CoverArt(imageFile: file) {
-                    
-                    // Entry is valid, enter it into the cache.
-                    
-                    self.recordingsCache[artist, title] = CachedCoverArtResult(art: coverArt)
-                    self.onDiskRecordingsCache[artist, title] = file
-                }
-            }
-        }
-        
-        // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
-        diskIOOpQueue.waitUntilAllOperationsAreFinished()
+//        for entry in state?.releases ?? [] {
+//            
+//            guard let file = entry.file, let artist = entry.artist,
+//                  let title = entry.title else {continue}
+//            
+//            diskIOOpQueue.addOperation {
+//                
+//                // Ensure that the image file exists and that it contains a valid image.
+//                if file.exists, let coverArt = CoverArt(imageFile: file) {
+//                    
+//                    // Entry is valid, enter it into the cache.
+//                    
+//                    self.releasesCache[artist, title] = CachedCoverArtResult(art: coverArt)
+//                    self.onDiskReleasesCache[artist, title] = file
+//                }
+//            }
+//        }
+//            
+//        for entry in state?.recordings ?? [] {
+//            
+//            guard let file = entry.file, let artist = entry.artist,
+//                  let title = entry.title else {continue}
+//            
+//            diskIOOpQueue.addOperation {
+//                
+//                // Ensure that the image file exists and that it contains a valid image.
+//                if file.exists, let coverArt = CoverArt(imageFile: file) {
+//                    
+//                    // Entry is valid, enter it into the cache.
+//                    
+//                    self.recordingsCache[artist, title] = CachedCoverArtResult(art: coverArt)
+//                    self.onDiskRecordingsCache[artist, title] = file
+//                }
+//            }
+//        }
+//        
+//        // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
+//        diskIOOpQueue.waitUntilAllOperationsAreFinished()
             
         self.cleanUpUnmappedFiles()
     }
@@ -138,7 +138,7 @@ class MusicBrainzCache: PersistentModelObject {
             
             do {
 
-                try coverArt.image.writeToFile(fileType: .jpeg, file: file)
+                try coverArt.originalImage?.image.writeToFile(fileType: .jpeg, file: file)
                 self.onDiskReleasesCache[artist, title] = file
                 
             } catch {
@@ -171,7 +171,7 @@ class MusicBrainzCache: PersistentModelObject {
             
             do {
             
-                try coverArt.image.writeToFile(fileType: .jpeg, file: file)
+                try coverArt.originalImage?.image.writeToFile(fileType: .jpeg, file: file)
                 self.onDiskRecordingsCache[artist, title] = file
                 
             } catch {

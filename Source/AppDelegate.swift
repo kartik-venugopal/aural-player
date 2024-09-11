@@ -64,6 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Force eager loading of persistent state
         eagerlyInitializeObjects(appPersistentState, metadataRegistry)
+        metadataRegistry.initializeImageCache(fromPersistentState: metadataPersistentState)
         
         if appSetup.setupRequired {
             performAppSetup()
@@ -104,53 +105,53 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private func recurse(_ dir: URL) {
         
-        for file in dir.children ?? [] {
-            
-            if file.isDirectory {
-                
-                recurse(file)
-                continue
-            }
-            
-            self.fileCtr.increment()
-            
-            //            if file.lowerCasedExtension != "mp3" {continue}
-            let ext = file.lowerCasedExtension
-            if !SupportedTypes.allAudioExtensions.contains(ext) {continue}
-            
-            opQueue.addOperation {
-                
-                if let art = fileReader.getArt(for: file) {
-                    
-                    let data = art.imageData
-                    
-                    self.map[ext] = (self.map[ext] ?? 0) + 1
+//        for file in dir.children ?? [] {
+//            
+//            if file.isDirectory {
+//                
+//                recurse(file)
+//                continue
+//            }
+//            
+//            self.fileCtr.increment()
+//            
+//            //            if file.lowerCasedExtension != "mp3" {continue}
+//            let ext = file.lowerCasedExtension
+//            if !SupportedTypes.allAudioExtensions.contains(ext) {continue}
+//            
+//            opQueue.addOperation {
+//                
+//                if let art = fileReader.getArt(for: file) {
 //                    
-//                    var idCtr = 1
+//                    let data = art.imageData
 //                    
-//                    self.ctr.increment()
-//                    let size = data.count
-////                    self.sizeCtr = self.sizeCtr + size
-//                    var base = URL(fileURLWithPath: "/Users/kven/meta-cache/")
-//                    var fn = file.deletingPathExtension().lastPathComponent
-//                    var dest = base.appendingPathComponent(fn + "\(idCtr).\(ext)")
-//                    
-//                    while dest.exists {
-//                        
-//                        idCtr.increment()
-//                        dest = base.appendingPathComponent(fn + "\(idCtr).\(ext)")
-//                    }
-//                    
-//                    print("Copying to: \(dest.path)")
-//                    
-//                    try! FileManager.default.copyItem(at: file, to: dest)
-//                    
-//                    if self.fileCtr.value % 100 == 0 {
-//                        print("Processed \(self.fileCtr) values")
-//                    }
-                }
-            }
-        }
+//                    self.map[ext] = (self.map[ext] ?? 0) + 1
+////                    
+////                    var idCtr = 1
+////                    
+////                    self.ctr.increment()
+////                    let size = data.count
+//////                    self.sizeCtr = self.sizeCtr + size
+////                    var base = URL(fileURLWithPath: "/Users/kven/meta-cache/")
+////                    var fn = file.deletingPathExtension().lastPathComponent
+////                    var dest = base.appendingPathComponent(fn + "\(idCtr).\(ext)")
+////                    
+////                    while dest.exists {
+////                        
+////                        idCtr.increment()
+////                        dest = base.appendingPathComponent(fn + "\(idCtr).\(ext)")
+////                    }
+////                    
+////                    print("Copying to: \(dest.path)")
+////                    
+////                    try! FileManager.default.copyItem(at: file, to: dest)
+////                    
+////                    if self.fileCtr.value % 100 == 0 {
+////                        print("Processed \(self.fileCtr) values")
+////                    }
+//                }
+//            }
+//        }
     }
 
     /// Opens the application with a single file (audio file or playlist)

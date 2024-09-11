@@ -144,7 +144,7 @@ class ID3AVFParser: AVFMetadataParser {
         if let item = keys_art.firstNonNilMappedValue({metadataMap.id3[$0]}),
             let imgData = item.dataValue {
             
-            return CoverArt(imageData: imgData)
+            return CoverArt(originalImageData: imgData)
         }
         
         return nil

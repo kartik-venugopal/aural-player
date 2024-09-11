@@ -62,7 +62,7 @@ struct HistoryItemPersistentState: Codable {
     var folder: URL? = nil
     
     var groupName: String? = nil
-    var groupType: GroupType? = nil
+//    var groupType: GroupType? = nil
     
     init?(item: HistoryItem) {
         
@@ -93,14 +93,14 @@ struct HistoryItemPersistentState: Codable {
             return
         }
         
-        if let groupHistoryItem = item as? GroupHistoryItem {
-            
-            self.itemType = .group
-            self.groupName = groupHistoryItem.groupName
-            self.groupType = groupHistoryItem.groupType
-            
-            return
-        }
+//        if let groupHistoryItem = item as? GroupHistoryItem {
+//            
+//            self.itemType = .group
+//            self.groupName = groupHistoryItem.groupName
+//            self.groupType = groupHistoryItem.groupType
+//            
+//            return
+//        }
         
         return nil
     }

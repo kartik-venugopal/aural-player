@@ -14,38 +14,67 @@ import CoreGraphics
 ///
 /// Encapsulates album art and metadata about the image.
 ///
-struct CoverArt {
+class CoverArt {
     
-    let image: NSImage
-    let imageData: Data
-    let metadata: ImageMetadata?
+    var originalImage: CoverArtImage?
+    var downscaledImage: CoverArtImage?
     
-    init?(imageFile: URL, metadata: ImageMetadata? = nil) {
-        
-        do {
-
-            // Read the image file for image metadata.
-            let imgData: Data = try Data(contentsOf: imageFile)
-            guard let image = NSImage(data: imgData) else {return nil}
-            
-            self.imageData = imgData
-            self.image = image
-            self.metadata = metadata ?? ParserUtils.getImageMetadata(imgData)
-            
-        } catch {
-            
-            NSLog("Warning - Unable to read data from the image file: \(imageFile.path)")
-            return nil
-        }
+    var originalOrDownscaledImage: NSImage? {
+        (originalImage ?? downscaledImage)?.image
     }
     
-    init?(imageData: Data, metadata: ImageMetadata? = nil) {
+    var downscaledOrOriginalImage: NSImage? {
+        (downscaledImage ?? originalImage)?.image
+    }
+    
+    let metadata: ImageMetadata?
+    
+    init?(originalImageData: Data) {
+        
+        guard let originalImage = CoverArtImage(imageData: originalImageData) else {return nil}
+        
+        self.originalImage = originalImage
+        self.downscaledImage = nil
+        self.metadata = ParserUtils.getImageMetadata(originalImageData)
+    }
+    
+//    init?(imageFile: URL, metadata: ImageMetadata? = nil) {
+//        
+//        do {
+//
+//            // Read the image file for image metadata.
+//            let imgData: Data = try Data(contentsOf: imageFile)
+//            guard let image = NSImage(data: imgData) else {return nil}
+//            
+//            self.imageData = imgData
+//            self.image = image
+//            self.metadata = metadata ?? ParserUtils.getImageMetadata(imgData)
+//            
+//        } catch {
+//            
+//            NSLog("Warning - Unable to read data from the image file: \(imageFile.path)")
+//            return nil
+//        }
+//    }
+}
+
+class CoverArtImage {
+    
+    let image: NSImage
+    let imageData: Data?
+    
+    init?(imageData: Data) {
         
         guard let image = NSImage(data: imageData) else {return nil}
         
         self.image = image
-        self.metadata = metadata ?? ParserUtils.getImageMetadata(imageData)
         self.imageData = imageData
+    }
+    
+    init(image: NSImage) {
+        
+        self.image = image
+        self.imageData = nil
     }
 }
 

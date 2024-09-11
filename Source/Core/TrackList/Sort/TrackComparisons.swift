@@ -90,24 +90,24 @@ func chainTrackComparisonsToDescendingComparator(_ c1: @escaping TrackComparison
 
 // MARK: Group comparison
 
-typealias GroupComparison = (Group, Group) -> ComparisonResult
+//typealias GroupComparison = (Group, Group) -> ComparisonResult
 
-let groupNameComparison: GroupComparison = {g1, g2 in
-    (g1.name).compare(g2.name)
-}
-
-let groupDurationComparison: GroupComparison = {g1, g2 in
-    (g1.duration).compare(g2.duration)
-}
-
-func chainGroupComparisons(_ c1: @escaping GroupComparison, _ c2: @escaping GroupComparison) -> GroupComparison {
-
-    {g1, g2 in
-
-        if c1(g1, g2) == .orderedSame {
-            return c2(g1, g2)
-        } else {
-            return c1(g1, g2)
-        }
-    }
-}
+//let groupNameComparison: GroupComparison = {g1, g2 in
+//    (g1.name).compare(g2.name)
+//}
+//
+//let groupDurationComparison: GroupComparison = {g1, g2 in
+//    (g1.duration).compare(g2.duration)
+//}
+//
+//func chainGroupComparisons(_ c1: @escaping GroupComparison, _ c2: @escaping GroupComparison) -> GroupComparison {
+//
+//    {g1, g2 in
+//
+//        if c1(g1, g2) == .orderedSame {
+//            return c2(g1, g2)
+//        } else {
+//            return c1(g1, g2)
+//        }
+//    }
+//}

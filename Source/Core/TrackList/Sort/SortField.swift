@@ -81,36 +81,36 @@ enum TrackSortField {
     }
 }
 
-enum GroupSortField {
-    
-    case name
-    case duration
-    
-    var comparison: GroupComparison {
-        
-        switch self {
-            
-        case .name:
-            
-            return groupNameComparison
-            
-        case .duration:
-            
-            return groupDurationComparison
-        }
-    }
-    
-    func comparator(withOrder order: SortOrder) -> GroupComparator {
-        
-        switch self {
-            
-        case .name:
-            
-            return order == .ascending ? groupNameAscendingComparator : groupNameDescendingComparator
-            
-        case .duration:
-            
-            return order == .ascending ? groupDurationAscendingComparator : groupDurationDescendingComparator
-        }
-    }
-}
+//enum GroupSortField {
+//    
+//    case name
+//    case duration
+//    
+//    var comparison: GroupComparison {
+//        
+//        switch self {
+//            
+//        case .name:
+//            
+//            return groupNameComparison
+//            
+//        case .duration:
+//            
+//            return groupDurationComparison
+//        }
+//    }
+//    
+//    func comparator(withOrder order: SortOrder) -> GroupComparator {
+//        
+//        switch self {
+//            
+//        case .name:
+//            
+//            return order == .ascending ? groupNameAscendingComparator : groupNameDescendingComparator
+//            
+//        case .duration:
+//            
+//            return order == .ascending ? groupDurationAscendingComparator : groupDurationDescendingComparator
+//        }
+//    }
+//}

@@ -22,10 +22,10 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     
     var favoriteTracks: OrderedDictionary<URL, FavoriteTrack>
     
-    var favoriteArtists: OrderedDictionary<String, FavoriteGroup>
-    var favoriteAlbums: OrderedDictionary<String, FavoriteGroup>
-    var favoriteGenres: OrderedDictionary<String, FavoriteGroup>
-    var favoriteDecades: OrderedDictionary<String, FavoriteGroup>
+//    var favoriteArtists: OrderedDictionary<String, FavoriteGroup>
+//    var favoriteAlbums: OrderedDictionary<String, FavoriteGroup>
+//    var favoriteGenres: OrderedDictionary<String, FavoriteGroup>
+//    var favoriteDecades: OrderedDictionary<String, FavoriteGroup>
     
     var favoriteFolders: OrderedDictionary<URL, FavoriteFolder>
     var favoritePlaylistFiles: OrderedDictionary<URL, FavoritePlaylistFile>
@@ -43,16 +43,18 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         self.playQueue = playQueue
         
         self.favoriteTracks = OrderedDictionary()
-        self.favoriteArtists = OrderedDictionary()
-        self.favoriteAlbums = OrderedDictionary()
-        self.favoriteGenres = OrderedDictionary()
-        self.favoriteDecades = OrderedDictionary()
+//        self.favoriteArtists = OrderedDictionary()
+//        self.favoriteAlbums = OrderedDictionary()
+//        self.favoriteGenres = OrderedDictionary()
+//        self.favoriteDecades = OrderedDictionary()
         self.favoriteFolders = OrderedDictionary()
         self.favoritePlaylistFiles = OrderedDictionary()
     }
     
     var hasAnyFavorites: Bool {
-        favoriteTracks.values.isNonEmpty || favoriteArtists.values.isNonEmpty || favoriteAlbums.values.isNonEmpty || favoriteGenres.values.isNonEmpty || favoriteDecades.values.isNonEmpty || favoriteFolders.values.isNonEmpty
+//        favoriteTracks.values.isNonEmpty || favoriteArtists.values.isNonEmpty || f/*avoriteAlbums.values.isNonEmpty || favoriteGenres.values.isNonEmpty || favoriteDecades.values.isNonEmpty || favoriteFolders.values.isNonEmpty*/
+        
+        favoriteTracks.values.isNonEmpty || favoriteFolders.values.isNonEmpty
     }
     
     var allFavoriteTracks: [FavoriteTrack] {
@@ -74,73 +76,73 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         favoriteTracks.count
     }
     
-    var allFavoriteArtists: [FavoriteGroup] {
-        Array(favoriteArtists.values)
-    }
-    
-    var numberOfFavoriteArtists: Int {
-        favoriteArtists.count
-    }
-    
-    func favoriteArtist(atChronologicalIndex index: Int) -> FavoriteGroup? {
-        
-        if favoriteArtists.indices.contains(index) {
-            return favoriteArtists.values[favoriteArtists.count - index - 1]
-        }
-        
-        return nil
-    }
-    
-    var allFavoriteAlbums: [FavoriteGroup] {
-        Array(favoriteAlbums.values)
-    }
-    
-    var numberOfFavoriteAlbums: Int {
-        favoriteAlbums.count
-    }
-    
-    func favoriteAlbum(atChronologicalIndex index: Int) -> FavoriteGroup? {
-        
-        if favoriteAlbums.indices.contains(index) {
-            return favoriteAlbums.values[favoriteAlbums.count - index - 1]
-        }
-        
-        return nil
-    }
-    
-    var allFavoriteGenres: [FavoriteGroup] {
-        Array(favoriteGenres.values)
-    }
-    
-    var numberOfFavoriteGenres: Int {
-        favoriteGenres.count
-    }
-    
-    func favoriteGenre(atChronologicalIndex index: Int) -> FavoriteGroup? {
-        
-        if favoriteGenres.indices.contains(index) {
-            return favoriteGenres.values[favoriteGenres.count - index - 1]
-        }
-        
-        return nil
-    }
-    
-    var allFavoriteDecades: [FavoriteGroup] {
-        Array(favoriteDecades.values)
-    }
-    
-    var numberOfFavoriteDecades: Int {
-        favoriteDecades.count
-    }
-    
-    func favoriteDecade(atChronologicalIndex index: Int) -> FavoriteGroup? {
-        
-        if favoriteDecades.indices.contains(index) {
-            return favoriteDecades.values[favoriteDecades.count - index - 1]
-        }
-        
-        return nil
-    }
+//    var allFavoriteArtists: [FavoriteGroup] {
+//        Array(favoriteArtists.values)
+//    }
+//    
+//    var numberOfFavoriteArtists: Int {
+//        favoriteArtists.count
+//    }
+//    
+//    func favoriteArtist(atChronologicalIndex index: Int) -> FavoriteGroup? {
+//        
+//        if favoriteArtists.indices.contains(index) {
+//            return favoriteArtists.values[favoriteArtists.count - index - 1]
+//        }
+//        
+//        return nil
+//    }
+//    
+//    var allFavoriteAlbums: [FavoriteGroup] {
+//        Array(favoriteAlbums.values)
+//    }
+//    
+//    var numberOfFavoriteAlbums: Int {
+//        favoriteAlbums.count
+//    }
+//    
+//    func favoriteAlbum(atChronologicalIndex index: Int) -> FavoriteGroup? {
+//        
+//        if favoriteAlbums.indices.contains(index) {
+//            return favoriteAlbums.values[favoriteAlbums.count - index - 1]
+//        }
+//        
+//        return nil
+//    }
+//    
+//    var allFavoriteGenres: [FavoriteGroup] {
+//        Array(favoriteGenres.values)
+//    }
+//    
+//    var numberOfFavoriteGenres: Int {
+//        favoriteGenres.count
+//    }
+//    
+//    func favoriteGenre(atChronologicalIndex index: Int) -> FavoriteGroup? {
+//        
+//        if favoriteGenres.indices.contains(index) {
+//            return favoriteGenres.values[favoriteGenres.count - index - 1]
+//        }
+//        
+//        return nil
+//    }
+//    
+//    var allFavoriteDecades: [FavoriteGroup] {
+//        Array(favoriteDecades.values)
+//    }
+//    
+//    var numberOfFavoriteDecades: Int {
+//        favoriteDecades.count
+//    }
+//    
+//    func favoriteDecade(atChronologicalIndex index: Int) -> FavoriteGroup? {
+//        
+//        if favoriteDecades.indices.contains(index) {
+//            return favoriteDecades.values[favoriteDecades.count - index - 1]
+//        }
+//        
+//        return nil
+//    }
     
     var allFavoriteFolders: [FavoriteFolder] {
         Array(favoriteFolders.values)
@@ -199,33 +201,33 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         messenger.publish(.Favorites.itemAdded, payload: favorite)
     }
     
-    func addFavorite(artist: String) {
-        
-        let favorite = FavoriteGroup(groupName: artist, groupType: .artist)
-        favoriteArtists[artist] = favorite
-        messenger.publish(.Favorites.itemAdded, payload: favorite)
-    }
-    
-    func addFavorite(album: String) {
-        
-        let favorite = FavoriteGroup(groupName: album, groupType: .album)
-        favoriteAlbums[album] = favorite
-        messenger.publish(.Favorites.itemAdded, payload: favorite)
-    }
-    
-    func addFavorite(genre: String) {
-        
-        let favorite = FavoriteGroup(groupName: genre, groupType: .genre)
-        favoriteGenres[genre] = favorite
-        messenger.publish(.Favorites.itemAdded, payload: favorite)
-    }
-
-    func addFavorite(decade: String) {
-        
-        let favorite = FavoriteGroup(groupName: decade, groupType: .decade)
-        favoriteDecades[decade] = favorite
-        messenger.publish(.Favorites.itemAdded, payload: favorite)
-    }
+//    func addFavorite(artist: String) {
+//        
+//        let favorite = FavoriteGroup(groupName: artist, groupType: .artist)
+//        favoriteArtists[artist] = favorite
+//        messenger.publish(.Favorites.itemAdded, payload: favorite)
+//    }
+//    
+//    func addFavorite(album: String) {
+//        
+//        let favorite = FavoriteGroup(groupName: album, groupType: .album)
+//        favoriteAlbums[album] = favorite
+//        messenger.publish(.Favorites.itemAdded, payload: favorite)
+//    }
+//    
+//    func addFavorite(genre: String) {
+//        
+//        let favorite = FavoriteGroup(groupName: genre, groupType: .genre)
+//        favoriteGenres[genre] = favorite
+//        messenger.publish(.Favorites.itemAdded, payload: favorite)
+//    }
+//
+//    func addFavorite(decade: String) {
+//        
+//        let favorite = FavoriteGroup(groupName: decade, groupType: .decade)
+//        favoriteDecades[decade] = favorite
+//        messenger.publish(.Favorites.itemAdded, payload: favorite)
+//    }
     
     func addFavorite(folder: URL) {
      
@@ -246,25 +248,25 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         if let favTrack = favorite as? FavoriteTrack {
             removeFavorite(track: favTrack.track)
             
-        } else if let favGroup = favorite as? FavoriteGroup {
-            
-            switch favGroup.groupType {
-                
-            case .artist:
-                removeFavorite(artist: favGroup.groupName)
-                
-            case .album:
-                removeFavorite(album: favGroup.groupName)
-                
-            case .genre:
-                removeFavorite(genre: favGroup.groupName)
-                
-            case .decade:
-                removeFavorite(decade: favGroup.groupName)
-                
-            default:
-                return
-            }
+//        } else if let favGroup = favorite as? FavoriteGroup {
+//            
+//            switch favGroup.groupType {
+//                
+//            case .artist:
+//                removeFavorite(artist: favGroup.groupName)
+//                
+//            case .album:
+//                removeFavorite(album: favGroup.groupName)
+//                
+//            case .genre:
+//                removeFavorite(genre: favGroup.groupName)
+//                
+//            case .decade:
+//                removeFavorite(decade: favGroup.groupName)
+//                
+//            default:
+//                return
+//            }
             
         } else if let favFolder = favorite as? FavoriteFolder {
             removeFavorite(folder: favFolder.folder)
@@ -281,33 +283,33 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         }
     }
     
-    func removeFavorite(artist: String) {
-        
-        if let removedFav = favoriteArtists.removeValue(forKey: artist) {
-            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
-        }
-    }
-    
-    func removeFavorite(album: String) {
-        
-        if let removedFav = favoriteAlbums.removeValue(forKey: album) {
-            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
-        }
-    }
-    
-    func removeFavorite(genre: String) {
-        
-        if let removedFav = favoriteGenres.removeValue(forKey: genre) {
-            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
-        }
-    }
-    
-    func removeFavorite(decade: String) {
-        
-        if let removedFav = favoriteDecades.removeValue(forKey: decade) {
-            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
-        }
-    }
+//    func removeFavorite(artist: String) {
+//        
+//        if let removedFav = favoriteArtists.removeValue(forKey: artist) {
+//            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+//        }
+//    }
+//    
+//    func removeFavorite(album: String) {
+//        
+//        if let removedFav = favoriteAlbums.removeValue(forKey: album) {
+//            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+//        }
+//    }
+//    
+//    func removeFavorite(genre: String) {
+//        
+//        if let removedFav = favoriteGenres.removeValue(forKey: genre) {
+//            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+//        }
+//    }
+//    
+//    func removeFavorite(decade: String) {
+//        
+//        if let removedFav = favoriteDecades.removeValue(forKey: decade) {
+//            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+//        }
+//    }
     
     func removeFavorite(folder: URL) {
         
@@ -327,21 +329,21 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         favoriteTracks[track.file] != nil
     }
     
-    func favoriteExists(artist: String) -> Bool {
-        favoriteArtists[artist] != nil
-    }
-    
-    func favoriteExists(album: String) -> Bool {
-        favoriteAlbums[album] != nil
-    }
-    
-    func favoriteExists(genre: String) -> Bool {
-        favoriteGenres[genre] != nil
-    }
-    
-    func favoriteExists(decade: String) -> Bool {
-        favoriteDecades[decade] != nil
-    }
+//    func favoriteExists(artist: String) -> Bool {
+//        favoriteArtists[artist] != nil
+//    }
+//    
+//    func favoriteExists(album: String) -> Bool {
+//        favoriteAlbums[album] != nil
+//    }
+//    
+//    func favoriteExists(genre: String) -> Bool {
+//        favoriteGenres[genre] != nil
+//    }
+//    
+//    func favoriteExists(decade: String) -> Bool {
+//        favoriteDecades[decade] != nil
+//    }
     
     func favoriteExists(playlistFile: URL) -> Bool {
         favoritePlaylistFiles[playlistFile] != nil
@@ -417,12 +419,15 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     
     var persistentState: FavoritesPersistentState {
         
+//        FavoritesPersistentState(favoriteTracks: self.allFavoriteTracks.map {FavoriteTrackPersistentState(favorite: $0)},
+//                                 favoriteArtists: self.allFavoriteArtists.map {FavoriteGroupPersistentState(favorite: $0)},
+//                                 favoriteAlbums: self.allFavoriteAlbums.map {FavoriteGroupPersistentState(favorite: $0)},
+//                                 favoriteGenres: self.allFavoriteGenres.map {FavoriteGroupPersistentState(favorite: $0)},
+//                                 favoriteDecades: self.allFavoriteDecades.map {FavoriteGroupPersistentState(favorite: $0)},
+//                                 favoriteFolders: self.allFavoriteFolders.map {FavoriteFolderPersistentState(favorite: $0)},
+//                                 favoritePlaylistFiles: self.allFavoritePlaylistFiles.map {FavoritePlaylistFilePersistentState(favorite: $0)})
+        
         FavoritesPersistentState(favoriteTracks: self.allFavoriteTracks.map {FavoriteTrackPersistentState(favorite: $0)},
-                                 favoriteArtists: self.allFavoriteArtists.map {FavoriteGroupPersistentState(favorite: $0)},
-                                 favoriteAlbums: self.allFavoriteAlbums.map {FavoriteGroupPersistentState(favorite: $0)},
-                                 favoriteGenres: self.allFavoriteGenres.map {FavoriteGroupPersistentState(favorite: $0)},
-                                 favoriteDecades: self.allFavoriteDecades.map {FavoriteGroupPersistentState(favorite: $0)},
-                                 favoriteFolders: self.allFavoriteFolders.map {FavoriteFolderPersistentState(favorite: $0)},
-                                 favoritePlaylistFiles: self.allFavoritePlaylistFiles.map {FavoritePlaylistFilePersistentState(favorite: $0)})
+                                 favoriteFolders: self.allFavoriteFolders.map {FavoriteFolderPersistentState(favorite: $0)})
     }
 }

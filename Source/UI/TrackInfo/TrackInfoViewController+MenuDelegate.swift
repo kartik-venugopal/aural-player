@@ -14,7 +14,7 @@ extension TrackInfoViewController: NSMenuDelegate {
     
     func menuWillOpen(_ menu: NSMenu) {
         
-        let hasImage: Bool = TrackInfoViewContext.displayedTrack?.art?.image != nil
+        let hasImage: Bool = TrackInfoViewContext.displayedTrack?.art?.originalImage != nil
         
         exportArtMenuItem.showIf(hasImage)
         exportHTMLWithArtMenuItem.showIf(hasImage)

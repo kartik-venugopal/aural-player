@@ -156,7 +156,7 @@ extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDele
                                               bottomYOffset: systemFontScheme.tableYOffset)
 //        }
         
-        builder.withImage(image: track.art?.image ?? .imgPlayingArt)
+        builder.withImage(image: track.art?.downscaledOrOriginalImage ?? .imgPlayingArt)
         
         let cell = builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
         cell?.textField?.lineBreakMode = .byTruncatingTail

@@ -111,7 +111,7 @@ class NowPlayingInfoManager: NSObject {
         nowPlayingInfo[MPMediaItemPropertyDiscCount] = playingTrack?.totalDiscs
         
         // Cover art
-        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: Self.optimalArtworkSize, requestHandler: {size in playingTrack?.art?.image.copy(ofSize: size) ?? Self.defaultArtwork})
+        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: Self.optimalArtworkSize, requestHandler: {size in playingTrack?.art?.originalOrDownscaledImage?.copy(ofSize: size) ?? Self.defaultArtwork})
         
         // Seek position and duration
         

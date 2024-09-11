@@ -124,7 +124,8 @@ fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQu
 let fileReader: FileReader = FileReader()
 let trackReader: TrackReader = TrackReader()
 
-let metadataRegistry: MetadataRegistry = MetadataRegistry(persistentState: persistenceManager.loadMetadata())
+let metadataPersistentState = persistenceManager.loadMetadata()
+let metadataRegistry: MetadataRegistry = MetadataRegistry(persistentState: metadataPersistentState)
 
 let coverArtReader: CoverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
 let fileCoverArtReader: FileCoverArtReader = FileCoverArtReader(fileReader)

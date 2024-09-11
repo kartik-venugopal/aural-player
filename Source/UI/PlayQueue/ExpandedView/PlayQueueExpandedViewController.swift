@@ -230,7 +230,7 @@ class PlayQueueListArtCell: NSTableCellView {
             imgPlayingTrackIndicator.hide()
             imgArt.show()
             
-            if let coverArt = track.art?.image {
+            if let coverArt = track.art?.downscaledOrOriginalImage {
                 imgArt.image = coverArt
                 
             } else {

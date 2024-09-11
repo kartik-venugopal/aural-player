@@ -108,9 +108,9 @@ protocol SortedTrackListProtocol: TrackListProtocol {
     var sortOrder: TrackListSort {get set}
 }
 
-protocol GroupedSortedTrackListProtocol: SortedTrackListProtocol {
-    
-    func remove(tracks: [GroupedTrack], andGroups groups: [Group], from grouping: Grouping) -> IndexSet
-    
-    func sort(grouping: Grouping, by sort: GroupedTrackListSort)
-}
+//protocol GroupedSortedTrackListProtocol: SortedTrackListProtocol {
+//    
+//    func remove(tracks: [GroupedTrack], andGroups groups: [Group], from grouping: Grouping) -> IndexSet
+//    
+//    func sort(grouping: Grouping, by sort: GroupedTrackListSort)
+//}

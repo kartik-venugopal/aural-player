@@ -12,53 +12,106 @@ import AppKit
 
 class ImageCache<K: Hashable> {
     
-    private var md5: ConcurrentMap<K, String> = .init()
-    private var images: ConcurrentMap<String, ImageCacheEntry> = .init()
+    private var md5: ConcurrentMap<K, MD5String> = .init()
+    private var images: ConcurrentMap<MD5String, ImageCacheEntry> = .init()
     
-    var downscaledSize: NSSize = .init(width: 200, height: 200)
+    let baseDir: URL
+    let downscaledSize: NSSize
+    let persistOriginalImage: Bool
     
+    private lazy var readOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .userInitiated)
+    private lazy var writeOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .background)
     
+    init(baseDir: URL, downscaledSize: NSSize, persistOriginalImage: Bool) {
+        
+        self.baseDir = baseDir
+        self.downscaledSize = downscaledSize
+        self.persistOriginalImage = persistOriginalImage
+    }
     
-//    subscript(_ key: K) -> NSImage? {
-//        
-//        get {
-//            
-//            lock.produceValueAfterWait {
-//                map[key]
-//            }
-//        }
-//        
-//        set {
-//            
-//            lock.executeAfterWait {
-//                
-//                if let theValue = newValue {
-//                    
-//                    // newValue is non-nil
-//                    map[key] = theValue
-//                    
-//                } else {
-//                    
-//                    // newValue is nil, implying that any existing value should be removed for this key.
-//                    _ = map.removeValue(forKey: key)
-//                }
-//            }
-//        }
-//    }
+    func initialize(fromPersistentState persistentState: [K: MD5String]?) {
+
+        for (key, md5String) in persistentState ?? [:] {
+            
+            writeOpQueue.addOperation {
+                
+                let imagesDir = self.baseDir.appendingPathComponent(md5String, isDirectory: true)
+                imagesDir.createDirectory()
+            }
+        }
+        
+        writeOpQueue.waitUntilAllOperationsAreFinished()
+    }
+    
+    subscript(_ key: K) -> CoverArt? {
+        
+        get {
+            
+            guard let theMD5 = md5[key] else {return nil}
+            return images[theMD5]?.coverArt
+        }
+        
+        set {
+            
+            guard let coverArt = newValue else {
+                
+                md5[key] = nil
+                return
+            }
+            
+            if let newEntry = ImageCacheEntry(coverArt: coverArt) {
+                images[newEntry.md5] = newEntry
+            }
+        }
+    }
+    
+    func md5(forKey key: K) -> String? {
+        md5[key]
+    }
+    
+    func persist() {
+        
+        for (md5String, entry) in images.map {
+            
+            let coverArt = entry.coverArt
+            
+            writeOpQueue.addOperation {
+                
+                let imagesDir = self.baseDir.appendingPathComponent(entry.md5, isDirectory: true)
+                imagesDir.createDirectory()
+                
+                if self.persistOriginalImage, let originalImage = coverArt.originalImage {
+                    
+                    do {
+                        try originalImage.image.writeToFile(fileType: .png, file: imagesDir.appendingPathComponent("original.png", isDirectory: false))
+                    } catch {}
+                }
+                
+                if let downscaledImage = coverArt.downscaledImage {
+                    
+                    do {
+                        try downscaledImage.image.writeToFile(fileType: .png, file: imagesDir.appendingPathComponent("downscaled.png", isDirectory: false))
+                    } catch {}
+                }
+            }
+        }
+    }
+    
+    var persistentState: [K: MD5String] {
+        md5.map
+    }
 }
 
 struct ImageCacheEntry {
     
     let md5: String
-    let data: Data
-    let image: NSImage
+    let coverArt: CoverArt
     
-    init?(data: Data) {
+    init?(coverArt: CoverArt) {
         
-        self.md5 = data.md5String
-        self.data = data
+        guard let imageData = coverArt.originalImage?.imageData else {return nil}
         
-        guard let image = NSImage(data: data) else {return nil}
-        self.image = image
+        self.md5 = imageData.md5String
+        self.coverArt = coverArt
     }
 }

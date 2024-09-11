@@ -25,7 +25,7 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
     override func refresh() {
         
         guard let track = TrackInfoViewContext.displayedTrack else {return}
-        artView?.image = track.art?.image
+        artView?.image = track.art?.originalOrDownscaledImage
         lblNoArt.showIf(artView?.image == nil)
         
         super.refresh()
@@ -46,7 +46,7 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
         guard let track = TrackInfoViewContext.displayedTrack else {return}
         
         // Embed art in HTML
-        guard let image = track.art?.image,
+        guard let image = track.art?.originalOrDownscaledImage,
               let bits = image.representations.first as? NSBitmapImageRep,
               let data = bits.representation(using: .jpeg, properties: [:]) else {return}
         
@@ -71,7 +71,7 @@ class CoverArtTrackInfoViewController: TrackInfoKVListViewController {
                                                            fileExtension: fileExtension)
         
         guard dialog.runModal() == .OK, let outFile = dialog.url,
-              let image = track.art?.image else {return}
+              let image = track.art?.originalOrDownscaledImage else {return}
         
         do {
             try image.writeToFile(fileType: type, file: outFile)

@@ -331,7 +331,7 @@ class PlayerViewController: NSViewController {
         
         if let trackArt = track?.art {
             
-            artView.image = trackArt.image
+            artView.image = trackArt.originalOrDownscaledImage
             artView.contentTintColor = nil
             artView.image?.isTemplate = false
             

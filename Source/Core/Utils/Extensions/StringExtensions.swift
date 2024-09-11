@@ -14,6 +14,7 @@ import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 
 typealias UUIDString = String
+typealias MD5String = String
 
 import Cocoa
 

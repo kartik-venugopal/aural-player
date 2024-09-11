@@ -12,7 +12,8 @@ import Foundation
 
 struct MetadataPersistentState: Codable {
     
-    let metadata: [URL: PrimaryMetadataPersistentState]
+    let metadata: [URL: PrimaryMetadataPersistentState]?
+    let coverArt: [URL: MD5String]?
 }
 
 struct PrimaryMetadataPersistentState: Codable {
@@ -49,9 +50,9 @@ struct PrimaryMetadataPersistentState: Codable {
     
     var replayGain: ReplayGain?
     
-    var coverArt: CoverArtPersistentState?
+    var coverArtMD5: String?
     
-    init(metadata: PrimaryMetadata) {
+    init(metadata: PrimaryMetadata, coverArtMD5: String?) {
         
         self.title = metadata.title
         self.artist = metadata.artist
@@ -83,28 +84,7 @@ struct PrimaryMetadataPersistentState: Codable {
         self.chapters = metadata.chapters.map {ChapterPersistentState(chapter: $0)}
         
         self.replayGain = metadata.replayGain
-//        self.coverArt = .init(coverArt: metadata.art)
-        self.coverArt = nil
-    }
-}
-
-struct CoverArtPersistentState: Codable {
-    
-    let imageData: Data?
-    let metadata: ImageMetadata?
-    
-    init?(coverArt: CoverArt?) {
-        
-        guard let coverArt = coverArt else {return nil}
-        
-        self.imageData = coverArt.imageData
-        self.metadata = coverArt.metadata
-    }
-    
-    init(imageData: Data?, metadata: ImageMetadata?) {
-        
-        self.imageData = imageData
-        self.metadata = metadata
+        self.coverArtMD5 = coverArtMD5
     }
 }
 

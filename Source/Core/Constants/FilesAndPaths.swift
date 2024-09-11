@@ -22,6 +22,7 @@ struct FilesAndPaths {
 //    static let musicDir: URL = URL(fileURLWithPath: "/Volumes/MBP-Ext-4TB/Projects/Aural-Test/Aural-Music")
     
     static let baseDir: URL = musicDir.appendingPathComponent("aural", isDirectory: true)
+    static let metadataDir: URL = baseDir.appendingPathComponent("metadata", isDirectory: true)
     
     static let userDocumentsDirectory: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
@@ -29,7 +30,7 @@ struct FilesAndPaths {
     static let persistentStateFileName = "state.json"
     static let persistentStateFile: URL = baseDir.appendingPathComponent(persistentStateFileName, isDirectory: false)
     
-    static let metadataStateFile: URL = baseDir.appendingPathComponent("metadata.json", isDirectory: false)
+    static let metadataStateFile: URL = metadataDir.appendingPathComponent("metadata.json", isDirectory: false)
     
     static let logFileName = "aural.log"
     static let logFile: URL = baseDir.appendingPathComponent(logFileName, isDirectory: false)

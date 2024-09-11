@@ -19,13 +19,28 @@ class MetadataRegistry: PersistentRootObject {
     private let registry: ConcurrentMap<URL, PrimaryMetadata> = ConcurrentMap()
     private let opQueue: OperationQueue = .init(opCount: (Double(System.physicalCores) * 1.5).roundedInt, qos: .userInteractive)
     
+    private let imageCache: ImageCache<URL> = ImageCache(baseDir: FilesAndPaths.metadataDir.appendingPathComponent("coverArt", isDirectory: true),
+                                                         downscaledSize: NSMakeSize(30, 30),
+                                                         persistOriginalImage: false)
+    
     init(persistentState: MetadataPersistentState?) {
         
-        for entry in persistentState?.metadata ?? [:] {
-            registry[entry.key] = PrimaryMetadata(persistentState: entry.value)
+        for (file, state) in persistentState?.metadata ?? [:] {
+            registry[file] = PrimaryMetadata(persistentState: state, persistentCoverArt: nil)
         }
+    }
+    
+    func initializeImageCache(fromPersistentState persistentState: MetadataPersistentState?) {
         
-        //        print("\nMetadataRegistry: Initialized with \(registry.count) entries.")
+        imageCache.initialize(fromPersistentState: persistentState?.coverArt)
+        
+        for (file, metadata) in registry.map {
+            metadata.art = imageCache[file]
+        }
+    }
+    
+    func persistCoverArt() {
+        imageCache.persist()
     }
     
     subscript(_ key: URL) -> PrimaryMetadata? {
@@ -48,9 +63,9 @@ class MetadataRegistry: PersistentRootObject {
         var map: [URL: PrimaryMetadataPersistentState] = [:]
         
         for (file, metadata) in registry.map {
-            map[file] = PrimaryMetadataPersistentState(metadata: metadata)
+            map[file] = PrimaryMetadataPersistentState(metadata: metadata, coverArtMD5: imageCache.md5(forKey: file))
         }
         
-        return MetadataPersistentState(metadata: map)
+        return MetadataPersistentState(metadata: map, coverArt: imageCache.persistentState)
     }
 }

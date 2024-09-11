@@ -100,63 +100,63 @@ class FavoriteTracksMenuController: GenericFavoritesMenuController {
     }
     
     override var itemImageFunction: (Favorite) -> NSImage? {
-        {fav in (fav as? FavoriteTrack)?.track.art?.image ?? .imgPlayedTrack}
+        {fav in (fav as? FavoriteTrack)?.track.art?.downscaledOrOriginalImage ?? .imgPlayedTrack}
     }
 }
 
 // MARK: Favorite Groups menu --------------------------------------------
 
-class FavoriteArtistsMenuController: GenericFavoritesMenuController {
-    
-    override var favoritesFunction: () -> [Favorite] {
-        {favoritesDelegate.allFavoriteArtists}
-    }
-    
-    override var itemImageFunction: (Favorite) -> NSImage? {
-        {_ in .imgArtistGroup_menu}
-    }
-}
-
-class FavoriteAlbumsMenuController: GenericFavoritesMenuController {
-    
-    override var favoritesFunction: () -> [Favorite] {
-        {favoritesDelegate.allFavoriteAlbums}
-    }
-    
-    override var itemImageFunction: (Favorite) -> NSImage? {
-        
-        {fav in
-            
-//            if let favAlbum = fav as? FavoriteGroup {
-//                return (libraryDelegate.findGroup(named: favAlbum.groupName, ofType: .album) as? AlbumGroup)?.art ?? .imgAlbumGroup_menu
-//            }
-            
-            return .imgAlbumGroup_menu
-        }
-    }
-}
-
-class FavoriteGenresMenuController: GenericFavoritesMenuController {
-    
-    override var favoritesFunction: () -> [Favorite] {
-        {favoritesDelegate.allFavoriteGenres}
-    }
-    
-    override var itemImageFunction: (Favorite) -> NSImage? {
-        {_ in .imgGenreGroup}
-    }
-}
-
-class FavoriteDecadesMenuController: GenericFavoritesMenuController {
-    
-    override var favoritesFunction: () -> [Favorite] {
-        {favoritesDelegate.allFavoriteDecades}
-    }
-    
-    override var itemImageFunction: (Favorite) -> NSImage? {
-        {_ in .imgDecadeGroup}
-    }
-}
+//class FavoriteArtistsMenuController: GenericFavoritesMenuController {
+//    
+//    override var favoritesFunction: () -> [Favorite] {
+//        {favoritesDelegate.allFavoriteArtists}
+//    }
+//    
+//    override var itemImageFunction: (Favorite) -> NSImage? {
+//        {_ in .imgArtistGroup_menu}
+//    }
+//}
+//
+//class FavoriteAlbumsMenuController: GenericFavoritesMenuController {
+//    
+//    override var favoritesFunction: () -> [Favorite] {
+//        {favoritesDelegate.allFavoriteAlbums}
+//    }
+//    
+//    override var itemImageFunction: (Favorite) -> NSImage? {
+//        
+//        {fav in
+//            
+////            if let favAlbum = fav as? FavoriteGroup {
+////                return (libraryDelegate.findGroup(named: favAlbum.groupName, ofType: .album) as? AlbumGroup)?.art ?? .imgAlbumGroup_menu
+////            }
+//            
+//            return .imgAlbumGroup_menu
+//        }
+//    }
+//}
+//
+//class FavoriteGenresMenuController: GenericFavoritesMenuController {
+//    
+//    override var favoritesFunction: () -> [Favorite] {
+//        {favoritesDelegate.allFavoriteGenres}
+//    }
+//    
+//    override var itemImageFunction: (Favorite) -> NSImage? {
+//        {_ in .imgGenreGroup}
+//    }
+//}
+//
+//class FavoriteDecadesMenuController: GenericFavoritesMenuController {
+//    
+//    override var favoritesFunction: () -> [Favorite] {
+//        {favoritesDelegate.allFavoriteDecades}
+//    }
+//    
+//    override var itemImageFunction: (Favorite) -> NSImage? {
+//        {_ in .imgDecadeGroup}
+//    }
+//}
 
 class FavoriteFoldersMenuController: GenericFavoritesMenuController {
     

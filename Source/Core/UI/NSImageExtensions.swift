@@ -112,6 +112,7 @@ extension NSImage {
             
             let resizedImage = NSImage(size: newSize)
             resizedImage.addRepresentation(bitmapRep)
+            
             return resizedImage
         }
         

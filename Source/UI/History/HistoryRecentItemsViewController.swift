@@ -64,9 +64,9 @@ extension HistoryRecentItemsViewController: NSTableViewDataSource, NSTableViewDe
             
             if let trackItem = item as? TrackHistoryItem {
                 return createTrackCell(tableView, column, row, trackItem.track)
-                
-            } else if let groupItem = item as? GroupHistoryItem {
-                return createGroupCell(tableView, column, row, groupItem)
+//                
+//            } else if let groupItem = item as? GroupHistoryItem {
+//                return createGroupCell(tableView, column, row, groupItem)
             }
             
         case .cid_historyDateColumn:
@@ -106,29 +106,29 @@ extension HistoryRecentItemsViewController: NSTableViewDataSource, NSTableViewDe
                                               bottomYOffset: systemFontScheme.tableYOffset)
         }
         
-        builder.withImage(image: track.art?.image ?? .imgPlayingArt)
+        builder.withImage(image: track.art?.downscaledOrOriginalImage ?? .imgPlayingArt)
         
         let cell = builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
         cell?.textField?.lineBreakMode = .byTruncatingTail
         return cell
     }
     
-    // Creates a cell view containing text
-    func createGroupCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ groupItem: GroupHistoryItem) -> AuralTableCellView? {
-        
-        let builder = TableCellBuilder()
-        
-        builder.withAttributedText(strings: [(text: groupItem.groupName,
-                                              font: systemFontScheme.normalFont,
-                                              color: systemColorScheme.primaryTextColor)], selectedTextColors: [systemColorScheme.primarySelectedTextColor],
-                                   bottomYOffset: systemFontScheme.tableYOffset)
-        .withImage(image: .imgGroup)
-        
-        // TODO: Image for group
-        //        builder.withImage(image: track.art?.image ?? .imgPlayingArt)
-        
-        return builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
-    }
+//    // Creates a cell view containing text
+//    func createGroupCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ groupItem: GroupHistoryItem) -> AuralTableCellView? {
+//        
+//        let builder = TableCellBuilder()
+//        
+//        builder.withAttributedText(strings: [(text: groupItem.groupName,
+//                                              font: systemFontScheme.normalFont,
+//                                              color: systemColorScheme.primaryTextColor)], selectedTextColors: [systemColorScheme.primarySelectedTextColor],
+//                                   bottomYOffset: systemFontScheme.tableYOffset)
+//        .withImage(image: .imgGroup)
+//        
+//        // TODO: Image for group
+//        //        builder.withImage(image: track.art?.image ?? .imgPlayingArt)
+//        
+//        return builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
+//    }
     
     func createDateCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ item: HistoryItem) -> AuralTableCellView? {
         
