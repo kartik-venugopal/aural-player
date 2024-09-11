@@ -64,7 +64,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Force eager loading of persistent state
         eagerlyInitializeObjects(appPersistentState, metadataRegistry)
+        
+        let start = CFAbsoluteTimeGetCurrent()
         metadataRegistry.initializeImageCache(fromPersistentState: metadataPersistentState)
+        let end = CFAbsoluteTimeGetCurrent()
+        
+        print("Took \(end - start) sec to init metadata image cache.")
         
         if appSetup.setupRequired {
             performAppSetup()

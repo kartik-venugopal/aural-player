@@ -27,7 +27,7 @@ class CoverArt {
         (downscaledImage ?? originalImage)?.image
     }
     
-    let metadata: ImageMetadata?
+    var metadata: ImageMetadata?
     
     init?(originalImageData: Data) {
         
@@ -52,6 +52,21 @@ class CoverArt {
             self.metadata = ParserUtils.getImageMetadata(imageData)
         } else {
             self.metadata = nil
+        }
+    }
+    
+    func merge(withOther other: CoverArt) {
+        
+        if self.metadata == nil && other.metadata != nil {
+            self.metadata = other.metadata
+        }
+        
+        if self.originalImage == nil && other.originalImage != nil {
+            self.originalImage = other.originalImage
+        }
+        
+        if self.downscaledImage == nil && other.downscaledImage != nil {
+            self.downscaledImage = other.downscaledImage
         }
     }
     

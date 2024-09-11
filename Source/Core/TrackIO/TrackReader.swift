@@ -161,15 +161,20 @@ class TrackReader {
     ///
     func loadArtAsync(for track: Track, immediate: Bool = true) {
         
-        if track.art != nil {return}
+        if track.art?.originalImage != nil {print("Has Art !!!"); return}
         
         DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
             
-            if let art = coverArtReader.getCoverArt(forTrack: track) {
-                
+            guard let art = coverArtReader.getCoverArt(forTrack: track) else {return}
+            
+            if let existingArt = track.art {
+                existingArt.merge(withOther: art)
+                print("Merged Art !!!")
+            } else {
                 track.metadata.primary?.art = art
-                Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
             }
+            
+            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
         }
     }
     
