@@ -38,6 +38,23 @@ class CoverArt {
         self.metadata = ParserUtils.getImageMetadata(originalImageData)
     }
     
+    init(originalImage: NSImage?, downscaledImage: NSImage?) {
+        
+        if let originalImage = originalImage {
+            self.originalImage = .init(image: originalImage)
+        }
+        
+        if let downscaledImage = downscaledImage {
+            self.downscaledImage = .init(image: downscaledImage)
+        }
+        
+        if let imageData = self.originalImage?.imageData {
+            self.metadata = ParserUtils.getImageMetadata(imageData)
+        } else {
+            self.metadata = nil
+        }
+    }
+    
 //    init?(imageFile: URL, metadata: ImageMetadata? = nil) {
 //        
 //        do {

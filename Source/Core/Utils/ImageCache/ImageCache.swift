@@ -19,6 +19,14 @@ class ImageCache<K: Hashable> {
     let downscaledSize: NSSize
     let persistOriginalImage: Bool
     
+    var md5Count: Int {
+        md5.count
+    }
+    
+    var imageCount: Int {
+        images.count
+    }
+    
     private lazy var readOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .userInitiated)
     private lazy var writeOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .background)
     
@@ -27,6 +35,10 @@ class ImageCache<K: Hashable> {
         self.baseDir = baseDir
         self.downscaledSize = downscaledSize
         self.persistOriginalImage = persistOriginalImage
+        
+        DispatchQueue.global(qos: .background).async {
+            baseDir.createDirectory()
+        }
     }
     
     func initialize(fromPersistentState persistentState: [K: MD5String]?) {
@@ -35,8 +47,24 @@ class ImageCache<K: Hashable> {
             
             writeOpQueue.addOperation {
                 
+                var originalImage: NSImage?
+                var downscaledImage: NSImage?
+                
                 let imagesDir = self.baseDir.appendingPathComponent(md5String, isDirectory: true)
-                imagesDir.createDirectory()
+                
+                let origFile = imagesDir.appendingPathComponent("original.png", isDirectory: false)
+                let downscaledFile = imagesDir.appendingPathComponent("downscaled.png", isDirectory: false)
+                
+                if origFile.exists {
+                    originalImage = NSImage(contentsOf: origFile)
+                }
+                
+                if downscaledFile.exists {
+                    downscaledImage = NSImage(contentsOf: downscaledFile)
+                }
+                
+                self.md5[key] = md5String
+                self.images[md5String] = .init(md5: md5String, coverArt: CoverArt(originalImage: originalImage, downscaledImage: downscaledImage))
             }
         }
         
@@ -60,6 +88,8 @@ class ImageCache<K: Hashable> {
             }
             
             if let newEntry = ImageCacheEntry(coverArt: coverArt) {
+                
+                md5[key] = newEntry.md5
                 images[newEntry.md5] = newEntry
             }
         }
@@ -71,7 +101,7 @@ class ImageCache<K: Hashable> {
     
     func persist() {
         
-        for (md5String, entry) in images.map {
+        for (_, entry) in images.map {
             
             let coverArt = entry.coverArt
             
@@ -85,6 +115,12 @@ class ImageCache<K: Hashable> {
                     do {
                         try originalImage.image.writeToFile(fileType: .png, file: imagesDir.appendingPathComponent("original.png", isDirectory: false))
                     } catch {}
+                }
+                
+                if let originalImage = coverArt.originalImage,
+                   let downscaledImage = originalImage.image.resized(to: self.downscaledSize) {
+                    
+                    coverArt.downscaledImage = .init(image: downscaledImage)
                 }
                 
                 if let downscaledImage = coverArt.downscaledImage {
@@ -104,7 +140,7 @@ class ImageCache<K: Hashable> {
 
 struct ImageCacheEntry {
     
-    let md5: String
+    let md5: MD5String
     let coverArt: CoverArt
     
     init?(coverArt: CoverArt) {
@@ -112,6 +148,12 @@ struct ImageCacheEntry {
         guard let imageData = coverArt.originalImage?.imageData else {return nil}
         
         self.md5 = imageData.md5String
+        self.coverArt = coverArt
+    }
+    
+    init(md5: MD5String, coverArt: CoverArt) {
+        
+        self.md5 = md5
         self.coverArt = coverArt
     }
 }

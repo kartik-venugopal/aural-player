@@ -37,6 +37,8 @@ class MetadataRegistry: PersistentRootObject {
         for (file, metadata) in registry.map {
             metadata.art = imageCache[file]
         }
+        
+        print("Image cache now has: \(imageCache.imageCount) images for \(imageCache.md5Count) files")
     }
     
     func persistCoverArt() {
@@ -50,7 +52,9 @@ class MetadataRegistry: PersistentRootObject {
         }
         
         set {
+            
             registry[key] = newValue
+            imageCache[key] = newValue?.art
         }
     }
     

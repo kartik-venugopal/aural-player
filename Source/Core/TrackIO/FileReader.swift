@@ -63,9 +63,9 @@ class FileReader: FileReaderProtocol {
     func getArt(for file: URL) -> CoverArt? {
         
         // Try retrieving cover art from the cache.
-        if let cachedArt = CoverArtCache.forFile(file) {
-            return cachedArt.art
-        }
+//        if let cachedArt = CoverArtCache.forFile(file) {
+//            return cachedArt.art
+//        }
         
         // Cover art was not found in the cache, load it from the appropriate file reader.
         let art: CoverArt? = file.isNativelySupported ?
@@ -73,7 +73,7 @@ class FileReader: FileReaderProtocol {
             ffmpegReader.getArt(for: file)
         
         // Update the cache with the newly loaded cover art.
-        CoverArtCache.addEntry(file, art)
+//        CoverArtCache.addEntry(file, art)
         
         return art
     }

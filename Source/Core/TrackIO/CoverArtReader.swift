@@ -29,8 +29,6 @@ class CoverArtReader: CoverArtReaderProtocol {
     }
     
     func getCoverArt(forTrack track: Track) -> CoverArt? {
-        
-        CoverArtCache.forFile(track.file)?.art ??
         readers.firstNonNilMappedValue {$0.getCoverArt(forTrack: track)}
     }
 }

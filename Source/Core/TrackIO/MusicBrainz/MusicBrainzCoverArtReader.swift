@@ -54,14 +54,14 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         if let album = lcTrackAlbum,
            let coverArt = searchReleases(forArtist: lcArtist, andReleaseTitle: album) {
             
-            CoverArtCache.addEntry(track.file, coverArt)
+//            CoverArtCache.addEntry(track.file, coverArt)
             return coverArt
         }
         
         if let title = track.title,
            let coverArt = searchRecordings(forArtist: lcArtist, andRecordingTitle: title.lowerCasedAndTrimmed(), from: lcTrackAlbum) {
             
-            CoverArtCache.addEntry(track.file, coverArt)
+//            CoverArtCache.addEntry(track.file, coverArt)
             return coverArt
         }
         

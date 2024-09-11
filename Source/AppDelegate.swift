@@ -75,15 +75,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         initializeMetadataComponents()
         
-        opQueue.maxConcurrentOperationCount = 14
-        opQueue.underlyingQueue = .global(qos: .utility)
-        
-        let dir = URL(fileURLWithPath: "/Users/kven/meta-cache/")
-//        let dir: URL = URL(fileURLWithPath: "/Users/kven/Music")
-        recurse(dir)
-        opQueue.waitUntilAllOperationsAreFinished()
-        
-        print("Num: \(map.map)")
+//        opQueue.maxConcurrentOperationCount = 14
+//        opQueue.underlyingQueue = .global(qos: .utility)
+//        
+//        let dir = URL(fileURLWithPath: "/Users/kven/meta-cache/")
+////        let dir: URL = URL(fileURLWithPath: "/Users/kven/Music")
+//        recurse(dir)
+//        opQueue.waitUntilAllOperationsAreFinished()
+//        
+//        print("Num: \(map.map)")
         
 //        SearchWindowController.shared.showWindow(self)
         
