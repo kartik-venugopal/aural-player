@@ -58,6 +58,18 @@ extension SignedInteger {
         }
     }
     
+    func clampedTo(minValue: Self, maxValue: Self) -> Self {
+        
+        if self < minValue {
+            return minValue
+            
+        } else if self > maxValue {
+            return maxValue
+        }
+        
+        return self
+    }
+    
     mutating func clamp(minValue: Self) {
         
         if self < minValue {

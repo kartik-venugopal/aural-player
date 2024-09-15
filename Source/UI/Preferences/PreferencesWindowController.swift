@@ -14,6 +14,8 @@ import Cocoa
  */
 class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
     
+    override var windowNibName: NSNib.Name? {"Preferences"}
+    
     @IBOutlet weak var tabView: NSTabView!
     @IBOutlet weak var toolbar: NSToolbar!
     
@@ -31,7 +33,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
-    override var windowNibName: NSNib.Name? {"Preferences"}
+    private static let key_lastDisplayedTab: String = "preferencesWindow.lastDisplayedTab"
     
     override func windowDidLoad() {
         
@@ -46,7 +48,9 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
     
     override func showWindow(_ sender: Any?) {
         
-        toolbar.selectedItemIdentifier = NSToolbarItem.Identifier("PlayQueue")
+        let tabIndex = (userDefaults[Self.key_lastDisplayedTab] as? Int ?? 0).clampedTo(minValue: 0, maxValue: toolbar.items.count - 1)
+        toolbar.selectedItemIdentifier = toolbar.items[tabIndex].itemIdentifier
+        
         super.showWindow(self)
     }
     
@@ -60,7 +64,9 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
         resetPreferencesFields()
         
         // Select the play queue prefs tab
-        tabView.selectTabViewItem(at: 0)
+        let tabIndex = userDefaults[Self.key_lastDisplayedTab] as? Int ?? 0
+        tabView.selectTabViewItem(at: tabIndex)
+        toolbar.selectedItemIdentifier = toolbar.items[tabIndex].itemIdentifier
         
         theWindow.center()
         showWindow(self)
@@ -77,7 +83,9 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
     // MARK: Actions
     
     @IBAction func switchToTabAction(_ sender: NSToolbarItem) {
+        
         tabView.selectTabViewItem(at: sender.tag)
+        userDefaults[Self.key_lastDisplayedTab] = sender.tag
     }
     
     @IBAction func previousTabAction(_ sender: Any) {
