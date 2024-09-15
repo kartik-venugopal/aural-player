@@ -25,8 +25,11 @@ class MetadataRegistry: PersistentRootObject {
     
     init(persistentState: MetadataPersistentState?) {
         
-        for (file, state) in persistentState?.metadata ?? [:] {
-            registry[file] = PrimaryMetadata(persistentState: state, persistentCoverArt: nil)
+        if let metadataPersistentState: [URL: PrimaryMetadataPersistentState] = persistentState?.metadata {
+            
+            registry.bulkAddAndMap(map: metadataPersistentState) {(metadataState: PrimaryMetadataPersistentState) in
+                PrimaryMetadata(persistentState: metadataState, persistentCoverArt: nil)
+            }
         }
     }
     

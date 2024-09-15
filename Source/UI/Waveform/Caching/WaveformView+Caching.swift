@@ -12,8 +12,14 @@ import Foundation
 extension WaveformView {
     
     static let cacheBaseDirectory: URL = FilesAndPaths.subDirectory(named: "waveformCache")
+    
     static let cache: ConcurrentMap<URL, ConcurrentArray<WaveformCacheEntry>> = ConcurrentMap()
     static let dataCache: ConcurrentMap<String, WaveformCacheData> = ConcurrentMap()
+    
+    private static var readOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .userInitiated)
+    private static var writeOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .background)
+    
+    private static let arrayInitLock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     
     static var persistentState: WaveformPersistentState {
         WaveformPersistentState(cacheEntries: cache.map.values.flatMap {$0.array})
@@ -37,18 +43,24 @@ extension WaveformView {
                 
                 guard let newEntry = WaveformCacheEntry(persistentState: entry) else {continue}
                 
-                let audioFile = newEntry.audioFile
-                
-                if cache[audioFile] == nil {
-                    cache[audioFile] = ConcurrentArray()
-                }
-                
-                cache[audioFile]?.append(newEntry)
-                
-                let dataFile = cacheBaseDirectory.appendingPathComponent("\(newEntry.uuid).json")
-                
-                if let data = WaveformCacheData.load(fromFile: dataFile) {
-                    dataCache[newEntry.uuid] = data
+                readOpQueue.addOperation {
+                    
+                    let audioFile = newEntry.audioFile
+                    
+                    arrayInitLock.executeAfterWait {
+                        
+                        if cache[audioFile] == nil {
+                            cache[audioFile] = ConcurrentArray()
+                        }
+                    }
+                    
+                    cache[audioFile]?.append(newEntry)
+                    
+                    let dataFile = cacheBaseDirectory.appendingPathComponent("\(newEntry.uuid).json")
+                    
+                    if let data = WaveformCacheData.load(fromFile: dataFile) {
+                        dataCache[newEntry.uuid] = data
+                    }
                 }
             }
         }
@@ -60,8 +72,11 @@ extension WaveformView {
         let dataFile = cacheBaseDirectory.appendingPathComponent("\(entry.uuid).json")
         let data = WaveformCacheData(samples: data)
         
-        if cache[audioFile] == nil {
-            cache[audioFile] = ConcurrentArray()
+        arrayInitLock.executeAfterWait {
+            
+            if cache[audioFile] == nil {
+                cache[audioFile] = ConcurrentArray()
+            }
         }
         
         // Add it to the cache, mapped to the audio file.

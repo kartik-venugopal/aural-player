@@ -37,17 +37,11 @@ class ReplayGainScanner {
     init(persistentState: ReplayGainAnalysisCachePersistentState?) {
         
         if let trackGainCache = persistentState?.trackGainCache {
-            
-            for (file, result) in trackGainCache {
-                self.trackGainCache[file] = result
-            }
+            self.trackGainCache.bulkAdd(map: trackGainCache)
         }
         
         if let albumGainCache = persistentState?.albumGainCache {
-            
-            for (albumName, result) in albumGainCache {
-                self.albumGainCache[albumName] = result
-            }
+            self.albumGainCache.bulkAdd(map: albumGainCache)
         }
     }
     

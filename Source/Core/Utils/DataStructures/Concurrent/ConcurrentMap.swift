@@ -49,6 +49,29 @@ class ConcurrentMap<T: Hashable, U: Any> {
         }
     }
     
+    func bulkAdd(map: [T: U]) {
+        
+        lock.executeAfterWait {
+            
+            for (key, value) in map {
+                self.map[key] = value
+            }
+        }
+    }
+    
+    func bulkAddAndMap<V: Any>(map: [T: V], mappingFunction: (V) -> U?) {
+        
+        lock.executeAfterWait {
+            
+            for (key, srcValue) in map {
+                
+                if let value = mappingFunction(srcValue) {
+                    self.map[key] = value
+                }
+            }
+        }
+    }
+    
     func hasForKey(_ key: T) -> Bool {
         
         lock.produceValueAfterWait {

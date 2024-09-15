@@ -12,8 +12,6 @@ import Foundation
 
 class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUnitDelegateProtocol {
     
-    static let cache: ConcurrentMap<URL, EBUR128TrackAnalysisResult> = ConcurrentMap()
-    
     var dataSource: ReplayGainDataSource {
         
         get {unit.dataSource}
