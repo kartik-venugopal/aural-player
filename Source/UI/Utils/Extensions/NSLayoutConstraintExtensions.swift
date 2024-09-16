@@ -19,6 +19,10 @@ extension NSLayoutConstraint {
         NSLayoutConstraint(item: item, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: height)
     }
     
+    static func trailingTrailingConstraint(forItem item: Any, relatedTo otherItem: Any, offset: CGFloat = 0) -> NSLayoutConstraint {
+        NSLayoutConstraint(item: item, attribute: .trailing, relatedBy: .equal, toItem: otherItem, attribute: .trailing, multiplier: 1, constant: offset)
+    }
+    
     static func trailingLeadingConstraint(forItem item: Any, relatedTo otherItem: Any, offset: CGFloat = 0) -> NSLayoutConstraint {
         NSLayoutConstraint(item: item, attribute: .trailing, relatedBy: .equal, toItem: otherItem, attribute: .leading, multiplier: 1, constant: offset)
     }
@@ -82,6 +86,14 @@ class LayoutConstraintsManager {
     func setLeading(relatedToLeadingOf otherView: NSView, offset: CGFloat = 0) {
         
         let constraint = NSLayoutConstraint.leadingLeadingConstraint(forItem: view,
+                                                                      relatedTo: otherView, offset: offset)
+        
+        superview?.activateAndAddConstraint(constraint)
+    }
+    
+    func setTrailing(relatedToTrailingOf otherView: NSView, offset: CGFloat = 0) {
+        
+        let constraint = NSLayoutConstraint.trailingTrailingConstraint(forItem: view,
                                                                       relatedTo: otherView, offset: offset)
         
         superview?.activateAndAddConstraint(constraint)

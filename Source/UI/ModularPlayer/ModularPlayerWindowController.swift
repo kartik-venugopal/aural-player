@@ -63,7 +63,10 @@ class ModularPlayerWindowController: NSWindowController {
     private func initWindow() {
         
         theWindow.makeKeyAndOrderFront(self)
+        
         containerBox.addSubview(playerViewController.view)
+        playerViewController.view.anchorToSuperview()
+        
         changeWindowCornerRadius(to: playerUIState.cornerRadius)
         
         viewPopupMenuContainer.forceLoadingOfView()

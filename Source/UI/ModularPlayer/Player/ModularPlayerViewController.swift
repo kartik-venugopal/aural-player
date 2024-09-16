@@ -19,6 +19,8 @@ class ModularPlayerViewController: PlayerViewController {
     @IBOutlet weak var btnFunctionsMenu: NSPopUpButton!
     @IBOutlet weak var functionsMenuDelegate: PlayingTrackFunctionsMenuDelegate!
     
+    private lazy var controlsBoxConstraints: LayoutConstraintsManager = LayoutConstraintsManager(for: controlsBox)
+    
     override var shouldEnableSeekTimer: Bool {
         
         if playbackDelegate.state != .playing {
@@ -50,6 +52,14 @@ class ModularPlayerViewController: PlayerViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        controlsBoxConstraints.setBottom(relatedToBottomOf: self.view, offset: -7)
+        controlsBoxConstraints.setHeight(80)
+        
+        controlsBoxConstraints.setLeading(relatedToLeadingOf: self.view)
+        controlsBoxConstraints.setTrailing(relatedToTrailingOf: self.view)
+        
+        // TODO: Re-do this on view resize
         startTrackingView(options: [.activeAlways, .mouseEnteredAndExited])
     }
     
