@@ -86,7 +86,7 @@ class ChaptersListViewController: NSViewController {
         messenger.subscribe(to: .Player.chapterChanged, handler: chapterChanged(_:))
         messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackChanged)
-        messenger.subscribe(to: .chaptersList_playSelectedChapter, handler: playSelectedChapter)
+        messenger.subscribe(to: .ChaptersList.playSelectedChapter, handler: playSelectedChapter)
     }
     
     override func destroy() {

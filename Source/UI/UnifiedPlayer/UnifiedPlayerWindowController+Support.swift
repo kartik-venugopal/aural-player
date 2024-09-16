@@ -20,20 +20,6 @@ extension NSTabView {
         
         controller.view.anchorToSuperview()
     }
-    
-    func addAndHorizontallyCenterSubView(forController controller: NSViewController) {
-        
-        let item = NSTabViewItem()
-        addTabViewItem(item)
-        item.view?.addSubview(controller.view)
-        
-        let cons = LayoutConstraintsManager(for: controller.view)
-        
-        cons.setWidth(480)
-        cons.setHeight(200)
-        cons.centerHorizontallyInSuperview()
-        cons.setTop(relatedToTopOf: controller.view.superview!, offset: 0)
-    }
 }
 
 extension NSSplitView {

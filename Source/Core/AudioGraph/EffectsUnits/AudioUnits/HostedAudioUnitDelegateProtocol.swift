@@ -27,9 +27,6 @@ protocol HostedAudioUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     var version: String {get}
     var manufacturerName: String {get}
     
-    var componentType: OSType {get}
-    var componentSubType: OSType {get}
-    
     var hasCustomView: Bool {get}
     
     var parameterValues: [AUParameterAddress: Float] {get}

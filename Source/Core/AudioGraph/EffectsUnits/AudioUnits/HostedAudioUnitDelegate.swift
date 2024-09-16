@@ -30,9 +30,6 @@ class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudio
     var version: String {unit.version}
     var manufacturerName: String {unit.manufacturerName}
     
-    var componentType: OSType {unit.componentType}
-    var componentSubType: OSType {unit.componentSubType}
-    
     var hasCustomView: Bool {unit.hasCustomView}
     
     var parameterValues: [AUParameterAddress: Float] {unit.parameterValues}

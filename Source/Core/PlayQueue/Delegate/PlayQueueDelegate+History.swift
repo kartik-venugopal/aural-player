@@ -186,19 +186,19 @@ extension PlayQueueDelegate {
     
     // MARK: Event handling for Playlists ---------------------------------------------------------------
     
-    func playlistEnqueued(_ playlist: Playlist) {
-        
-        let playlistKey = PlaylistHistoryItem.key(forPlaylistNamed: playlist.name)
-        
-        if let existingHistoryItem: PlaylistHistoryItem = recentItems[playlistKey] as? PlaylistHistoryItem {
-            markNewEvent(forItem: existingHistoryItem)
-            
-        } else {
-            
-            recentItems[playlistKey] = PlaylistHistoryItem(playlistName: playlist.name, lastEventTime: Date())
-            maintainListSize()
-        }
-    }
+//    func playlistEnqueued(_ playlist: Playlist) {
+//        
+//        let playlistKey = PlaylistHistoryItem.key(forPlaylistNamed: playlist.name)
+//        
+//        if let existingHistoryItem: PlaylistHistoryItem = recentItems[playlistKey] as? PlaylistHistoryItem {
+//            markNewEvent(forItem: existingHistoryItem)
+//            
+//        } else {
+//            
+//            recentItems[playlistKey] = PlaylistHistoryItem(playlistName: playlist.name, lastEventTime: Date())
+//            maintainListSize()
+//        }
+//    }
     
     private func markNewEvent(forItem existingHistoryItem: HistoryItem) {
         

@@ -78,9 +78,9 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         _ = trackList.insertTracks(sourceTracks, at: destRow)
     }
     
-    func importPlaylists(_ sourcePlaylists: [Playlist], to destRow: Int) {
-        importTracks(sourcePlaylists.flatMap {$0.tracks}, to: destRow)
-    }
+//    func importPlaylists(_ sourcePlaylists: [Playlist], to destRow: Int) {
+//        importTracks(sourcePlaylists.flatMap {$0.tracks}, to: destRow)
+//    }
     
     // ---------------- NSTableViewDelegate --------------------
     

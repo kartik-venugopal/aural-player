@@ -340,9 +340,7 @@ fileprivate func renderCallback(inRefCon: UnsafeMutableRawPointer,
     
     callbackQueue.async {
         
-        renderObserver?.rendered(timeStamp: inTimeStamp.pointee,
-                                 frameCount: inNumberFrames,
-                                 audioBuffer: bufferList)
+        renderObserver?.rendered(audioBuffer: bufferList)
     }
     
     return noErr

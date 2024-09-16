@@ -157,7 +157,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     
     func applyLayout(_ layout: WindowLayout) {
         
-        mainWindow.setFrameOrigin(layout.mainWindowFrame.origin)
+        mainWindow.setFrame(layout.mainWindowFrame, display: true)
         
         auxiliaryWindowsForModules.forEach {
             $0.hide()

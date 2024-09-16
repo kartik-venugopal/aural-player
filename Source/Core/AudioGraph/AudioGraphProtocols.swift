@@ -84,7 +84,7 @@ protocol PlayerGraphProtocol {
 ///
 protocol AudioGraphRenderObserverProtocol {
     
-    func rendered(timeStamp: AudioTimeStamp, frameCount: UInt32, audioBuffer: AudioBufferList)
+    func rendered(audioBuffer: AudioBufferList)
     
     func deviceChanged(newDeviceBufferSize: Int, newDeviceSampleRate: Double)
     

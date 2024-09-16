@@ -70,7 +70,7 @@ fileprivate let _playQueueDelegate: PlayQueueDelegate = PlayQueueDelegate(playQu
 //let library: Library = Library(persistentState: appPersistentState.library)
 //let libraryDelegate: LibraryDelegateProtocol = LibraryDelegate()
 
-let playlistsManager: PlaylistsManager = PlaylistsManager()
+//let playlistsManager: PlaylistsManager = PlaylistsManager()
 
 //    let playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: appPersistentState.playlist, playlist,
 //                                                                           trackReader, preferences)
@@ -176,7 +176,7 @@ var persistentStateOnExit: AppPersistentState {
     persistentState.playQueue = _playQueueDelegate.persistentState
     
 //    persistentState.library = library.persistentState
-    persistentState.playlists = playlistsManager.persistentState
+//    persistentState.playlists = playlistsManager.persistentState
     persistentState.favorites = _favoritesDelegate.persistentState
     persistentState.bookmarks = _bookmarksDelegate.persistentState
     

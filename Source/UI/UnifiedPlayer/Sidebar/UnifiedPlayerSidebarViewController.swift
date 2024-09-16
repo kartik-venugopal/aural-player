@@ -92,19 +92,19 @@ class UnifiedPlayerSidebarViewController: NSViewController {
         }
     }
     
-    private var uniquePlaylistName: String {
-        
-        var newPlaylistName: String = "New Playlist"
-        var ctr: Int = 1
-        
-        while playlistsManager.userDefinedObjectExists(named: newPlaylistName) {
-            
-            ctr.increment()
-            newPlaylistName = "New Playlist \(ctr)"
-        }
-        
-        return newPlaylistName
-    }
+//    private var uniquePlaylistName: String {
+//        
+//        var newPlaylistName: String = "New Playlist"
+//        var ctr: Int = 1
+//        
+//        while playlistsManager.userDefinedObjectExists(named: newPlaylistName) {
+//            
+//            ctr.increment()
+//            newPlaylistName = "New Playlist \(ctr)"
+//        }
+//        
+//        return newPlaylistName
+//    }
     
     private func addFileSystemShortcut() {
         

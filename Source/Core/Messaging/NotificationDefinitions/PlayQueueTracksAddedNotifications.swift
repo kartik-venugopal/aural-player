@@ -59,13 +59,13 @@ class PlayQueueTracksAddedNotification: TracksAddedNotification {
 //    }
 //}
 
-class PlaylistTracksAddedNotification: TracksAddedNotification {
-    
-    let playlistName: String
-    
-    init(playlistName: String, trackIndices: IndexSet) {
-        
-        self.playlistName = playlistName
-        super.init(notificationName: .playlist_tracksAdded, trackIndices: trackIndices)
-    }
-}
+//class PlaylistTracksAddedNotification: TracksAddedNotification {
+//    
+//    let playlistName: String
+//    
+//    init(playlistName: String, trackIndices: IndexSet) {
+//        
+//        self.playlistName = playlistName
+//        super.init(notificationName: .playlist_tracksAdded, trackIndices: trackIndices)
+//    }
+//}

@@ -230,11 +230,4 @@ extension Notification.Name {
     
     // Commands the playlist to select a specific search result within the current list view.
     static let playlist_selectSearchResult = Notification.Name("playlist_selectSearchResult")
-
-    // ----------------------------------------------------------------------------------------
-    
-    // MARK: Chapters List commands
-    
-    // Commands the chapters list to initiate playback of the selected chapter
-    static let chaptersList_playSelectedChapter = Notification.Name("chaptersList_playSelectedChapter")
 }

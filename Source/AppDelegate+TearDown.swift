@@ -56,22 +56,22 @@ extension AppDelegate {
         ], waitUntilFinished: true)
     }
     
-    func savePersistentState() {
-        
-        // TODO: Store Window frames in memory from Window delegates (onMove and onResize) so this can be done totally from a background thread.
-        
-        let _persistentStateOnExit = persistentStateOnExit
-        
-        // Wait a bit for the main thread task to finish.
-        DispatchQueue.global(qos: .background).async {
-            
-            // Make sure app is not tearing down ! If it is, do nothing here.
-            if tearDownOpQueue.operationCount == 0 {
-                
-                recurringPersistenceOpQueue.addOperation {
-                    persistenceManager.save(persistentState: _persistentStateOnExit)
-                }
-            }
-        }
-    }
+//    func savePersistentState() {
+//        
+//        // TODO: Store Window frames in memory from Window delegates (onMove and onResize) so this can be done totally from a background thread.
+//        
+//        let _persistentStateOnExit = persistentStateOnExit
+//        
+//        // Wait a bit for the main thread task to finish.
+//        DispatchQueue.global(qos: .background).async {
+//            
+//            // Make sure app is not tearing down ! If it is, do nothing here.
+//            if tearDownOpQueue.operationCount == 0 {
+//                
+//                recurringPersistenceOpQueue.addOperation {
+//                    persistenceManager.save(persistentState: _persistentStateOnExit)
+//                }
+//            }
+//        }
+//    }
 }
