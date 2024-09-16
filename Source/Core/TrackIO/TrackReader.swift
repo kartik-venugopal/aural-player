@@ -33,7 +33,7 @@ class TrackReader {
     func loadPrimaryMetadataAsync(for track: Track, onQueue opQueue: OperationQueue, completionHandler: TrackIOCompletionHandler? = nil) {
         
         if preferences.metadataPreferences.cacheTrackMetadata.value,
-            let cachedMetadata = metadataRegistry[track.file] {
+            let cachedMetadata = metadataRegistry[track] {
 
             doLoadPrimaryMetadata(for: track, with: cachedMetadata, completionHandler: completionHandler)
             return
@@ -84,7 +84,7 @@ class TrackReader {
             
             let isCacheEnabled: Bool = preferences.metadataPreferences.cacheTrackMetadata.value
             
-            if isCacheEnabled, let metadataInCache = metadataRegistry[track.file] {
+            if isCacheEnabled, let metadataInCache = metadataRegistry[track] {
 
                 let diff = (abs(metadataInCache.duration - duration) / metadataInCache.duration) * 100.0
                 print("Updating duration from \(metadataInCache.duration) -> \(duration), diff = \(diff)")

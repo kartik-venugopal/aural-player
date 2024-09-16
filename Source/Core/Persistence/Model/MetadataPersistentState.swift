@@ -50,9 +50,7 @@ struct PrimaryMetadataPersistentState: Codable {
     
     var replayGain: ReplayGain?
     
-    var coverArtMD5: String?
-    
-    init(metadata: PrimaryMetadata, coverArtMD5: String?) {
+    init(metadata: PrimaryMetadata) {
         
         self.title = metadata.title
         self.artist = metadata.artist
@@ -84,7 +82,6 @@ struct PrimaryMetadataPersistentState: Codable {
         self.chapters = metadata.chapters.map {ChapterPersistentState(chapter: $0)}
         
         self.replayGain = metadata.replayGain
-        self.coverArtMD5 = coverArtMD5
     }
 }
 

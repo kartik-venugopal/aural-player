@@ -17,8 +17,6 @@ extension WaveformView {
     static let dataCache: ConcurrentMap<String, WaveformCacheData> = ConcurrentMap()
     
     private static var readOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .userInitiated)
-    private static var writeOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .background)
-    
     private static let arrayInitLock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     
     static var persistentState: WaveformPersistentState {

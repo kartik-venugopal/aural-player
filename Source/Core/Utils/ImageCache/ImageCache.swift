@@ -10,17 +10,21 @@
 
 import AppKit
 
-class ImageCache<K: Hashable> {
+typealias ImageCacheKeyFunction = (Track, CoverArt) -> String?
+
+class ImageCache {
     
-    private var md5: ConcurrentMap<K, MD5String> = .init()
-    private var images: ConcurrentMap<MD5String, ImageCacheEntry> = .init()
+    private var imageKeys: ConcurrentMap<URL, String> = .init()
+    private var images: ConcurrentMap<String, ImageCacheEntry> = .init()
+    
+    var keyFunction: ImageCacheKeyFunction = {_,_ in ""}
     
     let baseDir: URL
     let downscaledSize: NSSize
     let persistOriginalImage: Bool
     
-    var md5Count: Int {
-        md5.count
+    var keysCount: Int {
+        imageKeys.count
     }
     
     var imageCount: Int {
@@ -41,16 +45,16 @@ class ImageCache<K: Hashable> {
         }
     }
     
-    func initialize(fromPersistentState persistentState: [K: MD5String]?) {
+    func initialize(fromPersistentState persistentState: [URL: String]?) {
 
-        for (key, md5String) in persistentState ?? [:] {
+        for (file, key) in persistentState ?? [:] {
             
-            writeOpQueue.addOperation {
+            readOpQueue.addOperation {
                 
                 var originalImage: NSImage?
                 var downscaledImage: NSImage?
                 
-                let imagesDir = self.baseDir.appendingPathComponent(md5String, isDirectory: true)
+                let imagesDir = self.baseDir.appendingPathComponent(key, isDirectory: true)
                 
                 let origFile = imagesDir.appendingPathComponent("original.png", isDirectory: false)
                 let downscaledFile = imagesDir.appendingPathComponent("downscaled.png", isDirectory: false)
@@ -63,97 +67,103 @@ class ImageCache<K: Hashable> {
                     downscaledImage = NSImage(contentsOf: downscaledFile)
                 }
                 
-                self.md5[key] = md5String
-                self.images[md5String] = .init(md5: md5String, coverArt: CoverArt(originalImage: originalImage, downscaledImage: downscaledImage))
+                self.imageKeys[file] = key
+                self.images[key] = .init(key: key, coverArt: CoverArt(originalImage: originalImage, downscaledImage: downscaledImage))
             }
         }
         
-        writeOpQueue.waitUntilAllOperationsAreFinished()
+        readOpQueue.waitUntilAllOperationsAreFinished()
     }
     
-    subscript(_ key: K) -> CoverArt? {
+    func addToCache(coverArt: CoverArt, forTrack track: Track, persistNewEntry: Bool) {
         
-        get {
-            
-            guard let theMD5 = md5[key] else {return nil}
-            return images[theMD5]?.coverArt
-        }
+        guard let key = keyFunction(track, coverArt) else {return}
         
-        set {
+        let newEntry = ImageCacheEntry(key: key, coverArt: coverArt)
             
-            guard let coverArt = newValue else {
-                
-                md5[key] = nil
-                return
-            }
+        imageKeys[track.file] = key
+        images[key] = newEntry
+        
+        if persistNewEntry {
             
-            if let newEntry = ImageCacheEntry(coverArt: coverArt) {
-                
-                md5[key] = newEntry.md5
-                images[newEntry.md5] = newEntry
+            DispatchQueue.global(qos: .utility).async {
+                self.persistEntry(newEntry)
             }
         }
     }
     
-    func md5(forKey key: K) -> String? {
-        md5[key]
+    subscript(_ file: URL) -> CoverArt? {
+        
+        guard let key = imageKeys[file] else {return nil}
+        return images[key]?.coverArt
     }
     
-    func persist() {
+    func persistAllEntries() {
         
-        for (_, entry) in images.map {
+        DispatchQueue.global(qos: .utility).async {
             
-            let coverArt = entry.coverArt
-            
-            writeOpQueue.addOperation {
+            for (_, entry) in self.images.map {
                 
-                let imagesDir = self.baseDir.appendingPathComponent(entry.md5, isDirectory: true)
-                imagesDir.createDirectory()
-                
-                if self.persistOriginalImage, let originalImage = coverArt.originalImage {
-                    
-                    do {
-                        try originalImage.image.writeToFile(fileType: .png, file: imagesDir.appendingPathComponent("original.png", isDirectory: false))
-                    } catch {}
-                }
-                
-                if let originalImage = coverArt.originalImage,
-                   let downscaledImage = originalImage.image.resized(to: self.downscaledSize) {
-                    
-                    coverArt.downscaledImage = .init(image: downscaledImage)
-                }
-                
-                if let downscaledImage = coverArt.downscaledImage {
-                    
-                    do {
-                        try downscaledImage.image.writeToFile(fileType: .png, file: imagesDir.appendingPathComponent("downscaled.png", isDirectory: false))
-                    } catch {}
+                if !entry.persisted {
+                    self.persistEntry(entry)
                 }
             }
         }
     }
     
-    var persistentState: [K: MD5String] {
-        md5.map
+    private func persistEntry(_ entry: ImageCacheEntry) {
+        
+        let coverArt = entry.coverArt
+        
+        writeOpQueue.addOperation {
+            
+            let imagesDir = self.baseDir.appendingPathComponent(entry.key, isDirectory: true)
+            imagesDir.createDirectory()
+            
+            if self.persistOriginalImage, let originalImage = coverArt.originalImage {
+                
+                do {
+                    
+                    try originalImage.image.writeToFile(fileType: .png, file: imagesDir.appendingPathComponent("original.png", isDirectory: false))
+                    entry.persisted = true
+                    
+                } catch {}
+            }
+            
+            if let originalImage = coverArt.originalImage,
+               let downscaledImage = originalImage.image.resized(to: self.downscaledSize) {
+                
+                coverArt.downscaledImage = .init(image: downscaledImage)
+            }
+            
+            if let downscaledImage = coverArt.downscaledImage {
+                
+                do {
+                    
+                    try downscaledImage.image.writeToFile(fileType: .png, file: imagesDir.appendingPathComponent("downscaled.png", isDirectory: false))
+                    entry.persisted = true
+                    
+                } catch {}
+            }
+        }
+    }
+    
+    var persistentState: [URL: String] {
+        imageKeys.map
     }
 }
 
-struct ImageCacheEntry {
+class ImageCacheEntry {
     
-    let md5: MD5String
+    let key: String
     let coverArt: CoverArt
     
-    init?(coverArt: CoverArt) {
-        
-        guard let imageData = coverArt.originalImage?.imageData else {return nil}
-        
-        self.md5 = imageData.md5String
-        self.coverArt = coverArt
-    }
+    fileprivate var persisted: Bool
     
-    init(md5: MD5String, coverArt: CoverArt) {
+    init(key: String, coverArt: CoverArt) {
         
-        self.md5 = md5
+        self.key = key
         self.coverArt = coverArt
+        self.persisted = false
     }
 }
