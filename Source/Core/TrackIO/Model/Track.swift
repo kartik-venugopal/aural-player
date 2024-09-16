@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Encapsulates all information about a single track
 ///
-class Track: Hashable, PlaylistItem, PlayableItem {
+class Track: Hashable, PlayableItem {
     
     let file: URL
     var metadata: FileMetadata
