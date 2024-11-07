@@ -28,6 +28,8 @@ class MusicBrainzCache: PersistentModelObject {
     var onDiskRecordingsCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     
     private let baseDir: URL = FilesAndPaths.subDirectory(named: "musicBrainzCache")
+    private lazy var releasesDir: URL = baseDir.appendingPathComponent("releases", isDirectory: true)
+    private lazy var recordingsDir: URL = baseDir.appendingPathComponent("recordings", isDirectory: true)
     
     private let diskIOOpQueue: OperationQueue = OperationQueue(opCount: System.physicalCores,
                                                                qos: .utility)
@@ -46,47 +48,56 @@ class MusicBrainzCache: PersistentModelObject {
         }
         
         self.baseDir.createDirectory()
+    }
+    
+    func initializeImageCache(fromPersistentState state: MusicBrainzCachePersistentState?) {
+        
+        let start = CFAbsoluteTimeGetCurrent()
         
         // Initialize the cache with entries that were previously persisted to disk.
             
-//        for entry in state?.releases ?? [] {
-//            
-//            guard let file = entry.file, let artist = entry.artist,
-//                  let title = entry.title else {continue}
-//            
-//            diskIOOpQueue.addOperation {
-//                
-//                // Ensure that the image file exists and that it contains a valid image.
-//                if file.exists, let coverArt = CoverArt(imageFile: file) {
-//                    
-//                    // Entry is valid, enter it into the cache.
-//                    
-//                    self.releasesCache[artist, title] = CachedCoverArtResult(art: coverArt)
-//                    self.onDiskReleasesCache[artist, title] = file
-//                }
-//            }
-//        }
-//            
-//        for entry in state?.recordings ?? [] {
-//            
-//            guard let file = entry.file, let artist = entry.artist,
-//                  let title = entry.title else {continue}
-//            
-//            diskIOOpQueue.addOperation {
-//                
-//                // Ensure that the image file exists and that it contains a valid image.
-//                if file.exists, let coverArt = CoverArt(imageFile: file) {
-//                    
-//                    // Entry is valid, enter it into the cache.
-//                    
-//                    self.recordingsCache[artist, title] = CachedCoverArtResult(art: coverArt)
-//                    self.onDiskRecordingsCache[artist, title] = file
-//                }
-//            }
-//        }
-//        
-//        // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
-//        diskIOOpQueue.waitUntilAllOperationsAreFinished()
+        for entry in state?.releases ?? [] {
+            
+            guard let file = entry.file, let artist = entry.artist,
+                  let title = entry.title else {continue}
+            
+            diskIOOpQueue.addOperation {
+                
+                // Ensure that the image file exists and that it contains a valid image.
+                if file.exists, let coverArt = CoverArt(originalImageFile: file) {
+                    
+                    // Entry is valid, enter it into the cache.
+                    
+                    self.releasesCache[artist, title] = CachedCoverArtResult(art: coverArt)
+                    self.onDiskReleasesCache[artist, title] = file
+                }
+            }
+        }
+        
+        for entry in state?.recordings ?? [] {
+            
+            guard let file = entry.file, let artist = entry.artist,
+                  let title = entry.title else {continue}
+            
+            diskIOOpQueue.addOperation {
+                
+                // Ensure that the image file exists and that it contains a valid image.
+                if file.exists, let coverArt = CoverArt(originalImageFile: file) {
+                    
+                    // Entry is valid, enter it into the cache.
+                    
+                    self.recordingsCache[artist, title] = CachedCoverArtResult(art: coverArt)
+                    self.onDiskRecordingsCache[artist, title] = file
+                }
+            }
+        }
+        
+        // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
+        diskIOOpQueue.waitUntilAllOperationsAreFinished()
+        
+        let end = CFAbsoluteTimeGetCurrent()
+        
+        print("Initialized MBCache with \(releasesCache.count) + \(recordingsCache.count) entries in \(end - start) sec")
             
         self.cleanUpUnmappedFiles()
     }
@@ -128,13 +139,8 @@ class MusicBrainzCache: PersistentModelObject {
         // Write the file to disk (on-disk caching)
         diskIOOpQueue.addOperation {
             
-            self.baseDir.createDirectory()
-            
-            let nowString = Date().serializableStringAsHMS
-            let randomNum = Int.random(in: 0..<10000)
-            
-            let outputFileName = String(format: "release-%@-%@-%@-%d.jpg", artist, title, nowString, randomNum)
-            let file = self.baseDir.appendingPathComponent(outputFileName, isDirectory: false)
+            self.releasesDir.createDirectory()
+            let file = self.releasesDir.appendingPathComponent("\(artist)-\(title).jpg", isDirectory: false)
             
             do {
 
@@ -161,13 +167,8 @@ class MusicBrainzCache: PersistentModelObject {
         // Write the file to disk (on-disk caching)
         diskIOOpQueue.addOperation {
             
-            self.baseDir.createDirectory()
-            
-            let nowString = Date().serializableStringAsHMS
-            let randomNum = Int.random(in: 0..<10000)
-            
-            let outputFileName = String(format: "recording-%@-%@-%@-%d.jpg", artist, title, nowString, randomNum)
-            let file = self.baseDir.appendingPathComponent(outputFileName, isDirectory: false)
+            self.recordingsDir.createDirectory()
+            let file = self.recordingsDir.appendingPathComponent("\(artist)-\(title).jpg", isDirectory: false)
             
             do {
             
@@ -217,11 +218,23 @@ class MusicBrainzCache: PersistentModelObject {
             
             // Clean up files that are unmapped.
             
-            if let allFiles = self.baseDir.children {
+            if let releasesImgFiles = self.releasesDir.children {
                 
-                let mappedFiles: Set<URL> = Set(self.onDiskReleasesCache.entries.map {$0.2} + self.onDiskRecordingsCache.entries.map {$0.2})
+                let mappedFiles: Set<URL> = Set(self.onDiskReleasesCache.entries.map {$0.2})
                 
-                let unmappedFiles = allFiles.filter {!mappedFiles.contains($0)}
+                let unmappedFiles = releasesImgFiles.filter {!mappedFiles.contains($0)}
+                
+                // Delete unmapped files.
+                for file in unmappedFiles {
+                    file.delete(recursive: false)
+                }
+            }
+            
+            if let recordingsImgFiles = self.recordingsDir.children {
+                
+                let mappedFiles: Set<URL> = Set(self.onDiskRecordingsCache.entries.map {$0.2})
+                
+                let unmappedFiles = recordingsImgFiles.filter {!mappedFiles.contains($0)}
                 
                 // Delete unmapped files.
                 for file in unmappedFiles {

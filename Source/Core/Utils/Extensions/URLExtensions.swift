@@ -203,7 +203,12 @@ extension URL {
                 
                 // First delete this file's children (if any).
                 for file in self.children ?? [] {
-                    try fileManager.removeItem(atPath: file.path)
+                    
+                    if file.isDirectory {
+                        file.delete(recursive: true)
+                    } else {
+                        try fileManager.removeItem(atPath: file.path)
+                    }
                 }
             }
             

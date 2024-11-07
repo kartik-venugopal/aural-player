@@ -89,6 +89,10 @@ extension AppDelegate {
             
             print("Took \(end - start) sec to init metadata image cache.")
         }
+        
+        if preferences.metadataPreferences.musicBrainz.cachingEnabled {
+            musicBrainzCache.initializeImageCache(fromPersistentState: appPersistentState.musicBrainzCache)
+        }
     }
     
     func initializeMetadataComponents() {

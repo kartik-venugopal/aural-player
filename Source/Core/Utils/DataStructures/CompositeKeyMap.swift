@@ -28,6 +28,10 @@ class CompositeKeyMap<T: Hashable, U: Any> {
     
     private var map: [T: [T: U]] = [:]
     
+    var count: Int {
+        map.count
+    }
+    
     subscript(_ key1: T, _ key2: T) -> U? {
         
         get {map[key1]?[key2]}

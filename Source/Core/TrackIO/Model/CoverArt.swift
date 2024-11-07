@@ -70,24 +70,23 @@ class CoverArt {
         }
     }
     
-//    init?(imageFile: URL, metadata: ImageMetadata? = nil) {
-//        
-//        do {
-//
-//            // Read the image file for image metadata.
-//            let imgData: Data = try Data(contentsOf: imageFile)
-//            guard let image = NSImage(data: imgData) else {return nil}
-//            
-//            self.imageData = imgData
-//            self.image = image
-//            self.metadata = metadata ?? ParserUtils.getImageMetadata(imgData)
-//            
-//        } catch {
-//            
-//            NSLog("Warning - Unable to read data from the image file: \(imageFile.path)")
-//            return nil
-//        }
-//    }
+    init?(originalImageFile: URL, metadata: ImageMetadata? = nil) {
+        
+        do {
+
+            // Read the image file for image metadata.
+            let imgData: Data = try Data(contentsOf: originalImageFile)
+            guard let image = NSImage(data: imgData) else {return nil}
+            
+            self.originalImage = .init(image: image, imageData: imgData)
+            self.metadata = metadata ?? ParserUtils.getImageMetadata(imgData)
+            
+        } catch {
+            
+            NSLog("Warning - Unable to read data from the image file: \(originalImageFile.path)")
+            return nil
+        }
+    }
 }
 
 class CoverArtImage {
@@ -107,6 +106,12 @@ class CoverArtImage {
         
         self.image = image
         self.imageData = nil
+    }
+    
+    init(image: NSImage, imageData: Data? = nil) {
+        
+        self.image = image
+        self.imageData = imageData
     }
 }
 

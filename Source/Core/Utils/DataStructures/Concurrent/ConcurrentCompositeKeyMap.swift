@@ -36,6 +36,10 @@ class ConcurrentCompositeKeyMap<T: Hashable, U: Any> {
         }
     }
     
+    var count: Int {
+        map.count
+    }
+    
     var entries: [(T, T, U)] {
         
         lock.produceValueAfterWait {
