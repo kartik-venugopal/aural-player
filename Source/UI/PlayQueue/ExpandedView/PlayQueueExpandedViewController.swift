@@ -20,6 +20,15 @@ class PlayQueueExpandedViewController: PlayQueueViewController {
     
     override var rowHeight: CGFloat {50}
     
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        messenger.subscribeAsync(to: .PlayQueue.bulkCoverArtUpdate) {[weak self] (updatedTracks: [Int]) in
+            self?.tableView.reloadRows(updatedTracks, columns: [0])
+        }
+    }
+    
     // MARK: Table view delegate / data source --------------------------------------------------------------------------------------------------------
     
     override func moveTracks(from sourceIndices: IndexSet, to destRow: Int) {

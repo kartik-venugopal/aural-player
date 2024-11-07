@@ -51,10 +51,37 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         var lcTrackAlbum = track.album?.lowerCasedAndTrimmed()
         if lcTrackAlbum == "album" {lcTrackAlbum = nil} // The word album means that album is unknown and should not be used in the search.
         
+        func updatePlayQueueTracks(withCoverArt coverArt: CoverArt) {
+            
+            DispatchQueue.global(qos: .background).async {
+                
+                var updatedTracks = [Int]()
+                
+                for (index, pqTrack) in playQueueDelegate.tracks.enumerated() {
+                    
+                    if let pqLCArtist = pqTrack.artist?.lowerCasedAndTrimmed(),
+                       let pqLCAlbum = pqTrack.album?.lowerCasedAndTrimmed(),
+                       lcArtist == pqLCArtist,
+                       lcTrackAlbum == pqLCAlbum {
+                        
+                        if pqTrack.metadata.primary?.art == nil {
+                            pqTrack.metadata.primary?.art = coverArt
+                        }
+                        
+                        updatedTracks.append(index)
+                    }
+                }
+                
+                Messenger.publish(.PlayQueue.bulkCoverArtUpdate, payload: updatedTracks)
+            }
+        }
+        
         if let album = lcTrackAlbum,
            let coverArt = searchReleases(forArtist: lcArtist, andReleaseTitle: album) {
             
 //            CoverArtCache.addEntry(track.file, coverArt)
+            
+            updatePlayQueueTracks(withCoverArt: coverArt)
             return coverArt
         }
         
@@ -62,6 +89,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
            let coverArt = searchRecordings(forArtist: lcArtist, andRecordingTitle: title.lowerCasedAndTrimmed(), from: lcTrackAlbum) {
             
 //            CoverArtCache.addEntry(track.file, coverArt)
+            updatePlayQueueTracks(withCoverArt: coverArt)
             return coverArt
         }
         

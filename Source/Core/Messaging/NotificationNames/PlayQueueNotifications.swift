@@ -30,6 +30,8 @@ extension Notification.Name {
         
         static let tracksRemoved = Notification.Name("playQueue_tracksRemoved")
         
+        static let bulkCoverArtUpdate = Notification.Name("playQueue_bulkCoverArtUpdate")
+        
         // Signifies that the currently playing track has been removed from the playlist, suggesting
         // that playback should stop.
         static let playingTrackRemoved = Notification.Name("playQueue_playingTrackRemoved")
