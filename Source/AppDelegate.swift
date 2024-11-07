@@ -60,16 +60,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-//        print("applicationDidFinishLaunching - \(Date.nowTimestampString)")
-        
         // Force eager loading of persistent state
-        eagerlyInitializeObjects(appPersistentState, metadataRegistry)
-        
-        let start = CFAbsoluteTimeGetCurrent()
-        metadataRegistry.initializeImageCache(fromPersistentState: metadataPersistentState)
-        let end = CFAbsoluteTimeGetCurrent()
-        
-        print("Took \(end - start) sec to init metadata image cache.")
+        eagerlyInitializeObjects(appPersistentState)
         
         if appSetup.setupRequired {
             performAppSetup()
@@ -77,86 +69,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             postLaunch()
         }
-        
-        initializeMetadataComponents()
-        
-//        opQueue.maxConcurrentOperationCount = 14
-//        opQueue.underlyingQueue = .global(qos: .utility)
-//        
-//        let dir = URL(fileURLWithPath: "/Users/kven/meta-cache/")
-////        let dir: URL = URL(fileURLWithPath: "/Users/kven/Music")
-//        recurse(dir)
-//        opQueue.waitUntilAllOperationsAreFinished()
-//        
-//        print("Num: \(map.map)")
-        
-//        SearchWindowController.shared.showWindow(self)
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            colorSchemesManager.printNumObservers()
-//            fontSchemesManager.printNumObservers()
-//        }
-    }
-    
-    let opQueue = OperationQueue()
-    var fileCtr: AtomicIntCounter = .init()
-    var ctr: AtomicIntCounter = .init()
-    var sizeCtr: AtomicIntCounter = .init()
-    
-    var map: ConcurrentMap<String, Int> = .init()
-//    var fileCtr: Int = 0
-//    var ctr: Int = 0
-//    var sizeCtr: Int = 0
-    
-    private func recurse(_ dir: URL) {
-        
-//        for file in dir.children ?? [] {
-//            
-//            if file.isDirectory {
-//                
-//                recurse(file)
-//                continue
-//            }
-//            
-//            self.fileCtr.increment()
-//            
-//            //            if file.lowerCasedExtension != "mp3" {continue}
-//            let ext = file.lowerCasedExtension
-//            if !SupportedTypes.allAudioExtensions.contains(ext) {continue}
-//            
-//            opQueue.addOperation {
-//                
-//                if let art = fileReader.getArt(for: file) {
-//                    
-//                    let data = art.imageData
-//                    
-//                    self.map[ext] = (self.map[ext] ?? 0) + 1
-////                    
-////                    var idCtr = 1
-////                    
-////                    self.ctr.increment()
-////                    let size = data.count
-//////                    self.sizeCtr = self.sizeCtr + size
-////                    var base = URL(fileURLWithPath: "/Users/kven/meta-cache/")
-////                    var fn = file.deletingPathExtension().lastPathComponent
-////                    var dest = base.appendingPathComponent(fn + "\(idCtr).\(ext)")
-////                    
-////                    while dest.exists {
-////                        
-////                        idCtr.increment()
-////                        dest = base.appendingPathComponent(fn + "\(idCtr).\(ext)")
-////                    }
-////                    
-////                    print("Copying to: \(dest.path)")
-////                    
-////                    try! FileManager.default.copyItem(at: file, to: dest)
-////                    
-////                    if self.fileCtr.value % 100 == 0 {
-////                        print("Processed \(self.fileCtr) values")
-////                    }
-//                }
-//            }
-//        }
     }
 
     /// Opens the application with a single file (audio file or playlist)

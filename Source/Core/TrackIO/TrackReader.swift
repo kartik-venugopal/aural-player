@@ -34,7 +34,7 @@ class TrackReader {
         
         if preferences.metadataPreferences.cacheTrackMetadata.value,
             let cachedMetadata = metadataRegistry[track] {
-
+            
             doLoadPrimaryMetadata(for: track, with: cachedMetadata, completionHandler: completionHandler)
             return
         }
@@ -57,6 +57,7 @@ class TrackReader {
     private func doLoadPrimaryMetadata(for track: Track, with metadata: PrimaryMetadata, completionHandler: TrackIOCompletionHandler?) {
         
         track.metadata.primary = metadata
+        metadataRegistry[track] = metadata
         
         if metadata.art == nil {
             metadata.art = musicBrainzCache.getCoverArt(forTrack: track)
@@ -66,9 +67,9 @@ class TrackReader {
         
         // For non-native tracks that don't have accurate duration, compute duration async.
         
-        if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
-            computeAccurateDuration(forTrack: track)
-        }
+//        if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
+//            computeAccurateDuration(forTrack: track)
+//        }
         
         completionHandler?()
     }

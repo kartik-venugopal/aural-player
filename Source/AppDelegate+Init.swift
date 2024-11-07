@@ -23,6 +23,8 @@ fileprivate var filesToOpen: [URL] = []
 /// Timestamp when the app last opened a set of files. This is used to consolidate multiple chunks of a file open operation into a single one (from the perspective of the user, it is one operation). This is necessary because a single Finder open operation results in multiple file open method calls here. Why ???
 fileprivate var lastFileOpenTime: Date?
 
+fileprivate var initOpQueue: OperationQueue = OperationQueue(opCount: 2, qos: .userInteractive)
+
 extension AppDelegate {
     
     /// A window of time within which multiple file open operations will be considered as chunks of one single operation
@@ -77,6 +79,18 @@ extension AppDelegate {
         appSetupWindowController.showWindow(self)
     }
     
+    func initializeMetadataCache() {
+        
+        if preferences.metadataPreferences.cacheTrackMetadata.value {
+            
+            let start = CFAbsoluteTimeGetCurrent()
+            metadataRegistry.initializeImageCache(fromPersistentState: metadataPersistentState)
+            let end = CFAbsoluteTimeGetCurrent()
+            
+            print("Took \(end - start) sec to init metadata image cache.")
+        }
+    }
+    
     func initializeMetadataComponents() {
         
 //        print("initializeMetadataComponents - \(Date.nowTimestampString)")
@@ -88,8 +102,17 @@ extension AppDelegate {
     
     func postLaunch() {
         
+        initOpQueue.addOperation {
+            
+            self.initializeMetadataCache()
+            self.initializeMetadataComponents()
+        }
+        
+        initOpQueue.addOperation {
+            self.initializeSecondaryObjects()
+        }
+        
         appModeManager.presentApp()
-        initialize()
         
         // Update the appLaunched flag
         appLaunched = true
@@ -100,17 +123,14 @@ extension AppDelegate {
         //                self.beginPeriodicPersistence()
     }
     
-    func initialize() {
+    func initializeSecondaryObjects() {
         
         // Force initialization of objects that would not be initialized soon enough otherwise
         // (they are not referred to in code that is executed on app startup).
         
         //        _ = libraryDelegate
         
-        DispatchQueue.global(qos: .userInteractive).async {
-            self.eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
-        }
-        
+        self.eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
         WaveformView.initializeImageCache()
     }
     
