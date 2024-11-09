@@ -68,7 +68,7 @@ class ImageCache {
                 }
                 
                 self.imageKeys[file] = key
-                self.images[key] = .init(key: key, coverArt: CoverArt(originalImage: originalImage, downscaledImage: downscaledImage))
+                self.images[key] = .init(key: key, coverArt: CoverArt(source: .file, originalImage: originalImage, downscaledImage: downscaledImage))
             }
         }
         
@@ -145,6 +145,16 @@ class ImageCache {
                     
                 } catch {}
             }
+        }
+    }
+    
+    func clearCache() {
+        
+        imageKeys.removeAll()
+        images.removeAll()
+        
+        DispatchQueue.global(qos: .background).async {
+            self.baseDir.delete()
         }
     }
     

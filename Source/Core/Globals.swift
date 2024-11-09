@@ -123,8 +123,7 @@ let metadataRegistry: MetadataRegistry = MetadataRegistry(persistentState: metad
 
 let coverArtReader: CoverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
 let fileCoverArtReader: FileCoverArtReader = FileCoverArtReader(fileReader)
-let musicBrainzCoverArtReader: MusicBrainzCoverArtReader = MusicBrainzCoverArtReader(preferences: preferences.metadataPreferences.musicBrainz,
-                                                                                     cache: musicBrainzCache)
+let musicBrainzCoverArtReader: MusicBrainzCoverArtReader = MusicBrainzCoverArtReader(cache: musicBrainzCache)
 
 let musicBrainzCache: MusicBrainzCache = MusicBrainzCache(state: appPersistentState.musicBrainzCache,
                                                           preferences: preferences.metadataPreferences.musicBrainz)

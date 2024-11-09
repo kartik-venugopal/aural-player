@@ -146,7 +146,7 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.nonEssentialMetadata = auxiliaryMetadata
         
         if let imageData = metadataMap.fileCtx.bestImageStream?.attachedPic.data {
-            metadata.art = CoverArt(originalImageData: imageData)
+            metadata.art = CoverArt(source: .file, originalImageData: imageData)
         }
         
         return metadata
@@ -257,7 +257,7 @@ class FFmpegFileReader: FileReaderProtocol {
             let fctx = try FFmpegFileContext(for: file)
             
             if let imageData = fctx.bestImageStream?.attachedPic.data {
-                return CoverArt(originalImageData: imageData)
+                return CoverArt(source: .file, originalImageData: imageData)
             }
             
         } catch {}

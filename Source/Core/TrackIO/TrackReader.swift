@@ -32,10 +32,13 @@ class TrackReader {
     ///
     func loadPrimaryMetadataAsync(for track: Track, onQueue opQueue: OperationQueue, completionHandler: TrackIOCompletionHandler? = nil) {
         
-        if preferences.metadataPreferences.cacheTrackMetadata.value,
-            let cachedMetadata = metadataRegistry[track] {
+        let metadataCacheEnabled = preferences.metadataPreferences.cacheTrackMetadata.value
+        
+        if metadataCacheEnabled, let cachedMetadata = metadataRegistry[track] {
             
-            doLoadPrimaryMetadata(for: track, with: cachedMetadata, completionHandler: completionHandler)
+            doLoadPrimaryMetadata(for: track, with: cachedMetadata, onQueue: opQueue, 
+                                  metadataCacheEnabled: metadataCacheEnabled,
+                                  completionHandler: completionHandler)
             return
         }
         
@@ -44,7 +47,13 @@ class TrackReader {
             do {
                 
                 let primaryMetadata = try fileReader.getPrimaryMetadata(for: track.file)
-                self.doLoadPrimaryMetadata(for: track, with: primaryMetadata, completionHandler: completionHandler)
+                self.doLoadPrimaryMetadata(for: track, with: primaryMetadata, onQueue: opQueue,
+                                           metadataCacheEnabled: metadataCacheEnabled,
+                                           completionHandler: completionHandler)
+                
+                if metadataCacheEnabled {
+                    metadataRegistry[track] = primaryMetadata
+                }
                 
             } catch {
                 
@@ -54,10 +63,10 @@ class TrackReader {
         }
     }
     
-    private func doLoadPrimaryMetadata(for track: Track, with metadata: PrimaryMetadata, completionHandler: TrackIOCompletionHandler?) {
+    private func doLoadPrimaryMetadata(for track: Track, with metadata: PrimaryMetadata, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool,
+                                       completionHandler: TrackIOCompletionHandler?) {
         
         track.metadata.primary = metadata
-        metadataRegistry[track] = metadata
         
         if metadata.art == nil {
             metadata.art = musicBrainzCache.getCoverArt(forTrack: track)
@@ -67,25 +76,23 @@ class TrackReader {
         
         // For non-native tracks that don't have accurate duration, compute duration async.
         
-//        if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
-//            computeAccurateDuration(forTrack: track)
-//        }
+        if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
+            computeAccurateDuration(forTrack: track, onQueue: opQueue, metadataCacheEnabled: metadataCacheEnabled)
+        }
         
         completionHandler?()
     }
     
-    func computeAccurateDuration(forTrack track: Track) {
+    func computeAccurateDuration(forTrack track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        opQueue.addOperation {
             
             guard let duration = fileReader.computeAccurateDuration(for: track.file), duration > 0 else {return}
             
             track.metadata.primary?.duration = duration
             track.metadata.primary?.durationIsAccurate = true
             
-            let isCacheEnabled: Bool = preferences.metadataPreferences.cacheTrackMetadata.value
-            
-            if isCacheEnabled, let metadataInCache = metadataRegistry[track] {
+            if metadataCacheEnabled, let metadataInCache = metadataRegistry[track] {
 
                 let diff = (abs(metadataInCache.duration - duration) / metadataInCache.duration) * 100.0
                 print("Updating duration from \(metadataInCache.duration) -> \(duration), diff = \(diff)")
@@ -106,6 +113,14 @@ class TrackReader {
             
             track.metadata.primary?.duration = playbackContext.duration
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
+            
+            // Update the metadata cache with the updated duration.
+            let metadataCacheEnabled = preferences.metadataPreferences.cacheTrackMetadata.value
+            if metadataCacheEnabled, let metadataInCache = metadataRegistry[track] {
+                
+                metadataInCache.duration = playbackContext.duration
+                metadataInCache.durationIsAccurate = true
+            }
         }
     }
     
@@ -162,7 +177,7 @@ class TrackReader {
     ///
     func loadArtAsync(for track: Track, immediate: Bool = true) {
         
-        if track.art?.originalImage != nil {print("Has Art !!!"); return}
+        if track.art?.originalImage != nil {return}
         
         DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
             
@@ -170,7 +185,6 @@ class TrackReader {
             
             if let existingArt = track.art {
                 existingArt.merge(withOther: art)
-                print("Merged Art !!!")
             } else {
                 track.metadata.primary?.art = art
             }

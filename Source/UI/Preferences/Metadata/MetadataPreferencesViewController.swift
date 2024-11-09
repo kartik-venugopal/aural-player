@@ -67,7 +67,24 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func save() throws {
         
+        let wasCachingMetadata: Bool = metadataPrefs.cacheTrackMetadata.value
         metadataPrefs.cacheTrackMetadata.value = btnCacheTrackMetadata.isOn
+        
+        // If no longer caching track metadata, empty the cache.
+        if wasCachingMetadata && (metadataPrefs.cacheTrackMetadata.value == false) {
+            metadataRegistry.clearRegistry()
+            
+        } else if (!wasCachingMetadata) && metadataPrefs.cacheTrackMetadata.value {
+            
+            // Was not caching before, now need to cache all PQ tracks.
+            
+            for track in playQueueDelegate.tracks {
+                metadataRegistry[track] = track.metadata.primary
+            }
+            
+            metadataRegistry.persistCoverArt()
+        }
+        
         metadataPrefs.httpTimeout.value = timeoutStepper.integerValue
         
         for subView in subViews {

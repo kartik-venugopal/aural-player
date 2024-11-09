@@ -60,14 +60,17 @@ class MetadataRegistry: PersistentRootObject {
             
             registry[track.file] = newValue
             
-            if let coverArt = newValue?.art {
+            // Don't add MusicBrainz art to the image cache.
+            if let coverArt = newValue?.art, coverArt.source == .file {
                 fileImageCache.addToCache(coverArt: coverArt, forTrack: track, persistNewEntry: false)
             }
         }
     }
     
     func clearRegistry() {
+        
         registry.removeAll()
+        fileImageCache.clearCache()
     }
     
     var persistentState: MetadataPersistentState {

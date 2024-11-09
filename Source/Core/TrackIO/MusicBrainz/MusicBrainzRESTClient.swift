@@ -240,7 +240,7 @@ class MusicBrainzRESTClient {
                     let data: Data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders, timeout: httpTimeout)
                     
                     // Construct an NSImage from the raw data.
-                    return CoverArt(originalImageData: data)
+                    return CoverArt(source: .musicBrainz, originalImageData: data)
                     
                 } catch {continue}
             }

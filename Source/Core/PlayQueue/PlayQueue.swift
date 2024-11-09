@@ -252,7 +252,9 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             messenger.publish(HistoryItemsAddedNotification(itemURLs: session.urls))
         }
         
-        metadataRegistry.persistCoverArt()
+        if preferences.metadataPreferences.cacheTrackMetadata.value {
+            metadataRegistry.persistCoverArt()
+        }
         
         messenger.publish(.PlayQueue.doneAddingTracks)
         print("PlayQueue.postTrackLoad() - \(Date.nowTimestampString)")

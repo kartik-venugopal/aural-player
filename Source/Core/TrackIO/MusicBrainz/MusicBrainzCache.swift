@@ -64,7 +64,7 @@ class MusicBrainzCache: PersistentModelObject {
             diskIOOpQueue.addOperation {
                 
                 // Ensure that the image file exists and that it contains a valid image.
-                if file.exists, let coverArt = CoverArt(originalImageFile: file) {
+                if file.exists, let coverArt = CoverArt(source: .musicBrainz, originalImageFile: file) {
                     
                     // Entry is valid, enter it into the cache.
                     
@@ -82,7 +82,7 @@ class MusicBrainzCache: PersistentModelObject {
             diskIOOpQueue.addOperation {
                 
                 // Ensure that the image file exists and that it contains a valid image.
-                if file.exists, let coverArt = CoverArt(originalImageFile: file) {
+                if file.exists, let coverArt = CoverArt(source: .musicBrainz, originalImageFile: file) {
                     
                     // Entry is valid, enter it into the cache.
                     
@@ -226,7 +226,7 @@ class MusicBrainzCache: PersistentModelObject {
                 
                 // Delete unmapped files.
                 for file in unmappedFiles {
-                    file.delete(recursive: false)
+                    file.delete()
                 }
             }
             
@@ -238,7 +238,7 @@ class MusicBrainzCache: PersistentModelObject {
                 
                 // Delete unmapped files.
                 for file in unmappedFiles {
-                    file.delete(recursive: false)
+                    file.delete()
                 }
             }
         }

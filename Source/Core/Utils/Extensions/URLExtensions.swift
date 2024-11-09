@@ -193,25 +193,11 @@ extension URL {
     }
     
     // Deletes a file / directory recursively (i.e. all children will be deleted, if it is a directory).
-    func delete(recursive: Bool = true) {
+    func delete() {
         
         guard exists else {return}
         
         do {
-            
-            if recursive {
-                
-                // First delete this file's children (if any).
-                for file in self.children ?? [] {
-                    
-                    if file.isDirectory {
-                        file.delete(recursive: true)
-                    } else {
-                        try fileManager.removeItem(atPath: file.path)
-                    }
-                }
-            }
-            
             // Delete this file.
             try fileManager.removeItem(atPath: self.path)
             

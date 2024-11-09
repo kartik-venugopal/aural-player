@@ -16,6 +16,7 @@ import CoreGraphics
 ///
 class CoverArt {
     
+    let source: CoverArtSource
     var originalImage: CoverArtImage?
     var downscaledImage: CoverArtImage?
     
@@ -29,16 +30,19 @@ class CoverArt {
     
     var metadata: ImageMetadata?
     
-    init?(originalImageData: Data) {
+    init?(source: CoverArtSource, originalImageData: Data) {
         
         guard let originalImage = CoverArtImage(imageData: originalImageData) else {return nil}
         
+        self.source = source
         self.originalImage = originalImage
         self.downscaledImage = nil
         self.metadata = ParserUtils.getImageMetadata(originalImageData)
     }
     
-    init(originalImage: NSImage?, downscaledImage: NSImage?) {
+    init(source: CoverArtSource, originalImage: NSImage?, downscaledImage: NSImage?) {
+        
+        self.source = source
         
         if let originalImage = originalImage {
             self.originalImage = .init(image: originalImage)
@@ -55,6 +59,25 @@ class CoverArt {
         }
     }
     
+    init?(source: CoverArtSource, originalImageFile: URL, metadata: ImageMetadata? = nil) {
+        
+        do {
+
+            // Read the image file for image metadata.
+            let imgData: Data = try Data(contentsOf: originalImageFile)
+            guard let image = NSImage(data: imgData) else {return nil}
+            
+            self.source = source
+            self.originalImage = .init(image: image, imageData: imgData)
+            self.metadata = metadata ?? ParserUtils.getImageMetadata(imgData)
+            
+        } catch {
+            
+            NSLog("Warning - Unable to read data from the image file: \(originalImageFile.path)")
+            return nil
+        }
+    }
+    
     func merge(withOther other: CoverArt) {
         
         if self.metadata == nil && other.metadata != nil {
@@ -67,24 +90,6 @@ class CoverArt {
         
         if self.downscaledImage == nil && other.downscaledImage != nil {
             self.downscaledImage = other.downscaledImage
-        }
-    }
-    
-    init?(originalImageFile: URL, metadata: ImageMetadata? = nil) {
-        
-        do {
-
-            // Read the image file for image metadata.
-            let imgData: Data = try Data(contentsOf: originalImageFile)
-            guard let image = NSImage(data: imgData) else {return nil}
-            
-            self.originalImage = .init(image: image, imageData: imgData)
-            self.metadata = metadata ?? ParserUtils.getImageMetadata(imgData)
-            
-        } catch {
-            
-            NSLog("Warning - Unable to read data from the image file: \(originalImageFile.path)")
-            return nil
         }
     }
 }
@@ -113,6 +118,11 @@ class CoverArtImage {
         self.image = image
         self.imageData = imageData
     }
+}
+
+enum CoverArtSource: Int {
+    
+    case file, musicBrainz
 }
 
 ///

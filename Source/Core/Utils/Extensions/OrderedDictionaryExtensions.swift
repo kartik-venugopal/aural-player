@@ -31,8 +31,8 @@ extension OrderedDictionary {
         
         let firstIndex: Int = count
         
-        for mapping in mappings {
-            self[mapping.key] = mapping.value
+        for (key, value) in mappings {
+            self[key] = value
         }
         
         return IndexSet(firstIndex..<count)

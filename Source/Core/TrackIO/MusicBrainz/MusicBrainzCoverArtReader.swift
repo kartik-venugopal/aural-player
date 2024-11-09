@@ -22,8 +22,6 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     // Cache art for later use (other tracks from the same release / recording).
     let cache: MusicBrainzCache
     
-    private let preferences: MusicBrainzPreferences
-    
     private var searchedTracks: ConcurrentSet<Track> = ConcurrentSet()
     
     ///
@@ -32,16 +30,19 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     ///
     private let apiCallsLock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     
-    init(preferences: MusicBrainzPreferences, cache: MusicBrainzCache) {
+    init(cache: MusicBrainzCache) {
 
         self.restAPIClient = MusicBrainzRESTClient()
         self.cache = cache
-        self.preferences = preferences
+    }
+    
+    private var mbPreferences: MusicBrainzPreferences {
+        preferences.metadataPreferences.musicBrainz
     }
     
     func getCoverArt(forTrack track: Track) -> CoverArt? {
         
-        if (!preferences.enableCoverArtSearch.value) || searchedTracks.contains(track) {return nil}
+        if (!mbPreferences.enableCoverArtSearch.value) || searchedTracks.contains(track) {return nil}
         
         searchedTracks.insert(track)
         
