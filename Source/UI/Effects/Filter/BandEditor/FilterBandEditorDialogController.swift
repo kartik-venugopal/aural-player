@@ -25,8 +25,9 @@ class FilterBandEditorDialogController: NSWindowController {
     var bandIndex: Int! {
         
         didSet {
-            bandView?.bandIndex = self.bandIndex
-            lblCaption?.stringValue = "Filter Band# \(bandIndex + 1)"
+            
+            lblCaption.stringValue = "Filter Band# \(bandIndex + 1)"
+            bandView.initialize(band: filterUnit[bandIndex], at: bandIndex)
         }
     }
     
@@ -34,9 +35,6 @@ class FilterBandEditorDialogController: NSWindowController {
         
         super.windowDidLoad()
         window?.isMovableByWindowBackground = true
-        
-        lblCaption.stringValue = "Filter Band# \(bandIndex + 1)"
-        bandView.initialize(band: filterUnit[bandIndex], at: bandIndex)
         
         fontSchemesManager.registerObserver(self)
         

@@ -71,6 +71,8 @@ class FilterUnitViewController: EffectsUnitViewController {
             let editor = LazyWindowLoader<FilterBandEditorDialogController>()
             
             editor.controllerInitFunction = {controller in
+                
+                controller.forceLoadingOfWindow()
                 controller.bandIndex = bandIndex
             }
             
@@ -128,9 +130,14 @@ class FilterUnitViewController: EffectsUnitViewController {
         filterUnitView.redrawChart()
         
         let bandEditor = LazyWindowLoader<FilterBandEditorDialogController>()
-        bandEditor.controller.bandIndex = newBandInfo.index
-        bandEditors.append(bandEditor)
         
+        bandEditor.controllerInitFunction = {controller in
+            
+            controller.forceLoadingOfWindow()
+            controller.bandIndex = newBandInfo.index
+        }
+        
+        bandEditors.append(bandEditor)
         bandEditor.showWindow()
     }
     
@@ -160,6 +167,8 @@ class FilterUnitViewController: EffectsUnitViewController {
             } else {
                 
                 editor.controllerInitFunction = {controller in
+                    
+                    controller.forceLoadingOfWindow()
                     controller.bandIndex = index
                 }
             }
@@ -181,6 +190,11 @@ class FilterUnitViewController: EffectsUnitViewController {
         filterUnitView.redrawChart()
         
         addEditorsForAllBands()
+    }
+    
+    // Table view double-click action
+    @IBAction func editSelectedBandAction(_ sender: NSTableView) {
+        bandEditors[sender.selectedRow].showWindow()
     }
     
     // ------------------------------------------------------------------------

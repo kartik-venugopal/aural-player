@@ -24,11 +24,11 @@ class FilterBandView: NSView {
     
     @IBOutlet weak var lblRangeCaption: NSTextField!
     @IBOutlet weak var presetRangesMenu: NSPopUpButton!
-    @IBOutlet weak var presetRangesIconMenuItem: TintedIconMenuItem!
+    @IBOutlet weak var presetRangesIconMenuItem: NSMenuItem!
     
     @IBOutlet weak var lblCutoffCaption: NSTextField!
     @IBOutlet weak var presetCutoffsMenu: NSPopUpButton!
-    @IBOutlet weak var presetCutoffsIconMenuItem: TintedIconMenuItem!
+    @IBOutlet weak var presetCutoffsIconMenuItem: NSMenuItem!
     
     @IBOutlet weak var lbl20Hz: NSTextField!
     @IBOutlet weak var lbl20KHz: NSTextField!
@@ -313,7 +313,7 @@ class FilterBandView: NSView {
     }
     
     func buttonColorChanged(_ newColor: NSColor) {
-        [presetCutoffsIconMenuItem, presetRangesIconMenuItem].forEach {$0?.colorChanged(newColor)}
+        [presetCutoffsMenu, presetRangesMenu].forEach {$0?.colorChanged(newColor)}
     }
 
     func primaryTextColorChanged(_ newColor: NSColor) {

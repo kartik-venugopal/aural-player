@@ -262,7 +262,7 @@
                                                 <rect key="frame" x="293" y="0.0" width="29" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button toolTip="Audio Unit settings" wantsLayer="YES" id="wF2-5l-iXB" userLabel="Edit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                                    <button toolTip="Filter band settings" wantsLayer="YES" id="wF2-5l-iXB" userLabel="Edit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="6" y="6.5" width="11.5" height="12"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gear" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="CDy-I9-z4u" customClass="TableButtonCell" customModule="Aural" customModuleProvider="target">
@@ -279,6 +279,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="editSelectedBandAction:" target="-2" id="5Ei-sp-kA3"/>
                                     <outlet property="dataSource" destination="-2" id="Jex-tO-UhM"/>
                                     <outlet property="delegate" destination="-2" id="jws-e5-V4s"/>
                                 </connections>
