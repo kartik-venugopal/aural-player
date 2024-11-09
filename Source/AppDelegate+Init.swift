@@ -82,12 +82,7 @@ extension AppDelegate {
     func initializeMetadataCache() {
         
         if preferences.metadataPreferences.cacheTrackMetadata.value {
-            
-            let start = CFAbsoluteTimeGetCurrent()
             metadataRegistry.initializeImageCache(fromPersistentState: metadataPersistentState)
-            let end = CFAbsoluteTimeGetCurrent()
-            
-            print("Took \(end - start) sec to init metadata image cache.")
         }
         
         if preferences.metadataPreferences.musicBrainz.cachingEnabled {
@@ -96,8 +91,6 @@ extension AppDelegate {
     }
     
     func initializeMetadataComponents() {
-        
-//        print("initializeMetadataComponents - \(Date.nowTimestampString)")
         
         playQueueDelegate.initialize(fromPersistentState: appPersistentState.playQueue, appLaunchFiles: filesToOpen)
         favoritesDelegate.initialize(fromPersistentState: appPersistentState.favorites)

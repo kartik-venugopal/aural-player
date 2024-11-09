@@ -52,8 +52,6 @@ class MusicBrainzCache: PersistentModelObject {
     
     func initializeImageCache(fromPersistentState state: MusicBrainzCachePersistentState?) {
         
-        let start = CFAbsoluteTimeGetCurrent()
-        
         // Initialize the cache with entries that were previously persisted to disk.
             
         for entry in state?.releases ?? [] {
@@ -94,11 +92,6 @@ class MusicBrainzCache: PersistentModelObject {
         
         // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
         diskIOOpQueue.waitUntilAllOperationsAreFinished()
-        
-        let end = CFAbsoluteTimeGetCurrent()
-        
-        print("Initialized MBCache with \(releasesCache.count) + \(recordingsCache.count) entries in \(end - start) sec")
-            
         self.cleanUpUnmappedFiles()
     }
     

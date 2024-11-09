@@ -257,6 +257,5 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         }
         
         messenger.publish(.PlayQueue.doneAddingTracks)
-        print("PlayQueue.postTrackLoad() - \(Date.nowTimestampString)")
     }
 }
