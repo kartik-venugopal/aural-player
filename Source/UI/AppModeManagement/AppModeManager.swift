@@ -20,6 +20,17 @@ class AppModeManager {
         modeController?.mainWindow
     }
     
+    var windowMagnetism: Bool {
+        
+        get {modeController?.windowMagnetism ?? false}
+        
+        set {
+            
+            var ctrlr = modeController
+            ctrlr?.windowMagnetism = newValue
+        }
+    }
+    
     var isShowingPlayer: Bool {
         modeController?.isShowingPlayer ?? false
     }

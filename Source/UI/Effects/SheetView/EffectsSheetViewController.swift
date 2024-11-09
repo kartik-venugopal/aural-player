@@ -17,8 +17,6 @@ class EffectsSheetViewController: NSViewController {
     @IBOutlet weak var btnClose: TintedImageButton!
     @IBOutlet weak var effectsViewController: EffectsContainerViewController!
     
-    private lazy var messenger: Messenger = .init(for: self)
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -43,20 +41,7 @@ class EffectsSheetViewController: NSViewController {
     func endSheet() {
         
         dismiss(self)
-        
-        let mainAppWindowID: String = appModeManager.currentMode == .compact ? "compactPlayer" : "unifiedPlayer"
-
-        // Close AU editor and Filter band editor dialogs
-        for window in NSApp.windows.filter({$0.isVisible}) {
-            
-            let windowID = window.identifier?.rawValue
-            
-            if windowID != mainAppWindowID {
-                window.close()
-            }
-        }
-        
-        messenger.publish(.Effects.sheetDismissed)
+        Messenger.publish(.Effects.sheetDismissed)
     }
 }
 

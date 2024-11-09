@@ -18,6 +18,35 @@ class CompactAppModeController: AppModeController {
     
     var mainWindow: NSWindow? {windowController?.window}
     
+    var windowMagnetism: Bool = preferences.viewPreferences.windowMagnetism.value {
+        
+        didSet {
+            
+            if windowMagnetism {
+                
+                for window in NSApp.windows.filter({$0 != mainWindow}) {
+                    
+                    let isVisible = window.isVisible
+                    mainWindow?.addChildWindow(window, ordered: .above)
+                    
+                    if !isVisible {
+                        window.hide()
+                    }
+                }
+                
+            } else {
+                
+                mainWindow?.childWindows?.forEach {
+                    
+                    let isVisible = $0.isVisible
+                    
+                    mainWindow?.removeChildWindow($0)
+                    $0.showIf(isVisible)
+                }
+            }
+        }
+    }
+    
     var isShowingPlayer: Bool {
         windowController?.isShowingPlayer ?? false
     }

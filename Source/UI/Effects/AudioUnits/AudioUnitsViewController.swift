@@ -122,6 +122,8 @@ class AudioUnitsViewController: NSViewController {
         
         guard let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window else {return}
         
+        let magnetism = preferences.viewPreferences.windowMagnetism.value
+        
         switch appModeManager.currentMode {
             
         case .modular:
@@ -129,13 +131,13 @@ class AudioUnitsViewController: NSViewController {
             
         case .unified:
             
-            if let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "unifiedPlayer"}) {
+            if magnetism, let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "unifiedPlayer"}) {
                 window.addChildWindow(dialogWindow, ordered: .above)
             }
             
         case .compact:
             
-            if let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "compactPlayer"}) {
+            if magnetism, let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "compactPlayer"}) {
                 window.addChildWindow(dialogWindow, ordered: .above)
             }
             

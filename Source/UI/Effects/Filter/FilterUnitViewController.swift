@@ -77,6 +77,37 @@ class FilterUnitViewController: EffectsUnitViewController {
             }
             
             bandEditors.append(editor)
+            initEditorWindowMagnetism(for: editor.window, showWindow: false)
+        }
+    }
+    
+    private func initEditorWindowMagnetism(for editorWindow: NSWindow, showWindow: Bool) {
+        
+        let magnetism = preferences.viewPreferences.windowMagnetism.value
+        
+        switch appModeManager.currentMode {
+            
+        case .modular:
+            windowLayoutsManager.addChildWindow(editorWindow)
+            
+        case .unified:
+            
+            if magnetism, let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "unifiedPlayer"}) {
+                window.addChildWindow(editorWindow, ordered: .above)
+            }
+            
+        case .compact:
+            
+            if magnetism, let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "compactPlayer"}) {
+                window.addChildWindow(editorWindow, ordered: .above)
+            }
+            
+        default:
+            return
+        }
+        
+        if !showWindow {
+            editorWindow.hide()
         }
     }
     
@@ -138,6 +169,8 @@ class FilterUnitViewController: EffectsUnitViewController {
         }
         
         bandEditors.append(bandEditor)
+        
+        initEditorWindowMagnetism(for: bandEditor.window, showWindow: true)
         bandEditor.showWindow()
     }
     

@@ -47,9 +47,6 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     private func disableIrrelevantControls() {
         
-        btnWindowMagnetism.toolTip = Self.disabledControlTooltip
-        btnWindowMagnetism.disable()
-        
         [btnSnapToWindows, gapStepper].forEach {
             
             $0?.toolTip = Self.disabledControlTooltip
@@ -77,12 +74,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         viewPrefs.windowMagnetism.value = btnWindowMagnetism.isOn
         
         if viewPrefs.windowMagnetism.value != oldMagnetismValue {
-            
-            if viewPrefs.windowMagnetism.value {
-                windowLayoutsManager.applyMagnetism()
-            } else {
-                windowLayoutsManager.removeMagnetism()
-            }
+            appModeManager.windowMagnetism = viewPrefs.windowMagnetism.value
         }
         
         viewPrefs.snapToWindows.value = btnSnapToWindows.isOn

@@ -19,6 +19,8 @@ protocol AppModeController {
     
     var mainWindow: NSWindow? {get}
     
+    var windowMagnetism: Bool {get set}
+    
     func presentMode(transitioningFromMode previousMode: AppMode?)
     
     func dismissMode()

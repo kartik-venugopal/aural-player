@@ -23,6 +23,8 @@ class MenuBarAppModeController: NSObject, AppModeController {
 
     var mode: AppMode {.menuBar}
     
+    var windowMagnetism: Bool = false
+    
     var isShowingPlayer: Bool {true}
     
     var isShowingPlayQueue: Bool {true}

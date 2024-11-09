@@ -61,6 +61,10 @@ extension NSWindow {
         setIsVisible(false)
     }
     
+    func showIf(_ condition: Bool) {
+        condition ? show() : hide()
+    }
+    
     func showCentered(relativeTo parent: NSWindow) {
         
         let posX = parent.x + ((parent.width - width) / 2)

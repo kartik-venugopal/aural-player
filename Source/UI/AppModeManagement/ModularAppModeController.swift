@@ -25,6 +25,18 @@ class ModularAppModeController: AppModeController {
     
     var isShowingPlayer: Bool {true}
     
+    var windowMagnetism: Bool = preferences.viewPreferences.windowMagnetism.value {
+        
+        didSet {
+            
+            if windowMagnetism {
+                windowLayoutsManager.applyMagnetism()
+            } else {
+                windowLayoutsManager.removeMagnetism()
+            }
+        }
+    }
+    
     var isShowingPlayQueue: Bool {
         windowLayoutsManager.isShowingWindow(withId: .playQueue)
     }

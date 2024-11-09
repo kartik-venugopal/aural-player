@@ -23,6 +23,8 @@ class WidgetAppModeController: AppModeController {
     
     var mode: AppMode {.widget}
     
+    var windowMagnetism: Bool = false
+    
     var isShowingPlayer: Bool {true}
     
     var isShowingPlayQueue: Bool {true}
