@@ -50,6 +50,14 @@ With several built-in effects and support for Audio Unit (AU) plug-ins, sound tu
 * **UI:** Modular interface, fully customizable fonts and colors (with gradients), built-in / custom window layouts, configurable window snapping / docking / spacing / corner radius, menu bar mode, control bar (widget) mode.
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, and media control devices / apps.
 
+### Roadmap
+
+#### Version 3 archived, Version 4 work in progress
+
+Version 3 has been archived, and no further work will be done on it. The source code for it can be found in the new repository: [aural-player-archive](https://github.com/kartik-venugopal/aural-player-archive)
+
+All pending and newly filed issues (bugs or feature requests), if implemented, will be implemented in v4.
+
 ## How it works (under the hood)
 
 Aural Player uses **AVFoundation's AVAudioEngine** framework (and some low-level **Core Audio**) for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
@@ -66,14 +74,6 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 
 * Currently, Aural does not play online streams.
 * Aural does not play protected content (for example, Apple's M4P or Audible's AAX). There are no plans to implement this.
-
-### Roadmap
-
-#### Version 3 archived, Version 4 work in progress
-
-Version 3 has been archived, and no further work will be done on it. The source code for it can be found in the new repository: [aural-player-archive](https://github.com/kartik-venugopal/aural-player-archive)
-
-All pending and newly filed issues (bugs or feature requests), if implemented, will be implemented in v4.
 
 ## Download
 
