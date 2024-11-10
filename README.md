@@ -152,16 +152,6 @@ All the documentation can be found on the [wiki](https://github.com/kartik-venug
 
 The app is what it is today largely thanks to the numerous bug reports and valuable feedback of users over the years. I urge you to file issues for any bugs you encounter or for features / behavior you would like to see implemented. I am generally pretty good at responding to issues, and at the very least, I will read, contemplate, and respond.
 
-## How to contribute
-
-Interested in contributing to this awesome project ?!
-
-I would love to localize Aural Player so that it is more comfortable to use for users who prefer other languages. I could definitely use help translating Aural Player's text into languages such as German, French, Spanish, Italian, Chinese, Japanese, etc (and any others that you can help with).
-
-Please [email me](mailto:kartikv2017@gmail.com) if you're interested in helping with this !
-
-NOTE - I am ***not*** looking for help with app development at the moment, but if this changes, I will post an update.
-
 ## Third party code attributions
 
 * [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
