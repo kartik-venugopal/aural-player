@@ -57,6 +57,7 @@ class ModularPlayerWindowController: NSWindowController {
         initSubscriptions()
         
         super.windowDidLoad()
+        theWindow.delegate = self
     }
     
     // Set window properties
@@ -154,5 +155,12 @@ extension ModularPlayerWindowController: ColorSchemeObserver {
         buttonColorChangeReceivers.forEach {
             $0.colorChanged(systemColorScheme.buttonColor)
         }
+    }
+}
+
+extension ModularPlayerWindowController: NSWindowDelegate {
+    
+    func windowDidResize(_ notification: Notification) {
+        playerViewController.windowResized()
     }
 }
