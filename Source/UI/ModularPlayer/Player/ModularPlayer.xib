@@ -10,6 +10,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ModularPlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="artView" destination="igo-tR-LRb" id="Xr1-tS-zUj"/>
+                <outlet property="artViewLeadingConstraint" destination="DBq-Ae-wfL" id="qKP-mI-aFP"/>
+                <outlet property="artViewTopConstraint" destination="TrR-Bi-pY2" id="mHc-ex-lFr"/>
                 <outlet property="btnFunctionsMenu" destination="iwf-qn-PJh" id="TGD-JM-Xof"/>
                 <outlet property="btnLoop" destination="uWb-3U-Pvr" id="ew9-Xm-OVj"/>
                 <outlet property="btnNextTrack" destination="C5J-gb-Juv" id="xN4-Jl-1al"/>
@@ -23,6 +25,7 @@
                 <outlet property="controlsBox" destination="tlk-RM-S0u" id="LTR-5y-vk2"/>
                 <outlet property="functionsMenuDelegate" destination="DlG-hJ-3cs" id="mxR-hr-gs4"/>
                 <outlet property="infoBox" destination="Bp8-ZH-oj4" id="Z2Z-fX-1Ne"/>
+                <outlet property="infoBoxTopConstraint" destination="aWm-6u-bU5" id="CCk-aF-7nN"/>
                 <outlet property="lblPlaybackPosition" destination="UMU-Of-gsK" id="scX-sn-NR5"/>
                 <outlet property="lblVolume" destination="JA2-KP-B0h" id="dSZ-MR-prm"/>
                 <outlet property="multilineTrackTextView" destination="mEf-IM-kjw" id="98f-bZ-ZqG"/>
