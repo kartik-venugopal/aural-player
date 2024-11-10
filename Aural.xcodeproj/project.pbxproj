@@ -4827,9 +4827,9 @@
 				3E9792E226A24EFF0010BE99 /* AppModeController.swift */,
 				3E9E590125DB6B150064EB5F /* ModularAppModeController.swift */,
 				3E7638AE2857DA3F00461F4D /* UnifiedAppModeController.swift */,
+				3EBFF5A42B52C0670056D5B4 /* CompactAppModeController.swift */,
 				3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */,
 				3E4322742687C96E009E8ADB /* WidgetAppModeController.swift */,
-				3EBFF5A42B52C0670056D5B4 /* CompactAppModeController.swift */,
 				3E62979926A3CD3800C96AB8 /* Destroyable.swift */,
 				3E62979C26A3CEBF00C96AB8 /* Restorable.swift */,
 			);

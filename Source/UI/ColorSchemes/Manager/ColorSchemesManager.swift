@@ -27,7 +27,7 @@ class ColorSchemesManager: UserManagedObjects<ColorScheme> {
     
     init(persistentState: ColorSchemesPersistentState?) {
         
-        let systemDefinedSchemes: [ColorScheme] = ColorScheme.allPresets
+        let systemDefinedSchemes: [ColorScheme] = ColorScheme.allSystemDefinedSchemes
         let userDefinedSchemes = (persistentState?.userSchemes ?? []).map {ColorScheme($0, false)}
         
         if let persistentSystemScheme = persistentState?.systemScheme {

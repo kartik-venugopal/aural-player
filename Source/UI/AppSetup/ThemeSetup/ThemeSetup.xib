@@ -118,40 +118,10 @@
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBF-V9-N0r" userLabel="Fnot Schemes Menu">
                     <rect key="frame" x="203" y="73" width="338" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Standard" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="oen-3k-4Z8" id="vrr-Am-cTF">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="vrr-Am-cTF">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="rNK-0P-5AF">
-                            <items>
-                                <menuItem title="Standard" state="on" indentationLevel="1" id="oen-3k-4Z8">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Rounded" indentationLevel="1" id="Fz4-e1-UPH">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Programmer" indentationLevel="1" id="CnR-4F-5WI">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Futuristic" indentationLevel="1" id="jrc-7K-s4Y">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Novelist" indentationLevel="1" id="2Xy-jd-imI">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Soy Sauce" indentationLevel="1" id="NvX-ec-xCO">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Gothic" indentationLevel="1" id="93q-zQ-f8S">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Papyrus" indentationLevel="1" id="dpV-1R-hF6">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Poolside.fm" indentationLevel="1" id="M77-yA-m4f">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
+                        <menu key="menu" id="rNK-0P-5AF"/>
                     </popUpButtonCell>
                     <connections>
                         <action selector="fontSchemeSelectionAction:" target="-2" id="Yz2-1D-mYN"/>
@@ -160,37 +130,10 @@
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J7D-cD-M0c" userLabel="Color Schemes Menu">
                     <rect key="frame" x="203" y="30" width="338" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Lava" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="6D2-fS-6eM" id="XU0-T5-otZ">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="XU0-T5-otZ">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="KFF-Fq-uvh">
-                            <items>
-                                <menuItem title="Lava" state="on" indentationLevel="1" id="6D2-fS-6eM">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Brownie" indentationLevel="1" id="faO-vJ-Dii">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Black &amp; green" indentationLevel="1" id="k9n-pq-XWo">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Poolside.fm" indentationLevel="1" id="KVe-Fs-jfa">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Gloomy day" indentationLevel="1" id="QhA-9T-TDF">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Black &amp; aqua" indentationLevel="1" id="HAF-Gw-eG6">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="The blues" indentationLevel="1" id="VDf-j1-bZ3">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="White blight" indentationLevel="1" id="T0P-43-O8v">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
+                        <menu key="menu" id="KFF-Fq-uvh"/>
                     </popUpButtonCell>
                     <connections>
                         <action selector="colorSchemeSelectionAction:" target="-2" id="ev7-C1-VFC"/>

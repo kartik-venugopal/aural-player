@@ -22,6 +22,18 @@ class ThemeSetupViewController: NSViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        btnFontScheme.menu?.removeAllItems()
+        
+        for scheme in FontScheme.allSystemDefinedSchemes {
+            btnFontScheme.menu?.addItem(withTitle: scheme.name)
+        }
+        
+        btnColorScheme.menu?.removeAllItems()
+        
+        for scheme in ColorScheme.allSystemDefinedSchemes {
+            btnColorScheme.menu?.addItem(withTitle: scheme.name)
+        }
 
         let fontSchemeName = appSetup.fontSchemePreset.name
         let colorSchemeName = appSetup.colorSchemePreset.name
@@ -37,12 +49,10 @@ class ThemeSetupViewController: NSViewController {
         
         guard let selSchemeName = btnColorScheme.titleOfSelectedItem,
               let scheme = colorSchemesManager.systemDefinedObject(named: selSchemeName),
-        let colorSchemePreset = ColorSchemePreset.presetByName(selSchemeName) else {return}
+        let preset = ColorSchemePreset.presetByName(selSchemeName) else {return}
         
         previewView.colorScheme = scheme
-        
-        appSetup.colorSchemePreset = colorSchemePreset
-        print("Set color scheme to: \(appSetup.colorSchemePreset.rawValue)")
+        appSetup.colorSchemePreset = preset
     }
     
     @IBAction func fontSchemeSelectionAction(_ sender: Any) {
@@ -52,8 +62,6 @@ class ThemeSetupViewController: NSViewController {
               let preset = FontSchemePreset.presetByName(selSchemeName) else {return}
         
         previewView.fontScheme = scheme
-        
         appSetup.fontSchemePreset = preset
-        print("Set font scheme to: \(appSetup.fontSchemePreset.rawValue)")
     }
 }

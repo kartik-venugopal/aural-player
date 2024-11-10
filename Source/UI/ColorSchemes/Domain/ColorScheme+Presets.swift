@@ -179,5 +179,5 @@ extension ColorScheme {
                                                 inactiveControlColor: .white50Percent,
                                                 suppressedControlColor: .white25Percent)
     
-    static let allPresets: [ColorScheme] = [.lava, .blackAqua, .blackGreen, .grayRed, .whiteBlight, .gloomyDay, .brownie, .poolsideFM]
+    static let allSystemDefinedSchemes: [ColorScheme] = [.lava, .blackAqua, .blackGreen, .grayRed, .whiteBlight, .gloomyDay, .brownie, .poolsideFM]
 }

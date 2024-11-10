@@ -84,7 +84,7 @@ class UnifiedAppModeController: AppModeController {
             windowController?.window?.setFrame(frame, display: true)
         }
         
-        windowController?.showWindow(self)
+        windowController?.theWindow.showCenteredOnScreen()
         
         reactivateApp(previousMode: previousMode)
         
