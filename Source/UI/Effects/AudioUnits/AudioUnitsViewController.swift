@@ -129,16 +129,10 @@ class AudioUnitsViewController: NSViewController {
         case .modular:
             windowLayoutsManager.addChildWindow(dialogWindow)
             
-        case .unified:
+        case .unified, .compact:
             
-            if magnetism, let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "unifiedPlayer"}) {
-                window.addChildWindow(dialogWindow, ordered: .above)
-            }
-            
-        case .compact:
-            
-            if magnetism, let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "compactPlayer"}) {
-                window.addChildWindow(dialogWindow, ordered: .above)
+            if magnetism {
+                appModeManager.mainWindow?.addChildWindow(dialogWindow, ordered: .above)
             }
             
         default:

@@ -77,29 +77,23 @@ class FilterUnitViewController: EffectsUnitViewController {
             }
             
             bandEditors.append(editor)
-            initEditorWindowMagnetism(for: editor.window, showWindow: false)
+            initEditorWindowMagnetism(for: editor, showWindow: false)
         }
     }
     
-    private func initEditorWindowMagnetism(for editorWindow: NSWindow, showWindow: Bool) {
+    private func initEditorWindowMagnetism(for editor: LazyWindowLoader<FilterBandEditorDialogController>, showWindow: Bool) {
         
         let magnetism = preferences.viewPreferences.windowMagnetism.value
         
         switch appModeManager.currentMode {
             
         case .modular:
-            windowLayoutsManager.addChildWindow(editorWindow)
+            windowLayoutsManager.addChildWindow(editor.window)
             
-        case .unified:
+        case .unified, .compact:
             
-            if magnetism, let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "unifiedPlayer"}) {
-                window.addChildWindow(editorWindow, ordered: .above)
-            }
-            
-        case .compact:
-            
-            if magnetism, let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "compactPlayer"}) {
-                window.addChildWindow(editorWindow, ordered: .above)
+            if magnetism {
+                appModeManager.mainWindow?.addChildWindow(editor.window, ordered: .above)
             }
             
         default:
@@ -107,7 +101,7 @@ class FilterUnitViewController: EffectsUnitViewController {
         }
         
         if !showWindow {
-            editorWindow.hide()
+            editor.window.hide()
         }
     }
     
@@ -170,7 +164,7 @@ class FilterUnitViewController: EffectsUnitViewController {
         
         bandEditors.append(bandEditor)
         
-        initEditorWindowMagnetism(for: bandEditor.window, showWindow: true)
+        initEditorWindowMagnetism(for: bandEditor, showWindow: true)
         bandEditor.showWindow()
     }
     
