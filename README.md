@@ -23,40 +23,44 @@
 
 Aural is an audio file player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy-to-use and customizable ... a simple drag-drop-play player that can do a lot!
 
-#### Flexible UI
-With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace, reduce it to a tiny widget, or tuck it away in the macOS menu bar.
-
-#### Personalization 
-Personalize Aural Player with exactly the colors and fonts that define your creative tastes.
-
-#### Extensive audio formats support
-By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats.
-
-#### Sound tuning and monitoring
-With several built-in effects and support for Audio Unit (AU) plug-ins, sound tuning and monitoring possibilities are endless.
-
 ## Key features
 
-(Comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features))
+### Flexible UI
+With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace, reduce it to a tiny widget, or tuck it away in the macOS menu bar.
 
-* Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: FLAC, Vorbis, Monkey's Audio (APE), Opus, & [many more](https://github.com/kartik-venugopal/aural-player/wiki/Features#audio-formats)
-* Supports M3U / M3U8 playlists
-* **Playback:** Bookmarking, segment looping, custom seek intervals, per-track last position memory, chapters support, autoplay, resume last played track.
-* **Effects:** Built-in effects (incl. equalizer), Audio Unit (AU) plug-in support, built-in / custom presets, per-track settings memory.
-* **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection.
-* **Track information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, etc. Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export. Last.fm scrobbling and love/unlove **(NEW!)**.
-* **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
-* **Visualizer:** 3 different visualizations that dance to the music, with customizable colors.
-* **UI:** Modular interface, fully customizable fonts and colors (with gradients), built-in / custom window layouts, configurable window snapping / docking / spacing / corner radius, menu bar mode, control bar (widget) mode.
-* **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, and media control devices / apps.
+### Personalization 
+Personalize Aural Player with exactly the colors and fonts that define your creative tastes.
+
+### Extensive audio formats support
+By harnessing the power of FFmpeg, Aural Player supports a [wide variety of popular audio formats](https://github.com/kartik-venugopal/aural-player/wiki/Features#audio-formats), in addition to all [macOS Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
+
+### Sound tuning and monitoring
+With several built-in effects and support for Audio Unit (AU) plug-ins, sound tuning and monitoring possibilities are endless.
+
+### Usability
+Command Aural from multiple places and in many ways - Configurable media keys, swipe/scroll gestures, Control Center, headphones, and media control devices / apps ("remote control").
+
+Read the comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features)
 
 ### Roadmap
 
-#### Version 3 archived, Version 4 work in progress
+#### Version 3 archived
 
 Version 3 has been archived, and no further work will be done on it. The source code for it can be found in the new repository: [aural-player-archive](https://github.com/kartik-venugopal/aural-player-archive)
 
 All pending and newly filed issues (bugs or feature requests), if implemented, will be implemented in v4.
+
+#### Version 4 being developed (coming soon!)
+
+12 "preview" releases have already been put out. These pre-release builds are considered experimental, with the disclaimer that they may contain significant bugs.
+
+As of Nov 11, 2024, there are 2 upcoming major milestones for Version 4:
+
+<ins>Partial release</ins>: The partial release of v4 will contain all core + new functionality, except for the new Library and all related functionality. It will be stable and free from major bugs.
+
+<ins>Full release</ins>: The full release of v4 will be the first official (and complete) release of v4.
+
+There are no current date estimates for the milestone releases.
 
 ## How it works (under the hood)
 
