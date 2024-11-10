@@ -1,6 +1,6 @@
 <img width="225" src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
 
-![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
+![App demo](/Documentation/aural4-modes.png?raw=true "App demo")
 
 ## Table of Contents
   * [Overview](#overview)
@@ -27,32 +27,17 @@
 
 Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy to use and customizable, with support for a wide variety of popular audio formats and powerful sound tuning capabilities.
 
-| Flexible UI  | Personalization |
-| :-- | --: |
-|  <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Modularity.gif" width="450" />| <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Customization.gif" width="250" /> |
-| With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace, reduce it to a tiny widget, or tuck it away in the macOS menu bar. | Personalize Aural Player with exactly the colors and fonts that define your creative tastes. |
+#### Flexible UI
+With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace, reduce it to a tiny widget, or tuck it away in the macOS menu bar.
 
-| Extensive audio formats support  | Sound tuning and monitoring |
-| :-- | --: |
-|  <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="550" /> |
-| By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats. | With several built-in effects and support for Audio Unit (AU) plug-ins, sound tuning and monitoring possibilities are endless. |
+#### Personalization 
+Personalize Aural Player with exactly the colors and fonts that define your creative tastes.
 
-### How it works (under the hood)
+#### Extensive audio formats support
+By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats.
 
-Aural Player uses **AVFoundation's AVAudioEngine** framework (and some low-level **Core Audio**) for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
-
-The UI is built on top of AppKit with views defined in XIBs (no SwiftUI).
-
-The code is written entirely in Swift (approximately 100,000 lines of code).
-
-<img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Diagrams/UnderTheHood.png" alt="How it works screenshot" width="850" />
-
-Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/Developer-reference).
-
-### Limitations
-
-* Currently, Aural does not play online streams. However, this feature has been requested and I am strongly considering implementing it for version 4.x.
-* Aural does not play protected content (for example, Apple's M4P or Audible's AAX). There are no plans to implement this.
+#### Sound tuning and monitoring
+With several built-in effects and support for Audio Unit (AU) plug-ins, sound tuning and monitoring possibilities are endless.
 
 ## Key features
 
@@ -69,36 +54,30 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 * **UI:** Modular interface, fully customizable fonts and colors (with gradients), built-in / custom window layouts, configurable window snapping / docking / spacing / corner radius, menu bar mode, control bar (widget) mode.
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, and media control devices / apps.
 
+## How it works (under the hood)
+
+Aural Player uses **AVFoundation's AVAudioEngine** framework (and some low-level **Core Audio**) for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
+
+The UI is built on top of AppKit with views defined in XIBs (no SwiftUI).
+
+The code is written entirely in Swift (approximately 100,000 lines of code).
+
+<img src="https://raw.githubusercontent.com/kartik-venugopal/aural-player/master/Documentation/Diagrams/UnderTheHood.png" alt="How it works screenshot" width="850" />
+
+Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/Developer-reference).
+
+### Limitations
+
+* Currently, Aural does not play online streams.
+* Aural does not play protected content (for example, Apple's M4P or Audible's AAX). There are no plans to implement this.
+
 ### Roadmap
 
-#### Version 3 archived
+#### Version 3 archived, Version 4 work in progress
 
 Version 3 has been archived, and no further work will be done on it. The source code for it can be found in the new repository: [aural-player-archive](https://github.com/kartik-venugopal/aural-player-archive)
 
 All pending and newly filed issues (bugs or feature requests), if implemented, will be implemented in v4.
-
-Source code for version 4 has moved from the "v4" branch to the main branch.
-
-#### Version 4.0
-
-As of Jan 12, 2024, version 4.0 is being actively developed. I am aiming to release v4.0 by the summer of 2024 - June / July-ish.
-
-Interested in seeing what's going on with the development of v4.0 ? 
-* [Try it out](https://github.com/kartik-venugopal/aural-player/releases/tag/4.0.0-preview)
-* Read about it and see screenshots here: [README-v4.md](https://github.com/kartik-venugopal/aural-player/blob/main/README-v4.md)
-
-------------------------------------------------------
-
-In addition to v4.0, the following features ***may be*** implemented in the future:
-
-- Replay gain.
-- Crossfading between tracks.
-- Gapless playback.
-
-#### Other goals
-
-- More comprehensive documentation.
-- Better source code commenting.
 
 ## Download
 
