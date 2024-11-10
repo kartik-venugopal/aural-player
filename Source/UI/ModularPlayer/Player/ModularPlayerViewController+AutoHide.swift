@@ -95,7 +95,7 @@ extension ModularPlayerViewController {
         artView.showIf(playerUIState.showAlbumArt)
 //        resizeAndRepositionInfoBox()
         artViewLeadingConstraint.constant = playerUIState.showAlbumArt ? 15 : -55
-        print("SV: \(multilineTrackTextView.clipView.enclosingScrollView!.frame.width)")
+//        print("SV: \(multilineTrackTextView.clipView.enclosingScrollView!.frame.width)")
         multilineTrackTextView.resized()
     }
     
