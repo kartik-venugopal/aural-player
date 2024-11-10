@@ -23,6 +23,8 @@
 
 Aural is an audio file player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy-to-use and customizable ... a simple drag-drop-play player that can do a lot!
 
+______
+
 ## Key features
 
 ### Flexible UI
@@ -40,17 +42,19 @@ With several built-in effects and support for Audio Unit (AU) plug-ins, sound tu
 ### Usability
 Command Aural from multiple places and in many ways - Configurable media keys, swipe/scroll gestures, Control Center, headphones, and media control devices / apps ("remote control").
 
-Read the comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features)
+Read the comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features).
 
-### Roadmap
+______
 
-#### Version 3 archived
+## Roadmap
+
+### Version 3 archived
 
 Version 3 has been archived, and no further work will be done on it. The source code for it can be found in the new repository: [aural-player-archive](https://github.com/kartik-venugopal/aural-player-archive)
 
 All pending and newly filed issues (bugs or feature requests), if implemented, will be implemented in v4.
 
-#### Version 4 being developed (coming soon!)
+### Version 4 being developed (coming soon!)
 
 12 "preview" releases have already been put out. These pre-release builds are considered experimental, with the disclaimer that they may contain significant bugs.
 
@@ -61,6 +65,8 @@ As of Nov 11, 2024, there are 2 upcoming major milestones for Version 4:
 <ins>Full release</ins>: The full release of v4 will be the first official (and complete) release of v4.
 
 There are no current date estimates for the milestone releases.
+
+______
 
 ## How it works (under the hood)
 
@@ -78,6 +84,8 @@ Read more about it [here](https://github.com/kartik-venugopal/aural-player/wiki/
 
 * Currently, Aural does not play online streams.
 * Aural does not play protected content (for example, Apple's M4P or Audible's AAX). There are no plans to implement this.
+
+______
 
 ## Download
 
@@ -105,6 +113,8 @@ This table lists the range of compatible Aural Player versions for your hardware
 
 Your Mac media keys should work with Aural right out of the box (assuming you granted Aural Accessibility permissions on first app launch), but if for some reason the media keys don't work, follow the steps listed [here](https://github.com/kartik-venugopal/aural-player/wiki/Enabling-media-keys-support).
 
+______
+
 ## Building the app
 
 All you need is Xcode 12.2+ and the [source code](https://github.com/kartik-venugopal/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
@@ -124,6 +134,8 @@ All the documentation can be found on the [wiki](https://github.com/kartik-venug
 [Building and running Aural Player (quick start guide)](https://github.com/kartik-venugopal/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide))
 
 [Developer reference](https://github.com/kartik-venugopal/aural-player/wiki/Developer-reference)
+
+______
      
 ## Known issues (and solutions)
 
@@ -132,6 +144,8 @@ All the documentation can be found on the [wiki](https://github.com/kartik-venug
 * [Poor audio quality when using Bluetooth headsets.](https://github.com/kartik-venugopal/aural-player/wiki/Poor-audio-quality-when-using-Bluetooth-headsets)
 
 * [My media keys don't work with Aural Player](https://github.com/kartik-venugopal/aural-player/wiki/My-media-keys-don't-work-with-Aural-Player)
+
+______
 
 ## Contact and conversation
 
@@ -142,6 +156,8 @@ All the documentation can be found on the [wiki](https://github.com/kartik-venug
 **GitHub Issues** https://github.com/kartik-venugopal/aural-player/issues.
 
 The app is what it is today largely thanks to the numerous bug reports and valuable feedback of users over the years. I urge you to file issues for any bugs you encounter or for features / behavior you would like to see implemented. I am generally pretty good at responding to issues, and at the very least, I will read, contemplate, and respond.
+
+______
 
 ## Third party code attributions
 
@@ -161,6 +177,8 @@ App user [yougotwill](https://github.com/yougotwill) made numerous suggestions f
 Fellow GitHub member [dun198](https://github.com/dun198) made significant contributions towards this project - performance optimizations, UX improvements, etc.
 
 I am also hugely grateful to all the app users who have filed bug reports and feature requests, and provided valuable feedback.
+
+______
 
 ## License
 
