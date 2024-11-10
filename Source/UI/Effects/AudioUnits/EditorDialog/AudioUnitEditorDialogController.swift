@@ -52,6 +52,8 @@ class AudioUnitEditorDialogController: NSWindowController {
         
         super.windowDidLoad()
         
+        window?.identifier = .init("auEditor_\(audioUnit.id)")
+        
         window?.isMovableByWindowBackground = true
         rootContainer.anchorToSuperview()
         
@@ -99,7 +101,9 @@ class AudioUnitEditorDialogController: NSWindowController {
     }
     
     override func destroy() {
+        
         messenger.unsubscribeFromAll()
+//        userPresetsPopover.destroy()
     }
     
     func changeWindowCornerRadius(to radius: CGFloat) {

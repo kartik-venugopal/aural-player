@@ -92,7 +92,7 @@ class ModularPlayerWindowController: NSWindowController {
         
         close()
         
-        eventMonitor.stopMonitoring()
+        eventMonitor?.stopMonitoring()
         eventMonitor = nil
         
         playerViewController.destroy()

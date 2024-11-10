@@ -28,6 +28,7 @@ class FilterBandEditorDialogController: NSWindowController {
             
             lblCaption.stringValue = "Filter Band# \(bandIndex + 1)"
             bandView.initialize(band: filterUnit[bandIndex], at: bandIndex)
+            window?.identifier = .init("filterBandEditor_\(bandIndex)")
         }
     }
     

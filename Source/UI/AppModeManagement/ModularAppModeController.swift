@@ -82,7 +82,14 @@ class ModularAppModeController: AppModeController {
         windowLayoutsManager.destroy()
         
         for window in NSApp.windows {
-            window.close()
+            
+            let id = window.identifier?.rawValue ?? ""
+            
+            if id.hasPrefix("auEditor_") || id.hasPrefix("filterBandEditor_") {
+                
+                window.windowController?.destroy()
+                window.close()
+            }
         }
     }
 }

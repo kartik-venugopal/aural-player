@@ -99,6 +99,12 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
         }
     }
     
+    override func destroy() {
+        
+        client = nil
+        popover = nil
+    }
+    
     @IBAction func saveBtnAction(_ sender: Any) {
         
         // Validate input by calling back to the client
@@ -120,5 +126,5 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
         self.close()
     }
     
-    var isShown: Bool {popover.isShown}
+    var isShown: Bool {popover?.isShown ?? false}
 }

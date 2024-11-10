@@ -96,11 +96,13 @@ class UnifiedAppModeController: AppModeController {
     func dismissMode() {
 
         unifiedPlayerUIState.windowFrame = windowController?.window?.frame
-        windowController?.destroy()
-        windowController = nil
         
         for window in NSApp.windows {
+            
+            window.windowController?.destroy()
             window.close()
         }
+        
+        windowController = nil
     }
 }

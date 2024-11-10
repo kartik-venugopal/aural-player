@@ -67,7 +67,7 @@ class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
     var audioUnit: HostedAudioUnitDelegateProtocol!
     
     var applyPresetAction: Selector!
-    var target: AnyObject!
+    weak var target: AnyObject!
     
     convenience init(for audioUnit: HostedAudioUnitDelegateProtocol, applyPresetAction: Selector, target: AnyObject) {
 
