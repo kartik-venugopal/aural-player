@@ -97,15 +97,6 @@ This table lists the range of compatible Aural Player versions for your hardware
 
 * Due to limited time, I can only officially support macOS Big Sur and later macOS versions going forward. The app should still work on older systems (going back to Sierra), but I can no longer make guarantees or troubleshoot issues on older systems.
 
-### Installation
-
-1. Mount the **AuralPlayer-x.y.z.dmg** image file.
-2. From within the mounted image, copy **Aural.app** to your local drive (e.g. **Applications** folder).
-3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
-4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
-
-NOTE - Please ***don't*** run the app directly from within the image. Copy it outside and run the copy.
-
 ### Media keys support
 
 Your Mac media keys should work with Aural right out of the box (assuming you granted Aural Accessibility permissions on first app launch), but if for some reason the media keys don't work, follow the steps listed [here](https://github.com/kartik-venugopal/aural-player/wiki/Enabling-media-keys-support).
