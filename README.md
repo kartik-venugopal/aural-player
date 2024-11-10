@@ -42,6 +42,16 @@ With several built-in effects and support for Audio Unit (AU) plug-ins, sound tu
 ### Usability
 Command Aural from multiple places and in many ways - Configurable media keys, swipe/scroll gestures, Control Center integration ("remote control").
 
+### What's new in v4
+Version 4 of the app is bringing with it a lot of great improvements:
+- 2 new presentation modes ... 2 new ways to lay out and use the app!
+- Nicer aesthetics, with smaller core module windows.
+- A full-fledged library allowing you to browse and listen to your entire collection right from within Aural!
+- A new waveform view.
+- Replay Gain.
+- CUE sheet support.
+- Gapless playback.
+
 Read the comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features).
 
 ______
