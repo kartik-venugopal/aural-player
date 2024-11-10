@@ -125,7 +125,12 @@ extension FilterUnitViewController: NSTableViewDataSource, NSTableViewDelegate {
         cell.btnEdit.contentTintColor = systemColorScheme.buttonColor
         
         cell.action = {[weak self] in
-            self?.bandEditors[row].showWindow()
+            
+            guard let strongSelf = self else {return}
+            
+            let editor = strongSelf.bandEditors[row]
+            editor.showWindow()
+            strongSelf.initEditorWindowMagnetism(for: editor, showWindow: true)
         }
         
         return cell

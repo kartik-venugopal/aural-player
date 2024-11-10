@@ -33,6 +33,10 @@ class UnifiedPlayerWaveformContainerViewController: NSViewController {
     @IBAction func closeAction(_ sender: NSButton) {
         Messenger.publish(.View.toggleWaveform)
     }
+    
+    override func destroy() {
+        viewController.destroy()
+    }
 }
 
 extension UnifiedPlayerWaveformContainerViewController: ColorSchemeObserver {

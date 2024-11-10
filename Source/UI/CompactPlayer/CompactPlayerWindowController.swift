@@ -28,12 +28,15 @@ class CompactPlayerWindowController: NSWindowController {
     private lazy var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = [btnQuit, btnPresentationModeMenu, btnMinimize, settingsMenuIconItem]
     
     @IBOutlet weak var tabView: NSTabView!
+    
     let playerViewController: CompactPlayerViewController = .init()
-    var playQueueViewController: CompactPlayQueueViewController! = .init()
-    let chaptersListViewController: CompactChaptersListViewController = .init()
+    let playQueueViewController: CompactPlayQueueViewController = .init()
     let searchViewController: CompactPlayQueueSearchViewController = .init()
-    lazy var effectsSheetViewController: EffectsSheetViewController = .init()
-    lazy var trackInfoViewController: CompactPlayerTrackInfoViewController = .init()
+    let chaptersListViewController: CompactChaptersListViewController = .init()
+    let trackInfoViewController: CompactPlayerTrackInfoViewController = .init()
+    
+    lazy var effectsViewLoader: LazyViewLoader<EffectsSheetViewController> = .init()
+    private var effectsSheetViewController: EffectsSheetViewController {effectsViewLoader.controller}
     
     lazy var messenger = Messenger(for: self)
     
@@ -109,12 +112,12 @@ class CompactPlayerWindowController: NSWindowController {
         close()
         
         [playerViewController, playQueueViewController, searchViewController,
-         chaptersListViewController, effectsSheetViewController, trackInfoViewController].forEach {
+         chaptersListViewController, trackInfoViewController].forEach {
             
             $0.destroy()
         }
         
-        playQueueViewController = nil
+        effectsViewLoader.destroy()
         
         eventMonitor.stopMonitoring()
         eventMonitor = nil

@@ -78,6 +78,11 @@ class ModularAppModeController: AppModeController {
     }
     
     func dismissMode() {
+        
         windowLayoutsManager.destroy()
+        
+        for window in NSApp.windows {
+            window.close()
+        }
     }
 }

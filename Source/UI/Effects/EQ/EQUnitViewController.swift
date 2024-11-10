@@ -36,7 +36,7 @@ class EQUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        self.effectsUnit = graph.eqUnit
+        self.effectsUnit = audioGraphDelegate.eqUnit
         self.presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
     }
     

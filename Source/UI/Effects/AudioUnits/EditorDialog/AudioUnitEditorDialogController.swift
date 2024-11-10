@@ -98,6 +98,10 @@ class AudioUnitEditorDialogController: NSWindowController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblTitle)
     }
     
+    override func destroy() {
+        messenger.unsubscribeFromAll()
+    }
+    
     func changeWindowCornerRadius(to radius: CGFloat) {
         rootContainer.cornerRadius = radius
     }

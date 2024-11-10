@@ -43,6 +43,10 @@ class EffectsSheetViewController: NSViewController {
         dismiss(self)
         Messenger.publish(.Effects.sheetDismissed)
     }
+    
+    override func destroy() {
+        effectsViewController.destroy()
+    }
 }
 
 extension EffectsSheetViewController: ColorSchemeObserver {

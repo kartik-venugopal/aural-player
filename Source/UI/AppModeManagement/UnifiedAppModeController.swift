@@ -98,5 +98,9 @@ class UnifiedAppModeController: AppModeController {
         unifiedPlayerUIState.windowFrame = windowController?.window?.frame
         windowController?.destroy()
         windowController = nil
+        
+        for window in NSApp.windows {
+            window.close()
+        }
     }
 }

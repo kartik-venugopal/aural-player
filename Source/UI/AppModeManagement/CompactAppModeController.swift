@@ -93,7 +93,13 @@ class CompactAppModeController: AppModeController {
     func dismissMode() {
         
         compactPlayerUIState.windowLocation = windowController?.window?.frame.origin
-        windowController?.destroy()
+        
+        for window in NSApp.windows {
+            
+            window.windowController?.destroy()
+            window.close()
+        }
+        
         windowController = nil
     }
 }

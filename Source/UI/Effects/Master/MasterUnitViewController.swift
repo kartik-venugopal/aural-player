@@ -31,13 +31,13 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var masterUnit: MasterUnitDelegateProtocol {graph.masterUnit}
-    private var eqUnit: EQUnitDelegateProtocol {graph.eqUnit}
-    private var pitchShiftUnit: PitchShiftUnitDelegateProtocol {graph.pitchShiftUnit}
-    private var timeStretchUnit: TimeStretchUnitDelegateProtocol {graph.timeStretchUnit}
-    private var reverbUnit: ReverbUnitDelegateProtocol {graph.reverbUnit}
-    private var delayUnit: DelayUnitDelegateProtocol {graph.delayUnit}
-    private var filterUnit: FilterUnitDelegateProtocol {graph.filterUnit}
+    private var masterUnit: MasterUnitDelegateProtocol {audioGraphDelegate.masterUnit}
+    private var eqUnit: EQUnitDelegateProtocol {audioGraphDelegate.eqUnit}
+    private var pitchShiftUnit: PitchShiftUnitDelegateProtocol {audioGraphDelegate.pitchShiftUnit}
+    private var timeStretchUnit: TimeStretchUnitDelegateProtocol {audioGraphDelegate.timeStretchUnit}
+    private var reverbUnit: ReverbUnitDelegateProtocol {audioGraphDelegate.reverbUnit}
+    private var delayUnit: DelayUnitDelegateProtocol {audioGraphDelegate.delayUnit}
+    private var filterUnit: FilterUnitDelegateProtocol {audioGraphDelegate.filterUnit}
     
     private let soundProfiles: SoundProfiles = audioGraphDelegate.soundProfiles
     

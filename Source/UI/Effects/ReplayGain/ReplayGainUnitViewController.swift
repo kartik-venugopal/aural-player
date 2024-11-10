@@ -53,10 +53,10 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        self.effectsUnit = graph.replayGainUnit
+        self.effectsUnit = audioGraphDelegate.replayGainUnit
         self.presetsWrapper = PresetsWrapper<ReplayGainPreset, ReplayGainPresets>(audioGraph.replayGainUnit.presets)
         
-        fxUnitStateObserverRegistry.registerObserver(modeMenuButtonCell, forFXUnit: graph.replayGainUnit)
+        fxUnitStateObserverRegistry.registerObserver(modeMenuButtonCell, forFXUnit: audioGraphDelegate.replayGainUnit)
         fxUnitStateObserverRegistry.registerObserver(btnPreventClipping, forFXUnit: audioGraphDelegate.replayGainUnit)
     }
     
@@ -72,7 +72,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
             updateGainLabel()
         }
         
-        lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
+        lblPreAmp.stringValue = String(format: "%.2f dB", replayGainUnit.preAmp)
         btnPreventClipping.onIf(replayGainUnit.preventClipping)
     }
     
@@ -90,7 +90,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         replayGainUnit.mode = .init(rawValue: sender.selectedTag()) ?? .defaultMode
         updateGainLabel()
-        lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
+        lblPreAmp.stringValue = String(format: "%.2f dB", replayGainUnit.preAmp)
     }
     
     private func updateGainLabel() {
@@ -106,7 +106,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     @IBAction func preAmpAction(_ sender: NSSlider) {
         
         replayGainUnit.preAmp = sender.floatValue
-        lblPreAmp.stringValue = "\(String(format: "%.2f", replayGainUnit.preAmp)) dB"
+        lblPreAmp.stringValue = String(format: "%.2f dB", replayGainUnit.preAmp)
     }
     
     @IBAction func preventClippingAction(_ sender: EffectsUnitToggle) {

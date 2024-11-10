@@ -39,8 +39,6 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
     
     // MARK: Services, utilities, helpers, and properties
     
-    let graph: AudioGraphDelegateProtocol = audioGraphDelegate
-    
     var effectsUnit: EffectsUnitDelegateProtocol!
     var unitType: EffectsUnitType {effectsUnit.unitType}
     var unitStateFunction: EffectsUnitStateFunction {effectsUnit.stateFunction}

@@ -77,11 +77,11 @@ class FilterUnitViewController: EffectsUnitViewController {
             }
             
             bandEditors.append(editor)
-            initEditorWindowMagnetism(for: editor, showWindow: false)
+//            initEditorWindowMagnetism(for: editor, showWindow: false)
         }
     }
     
-    private func initEditorWindowMagnetism(for editor: LazyWindowLoader<FilterBandEditorDialogController>, showWindow: Bool) {
+    func initEditorWindowMagnetism(for editor: LazyWindowLoader<FilterBandEditorDialogController>, showWindow: Bool) {
         
         let magnetism = preferences.viewPreferences.windowMagnetism.value
         
@@ -221,7 +221,9 @@ class FilterUnitViewController: EffectsUnitViewController {
     
     // Table view double-click action
     @IBAction func editSelectedBandAction(_ sender: NSTableView) {
+        
         bandEditors[sender.selectedRow].showWindow()
+        initEditorWindowMagnetism(for: bandEditors[sender.selectedRow], showWindow: true)
     }
     
     // ------------------------------------------------------------------------

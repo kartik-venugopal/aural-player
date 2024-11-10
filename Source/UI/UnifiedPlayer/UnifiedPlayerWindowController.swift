@@ -36,14 +36,17 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     // MARK: View Controllers ----------------------------------------
     
-    lazy var playerViewController: UnifiedPlayerViewController = .init()
-    lazy var waveformViewController: UnifiedPlayerWaveformContainerViewController = .init()
-    lazy var effectsSheetViewController: EffectsSheetViewController = .init()
+    let playerViewController: UnifiedPlayerViewController = .init()
+    let waveformViewController: UnifiedPlayerWaveformContainerViewController = .init()
     
-    private lazy var sidebarController: UnifiedPlayerSidebarViewController = UnifiedPlayerSidebarViewController()
+    private let sidebarController: UnifiedPlayerSidebarViewController = .init()
+    private let playQueueController: PlayQueueContainerViewController = .init()
     
-    private lazy var playQueueController: PlayQueueContainerViewController = .init()
-    private lazy var chaptersListController: ChaptersListViewController = .init()
+    private lazy var effectsViewLoader: LazyViewLoader<EffectsSheetViewController> = .init()
+    var effectsSheetViewController: EffectsSheetViewController {effectsViewLoader.controller}
+    
+    private lazy var chaptersListViewLoader: LazyViewLoader<ChaptersListViewController> = .init()
+    private var chaptersListController: ChaptersListViewController {chaptersListViewLoader.controller}
     
 //    private lazy var libraryTracksController: LibraryTracksViewController = LibraryTracksViewController()
 //    private lazy var libraryArtistsController: LibraryArtistsViewController = LibraryArtistsViewController()
@@ -141,7 +144,10 @@ class UnifiedPlayerWindowController: NSWindowController {
         
 //        [playerController, sidebarController, playQueueController, libraryTracksController, libraryArtistsController, libraryAlbumsController, libraryGenresController, libraryDecadesController, tuneBrowserViewController, playlistsViewController].forEach {$0.destroy()}
         
-        [playerViewController, sidebarController, playQueueController].forEach {$0.destroy()}
+        [playerViewController, sidebarController, playQueueController, waveformViewController].forEach {$0.destroy()}
+        
+        effectsViewLoader.destroy()
+        chaptersListViewLoader.destroy()
         
         messenger.unsubscribeFromAll()
     }

@@ -123,7 +123,12 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         savedLayout = currentWindowLayout
         
         // Hide and release all windows.
-        mainWindow.childWindows?.forEach {mainWindow.removeChildWindow($0)}
+        mainWindow.childWindows?.forEach {
+            
+            mainWindow.removeChildWindow($0)
+            $0.close()
+        }
+        
         windowLoaders.forEach {$0.destroy()}
     }
     

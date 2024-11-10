@@ -135,7 +135,7 @@ class EffectsContainerViewController: NSViewController {
     override func destroy() {
         
         ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController,
-          delayViewController, filterViewController, auViewController, devicesViewController] as? [Destroyable])?.forEach {$0.destroy()}
+          delayViewController, filterViewController, replayGainViewController, auViewController, devicesViewController] as? [Destroyable])?.forEach {$0.destroy()}
         
         messenger.unsubscribeFromAll()
         fxUnitStateObserverRegistry.removeAllObservers()
