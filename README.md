@@ -32,7 +32,7 @@ ______
 With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace, reduce it to a tiny widget, or tuck it away in the macOS menu bar.
 
 ### Personalization 
-Personalize Aural Player with exactly the colors and fonts that define your creative tastes.
+Personalize Aural Player with exactly the colors and fonts that define your creative tastes. Save and re-use your hand-tailored themes.
 
 ### Extensive audio formats support
 By harnessing the power of FFmpeg, Aural Player supports a [wide variety of popular audio formats](https://github.com/kartik-venugopal/aural-player/wiki/Features#audio-formats), in addition to all [macOS Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
