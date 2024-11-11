@@ -69,7 +69,9 @@ All pending and newly filed issues (bugs or feature requests), if implemented, w
 
 ### Version 4 being developed (coming soon!)
 
-12 "preview" releases have already been put out. These pre-release builds are considered experimental, with the disclaimer that they may contain significant bugs.
+#### Preview releases
+
+Preview builds are unstable pre-release builds containing incremental updates as v4 continues to be developed. They may contain significant bugs. Several preview builds have been put out and more are expected to come out before the milestone releases.
 
 As of Nov 11, 2024, there are 2 upcoming major milestones for Version 4:
 
