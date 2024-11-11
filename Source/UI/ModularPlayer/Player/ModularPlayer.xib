@@ -28,7 +28,7 @@
                 <outlet property="infoBoxTopConstraint" destination="aWm-6u-bU5" id="CCk-aF-7nN"/>
                 <outlet property="lblPlaybackPosition" destination="UMU-Of-gsK" id="scX-sn-NR5"/>
                 <outlet property="lblVolume" destination="JA2-KP-B0h" id="dSZ-MR-prm"/>
-                <outlet property="multilineTrackTextView" destination="mEf-IM-kjw" id="98f-bZ-ZqG"/>
+                <outlet property="multilineTrackTextView" destination="AGH-LZ-ntq" id="rrq-Dw-v9a"/>
                 <outlet property="seekSlider" destination="Oms-36-T5n" id="Rp8-bp-vHf"/>
                 <outlet property="seekSliderCell" destination="35O-O1-uMM" id="PT6-7a-ID3"/>
                 <outlet property="view" destination="ywj-Sd-BS4" id="jKH-HR-Rfs"/>
@@ -67,38 +67,52 @@
                 </imageView>
                 <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Bp8-ZH-oj4" userLabel="Playing Track Info Box">
                     <rect key="frame" x="85" y="85" width="381" height="70"/>
-                    <view key="contentView" id="mEf-IM-kjw" customClass="MultilineTrackTextView" customModule="Aural" customModuleProvider="target">
+                    <view key="contentView" id="mEf-IM-kjw">
                         <rect key="frame" x="0.0" y="0.0" width="381" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="WVD-qr-QV2">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="AGH-LZ-ntq" customClass="MultilineTrackTextView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
-                                <clipView key="contentView" copiesOnScroll="NO" id="Chc-FL-7dK">
-                                    <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textView focusRingType="none" editable="NO" selectable="NO" horizontallyResizable="YES" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="lcR-Xs-exq">
+                                <subviews>
+                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="8iK-tS-VHE" userLabel="Scroll View">
+                                        <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
+                                        <clipView key="contentView" copiesOnScroll="NO" id="AeO-m4-NRh">
                                             <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="305" height="70"/>
-                                            <size key="maxSize" width="5000" height="70"/>
-                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                        </textView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="ZXf-VF-dvj">
-                                    <rect key="frame" x="-100" y="-100" width="225" height="15"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="X1Z-1o-WIS">
-                                    <rect key="frame" x="-100" y="-100" width="15" height="174"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                            </scrollView>
+                                            <subviews>
+                                                <textView focusRingType="none" editable="NO" selectable="NO" horizontallyResizable="YES" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="gtL-jH-M96">
+                                                    <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="minSize" width="305" height="70"/>
+                                                    <size key="maxSize" width="5000" height="70"/>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                        </clipView>
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="1aX-B4-Sey">
+                                            <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="dlL-Ha-8JL">
+                                            <rect key="frame" x="-100" y="-100" width="15" height="174"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="8iK-tS-VHE" secondAttribute="bottom" id="Szk-GZ-L95"/>
+                                    <constraint firstItem="8iK-tS-VHE" firstAttribute="leading" secondItem="AGH-LZ-ntq" secondAttribute="leading" id="Wwj-dR-6F7"/>
+                                    <constraint firstAttribute="trailing" secondItem="8iK-tS-VHE" secondAttribute="trailing" id="e6s-tG-jOd"/>
+                                    <constraint firstItem="8iK-tS-VHE" firstAttribute="top" secondItem="AGH-LZ-ntq" secondAttribute="top" id="pUu-od-fR6"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="clipView" destination="AeO-m4-NRh" id="Dfq-dX-Rth"/>
+                                    <outlet property="textView" destination="gtL-jH-M96" id="c2a-Kv-dFp"/>
+                                </connections>
+                            </customView>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMU-Of-gsK" userLabel="Lbl Time Elapsed" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="312" y="23" width="70" height="24"/>
                                 <constraints>
@@ -108,7 +122,7 @@
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="-100:99:99" placeholderString="" id="C2F-OI-QrT" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                     <font key="font" size="12" name="Play-Regular"/>
                                     <color key="textColor" white="0.55233473330000005" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <allowedInputSourceLocales>
                                         <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                     </allowedInputSourceLocales>
@@ -181,19 +195,15 @@
                             </popUpButton>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="WVD-qr-QV2" firstAttribute="top" secondItem="mEf-IM-kjw" secondAttribute="top" id="0Ly-xL-r0f"/>
-                            <constraint firstAttribute="bottom" secondItem="WVD-qr-QV2" secondAttribute="bottom" id="458-ZZ-Pp6"/>
-                            <constraint firstItem="UMU-Of-gsK" firstAttribute="leading" secondItem="WVD-qr-QV2" secondAttribute="trailing" constant="9" id="K6Q-1c-Y05"/>
-                            <constraint firstItem="WVD-qr-QV2" firstAttribute="leading" secondItem="mEf-IM-kjw" secondAttribute="leading" id="avk-vw-dRQ"/>
+                            <constraint firstItem="AGH-LZ-ntq" firstAttribute="top" secondItem="mEf-IM-kjw" secondAttribute="top" id="5x0-YV-al0"/>
                             <constraint firstItem="iwf-qn-PJh" firstAttribute="top" secondItem="UMU-Of-gsK" secondAttribute="bottom" constant="3" id="bAT-au-IPI"/>
+                            <constraint firstItem="AGH-LZ-ntq" firstAttribute="leading" secondItem="mEf-IM-kjw" secondAttribute="leading" id="bZj-IT-jpD"/>
                             <constraint firstItem="UMU-Of-gsK" firstAttribute="top" secondItem="mEf-IM-kjw" secondAttribute="top" constant="23" id="e5M-EY-owt"/>
                             <constraint firstAttribute="trailing" secondItem="iwf-qn-PJh" secondAttribute="trailing" id="gS3-1Z-Gy2"/>
                             <constraint firstAttribute="trailing" secondItem="UMU-Of-gsK" secondAttribute="trailing" constant="1" id="hgU-2n-8N6"/>
+                            <constraint firstAttribute="bottom" secondItem="AGH-LZ-ntq" secondAttribute="bottom" id="nhq-zG-Ewt"/>
+                            <constraint firstItem="UMU-Of-gsK" firstAttribute="leading" secondItem="AGH-LZ-ntq" secondAttribute="trailing" constant="9" id="oJr-1E-XRc"/>
                         </constraints>
-                        <connections>
-                            <outlet property="clipView" destination="Chc-FL-7dK" id="NYw-Jt-8aR"/>
-                            <outlet property="textView" destination="lcR-Xs-exq" id="7a2-8k-7uq"/>
-                        </connections>
                     </view>
                     <constraints>
                         <constraint firstAttribute="height" constant="70" id="Vgw-ST-lrb"/>

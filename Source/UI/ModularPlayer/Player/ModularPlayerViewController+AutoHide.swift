@@ -12,17 +12,14 @@ import AppKit
 
 extension ModularPlayerViewController {
     
-    private static let infoBoxDefaultPosition: NSPoint = NSPoint(x: 85, y: 85)
-    private static let infoBoxCenteredPosition: NSPoint = NSPoint(x: 85, y: 65)
-    private static let infoBoxCenteredPosition_noArt: NSPoint = NSPoint(x: 15, y: 65)
-
-    private static let infoBoxDefaultWidth: CGFloat = 381
-    private static let infoBoxWidth_noArt: CGFloat = 451
-
-    private static let textViewDefaultWidth: CGFloat = 305
-    private static let textViewWidth_noArt: CGFloat = 375
-
-    private static let infoBoxDefaultPosition_noArt: NSPoint = NSPoint(x: 15, y: 85)
+    private static let artViewLeading_Default: CGFloat = 15
+    private static let artViewLeading_Hidden: CGFloat = -55
+    
+    private static let artViewTopPadding_Default: CGFloat = 26
+    private static let artViewTopPadding_Centered: CGFloat = 46
+    
+    private static let infoBoxTopPadding_Default: CGFloat = 15
+    private static let infoBoxTopPadding_Centered: CGFloat = 35
     
     override func mouseEntered(with event: NSEvent) {
 
@@ -46,56 +43,33 @@ extension ModularPlayerViewController {
         }
     }
     
-    private func moveInfoBoxTo(_ point: NSPoint) {
-        
-//        infoBox.setFrameOrigin(point)
-        artView.frame.origin.y = infoBox.frame.origin.y + 2 // 5 is half the difference in height between infoBox and artView
-    }
-    
     private func autoHideControls_show() {
         
         // Show controls
         controlsBox?.show()
-//        moveInfoBoxTo(playerUIState.showAlbumArt ? Self.infoBoxDefaultPosition : Self.infoBoxDefaultPosition_noArt)
-        artViewTopConstraint.constant = 26
-        infoBoxTopConstraint.constant = 15
+
+        artViewTopConstraint.constant = Self.artViewTopPadding_Default
+        infoBoxTopConstraint.constant = Self.infoBoxTopPadding_Default
+        view.layoutSubtreeIfNeeded()
     }
     
     private func autoHideControls_hide() {
         
         // Hide controls
         controlsBox?.hide()
-//        moveInfoBoxTo(playerUIState.showAlbumArt ? Self.infoBoxCenteredPosition : Self.infoBoxCenteredPosition_noArt)
-        artViewTopConstraint.constant = 46
-        infoBoxTopConstraint.constant = 35
-    }
-    
-    private func resizeAndRepositionInfoBox() {
         
-        if playerUIState.showAlbumArt {
-            
-            moveInfoBoxTo(playerUIState.showControls ? Self.infoBoxDefaultPosition : Self.infoBoxCenteredPosition)
-            infoBox.resize(Self.infoBoxDefaultWidth, infoBox.height)
-            
-            multilineTrackTextView.clipView.enclosingScrollView?.resize(width: Self.textViewDefaultWidth)
-            
-        } else {
-            
-            moveInfoBoxTo(playerUIState.showControls ? Self.infoBoxDefaultPosition_noArt : Self.infoBoxCenteredPosition_noArt)
-            infoBox.resize(Self.infoBoxWidth_noArt, infoBox.height)
-            
-            multilineTrackTextView.clipView.enclosingScrollView?.resize(width: Self.textViewWidth_noArt)
-        }
-        
-        multilineTrackTextView.resized()
+        artViewTopConstraint.constant = Self.artViewTopPadding_Centered
+        infoBoxTopConstraint.constant = Self.infoBoxTopPadding_Centered
+        view.layoutSubtreeIfNeeded()
     }
     
     override func showOrHideAlbumArt() {
         
         artView.showIf(playerUIState.showAlbumArt)
-//        resizeAndRepositionInfoBox()
-        artViewLeadingConstraint.constant = playerUIState.showAlbumArt ? 15 : -55
-//        print("SV: \(multilineTrackTextView.clipView.enclosingScrollView!.frame.width)")
+        
+        artViewLeadingConstraint.constant = playerUIState.showAlbumArt ? Self.artViewLeading_Default : Self.artViewLeading_Hidden
+        view.layoutSubtreeIfNeeded()
+        
         multilineTrackTextView.resized()
     }
     
@@ -103,19 +77,8 @@ extension ModularPlayerViewController {
         
         controlsBox?.showIf(playerUIState.showControls)
         
-        artViewTopConstraint.constant = playerUIState.showControls ? 26 : 46
-        infoBoxTopConstraint.constant = playerUIState.showControls ? 15 : 35
-        
-        // Re-position the info box, art view, and functions box
-        
-//        if playerUIState.showAlbumArt {
-//            
-//            artViewLeadingConstraint.constant = 15
-////            moveInfoBoxTo(playerUIState.showControls ? Self.infoBoxDefaultPosition : Self.infoBoxCenteredPosition)
-//        } else {
-//            
-//            artViewLeadingConstraint.constant = -55
-////            moveInfoBoxTo(playerUIState.showControls ? Self.infoBoxDefaultPosition_noArt : Self.infoBoxCenteredPosition_noArt)
-//        }
+        artViewTopConstraint.constant = playerUIState.showControls ? Self.artViewTopPadding_Default : Self.artViewTopPadding_Centered
+        infoBoxTopConstraint.constant = playerUIState.showControls ? Self.infoBoxTopPadding_Default : Self.infoBoxTopPadding_Centered
+        view.layoutSubtreeIfNeeded()
     }
 }
