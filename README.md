@@ -49,7 +49,7 @@ ______
 
 ## What's new in v4
 Version 4 of the app is bringing with it a lot of great improvements:
-- 2 new presentation modes ... 2 new ways to lay out and use the app!
+- 2 new presentation modes (Unified and Compact) ... 2 new ways to lay out and use the app!
 - Nicer aesthetics, with smaller core module windows.
 - A full-fledged library allowing you to browse and listen to your entire collection right from within Aural!
 - A new waveform view.
