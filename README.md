@@ -5,7 +5,8 @@
 ## Table of Contents
   * [Overview](#overview)
   * [Key features](#key-features)
-    + [Roadmap](#roadmap)
+  * [What's new in v4](#whats-new-in-v4)
+  * [Roadmap](#roadmap)
   * [How it works (under the hood)](#how-it-works-under-the-hood)
     + [Limitations](#limitations)
   * [Download](#download)
@@ -42,7 +43,11 @@ With several built-in effects and support for Audio Unit (AU) plug-ins, sound tu
 ### Usability
 Command Aural from multiple places and in many ways - Configurable media keys, swipe/scroll gestures, Control Center integration ("remote control").
 
-### What's new in v4
+Read the comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features).
+
+______
+
+## What's new in v4
 Version 4 of the app is bringing with it a lot of great improvements:
 - 2 new presentation modes ... 2 new ways to lay out and use the app!
 - Nicer aesthetics, with smaller core module windows.
@@ -51,8 +56,6 @@ Version 4 of the app is bringing with it a lot of great improvements:
 - Replay Gain.
 - CUE sheet support.
 - Gapless playback.
-
-Read the comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features).
 
 ______
 
