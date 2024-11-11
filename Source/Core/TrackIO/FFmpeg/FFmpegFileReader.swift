@@ -191,11 +191,14 @@ class FFmpegFileReader: FileReaderProtocol {
         audioInfo.format = fctx.formatLongName
         audioInfo.bitRate = (Double(fctx.bitRate) / Double(FileSize.KB)).roundedInt
         
-        guard let ffmpegPlaybackCtx = playbackContext as? FFmpegPlaybackContext else {
-            return audioInfo
+        if let ffmpegPlaybackCtx = playbackContext as? FFmpegPlaybackContext {
+            
+            audioInfo.codec = ffmpegPlaybackCtx.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
+            audioInfo.channelLayout = ffmpegPlaybackCtx.audioFormat.channelLayoutString
+            
+        } else {
+            audioInfo.codec = fctx.bestAudioStream?.codecLongName ?? fctx.formatName
         }
-        
-        audioInfo.codec = ffmpegPlaybackCtx.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
         
         if let audioStream = fctx.bestAudioStream {
             
@@ -206,7 +209,10 @@ class FFmpegFileReader: FileReaderProtocol {
             audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
             
             audioInfo.numChannels = Int(audioStream.channelCount)
-            audioInfo.channelLayout = ffmpegPlaybackCtx.audioFormat.channelLayoutString
+            
+            if audioInfo.channelLayout == nil {
+                audioInfo.channelLayout = FFmpegChannelLayout(encapsulating: audioStream.avChannelLayout).description
+            }
         }
         
         return audioInfo

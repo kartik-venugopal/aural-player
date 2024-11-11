@@ -359,7 +359,9 @@ extension PlayQueueViewController: NSMenuDelegate {
     
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func trackInfoAction(_ sender: AnyObject) {
-        messenger.publish(.Player.trackInfo)
+        
+        guard let theClickedTrack = selectedTracks.first else {return}
+        messenger.publish(.Player.trackInfo, payload: theClickedTrack)
     }
     
     // Shows the selected tracks in Finder.

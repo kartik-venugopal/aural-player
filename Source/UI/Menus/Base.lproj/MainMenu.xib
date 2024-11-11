@@ -819,14 +819,14 @@ CA
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Add playing track to Favorites"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="  Remove playing track from Favorites"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="Favorites"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="Favorites"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="heart" catalog="system"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="heart.slash" catalog="system"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="playingTrackFavoritesAction:" target="RL2-vF-Zyu" id="fEf-xi-7YW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Manage favorites" image="Favorites-Editor" hidden="YES" enabled="NO" keyEquivalent="f" id="uPE-Lz-Ycv" userLabel="Manage Favorites">
+                            <menuItem title="  Manage favorites" hidden="YES" enabled="NO" keyEquivalent="f" id="uPE-Lz-Ycv" userLabel="Manage Favorites">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="manageFavoritesAction:" target="RL2-vF-Zyu" id="ab1-lY-y10"/>
@@ -841,7 +841,7 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="  Artists" image="Artists_Menu" hidden="YES" enabled="NO" id="2ab-RY-mwr">
+                            <menuItem title="  Artists" hidden="YES" enabled="NO" id="2ab-RY-mwr">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Artists" autoenablesItems="NO" id="Tf4-QC-xAY"/>
                             </menuItem>
@@ -849,7 +849,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Albums" autoenablesItems="NO" id="YKx-PP-Nex"/>
                             </menuItem>
-                            <menuItem title="  Genres" image="Genres_Menu" hidden="YES" enabled="NO" id="1K9-l5-7vW" userLabel="Genres">
+                            <menuItem title="  Genres" hidden="YES" enabled="NO" id="1K9-l5-7vW" userLabel="Genres">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Genres" autoenablesItems="NO" id="Y4D-U2-kH0"/>
                             </menuItem>
@@ -1474,10 +1474,6 @@ CA
         </customView>
     </objects>
     <resources>
-        <image name="Artists_Menu" width="20" height="20"/>
-        <image name="Favorites" width="15" height="15"/>
-        <image name="Favorites-Editor" width="15" height="15"/>
-        <image name="Genres_Menu" width="20" height="20"/>
         <image name="arrow.2.squarepath" catalog="system" width="19" height="14"/>
         <image name="arrow.clockwise.circle" catalog="system" width="15" height="15"/>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
@@ -1500,6 +1496,8 @@ CA
         <image name="folder" catalog="system" width="18" height="14"/>
         <image name="forward" catalog="system" width="19" height="12"/>
         <image name="forward.end" catalog="system" width="13" height="13"/>
+        <image name="heart" catalog="system" width="16" height="14"/>
+        <image name="heart.slash" catalog="system" width="16" height="17"/>
         <image name="hifispeaker.fill" catalog="system" width="13" height="16"/>
         <image name="info" catalog="system" width="9" height="12"/>
         <image name="left" catalog="system" width="9" height="12"/>

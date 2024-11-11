@@ -10,8 +10,8 @@
 import Cocoa
 
 /*
-     View controller for the Chapters list.
-     Displays the chapters list in a tabular format, and provides chapter search and playback functions.
+ View controller for the Chapters list.
+ Displays the chapters list in a tabular format, and provides chapter search and playback functions.
  */
 class ChaptersListViewController: NSViewController {
     
@@ -47,7 +47,7 @@ class ChaptersListViewController: NSViewController {
         chaptersListView.customizeHeader(heightIncrease: 5, customCellType: ChaptersListTableHeaderCell.self)
         
         if appModeManager.currentMode == .modular,
-            let lblCaptionLeadingConstraint = lblCaption.superview?.constraints.first(where: {$0.firstAttribute == .leading}) {
+           let lblCaptionLeadingConstraint = lblCaption.superview?.constraints.first(where: {$0.firstAttribute == .leading}) {
             
             lblCaptionLeadingConstraint.constant = 23
         }
@@ -67,7 +67,7 @@ class ChaptersListViewController: NSViewController {
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, handler: backgroundColorChanged(_:))
         
-        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, 
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor,
                                                      changeReceivers: [btnPreviousChapter, btnNextChapter, btnReplayChapter])
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, handler: activeControlStateColorChanged(_:))
@@ -176,21 +176,13 @@ class ChaptersListViewController: NSViewController {
     
     // MARK: Message handling
     
-    var shouldRespondToTrackOrChapterChange: Bool {
-        view.window?.isVisible ?? false
-    }
-    
     func trackChanged() {
         
-        // Don't need to do this if the window is not visible
-        if shouldRespondToTrackOrChapterChange {
-            
-            chaptersListView.reloadData()
-            chaptersListView.scrollRowToVisible(0)
-            
-            let chapterCount: Int = player.chapterCount
-            lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
-        }
+        chaptersListView.reloadData()
+        chaptersListView.scrollRowToVisible(0)
+        
+        let chapterCount: Int = player.chapterCount
+        lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
         // This should always be done
         btnLoopChapter.onIf(player.chapterLoopExists)
@@ -200,15 +192,11 @@ class ChaptersListViewController: NSViewController {
     // new chapter.
     func chapterChanged(_ notification: ChapterChangedNotification) {
         
-        // Don't need to do this if the window is not visible
-        if shouldRespondToTrackOrChapterChange {
-            
-            let refreshRows: [Int] = [notification.oldChapter?.index, notification.newChapter?.index]
-                .compactMap {$0}.filter({$0 >= 0})
-            
-            if !refreshRows.isEmpty {
-                self.chaptersListView.reloadRows(refreshRows, columns: [0])
-            }
+        let refreshRows: [Int] = [notification.oldChapter?.index, notification.newChapter?.index]
+            .compactMap {$0}.filter({$0 >= 0})
+        
+        if !refreshRows.isEmpty {
+            self.chaptersListView.reloadRows(refreshRows, columns: [0])
         }
         
         btnLoopChapter.onIf(player.chapterLoopExists)

@@ -14,10 +14,6 @@ class CompactChaptersListViewController: ChaptersListViewController {
     
     override var nibName: NSNib.Name? {"CompactChaptersList"}
     
-    override var shouldRespondToTrackOrChapterChange: Bool {
-        true
-    }
-    
     override func createTitleCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> ChaptersListTableCellView? {
         
         let cell = super.createTitleCell(tableView, text, row)

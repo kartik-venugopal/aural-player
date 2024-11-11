@@ -446,7 +446,7 @@ class PlayerViewController: NSViewController {
         messenger.subscribe(to: .Player.showOrHidePlaybackPosition, handler: showOrHidePlaybackPosition)
         messenger.subscribe(to: .Player.setPlaybackPositionDisplayType, handler: setPlaybackPositionDisplayType(to:))
         
-        messenger.subscribe(to: .Player.trackInfo, handler: showTrackInfo)
+        messenger.subscribe(to: .Player.trackInfo, handler: showTrackInfo(for:))
     }
     
     func previousTrack() {
@@ -551,13 +551,13 @@ class PlayerViewController: NSViewController {
         updateSeekPosition()
     }
     
-    func showTrackInfo() {
+    func showTrackInfo(for track: Track?) {
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
-        guard let playingTrack = playbackInfoDelegate.playingTrack else {return}
+        guard let theTrack = track ?? playbackInfoDelegate.playingTrack else {return}
                 
-        trackReader.loadAuxiliaryMetadata(for: playingTrack)
-        TrackInfoViewContext.displayedTrack = playingTrack
+        trackReader.loadAuxiliaryMetadata(for: theTrack)
+        TrackInfoViewContext.displayedTrack = theTrack
         
         showTrackInfoView()
     }

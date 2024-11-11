@@ -49,9 +49,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="igo-tR-LRb" userLabel="Art View" customClass="RoundedImageView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="15" y="87" width="60" height="60"/>
+                    <rect key="frame" x="15" y="81" width="60" height="66"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="54" id="G67-o9-UJd"/>
+                        <constraint firstAttribute="height" constant="60" id="G67-o9-UJd"/>
                         <constraint firstAttribute="width" constant="60" id="sWc-wG-t0i"/>
                     </constraints>
                     <shadow key="shadow" blurRadius="2">
