@@ -41,7 +41,7 @@ By harnessing the power of FFmpeg, Aural Player supports a [wide variety of popu
 With several built-in effects and support for Audio Unit (AU) plug-ins, sound tuning and monitoring possibilities are endless.
 
 ### Usability
-Command Aural from multiple places and in many ways - Configurable media keys, swipe/scroll gestures, Control Center integration ("remote control").
+Command Aural in many ways - Handy keyboard shortcuts for common tasks, configurable media keys, swipe/scroll gestures, Control Center integration ("remote control").
 
 Read the comprehensive feature list [here](https://github.com/kartik-venugopal/aural-player/wiki/Features).
 
