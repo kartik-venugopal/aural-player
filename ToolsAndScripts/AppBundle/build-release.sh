@@ -57,7 +57,7 @@ function buildAppBundle {
     fi
 
     # Build an Xcode archive.
-    xcodebuild -project $projectDir/Aural.xcodeproj -config Release -scheme Aural -archivePath "${archive}" archive
+    xcodebuild -project $projectDir/Aural.xcodeproj -config Release -scheme Aural -destination 'platform=macOS,arch=arm64' -destination 'platform=macOS,arch=x86_64' -archivePath "${archive}" archive
     
     # Export the app bundle from the archive.
     xcodebuild -archivePath "${archive}" -exportArchive -exportPath "${releaseDir}" -exportOptionsPlist exportOptions.plist
