@@ -6714,7 +6714,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview12";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview13";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6731,7 +6731,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview12";
+				MARKETING_VERSION = "4.0.0-preview13";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;
@@ -6752,7 +6752,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview12";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview13";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6769,7 +6769,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview12";
+				MARKETING_VERSION = "4.0.0-preview13";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;
