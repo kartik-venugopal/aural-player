@@ -67,11 +67,11 @@ Version 3 has been archived, and no further work will be done on it. The source 
 
 All pending and newly filed issues (bugs or feature requests), if implemented, will be implemented in v4.
 
-### Version 4 being developed (coming soon!)
-
-#### Preview releases
+### V4 Preview releases
 
 Preview builds are unstable pre-release builds containing incremental updates as v4 continues to be developed. They may contain significant bugs. Several preview builds have been put out and more are expected to come out before the milestone releases.
+
+### V4 Milestone releases
 
 As of Nov 11, 2024, there are 2 upcoming major milestones for Version 4:
 
