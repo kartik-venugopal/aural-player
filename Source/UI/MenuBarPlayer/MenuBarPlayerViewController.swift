@@ -18,6 +18,7 @@ class MenuBarPlayerViewController: PlayerViewController {
     @IBOutlet weak var presentationModesBox: NSBox!
     
     @IBOutlet weak var btnQuit: FillableImageButton!
+    @IBOutlet weak var btnPresentationModes: FillableImageButton!
     @IBOutlet weak var logoImage: TintedImageView!
     
     @IBOutlet weak var btnSettings: NSButton!
@@ -98,7 +99,7 @@ class MenuBarPlayerViewController: PlayerViewController {
         
         rootContainerBox.fillColor = systemColorScheme.backgroundColor
         logoImage.colorChanged(systemColorScheme.captionTextColor)
-        [btnQuit, btnSettings].forEach {
+        [btnQuit, btnPresentationModes, btnSettings].forEach {
             $0.colorChanged(systemColorScheme.buttonColor)
         }
     }

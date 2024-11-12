@@ -13,6 +13,7 @@
                 <outlet property="btnLoop" destination="Y0O-RQ-7r1" id="cfW-gc-hXW"/>
                 <outlet property="btnNextTrack" destination="ffS-Wf-PIL" id="Twh-Eu-6Hd"/>
                 <outlet property="btnPlayPause" destination="k6P-VT-BGY" id="rwJ-uf-z8Y"/>
+                <outlet property="btnPresentationModes" destination="Esa-Fz-m23" id="1bI-ON-1Iv"/>
                 <outlet property="btnPreviousTrack" destination="AAi-7n-PAk" id="sDp-P3-en5"/>
                 <outlet property="btnQuit" destination="enq-6c-0bc" id="YLr-E1-cR4"/>
                 <outlet property="btnRepeat" destination="vDs-we-Jvw" id="M4H-fK-2JS"/>
@@ -68,7 +69,7 @@
                     </connections>
                 </button>
                 <button toolTip="Change presentation mode" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Esa-Fz-m23" userLabel="Presentation Mode Button" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="24" y="147.5" width="10" height="16"/>
+                    <rect key="frame" x="22" y="147.5" width="10" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="square.grid.2x2" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="PWH-Ma-Xyl">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
