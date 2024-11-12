@@ -108,10 +108,10 @@
                                     <action selector="unifiedModeAction:" target="-2" id="700-t3-GXu"/>
                                 </connections>
                             </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6N2-lw-g3I">
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6N2-lw-g3I" userLabel="Compact (single compact window)">
                                 <rect key="frame" x="5" y="40" width="235" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Compact (single comapct window)" bezelStyle="shadowlessSquare" alignment="left" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cVT-mn-6FG">
+                                <buttonCell key="cell" type="square" title="Compact (single compact window)" bezelStyle="shadowlessSquare" alignment="left" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cVT-mn-6FG">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
