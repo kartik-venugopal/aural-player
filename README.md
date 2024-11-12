@@ -122,23 +122,19 @@ This table lists the range of compatible Aural Player versions for your hardware
 
 * All releases are universal binaries, i.e. capable of running on both Intel and Apple Silicon Macs.
 
-* Due to limited time, I can only officially support macOS Big Sur and later macOS versions going forward. The app should still work on older systems (going back to Sierra), but I can no longer make guarantees or troubleshoot issues on older systems.
-
-### Media keys support
-
-Your Mac media keys should work with Aural right out of the box (assuming you granted Aural Accessibility permissions on first app launch), but if for some reason the media keys don't work, follow the steps listed [here](https://github.com/kartik-venugopal/aural-player/wiki/Enabling-media-keys-support).
-
 ______
 
 ## Building the app
 
-All you need is Xcode 12.2+ and the [source code](https://github.com/kartik-venugopal/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
+All you need is Xcode 15 and the [source code](https://github.com/kartik-venugopal/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
 
 Read the [quick start guide](https://github.com/kartik-venugopal/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide)) for more details.
 
 ## Documentation
 
 All the documentation can be found on the [wiki](https://github.com/kartik-venugopal/aural-player/wiki).
+
+NOTE - Documentation generally lags behind app development, so pages may contain slightly outdated info from older app versions.
 
 #### Some pages to get you started
 
@@ -155,8 +151,6 @@ ______
 ## Known issues (and solutions)
 
 * [The text is too small on my Mac screen.](https://github.com/kartik-venugopal/aural-player/wiki/App-text-is-too-small-on-my-Mac-screen)
-
-* [Poor audio quality when using Bluetooth headsets.](https://github.com/kartik-venugopal/aural-player/wiki/Poor-audio-quality-when-using-Bluetooth-headsets)
 
 * [My media keys don't work with Aural Player](https://github.com/kartik-venugopal/aural-player/wiki/My-media-keys-don't-work-with-Aural-Player)
 
@@ -177,9 +171,10 @@ ______
 ## Third party code attributions
 
 * [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
-* [libopenmpt](https://lib.openmpt.org/libopenmpt/) (used by ffmpeg to decode tracker module formats)
 * [MediaKeyTap](https://github.com/nhurden/MediaKeyTap) (used to respond to media keys)
 * [RangeSlider](https://github.com/matthewreagan/RangeSlider) (used in the Filter effects unit to specify frequency ranges)
+* [libcue](https://github.com/lipnitsk/libcue) (used to read CUE sheets)
+* [libebur128](https://github.com/jiixyj/libebur128) (used by the Replay Gain effects unit to analyze tracks for loudness)
 
 ## Contributor attributions
 
