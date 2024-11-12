@@ -12,6 +12,8 @@ import AppKit
 
 class MenuBarPlayerViewController: PlayerViewController {
     
+    override var nibName: NSNib.Name? {"MenuBarPlayer"}
+    
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var presentationModesBox: NSBox!
     
@@ -19,13 +21,6 @@ class MenuBarPlayerViewController: PlayerViewController {
     @IBOutlet weak var logoImage: TintedImageView!
     
     @IBOutlet weak var btnSettings: NSButton!
-    
-    @IBOutlet weak var btnModularMode: RadioButton!
-    @IBOutlet weak var btnUnifiedMode: RadioButton!
-    @IBOutlet weak var btnCompactMode: RadioButton!
-    @IBOutlet weak var btnWidgetMode: RadioButton!
-    
-    override var nibName: NSNib.Name? {"MenuBarPlayer"}
     
     private static let textViewDefaultPosition: NSPoint = NSPoint(x: 67, y: 66)
     private static let textViewPosition_noArt: NSPoint = NSPoint(x: 12, y: 66)
@@ -130,22 +125,20 @@ class MenuBarPlayerViewController: PlayerViewController {
         }
     }
     
-    @IBAction func presentationModeRadioButtonGroupAction(_ sender: RadioButton) {}
+    @IBAction func modularModeAction(_ sender: NSButton) {
+        appModeManager.presentMode(.modular)
+    }
     
-    @IBAction func changePresentationModeAction(_ sender: RadioButton) {
-        
-        if btnModularMode.isOn {
-            appModeManager.presentMode(.modular)
-            
-        } else if btnUnifiedMode.isOn {
-            appModeManager.presentMode(.unified)
-            
-        } else if btnCompactMode.isOn {
-            appModeManager.presentMode(.compact)
-            
-        } else if btnWidgetMode.isOn {
-            appModeManager.presentMode(.widget)
-        }
+    @IBAction func unifiedModeAction(_ sender: NSButton) {
+        appModeManager.presentMode(.unified)
+    }
+    
+    @IBAction func compactModeAction(_ sender: NSButton) {
+        appModeManager.presentMode(.compact)
+    }
+    
+    @IBAction func widgetModeAction(_ sender: NSButton) {
+        appModeManager.presentMode(.widget)
     }
     
     @IBAction func quitAction(_ sender: AnyObject) {
