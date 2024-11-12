@@ -235,8 +235,6 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="LoopChapter-Off"/>
-                            <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="LoopChapter-On"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Toggle current chapter loop"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Toggle current chapter loop"/>
                         </userDefinedRuntimeAttributes>
@@ -277,8 +275,6 @@
     </objects>
     <resources>
         <image name="Loop" width="18" height="25"/>
-        <image name="LoopChapter-Off" width="20" height="20"/>
-        <image name="LoopChapter-On" width="20" height="20"/>
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
         <image name="backward.end" catalog="system" width="13" height="13"/>
         <image name="forward.end" catalog="system" width="13" height="13"/>
