@@ -37,7 +37,7 @@ Personalize Aural Player with exactly the colors and fonts that define your crea
 By harnessing the power of FFmpeg, Aural Player supports a [wide variety of popular audio formats](https://github.com/kartik-venugopal/aural-player/wiki/Features#audio-formats), in addition to all [macOS Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
 
 ### Sound tuning and monitoring
-With several built-in effects and support for Audio Unit (AU) plug-ins, sound tuning and monitoring possibilities are endless.
+With several built-in effects and support for Audio Unit (AU) plug-ins, sound tuning and monitoring possibilities are endless. Also check out the built-in visualizer 😉
 
 ### Usability
 Command Aural in many ways - Handy keyboard shortcuts for common tasks (eg. EQ bands / time stretching), configurable media keys, swipe/scroll gestures, Control Center integration ("remote control").
