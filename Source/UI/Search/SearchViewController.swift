@@ -17,31 +17,6 @@ class SearchViewController: NSViewController {
     @IBOutlet weak var lblCaption: NSTextField!
     @IBOutlet weak var searchField: NSSearchField!
     
-    @IBOutlet weak var lblSeachByCaption: NSTextField!
-    @IBOutlet weak var lblComparisonTypeCaption: NSTextField!
-    @IBOutlet weak var lblOptionsCaption: NSTextField!
-    
-    lazy var captionLabels: [NSTextField] = [lblSeachByCaption, lblComparisonTypeCaption, lblOptionsCaption]
-    
-    @IBOutlet weak var settingsBox: NSBox!
-    @IBOutlet weak var settingsBoxHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var btnNextSearch: NSButton!
-    @IBOutlet weak var btnPreviousSearch: NSButton!
-    
-    @IBOutlet weak var btnSearchByName: CheckBox!
-    @IBOutlet weak var btnSearchByArtist: CheckBox!
-    @IBOutlet weak var btnSearchByTitle: CheckBox!
-    @IBOutlet weak var btnSearchByAlbum: CheckBox!
-    
-    @IBOutlet weak var btnComparisonType: NSPopUpButton!
-    
-    @IBOutlet weak var btnSearchCaseSensitive: CheckBox!
-    
-    lazy var checkBoxes: [CheckBox] = [btnSearchByName, btnSearchByArtist, btnSearchByTitle, btnSearchByAlbum, btnSearchCaseSensitive]
-    
-    lazy var settingsFields: [NSView] = captionLabels + checkBoxes + [btnComparisonType]
-    
     @IBOutlet weak var lblSummary: NSTextField!
     @IBOutlet weak var resultsTable: CompactPlayQueueSearchResultsTableView!
     
@@ -50,9 +25,9 @@ class SearchViewController: NSViewController {
     // Current search results
     private(set) var searchResults: SearchResults!
     
-    private var isShowingSettings: Bool = false
-    
     private lazy var messenger = Messenger(for: self)
+    
+    private lazy var settingsWindowController: SearchSettingsWindowController = .init()
     
     override func viewDidLoad() {
         
@@ -61,8 +36,6 @@ class SearchViewController: NSViewController {
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
-        
-        showOrHideSettingsView()
         
         // Offset the caption label a bit to the right.
         if appModeManager.currentMode == .modular,
@@ -139,94 +112,9 @@ class SearchViewController: NSViewController {
         redoSearchIfPossible()
     }
     
-    @IBAction func searchFieldsChangedAction(_ sender: Any) {
-        
-        var searchFields: SearchFields = .none
-        
-        searchFields.include(.name, if: btnSearchByName.isOn)
-        searchFields.include(.artist, if: btnSearchByArtist.isOn)
-        searchFields.include(.title, if: btnSearchByTitle.isOn)
-        searchFields.include(.album, if: btnSearchByAlbum.isOn)
-        
-        searchQuery.fields = searchFields
-        
-        redoSearchIfPossible()
+    @IBAction func showSettingsAction(_ sender: Any) {
+        settingsWindowController.showWindow(self)
     }
-    
-    @IBAction func searchTypeChangedAction(_ sender: Any) {
-        
-        guard let queryTypeStr = btnComparisonType.titleOfSelectedItem,
-              let queryType = SearchType(rawValue: queryTypeStr) else {return}
-            
-        searchQuery.type = queryType
-        redoSearchIfPossible()
-    }
-    
-    @IBAction func searchOptionsChangedAction(_ sender: Any) {
-        
-        searchQuery.options.include(.caseSensitive, if: btnSearchCaseSensitive.isOn)
-        redoSearchIfPossible()
-    }
-    
-    @IBAction func toggleSettingsViewAction(_ sender: Any) {
-
-        isShowingSettings.toggle()
-        showOrHideSettingsView()
-    }
-    
-    private func showOrHideSettingsView() {
-        
-        if isShowingSettings {
-            NSView.showViews(settingsFields)
-        }
-        
-        NSAnimationContext.runAnimationGroup({ context in
-            
-            context.duration = 0.3
-            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            
-            settingsBoxHeightConstraint.animator().constant = isShowingSettings ? 118 : 1
-            
-        }, completionHandler: nil)
-        
-        if !isShowingSettings {
-            NSView.hideViews(settingsFields)
-        }
-    }
-    
-    //
-    //    // Iterates to the previous search result
-    //    @IBAction func previousSearchAction(_ sender: Any) {
-    //
-    //        if let result = searchResults.previous() {
-    //            updateSearchPanelWithResult(result)
-    //        }
-    //    }
-    //
-    //    // Iterates to the next search result
-    //    @IBAction func nextSearchAction(_ sender: Any) {
-    //
-    //        if let result = searchResults.next() {
-    //            updateSearchPanelWithResult(result)
-    //        }
-    //    }
-    //
-    //    // Updates displayed search results info with the current search result
-    //    private func updateSearchPanelWithResult(_ searchResult: SearchResult) {
-    //
-    //        lblSummary.stringValue = String(format: "Selected result:   %d / %d",
-    //                                        searchResults.currentIndex + 1, searchResults.count)
-    //
-    //        lblMatchFieldName.stringValue = "Matched field:   \(searchResult.match.fieldKey.capitalizingFirstLetter())"
-    //        lblMatchFieldValue.stringValue = "Matched value:   '\(searchResult.match.fieldValue)'"
-    //
-    //        btnNextSearch.showIf(searchResults.hasNext)
-    //        btnPreviousSearch.showIf(searchResults.hasPrevious)
-    //
-    //        // Selects a track within the playlist view, to show the user where the track is located within the playlist
-    //        messenger.publish(SelectSearchResultCommandNotification(searchResult: searchResult,
-    //                                                                viewSelector: uiState.currentViewSelector))
-    //    }
     
     @IBAction func playSearchResultAction(_ sender: Any) {
         

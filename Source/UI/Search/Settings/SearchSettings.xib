@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SearchSettingsWindowController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnComparisonType" destination="Az6-M6-jDk" id="L8r-jx-t9N"/>
+                <outlet property="btnSearchByAlbum" destination="Owe-D1-X7f" id="L1k-3u-2eG"/>
+                <outlet property="btnSearchByArtist" destination="Rg6-Kc-yp6" id="hBs-W6-nxr"/>
+                <outlet property="btnSearchByName" destination="2iT-Ae-Brg" id="1R5-h8-2vr"/>
+                <outlet property="btnSearchByTitle" destination="Kab-Zg-0lM" id="ZJS-Lh-pvW"/>
+                <outlet property="btnSearchCaseSensitive" destination="OzU-9V-4eX" id="fWl-Kt-7O2"/>
+                <outlet property="window" destination="QLW-ju-RRv" id="EaK-wl-HK6"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Search Settings" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QLW-ju-RRv" customClass="NoTitleBarPanel" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="503" height="195"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" wantsLayer="YES" id="HhJ-Oi-dM4">
+                <rect key="frame" x="0.0" y="0.0" width="503" height="195"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box fixedFrame="YES" boxType="custom" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="tNb-vw-8w2" userLabel="Settings Box">
+                        <rect key="frame" x="15" y="36" width="477" height="129"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="DRe-xc-5je">
+                            <rect key="frame" x="0.0" y="0.0" width="477" height="129"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MAl-Y9-L8g" userLabel="Options:">
+                                    <rect key="frame" x="407" y="37" width="61" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Options:" id="AeL-st-llm">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" white="0.70339626740000005" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OzU-9V-4eX" userLabel="Case Sensitive" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="367" y="22" width="99" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Case sensitive" bezelStyle="regularSquare" imagePosition="left" alignment="right" controlSize="small" inset="2" id="wgX-4E-4f8">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kab-Zg-0lM" userLabel="Title field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="6" y="39" width="121" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Title (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="K0T-GW-iVD">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                </button>
+                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Az6-M6-jDk" userLabel="Comparison Type Menu">
+                                    <rect key="frame" x="327" y="71" width="143" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="push" title="Contains" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="QBt-Sm-JlG" id="nls-uq-q39">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <menu key="menu" id="Gqk-YW-bjA">
+                                            <items>
+                                                <menuItem title="Contains" state="on" id="QBt-Sm-JlG"/>
+                                                <menuItem title="Begins With" id="AHg-qO-QCo"/>
+                                                <menuItem title="Ends With" id="if7-fS-doA"/>
+                                                <menuItem title="Equals" id="Aqh-S9-nrW"/>
+                                                <menuItem title="Matches Regex" id="DAX-zx-RqO"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2iT-Ae-Brg" userLabel="Name field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="6" y="73" width="121" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Name / filename" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="nxn-ro-94a">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Owe-D1-X7f" userLabel="Album field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="6" y="22" width="121" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Album (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ma7-Sb-sVV">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y39-C1-MSc" userLabel="Comparison type:">
+                                    <rect key="frame" x="374" y="100" width="94" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Comparison type:" id="FSR-bf-oyF">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" white="0.70339626740000005" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rg6-Kc-yp6" userLabel="Artist field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="6" y="56" width="121" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Artist (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="kmF-Dr-tkj">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ByF-RT-o8d">
+                                    <rect key="frame" x="5" y="102" width="60" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search by:" id="atH-LX-BZo">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" white="0.70339626740000005" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+                    </box>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dF7-bI-l38" userLabel="Ok button">
+                        <rect key="frame" x="428" y="14" width="55" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Sha-1l-eKp">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="doneAction:" target="-2" id="tJx-dg-GQ5"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="146.5" y="94.5"/>
+        </window>
+    </objects>
+</document>

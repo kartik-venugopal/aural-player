@@ -13,4 +13,5 @@ import Foundation
 struct PlayQueueUIPersistentState: Codable {
     
     let currentView: PlayQueueView?
+    let searchSettings: SearchSettings?
 }

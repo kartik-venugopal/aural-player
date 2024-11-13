@@ -494,6 +494,8 @@
 		3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontScheme.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */; };
 		3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */; };
+		3E2F48CB2CE564D300631975 /* SearchSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F48CA2CE564D300631975 /* SearchSettings.xib */; };
+		3E2F48CF2CE567D900631975 /* SearchSettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F48CE2CE567D900631975 /* SearchSettingsWindowController.swift */; };
 		3E2FA5ED2B72260200DD6A20 /* CircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2FA5EC2B72260200DD6A20 /* CircularSlider.swift */; };
 		3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */; };
 		3E308D1D268A356300B0FD60 /* UpdatesDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */; };
@@ -1571,6 +1573,8 @@
 		3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesManager.swift; sourceTree = "<group>"; };
 		3E2EFC572C6AD031000E238D /* build-libcue.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-libcue.sh"; sourceTree = "<group>"; };
 		3E2EFC582C6AD031000E238D /* libcue-2.3.0.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "libcue-2.3.0.zip"; sourceTree = "<group>"; };
+		3E2F48CA2CE564D300631975 /* SearchSettings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSettings.xib; sourceTree = "<group>"; };
+		3E2F48CE2CE567D900631975 /* SearchSettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsWindowController.swift; sourceTree = "<group>"; };
 		3E2FA5EC2B72260200DD6A20 /* CircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularSlider.swift; sourceTree = "<group>"; };
 		3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatesDialog.xib; sourceTree = "<group>"; };
 		3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesDialogController.swift; sourceTree = "<group>"; };
@@ -3537,6 +3541,7 @@
 				3E2C4BD32B38DD0400FC65DD /* SearchViewController.swift */,
 				3EEC08B82BDC5F9A008DBF8E /* SearchViewController+Theming.swift */,
 				3E4574942B3DEEE600AF117E /* SearchViewController+TableView.swift */,
+				3E2F48C92CE564B400631975 /* Settings */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3583,6 +3588,15 @@
 				3E2EFC582C6AD031000E238D /* libcue-2.3.0.zip */,
 			);
 			path = LibCueBuild;
+			sourceTree = "<group>";
+		};
+		3E2F48C92CE564B400631975 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3E2F48CA2CE564D300631975 /* SearchSettings.xib */,
+				3E2F48CE2CE567D900631975 /* SearchSettingsWindowController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		3E308D19268A333D00B0FD60 /* UpdatesDialog */ = {
@@ -5573,6 +5587,7 @@
 				3E6EFFA32815309500C813AC /* TextColorScheme.xib in Resources */,
 				3EB4202B285A6295007159CC /* UnifiedPlayer.xib in Resources */,
 				3E836E332868964D009371D4 /* PlayQueueContainer.xib in Resources */,
+				3E2F48CB2CE564D300631975 /* SearchSettings.xib in Resources */,
 				3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */,
 				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
 				3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */,
@@ -6007,6 +6022,7 @@
 				3EEC6ECD2BD85F8900BC5D32 /* TrackInfoSource.swift in Sources */,
 				3E062AD92B87E8480000A4FC /* UnifiedPlayerUIState.swift in Sources */,
 				3E0219042C23490E00865AC2 /* PlayQueueGrouping.swift in Sources */,
+				3E2F48CF2CE567D900631975 /* SearchSettingsWindowController.swift in Sources */,
 				3E0219112C23490E00865AC2 /* LastFMPreferences.swift in Sources */,
 				3E0217EE2C23490E00865AC2 /* HostedAudioUnitDelegateProtocol.swift in Sources */,
 				3E6C130B25CEBE8F00BF0D07 /* FileSystemTrackInfoSource.swift in Sources */,

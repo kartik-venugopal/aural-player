@@ -11,7 +11,7 @@
 ///
 /// Additional options to further filter playlist search results.
 ///
-struct SearchOptions: OptionSet {
+struct SearchOptions: OptionSet, Codable {
     
     let rawValue: Int
     

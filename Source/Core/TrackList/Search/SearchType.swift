@@ -11,7 +11,7 @@
 ///
 /// An enumeration of different types of text comparison when performing a playlist search.
 ///
-enum SearchType: String {
+enum SearchType: String, Codable {
     
     // Will return results for which field values contain, as a substring, the search query text
     case contains = "Contains"

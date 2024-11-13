@@ -11,7 +11,7 @@
 ///
 /// Enumerates the track fields used as playlist search criteria.
 ///
-struct SearchFields: OptionSet {
+struct SearchFields: OptionSet, Codable {
     
     let rawValue: Int
     

@@ -48,3 +48,10 @@ class SearchQuery {
         }
     }
 }
+
+class SearchSettings: Codable {
+    
+    var type: SearchType = .contains
+    var fields: SearchFields = .all
+    var options: SearchOptions = .none
+}

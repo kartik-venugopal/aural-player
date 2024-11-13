@@ -15,16 +15,19 @@ class PlayQueueUIState: PersistentModelObject {
     // The current play queue view type displayed within the tab group.
     var currentView: PlayQueueView
     
-    var isShowingSearch: Bool = false
+    var isShowingSearch: Bool = false       // Transient field
+    var searchSettings: SearchSettings
     
     var selectedRows: IndexSet = .empty
     
     init(persistentState: PlayQueueUIPersistentState?) {
+        
         currentView = persistentState?.currentView ?? PlayQueueUIDefaults.currentView
+        searchSettings = persistentState?.searchSettings ?? .init()
     }
     
     var persistentState: PlayQueueUIPersistentState {
-        PlayQueueUIPersistentState(currentView: currentView)
+        PlayQueueUIPersistentState(currentView: currentView, searchSettings: searchSettings)
     }
 }
 
