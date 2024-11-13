@@ -11,7 +11,6 @@
     + [Limitations](#limitations)
   * [Download](#download)
     + [Compatibility](#compatibility)
-    + [Media keys support](#media-keys-support)
   * [Building the app](#building-the-app)
   * [Documentation](#documentation)
   * [Known issues (and solutions)](#known-issues-and-solutions)
