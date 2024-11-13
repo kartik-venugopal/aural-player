@@ -58,7 +58,7 @@
             <connections>
                 <outlet property="devicesMenu" destination="WXF-J5-SVu" id="bas-s2-7dM"/>
                 <outlet property="eqMenu" destination="aJ0-EH-SbB" id="lfV-7N-TZo"/>
-                <outlet property="masterBypassMenuItem" destination="gf8-40-Keh" id="m06-Kd-Pzh"/>
+                <outlet property="masterBypassMenuItem" destination="gf8-40-Keh" id="ZlE-ux-osX"/>
                 <outlet property="oneOctaveAboveMenuItem" destination="uRs-ma-FTS" id="D4I-dk-32E"/>
                 <outlet property="oneOctaveBelowMenuItem" destination="027-Ws-NtJ" id="F5E-SB-Vif"/>
                 <outlet property="panLeftMenuItem" destination="zVx-50-bjx" id="0al-YD-cJR"/>
@@ -417,7 +417,7 @@
                 </menuItem>
                 <menuItem title="Sound" id="PxC-vY-BDh" userLabel="Sound">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Sound" autoenablesItems="NO" id="kI0-SB-iGn">
+                    <menu key="submenu" title="Sound" showsStateColumn="NO" autoenablesItems="NO" id="kI0-SB-iGn">
                         <items>
                             <menuItem title=" Output Device" image="hifispeaker.fill" catalog="system" id="Q15-fa-cNY" userLabel="Output Device">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -459,8 +459,8 @@
                             <menuItem isSeparatorItem="YES" id="glq-m9-tFm"/>
                             <menuItem title=" Disable effects" image="power" catalog="system" keyEquivalent="e" id="gf8-40-Keh" userLabel="Disable effects" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Disable effects"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Enable effects"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Enable effects"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Disable effects"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="power" catalog="system"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="power" catalog="system"/>
                                 </userDefinedRuntimeAttributes>
@@ -646,6 +646,9 @@
                                 </connections>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="CYF-bp-BH0" id="uQk-sa-al8"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="Play Queue" id="Bns-9g-qAg" userLabel="Play Queue">

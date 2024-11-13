@@ -31,20 +31,18 @@ class ApplyPlaybackProfileAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-//        if let newTrack = context.requestedTrack {
-//            
-//            let params = context.requestParams
-//            
-//            // Check for an existing playback profile for the requested track, and only apply the profile
-//            // if no start position is defined in the request params.
-//            if let profile = profiles[newTrack], params.startPosition == nil {
-//                
-//                print("Applying profile time: \(profile.lastPosition) to: \(newTrack.displayName)")
-//                
-//                // Validate the playback profile before applying it
-//                params.startPosition = (profile.lastPosition >= newTrack.duration ? 0 : profile.lastPosition)
-//            }
-//        }
+        if let newTrack = context.requestedTrack {
+            
+            let params = context.requestParams
+            
+            // Check for an existing playback profile for the requested track, and only apply the profile
+            // if no start position is defined in the request params.
+            if let profile = profiles[newTrack], params.startPosition == nil {
+                
+                // Validate the playback profile before applying it
+                params.startPosition = (profile.lastPosition >= newTrack.duration ? 0 : profile.lastPosition)
+            }
+        }
         
         chain.proceed(context)
     }

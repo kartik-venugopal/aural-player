@@ -82,56 +82,15 @@ class EQUnitViewController: EffectsUnitViewController {
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceivers: eqUnitView.allSliders)
         
-        messenger.subscribe(to: .Effects.EQUnit.decreaseBass, handler: decreaseBass)
-        messenger.subscribe(to: .Effects.EQUnit.increaseBass, handler: increaseBass)
-        
-        messenger.subscribe(to: .Effects.EQUnit.decreaseMids, handler: decreaseMids)
-        messenger.subscribe(to: .Effects.EQUnit.increaseMids, handler: increaseMids)
-        
-        messenger.subscribe(to: .Effects.EQUnit.decreaseTreble, handler: decreaseTreble)
-        messenger.subscribe(to: .Effects.EQUnit.increaseTreble, handler: increaseTreble)
+        messenger.subscribe(to: .Effects.EQUnit.bandsUpdated, handler: bandsUpdated)
     }
     
-    // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
-    private func increaseBass() {
-        bandsUpdated(eqUnit.increaseBass())
-    }
-    
-    // Decreases each of the EQ bass bands by a certain preset decrement
-    private func decreaseBass() {
-        bandsUpdated(eqUnit.decreaseBass())
-    }
-    
-    // Increases each of the EQ mid-frequency bands by a certain preset increment
-    private func increaseMids() {
-        bandsUpdated(eqUnit.increaseMids())
-    }
-    
-    // Decreases each of the EQ mid-frequency bands by a certain preset decrement
-    private func decreaseMids() {
-        bandsUpdated(eqUnit.decreaseMids())
-    }
-    
-    // Decreases each of the EQ treble bands by a certain preset increment
-    private func increaseTreble() {
-        bandsUpdated(eqUnit.increaseTreble())
-    }
-    
-    // Decreases each of the EQ treble bands by a certain preset decrement
-    private func decreaseTreble() {
-        bandsUpdated(eqUnit.decreaseTreble())
-    }
-    
-    private func bandsUpdated(_ bands: [Float]) {
+    private func bandsUpdated() {
         
         stateChanged()
-        eqUnitView.bandsUpdated(bands, globalGain: eqUnit.globalGain)
+        eqUnitView.bandsUpdated(eqUnit.bands, globalGain: eqUnit.globalGain)
         
         messenger.publish(.Effects.unitStateChanged)
         showThisTab()
     }
-    
-    // ------------------------------------------------------------------------
-    
-    // MARK: Theming
 }

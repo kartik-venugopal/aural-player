@@ -63,7 +63,7 @@ extension Notification.Name {
         struct MasterUnit {
             
             // Commands the Master effects unit to toggle (i.e. disable/enable) all effects.
-            static let toggleEffects = Notification.Name("effects_masterUnit_toggleEffects")
+            static let allEffectsToggled = Notification.Name("effects_masterUnit_allEffectsToggled")
         }
         
         // ----------------------------------------------------------------------------------------
@@ -72,23 +72,7 @@ extension Notification.Name {
         
         struct EQUnit {
             
-            // Commands the Equalizer effects unit to decrease gain for each of the bass bands by a certain preset decrement
-            static let decreaseBass = Notification.Name("effects_eqUnit_decreaseBass")
-            
-            // Commands the Equalizer effects unit to provide a "bass boost", i.e. increase gain for each of the bass bands by a certain preset increment.
-            static let increaseBass = Notification.Name("effects_eqUnit_increaseBass")
-            
-            // Commands the Equalizer effects unit to decrease gain for each of the mid-frequency bands by a certain preset decrement
-            static let decreaseMids = Notification.Name("effects_eqUnit_decreaseMids")
-            
-            // Commands the Equalizer effects unit to increase gain for each of the mid-frequency bands by a certain preset increment
-            static let increaseMids = Notification.Name("effects_eqUnit_increaseMids")
-            
-            // Commands the Equalizer effects unit to decrease gain for each of the treble bands by a certain preset decrement
-            static let decreaseTreble = Notification.Name("effects_eqUnit_decreaseTreble")
-            
-            // Commands the Equalizer effects unit to increase gain for each of the treble bands by a certain preset increment
-            static let increaseTreble = Notification.Name("effects_eqUnit_increaseTreble")
+            static let bandsUpdated = Notification.Name("effects_eqUnit_bandsUpdated")
         }
         
         // ----------------------------------------------------------------------------------------
@@ -97,14 +81,7 @@ extension Notification.Name {
             
             // MARK: Pitch Shift effects unit commands
             
-            // Commands the Pitch Shift effects unit to decrease the pitch by a certain preset decrement
-            static let decreasePitch = Notification.Name("effects_pitchShiftUnit_decreasePitch")
-            
-            // Commands the Pitch Shift effects unit to increase the pitch by a certain preset increment
-            static let increasePitch = Notification.Name("effects_pitchShiftUnit_increasePitch")
-            
-            // Commands the Pitch Shift effects unit to set the pitch to a specific value
-            static let setPitch = Notification.Name("effects_pitchShiftUnit_setPitch")
+            static let pitchUpdated = Notification.Name("effects_pitchShiftUnit_pitchUpdated")
         }
         
         // ----------------------------------------------------------------------------------------
@@ -113,14 +90,7 @@ extension Notification.Name {
             
             // MARK: Time Stretch effects unit commands
             
-            // Commands the Time Stretch effects unit to decrease the playback rate by a certain preset decrement
-            static let decreaseRate = Notification.Name("effects_timeStretchUnit_decreaseRate")
-            
-            // Commands the Time Stretch effects unit to increase the playback rate by a certain preset increment
-            static let increaseRate = Notification.Name("effects_timeStretchUnit_increaseRate")
-            
-            // Commands the Time Stretch effects unit to set the playback rate to a specific value
-            static let setRate = Notification.Name("effects_timeStretchUnit_setRate")
+            static let rateUpdated = Notification.Name("effects_timeStretchUnit_rateUpdated")
         }
         
         // ----------------------------------------------------------------------------------------

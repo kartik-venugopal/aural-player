@@ -76,9 +76,7 @@ class MasterUnitViewController: EffectsUnitViewController {
     @IBAction override func bypassAction(_ sender: AnyObject) {
         
         super.bypassAction(sender)
-        broadcastStateChangeNotification()
-        
-        messenger.publish(.Effects.playbackRateChanged, payload: timeStretchUnit.effectiveRate)
+        allEffectsToggled()
     }
     
     @IBAction override func presetsAction(_ sender: AnyObject) {
@@ -161,7 +159,7 @@ class MasterUnitViewController: EffectsUnitViewController {
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackChanged(_:),
                                  filter: {msg in msg.trackChanged})
         
-        messenger.subscribe(to: .Effects.MasterUnit.toggleEffects, handler: toggleEffects)
+        messenger.subscribe(to: .Effects.MasterUnit.allEffectsToggled, handler: allEffectsToggled)
     }
     
     override func stateChanged() {
@@ -169,8 +167,10 @@ class MasterUnitViewController: EffectsUnitViewController {
         messenger.publish(.Effects.playbackRateChanged, payload: timeStretchUnit.effectiveRate)
     }
     
-    private func toggleEffects() {
-        bypassAction(self)
+    private func allEffectsToggled() {
+        
+        broadcastStateChangeNotification()
+        messenger.publish(.Effects.playbackRateChanged, payload: timeStretchUnit.effectiveRate)
     }
     
     func trackChanged(_ notification: TrackTransitionNotification) {

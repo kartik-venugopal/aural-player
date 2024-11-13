@@ -86,44 +86,15 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        
-        messenger.subscribe(to: .Effects.PitchShiftUnit.decreasePitch, handler: decreasePitch)
-        messenger.subscribe(to: .Effects.PitchShiftUnit.increasePitch, handler: increasePitch)
-        messenger.subscribe(to: .Effects.PitchShiftUnit.setPitch, handler: setPitch(_:))
+        messenger.subscribe(to: .Effects.PitchShiftUnit.pitchUpdated, handler: pitchUpdated)
     }
-    
-    // Sets the pitch to a specific value
-    private func setPitch(_ pitch: Float) {
-        
-        let newPitch = PitchShift(fromCents: pitch)
-        
-        pitchShiftUnit.pitch = newPitch
-        pitchShiftUnit.ensureActive()
-        
-        pitchShiftUnitView.pitch = newPitch
-        
-        messenger.publish(.Effects.unitStateChanged)
-        
-        // Show the Pitch tab
-        showThisTab()
-    }
-    
-    // Increases the overall pitch by a certain preset increment
-    private func increasePitch() {
-        pitchChange(pitchShiftUnit.increasePitch())
-    }
-    
-    // Decreases the overall pitch by a certain preset decrement
-    private func decreasePitch() {
-        pitchChange(pitchShiftUnit.decreasePitch())
-    }
-    
+
     // Changes the pitch to a specified value
-    private func pitchChange(_ pitch: PitchShift) {
+    private func pitchUpdated() {
         
         messenger.publish(.Effects.unitStateChanged)
         
-        pitchShiftUnitView.pitch = pitch
+        pitchShiftUnitView.pitch = pitchShiftUnit.pitch
         
         // Show the Pitch tab if the Effects panel is shown
         showThisTab()

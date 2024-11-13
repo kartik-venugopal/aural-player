@@ -122,7 +122,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            masterBypassMenuItem.onIf(!masterUnit.isActive)
+            masterBypassMenuItem.onIf(masterUnit.isActive)
+            
             rememberSettingsMenuItem.showIf(!soundPreferences.rememberEffectsSettingsForAllTracks.value)
             
             if let playingTrack = playbackInfoDelegate.playingTrack {
@@ -137,6 +138,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             graph.outputDevice = outputDevice
         }
     }
+    
+    // MARK: Volume ---------------------------------------------------------------------------
     
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
@@ -153,6 +156,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         messenger.publish(.Player.increaseVolume, payload: UserInputMode.discrete)
     }
     
+    // MARK: Pan ---------------------------------------------------------------------------
+    
     // Pans the sound towards the left channel, by a certain preset value
     @IBAction func panLeftAction(_ sender: Any) {
         messenger.publish(.Player.panLeft)
@@ -163,138 +168,104 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         messenger.publish(.Player.panRight)
     }
     
-    // Whether or not the Effects window is loaded (and is able to receive commands).
-    var effectsWindowLoaded: Bool {windowLayoutsManager.isWindowLoaded(withId: .effects)}
+    // MARK: Master Unit ---------------------------------------------------------------------------
     
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.MasterUnit.toggleEffects)
-        } else {
-            _ = masterUnit.toggleState()
-        }
+        masterUnit.toggleState()
+        messenger.publish(.Effects.MasterUnit.allEffectsToggled)
     }
     
     @IBAction func managePresetsAction(_ sender: Any) {
         effectsPresetsManager.showWindow(self)
     }
     
+    // MARK: EQ ---------------------------------------------------------------------------
+    
     // Decreases each of the EQ bass bands by a certain preset decrement
     @IBAction func decreaseBassAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.EQUnit.decreaseBass)
-        } else {
-            _ = eqUnit.decreaseBass()
-        }
+        eqUnit.decreaseBass()
+        messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     @IBAction func increaseBassAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.EQUnit.increaseBass)
-        } else {
-            _ = eqUnit.increaseBass()
-        }
+        eqUnit.increaseBass()
+        messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     @IBAction func decreaseMidsAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.EQUnit.decreaseMids)
-        } else {
-            _ = eqUnit.decreaseMids()
-        }
+        eqUnit.decreaseMids()
+        messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Increases each of the EQ mid-frequency bands by a certain preset increment
     @IBAction func increaseMidsAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.EQUnit.increaseMids)
-        } else {
-            _ = eqUnit.increaseMids()
-        }
+        eqUnit.increaseMids()
+        messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Decreases each of the EQ treble bands by a certain preset decrement
     @IBAction func decreaseTrebleAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.EQUnit.decreaseTreble)
-        } else {
-            _ = eqUnit.decreaseTreble()
-        }
+        eqUnit.decreaseTreble()
+        messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Decreases each of the EQ treble bands by a certain preset increment
     @IBAction func increaseTrebleAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.EQUnit.increaseTreble)
-        } else {
-            _ = eqUnit.increaseTreble()
-        }
+        eqUnit.increaseTreble()
+        messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
+    
+    // MARK: Pitch Shift ---------------------------------------------------------------------------
     
     // Decreases the pitch by a certain preset decrement
     @IBAction func decreasePitchAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.PitchShiftUnit.decreasePitch)
-        } else {
-            _ = pitchShiftUnit.decreasePitch()
-        }
+        pitchShiftUnit.decreasePitch()
+        messenger.publish(.Effects.PitchShiftUnit.pitchUpdated)
     }
     
     // Increases the pitch by a certain preset increment
     @IBAction func increasePitchAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.PitchShiftUnit.increasePitch)
-        } else {
-            _ = pitchShiftUnit.increasePitch()
-        }
+        pitchShiftUnit.increasePitch()
+        messenger.publish(.Effects.PitchShiftUnit.pitchUpdated)
     }
     
     // Sets the pitch to a value specified by the menu item clicked
     @IBAction func setPitchAction(_ sender: SoundParameterMenuItem) {
         
         // Menu item's "paramValue" specifies the pitch shift value associated with the menu item (in cents)
-        let pitch = sender.paramValue
+        let pitch = Int(sender.paramValue)
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.PitchShiftUnit.setPitch, payload: pitch)
-            
-        } else {
-            
-            pitchShiftUnit.pitch = PitchShift(fromCents: pitch)
-            pitchShiftUnit.ensureActive()
-        }
+        pitchShiftUnit.pitch = PitchShift(octaves: pitch)
+        pitchShiftUnit.ensureActive()
+        messenger.publish(.Effects.PitchShiftUnit.pitchUpdated)
     }
+    
+    // MARK: Time Stretch ---------------------------------------------------------------------------
     
     // Decreases the playback rate by a certain preset decrement
     @IBAction func decreaseRateAction(_ sender: Any) {
         
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.TimeStretchUnit.decreaseRate)
-        } else {
-            _ = timeStretchUnit.decreaseRate()
-        }
+        timeStretchUnit.decreaseRate()
+        messenger.publish(.Effects.TimeStretchUnit.rateUpdated)
     }
     
     // Increases the playback rate by a certain preset increment
     @IBAction func increaseRateAction(_ sender: Any) {
         
-        // TODO: This logic only works for modular mode.
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.TimeStretchUnit.increaseRate)
-        } else {
-            _ = timeStretchUnit.increaseRate()
-        }
+        timeStretchUnit.increaseRate()
+        messenger.publish(.Effects.TimeStretchUnit.rateUpdated)
     }
     
     // Sets the playback rate to a value specified by the menu item clicked
@@ -302,16 +273,12 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         // Menu item's "paramValue" specifies the playback rate value associated with the menu item
         let rate = sender.paramValue
-        
-        if effectsWindowLoaded {
-            messenger.publish(.Effects.TimeStretchUnit.setRate, payload: rate)
-            
-        } else {
-            
-            timeStretchUnit.rate = rate
-            timeStretchUnit.ensureActive()
-        }
+        timeStretchUnit.rate = rate
+        timeStretchUnit.ensureActive()
+        messenger.publish(.Effects.TimeStretchUnit.rateUpdated)
     }
+    
+    // ------------------------------------------------------------------------------------------------------------
     
     @IBAction func rememberSettingsAction(_ sender: ToggleMenuItem) {
         messenger.publish(rememberSettingsMenuItem.isOff ? .Effects.saveSoundProfile : .Effects.deleteSoundProfile)

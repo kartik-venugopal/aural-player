@@ -291,6 +291,7 @@ extension PlaylistViewController: NSMenuDelegate {
         trackReader.loadAuxiliaryMetadata(for: selectedTrack)
         TrackInfoViewContext.displayedTrack = selectedTrack
         
+        // TODO: This assumes Modular mode, make generic
         if windowLayoutsManager.isWindowLoaded(withId: .trackInfo) {
             messenger.publish(.Player.trackInfo_refresh)
         }

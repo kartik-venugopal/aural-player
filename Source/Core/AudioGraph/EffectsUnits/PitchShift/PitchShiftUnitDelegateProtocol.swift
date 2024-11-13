@@ -27,28 +27,28 @@ protocol PitchShiftUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     var maxPitch: Float {get}
     
     // Increases the pitch shift by a small increment. Returns the new pitch shift value.
-    func increasePitch() -> PitchShift
+    @discardableResult func increasePitch() -> PitchShift
     
     // Increases the pitch shift by one octave. Returns the new pitch shift value.
-    func increasePitchOneOctave() -> PitchShift
+    @discardableResult func increasePitchOneOctave() -> PitchShift
     
     // Increases the pitch shift by one semitone. Returns the new pitch shift value.
-    func increasePitchOneSemitone() -> PitchShift
+    @discardableResult func increasePitchOneSemitone() -> PitchShift
     
     // Increases the pitch shift by one cent. Returns the new pitch shift value.
-    func increasePitchOneCent() -> PitchShift
+    @discardableResult func increasePitchOneCent() -> PitchShift
     
     // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
-    func decreasePitch() -> PitchShift
+    @discardableResult func decreasePitch() -> PitchShift
     
     // Decreases the pitch shift by one octave. Returns the new pitch shift value.
-    func decreasePitchOneOctave() -> PitchShift
+    @discardableResult func decreasePitchOneOctave() -> PitchShift
     
     // Decreases the pitch shift by one semitone. Returns the new pitch shift value.
-    func decreasePitchOneSemitone() -> PitchShift
+    @discardableResult func decreasePitchOneSemitone() -> PitchShift
     
     // Decreases the pitch shift by one cent. Returns the new pitch shift value.
-    func decreasePitchOneCent() -> PitchShift
+    @discardableResult func decreasePitchOneCent() -> PitchShift
     
     var presets: PitchShiftPresets {get}
 }
@@ -70,7 +70,7 @@ struct PitchShift {
         Float(asCents)
     }
     
-    init(octaves: Int, semitones: Int, cents: Int) {
+    init(octaves: Int = 0, semitones: Int = 0, cents: Int = 0) {
         
         self.octaves = octaves
         self.semitones = semitones

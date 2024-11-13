@@ -141,42 +141,24 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        
-        messenger.subscribe(to: .Effects.TimeStretchUnit.decreaseRate, handler: decreaseRate)
-        messenger.subscribe(to: .Effects.TimeStretchUnit.increaseRate, handler: increaseRate)
-        messenger.subscribe(to: .Effects.TimeStretchUnit.setRate, handler: setRate(_:))
-    }
-
-    // Sets the playback rate to a specific value
-    private func setRate(_ rate: Float) {
-
-        timeStretchUnit.rate = rate
-        timeStretchUnit.ensureActive()
-        rateChange((rate, timeStretchUnit.formattedRate))
-    }
-
-    // Increases the playback rate by a certain preset increment
-    private func increaseRate() {
-        rateChange(timeStretchUnit.increaseRate())
-    }
-
-    // Decreases the playback rate by a certain preset decrement
-    private func decreaseRate() {
-        rateChange(timeStretchUnit.decreaseRate())
+        messenger.subscribe(to: .Effects.TimeStretchUnit.rateUpdated, handler: rateUpdated)
     }
 
     // Changes the playback rate to a specific value
-    private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
-
+    private func rateUpdated() {
+        
         messenger.publish(.Effects.unitStateChanged)
-
-        timeStretchUnitView.setRate(rateInfo.rate, rateString: rateInfo.rateString,
-                                shiftPitchString: timeStretchUnit.formattedPitch)
+        
+        let rate = timeStretchUnit.rate
+        
+        timeStretchUnitView.setRate(rate,
+                                    rateString: timeStretchUnit.formattedRate,
+                                    shiftPitchString: timeStretchUnit.formattedPitch)
         stateChanged()
 
         showThisTab()
 
-        messenger.publish(.Effects.playbackRateChanged, payload: rateInfo.rate)
+        messenger.publish(.Effects.playbackRateChanged, payload: rate)
     }
     
     override func colorSchemeChanged() {
