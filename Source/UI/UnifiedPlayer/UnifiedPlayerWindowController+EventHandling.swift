@@ -29,7 +29,7 @@ extension UnifiedPlayerWindowController {
         // One-off special case: Without this, a space key press (for play/pause) is not sent to main window
         // Send the space key event to the main window unless a modal component is currently displayed
         if event.charactersIgnoringModifiers == " ",
-           !NSApp.isShowingModalComponent {
+           !NSApp.isShowingModalComponent, !NSApp.isReceivingTextInput {
             
             window?.makeFirstResponder(window)
             self.window?.keyDown(with: event)

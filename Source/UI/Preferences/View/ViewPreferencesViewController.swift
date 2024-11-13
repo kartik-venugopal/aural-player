@@ -83,7 +83,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         viewPrefs.windowGap.value = gapStepper.floatValue
 
         // Check if window gap was changed
-        if gapStepper.floatValue != oldWindowGap {
+        if appModeManager.currentMode == .modular, gapStepper.floatValue != oldWindowGap {
 
             // Recompute system-defined layouts based on new gap between windows
             windowLayoutsManager.recomputeSystemDefinedLayouts()

@@ -27,4 +27,13 @@ extension NSApplication {
             StringInputPopoverViewController.isShowingAPopover ||
             modalWindow != nil
     }
+    
+    var isReceivingTextInput: Bool {
+        
+        if let keyWin = NSApp.keyWindow, let firstResp = keyWin.firstResponder {
+            return firstResp is NSTextContent
+        }
+        
+        return false
+    }
 }

@@ -15,6 +15,8 @@ class PlayQueueUIState: PersistentModelObject {
     // The current play queue view type displayed within the tab group.
     var currentView: PlayQueueView
     
+    var isShowingSearch: Bool = false
+    
     var selectedRows: IndexSet = .empty
     
     init(persistentState: PlayQueueUIPersistentState?) {

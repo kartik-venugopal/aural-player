@@ -122,21 +122,8 @@ class AudioUnitsViewController: NSViewController {
         
         guard let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window else {return}
         
-        let magnetism = preferences.viewPreferences.windowMagnetism.value
-        
-        switch appModeManager.currentMode {
-            
-        case .modular:
-            windowLayoutsManager.addChildWindow(dialogWindow)
-            
-        case .unified, .compact:
-            
-            if magnetism {
-                appModeManager.mainWindow?.addChildWindow(dialogWindow, ordered: .above)
-            }
-            
-        default:
-            return
+        if preferences.viewPreferences.windowMagnetism.value {
+            appModeManager.mainWindow?.addChildWindow(dialogWindow, ordered: .above)
         }
         
         dialog.showWindow(self)

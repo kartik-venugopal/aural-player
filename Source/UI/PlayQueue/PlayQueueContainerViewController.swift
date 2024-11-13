@@ -271,14 +271,17 @@ class PlayQueueContainerViewController: NSViewController {
     }
     
     func search() {
-//        searchWindowController.showWindow(self)
-//        playQueueTabGroup.selectTabViewItem(at: 2)
+
         containerTabGroup.selectTabViewItem(at: 1)
+        playQueueUIState.isShowingSearch = true
+        
+        
     }
     
     private func searchDone() {
-//        playQueueTabGroup.selectTabViewItem(at: playQueueUIState.currentView == .simple ? 0 : 1)
+        
         containerTabGroup.selectTabViewItem(at: 0)
+        playQueueUIState.isShowingSearch = false
     }
     
     override func destroy() {

@@ -28,7 +28,9 @@ struct ModularPlayerUIPersistentState: Codable {
     
     let playbackPositionDisplayType: PlaybackPositionDisplayType?
     
-    init(cornerRadius: CGFloat?, showAlbumArt: Bool?, showArtist: Bool?, showAlbum: Bool?, showCurrentChapter: Bool?, showControls: Bool?, showPlaybackPosition: Bool?, playbackPositionDisplayType: PlaybackPositionDisplayType?) {
+    let windowLayout: WindowLayoutsPersistentState?
+    
+    init(cornerRadius: CGFloat?, showAlbumArt: Bool?, showArtist: Bool?, showAlbum: Bool?, showCurrentChapter: Bool?, showControls: Bool?, showPlaybackPosition: Bool?, playbackPositionDisplayType: PlaybackPositionDisplayType?, windowLayout: WindowLayoutsPersistentState?) {
         
         self.cornerRadius = cornerRadius
         
@@ -39,20 +41,22 @@ struct ModularPlayerUIPersistentState: Codable {
         self.showControls = showControls
         self.showPlaybackPosition = showPlaybackPosition
         self.playbackPositionDisplayType = playbackPositionDisplayType
+        self.windowLayout = windowLayout
     }
     
-    init(legacyPersistentState: LegacyPlayerUIPersistentState?, legacyWindowAppearanceState: LegacyWindowAppearancePersistentState?) {
+    init(legacyPersistentState: LegacyUIPersistentState?) {
         
-        self.cornerRadius = legacyWindowAppearanceState?.cornerRadius
+        self.cornerRadius = legacyPersistentState?.windowAppearance?.cornerRadius
         
-        self.showAlbumArt = legacyPersistentState?.showAlbumArt
-        self.showArtist = legacyPersistentState?.showArtist
-        self.showAlbum = legacyPersistentState?.showAlbum
-        self.showCurrentChapter = legacyPersistentState?.showCurrentChapter
+        self.showAlbumArt = legacyPersistentState?.player?.showAlbumArt
+        self.showArtist = legacyPersistentState?.player?.showArtist
+        self.showAlbum = legacyPersistentState?.player?.showAlbum
+        self.showCurrentChapter = legacyPersistentState?.player?.showCurrentChapter
         
-        self.showControls = legacyPersistentState?.showControls
-        self.showPlaybackPosition = legacyPersistentState?.showTimeElapsedRemaining
-        
+        self.showControls = legacyPersistentState?.player?.showControls
+        self.showPlaybackPosition = legacyPersistentState?.player?.showTimeElapsedRemaining
         self.playbackPositionDisplayType = nil
+        
+        self.windowLayout = nil
     }
 }

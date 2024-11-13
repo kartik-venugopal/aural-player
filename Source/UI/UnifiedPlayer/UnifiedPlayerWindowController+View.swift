@@ -17,7 +17,7 @@ extension UnifiedPlayerWindowController {
     }
     
     var isShowingEffects: Bool {
-        attachedSheetViewController == effectsSheetViewController
+        attachedSheetViewController != nil
     }
     
     var isShowingChaptersList: Bool {

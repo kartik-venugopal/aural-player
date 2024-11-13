@@ -83,21 +83,8 @@ class FilterUnitViewController: EffectsUnitViewController {
     
     func initEditorWindowMagnetism(for editor: LazyWindowLoader<FilterBandEditorDialogController>, showWindow: Bool) {
         
-        let magnetism = preferences.viewPreferences.windowMagnetism.value
-        
-        switch appModeManager.currentMode {
-            
-        case .modular:
-            windowLayoutsManager.addChildWindow(editor.window)
-            
-        case .unified, .compact:
-            
-            if magnetism {
-                appModeManager.mainWindow?.addChildWindow(editor.window, ordered: .above)
-            }
-            
-        default:
-            return
+        if preferences.viewPreferences.windowMagnetism.value {
+            appModeManager.mainWindow?.addChildWindow(editor.window, ordered: .above)
         }
         
         if !showWindow {

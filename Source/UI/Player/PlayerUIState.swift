@@ -49,7 +49,8 @@ class PlayerUIState {
                                        showCurrentChapter: showCurrentChapter,
                                        showControls: showControls,
                                        showPlaybackPosition: showPlaybackPosition,
-                                       playbackPositionDisplayType: playbackPositionDisplayType)
+                                       playbackPositionDisplayType: playbackPositionDisplayType,
+                                       windowLayout: windowLayoutsManager.persistentState)
     }
 }
 

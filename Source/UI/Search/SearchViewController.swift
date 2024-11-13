@@ -80,6 +80,8 @@ class SearchViewController: NSViewController {
         searchField.stringValue = ""
         searchQuery.text = ""
         noResultsFound()
+        
+        view.window?.makeKey()
         view.window?.makeFirstResponder(searchField)
     }
     

@@ -183,7 +183,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     // MARK: Message handling -----------------------------------------------------------
     
     private func toggleEffects() {
-        attachedSheetViewController == effectsSheetViewController ? hideEffects() : showEffects()
+        attachedSheetViewController != nil ? hideEffects() : showEffects()
     }
     
     private func showEffects() {

@@ -75,15 +75,14 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         let playbackState = playbackInfo.state
         let isPlayingOrPaused = playbackState.isPlayingOrPaused
-        let isShowingPlayQueue = appModeManager.currentMode == .modular ? windowLayoutsManager.isShowingPlayQueue : true
+        let isShowingPlayQueue = appModeManager.isShowingPlayQueue
         let noTrack = playbackState == .stopped
-        let isShowingSearchDialog = NSApp.windows.first(where: {$0.identifier?.rawValue == "search"})?.isVisible ?? false
+        
         let notInGaplessMode = !playbackDelegate.isInGaplessPlaybackMode
         let hasChapters = playbackInfo.chapterCount > 0
         
         // Play/pause enabled if at least one track available
-        // TODO: REVISIT THIS !!! Disable if search dialog is shown
-        playOrPauseMenuItem.enableIf(playQueue.size > 0 && !isShowingSearchDialog)
+        playOrPauseMenuItem.enableIf(playQueue.size > 0 && !NSApp.isReceivingTextInput)
         
         gaplessPlaybackMenuItem.enableIf(noTrack && playQueue.size > 1)
         
@@ -91,7 +90,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         jumpToTimeMenuItem?.enableIf(isPlayingOrPaused)
         
         // Enabled only if playing/paused
-        let showingModalComponent: Bool = NSApp.isShowingModalComponent
+        let isReceivingTextInput: Bool = NSApp.isReceivingTextInput
         
         showInPlayQueueMenuItem.enableIf(isPlayingOrPaused && isShowingPlayQueue)
         [replayTrackMenuItem, detailedInfoMenuItem].forEach {$0?.enableIf(isPlayingOrPaused)}
@@ -99,14 +98,14 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
 
-        [previousTrackMenuItem, nextTrackMenuItem].forEach {$0.enableIf(!noTrack && !showingModalComponent)}
+        [previousTrackMenuItem, nextTrackMenuItem].forEach {$0.enableIf(!(noTrack || isReceivingTextInput))}
         
         // These items should be enabled only if there is a playing track and it has chapter markings
         [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem].forEach {$0?.enableIf(hasChapters)}
         loopChapterMenuItem.enableIf(hasChapters && notInGaplessMode)
         
         [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach {
-            $0?.enableIf(isPlayingOrPaused && !showingModalComponent)
+            $0?.enableIf(isPlayingOrPaused && (!isReceivingTextInput))
         }
         
         [repeatOneMenuItem, shuffleOnMenuItem, toggleShuffleModeMenuItem, shuffleModeSubMenuItem].forEach {

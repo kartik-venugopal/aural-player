@@ -90,7 +90,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        [panLeftMenuItem, panRightMenuItem].forEach {$0?.enableIf(!NSApp.isShowingModalComponent)}
+        let isReceivingTextInput: Bool = NSApp.isReceivingTextInput
+        [panLeftMenuItem, panRightMenuItem].forEach {$0?.enableIf(!isReceivingTextInput)}
         rememberSettingsMenuItem.enableIf(playbackInfoDelegate.playingTrack != nil)
     }
     

@@ -134,7 +134,7 @@ let lastFMClient: LastFM_WSClientProtocol = LastFM_WSClient(cache: lastFMCache)
 // Fast Fourier Transform
 let fft: FFT = FFT()
 
-let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: appPersistentState.ui?.windowLayout,
+let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: appPersistentState.ui?.modularPlayer?.windowLayout,
                                                                       viewPreferences: preferences.viewPreferences)
 
 let themesManager: ThemesManager = ThemesManager(persistentState: appPersistentState.ui?.themes, fontSchemesManager: fontSchemesManager)

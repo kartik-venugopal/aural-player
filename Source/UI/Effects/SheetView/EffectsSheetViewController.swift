@@ -45,7 +45,7 @@ class EffectsSheetViewController: NSViewController {
     }
     
     override func destroy() {
-        effectsViewController.destroy()
+        effectsViewController?.destroy()
     }
 }
 

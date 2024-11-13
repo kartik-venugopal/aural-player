@@ -16,7 +16,6 @@ struct UIPersistentState: Codable {
     
     let appMode: AppMode?
     
-    let windowLayout: WindowLayoutsPersistentState?
     let themes: ThemesPersistentState?
     let fontSchemes: FontSchemesPersistentState?
     let colorSchemes: ColorSchemesPersistentState?
@@ -36,7 +35,6 @@ struct UIPersistentState: Codable {
         
         self.appMode = appMode
         
-        self.windowLayout = windowLayout
         self.themes = themes
         self.fontSchemes = fontSchemes
         self.colorSchemes = colorSchemes
@@ -57,13 +55,11 @@ struct UIPersistentState: Codable {
         
         self.appMode = AppMode.fromLegacyAppMode(legacyPersistentState?.appMode)
         
-        self.windowLayout = nil
         self.themes = nil
         self.fontSchemes = .init(legacyPersistentState: legacyPersistentState?.fontSchemes)
         self.colorSchemes = .init(legacyPersistentState: legacyPersistentState?.colorSchemes)
         
-        self.modularPlayer = ModularPlayerUIPersistentState(legacyPersistentState: legacyPersistentState?.player,
-                                                            legacyWindowAppearanceState: legacyPersistentState?.windowAppearance)
+        self.modularPlayer = ModularPlayerUIPersistentState(legacyPersistentState: legacyPersistentState)
         self.unifiedPlayer = nil
         self.menuBarPlayer = nil
         self.widgetPlayer = nil
