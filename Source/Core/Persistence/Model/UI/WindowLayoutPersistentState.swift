@@ -39,6 +39,26 @@ struct WindowLayoutPersistentState: Codable {
         self.mainWindowFrame = NSRectPersistentState(rect: layout.mainWindowFrame)
         self.displayedWindows = layout.displayedWindows.map {LayoutWindowPersistentState(window: $0)}
     }
+    
+    init?(legacyPersistentState: LegacyUserWindowLayoutPersistentState?) {
+        
+        guard let showEffects = legacyPersistentState?.showEffects,
+              let showPlaylist = legacyPersistentState?.showPlaylist,
+        let mainWindowOrigin = legacyPersistentState?.mainWindowOrigin,
+            let effectsWindowOrigin = legacyPersistentState?.effectsWindowOrigin,
+            let playlistWindowFrame = legacyPersistentState?.playlistWindowFrame else {return nil}
+        
+        self.name = legacyPersistentState?.name
+        self.mainWindowFrame = NSRectPersistentState(origin: mainWindowOrigin, size: NSSizePersistentState(size: WindowLayoutPresets.mainWindowSize))
+        
+        self.displayedWindows = []
+        
+        // TODO: Set relative gap between main + FX and main + PQ, based on legacy state, don't use frames literally ... look at gaps.
+        
+//        if showEffects {
+//            displayedWindows?.append(LayoutWindowPersistentState(id: .effects, frame: ))
+//        }
+    }
 }
 
 struct LayoutWindowPersistentState: Codable {

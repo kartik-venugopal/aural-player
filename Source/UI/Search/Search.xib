@@ -47,7 +47,7 @@
                     </view>
                 </box>
                 <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9R-ej-663">
-                    <rect key="frame" x="15" y="518" width="443" height="22"/>
+                    <rect key="frame" x="15" y="523" width="443" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="2LA-2y-UsQ"/>
                     </constraints>
@@ -61,7 +61,7 @@
                     </connections>
                 </searchField>
                 <button toolTip="Settings" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Dg-gg-GIW" userLabel="Settings Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="470" y="519" width="15.5" height="22"/>
+                    <rect key="frame" x="470" y="524" width="15.5" height="22"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gearshape.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="foL-92-Z2b">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -126,19 +126,19 @@ Gw
                     </textFieldCell>
                 </textField>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw4-ZG-Aj9" userLabel="Results Table">
-                    <rect key="frame" x="15" y="37" width="465" height="473"/>
+                    <rect key="frame" x="15" y="37" width="465" height="478"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="RlX-Bl-Tqc">
-                        <rect key="frame" x="0.0" y="0.0" width="465" height="473"/>
+                        <rect key="frame" x="0.0" y="0.0" width="465" height="478"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" id="jrU-2c-JGF" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="465" height="473"/>
+                                <rect key="frame" x="0.0" y="0.0" width="465" height="478"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="17" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_Index" width="45" minWidth="45" maxWidth="80" id="aYA-JS-tx4">
+                                    <tableColumn identifier="cid_Index" width="37.5" minWidth="30" maxWidth="80" id="aYA-JS-tx4">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Index">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -151,11 +151,11 @@ Gw
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="bMC-F6-CrY" customClass="CompactPlayQueueSearchResultIndexCell" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="18" y="0.0" width="43" height="24"/>
+                                                <rect key="frame" x="18" y="0.0" width="35" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sla-Cx-CNi">
-                                                        <rect key="frame" x="0.0" y="4" width="43" height="16"/>
+                                                        <rect key="frame" x="0.0" y="4" width="35" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="bPw-iL-ZHs">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -170,7 +170,7 @@ Gw
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Name" width="371" minWidth="40" maxWidth="1000" id="YOq-Dd-FG8">
+                                    <tableColumn identifier="cid_Name" width="378.5" minWidth="40" maxWidth="1000" id="YOq-Dd-FG8">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -183,11 +183,11 @@ Gw
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="3oJ-Ve-UAc" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="78" y="0.0" width="368" height="24"/>
+                                                <rect key="frame" x="70.5" y="0.0" width="376" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10d-XA-Igb">
-                                                        <rect key="frame" x="0.0" y="4" width="368" height="16"/>
+                                                        <rect key="frame" x="0.0" y="4" width="376" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="aL8-zz-7hx">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -212,7 +212,9 @@ Gw
                                 </connections>
                             </tableView>
                         </subviews>
+                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     </clipView>
+                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="TCm-R4-s8h">
                         <rect key="frame" x="-100" y="-100" width="458" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -230,7 +232,7 @@ Gw
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="nvb-2M-b2o" secondAttribute="trailing" constant="20" symbolic="YES" id="1U2-VL-BmT"/>
-                <constraint firstItem="Z9R-ej-663" firstAttribute="top" secondItem="oa7-dV-w1l" secondAttribute="top" constant="45" id="7LJ-Vc-crw"/>
+                <constraint firstItem="Z9R-ej-663" firstAttribute="top" secondItem="oa7-dV-w1l" secondAttribute="top" constant="40" id="7LJ-Vc-crw"/>
                 <constraint firstItem="2Dg-gg-GIW" firstAttribute="leading" secondItem="Z9R-ej-663" secondAttribute="trailing" constant="12" id="8Fg-En-HzV"/>
                 <constraint firstItem="2Dg-gg-GIW" firstAttribute="centerY" secondItem="Z9R-ej-663" secondAttribute="centerY" id="B1t-H4-voX"/>
                 <constraint firstAttribute="bottom" secondItem="JiB-wC-MAh" secondAttribute="bottom" id="CRi-94-Met"/>

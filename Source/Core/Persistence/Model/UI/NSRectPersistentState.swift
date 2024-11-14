@@ -13,9 +13,16 @@ import Foundation
 /// A persistent representation of an **NSRect** object.
 ///
 struct NSRectPersistentState: Codable {
+    
 
     let origin: NSPointPersistentState?
     let size: NSSizePersistentState?
+    
+    init(origin: NSPointPersistentState? = nil, size: NSSizePersistentState? = nil) {
+        
+        self.origin = origin
+        self.size = size
+    }
     
     init(rect: NSRect) {
         

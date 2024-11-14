@@ -14,7 +14,7 @@ struct LegacyUIPersistentState: Codable {
     
     let appMode: LegacyAppMode?
     
-//    let windowLayout: WindowLayoutsPersistentState?
+    let windowLayout: WindowLayoutsPersistentState?
 //    let themes: ThemesPersistentState?
     let fontSchemes: LegacyFontSchemesPersistentState?
     let colorSchemes: LegacyColorSchemesPersistentState?
@@ -32,6 +32,29 @@ enum LegacyAppMode: String, CaseIterable, Codable {
     case windowed
     case menuBar
     case widget
+}
+
+struct LegacyWindowLayoutsPersistentState: Codable {
+    
+    let showEffects: Bool?
+    let showPlaylist: Bool?
+    
+    let mainWindowOrigin: NSPointPersistentState?
+    let effectsWindowOrigin: NSPointPersistentState?
+    let playlistWindowFrame: NSRectPersistentState?
+    
+    let userLayouts: [LegacyUserWindowLayoutPersistentState]?
+}
+
+struct LegacyUserWindowLayoutPersistentState: Codable {
+    
+    let name: String?
+    let showEffects: Bool?
+    let showPlaylist: Bool?
+    
+    let mainWindowOrigin: NSPointPersistentState?
+    let effectsWindowOrigin: NSPointPersistentState?
+    let playlistWindowFrame: NSRectPersistentState?
 }
 
 struct LegacyPlayerUIPersistentState: Codable {
