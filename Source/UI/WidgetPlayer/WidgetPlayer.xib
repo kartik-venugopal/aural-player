@@ -118,7 +118,7 @@
                                         <action selector="seekBackwardAction:" target="VLj-aK-Baf" id="GxV-ff-bNm"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Previous track" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="8py-2V-iWJ" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                                <button wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="8py-2V-iWJ" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="407" y="18.5" width="13" height="14"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="backward.end" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="Jmr-Xb-im2">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -149,7 +149,7 @@
                                         <action selector="togglePlayPauseAction:" target="VLj-aK-Baf" id="ogd-Dm-4kv"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Next track" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="iaY-fV-voY" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                                <button wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="iaY-fV-voY" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="452" y="18.5" width="13" height="14"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward.end" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="DPM-rC-GE6">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

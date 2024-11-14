@@ -191,7 +191,7 @@
                         <action selector="muteOrUnmuteAction:" target="-2" id="wlS-IN-3XZ"/>
                     </connections>
                 </button>
-                <button toolTip="Previous track" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AAi-7n-PAk" userLabel="PrevTrack Button" customClass="FillableImageTrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                <button wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AAi-7n-PAk" userLabel="PrevTrack Button" customClass="FillableImageTrackPeekingButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="116" y="13.5" width="13" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="backward.end" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="SNd-Kz-ZpN">
@@ -217,7 +217,7 @@
                         <action selector="togglePlayPauseAction:" target="-2" id="Wb6-Gf-Ajm"/>
                     </connections>
                 </button>
-                <button toolTip="Next track" wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffS-Wf-PIL" userLabel="NextTrack Button" customClass="FillableImageTrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                <button wantsLayer="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffS-Wf-PIL" userLabel="NextTrack Button" customClass="FillableImageTrackPeekingButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="168" y="13.5" width="13" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward.end" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="J24-ae-9pc">

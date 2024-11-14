@@ -161,4 +161,16 @@ class MenuBarPlayerViewController: PlayerViewController {
         // Updating seek position is not necessary when the view has been closed.
         setSeekTimerState(to: false)
     }
+    
+    override func scrollWheel(with event: NSEvent) {
+        
+        super.scrollWheel(with: event)
+        
+        // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
+        if let scrollDirection = event.gestureDirection {
+
+            // Vertical scroll = volume control, horizontal scroll = seeking
+            scrollDirection.isVertical ? GestureHandler.handleVolumeControl(event, scrollDirection) : GestureHandler.handleSeek(event, scrollDirection)
+        }
+    }
 }

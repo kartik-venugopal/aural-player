@@ -268,8 +268,6 @@ class PlayerViewController: NSViewController {
                 
                 return nil
             }
-            
-            peekingPreviousTrackButton.updateTooltip()
         }
         
         if var peekingNextTrackButton = btnNextTrack as? TrackPeekingButtonProtocol {
@@ -282,8 +280,6 @@ class PlayerViewController: NSViewController {
 
                 return nil
             }
-            
-            peekingNextTrackButton.updateTooltip()
         }
         
         showOrHideMainControls()

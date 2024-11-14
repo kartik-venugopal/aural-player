@@ -13,14 +13,14 @@ protocol TrackPeekingButtonProtocol {
     
     var toolTipFunction: (() -> String?)? {get set}
     
-    func updateTooltip()
+    var defaultTooltip: String! {get}
 }
 
 /*
     A "smart" button that determines and sets its own tool tip dynamically based on logic (closure) that can be set externally. Useful when tool tips need to change based on app state, e.g. to display the previous/next track name in a tool tip for the previous/next track control buttons.
  */
 @IBDesignable
-class TrackPeekingButton: TintedImageButton, TrackPeekingButtonProtocol {
+class TrackPeekingButton: TintedImageButton, TrackPeekingButtonProtocol, NSViewToolTipOwner {
     
     @IBInspectable var defaultTooltip: String!
     
@@ -32,14 +32,12 @@ class TrackPeekingButton: TintedImageButton, TrackPeekingButtonProtocol {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        updateTooltip()
-        
-        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: updateTooltip)
+        addToolTip(self.bounds, owner: self, userData: nil)
     }
     
-    func updateTooltip() {
-        self.toolTip = toolTipFunction?() ?? defaultTooltip
-//        print("Tooltip updated to: \(toolTip!)")
+    func view(_ view: NSView, stringForToolTip tag: NSView.ToolTipTag, point: NSPoint, userData data: UnsafeMutableRawPointer?) -> String {
+        
+        toolTipFunction?() ?? defaultTooltip
     }
 }
 

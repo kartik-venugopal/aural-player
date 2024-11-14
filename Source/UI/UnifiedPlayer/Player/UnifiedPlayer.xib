@@ -118,7 +118,7 @@
                                     <action selector="seekBackwardAction:" target="-2" id="XJh-qd-dZ1"/>
                                 </connections>
                             </button>
-                            <button toolTip="Previous track" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6wg-6I-zz9" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                            <button wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6wg-6I-zz9" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="399" y="15.5" width="14" height="14"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="backward.end" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="LUr-Tn-uUq">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -150,7 +150,7 @@
                                     <action selector="togglePlayPauseAction:" target="-2" id="bYz-ur-tIn"/>
                                 </connections>
                             </button>
-                            <button toolTip="Next track" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHm-ne-6Hn" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                            <button wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHm-ne-6Hn" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="452" y="15.5" width="14" height="14"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward.end" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ppV-qX-GHW">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
