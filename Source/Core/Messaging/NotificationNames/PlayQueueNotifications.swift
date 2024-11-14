@@ -102,5 +102,7 @@ extension Notification.Name {
         static let pageDown = Notification.Name("playQueue_pageDown")
         
         static let search = Notification.Name("playQueue_search")
+        
+        static let searchSettingsUpdated = Notification.Name("playQueue_searchSettingsUpdated")
     }
 }

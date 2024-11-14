@@ -75,24 +75,31 @@
                     </connections>
                 </button>
                 <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Wgu-Hs-vml" userLabel="Button Container">
-                    <rect key="frame" x="235" y="278" width="45" height="30"/>
+                    <rect key="frame" x="235" y="278" width="25" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" id="PST-rd-3Lr">
-                        <rect key="frame" x="0.0" y="0.0" width="45" height="30"/>
+                        <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jmJ-ll-8F1" userLabel="Play Action" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="5" width="24.5" height="11"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="jmJ-ll-8F1" userLabel="Play Action" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="3" width="12.5" height="14"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="OVA-LL-Mbc">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="12" id="2rW-n0-bqm"/>
+                                    <constraint firstAttribute="height" constant="10" id="pRb-XD-zZT"/>
+                                </constraints>
                                 <connections>
                                     <action selector="playResultAction:" target="jrU-2c-JGF" id="bE4-16-wUW"/>
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="jmJ-ll-8F1" secondAttribute="bottom" constant="5" id="So1-kU-CA6"/>
+                            <constraint firstItem="jmJ-ll-8F1" firstAttribute="leading" secondItem="PST-rd-3Lr" secondAttribute="leading" id="dWc-wo-fuM"/>
+                        </constraints>
                     </view>
                     <color key="fillColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                 </box>
@@ -134,11 +141,10 @@ Gw
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" id="jrU-2c-JGF" customClass="CompactPlayQueueSearchResultsTableView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="465" height="478"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <size key="intercellSpacing" width="17" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_Index" width="37.5" minWidth="30" maxWidth="80" id="aYA-JS-tx4">
+                                    <tableColumn identifier="cid_Index" width="40" minWidth="40" maxWidth="80" id="aYA-JS-tx4">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Index">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -151,13 +157,13 @@ Gw
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="bMC-F6-CrY" customClass="CompactPlayQueueSearchResultIndexCell" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="18" y="0.0" width="35" height="24"/>
+                                                <rect key="frame" x="10" y="0.0" width="46" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sla-Cx-CNi">
-                                                        <rect key="frame" x="0.0" y="4" width="35" height="16"/>
+                                                        <rect key="frame" x="0.0" y="4" width="46" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="bPw-iL-ZHs">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="bPw-iL-ZHs" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -170,7 +176,7 @@ Gw
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Name" width="378.5" minWidth="40" maxWidth="1000" id="YOq-Dd-FG8">
+                                    <tableColumn identifier="cid_Name" width="368" minWidth="200" maxWidth="1000" id="YOq-Dd-FG8">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -183,13 +189,13 @@ Gw
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="3oJ-Ve-UAc" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="70.5" y="0.0" width="376" height="24"/>
+                                                <rect key="frame" x="56" y="0.0" width="374" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10d-XA-Igb">
-                                                        <rect key="frame" x="0.0" y="4" width="376" height="16"/>
+                                                        <rect key="frame" x="0.0" y="4" width="374" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="aL8-zz-7hx">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="aL8-zz-7hx" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

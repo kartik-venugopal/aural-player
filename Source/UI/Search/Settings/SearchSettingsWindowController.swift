@@ -25,6 +25,7 @@ class SearchSettingsWindowController: NSWindowController {
     override func windowDidLoad() {
         
         super.windowDidLoad()
+        theWindow.delegate = self
         
         let searchFields = playQueueUIState.searchSettings.fields
         
@@ -64,5 +65,12 @@ class SearchSettingsWindowController: NSWindowController {
     
     @IBAction func doneAction(_ sender: NSButton) {
         close()
+    }
+}
+
+extension SearchSettingsWindowController: NSWindowDelegate {
+    
+    func windowWillClose(_ notification: Notification) {
+        Messenger.publish(.PlayQueue.searchSettingsUpdated)
     }
 }

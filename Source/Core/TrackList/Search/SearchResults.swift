@@ -26,6 +26,8 @@ class SearchResults {
     // Marks the current result (used during iteration)
     private var cursor: Int = -1
     
+    static let noPlayQueueResults = SearchResults(scope: .playQueue, [])
+    
     init(scope: SearchScope, _ results: [SearchResult]) {
         
         self.scope = scope

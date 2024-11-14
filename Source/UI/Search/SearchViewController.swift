@@ -33,6 +33,8 @@ class SearchViewController: NSViewController {
         
         super.viewDidLoad()
         
+        messenger.subscribe(to: .PlayQueue.searchSettingsUpdated, handler: searchSettingsUpdated)
+        
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
@@ -78,24 +80,18 @@ class SearchViewController: NSViewController {
             return
         }
         
-//        NSView.showViews(btnPreviousSearch, btnNextSearch)
-//        lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results") found in \(searchQuery.scope.description)"
         lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results")"
     }
     
     private func updateSearchResultsForPlayQueue() {
-        
         searchResults = playQueueDelegate.search(searchQuery)
-        
-        for (index, res) in searchResults.results.enumerated() {
-            print("\t\(index + 1): '\(res.location.track.displayName)' at: \((res.location as! PlayQueueSearchResultLocation).index)")
-        }
     }
     
     private func noResultsFound() {
         
-        //        lblSummary.stringValue = "No results"
-        //        NSView.hideViews(btnNextSearch, btnPreviousSearch)
+        lblSummary.stringValue = "0 results"
+        searchResults = .noPlayQueueResults
+        resultsTable.reset()
     }
     
     // If no fields to compare or no search text, don't do the search
@@ -103,6 +99,15 @@ class SearchViewController: NSViewController {
         
         searchQuery.queryPossible ? updateSearch() : noResultsFound()
         resultsTable.reloadData()
+    }
+    
+    private func searchSettingsUpdated() {
+        
+        searchQuery.fields = playQueueUIState.searchSettings.fields
+        searchQuery.type = playQueueUIState.searchSettings.type
+        searchQuery.options = playQueueUIState.searchSettings.options
+        
+        redoSearchIfPossible()
     }
     
     @IBAction func searchTextChangeAction(_ sender: Any) {
@@ -126,7 +131,6 @@ class SearchViewController: NSViewController {
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {
-//        view.window?.close()
         messenger.publish(.Search.done)
     }
 }

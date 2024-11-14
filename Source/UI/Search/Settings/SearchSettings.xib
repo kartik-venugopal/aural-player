@@ -23,7 +23,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="503" height="195"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
             <view key="contentView" wantsLayer="YES" id="HhJ-Oi-dM4">
                 <rect key="frame" x="0.0" y="0.0" width="503" height="195"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -51,6 +51,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="searchOptionsChangedAction:" target="-2" id="MYA-Jm-NgG"/>
+                                    </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kab-Zg-0lM" userLabel="Title field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="6" y="39" width="121" height="25"/>
@@ -59,6 +62,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="searchFieldsChangedAction:" target="-2" id="ccm-gM-vJ0"/>
+                                    </connections>
                                 </button>
                                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Az6-M6-jDk" userLabel="Comparison Type Menu">
                                     <rect key="frame" x="327" y="71" width="143" height="25"/>
@@ -76,6 +82,9 @@
                                             </items>
                                         </menu>
                                     </popUpButtonCell>
+                                    <connections>
+                                        <action selector="searchTypeChangedAction:" target="-2" id="kez-f0-IJx"/>
+                                    </connections>
                                 </popUpButton>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2iT-Ae-Brg" userLabel="Name field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="6" y="73" width="121" height="25"/>
@@ -84,6 +93,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="searchFieldsChangedAction:" target="-2" id="bD5-Al-ydR"/>
+                                    </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Owe-D1-X7f" userLabel="Album field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="6" y="22" width="121" height="25"/>
@@ -92,6 +104,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="searchFieldsChangedAction:" target="-2" id="P2B-e6-Pkm"/>
+                                    </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y39-C1-MSc" userLabel="Comparison type:">
                                     <rect key="frame" x="374" y="100" width="94" height="14"/>
@@ -109,6 +124,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="searchFieldsChangedAction:" target="-2" id="bFa-Mn-XLK"/>
+                                    </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ByF-RT-o8d">
                                     <rect key="frame" x="5" y="102" width="60" height="14"/>

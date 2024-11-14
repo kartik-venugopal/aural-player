@@ -80,16 +80,20 @@ class CompactPlayQueueSearchResultsTableView: AuralTableView {
         
         guard let containerView = self.enclosingScrollView?.superview else {return}
         
-        let btnLocationInContainerView = containerView.convert(NSMakePoint(rowView.frame.minX,
+        let scrollViewX = self.enclosingScrollView!.frame.minX
+        
+        var btnLocationInContainerView = containerView.convert(NSMakePoint(rowView.frame.minX,
                                                                            rowView.frame.minY + rowHeight - btnHeight - 1),
                                                                from: rowView)
+        
+        btnLocationInContainerView.x -= scrollViewX
         
         let contViewFrame = enclosingScrollView!.frame
         let boxRect = NSRect(origin: btnLocationInContainerView, size: btnBox.size)
         
         guard NSContainsRect(contViewFrame, boxRect) else {return}
         
-        btnBox.fillColor = self.selectedRowIndexes.contains(row) ? systemColorScheme.textSelectionColor : systemColorScheme.backgroundColor
+        btnBox.fillColor = systemColorScheme.backgroundColor
         btnPlay.contentTintColor = systemColorScheme.activeControlColor
         
         btnBox.setFrameOrigin(btnLocationInContainerView)
