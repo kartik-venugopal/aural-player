@@ -175,8 +175,8 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="clock.arrow.2.circlepath" catalog="system"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="clock.arrow.2.circlepath" catalog="system"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Remember playback position for this track"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Don't remember playback position for this track"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Remember playback position for this track"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="  Don't remember playback position for this track"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="rememberLastPositionAction:" target="DlG-hJ-3cs" id="TGD-fw-Iae"/>

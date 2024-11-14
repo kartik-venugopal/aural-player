@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button toolTip="Hide Track Info" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gQJ-YS-fac" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="10" y="409.5" width="11.5" height="10"/>
+                    <rect key="frame" x="10" y="404.5" width="11.5" height="10"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ybx-Ae-3Lb">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -38,7 +38,7 @@ Gw
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="gQJ-YS-fac" firstAttribute="top" secondItem="x0H-w4-1s4" secondAttribute="top" constant="15" id="Nye-jS-wLL"/>
+                <constraint firstItem="gQJ-YS-fac" firstAttribute="top" secondItem="x0H-w4-1s4" secondAttribute="top" constant="20" id="Nye-jS-wLL"/>
                 <constraint firstItem="gQJ-YS-fac" firstAttribute="leading" secondItem="x0H-w4-1s4" secondAttribute="leading" constant="10" id="zqh-Cr-aft"/>
             </constraints>
             <point key="canvasLocation" x="-206" y="-263"/>

@@ -1,239 +1,220 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    CreateTheme.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CreateThemeDialogController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnColorSchemesMenu" destination="iKU-0P-kpV" id="axD-2h-StJ"/>
-                <outlet property="btnFontSchemesMenu" destination="dEJ-8O-qbR" id="jZX-VX-K7L"/>
-                <outlet property="colorSchemesMenu" destination="iup-Lk-k2e" id="AUk-ZF-xzo"/>
-                <outlet property="errorBox" destination="ZI1-2M-GUX" id="OqI-GS-Uvk"/>
-                <outlet property="fontSchemesMenu" destination="1Z5-t9-tRA" id="FN0-pO-ASV"/>
-                <outlet property="lblError" destination="KX9-aX-u8L" id="STb-MN-JV9"/>
-                <outlet property="lblWindowCornerRadius" destination="kGc-j6-ZCV" id="2Zt-qe-MVc"/>
-                <outlet property="txtName" destination="5D7-MI-6u5" id="28o-An-lSw"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="c0r-my-lc1"/>
-                <outlet property="windowCornerRadiusStepper" destination="auf-u1-WVG" id="67z-za-7Dx"/>
+                <outlet property="btnColorSchemesMenu" destination="1Wl-QU-B5i" id="kpj-2o-RIp"/>
+                <outlet property="btnFontSchemesMenu" destination="tv2-L1-rX7" id="9nG-Dq-jju"/>
+                <outlet property="colorSchemesMenu" destination="vzz-Gz-k69" id="3Pu-sq-qEa"/>
+                <outlet property="errorBox" destination="KXR-ab-34O" id="kjU-h3-eJT"/>
+                <outlet property="fontSchemesMenu" destination="OyI-FV-DEM" id="aHI-kU-tP9"/>
+                <outlet property="lblError" destination="4dr-Zy-aWr" id="73A-KY-w2h"/>
+                <outlet property="lblWindowCornerRadius" destination="ayB-5G-h4q" id="Jfs-HV-Jhh"/>
+                <outlet property="txtName" destination="5s9-4y-bfc" id="7cL-FX-hGo"/>
+                <outlet property="window" destination="JFs-Dg-GVy" id="1Zy-xn-CXi"/>
+                <outlet property="windowCornerRadiusStepper" destination="cDu-49-jmv" id="IeQ-Ii-ezb"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="QvC-M9-y7g" customClass="NoTitleBarPanel" customModule="Aural" customModuleProvider="target">
-            <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
+        <window title="Create a new Theme" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" toolbarStyle="preference" id="JFs-Dg-GVy">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
-            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
+            <rect key="contentRect" x="196" y="240" width="481" height="305"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" wantsLayer="YES" id="RsD-U2-XF4">
+                <rect key="frame" x="0.0" y="0.0" width="481" height="305"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dc9-Vm-cih">
-                        <rect key="frame" x="120" y="269" width="240" height="23"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1xA-mA-GFa" userLabel="Done button">
+                        <rect key="frame" x="400" y="13" width="76" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Create a new Theme" id="xLx-vC-htA">
-                            <font key="font" size="13" name="Play-Regular"/>
-                            <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rqr-dQ-CVp" userLabel="Ok button">
-                        <rect key="frame" x="344" y="6" width="55" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundRect" title="Ok" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qyf-XM-CN9" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KmJ-gD-mhh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="okAction:" target="-2" id="rn2-qf-zhw"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l3G-GB-Kvd" userLabel="Cancel button">
-                        <rect key="frame" x="407" y="6" width="63" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="db3-MH-mrP" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
+                            <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="cancelAction:" target="-2" id="8W8-aP-tQQ"/>
+                            <action selector="cancelAction:" target="-2" id="Gwg-ZZ-LID"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="L8a-H2-3IA" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="17" y="217" width="81" height="25"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vqh-sS-T6z" userLabel="Apply button">
+                        <rect key="frame" x="346" y="13" width="60" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Name" id="9g1-nn-VAp" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6Yg-9P-IFO">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="okAction:" target="-2" id="Kot-an-10Y"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="d8R-PG-tfB" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="15" y="228" width="81" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Name" id="a1U-89-TdE" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.64518342989999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="c0o-up-i9C" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="17" y="157" width="138" height="25"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="tQT-X6-Yx4" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="15" y="168" width="138" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Select font scheme" id="n5E-ml-wQW" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Select font scheme" id="40P-XH-z7m" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.64518342989999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="R5v-Bm-ezQ" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="17" y="112" width="138" height="25"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="572-N3-zbd" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="15" y="123" width="138" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Select color scheme" id="mC8-H9-JUe" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Select color scheme" id="r13-Ju-Pau" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.64518342989999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="RIX-B0-uBL" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="17" y="67" width="149" height="25"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ewW-zJ-aoy" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="15" y="78" width="149" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Window corner radius" id="7yA-0O-Yfs" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Window corner radius" id="pAU-yl-ScB" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.64518342989999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dEJ-8O-qbR" userLabel="Font schemes menu">
-                        <rect key="frame" x="205" y="151" width="269" height="25"/>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tv2-L1-rX7" userLabel="Font schemes menu">
+                        <rect key="frame" x="203" y="162" width="269" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="2Os-5g-RAk" id="Zyi-SJ-BZr" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="DKf-y1-aQu" id="FA2-Wh-lNu" userLabel="Menu">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Play-Regular"/>
-                            <menu key="menu" autoenablesItems="NO" id="1Z5-t9-tRA">
+                            <menu key="menu" autoenablesItems="NO" id="OyI-FV-DEM">
                                 <items>
-                                    <menuItem isSeparatorItem="YES" state="on" id="2Os-5g-RAk"/>
-                                    <menuItem title="Standard" indentationLevel="1" id="iF5-aP-5Ck">
+                                    <menuItem isSeparatorItem="YES" state="on" id="DKf-y1-aQu"/>
+                                    <menuItem title="Standard" indentationLevel="1" id="d3k-lV-9V5">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Rounded" indentationLevel="1" id="xPa-s9-WQG">
+                                    <menuItem title="Rounded" indentationLevel="1" id="3b5-j5-L9A">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Programmer" indentationLevel="1" id="3vc-Dx-NtK">
+                                    <menuItem title="Programmer" indentationLevel="1" id="oyQ-bD-awW">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Futuristic" indentationLevel="1" id="YVz-zU-DUE">
+                                    <menuItem title="Futuristic" indentationLevel="1" id="fZG-33-eiS">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Novelist" indentationLevel="1" id="zqY-bB-mT7">
+                                    <menuItem title="Novelist" indentationLevel="1" id="orv-vF-AMV">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Soy Sauce" indentationLevel="1" id="nnl-Tm-5mT">
+                                    <menuItem title="Soy Sauce" indentationLevel="1" id="zFR-XZ-jTb">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Gothic" indentationLevel="1" id="lr9-7f-bob">
+                                    <menuItem title="Gothic" indentationLevel="1" id="ym6-Yg-Be1">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Papyrus" indentationLevel="1" id="ED3-Mf-nc4">
+                                    <menuItem title="Papyrus" indentationLevel="1" id="UuB-41-KDu">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Poolside.fm" indentationLevel="1" id="LRb-SB-JKU">
+                                    <menuItem title="Poolside.fm" indentationLevel="1" id="Xm1-5a-j3F">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
                                 </items>
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
-                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iKU-0P-kpV" userLabel="Color Schemes menu">
-                        <rect key="frame" x="205" y="106" width="269" height="25"/>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Wl-QU-B5i" userLabel="Color Schemes menu">
+                        <rect key="frame" x="203" y="117" width="269" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="Vgo-EI-h6D" id="WPq-yq-tEZ" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="0FK-gZ-4YF" id="yeD-N2-dgB" userLabel="Menu">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Play-Regular"/>
-                            <menu key="menu" autoenablesItems="NO" id="iup-Lk-k2e">
+                            <menu key="menu" autoenablesItems="NO" id="vzz-Gz-k69">
                                 <items>
-                                    <menuItem isSeparatorItem="YES" state="on" id="Vgo-EI-h6D"/>
-                                    <menuItem title="Black attack (default)" indentationLevel="1" id="Tc8-9P-xZC">
+                                    <menuItem isSeparatorItem="YES" state="on" id="0FK-gZ-4YF"/>
+                                    <menuItem title="Black attack (default)" indentationLevel="1" id="I0O-wl-tXH">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Black &amp; aqua" indentationLevel="1" id="0Y8-3d-05n">
+                                    <menuItem title="Black &amp; aqua" indentationLevel="1" id="f77-3v-8UG">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Lava" indentationLevel="1" id="8KS-Lw-CGn">
+                                    <menuItem title="Lava" indentationLevel="1" id="3ew-jL-clZ">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="White blight" indentationLevel="1" id="2wz-fj-j3x">
+                                    <menuItem title="White blight" indentationLevel="1" id="y89-oP-C1g">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Gloomy day" indentationLevel="1" id="0vL-vv-oih">
+                                    <menuItem title="Gloomy day" indentationLevel="1" id="yMz-N9-BDS">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Brownie" indentationLevel="1" id="St0-hQ-rfC">
+                                    <menuItem title="Brownie" indentationLevel="1" id="Qxf-xK-IMV">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="The blues" indentationLevel="1" id="3UG-as-XDp">
+                                    <menuItem title="The blues" indentationLevel="1" id="Hth-NX-aqe">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Poolside.fm" indentationLevel="1" id="BaE-hR-q5e">
+                                    <menuItem title="Poolside.fm" indentationLevel="1" id="rtQ-RV-XXe">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
                                 </items>
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kGc-j6-ZCV">
-                        <rect key="frame" x="413" y="60" width="39" height="25"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ayB-5G-h4q">
+                        <rect key="frame" x="411" y="71" width="39" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="Xk9-Bs-hBi">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="088-sr-ge0">
                             <font key="font" size="12" name="Play-Regular"/>
-                            <color key="textColor" white="0.70337255517919584" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" white="0.70337255519999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="auf-u1-WVG" userLabel="Radius Stepper">
-                        <rect key="frame" x="454" y="60" width="19" height="28"/>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cDu-49-jmv" userLabel="Radius Stepper">
+                        <rect key="frame" x="452" y="71" width="19" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="25" doubleValue="3" id="kFC-Rn-xdN"/>
+                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="25" doubleValue="3" id="rhD-JK-2MR"/>
                         <connections>
-                            <action selector="cornerRadiusStepperAction:" target="-2" id="ZgX-7l-Z1B"/>
+                            <action selector="cornerRadiusStepperAction:" target="-2" id="lbF-1e-Ao7"/>
                         </connections>
                     </stepper>
-                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5D7-MI-6u5" userLabel="Input Field">
-                        <rect key="frame" x="175" y="213" width="295" height="24"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5s9-4y-bfc" userLabel="Input Field">
+                        <rect key="frame" x="173" y="224" width="295" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="" drawsBackground="YES" id="u5G-Jh-Hep">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="" drawsBackground="YES" id="duH-tR-8DE">
                             <font key="font" size="12" name="Play-Regular"/>
                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </textFieldCell>
                     </textField>
-                    <box fixedFrame="YES" boxType="custom" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ZI1-2M-GUX" userLabel="Error Box">
-                        <rect key="frame" x="175" y="190" width="295" height="20"/>
+                    <box fixedFrame="YES" boxType="custom" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="KXR-ab-34O" userLabel="Error Box">
+                        <rect key="frame" x="173" y="201" width="295" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" id="tdb-xG-23l">
+                        <view key="contentView" id="gOP-mW-nvU">
                             <rect key="frame" x="1" y="1" width="293" height="18"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dE2-Bj-YDe" userLabel="Error icon">
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tZT-Ne-m7T" userLabel="Error icon">
                                     <rect key="frame" x="1" y="2" width="14" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="45B-QG-jPC"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="JOn-gA-HME"/>
                                 </imageView>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KX9-aX-u8L" userLabel="Error label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dr-Zy-aWr" userLabel="Error label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="11" y="1" width="284" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Invalid input !" id="utx-qk-k4P">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Invalid input !" id="2IY-r6-ncn">
                                         <font key="font" size="11" name="Play-Regular"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" white="0.1026689212" alpha="1" colorSpace="calibratedWhite"/>
@@ -246,12 +227,7 @@ Gw
                     </box>
                 </subviews>
             </view>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.19972965267154721" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="215" y="248"/>
+            <point key="canvasLocation" x="-292.5" y="-96.5"/>
         </window>
     </objects>
     <resources>

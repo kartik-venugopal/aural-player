@@ -48,4 +48,3 @@ extension TrackInfoSheetViewController: ColorSchemeObserver {
         btnClose.contentTintColor = systemColorScheme.buttonColor
     }
 }
-

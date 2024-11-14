@@ -62,7 +62,7 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
     private func updateRememberPositionMenuItemState() {
         
         if let playingTrack = playbackInfoDelegate.playingTrack {
-//            rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))
+            rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))
         }
     }
     

@@ -30,7 +30,9 @@ class ThemesManager: UserManagedObjects<Theme> {
         
         fontSchemesManager.applyScheme(theme.fontScheme)
         colorSchemesManager.applyScheme(theme.colorScheme)
+
         playerUIState.cornerRadius = theme.cornerRadius
+        Messenger.publish(.View.changeWindowCornerRadius, payload: playerUIState.cornerRadius)
     }
     
     // Attempts to apply a theme to the system theme, looking up the scheme by the given display name, and if found, returns the modified system scheme.
