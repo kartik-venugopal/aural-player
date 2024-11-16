@@ -690,6 +690,7 @@ class PlayerViewController: NSViewController {
         }
         
         lblVolume.stringValue = audioGraphDelegate.formattedVolume
+        volumeSlider.toolTip = "Volume: \(audioGraphDelegate.formattedVolume)" + (muted ? " (muted)" : "")
         
         updateVolumeMuteButtonImage(volume: volume, muted: muted)
         
@@ -723,6 +724,8 @@ class PlayerViewController: NSViewController {
                 btnVolume.image = .imgVolumeZero
             }
         }
+        
+        volumeSlider.toolTip = "Volume: \(audioGraphDelegate.formattedVolume)" + (muted ? " (muted)" : "")
     }
     
     func toggleRepeatMode() {

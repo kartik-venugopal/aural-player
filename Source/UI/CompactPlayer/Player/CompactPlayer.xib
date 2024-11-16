@@ -103,8 +103,10 @@
                                             <menuItem title="  Remember track position" image="clock.arrow.2.circlepath" catalog="system" id="tPn-wo-7aB" userLabel="Remember track position" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Remember track position"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Don't remember track position"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Remember track position"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="  Don't remember track position"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="clock.arrow.2.circlepath" catalog="system"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="clock.arrow.2.circlepath" catalog="system"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="rememberLastPositionAction:" target="eZl-Ct-z1Z" id="7Gb-Qf-3in"/>
