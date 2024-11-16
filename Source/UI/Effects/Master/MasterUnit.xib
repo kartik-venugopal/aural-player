@@ -10,6 +10,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MasterUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="moJ-jS-aMf" id="1c7-3L-xKO"/>
+                <outlet property="btnRememberSettings" destination="FHb-xi-klu" id="ezl-vM-eto"/>
+                <outlet property="lblRememberSettings" destination="EjT-qM-WKh" id="nob-NG-vWz"/>
                 <outlet property="loadPresetsMenuItem" destination="3Rk-uS-j0Z" id="qir-Si-lpG"/>
                 <outlet property="masterUnitView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
                 <outlet property="presetsAndSettingsMenu" destination="GNL-Vn-rAm" id="Tw6-X2-3Wj"/>
@@ -69,7 +71,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EjT-qM-WKh" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="160" y="21" width="260" height="24"/>
+                    <rect key="frame" x="160" y="31" width="260" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Remember FX settings for this track" id="OrX-uA-h3f">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -78,18 +80,18 @@
                     </textFieldCell>
                 </textField>
                 <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FHb-xi-klu" customClass="EffectsUnitToggle" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="125" y="18" width="28" height="32"/>
+                    <rect key="frame" x="125" y="28" width="28" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NotChecked" imagePosition="left" alignment="left" alternateImage="Checked" controlSize="small" state="on" imageScaling="axesIndependently" inset="2" id="fqr-5C-fbn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                     <connections>
-                        <action selector="rememberSettingsAction:" target="-2" id="ZiQ-Z6-w8r"/>
+                        <action selector="rememberSettingsAction:" target="-2" id="739-qt-6v1"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r2B-xL-42y">
-                    <rect key="frame" x="126" y="58" width="227" height="75"/>
+                    <rect key="frame" x="126" y="73" width="227" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Fuse Box" bezelStyle="shadowlessSquare" image="FuseBox" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fqV-nn-8Iq" customClass="FuseBoxPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

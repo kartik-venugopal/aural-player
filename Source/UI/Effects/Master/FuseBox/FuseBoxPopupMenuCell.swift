@@ -17,8 +17,8 @@ class FuseBoxPopupMenuCell: NSButtonCell {
     var arrowXMargin: CGFloat {20}
     var arrowYMargin: CGFloat {7}
     
-    var imageWidth: CGFloat {48}
-    var imageHeight: CGFloat {40}
+    var imageWidth: CGFloat {36}
+    var imageHeight: CGFloat {30}
     
     var tintColor: NSColor = systemColorScheme.buttonColor {
         
@@ -27,9 +27,9 @@ class FuseBoxPopupMenuCell: NSButtonCell {
         }
     }
     
-    var arrowWidth: CGFloat {7}
-    var arrowHeight: CGFloat {10}
-    var arrowLineWidth: CGFloat {2}
+    var arrowWidth: CGFloat {5}
+    var arrowHeight: CGFloat {8}
+    var arrowLineWidth: CGFloat {1.5}
     
     var titleFont: NSFont {systemFontScheme.prominentFont}
     
