@@ -108,7 +108,8 @@ class LibraryOutlineViewController: NSViewController, NSOutlineViewDelegate, Fon
     func outlineView(_ outlineView: NSOutlineView, typeSelectStringFor tableColumn: NSTableColumn?, item: Any) -> String? {
         
         // Only the track name column is used for type selection
-        guard tableColumn?.identifier == .cid_trackName, let displayName = (item as? Track)?.displayName ?? (item as? Group)?.name else {return nil}
+        guard tableColumn?.identifier == .cid_trackName, NSEvent.noModifiedFlagsSet,
+                let displayName = (item as? Track)?.displayName ?? (item as? Group)?.name else {return nil}
         
         if !(displayName.starts(with: "<") || displayName.starts(with: ">")) {
             return displayName

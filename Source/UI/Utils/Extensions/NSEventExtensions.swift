@@ -60,6 +60,10 @@ extension NSEvent {
         modifierFlags.contains(.option)
     }
     
+    static var noModifiedFlagsSet: Bool {
+        modifierFlags.isEmpty
+    }
+    
     /*
         "Residual scrolling" occurs when seeking forward to the end of a playing track (scrolling right), resulting in the next track playing while the scroll is still occurring. Inertia (i.e. the momentum phase of the scroll) can cause scrolling, and hence seeking, to continue after the new track has begun playing. This is undesirable behavior. The scrolling should stop when the new track begins playing.
      

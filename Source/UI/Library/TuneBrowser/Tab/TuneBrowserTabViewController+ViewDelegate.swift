@@ -13,7 +13,7 @@ extension TuneBrowserTabViewController: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, typeSelectStringFor tableColumn: NSTableColumn?, item: Any) -> String? {
         
-        guard tableColumn?.identifier == .cid_tuneBrowserName, let fsItem = item as? FileSystemItem else {return nil}
+        guard tableColumn?.identifier == .cid_tuneBrowserName, NSEvent.noModifiedFlagsSet, let fsItem = item as? FileSystemItem else {return nil}
         return fsItem.name
     }
     

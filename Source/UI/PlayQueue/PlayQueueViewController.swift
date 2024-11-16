@@ -258,4 +258,20 @@ class PlayQueueViewController: TrackListTableViewController {
             reloadTableRows(firstRemovedRow...lastRowAfterRemove)
         }
     }
+    
+    // MARK: TableViewDelegate functions
+    
+    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
+        
+        // Only the track name column is used for type selection
+        guard tableColumn?.identifier == .cid_trackName, 
+                NSEvent.noModifiedFlagsSet,
+                let displayName = (trackList[row])?.displayName else {return nil}
+        
+        if !(displayName.starts(with: "<") || displayName.starts(with: ">")) {
+            return displayName
+        }
+        
+        return nil
+    }
 }

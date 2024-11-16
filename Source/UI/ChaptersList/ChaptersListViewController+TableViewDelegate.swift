@@ -133,6 +133,7 @@ extension ChaptersListViewController: NSTableViewDelegate {
         
         if let track = player.playingTrack,
            tableColumn?.identifier == .cid_chapterTitle,
+           NSEvent.noModifiedFlagsSet,
            row < player.chapterCount {
             
             return track.chapters[row].title

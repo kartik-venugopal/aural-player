@@ -80,7 +80,7 @@ class UIPresetsManagerViewController: NSViewController, NSTableViewDataSource, N
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the name (first) column is used for type selection.
-        if let column = tableColumn, (column.tableView?.column(withIdentifier: column.identifier) ?? -1) == 0 {
+        if let column = tableColumn, (column.tableView?.column(withIdentifier: column.identifier) ?? -1) == 0, NSEvent.noModifiedFlagsSet {
             return nameOfPreset(atIndex: row)
         }
         
