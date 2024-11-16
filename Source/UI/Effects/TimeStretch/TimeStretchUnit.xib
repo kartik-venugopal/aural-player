@@ -93,7 +93,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUA-Sk-H5c" customClass="EffectsUnitToggle" customModule="Aural" customModuleProvider="target">
+                        <button toolTip="Whether or not pitch should be altered along with playback rate" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUA-Sk-H5c" customClass="EffectsUnitToggle" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="211" y="31" width="28" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NotChecked" imagePosition="left" alignment="left" alternateImage="Checked" controlSize="small" state="on" imageScaling="axesIndependently" inset="2" id="RR3-i1-TI8">
@@ -104,7 +104,7 @@
                                 <action selector="shiftPitchAction:" target="-2" id="GUP-j9-Wop"/>
                             </connections>
                         </button>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XtF-Pu-aY0" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField toolTip="Whether or not pitch should be altered along with playback rate" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XtF-Pu-aY0" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="246" y="34" width="104" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Shift Pitch" id="xlO-FY-WYE">

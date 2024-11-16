@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,7 +39,7 @@
                     <rect key="frame" x="63" y="83" width="384" height="74"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cnv-IQ-PKn" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cnv-IQ-PKn" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="10" y="39" width="70" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Space" id="5J3-aq-YnZ">
@@ -48,7 +48,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjF-HF-nkd" userLabel="Reverb Space Menu">
+                        <popUpButton toolTip="Set the physical space to simulate with Reverb" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjF-HF-nkd" userLabel="Reverb Space Menu">
                             <rect key="frame" x="89" y="38" width="200" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="6Ce-dA-PGI" id="tol-Pp-L9a" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
@@ -93,7 +93,7 @@
                                 <action selector="reverbSpaceAction:" target="-2" id="glI-BL-JRf"/>
                             </connections>
                         </popUpButton>
-                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AnR-ZX-Wi0" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                        <slider toolTip="Wet/dry mix - Sets the proportion of mix between the source (dry) and effected (wet) signals." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AnR-ZX-Wi0" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="115" y="-2" width="145" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="dxj-RB-154" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -101,7 +101,7 @@
                                 <action selector="reverbAmountAction:" target="-2" id="R9O-Yg-pph"/>
                             </connections>
                         </slider>
-                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CcZ-hi-Qeb" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CcZ-hi-Qeb" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="10" y="-5" width="70" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Amount" id="DNt-HO-7aB">
@@ -110,7 +110,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="021-vo-3aU" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="021-vo-3aU" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="72" y="-5" width="38" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dry" id="KLz-0H-Fd0">
@@ -119,7 +119,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Pq-Zb-3y9" userLabel="Wet" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Pq-Zb-3y9" userLabel="Wet" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="265" y="-5" width="40" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="rPE-D2-IdC">
@@ -128,7 +128,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iGc-Z1-9PZ" userLabel="Lbl Reverb Value" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iGc-Z1-9PZ" userLabel="Lbl Reverb Value" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="285" y="-5" width="68" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="Z4x-02-2zl">

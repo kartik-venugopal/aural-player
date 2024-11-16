@@ -15,10 +15,10 @@ class EQUnitView: NSView, Destroyable {
     
     // MARK: UI fields
     
-    @IBOutlet weak var globalGainSlider: EffectsUnitSlider!
+    @IBOutlet weak var globalGainSlider: EQSlider!
     
-    var bandSliders: [EffectsUnitSlider] = []
-    var allSliders: [EffectsUnitSlider] = []
+    var bandSliders: [EQSlider] = []
+    var allSliders: [EQSlider] = []
     
     var stateFunction: EffectsUnitStateFunction!
     var sliderAction: Selector?
@@ -44,7 +44,7 @@ class EQUnitView: NSView, Destroyable {
         
         super.awakeFromNib()
         
-        allSliders = subviews.compactMap({$0 as? EffectsUnitSlider})
+        allSliders = subviews.compactMap({$0 as? EQSlider})
         bandSliders = allSliders.filter {$0.tag >= 0}
         
         bandSliders.forEach {
@@ -86,10 +86,13 @@ class EQUnitView: NSView, Destroyable {
         
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
         bandSliders.forEach {
+            
             $0.floatValue = $0.tag < bands.count ? bands[$0.tag] : AudioGraphDefaults.eqBandGain
+            $0.toolTip = "\($0.frequencyString!): \(String(format: "%.1f dB", $0.floatValue))"
         }
         
         globalGainSlider.floatValue = globalGain
+        globalGainSlider.toolTip = "\(globalGainSlider.frequencyString!): \(String(format: "%.1f dB", globalGainSlider.floatValue))"
     }
     
     func applyPreset(_ preset: EQPreset) {

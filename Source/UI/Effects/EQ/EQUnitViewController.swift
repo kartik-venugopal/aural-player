@@ -63,13 +63,17 @@ class EQUnitViewController: EffectsUnitViewController {
     
     // MARK: Actions
     
-    @IBAction func eqGlobalGainAction(_ sender: EffectsUnitSlider) {
+    @IBAction func eqGlobalGainAction(_ sender: EQSlider) {
+        
         eqUnit.globalGain = sender.floatValue
+        sender.toolTip = "\(sender.frequencyString!): \(String(format: "%.1f dB", sender.floatValue))"
     }
     
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
-    @IBAction func eqSliderAction(_ sender: EffectsUnitSlider) {
+    @IBAction func eqSliderAction(_ sender: EQSlider) {
+        
         eqUnit[sender.tag] = sender.floatValue
+        sender.toolTip = "\(sender.frequencyString!): \(String(format: "%.1f dB", sender.floatValue))"
     }
     
     // ------------------------------------------------------------------------

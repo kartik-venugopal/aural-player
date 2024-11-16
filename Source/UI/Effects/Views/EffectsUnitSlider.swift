@@ -30,3 +30,10 @@ class EffectsUnitSlider: NSSlider, FXUnitStateObserver {
     
     override var isFlipped: Bool {false}
 }
+
+@IBDesignable
+class EQSlider: EffectsUnitSlider {
+    
+    /// Used as prefixes (eg. "25Hz band") in tool tips that display the current gain value for the EQ sliders..
+    @IBInspectable var frequencyString: String!
+}
