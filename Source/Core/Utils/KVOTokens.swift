@@ -1,6 +1,6 @@
 //
 //  KVOTokens.swift
-//  Aural-macOS
+//  Aural
 //
 //  Copyright © 2024 Kartik Venugopal. All rights reserved.
 //
