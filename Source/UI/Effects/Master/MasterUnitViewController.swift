@@ -59,7 +59,21 @@ class MasterUnitViewController: EffectsUnitViewController {
     override func initControls() {
         
         super.initControls()
+        
+        updateSettingsMemoryControls(forTrack: playbackInfoDelegate.playingTrack)
         broadcastStateChangeNotification()
+    }
+    
+    private func updateSettingsMemoryControls(forTrack track: Track?) {
+        
+        if let theTrack = track {
+            
+            [btnRememberSettings, lblRememberSettings].forEach {$0?.show()}
+            btnRememberSettings.onIf(soundProfiles.hasFor(theTrack))
+            
+        } else {
+            [btnRememberSettings, lblRememberSettings].forEach {$0?.hide()}
+        }
     }
     
     // ------------------------------------------------------------------------
@@ -176,22 +190,7 @@ class MasterUnitViewController: EffectsUnitViewController {
     func trackChanged(_ notification: TrackTransitionNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if let newTrack = notification.endTrack {
-            
-            [btnRememberSettings, lblRememberSettings].forEach {$0?.show()}
-            btnRememberSettings.onIf(soundProfiles.hasFor(newTrack))
-
-            // HACK: To make the tool tip appear (without hiding / showing)
-//            btnRememberSettings.moveX(to: 13)
-            
-        } else {
-            
-            [btnRememberSettings, lblRememberSettings].forEach {$0?.hide()}
-            
-            // HACK: To make the tool tip disappear (without hiding / showing)
-//            btnRememberSettings.moveX(to: -50)
-        }
-        
+        updateSettingsMemoryControls(forTrack: notification.endTrack)
         messenger.publish(.Effects.updateEffectsUnitView, payload: EffectsUnitType.master)
     }
     

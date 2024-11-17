@@ -80,15 +80,19 @@ class MenuBarAppModeController: NSObject, AppModeController {
         rootMenu.addItem(playerMenuItem)
         
         showOrHidePlayQueue()
-        createSettingsMenu()
+        
+        if #available(macOS 14, *) {
+            
+            createSettingsMenu()
+            settingsMenuItem.hide()
+        }
         
         rootMenu.delegate = self
     }
-    
+
     private func createSettingsMenu() {
         
         settingsMenuItem = NSMenuItem(view: settingsViewController.view)
-        settingsMenuItem.hide()
         
         rootMenu.addItem(.separator())
         rootMenu.addItem(settingsMenuItem)
@@ -117,31 +121,64 @@ class MenuBarAppModeController: NSObject, AppModeController {
     
     private func toggleSettingsMenu() {
         
-        if settingsMenuItem.isHidden {
-            settingsViewController.prepareToShow()
+        if #available(macOS 14, *) {
+            
+            if settingsMenuItem.isHidden {
+                settingsViewController.prepareToShow()
+            }
+            
+            settingsMenuItem.toggleShownOrHidden()
+            
+        } else {
+            
+            // Older systems
+            if settingsMenuItem == nil {
+                createSettingsMenu()
+                
+            } else if let theSettingsMenuItem = self.settingsMenuItem {
+                
+                rootMenu.removeItem(theSettingsMenuItem)
+                self.settingsMenuItem = nil
+            }
         }
-        
-        settingsMenuItem.toggleShownOrHidden()
     }
     
     private func showOrHidePlayQueue() {
         
-        createPlayQueueMenuItemIfRequired()
-        playQueueMenuItem?.showIf(menuBarPlayerUIState.showPlayQueue)
+        if #available(macOS 14, *) {
+            
+            if menuBarPlayerUIState.showPlayQueue, playQueueMenuItem == nil {
+                createPlayQueueMenuItem()
+            }
+            
+            playQueueMenuItem?.showIf(menuBarPlayerUIState.showPlayQueue)
+            
+        } else {
+            
+            if menuBarPlayerUIState.showPlayQueue {
+                
+                if playQueueMenuItem == nil {
+                    createPlayQueueMenuItem()
+                }
+                
+            } else if let thePlayQueueMenuItem = self.playQueueMenuItem {
+                
+                rootMenu.removeItem(thePlayQueueMenuItem)
+                self.playQueueMenuItem = nil
+            }
+        }
     }
     
-    private func createPlayQueueMenuItemIfRequired() {
+    private func createPlayQueueMenuItem() {
         
-        guard menuBarPlayerUIState.showPlayQueue, playQueueMenuItem == nil else {return}
-        
-        statusItem?.menu?.insertItem(.separator(), at: 1)
+        rootMenu.insertItem(.separator(), at: 1)
         
         if playQueueViewController == nil {
             playQueueViewController = .init()
         }
         
         self.playQueueMenuItem = NSMenuItem(view: playQueueViewController.view)
-        statusItem?.menu?.insertItem(playQueueMenuItem, at: 2)
+        rootMenu.insertItem(playQueueMenuItem, at: 2)
     }
 }
 
