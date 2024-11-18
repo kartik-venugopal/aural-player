@@ -116,7 +116,9 @@ protocol SequencingProtocol {
     
     var repeatMode: RepeatMode {get}
     
-    var shuffleMode: ShuffleMode{get}
+    var shuffleMode: ShuffleMode {get}
+    
+    var shuffleSequence: ShuffleSequence {get}
     
     // Returns the current repeat and shuffle modes
     var repeatAndShuffleModes: RepeatAndShuffleModes {get}

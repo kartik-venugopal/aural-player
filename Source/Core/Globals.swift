@@ -15,7 +15,16 @@ let appSetup: AppSetup = .shared
 fileprivate let logger: Logger = .init()
 
 let jsonDecoder: JSONDecoder = JSONDecoder()
-let jsonEncoder: JSONEncoder = JSONEncoder()
+let jsonEncoder: JSONEncoder = {
+    
+    let encoder = JSONEncoder()
+    
+    #if DEBUG
+    encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
+    #endif
+    
+    return encoder
+}()
 
 fileprivate var needToMigrateLegacySettings: Bool = false
 

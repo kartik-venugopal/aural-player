@@ -234,7 +234,6 @@
 		3E0218CB2C23490E00865AC2 /* AuralPlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216D82C23490E00865AC2 /* AuralPlayerNode.swift */; };
 		3E0218CC2C23490E00865AC2 /* PlaybackSchedulerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216D92C23490E00865AC2 /* PlaybackSchedulerProtocol.swift */; };
 		3E0218CD2C23490E00865AC2 /* PlaybackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216DA2C23490E00865AC2 /* PlaybackSegment.swift */; };
-		3E0218CE2C23490E00865AC2 /* PlaybackSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216DC2C23490E00865AC2 /* PlaybackSequence.swift */; };
 		3E0218CF2C23490E00865AC2 /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216DD2C23490E00865AC2 /* RepeatMode.swift */; };
 		3E0218D02C23490E00865AC2 /* ShuffleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216DE2C23490E00865AC2 /* ShuffleMode.swift */; };
 		3E0218D12C23490E00865AC2 /* ShuffleSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216DF2C23490E00865AC2 /* ShuffleSequence.swift */; };
@@ -1273,7 +1272,6 @@
 		3E0216D82C23490E00865AC2 /* AuralPlayerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralPlayerNode.swift; sourceTree = "<group>"; };
 		3E0216D92C23490E00865AC2 /* PlaybackSchedulerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSchedulerProtocol.swift; sourceTree = "<group>"; };
 		3E0216DA2C23490E00865AC2 /* PlaybackSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSegment.swift; sourceTree = "<group>"; };
-		3E0216DC2C23490E00865AC2 /* PlaybackSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequence.swift; sourceTree = "<group>"; };
 		3E0216DD2C23490E00865AC2 /* RepeatMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
 		3E0216DE2C23490E00865AC2 /* ShuffleMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleMode.swift; sourceTree = "<group>"; };
 		3E0216DF2C23490E00865AC2 /* ShuffleSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleSequence.swift; sourceTree = "<group>"; };
@@ -2733,7 +2731,6 @@
 		3E0216E02C23490E00865AC2 /* Sequencing */ = {
 			isa = PBXGroup;
 			children = (
-				3E0216DC2C23490E00865AC2 /* PlaybackSequence.swift */,
 				3E0216DD2C23490E00865AC2 /* RepeatMode.swift */,
 				3E0216DE2C23490E00865AC2 /* ShuffleMode.swift */,
 				3E0216DF2C23490E00865AC2 /* ShuffleSequence.swift */,
@@ -6226,7 +6223,6 @@
 				3EAFB5EC267FEC5C00F0DC96 /* NSViewExtensions.swift in Sources */,
 				3EFA0C0E2C67C8E3006FB326 /* Codable+Utils.swift in Sources */,
 				3E02199C2C23490E00865AC2 /* TimeIntervalFormatter.swift in Sources */,
-				3E0218CE2C23490E00865AC2 /* PlaybackSequence.swift in Sources */,
 				3EAFB5F6267FEE9D00F0DC96 /* NSWindowExtensions.swift in Sources */,
 				3E02192F2C23490E00865AC2 /* FFmpegFileReader.swift in Sources */,
 				3E6C128925CEBE1800BF0D07 /* OnOffImageButtons.swift in Sources */,

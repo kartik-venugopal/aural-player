@@ -56,6 +56,10 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         playQueue.shuffleMode
     }
     
+    var shuffleSequence: ShuffleSequence {
+        playQueue.shuffleSequence
+    }
+    
     lazy var messenger: Messenger = .init(for: self)
     
     init(playQueue: PlayQueueProtocol, persistentState: PlayQueuePersistentState?) {
@@ -333,9 +337,12 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     var persistentState: PlayQueuePersistentState {
         
-        let repeatAndShuffleModes = playQueue.repeatAndShuffleModes
+        let shuffleSequence = self.shuffleSequence
         
-        return .init(tracks: tracks, repeatMode: repeatAndShuffleModes.repeatMode, shuffleMode: repeatAndShuffleModes.shuffleMode,
+        return .init(tracks: tracks,
+                     repeatMode: repeatMode,
+                     shuffleMode: shuffleMode,
+                     shuffleSequence: shuffleMode == .on && shuffleSequence.hasNext ? shuffleSequence.persistentState : nil,
                      history: self.historyPersistentState)
     }
     

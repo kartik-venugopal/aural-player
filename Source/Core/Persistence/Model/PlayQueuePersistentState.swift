@@ -17,10 +17,11 @@ struct PlayQueuePersistentState: Codable {
     
     let repeatMode: RepeatMode?
     let shuffleMode: ShuffleMode?
+    let shuffleSequence: ShuffleSequencePersistentState?
     
     let history: HistoryPersistentState?
     
-    init(tracks: [Track], repeatMode: RepeatMode, shuffleMode: ShuffleMode, history: HistoryPersistentState) {
+    init(tracks: [Track], repeatMode: RepeatMode, shuffleMode: ShuffleMode, shuffleSequence: ShuffleSequencePersistentState?, history: HistoryPersistentState) {
         
         var files: [URL] = []
         var cueSheetMetadata: [URL: CueSheetMetadata] = [:]
@@ -39,6 +40,8 @@ struct PlayQueuePersistentState: Codable {
         
         self.repeatMode = repeatMode
         self.shuffleMode = shuffleMode
+        self.shuffleSequence = shuffleSequence
+        
         self.history = history
     }
     
@@ -48,6 +51,7 @@ struct PlayQueuePersistentState: Codable {
         self.cueSheetMetadata = nil
         self.repeatMode = legacyPlaybackSequencePersistentState?.repeatMode
         self.shuffleMode = legacyPlaybackSequencePersistentState?.shuffleMode
+        self.shuffleSequence = nil
         self.history = HistoryPersistentState(legacyPersistentState: legacyHistoryPersistentState)
     }
     
@@ -60,4 +64,10 @@ struct TrackPersistentState: Codable {
     
     let file: URL?
     let cueSheetMetadata: CueSheetMetadata?
+}
+
+struct ShuffleSequencePersistentState: Codable {
+    
+    let sequence: [Int]?
+    let curIndex: Int?
 }

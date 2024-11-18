@@ -18,7 +18,7 @@ import Foundation
 /// Example:    For a shuffle sequence with 10 tracks, the sequence may look like:
 /// [7, 9, 2, 4, 8, 6, 3, 0, 1, 5]
 ///
-class ShuffleSequence {
+class ShuffleSequence: PersistentModelObject {
     
     // Array of sequence track indexes that constitute the shuffle sequence. This array must always be of the same size as the parent playback sequence
     private(set) var sequence: [Int] = []
@@ -133,5 +133,9 @@ class ShuffleSequence {
     // Checks if all elements have been visited, i.e. the end of the sequence has been reached
     var hasEnded: Bool {
         size > 0 && curIndex == size - 1
+    }
+    
+    var persistentState: ShuffleSequencePersistentState {
+        .init(sequence: sequence, curIndex: curIndex)
     }
 }
