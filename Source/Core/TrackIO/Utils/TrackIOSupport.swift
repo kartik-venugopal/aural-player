@@ -101,11 +101,9 @@ class TrackLoadSession {
         loader.postBatchLoad(indices: newTrackIndices)
         
         // For Autoplay
-        if !triggeredFirstReadCallback, 
-            let firstRead = tracks.values.first(where: {$0.result != .error}),
-            let indexOfTrack = loader.indexOfTrack(firstRead.track) {
+        if !triggeredFirstReadCallback, newTrackIndices.isNonEmpty {
 
-            loader.firstTrackLoaded(atIndex: indexOfTrack)
+            loader.firstBatchLoaded(atIndices: newTrackIndices)
             triggeredFirstReadCallback = true
         }
         

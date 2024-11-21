@@ -387,7 +387,6 @@
 		3E02197B2C23490E00865AC2 /* AVAudioFormatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217A82C23490E00865AC2 /* AVAudioFormatExtensions.swift */; };
 		3E02197C2C23490E00865AC2 /* AVAudioFramePositionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217A92C23490E00865AC2 /* AVAudioFramePositionExtensions.swift */; };
 		3E02197D2C23490E00865AC2 /* AVFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217AA2C23490E00865AC2 /* AVFExtensions.swift */; };
-		3E02197E2C23490E00865AC2 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217AB2C23490E00865AC2 /* CollectionExtensions.swift */; };
 		3E02197F2C23490E00865AC2 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217AC2C23490E00865AC2 /* DateExtensions.swift */; };
 		3E0219802C23490E00865AC2 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217AD2C23490E00865AC2 /* DictionaryExtensions.swift */; };
 		3E0219812C23490E00865AC2 /* EnumExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217AE2C23490E00865AC2 /* EnumExtensions.swift */; };
@@ -1431,7 +1430,6 @@
 		3E0217A82C23490E00865AC2 /* AVAudioFormatExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioFormatExtensions.swift; sourceTree = "<group>"; };
 		3E0217A92C23490E00865AC2 /* AVAudioFramePositionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioFramePositionExtensions.swift; sourceTree = "<group>"; };
 		3E0217AA2C23490E00865AC2 /* AVFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVFExtensions.swift; sourceTree = "<group>"; };
-		3E0217AB2C23490E00865AC2 /* CollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		3E0217AC2C23490E00865AC2 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		3E0217AD2C23490E00865AC2 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		3E0217AE2C23490E00865AC2 /* EnumExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumExtensions.swift; sourceTree = "<group>"; };
@@ -3130,7 +3128,6 @@
 				3E0217A82C23490E00865AC2 /* AVAudioFormatExtensions.swift */,
 				3E0217A92C23490E00865AC2 /* AVAudioFramePositionExtensions.swift */,
 				3E0217AA2C23490E00865AC2 /* AVFExtensions.swift */,
-				3E0217AB2C23490E00865AC2 /* CollectionExtensions.swift */,
 				3E0217AC2C23490E00865AC2 /* DateExtensions.swift */,
 				3E58DEEF2C8D816D007ED247 /* DataExtensions.swift */,
 				3E0217AD2C23490E00865AC2 /* DictionaryExtensions.swift */,
@@ -5737,7 +5734,6 @@
 				3E36BD3D26A6902F00B6E28B /* AudioTrackInfoViewController.swift in Sources */,
 				3E4C763D2AD774DA00DDED45 /* AppSetupWindowController.swift in Sources */,
 				3E0218BD2C23490E00865AC2 /* MarkLastPlaybackPositionAction.swift in Sources */,
-				3E02197E2C23490E00865AC2 /* CollectionExtensions.swift in Sources */,
 				3E02196A2C23490E00865AC2 /* NSAlert+Extensions.swift in Sources */,
 				3E02188E2C23490E00865AC2 /* SoundProfilePersistentState.swift in Sources */,
 				3E6C131425CEBE8F00BF0D07 /* AudioTrackInfoSource.swift in Sources */,
@@ -6722,7 +6718,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview17";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview18";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6739,7 +6735,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview17";
+				MARKETING_VERSION = "4.0.0-preview18";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6761,7 +6757,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview17";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview18";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6778,7 +6774,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview17";
+				MARKETING_VERSION = "4.0.0-preview18";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;

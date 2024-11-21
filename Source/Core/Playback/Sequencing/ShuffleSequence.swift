@@ -53,10 +53,34 @@ class ShuffleSequence: PersistentModelObject {
         
         sequence.shuffle()
 
+        ensureFirstElement(is: desiredStartValue)
+        
+        print("Seq is \(sequence) after resize, curIndex = \(curIndex)")
+    }
+    
+    private func ensureFirstElement(is desiredStartValue: Int?) {
+        
         // Make sure that desiredStartValue is at index 0 in the new sequence.
         if let theStartValue = desiredStartValue, sequence.first != theStartValue, let indexOfStartValue = sequence.firstIndex(of: theStartValue) {
             sequence.swapAt(0, indexOfStartValue)
         }
+    }
+    
+    /// 
+    /// Called when the sequence has to be re-created, as a result of tracks being moved around, and
+    /// a track is currently playing (it then becomes the first track in the new sequence).
+    ///
+    func reShuffle(startWith desiredStartValue: Int) {
+        
+        print("Re-shuffling at size: \(size)")
+        
+        curIndex = 0
+        
+        // NOTE - If only one track in sequence, no need to do any adjustments.
+        guard size > 1 else {return}
+        
+        sequence.shuffle()
+        ensureFirstElement(is: desiredStartValue)
     }
     
     // Called when the sequence ends, to produce a new shuffle sequence.
@@ -64,6 +88,8 @@ class ShuffleSequence: PersistentModelObject {
     // i.e. the last element of the previous (ended) sequence should differ from the first
     // element in the new sequence.
     func reShuffle(dontStartWith value: Int) {
+        
+        print("Re-shuffling at size: \(size)")
         
         curIndex = -1
         
@@ -81,6 +107,8 @@ class ShuffleSequence: PersistentModelObject {
     
     // Clear the sequence
     func clear() {
+        
+        print("Cleared S.Seq")
         
         sequence.removeAll()
         curIndex = -1

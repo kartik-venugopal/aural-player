@@ -35,6 +35,12 @@ extension PlayQueue {
         
         guard let track = self[index] else {return nil}
         
+        if shuffleMode == .on {
+            shuffleSequence.resizeAndReshuffle(size: self.size, startWith: index)
+        }
+        
+        print("Selected track[\(index)], Seq: \(shuffleSequence.size), \(shuffleSequence.currentValue)")
+        
         currentTrackIndex = index
         return track
     }
@@ -42,6 +48,12 @@ extension PlayQueue {
     func selectTrack(_ track: Track) -> Track? {
         
         guard let index = indexOfTrack(track) else {return nil}
+        
+        if shuffleMode == .on {
+            shuffleSequence.resizeAndReshuffle(size: self.size, startWith: index)
+        }
+        
+        print("Selected \(track), Seq: \(shuffleSequence.size), \(shuffleSequence.currentValue)")
         
         currentTrackIndex = index
         return track
@@ -187,6 +199,9 @@ extension PlayQueue {
             shuffleSequence.clear()
         }
         
+        // TODO: If repeat now on, shuffle is on, last track is playing, create a new sequence ???
+        // Otherwise, the track peeking buttons won't work.
+        
         return repeatAndShuffleModes
     }
     
@@ -205,7 +220,9 @@ extension PlayQueue {
                 repeatMode = .off
             }
             
-            shuffleSequence.resizeAndReshuffle(size: size, startWith: currentTrackIndex)
+            if let theTrackIndex = currentTrackIndex {
+                shuffleSequence.resizeAndReshuffle(size: size, startWith: theTrackIndex)
+            }
             
         } // Shuffle mode is off
         else {

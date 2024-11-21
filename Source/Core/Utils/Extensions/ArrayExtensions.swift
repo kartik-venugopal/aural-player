@@ -13,11 +13,11 @@ import OrderedCollections
 extension Collection {
     
     var isNonEmpty: Bool {count > 0}
+    
+    var lastIndex: Int {count - 1}
 }
 
 extension Array {
-    
-    var isNonEmpty: Bool {count > 0}
     
     @inlinable
     @inline(__always)

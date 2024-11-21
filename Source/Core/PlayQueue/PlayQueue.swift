@@ -93,7 +93,13 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         
         // Check if the new tracks were inserted above (<) or below (>) the playing track index.
         if let playingTrackIndex = currentTrackIndex, insertionIndex <= playingTrackIndex {
-            currentTrackIndex = playingTrackIndex + newTracks.count
+            
+            let newPlayingTrackIndex = playingTrackIndex + newTracks.count
+            currentTrackIndex = newPlayingTrackIndex
+            
+            if shuffleMode == .on {
+                shuffleSequence.resizeAndReshuffle(size: self.size, startWith: newPlayingTrackIndex)
+            }
         }
         
         return indices
@@ -112,7 +118,12 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             } else {
 
                 // Compute how many tracks above (i.e. <) playingTrackIndex were removed ... this will determine the adjustment to the playing track index.
-                currentTrackIndex = playingTrackIndex - (indexes.filter {$0 < playingTrackIndex}.count)
+                let newPlayingTrackIndex = playingTrackIndex - (indexes.filter {$0 < playingTrackIndex}.count)
+                currentTrackIndex = newPlayingTrackIndex
+                
+                if shuffleMode == .on {
+                    shuffleSequence.resizeAndReshuffle(size: self.size, startWith: newPlayingTrackIndex)
+                }
             }
         }
 
@@ -147,20 +158,26 @@ class PlayQueue: TrackList, PlayQueueProtocol {
 
     private func doMoveTracks(_ moveOperation: () -> [TrackMoveResult]) -> [TrackMoveResult] {
 
-        let playingTrack = currentTrack
         let moveResults = moveOperation()
+        
+        if moveResults.isEmpty {return moveResults}
 
         // If the playing track was moved, update the index of the playing track within the sequence
         
-        // TODO: Looking up index of the playing track is not very efficient ... this should be calculated
-        // from the move results ... and move results need to be improved to include the rows which were
-        // indirectly affected by the move (cascaded up / down).
-        
-        if let playingTrack = playingTrack,
-           let newPlayingTrackIndex = indexOfTrack(playingTrack) {
+        if let theCurrentTrackIndex = self.currentTrackIndex {
             
-            currentTrackIndex = newPlayingTrackIndex
+            if let result = moveResults.first(where: {$0.sourceIndex == theCurrentTrackIndex}) {
+                self.currentTrackIndex = result.destinationIndex
+            }
+            
+            // Update the shuffle sequence based on the new track order, with the current track being
+            // the first track in the new sequence.
+            if shuffleMode == .on {
+                shuffleSequence.reShuffle(startWith: theCurrentTrackIndex)
+            }
         }
+        
+        print("Tracks moved!")
 
         return moveResults
     }
@@ -174,6 +191,12 @@ class PlayQueue: TrackList, PlayQueueProtocol {
            let newPlayingTrackIndex = indexOfTrack(playingTrack) {
             
             currentTrackIndex = newPlayingTrackIndex
+            
+            // Update the shuffle sequence based on the new track order, with the current track being
+            // the first track in the new sequence.
+            if shuffleMode == .on {
+                shuffleSequence.reShuffle(startWith: newPlayingTrackIndex)
+            }
         }
     }
     
@@ -234,11 +257,19 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         messenger.publish(.PlayQueue.startedAddingTracks)
     }
     
-    override func firstTrackLoaded(atIndex index: Int) {
+    override func firstBatchLoaded(atIndices indices: IndexSet) {
         
         // Use for autoplay
-        if autoplay.value {
-            playbackDelegate.play(trackAtIndex: index, .defaultParams())
+        guard autoplay.value else {return}
+        
+        if shuffleMode == .off {
+            
+            if let firstIndex = indices.first {
+                playbackDelegate.play(trackAtIndex: firstIndex, .defaultParams())
+            }
+            
+        } else if let randomFirstIndex = indices.randomElement() {
+            playbackDelegate.play(trackAtIndex: randomFirstIndex, .defaultParams())
         }
     }
     
