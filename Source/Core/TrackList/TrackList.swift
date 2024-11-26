@@ -23,11 +23,11 @@ class TrackList: TrackListProtocol {
     
     /// A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     lazy var _tracks: OrderedDictionary<URL, Track> = .init()
-    lazy var lockQueue = DispatchQueue(label: "LockQueue for '\(displayName)'", qos: .userInitiated, attributes: .concurrent)
+    lazy var tracksLock: ConcurrentQueueLock = .init(resourceName: self.displayName)
     
     var tracks: [Track] {
         
-        lockQueue.sync {
+        tracksLock.read {
             Array(_tracks.values)
         }
     }
@@ -47,21 +47,21 @@ class TrackList: TrackListProtocol {
     
     var size: Int {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks.count
         }
     }
     
     var indices: Range<Int> {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks.indices
         }
     }
     
     var duration: Double {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks.values.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
         }
     }
@@ -72,7 +72,7 @@ class TrackList: TrackListProtocol {
     
     var isEmpty: Bool {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks.isEmpty
         }
     }
@@ -84,7 +84,7 @@ class TrackList: TrackListProtocol {
     /// Safe array access.
     subscript(index: Int) -> Track? {
         
-        lockQueue.sync {
+        tracksLock.read {
             
             guard index >= 0, index < _tracks.count else {return nil}
             return _tracks.elements[index].value
@@ -93,42 +93,42 @@ class TrackList: TrackListProtocol {
     
     subscript(indices: IndexSet) -> [Track] {
 
-        lockQueue.sync {
+        tracksLock.read {
             indices.map {_tracks.elements[$0].value}
         }
     }
     
     func indexOfTrack(_ track: Track) -> Int?  {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks.index(forKey: track.file)
         }
     }
     
     func indexOfTrack(forFile file: URL) -> Int? {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks.index(forKey: file)
         }
     }
     
     func hasTrack(_ track: Track) -> Bool {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks[track.file] != nil
         }
     }
     
     func hasTrack(forFile file: URL) -> Bool {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks[file] != nil
         }
     }
     
     func findTrack(forFile file: URL) -> Track? {
         
-        lockQueue.sync {
+        tracksLock.read {
             _tracks[file]
         }
     }
@@ -159,19 +159,17 @@ class TrackList: TrackListProtocol {
     @inline(__always)
     func doAddTracks(_ newTracks: [Track]) {
         
-        lockQueue.async(flags: .barrier) {
+        tracksLock.write {
             self._tracks.addMappings(newTracks.map {($0.file, $0)})
         }
     }
     
     @discardableResult func insertTracks(_ newTracks: [Track], at insertionIndex: Int) -> IndexSet {
         
-        print("Inserting tracks from: \(Thread.current)")
-        
         let dedupedTracks = deDupeTracks(newTracks)
         guard dedupedTracks.isNonEmpty else {return .empty}
         
-        lockQueue.async(flags: .barrier) {
+        tracksLock.write {
             
             // Need to insert in reverse order.
             for index in stride(from: dedupedTracks.lastIndex, through: 0, by: -1) {

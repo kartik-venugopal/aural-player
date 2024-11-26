@@ -881,6 +881,7 @@
 		3EB805DF2B795D0C005E464A /* WidgetPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB805DE2B795D0C005E464A /* WidgetPlayerViewController.swift */; };
 		3EB805E12B7987B1005E464A /* CompactPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB805E02B7987B1005E464A /* CompactPlayerViewController.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
+		3EBA39832CF6818A00A3C1A6 /* ConcurrentQueueLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA39822CF6818A00A3C1A6 /* ConcurrentQueueLock.swift */; };
 		3EBF238F2BF66D090069B6B1 /* ChaptersListWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBF238E2BF66D090069B6B1 /* ChaptersListWindow.xib */; };
 		3EBF29292686947700D87021 /* FilterBandsTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */; };
 		3EBF292B268695B700D87021 /* EffectsUnitTriStateBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */; };
@@ -2003,6 +2004,7 @@
 		3EB805DE2B795D0C005E464A /* WidgetPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPlayerViewController.swift; sourceTree = "<group>"; };
 		3EB805E02B7987B1005E464A /* CompactPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayerViewController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
+		3EBA39822CF6818A00A3C1A6 /* ConcurrentQueueLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentQueueLock.swift; sourceTree = "<group>"; };
 		3EBF238E2BF66D090069B6B1 /* ChaptersListWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChaptersListWindow.xib; sourceTree = "<group>"; };
 		3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandsTabButtonCell.swift; sourceTree = "<group>"; };
 		3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateBypassButton.swift; sourceTree = "<group>"; };
@@ -3093,6 +3095,7 @@
 				3E0217992C23490E00865AC2 /* AtomicBool.swift */,
 				3E02179A2C23490E00865AC2 /* AtomicCounter.swift */,
 				3E02179B2C23490E00865AC2 /* ExclusiveAccessSemaphore.swift */,
+				3EBA39822CF6818A00A3C1A6 /* ConcurrentQueueLock.swift */,
 			);
 			path = Concurrency;
 			sourceTree = "<group>";
@@ -6428,6 +6431,7 @@
 				3E51F348262AFDF80048452F /* ThemePreviewView.swift in Sources */,
 				3E0218132C23490E00865AC2 /* SoundProfiles.swift in Sources */,
 				3E0217DE2C23490E00865AC2 /* FilterBand.swift in Sources */,
+				3EBA39832CF6818A00A3C1A6 /* ConcurrentQueueLock.swift in Sources */,
 				3E0218922C23490E00865AC2 /* LegacyColorSchemesPersistentState.swift in Sources */,
 				3E9C12132622216500D90EA4 /* ThemesManager.swift in Sources */,
 				3E0218B12C23490E00865AC2 /* PlaybackProfilePersistentState.swift in Sources */,
