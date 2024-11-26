@@ -40,8 +40,6 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     
     private lazy var alertDialog: AlertWindowController = .instance
     
-    private let playQueue: PlayQueueDelegateProtocol = playQueueDelegate
-    
     private lazy var messenger = Messenger(for: self)
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -54,6 +52,7 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
         
         let selRows = playQueueUIState.selectedRows
         let hasSelRows = selRows.isNonEmpty
+        let notBeingModified = !playQueueDelegate.isBeingModified
         
         let pqSize = playQueueDelegate.size
         let pqHasTracks = pqSize > 0
@@ -61,7 +60,7 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
         let notAllTracksSelected = selRows.count < pqSize
         
         var playingTrackSelected = false
-        if let currentTrackIndex = playQueue.currentTrackIndex, selRows.contains(currentTrackIndex) {
+        if let currentTrackIndex = playQueueDelegate.currentTrackIndex, selRows.contains(currentTrackIndex) {
             playingTrackSelected = true
         }
         
@@ -69,24 +68,26 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
         
         playSelectedTrackItem.enableIf(selRows.count == 1 && (!playingTrackSelected))
         
-        importFilesItem.enableIf(notInGaplessMode)
+        importFilesItem.enableIf(notBeingModified && notInGaplessMode)
         
-        [exportToPlaylistItem, removeAllTracksItem, selectAllTracksItem, invertSelectionItem, searchItem,
+        [exportToPlaylistItem, selectAllTracksItem, invertSelectionItem, searchItem,
          pageUpItem, pageDownItem, scrollToTopItem, scrollToBottomItem, searchItem].forEach {
             
             $0.enableIf(pqHasTracks)
         }
         
-        removeSelectedTracksItem.enableIf(hasSelRows && notInGaplessMode)
+        removeAllTracksItem.enableIf(pqHasTracks && notBeingModified)
+        
+        removeSelectedTracksItem.enableIf(hasSelRows && notBeingModified && notInGaplessMode)
         clearSelectionItem.enableIf(hasSelRows)
         
         [cropSelectedTracksItem, moveSelectedTracksUpItem,
          moveSelectedTracksToTopItem, moveSelectedTracksDownItem, moveSelectedTracksToBottomItem].forEach {
             
-            $0.enableIf(hasSelRows && moreThanOneTrack && notAllTracksSelected && notInGaplessMode)
+            $0.enableIf(hasSelRows && notBeingModified && moreThanOneTrack && notAllTracksSelected && notInGaplessMode)
         }
         
-        sortItem.enableIf(moreThanOneTrack && notInGaplessMode)
+        sortItem.enableIf(moreThanOneTrack && notBeingModified && notInGaplessMode)
     }
     
     // Plays the selected play queue track.
@@ -106,26 +107,17 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     
     // Removes any selected tracks from the play queue
     @IBAction func removeSelectedTracksAction(_ sender: Any) {
-        
-        if !checkIfPlayQueueIsBeingModified() {
-            messenger.publish(.PlayQueue.removeTracks)
-        }
+        messenger.publish(.PlayQueue.removeTracks)
     }
     
     // Crops track selection.
     @IBAction func cropSelectedTracksAction(_ sender: Any) {
-        
-        if !checkIfPlayQueueIsBeingModified() {
-            messenger.publish(.PlayQueue.cropSelection)
-        }
+        messenger.publish(.PlayQueue.cropSelection)
     }
     
     // Removes all tracks from the play queue.
     @IBAction func removeAllTracksAction(_ sender: Any) {
-        
-        if !checkIfPlayQueueIsBeingModified() {
-            messenger.publish(.PlayQueue.removeAllTracks)
-        }
+        messenger.publish(.PlayQueue.removeAllTracks)
     }
     
     @IBAction func selectAllTracksAction(_ sender: Any) {
@@ -144,34 +136,22 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     
     // Moves any selected tracks up one row in the play queue
     @IBAction func moveTracksUpAction(_ sender: Any) {
-        
-        if !checkIfPlayQueueIsBeingModified() {
-            messenger.publish(.PlayQueue.moveTracksUp)
-        }
+        messenger.publish(.PlayQueue.moveTracksUp)
     }
     
     // Moves the selected playlist item up one row in the play queue
     @IBAction func moveTracksToTopAction(_ sender: Any) {
-        
-        if !checkIfPlayQueueIsBeingModified() {
-            messenger.publish(.PlayQueue.moveTracksToTop)
-        }
+        messenger.publish(.PlayQueue.moveTracksToTop)
     }
     
     // Moves any selected tracks down one row in the play queue
     @IBAction func moveTracksDownAction(_ sender: Any) {
-        
-        if !checkIfPlayQueueIsBeingModified() {
-            messenger.publish(.PlayQueue.moveTracksDown)
-        }
+        messenger.publish(.PlayQueue.moveTracksDown)
     }
     
     // Moves the selected playlist item up one row in the play queue
     @IBAction func moveTracksToBottomAction(_ sender: Any) {
-        
-        if !checkIfPlayQueueIsBeingModified() {
-            messenger.publish(.PlayQueue.moveTracksToBottom)
-        }
+        messenger.publish(.PlayQueue.moveTracksToBottom)
     }
     
     // Scrolls the current playlist view to the very top.
@@ -194,16 +174,5 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func searchAction(_ sender: Any) {
         messenger.publish(.PlayQueue.search)
-    }
-    
-    private func checkIfPlayQueueIsBeingModified() -> Bool {
-        
-        let playQueueBeingModified = playQueue.isBeingModified
-        
-        if playQueueBeingModified {
-            alertDialog.showAlert(.error, "Play Queue not modified", "The Play Queue cannot be modified while tracks are being added", "Please wait till the Play Queue is done adding tracks ...")
-        }
-        
-        return playQueueBeingModified
     }
 }

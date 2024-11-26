@@ -22,10 +22,14 @@ class TrackList: TrackListProtocol {
     var displayName: String {"Track List"}
     
     /// A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
-    var _tracks: OrderedDictionary<URL, Track> = OrderedDictionary()
+    lazy var _tracks: OrderedDictionary<URL, Track> = .init()
+    lazy var lockQueue = DispatchQueue(label: "LockQueue for '\(displayName)'", qos: .userInitiated, attributes: .concurrent)
     
     var tracks: [Track] {
-        Array(_tracks.values)
+        
+        lockQueue.sync {
+            Array(_tracks.values)
+        }
     }
 
     var _isBeingModified: AtomicBool = AtomicBool(value: false)
@@ -42,15 +46,24 @@ class TrackList: TrackListProtocol {
     var session: TrackLoadSession!
     
     var size: Int {
-        _tracks.count
+        
+        lockQueue.sync {
+            _tracks.count
+        }
     }
     
     var indices: Range<Int> {
-        0..<_tracks.count
+        
+        lockQueue.sync {
+            _tracks.indices
+        }
     }
     
     var duration: Double {
-        _tracks.values.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
+        
+        lockQueue.sync {
+            _tracks.values.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
+        }
     }
     
     var summary: (size: Int, totalDuration: Double) {
@@ -58,7 +71,10 @@ class TrackList: TrackListProtocol {
     }
     
     var isEmpty: Bool {
-        _tracks.isEmpty
+        
+        lockQueue.sync {
+            _tracks.isEmpty
+        }
     }
     
     var isNonEmpty: Bool {
@@ -68,32 +84,53 @@ class TrackList: TrackListProtocol {
     /// Safe array access.
     subscript(index: Int) -> Track? {
         
-        guard index >= 0, index < _tracks.count else {return nil}
-        return _tracks.elements[index].value
+        lockQueue.sync {
+            
+            guard index >= 0, index < _tracks.count else {return nil}
+            return _tracks.elements[index].value
+        }
     }
     
     subscript(indices: IndexSet) -> [Track] {
-        indices.map {_tracks.elements[$0].value}
+
+        lockQueue.sync {
+            indices.map {_tracks.elements[$0].value}
+        }
     }
     
     func indexOfTrack(_ track: Track) -> Int?  {
-        _tracks.index(forKey: track.file)
+        
+        lockQueue.sync {
+            _tracks.index(forKey: track.file)
+        }
     }
     
     func indexOfTrack(forFile file: URL) -> Int? {
-        _tracks.index(forKey: file)
+        
+        lockQueue.sync {
+            _tracks.index(forKey: file)
+        }
     }
     
     func hasTrack(_ track: Track) -> Bool {
-        _tracks[track.file] != nil
+        
+        lockQueue.sync {
+            _tracks[track.file] != nil
+        }
     }
     
     func hasTrack(forFile file: URL) -> Bool {
-        _tracks[file] != nil
+        
+        lockQueue.sync {
+            _tracks[file] != nil
+        }
     }
     
     func findTrack(forFile file: URL) -> Track? {
-        _tracks[file]
+        
+        lockQueue.sync {
+            _tracks[file]
+        }
     }
 
     // TODO: Verify that this actually works (OrderedSet) ... no duplicates !!!
@@ -107,28 +144,41 @@ class TrackList: TrackListProtocol {
     
     @discardableResult func addTracks(_ newTracks: [Track]) -> IndexSet {
         
+        let sizeBeforeAdd = self.size
         let dedupedTracks = deDupeTracks(newTracks)
-        guard dedupedTracks.isNonEmpty else {return .empty}
+        let numTracksToAdd = dedupedTracks.count
+        guard numTracksToAdd > 0 else {return .empty}
         
-        return doAddTracks(dedupedTracks)
+        let sizeAfterAdd = sizeBeforeAdd + numTracksToAdd
+        self.doAddTracks(dedupedTracks)
+        
+        return IndexSet(sizeBeforeAdd..<sizeAfterAdd)
     }
     
     @inlinable
     @inline(__always)
-    func doAddTracks(_ newTracks: [Track]) -> IndexSet {
-        _tracks.addMappings(newTracks.map {($0.file, $0)})
+    func doAddTracks(_ newTracks: [Track]) {
+        
+        lockQueue.async(flags: .barrier) {
+            self._tracks.addMappings(newTracks.map {($0.file, $0)})
+        }
     }
     
     @discardableResult func insertTracks(_ newTracks: [Track], at insertionIndex: Int) -> IndexSet {
         
+        print("Inserting tracks from: \(Thread.current)")
+        
         let dedupedTracks = deDupeTracks(newTracks)
         guard dedupedTracks.isNonEmpty else {return .empty}
         
-        // Need to insert in reverse order.
-        for index in stride(from: dedupedTracks.lastIndex, through: 0, by: -1) {
+        lockQueue.async(flags: .barrier) {
             
-            let track = dedupedTracks[index]
-            _tracks.insertItem(track, forKey: track.file, at: insertionIndex)
+            // Need to insert in reverse order.
+            for index in stride(from: dedupedTracks.lastIndex, through: 0, by: -1) {
+                
+                let track = dedupedTracks[index]
+                self._tracks.insertItem(track, forKey: track.file, at: insertionIndex)
+            }
         }
         
         return IndexSet(insertionIndex..<(insertionIndex + dedupedTracks.count))

@@ -57,8 +57,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = playbackInfoDelegate
     private lazy var playbackProfiles: PlaybackProfiles = playbackDelegate.profiles
     
-    private lazy var playQueue: PlayQueueDelegateProtocol = playQueueDelegate
-    
     private let playbackPreferences: PlaybackPreferences = preferences.playbackPreferences
     
     private lazy var jumpToTimeDialogLoader: LazyWindowLoader<JumpToTimeEditorWindowController> = LazyWindowLoader()
@@ -82,9 +80,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let hasChapters = playbackInfo.chapterCount > 0
         
         // Play/pause enabled if at least one track available
-        playOrPauseMenuItem.enableIf(playQueue.size > 0 && !NSApp.isReceivingTextInput)
+        playOrPauseMenuItem.enableIf(playQueueDelegate.size > 0 && !NSApp.isReceivingTextInput)
         
-        gaplessPlaybackMenuItem.enableIf(noTrack && playQueue.size > 1)
+        gaplessPlaybackMenuItem.enableIf(noTrack && playQueueDelegate.size > 1 && (!playQueueDelegate.isBeingModified))
         
         stopMenuItem.enableIf(!noTrack)
         jumpToTimeMenuItem?.enableIf(isPlayingOrPaused)
@@ -267,7 +265,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Updates the menu item states per the current playback modes
     private func updateRepeatAndShuffleMenuItemStates() {
         
-        let modes = playQueue.repeatAndShuffleModes
+        let modes = playQueueDelegate.repeatAndShuffleModes
         
         shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
         shuffleOnMenuItem.onIf(modes.shuffleMode == .on)

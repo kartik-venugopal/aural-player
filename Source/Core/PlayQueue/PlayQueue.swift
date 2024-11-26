@@ -5,7 +5,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     override var displayName: String {"The Play Queue"}
     
     override var trackLoadQoS: DispatchQoS.QoSClass {
-        .userInitiated
+        .userInteractive
     }
     
     // MARK: Accessor functions

@@ -21,7 +21,6 @@ extension TrackList: TrackListFileSystemLoadingProtocol {
         
         _isBeingModified.setTrue()
         
-        // TODO: Priority should be declared per trackList, not hard-coded here.
         session = TrackLoadSession(forLoader: self, withPriority: trackLoadQoS, urls: urls, insertionIndex: insertionIndex)
         
         // Move to a background thread to unblock the main thread.

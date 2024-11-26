@@ -107,23 +107,23 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     }
     
     private func beginPlayback() {
-        doPlay({playQueue.start()}, PlaybackParams.defaultParams())
+        doPlay({playQueueDelegate.start()}, PlaybackParams.defaultParams())
     }
     
     func beginGaplessPlayback() throws {
         
-        try playQueue.prepareForGaplessPlayback()
+        try playQueueDelegate.prepareForGaplessPlayback()
         doBeginGaplessPlayback()
     }
     
     private func doBeginGaplessPlayback() {
         
         _ = playQueueDelegate.start()
-        player.playGapless(tracks: playQueue.tracks)
+        player.playGapless(tracks: playQueueDelegate.tracks)
         
         // Inform observers of the track change/transition.
         messenger.publish(TrackTransitionNotification(beginTrack: nil, beginState: .stopped,
-                                                      endTrack: playQueue.tracks.first, endState: player.state))
+                                                      endTrack: playQueueDelegate.tracks.first, endState: player.state))
     }
     
     func previousTrack() {
@@ -132,17 +132,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         if isInGaplessPlaybackMode {
             
-            let beginTrack = playQueue.currentTrack
+            let beginTrack = playQueueDelegate.currentTrack
             let beginState = player.state
             
-            let endTrack = playQueue.previous()
-            player.playGapless(tracks: playQueue.tracksPendingPlayback)
+            let endTrack = playQueueDelegate.previous()
+            player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
             
             messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
                                                           endTrack: endTrack, endState: player.state))
             
         } else {
-            doPlay({playQueue.previous()})
+            doPlay({playQueueDelegate.previous()})
         }
     }
     
@@ -152,30 +152,30 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         if isInGaplessPlaybackMode {
             
-            let beginTrack = playQueue.currentTrack
+            let beginTrack = playQueueDelegate.currentTrack
             let beginState = player.state
             
-            let endTrack = playQueue.next()
-            player.playGapless(tracks: playQueue.tracksPendingPlayback)
+            let endTrack = playQueueDelegate.next()
+            player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
             
             messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
                                                           endTrack: endTrack, endState: player.state))
             
         } else {
-            doPlay({playQueue.next()})
+            doPlay({playQueueDelegate.next()})
         }
     }
     
     func play(trackAtIndex index: Int, _ params: PlaybackParams) {
-        doPlay({playQueue.select(trackAt: index)}, params)
+        doPlay({playQueueDelegate.select(trackAt: index)}, params)
     }
     
     func play(track: Track, _ params: PlaybackParams) {
-        doPlay({playQueue.selectTrack(track)}, params)
+        doPlay({playQueueDelegate.selectTrack(track)}, params)
     }
     
 //    func play(_ group: Group, _ params: PlaybackParams) {
-//        doPlay({playQueue.select(group)}, params)
+//        doPlay({playQueueDelegate.select(group)}, params)
 //    }
     
     // Captures the current player state and proceeds with playback according to the playback sequence
@@ -387,11 +387,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     }
     
     var playingTrack: Track? {
-        state.isPlayingOrPaused ? playQueue.currentTrack : nil
+        state.isPlayingOrPaused ? playQueueDelegate.currentTrack : nil
     }
     
     var hasPlayingTrack: Bool {
-        playQueue.currentTrack != nil
+        playQueueDelegate.currentTrack != nil
     }
     
     var playingTrackStartTime: TimeInterval? {
