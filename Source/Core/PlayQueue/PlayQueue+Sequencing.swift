@@ -16,7 +16,7 @@ extension PlayQueue {
 
         // Set the scope of the new sequence according to the playlist view type. For ex, if the "Artists" playlist view is selected, the new sequence will consist of all tracks in the "Artists" playlist, and the order of playback will be determined by the ordering within the Artists playlist (in addition to the repeat/shuffle modes).
         if shuffleMode == .on {
-            shuffleSequence.resizeAndReshuffle(size: self.size)
+            shuffleSequence.initialize(with: tracks, playingTrack: nil)
         }
 
         // Begin playing the subsequent track (first track determined by the sequence)
@@ -35,11 +35,11 @@ extension PlayQueue {
         
         guard let track = self[index] else {return nil}
         
-        if shuffleMode == .on {
-            shuffleSequence.resizeAndReshuffle(size: self.size, startWith: index)
-        }
+//        if shuffleMode == .on {
+//            shuffleSequence.resizeAndReshuffle(size: self.size, startWith: index)
+//        }
         
-        print("Selected track[\(index)], Seq: \(shuffleSequence.size), \(shuffleSequence.currentValue)")
+//        print("Selected track[\(index)], Seq: \(shuffleSequence.size), \(shuffleSequence.currentValue)")
         
         currentTrackIndex = index
         return track
@@ -49,11 +49,11 @@ extension PlayQueue {
         
         guard let index = indexOfTrack(track) else {return nil}
         
-        if shuffleMode == .on {
-            shuffleSequence.resizeAndReshuffle(size: self.size, startWith: index)
-        }
-        
-        print("Selected \(track), Seq: \(shuffleSequence.size), \(shuffleSequence.currentValue)")
+//        if shuffleMode == .on {
+//            shuffleSequence.resizeAndReshuffle(size: self.size, startWith: index)
+//        }
+//        
+//        print("Selected \(track), Seq: \(shuffleSequence.size), \(shuffleSequence.currentValue)")
         
         currentTrackIndex = index
         return track
@@ -63,7 +63,18 @@ extension PlayQueue {
 
     func subsequent() -> Track? {
         
-        currentTrackIndex = shuffleMode == .on ? shuffleSequence.next(repeatMode: repeatMode) : indexOfSubsequent
+        if shuffleMode == .on {
+            
+            if let nextTrack = shuffleSequence.next(repeatMode: repeatMode) {
+                currentTrackIndex = _tracks.index(forKey: nextTrack.file)
+            } else {
+                currentTrackIndex = nil
+            }
+            
+        } else {
+            currentTrackIndex = indexOfSubsequent
+        }
+        
         return currentTrack
     }
     
@@ -98,11 +109,11 @@ extension PlayQueue {
             return currentTrackIndex == nil ? 0 : currentTrackIndex
         
         // Repeat Off / All, Shuffle On
-        case (.off, .on), (.all, .on):
-           
-            // If the sequence is complete (all tracks played), no track
-            // Cannot predict next track because sequence will be reset
-            return shuffleSequence.peekNext()
+//        case (.off, .on), (.all, .on):
+//           
+//            // If the sequence is complete (all tracks played), no track
+//            // Cannot predict next track because sequence will be reset
+//            return shuffleSequence.peekNext()
             
         default:
             

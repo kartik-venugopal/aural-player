@@ -97,9 +97,9 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             let newPlayingTrackIndex = playingTrackIndex + newTracks.count
             currentTrackIndex = newPlayingTrackIndex
             
-            if shuffleMode == .on {
-                shuffleSequence.resizeAndReshuffle(size: self.size, startWith: newPlayingTrackIndex)
-            }
+//            if shuffleMode == .on {
+//                shuffleSequence.resizeAndReshuffle(size: self.size, startWith: newPlayingTrackIndex)
+//            }
         }
         
         return indices
@@ -121,9 +121,9 @@ class PlayQueue: TrackList, PlayQueueProtocol {
                 let newPlayingTrackIndex = playingTrackIndex - (indexes.filter {$0 < playingTrackIndex}.count)
                 currentTrackIndex = newPlayingTrackIndex
                 
-                if shuffleMode == .on {
-                    shuffleSequence.resizeAndReshuffle(size: self.size, startWith: newPlayingTrackIndex)
-                }
+//                if shuffleMode == .on {
+//                    shuffleSequence.resizeAndReshuffle(size: self.size, startWith: newPlayingTrackIndex)
+//                }
             }
         }
 
