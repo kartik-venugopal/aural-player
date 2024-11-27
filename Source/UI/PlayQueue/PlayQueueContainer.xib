@@ -243,7 +243,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uBj-uC-pvY" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="3" y="5" width="214" height="25"/>
+                    <rect key="frame" x="8" y="5" width="214" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="210" id="gdk-pw-xc0"/>
                         <constraint firstAttribute="height" constant="25" id="nR5-Ve-A1Z"/>
@@ -649,7 +649,7 @@
                 <constraint firstItem="qVg-n6-YlU" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="1W8-ak-IJT"/>
                 <constraint firstItem="J7Y-d2-B86" firstAttribute="leading" secondItem="0iC-Kr-Awj" secondAttribute="trailing" constant="17" id="1Yr-Od-6Wi"/>
                 <constraint firstAttribute="bottom" secondItem="OkT-Fu-DdS" secondAttribute="bottom" constant="32" id="1ql-Fw-wAq"/>
-                <constraint firstItem="uBj-uC-pvY" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="5" id="2dh-Gc-JJX"/>
+                <constraint firstItem="uBj-uC-pvY" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="2dh-Gc-JJX"/>
                 <constraint firstItem="s9j-Si-mwF" firstAttribute="bottom" secondItem="dKD-ej-8l7" secondAttribute="bottom" id="3TP-Gb-uCJ"/>
                 <constraint firstItem="jIR-8v-jiy" firstAttribute="leading" secondItem="GxK-EL-OP6" secondAttribute="trailing" constant="1" id="5sV-nW-K27"/>
                 <constraint firstItem="t6d-dO-Tjg" firstAttribute="leading" secondItem="LjQ-xb-h2D" secondAttribute="trailing" constant="5" id="6Bi-Ji-1ym"/>

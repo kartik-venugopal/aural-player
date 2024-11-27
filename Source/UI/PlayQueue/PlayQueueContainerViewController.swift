@@ -159,6 +159,7 @@ class PlayQueueContainerViewController: NSViewController {
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
+        messenger.subscribe(to: .PlayQueue.shuffleModeUpdated, handler: updateSummary)
     }
     
     func playSelectedTrack() {
@@ -252,11 +253,17 @@ class PlayQueueContainerViewController: NSViewController {
         
         if let playingTrackIndex = playQueueDelegate.currentTrackIndex {
             
-            let playIconAttStr = "▶".attributed(font: futuristicFontSet.mainFont(size: 12), color: systemColorScheme.secondaryTextColor)
-            let tracksSummaryAttStr = "  \(playingTrackIndex + 1) / \(playQueueDelegate.size) \(tracksCardinalString)".attributed(font: systemFontScheme.smallFont,
-                                                                                                                                  color: systemColorScheme.secondaryTextColor)
-            
-            lblTracksSummary.attributedStringValue = playIconAttStr + tracksSummaryAttStr
+            if playQueueDelegate.shuffleMode == .on {
+                updateShuffleSequenceProgress()
+                
+            } else {
+                
+                let playIconAttStr = "▶".attributed(font: futuristicFontSet.mainFont(size: 12), color: systemColorScheme.secondaryTextColor)
+                let tracksSummaryAttStr = "  \(playingTrackIndex + 1) / \(playQueueDelegate.size) \(tracksCardinalString)".attributed(font: systemFontScheme.smallFont,
+                                                                                                                                      color: systemColorScheme.secondaryTextColor)
+                
+                lblTracksSummary.attributedStringValue = playIconAttStr + tracksSummaryAttStr
+            }
             
         } else {
             
@@ -270,12 +277,22 @@ class PlayQueueContainerViewController: NSViewController {
         lblDurationSummary.textColor = systemColorScheme.secondaryTextColor
     }
     
+    private func updateShuffleSequenceProgress() {
+        
+        let imgAttachment = NSTextAttachment()
+        imgAttachment.image = .imgShuffle
+        let imgAttrString = NSMutableAttributedString(attachment: imgAttachment)
+        
+        let sequenceProgress = playQueueDelegate.shuffleSequence.progress
+        let tracksSummaryAttStr = "  \(sequenceProgress.tracksPlayed) / \(playQueueDelegate.size) tracks".attributed(font: systemFontScheme.smallFont,
+                                                                                                                    color: systemColorScheme.secondaryTextColor)
+        lblTracksSummary.attributedStringValue = imgAttrString + tracksSummaryAttStr
+    }
+    
     func search() {
 
         containerTabGroup.selectTabViewItem(at: 1)
         playQueueUIState.isShowingSearch = true
-        
-        
     }
     
     private func searchDone() {

@@ -26,6 +26,14 @@ class ShuffleSequence: PersistentModelObject {
     private var playedTracks: OrderedSet<Track> = .init()
     private var isPlaying: Bool = false
     
+    var progress: (tracksPlayed: Int, totalTracks: Int) {
+        
+        let numPlayedTracks = playedTracks.count
+        let numPendingTracks = sequence.count
+        
+        return (numPlayedTracks + 1, numPlayedTracks + numPendingTracks)
+    }
+    
     func initialize(with tracks: [Track], playingTrack: Track?) {
         
         clear()
@@ -40,8 +48,6 @@ class ShuffleSequence: PersistentModelObject {
         if let thePlayingTrack = playingTrack, sequence.first != thePlayingTrack, let indexOfPlayingTrack = sequence.firstIndex(of: thePlayingTrack) {
             sequence.swapAt(0, indexOfPlayingTrack)
         }
-        
-        print("\nInit Seq (\(sequence.count)), Seq: \(sequence), PTs: \(playedTracks)")
     }
     
     ///
@@ -67,8 +73,6 @@ class ShuffleSequence: PersistentModelObject {
             // Put the playing track in the second half of the sequence.
             sequence.swapAt(0, Int.random(in: halfNumTracks..<numTracks))
         }
-        
-        print("After re-shuffle, seq is: \(sequence), PTs: \(playedTracks)")
     }
     
     func addTracks(_ tracks: [Track]) {
@@ -85,22 +89,16 @@ class ShuffleSequence: PersistentModelObject {
         if sequence.first != playingTrack, let indexOfPlayingTrack = sequence.firstIndex(of: playingTrack) {
             sequence.swapAt(0, indexOfPlayingTrack)
         }
-        
-        print("\nAdded \(tracks.count) tracks: \(tracks), Seq is now (\(sequence.count)): \(sequence), PTs: \(playedTracks)")
     }
     
     func removeTracks(_ tracks: [Track]) {
         
         sequence.removeItems(tracks)
         playedTracks.removeItems(tracks)
-        
-        print("\nRemoved \(tracks.count) tracks: \(tracks), Seq is now (\(sequence.count)): \(sequence), PTs: \(playedTracks)")
     }
     
     // Clear the sequence
     func clear() {
-        
-        print("\nCleared S.Seq")
         
         sequence.removeAll()
         playedTracks.removeAll()
@@ -117,11 +115,9 @@ class ShuffleSequence: PersistentModelObject {
             let previousTrack = playedTracks.removeLast()
             sequence.insert(previousTrack, at: 0)
             
-            print("\nPrevious(): \(previousTrack) Seq: \(sequence), PTs: \(playedTracks)")
             return previousTrack
         }
         
-        print("\nPrevious(): nil")
         return nil
     }
     
@@ -130,27 +126,22 @@ class ShuffleSequence: PersistentModelObject {
         
         if !isPlaying {
             isPlaying = true
-            print("\nNext(): \(sequence.first!), Now Playing ... Seq: \(sequence), PTs: \(playedTracks)")
             
         } else if hasEnded {
             
             if repeatMode == .all, let playingTrack = sequence.first {
-                // Reshuffle if sequence has ended and need to repeat.
                 
-                print("\nNext(): hasEnded, re-shuffling !!! Don't start with: \(playingTrack) ...")
+                // Reshuffle if sequence has ended and need to repeat.
                 reShuffle(dontStartWith: playingTrack)
                 
             } else {
                 
                 // Sequence ended and will not repeat.
-                print("\nNext(): hasEnded !")
                 return nil
             }
             
         } else if sequence.isNonEmpty {
-            
             playedTracks.append(sequence.removeFirst())
-            print("\nNext(): \(sequence.first!) ... Seq: \(sequence), PTs: \(playedTracks)")
         }
         
         return sequence.first

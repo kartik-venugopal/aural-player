@@ -219,7 +219,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         var audioFormatsSet: Set<AVAudioFormat> = Set()
         var errorMsg: String? = nil
         
-        for track in _tracks.values {
+        for track in self.tracks {
             
             do {
                 

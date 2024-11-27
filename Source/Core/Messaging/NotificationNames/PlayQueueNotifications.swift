@@ -43,6 +43,8 @@ extension Notification.Name {
         // Signifies that the summary for the play queue needs to be updated.
         static let updateSummary = Notification.Name("playQueue_updateSummary")
         
+        static let shuffleModeUpdated = Notification.Name("playQueue_shuffleModeUpdated")
+        
         // ----------------------------------------------------------------------------------------
         
         // MARK: Play Queue commands

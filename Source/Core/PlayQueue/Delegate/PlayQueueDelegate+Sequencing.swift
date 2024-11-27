@@ -17,23 +17,33 @@ extension PlayQueueDelegate {
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        playQueue.toggleRepeatMode()
+        
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        return playQueue.toggleRepeatMode()
     }
     
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        playQueue.toggleShuffleMode()
+        
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        return playQueue.toggleShuffleMode()
     }
     
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        playQueue.setRepeatMode(repeatMode)
+
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        return playQueue.setRepeatMode(repeatMode)
     }
     
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        playQueue.setShuffleMode(shuffleMode)
+        
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        return playQueue.setShuffleMode(shuffleMode)
     }
     
     func setRepeatAndShuffleModes(repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        playQueue.setRepeatAndShuffleModes(repeatMode: repeatMode, shuffleMode: shuffleMode)
+
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        return playQueue.setRepeatAndShuffleModes(repeatMode: repeatMode, shuffleMode: shuffleMode)
     }
     
     func start() -> Track? {

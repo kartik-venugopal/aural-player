@@ -380,7 +380,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
 //                playQueueDelegate.enqueueToPlayNow(playlistFile: importedPlaylist, clearQueue: false)
 //                
 //            } else {
-                playQueueDelegate.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplay: true))
+//                playQueueDelegate.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplay: true))
 //            }
         }
     }
