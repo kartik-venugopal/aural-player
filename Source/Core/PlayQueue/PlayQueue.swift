@@ -42,6 +42,23 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     private var autoplay: AtomicBool = AtomicBool(value: false)
     private var markLoadedItemsForHistory: AtomicBool = AtomicBool(value: true)
     
+    @discardableResult override func addTracks(_ newTracks: [Track]) -> IndexSet {
+        
+        let sizeBeforeAdd = self.size
+        let dedupedTracks = deDupeTracks(newTracks)
+        let numTracksToAdd = dedupedTracks.count
+        guard numTracksToAdd > 0 else {return .empty}
+        
+        let sizeAfterAdd = sizeBeforeAdd + numTracksToAdd
+        self.doAddTracks(dedupedTracks)
+        
+        if shuffleMode == .on, currentTrackIndex != nil {
+            shuffleSequence.addTracks(dedupedTracks)
+        }
+        
+        return IndexSet(sizeBeforeAdd..<sizeAfterAdd)
+    }
+    
     func loadTracks(from urls: [URL], atPosition position: Int?, params: PlayQueueTrackLoadParams) {
         
         autoplay.setValue(params.autoplay)
@@ -89,20 +106,31 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     override func insertTracks(_ newTracks: [Track], at insertionIndex: Int) -> IndexSet {
         
-        let indices = super.insertTracks(newTracks, at: insertionIndex)
+        let dedupedTracks = deDupeTracks(newTracks)
+        guard dedupedTracks.isNonEmpty else {return .empty}
+        
+        tracksLock.write {
+            
+            // Need to insert in reverse order.
+            for index in stride(from: dedupedTracks.lastIndex, through: 0, by: -1) {
+                
+                let track = dedupedTracks[index]
+                self._tracks.insertItem(track, forKey: track.file, at: insertionIndex)
+            }
+        }
         
         // Check if the new tracks were inserted above (<) or below (>) the playing track index.
         if let playingTrackIndex = currentTrackIndex, insertionIndex <= playingTrackIndex {
             
-            let newPlayingTrackIndex = playingTrackIndex + newTracks.count
+            let newPlayingTrackIndex = playingTrackIndex + dedupedTracks.count
             currentTrackIndex = newPlayingTrackIndex
             
-//            if shuffleMode == .on {
-//                shuffleSequence.resizeAndReshuffle(size: self.size, startWith: newPlayingTrackIndex)
-//            }
+            if shuffleMode == .on {
+                shuffleSequence.addTracks(dedupedTracks)
+            }
         }
         
-        return indices
+        return IndexSet(insertionIndex..<(insertionIndex + dedupedTracks.count))
     }
     
     override func removeTracks(at indexes: IndexSet) -> [Track] {
@@ -121,9 +149,9 @@ class PlayQueue: TrackList, PlayQueueProtocol {
                 let newPlayingTrackIndex = playingTrackIndex - (indexes.filter {$0 < playingTrackIndex}.count)
                 currentTrackIndex = newPlayingTrackIndex
                 
-//                if shuffleMode == .on {
-//                    shuffleSequence.resizeAndReshuffle(size: self.size, startWith: newPlayingTrackIndex)
-//                }
+                if shuffleMode == .on {
+                    shuffleSequence.removeTracks(removedTracks)
+                }
             }
         }
 

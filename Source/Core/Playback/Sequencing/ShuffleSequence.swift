@@ -67,6 +67,34 @@ class ShuffleSequence: PersistentModelObject {
             // Put the playing track in the second half of the sequence.
             sequence.swapAt(0, Int.random(in: halfNumTracks..<numTracks))
         }
+        
+        print("After re-shuffle, seq is: \(sequence), PTs: \(playedTracks)")
+    }
+    
+    func addTracks(_ tracks: [Track]) {
+
+        // NOTE - Will always be playing when this func is called.
+        guard let playingTrack = sequence.first else {return}
+        
+        // Shuffle everything after the playing track
+        
+        sequence.append(contentsOf: tracks)
+        sequence.shuffle()
+        
+        // Ensure the playing track is in the first position.
+        if sequence.first != playingTrack, let indexOfPlayingTrack = sequence.firstIndex(of: playingTrack) {
+            sequence.swapAt(0, indexOfPlayingTrack)
+        }
+        
+        print("\nAdded \(tracks.count) tracks: \(tracks), Seq is now (\(sequence.count)): \(sequence), PTs: \(playedTracks)")
+    }
+    
+    func removeTracks(_ tracks: [Track]) {
+        
+        sequence.removeItems(tracks)
+        playedTracks.removeItems(tracks)
+        
+        print("\nRemoved \(tracks.count) tracks: \(tracks), Seq is now (\(sequence.count)): \(sequence), PTs: \(playedTracks)")
     }
     
     // Clear the sequence

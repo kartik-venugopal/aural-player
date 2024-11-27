@@ -13,7 +13,7 @@ import OrderedCollections
 
 extension OrderedSet where Element: Equatable {
     
-    mutating func removeItem(_ item: Element) -> Int? {
+    @discardableResult mutating func removeItem(_ item: Element) -> Int? {
         
         if let index = self.firstIndex(of: item) {
             
@@ -24,7 +24,7 @@ extension OrderedSet where Element: Equatable {
         return nil
     }
     
-    mutating func removeItems(_ items: [Element]) -> IndexSet {
+    @discardableResult mutating func removeItems(_ items: [Element]) -> IndexSet {
 
         // Collect and sort indices before removing items
         let indices: [Int] = items.compactMap {self.firstIndex(of: ($0))}
