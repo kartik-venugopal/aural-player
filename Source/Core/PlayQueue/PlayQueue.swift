@@ -169,15 +169,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             if let result = moveResults.first(where: {$0.sourceIndex == theCurrentTrackIndex}) {
                 self.currentTrackIndex = result.destinationIndex
             }
-            
-            // Update the shuffle sequence based on the new track order, with the current track being
-            // the first track in the new sequence.
-            if shuffleMode == .on {
-                shuffleSequence.reShuffle(startWith: theCurrentTrackIndex)
-            }
         }
-        
-        print("Tracks moved!")
 
         return moveResults
     }
@@ -191,12 +183,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
            let newPlayingTrackIndex = indexOfTrack(playingTrack) {
             
             currentTrackIndex = newPlayingTrackIndex
-            
-            // Update the shuffle sequence based on the new track order, with the current track being
-            // the first track in the new sequence.
-            if shuffleMode == .on {
-                shuffleSequence.reShuffle(startWith: newPlayingTrackIndex)
-            }
         }
     }
     

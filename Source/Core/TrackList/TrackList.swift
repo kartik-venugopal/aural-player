@@ -133,9 +133,6 @@ class TrackList: TrackListProtocol {
         }
     }
 
-    // TODO: Verify that this actually works (OrderedSet) ... no duplicates !!!
-    // Use case - A track and a playlist containing it (M3U) are both added.
-    
     @inlinable
     @inline(__always)
     func deDupeTracks(_ tracks: [Track]) -> [Track] {
