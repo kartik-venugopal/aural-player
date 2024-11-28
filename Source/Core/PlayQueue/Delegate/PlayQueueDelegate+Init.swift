@@ -39,18 +39,23 @@ extension PlayQueueDelegate {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
                 loadTracks(from: tracks, params: pqParmsWithAutoplayAndNoHistory)
+                playQueue.eligibleToResumeShuffleSequence = true
             }
             
         case .loadPlaylistFile:
             
             if let playlistFile = playQueuePreferences.playlistFile.value {
+                
                 loadTracks(from: [playlistFile], params: pqParmsWithAutoplayAndNoHistory)
+                playQueue.eligibleToResumeShuffleSequence = true
             }
             
         case .loadFolder:
             
             if let folder = playQueuePreferences.tracksFolder.value {
+                
                 loadTracks(from: [folder], params: pqParmsWithAutoplayAndNoHistory)
+                playQueue.eligibleToResumeShuffleSequence = true
             }
         }
         

@@ -30,7 +30,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     var displayName: String {playQueue.displayName}
     
-    let playQueue: PlayQueueProtocol
+    var playQueue: PlayQueueProtocol
 
     var tracks: [Track] {playQueue.tracks}
     
@@ -350,7 +350,8 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     var historyPersistentState: HistoryPersistentState {
         
-        let recentItems = recentItems.values.compactMap(HistoryItemPersistentState.init)
-        return HistoryPersistentState(recentItems: recentItems, lastPlaybackPosition: lastPlaybackPosition)
+        HistoryPersistentState(recentItems: recentItems.values.compactMap(HistoryItemPersistentState.init),
+                               lastPlaybackPosition: lastPlaybackPosition,
+                               shuffleSequence: shuffleMode == .on ? shuffleSequence.persistentState : nil)
     }
 }

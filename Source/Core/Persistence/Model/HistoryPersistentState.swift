@@ -20,17 +20,20 @@ struct HistoryPersistentState: Codable {
     
     let recentItems: [HistoryItemPersistentState]?
     let lastPlaybackPosition: Double?
+    let shuffleSequence: ShuffleSequencePersistentState?
     
-    init(recentItems: [HistoryItemPersistentState], lastPlaybackPosition: Double) {
+    init(recentItems: [HistoryItemPersistentState], lastPlaybackPosition: Double, shuffleSequence: ShuffleSequencePersistentState?) {
         
         self.recentItems = recentItems
         self.lastPlaybackPosition = lastPlaybackPosition
+        self.shuffleSequence = shuffleSequence
     }
     
     init(legacyPersistentState: LegacyHistoryPersistentState?) {
         
         self.recentItems = legacyPersistentState?.recentlyPlayed?.map {HistoryItemPersistentState(legacyPersistentState: $0)}
         self.lastPlaybackPosition = legacyPersistentState?.lastPlaybackPosition
+        self.shuffleSequence = nil
     }
 }
 

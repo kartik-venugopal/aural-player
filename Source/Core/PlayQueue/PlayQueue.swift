@@ -30,6 +30,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
     lazy var shuffleSequence: ShuffleSequence = ShuffleSequence()
+    var eligibleToResumeShuffleSequence: Bool = false
     
     private lazy var messenger = Messenger(for: self)
     
@@ -302,5 +303,30 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         }
         
         messenger.publish(.PlayQueue.doneAddingTracks)
+        
+        if eligibleToResumeShuffleSequence, shuffleMode == .on,
+            let shuffleSequencePersistentState = appPersistentState.playQueue?.history?.shuffleSequence,
+            let playedTracks = shuffleSequencePersistentState.playedTracks,
+           let sequenceTracks = shuffleSequencePersistentState.sequence {
+           
+            guard (playedTracks.count + sequenceTracks.count) == self.size else {return}
+            
+            for file in playedTracks {
+                
+                if !self.hasTrack(forFile: file) {
+                    return
+                }
+            }
+            
+            for file in sequenceTracks {
+                
+                if !self.hasTrack(forFile: file) {
+                    return
+                }
+            }
+            
+            print("\nCan resume Shuffle Sequence !!! ... with \(playedTracks.count) played tracks + \(sequenceTracks.count) pending tracks")
+            eligibleToResumeShuffleSequence = false
+        }
     }
 }
