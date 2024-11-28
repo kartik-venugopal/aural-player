@@ -18,6 +18,7 @@
                 <outlet property="btnShuffle" destination="rQh-C1-rOv" id="Cro-7C-S3o"/>
                 <outlet property="btnVolume" destination="cPN-nw-17n" id="i0u-of-VNb"/>
                 <outlet property="functionsMenuContainerBox" destination="OOx-gC-SDs" id="1j0-vu-zOo"/>
+                <outlet property="functionsMenuDelegate" destination="eZl-Ct-z1Z" id="8AX-RO-0S8"/>
                 <outlet property="lblPlaybackPosition" destination="jjR-wK-cgP" id="ZnI-HJ-dMO"/>
                 <outlet property="lblVolume" destination="Rp8-xb-bFV" id="Moe-u0-LyG"/>
                 <outlet property="scrollingTextViewContainerBox" destination="kbf-Yl-MG7" id="B2K-9Q-74A"/>

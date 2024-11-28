@@ -14,8 +14,6 @@ import Cocoa
  */
 class BookmarkNameInputReceiver: StringInputReceiver {
     
-    private lazy var bookmarks: BookmarksDelegateProtocol = bookmarksDelegate
-    
     private static let inputPromptString: String = "Enter a bookmark name:"
     
     var context: BookmarkInputContext?
@@ -30,7 +28,7 @@ class BookmarkNameInputReceiver: StringInputReceiver {
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !bookmarks.bookmarkWithNameExists(string)
+        let valid = !bookmarksDelegate.bookmarkWithNameExists(string)
         return valid ? (true, nil) : (false, "A bookmark with this name already exists !")
     }
     
@@ -38,7 +36,7 @@ class BookmarkNameInputReceiver: StringInputReceiver {
     func acceptInput(_ string: String) {
         
         if let track = context?.track, let startPosition = context?.startPosition {
-            _ = bookmarks.addBookmark(string, track, startPosition, context?.endPosition)
+            _ = bookmarksDelegate.addBookmark(string, track, startPosition, context?.endPosition)
         }
     }
 }

@@ -77,6 +77,7 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
         
         TrackInfoWindowController.destroy()
         messenger.unsubscribeFromAll()
+        bookmarkNamePopover.destroy()
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one

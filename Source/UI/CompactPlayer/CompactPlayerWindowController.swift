@@ -64,6 +64,9 @@ class CompactPlayerWindowController: NSWindowController {
         tabView.selectTabViewItem(at: 0)
         
         colorSchemesManager.registerSchemeObserver(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: logoImage)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: buttonColorChangeReceivers)
         
         messenger.subscribe(to: .Effects.sheetDismissed, handler: effectsSheetDismissed)
         

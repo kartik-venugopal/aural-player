@@ -15,11 +15,18 @@ class CompactPlayerViewController: PlayerViewController {
     override var nibName: NSNib.Name? {"CompactPlayer"}
     
     @IBOutlet weak var functionsMenuContainerBox: NSBox!
+    @IBOutlet weak var functionsMenuDelegate: PlayingTrackFunctionsMenuDelegate!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         startTrackingView(options: [.activeAlways, .mouseEnteredAndExited])
+    }
+    
+    override func destroy() {
+        
+        super.destroy()
+        functionsMenuDelegate.destroy()
     }
     
     override func setUpCommandHandling() {
