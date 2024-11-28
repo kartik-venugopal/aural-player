@@ -44,6 +44,18 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
             theMenu.insertItem(NSMenuItem.separator(), at: 0)
         }
         
+        for scheme in FontScheme.allSystemDefinedSchemes {
+            
+            fontSchemesMenu.insertPopupItem(withTitle: scheme.name,
+                                            atIndex: fontSchemesMenu.numberOfItems - 1)
+        }
+        
+        for scheme in ColorScheme.allSystemDefinedSchemes {
+            
+            colorSchemesMenu.insertPopupItem(withTitle: scheme.name,
+                                             atIndex: colorSchemesMenu.numberOfItems - 1)
+        }
+        
         lblError?.font = .stringInputPopoverErrorFont
     }
     
@@ -70,7 +82,7 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
     private func initFontSchemesMenu() {
         
         fontSchemesMenu.recreateMenu(insertingItemsAt: 3, fromItems: fontSchemesManager.userDefinedObjects,
-                                     indentationLevel: 1)
+                                     indentationLevel: 0)
         
         let showDescriptors: Bool = fontSchemesManager.numberOfUserDefinedObjects > 0
         
@@ -84,7 +96,7 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
     private func initColorSchemesMenu() {
         
         colorSchemesMenu.recreateMenu(insertingItemsAt: 3, fromItems: colorSchemesManager.userDefinedObjects,
-                                      indentationLevel: 1)
+                                      indentationLevel: 0)
         
         let showDescriptors: Bool = colorSchemesManager.numberOfUserDefinedObjects > 0
         
@@ -92,7 +104,7 @@ class CreateThemeDialogController: SingletonWindowController, StringInputReceive
             colorSchemesMenu.item(at: index)?.showIf(showDescriptors)
         }
         
-        btnColorSchemesMenu.select(colorSchemesMenu.item(withTitle: ColorSchemePreset.blackAndGreen.name))
+        btnColorSchemesMenu.selectItem(withTitle: ColorScheme.defaultScheme.name)
     }
     
     @IBAction func cornerRadiusStepperAction(_ sender: NSStepper) {

@@ -26,7 +26,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="480" height="200"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
             <value key="minSize" type="size" width="480" height="200"/>
             <value key="maxSize" type="size" width="5000" height="200"/>
             <view key="contentView" id="W7v-UI-tl4">
@@ -53,8 +53,8 @@
                                         <action selector="quitAction:" target="-2" id="te0-r8-B0U"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Minimize" wantsLayer="YES" focusRingType="none" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="41" y="176" width="14.5" height="10"/>
+                                <button toolTip="Minimize" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="41" y="178" width="14.5" height="4"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="minus" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="axesIndependently" inset="2" id="vzp-6D-Pbu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -64,7 +64,7 @@
                                     </connections>
                                 </button>
                                 <popUpButton toolTip="Change presentation mode" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9db-vT-04V" userLabel="Presentation Mode Menu">
-                                    <rect key="frame" x="22" y="171" width="18" height="18"/>
+                                    <rect key="frame" x="22" y="174" width="18" height="12"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="66m-mO-xRo">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="cellTitle"/>
@@ -106,7 +106,7 @@
                                     </popUpButtonCell>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="13" id="Mws-Ab-4dF"/>
-                                        <constraint firstAttribute="height" constant="18" id="iW3-Yj-BR5"/>
+                                        <constraint firstAttribute="height" constant="12" id="iW3-Yj-BR5"/>
                                     </constraints>
                                 </popUpButton>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="AppLogoView" customModule="Aural" customModuleProvider="target">
@@ -130,9 +130,9 @@
                                     </constraints>
                                 </popUpButton>
                                 <box autoresizesSubviews="NO" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Player Container Box">
-                                    <rect key="frame" x="0.0" y="0.0" width="480" height="170"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="173"/>
                                     <view key="contentView" id="DYU-Up-NX9">
-                                        <rect key="frame" x="0.0" y="0.0" width="480" height="170"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="173"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
@@ -153,7 +153,7 @@
                                 <constraint firstItem="hPg-iX-tXz" firstAttribute="top" secondItem="9db-vT-04V" secondAttribute="bottom" constant="1" id="tdW-CM-upQ"/>
                                 <constraint firstItem="efk-uj-yYR" firstAttribute="top" secondItem="sdu-Lk-MLz" secondAttribute="top" constant="13" id="w0Z-CI-OCd"/>
                                 <constraint firstItem="hPg-iX-tXz" firstAttribute="leading" secondItem="sdu-Lk-MLz" secondAttribute="leading" id="wrJ-Ji-EaB"/>
-                                <constraint firstItem="9db-vT-04V" firstAttribute="centerY" secondItem="L4p-3A-TgZ" secondAttribute="centerY" id="xVm-2A-daC"/>
+                                <constraint firstItem="9db-vT-04V" firstAttribute="centerY" secondItem="L4p-3A-TgZ" secondAttribute="centerY" constant="-1" id="xVm-2A-daC"/>
                             </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

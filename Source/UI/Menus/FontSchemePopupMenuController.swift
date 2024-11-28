@@ -26,6 +26,24 @@ class FontSchemePopupMenuController: GenericPresetPopupMenuController {
     override var userDefinedPresets: [UserManagedObject] {fontSchemesManager.userDefinedObjects}
     override var numberOfUserDefinedPresets: Int {fontSchemesManager.numberOfUserDefinedObjects}
     
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        if !builtInPresetsAdded {
+            
+            for scheme in FontScheme.allSystemDefinedSchemes {
+                
+                theMenu.insertItem(withTitle: scheme.name,
+                                   atIndex: theMenu.numberOfItems - 2,
+                                   action: #selector(applyPresetAction(_:)),
+                                   target: self)
+            }
+            
+            builtInPresetsAdded = true
+        }
+    }
+    
     override func presetExists(named name: String) -> Bool {
         fontSchemesManager.objectExists(named: name)
     }

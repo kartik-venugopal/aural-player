@@ -15,7 +15,7 @@ import Cocoa
 class ColorScheme: NSObject, UserManagedObject {
     
     // Default color scheme (uses colors from the default system-defined preset)
-    static let defaultScheme: ColorScheme = ColorScheme("_default_", true, .lava)
+    static let defaultScheme: ColorScheme = .grayRed
     
     // Displayed name
     var name: String

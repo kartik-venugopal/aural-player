@@ -26,13 +26,13 @@ class ThemeSetupViewController: NSViewController {
         btnFontScheme.menu?.removeAllItems()
         
         for scheme in FontScheme.allSystemDefinedSchemes {
-            btnFontScheme.menu?.addItem(withTitle: scheme.name)
+            btnFontScheme.menu?.addPopupItem(withTitle: scheme.name)
         }
         
         btnColorScheme.menu?.removeAllItems()
         
         for scheme in ColorScheme.allSystemDefinedSchemes {
-            btnColorScheme.menu?.addItem(withTitle: scheme.name)
+            btnColorScheme.menu?.addPopupItem(withTitle: scheme.name)
         }
 
         let fontSchemeName = appSetup.fontSchemePreset.name

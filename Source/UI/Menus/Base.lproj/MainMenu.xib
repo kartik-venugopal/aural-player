@@ -1025,60 +1025,6 @@ CA
                                 <menu key="submenu" title=" Font scheme" showsStateColumn="NO" id="G9F-gD-469">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="5hh-Ex-7PK"/>
-                                        <menuItem title="Standard" id="2OP-IR-eRt">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="ctY-D2-zOS"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Rounded" id="oaw-va-JjN">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="wwr-f5-gYG"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Programmer" id="1fz-WO-dPG">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="YKB-af-TaA"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Futuristic" id="Avq-CC-vsA">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="upJ-Y5-702"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Novelist" id="G36-0J-eKJ">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="p6t-YY-hHG"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Soy Sauce" id="5eu-Ul-DbR">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="ULR-TD-wYc"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Gothic" id="5eS-cb-mRx">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="QtQ-YQ-XCT"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Papyrus" id="0yC-8M-kyW">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="TxW-gx-cMS"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Poolside.fm" id="GuE-II-cQ5">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="Tt2-hR-zeD" id="Vz8-RZ-Ig1"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lJv-Mp-4QO"/>
                                         <menuItem title="Customize ..." id="QMy-cW-pgK">
                                             <modifierMask key="keyEquivalentModifierMask"/>

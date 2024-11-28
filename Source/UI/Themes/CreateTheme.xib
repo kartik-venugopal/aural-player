@@ -27,7 +27,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="481" height="305"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
             <view key="contentView" wantsLayer="YES" id="RsD-U2-XF4">
                 <rect key="frame" x="0.0" y="0.0" width="481" height="305"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -105,39 +105,12 @@ Gw
                             <menu key="menu" autoenablesItems="NO" id="OyI-FV-DEM">
                                 <items>
                                     <menuItem isSeparatorItem="YES" state="on" id="DKf-y1-aQu"/>
-                                    <menuItem title="Standard" indentationLevel="1" id="d3k-lV-9V5">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Rounded" indentationLevel="1" id="3b5-j5-L9A">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Programmer" indentationLevel="1" id="oyQ-bD-awW">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Futuristic" indentationLevel="1" id="fZG-33-eiS">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Novelist" indentationLevel="1" id="orv-vF-AMV">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Soy Sauce" indentationLevel="1" id="zFR-XZ-jTb">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Gothic" indentationLevel="1" id="ym6-Yg-Be1">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Papyrus" indentationLevel="1" id="UuB-41-KDu">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Poolside.fm" indentationLevel="1" id="Xm1-5a-j3F">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
                                 </items>
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Wl-QU-B5i" userLabel="Color Schemes menu">
-                        <rect key="frame" x="203" y="117" width="269" height="25"/>
+                        <rect key="frame" x="204" y="117" width="269" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="0FK-gZ-4YF" id="yeD-N2-dgB" userLabel="Menu">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -145,30 +118,6 @@ Gw
                             <menu key="menu" autoenablesItems="NO" id="vzz-Gz-k69">
                                 <items>
                                     <menuItem isSeparatorItem="YES" state="on" id="0FK-gZ-4YF"/>
-                                    <menuItem title="Black attack (default)" indentationLevel="1" id="I0O-wl-tXH">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Black &amp; aqua" indentationLevel="1" id="f77-3v-8UG">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Lava" indentationLevel="1" id="3ew-jL-clZ">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="White blight" indentationLevel="1" id="y89-oP-C1g">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Gloomy day" indentationLevel="1" id="yMz-N9-BDS">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Brownie" indentationLevel="1" id="Qxf-xK-IMV">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="The blues" indentationLevel="1" id="Hth-NX-aqe">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem title="Poolside.fm" indentationLevel="1" id="rtQ-RV-XXe">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
                                 </items>
                             </menu>
                         </popUpButtonCell>

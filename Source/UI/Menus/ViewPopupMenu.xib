@@ -186,60 +186,6 @@
                     <menu key="submenu" title="Font scheme" showsStateColumn="NO" id="wcj-fd-mfV">
                         <items>
                             <menuItem isSeparatorItem="YES" id="Qco-d6-LEf"/>
-                            <menuItem title="Standard" id="pRR-dT-0fq">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="Q5x-Jm-EaE"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Rounded" id="6IA-jj-rkZ">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="ZjY-YF-TzV"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Programmer" id="ft4-TT-rSX">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="hJY-b4-QCT"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Futuristic" id="BXK-wi-rcA">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="EV1-nW-3ey"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Novelist" id="3FK-wW-XFH">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="MMD-4R-lHH"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Soy Sauce" id="auM-9l-Vpc">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="QZQ-KC-x1l"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Gothic" id="0A8-mI-FxV">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="8Sm-5U-2A7"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Papyrus" id="93N-Qd-rBy">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="031-Ur-C8i"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Poolside.fm" id="bJY-mM-yoB">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Imh-AV-TmK" id="9aP-NO-RTb"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="9AM-ud-7ra"/>
                             <menuItem title="Customize ..." id="QZf-TT-Yg0">
                                 <modifierMask key="keyEquivalentModifierMask"/>
