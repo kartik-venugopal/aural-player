@@ -17,6 +17,8 @@ class GenericPresetPopupMenuController: NSObject {
     @IBOutlet weak var theMenu: NSMenu!
     private lazy var presetNamePopover: StringInputPopoverViewController = .create(self)
     
+    var builtInPresetsAdded: Bool = false
+    
     var descriptionOfPreset: String {"preset"}
     var descriptionOfPreset_plural: String {"presets"}
     
@@ -58,6 +60,8 @@ extension GenericPresetPopupMenuController: NSMenuDelegate {
         //
         //        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!showingModalComponent)}
         //        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedObjects > 0))
+        
+        // ----------------------------------------------------------------------------------------------
                 
         theMenu.insertItem(NSMenuItem.createDescriptor(title: "Built-in \(descriptionOfPreset_plural)"), at: 0)
         theMenu.insertItem(NSMenuItem.separator(), at: 0)
@@ -65,6 +69,7 @@ extension GenericPresetPopupMenuController: NSMenuDelegate {
         theMenu.insertItem(NSMenuItem.separator(), at: 0)
         theMenu.insertItem(NSMenuItem.createDescriptor(title: "Custom \(descriptionOfPreset_plural)"), at: 0)
         theMenu.insertItem(NSMenuItem.separator(), at: 0)
+        
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {

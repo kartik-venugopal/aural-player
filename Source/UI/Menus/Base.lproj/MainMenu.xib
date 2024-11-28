@@ -1110,54 +1110,6 @@ CA
                                 <menu key="submenu" title=" Color scheme" showsStateColumn="NO" id="0pN-e2-iWV">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="Tqt-nc-xFt"/>
-                                        <menuItem title="Lava (default)" id="UNJ-Xz-x9a">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="FUx-6H-JiE" id="I7P-gs-g85"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Black &amp; aqua" id="AyQ-7D-kPG">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="FUx-6H-JiE" id="QEJ-q6-Z0g"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Black &amp; green" id="rQS-c9-vYM">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="FUx-6H-JiE" id="hqx-ry-iTu"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="White blight" id="sAs-iE-R1N">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="FUx-6H-JiE" id="FyM-Wk-2LF"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Gloomy day" id="zcT-Zz-aGL">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="FUx-6H-JiE" id="Coc-Rl-1z5"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Brownie" id="a27-YW-sMy">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="FUx-6H-JiE" id="jbk-Uu-Wc5"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="The blues" id="Mke-8q-hvQ">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="FUx-6H-JiE" id="ceL-oL-hDO"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Poolside.fm" id="cVG-pi-Cci">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="FUx-6H-JiE" id="WyU-Wx-ddu"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Au7-30-kC0"/>
                                         <menuItem title="Customize ..." id="7v3-6u-KWb">
                                             <modifierMask key="keyEquivalentModifierMask"/>

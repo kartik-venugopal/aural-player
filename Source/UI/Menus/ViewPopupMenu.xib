@@ -265,54 +265,6 @@
                     <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="Plv-bz-hVb">
                         <items>
                             <menuItem isSeparatorItem="YES" id="0Hj-bB-srZ"/>
-                            <menuItem title="Lava" id="Xu1-W6-txF">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="4ZW-7l-pLE" id="bQM-Dq-ooP"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Black &amp; aqua" id="cgk-Ns-DWO" userLabel="Black &amp; aqua">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="4ZW-7l-pLE" id="Xng-3C-k4a"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Black &amp; green" id="Iav-ui-9Zn">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="4ZW-7l-pLE" id="sV2-YH-VRE"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Gray &amp; red" id="B2a-h6-2kw">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="4ZW-7l-pLE" id="bda-kR-N3T"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="White blight" id="crR-zb-EW0">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="4ZW-7l-pLE" id="89x-ed-xov"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Gloomy day" id="0kw-FQ-nDm">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="4ZW-7l-pLE" id="u1q-Tr-e6d"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Brownie" id="mlG-rr-upC">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="4ZW-7l-pLE" id="Bvu-Sd-Osk"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Poolside.fm" id="plU-iU-F5W">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="4ZW-7l-pLE" id="fR5-QC-M05"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="ffm-t0-0B5"/>
                             <menuItem title="Customize ..." id="c6Z-FZ-Nw2">
                                 <modifierMask key="keyEquivalentModifierMask"/>

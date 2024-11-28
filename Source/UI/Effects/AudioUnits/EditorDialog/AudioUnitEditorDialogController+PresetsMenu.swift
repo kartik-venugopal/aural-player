@@ -86,9 +86,8 @@ class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
         
         for preset in userPresets.userDefinedObjects.sorted(by: {$0.name < $1.name}) {
             
-            let item = NSMenuItem(title: preset.name, action: applyPresetAction, keyEquivalent: "")
-            item.target = self.target
-            menu.addItem(item)
+            menu.addItem(withTitle: preset.name, action: applyPresetAction, 
+                         target: self.target)
         }
     }
 }

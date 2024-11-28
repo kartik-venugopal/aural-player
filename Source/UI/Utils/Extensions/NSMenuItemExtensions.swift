@@ -11,8 +11,24 @@ import Cocoa
 
 extension NSMenu {
     
-    func addItem(withTitle title: String, action: Selector? = nil) {
-        addItem(withTitle: title, action: action, keyEquivalent: "")
+    @discardableResult func addItem(withTitle title: String, action: Selector? = nil, target: AnyObject?, image: NSImage? = nil, representedObject: Any? = nil) -> NSMenuItem {
+        
+        let item = addItem(withTitle: title, action: action, keyEquivalent: "")
+        
+        item.target = target
+        item.representedObject = representedObject
+        item.image = image
+        
+        return item
+    }
+    
+    func insertItem(withTitle title: String, atIndex index: Int, action: Selector? = nil, target: AnyObject?, representedObject: Any? = nil) {
+        
+        let item: NSMenuItem = NSMenuItem(title: title, action: action, keyEquivalent: "")
+        item.target = target
+        item.representedObject = representedObject
+        
+        self.insertItem(item, at: index)
     }
     
     func recreateMenu(insertingItemsAt index: Int, withTitles titles: [String],

@@ -262,11 +262,11 @@ extension AudioUnitsViewController: NSMenuDelegate {
         for unit in audioUnitsManager.audioUnits {
 
             let itemTitle = "\(unit.name) v\(unit.versionString) by \(unit.manufacturerName)"
-            let item = NSMenuItem(title: itemTitle)
-            item.target = self
-            item.representedObject = unit
             
-            menu.addItem(item)
+            menu.addItem(withTitle: itemTitle,
+                         action: nil,
+                         target: self,
+                         representedObject: unit)
         }
     }
 }

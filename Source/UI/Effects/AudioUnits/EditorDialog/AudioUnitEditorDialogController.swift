@@ -81,9 +81,9 @@ class AudioUnitEditorDialogController: NSWindowController {
             
             for preset in factoryPresets.sorted(by: {$0.name < $1.name}) {
                 
-                let item = NSMenuItem(title: preset.name, action: #selector(applyFactoryPresetAction(_:)), keyEquivalent: "")
-                item.target = self
-                factoryPresetsMenu.addItem(item)
+                factoryPresetsMenu.addItem(withTitle: preset.name,
+                                           action: #selector(applyFactoryPresetAction(_:)),
+                                           target: self)
             }
         }
         

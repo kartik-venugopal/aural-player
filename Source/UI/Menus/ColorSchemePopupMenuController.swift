@@ -14,9 +14,6 @@ import Cocoa
  */
 class ColorSchemePopupMenuController: GenericPresetPopupMenuController {
     
-    //    @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
-    //    @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
-    
     private lazy var customizationDialogController: ColorSchemesWindowController = ColorSchemesWindowController.instance
     private lazy var managerWindowController: UIPresetsManagerWindowController = UIPresetsManagerWindowController.instance
     
@@ -25,6 +22,24 @@ class ColorSchemePopupMenuController: GenericPresetPopupMenuController {
     
     override var userDefinedPresets: [UserManagedObject] {colorSchemesManager.userDefinedObjects}
     override var numberOfUserDefinedPresets: Int {colorSchemesManager.numberOfUserDefinedObjects}
+    
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        if !builtInPresetsAdded {
+            
+            for scheme in ColorScheme.allSystemDefinedSchemes {
+                
+                theMenu.insertItem(withTitle: scheme.name,
+                                   atIndex: theMenu.numberOfItems - 2,
+                                   action: #selector(applyPresetAction(_:)),
+                                   target: self)
+            }
+            
+            builtInPresetsAdded = true
+        }
+    }
     
     override func presetExists(named name: String) -> Bool {
         colorSchemesManager.objectExists(named: name)
