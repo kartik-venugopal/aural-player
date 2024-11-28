@@ -342,12 +342,9 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     var persistentState: PlayQueuePersistentState {
         
-        let shuffleSequence = self.shuffleSequence
-        
         return .init(tracks: tracks,
                      repeatMode: repeatMode,
                      shuffleMode: shuffleMode,
-                     shuffleSequence: shuffleMode == .on && shuffleSequence.hasNext ? shuffleSequence.persistentState : nil,
                      history: self.historyPersistentState)
     }
     

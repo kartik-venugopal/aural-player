@@ -176,6 +176,8 @@ class ShuffleSequence: PersistentModelObject {
     }
     
     var persistentState: ShuffleSequencePersistentState {
-        .init(sequence: [], curIndex: -1)
+        
+        .init(sequence: self.sequence.map {$0.file},
+              playedTracks: self.playedTracks.map {$0.file})
     }
 }
