@@ -29,10 +29,35 @@ extension PlayQueueDelegate {
         }
     }
     
-    func resumeLastPlayedTrack() throws {
+    var canResumeLastPlayedTrack: Bool {
+        (lastPlayedItem != nil) && (lastPlaybackPosition > 0)
+    }
+    
+    func resumeLastPlayedTrack() {
         
-        if let lastPlayedItem = lastPlayedItem, lastPlaybackPosition > 0 {
+        if let lastPlayedItem = self.lastPlayedItem, lastPlaybackPosition > 0 {
             playTrackItem(lastPlayedItem, fromPosition: lastPlaybackPosition)
+        }
+    }
+    
+    var canResumeShuffleSequence: Bool {
+        
+        if let lastPlayedItem = lastPlayedItem,
+           let playingTrack = shuffleSequence.playingTrack, playingTrack == lastPlayedItem.track {
+
+            return true
+        }
+        
+        return false
+    }
+    
+    func resumeShuffleSequence() {
+        
+        if let lastPlayedItem = lastPlayedItem,
+           let playingTrack = shuffleSequence.playingTrack, playingTrack == lastPlayedItem.track {
+            
+            playbackDelegate.resumeShuffleSequence(with: playingTrack,
+                                                   atPosition: lastPlaybackPosition)
         }
     }
     

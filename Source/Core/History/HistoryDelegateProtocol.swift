@@ -45,7 +45,13 @@ protocol HistoryDelegateProtocol {
     
     var lastPlayedItem: TrackHistoryItem? {get}
     
-    func resumeLastPlayedTrack() throws
+    var canResumeLastPlayedTrack: Bool {get}
+    
+    func resumeLastPlayedTrack()
+    
+    var canResumeShuffleSequence: Bool {get}
+    
+    func resumeShuffleSequence()
     
     // TODO: getPlayStats(), getAddStats()
 }

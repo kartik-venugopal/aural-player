@@ -27,11 +27,14 @@ class PlaybackRequestContext {
     // The track that has been requested for playback. May be nil (e.g. when stopping the player)
     var requestedTrack: Track?
     
+    var sequenceEnded: Bool
+    
     // Playback-related parameters provided prior to execution of this request.
     // Request params may change as the preparation chain executes.
     var requestParams: PlaybackParams
     
-    init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestParams: PlaybackParams) {
+    init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestParams: PlaybackParams,
+         sequenceEnded: Bool = false) {
         
         self.currentState = currentState
         self.currentTrack = currentTrack
@@ -39,6 +42,7 @@ class PlaybackRequestContext {
         
         self.requestedTrack = requestedTrack
         self.requestParams = requestParams
+        self.sequenceEnded = sequenceEnded
     }
     
     // MARK: Static members to keep track of context instances

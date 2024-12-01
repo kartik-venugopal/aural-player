@@ -15,19 +15,17 @@ import Foundation
 ///
 class EndPlaybackSequenceAction: PlaybackChainAction {
     
-    private let playQueue: PlayQueueProtocol
-    
     private lazy var messenger = Messenger(for: self)
-    
-    init(_ playQueue: PlayQueueProtocol) {
-        self.playQueue = playQueue
-    }
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         messenger.publish(PreTrackPlaybackNotification(oldTrack: context.currentTrack, oldState: context.currentState, newTrack: nil))
         
-        playQueue.stop()
+        if context.sequenceEnded {
+            playQueueDelegate.sequenceEnded()
+        } else{
+            playQueueDelegate.stop()
+        }
         
         messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
                                                       endTrack: nil, endState: .stopped))

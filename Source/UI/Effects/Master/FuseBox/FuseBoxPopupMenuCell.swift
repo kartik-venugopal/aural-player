@@ -31,7 +31,7 @@ class FuseBoxPopupMenuCell: NSButtonCell {
     var arrowHeight: CGFloat {8}
     var arrowLineWidth: CGFloat {1.5}
     
-    var titleFont: NSFont {systemFontScheme.prominentFont}
+    var titleFont: NSFont {systemFontScheme.captionFont}
     
     override func awakeFromNib() {
         

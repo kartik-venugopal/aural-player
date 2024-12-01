@@ -174,6 +174,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         doPlay({playQueueDelegate.selectTrack(track)}, params)
     }
     
+    func resumeShuffleSequence(with track: Track, atPosition position: Double) {
+        doPlay({playQueueDelegate.resumeShuffleSequence(with: track)}, .init().withStartAndEndPosition(position))
+    }
+    
 //    func play(_ group: Group, _ params: PlaybackParams) {
 //        doPlay({playQueueDelegate.select(group)}, params)
 //    }

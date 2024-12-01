@@ -47,6 +47,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
      */
     func play(track: Track, _ params: PlaybackParams)
     
+    func resumeShuffleSequence(with track: Track, atPosition position: Double)
+    
     /*
         Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.
  

@@ -20,6 +20,7 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var recentItemsMenu: NSMenu!
     
     @IBOutlet weak var resumeLastPlayedTrackItem: NSMenuItem!
+    @IBOutlet weak var resumeShuffleSequenceItem: NSMenuItem!
     
     func menuWillOpen(_ menu: NSMenu) {
         
@@ -28,7 +29,10 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         // Retrieve the model and re-create all sub-menu items
         createChronologicalMenu(historyDelegate.allRecentItems, recentItemsMenu, self, #selector(self.playSelectedItemAction(_:)))
         
-        resumeLastPlayedTrackItem.enableIf(player.state == .stopped && historyDelegate.lastPlaybackPosition > 0)
+        let isStopped = player.state == .stopped
+        
+        resumeLastPlayedTrackItem.enableIf(isStopped && historyDelegate.canResumeLastPlayedTrack)
+        resumeShuffleSequenceItem.enableIf(isStopped && historyDelegate.canResumeShuffleSequence)
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
@@ -44,6 +48,27 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         do {
             
             try historyDelegate.resumeLastPlayedTrack()
+            
+        } catch {
+            
+            if let lastPlayedItem = historyDelegate.lastPlayedItem, let fnfError = error as? FileNotFoundError {
+                
+                // This needs to be done async. Otherwise, other open dialogs could hang.
+                DispatchQueue.main.async {
+                    
+                    // Position and display an alert with error info
+                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item").showModal()
+                    historyDelegate.deleteItem(lastPlayedItem)
+                }
+            }
+        }
+    }
+    
+    @IBAction fileprivate func resumeShuffleSequenceAction(_ sender: NSMenuItem) {
+        
+        do {
+            
+            try historyDelegate.resumeShuffleSequence()
             
         } catch {
             

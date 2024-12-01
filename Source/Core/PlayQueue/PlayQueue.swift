@@ -8,8 +8,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         .userInteractive
     }
     
-    // MARK: Accessor functions
-
     // Stores the currently playing track, if there is one
     var currentTrack: Track? {
         
@@ -33,6 +31,8 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     var eligibleToResumeShuffleSequence: Bool = false
     
     private lazy var messenger = Messenger(for: self)
+    
+    // MARK: Accessor functions
     
     override func search(_ searchQuery: SearchQuery) -> SearchResults {
         SearchResults(scope: .playQueue, tracks.enumerated().compactMap {executeQuery(index: $0, track: $1, searchQuery)})
@@ -308,6 +308,8 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             let shuffleSequencePersistentState = appPersistentState.playQueue?.history?.shuffleSequence,
             let playedTracks = shuffleSequencePersistentState.playedTracks,
            let sequenceTracks = shuffleSequencePersistentState.sequence {
+            
+            defer {eligibleToResumeShuffleSequence = false}
            
             guard (playedTracks.count + sequenceTracks.count) == self.size else {return}
             
@@ -326,7 +328,13 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             }
             
             print("\nCan resume Shuffle Sequence !!! ... with \(playedTracks.count) played tracks + \(sequenceTracks.count) pending tracks")
-            eligibleToResumeShuffleSequence = false
+            var tracksMap: [URL: Track] = [:]
+            
+            for track in self._tracks {
+                tracksMap[track.key] = track.value
+            }
+            
+            shuffleSequence.initialize(with: shuffleSequencePersistentState, playQueueTracks: tracksMap)
         }
     }
 }

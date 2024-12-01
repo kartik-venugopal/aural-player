@@ -72,7 +72,7 @@ class FuseViewController: NSViewController {
 extension FuseViewController: FontSchemeObserver {
     
     func fontSchemeChanged() {
-        lblUnitCaption.font = systemFontScheme.normalFont
+        lblUnitCaption.font = systemFontScheme.captionFont
     }
 }
 
@@ -101,6 +101,7 @@ extension FuseViewController: ColorSchemeObserver {
         
         guard effectsUnit.state == state else {return}
         
+        lblUnitCaption.unitStateChanged(to: state)
         icon.unitStateChanged(to: state)
         imgBypass.unitStateChanged(to: state)
     }

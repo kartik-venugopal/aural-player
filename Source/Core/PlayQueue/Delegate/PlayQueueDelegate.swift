@@ -352,6 +352,6 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         
         HistoryPersistentState(recentItems: recentItems.values.compactMap(HistoryItemPersistentState.init),
                                lastPlaybackPosition: lastPlaybackPosition,
-                               shuffleSequence: shuffleMode == .on ? shuffleSequence.persistentState : nil)
+                               shuffleSequence: shuffleMode == .on && shuffleSequence.isPlaying ? shuffleSequence.persistentState : nil)
     }
 }

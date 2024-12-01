@@ -105,6 +105,7 @@
             <connections>
                 <outlet property="recentItemsMenu" destination="O8Z-ZZ-NUj" id="c3M-Yd-t4b"/>
                 <outlet property="resumeLastPlayedTrackItem" destination="sYa-3o-gtH" id="ZKi-zj-5fw"/>
+                <outlet property="resumeShuffleSequenceItem" destination="VbU-d3-oBr" id="BS9-xd-Z4I"/>
             </connections>
         </customObject>
         <customObject id="RL2-vF-Zyu" customClass="FavoritesMenuController" customModule="Aural" customModuleProvider="target">
@@ -790,15 +791,21 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="History" autoenablesItems="NO" id="Dcb-WG-hNt">
                         <items>
-                            <menuItem title="Recent items" image="clock" catalog="system" id="abh-r3-OMZ" userLabel="Recent items">
+                            <menuItem title=" Recent items" image="clock" catalog="system" id="abh-r3-OMZ" userLabel="Recent items">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Recent items" autoenablesItems="NO" id="O8Z-ZZ-NUj"/>
+                                <menu key="submenu" title=" Recent items" autoenablesItems="NO" id="O8Z-ZZ-NUj"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Srn-8q-b5U"/>
-                            <menuItem title="Resume last played track" image="play" catalog="system" id="sYa-3o-gtH">
+                            <menuItem title=" Resume last played track" image="play" catalog="system" id="sYa-3o-gtH">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="resumeLastPlayedTrackAction:" target="7Mj-fX-Ivy" id="hvi-r2-m7i"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Resume shuffle sequence" image="shuffle" catalog="system" id="VbU-d3-oBr" userLabel="Resume shuffle sequence">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="resumeShuffleSequenceAction:" target="7Mj-fX-Ivy" id="9fd-AV-cMa"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="MSs-r5-uin"/>

@@ -24,7 +24,11 @@ class ShuffleSequence: PersistentModelObject {
     // Array of sequence track indexes that constitute the shuffle sequence. This array must always be of the same size as the parent playback sequence
     private var sequence: OrderedSet<Track> = .init()
     private var playedTracks: OrderedSet<Track> = .init()
-    private var isPlaying: Bool = false
+    private(set) var isPlaying: Bool = false
+    
+    var playingTrack: Track? {
+        isPlaying ? sequence.first : nil
+    }
     
     var progress: (tracksPlayed: Int, totalTracks: Int) {
         
@@ -32,6 +36,16 @@ class ShuffleSequence: PersistentModelObject {
         let numPendingTracks = sequence.count
         
         return (numPlayedTracks + 1, numPlayedTracks + numPendingTracks)
+    }
+    
+    func initialize(with persistentState: ShuffleSequencePersistentState, playQueueTracks: [URL: Track]) {
+        
+        guard let playedTracks = persistentState.playedTracks,
+              let sequenceTracks = persistentState.sequence else {return}
+        
+        self.playedTracks.append(contentsOf: playedTracks.compactMap {playQueueTracks[$0]})
+        self.sequence.append(contentsOf: sequenceTracks.compactMap {playQueueTracks[$0]})
+        self.isPlaying = true
     }
     
     func initialize(with tracks: [Track], playingTrack: Track?) {

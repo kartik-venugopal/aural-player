@@ -27,8 +27,12 @@ extension PlayQueue {
 
         // Reset the sequence cursor (to indicate that no track is playing)
         currentTrackIndex = nil
+    }
+    
+    func sequenceEnded() {
         
-        // TODO: Should we remember the sequence (for History > resume shuffle sequence) ???
+        stop()
+        
         if shuffleMode == .on {
             shuffleSequence.clear()
         }
@@ -237,6 +241,17 @@ extension PlayQueue {
         guard let previousIndex = indexOfPrevious(theCurrentTrackIndex: theCurrentTrackIndex) else {return nil}
         return self[previousIndex]
     }
+    
+    func resumeShuffleSequence(with track: Track) -> Track? {
+        
+        if let index = _tracks.index(forKey: track.file) {
+            
+            currentTrackIndex = index
+            return track
+        }
+        
+        return nil
+    }
 
     // MARK: Repeat/Shuffle -------------------------------------------------------------------------------------
     
@@ -251,9 +266,6 @@ extension PlayQueue {
             shuffleMode = .off
             shuffleSequence.clear()
         }
-        
-        // TODO: If repeat now on, shuffle is on, last track is playing, create a new sequence ???
-        // Otherwise, the track peeking buttons won't work.
         
         return repeatAndShuffleModes
     }

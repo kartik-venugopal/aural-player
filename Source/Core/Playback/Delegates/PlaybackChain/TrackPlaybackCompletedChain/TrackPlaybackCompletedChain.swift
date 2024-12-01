@@ -23,13 +23,10 @@ class TrackPlaybackCompletedChain: PlaybackChain {
     private let startPlaybackChain: StartPlaybackChain
     private let stopPlaybackChain: StopPlaybackChain
     
-    private let playQueue: PlayQueueProtocol
-    
-    init(_ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ playQueue: PlayQueueProtocol) {
+    init(_ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain) {
         
         self.startPlaybackChain = startPlaybackChain
         self.stopPlaybackChain = stopPlaybackChain
-        self.playQueue = playQueue
         
         super.init()
     }
@@ -38,9 +35,15 @@ class TrackPlaybackCompletedChain: PlaybackChain {
         
         super.execute(context)
         
-        context.requestedTrack = playQueue.subsequent()
+        context.requestedTrack = playQueueDelegate.subsequent()
         
         // Continue playback with the subsequent track (or stop if no subsequent track).
-        context.requestedTrack != nil ? startPlaybackChain.execute(context) : stopPlaybackChain.execute(context)
+        if context.requestedTrack != nil {
+            startPlaybackChain.execute(context)
+        } else {
+            
+            context.sequenceEnded = true
+            stopPlaybackChain.execute(context)
+        }
     }
 }

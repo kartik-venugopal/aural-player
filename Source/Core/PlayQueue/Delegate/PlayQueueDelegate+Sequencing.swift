@@ -54,6 +54,10 @@ extension PlayQueueDelegate {
         playQueue.stop()
     }
     
+    func sequenceEnded() {
+        playQueue.sequenceEnded()
+    }
+    
     func subsequent() -> Track? {
         playQueue.subsequent()
     }
@@ -84,5 +88,9 @@ extension PlayQueueDelegate {
     
     func selectTrack(_ track: Track) -> Track? {
         playQueue.selectTrack(track)
+    }
+    
+    func resumeShuffleSequence(with track: Track) -> Track? {
+        playQueue.resumeShuffleSequence(with: track)
     }
 }

@@ -105,7 +105,7 @@ let playbackDelegate: PlaybackDelegateProtocol = {
     
     let startPlaybackChain = StartPlaybackChain(player, playQueue: playQueue, trackReader: trackReader, playbackProfiles, preferences.playbackPreferences)
     let stopPlaybackChain = StopPlaybackChain(player, playQueue, playbackProfiles, preferences.playbackPreferences)
-    let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, playQueue)
+    let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain)
     
     // Playback Delegate
     return PlaybackDelegate(player, playQueue: playQueue, playbackProfiles, preferences.playbackPreferences,
