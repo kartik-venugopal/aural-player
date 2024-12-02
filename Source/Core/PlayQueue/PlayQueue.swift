@@ -154,6 +154,9 @@ class PlayQueue: TrackList, PlayQueueProtocol {
                     shuffleSequence.removeTracks(removedTracks)
                 }
             }
+            
+        } else if shuffleMode == .on {
+            shuffleSequence.clear()
         }
 
         return removedTracks

@@ -57,6 +57,7 @@ class SnappingWindow: NoTitleBarWindow {
     override func mouseDown(with event: NSEvent) {
 
         userMovingWindow = true
+        print("uMW: \(userMovingWindow)")
         super.mouseDown(with: event)
     }
     

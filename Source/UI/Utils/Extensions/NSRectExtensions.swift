@@ -63,4 +63,12 @@ extension NSPoint {
     func translating(_ dx: CGFloat, _ dy: CGFloat) -> NSPoint {
         self.applying(CGAffineTransform(translationX: dx, y: dy))
     }
+    
+    func distanceFrom(_ otherPoint: NSPoint) -> NSSize {
+        
+        let offsetX = self.x - otherPoint.x
+        let offsetY = self.y - otherPoint.y
+        
+        return NSMakeSize(offsetX, offsetY)
+    }
 }

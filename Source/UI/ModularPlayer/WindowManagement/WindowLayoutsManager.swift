@@ -175,8 +175,8 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             if windowMagnetismEnabled {
                 mainWindow.addChildWindow(actualWindow, ordered: .below)
             }
-                
-            actualWindow.setFrame(window.frame, display: true)
+
+//            actualWindow.setFrame(window.frame, display: true)
             loader(withID: window.id).showWindow()
         }
         
@@ -190,9 +190,16 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         
         for child in auxiliaryWindowsForModules {
             
-            if let windowID = child.windowID {
-                windows.append(LayoutWindow(id: windowID, frame: child.frame))
+            guard let windowID = child.windowID else {continue}
+            
+            var screenOffset: NSSize? = nil
+            
+            if let screen = child.screen {
+                screenOffset = child.frame.origin.distanceFrom(screen.frame.origin)
             }
+            
+            windows.append(LayoutWindow(id: windowID, screen: child.screen,
+                                        screenOffset: screenOffset, size: child.frame.size))
         }
         
         return WindowLayout(name: "_system_", systemDefined: true, mainWindowFrame: self.mainWindowFrame, displayedWindows: windows)

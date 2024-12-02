@@ -20,7 +20,8 @@ class WindowLayout {
     var effectsWindowFrame: NSRect? {
         
         if let effectsWindow = displayedWindows.first(where: {$0.id == .effects}) {
-            return effectsWindow.frame
+//            return effectsWindow.frame
+            return .zero
         }
         
         return nil
@@ -29,7 +30,8 @@ class WindowLayout {
     var playQueueWindowFrame: NSRect? {
         
         if let playQueueWindow = displayedWindows.first(where: {$0.id == .playQueue}) {
-            return playQueueWindow.frame
+//            return playQueueWindow.frame
+            return .zero
         }
         
         return nil
@@ -81,19 +83,43 @@ extension WindowLayout: UserManagedObject {
 struct LayoutWindow {
     
     let id: WindowID
-    let frame: NSRect
+    let screen: NSScreen?
     
-    init(id: WindowID, frame: NSRect) {
+    let screenOffset: NSSize?
+    let size: NSSize
+    
+    init(id: WindowID, screen: NSScreen?, screenOffset: NSSize?, size: NSSize) {
         
         self.id = id
-        self.frame = frame
+        self.screen = screen
+        
+        self.screenOffset = screenOffset
+        self.size = size
     }
                 
     init?(persistentState: LayoutWindowPersistentState) {
         
-        guard let id = persistentState.id else {return nil}
+        guard let id = persistentState.id,
+              let screen = persistentState.screen,
+              let offset = persistentState.screenOffset,
+        let size = persistentState.size,
+        let width = size.width, let height = size.height else {return nil}
         
         self.id = id
-        self.frame = persistentState.frame?.toNSRect() ?? .zero
+        
+        self.screen = NSScreen.screens.first {
+            $0.localizedName == screen.name
+        }
+        
+        if let screenOffset = persistentState.screenOffset,
+           let width = screenOffset.width, let height = screenOffset.height {
+            
+            self.screenOffset = NSMakeSize(width, height)
+            
+        } else {
+            self.screenOffset = nil
+        }
+        
+        self.size = .init(width: width, height: height)
     }
 }
