@@ -28,7 +28,9 @@ protocol AppModeController {
     var isShowingPlayer: Bool {get}
     
     var isShowingPlayQueue: Bool {get}
-    
+
+    var isShowingLyrics: Bool {get}
+
     var isShowingEffects: Bool {get}
     
     var isShowingChaptersList: Bool {get}

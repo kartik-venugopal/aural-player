@@ -30,7 +30,7 @@ class AVFFileReader: FileReaderProtocol {
     
     private func cleanUpString(_ string: String?) -> String? {
         
-        if let theTrimmedString = string?.trim().removingNewlines() {
+        if let theTrimmedString = string?.trim() {
             return theTrimmedString.isEmpty ? nil : theTrimmedString
         }
         
@@ -85,7 +85,7 @@ class AVFFileReader: FileReaderProtocol {
         metadata.art = getArt(for: file)
         
         metadata.year = parsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
-        metadata.lyrics = cleanUpString(parsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
+        metadata.lyrics = parsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)}
         
         metadata.replayGain = parsers.firstNonNilMappedValue {$0.getReplayGain(from: metadataMap)}
         

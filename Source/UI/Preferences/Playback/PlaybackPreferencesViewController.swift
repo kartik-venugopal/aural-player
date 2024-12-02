@@ -47,7 +47,10 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     @IBOutlet weak var btnInfo_primarySeekLength: ContextHelpButton!
     @IBOutlet weak var btnInfo_secondarySeekLength: ContextHelpButton!
-    
+
+    @IBOutlet weak var showChineseLyricsTranslation: CheckBox!
+
+
     private lazy var playbackProfiles: PlaybackProfiles = playbackDelegate.profiles
     
     override var nibName: NSNib.Name? {"PlaybackPreferences"}
@@ -208,6 +211,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         if oldPrimarySeekLengthConstant != prefs.primarySeekLengthConstant.value {
             remoteControlManager.updateSeekInterval(to: Double(prefs.primarySeekLengthConstant.value))
         }
+
+        prefs.showChineseLyricsTranslation.value = showChineseLyricsTranslation.isOn
     }
 }
 

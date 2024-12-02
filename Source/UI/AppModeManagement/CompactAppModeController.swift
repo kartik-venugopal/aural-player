@@ -54,7 +54,11 @@ class CompactAppModeController: AppModeController {
     var isShowingPlayQueue: Bool {
         windowController?.isShowingPlayQueue ?? false
     }
-    
+
+    var isShowingLyrics: Bool {
+        windowController?.isShowingLyrics ?? false
+    }
+
     var isShowingEffects: Bool {
         windowController?.isShowingEffects ?? false
     }

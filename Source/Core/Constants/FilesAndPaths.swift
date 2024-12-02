@@ -38,4 +38,7 @@ struct FilesAndPaths {
     static func subDirectory(named name: String) -> URL {
         baseDir.appendingPathComponent(name, isDirectory: true)
     }
+
+    // Lyrics directory
+    static let lyricsDir: URL = baseDir.appendingPathComponent("lyrics", isDirectory: true)
 }

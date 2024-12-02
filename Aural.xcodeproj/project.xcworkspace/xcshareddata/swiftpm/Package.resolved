@@ -1,6 +1,96 @@
 {
-  "originHash" : "51f90653b2c9f9f7064c0d52159b40bf7d222e5f314be23e62fe28520fec03db",
+  "originHash" : "808ffe926cc202169833269643c31511c337dfb9e77dcf2fbdba598ae83d62ec",
   "pins" : [
+    {
+      "identity" : "combine-schedulers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/combine-schedulers",
+      "state" : {
+        "revision" : "ec62f32d21584214a4b27c8cee2b2ad70ab2c38a",
+        "version" : "0.11.0"
+      }
+    },
+    {
+      "identity" : "cxextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cx-org/CXExtensions",
+      "state" : {
+        "revision" : "4790ecd6a6c0e796d776a28a820b552f7e8f6abd",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "cxshim",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cx-org/CXShim",
+      "state" : {
+        "revision" : "82fecc246c7ca9f0ac1656b8199b7956e64d68f3",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "cxtest",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cx-org/CXTest",
+      "state" : {
+        "revision" : "929ce7cbd3005bc9356ae826bb65ee2611379b17",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "gzipswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/1024jp/GzipSwift",
+      "state" : {
+        "revision" : "7a7f17761c76a932662ab77028a4329f67d645a4",
+        "version" : "5.2.0"
+      }
+    },
+    {
+      "identity" : "lyricskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tisfeng/LyricsKit",
+      "state" : {
+        "branch" : "dev",
+        "revision" : "685f8bc0458332534b5dccf4d946fb65e458e925"
+      }
+    },
+    {
+      "identity" : "lyricsxcore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tisfeng/LyricsXCore.git",
+      "state" : {
+        "branch" : "dev",
+        "revision" : "f13fba4e46090e542b973156fcc763289cac0865"
+      }
+    },
+    {
+      "identity" : "musicplayer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tisfeng/MusicPlayer",
+      "state" : {
+        "branch" : "dev",
+        "revision" : "47392fc6acb1c0bab3f4d2262ab41d5981ad31f4"
+      }
+    },
+    {
+      "identity" : "regex",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ddddxxx/Regex",
+      "state" : {
+        "revision" : "c0ad0a7e9a48989d9688c2b524a1e69b6293b733",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "swift-case-paths",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-case-paths",
+      "state" : {
+        "revision" : "fc45e7b2cfece9dd80b5a45e6469ffe67fe67984",
+        "version" : "0.14.1"
+      }
+    },
     {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
@@ -8,6 +98,60 @@
       "state" : {
         "revision" : "3d2dc41a01f9e49d84f0a3925fb858bed64f702d",
         "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "swift-composable-architecture",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-composable-architecture",
+      "state" : {
+        "revision" : "9ea8c763061287052a68d5e6723fed45e898b7d9",
+        "version" : "0.40.2"
+      }
+    },
+    {
+      "identity" : "swift-concurrency-extras",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-concurrency-extras",
+      "state" : {
+        "revision" : "a46265bb4f75808b0e15d971eebc408f557870a3",
+        "version" : "0.1.2"
+      }
+    },
+    {
+      "identity" : "swift-custom-dump",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-custom-dump",
+      "state" : {
+        "revision" : "0a5bff05fe01dcd513932ed338a4efad8268b803",
+        "version" : "0.11.2"
+      }
+    },
+    {
+      "identity" : "swift-identified-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-identified-collections",
+      "state" : {
+        "revision" : "d01446a78fb768adc9a78cbb6df07767c8ccfc29",
+        "version" : "0.8.0"
+      }
+    },
+    {
+      "identity" : "swiftcf",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Mx-Iris/SwiftCF",
+      "state" : {
+        "branch" : "master",
+        "revision" : "46f9d814b5197d33286235036d2e3c982e885fad"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "50843cbb8551db836adec2290bb4bc6bac5c1865",
+        "version" : "0.9.0"
       }
     }
   ],
