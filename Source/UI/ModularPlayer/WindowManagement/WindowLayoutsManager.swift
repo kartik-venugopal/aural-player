@@ -111,7 +111,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         
         // NOTE - No need to include main window loader here as that will be lazily loaded
         // through the 'mainWindow' reference in performInitialLayout().
-        let loaders = (([WindowID.main] + layout.displayedWindows.map {$0.id}).map {loader(withID: $0)})
+        let loaders = (([WindowID.main] + layout.auxiliaryWindows.map {$0.id}).map {loader(withID: $0)})
         
         loaders.forEach {$0.restore()}
         performInitialLayout()
@@ -162,13 +162,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     
     func applyLayout(_ layout: WindowLayout) {
         
-        mainWindow.setFrame(layout.mainWindowFrame, display: true)
-        
-        auxiliaryWindowsForModules.forEach {
-            $0.hide()
-        }
-        
-        for window in layout.displayedWindows {
+        func placeWindow(window: LayoutWindow) {
             
             let actualWindow = getWindow(forId: window.id)
             
@@ -176,8 +170,26 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
                 mainWindow.addChildWindow(actualWindow, ordered: .below)
             }
 
-//            actualWindow.setFrame(window.frame, display: true)
+            if let screen = window.screen, let offset = window.screenOffset {
+                
+                let origin = screen.frame.origin.translating(offset.width, offset.height)
+                let newFrame = NSRect(origin: origin, size: window.size)
+                
+                actualWindow.setFrame(newFrame, display: true)
+                
+            } else {
+                
+            }
+            
             loader(withID: window.id).showWindow()
+        }
+        
+        auxiliaryWindowsForModules.forEach {
+            $0.hide()
+        }
+        
+        for window in [layout.mainWindow] + layout.auxiliaryWindows {
+            placeWindow(window: window)
         }
         
         mainWindow.makeKeyAndOrderFront(self)
@@ -202,7 +214,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
                                         screenOffset: screenOffset, size: child.frame.size))
         }
         
-        return WindowLayout(name: "_system_", systemDefined: true, mainWindowFrame: self.mainWindowFrame, displayedWindows: windows)
+        return WindowLayout(name: "_system_", systemDefined: true, mainWindowFrame: self.mainWindowFrame, auxiliaryWindows: windows)
     }
     
 //    var isShowingEffects: Bool {

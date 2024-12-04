@@ -53,8 +53,8 @@ enum WindowLayoutPresets: String, CaseIterable {
         guard let preset = WindowLayoutPresets.fromDisplayName(layout.name) else {return}
         let recomputedLayout = preset.layout(gap: gap)
         
-        layout.mainWindowFrame = recomputedLayout.mainWindowFrame
-        layout.displayedWindows = recomputedLayout.displayedWindows
+        layout.mainWindow = recomputedLayout.mainWindow
+        layout.auxiliaryWindows = recomputedLayout.auxiliaryWindows
     }
     
     var name: String {
@@ -238,7 +238,7 @@ enum WindowLayoutPresets: String, CaseIterable {
         if let playQueueWindowOrigin = playQueueWindowOrigin {
             
             let playQueueWindowFrame: NSRect = NSMakeRect(playQueueWindowOrigin.x, playQueueWindowOrigin.y, playQueueWidth, playQueueHeight)
-            let playQueueWindow: LayoutWindow = .init(id: .playQueue, frame: playQueueWindowFrame)
+            let playQueueWindow: LayoutWindow = .init(id: .playQueue, screen: .main!, screenOffset: .zero, size: .zero)
             
             displayedWindows.append(playQueueWindow)
         }
@@ -246,7 +246,7 @@ enum WindowLayoutPresets: String, CaseIterable {
         if let effectsWindowOrigin = effectsWindowOrigin {
             
             let effectsWindowFrame: NSRect = NSRect(origin: effectsWindowOrigin, size: NSMakeSize(Self.effectsWindowWidth, Self.effectsWindowHeight))
-            let effectsWindow: LayoutWindow = .init(id: .effects, frame: effectsWindowFrame)
+            let effectsWindow: LayoutWindow = .init(id: .effects, screen: .main!, screenOffset: .zero, size: .zero)
             
             displayedWindows.append(effectsWindow)
         }

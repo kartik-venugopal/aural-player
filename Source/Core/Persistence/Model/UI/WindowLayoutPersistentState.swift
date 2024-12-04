@@ -29,15 +29,15 @@ struct WindowLayoutPersistentState: Codable {
     
     let name: String?
     
-    let mainWindowFrame: NSRectPersistentState?
-    let displayedWindows: [LayoutWindowPersistentState]?
+    let mainWindow: LayoutWindowPersistentState?
+    let auxiliaryWindows: [LayoutWindowPersistentState]?
     
     init(layout: WindowLayout) {
         
         self.name = layout.name
         
-        self.mainWindowFrame = NSRectPersistentState(rect: layout.mainWindowFrame)
-        self.displayedWindows = layout.displayedWindows.map {LayoutWindowPersistentState(window: $0)}
+        self.mainWindow = LayoutWindowPersistentState(window: layout.mainWindow)
+        self.auxiliaryWindows = layout.auxiliaryWindows.map {LayoutWindowPersistentState(window: $0)}
     }
 }
 
