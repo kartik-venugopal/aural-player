@@ -9,14 +9,6 @@
 //
 import Cocoa
 
-var layoutScreen: NSScreen {
-    appModeManager.mainWindow?.screen ?? .main ?? .screens[0]
-}
-
-var screenVisibleFrame: NSRect {
-    layoutScreen.visibleFrame
-}
-
 fileprivate let playQueueHeight_verticalFullStack: CGFloat = 225
 fileprivate let playQueueHeight_verticalPlayerAndPlayQueue: CGFloat = 500
 fileprivate let playQueueHeight_bigBottomPlayQueue: CGFloat = 500
@@ -50,17 +42,6 @@ enum WindowLayoutPresets: String, CaseIterable {
         WindowLayoutPresets(rawValue: displayName.camelCased())
     }
     
-    // TODO: Should also check the screen and recompute when the screen changes
-    // Recomputes the layout (useful when the window gap preference changes)
-    static func recompute(layout: WindowLayout, gap: CGFloat) {
-        
-        guard let preset = WindowLayoutPresets.fromDisplayName(layout.name) else {return}
-        let recomputedLayout = preset.layout(gap: gap)
-        
-        layout.mainWindow = recomputedLayout.mainWindow
-        layout.auxiliaryWindows = recomputedLayout.auxiliaryWindows
-    }
-    
     var name: String {
         rawValue.splitAsCamelCaseWord(capitalizeEachWord: false)
     }
@@ -69,14 +50,14 @@ enum WindowLayoutPresets: String, CaseIterable {
         
         switch self {
             
+        case .minimal:
+            return "Only the Player, centered on the screen"
+            
         case .verticalStack:
             return "A vertical arrangement of all 3 core components:\nPlayer, Effects, and Play Queue"
             
         case .horizontalStack:
             return "A horizontal arrangement of all 3 core components:\nPlayer, Effects, and Play Queue"
-            
-        case .minimal:
-            return "Only the Player, centered on the screen"
             
         case .bigBottomPlayQueue:
             return "The Play Queue positioned below a horizontal arrangement of the Player and Effects"
@@ -99,10 +80,9 @@ enum WindowLayoutPresets: String, CaseIterable {
         !self.equalsOneOf(.minimal, .verticalPlayerAndPlayQueue, .horizontalPlayerAndPlayQueue)
     }
     
-    func layout(gap: CGFloat) -> WindowLayout {
+    func layout(on screen: NSScreen, withGap gap: CGFloat) -> WindowLayout {
         
-        let theLayoutScreen = layoutScreen
-        let visibleFrame = screenVisibleFrame
+        let visibleFrame = screen.visibleFrame
         let twoGaps = 2 * gap
         
         var mainWindowOffset: NSSize = .zero
@@ -116,7 +96,6 @@ enum WindowLayoutPresets: String, CaseIterable {
         
         switch self {
             
-            // Top left corner
         case .minimal:
             
             xPadding = visibleFrame.width - Self.mainWindowWidth
@@ -241,8 +220,8 @@ enum WindowLayoutPresets: String, CaseIterable {
                                                mainWindowOffset.height)
         }
         
-        let mainWindow = LayoutWindow(id: .main, screen: theLayoutScreen,
-                                      screenFrame: theLayoutScreen.frame,
+        let mainWindow = LayoutWindow(id: .main, screen: screen,
+                                      screenFrame: screen.frame,
                                       screenOffset: mainWindowOffset,
                                       size: NSMakeSize(Self.mainWindowWidth, Self.mainWindowHeight))
         
@@ -250,8 +229,8 @@ enum WindowLayoutPresets: String, CaseIterable {
         
         if playQueueWindowOffset != .zero {
             
-            let playQueueWindow = LayoutWindow(id: .playQueue, screen: theLayoutScreen,
-                                               screenFrame: theLayoutScreen.frame,
+            let playQueueWindow = LayoutWindow(id: .playQueue, screen: screen,
+                                               screenFrame: screen.frame,
                                                screenOffset: playQueueWindowOffset,
                                                size: NSMakeSize(playQueueWidth, playQueueHeight))
             
@@ -260,8 +239,8 @@ enum WindowLayoutPresets: String, CaseIterable {
         
         if effectsWindowOffset != .zero {
             
-            let effectsWindow = LayoutWindow(id: .effects, screen: theLayoutScreen,
-                                             screenFrame: theLayoutScreen.frame,
+            let effectsWindow = LayoutWindow(id: .effects, screen: screen,
+                                             screenFrame: screen.frame,
                                              screenOffset: effectsWindowOffset,
                                              size: NSMakeSize(Self.effectsWindowWidth, Self.effectsWindowHeight))
             

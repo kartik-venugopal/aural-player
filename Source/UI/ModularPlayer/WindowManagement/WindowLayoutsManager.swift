@@ -30,8 +30,6 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         windowLoaders.first(where: {$0.windowID == id})!
     }
     
-    private lazy var messenger = Messenger(for: self)
-    
     private var savedLayout: WindowLayout? = nil
     
     var mainWindow: NSWindow {loader(withID: .main).window}
@@ -42,7 +40,6 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
 
     init(persistentState: WindowLayoutsPersistentState?, viewPreferences: ViewPreferences) {
         
-        let systemDefinedLayouts = WindowLayoutPresets.allCases.map {$0.layout(gap: CGFloat(preferences.viewPreferences.windowGap.value))}
         let userDefinedLayouts: [WindowLayout] = persistentState?.userLayouts?.compactMap
         {WindowLayout(persistentState: $0)} ?? []
         
@@ -92,12 +89,16 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             }
         }
         
-        super.init(systemDefinedObjects: systemDefinedLayouts, userDefinedObjects: userDefinedLayouts)
+        super.init(systemDefinedObjects: [], userDefinedObjects: userDefinedLayouts)
         self.savedLayout = WindowLayout(systemLayoutFrom: persistentState)
     }
     
+    var defaultScreen: NSScreen {
+        .main ?? .screens[0]
+    }
+    
     var defaultLayout: WindowLayout {
-        systemDefinedObject(named: WindowLayoutPresets.defaultLayout.name)!
+        getSystemLayout(forPreset: .defaultLayout)
     }
     
     var auxiliaryWindows: [NSWindow] {
@@ -110,10 +111,6 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     
     var windowMagnetismEnabled: Bool {
         preferences.viewPreferences.windowMagnetism.value
-    }
-    
-    func recomputeSystemDefinedLayouts() {
-        systemDefinedObjects.forEach {WindowLayoutPresets.recompute(layout: $0, gap: windowGap)}
     }
     
     // MARK - Core functionality ----------------------------------------------------
@@ -149,7 +146,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         
         // Remember from last app launch, reverting to default layout if app state is corrupted
         if appSetup.setupCompleted {
-            applyLayout(appSetup.windowLayoutPreset.layout(gap: windowGap))
+            applyLayout(getSystemLayout(forPreset: appSetup.windowLayoutPreset))
             
         } else {
             applyLayout(savedLayout ?? defaultLayout)
@@ -166,10 +163,26 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         return loader.window
     }
     
+    private func getSystemLayout(forPreset preset: WindowLayoutPresets) -> WindowLayout {
+        
+        if loader(withID: .main).isWindowLoaded {
+            
+            return preset.layout(on: self.mainWindow.screen ?? defaultScreen,
+                                 withGap: windowGap)
+        } else {
+            
+            return preset.layout(on: defaultScreen,
+                                 withGap: windowGap)
+        }
+    }
+    
     func applyLayout(named name: String) {
         
-        if let layout = object(named: name) {
-            applyLayout(layout)
+        if let systemLayout = WindowLayoutPresets.allCases.first(where: {$0.name == name}) {
+            applyLayout(getSystemLayout(forPreset: systemLayout))
+            
+        } else if let userLayout = object(named: name) {
+            applyLayout(userLayout)
         }
     }
     
@@ -182,17 +195,40 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             if window.id != .main, windowMagnetismEnabled {
                 mainWindow.addChildWindow(actualWindow, ordered: .below)
             }
+            
+            var origin: NSPoint = .zero
 
-            if let screen = window.screen, let offset = window.screenOffset {
+            if let screen = window.screen, let screenFrame = window.screenFrame, screenFrame == screen.frame, let offset = window.screenOffset {
                 
-                let origin = screen.frame.origin.translating(offset.width, offset.height)
-                let newFrame = NSRect(origin: origin, size: window.size)
+                origin = screen.visibleFrame.origin.translating(offset.width, offset.height)
                 
-                actualWindow.setFrame(newFrame, display: true)
+            } else if let screenFrame = window.screenFrame, let offset = window.screenOffset {
                 
-            } else {
+                let targetScreen = NSScreen.main ?? NSScreen.screens[0]
                 
+                // Compute offset percentage
+                
+                let xOffset = offset.width
+                let totalXSpacing = screenFrame.width - window.size.width
+                let xOffsetFactor = xOffset / totalXSpacing
+                
+                let yOffset = offset.height
+                let totalYSpacing = screenFrame.height - window.size.height
+                let yOffsetFactor = yOffset / totalYSpacing
+                
+                let targetXSpacing = targetScreen.frame.width - window.size.width
+                let targetXOffset = xOffsetFactor * targetXSpacing
+                
+                let targetYSpacing = targetScreen.frame.height - window.size.height
+                let targetYOffset = yOffsetFactor * targetYSpacing
+                
+                origin = targetScreen.frame.origin.translating(targetXOffset, targetYOffset)
             }
+            
+            let newFrame = NSRect(origin: origin, size: window.size)
+            actualWindow.setFrame(newFrame, display: true)
+            
+            // TODO: Ensure visible
             
             loader(withID: window.id).showWindow()
         }

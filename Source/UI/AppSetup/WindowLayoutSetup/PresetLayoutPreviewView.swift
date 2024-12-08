@@ -33,7 +33,7 @@ class PresetLayoutPreviewView: NSView {
     
     func drawPreviewForPreset(_ preset: WindowLayoutPresets) {
         
-        self.layout = preset.layout(gap: gapBetweenWindows)
+        self.layout = preset.layout(on: .main!, withGap: gapBetweenWindows)
         redraw()
     }
     

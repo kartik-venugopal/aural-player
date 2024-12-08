@@ -78,17 +78,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         }
         
         viewPrefs.snapToWindows.value = btnSnapToWindows.isOn
-
-        let oldWindowGap = viewPrefs.windowGap.value
         viewPrefs.windowGap.value = gapStepper.floatValue
-
-        // Check if window gap was changed
-        if appModeManager.currentMode == .modular, gapStepper.floatValue != oldWindowGap {
-
-            // Recompute system-defined layouts based on new gap between windows
-            windowLayoutsManager.recomputeSystemDefinedLayouts()
-        }
-        
         viewPrefs.snapToScreen.value = btnSnapToScreen.isOn
     }
 }
