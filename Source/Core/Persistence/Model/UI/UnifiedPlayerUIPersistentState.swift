@@ -12,7 +12,7 @@ import Foundation
 
 struct UnifiedPlayerUIPersistentState: Codable {
     
-    let windowFrame: NSRectPersistentState?
+    let windowFrame: NSRect?
     let isSidebarShown: Bool?
     let isWaveformShown: Bool?
 }

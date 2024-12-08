@@ -6,7 +6,7 @@
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
-//  
+//
 import Cocoa
 
 class WidgetPlayerUIState {
@@ -25,7 +25,7 @@ class WidgetPlayerUIState {
     
     init(persistentState: WidgetPlayerUIPersistentState?) {
         
-        windowFrame = persistentState?.windowFrame?.toNSRect()
+        windowFrame = persistentState?.windowFrame
         cornerRadius = persistentState?.cornerRadius ?? Self.defaultCornerRadius
         
         trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
@@ -35,15 +35,9 @@ class WidgetPlayerUIState {
     
     var persistentState: WidgetPlayerUIPersistentState {
         
-        var windowFrame: NSRectPersistentState? = nil
-        
-        if let frame = self.windowFrame {
-            windowFrame = NSRectPersistentState(rect: frame)
-        }
-        
-        return WidgetPlayerUIPersistentState(windowFrame: windowFrame,
-                                                 cornerRadius: cornerRadius,
-                                                 trackInfoScrollingEnabled: trackInfoScrollingEnabled,
-                                                 showPlaybackPosition: showPlaybackPosition)
+        WidgetPlayerUIPersistentState(windowFrame: self.windowFrame,
+                                      cornerRadius: cornerRadius,
+                                      trackInfoScrollingEnabled: trackInfoScrollingEnabled,
+                                      showPlaybackPosition: showPlaybackPosition)
     }
 }

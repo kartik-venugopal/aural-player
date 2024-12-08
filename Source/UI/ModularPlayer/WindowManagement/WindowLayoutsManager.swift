@@ -9,6 +9,19 @@
 //
 import Cocoa
 
+fileprivate var boundingBox: NSRect {
+    
+    let frames: [NSRect] = NSScreen.screens.map {$0.frame}
+    
+    let minX = frames.map {$0.minX}.min() ?? 0
+    let maxX = frames.map {$0.maxX}.max() ?? 0
+    
+    let minY = frames.map {$0.minY}.min() ?? 0
+    let maxY = frames.map {$0.maxY}.max() ?? 0
+    
+    return NSMakeRect(minX, minY, maxX, maxY)
+}
+
 class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Restorable {
     
     private var windowLoaders: [WindowLoader] = []
@@ -211,6 +224,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             }
             
             windows.append(LayoutWindow(id: windowID, screen: child.screen,
+                                        screenFrame: child.screen?.frame,
                                         screenOffset: screenOffset, size: child.frame.size))
         }
         
@@ -223,7 +237,9 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         }
         
         return WindowLayout(name: "_system_", systemDefined: true, 
-                            mainWindow: LayoutWindow(id: .main, screen: mainWindow.screen, screenOffset: screenOffset, size: mainWindow.size),
+                            mainWindow: LayoutWindow(id: .main, screen: mainWindow.screen,
+                                                     screenFrame: mainWindow.screen?.frame,
+                                                     screenOffset: screenOffset, size: mainWindow.size),
                             auxiliaryWindows: windows)
     }
     

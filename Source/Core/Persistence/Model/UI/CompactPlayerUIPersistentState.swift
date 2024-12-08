@@ -17,6 +17,6 @@ import Foundation
 ///
 struct CompactPlayerUIPersistentState: Codable {
     
-    let windowLocation: NSPointPersistentState?
+    let windowLocation: NSPoint?
     let trackInfoScrollingEnabled: Bool?
 }

@@ -56,7 +56,7 @@ struct LegacyMenuBarPlayerUIPersistentState: Codable {
 
 struct LegacyControlBarPlayerUIPersistentState: Codable {
     
-    let windowFrame: NSRectPersistentState?
+    let windowFrame: NSRect?
     let cornerRadius: CGFloat?
     
     let trackInfoScrollingEnabled: Bool?

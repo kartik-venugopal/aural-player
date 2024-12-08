@@ -18,29 +18,22 @@ class CompactPlayerUIState {
     
     var computedWindowLocation: NSPoint? {
         
-        guard appModeManager.currentMode == .compact, 
-                let window = NSApp.windows.first(where: {$0.identifier?.rawValue == "compactPlayer"}) else {return nil}
-        
-        return window.origin
+        appModeManager.currentMode == .compact ?
+        appModeManager.mainWindow?.origin :
+        nil
     }
     
     var trackInfoScrollingEnabled: Bool
     
     init(persistentState: CompactPlayerUIPersistentState?) {
         
-        windowLocation = persistentState?.windowLocation?.toNSPoint()
+        windowLocation = persistentState?.windowLocation
         trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
     }
     
     var persistentState: CompactPlayerUIPersistentState {
         
-        var windowLocation: NSPointPersistentState? = nil
-        
-        if let location = self.computedWindowLocation ?? self.windowLocation {
-            windowLocation = NSPointPersistentState(point: location)
-        }
-        
-        return CompactPlayerUIPersistentState(windowLocation: windowLocation,
+        CompactPlayerUIPersistentState(windowLocation: self.computedWindowLocation ?? self.windowLocation,
                                               trackInfoScrollingEnabled: trackInfoScrollingEnabled)
     }
 }

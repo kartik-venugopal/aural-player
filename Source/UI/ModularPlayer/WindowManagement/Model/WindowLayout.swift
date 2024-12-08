@@ -92,6 +92,7 @@ struct LayoutWindow {
     let id: WindowID
     let screen: NSScreen?
     
+    let screenFrame: NSRect?
     let screenOffset: NSSize?
     let size: NSSize
     
@@ -104,11 +105,12 @@ struct LayoutWindow {
         return nil
     }
     
-    init(id: WindowID, screen: NSScreen?, screenOffset: NSSize?, size: NSSize) {
+    init(id: WindowID, screen: NSScreen?, screenFrame: NSRect?, screenOffset: NSSize?, size: NSSize) {
         
         self.id = id
         self.screen = screen
         
+        self.screenFrame = screenFrame
         self.screenOffset = screenOffset
         self.size = size
     }
@@ -118,10 +120,12 @@ struct LayoutWindow {
         guard let id = persistentState.id,
               let screen = persistentState.screen,
               let screenOffset = persistentState.screenOffset,
-              let offsetWidth = screenOffset.width,
-              let offsetHeight = screenOffset.height,
-              let size = persistentState.size,
-              let width = size.width, let height = size.height else {return nil}
+              let size = persistentState.size else {return nil}
+        
+        let offsetWidth = screenOffset.width
+        let offsetHeight = screenOffset.height
+        let width = size.width
+        let height = size.height
         
         self.id = id
         
@@ -129,6 +133,7 @@ struct LayoutWindow {
             $0.localizedName == screen.name
         }
         
+        self.screenFrame = screen.frame
         self.screenOffset = NSMakeSize(offsetWidth, offsetHeight)
         self.size = .init(width: width, height: height)
     }

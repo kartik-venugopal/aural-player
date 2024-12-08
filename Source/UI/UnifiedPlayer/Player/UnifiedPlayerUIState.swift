@@ -28,15 +28,10 @@ class UnifiedPlayerUIState {
             self.isWaveformShown = isWaveformShown
         }
         
-        self.windowFrame = persistentState?.windowFrame?.toNSRect()
+        self.windowFrame = persistentState?.windowFrame
     }
     
     var persistentState: UnifiedPlayerUIPersistentState? {
-        
-        if let windowFrame = self.windowFrame {
-            return .init(windowFrame: NSRectPersistentState(rect: windowFrame), isSidebarShown: isSidebarShown, isWaveformShown: isWaveformShown)
-        } else {
-            return nil
-        }
+        .init(windowFrame: windowFrame, isSidebarShown: isSidebarShown, isWaveformShown: isWaveformShown)
     }
 }

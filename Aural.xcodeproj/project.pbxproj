@@ -185,8 +185,6 @@
 		3E02189A2C23490E00865AC2 /* MenuBarPlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02169D2C23490E00865AC2 /* MenuBarPlayerUIPersistentState.swift */; };
 		3E02189B2C23490E00865AC2 /* ModularPlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02169E2C23490E00865AC2 /* ModularPlayerUIPersistentState.swift */; };
 		3E02189C2C23490E00865AC2 /* NSPointPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02169F2C23490E00865AC2 /* NSPointPersistentState.swift */; };
-		3E02189D2C23490E00865AC2 /* NSRectPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216A02C23490E00865AC2 /* NSRectPersistentState.swift */; };
-		3E02189E2C23490E00865AC2 /* NSSizePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216A12C23490E00865AC2 /* NSSizePersistentState.swift */; };
 		3E02189F2C23490E00865AC2 /* PlaylistUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216A22C23490E00865AC2 /* PlaylistUIPersistentState.swift */; };
 		3E0218A02C23490E00865AC2 /* PlayQueueUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216A32C23490E00865AC2 /* PlayQueueUIPersistentState.swift */; };
 		3E0218A12C23490E00865AC2 /* ThemesPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216A42C23490E00865AC2 /* ThemesPersistentState.swift */; };
@@ -1224,8 +1222,6 @@
 		3E02169D2C23490E00865AC2 /* MenuBarPlayerUIPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerUIPersistentState.swift; sourceTree = "<group>"; };
 		3E02169E2C23490E00865AC2 /* ModularPlayerUIPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModularPlayerUIPersistentState.swift; sourceTree = "<group>"; };
 		3E02169F2C23490E00865AC2 /* NSPointPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPointPersistentState.swift; sourceTree = "<group>"; };
-		3E0216A02C23490E00865AC2 /* NSRectPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRectPersistentState.swift; sourceTree = "<group>"; };
-		3E0216A12C23490E00865AC2 /* NSSizePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSizePersistentState.swift; sourceTree = "<group>"; };
 		3E0216A22C23490E00865AC2 /* PlaylistUIPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistUIPersistentState.swift; sourceTree = "<group>"; };
 		3E0216A32C23490E00865AC2 /* PlayQueueUIPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueUIPersistentState.swift; sourceTree = "<group>"; };
 		3E0216A42C23490E00865AC2 /* ThemesPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemesPersistentState.swift; sourceTree = "<group>"; };
@@ -2592,8 +2588,6 @@
 				3E02169D2C23490E00865AC2 /* MenuBarPlayerUIPersistentState.swift */,
 				3E02169E2C23490E00865AC2 /* ModularPlayerUIPersistentState.swift */,
 				3E02169F2C23490E00865AC2 /* NSPointPersistentState.swift */,
-				3E0216A02C23490E00865AC2 /* NSRectPersistentState.swift */,
-				3E0216A12C23490E00865AC2 /* NSSizePersistentState.swift */,
 				3E0216A22C23490E00865AC2 /* PlaylistUIPersistentState.swift */,
 				3E0216A32C23490E00865AC2 /* PlayQueueUIPersistentState.swift */,
 				3E0216A42C23490E00865AC2 /* ThemesPersistentState.swift */,
@@ -5779,7 +5773,6 @@
 				3E6C12B525CEBE5800BF0D07 /* BookmarksMenuController.swift in Sources */,
 				3EAFB619267FF68C00F0DC96 /* CGFloatExtensions.swift in Sources */,
 				3E0217F72C23490E00865AC2 /* DelayUnit.swift in Sources */,
-				3E02189E2C23490E00865AC2 /* NSSizePersistentState.swift in Sources */,
 				3E9CF7F526A7D36D0068A21B /* ChangeHistory.swift in Sources */,
 				3E5563A0269D642B00864598 /* ChaptersListTableCellView.swift in Sources */,
 				3E02188A2C23490E00865AC2 /* FilterUnitPersistentState.swift in Sources */,
@@ -6277,7 +6270,6 @@
 				3E0219902C23490E00865AC2 /* HTTPErrors.swift in Sources */,
 				3E0217EA2C23490E00865AC2 /* EQUnitDelegateProtocol.swift in Sources */,
 				3E02191B2C23490E00865AC2 /* UserDefaultsExtensions.swift in Sources */,
-				3E02189D2C23490E00865AC2 /* NSRectPersistentState.swift in Sources */,
 				3E0219272C23490E00865AC2 /* AVFFileReader.swift in Sources */,
 				3E6C122A25CEBDE600BF0D07 /* PlayQueuePreferencesViewController.swift in Sources */,
 				3E0218622C23490E00865AC2 /* SelectSearchResultCommandNotification.swift in Sources */,

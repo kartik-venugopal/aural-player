@@ -46,18 +46,18 @@ struct LayoutWindowPersistentState: Codable {
     let id: WindowID?
     let screen: ScreenPersistentState?
     
-    let screenOffset: NSSizePersistentState?
-    let size: NSSizePersistentState?
+    let screenOffset: NSSize?
+    let size: NSSize?
 
     init(window: LayoutWindow) {
         
         self.id = window.id
         self.screen = .init(screen: window.screen)
         
-        self.size = .init(size: window.size)
+        self.size = window.size
         
         if let screenOffset = window.screenOffset {
-            self.screenOffset = .init(size: screenOffset)
+            self.screenOffset = screenOffset
         } else {
             self.screenOffset = nil
         }
@@ -67,13 +67,13 @@ struct LayoutWindowPersistentState: Codable {
 struct ScreenPersistentState: Codable {
 
     let name: String?
-    let frame: NSRectPersistentState?
+    let frame: NSRect?
     
     init?(screen: NSScreen?) {
         
         guard let screen else {return nil}
         
         self.name = screen.localizedName
-        self.frame = .init(rect: screen.frame)
+        self.frame = screen.frame
     }
 }

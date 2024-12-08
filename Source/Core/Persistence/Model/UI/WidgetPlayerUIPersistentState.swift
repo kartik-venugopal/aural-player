@@ -16,14 +16,14 @@ import Foundation
 /// - SeeAlso: `WidgetPlayerUIState`
 ///
 struct WidgetPlayerUIPersistentState: Codable {
-    
-    let windowFrame: NSRectPersistentState?
+        
+    let windowFrame: NSRect?
     let cornerRadius: CGFloat?
     
     let trackInfoScrollingEnabled: Bool?
     let showPlaybackPosition: Bool?
     
-    init(windowFrame: NSRectPersistentState?, cornerRadius: CGFloat?, trackInfoScrollingEnabled: Bool?, showPlaybackPosition: Bool?) {
+    init(windowFrame: NSRect?, cornerRadius: CGFloat?, trackInfoScrollingEnabled: Bool?, showPlaybackPosition: Bool?) {
         self.windowFrame = windowFrame
         self.cornerRadius = cornerRadius
         self.trackInfoScrollingEnabled = trackInfoScrollingEnabled
@@ -32,12 +32,12 @@ struct WidgetPlayerUIPersistentState: Codable {
     
     init(legacyPersistentState: LegacyControlBarPlayerUIPersistentState?) {
         
-        if let windowOrigin = legacyPersistentState?.windowFrame?.origin, let windowWidth = legacyPersistentState?.windowFrame?.size?.width,
-           let windowX = windowOrigin.x, let windowY = windowOrigin.y {
+        if let windowOrigin = legacyPersistentState?.windowFrame?.origin, 
+            let windowWidth = legacyPersistentState?.windowFrame?.width {
             
-            self.windowFrame = NSRectPersistentState(rect: NSMakeRect(windowX, windowY,
-                                                                      windowWidth.clamped(to: WidgetPlayerUIState.windowWidthRange),
-                                                                      WidgetPlayerUIState.windowHeight))
+            self.windowFrame = NSMakeRect(windowOrigin.x, windowOrigin.y,
+                                          windowWidth.clamped(to: WidgetPlayerUIState.windowWidthRange),
+                                          WidgetPlayerUIState.windowHeight)
             
         } else {
             
