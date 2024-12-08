@@ -63,7 +63,7 @@ class PresetLayoutPreviewView: NSView {
         guard let layout = self.layout else {return}
 
         // Main Window
-        renderPreview(layout.mainWindowFrame.origin, 480, 200, .imgPlay.tintedWithColor(.white))
+        renderPreview(layout.mainWindowFrame?.origin ?? .zero, 480, 200, .imgPlay.tintedWithColor(.white))
         
         // Effects Window
         if let effectsWindowOrigin = layout.effectsWindowFrame?.origin {

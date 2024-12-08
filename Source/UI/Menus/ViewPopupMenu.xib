@@ -236,54 +236,6 @@
                     <menu key="submenu" title="Window layout" id="Sih-We-V6Y">
                         <items>
                             <menuItem isSeparatorItem="YES" id="Klx-0i-JS2"/>
-                            <menuItem title="Vertical stack" id="r4O-rz-kay">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Qe0-75-TrI" id="QJh-aa-I6Z"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Horizontal stack" id="zRU-2h-GBc">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Qe0-75-TrI" id="eST-gU-K7G"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Big bottom play queue" id="X3p-Q6-OXe">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Qe0-75-TrI" id="gC4-tl-Ard"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Big right play queue" id="yZa-D1-rl5">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Qe0-75-TrI" id="txt-l5-F6v"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Big left play queue" id="iuJ-f8-sgb">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Qe0-75-TrI" id="1Hr-UD-B41"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Vertical player and play queue" id="sc6-5a-W9n">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Qe0-75-TrI" id="IUz-Xa-U97"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Horizontal player and play queue" id="a1D-m8-YXX">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Qe0-75-TrI" id="PMG-WR-7b6"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Compact cornered" id="01s-xv-cgd">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="applyPresetAction:" target="Qe0-75-TrI" id="IRZ-Pj-B7C"/>
-                                </connections>
-                            </menuItem>
                         </items>
                         <connections>
                             <outlet property="delegate" destination="Qe0-75-TrI" id="mHu-nn-jsw"/>

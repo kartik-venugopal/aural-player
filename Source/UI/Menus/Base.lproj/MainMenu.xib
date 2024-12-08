@@ -1094,54 +1094,6 @@ CA
                                 <menu key="submenu" title=" Window Layout" id="fGS-p2-B4l">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="m3b-U9-DmA"/>
-                                        <menuItem title="Vertical full stack" id="895-XH-ur7">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="ARU-wE-JsS" id="7ca-Kg-QMb"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Horizontal full stack" id="4XH-HT-2V4">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="ARU-wE-JsS" id="EOx-cD-KnW"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Big bottom play queue" id="jDD-h3-g2d">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="ARU-wE-JsS" id="jgC-0a-GFT"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Big right play queue" id="BwZ-En-aiD">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="ARU-wE-JsS" id="dls-cs-Cbe"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Big left play queue" id="EA2-lX-2f0">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="ARU-wE-JsS" id="GSN-on-k6C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Vertical player and play queue" id="j0t-qu-Gbz">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="ARU-wE-JsS" id="Fxu-UD-flD"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Horizontal player and play queue" id="ybr-qf-bha">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="ARU-wE-JsS" id="GYQ-aB-KxY"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Compact cornered" id="HA6-0R-MMo">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="applyPresetAction:" target="ARU-wE-JsS" id="Y0L-IE-sGa"/>
-                                            </connections>
-                                        </menuItem>
                                     </items>
                                     <connections>
                                         <outlet property="delegate" destination="ARU-wE-JsS" id="bYN-tb-9Z4"/>

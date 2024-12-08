@@ -18,10 +18,10 @@ fileprivate let playQueueHeight_verticalPlayerAndPlayQueue: CGFloat = 500
 fileprivate let playQueueHeight_bigBottomPlayQueue: CGFloat = 500
 
 enum WindowLayoutPresets: String, CaseIterable {
-    
+
+    case minimal
     case verticalStack
     case horizontalStack
-    case compactCornered
     case bigBottomPlayQueue
     case bigLeftPlayQueue
     case bigRightPlayQueue
@@ -71,8 +71,8 @@ enum WindowLayoutPresets: String, CaseIterable {
         case .horizontalStack:
             return "A horizontal arrangement of all 3 core components:\nPlayer, Effects, and Play Queue"
             
-        case .compactCornered:
-            return "Only the Player positioned at the top-left corner"
+        case .minimal:
+            return "Only the Player, centered on the screen"
             
         case .bigBottomPlayQueue:
             return "The Play Queue positioned below a horizontal arrangement of the Player and Effects"
@@ -92,165 +92,80 @@ enum WindowLayoutPresets: String, CaseIterable {
     }
     
     var showEffects: Bool {
-        !self.equalsOneOf(.compactCornered, .verticalPlayerAndPlayQueue, .horizontalPlayerAndPlayQueue)
+        !self.equalsOneOf(.minimal, .verticalPlayerAndPlayQueue, .horizontalPlayerAndPlayQueue)
     }
     
     func layout(gap: CGFloat) -> WindowLayout {
         
-        let twoGaps = 2 * gap
+//        let twoGaps = 2 * gap
         
         // Compute this only once
         let visibleFrame = screenVisibleFrame
         
-        var mainWindowOrigin: NSPoint = .zero
-        var playQueueWindowOrigin: NSPoint? = nil
-        var effectsWindowOrigin: NSPoint? = nil
-        
-        var playQueueHeight: CGFloat = 0
-        var playQueueWidth: CGFloat = 0
+//        var mainWindowOrigin: NSPoint = .zero
+//        var playQueueWindowOrigin: NSPoint? = nil
+//        var effectsWindowOrigin: NSPoint? = nil
+//        
+//        var playQueueHeight: CGFloat = 0
+//        var playQueueWidth: CGFloat = 0
         
         switch self {
         
         // Top left corner
-        case .compactCornered:
+        case .minimal:
             
-            mainWindowOrigin = NSMakePoint(visibleFrame.minX, visibleFrame.maxY - Self.mainWindowHeight)
+            return computeMinimal(visibleFrame: visibleFrame, gap: gap)
             
         case .verticalStack:
             
-            playQueueHeight = min(playQueueHeight_verticalFullStack,
-                                 visibleFrame.height - (Self.mainWindowHeight + Self.effectsWindowHeight + twoGaps))
-            
-            let xPadding = visibleFrame.width - Self.mainWindowWidth
-            let totalStackHeight = Self.mainWindowHeight + Self.effectsWindowHeight + twoGaps + playQueueHeight
-            let yPadding = visibleFrame.height - totalStackHeight
-            
-            mainWindowOrigin = NSMakePoint(visibleFrame.minX + (xPadding / 2),
-                                           visibleFrame.maxY - (yPadding / 2) - Self.mainWindowHeight)
-            
-            effectsWindowOrigin = NSMakePoint(mainWindowOrigin.x, mainWindowOrigin.y - gap - Self.effectsWindowHeight)
-            
-            playQueueWidth = Self.mainWindowWidth
-            
-            playQueueWindowOrigin = NSMakePoint(mainWindowOrigin.x, effectsWindowOrigin!.y - gap - playQueueHeight)
+           return computeVerticalStack(visibleFrame: visibleFrame, gap: gap)
             
         case .horizontalStack:
             
-            // Sometimes, xPadding is negative, never go to the left of minX
-            playQueueWidth = max(visibleFrame.width - (Self.mainWindowWidth + Self.effectsWindowWidth + twoGaps), Self.minPlayQueueWidth)
-            let xPadding = visibleFrame.width - (Self.mainWindowWidth + Self.effectsWindowWidth + playQueueWidth + twoGaps)
-            let yPadding = visibleFrame.height - Self.mainWindowHeight
-            
-            mainWindowOrigin = NSMakePoint(max(visibleFrame.minX + (xPadding / 2), visibleFrame.minX),
-                                           visibleFrame.minY + (yPadding / 2))
-            
-            effectsWindowOrigin = NSMakePoint(mainWindowOrigin.x + Self.mainWindowWidth + gap,
-                                              mainWindowOrigin.y)
-            
-            playQueueHeight = Self.mainWindowHeight
-            
-            playQueueWindowOrigin = NSMakePoint(mainWindowOrigin.x + Self.mainWindowWidth + Self.effectsWindowWidth + twoGaps,
-                                               mainWindowOrigin.y)
+            return computeHorizontalStack(visibleFrame: visibleFrame, gap: gap)
             
         case .bigBottomPlayQueue:
             
-            let xPadding = visibleFrame.width - (Self.mainWindowWidth + gap + Self.effectsWindowWidth)
-            playQueueHeight = playQueueHeight_bigBottomPlayQueue
-            let yPadding = visibleFrame.height - (Self.mainWindowHeight + gap + playQueueHeight)
-            
-            mainWindowOrigin = NSMakePoint(visibleFrame.minX + (xPadding / 2),
-                                           visibleFrame.minY + (yPadding / 2) + playQueueHeight + gap)
-            
-            effectsWindowOrigin = NSMakePoint(mainWindowOrigin.x + Self.mainWindowWidth + gap,
-                                              mainWindowOrigin.y)
-            
-            playQueueWidth = Self.mainWindowWidth + gap + Self.effectsWindowWidth
-            playQueueWindowOrigin = NSMakePoint(mainWindowOrigin.x,
-                                               mainWindowOrigin.y - gap - playQueueHeight)
+            return computeBigBottomPlayQueue(visibleFrame: visibleFrame, gap: gap)
             
         case .bigLeftPlayQueue:
             
-            let pWidth = Self.mainWindowWidth
-            let xPadding = visibleFrame.width - (Self.mainWindowWidth + gap + pWidth)
-            let yPadding = visibleFrame.height - (Self.mainWindowHeight + gap + Self.effectsWindowHeight)
-            
-            mainWindowOrigin = NSMakePoint(visibleFrame.minX + (xPadding / 2) + pWidth + gap,
-                                           visibleFrame.minY + (yPadding / 2) + Self.effectsWindowHeight + gap)
-            
-            effectsWindowOrigin = NSMakePoint(mainWindowOrigin.x,
-                                              mainWindowOrigin.y - gap - Self.effectsWindowHeight)
-            
-            playQueueHeight = Self.mainWindowHeight + gap + Self.effectsWindowHeight
-            playQueueWidth = Self.mainWindowWidth
-            
-            playQueueWindowOrigin = NSMakePoint(mainWindowOrigin.x - gap - playQueueWidth,
-                                               mainWindowOrigin.y - gap - Self.effectsWindowHeight)
+            return computeBigLeftPlayQueue(visibleFrame: visibleFrame, gap: gap)
             
         case .bigRightPlayQueue:
             
-            let xPadding = visibleFrame.width - (Self.mainWindowWidth + gap + Self.mainWindowWidth)
-            let yPadding = visibleFrame.height - (Self.mainWindowHeight + gap + Self.effectsWindowHeight)
-            
-            mainWindowOrigin = NSMakePoint(visibleFrame.minX + (xPadding / 2),
-                                           visibleFrame.minY + (yPadding / 2) + Self.effectsWindowHeight + gap)
-            
-            effectsWindowOrigin = NSMakePoint(mainWindowOrigin.x, mainWindowOrigin.y - gap - Self.effectsWindowHeight)
-            
-            playQueueHeight = Self.mainWindowHeight + gap + Self.effectsWindowHeight
-            playQueueWidth = Self.mainWindowWidth
-            
-            playQueueWindowOrigin = NSMakePoint(mainWindowOrigin.x + Self.mainWindowWidth + gap,
-                                               mainWindowOrigin.y - gap - Self.effectsWindowHeight)
+            return computeBigRightPlayQueue(visibleFrame: visibleFrame, gap: gap)
             
         case .verticalPlayerAndPlayQueue:
             
-            let xPadding = visibleFrame.width - Self.mainWindowWidth
-            
-            playQueueHeight = playQueueHeight_verticalPlayerAndPlayQueue
-            let yPadding = (visibleFrame.height - Self.mainWindowHeight - playQueueHeight - gap)
-            let halfYPadding = yPadding / 2
-            
-            mainWindowOrigin = NSMakePoint(visibleFrame.minX + (xPadding / 2),
-                                           visibleFrame.maxY - halfYPadding - Self.mainWindowHeight)
-            
-            
-            playQueueWidth = Self.mainWindowWidth
-            
-            playQueueWindowOrigin = NSMakePoint(mainWindowOrigin.x, visibleFrame.minY + halfYPadding)
+            return computeVerticalPlayerAndPlayQueue(visibleFrame: visibleFrame, gap: gap)
             
         case .horizontalPlayerAndPlayQueue:
             
-            playQueueHeight = Self.mainWindowHeight
-            playQueueWidth = Self.mainWindowWidth
-            
-            let xPadding = visibleFrame.width - (Self.mainWindowWidth + gap + playQueueWidth)
-            let yPadding = visibleFrame.height - Self.mainWindowHeight
-            
-            mainWindowOrigin = NSMakePoint(visibleFrame.minX + (xPadding / 2), visibleFrame.minY + (yPadding / 2))
-            
-            playQueueWindowOrigin = NSMakePoint(mainWindowOrigin.x + Self.mainWindowWidth + gap, mainWindowOrigin.y)
+            return computeHorizontalPlayerAndPlayQueue(visibleFrame: visibleFrame, gap: gap)
         }
-        
-        let mainWindowFrame: NSRect = NSRect(origin: mainWindowOrigin, size: NSMakeSize(Self.mainWindowWidth, Self.mainWindowHeight))
-        
-        var displayedWindows: [LayoutWindow] = []
-        
-        if let playQueueWindowOrigin = playQueueWindowOrigin {
-            
-            let playQueueWindowFrame: NSRect = NSMakeRect(playQueueWindowOrigin.x, playQueueWindowOrigin.y, playQueueWidth, playQueueHeight)
-            let playQueueWindow: LayoutWindow = .init(id: .playQueue, screen: .main!, screenOffset: .zero, size: .zero)
-            
-            displayedWindows.append(playQueueWindow)
-        }
-        
-        if let effectsWindowOrigin = effectsWindowOrigin {
-            
-            let effectsWindowFrame: NSRect = NSRect(origin: effectsWindowOrigin, size: NSMakeSize(Self.effectsWindowWidth, Self.effectsWindowHeight))
-            let effectsWindow: LayoutWindow = .init(id: .effects, screen: .main!, screenOffset: .zero, size: .zero)
-            
-            displayedWindows.append(effectsWindow)
-        }
-        
-        return WindowLayout(name: name, systemDefined: true, mainWindowFrame: mainWindowFrame, displayedWindows: displayedWindows)
+//        
+//        let mainWindowFrame: NSRect = NSRect(origin: mainWindowOrigin, size: NSMakeSize(Self.mainWindowWidth, Self.mainWindowHeight))
+//        
+//        var displayedWindows: [LayoutWindow] = []
+//        
+//        if let playQueueWindowOrigin = playQueueWindowOrigin {
+//            
+//            let playQueueWindowFrame: NSRect = NSMakeRect(playQueueWindowOrigin.x, playQueueWindowOrigin.y, playQueueWidth, playQueueHeight)
+//            let playQueueWindow: LayoutWindow = .init(id: .playQueue, screen: .main!, screenOffset: .zero, size: .zero)
+//            
+//            displayedWindows.append(playQueueWindow)
+//        }
+//        
+//        if let effectsWindowOrigin = effectsWindowOrigin {
+//            
+//            let effectsWindowFrame: NSRect = NSRect(origin: effectsWindowOrigin, size: NSMakeSize(Self.effectsWindowWidth, Self.effectsWindowHeight))
+//            let effectsWindow: LayoutWindow = .init(id: .effects, screen: .main!, screenOffset: .zero, size: .zero)
+//            
+//            displayedWindows.append(effectsWindow)
+//        }
+//        
+//        return self.computeVerticalStack(visibleFrame: visibleFrame, gap: gap)
+//        return WindowLayout(name: name, systemDefined: true, mainWindowFrame: mainWindowFrame, displayedWindows: displayedWindows)
     }
 }

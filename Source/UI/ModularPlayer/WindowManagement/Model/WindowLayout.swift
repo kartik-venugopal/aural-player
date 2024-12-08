@@ -17,11 +17,14 @@ class WindowLayout {
     var mainWindow: LayoutWindow
     var auxiliaryWindows: [LayoutWindow]
     
+    var mainWindowFrame: NSRect? {
+        mainWindow.frame
+    }
+    
     var effectsWindowFrame: NSRect? {
         
         if let effectsWindow = auxiliaryWindows.first(where: {$0.id == .effects}) {
-//            return effectsWindow.frame
-            return .zero
+           return effectsWindow.frame
         }
         
         return nil
@@ -30,8 +33,7 @@ class WindowLayout {
     var playQueueWindowFrame: NSRect? {
         
         if let playQueueWindow = auxiliaryWindows.first(where: {$0.id == .playQueue}) {
-//            return playQueueWindow.frame
-            return .zero
+            return playQueueWindow.frame
         }
         
         return nil
@@ -92,6 +94,15 @@ struct LayoutWindow {
     
     let screenOffset: NSSize?
     let size: NSSize
+    
+    var frame: NSRect? {
+        
+        if let screen, let screenOffset {
+            return screen.visibleFrame.offsetBy(dx: screenOffset.width, dy: screenOffset.height)
+        }
+        
+        return nil
+    }
     
     init(id: WindowID, screen: NSScreen?, screenOffset: NSSize?, size: NSSize) {
         

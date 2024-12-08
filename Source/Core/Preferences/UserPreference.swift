@@ -15,6 +15,8 @@ struct UserPreference<T> {
     let defaultsKey: String
     let defaultValue: T
     
+    // TODO: Add a description field that can be used as a label tooltip in the Preferences UI ???
+    
     var value: T {
         
         get {

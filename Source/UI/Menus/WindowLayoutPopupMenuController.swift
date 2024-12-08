@@ -19,6 +19,23 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
     override var userDefinedPresets: [UserManagedObject] {windowLayoutsManager.userDefinedObjects}
     override var numberOfUserDefinedPresets: Int {windowLayoutsManager.numberOfUserDefinedObjects}
     
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        if !builtInPresetsAdded {
+            
+            for preset in WindowLayoutPresets.allCases {
+                
+                theMenu.addItem(withTitle: preset.name,
+                                action: #selector(applyPresetAction(_:)),
+                                target: self)
+            }
+            
+            builtInPresetsAdded = true
+        }
+    }
+    
     override func presetExists(named name: String) -> Bool {
         windowLayoutsManager.objectExists(named: name)
     }
