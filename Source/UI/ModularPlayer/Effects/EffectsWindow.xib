@@ -18,15 +18,15 @@
             <windowStyleMask key="styleMask" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="225" y="78" width="480" height="200"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
-            <value key="minSize" type="size" width="480" height="200"/>
-            <value key="maxSize" type="size" width="480" height="200"/>
+            <rect key="contentRect" x="225" y="78" width="440" height="200"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
+            <value key="minSize" type="size" width="440" height="200"/>
+            <value key="maxSize" type="size" width="440" height="200"/>
             <view key="contentView" id="AK5-1a-Nc7">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                <rect key="frame" x="0.0" y="0.0" width="440" height="200"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <button toolTip="Hide the effects panel" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fPS-1x-TS4" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button toolTip="Hide the effects panel" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fPS-1x-TS4" userLabel="Close button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="10" y="175.5" width="11.5" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PhR-oy-ic8">

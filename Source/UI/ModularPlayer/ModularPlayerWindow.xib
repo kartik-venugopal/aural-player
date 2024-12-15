@@ -25,18 +25,18 @@
             <windowStyleMask key="styleMask" resizable="YES" fullSizeContentView="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="335" y="100" width="480" height="200"/>
+            <rect key="contentRect" x="335" y="100" width="440" height="200"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
-            <value key="minSize" type="size" width="480" height="200"/>
+            <value key="minSize" type="size" width="440" height="200"/>
             <value key="maxSize" type="size" width="5000" height="200"/>
             <view key="contentView" id="W7v-UI-tl4">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                <rect key="frame" x="0.0" y="0.0" width="440" height="200"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="s2a-4T-trI" userLabel="Root Container">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="200"/>
                         <view key="contentView" id="sdu-Lk-MLz">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="440" height="200"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Quit Aural" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -110,7 +110,7 @@
                                     </constraints>
                                 </popUpButton>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="AppLogoView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="213" y="172" width="54" height="15"/>
+                                    <rect key="frame" x="193" y="172" width="54" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="54" id="Uw7-SV-p7D"/>
                                         <constraint firstAttribute="height" constant="15" id="iA2-MG-kFs"/>
@@ -118,7 +118,7 @@
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
                                 </imageView>
                                 <popUpButton toolTip="Options" wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Settings Menu">
-                                    <rect key="frame" x="453" y="172" width="18" height="18"/>
+                                    <rect key="frame" x="413" y="172" width="18" height="18"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="cellTitle"/>
@@ -130,9 +130,9 @@
                                     </constraints>
                                 </popUpButton>
                                 <box autoresizesSubviews="NO" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Player Container Box">
-                                    <rect key="frame" x="0.0" y="0.0" width="480" height="173"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="440" height="173"/>
                                     <view key="contentView" id="DYU-Up-NX9">
-                                        <rect key="frame" x="0.0" y="0.0" width="480" height="173"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="173"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>

@@ -767,7 +767,6 @@
 		3E74579A2C6A7D220086C888 /* LibCueErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7457992C6A7D220086C888 /* LibCueErrors.swift */; };
 		3E74579C2C6A8CB60086C888 /* LibCueMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E74579B2C6A8CB60086C888 /* LibCueMapper.swift */; };
 		3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E752743267F32A60092BB89 /* RoundedImageView.swift */; };
-		3E758B06281DDA5900BBE872 /* EffectsWindowRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E758B05281DDA5900BBE872 /* EffectsWindowRootView.swift */; };
 		3E7638AB2857D88B00461F4D /* UnifiedPlayerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7638AA2857D88B00461F4D /* UnifiedPlayerWindow.xib */; };
 		3E7638AD2857D9F600461F4D /* UnifiedPlayerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7638AC2857D9F600461F4D /* UnifiedPlayerWindowController.swift */; };
 		3E7638AF2857DA3F00461F4D /* UnifiedAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7638AE2857DA3F00461F4D /* UnifiedAppModeController.swift */; };
@@ -1870,7 +1869,6 @@
 		3E7457992C6A7D220086C888 /* LibCueErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibCueErrors.swift; sourceTree = "<group>"; };
 		3E74579B2C6A8CB60086C888 /* LibCueMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibCueMapper.swift; sourceTree = "<group>"; };
 		3E752743267F32A60092BB89 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
-		3E758B05281DDA5900BBE872 /* EffectsWindowRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsWindowRootView.swift; sourceTree = "<group>"; };
 		3E7638AA2857D88B00461F4D /* UnifiedPlayerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnifiedPlayerWindow.xib; sourceTree = "<group>"; };
 		3E7638AC2857D9F600461F4D /* UnifiedPlayerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPlayerWindowController.swift; sourceTree = "<group>"; };
 		3E7638AE2857DA3F00461F4D /* UnifiedAppModeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedAppModeController.swift; sourceTree = "<group>"; };
@@ -3382,7 +3380,6 @@
 			children = (
 				3E6C100925CEB98600BF0D07 /* EffectsWindow.xib */,
 				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
-				3E758B05281DDA5900BBE872 /* EffectsWindowRootView.swift */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -6461,7 +6458,6 @@
 				3E5701962C6EB16A007B8611 /* ReplayGain.swift in Sources */,
 				3E6C12A625CEBE2700BF0D07 /* ToggleMenuItem.swift in Sources */,
 				3E0218DD2C23490E00865AC2 /* PlayerSeekResult.swift in Sources */,
-				3E758B06281DDA5900BBE872 /* EffectsWindowRootView.swift in Sources */,
 				3EF4CD952C65909C00A5922D /* WaveformCacheEntry.swift in Sources */,
 				3EA800FD2B588BDF00039268 /* CompactPlayerWindowController+EventHandling.swift in Sources */,
 				3E0217E32C23490E00865AC2 /* AudioGraphDelegate.swift in Sources */,

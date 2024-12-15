@@ -131,6 +131,7 @@ extension FilterUnitViewController: NSTableViewDataSource, NSTableViewDelegate {
             let editor = strongSelf.bandEditors[row]
             editor.showWindow()
             strongSelf.initEditorWindowMagnetism(for: editor, showWindow: true)
+            editor.window.makeKeyAndOrderFront(self)
         }
         
         return cell

@@ -57,8 +57,19 @@ class FilterCutoffFrequencySliderCell: CutoffFrequencySliderCell {
     
     override func progressRect(forBarRect barRect: NSRect, andKnobRect knobRect: NSRect) -> NSRect {
         
-        filterType == .lowPass ?
-        NSRect(x: barRect.minX, y: barRect.minY, width: max(halfKnobWidth, (knobRect.minX + halfKnobWidth) - barRect.minX), height: barRect.height) :
-        NSRect(x: knobRect.minX + halfKnobWidth, y: barRect.minY, width: max(halfKnobWidth, barRect.maxX - knobRect.minX + halfKnobWidth), height: barRect.height)
+        let knobCenterX = knobRect.minX + halfKnobWidth
+        let rect = filterType == .lowPass ?
+        
+        NSRect(x: barRect.minX, y: barRect.minY, 
+               width: max(halfKnobWidth, knobCenterX - barRect.minX),
+               height: barRect.height) :
+        
+        
+        NSRect(x: knobCenterX,
+               y: barRect.minY,
+               width: max(halfKnobWidth, barRect.maxX - knobCenterX),
+               height: barRect.height)
+        
+        return rect
     }
 }

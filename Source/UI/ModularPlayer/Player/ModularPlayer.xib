@@ -45,7 +45,7 @@
             </connections>
         </customObject>
         <customView id="ywj-Sd-BS4" userLabel="Player View" customClass="DragDroppablePlayerView" customModule="Aural" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="170"/>
+            <rect key="frame" x="0.0" y="0.0" width="440" height="170"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="igo-tR-LRb" userLabel="Art View" customClass="RoundedImageView" customModule="Aural" customModuleProvider="target">
@@ -66,26 +66,26 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Bp8-ZH-oj4" userLabel="Playing Track Info Box">
-                    <rect key="frame" x="85" y="85" width="381" height="70"/>
+                    <rect key="frame" x="85" y="85" width="341" height="70"/>
                     <view key="contentView" id="mEf-IM-kjw">
-                        <rect key="frame" x="0.0" y="0.0" width="381" height="70"/>
+                        <rect key="frame" x="0.0" y="0.0" width="341" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="AGH-LZ-ntq" customClass="MultilineTrackTextView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
+                                <rect key="frame" x="0.0" y="0.0" width="265" height="70"/>
                                 <subviews>
                                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="8iK-tS-VHE" userLabel="Scroll View">
-                                        <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="265" height="70"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="AeO-m4-NRh">
-                                            <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="265" height="70"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView focusRingType="none" editable="NO" selectable="NO" horizontallyResizable="YES" verticallyResizable="NO" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="gtL-jH-M96">
-                                                    <rect key="frame" x="0.0" y="0.0" width="305" height="70"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="265" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="305" height="70"/>
+                                                    <size key="minSize" width="265" height="70"/>
                                                     <size key="maxSize" width="5000" height="70"/>
                                                 </textView>
                                             </subviews>
@@ -114,7 +114,7 @@
                                 </connections>
                             </customView>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMU-Of-gsK" userLabel="Lbl Time Elapsed" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="312" y="23" width="70" height="24"/>
+                                <rect key="frame" x="272" y="23" width="70" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="Rnm-6W-ccF"/>
                                     <constraint firstAttribute="width" constant="66" id="r9h-nb-gQf"/>
@@ -129,7 +129,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iwf-qn-PJh" userLabel="Functions Menu">
-                                <rect key="frame" x="365" y="10" width="16" height="10"/>
+                                <rect key="frame" x="325" y="10" width="16" height="10"/>
                                 <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="8mJ-A6-W0m">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -212,10 +212,10 @@
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </box>
                 <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" transparent="YES" id="tlk-RM-S0u" userLabel="Controls Box">
-                    <rect key="frame" x="0.0" y="7" width="480" height="80"/>
+                    <rect key="frame" x="0.0" y="7" width="440" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" id="rhD-hs-O0f">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="80"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Oms-36-T5n" userLabel="Seek Slider">

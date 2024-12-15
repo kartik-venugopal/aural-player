@@ -37,7 +37,7 @@
                     </connections>
                 </button>
                 <view id="ux8-Uv-FBN" customClass="TimeStretchUnitView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="71" y="8" width="400" height="149"/>
+                    <rect key="frame" x="51" y="8" width="360" height="149"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <box boxType="custom" borderWidth="0.0" titlePosition="noTitle" id="gaN-32-BBx" userLabel="Slider Container">

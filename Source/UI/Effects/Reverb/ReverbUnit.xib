@@ -21,7 +21,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="txu-mA-r9M">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="160"/>
+            <rect key="frame" x="0.0" y="0.0" width="440" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="II7-fY-0FS" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
@@ -36,7 +36,7 @@
                     </connections>
                 </button>
                 <view id="elw-qF-nCD" customClass="ReverbUnitView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="63" y="83" width="384" height="74"/>
+                    <rect key="frame" x="53" y="73" width="367" height="74"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cnv-IQ-PKn" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
@@ -49,7 +49,7 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton toolTip="Set the physical space to simulate with Reverb" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjF-HF-nkd" userLabel="Reverb Space Menu">
-                            <rect key="frame" x="89" y="38" width="200" height="22"/>
+                            <rect key="frame" x="89" y="38" width="240" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="6Ce-dA-PGI" id="tol-Pp-L9a" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -94,7 +94,7 @@
                             </connections>
                         </popUpButton>
                         <slider toolTip="Wet/dry mix - Sets the proportion of mix between the source (dry) and effected (wet) signals." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AnR-ZX-Wi0" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="115" y="-2" width="145" height="18"/>
+                            <rect key="frame" x="115" y="-2" width="125" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="dxj-RB-154" customClass="EffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
@@ -120,7 +120,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Pq-Zb-3y9" userLabel="Wet" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="265" y="-5" width="40" height="24"/>
+                            <rect key="frame" x="245" y="-5" width="40" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="rPE-D2-IdC">
                                 <font key="font" metaFont="smallSystem"/>
@@ -129,7 +129,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iGc-Z1-9PZ" userLabel="Lbl Reverb Value" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="285" y="-5" width="68" height="24"/>
+                            <rect key="frame" x="265" y="-5" width="68" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="Z4x-02-2zl">
                                 <font key="font" metaFont="smallSystem"/>

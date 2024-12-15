@@ -23,7 +23,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="e4i-Mp-MMA" customClass="FilterUnitView" customModule="Aural" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="160"/>
+            <rect key="frame" x="0.0" y="0.0" width="440" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6p-bI-VWV" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
@@ -37,10 +37,6 @@
                         <action selector="bypassAction:" target="-2" id="kxt-Hu-2Q3"/>
                     </connections>
                 </button>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WKo-oZ-DDd" customClass="FilterChart" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="89" y="124" width="340" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                </customView>
                 <popUpButton toolTip="Presets and settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJo-gm-Pih" userLabel="Presets Menu">
                     <rect key="frame" x="14" y="115" width="15" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -105,8 +101,12 @@
                         <action selector="presetsAction:" target="-2" id="JeQ-T1-YAK"/>
                     </connections>
                 </popUpButton>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WKo-oZ-DDd" customClass="FilterChart" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="79" y="124" width="310" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </customView>
                 <scrollView fixedFrame="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUD-Wn-crh">
-                    <rect key="frame" x="89" y="35" width="340" height="80"/>
+                    <rect key="frame" x="79" y="35" width="340" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="N4T-ea-4Yf">
                         <rect key="frame" x="1" y="1" width="323" height="78"/>
@@ -290,13 +290,18 @@
                         <rect key="frame" x="-100" y="-100" width="223" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="axj-jC-trE">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="axj-jC-trE" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="324" y="1" width="15" height="78"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="clipView" destination="N4T-ea-4Yf" id="XRA-9Y-j3q"/>
+                            <outlet property="contentView" destination="DV5-Bt-Uye" id="Dkh-J8-Bfy"/>
+                            <outlet property="scrollView" destination="zUD-Wn-crh" id="sop-pU-7Tn"/>
+                        </connections>
                     </scroller>
                 </scrollView>
                 <popUpButton toolTip="Add a band" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jlg-W2-xKP" userLabel="Add band popup menu">
-                    <rect key="frame" x="371" y="14" width="20" height="14"/>
+                    <rect key="frame" x="361" y="14" width="20" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="6Qz-9c-fjD">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -335,7 +340,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <button toolTip="Remove selected bands" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eoX-Qm-XCX" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="391" y="16" width="14.5" height="10"/>
+                    <rect key="frame" x="381" y="16" width="14.5" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="minus" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jIr-k5-UU9">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -346,7 +351,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="now-P6-fdm" userLabel="20 Hz" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="48" y="125" width="35" height="24"/>
+                    <rect key="frame" x="38" y="125" width="35" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="20" id="Lyj-PT-ooH">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -355,7 +360,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fAk-xI-ftJ" userLabel="Twenty KHz" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="435" y="125" width="40" height="24"/>
+                    <rect key="frame" x="395" y="125" width="40" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="8CR-5f-xmc">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -364,7 +369,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cxN-B9-8Gf" userLabel="Bands summary" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="96" y="9" width="205" height="24"/>
+                    <rect key="frame" x="86" y="9" width="205" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="31 bands (31 active)" id="oDT-W9-rvm" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" metaFont="system"/>

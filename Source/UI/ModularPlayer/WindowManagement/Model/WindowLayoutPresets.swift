@@ -28,15 +28,15 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     static let defaultLayout: WindowLayoutPresets = .verticalStack
     
-    static let minPlayQueueWidth: CGFloat = 480
+    static let minPlayQueueWidth: CGFloat = 440
     
     // Main window size (never changes)
-    static let mainWindowWidth: CGFloat = 480
+    static let mainWindowWidth: CGFloat = 440
     static let mainWindowHeight: CGFloat = 200
     static let mainWindowSize: NSSize = NSMakeSize(mainWindowWidth, mainWindowHeight)
     
     // Effects window size (never changes)
-    static let effectsWindowWidth: CGFloat = 480
+    static let effectsWindowWidth: CGFloat = 440
     static let effectsWindowHeight: CGFloat = 200
     
     // Converts a user-friendly display name to an instance of PitchShiftPresets

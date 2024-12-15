@@ -163,15 +163,4 @@ extension ModularPlayerWindowController: NSWindowDelegate {
     func windowDidResize(_ notification: Notification) {
         playerViewController.windowResized()
     }
-    
-    func windowDidMove(_ notification: Notification) {
-        
-        let sep = NSScreen.screensHaveSeparateSpaces
-        print("Moved: \(theWindow.screen), sep: \(sep)")
-        
-        for (index, screen) in NSScreen.screens.enumerated() {
-            
-            print("Screen \(index + 1): \(screen.frame)")
-        }
-    }
 }
