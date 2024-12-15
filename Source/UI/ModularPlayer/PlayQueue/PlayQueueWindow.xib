@@ -19,22 +19,22 @@
         <window identifier="playQueue" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingIdentifier="playQueue" titleVisibility="hidden" id="QvC-M9-y7g" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="277"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
-            <value key="minSize" type="size" width="480" height="200"/>
+            <rect key="contentRect" x="196" y="240" width="440" height="225"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
+            <value key="minSize" type="size" width="440" height="200"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
+                <rect key="frame" x="0.0" y="0.0" width="440" height="225"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="p9b-xj-yeZ" userLabel="Root Container">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="225"/>
                         <view key="contentView" id="1Tr-uo-af8">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
+                            <rect key="frame" x="0.0" y="0.0" width="440" height="225"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
                     <button toolTip="Hide the Play Queue" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WCg-lo-jGl" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="252.5" width="13.5" height="10"/>
+                        <rect key="frame" x="10" y="200.5" width="13.5" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YZr-ea-1xk">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -45,7 +45,7 @@
                         </connections>
                     </button>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="9RY-wA-qFz" userLabel="Container">
-                        <rect key="frame" x="10" y="10" width="460" height="267"/>
+                        <rect key="frame" x="10" y="10" width="420" height="215"/>
                     </customView>
                 </subviews>
                 <constraints>

@@ -189,18 +189,17 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     }
 
     private func doMoveTracks(_ moveOperation: () -> [TrackMoveResult]) -> [TrackMoveResult] {
+        
+        let playingTrack = self.currentTrack
 
         let moveResults = moveOperation()
         
         if moveResults.isEmpty {return moveResults}
 
-        // If the playing track was moved, update the index of the playing track within the sequence
+        // Update the index of the playing track within the sequence
         
-        if let theCurrentTrackIndex = self.currentTrackIndex {
-            
-            if let result = moveResults.first(where: {$0.sourceIndex == theCurrentTrackIndex}) {
-                self.currentTrackIndex = result.destinationIndex
-            }
+        if let playingTrack {
+            self.currentTrackIndex = indexOfTrack(playingTrack)
         }
 
         return moveResults
@@ -211,10 +210,8 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         let playingTrack = currentTrack
         super.sort(sort)
         
-        if let playingTrack = playingTrack,
-           let newPlayingTrackIndex = indexOfTrack(playingTrack) {
-            
-            currentTrackIndex = newPlayingTrackIndex
+        if let playingTrack {
+            self.currentTrackIndex = indexOfTrack(playingTrack)
         }
     }
     
