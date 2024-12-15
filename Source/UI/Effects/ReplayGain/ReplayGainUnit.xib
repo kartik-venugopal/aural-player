@@ -30,7 +30,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="eXu-49-wDq">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="160"/>
+            <rect key="frame" x="0.0" y="0.0" width="440" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Oi-jb-bmq" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
@@ -132,11 +132,11 @@
                     </connections>
                 </popUpButton>
                 <view id="tFM-tl-kaj">
-                    <rect key="frame" x="48" y="0.0" width="419" height="160"/>
+                    <rect key="frame" x="48" y="0.0" width="380" height="160"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HzS-aY-W4u" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="15" y="127" width="65" height="24"/>
+                            <rect key="frame" x="5" y="127" width="65" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Mode" id="nw4-95-wYE">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -145,11 +145,11 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MJF-dG-Epe" userLabel="Replay Gain Mode Menu">
-                            <rect key="frame" x="115" y="128" width="240" height="22"/>
+                            <rect key="frame" x="105" y="128" width="245" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <popUpButtonCell key="cell" type="push" title="Album gain (or Track gain)" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="O4j-Nu-90i" id="QJF-Wc-9uh" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="JNf-gw-Itj">
                                     <items>
                                         <menuItem title="Album gain (or Track gain)" id="O4j-Nu-90i" userLabel="Album gain / Track gain">
@@ -169,7 +169,7 @@
                             </connections>
                         </popUpButton>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cG0-Qq-OUs" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="15" y="92" width="65" height="24"/>
+                            <rect key="frame" x="5" y="92" width="65" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Gain" id="fas-t4-L4N">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -178,7 +178,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38g-mP-xOa" userLabel="Lbl Applied Gain" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="117" y="92" width="240" height="24"/>
+                            <rect key="frame" x="107" y="92" width="240" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 dB  (Track gain)" id="TD9-7u-npw">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -187,7 +187,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFa-x8-qPj" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="15" y="57" width="65" height="24"/>
+                            <rect key="frame" x="5" y="57" width="65" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Pre-amp" id="vCc-cy-Ast">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -196,7 +196,7 @@
                             </textFieldCell>
                         </textField>
                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ngp-pO-uWT" userLabel="Pre-amp Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="140" y="60" width="150" height="18"/>
+                            <rect key="frame" x="130" y="60" width="120" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-15" maxValue="15" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="ub4-KK-30I" customClass="SymmetricEffectsUnitSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
@@ -204,7 +204,7 @@
                             </connections>
                         </slider>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ob7-3G-QFa" userLabel="-20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="100" y="57" width="35" height="24"/>
+                            <rect key="frame" x="90" y="57" width="35" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-15" id="PF4-7v-Mk9">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -213,7 +213,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HkG-br-QNW" userLabel="20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="294" y="57" width="35" height="24"/>
+                            <rect key="frame" x="254" y="57" width="35" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="+15" id="nmd-q7-pKl">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -222,7 +222,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIb-6C-Dgf" userLabel="Lbl PreAmp" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="340" y="57" width="56" height="24"/>
+                            <rect key="frame" x="290" y="57" width="56" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 dB" id="YMZ-Ip-d3E">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -231,7 +231,7 @@
                             </textFieldCell>
                         </textField>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gyR-LY-TRQ" customClass="EffectsUnitToggle" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="118" y="17" width="28" height="32"/>
+                            <rect key="frame" x="108" y="17" width="28" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NotChecked" imagePosition="left" alignment="left" alternateImage="Checked" controlSize="small" state="on" imageScaling="axesIndependently" inset="2" id="IuA-vy-UsQ">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -242,7 +242,7 @@
                             </connections>
                         </button>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bjo-mY-7G4" userLabel="Prevent Clipping" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="15" y="22" width="104" height="24"/>
+                            <rect key="frame" x="5" y="22" width="104" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <string key="toolTip">When this option is enabled, the replay gain will be adjusted (reduced) if clipping is predicted based on the computed loudness peak.</string>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Prevent clipping" id="duT-2X-Fjc">
@@ -278,7 +278,7 @@
                     </connections>
                 </stepper>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kn9-VI-9ho" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="8" y="5.5" width="90" height="22"/>
+                    <rect key="frame" x="8" y="5" width="90" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Custom" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="VQf-WD-CSY">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
