@@ -28,6 +28,7 @@ struct WindowLayoutsPersistentState: Codable {
 struct WindowLayoutPersistentState: Codable {
     
     let name: String?
+    let type: WindowLayoutType?
     
     let mainWindow: LayoutWindowPersistentState?
     let auxiliaryWindows: [LayoutWindowPersistentState]?
@@ -35,6 +36,7 @@ struct WindowLayoutPersistentState: Codable {
     init(layout: WindowLayout) {
         
         self.name = layout.name
+        self.type = layout.type
         
         self.mainWindow = LayoutWindowPersistentState(window: layout.mainWindow)
         self.auxiliaryWindows = layout.auxiliaryWindows.map {LayoutWindowPersistentState(window: $0)}
@@ -47,12 +49,15 @@ struct LayoutWindowPersistentState: Codable {
     let screen: ScreenPersistentState?
     
     let screenOffset: NSSize?
+    let offsetFromMainWindow: NSSize?
     let size: NSSize?
 
     init(window: LayoutWindow) {
         
         self.id = window.id
         self.screen = .init(screen: window.screen)
+        
+        self.offsetFromMainWindow = window.offsetFromMainWindow
         
         self.size = window.size
         

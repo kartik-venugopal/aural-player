@@ -9,16 +9,67 @@
 //
 import Cocoa
 
+enum WindowLayoutType: String, Codable {
+    
+    // Computed preset
+    case computed
+    
+    // Auto-saved on app exit
+    case autoSaved
+    
+    // User-defined, custom
+    case custom
+}
+
 class WindowLayout {
     
     var name: String
-    var systemDefined: Bool
+    var type: WindowLayoutType
     
     var mainWindow: LayoutWindow
     var auxiliaryWindows: [LayoutWindow]
     
     var mainWindowFrame: NSRect? {
         mainWindow.frame
+    }
+    
+    var screens: [NSScreen] {
+        ([mainWindow] + auxiliaryWindows).compactMap { $0.screen }
+    }
+    
+    var screenFrames: [NSRect] {
+        ([mainWindow] + auxiliaryWindows).compactMap { $0.screenFrame }
+    }
+    
+    var numberOfWindows: Int {
+        auxiliaryWindows.count + 1
+    }
+    
+    // All windows must be on the same screen.
+    var boundingBox: NSRect? {
+        
+        let allWindows = [mainWindow] + auxiliaryWindows
+        let screens = allWindows.compactMap { $0.screen }
+        
+        if screens.count > 1 {return nil}
+        
+        return NSRect.boundingBox(of: allWindows.compactMap {$0.frame})
+    }
+    
+    var layoutBoundingBox: WindowLayoutBoundingBox? {
+        
+        guard let box = self.boundingBox else {return nil}
+        
+        var offsets: [WindowID: NSSize] = [:]
+        
+        for window in [mainWindow] + auxiliaryWindows {
+            
+            if let frame = window.frame {
+                offsets[window.id] = frame.origin.distanceFrom(box.origin)
+            }
+        }
+        
+        return WindowLayoutBoundingBox(boundingBox: box, windowOffsets: offsets)
     }
     
     var effectsWindowFrame: NSRect? {
@@ -39,14 +90,15 @@ class WindowLayout {
         return nil
     }
     
-    init(name: String, systemDefined: Bool, mainWindow: LayoutWindow, auxiliaryWindows: [LayoutWindow]) {
+    init(name: String, type: WindowLayoutType, mainWindow: LayoutWindow, auxiliaryWindows: [LayoutWindow]) {
         
         self.name = name
-        self.systemDefined = systemDefined
+        self.type = type
         self.mainWindow = mainWindow
         self.auxiliaryWindows = auxiliaryWindows
     }
     
+    // Custom layouts
     init?(persistentState: WindowLayoutPersistentState) {
         
         guard let name = persistentState.name,
@@ -55,21 +107,22 @@ class WindowLayout {
         mainWindow.id == .main else {return nil}
         
         self.name = name
-        self.systemDefined = false
+        self.type = persistentState.type ?? .custom
         
         self.mainWindow = mainWindow
         self.auxiliaryWindows = persistentState.auxiliaryWindows?.compactMap {LayoutWindow(persistentState: $0)} ?? []
     }
     
-    init?(systemLayoutFrom persistentState: WindowLayoutsPersistentState?) {
+    // Auto-saved layout
+    init?(autoSavedLayoutFrom persistentState: WindowLayoutsPersistentState?) {
 
         guard let systemLayout = persistentState?.systemLayout,
               let mainWindowState = systemLayout.mainWindow,
               let mainWindow = LayoutWindow(persistentState: mainWindowState),
               mainWindow.id == .main else {return nil}
 
-        self.name = "_system_"
-        self.systemDefined = true
+        self.name = "_autoSaved_"
+        self.type = .autoSaved
 
         self.mainWindow = mainWindow
         self.auxiliaryWindows = systemLayout.auxiliaryWindows?.compactMap {LayoutWindow(persistentState: $0)} ?? []
@@ -84,7 +137,19 @@ extension WindowLayout: UserManagedObject {
         set {name = newValue}
     }
     
-    var userDefined: Bool {!systemDefined}
+    var userDefined: Bool {type == .custom}
+}
+
+struct WindowLayoutBoundingBox {
+    
+    let boundingBox: NSRect
+    let windowOffsets: [WindowID: NSSize]
+    
+    init(boundingBox: NSRect, windowOffsets: [WindowID : NSSize]) {
+        
+        self.boundingBox = boundingBox
+        self.windowOffsets = windowOffsets
+    }
 }
 
 struct LayoutWindow {
@@ -94,6 +159,7 @@ struct LayoutWindow {
     
     let screenFrame: NSRect?
     let screenOffset: NSSize?
+    let offsetFromMainWindow: NSSize?
     let size: NSSize
     
     var frame: NSRect? {
@@ -105,13 +171,14 @@ struct LayoutWindow {
         return nil
     }
     
-    init(id: WindowID, screen: NSScreen?, screenFrame: NSRect?, screenOffset: NSSize?, size: NSSize) {
+    init(id: WindowID, screen: NSScreen?, screenFrame: NSRect?, screenOffset: NSSize?, offsetFromMainWindow: NSSize, size: NSSize) {
         
         self.id = id
         self.screen = screen
         
         self.screenFrame = screenFrame
         self.screenOffset = screenOffset
+        self.offsetFromMainWindow = offsetFromMainWindow
         self.size = size
     }
                 
@@ -122,19 +189,20 @@ struct LayoutWindow {
               let screenOffset = persistentState.screenOffset,
               let size = persistentState.size else {return nil}
         
-        let offsetWidth = screenOffset.width
-        let offsetHeight = screenOffset.height
-        let width = size.width
-        let height = size.height
-        
         self.id = id
-        
+
+        //
+        // Even if the screen doesn't exist currently, restore the layout, because that
+        // screen might exist on a later app launch. For example - user switching
+        // between monitor setups.
+        //
         self.screen = NSScreen.screens.first {
             $0.localizedName == screen.name
         }
         
         self.screenFrame = screen.frame
-        self.screenOffset = NSMakeSize(offsetWidth, offsetHeight)
-        self.size = .init(width: width, height: height)
+        self.screenOffset = screenOffset
+        self.offsetFromMainWindow = persistentState.offsetFromMainWindow
+        self.size = size
     }
 }

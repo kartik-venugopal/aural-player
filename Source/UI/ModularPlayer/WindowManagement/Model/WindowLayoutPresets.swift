@@ -223,6 +223,7 @@ enum WindowLayoutPresets: String, CaseIterable {
         let mainWindow = LayoutWindow(id: .main, screen: screen,
                                       screenFrame: screen.frame,
                                       screenOffset: mainWindowOffset,
+                                      offsetFromMainWindow: .zero,
                                       size: NSMakeSize(Self.mainWindowWidth, Self.mainWindowHeight))
         
         var auxiliaryWindows: [LayoutWindow] = []
@@ -232,6 +233,7 @@ enum WindowLayoutPresets: String, CaseIterable {
             let playQueueWindow = LayoutWindow(id: .playQueue, screen: screen,
                                                screenFrame: screen.frame,
                                                screenOffset: playQueueWindowOffset,
+                                               offsetFromMainWindow: playQueueWindowOffset.distanceFrom(other: mainWindowOffset),
                                                size: NSMakeSize(playQueueWidth, playQueueHeight))
             
             auxiliaryWindows.append(playQueueWindow)
@@ -242,11 +244,19 @@ enum WindowLayoutPresets: String, CaseIterable {
             let effectsWindow = LayoutWindow(id: .effects, screen: screen,
                                              screenFrame: screen.frame,
                                              screenOffset: effectsWindowOffset,
+                                             offsetFromMainWindow: effectsWindowOffset.distanceFrom(other: mainWindowOffset),
                                              size: NSMakeSize(Self.effectsWindowWidth, Self.effectsWindowHeight))
             
             auxiliaryWindows.append(effectsWindow)
         }
         
-        return WindowLayout(name: self.name, systemDefined: true, mainWindow: mainWindow, auxiliaryWindows: auxiliaryWindows)
+        return WindowLayout(name: self.name, type: .computed, mainWindow: mainWindow, auxiliaryWindows: auxiliaryWindows)
+    }
+}
+
+extension NSSize {
+    
+    func distanceFrom(other: NSSize) -> NSSize {
+        NSMakeSize(self.width - other.width, self.height - other.height)
     }
 }

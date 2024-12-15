@@ -45,7 +45,7 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
         
         let newLayout = windowLayoutsManager.currentWindowLayout
         newLayout.name = name
-        newLayout.systemDefined = false
+        newLayout.type = .custom
         
         windowLayoutsManager.addObject(newLayout)
     }

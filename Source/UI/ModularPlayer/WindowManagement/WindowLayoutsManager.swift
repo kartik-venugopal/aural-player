@@ -9,17 +9,8 @@
 //
 import Cocoa
 
-fileprivate var boundingBox: NSRect {
-    
-    let frames: [NSRect] = NSScreen.screens.map {$0.frame}
-    
-    let minX = frames.map {$0.minX}.min() ?? 0
-    let maxX = frames.map {$0.maxX}.max() ?? 0
-    
-    let minY = frames.map {$0.minY}.min() ?? 0
-    let maxY = frames.map {$0.maxY}.max() ?? 0
-    
-    return NSMakeRect(minX, minY, maxX, maxY)
+fileprivate var screensBoundingBox: NSRect {
+    NSRect.boundingBox(of: NSScreen.screens.map {$0.frame})
 }
 
 class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Restorable {
@@ -90,7 +81,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         }
         
         super.init(systemDefinedObjects: [], userDefinedObjects: userDefinedLayouts)
-        self.savedLayout = WindowLayout(systemLayoutFrom: persistentState)
+        self.savedLayout = WindowLayout(autoSavedLayoutFrom: persistentState)
     }
     
     var defaultScreen: NSScreen {
@@ -187,58 +178,83 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     }
     
     func applyLayout(_ layout: WindowLayout) {
+        layout.type == .computed ? applyValidLayout(layout) : applyUserDefinedLayout(layout)
+    }
+    
+    func placeWindow(window: LayoutWindow, at origin: NSPoint) {
         
-        func placeWindow(window: LayoutWindow) {
-            
-            let actualWindow = getWindow(forId: window.id)
-            
-            if window.id != .main, windowMagnetismEnabled {
-                mainWindow.addChildWindow(actualWindow, ordered: .below)
-            }
-            
-            var origin: NSPoint = .zero
-
-            if let screen = window.screen, let screenFrame = window.screenFrame, screenFrame == screen.frame, let offset = window.screenOffset {
-                
-                origin = screen.visibleFrame.origin.translating(offset.width, offset.height)
-                
-            } else if let screenFrame = window.screenFrame, let offset = window.screenOffset {
-                
-                let targetScreen = NSScreen.main ?? NSScreen.screens[0]
-                
-                // Compute offset percentage
-                
-                let xOffset = offset.width
-                let totalXSpacing = screenFrame.width - window.size.width
-                let xOffsetFactor = xOffset / totalXSpacing
-                
-                let yOffset = offset.height
-                let totalYSpacing = screenFrame.height - window.size.height
-                let yOffsetFactor = yOffset / totalYSpacing
-                
-                let targetXSpacing = targetScreen.frame.width - window.size.width
-                let targetXOffset = xOffsetFactor * targetXSpacing
-                
-                let targetYSpacing = targetScreen.frame.height - window.size.height
-                let targetYOffset = yOffsetFactor * targetYSpacing
-                
-                origin = targetScreen.frame.origin.translating(targetXOffset, targetYOffset)
-            }
-            
-            let newFrame = NSRect(origin: origin, size: window.size)
-            actualWindow.setFrame(newFrame, display: true)
-            
-            // TODO: Ensure visible
-            
-            loader(withID: window.id).showWindow()
+        let actualWindow = getWindow(forId: window.id)
+        
+        if window.id != .main, windowMagnetismEnabled {
+            mainWindow.addChildWindow(actualWindow, ordered: .below)
         }
+        
+        let newFrame = NSRect(origin: origin, size: window.size)
+        actualWindow.setFrame(newFrame, display: true)
+        
+        loader(withID: window.id).showWindow()
+    }
+    
+    func applyValidLayout(_ layout: WindowLayout) {
         
         auxiliaryWindowsForModules.forEach {
             $0.hide()
         }
         
         for window in [layout.mainWindow] + layout.auxiliaryWindows {
-            placeWindow(window: window)
+            
+            var origin: NSPoint = .zero
+
+            if let screen = window.screen, let offset = window.screenOffset {
+                origin = screen.visibleFrame.origin.translating(offset.width, offset.height)
+            }
+            
+            placeWindow(window: window, at: origin)
+        }
+        
+        mainWindow.makeKeyAndOrderFront(self)
+        appDelegate.playQueueMenuRootItem.enableIf(isShowingPlayQueue)
+    }
+    
+    func applyUserDefinedLayout(_ layout: WindowLayout) {
+        
+        let allScreensExist = layout.screens.count == layout.numberOfWindows
+        
+        if allScreensExist {
+            
+            applyValidLayout(layout)
+            return
+        }
+        
+        auxiliaryWindowsForModules.forEach {
+            $0.hide()
+        }
+        
+        let screenFrames = layout.screenFrames
+        let allWindowsHaveScreenFrames = screenFrames.count == layout.numberOfWindows
+        let allOnSameScreen = Set(screenFrames).count == 1
+        
+        // Use bounding box and center on default screen
+        if allWindowsHaveScreenFrames && allOnSameScreen, let layoutBoundingBox = layout.layoutBoundingBox {
+            
+            let targetScreen = NSScreen.main ?? NSScreen.screens[0]
+            
+            let boundingBox = layoutBoundingBox.boundingBox
+            let targetScreenX = (targetScreen.frame.width - boundingBox.width) / 2
+            let targetScreenY = (targetScreen.frame.height - boundingBox.height) / 2
+            let targetBoxOrigin = NSMakePoint(targetScreenX, targetScreenY)
+            
+            for window in [layout.mainWindow] + layout.auxiliaryWindows {
+                
+                if let offset = layoutBoundingBox.windowOffsets[window.id] {
+                    placeWindow(window: window, at: targetBoxOrigin.translating(offset.width, offset.height))
+                }
+            }
+            
+        } else {
+            
+            // Apply default window layout
+            applyValidLayout(getSystemLayout(forPreset: .defaultLayout))
         }
         
         mainWindow.makeKeyAndOrderFront(self)
@@ -261,7 +277,9 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             
             windows.append(LayoutWindow(id: windowID, screen: child.screen,
                                         screenFrame: child.screen?.frame,
-                                        screenOffset: screenOffset, size: child.frame.size))
+                                        screenOffset: screenOffset, 
+                                        offsetFromMainWindow: child.frame.origin.distanceFrom(mainWindow.frame.origin),
+                                        size: child.frame.size))
         }
         
         let mainWindow = self.mainWindow
@@ -272,10 +290,12 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             screenOffset = mainWindow.frame.origin.distanceFrom(screen.frame.origin)
         }
         
-        return WindowLayout(name: "_system_", systemDefined: true, 
+        return WindowLayout(name: "_autoSaved_", type: .autoSaved, 
                             mainWindow: LayoutWindow(id: .main, screen: mainWindow.screen,
                                                      screenFrame: mainWindow.screen?.frame,
-                                                     screenOffset: screenOffset, size: mainWindow.size),
+                                                     screenOffset: screenOffset,
+                                                     offsetFromMainWindow: .zero,
+                                                     size: mainWindow.size),
                             auxiliaryWindows: windows)
     }
     
@@ -406,5 +426,21 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         let systemLayoutState = WindowLayoutPersistentState(layout: systemLayout)
         
         return WindowLayoutsPersistentState(systemLayout: systemLayoutState, userLayouts: userLayoutsState)
+    }
+}
+
+extension NSRect: Hashable {
+
+//    static func == (lhs: NSRect, rhs: NSRect) -> Bool {
+//        lhs == rhs
+//    }
+    
+    public func hash(into hasher: inout Hasher) {
+        
+        hasher.combine(minX)
+        hasher.combine(minY)
+        
+        hasher.combine(width)
+        hasher.combine(height)
     }
 }

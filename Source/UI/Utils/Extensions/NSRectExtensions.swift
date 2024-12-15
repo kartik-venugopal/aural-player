@@ -56,6 +56,19 @@ extension NSRect {
     var rightHalf: NSRect {
         NSRect(x: centerX, y: minY, width: width / 2, height: height)
     }
+    
+    static func boundingBox(of rectangles: [NSRect]) -> NSRect {
+        
+        guard rectangles.isNonEmpty else {return .zero}
+        
+        let minX = rectangles.map {$0.minX}.min() ?? 0
+        let maxX = rectangles.map {$0.maxX}.max() ?? 0
+        
+        let minY = rectangles.map {$0.minY}.min() ?? 0
+        let maxY = rectangles.map {$0.maxY}.max() ?? 0
+        
+        return NSMakeRect(minX, minY, maxX, maxY)
+    }
 }
 
 extension NSPoint {
