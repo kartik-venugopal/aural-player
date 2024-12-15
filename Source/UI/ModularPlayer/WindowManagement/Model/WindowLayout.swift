@@ -49,9 +49,9 @@ class WindowLayout {
     var boundingBox: NSRect? {
         
         let allWindows = [mainWindow] + auxiliaryWindows
-        let screens = allWindows.compactMap { $0.screen }
+        let screenFrames = self.screenFrames
         
-        if screens.count > 1 {return nil}
+        if Set(screenFrames).count > 1 {return nil}
         
         return NSRect.boundingBox(of: allWindows.compactMap {$0.frame})
     }
@@ -165,7 +165,14 @@ struct LayoutWindow {
     var frame: NSRect? {
         
         if let screen, let screenOffset {
-            return screen.visibleFrame.offsetBy(dx: screenOffset.width, dy: screenOffset.height)
+            
+            let origin = screen.visibleFrame.origin.translating(screenOffset.width, screenOffset.height)
+            return NSRect(origin: origin, size: size)
+            
+        } else if let screenFrame, let screenOffset {
+            
+            let origin = screenFrame.origin.translating(screenOffset.width, screenOffset.height)
+            return NSRect(origin: origin, size: size)
         }
         
         return nil

@@ -39,7 +39,7 @@ extension FontScheme {
     static let futuristic: FontScheme = .init(name: FontSchemePreset.futuristic.name, systemDefined: true,
                                               captionFont: futuristicFontSet.captionFont(size: 16),
                                               normalFont: futuristicFontSet.mainFont(size: 14.5),
-                                              prominentFont: futuristicFontSet.mainFont(size: 18),
+                                              prominentFont: futuristicFontSet.mainFont(size: 17),
                                               smallFont: futuristicFontSet.mainFont(size: 13),
                                               extraSmallFont: futuristicFontSet.mainFont(size: 10.5),
                                               tableYOffset: -1)

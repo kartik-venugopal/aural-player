@@ -67,7 +67,7 @@ extension NSRect {
         let minY = rectangles.map {$0.minY}.min() ?? 0
         let maxY = rectangles.map {$0.maxY}.max() ?? 0
         
-        return NSMakeRect(minX, minY, maxX, maxY)
+        return NSMakeRect(minX, minY, maxX - minX, maxY - minY)
     }
 }
 

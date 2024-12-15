@@ -23,6 +23,8 @@ enum WindowLayoutPresets: String, CaseIterable {
     case bigRightPlayQueue
     case verticalPlayerAndPlayQueue
     case horizontalPlayerAndPlayQueue
+    case tallLeftPlayerAndPlayQueue
+    case tallRightPlayerAndPlayQueue
     
     static let defaultLayout: WindowLayoutPresets = .verticalStack
     
@@ -73,6 +75,12 @@ enum WindowLayoutPresets: String, CaseIterable {
             
         case .horizontalPlayerAndPlayQueue:
             return "A horizontal arrangement of the Player and Play Queue"
+            
+        case .tallLeftPlayerAndPlayQueue:
+            return "A vertical left-aligned arrangement of the Player and Play Queue that spans the screen height"
+            
+        case .tallRightPlayerAndPlayQueue:
+            return "A vertical right-aligned arrangement of the Player and Play Queue that spans the screen height"
         }
     }
     
@@ -86,8 +94,8 @@ enum WindowLayoutPresets: String, CaseIterable {
         let twoGaps = 2 * gap
         
         var mainWindowOffset: NSSize = .zero
-        var playQueueWindowOffset: NSSize = .zero
-        var effectsWindowOffset: NSSize = .zero
+        var playQueueWindowOffset: NSSize? = nil
+        var effectsWindowOffset: NSSize? = nil
         
         var playQueueWidth: CGFloat = 0
         var playQueueHeight: CGFloat = 0
@@ -122,7 +130,7 @@ enum WindowLayoutPresets: String, CaseIterable {
             effectsWindowOffset = NSMakeSize(mainWindowOffset.width, mainWindowOffset.height - gap - Self.effectsWindowHeight)
             
             playQueueWidth = Self.mainWindowWidth
-            playQueueWindowOffset = NSMakeSize(mainWindowOffset.width, effectsWindowOffset.height - gap - playQueueHeight)
+            playQueueWindowOffset = NSMakeSize(mainWindowOffset.width, effectsWindowOffset!.height - gap - playQueueHeight)
             
         case .horizontalStack:
             
@@ -218,6 +226,25 @@ enum WindowLayoutPresets: String, CaseIterable {
             
             playQueueWindowOffset = NSMakeSize(mainWindowOffset.width + Self.mainWindowWidth + gap,
                                                mainWindowOffset.height)
+            
+        case .tallLeftPlayerAndPlayQueue:
+            
+            mainWindowOffset = NSMakeSize(0, visibleFrame.height - Self.mainWindowHeight)
+
+            playQueueWindowOffset = .zero
+            playQueueWidth = Self.mainWindowWidth
+            playQueueHeight = visibleFrame.height - Self.mainWindowHeight
+            
+        case .tallRightPlayerAndPlayQueue:
+            
+            let offsetX = visibleFrame.width - Self.mainWindowWidth
+            
+            mainWindowOffset = NSMakeSize(offsetX,
+                                          visibleFrame.height - Self.mainWindowHeight)
+
+            playQueueWindowOffset = NSMakeSize(offsetX, 0)
+            playQueueWidth = Self.mainWindowWidth
+            playQueueHeight = visibleFrame.height - Self.mainWindowHeight
         }
         
         let mainWindow = LayoutWindow(id: .main, screen: screen,
@@ -228,7 +255,7 @@ enum WindowLayoutPresets: String, CaseIterable {
         
         var auxiliaryWindows: [LayoutWindow] = []
         
-        if playQueueWindowOffset != .zero {
+        if let playQueueWindowOffset {
             
             let playQueueWindow = LayoutWindow(id: .playQueue, screen: screen,
                                                screenFrame: screen.frame,
@@ -239,7 +266,7 @@ enum WindowLayoutPresets: String, CaseIterable {
             auxiliaryWindows.append(playQueueWindow)
         }
         
-        if effectsWindowOffset != .zero {
+        if let effectsWindowOffset {
             
             let effectsWindow = LayoutWindow(id: .effects, screen: screen,
                                              screenFrame: screen.frame,
