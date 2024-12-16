@@ -10,7 +10,7 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     
     var tracksPendingPlayback: [Track] {get}
     
-    var eligibleToResumeShuffleSequence: Bool {get set}
+    var resumeShuffleSequenceOnStartup: Bool {get set}
     
     // MARK: Mutating functions ---------------------------------------------------------------
     

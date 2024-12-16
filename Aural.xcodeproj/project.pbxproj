@@ -809,6 +809,10 @@
 		3E91932925E0CF5D00F30F81 /* FontSchemeFonts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* FontSchemeFonts.xib */; };
 		3E91932C25E0D96A00F30F81 /* FontSchemeFontsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* FontSchemeFontsViewController.swift */; };
 		3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */; };
+		3E95A7892D10BE3500D0E4D8 /* GeneralPlaybackPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E95A7882D10BE3500D0E4D8 /* GeneralPlaybackPreferences.xib */; };
+		3E95A78B2D10BE5500D0E4D8 /* GeneralPlaybackPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95A78A2D10BE5500D0E4D8 /* GeneralPlaybackPreferencesViewController.swift */; };
+		3E95A78D2D10BE8C00D0E4D8 /* AutoplayPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E95A78C2D10BE8C00D0E4D8 /* AutoplayPreferences.xib */; };
+		3E95A78F2D10BE9700D0E4D8 /* AutoplayPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95A78E2D10BE9700D0E4D8 /* AutoplayPreferencesViewController.swift */; };
 		3E9792E326A24EFF0010BE99 /* AppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9792E226A24EFF0010BE99 /* AppModeController.swift */; };
 		3E987ECC2630088600E6836D /* MenuBarPlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E987ECB2630088600E6836D /* MenuBarPlayerUIState.swift */; };
 		3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */; };
@@ -1907,6 +1911,10 @@
 		3E91932825E0CF5D00F30F81 /* FontSchemeFonts.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemeFonts.xib; sourceTree = "<group>"; };
 		3E91932B25E0D96A00F30F81 /* FontSchemeFontsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeFontsViewController.swift; sourceTree = "<group>"; };
 		3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesWindowController.swift; sourceTree = "<group>"; };
+		3E95A7882D10BE3500D0E4D8 /* GeneralPlaybackPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPlaybackPreferences.xib; sourceTree = "<group>"; };
+		3E95A78A2D10BE5500D0E4D8 /* GeneralPlaybackPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPlaybackPreferencesViewController.swift; sourceTree = "<group>"; };
+		3E95A78C2D10BE8C00D0E4D8 /* AutoplayPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutoplayPreferences.xib; sourceTree = "<group>"; };
+		3E95A78E2D10BE9700D0E4D8 /* AutoplayPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoplayPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E9792E226A24EFF0010BE99 /* AppModeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModeController.swift; sourceTree = "<group>"; };
 		3E987ECB2630088600E6836D /* MenuBarPlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerUIState.swift; sourceTree = "<group>"; };
 		3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackInfo.swift; sourceTree = "<group>"; };
@@ -4079,6 +4087,8 @@
 			children = (
 				3E6C0F2E25CEB98500BF0D07 /* PlaybackPreferences.xib */,
 				3E6C0F2F25CEB98500BF0D07 /* PlaybackPreferencesViewController.swift */,
+				3E95A7862D10BDDA00D0E4D8 /* General */,
+				3E95A7872D10BDE100D0E4D8 /* Autoplay */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -4788,6 +4798,24 @@
 				3E91932B25E0D96A00F30F81 /* FontSchemeFontsViewController.swift */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3E95A7862D10BDDA00D0E4D8 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				3E95A7882D10BE3500D0E4D8 /* GeneralPlaybackPreferences.xib */,
+				3E95A78A2D10BE5500D0E4D8 /* GeneralPlaybackPreferencesViewController.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		3E95A7872D10BDE100D0E4D8 /* Autoplay */ = {
+			isa = PBXGroup;
+			children = (
+				3E95A78C2D10BE8C00D0E4D8 /* AutoplayPreferences.xib */,
+				3E95A78E2D10BE9700D0E4D8 /* AutoplayPreferencesViewController.swift */,
+			);
+			path = Autoplay;
 			sourceTree = "<group>";
 		};
 		3E9C120F2622204F00D90EA4 /* Themes */ = {
@@ -5624,11 +5652,13 @@
 				3E0219CD2C23497D00865AC2 /* Papyrus.ttf in Resources */,
 				3E51CCF0285E8986002CBEF2 /* UnifiedPlayerSidebar.xib in Resources */,
 				3E6C125E25CEBE0600BF0D07 /* ReverbPresetsManager.xib in Resources */,
+				3E95A7892D10BE3500D0E4D8 /* GeneralPlaybackPreferences.xib in Resources */,
 				3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */,
 				3E8C370D2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib in Resources */,
 				3E7E9F482C66AFB30011DE8E /* Waveform.xib in Resources */,
 				3E6C126025CEBE0600BF0D07 /* UIPresetsManager.xib in Resources */,
 				3E6C12D925CEBE8100BF0D07 /* FilterUnit.xib in Resources */,
+				3E95A78D2D10BE8C00D0E4D8 /* AutoplayPreferences.xib in Resources */,
 				3E36BD4426A6908200B6E28B /* CoverArtTrackInfo.xib in Resources */,
 				3E0219D12C23497D00865AC2 /* shufen.regular.ttf in Resources */,
 				3E6C127A25CEBE1800BF0D07 /* ColorSchemes.xib in Resources */,
@@ -6260,6 +6290,7 @@
 				3E0217FA2C23490E00865AC2 /* EffectsUnitProtocol.swift in Sources */,
 				3E7638AD2857D9F600461F4D /* UnifiedPlayerWindowController.swift in Sources */,
 				3E0218772C23490E00865AC2 /* FavoritesListNotifications.swift in Sources */,
+				3E95A78B2D10BE5500D0E4D8 /* GeneralPlaybackPreferencesViewController.swift in Sources */,
 				3E8F31AA26AC9623009C58B5 /* AudioUnitsTableViews.swift in Sources */,
 				3E0218272C23490E00865AC2 /* FavoriteFolder.swift in Sources */,
 				3E60EAD92B5D9DE2002EBFD3 /* TrackListTableViewController+Actions.swift in Sources */,
@@ -6413,6 +6444,7 @@
 				3E0219202C23490E00865AC2 /* RemoteControlManager.swift in Sources */,
 				3ECF71AD2B755ACF00FDB69B /* CompactPlayerUIState.swift in Sources */,
 				3E02196C2C23490E00865AC2 /* PlaybackPositionDisplayType.swift in Sources */,
+				3E95A78F2D10BE9700D0E4D8 /* AutoplayPreferencesViewController.swift in Sources */,
 				3E0219602C23490E00865AC2 /* TrackComparators.swift in Sources */,
 				3ED373C22C70B62200836511 /* ReplayGainUnitProtocol.swift in Sources */,
 				3E0219172C23490E00865AC2 /* Preferences.swift in Sources */,
@@ -6714,7 +6746,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview19";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview20";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6731,7 +6763,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview19";
+				MARKETING_VERSION = "4.0.0-preview20";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6753,7 +6785,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview19";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview20";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6770,7 +6802,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview19";
+				MARKETING_VERSION = "4.0.0-preview20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;

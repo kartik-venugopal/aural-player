@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GeneralPlaybackPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnInfo_primarySeekLength" destination="VJn-aW-Eho" id="Pey-CX-1Nx"/>
+                <outlet property="btnInfo_secondarySeekLength" destination="DOO-U5-2Tj" id="CtU-fH-7aY"/>
+                <outlet property="btnPrimarySeekLengthConstant" destination="FeP-q6-MQF" id="GKP-Hr-2MV"/>
+                <outlet property="btnPrimarySeekLengthPerc" destination="3D1-PH-VWQ" id="nks-iv-KUC"/>
+                <outlet property="btnRememberPositionForAllTracks" destination="Th8-e5-5U4" id="DLT-IJ-2TU"/>
+                <outlet property="btnSecondarySeekLengthConstant" destination="gYf-iM-oY2" id="V5A-8R-EQ0"/>
+                <outlet property="btnSecondarySeekLengthPerc" destination="7Xz-fT-qQR" id="rg2-Rb-h46"/>
+                <outlet property="lblPrimarySeekLength" destination="uHk-Rg-zFn" id="0OI-Y9-ad2"/>
+                <outlet property="lblPrimarySeekLengthPerc" destination="eOz-fq-ogj" id="eK4-vc-1cd"/>
+                <outlet property="lblSecondarySeekLength" destination="iWq-u9-jHl" id="B2h-cN-EVc"/>
+                <outlet property="lblSecondarySeekLengthPerc" destination="0Is-J2-FxU" id="12Y-rY-yuU"/>
+                <outlet property="primarySeekLengthPercStepper" destination="4NA-Wz-wCj" id="bBV-IR-8mE"/>
+                <outlet property="primarySeekLengthPicker" destination="u6g-Z8-Cvj" id="rrF-oq-f6u"/>
+                <outlet property="secondarySeekLengthPercStepper" destination="eB3-Vy-bA2" id="aez-5x-bWZ"/>
+                <outlet property="secondarySeekLengthPicker" destination="Mje-En-Xyf" id="LwL-XG-y7k"/>
+                <outlet property="view" destination="OPE-DR-zEl" id="c0W-3n-s94"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="OPE-DR-zEl">
+            <rect key="frame" x="0.0" y="0.0" width="640" height="416"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gYf-iM-oY2" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="48" y="199" width="76" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Constant" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="oii-5e-nLz">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="secondarySeekLengthRadioButtonAction:" target="-2" id="Z2R-jK-Q6T"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHk-Rg-zFn" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="150" y="304" width="86" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="Ufh-6N-aCb">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="jw4-xm-ecB">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="300"/>
+                        </numberFormatter>
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Xz-fT-qQR" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="48" y="174" width="147" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="% of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="2Ft-kh-4q0">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="secondarySeekLengthRadioButtonAction:" target="-2" id="fAO-Wu-Sfi"/>
+                    </connections>
+                </button>
+                <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJn-aW-Eho" userLabel="Info - Seek length primary" customClass="ContextHelpButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="169" y="335" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="info.circle" catalog="system" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="KTR-j4-AVV">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="helpText">
+                            <mutableString key="value">The time interval by which the player will increment/decrement the playback position within the current track, each time the user seeks forward or backward. This value will be used by the application's main seek controls (on the player and in the Playback menu). Set this value as appropriate for frequent use.  💡Tip - Use this in conjunction with the Secondary seek length, to combine fine-grained seeking with more coarse-grained seeking. For instance, Primary seek length could specify a shorter interval for more accurate seeking and Secondary seek length could specify a larger interval for quickly skipping through larger tracks.</mutableString>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="seekLengthPrimary_infoAction:" target="-2" id="kSK-7e-d2S"/>
+                    </connections>
+                </button>
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eB3-Vy-bA2" userLabel="Secondary Seek Stepper">
+                    <rect key="frame" x="241" y="170" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="HZL-7Y-cTv"/>
+                    <connections>
+                        <action selector="secondarySeekLengthPercAction:" target="-2" id="T5a-0E-8Qh"/>
+                    </connections>
+                </stepper>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nw1-HT-5PV" userLabel="Seek Length Label">
+                    <rect key="frame" x="38" y="330" width="135" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (primary)" id="Ovs-I4-xAh">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeP-q6-MQF" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="48" y="305" width="76" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Constant" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Mp2-FD-8ke">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="primarySeekLengthRadioButtonAction:" target="-2" id="u5U-tP-BB8"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Htq-IQ-0I3" userLabel="Seek Length Label">
+                    <rect key="frame" x="38" y="225" width="145" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (secondary)" id="7v3-jr-YgL">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mje-En-Xyf" userLabel="Primary Seek Stepper">
+                    <rect key="frame" x="241" y="196" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="36000" doubleValue="1" id="CVd-HO-yrK"/>
+                    <connections>
+                        <action selector="secondarySeekLengthAction:" target="-2" id="3Y2-SR-5Pc"/>
+                    </connections>
+                </stepper>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Is-J2-FxU" userLabel="Secondary Seek % Label">
+                    <rect key="frame" x="201" y="171" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="SWN-17-G6D">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Cbq-bS-2WQ">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="30"/>
+                        </numberFormatter>
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6g-Z8-Cvj" userLabel="Primary Seek Stepper">
+                    <rect key="frame" x="241" y="301" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="36000" doubleValue="1" id="03A-82-jNy"/>
+                    <connections>
+                        <action selector="primarySeekLengthAction:" target="-2" id="EKA-zZ-Ei8"/>
+                    </connections>
+                </stepper>
+                <button toolTip="What is this ?" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DOO-U5-2Tj" userLabel="Info - Seek length primary" customClass="ContextHelpButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="184" y="231" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="info.circle" catalog="system" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="6xV-zO-guB">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="helpText">
+                            <mutableString key="value">The time interval by which the player will increment/decrement the playback position within the current track, each time the user seeks forward or backward. This value will be used by the secondary seek controls in the Playback menu (and the corresponding keyboard shortcuts). Set this value as appropriate for relatively infrequent use.  💡 Tip - Use this in conjunction with the Primary seek length, to combine fine-grained seeking with more coarse-grained seeking. For instance, Primary seek length could specify a shorter interval for more accurate seeking and Secondary seek length could specify a larger interval for quickly skipping through larger tracks.</mutableString>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="seekLengthSecondary_infoAction:" target="-2" id="2ys-Qr-gWF"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iWq-u9-jHl" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="150" y="199" width="86" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="7t0-PA-bfM">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="YUo-8Y-c0Z">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="300"/>
+                        </numberFormatter>
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3D1-PH-VWQ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="48" y="280" width="132" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="% of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="SAL-ph-FgK">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="primarySeekLengthRadioButtonAction:" target="-2" id="340-Em-kFJ"/>
+                    </connections>
+                </button>
+                <stepper focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4NA-Wz-wCj" userLabel="Primary Seek Stepper">
+                    <rect key="frame" x="241" y="276" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" focusRingType="none" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="PUd-De-9Pc"/>
+                    <connections>
+                        <action selector="primarySeekLengthPercAction:" target="-2" id="Kpp-gR-Ul6"/>
+                    </connections>
+                </stepper>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOz-fq-ogj" userLabel="Primary Seek % Label">
+                    <rect key="frame" x="201" y="277" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="RS0-ar-CIh">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="P24-u0-GGv">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="30"/>
+                        </numberFormatter>
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Th8-e5-5U4" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="39" y="104" width="524" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Resume track playback from last playback position for all tracks" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="b4l-E7-3aA">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="37" y="341"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="info.circle" catalog="system" width="15" height="15"/>
+    </resources>
+</document>

@@ -65,6 +65,6 @@ struct TrackPersistentState: Codable {
 
 struct ShuffleSequencePersistentState: Codable {
     
-    let sequence: [URL]?
-    let playedTracks: [URL]?
+    let sequence: [Int]?
+    let playedTracks: [Int]?
 }

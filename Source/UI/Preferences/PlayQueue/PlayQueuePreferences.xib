@@ -149,7 +149,7 @@ DQ
                     <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="Error" id="RNZ-pb-dOQ"/>
                 </imageView>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-Fk-tAG" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="29" y="244.5" width="419" height="17"/>
+                    <rect key="frame" x="29" y="244" width="419" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show chapters list (if track has chapters)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="03P-Ux-pSb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -166,7 +166,7 @@ DQ
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZPD-DH-Z3O" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="29" y="263.5" width="452" height="20"/>
+                    <rect key="frame" x="29" y="263" width="452" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Select and show it within the Play Queue (if Play Queue is visible)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="f6D-zw-2Xt">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

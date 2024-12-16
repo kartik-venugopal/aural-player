@@ -39,7 +39,7 @@ extension PlayQueueDelegate {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
                 loadTracks(from: tracks, params: pqParmsWithAutoplayAndNoHistory)
-                playQueue.eligibleToResumeShuffleSequence = true
+                playQueue.resumeShuffleSequenceOnStartup = true
             }
             
         case .loadPlaylistFile:
@@ -47,7 +47,7 @@ extension PlayQueueDelegate {
             if let playlistFile = playQueuePreferences.playlistFile.value {
                 
                 loadTracks(from: [playlistFile], params: pqParmsWithAutoplayAndNoHistory)
-                playQueue.eligibleToResumeShuffleSequence = true
+                playQueue.resumeShuffleSequenceOnStartup = true
             }
             
         case .loadFolder:
@@ -55,7 +55,7 @@ extension PlayQueueDelegate {
             if let folder = playQueuePreferences.tracksFolder.value {
                 
                 loadTracks(from: [folder], params: pqParmsWithAutoplayAndNoHistory)
-                playQueue.eligibleToResumeShuffleSequence = true
+                playQueue.resumeShuffleSequenceOnStartup = true
             }
         }
         

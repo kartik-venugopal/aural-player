@@ -28,7 +28,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
     lazy var shuffleSequence: ShuffleSequence = ShuffleSequence()
-    var eligibleToResumeShuffleSequence: Bool = false
+    var resumeShuffleSequenceOnStartup: Bool = false
     
     private lazy var messenger = Messenger(for: self)
     
@@ -304,37 +304,19 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         
         messenger.publish(.PlayQueue.doneAddingTracks)
         
-        if eligibleToResumeShuffleSequence, shuffleMode == .on,
+        if resumeShuffleSequenceOnStartup, shuffleMode == .on,
             let shuffleSequencePersistentState = appPersistentState.playQueue?.history?.shuffleSequence,
             let playedTracks = shuffleSequencePersistentState.playedTracks,
            let sequenceTracks = shuffleSequencePersistentState.sequence {
             
-            defer {eligibleToResumeShuffleSequence = false}
+            defer {resumeShuffleSequenceOnStartup = false}
            
             guard (playedTracks.count + sequenceTracks.count) == self.size else {return}
             
-            for file in playedTracks {
-                
-                if !self.hasTrack(forFile: file) {
-                    return
-                }
-            }
-            
-            for file in sequenceTracks {
-                
-                if !self.hasTrack(forFile: file) {
-                    return
-                }
-            }
-            
             print("\nCan resume Shuffle Sequence !!! ... with \(playedTracks.count) played tracks + \(sequenceTracks.count) pending tracks")
-            var tracksMap: [URL: Track] = [:]
             
-            for track in self._tracks {
-                tracksMap[track.key] = track.value
-            }
-            
-            shuffleSequence.initialize(with: shuffleSequencePersistentState, playQueueTracks: tracksMap)
+            shuffleSequence.initialize(with: sequenceTracks.map {_tracks.elements[$0].value},
+                                       playedTracks: playedTracks.map {_tracks.elements[$0].value})
         }
     }
 }

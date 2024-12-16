@@ -19,11 +19,11 @@ import OrderedCollections
 /// Example:    For a shuffle sequence with 10 tracks, the sequence may look like:
 /// [7, 9, 2, 4, 8, 6, 3, 0, 1, 5]
 ///
-class ShuffleSequence: PersistentModelObject {
+class ShuffleSequence {
     
     // Array of sequence track indexes that constitute the shuffle sequence. This array must always be of the same size as the parent playback sequence
-    private var sequence: OrderedSet<Track> = .init()
-    private var playedTracks: OrderedSet<Track> = .init()
+    private(set) var sequence: OrderedSet<Track> = .init()
+    private(set) var playedTracks: OrderedSet<Track> = .init()
     private(set) var isPlaying: Bool = false
     
     var playingTrack: Track? {
@@ -38,13 +38,10 @@ class ShuffleSequence: PersistentModelObject {
         return (numPlayedTracks + 1, numPlayedTracks + numPendingTracks)
     }
     
-    func initialize(with persistentState: ShuffleSequencePersistentState, playQueueTracks: [URL: Track]) {
+    func initialize(with sequence: [Track], playedTracks: [Track]) {
         
-        guard let playedTracks = persistentState.playedTracks,
-              let sequenceTracks = persistentState.sequence else {return}
-        
-        self.playedTracks.append(contentsOf: playedTracks.compactMap {playQueueTracks[$0]})
-        self.sequence.append(contentsOf: sequenceTracks.compactMap {playQueueTracks[$0]})
+        self.playedTracks.append(contentsOf: playedTracks)
+        self.sequence.append(contentsOf: sequence)
         self.isPlaying = true
     }
     
@@ -187,11 +184,5 @@ class ShuffleSequence: PersistentModelObject {
     // Checks if all elements have been visited, i.e. the end of the sequence has been reached
     var hasEnded: Bool {
         isPlaying && sequence.count == 1
-    }
-    
-    var persistentState: ShuffleSequencePersistentState {
-        
-        .init(sequence: self.sequence.map {$0.file},
-              playedTracks: self.playedTracks.map {$0.file})
     }
 }

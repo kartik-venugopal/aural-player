@@ -44,45 +44,11 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction fileprivate func resumeLastPlayedTrackAction(_ sender: NSMenuItem) {
-        
-        do {
-            
-            try historyDelegate.resumeLastPlayedTrack()
-            
-        } catch {
-            
-            if let lastPlayedItem = historyDelegate.lastPlayedItem, let fnfError = error as? FileNotFoundError {
-                
-                // This needs to be done async. Otherwise, other open dialogs could hang.
-                DispatchQueue.main.async {
-                    
-                    // Position and display an alert with error info
-                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item").showModal()
-                    historyDelegate.deleteItem(lastPlayedItem)
-                }
-            }
-        }
+        historyDelegate.resumeLastPlayedTrack()
     }
     
     @IBAction fileprivate func resumeShuffleSequenceAction(_ sender: NSMenuItem) {
-        
-        do {
-            
-            try historyDelegate.resumeShuffleSequence()
-            
-        } catch {
-            
-            if let lastPlayedItem = historyDelegate.lastPlayedItem, let fnfError = error as? FileNotFoundError {
-                
-                // This needs to be done async. Otherwise, other open dialogs could hang.
-                DispatchQueue.main.async {
-                    
-                    // Position and display an alert with error info
-                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item").showModal()
-                    historyDelegate.deleteItem(lastPlayedItem)
-                }
-            }
-        }
+        historyDelegate.resumeShuffleSequence()
     }
     
     @IBAction fileprivate func clearHistoryAction(_ sender: NSMenuItem) {

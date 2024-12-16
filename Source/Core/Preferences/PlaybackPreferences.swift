@@ -68,19 +68,22 @@ class PlaybackPreferences {
         }
     }
     
-    lazy var autoplayOnStartup: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplayOnStartup",
+    lazy var autoplayOnStartup: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.onStartup",
                                                              defaultValue: Defaults.autoplayOnStartup)
     
-    lazy var autoplayAfterAddingTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplayAfterAddingTracks",
+    lazy var autoplayOnStartupOption: UserPreference<AutoplayOnStartupOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.onStartup.option",
+                                                             defaultValue: Defaults.autoplayOnStartupOption)
+    
+    lazy var autoplayAfterAddingTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.afterAddingTracks",
                                                                      defaultValue: Defaults.autoplayAfterAddingTracks)
     
-    lazy var autoplayAfterAddingOption: UserPreference<AutoplayAfterAddingOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplayAfterAddingTracks.option",
+    lazy var autoplayAfterAddingOption: UserPreference<AutoplayAfterAddingOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.afterAddingTracks.option",
                                                                                           defaultValue: Defaults.autoplayAfterAddingOption)
     
-    lazy var autoplayAfterOpeningTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplayAfterOpeningTracks",
+    lazy var autoplayAfterOpeningTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.afterOpeningTracks",
                                                                       defaultValue: Defaults.autoplayAfterOpeningTracks)
     
-    lazy var autoplayAfterOpeningOption: UserPreference<AutoplayAfterOpeningOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplayAfterOpeningTracks.option",
+    lazy var autoplayAfterOpeningOption: UserPreference<AutoplayAfterOpeningOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.afterOpeningTracks.option",
                                                                                             defaultValue: Defaults.autoplayAfterOpeningOption)
     
     lazy var rememberLastPositionForAllTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).rememberLastPositionForAllTracks",
@@ -90,6 +93,12 @@ class PlaybackPreferences {
         
         case constant
         case percentage
+    }
+    
+    enum AutoplayOnStartupOption: String, CaseIterable {
+        
+        case firstTrack
+        case resumeSequence
     }
 
     // Possible options for the "autoplay afer adding tracks" user preference

@@ -42,6 +42,7 @@ struct PreferencesDefaults {
         static let secondarySeekLengthPercentage: Int = 10
         
         static let autoplayOnStartup: Bool = false
+        static let autoplayOnStartupOption: PlaybackPreferences.AutoplayOnStartupOption = .firstTrack
         
         static let autoplayAfterAddingTracks: Bool = false
         static let autoplayAfterAddingOption: PlaybackPreferences.AutoplayAfterAddingOption = .ifNotPlaying
