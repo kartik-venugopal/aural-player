@@ -10,7 +10,7 @@
 
 import AppKit
 
-class AutoplayPreferencesViewController: NSViewController {
+class AutoplayPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     override var nibName: NSNib.Name? {"AutoplayPreferences"}
     
@@ -35,6 +35,8 @@ class AutoplayPreferencesViewController: NSViewController {
         let prefs = preferences.playbackPreferences
         
         btnAutoplayOnStartup.onIf(prefs.autoplayOnStartup.value)
+        btnAutoplayOnStartup_FirstTrack.onIf(prefs.autoplayOnStartupOption.value == .firstTrack)
+        btnAutoplayOnStartup_ResumeSequence.onIf(prefs.autoplayOnStartupOption.value == .resumeSequence)
         
         btnAutoplayAfterAddingTracks.onIf(prefs.autoplayAfterAddingTracks.value)
         btnAutoplayAfterAdding_IfNotPlaying.onIf(prefs.autoplayAfterAddingOption.value == .ifNotPlaying)

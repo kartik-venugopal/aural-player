@@ -11,6 +11,8 @@ import Cocoa
 
 class ControlsPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
+    override var nibName: NSNib.Name? {"ControlsPreferences"}
+    
     @IBOutlet weak var tabView: NSTabView!
     
     private let mediaKeysPreferencesView: PreferencesViewProtocol = MediaKeysPreferencesViewController()
@@ -19,9 +21,13 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     private var subViews: [PreferencesViewProtocol] = []
     
-    override var nibName: NSNib.Name? {"ControlsPreferences"}
+    var preferencesView: NSView {
+        view
+    }
     
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
         
         subViews = [mediaKeysPreferencesView, gesturesPreferencesView, remoteControlPreferencesView]
         
@@ -37,10 +43,6 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Select the Media Keys prefs tab
         tabView.selectTabViewItem(at: 0)
-    }
-    
-    var preferencesView: NSView {
-        view
     }
     
     func resetFields() {

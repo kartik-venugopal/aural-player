@@ -63,12 +63,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Force eager loading of persistent state
         eagerlyInitializeObjects(appPersistentState)
         
-        if appSetup.setupRequired {
-            performAppSetup()
-            
-        } else {
+        // TODO: Temporarily disabling app setup
+        
+//        if appSetup.setupRequired {
+//            performAppSetup()
+//            
+//        } else {
             postLaunch()
-        }
+//        }
     }
 
     /// Opens the application with a single file (audio file or playlist)

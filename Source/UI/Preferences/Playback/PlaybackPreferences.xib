@@ -9,23 +9,24 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaybackPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="tabView" destination="RKY-8l-xmP" id="kdF-JW-Zrq"/>
                 <outlet property="view" destination="fBA-Aa-Qne" id="bEU-1Z-jc8"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="fBA-Aa-Qne">
-            <rect key="frame" x="0.0" y="0.0" width="660" height="470"/>
+            <rect key="frame" x="0.0" y="0.0" width="688" height="470"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <tabView id="RKY-8l-xmP" userLabel="Tab View">
-                    <rect key="frame" x="0.0" y="5" width="660" height="462"/>
+                    <rect key="frame" x="0.0" y="5" width="688" height="462"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="General" identifier="" id="P7f-dg-0gy" userLabel="General" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                             <view key="view" id="nDd-aU-cVU">
-                                <rect key="frame" x="10" y="33" width="640" height="416"/>
+                                <rect key="frame" x="10" y="33" width="668" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <imageReference key="image" image="keyboard" catalog="system" symbolScale="medium"/>

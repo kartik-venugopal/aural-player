@@ -10,7 +10,7 @@
 
 import AppKit
 
-class GeneralPlaybackPreferencesViewController: NSViewController {
+class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     override var nibName: NSNib.Name? {"GeneralPlaybackPreferences"}
     
@@ -165,5 +165,25 @@ class GeneralPlaybackPreferencesViewController: NSViewController {
         if oldPrimarySeekLengthConstant != prefs.primarySeekLengthConstant.value {
             remoteControlManager.updateSeekInterval(to: Double(prefs.primarySeekLengthConstant.value))
         }
+    }
+}
+
+@IBDesignable
+class FormattedIntervalLabel: NSTextField {
+    
+    @IBInspectable var interval: Double = 0 {
+        
+        didSet {
+            self.stringValue = interval != 0 ? ValueFormatter.formatSecondsToHMS_hrMinSec(interval.roundedInt) : "0 sec"
+        }
+    }
+    
+    override func awakeFromNib() {
+        
+        self.alignment = .right
+        self.font = standardFontSet.mainFont(size: 11)
+        self.isBordered = false
+        self.drawsBackground = false
+        self.textColor = .defaultLightTextColor
     }
 }
