@@ -34,19 +34,18 @@ class AutoplayPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let prefs = preferences.playbackPreferences
         
-        [btnAutoplayOnStartup_FirstTrack, btnAutoplayOnStartup_ResumeSequence].forEach {$0?.enableIf(btnAutoplayOnStartup.isOn)}
-        [btnAutoplayAfterAdding_IfNotPlaying, btnAutoplayAfterAdding_Always].forEach {$0?.enableIf(btnAutoplayAfterAddingTracks.isOn)}
-        [btnAutoplayAfterOpening_IfNotPlaying, btnAutoplayAfterOpening_Always].forEach {$0?.enableIf(btnAutoplayAfterOpeningTracks.isOn)}
-        
         btnAutoplayOnStartup.onIf(prefs.autoplayOnStartup.value)
+        [btnAutoplayOnStartup_FirstTrack, btnAutoplayOnStartup_ResumeSequence].forEach {$0?.enableIf(btnAutoplayOnStartup.isOn)}
         btnAutoplayOnStartup_FirstTrack.onIf(prefs.autoplayOnStartupOption.value == .firstTrack)
         btnAutoplayOnStartup_ResumeSequence.onIf(prefs.autoplayOnStartupOption.value == .resumeSequence)
         
         btnAutoplayAfterAddingTracks.onIf(prefs.autoplayAfterAddingTracks.value)
+        [btnAutoplayAfterAdding_IfNotPlaying, btnAutoplayAfterAdding_Always].forEach {$0?.enableIf(btnAutoplayAfterAddingTracks.isOn)}
         btnAutoplayAfterAdding_IfNotPlaying.onIf(prefs.autoplayAfterAddingOption.value == .ifNotPlaying)
         btnAutoplayAfterAdding_Always.onIf(prefs.autoplayAfterAddingOption.value == .always)
         
         btnAutoplayAfterOpeningTracks.onIf(prefs.autoplayAfterOpeningTracks.value)
+        [btnAutoplayAfterOpening_IfNotPlaying, btnAutoplayAfterOpening_Always].forEach {$0?.enableIf(btnAutoplayAfterOpeningTracks.isOn)}
         btnAutoplayAfterOpening_Always.onIf(prefs.autoplayAfterOpeningOption.value == .always)
         btnAutoplayAfterOpening_IfNotPlaying.onIf(prefs.autoplayAfterOpeningOption.value == .ifNotPlaying)
     }

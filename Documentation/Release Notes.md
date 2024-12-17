@@ -1,12 +1,15 @@
-#  What's New in Version 4.0.0-preview19
+#  What's New in Version 4.0.0-preview20
 
-## #118 - Fixed window layout restoration
+## #115 - Option to remember and resume shuffle sequences across app launches
+
+- New History menu item: "Resume last played track sequence"
+- New Autoplay preference: "Resume last played track sequence"
 
 ## 2 new built-in window layouts
 
-## Reduced default window width
+## Restored Last.fm scrobbling
 
-## #117 - Fixed color scheming bug in Fuse Box 
+## Fixed some UI bugs
 
 ### **For more info**
 Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/4.0.0-preview)

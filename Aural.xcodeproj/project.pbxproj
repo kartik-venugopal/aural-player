@@ -511,7 +511,6 @@
 		3E36BD4126A6905900B6E28B /* FileSystemTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36BD4026A6905900B6E28B /* FileSystemTrackInfoViewController.swift */; };
 		3E36BD4426A6908200B6E28B /* CoverArtTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E36BD4326A6908200B6E28B /* CoverArtTrackInfo.xib */; };
 		3E36BD4E26A6AA5A00B6E28B /* TableViewRepresentations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36BD4D26A6AA5A00B6E28B /* TableViewRepresentations.swift */; };
-		3E36F8972CFF020E00099652 /* WindowLayoutPresets+Compute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36F8962CFF020D00099652 /* WindowLayoutPresets+Compute.swift */; };
 		3E380DAE262F4D6500BDF7B4 /* LazyViewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */; };
 		3E3975462688894C0055887E /* WidgetSeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3975452688894C0055887E /* WidgetSeekSliderCell.swift */; };
 		3E39754E26892C890055887E /* WidgetPlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39754D26892C890055887E /* WidgetPlayerUIState.swift */; };
@@ -1591,7 +1590,6 @@
 		3E36BD4026A6905900B6E28B /* FileSystemTrackInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemTrackInfoViewController.swift; sourceTree = "<group>"; };
 		3E36BD4326A6908200B6E28B /* CoverArtTrackInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoverArtTrackInfo.xib; sourceTree = "<group>"; };
 		3E36BD4D26A6AA5A00B6E28B /* TableViewRepresentations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewRepresentations.swift; sourceTree = "<group>"; };
-		3E36F8962CFF020D00099652 /* WindowLayoutPresets+Compute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WindowLayoutPresets+Compute.swift"; sourceTree = "<group>"; };
 		3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyViewLoader.swift; sourceTree = "<group>"; };
 		3E3975452688894C0055887E /* WidgetSeekSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSeekSliderCell.swift; sourceTree = "<group>"; };
 		3E39754D26892C890055887E /* WidgetPlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPlayerUIState.swift; sourceTree = "<group>"; };
@@ -3724,7 +3722,6 @@
 			isa = PBXGroup;
 			children = (
 				3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */,
-				3E36F8962CFF020D00099652 /* WindowLayoutPresets+Compute.swift */,
 				3E6C105125CEB98600BF0D07 /* WindowLayout.swift */,
 				3E4A90FD27F79AFA003A6C80 /* WindowID.swift */,
 				3EEFBCB42BEECC9100F90BE7 /* ScreenArrangement.swift */,
@@ -5774,7 +5771,6 @@
 				3E02186B2C23490E00865AC2 /* PreTrackPlaybackNotification.swift in Sources */,
 				3ECBF3062619D58500AD5C30 /* AudioUnitsViewController.swift in Sources */,
 				3E0218192C23490E00865AC2 /* AUExtensions.swift in Sources */,
-				3E36F8972CFF020E00099652 /* WindowLayoutPresets+Compute.swift in Sources */,
 				3E02181F2C23490E00865AC2 /* BookmarksDelegate.swift in Sources */,
 				3E6C128525CEBE1800BF0D07 /* AuralColorPicker.swift in Sources */,
 				3E0218EB2C23490E00865AC2 /* M3UPlaylistIO.swift in Sources */,
