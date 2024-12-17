@@ -29,7 +29,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
     lazy var shuffleSequence: ShuffleSequence = ShuffleSequence()
-    var resumeShuffleSequenceOnStartup: Bool = false
     
     private lazy var messenger = Messenger(for: self)
     
@@ -308,11 +307,10 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         messenger.publish(.PlayQueue.doneAddingTracks)
         
         defer {
-            autoplayResumeSequence.setValue(false)
-            resumeShuffleSequenceOnStartup = false
+            autoplayResumeSequence.setFalse()
         }
         
-        if resumeShuffleSequenceOnStartup, shuffleMode == .on,
+        if autoplayResumeSequence.value, shuffleMode == .on,
            let pQPersistentState = appPersistentState.playQueue,
            let persistentTracks = pQPersistentState.tracks,
            let historyPersistentState = pQPersistentState.history,
@@ -342,8 +340,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             shuffleSequence.initialize(with: sequenceTracks,
                                        playedTracks: playedTracks)
             
-            if autoplayResumeSequence.value,
-               let track = sequenceTracks.first,
+            if let track = sequenceTracks.first,
                let playbackPosition = historyPersistentState.lastPlaybackPosition {
                 
                 playbackDelegate.resumeShuffleSequence(with: track,

@@ -29,6 +29,14 @@ extension PlayQueueDelegate {
         }
     }
     
+    var canResumeLastPlayedSequence: Bool {
+        shuffleMode == .off ? canResumeLastPlayedTrack : canResumeShuffleSequence
+    }
+    
+    func resumeLastPlayedSequence() {
+        shuffleMode == .off ? resumeLastPlayedTrack() : resumeShuffleSequence()
+    }
+    
     var canResumeLastPlayedTrack: Bool {
         (lastPlayedItem != nil) && (lastPlaybackPosition > 0)
     }

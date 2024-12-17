@@ -19,8 +19,7 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
     // Sub-menu that displays recently played tracks. Clicking on any of these items will result in the track being played.
     @IBOutlet weak var recentItemsMenu: NSMenu!
     
-    @IBOutlet weak var resumeLastPlayedTrackItem: NSMenuItem!
-    @IBOutlet weak var resumeShuffleSequenceItem: NSMenuItem!
+    @IBOutlet weak var resumeSequenceItem: NSMenuItem!
     
     func menuWillOpen(_ menu: NSMenu) {
         
@@ -31,8 +30,7 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         
         let isStopped = player.state == .stopped
         
-        resumeLastPlayedTrackItem.enableIf(isStopped && historyDelegate.canResumeLastPlayedTrack)
-        resumeShuffleSequenceItem.enableIf(isStopped && historyDelegate.canResumeShuffleSequence)
+        resumeSequenceItem.enableIf(isStopped && historyDelegate.canResumeLastPlayedSequence)
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
@@ -43,12 +41,8 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         }
     }
     
-    @IBAction fileprivate func resumeLastPlayedTrackAction(_ sender: NSMenuItem) {
-        historyDelegate.resumeLastPlayedTrack()
-    }
-    
-    @IBAction fileprivate func resumeShuffleSequenceAction(_ sender: NSMenuItem) {
-        historyDelegate.resumeShuffleSequence()
+    @IBAction fileprivate func resumeLastPlayedSequenceAction(_ sender: NSMenuItem) {
+        historyDelegate.resumeLastPlayedSequence()
     }
     
     @IBAction fileprivate func clearHistoryAction(_ sender: NSMenuItem) {
