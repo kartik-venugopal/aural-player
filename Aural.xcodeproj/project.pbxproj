@@ -3212,6 +3212,7 @@
 			isa = PBXGroup;
 			children = (
 				3E02163D2C23490E00865AC2 /* bridge.h */,
+				3E0217D42C23490E00865AC2 /* Globals.swift */,
 				3E0216092C23490E00865AC2 /* AudioGraph */,
 				3E02160E2C23490E00865AC2 /* Bookmarks */,
 				3E0216132C23490E00865AC2 /* Constants */,
@@ -3233,7 +3234,6 @@
 				3E0217902C23490E00865AC2 /* TrackList */,
 				3E0217982C23490E00865AC2 /* UI */,
 				3E0217D22C23490E00865AC2 /* Utils */,
-				3E0217D42C23490E00865AC2 /* Globals.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

@@ -179,7 +179,7 @@
                     </connections>
                 </stepper>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZkC-zP-oIO" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="413.5" width="524" height="20"/>
+                    <rect key="frame" x="30" y="413" width="524" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Remember sound settings for all tracks (and reapply when track is played)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="E5V-TV-vdL">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

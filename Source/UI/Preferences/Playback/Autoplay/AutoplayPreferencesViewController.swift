@@ -34,6 +34,10 @@ class AutoplayPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let prefs = preferences.playbackPreferences
         
+        [btnAutoplayOnStartup_FirstTrack, btnAutoplayOnStartup_ResumeSequence].forEach {$0?.enableIf(btnAutoplayOnStartup.isOn)}
+        [btnAutoplayAfterAdding_IfNotPlaying, btnAutoplayAfterAdding_Always].forEach {$0?.enableIf(btnAutoplayAfterAddingTracks.isOn)}
+        [btnAutoplayAfterOpening_IfNotPlaying, btnAutoplayAfterOpening_Always].forEach {$0?.enableIf(btnAutoplayAfterOpeningTracks.isOn)}
+        
         btnAutoplayOnStartup.onIf(prefs.autoplayOnStartup.value)
         btnAutoplayOnStartup_FirstTrack.onIf(prefs.autoplayOnStartupOption.value == .firstTrack)
         btnAutoplayOnStartup_ResumeSequence.onIf(prefs.autoplayOnStartupOption.value == .resumeSequence)
@@ -45,6 +49,18 @@ class AutoplayPreferencesViewController: NSViewController, PreferencesViewProtoc
         btnAutoplayAfterOpeningTracks.onIf(prefs.autoplayAfterOpeningTracks.value)
         btnAutoplayAfterOpening_Always.onIf(prefs.autoplayAfterOpeningOption.value == .always)
         btnAutoplayAfterOpening_IfNotPlaying.onIf(prefs.autoplayAfterOpeningOption.value == .ifNotPlaying)
+    }
+    
+    @IBAction func autoplayOnStartupCheckBoxAction(_ sender: CheckBox) {
+        [btnAutoplayOnStartup_FirstTrack, btnAutoplayOnStartup_ResumeSequence].forEach {$0?.enableIf(btnAutoplayOnStartup.isOn)}
+    }
+    
+    @IBAction func autoplayAfterAddingCheckBoxAction(_ sender: CheckBox) {
+        [btnAutoplayAfterAdding_IfNotPlaying, btnAutoplayAfterAdding_Always].forEach {$0?.enableIf(btnAutoplayAfterAddingTracks.isOn)}
+    }
+    
+    @IBAction func autoplayAfterOpeningCheckBoxAction(_ sender: CheckBox) {
+        [btnAutoplayAfterOpening_IfNotPlaying, btnAutoplayAfterOpening_Always].forEach {$0?.enableIf(btnAutoplayAfterOpeningTracks.isOn)}
     }
     
     @IBAction func autoplayOnStartupRadioButtonAction(_ sender: RadioButton) {

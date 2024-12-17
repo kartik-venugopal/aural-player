@@ -129,6 +129,7 @@ extension AppDelegate {
         
         self.eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
         WaveformView.initializeImageCache()
+        lastFMClient.retryFailedScrobbleAttempts()
     }
     
     ///

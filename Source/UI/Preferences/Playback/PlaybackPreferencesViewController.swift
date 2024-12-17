@@ -41,7 +41,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         super.viewWillAppear()
         
         // Select the General prefs tab
-        tabView.selectTabViewItem(at: 1)
+        tabView.selectTabViewItem(at: 0)
     }
     
     func resetFields() {

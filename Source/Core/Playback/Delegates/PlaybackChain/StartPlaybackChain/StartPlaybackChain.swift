@@ -30,6 +30,7 @@ class StartPlaybackChain: PlaybackChain {
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
+        .withAction(LastFMScrobbleAction())
         .withAction(HaltPlaybackAction(player))
         .withAction(AudioFilePreparationAction(trackReader: trackReader))
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))

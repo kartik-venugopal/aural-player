@@ -16,6 +16,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var tabView: NSTabView!
     
     @IBOutlet weak var btnCacheTrackMetadata: CheckBox!
+    @IBOutlet weak var btnClearCache: NSButton!
     
     @IBOutlet weak var timeoutStepper: NSStepper!
     @IBOutlet weak var lblTimeout: NSTextField!
@@ -48,11 +49,16 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     func resetFields() {
         
         btnCacheTrackMetadata.onIf(metadataPrefs.cacheTrackMetadata.value)
+        enableCacheAction(self)
         
         timeoutStepper.integerValue = metadataPrefs.httpTimeout.value
         lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
         
         subViews.forEach {$0.resetFields()}
+    }
+    
+    @IBAction func enableCacheAction(_ sender: Any) {
+        btnClearCache.enableIf(btnCacheTrackMetadata.isOn)
     }
     
     @IBAction func clearCacheAction(_ sender: NSButton) {

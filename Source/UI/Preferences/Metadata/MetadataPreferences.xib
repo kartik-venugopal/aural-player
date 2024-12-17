@@ -10,6 +10,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MetadataPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnCacheTrackMetadata" destination="g9G-TI-wfW" id="Dwh-sr-WBk"/>
+                <outlet property="btnClearCache" destination="KEB-oj-wX7" id="ifO-jX-nIU"/>
                 <outlet property="lblTimeout" destination="FnG-sc-wtT" id="1P7-xN-N0P"/>
                 <outlet property="tabView" destination="CQ6-wz-qRX" id="pFz-gv-gzS"/>
                 <outlet property="timeoutStepper" destination="Ngp-xp-zWL" id="I1G-cv-30Z"/>
@@ -74,12 +75,15 @@
                     </tabViewItems>
                 </tabView>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9G-TI-wfW" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="16" y="428.5" width="322" height="32"/>
+                    <rect key="frame" x="16" y="428" width="322" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Cache track metadata" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VhQ-Zb-I4E">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="enableCacheAction:" target="-2" id="nVD-fn-w0P"/>
+                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KEB-oj-wX7">
                     <rect key="frame" x="497" y="434" width="139" height="19"/>

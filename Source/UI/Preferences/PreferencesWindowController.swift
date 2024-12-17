@@ -88,14 +88,6 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
         userDefaults[Self.key_lastDisplayedTab] = sender.tag
     }
     
-    @IBAction func previousTabAction(_ sender: Any) {
-//        tabView.previousTab()
-    }
-    
-    @IBAction func nextTabAction(_ sender: Any) {
-//        tabView.nextTab()
-    }
-    
     @IBAction func savePreferencesAction(_ sender: Any) {
         
         var saveFailed: Bool = false

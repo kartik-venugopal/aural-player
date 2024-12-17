@@ -49,7 +49,9 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
         repeatSpeedMenu.selectItem(withTitle: controlsPrefs.skipKeyRepeatSpeed.value.rawValue.capitalized)
     }
     
-    @IBAction func mediaKeyResponseAction(_ sender: Any) {}
+    @IBAction func mediaKeyResponseAction(_ sender: Any) {
+        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly, repeatSpeedMenu].forEach {$0?.enableIf(btnRespondToMediaKeys.isOn)}
+    }
     
     @IBAction func skipKeyBehaviorAction(_ sender: Any) {
         // Needed for radio button group

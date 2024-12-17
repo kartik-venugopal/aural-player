@@ -33,6 +33,9 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="autoplayAfterAddingCheckBoxAction:" target="-2" id="qIW-uO-yXH"/>
+                    </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dlp-U2-E74" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="62" y="180" width="203" height="19"/>
@@ -63,6 +66,9 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="autoplayOnStartupCheckBoxAction:" target="-2" id="8pA-ih-HWS"/>
+                    </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1fv-In-Dtg" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="62" y="81" width="374" height="19"/>
@@ -95,6 +101,9 @@
 play first opened track</string>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="autoplayAfterOpeningCheckBoxAction:" target="-2" id="Rex-ke-nJI"/>
+                    </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OVb-b4-OWK" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="62" y="285" width="551" height="19"/>

@@ -79,7 +79,7 @@ extension NSImage {
     
     static let imgPlayedTrack: NSImage = NSImage(systemSymbolName: "music.quarternote.3")
     
-    static let imgGreenCheck: NSImage = NSImage(named: "GreenCheck")!
+    static let imgCheck: NSImage = NSImage(systemSymbolName: "checkmark.square")
     
     // --------------- Device type icons -------------------
     

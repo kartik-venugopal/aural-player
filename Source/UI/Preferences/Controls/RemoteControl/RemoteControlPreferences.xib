@@ -31,15 +31,18 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RTv-WN-fIc" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="28" y="314.5" width="227" height="32"/>
+                    <rect key="frame" x="28" y="314" width="227" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Enable Remote Control" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Zpm-pk-3Sl">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="enableRemoteControlAction:" target="-2" id="17N-1Z-XGS"/>
+                    </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xfV-tr-MyC" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="67" y="262.5" width="361" height="17.5"/>
+                    <rect key="frame" x="67" y="263" width="361" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Show previous / next track controls" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Crb-IO-DPN">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -50,7 +53,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hUp-TN-hqH" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="67" y="242.5" width="361" height="17.5"/>
+                    <rect key="frame" x="67" y="243" width="361" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Show seek forward / backward controls" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="u7z-kL-p7X">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
