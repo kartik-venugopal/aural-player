@@ -33,13 +33,16 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
-                    <button toolTip="Hide the Play Queue" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WCg-lo-jGl" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="200.5" width="13.5" height="10"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button toolTip="Hide the Play Queue" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WCg-lo-jGl" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="10" y="200.5" width="12.5" height="12"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YZr-ea-1xk">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="WOM-qb-Jei"/>
+                            <constraint firstAttribute="height" constant="8" id="dZd-u8-Txp"/>
+                        </constraints>
                         <connections>
                             <action selector="closeAction:" target="-2" id="LJK-Fa-rbY"/>
                         </connections>
@@ -50,10 +53,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="9RY-wA-qFz" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="64h-Qr-gFf"/>
+                    <constraint firstItem="WCg-lo-jGl" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="15" id="7Vr-46-iuY"/>
                     <constraint firstAttribute="trailing" secondItem="9RY-wA-qFz" secondAttribute="trailing" constant="10" id="91Z-2V-694"/>
                     <constraint firstAttribute="bottom" secondItem="9RY-wA-qFz" secondAttribute="bottom" constant="10" id="9KT-tl-E2F"/>
                     <constraint firstItem="p9b-xj-yeZ" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="M2O-Lf-Yk7"/>
                     <constraint firstAttribute="bottom" secondItem="p9b-xj-yeZ" secondAttribute="bottom" id="MbG-rs-6VI"/>
+                    <constraint firstItem="WCg-lo-jGl" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="10" id="PRN-e0-oRh"/>
                     <constraint firstAttribute="trailing" secondItem="p9b-xj-yeZ" secondAttribute="trailing" id="bga-yE-vRd"/>
                     <constraint firstItem="9RY-wA-qFz" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="10" id="mcs-qL-sg2"/>
                     <constraint firstItem="p9b-xj-yeZ" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="wGb-5M-Nfd"/>

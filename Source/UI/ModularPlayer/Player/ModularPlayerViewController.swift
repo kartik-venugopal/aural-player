@@ -17,7 +17,6 @@ class ModularPlayerViewController: PlayerViewController {
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var artViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var infoBoxTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var artViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var controlsBox: NSBox!
     @IBOutlet weak var btnFunctionsMenu: NSPopUpButton!

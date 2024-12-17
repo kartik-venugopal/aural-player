@@ -15,9 +15,6 @@ extension ModularPlayerViewController {
     private static let artViewLeading_Default: CGFloat = 15
     private static let artViewLeading_Hidden: CGFloat = -55
     
-    private static let artViewTopPadding_Default: CGFloat = 26
-    private static let artViewTopPadding_Centered: CGFloat = 46
-    
     private static let infoBoxTopPadding_Default: CGFloat = 15
     private static let infoBoxTopPadding_Centered: CGFloat = 35
     
@@ -48,7 +45,6 @@ extension ModularPlayerViewController {
         // Show controls
         controlsBox?.show()
 
-        artViewTopConstraint.constant = Self.artViewTopPadding_Default
         infoBoxTopConstraint.constant = Self.infoBoxTopPadding_Default
         view.layoutSubtreeIfNeeded()
     }
@@ -58,7 +54,6 @@ extension ModularPlayerViewController {
         // Hide controls
         controlsBox?.hide()
         
-        artViewTopConstraint.constant = Self.artViewTopPadding_Centered
         infoBoxTopConstraint.constant = Self.infoBoxTopPadding_Centered
         view.layoutSubtreeIfNeeded()
     }
@@ -77,7 +72,6 @@ extension ModularPlayerViewController {
         
         controlsBox?.showIf(playerUIState.showControls)
         
-        artViewTopConstraint.constant = playerUIState.showControls ? Self.artViewTopPadding_Default : Self.artViewTopPadding_Centered
         infoBoxTopConstraint.constant = playerUIState.showControls ? Self.infoBoxTopPadding_Default : Self.infoBoxTopPadding_Centered
         view.layoutSubtreeIfNeeded()
     }
