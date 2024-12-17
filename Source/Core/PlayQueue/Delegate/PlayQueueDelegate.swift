@@ -21,7 +21,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     var lastPlaybackPosition: Double = 0
     
     var lastPlayedItem: TrackHistoryItem? {
-        recentItems.values.reversed().first(where: {$0 is TrackHistoryItem}) as? TrackHistoryItem
+        recentItems.values.last(where: {$0 is TrackHistoryItem}) as? TrackHistoryItem
     }
     
     func historyItem(at index: Int) -> HistoryItem {
@@ -337,22 +337,22 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
         let autoplay: Bool = notDuplicateNotification && autoplayPreference
         
-        loadTracks(from: notification.filesToOpen, params: .init(clearQueue: clearQueue, autoplay: autoplay))
+        loadTracks(from: notification.filesToOpen, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: autoplay))
     }
     
     var persistentState: PlayQueuePersistentState {
         
-        return .init(tracks: tracks,
-                     repeatMode: repeatMode,
-                     shuffleMode: shuffleMode,
-                     history: self.historyPersistentState)
+        .init(tracks: tracks,
+              repeatMode: repeatMode,
+              shuffleMode: shuffleMode,
+              history: self.historyPersistentState)
     }
     
     var historyPersistentState: HistoryPersistentState {
         
-        HistoryPersistentState(recentItems: recentItems.values.compactMap(HistoryItemPersistentState.init),
-                               lastPlaybackPosition: lastPlaybackPosition,
-                               shuffleSequence: shuffleMode == .on && shuffleSequence.isPlaying ? shuffleSequencePersistentState : nil)
+        .init(recentItems: recentItems.values.compactMap(HistoryItemPersistentState.init),
+              lastPlaybackPosition: lastPlaybackPosition,
+              shuffleSequence: shuffleMode == .on && shuffleSequence.isPlaying ? shuffleSequencePersistentState : nil)
     }
     
     var shuffleSequencePersistentState: ShuffleSequencePersistentState {

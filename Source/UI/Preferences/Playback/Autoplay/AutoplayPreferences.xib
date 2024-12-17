@@ -99,7 +99,7 @@ play first opened track</string>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OVb-b4-OWK" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="62" y="285" width="551" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Resume playback sequence from previous app run (if same tracks available)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Sqh-wS-vBn">
+                    <buttonCell key="cell" type="radio" title="Resume playback sequence from previous app run (if last played track available)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Sqh-wS-vBn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>

@@ -21,12 +21,17 @@ extension PlayQueueDelegate {
         if appLaunchFiles.isNonEmpty {
             
             // Launch parameters specified, override playlist saved state and add file paths in params to playlist
-            loadTracks(from: appLaunchFiles, params: .init(autoplay: playbackPreferences.autoplayAfterOpeningTracks.value))
+            loadTracks(from: appLaunchFiles, params: .init(autoplayFirstAddedTrack: playbackPreferences.autoplayAfterOpeningTracks.value))
             return
         }
         
         lazy var autoplayOnStartup: Bool = playbackPreferences.autoplayOnStartup.value
-        lazy var pqParmsWithAutoplayAndNoHistory: PlayQueueTrackLoadParams = .init(autoplay: autoplayOnStartup, markLoadedItemsForHistory: false)
+        lazy var autoplayOption: PlaybackPreferences.AutoplayOnStartupOption = playbackPreferences.autoplayOnStartupOption.value
+        
+        lazy var pqParmsWithAutoplayAndNoHistory: PlayQueueTrackLoadParams =
+        autoplayOption == .firstTrack ?
+            .init(autoplayFirstAddedTrack: autoplayOnStartup, markLoadedItemsForHistory: false) :
+            .init(autoplayResumeSequence: autoplayOnStartup, markLoadedItemsForHistory: false)
         
         switch playQueuePreferences.playQueueOnStartup.value {
             

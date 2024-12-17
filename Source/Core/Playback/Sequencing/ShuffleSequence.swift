@@ -38,10 +38,10 @@ class ShuffleSequence {
         return (numPlayedTracks + 1, numPlayedTracks + numPendingTracks)
     }
     
-    func initialize(with sequence: [Track], playedTracks: [Track]) {
+    func initialize(with sequence: OrderedSet<Track>, playedTracks: OrderedSet<Track>) {
         
-        self.playedTracks.append(contentsOf: playedTracks)
-        self.sequence.append(contentsOf: sequence)
+        self.playedTracks = playedTracks
+        self.sequence = sequence
         self.isPlaying = true
     }
     

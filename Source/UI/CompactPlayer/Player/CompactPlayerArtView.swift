@@ -34,7 +34,7 @@ class CompactPlayerArtView: RoundedImageView {
         
         guard let urls = sender.urls else {return false}
         
-        playQueueDelegate.loadTracks(from: urls, params: .init(autoplay: true))
+        playQueueDelegate.loadTracks(from: urls, params: .init(autoplayFirstAddedTrack: true))
         return true
     }
 }

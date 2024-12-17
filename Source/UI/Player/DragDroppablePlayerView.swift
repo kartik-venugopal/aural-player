@@ -35,6 +35,7 @@ class DragDroppablePlayerView: NSView {
         let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks.value
         lazy var option: PlaybackPreferences.AutoplayAfterAddingOption = preferences.playbackPreferences.autoplayAfterAddingOption.value
         lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
+        
         return autoplayAfterAdding && (option == .always || playerIsStopped)
     }
 
@@ -45,7 +46,7 @@ class DragDroppablePlayerView: NSView {
         let addMode = preferences.playQueuePreferences.dragDropAddMode.value
         let clearQueue: Bool = addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet)
         
-        playQueueDelegate.loadTracks(from: files, params: .init(clearQueue: clearQueue, autoplay: shouldAutoplayAfterAdding))
+        playQueueDelegate.loadTracks(from: files, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
         
         return true
     }

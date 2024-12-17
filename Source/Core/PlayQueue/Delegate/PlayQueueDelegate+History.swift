@@ -272,7 +272,7 @@ extension PlayQueueDelegate {
 //            enqueueToPlayNow(playlistFile: importedPlaylist, clearQueue: false)
 //            
 //        } else {
-            loadTracks(from: [playlistFileHistoryItem.playlistFile], params: .init(autoplay: true))
+            loadTracks(from: [playlistFileHistoryItem.playlistFile], params: .init(autoplayFirstAddedTrack: true))
 //        }
     }
     
@@ -290,7 +290,7 @@ extension PlayQueueDelegate {
 //            enqueueToPlayNow(fileSystemItems: [fsFolderItem], clearQueue: false)
 //            
 //        } else {
-            loadTracks(from: [folder], params: .init(autoplay: true))
+            loadTracks(from: [folder], params: .init(autoplayFirstAddedTrack: true))
 //        }
     }
     

@@ -371,7 +371,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
 //                playQueueDelegate.enqueueToPlayNow(fileSystemItems: [folder], clearQueue: false)
 //                
 //            } else {
-                playQueueDelegate.loadTracks(from: [favFolder.folder], params: .init(autoplay: true))
+                playQueueDelegate.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: true))
 //            }
             
         } else if let favPlaylistFile = favorite as? FavoritePlaylistFile {
@@ -403,7 +403,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
 //                playQueueDelegate.enqueueToPlayLater(fileSystemItems: [folder])
 //                
 //            } else {
-                playQueueDelegate.loadTracks(from: [favFolder.folder], params: .init(autoplay: false))
+                playQueueDelegate.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: false))
 //            }
             
         } else if let favPlaylistFile = favorite as? FavoritePlaylistFile {
@@ -412,7 +412,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
 //                playQueueDelegate.enqueueToPlayLater(playlistFile: importedPlaylist)
 //                
 //            } else {
-                playQueueDelegate.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplay: false))
+                playQueueDelegate.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplayFirstAddedTrack: false))
 //            }
         }
     }

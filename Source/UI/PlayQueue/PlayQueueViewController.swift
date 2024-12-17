@@ -175,7 +175,7 @@ class PlayQueueViewController: TrackListTableViewController {
         let addMode = preferences.playQueuePreferences.dragDropAddMode.value
         let clearQueue: Bool = addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet)
         
-        playQueueDelegate.loadTracks(from: files, atPosition: clearQueue ? nil : row, params: .init(clearQueue: clearQueue, autoplay: shouldAutoplayAfterAdding))
+        playQueueDelegate.loadTracks(from: files, atPosition: clearQueue ? nil : row, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -188,7 +188,7 @@ class PlayQueueViewController: TrackListTableViewController {
     override func importFilesAndFolders() {
         
         if fileOpenDialog.runModal() == .OK {
-            playQueueDelegate.loadTracks(from: fileOpenDialog.urls, params: .init(autoplay: shouldAutoplayAfterAdding))
+            playQueueDelegate.loadTracks(from: fileOpenDialog.urls, params: .init(autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
         }
     }
     

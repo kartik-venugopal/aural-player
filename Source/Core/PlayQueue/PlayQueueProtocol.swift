@@ -133,36 +133,49 @@ protocol SequencingProtocol {
 struct PlayQueueTrackLoadParams {
     
     let clearQueue: Bool
-    let autoplay: Bool
+    let autoplayFirstAddedTrack: Bool
+    let autoplayResumeSequence: Bool
     let markLoadedItemsForHistory: Bool
     
-    init(clearQueue: Bool, autoplay: Bool, markLoadedItemsForHistory: Bool) {
+    init(clearQueue: Bool, autoplayFirstAddedTrack: Bool, autoplayResumeSequence: Bool, markLoadedItemsForHistory: Bool) {
         
         self.clearQueue = clearQueue
-        self.autoplay = autoplay
+        self.autoplayFirstAddedTrack = autoplayFirstAddedTrack
+        self.autoplayResumeSequence = autoplayResumeSequence
         self.markLoadedItemsForHistory = markLoadedItemsForHistory
     }
     
-    init(autoplay: Bool) {
+    init(autoplayFirstAddedTrack: Bool) {
         
         self.clearQueue = false
-        self.autoplay = autoplay
+        self.autoplayFirstAddedTrack = autoplayFirstAddedTrack
+        self.autoplayResumeSequence = false
         self.markLoadedItemsForHistory = true
     }
     
-    init(autoplay: Bool, markLoadedItemsForHistory: Bool) {
+    init(autoplayFirstAddedTrack: Bool, markLoadedItemsForHistory: Bool) {
         
         self.clearQueue = false
-        self.autoplay = autoplay
+        self.autoplayFirstAddedTrack = autoplayFirstAddedTrack
+        self.autoplayResumeSequence = false
         self.markLoadedItemsForHistory = markLoadedItemsForHistory
     }
     
-    init(clearQueue: Bool, autoplay: Bool) {
+    init(autoplayResumeSequence: Bool, markLoadedItemsForHistory: Bool) {
+        
+        self.clearQueue = false
+        self.autoplayFirstAddedTrack = false
+        self.autoplayResumeSequence = autoplayResumeSequence
+        self.markLoadedItemsForHistory = markLoadedItemsForHistory
+    }
+    
+    init(clearQueue: Bool, autoplayFirstAddedTrack: Bool) {
         
         self.clearQueue = clearQueue
-        self.autoplay = autoplay
+        self.autoplayFirstAddedTrack = autoplayFirstAddedTrack
+        self.autoplayResumeSequence = false
         self.markLoadedItemsForHistory = true
     }
     
-    static let defaultParams: PlayQueueTrackLoadParams = .init(clearQueue: false, autoplay: false, markLoadedItemsForHistory: true)
+    static let defaultParams: PlayQueueTrackLoadParams = .init(clearQueue: false, autoplayFirstAddedTrack: false, autoplayResumeSequence: false, markLoadedItemsForHistory: true)
 }

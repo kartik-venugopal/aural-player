@@ -356,7 +356,7 @@ extension PlayQueueContainerViewController {
     
     func loadAndPlayNow(_ command: LoadAndPlayNowCommand) {
         
-        playQueueDelegate.loadTracks(from: command.files, params: .init(clearQueue: command.clearPlayQueue, autoplay: true))
+        playQueueDelegate.loadTracks(from: command.files, params: .init(clearQueue: command.clearPlayQueue, autoplayFirstAddedTrack: true))
         
 //        controllers.forEach {
 //            

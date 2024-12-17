@@ -22,6 +22,10 @@ struct HistoryPersistentState: Codable {
     let lastPlaybackPosition: Double?
     let shuffleSequence: ShuffleSequencePersistentState?
     
+    var mostRecentTrackItem: HistoryItemPersistentState? {
+        recentItems?.last(where: {$0.itemType == .track})
+    }
+    
     init(recentItems: [HistoryItemPersistentState], lastPlaybackPosition: Double, shuffleSequence: ShuffleSequencePersistentState?) {
         
         self.recentItems = recentItems
