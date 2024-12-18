@@ -37,7 +37,7 @@ class SortedTrackList: TrackList, SortedTrackListProtocol {
         let dedupedTracks = deDupeTracks(newTracks)
         guard dedupedTracks.isNonEmpty else {return .empty}
         
-        _ = doAddTracks(dedupedTracks)
+        doAddTracks(dedupedTracks)
         
         maintainSortOrder()
         

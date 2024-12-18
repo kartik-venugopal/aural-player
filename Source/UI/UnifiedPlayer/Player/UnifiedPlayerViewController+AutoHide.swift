@@ -67,7 +67,7 @@ extension UnifiedPlayerViewController {
     private func moveInfoBoxVertically(offsetFromTop: CGFloat) {
         
         infoBox.removeAllConstraintsRelatedToSuperview(attributes: [.top])
-        let newTopConstraint: NSLayoutConstraint = .topTopConstraint(forItem: infoBox, relatedTo: infoBox.superview, offset: offsetFromTop)
+        let newTopConstraint: NSLayoutConstraint = .topTopConstraint(forItem: infoBox!, relatedTo: infoBox.superview!, offset: offsetFromTop)
         infoBox.superview?.activateAndAddConstraint(newTopConstraint)
     }
     
@@ -101,12 +101,12 @@ extension UnifiedPlayerViewController {
         
         if playerUIState.showAlbumArt {
             
-            newConstraint = .leadingTrailingConstraint(forItem: infoBox, relatedTo: artView, offset: 10)
+            newConstraint = .leadingTrailingConstraint(forItem: infoBox!, relatedTo: artView!, offset: 10)
 //            multilineTrackTextView.clipView.enclosingScrollView?.resize(width: Self.textViewDefaultWidth)
             
         } else {
             
-            newConstraint = .leadingLeadingConstraint(forItem: infoBox, relatedTo: infoBox.superview, offset: 0)
+            newConstraint = .leadingLeadingConstraint(forItem: infoBox!, relatedTo: infoBox.superview!, offset: 0)
 //            multilineTrackTextView.clipView.enclosingScrollView?.resize(width: Self.textViewWidth_noArt)
         }
         

@@ -165,8 +165,6 @@ extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDele
     
     func createTimeCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, time: Double?) -> AuralTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? AuralTableCellView else {return nil}
-        
         let timeText: String
         
         if let time = time {

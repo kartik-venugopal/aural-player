@@ -107,7 +107,6 @@ extension FFmpegScheduler {
         let context = track.playbackContext as? FFmpegPlaybackContext,
             let decoder = context.decoder else {
             
-            print("Reached past last track in queue.")
             return
         }
         
@@ -117,20 +116,15 @@ extension FFmpegScheduler {
 
         if decoder.eof {
             
-            print("Decoder for \(session.track) reached EOF.")
             decoder.stop()
             
             currentGaplessTrack = gaplessTracksQueue.dequeue()
-            print("Current track now: \(currentGaplessTrack)")
             
             guard let nextTrack = currentGaplessTrack, let newContext = nextTrack.playbackContext as? FFmpegPlaybackContext,
                   let newDecoder = newContext.decoder else {
                 
-                print("\(session.track) is the last track in the PQ. DONE scheduling.")
                 return
             }
-            
-            print("Continuing gapless sch. for \(nextTrack) ...")
             
             theTrack = nextTrack
             gaplessScheduledBufferCounts[nextTrack] = AtomicIntCounter()
@@ -150,12 +144,8 @@ extension FFmpegScheduler {
         
         // Ask the decoder to decode up to the given number of samples.
         guard let playbackBuffer = decoder.decode(maxSampleCount: maxSampleCount, intoFormat: context.audioFormat) else {
-            
-            print("No buffer for: \(track)")
             return
         }
-        
-        print("decodeAndScheduleOneGaplessBuffer: \(track), buffFrames: \(playbackBuffer.frameLength), sampRate: \(context.audioFormat.sampleRate), dur: \(Double(playbackBuffer.frameLength) / context.audioFormat.sampleRate)")
         
         playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.gaplessBufferCompletionHandler(session),
                                   seekPosition, immediatePlayback)

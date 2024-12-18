@@ -56,7 +56,7 @@ class AVFFileReader: FileReaderProtocol {
         // TODO: What does isPlayable actually mean ?
 //        guard metadataMap.audioTrack.isPlayable else {throw TrackNotPlayableError(file)}
         
-        var metadata = PrimaryMetadata()
+        let metadata = PrimaryMetadata()
         
         // Obtain the parsers relevant to this track, based on the metadata present.
         let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}

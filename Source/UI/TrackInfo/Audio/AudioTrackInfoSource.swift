@@ -92,8 +92,6 @@ class AudioTrackInfoSource: TrackInfoSource {
         
         if let replayGain = audioInfo?.replayGainFromAnalysis {
             
-            let hasMetadata: Bool = audioInfo?.replayGainFromMetadata != nil
-            
             trackInfo.append(KeyValuePair(key: "Replay Gain (from analysis)",
                                           value: replayGainString(for: replayGain)))
         }

@@ -40,8 +40,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="445" height="335"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="202" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-Aq-Mc0" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="237" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="202" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-Aq-Mc0" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="237" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -57,8 +57,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="203" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="Chc-od-ANJ" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="207" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="203" translatesAutoresizingMaskIntoConstraints="NO" id="Chc-od-ANJ" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="207" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -74,8 +74,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="204" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="bcW-db-K65" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="177" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="204" translatesAutoresizingMaskIntoConstraints="NO" id="bcW-db-K65" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="177" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -91,8 +91,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="205" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="mmQ-Lh-OCI" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="127" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="205" translatesAutoresizingMaskIntoConstraints="NO" id="mmQ-Lh-OCI" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="127" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -108,8 +108,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="206" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="sSY-qw-Cwe" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="97" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="206" translatesAutoresizingMaskIntoConstraints="NO" id="sSY-qw-Cwe" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="97" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -125,8 +125,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="207" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-V9-9Nc" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="67" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="207" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-V9-9Nc" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="67" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -142,8 +142,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="208" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="Toy-Rr-LGy" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="17" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="208" translatesAutoresizingMaskIntoConstraints="NO" id="Toy-Rr-LGy" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="17" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -159,8 +159,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="201" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-2i-CV0" userLabel="Background color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="287" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="201" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-2i-CV0" userLabel="Background color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="287" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -185,7 +185,7 @@
                         <rect key="frame" x="-100" y="-100" width="438" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="wGv-Qr-yL0" customClass="SimplePrettyScroller" customModule="Aural" customModuleProvider="target">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.71999999999999997" horizontal="NO" id="wGv-Qr-yL0" customClass="SimplePrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="445" y="0.0" width="15" height="235"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

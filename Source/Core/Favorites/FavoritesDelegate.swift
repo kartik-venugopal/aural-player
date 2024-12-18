@@ -374,15 +374,16 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
                 playQueueDelegate.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: true))
 //            }
             
-        } else if let favPlaylistFile = favorite as? FavoritePlaylistFile {
-            
+        } 
+//        else if let favPlaylistFile = favorite as? FavoritePlaylistFile {
+//            
 //            if let importedPlaylist = libraryDelegate.findImportedPlaylist(atLocation: favPlaylistFile.playlistFile) {
 //                playQueueDelegate.enqueueToPlayNow(playlistFile: importedPlaylist, clearQueue: false)
 //                
 //            } else {
 //                playQueueDelegate.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplay: true))
 //            }
-        }
+//        }
     }
     
     func enqueueFavorite(_ favorite: Favorite) {

@@ -35,8 +35,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="302" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-Aq-Mc0" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="172" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="302" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-Aq-Mc0" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="172" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -52,8 +52,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="303" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="Chc-od-ANJ" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="132" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="303" translatesAutoresizingMaskIntoConstraints="NO" id="Chc-od-ANJ" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="132" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -69,8 +69,8 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell focusRingType="none" fixedFrame="YES" tag="301" wellStyle="expanded" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-2i-CV0" userLabel="Background color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="375" y="212" width="64" height="28"/>
+                                    <colorWell focusRingType="none" fixedFrame="YES" tag="301" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-2i-CV0" userLabel="Background color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="375" y="212" width="44" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>

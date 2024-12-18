@@ -6768,7 +6768,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "4.0.0-preview20";
 				DEVELOPMENT_TEAM = C4YUF2G676;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Aural Player";
@@ -6779,7 +6779,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../Frameworks",
+					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
@@ -6807,7 +6807,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "4.0.0-preview20";
 				DEVELOPMENT_TEAM = C4YUF2G676;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Aural Player";
@@ -6818,7 +6818,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../Frameworks",
+					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;

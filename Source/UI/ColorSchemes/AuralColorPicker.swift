@@ -14,6 +14,15 @@ import Cocoa
  */
 class AuralColorPicker: NSColorWell {
     
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        if #available(macOS 13.0, *) {
+            self.colorWellStyle = .expanded
+        }
+    }
+    
     // Whenever this color picker's menu is invoked, this callback is invoked in turn, to let the observer know that
     // this color picker is the one that invoked the menu (this is used by the color clipboard to determine which color to copy/paste).
     var menuInvocationCallback: (AuralColorPicker) -> Void = {(AuralColorPicker) -> Void in}
