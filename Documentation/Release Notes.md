@@ -1,15 +1,10 @@
-#  What's New in Version 4.0.0-preview20
+#  What's New in Version 4.0.0-preview21
 
-## #115 - Option to remember and resume shuffle sequences across app launches
+## #74 - Prevent log file bloating (ffmpeg I/O errors)
 
-- New History menu item: "Resume last played track sequence"
-- New Autoplay preference: "Resume last played track sequence"
+## Fixed window layout bug
 
-## 2 new built-in window layouts
-
-## Restored Last.fm scrobbling
-
-## Fixed some UI bugs
+## Fixed other bugs
 
 ### **For more info**
 Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/4.0.0-preview)
