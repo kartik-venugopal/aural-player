@@ -30,7 +30,6 @@ class LastFMScrobbleAction: PlaybackChainAction {
          */
         
         if lastFMPreferences.enableScrobbling.value,
-           let sessionKey = lastFMPreferences.sessionKey.value,
            let stoppedTrack = context.currentTrack,
            stoppedTrack.canBeScrobbledOnLastFM,
            let historyLastPlayedItem = historyDelegate.lastPlayedItem, historyLastPlayedItem.track == stoppedTrack {
@@ -41,7 +40,7 @@ class LastFMScrobbleAction: PlaybackChainAction {
             if playbackTime >= min(stoppedTrack.duration / 2, Self.maxPlaybackTime) {
                 
                 DispatchQueue.global(qos: .background).async {
-                    lastFMClient.scrobbleTrack(track: stoppedTrack, timestamp: historyLastPlayedItem.lastEventTime.epochTime, usingSessionKey: sessionKey)
+                    lastFMClient.scrobbleTrack(track: stoppedTrack, timestamp: historyLastPlayedItem.lastEventTime.epochTime)
                 }
             }
         }

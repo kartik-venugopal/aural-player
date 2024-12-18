@@ -482,6 +482,10 @@
 		3E2C4BD42B38DD0400FC65DD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C4BD32B38DD0400FC65DD /* SearchViewController.swift */; };
 		3E2C4BD72B38E5E600FC65DD /* SearchWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2C4BD62B38E5E600FC65DD /* SearchWindow.xib */; };
 		3E2C4BD92B38E5F800FC65DD /* SearchWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C4BD82B38E5F800FC65DD /* SearchWindowController.swift */; };
+		3E2C73DB2D12C3FB00C2696D /* LastFM_WSClient+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C73DA2D12C3FB00C2696D /* LastFM_WSClient+Auth.swift */; };
+		3E2C73DD2D12C5D100C2696D /* LastFM_WSClient+Scrobble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C73DC2D12C5D100C2696D /* LastFM_WSClient+Scrobble.swift */; };
+		3E2C73DF2D12C61F00C2696D /* LastFM_WSClient+LoveUnlove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C73DE2D12C61F00C2696D /* LastFM_WSClient+LoveUnlove.swift */; };
+		3E2C73E22D12CB6700C2696D /* LastFMScrobble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C73E12D12CB6700C2696D /* LastFMScrobble.swift */; };
 		3E2D09D92AD4BA390062D3C9 /* AUParameterSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D09D82AD4BA390062D3C9 /* AUParameterSliderCell.swift */; };
 		3E2D09DC2AD4C5440062D3C9 /* RenderQualityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D09DA2AD4C5430062D3C9 /* RenderQualityMenuViewController.swift */; };
 		3E2D09DD2AD4C5440062D3C9 /* RenderQualityMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2D09DB2AD4C5430062D3C9 /* RenderQualityMenu.xib */; };
@@ -1559,6 +1563,10 @@
 		3E2C4BD32B38DD0400FC65DD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3E2C4BD62B38E5E600FC65DD /* SearchWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchWindow.xib; sourceTree = "<group>"; };
 		3E2C4BD82B38E5F800FC65DD /* SearchWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWindowController.swift; sourceTree = "<group>"; };
+		3E2C73DA2D12C3FB00C2696D /* LastFM_WSClient+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LastFM_WSClient+Auth.swift"; sourceTree = "<group>"; };
+		3E2C73DC2D12C5D100C2696D /* LastFM_WSClient+Scrobble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LastFM_WSClient+Scrobble.swift"; sourceTree = "<group>"; };
+		3E2C73DE2D12C61F00C2696D /* LastFM_WSClient+LoveUnlove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LastFM_WSClient+LoveUnlove.swift"; sourceTree = "<group>"; };
+		3E2C73E12D12CB6700C2696D /* LastFMScrobble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastFMScrobble.swift; sourceTree = "<group>"; };
 		3E2D09D82AD4BA390062D3C9 /* AUParameterSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AUParameterSliderCell.swift; sourceTree = "<group>"; };
 		3E2D09DA2AD4C5430062D3C9 /* RenderQualityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderQualityMenuViewController.swift; sourceTree = "<group>"; };
 		3E2D09DB2AD4C5430062D3C9 /* RenderQualityMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RenderQualityMenu.xib; sourceTree = "<group>"; };
@@ -2442,9 +2450,12 @@
 		3E0216512C23490E00865AC2 /* LastFM */ = {
 			isa = PBXGroup;
 			children = (
-				3E02164E2C23490E00865AC2 /* LastFM_WSClient.swift */,
+				3E2C73E02D12CAF000C2696D /* Support */,
 				3E02164F2C23490E00865AC2 /* LastFM_WSClientProtocol.swift */,
-				3E0216502C23490E00865AC2 /* LastFMScrobbleCache.swift */,
+				3E02164E2C23490E00865AC2 /* LastFM_WSClient.swift */,
+				3E2C73DA2D12C3FB00C2696D /* LastFM_WSClient+Auth.swift */,
+				3E2C73DC2D12C5D100C2696D /* LastFM_WSClient+Scrobble.swift */,
+				3E2C73DE2D12C61F00C2696D /* LastFM_WSClient+LoveUnlove.swift */,
 			);
 			path = LastFM;
 			sourceTree = "<group>";
@@ -3549,6 +3560,15 @@
 				3E2C4BD82B38E5F800FC65DD /* SearchWindowController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		3E2C73E02D12CAF000C2696D /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3E2C73E12D12CB6700C2696D /* LastFMScrobble.swift */,
+				3E0216502C23490E00865AC2 /* LastFMScrobbleCache.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		3E2EA6E72BD322D7001ABFEE /* TrackInfo */ = {
@@ -5912,6 +5932,7 @@
 				3EF4CDA52C65909C00A5922D /* WaveformRenderOperation.swift in Sources */,
 				3E02180A2C23490E00865AC2 /* AudioUnitPresets.swift in Sources */,
 				3E0218EA2C23490E00865AC2 /* FileSystemPlaylist.swift in Sources */,
+				3E2C73DB2D12C3FB00C2696D /* LastFM_WSClient+Auth.swift in Sources */,
 				3E0219482C23490E00865AC2 /* GenreMap.swift in Sources */,
 				3E0219662C23490E00865AC2 /* TrackList+TrackIO.swift in Sources */,
 				3E6C126C25CEBE0600BF0D07 /* CustomPresetsManagerViews.swift in Sources */,
@@ -6050,6 +6071,7 @@
 				3E6C127025CEBE0600BF0D07 /* FilterPresetBandsViewDelegate.swift in Sources */,
 				3E6C12E625CEBE8100BF0D07 /* FilterBandViewController.swift in Sources */,
 				3E0219322C23490E00865AC2 /* AudioInfo.swift in Sources */,
+				3E2C73DF2D12C61F00C2696D /* LastFM_WSClient+LoveUnlove.swift in Sources */,
 				3E7457952C6A795D0086C888 /* LibCueREM.swift in Sources */,
 				3E6C12DC25CEBE8100BF0D07 /* FilterChart.swift in Sources */,
 				3E02189C2C23490E00865AC2 /* NSPointPersistentState.swift in Sources */,
@@ -6280,6 +6302,7 @@
 				3E02190E2C23490E00865AC2 /* ControlsPreferences.swift in Sources */,
 				3E6C12E925CEBE8100BF0D07 /* PlayingTrackFunctionsMenuDelegate.swift in Sources */,
 				3E0218102C23490E00865AC2 /* PitchShiftPresets.swift in Sources */,
+				3E2C73DD2D12C5D100C2696D /* LastFM_WSClient+Scrobble.swift in Sources */,
 				3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */,
 				3ECF71A92B74F69600FDB69B /* CompactPlayQueueViewController+Actions.swift in Sources */,
 				3E6C12DF25CEBE8100BF0D07 /* MultilineTrackTextView.swift in Sources */,
@@ -6522,6 +6545,7 @@
 				3E02183E2C23490E00865AC2 /* FFmpegAudioStream.swift in Sources */,
 				3E0219522C23490E00865AC2 /* FileReader.swift in Sources */,
 				3E0219622C23490E00865AC2 /* TrackListSort.swift in Sources */,
+				3E2C73E22D12CB6700C2696D /* LastFMScrobble.swift in Sources */,
 				3E7181C32B6C5A350006F66B /* FontScheme+Presets.swift in Sources */,
 				3E0218292C23490E00865AC2 /* FavoritePlaylistFile.swift in Sources */,
 				3E7457972C6A795D0086C888 /* LibCueTrack.swift in Sources */,

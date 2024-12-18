@@ -18,30 +18,26 @@ protocol LastFM_WSClientProtocol {
     
     func getSession(forToken token: LastFMToken) throws -> LastFMSession
     
-    func scrobbleTrack(track: Track, timestamp: Int, usingSessionKey sessionKey: String)
+    func scrobbleTrack(track: Track, timestamp: Int)
     
-    func scrobbleTrack(artist: String, title: String, album: String?, timestamp: Int, usingSessionKey sessionKey: String)
+    func scrobbleTrack(artist: String, title: String, album: String?, timestamp: Int)
     
     func retryFailedScrobbleAttempts()
     
-    func loveTrack(track: Track, usingSessionKey sessionKey: String)
+    func loveTrack(track: Track)
     
-    func unloveTrack(track: Track, usingSessionKey sessionKey: String)
+    func unloveTrack(track: Track)
 }
 
-struct LastFMToken: Codable {
+class MalformedLastFMURLError: Error, CustomStringConvertible {
     
-    let token: String
-}
-
-struct LastFMSessionResponse: Codable {
+    private let url: String
     
-    let session: LastFMSession
-}
-
-struct LastFMSession: Codable {
+    init(url: String) {
+        self.url = url
+    }
     
-    let name: String
-    let key: String
-    let subscriber: Int
+    var description: String {
+        "The URL used to make a Last.fm API call is invalid: '\(url)'"
+    }
 }
