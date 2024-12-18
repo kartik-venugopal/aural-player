@@ -49,6 +49,10 @@ class FFmpegWaveformDecoder: WaveformDecoderProtocol {
     /// The currently executing ``Operation`` created by this reader.
     private var operation: Operation!
     
+    var recurringPacketReadErrorCount: Int = 0
+    
+    static let maxConsecutiveIOErrors: Int = 5
+    
     init(for file: URL) throws {
         
         self.fileCtx = try FFmpegFileContext(for: file)
@@ -84,6 +88,8 @@ class FFmpegWaveformDecoder: WaveformDecoderProtocol {
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: Int32(waveformDecodingChunkSize))
         
+        recurringPacketReadErrorCount = 0
+        
         // Keep decoding as long as EOF is not reached.
         while !reachedEOF {
             
@@ -91,19 +97,32 @@ class FFmpegWaveformDecoder: WaveformDecoderProtocol {
                 
                 // Try to obtain a single decoded frame.
                 let frame = try nextFrame()
+                
+                // Reset the counter because packet read succeeded.
+                recurringPacketReadErrorCount = 0
 
                 if buffer.appendFrame(frame) {
                     _ = frameQueue.dequeue()
                     
                 } else {break}
                 
-            } catch let packetReadError as PacketReadError {
-                
-                self.reachedEOF = packetReadError.isEOF
-                if !reachedEOF {NSLog("Packet read error while reading track \(fileCtx.filePath) : \(packetReadError)")}
-                
             } catch {
-                NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
+                
+                if let packetReadError = error as? PacketReadError {
+                    
+                    // If the error signals EOF, suppress it, and simply set the EOF flag.
+                    self.reachedEOF = packetReadError.isEOF
+                }
+                
+                if !reachedEOF {
+                    
+                    NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
+                    recurringPacketReadErrorCount.increment()
+                    
+                    if recurringPacketReadErrorCount == Self.maxConsecutiveIOErrors {
+                        throw FFmpegWaveformDecoderError("Too many I/O errors encountered while reading audio track: \(fileCtx.filePath)")
+                    }
+                }
             }
         }
         
@@ -216,3 +235,5 @@ class FFmpegWaveformDecoder: WaveformDecoderProtocol {
         }
     }
 }
+
+class FFmpegWaveformDecoderError: DisplayableError {}

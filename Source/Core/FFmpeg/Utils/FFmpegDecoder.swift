@@ -89,6 +89,8 @@ class FFmpegDecoder {
     
     private(set) lazy var sampleRateDouble: Double = Double(codec.sampleRate)
     
+    var recurringPacketReadErrorCount: Int = 0
+    
     ///
     /// Given ffmpeg context for a file, initializes an appropriate codec to perform decoding.
     ///
@@ -125,8 +127,6 @@ class FFmpegDecoder {
             self.resampleCtx = nil
         }
     }
-    
-    var recurringPacketReadErrorCount: Int = 0
     
     ///
     /// Decodes the currently playing file's audio stream to produce a given (maximum) number of samples, in a loop, and returns a frame buffer
