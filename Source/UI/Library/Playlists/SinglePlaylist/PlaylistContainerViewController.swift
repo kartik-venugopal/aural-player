@@ -178,15 +178,11 @@ class PlaylistContainerViewController: NSViewController {
     }
     
     func startedAddingTracks() {
-        
-        progressSpinner.startAnimation(nil)
-        progressSpinner.show()
+        progressSpinner.animate()
     }
     
     func doneAddingTracks() {
-        
-        progressSpinner.hide()
-        progressSpinner.stopAnimation(nil)
+        progressSpinner.dismiss()
         
         updateSummary()
     }

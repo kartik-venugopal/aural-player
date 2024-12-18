@@ -29,8 +29,7 @@ class UpdatesDialogController: NSWindowController, ModalComponentProtocol {
         
         forceLoadingOfWindow()
         
-        spinner?.startAnimation(self)
-        spinner?.show()
+        spinner?.animate()
         
         [lblNoUpdates, lblUpdateAvailable, lblError].forEach {$0?.hide()}
         
@@ -54,8 +53,7 @@ class UpdatesDialogController: NSWindowController, ModalComponentProtocol {
     
     func noUpdatesAvailable() {
         
-        spinner.stopAnimation(self)
-        spinner.hide()
+        spinner.dismiss()
         
         lblNoUpdates.show()
         
@@ -66,8 +64,7 @@ class UpdatesDialogController: NSWindowController, ModalComponentProtocol {
     
     func updateIsAvailable(version: AppVersion) {
         
-        spinner.stopAnimation(self)
-        spinner.hide()
+        spinner.dismiss()
         
         lblNoUpdates.hide()
         lblError.hide()
@@ -79,8 +76,7 @@ class UpdatesDialogController: NSWindowController, ModalComponentProtocol {
     
     func showError() {
         
-        spinner.stopAnimation(self)
-        spinner.hide()
+        spinner.dismiss()
         
         lblError.show()
         

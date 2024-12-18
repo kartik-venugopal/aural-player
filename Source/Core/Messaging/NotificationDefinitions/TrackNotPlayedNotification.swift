@@ -25,3 +25,13 @@ struct TrackNotPlayedNotification: NotificationPayload {
     // An error object containing detailed information such as the failed track's file and the root cause.
     let error: DisplayableError
 }
+
+struct TrackNoLongerReadableNotification: NotificationPayload {
+    
+    let notificationName: Notification.Name = .Player.trackNoLongerReadable
+    
+    // The track that could not be played.
+    let errorTrack: Track
+    
+    let detailMessage: String
+}

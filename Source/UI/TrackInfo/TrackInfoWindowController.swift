@@ -33,7 +33,7 @@ class TrackInfoWindowController: NSWindowController {
         // Bring the 'X' (Close) button to the front and constrain it.
         btnClose.bringToFront()
         
-        btnCloseConstraints.setWidth(11.5)
+        btnCloseConstraints.setWidth(10)
         btnCloseConstraints.setHeight(10)
         btnCloseConstraints.setLeading(relatedToLeadingOf: btnClose.superview!, offset: 10)
         btnCloseConstraints.setTop(relatedToTopOf: btnClose.superview!, offset: 15)

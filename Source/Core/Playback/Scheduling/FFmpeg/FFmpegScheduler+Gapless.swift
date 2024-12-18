@@ -144,6 +144,13 @@ extension FFmpegScheduler {
         
         // Ask the decoder to decode up to the given number of samples.
         guard let playbackBuffer = decoder.decode(maxSampleCount: maxSampleCount, intoFormat: context.audioFormat) else {
+            
+            if decoder.fatalError {
+                
+                Messenger.publish(TrackNoLongerReadableNotification(errorTrack: session.track,
+                                                                    detailMessage: "Possible cause - storage location no longer accessible."))
+            }
+            
             return
         }
         
@@ -186,6 +193,6 @@ extension FFmpegScheduler {
     }
     
     fileprivate func gaplessTrackCompleted(_ session: PlaybackSession) {
-        messenger.publish(.Player.gaplessTrackPlaybackCompleted, payload: session)
+        Messenger.publish(.Player.gaplessTrackPlaybackCompleted, payload: session)
     }
 }

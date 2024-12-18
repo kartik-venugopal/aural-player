@@ -34,7 +34,7 @@ extension FFmpegScheduler {
             playerNode.play()
         }
         
-        messenger.publish(.Player.loopRestarted)
+        Messenger.publish(.Player.loopRestarted)
     }
     
     func initiateLoopDecodingAndScheduling(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, with loop: PlaybackLoop, startingAt time: Double? = nil) {
@@ -106,7 +106,16 @@ extension FFmpegScheduler {
         guard !decoder.endOfLoop, let loopEndTime = session.loop?.endTime else {return}
         
         // Ask the decoder to decode up to the given number of samples.
-        guard let playbackBuffer = decoder.decodeLoop(maxSampleCount: maxSampleCount, loopEndTime: loopEndTime, intoFormat: context.audioFormat) else {return}
+        guard let playbackBuffer = decoder.decodeLoop(maxSampleCount: maxSampleCount, loopEndTime: loopEndTime, intoFormat: context.audioFormat) else {
+            
+            if decoder.fatalError {
+                
+                Messenger.publish(TrackNoLongerReadableNotification(errorTrack: session.track,
+                                                                    detailMessage: "Possible cause - storage location no longer accessible."))
+            }
+            
+            return
+        }
         
         // Pass off the audio buffer to the audio engine. The completion handler is executed when
         // the buffer has finished playing.

@@ -54,8 +54,6 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///
     lazy var schedulingOpQueue: OperationQueue = OperationQueue(opCount: 1, qos: .userInitiated)
     
-    lazy var messenger = Messenger(for: self)
-    
     init(playerNode: AuralPlayerNode) {
         self.playerNode = playerNode
     }
@@ -226,7 +224,16 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         if decoder.eof {return}
         
         // Ask the decoder to decode up to the given number of samples.
-        guard let playbackBuffer = decoder.decode(maxSampleCount: maxSampleCount, intoFormat: context.audioFormat) else {return}
+        guard let playbackBuffer = decoder.decode(maxSampleCount: maxSampleCount, intoFormat: context.audioFormat) else {
+            
+            if decoder.fatalError {
+                
+                Messenger.publish(TrackNoLongerReadableNotification(errorTrack: session.track, 
+                                                                    detailMessage: "Possible cause - storage location no longer accessible."))
+            }
+            
+            return
+        }
 
         // Pass off the audio buffer to the audio engine for playback. The completion handler is executed when
         // the buffer has finished playing.
@@ -273,7 +280,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     
     // Signal track playback completion
     func trackCompleted(_ session: PlaybackSession) {
-        messenger.publish(.Player.trackPlaybackCompleted, payload: session)
+        Messenger.publish(.Player.trackPlaybackCompleted, payload: session)
     }
     
     func pause() {

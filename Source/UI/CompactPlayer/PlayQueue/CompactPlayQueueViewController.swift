@@ -65,15 +65,11 @@ class CompactPlayQueueViewController: PlayQueueViewController {
     // MARK: Notification handling ----------------------------------------------------------------------------------
     
     func startedAddingTracks() {
-        
-        progressSpinner.startAnimation(nil)
-        progressSpinner.show()
+        progressSpinner.animate()
     }
     
     func doneAddingTracks() {
-        
-        progressSpinner.hide()
-        progressSpinner.stopAnimation(nil)
+        progressSpinner.dismiss()
     }
     
     // TODO: This is a hack ! Re-investigate the superClass method that calls this. eg. doSort()

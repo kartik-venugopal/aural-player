@@ -227,15 +227,11 @@ class PlayQueueContainerViewController: NSViewController {
     // MARK: Notification handling ----------------------------------------------------------------------------------
     
     func startedAddingTracks() {
-        
-        progressSpinner.startAnimation(nil)
-        progressSpinner.show()
+        progressSpinner.animate()
     }
     
     func doneAddingTracks() {
-        
-        progressSpinner.hide()
-        progressSpinner.stopAnimation(nil)
+        progressSpinner.dismiss()
     }
     
     func trackTransitioned(_ notification: TrackTransitionNotification) {

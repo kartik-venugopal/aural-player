@@ -30,7 +30,7 @@ class MasterUnitView: NSView {
         
         messenger.subscribe(to: .Effects.audioUnitAdded, handler: doAddFuseBoxMenuItemForEffectsUnit(_:))
         messenger.subscribe(to: .Effects.audioUnitsRemoved, handler: audioUnitsRemoved(_:))
-        messenger.subscribe(to: .Player.trackTransitioned, handler: updateRememberSettingsButtonState)
+        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: updateRememberSettingsButtonState)
         
         updateRememberSettingsButtonState()
     }

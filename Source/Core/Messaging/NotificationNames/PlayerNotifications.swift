@@ -38,6 +38,9 @@ extension Notification.Name {
         // Signifies that an error occurred and the player was unable to play the requested track.
         static let trackNotPlayed = Notification.Name("player_trackNotPlayed")
         
+        // Signifies that an error occurred and the player is no longer able to read the requested track.
+        static let trackNoLongerReadable = Notification.Name("player_trackNoLongerReadable")
+        
         // Signifies that the current track is about to change.
         static let preTrackChange = Notification.Name("player_preTrackChange")
         

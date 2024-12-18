@@ -29,6 +29,8 @@ extension FFmpegDecoder {
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: maxSampleCount)
         
+        recurringPacketReadErrorCount = 0
+        
         // Keep decoding as long as EOF is not reached.
         while !eof {
             
@@ -36,6 +38,9 @@ extension FFmpegDecoder {
                 
                 // Try to obtain a single decoded frame.
                 let frame = try nextFrame()
+                
+                // Reset the counter because packet read succeeded.
+                recurringPacketReadErrorCount = 0
                 
                 if frame.endTimestampSeconds > loopEndTime {
                     
@@ -47,14 +52,6 @@ extension FFmpegDecoder {
                     frame.keepFirstNSamples(sampleCount: truncatedSampleCount)
                     buffer.appendTerminalFrames([frame])
                     
-                    // TODO: Can we cache all the loop frames ?!!! Just play the same frames again and again !!!
-                    // TODO: If not the samples (could be very large - many hours, potentially with high sample rate / channel count), at least
-                    // TODO: cache some metadata ?
-                    // TODO:
-                    // TODO: Conditionally cache all the samples ? Examine loop duration + sample rate + channel count
-                    // TODO: If less than some max threshold, cache all samples ?
-                    // TODO:
-                    // TODO:
                     self._endOfLoop.setTrue()
                     
                     break
@@ -74,18 +71,25 @@ extension FFmpegDecoder {
                     break
                 }
                 
-            } catch let packetReadError as PacketReadError {
-                
-                // If the error signals EOF, suppress it, and simply set the EOF flag.
-                self._eof.setValue(packetReadError.isEOF)
-                
-                // If the error is something other than EOF, it either indicates a real problem or simply that there was one bad packet. Log the error.
-                if !eof {NSLog("Packet read error while reading track \(fileCtx.filePath) : \(packetReadError)")}
-                
             } catch {
                 
-                // This either indicates a real problem or simply that there was one bad packet. Log the error.
-                NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
+                if let packetReadError = error as? PacketReadError {
+                    
+                    // If the error signals EOF, suppress it, and simply set the EOF flag.
+                    self._eof.setValue(packetReadError.isEOF)
+                }
+                
+                if !eof {
+                    
+                    NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
+                    recurringPacketReadErrorCount.increment()
+                    
+                    if recurringPacketReadErrorCount == Self.maxConsecutiveIOErrors {
+                        
+                        _fatalError.setTrue()
+                        return nil
+                    }
+                }
             }
         }
         

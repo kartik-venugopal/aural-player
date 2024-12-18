@@ -17,6 +17,7 @@
                 <outlet property="lblAuthInstructions1" destination="TMc-yz-eoY" id="P3r-01-HjD"/>
                 <outlet property="lblAuthInstructions2" destination="x96-AG-5VF" id="9oA-8f-Pk1"/>
                 <outlet property="lblAuthStatus" destination="Nmp-yG-Rvg" id="rTn-aB-Is2"/>
+                <outlet property="sessionKeyActivitySpinner" destination="l28-uZ-LV2" id="M87-PP-ygD"/>
                 <outlet property="view" destination="W8Y-oq-0wu" id="s67-U7-QoX"/>
             </connections>
         </customObject>
@@ -117,6 +118,10 @@ DQ
                         <action selector="reauthenticateAction:" target="-2" id="OYX-w1-5dm"/>
                     </connections>
                 </button>
+                <progressIndicator hidden="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="l28-uZ-LV2">
+                    <rect key="frame" x="617" y="115" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </progressIndicator>
             </subviews>
             <point key="canvasLocation" x="148" y="-450"/>
         </view>

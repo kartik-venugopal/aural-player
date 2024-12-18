@@ -802,7 +802,8 @@ class PlayerViewController: NSViewController {
         
         messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
         messenger.subscribe(to: .Player.chapterChanged, handler: chapterChanged(_:))
-        messenger.subscribe(to: .Player.trackNotPlayed, handler: trackNotPlayed(_:))
+        messenger.subscribeAsync(to: .Player.trackNotPlayed, handler: trackNotPlayed(_:))
+        messenger.subscribeAsync(to: .Player.trackNoLongerReadable, handler: trackNoLongerReadable(notification:))
         
         messenger.subscribe(to: .Effects.playbackRateChanged, handler: playbackRateChanged(_:))
     }
@@ -835,6 +836,14 @@ class PlayerViewController: NSViewController {
         
         NSAlert.showError(withTitle: "Track not played",
                           andText: "Error playing audio file '\(notification.errorTrack.file.lastPathComponent)':\n\(notification.error.message)")
+    }
+    
+    func trackNoLongerReadable(notification: TrackNoLongerReadableNotification) {
+        
+        playbackDelegate.stop()
+        
+        NSAlert.showError(withTitle: "Track no longer readable",
+                          andText: "Error playing audio file '\(notification.errorTrack.file.lastPathComponent)':\n\(notification.detailMessage)")
     }
     
     func playbackRateChanged(_ newPlaybackRate: Float) {

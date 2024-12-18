@@ -22,6 +22,8 @@ class FFmpegDecoder {
     /// i.e. will not require a correction.
     ///
     private static let seekPositionTolerance: Double = 0.01
+    
+    static let maxConsecutiveIOErrors: Int = 5
 
     ///
     /// FFmpeg context for the file that is to be decoded
@@ -124,7 +126,7 @@ class FFmpegDecoder {
         }
     }
     
-    private var recurringPacketReadErrorCount: Int = 0
+    var recurringPacketReadErrorCount: Int = 0
     
     ///
     /// Decodes the currently playing file's audio stream to produce a given (maximum) number of samples, in a loop, and returns a frame buffer
@@ -143,6 +145,8 @@ class FFmpegDecoder {
         
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: maxSampleCount)
+        
+        recurringPacketReadErrorCount = 0
         
         // Keep decoding as long as EOF is not reached.
         while !eof {
@@ -182,10 +186,10 @@ class FFmpegDecoder {
                     NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
                     recurringPacketReadErrorCount.increment()
                     
-                    if recurringPacketReadErrorCount == 5 {
+                    if recurringPacketReadErrorCount == Self.maxConsecutiveIOErrors {
                         
                         _fatalError.setTrue()
-                        return buffer.sampleCount > 0 ? transferSamplesToPCMBuffer(from: buffer, outputFormat: outputFormat) : nil
+                        return nil
                     }
                 }
             }

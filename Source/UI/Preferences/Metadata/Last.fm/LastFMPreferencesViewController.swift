@@ -27,6 +27,8 @@ class LastFMPreferencesViewController: NSViewController, PreferencesViewProtocol
     @IBOutlet weak var btnGrantPermission: NSButton!
     @IBOutlet weak var btnGetSessionKey: NSButton!
     
+    @IBOutlet weak var sessionKeyActivitySpinner: NSProgressIndicator!
+    
     private var lastFMToken: LastFMToken? = nil
     
     private var lastFMPrefs: LastFMPreferences {
@@ -68,6 +70,8 @@ class LastFMPreferencesViewController: NSViewController, PreferencesViewProtocol
     }
     
     private func hideLastFMAuthFields() {
+        
+        sessionKeyActivitySpinner.dismiss()
         
         lblAuthInstructions1.hide()
         lblAuthInstructions2.hide()
@@ -129,6 +133,8 @@ class LastFMPreferencesViewController: NSViewController, PreferencesViewProtocol
     }
     
     @IBAction func getSessionKeyAction(_ sender: Any) {
+        
+        sessionKeyActivitySpinner.animate()
 
         DispatchQueue.global(qos: .userInteractive).async {
             

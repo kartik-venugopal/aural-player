@@ -866,6 +866,7 @@
 		3EAFB615267FF47200F0DC96 /* FilterBandSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */; };
 		3EAFB617267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */; };
 		3EAFB619267FF68C00F0DC96 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */; };
+		3EB179752D12F38700E739CB /* NSProgressIndicatorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB179742D12F38700E739CB /* NSProgressIndicatorExtensions.swift */; };
 		3EB1A8112826D14F00866012 /* ThemablePopupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1A8102826D14F00866012 /* ThemablePopupButton.swift */; };
 		3EB1A8132826FCE900866012 /* DevicesViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1A8122826FCE900866012 /* DevicesViewController+TableViewDelegate.swift */; };
 		3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */; };
@@ -1979,6 +1980,7 @@
 		3EB1274F2ADDE4FD00745603 /* LibraryBuildProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBuildProgressViewController.swift; sourceTree = "<group>"; };
 		3EB127522ADDE53700745603 /* LibraryBuildProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryBuildProgress.xib; sourceTree = "<group>"; };
 		3EB1276F2ADDF63400745603 /* ProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressArc.swift; sourceTree = "<group>"; };
+		3EB179742D12F38700E739CB /* NSProgressIndicatorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSProgressIndicatorExtensions.swift; sourceTree = "<group>"; };
 		3EB1A8102826D14F00866012 /* ThemablePopupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemablePopupButton.swift; sourceTree = "<group>"; };
 		3EB1A8122826FCE900866012 /* DevicesViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DevicesViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableCellViewExtensions.swift; sourceTree = "<group>"; };
@@ -2351,8 +2353,8 @@
 			children = (
 				3E02161F2C23490E00865AC2 /* FFmpegCoverArtReader.swift */,
 				3E0216202C23490E00865AC2 /* FFmpegDecoder.swift */,
-				3E0216212C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift */,
 				3E0216222C23490E00865AC2 /* FFmpegDecoder+SegmentLoop.swift */,
+				3E0216212C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift */,
 				3E0216232C23490E00865AC2 /* FFmpegErrors.swift */,
 				3E0216242C23490E00865AC2 /* FFmpegFrameBuffer.swift */,
 				3E0216252C23490E00865AC2 /* FFmpegMetadataReader.swift */,
@@ -4986,6 +4988,7 @@
 				3EB3A61D26A76F450060487C /* NSScrollViewExtensions.swift */,
 				3E419B5E27B18C6500C2B965 /* CALayerExtensions.swift */,
 				3EB49F8A2BD7176000A4E032 /* NSTextFieldExtensions.swift */,
+				3EB179742D12F38700E739CB /* NSProgressIndicatorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6211,6 +6214,7 @@
 				3E2FA5ED2B72260200DD6A20 /* CircularSlider.swift in Sources */,
 				3E0219872C23490E00865AC2 /* MirrorExtensions.swift in Sources */,
 				3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */,
+				3EB179752D12F38700E739CB /* NSProgressIndicatorExtensions.swift in Sources */,
 				3EFB9ED626A68B1F00EA8440 /* MetadataTrackInfoViewController.swift in Sources */,
 				3E0218F62C23490E00865AC2 /* ImportedPlaylist.swift in Sources */,
 				3EBFF5A82B52C0CC0056D5B4 /* CompactPlayerWindowController.swift in Sources */,
@@ -6762,7 +6766,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview20";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview21";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6779,7 +6783,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview20";
+				MARKETING_VERSION = "4.0.0-preview21";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6801,7 +6805,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview20";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview21";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
@@ -6818,7 +6822,7 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview20";
+				MARKETING_VERSION = "4.0.0-preview21";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;

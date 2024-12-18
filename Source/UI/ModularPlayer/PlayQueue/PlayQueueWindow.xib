@@ -34,14 +34,14 @@
                         </view>
                     </box>
                     <button toolTip="Hide the Play Queue" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WCg-lo-jGl" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="200.5" width="12.5" height="12"/>
+                        <rect key="frame" x="10" y="198.5" width="10.5" height="14"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YZr-ea-1xk">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <constraints>
-                            <constraint firstAttribute="width" constant="12" id="WOM-qb-Jei"/>
-                            <constraint firstAttribute="height" constant="8" id="dZd-u8-Txp"/>
+                            <constraint firstAttribute="width" constant="10" id="WOM-qb-Jei"/>
+                            <constraint firstAttribute="height" constant="10" id="dZd-u8-Txp"/>
                         </constraints>
                         <connections>
                             <action selector="closeAction:" target="-2" id="LJK-Fa-rbY"/>
