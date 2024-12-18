@@ -118,58 +118,44 @@ Gw
             </view>
             <toolbar key="toolbar" implicitIdentifier="B5AF642E-BCD1-4D4C-979F-5414ED6139A4" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="sOD-ln-7jl">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="C08E83AB-C4C6-4F88-9A65-E1A50A0A6DCA" explicitItemIdentifier="PlayQueue" label="Play Queue" paletteLabel="Play Queue" selectable="YES" id="3aN-Hr-ue5">
+                    <toolbarItem implicitItemIdentifier="C08E83AB-C4C6-4F88-9A65-E1A50A0A6DCA" explicitItemIdentifier="PlayQueue" label="Play Queue" paletteLabel="Play Queue" sizingBehavior="auto" selectable="YES" id="3aN-Hr-ue5">
                         <imageReference key="image" image="list.bullet" catalog="system" symbolScale="large"/>
-                        <size key="minSize" width="4" height="16"/>
-                        <size key="maxSize" width="73" height="16"/>
                         <connections>
                             <action selector="switchToTabAction:" target="-2" id="YhQ-cK-FnP"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="EC37CE9E-8A7B-4B90-A605-332701E07506" label="Playback" paletteLabel="Playback" tag="1" selectable="YES" id="SF0-BP-tNr">
+                    <toolbarItem implicitItemIdentifier="EC37CE9E-8A7B-4B90-A605-332701E07506" label="Playback" paletteLabel="Playback" tag="1" sizingBehavior="auto" selectable="YES" id="SF0-BP-tNr">
                         <imageReference key="image" image="play" catalog="system" symbolScale="large"/>
-                        <size key="minSize" width="15" height="17"/>
-                        <size key="maxSize" width="15" height="17"/>
                         <connections>
                             <action selector="switchToTabAction:" target="-2" id="22X-1y-MQW"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="B688BC2C-6C18-4326-9E52-190657FB9A40" label="Sound" paletteLabel="Sound" tag="2" selectable="YES" id="fnR-bv-BV0">
+                    <toolbarItem implicitItemIdentifier="B688BC2C-6C18-4326-9E52-190657FB9A40" label="Sound" paletteLabel="Sound" tag="2" sizingBehavior="auto" selectable="YES" id="fnR-bv-BV0">
                         <imageReference key="image" image="speaker.wave.1" catalog="system" symbolScale="large"/>
-                        <size key="minSize" width="20" height="18"/>
-                        <size key="maxSize" width="20" height="18"/>
                         <connections>
                             <action selector="switchToTabAction:" target="-2" id="ApR-Wn-wOk"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="C26852F4-0248-4EFB-9D97-68C04112AC15" label="View" paletteLabel="View" tag="3" selectable="YES" id="BDD-WJ-vlL">
+                    <toolbarItem implicitItemIdentifier="C26852F4-0248-4EFB-9D97-68C04112AC15" label="View" paletteLabel="View" tag="3" sizingBehavior="auto" selectable="YES" id="BDD-WJ-vlL">
                         <imageReference key="image" image="macwindow" catalog="system" symbolScale="large"/>
-                        <size key="minSize" width="24" height="18"/>
-                        <size key="maxSize" width="24" height="18"/>
                         <connections>
                             <action selector="switchToTabAction:" target="-2" id="4mI-qO-pXp"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="FDB59EFA-42EB-4838-9DB9-FA582916B680" label="History" paletteLabel="History" tag="4" selectable="YES" id="Ixe-ui-Ydx">
+                    <toolbarItem implicitItemIdentifier="FDB59EFA-42EB-4838-9DB9-FA582916B680" label="History" paletteLabel="History" tag="4" sizingBehavior="auto" selectable="YES" id="Ixe-ui-Ydx">
                         <imageReference key="image" image="clock" catalog="system" symbolScale="large"/>
-                        <size key="minSize" width="20" height="20"/>
-                        <size key="maxSize" width="20" height="20"/>
                         <connections>
                             <action selector="switchToTabAction:" target="-2" id="VKS-WR-hlA"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="617BD7C1-ABAC-44C3-8EAB-2413A1FAA2B4" label="Controls" paletteLabel="Controls" tag="5" selectable="YES" id="yAf-T5-XAU">
+                    <toolbarItem implicitItemIdentifier="617BD7C1-ABAC-44C3-8EAB-2413A1FAA2B4" label="Controls" paletteLabel="Controls" tag="5" sizingBehavior="auto" selectable="YES" id="yAf-T5-XAU">
                         <imageReference key="image" image="keyboard" catalog="system" symbolScale="large"/>
-                        <size key="minSize" width="25" height="16"/>
-                        <size key="maxSize" width="25" height="16"/>
                         <connections>
                             <action selector="switchToTabAction:" target="-2" id="k0e-jF-YiU"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="FC049B0A-B86B-4CF0-876F-9980BF84F23F" label="Metadata" paletteLabel="Metadata" tag="6" selectable="YES" id="F0m-lY-VJm">
+                    <toolbarItem implicitItemIdentifier="FC049B0A-B86B-4CF0-876F-9980BF84F23F" label="Metadata" paletteLabel="Metadata" tag="6" sizingBehavior="auto" selectable="YES" id="F0m-lY-VJm">
                         <imageReference key="image" image="info.circle" catalog="system" symbolScale="large"/>
-                        <size key="minSize" width="20" height="20"/>
-                        <size key="maxSize" width="20" height="20"/>
                         <connections>
                             <action selector="switchToTabAction:" target="-2" id="yi3-1A-czw"/>
                         </connections>

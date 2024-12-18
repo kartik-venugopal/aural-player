@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,21 +28,18 @@
                                 <rect key="frame" x="10" y="33" width="668" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
-                            <imageReference key="image" image="keyboard" catalog="system" symbolScale="medium"/>
                         </tabViewItem>
                         <tabViewItem label="Gestures" identifier="" id="xaO-BS-bpJ" userLabel="Gestures" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                             <view key="view" id="ffi-Q6-D9v">
                                 <rect key="frame" x="10" y="33" width="668" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
-                            <imageReference key="image" image="rectangle.and.hand.point.up.left.fill" catalog="system" symbolScale="medium"/>
                         </tabViewItem>
                         <tabViewItem label="Remote Control" identifier="" id="e6S-Xh-5Jr" userLabel="Remote Control" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                             <view key="view" id="JpE-Vp-eUh">
                                 <rect key="frame" x="10" y="33" width="668" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
-                            <imageReference key="image" image="av.remote" catalog="system" symbolScale="medium"/>
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
@@ -51,9 +47,4 @@
             <point key="canvasLocation" x="189" y="196"/>
         </view>
     </objects>
-    <resources>
-        <image name="av.remote" catalog="system" width="11" height="17"/>
-        <image name="keyboard" catalog="system" width="19" height="13"/>
-        <image name="rectangle.and.hand.point.up.left.fill" catalog="system" width="19" height="18"/>
-    </resources>
 </document>
