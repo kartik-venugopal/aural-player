@@ -272,7 +272,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             var screenOffset: NSSize? = nil
             
             if let screen = child.screen {
-                screenOffset = child.frame.origin.distanceFrom(screen.frame.origin)
+                screenOffset = child.frame.origin.distanceFrom(screen.visibleFrame.origin)
             }
             
             windows.append(LayoutWindow(id: windowID, screen: child.screen,
@@ -287,7 +287,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         var screenOffset: NSSize? = nil
         
         if let screen = mainWindow.screen {
-            screenOffset = mainWindow.frame.origin.distanceFrom(screen.frame.origin)
+            screenOffset = mainWindow.frame.origin.distanceFrom(screen.visibleFrame.origin)
         }
         
         return WindowLayout(name: "_autoSaved_", type: .autoSaved, 

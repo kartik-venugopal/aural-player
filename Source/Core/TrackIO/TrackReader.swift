@@ -95,7 +95,7 @@ class TrackReader {
             if metadataCacheEnabled, let metadataInCache = metadataRegistry[track] {
 
                 let diff = (abs(metadataInCache.duration - duration) / metadataInCache.duration) * 100.0
-                print("Updating duration from \(metadataInCache.duration) -> \(duration), diff = \(diff)")
+//                print("Updating duration from \(metadataInCache.duration) -> \(duration), diff = \(diff)")
                 metadataInCache.duration = duration
                 metadataInCache.durationIsAccurate = true
             }

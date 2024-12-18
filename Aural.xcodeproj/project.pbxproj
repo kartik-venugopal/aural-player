@@ -584,7 +584,6 @@
 		3E62979426A3C0F100C96AB8 /* SnappingWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62979326A3C0F100C96AB8 /* SnappingWindowDelegate.swift */; };
 		3E62979A26A3CD3800C96AB8 /* Destroyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62979926A3CD3800C96AB8 /* Destroyable.swift */; };
 		3E62979D26A3CEBF00C96AB8 /* Restorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62979C26A3CEBF00C96AB8 /* Restorable.swift */; };
-		3E634D762846B8B9008A47EC /* MouseTrackingOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E634D752846B8B9008A47EC /* MouseTrackingOutlineView.swift */; };
 		3E64AE112BD6FFB900630B8B /* ProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1276F2ADDF63400745603 /* ProgressArc.swift */; };
 		3E6668B12ADB4AF500BBD119 /* WindowLayoutSetup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6668B02ADB4AF500BBD119 /* WindowLayoutSetup.xib */; };
 		3E6668B32ADB515600BBD119 /* PresetLayoutPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6668B22ADB515600BBD119 /* PresetLayoutPreviewView.swift */; };
@@ -1686,7 +1685,6 @@
 		3E62979926A3CD3800C96AB8 /* Destroyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destroyable.swift; sourceTree = "<group>"; };
 		3E62979C26A3CEBF00C96AB8 /* Restorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restorable.swift; sourceTree = "<group>"; };
 		3E634D72284698A9008A47EC /* LibraryOutlineViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryOutlineViewController+DataSource.swift"; sourceTree = "<group>"; };
-		3E634D752846B8B9008A47EC /* MouseTrackingOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseTrackingOutlineView.swift; sourceTree = "<group>"; };
 		3E634D772846BDE2008A47EC /* LibraryHoverControlsBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryHoverControlsBox.swift; sourceTree = "<group>"; };
 		3E6668B02ADB4AF500BBD119 /* WindowLayoutSetup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowLayoutSetup.xib; sourceTree = "<group>"; };
 		3E6668B22ADB515600BBD119 /* PresetLayoutPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetLayoutPreviewView.swift; sourceTree = "<group>"; };
@@ -3887,7 +3885,6 @@
 			children = (
 				3E25B65727F78BED00D10A5F /* TableViewController */,
 				3EA8A90B28319AD3006B48C6 /* OutlineViewController */,
-				3E634D752846B8B9008A47EC /* MouseTrackingOutlineView.swift */,
 				3EC530E4284BB69C0036207C /* TableDragDropContext.swift */,
 			);
 			path = TableView;
@@ -6275,7 +6272,6 @@
 				3E0217DC2C23490E00865AC2 /* MKExtensions.swift in Sources */,
 				3E6C12C625CEBE6700BF0D07 /* PitchShiftUnitView.swift in Sources */,
 				3E0218872C23490E00865AC2 /* AudioUnitPersistentState.swift in Sources */,
-				3E634D762846B8B9008A47EC /* MouseTrackingOutlineView.swift in Sources */,
 				3E6C12C125CEBE6700BF0D07 /* PitchShiftUnitViewController.swift in Sources */,
 				3E0218962C23490E00865AC2 /* ColorPersistentState.swift in Sources */,
 				3E6C12B425CEBE5800BF0D07 /* PlaybackMenuController.swift in Sources */,

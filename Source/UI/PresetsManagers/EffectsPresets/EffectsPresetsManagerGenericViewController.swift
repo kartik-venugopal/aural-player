@@ -39,8 +39,6 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     
     private func doViewDidAppear() {
         
-        print("VDA: \(self.className)")
-        
         tableView.reloadData()
         tableView.deselectAll(self)
     }
