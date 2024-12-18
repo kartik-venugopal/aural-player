@@ -45,6 +45,12 @@ class PlayQueueContainer: NSView, ColorSchemeObserver {
     
     override func awakeFromNib() {
         
+        super.awakeFromNib()
+        
+        // OS-specific images
+        btnMoveTracksToTop.image = .imgMoveToTop
+        btnMoveTracksToBottom.image = .imgMoveToBottom
+        
         setUpSubviewsForAutoHide()
         
         colorSchemesManager.registerSchemeObserver(self)

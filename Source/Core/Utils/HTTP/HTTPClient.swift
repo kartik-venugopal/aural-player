@@ -89,6 +89,7 @@ class HTTPClient {
         withBody body: Data? = nil,
         timeout: Int = 5
     ) throws {
+        
         // Construct a request object with the specified URL and headers.
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
@@ -111,6 +112,7 @@ class HTTPClient {
     /// Just a wrapper for URLSession.shared.dataTask, replace NSURLConnection.sendSynchronousRequest()
     ///
     private func performSynchronousRequest(_ request: URLRequest) throws -> (Data, URLResponse?) {
+        
         let semaphore = DispatchSemaphore(value: 0)
         var resultData: Data?
         var resultResponse: URLResponse?
@@ -122,6 +124,7 @@ class HTTPClient {
             resultError = error
             semaphore.signal()
         }
+        
         task.resume()
 
         _ = semaphore.wait(timeout: .now() + request.timeoutInterval)
@@ -131,6 +134,7 @@ class HTTPClient {
         }
 
         guard let data = resultData else {
+            
             let response = resultResponse as? HTTPURLResponse
             throw HTTPError.fromCode(response?.statusCode ?? 0, forURL: request.url!)
         }
@@ -150,12 +154,12 @@ extension HTTPURLResponse {
     ///
     /// Checks the statusCode to determine if the response indicates the successful processing of a request.
     ///
-    var succeeded: Bool { statusCode.equalsOneOf(200, 307) }
+    var succeeded: Bool {statusCode.equalsOneOf(200, 307)}
 
     ///
     /// Checks the statusCode to determine if the response indicates the failed processing of a request.
     ///
-    var failed: Bool { !succeeded }
+    var failed: Bool {!succeeded}
 }
 
 extension Data {

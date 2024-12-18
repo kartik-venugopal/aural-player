@@ -28,8 +28,8 @@ class TableDragDropContext {
     
     static func setIndicesAndData(_ indices: IndexSet, _ data: Any, from sourceTable: NSTableView, pasteboard: NSPasteboard) {
         
-        // Dp this to prevent the pasteboard from complaining when dragging / dropping.
-        pasteboard.data = indices
+        // Do this to prevent the pasteboard from complaining when dragging / dropping.
+        pasteboard.sourceIndexes = indices
         
         Self.indices = indices
         Self.data = data
@@ -38,8 +38,8 @@ class TableDragDropContext {
     
     static func setData(_ data: Any, from sourceTable: NSTableView, pasteboard: NSPasteboard) {
         
-        // Dp this to prevent the pasteboard from complaining when dragging / dropping.
-        pasteboard.data = dummyObject
+        // Do this to prevent the pasteboard from complaining when dragging / dropping.
+        pasteboard.sourceIndexes = .empty
         
         Self.data = data
         Self.sourceTable = sourceTable

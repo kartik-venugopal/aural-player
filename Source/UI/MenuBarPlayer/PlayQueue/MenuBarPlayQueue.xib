@@ -376,8 +376,8 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Move selected tracks to the top" translatesAutoresizingMaskIntoConstraints="NO" id="8QW-iq-0A0" userLabel="Move to Top" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="201" y="13" width="11" height="10"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.up.to.line.alt" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="10h-bt-S0B">
+                        <rect key="frame" x="201" y="15" width="11" height="5"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="10h-bt-S0B">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -390,8 +390,8 @@
                         </connections>
                     </button>
                     <button hidden="YES" toolTip="Move selected tracks to the bottom" translatesAutoresizingMaskIntoConstraints="NO" id="GtB-gn-EvX" userLabel="Move to Bottom" customClass="FillableImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="213" y="13" width="11" height="10"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow.down.to.line.alt" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9BS-SU-E18">
+                        <rect key="frame" x="213" y="15" width="11" height="5"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9BS-SU-E18">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -646,10 +646,8 @@ Gw
     </objects>
     <resources>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
-        <image name="arrow.down.to.line.alt" catalog="system" width="13" height="14"/>
         <image name="arrow.up" catalog="system" width="13" height="14"/>
         <image name="arrow.up.arrow.down" catalog="system" width="23" height="19"/>
-        <image name="arrow.up.to.line.alt" catalog="system" width="13" height="14"/>
         <image name="doc.text" catalog="system" width="14" height="16"/>
         <image name="plus.rectangle.on.folder" catalog="system" width="19" height="15"/>
         <image name="scissors" catalog="system" width="20" height="15"/>

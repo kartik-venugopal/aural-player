@@ -75,6 +75,10 @@ class PlayQueueViewController: TrackListTableViewController {
             guard let selfPQView = self?.playQueueView else {return false}
             return views.contains(selfPQView)
         })
+        
+        // OS-specific images
+        moveTracksToTopMenuItem?.image = .imgMoveToTop
+        moveTracksToBottomMenuItem?.image = .imgMoveToBottom
     }
     
     override func viewWillAppear() {

@@ -10,21 +10,6 @@
 
 import Cocoa
 
-class ChapterMenuItem: NSMenuItem {
-    
-    let index: Int
-    
-    init(title: String, action: Selector, index: Int) {
-        
-        self.index = index
-        super.init(title: title, action: action, keyEquivalent: "")
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 extension PlayQueueViewController: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -367,5 +352,20 @@ extension PlayQueueViewController: NSMenuDelegate {
     // Shows the selected tracks in Finder.
     @IBAction func showInFinderAction(_ sender: NSMenuItem) {
         URL.showInFinder(selectedTracks.map {$0.file})
+    }
+}
+
+class ChapterMenuItem: NSMenuItem {
+    
+    let index: Int
+    
+    init(title: String, action: Selector, index: Int) {
+        
+        self.index = index
+        super.init(title: title, action: action, keyEquivalent: "")
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

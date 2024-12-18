@@ -28,21 +28,21 @@ extension FavoritesDelegate {
                 trackReader.loadPrimaryMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
             }
             
-            for favArtist in state.favoriteArtists?.compactMap({$0.groupName}) ?? [] {
+//            for favArtist in state.favoriteArtists?.compactMap({$0.groupName}) ?? [] {
 //                self.favoriteArtists[favArtist] = FavoriteGroup(groupName: favArtist, groupType: .artist)
-            }
-            
-            for favAlbum in state.favoriteAlbums?.compactMap({$0.groupName}) ?? [] {
+//            }
+//            
+//            for favAlbum in state.favoriteAlbums?.compactMap({$0.groupName}) ?? [] {
 //                self.favoriteAlbums[favAlbum] = FavoriteGroup(groupName: favAlbum, groupType: .album)
-            }
-            
-            for favGenre in state.favoriteGenres?.compactMap({$0.groupName}) ?? [] {
+//            }
+//            
+//            for favGenre in state.favoriteGenres?.compactMap({$0.groupName}) ?? [] {
 //                self.favoriteGenres[favGenre] = FavoriteGroup(groupName: favGenre, groupType: .genre)
-            }
-            
-            for favDecade in state.favoriteDecades?.compactMap({$0.groupName}) ?? [] {
+//            }
+//            
+//            for favDecade in state.favoriteDecades?.compactMap({$0.groupName}) ?? [] {
 //                self.favoriteDecades[favDecade] = FavoriteGroup(groupName: favDecade, groupType: .decade)
-            }
+//            }
             
             for favFolder in state.favoriteFolders?.compactMap({$0.folder}) ?? [] {
                 self.favoriteFolders[favFolder] = FavoriteFolder(folder: favFolder)

@@ -15,48 +15,37 @@ extension NSPasteboard {
     var sourceIndexes: IndexSet? {
         
         get {
-            data as? IndexSet
+            object as? IndexSet
         }
         
         set {
-            data = newValue
+            object = newValue
         }
     }
     
-    var data: Any? {
+    fileprivate var object: Any? {
         
         get {
             
-            if let data = pasteboardItems?.first?.data(forType: .data) {
-                return NSKeyedUnarchiver.unarchiveObject(with: data)
-//                return NSKeyedUnarchiver.unarchivedObject(ofClass: NSObject.self, from: data)
-            }
-            
-            return nil
+            guard let data = pasteboardItems?.first?.data(forType: .data) else {return nil}
+            return NSKeyedUnarchiver.unarchiveObject(from: data)
         }
         
         set {
             
             guard let theData = newValue else {return}
             
-            let data = NSKeyedArchiver.archivedData(withRootObject: theData)
-            let item = NSPasteboardItem()
-            item.setData(data, forType: .data)
-            writeObjects([item])
+            if let data = try? NSKeyedArchiver.archivedData(withRootObject: theData, requiringSecureCoding: false) {
+                
+                let item = NSPasteboardItem()
+                item.setData(data, forType: .data)
+                writeObjects([item])
+            }
         }
     }
 }
 
 extension NSDraggingInfo {
-    
-    // Helper to set / retrieve source indexes to / from the NSDraggingInfo pasteboard.
-    var sourceIndexes: IndexSet? {
-        draggingPasteboard.sourceIndexes
-    }
-    
-    var data: Any? {
-        draggingPasteboard.data
-    }
     
     var urls: [URL]? {
         draggingPasteboard.readObjects(forClasses: [NSURL.self]) as? [URL]
@@ -70,4 +59,15 @@ extension NSPasteboard.PasteboardType {
     
     // Enables drag/drop adding of tracks into the playlist from Finder
     static let fileURL: NSPasteboard.PasteboardType = NSPasteboard.PasteboardType(rawValue: String(kUTTypeFileURL))
+}
+
+extension NSKeyedUnarchiver {
+    
+    static func unarchiveObject(from data: Data) -> Any? {
+        
+        guard let unarchiver = try? NSKeyedUnarchiver.init(forReadingFrom: data) else {return nil}
+        
+        unarchiver.requiresSecureCoding = false
+        return unarchiver.decodeObject()
+    }
 }

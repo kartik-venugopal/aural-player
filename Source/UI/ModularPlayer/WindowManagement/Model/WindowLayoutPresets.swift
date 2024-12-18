@@ -278,6 +278,8 @@ enum WindowLayoutPresets: String, CaseIterable {
             playQueueHeight = visibleFrame.height - (Self.mainWindowHeight + gap)
         }
         
+        // MARK: Construct the layout ---------------------------------------------------------------------------------
+        
         let mainWindow = LayoutWindow(id: .main, screen: screen,
                                       screenFrame: screen.frame,
                                       screenOffset: mainWindowOffset,

@@ -122,4 +122,24 @@ extension NSImage {
     static let imgAudioUnit: NSImage = NSImage(named: "AUTab")!
     
     static let imgWaveform: NSImage = NSImage(systemSymbolName: "waveform")
+    
+    static let imgMoveToTop: NSImage = {
+       
+        if #available(macOS 12, *) {
+            return .init(systemSymbolName: "arrow.up.to.line.compact")
+            
+        } else {
+            return .init(systemSymbolName: "arrow.up.to.line.alt")
+        }
+    }()
+    
+    static let imgMoveToBottom: NSImage = {
+        
+        if #available(macOS 12, *) {
+            return .init(systemSymbolName: "arrow.down.to.line.compact")
+            
+        } else {
+            return .init(systemSymbolName: "arrow.down.to.line.alt")
+        }
+    }()
 }
