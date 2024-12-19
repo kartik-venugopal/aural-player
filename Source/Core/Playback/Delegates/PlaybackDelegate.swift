@@ -72,7 +72,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         messenger.subscribeAsync(to: .Player.autoplay, handler: autoplay(_:))
         messenger.subscribe(to: .Player.savePlaybackProfile, handler: savePlaybackProfile)
         messenger.subscribe(to: .Player.deletePlaybackProfile, handler: deletePlaybackProfile)
-//        messenger.subscribe(to: .playlist_currentPlaylistChanged, handler: stop)
+        
+        messenger.subscribeAsync(to: .PlayQueue.gaplessPlaybackAnalysisCompleted, handler: gaplessPlaybackAnalysisCompleted(notif:))
     }
     
     // MARK: play()
@@ -110,10 +111,18 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         doPlay({playQueueDelegate.start()}, PlaybackParams.defaultParams())
     }
     
-    func beginGaplessPlayback() throws {
+    func beginGaplessPlayback() {
         
-        try playQueueDelegate.prepareForGaplessPlayback()
-        doBeginGaplessPlayback()
+        DispatchQueue.global(qos: .userInteractive).async {
+            playQueueDelegate.prepareForGaplessPlayback()
+        }
+    }
+    
+    private func gaplessPlaybackAnalysisCompleted(notif: GaplessPlaybackAnalysisNotification) {
+        
+        if notif.success {
+            doBeginGaplessPlayback()
+        }
     }
     
     private func doBeginGaplessPlayback() {

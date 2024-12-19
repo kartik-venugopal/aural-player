@@ -60,6 +60,7 @@ class LastFMPreferencesViewController: NSViewController, PreferencesViewProtocol
         lblAuthInstructions2.show()
         
         imgAuthStatus.image = .imgError
+        imgAuthStatus.contentTintColor = .red
         lblAuthStatus.stringValue = "(Not Authenticated)"
         btnReauthenticate.hide()
         

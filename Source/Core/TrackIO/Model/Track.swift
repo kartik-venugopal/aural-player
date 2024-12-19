@@ -32,6 +32,10 @@ class Track: Hashable, PlayableItem {
     func hash(into hasher: inout Hasher) {
         hasher.combine(file)
     }
+    
+    deinit {
+        playbackContext?.close()
+    }
 }
 
 extension Track: CustomStringConvertible {

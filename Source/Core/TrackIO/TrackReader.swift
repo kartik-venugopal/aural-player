@@ -188,20 +188,13 @@ class TrackReader {
         do {
             
             // If a playback context has been previously computed, just open it.
-            if let theContext = track.playbackContext {
-                try theContext.open()
-                
-            } else {
+            if track.playbackContext == nil {
                 
                 // No playback context was previously computed, so compute it and open it.
-                
                 try computePlaybackContext(for: track)
-                try track.playbackContext?.open()
             }
             
         } catch {
-            
-            NSLog("Unable to prepare track \(track.displayName) for playback. Error: \(error)")
             
             track.metadata.preparationFailed = true
             

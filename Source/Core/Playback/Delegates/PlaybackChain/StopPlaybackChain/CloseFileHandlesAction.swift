@@ -18,11 +18,14 @@ class CloseFileHandlesAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        // Iterate through all tracks in the playlist,
-        // and close their associated playback contexts
-        // i.e. audio file handles.
-        for track in playQueueDelegate.tracks {
-            track.playbackContext?.close()
+        DispatchQueue.global(qos: .background).async {
+            
+            // Iterate through all tracks in the playlist,
+            // and close their associated playback contexts
+            // i.e. audio file handles.
+            for track in playQueueDelegate.tracks {
+                track.playbackContext?.close()
+            }
         }
         
         chain.proceed(context)

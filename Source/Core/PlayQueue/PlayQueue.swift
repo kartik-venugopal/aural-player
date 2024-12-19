@@ -217,7 +217,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         }
     }
     
-    func prepareForGaplessPlayback() throws {
+    func prepareForGaplessPlayback() {
         
         let audioFormatsSet: ConcurrentSet<AVAudioFormat> = ConcurrentSet()
         var errorMsg: String? = nil
@@ -257,11 +257,15 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         gaplessPrepQueue.waitUntilAllOperationsAreFinished()
         
         if let errorMsg {
-            throw GaplessPlaybackNotPossibleError(errorMsg)
+            
+            Messenger.publish(GaplessPlaybackAnalysisNotification(success: false, errorMsg: errorMsg))
+            return
         }
         
         guard audioFormatsSet.count == 1 else {
-            throw GaplessPlaybackNotPossibleError("The tracks in the Play Queue do not all have the same audio format.")
+            
+            Messenger.publish(GaplessPlaybackAnalysisNotification(success: false, errorMsg: "The tracks in the Play Queue do not all have the same audio format."))
+            return
         }
         
         if repeatMode == .one {
@@ -271,6 +275,8 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         if shuffleMode == .on {
             shuffleMode = .off
         }
+        
+        Messenger.publish(GaplessPlaybackAnalysisNotification(success: true, errorMsg: nil))
     }
     
     override func preTrackLoad() {

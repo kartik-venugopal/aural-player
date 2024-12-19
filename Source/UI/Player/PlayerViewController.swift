@@ -82,6 +82,8 @@ class PlayerViewController: NSViewController {
     
     @IBOutlet weak var lblVolume: VALabel!
     
+    lazy var gaplessPlaybackProgressController: GaplessPlaybackProgressDialogController! = .init()
+    
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
     lazy var autoHidingVolumeLabel: AutoHidingView = AutoHidingView(lblVolume, Self.feedbackLabelAutoHideIntervalSeconds)
     
@@ -468,16 +470,9 @@ class PlayerViewController: NSViewController {
     
     func beginGaplessPlayback() {
         
-        do {
-            try playbackDelegate.beginGaplessPlayback()
-            
-        } catch {
-            
-            let errorMsg = (error as? GaplessPlaybackNotPossibleError)?.message ?? "Unknown Error"
-            
-            NSAlert.showError(withTitle: "Gapless Playback not possible",
-                             andText: "Error: \(errorMsg)")
-        }
+        gaplessPlaybackProgressController.forceLoadingOfWindow()
+        gaplessPlaybackProgressController.showWindow(self)
+        playbackDelegate.beginGaplessPlayback()
     }
     
     func performTrackPlayback(_ command: TrackPlaybackCommandNotification) {
@@ -856,6 +851,10 @@ class PlayerViewController: NSViewController {
     }
     
     override func destroy() {
+        
+        super.destroy()
+        
         messenger.unsubscribeFromAll()
+        gaplessPlaybackProgressController.destroy()
     }
 }

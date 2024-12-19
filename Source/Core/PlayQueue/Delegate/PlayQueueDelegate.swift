@@ -123,8 +123,8 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     // MARK: Play Now ---------------------------------------------------------------
     
     // Returns whether or not gapless playback is possible.
-    func prepareForGaplessPlayback() throws {
-        try playQueue.prepareForGaplessPlayback()
+    func prepareForGaplessPlayback() {
+        playQueue.prepareForGaplessPlayback()
     }
 
     // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History

@@ -45,6 +45,8 @@ extension Notification.Name {
         
         static let shuffleModeUpdated = Notification.Name("playQueue_shuffleModeUpdated")
         
+        static let gaplessPlaybackAnalysisCompleted = Notification.Name("playQueue_gaplessPlaybackAnalysisCompleted")
+        
         // ----------------------------------------------------------------------------------------
         
         // MARK: Play Queue commands

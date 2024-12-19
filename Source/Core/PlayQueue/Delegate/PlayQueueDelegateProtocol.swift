@@ -18,7 +18,7 @@ protocol PlayQueueDelegateProtocol: TrackListProtocol, SequencingProtocol, Histo
     // MARK: Play Now ---------------------------------------------------------------
     
     // Returns whether or not gapless playback is possible.
-    func prepareForGaplessPlayback() throws
+    func prepareForGaplessPlayback()
     
     // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History
     @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet

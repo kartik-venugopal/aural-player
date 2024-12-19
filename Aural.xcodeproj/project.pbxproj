@@ -533,6 +533,7 @@
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
 		3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */; };
 		3E419B5F27B18C6500C2B965 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E419B5E27B18C6500C2B965 /* CALayerExtensions.swift */; };
+		3E42596D2D1486B400245CFA /* GaplessPlaybackProgressDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E42596C2D1486B400245CFA /* GaplessPlaybackProgressDialogController.swift */; };
 		3E4322752687C96E009E8ADB /* WidgetAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4322742687C96E009E8ADB /* WidgetAppModeController.swift */; };
 		3E43227B2687D531009E8ADB /* ScrollingTrackTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E43227A2687D531009E8ADB /* ScrollingTrackTextView.swift */; };
 		3E43227D2687D65F009E8ADB /* WidgetPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E43227C2687D65F009E8ADB /* WidgetPlayer.xib */; };
@@ -1616,6 +1617,7 @@
 		3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataPreferences.xib; sourceTree = "<group>"; };
 		3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E419B5E27B18C6500C2B965 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
+		3E42596C2D1486B400245CFA /* GaplessPlaybackProgressDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaplessPlaybackProgressDialogController.swift; sourceTree = "<group>"; };
 		3E4322742687C96E009E8ADB /* WidgetAppModeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetAppModeController.swift; sourceTree = "<group>"; };
 		3E43227A2687D531009E8ADB /* ScrollingTrackTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingTrackTextView.swift; sourceTree = "<group>"; };
 		3E43227C2687D65F009E8ADB /* WidgetPlayer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetPlayer.xib; sourceTree = "<group>"; };
@@ -3810,6 +3812,7 @@
 			isa = PBXGroup;
 			children = (
 				3E58A9242D1421CC00591DEA /* GaplessPlaybackProgress.xib */,
+				3E42596C2D1486B400245CFA /* GaplessPlaybackProgressDialogController.swift */,
 			);
 			path = GaplessPlaybackProgress;
 			sourceTree = "<group>";
@@ -4555,7 +4558,6 @@
 		3E6C101A25CEB98600BF0D07 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				3E58A9232D1421B900591DEA /* GaplessPlaybackProgress */,
 				3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */,
 				3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */,
 				3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */,
@@ -4566,6 +4568,7 @@
 				3E6C102325CEB98600BF0D07 /* PlayingTrack */,
 				3E6C104325CEB98600BF0D07 /* Controls */,
 				3E6C104C25CEB98600BF0D07 /* JumpToTime */,
+				3E58A9232D1421B900591DEA /* GaplessPlaybackProgress */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -5920,6 +5923,7 @@
 				3E0218C72C23490E00865AC2 /* PlaybackInfoDelegateProtocol.swift in Sources */,
 				3E0219692C23490E00865AC2 /* Images.swift in Sources */,
 				3E2C4BD92B38E5F800FC65DD /* SearchWindowController.swift in Sources */,
+				3E42596D2D1486B400245CFA /* GaplessPlaybackProgressDialogController.swift in Sources */,
 				3E0219682C23490E00865AC2 /* ButtonStateMachine.swift in Sources */,
 				3E1741482801FDE500772ED1 /* TrackListTableViewController+DataSource.swift in Sources */,
 				3E02198F2C23490E00865AC2 /* HTTPClient.swift in Sources */,

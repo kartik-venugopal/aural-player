@@ -110,5 +110,3 @@ class InvalidInputError: DisplayableError {
 ///
 class PlaylistFileNotSpecifiedError: InvalidInputError {
 }
-
-class GaplessPlaybackNotPossibleError: DisplayableError {}

@@ -8,7 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
-import Foundation
+import AVFoundation
 
 struct MetadataPersistentState: Codable {
     

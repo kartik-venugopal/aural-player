@@ -75,11 +75,11 @@ extension NSImage {
     
     // Images displayed in alerts
     static let imgWarning: NSImage = NSImage(named: "Warning")!
-    static let imgError: NSImage = NSImage(named: "Error")!
+    static let imgError: NSImage = NSImage(systemSymbolName: "xmark.circle")
     
     static let imgPlayedTrack: NSImage = NSImage(systemSymbolName: "music.quarternote.3")
     
-    static let imgCheck: NSImage = NSImage(systemSymbolName: "checkmark.square")
+    static let imgCheck: NSImage = NSImage(systemSymbolName: "checkmark.circle")
     
     // --------------- Device type icons -------------------
     
