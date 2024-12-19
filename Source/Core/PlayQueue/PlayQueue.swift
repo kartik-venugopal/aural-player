@@ -29,8 +29,8 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
     lazy var shuffleSequence: ShuffleSequence = ShuffleSequence()
-    
-    private lazy var messenger = Messenger(for: self)
+
+    let gaplessPrepQueue: OperationQueue = .init(opCount: System.numberOfActiveCores, qos: .userInteractive)
     
     // MARK: Accessor functions
     
@@ -218,46 +218,49 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     }
     
     func prepareForGaplessPlayback() throws {
-     
-        var audioFormatsSet: Set<AVAudioFormat> = Set()
+        
+        let audioFormatsSet: ConcurrentSet<AVAudioFormat> = ConcurrentSet()
         var errorMsg: String? = nil
         
         for track in self.tracks {
             
-            do {
+            if audioFormatsSet.count > 1 {
                 
-                try trackReader.prepareForPlayback(track: track, immediate: false)
+                errorMsg = "The tracks in the Play Queue do not all have the same audio format."
+                break
                 
-                if let audioFormat = track.playbackContext?.audioFormat {
+            } else if errorMsg != nil {
+                break
+            }
+            
+            gaplessPrepQueue.addOperation {
+                
+                do {
                     
-                    audioFormatsSet.insert(audioFormat)
+                    try trackReader.prepareForGaplessPlayback(track: track)
                     
-                    if audioFormatsSet.count > 1 {
+                    if let audioFormat = track.playbackContext?.audioFormat {
+                        audioFormatsSet.insert(audioFormat)
                         
-                        errorMsg = "The tracks in the Play Queue do not all have the same audio format."
-                        break
+                    } else {
+                        errorMsg = "Unable to prepare for gapless playback: No audio context for track: \(track)."
                     }
                     
-                } else {
-                    
-                    errorMsg = "Unable to prepare for gapless playback: No audio context for track: \(track)."
-                    break
+                } catch {
+                    errorMsg = "Unable to prepare track \(track) for gapless playback: \(error)"
                 }
-                
-            } catch {
-                
-                errorMsg = "Unable to prepare track \(track) for gapless playback: \(error)"
-                break
             }
         }
         
-        if let theErrorMsg = errorMsg {
-            throw GaplessPlaybackNotPossibleError(theErrorMsg)
+        print("\(gaplessPrepQueue.operationCount) ops running ... ")
+
+        gaplessPrepQueue.waitUntilAllOperationsAreFinished()
+        
+        if let errorMsg {
+            throw GaplessPlaybackNotPossibleError(errorMsg)
         }
         
-        let success = audioFormatsSet.count == 1
-        
-        guard success else {
+        guard audioFormatsSet.count == 1 else {
             throw GaplessPlaybackNotPossibleError("The tracks in the Play Queue do not all have the same audio format.")
         }
         
@@ -271,7 +274,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     }
     
     override func preTrackLoad() {
-        messenger.publish(.PlayQueue.startedAddingTracks)
+        Messenger.publish(.PlayQueue.startedAddingTracks)
     }
     
     override func firstBatchLoaded(atIndices indices: IndexSet) {
@@ -291,26 +294,33 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     }
     
     override func postBatchLoad(indices: IndexSet) {
-        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+        Messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
     }
     
     override func postTrackLoad() {
         
         if markLoadedItemsForHistory.value {
-            messenger.publish(HistoryItemsAddedNotification(itemURLs: session.urls))
+            Messenger.publish(HistoryItemsAddedNotification(itemURLs: session.urls))
         }
         
         if preferences.metadataPreferences.cacheTrackMetadata.value {
             metadataRegistry.persistCoverArt()
         }
         
-        messenger.publish(.PlayQueue.doneAddingTracks)
+        Messenger.publish(.PlayQueue.doneAddingTracks)
         
         defer {
+            
+            firstTrackLoad = false
             autoplayResumeSequence.setFalse()
         }
         
-        if autoplayResumeSequence.value, shuffleMode == .on,
+        let hist = appPersistentState.playQueue?.history
+        if hist?.shuffleSequence == nil {
+            print("No SS !!!")
+        }
+        
+        if firstTrackLoad, shuffleMode == .on,
            let pQPersistentState = appPersistentState.playQueue,
            let persistentTracks = pQPersistentState.tracks,
            let historyPersistentState = pQPersistentState.history,
@@ -340,7 +350,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             shuffleSequence.initialize(with: sequenceTracks,
                                        playedTracks: playedTracks)
             
-            if let track = sequenceTracks.first,
+            if autoplayResumeSequence.value, let track = sequenceTracks.first,
                let playbackPosition = historyPersistentState.lastPlaybackPosition {
                 
                 playbackDelegate.resumeShuffleSequence(with: track,
@@ -359,3 +369,5 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         }
     }
 }
+
+fileprivate var firstTrackLoad: Bool = true

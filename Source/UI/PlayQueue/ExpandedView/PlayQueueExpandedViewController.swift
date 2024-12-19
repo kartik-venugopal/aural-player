@@ -102,6 +102,21 @@ class PlayQueueListTrackNameCell: NSTableCellView {
     
     func updateForTrack(_ track: Track, needsTooltip: Bool = false) {
         
+        [lblTitle, lblArtistAlbum, lblDefaultDisplayName].forEach {
+            $0.font = systemFontScheme.normalFont
+        }
+        
+        lblTitle.lineBreakMode = .byTruncatingTail
+        lblTitle.usesSingleLineMode = true
+        
+        lblDefaultDisplayName.lineBreakMode = .byWordWrapping
+        lblDefaultDisplayName.usesSingleLineMode = false
+        
+        lblArtistAlbum.lineBreakMode = .byTruncatingTail
+        lblArtistAlbum.usesSingleLineMode = true
+        
+        backgroundStyleChanged()
+        
         toolTip = nil
         
         if let title = track.title {
@@ -116,7 +131,14 @@ class PlayQueueListTrackNameCell: NSTableCellView {
                 }
                 
                 if needsTooltip, lblTitle.isTruncatingText || lblArtistAlbum.isTruncatingText {
+                    
                     toolTip = "\(lblTitle.stringValue)\n\(lblArtistAlbum.stringValue)"
+                    
+                    if lblTitle.isTruncatingText {
+                        print("title truncated, toolTip = \(self.toolTip)")
+                    } else {
+                        print("artist/album truncated, toolTip = \(self.toolTip)")
+                    }
                 }
                 
             } else {
@@ -147,21 +169,6 @@ class PlayQueueListTrackNameCell: NSTableCellView {
                 toolTip = lblDefaultDisplayName.stringValue
             }
         }
-        
-        [lblTitle, lblArtistAlbum, lblDefaultDisplayName].forEach {
-            $0.font = systemFontScheme.normalFont
-        }
-        
-        lblTitle.lineBreakMode = .byTruncatingTail
-        lblTitle.usesSingleLineMode = true
-        
-        lblDefaultDisplayName.lineBreakMode = .byWordWrapping
-        lblDefaultDisplayName.usesSingleLineMode = false
-        
-        lblArtistAlbum.lineBreakMode = .byTruncatingTail
-        lblArtistAlbum.usesSingleLineMode = true
-        
-        backgroundStyleChanged()
     }
     
     private func showTitleAndArtistAlbum(title: String, artistAlbumString: String) {

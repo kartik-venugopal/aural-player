@@ -562,6 +562,7 @@
 		3E5701962C6EB16A007B8611 /* ReplayGain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5701952C6EB16A007B8611 /* ReplayGain.swift */; };
 		3E5864A02B76DD0000BDB5A6 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */; };
 		3E5864A22B76EC8700BDB5A6 /* MenuBarPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5864A12B76EC8700BDB5A6 /* MenuBarPlayerViewController.swift */; };
+		3E58A9252D1421CC00591DEA /* GaplessPlaybackProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E58A9242D1421CC00591DEA /* GaplessPlaybackProgress.xib */; };
 		3E58DEEE2C8D7EC8007ED247 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58DEED2C8D7EC8007ED247 /* ImageCache.swift */; };
 		3E58DEF02C8D816D007ED247 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58DEEF2C8D816D007ED247 /* DataExtensions.swift */; };
 		3E59656B283BF91C00AF43FF /* ControlsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59656A283BF91C00AF43FF /* ControlsContainerView.swift */; };
@@ -1650,6 +1651,7 @@
 		3E5896082C6E6D6E00BB9EBC /* NewREADME.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NewREADME.md; sourceTree = "<group>"; };
 		3E5896092C6E6D6E00BB9EBC /* README-v4.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README-v4.md"; sourceTree = "<group>"; };
 		3E58960A2C6E6D6E00BB9EBC /* Release Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
+		3E58A9242D1421CC00591DEA /* GaplessPlaybackProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GaplessPlaybackProgress.xib; sourceTree = "<group>"; };
 		3E58DEED2C8D7EC8007ED247 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		3E58DEEF2C8D816D007ED247 /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
 		3E59656A283BF91C00AF43FF /* ControlsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsContainerView.swift; sourceTree = "<group>"; };
@@ -3804,6 +3806,14 @@
 			path = Documentation;
 			sourceTree = "<group>";
 		};
+		3E58A9232D1421B900591DEA /* GaplessPlaybackProgress */ = {
+			isa = PBXGroup;
+			children = (
+				3E58A9242D1421CC00591DEA /* GaplessPlaybackProgress.xib */,
+			);
+			path = GaplessPlaybackProgress;
+			sourceTree = "<group>";
+		};
 		3E58DEEC2C8D7EBD007ED247 /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -4545,6 +4555,7 @@
 		3E6C101A25CEB98600BF0D07 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				3E58A9232D1421B900591DEA /* GaplessPlaybackProgress */,
 				3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */,
 				3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */,
 				3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */,
@@ -5705,6 +5716,7 @@
 				3E25B65627F7875700D10A5F /* PlayQueueSimpleView.xib in Resources */,
 				3EC079472B78549F008CB68C /* MenuBarSettings.xib in Resources */,
 				3ED373EB2C70E4F500836511 /* ReplayGainUnit.xib in Resources */,
+				3E58A9252D1421CC00591DEA /* GaplessPlaybackProgress.xib in Resources */,
 				3E6C12ED25CEBE8100BF0D07 /* DelayUnit.xib in Resources */,
 				3E6668B82ADB651500BBD119 /* ThemeSetup.xib in Resources */,
 				3E51F346262AFDCA0048452F /* ThemesManager.xib in Resources */,

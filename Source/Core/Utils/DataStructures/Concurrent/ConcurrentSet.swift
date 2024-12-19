@@ -18,7 +18,12 @@ class ConcurrentSet<T: Hashable> {
     private var _set: Set<T> = Set<T>()
     var set: Set<T> {_set}
     
-    var count: Int {_set.count}
+    var count: Int {
+        
+        lock.produceValueAfterWait {
+            _set.count
+        }
+    }
     
     func contains(_ value: T) -> Bool {
         

@@ -90,7 +90,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         // Enabled only if playing/paused
         let isReceivingTextInput: Bool = NSApp.isReceivingTextInput
         
-        showInPlayQueueMenuItem.enableIf(isPlayingOrPaused && isShowingPlayQueue)
+        if appModeManager.currentMode == .modular {
+            showInPlayQueueMenuItem.enableIf(isPlayingOrPaused && isShowingPlayQueue)
+        } else {
+            showInPlayQueueMenuItem.enableIf(isPlayingOrPaused)
+        }
+        
         [replayTrackMenuItem, detailedInfoMenuItem].forEach {$0?.enableIf(isPlayingOrPaused)}
         loopMenuItem.enableIf(isPlayingOrPaused && notInGaplessMode)
         

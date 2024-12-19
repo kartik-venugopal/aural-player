@@ -263,7 +263,7 @@ class CompactPlayerWindowController: NSWindowController {
     
     private func updateMainMenuState() {
         
-        appDelegate.playbackMenuRootItem.enableIf(compactPlayerUIState.displayedView == .player)
+//        appDelegate.playbackMenuRootItem.enableIf(compactPlayerUIState.displayedView == .player)
         appDelegate.soundMenuRootItem.enableIf(compactPlayerUIState.displayedView.equalsOneOf(.player, .effects))
         appDelegate.playQueueMenuRootItem.enableIf(compactPlayerUIState.displayedView == .playQueue)
     }

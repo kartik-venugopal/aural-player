@@ -485,7 +485,7 @@
                         </constraints>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ILg-fo-rF1" userLabel="Play Queue Caption Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="23" y="360" width="214" height="25"/>
+                        <rect key="frame" x="8" y="360" width="214" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="76d-fr-gp4"/>
                             <constraint firstAttribute="width" constant="210" id="dTN-oT-aj0"/>
@@ -509,7 +509,7 @@
                     <constraint firstItem="rGi-Br-hY8" firstAttribute="centerY" secondItem="EEM-hK-rk8" secondAttribute="centerY" id="GlG-h3-FHh"/>
                     <constraint firstItem="pcR-HY-5FP" firstAttribute="leading" secondItem="8Vi-ax-FQk" secondAttribute="trailing" constant="15" id="IRK-bo-zz9"/>
                     <constraint firstAttribute="bottom" secondItem="xTF-ma-4qy" secondAttribute="bottom" constant="10" id="JjW-Lc-7JF"/>
-                    <constraint firstItem="ILg-fo-rF1" firstAttribute="leading" secondItem="el0-VE-Ib7" secondAttribute="leading" constant="25" id="Uiv-0W-eZk"/>
+                    <constraint firstItem="ILg-fo-rF1" firstAttribute="leading" secondItem="el0-VE-Ib7" secondAttribute="leading" constant="10" id="Uiv-0W-eZk"/>
                     <constraint firstItem="M4Y-BC-T8J" firstAttribute="centerY" secondItem="sb4-QZ-Nqd" secondAttribute="centerY" id="Zba-h8-1u4"/>
                     <constraint firstItem="aBL-E4-FyY" firstAttribute="leading" secondItem="M1d-v2-GBv" secondAttribute="trailing" constant="5" id="buk-BK-wnV"/>
                     <constraint firstItem="EEM-hK-rk8" firstAttribute="centerY" secondItem="RsD-Tk-fTw" secondAttribute="centerY" id="cOX-KA-Z9f"/>

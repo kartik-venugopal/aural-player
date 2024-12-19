@@ -171,6 +171,49 @@ class TrackReader {
     }
     
     ///
+    /// Loads all metadata and resources that are required for track playback.
+    ///
+    func prepareForGaplessPlayback(track: Track) throws {
+        
+        // Make sure track is valid before trying to prep it for playback.
+        if let prepError = track.metadata.preparationError {
+            throw prepError
+            
+        } else if let validationError = track.metadata.validationError {
+            
+            track.metadata.preparationError = validationError
+            throw validationError
+        }
+        
+        do {
+            
+            // If a playback context has been previously computed, just open it.
+            if let theContext = track.playbackContext {
+                try theContext.open()
+                
+            } else {
+                
+                // No playback context was previously computed, so compute it and open it.
+                
+                try computePlaybackContext(for: track)
+                try track.playbackContext?.open()
+            }
+            
+        } catch {
+            
+            NSLog("Unable to prepare track \(track.displayName) for playback. Error: \(error)")
+            
+            track.metadata.preparationFailed = true
+            
+            if let prepError = error as? DisplayableError {
+                track.metadata.preparationError = prepError
+            }
+            
+            throw error
+        }
+    }
+    
+    ///
     /// Loads cover art for a track, asynchronously. This is useful when
     /// cover art is not required immediately, and a short delay is acceptable.
     /// (eg. when preparing for playback)

@@ -60,6 +60,8 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         messenger.subscribe(to: .PlayQueue.moveTracksToBottom, handler: moveTracksToBottom)
         
         messenger.subscribe(to: .PlayQueue.exportAsPlaylistFile, handler: exportTrackList)
+        
+        messenger.subscribe(to: .PlayQueue.shuffleModeUpdated, handler: updateSummary)
     }
     
     // MARK: Notification handling ----------------------------------------------------------------------------------
@@ -93,11 +95,17 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         
         if let playingTrackIndex = playQueueDelegate.currentTrackIndex {
             
-            let playIconAttStr = "▶".attributed(font: futuristicFontSet.mainFont(size: 12), color: systemColorScheme.secondaryTextColor)
-            let tracksSummaryAttStr = "  \(playingTrackIndex + 1) / \(playQueueDelegate.size) \(tracksCardinalString)".attributed(font: systemFontScheme.smallFont,
-                                                                                                                                  color: systemColorScheme.secondaryTextColor)
-            
-            lblTracksSummary.attributedStringValue = playIconAttStr + tracksSummaryAttStr
+            if playQueueDelegate.shuffleMode == .on {
+                updateShuffleSequenceProgress()
+                
+            } else {
+                
+                let playIconAttStr = "▶".attributed(font: futuristicFontSet.mainFont(size: 12), color: systemColorScheme.secondaryTextColor)
+                let tracksSummaryAttStr = "  \(playingTrackIndex + 1) / \(playQueueDelegate.size) \(tracksCardinalString)".attributed(font: systemFontScheme.smallFont,
+                                                                                                                                      color: systemColorScheme.secondaryTextColor)
+                
+                lblTracksSummary.attributedStringValue = playIconAttStr + tracksSummaryAttStr
+            }
             
         } else {
             
@@ -111,6 +119,18 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         lblDurationSummary.textColor = systemColorScheme.secondaryTextColor
     }
     
+    private func updateShuffleSequenceProgress() {
+        
+        let imgAttachment = NSTextAttachment()
+        imgAttachment.image = .imgShuffle
+        let imgAttrString = NSMutableAttributedString(attachment: imgAttachment)
+        
+        let sequenceProgress = playQueueDelegate.shuffleSequence.progress
+        let tracksSummaryAttStr = "  \(sequenceProgress.tracksPlayed) / \(playQueueDelegate.size) tracks".attributed(font: systemFontScheme.smallFont,
+                                                                                                                    color: systemColorScheme.secondaryTextColor)
+        lblTracksSummary.attributedStringValue = imgAttrString + tracksSummaryAttStr
+    }
+    
     override func tracksAdded(_ notif: PlayQueueTracksAddedNotification) {
         
         super.tracksAdded(notif)
@@ -120,6 +140,11 @@ class CompactPlayQueueViewController: PlayQueueViewController {
     override func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         super.trackTransitioned(notification)
+        
+        if preferences.playQueuePreferences.showNewTrackInPlayQueue.value, notification.endTrack != nil {
+            showPlayingTrack()
+        }
+        
         updateSummary()
     }
     

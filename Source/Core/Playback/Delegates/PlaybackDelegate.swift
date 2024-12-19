@@ -118,12 +118,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     
     private func doBeginGaplessPlayback() {
         
+        guard let firstTrack = playQueueDelegate.tracks.first else {return}
+        
         _ = playQueueDelegate.start()
+
         player.playGapless(tracks: playQueueDelegate.tracks)
+        trackReader.loadArtAsync(for: firstTrack, immediate: true)
         
         // Inform observers of the track change/transition.
         messenger.publish(TrackTransitionNotification(beginTrack: nil, beginState: .stopped,
-                                                      endTrack: playQueueDelegate.tracks.first, endState: player.state))
+                                                      endTrack: firstTrack, endState: player.state))
     }
     
     func previousTrack() {
@@ -497,6 +501,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             }
             
             session.track = subsequentTrack
+            trackReader.loadArtAsync(for: subsequentTrack, immediate: true)
             
         } else {
             
