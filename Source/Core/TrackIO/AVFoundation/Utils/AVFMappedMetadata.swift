@@ -27,15 +27,12 @@ struct AVFMappedMetadata {
     ///
     let avAsset: AVURLAsset
     
-    ///
-    /// Whether or not the represented file contains any audio tracks. Used for track validation.
-    ///
-    var hasAudioTracks: Bool {avAsset.tracks.first(where: {$0.mediaType == .audio}) != nil}
+    let audioFormat: AVAudioFormat
     
     ///
     /// The AVFoundation audio track object that contains track-level information (such as bit rate).
     ///
-    var audioTrack: AVAssetTrack {avAsset.tracks.first(where: {$0.mediaType == .audio})!}
+    let audioTrack: AVAssetTrack
     
     ///
     /// The following dictionaries contain mappings of key -> AVMetadataItem for each of the supported metadata key spaces.
@@ -52,10 +49,15 @@ struct AVFMappedMetadata {
     ///
     var keySpaces: [AVMetadataKeySpace] = []
     
-    init(file: URL) {
+    init?(file: URL) {
         
         self.file = file
         self.avAsset = AVURLAsset(url: file, options: nil)
+        
+        guard let audioTrack = avAsset.tracks.first(where: {$0.mediaType == .audio}) else {return nil}
+        
+        self.audioTrack = audioTrack
+        self.audioFormat = .init(cmAudioFormatDescription: audioTrack.formatDescription)
         
         // Iterate through all metadata items, and group them based on
         // key space.

@@ -7,7 +7,7 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Foundation
+import AVFoundation
 
 ///
 /// Handles loading of track metadata from non-native tracks, using **FFmpeg*.
@@ -93,7 +93,10 @@ class FFmpegFileReader: FileReaderProtocol {
     
     private func doGetPrimaryMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, stream: FFmpegAudioStream, codec: FFmpegAudioCodec, andMap metadataMap: FFmpegMappedMetadata, usingParsers relevantParsers: [FFmpegMetadataParser]) throws -> PrimaryMetadata {
         
-        let metadata = PrimaryMetadata()
+        let audioFormat: AVAudioFormat = .init(standardFormatWithSampleRate: Double(codec.sampleRate), 
+                                               channelLayout: codec.channelLayout.avfLayout)
+        
+        let metadata = PrimaryMetadata(playbackFormat: .init(audioFormat: audioFormat))
 
         // Read all essential metadata fields.
         

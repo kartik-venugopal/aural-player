@@ -18,6 +18,8 @@ import Foundation
 ///
 class PrimaryMetadata {
     
+    let playbackFormat: PlaybackFormat
+    
     var title: String?
     var artist: String?
     var albumArtist: String?
@@ -72,9 +74,16 @@ class PrimaryMetadata {
     
     var replayGain: ReplayGain?
     
-    init() {}
+    init(playbackFormat: PlaybackFormat) {
+        self.playbackFormat = playbackFormat
+    }
     
-    init(persistentState: PrimaryMetadataPersistentState, persistentCoverArt: CoverArt?) {
+    init?(persistentState: PrimaryMetadataPersistentState, persistentCoverArt: CoverArt?) {
+        
+        guard let playbackFormatState = persistentState.playbackFormat,
+              let playbackFormat = PlaybackFormat(persistentState: playbackFormatState) else {return nil}
+        
+        self.playbackFormat = playbackFormat
         
         self.title = persistentState.title
         self.artist = persistentState.artist

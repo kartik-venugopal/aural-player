@@ -116,6 +116,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         DispatchQueue.global(qos: .userInteractive).async {
             playQueueDelegate.prepareForGaplessPlayback()
         }
+//        doBeginGaplessPlayback()
     }
     
     private func gaplessPlaybackAnalysisCompleted(notif: GaplessPlaybackAnalysisNotification) {

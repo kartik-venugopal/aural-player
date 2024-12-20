@@ -40,23 +40,16 @@ class AVFFileReader: FileReaderProtocol {
     func getPrimaryMetadata(for file: URL) throws -> PrimaryMetadata {
         
         // Construct a metadata map for this file.
-        let metadataMap = AVFMappedMetadata(file: file)
+        guard let metadataMap = AVFMappedMetadata(file: file) else {throw NoAudioTracksError(file)}
         return try doGetPrimaryMetadata(for: file, fromMap: metadataMap)
     }
     
     private func doGetPrimaryMetadata(for file: URL, fromMap metadataMap: AVFMappedMetadata) throws -> PrimaryMetadata {
         
-        // Make sure the file has at least one audio track.
-        guard metadataMap.hasAudioTracks else {throw NoAudioTracksError(file)}
-        
         // Make sure track is not DRM protected.
         guard !metadataMap.avAsset.hasProtectedContent else {throw DRMProtectionError(file)}
         
-        // Make sure track is playable.
-        // TODO: What does isPlayable actually mean ?
-//        guard metadataMap.audioTrack.isPlayable else {throw TrackNotPlayableError(file)}
-        
-        let metadata = PrimaryMetadata()
+        let metadata = PrimaryMetadata(playbackFormat: .init(audioFormat: metadataMap.audioFormat))
         
         // Obtain the parsers relevant to this track, based on the metadata present.
         let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
@@ -109,7 +102,7 @@ class AVFFileReader: FileReaderProtocol {
     
     func getArt(for file: URL) -> CoverArt? {
         
-        let metadataMap = AVFMappedMetadata(file: file)
+        guard let metadataMap = AVFMappedMetadata(file: file) else {return nil}
         let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
         
         return parsers.firstNonNilMappedValue {$0.getArt(metadataMap)}
@@ -124,7 +117,7 @@ class AVFFileReader: FileReaderProtocol {
     func getAudioInfo(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AudioInfo {
         
         // Construct a metadata map for this file.
-        let metadataMap = AVFMappedMetadata(file: file)
+        guard let metadataMap = AVFMappedMetadata(file: file) else {return .init()}
         return doGetAudioInfo(for: file, fromMap: metadataMap, loadingAudioInfoFrom: playbackContext)
     }
     

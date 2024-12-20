@@ -131,14 +131,7 @@ class PlayQueueListTrackNameCell: NSTableCellView {
                 }
                 
                 if needsTooltip, lblTitle.isTruncatingText || lblArtistAlbum.isTruncatingText {
-                    
                     toolTip = "\(lblTitle.stringValue)\n\(lblArtistAlbum.stringValue)"
-                    
-                    if lblTitle.isTruncatingText {
-                        print("title truncated, toolTip = \(self.toolTip)")
-                    } else {
-                        print("artist/album truncated, toolTip = \(self.toolTip)")
-                    }
                 }
                 
             } else {

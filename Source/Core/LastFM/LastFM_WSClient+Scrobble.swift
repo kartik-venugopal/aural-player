@@ -12,6 +12,42 @@ import Foundation
 
 extension LastFM_WSClient {
     
+    private static let maxPlaybackTime: Double = 240    // 4 minutes
+    
+    func scrobbleTrackIfEligible(_ track: Track) {
+        
+        /*
+         
+         From: https://www.last.fm/api/scrobbling
+         ----------------------------------------
+         
+         A track should only be scrobbled when the following conditions have been met:
+         
+         - The track must be longer than 30 seconds.
+         - And the track has been played for at least half its duration, or for 4 minutes (whichever occurs earlier.)
+         
+         */
+        
+        guard self.scrobblingEnabled,
+           track.canBeScrobbledOnLastFM,
+              let historyLastPlayedItem = historyDelegate.lastPlayedItem,
+              historyLastPlayedItem.track == track else {
+            
+            NSLog("Cannot scrobble track '\(track)' on Last.fm because scrobbling eligibility conditions were not met.")
+            return
+        }
+        
+        let now = Date()
+        let playbackTime = now.timeIntervalSince(historyLastPlayedItem.lastEventTime)
+        
+        if playbackTime >= min(track.duration / 2, Self.maxPlaybackTime) {
+            
+            DispatchQueue.global(qos: .background).async {
+                self.scrobbleTrack(track: track, timestamp: historyLastPlayedItem.lastEventTime.epochTime)
+            }
+        }
+    }
+    
     func scrobbleTrack(track: Track, timestamp: Int) {
         
         guard let sessionKey = self.sessionKey else {

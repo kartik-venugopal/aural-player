@@ -470,8 +470,8 @@ class PlayerViewController: NSViewController {
     
     func beginGaplessPlayback() {
         
-        gaplessPlaybackProgressController.forceLoadingOfWindow()
-        gaplessPlaybackProgressController.showWindow(self)
+//        gaplessPlaybackProgressController.forceLoadingOfWindow()
+//        gaplessPlaybackProgressController.showWindow(self)
         playbackDelegate.beginGaplessPlayback()
     }
     

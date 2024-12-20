@@ -18,6 +18,8 @@ struct MetadataPersistentState: Codable {
 
 struct PrimaryMetadataPersistentState: Codable {
     
+    let playbackFormat: PlaybackFormatPersistentState?
+    
     let title: String?
     let artist: String?
     let albumArtist: String?
@@ -52,6 +54,8 @@ struct PrimaryMetadataPersistentState: Codable {
     
     init(metadata: PrimaryMetadata) {
         
+        self.playbackFormat = .init(format: metadata.playbackFormat)
+        
         self.title = metadata.title
         self.artist = metadata.artist
         self.album = metadata.album
@@ -82,6 +86,23 @@ struct PrimaryMetadataPersistentState: Codable {
         self.chapters = metadata.chapters.map {ChapterPersistentState(chapter: $0)}
         
         self.replayGain = metadata.replayGain
+    }
+}
+
+struct PlaybackFormatPersistentState: Codable {
+    
+    let sampleRate: Double?
+    let channelCount: AVAudioChannelCount?
+    
+    let layoutTag: AudioChannelLayoutTag?
+    let channelBitmapRawValue: UInt32?
+    
+    init(format: PlaybackFormat) {
+        
+        self.sampleRate = format.sampleRate
+        self.channelCount = format.channelCount
+        self.layoutTag = format.layoutTag
+        self.channelBitmapRawValue = format.channelBitmapRawValue
     }
 }
 

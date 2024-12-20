@@ -22,6 +22,10 @@ extension Track {
         metadata.isPlayable
     }
     
+    var playbackFormat: PlaybackFormat? {
+        metadata.primary?.playbackFormat
+    }
+    
     var displayName: String {
         artistTitleString ?? defaultDisplayName
     }

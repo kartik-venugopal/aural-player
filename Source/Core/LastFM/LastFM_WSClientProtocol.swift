@@ -18,6 +18,8 @@ protocol LastFM_WSClientProtocol {
     
     func getSession(forToken token: LastFMToken) throws -> LastFMSession
     
+    func scrobbleTrackIfEligible(_ track: Track)
+    
     func scrobbleTrack(track: Track, timestamp: Int)
     
     func scrobbleTrack(artist: String, title: String, album: String?, timestamp: Int)

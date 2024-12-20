@@ -61,6 +61,8 @@ extension AVFScheduler {
         
         guard let subsequentTrack = gaplessTracksQueue.dequeue() else {return}
         
+        // TODO: Prepare for playback here
+        
         if let file = (subsequentTrack.playbackContext as? AVFPlaybackContext)?.audioFile {
             
             self.playerNode.scheduleFile(session: session,
