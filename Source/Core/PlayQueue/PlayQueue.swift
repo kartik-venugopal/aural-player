@@ -30,8 +30,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
     lazy var shuffleSequence: ShuffleSequence = ShuffleSequence()
 
-    let gaplessPrepQueue: OperationQueue = .init(opCount: System.numberOfActiveCores, qos: .userInteractive)
-    
     // MARK: Accessor functions
     
     override func search(_ searchQuery: SearchQuery) -> SearchResults {
@@ -217,55 +215,26 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         }
     }
     
-    func prepareForGaplessPlayback() {
+    func prepareForGaplessPlayback() throws {
         
-        let audioFormatsSet: ConcurrentSet<AVAudioFormat> = ConcurrentSet()
+        var audioFormatsSet: Set<PlaybackFormat> = Set()
         var errorMsg: String? = nil
         
         for track in self.tracks {
             
+            if let audioFormat = track.playbackFormat {
+                audioFormatsSet.insert(audioFormat)
+                
+            } else {
+                errorMsg = "Unable to prepare for gapless playback: No audio format for track: \(track)."
+            }
+            
             if audioFormatsSet.count > 1 {
+                throw GaplessPlaybackNotPossibleError("The tracks in the Play Queue do not all have the same audio format.")
                 
-                errorMsg = "The tracks in the Play Queue do not all have the same audio format."
-                break
-                
-            } else if errorMsg != nil {
-                break
+            } else if let errorMsg {
+                throw GaplessPlaybackNotPossibleError(errorMsg)
             }
-            
-            gaplessPrepQueue.addOperation {
-                
-                do {
-                    
-                    try trackReader.prepareForGaplessPlayback(track: track)
-                    
-                    if let audioFormat = track.playbackContext?.audioFormat {
-                        audioFormatsSet.insert(audioFormat)
-                        
-                    } else {
-                        errorMsg = "Unable to prepare for gapless playback: No audio context for track: \(track)."
-                    }
-                    
-                } catch {
-                    errorMsg = "Unable to prepare track \(track) for gapless playback: \(error)"
-                }
-            }
-        }
-        
-        print("\(gaplessPrepQueue.operationCount) ops running ... ")
-
-        gaplessPrepQueue.waitUntilAllOperationsAreFinished()
-        
-        if let errorMsg {
-            
-            Messenger.publish(GaplessPlaybackAnalysisNotification(success: false, errorMsg: errorMsg))
-            return
-        }
-        
-        guard audioFormatsSet.count == 1 else {
-            
-            Messenger.publish(GaplessPlaybackAnalysisNotification(success: false, errorMsg: "The tracks in the Play Queue do not all have the same audio format."))
-            return
         }
         
         if repeatMode == .one {
@@ -275,8 +244,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         if shuffleMode == .on {
             shuffleMode = .off
         }
-        
-        Messenger.publish(GaplessPlaybackAnalysisNotification(success: true, errorMsg: nil))
     }
     
     override func preTrackLoad() {
@@ -319,11 +286,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             
             firstTrackLoad = false
             autoplayResumeSequence.setFalse()
-        }
-        
-        let hist = appPersistentState.playQueue?.history
-        if hist?.shuffleSequence == nil {
-            print("No SS !!!")
         }
         
         if firstTrackLoad, shuffleMode == .on,
@@ -377,3 +339,5 @@ class PlayQueue: TrackList, PlayQueueProtocol {
 }
 
 fileprivate var firstTrackLoad: Bool = true
+
+class GaplessPlaybackNotPossibleError: DisplayableError {}

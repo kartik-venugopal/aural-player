@@ -17,9 +17,7 @@ extension AVFScheduler {
         let otherTracksToSchedule = tracks.count > 1 ? Array(tracks[1..<tracks.count]) : []
         
         guard let playbackCtx = currentSession.track.playbackContext as? AVFPlaybackContext,
-              let audioFile = playbackCtx.audioFile else {
-            return
-        }
+              let audioFile = playbackCtx.audioFile else {return}
         
         playerNode.resetSeekPositionState()
         
@@ -61,7 +59,15 @@ extension AVFScheduler {
         
         guard let subsequentTrack = gaplessTracksQueue.dequeue() else {return}
         
-        // TODO: Prepare for playback here
+        do {
+            try trackReader.prepareForPlayback(track: subsequentTrack)
+            
+        } catch {
+            
+            Messenger.publish(TrackNotPlayedNotification(oldTrack: session.track, errorTrack: subsequentTrack,
+                                                         error: error as? DisplayableError ?? TrackNotPlayableError(subsequentTrack.file)))
+            return
+        }
         
         if let file = (subsequentTrack.playbackContext as? AVFPlaybackContext)?.audioFile {
             

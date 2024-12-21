@@ -20,8 +20,6 @@ class StartPlaybackChain: PlaybackChain {
     private let player: PlayerProtocol
     private let playQueue: PlayQueueProtocol
     
-    private(set) lazy var messenger = Messenger(for: self)
-    
     init(_ player: PlayerProtocol, playQueue: PlayQueueProtocol,
          trackReader: TrackReader, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
         
@@ -45,7 +43,7 @@ class StartPlaybackChain: PlaybackChain {
         actionIndex = -1
         PlaybackRequestContext.begun(context)
         
-        messenger.publish(.Player.preTrackChange)
+        Messenger.publish(.Player.preTrackChange)
         proceed(context)
     }
     
@@ -58,7 +56,7 @@ class StartPlaybackChain: PlaybackChain {
         if let errorTrack = context.requestedTrack {
             
             // Notify observers of the error, and complete the request context.
-            messenger.publish(TrackNotPlayedNotification(oldTrack: context.currentTrack, errorTrack: errorTrack, error: error))
+            Messenger.publish(TrackNotPlayedNotification(oldTrack: context.currentTrack, errorTrack: errorTrack, error: error))
         }
         
         complete(context)

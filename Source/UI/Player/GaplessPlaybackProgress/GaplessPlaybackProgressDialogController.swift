@@ -28,8 +28,8 @@ class GaplessPlaybackProgressDialogController: NSWindowController {
         
         super.windowWillLoad()
      
-        messenger.subscribeAsync(to: .PlayQueue.gaplessPlaybackAnalysisCompleted,
-                                 handler: gaplessPlaybackAnalysisCompleted(notif:))
+//        messenger.subscribeAsync(to: .PlayQueue.gaplessPlaybackAnalysisCompleted,
+//                                 handler: gaplessPlaybackAnalysisCompleted(notif:))
     }
     
     override func showWindow(_ sender: Any?) {
@@ -47,28 +47,28 @@ class GaplessPlaybackProgressDialogController: NSWindowController {
 //        super.showWindow(sender)
     }
     
-    func gaplessPlaybackAnalysisCompleted(notif: GaplessPlaybackAnalysisNotification) {
-        
-        activitySpinner.dismiss()
-        
-        if notif.success {
-            
-            imgStatus.image = .imgCheck
-            imgStatus.contentTintColor = .green
-            
-            window?.close()
-            
-        } else if let errorMsg = notif.errorMsg {
-            
-            imgStatus.image = .imgError
-            imgStatus.contentTintColor = .red
-            
-            lblStatus.stringValue = "Gapless playback is not possible!"
-            lblDetail.stringValue = errorMsg
-            
-            btnOK.show()
-        }
-    }
+//    func gaplessPlaybackAnalysisCompleted(notif: GaplessPlaybackAnalysisNotification) {
+//        
+//        activitySpinner.dismiss()
+//        
+//        if notif.success {
+//            
+//            imgStatus.image = .imgCheck
+//            imgStatus.contentTintColor = .green
+//            
+//            window?.close()
+//            
+//        } else if let errorMsg = notif.errorMsg {
+//            
+//            imgStatus.image = .imgError
+//            imgStatus.contentTintColor = .red
+//            
+//            lblStatus.stringValue = "Gapless playback is not possible!"
+//            lblDetail.stringValue = errorMsg
+//            
+//            btnOK.show()
+//        }
+//    }
     
     @IBAction func okAction(_ sender: NSButton) {
         window?.close()
@@ -79,12 +79,4 @@ class GaplessPlaybackProgressDialogController: NSWindowController {
         super.destroy()
         messenger.unsubscribeFromAll()
     }
-}
-
-struct GaplessPlaybackAnalysisNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .PlayQueue.gaplessPlaybackAnalysisCompleted
-    
-    let success: Bool
-    let errorMsg: String?
 }

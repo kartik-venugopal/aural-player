@@ -36,7 +36,7 @@ extension FFmpegScheduler {
         currentGaplessTrack = firstTrack
         gaplessScheduledBufferCounts[firstTrack] = AtomicIntCounter()
         
-        decoder.framesNeedTimestamps.setValue(false)
+        decoder.framesNeedTimestamps.setFalse()
         
         initiateGaplessDecodingAndScheduling(for: currentSession, context: thePlaybackCtx, decoder: decoder, from: time)
         
@@ -120,11 +120,20 @@ extension FFmpegScheduler {
             
             currentGaplessTrack = gaplessTracksQueue.dequeue()
             
-            guard let nextTrack = currentGaplessTrack, let newContext = nextTrack.playbackContext as? FFmpegPlaybackContext,
-                  let newDecoder = newContext.decoder else {
+            guard let nextTrack = currentGaplessTrack else {return}
+            
+            do {
+                try trackReader.prepareForPlayback(track: nextTrack)
                 
+            } catch {
+                
+                Messenger.publish(TrackNotPlayedNotification(oldTrack: session.track, errorTrack: nextTrack,
+                                                             error: error as? DisplayableError ?? TrackNotPlayableError(nextTrack.file)))
                 return
             }
+            
+            guard let newContext = nextTrack.playbackContext as? FFmpegPlaybackContext,
+                  let newDecoder = newContext.decoder else {return}
             
             theTrack = nextTrack
             gaplessScheduledBufferCounts[nextTrack] = AtomicIntCounter()
