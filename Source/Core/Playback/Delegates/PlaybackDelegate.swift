@@ -139,20 +139,44 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         trackReader.loadArtAsync(for: firstTrack, immediate: true)
     }
     
+    private func changeGaplessTrack(mustStopIfNoTrack: Bool, trackProducer: TrackProducer) {
+        
+        let beginTrack = playQueueDelegate.currentTrack
+        let beginState = player.state
+        
+        if let newTrack = trackProducer() {
+            
+            do {
+                try trackReader.prepareForPlayback(track: newTrack)
+                
+            } catch {
+                
+                Messenger.publish(TrackNotPlayedNotification(oldTrack: beginTrack, errorTrack: newTrack,
+                                                             error: error as? DisplayableError ?? TrackNotPlayableError(newTrack.file)))
+            }
+            
+            player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
+            
+        } else if mustStopIfNoTrack {
+            doStop(beginTrack)
+            
+        } else {
+            return
+        }
+        
+        messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
+                                                      endTrack: playQueueDelegate.currentTrack, endState: player.state))
+    }
+    
     func previousTrack() {
         
         guard state.isPlayingOrPaused else {return}
         
         if isInGaplessPlaybackMode {
             
-            let beginTrack = playQueueDelegate.currentTrack
-            let beginState = player.state
-            
-            let endTrack = playQueueDelegate.previous()
-            player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
-            
-            messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
-                                                          endTrack: endTrack, endState: player.state))
+            changeGaplessTrack(mustStopIfNoTrack: false) {
+                playQueueDelegate.previous()
+            }
             
         } else {
             doPlay({playQueueDelegate.previous()})
@@ -165,14 +189,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         if isInGaplessPlaybackMode {
             
-            let beginTrack = playQueueDelegate.currentTrack
-            let beginState = player.state
-            
-            let endTrack = playQueueDelegate.next()
-            player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
-            
-            messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
-                                                          endTrack: endTrack, endState: player.state))
+            changeGaplessTrack(mustStopIfNoTrack: false) {
+                playQueueDelegate.next()
+            }
             
         } else {
             doPlay({playQueueDelegate.next()})
@@ -298,25 +317,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             
             if isInGaplessPlaybackMode {
                 
-                let beginTrack = playQueueDelegate.currentTrack
-                let beginState = player.state
-                
-                if let subsequentTrack = playQueueDelegate.subsequent() {
-                    
-                    do {
-                        try trackReader.prepareForPlayback(track: subsequentTrack)
-                        
-                    } catch {
-                        
-                        Messenger.publish(TrackNotPlayedNotification(oldTrack: beginTrack, errorTrack: subsequentTrack,
-                                                                     error: error as? DisplayableError ?? TrackNotPlayableError(subsequentTrack.file)))
-                    }
-                    
-                    player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
+                changeGaplessTrack(mustStopIfNoTrack: true) {
+                    playQueueDelegate.subsequent()
                 }
-                
-                messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
-                                                              endTrack: playQueueDelegate.currentTrack, endState: player.state))
                 
             } else {
                 doTrackPlaybackCompleted()

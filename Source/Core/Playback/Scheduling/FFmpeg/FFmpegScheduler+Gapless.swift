@@ -14,12 +14,12 @@ extension FFmpegScheduler {
     
     func playGapless(tracks: [Track], currentSession: PlaybackSession) {
         
-        doPlayGapless(firstTrack: tracks[0],
+        doPlayGapless(firstTrack: tracks[0], fromTime: 0,
                       otherTracks: tracks.count > 1 ? Array(tracks[1..<tracks.count]) : [],
                       currentSession: currentSession)
     }
     
-    fileprivate func doPlayGapless(firstTrack: Track, fromTime time: Double? = nil, otherTracks: [Track], currentSession: PlaybackSession, beginPlayback: Bool = true) {
+    fileprivate func doPlayGapless(firstTrack: Track, fromTime time: Double, otherTracks: [Track], currentSession: PlaybackSession, beginPlayback: Bool = true) {
         
         guard let thePlaybackCtx = firstTrack.playbackContext as? FFmpegPlaybackContext,
                 let decoder = thePlaybackCtx.decoder else {
@@ -132,7 +132,13 @@ extension FFmpegScheduler {
             guard let nextTrack = currentGaplessTrack else {return}
             
             do {
-                try trackReader.prepareForPlayback(track: nextTrack)
+
+                if let ctx = nextTrack.playbackContext as? FFmpegPlaybackContext {
+                    try ctx.refresh()
+                    
+                } else {
+                    try trackReader.prepareForPlayback(track: nextTrack)
+                }
                 
             } catch {
                 
@@ -149,15 +155,15 @@ extension FFmpegScheduler {
             }
             
             // The new track must always start from 0.
-            do {
-                try newDecoder.seek(to: 0)
-                
-            } catch {
-                
-                Messenger.publish(TrackNotPlayedNotification(oldTrack: session.track, errorTrack: nextTrack,
-                                                             error: error as? DisplayableError ?? TrackNotPlayableError(nextTrack.file)))
-                return
-            }
+//            do {
+//                try newDecoder.seek(to: 0)
+//                
+//            } catch {
+//                
+//                Messenger.publish(TrackNotPlayedNotification(oldTrack: session.track, errorTrack: nextTrack,
+//                                                             error: error as? DisplayableError ?? TrackNotPlayableError(nextTrack.file)))
+//                return
+//            }
             
             theTrack = nextTrack
             seekPos = 0
@@ -241,7 +247,6 @@ extension FFmpegScheduler {
                 return
             }
         }
-
         
         self.continueSchedulingGaplessAsync(for: session)
     }

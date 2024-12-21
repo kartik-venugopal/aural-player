@@ -1,8 +1,6 @@
-#  What's New in Version 4.0.0-preview21
+#  What's New in Version 4.0.0-preview22
 
-## #74 - Prevent log file bloating (ffmpeg I/O errors)
-
-## Fixed window layout bug
+## Fixed gapless playback
 
 ## Fixed other bugs
 

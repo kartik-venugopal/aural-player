@@ -119,6 +119,12 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
         }
     }
     
+    func refresh() throws {
+        
+        fileContext = try FFmpegFileContext(for: file)
+        decoder = try FFmpegDecoder(for: fileContext!)
+    }
+    
     func close() {
 
         decoder = nil
