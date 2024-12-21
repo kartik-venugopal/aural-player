@@ -47,7 +47,7 @@ Read the comprehensive feature list [here](https://github.com/kartik-venugopal/a
 ______
 
 ## What's new in v4
-Version 4 of the app is bringing with it a lot of great improvements:
+Version 4 of the app is bringing with it a lot of great improvements: (NOTE - some of these features are still being developed)
 - 2 new presentation modes (Unified and Compact) ... 2 new ways to lay out and use the app!
 - Nicer aesthetics, with smaller core module windows.
 - A full-fledged library allowing you to browse and listen to your entire collection right from within Aural!
