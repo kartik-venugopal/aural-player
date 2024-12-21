@@ -54,6 +54,8 @@ extension FFmpegScheduler {
     
     func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track]) {
         
+        print("\n\(Date.nowTimestampString) - seekGapless() toTime: \(seconds), session: \(currentSession.id)")
+        
         stop()
         doPlayGapless(firstTrack: currentSession.track, fromTime: seconds, otherTracks: otherTracksToSchedule, currentSession: currentSession)
     }
@@ -113,8 +115,11 @@ extension FFmpegScheduler {
         var theTrack = track
         var theContext = context
         var theDecoder = decoder
+        var seekPos: Double? = nil
 
         if decoder.eof {
+            
+            print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... decoder EOF")
             
             decoder.stop()
             
@@ -133,17 +138,36 @@ extension FFmpegScheduler {
             }
             
             guard let newContext = nextTrack.playbackContext as? FFmpegPlaybackContext,
-                  let newDecoder = newContext.decoder else {return}
+                  let newDecoder = newContext.decoder else {
+                
+                print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... NO CONTEXT, returning ...")
+                return
+            }
+            
+            // The new track must always start from 0.
+            do {
+                try newDecoder.seek(to: 0)
+                
+            } catch {
+                
+                Messenger.publish(TrackNotPlayedNotification(oldTrack: session.track, errorTrack: nextTrack,
+                                                             error: error as? DisplayableError ?? TrackNotPlayableError(nextTrack.file)))
+                return
+            }
             
             theTrack = nextTrack
+            seekPos = 0
             gaplessScheduledBufferCounts[nextTrack] = AtomicIntCounter()
             
             theContext = newContext
             theDecoder = newDecoder
         }
         
+        print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... theDecoder: \(theDecoder === decoder), theTrack: \(theTrack)")
+        
         self.schedulingOpQueue.addOperation {
-            self.decodeAndScheduleOneGaplessBuffer(for: session, track: theTrack, context: theContext, decoder: theDecoder,
+            
+            self.decodeAndScheduleOneGaplessBuffer(for: session, track: theTrack, context: theContext, decoder: theDecoder, from: seekPos,
                                                    immediatePlayback: false, maxSampleCount: theContext.sampleCountForDeferredPlayback)
         }
     }
@@ -163,6 +187,8 @@ extension FFmpegScheduler {
             return
         }
         
+        print("\(Date.nowTimestampString) - Scheduling one buffer for: \(context.file.lastPathComponent), fromPos: \(seekPosition)")
+        
         playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.gaplessBufferCompletionHandler(session),
                                   seekPosition, immediatePlayback)
         
@@ -179,6 +205,8 @@ extension FFmpegScheduler {
     
     fileprivate func gaplessBufferCompleted(_ session: PlaybackSession) {
         
+        print("\n\(Date.nowTimestampString) - gaplessBufferCompleted() for: \(session.track). isCurrent ? \(PlaybackSession.isCurrent(session))")
+        
         // If the buffer-associated session is not the same as the current session
         // (possible if stop() was called, eg. old buffers that complete when seeking), don't do anything.
         guard PlaybackSession.isCurrent(session), let playbackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
@@ -188,6 +216,8 @@ extension FFmpegScheduler {
         gaplessScheduledBufferCounts[session.track]?.decrement()
         
         if decoder.eof, let bufferCount = gaplessScheduledBufferCounts[session.track], bufferCount.isZero {
+            
+            playbackCtx.close()
             
             print("\n\(Date.nowTimestampString) - Decoder EOF for track: \(session.track), curGT: \(currentGaplessTrack), queueSize: \(gaplessTracksQueue.size)")
             
