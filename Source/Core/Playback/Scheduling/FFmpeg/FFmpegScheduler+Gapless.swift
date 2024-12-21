@@ -189,14 +189,25 @@ extension FFmpegScheduler {
         
         if decoder.eof, let bufferCount = gaplessScheduledBufferCounts[session.track], bufferCount.isZero {
             
+            print("\n\(Date.nowTimestampString) - Decoder EOF for track: \(session.track), curGT: \(currentGaplessTrack), queueSize: \(gaplessTracksQueue.size)")
+            
             // EOF has been reached, and all buffers have completed playback.
             // Signal playback completion (on the main thread).
             playerNode.resetSeekPositionState()
             
+            let doneWithGaplessSequence = currentGaplessTrack == nil && gaplessTracksQueue.isEmpty
+            
             DispatchQueue.main.async {
                 self.gaplessTrackCompleted(session)
             }
+            
+            // Reached end of sequence. No more scheduling.
+            if doneWithGaplessSequence {
+                print("\(Date.nowTimestampString) - No more tracks to schedule. Returning ...")
+                return
+            }
         }
+
         
         self.continueSchedulingGaplessAsync(for: session)
     }

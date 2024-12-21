@@ -127,11 +127,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         _ = playQueueDelegate.start()
 
         player.playGapless(tracks: playQueueDelegate.tracks)
-        trackReader.loadArtAsync(for: firstTrack, immediate: true)
         
         // Inform observers of the track change/transition.
         messenger.publish(TrackTransitionNotification(beginTrack: nil, beginState: .stopped,
                                                       endTrack: firstTrack, endState: player.state))
+        
+        trackReader.loadArtAsync(for: firstTrack, immediate: true)
     }
     
     func previousTrack() {
@@ -487,32 +488,26 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         let beginTrack = session.track
         let beginState = player.state
+        let finishedLastTrack = playQueueDelegate.currentTrackIndex == playQueueDelegate.size - 1
         
-        if let subsequentTrack = playQueueDelegate.subsequent() {
+        if finishedLastTrack {
             
-            let finishedLastTrack = playQueueDelegate.currentTrackIndex == playQueueDelegate.size - 1
+            playQueueDelegate.stop()
+            player.stop()
             
-            if finishedLastTrack, playQueueDelegate.repeatAndShuffleModes.repeatMode == .all {
+            if playQueueDelegate.repeatMode == .all {
                 
-                playQueueDelegate.stop()
-                player.stop()
-                
-                messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
-                                                              endTrack: nil, endState: .stopped))
-                
+                print("\(Date.nowTimestampString) - finishedLastTrack, repeating all ...")
                 doBeginGaplessPlayback()
                 return
             }
             
+        } else if let subsequentTrack = playQueueDelegate.subsequent() {
+            
+            print("\(Date.nowTimestampString) - subsequentTrack: \(subsequentTrack)")
+            
             session.track = subsequentTrack
             trackReader.loadArtAsync(for: subsequentTrack, immediate: true)
-            
-        } else {
-            
-            // Finished last track in Play Queue, not repeating
-            
-            playQueueDelegate.stop()
-            player.stop()
         }
         
         messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
