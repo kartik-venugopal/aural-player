@@ -239,30 +239,4 @@ class FFmpegAudioCodec {
     func flushBuffers() {
         context.flushBuffers()
     }
-    
-#if DEBUG
-    
-    ///
-    /// Print some codec info to the console.
-    /// May be used to verify that the codec was properly read / initialized.
-    /// Useful for debugging purposes.
-    ///
-    func printInfo() {
-        
-        print("\n---------- Codec Info ----------\n")
-        
-        print(String(format: "Codec ID:    %d", self.id))
-        print(String(format: "Codec Name:    %@", self.name))
-        print(String(format: "Codec Long Name:    %@", longName))
-        print(String(format: "Sample Rate:   %7d", sampleRate))
-        print(String(format: "Sample Format: %7@", sampleFormat.name))
-        print(String(format: "Planar Samples ?: %7@", String(sampleFormat.isPlanar)))
-        print(String(format: "Sample Size:   %7d", sampleFormat.size))
-        print(String(format: "Channels:      %7d", channelCount))
-        
-        print("---------------------------------\n")
-    }
-    
-#endif
-    
 }

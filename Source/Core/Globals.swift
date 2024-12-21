@@ -55,7 +55,7 @@ let appPersistentState: AppPersistentState = {
             if let legacyPersistentState: LegacyAppPersistentState = persistenceManager.load(objectOfType: LegacyAppPersistentState.self) {
                 
                 // Attempt migration and return the mapped instance.
-                print("Mapped persistent state from app version: \(appVersionString)\n")
+//                print("Mapped persistent state from app version: \(appVersionString)\n")
                 return AppPersistentState(legacyAppPersistentState: legacyPersistentState)
             }
         }

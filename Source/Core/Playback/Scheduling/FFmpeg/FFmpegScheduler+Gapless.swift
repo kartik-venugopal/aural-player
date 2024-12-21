@@ -19,7 +19,7 @@ extension FFmpegScheduler {
                       currentSession: currentSession)
     }
     
-    fileprivate func doPlayGapless(firstTrack: Track, fromTime time: Double? = nil, otherTracks: [Track], currentSession: PlaybackSession) {
+    fileprivate func doPlayGapless(firstTrack: Track, fromTime time: Double? = nil, otherTracks: [Track], currentSession: PlaybackSession, beginPlayback: Bool = true) {
         
         guard let thePlaybackCtx = firstTrack.playbackContext as? FFmpegPlaybackContext,
                 let decoder = thePlaybackCtx.decoder else {
@@ -41,8 +41,11 @@ extension FFmpegScheduler {
         initiateGaplessDecodingAndScheduling(for: currentSession, context: thePlaybackCtx, decoder: decoder, from: time)
         
         // Check that at least one audio buffer was successfully scheduled, before beginning playback.
-        if let bufferCount = gaplessScheduledBufferCounts[firstTrack], bufferCount.isPositive {
-            playerNode.play()
+        if  let bufferCount = gaplessScheduledBufferCounts[firstTrack], bufferCount.isPositive {
+            
+            if beginPlayback {
+                playerNode.play()
+            }
             
         } else {
             
@@ -54,10 +57,10 @@ extension FFmpegScheduler {
     
     func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track]) {
         
-        print("\n\(Date.nowTimestampString) - seekGapless() toTime: \(seconds), session: \(currentSession.id)")
+//        print("\n\(Date.nowTimestampString) - seekGapless() toTime: \(seconds), session: \(currentSession.id)")
         
         stop()
-        doPlayGapless(firstTrack: currentSession.track, fromTime: seconds, otherTracks: otherTracksToSchedule, currentSession: currentSession)
+        doPlayGapless(firstTrack: currentSession.track, fromTime: seconds, otherTracks: otherTracksToSchedule, currentSession: currentSession, beginPlayback: beginPlayback)
     }
     
     // MARK: Support functions
@@ -83,10 +86,11 @@ extension FFmpegScheduler {
                     } else {
                         
                         playerNode.seekToEndOfTrack(session, frameCount: context.frameCount)
-                        gaplessTrackCompletedWhilePaused = false
+                        gaplessTrackCompletedWhilePaused = true
                     }
                     
-                    // TODO: Continue scheduling the next track !!!
+                    continueSchedulingGaplessAsync(for: session)
+                    return
                 }
             }
             
@@ -119,7 +123,7 @@ extension FFmpegScheduler {
 
         if decoder.eof {
             
-            print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... decoder EOF")
+//            print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... decoder EOF")
             
             decoder.stop()
             
@@ -140,7 +144,7 @@ extension FFmpegScheduler {
             guard let newContext = nextTrack.playbackContext as? FFmpegPlaybackContext,
                   let newDecoder = newContext.decoder else {
                 
-                print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... NO CONTEXT, returning ...")
+//                print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... NO CONTEXT, returning ...")
                 return
             }
             
@@ -163,7 +167,7 @@ extension FFmpegScheduler {
             theDecoder = newDecoder
         }
         
-        print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... theDecoder: \(theDecoder === decoder), theTrack: \(theTrack)")
+//        print("\(Date.nowTimestampString) - continueSchedulingGaplessAsync() ... theDecoder: \(theDecoder === decoder), theTrack: \(theTrack)")
         
         self.schedulingOpQueue.addOperation {
             
@@ -187,7 +191,7 @@ extension FFmpegScheduler {
             return
         }
         
-        print("\(Date.nowTimestampString) - Scheduling one buffer for: \(context.file.lastPathComponent), fromPos: \(seekPosition)")
+//        print("\(Date.nowTimestampString) - Scheduling one buffer for: \(context.file.lastPathComponent), fromPos: \(seekPosition)")
         
         playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.gaplessBufferCompletionHandler(session),
                                   seekPosition, immediatePlayback)
@@ -205,7 +209,7 @@ extension FFmpegScheduler {
     
     fileprivate func gaplessBufferCompleted(_ session: PlaybackSession) {
         
-        print("\n\(Date.nowTimestampString) - gaplessBufferCompleted() for: \(session.track). isCurrent ? \(PlaybackSession.isCurrent(session))")
+//        print("\n\(Date.nowTimestampString) - gaplessBufferCompleted() for: \(session.track). isCurrent ? \(PlaybackSession.isCurrent(session))")
         
         // If the buffer-associated session is not the same as the current session
         // (possible if stop() was called, eg. old buffers that complete when seeking), don't do anything.
@@ -219,7 +223,7 @@ extension FFmpegScheduler {
             
             playbackCtx.close()
             
-            print("\n\(Date.nowTimestampString) - Decoder EOF for track: \(session.track), curGT: \(currentGaplessTrack), queueSize: \(gaplessTracksQueue.size)")
+//            print("\n\(Date.nowTimestampString) - Decoder EOF for track: \(session.track), curGT: \(currentGaplessTrack), queueSize: \(gaplessTracksQueue.size)")
             
             // EOF has been reached, and all buffers have completed playback.
             // Signal playback completion (on the main thread).
@@ -233,7 +237,7 @@ extension FFmpegScheduler {
             
             // Reached end of sequence. No more scheduling.
             if doneWithGaplessSequence {
-                print("\(Date.nowTimestampString) - No more tracks to schedule. Returning ...")
+//                print("\(Date.nowTimestampString) - No more tracks to schedule. Returning ...")
                 return
             }
         }
@@ -242,7 +246,7 @@ extension FFmpegScheduler {
         self.continueSchedulingGaplessAsync(for: session)
     }
     
-    fileprivate func gaplessTrackCompleted(_ session: PlaybackSession) {
+    func gaplessTrackCompleted(_ session: PlaybackSession) {
         Messenger.publish(.Player.gaplessTrackPlaybackCompleted, payload: session)
     }
 }

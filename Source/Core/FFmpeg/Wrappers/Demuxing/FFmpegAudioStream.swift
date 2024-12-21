@@ -104,26 +104,4 @@ class FFmpegAudioStream: FFmpegStreamProtocol {
         self.index = pointer.pointee.index
         self.duration = timeBaseDuration > 0 ? Double(timeBaseDuration) * timeBaseRatio : nil
     }
-    
-#if DEBUG
-    
-    ///
-    /// Print some stream info to the console.
-    /// May be used to verify that the stream was properly read / initialized.
-    /// Useful for debugging purposes.
-    ///
-    func printInfo() {
-        
-        print("\n---------- Audio Stream Info ----------\n")
-        
-        print(String(format: "Index:         %7d", index))
-        print(String(format: "Duration:      %@", duration != nil ? String(format: "%7.2lf", duration!) : "<Unknown>" ))
-        print(String(format: "Time Base:     %d / %d", timeBase.num, timeBase.den))
-        print(String(format: "Total Frames:  %7ld", timeBaseDuration))
-        
-        print("---------------------------------\n")
-    }
-    
-#endif
-    
 }

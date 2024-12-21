@@ -296,6 +296,13 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             trackCompletedWhilePaused = false
             trackCompleted(curSession)
             
+        } else if gaplessTrackCompletedWhilePaused, let curSession = PlaybackSession.currentSession {
+            
+//            print("\n\(Date.nowTimestampString) - gaplessTrackCompletedWhilePaused: \(curSession.track)")
+            
+            gaplessTrackCompletedWhilePaused = false
+            gaplessTrackCompleted(curSession)
+            
         } else {
             playerNode.play()
         }

@@ -60,24 +60,4 @@ class FFmpegImageStream: FFmpegStreamProtocol {
         self.pointer = pointer
         self.index = pointer.pointee.index
     }
-    
-#if DEBUG
-    
-    ///
-    /// Print some stream info to the console.
-    /// May be used to verify that the stream was properly read / initialized.
-    /// Useful for debugging purposes.
-    ///
-    func printInfo() {
-        
-        print("\n---------- Stream Info ----------\n")
-        
-        print(String(format: "Index:        %7d", index))
-        print(String(format: "Media Type:   %7d", mediaType.rawValue))
-        
-        print("---------------------------------\n")
-    }
-    
-#endif
-    
 }

@@ -298,9 +298,25 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             
             if isInGaplessPlaybackMode {
                 
-                if let currentSession = PlaybackSession.currentSession {
-                    gaplessTrackPlaybackCompleted(currentSession)
+                let beginTrack = playQueueDelegate.currentTrack
+                let beginState = player.state
+                
+                if let subsequentTrack = playQueueDelegate.subsequent() {
+                    
+                    do {
+                        try trackReader.prepareForPlayback(track: subsequentTrack)
+                        
+                    } catch {
+                        
+                        Messenger.publish(TrackNotPlayedNotification(oldTrack: beginTrack, errorTrack: subsequentTrack,
+                                                                     error: error as? DisplayableError ?? TrackNotPlayableError(subsequentTrack.file)))
+                    }
+                    
+                    player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
                 }
+                
+                messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
+                                                              endTrack: playQueueDelegate.currentTrack, endState: player.state))
                 
             } else {
                 doTrackPlaybackCompleted()
@@ -501,7 +517,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             
             if playQueueDelegate.repeatMode == .all {
                 
-                print("\(Date.nowTimestampString) - finishedLastTrack, repeating all ...")
+//                print("\(Date.nowTimestampString) - finishedLastTrack, repeating all ...")
                 
                 doBeginGaplessPlayback(currentTrack: beginTrack)
                 return
@@ -509,7 +525,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             
         } else if let subsequentTrack = playQueueDelegate.subsequent() {
             
-            print("\(Date.nowTimestampString) - subsequentTrack: \(subsequentTrack)")
+//            print("\(Date.nowTimestampString) - subsequentTrack: \(subsequentTrack)")
             
             session.track = subsequentTrack
             trackReader.loadArtAsync(for: subsequentTrack, immediate: true)
