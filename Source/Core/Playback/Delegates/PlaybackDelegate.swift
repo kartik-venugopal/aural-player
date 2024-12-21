@@ -112,17 +112,21 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     func beginGaplessPlayback() throws {
         
         try playQueueDelegate.prepareForGaplessPlayback()
-        
-        // Prepare first track (need to determine format for audio graph)
-        guard let firstTrack = playQueueDelegate.tracks.first else {return}
-        try trackReader.prepareForPlayback(track: firstTrack)
-        
         doBeginGaplessPlayback()
     }
     
     private func doBeginGaplessPlayback(currentTrack: Track? = nil) {
         
         guard let firstTrack = playQueueDelegate.tracks.first else {return}
+        
+        do {
+            try trackReader.prepareForPlayback(track: firstTrack)
+            
+        } catch {
+            
+            Messenger.publish(TrackNotPlayedNotification(oldTrack: currentTrack, errorTrack: firstTrack,
+                                                         error: error as? DisplayableError ?? TrackNotPlayableError(firstTrack.file)))
+        }
         
         _ = playQueueDelegate.start()
 
@@ -498,6 +502,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             if playQueueDelegate.repeatMode == .all {
                 
                 print("\(Date.nowTimestampString) - finishedLastTrack, repeating all ...")
+                
                 doBeginGaplessPlayback(currentTrack: beginTrack)
                 return
             }
