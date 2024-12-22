@@ -80,7 +80,7 @@
                 <button toolTip="Get a persistent Session Key from Last.fm that will be saved for long-term reuse." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mQT-il-2Px" userLabel="Btn Browse">
                     <rect key="frame" x="430" y="63" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Get Session Key" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="1Gy-U2-N4s" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Get Session Key" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="1Gy-U2-N4s">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -94,7 +94,7 @@ DQ
                 <button toolTip="Launch Last.fm in the web browser to allow Aural to scrobble to your Last.fm account." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sfq-sD-TN1" userLabel="Btn Browse">
                     <rect key="frame" x="430" y="124" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Grant Aural Permission" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="bmG-jb-gdt" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Grant Aural Permission" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="bmG-jb-gdt">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -108,7 +108,7 @@ DQ
                 <button toolTip="Reset the Session Key and redo the authentication process." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HnK-tL-q1v" userLabel="Btn Browse">
                     <rect key="frame" x="430" y="173" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Re-Authenticate" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="q5y-Xh-Ihf" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Re-Authenticate" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="q5y-Xh-Ihf">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                         <string key="keyEquivalent" base64-UTF8="YES">

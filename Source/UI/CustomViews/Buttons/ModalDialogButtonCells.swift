@@ -69,36 +69,6 @@ class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
     override var textFont: NSFont {.stringInputPopoverFont}
 }
 
-// Cell for all response buttons (Save/Cancel, etc)
-class ModalDialogControlButtonCell: ModalDialogButtonCell {
-    
-    override var cellInsetX: CGFloat {1}
-    override var cellInsetY: CGFloat {0}
-    
-    override var textFont: NSFont {.modalDialogControlButtonFont}
-}
-
-// Browse button in Playlist preferences
-class ModalDialogSmallControlButtonCell: ModalDialogButtonCell {
-    
-    override var cellInsetX: CGFloat {1}
-    override var cellInsetY: CGFloat {0}
-    
-    override var textFont: NSFont {standardFontSet.mainFont(size: 10)}
-}
-
-// Cell for search results navigation buttons (next/previous)
-class ColoredNavigationButtonCell: ModalDialogButtonCell {
-    
-    override var cellInsetX: CGFloat {1}
-    override var cellInsetY: CGFloat {1}
-    
-    override var borderRadius: CGFloat {3}
-    
-    override var textColor: NSColor {.modalDialogNavButtonTextColor}
-    override var textFont: NSFont {.modalDialogNavButtonFont}
-}
-
 class ColorAwareButtonCell: ModalDialogButtonCell {
     
     override var textColor: NSColor {systemColorScheme.buttonColor}

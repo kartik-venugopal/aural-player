@@ -672,7 +672,6 @@
 		3E6C129825CEBE2700BF0D07 /* VAlignedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FBF25CEB98600BF0D07 /* VAlignedTextField.swift */; };
 		3E6C129925CEBE2700BF0D07 /* AuralTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD125CEB98600BF0D07 /* AuralTabView.swift */; };
 		3E6C129B25CEBE2700BF0D07 /* ColoredCursorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC525CEB98600BF0D07 /* ColoredCursorTextField.swift */; };
-		3E6C129C25CEBE2700BF0D07 /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC925CEB98600BF0D07 /* AlertWindowController.swift */; };
 		3E6C129D25CEBE2700BF0D07 /* AuralSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD625CEB98600BF0D07 /* AuralSliderCell.swift */; };
 		3E6C129E25CEBE2700BF0D07 /* EQSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */; };
 		3E6C12A025CEBE2700BF0D07 /* TintedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FBE25CEB98600BF0D07 /* TintedImageView.swift */; };
@@ -682,7 +681,6 @@
 		3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FDC25CEB98600BF0D07 /* AboutDialog.xib */; };
 		3E6C12A525CEBE2700BF0D07 /* EffectsUnitSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD525CEB98600BF0D07 /* EffectsUnitSlider.swift */; };
 		3E6C12A625CEBE2700BF0D07 /* ToggleMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FCD25CEB98600BF0D07 /* ToggleMenuItem.swift */; };
-		3E6C12A725CEBE2700BF0D07 /* Alerts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC725CEB98600BF0D07 /* Alerts.xib */; };
 		3E6C12A825CEBE2700BF0D07 /* TriStateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD025CEB98600BF0D07 /* TriStateLabel.swift */; };
 		3E6C12A925CEBE2700BF0D07 /* EffectsUnitTriStateBypassImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FCA25CEB98600BF0D07 /* EffectsUnitTriStateBypassImage.swift */; };
 		3E6C12AA25CEBE2700BF0D07 /* AboutDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FDB25CEB98600BF0D07 /* AboutDialogController.swift */; };
@@ -1782,9 +1780,7 @@
 		3E6C0FC325CEB98600BF0D07 /* StringInputPopover.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StringInputPopover.xib; sourceTree = "<group>"; };
 		3E6C0FC425CEB98600BF0D07 /* StringInputPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInputPopoverViewController.swift; sourceTree = "<group>"; };
 		3E6C0FC525CEB98600BF0D07 /* ColoredCursorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredCursorTextField.swift; sourceTree = "<group>"; };
-		3E6C0FC725CEB98600BF0D07 /* Alerts.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Alerts.xib; sourceTree = "<group>"; };
 		3E6C0FC825CEB98600BF0D07 /* DialogsAndAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsAndAlerts.swift; sourceTree = "<group>"; };
-		3E6C0FC925CEB98600BF0D07 /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
 		3E6C0FCA25CEB98600BF0D07 /* EffectsUnitTriStateBypassImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateBypassImage.swift; sourceTree = "<group>"; };
 		3E6C0FCB25CEB98600BF0D07 /* SnappingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingWindow.swift; sourceTree = "<group>"; };
 		3E6C0FCD25CEB98600BF0D07 /* ToggleMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleMenuItem.swift; sourceTree = "<group>"; };
@@ -4390,9 +4386,7 @@
 		3E6C0FC625CEB98600BF0D07 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FC725CEB98600BF0D07 /* Alerts.xib */,
 				3E6C0FC825CEB98600BF0D07 /* DialogsAndAlerts.swift */,
-				3E6C0FC925CEB98600BF0D07 /* AlertWindowController.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -5749,7 +5743,6 @@
 				3E0219CB2C23497D00865AC2 /* neo-latina-demo-FFP.ttf in Resources */,
 				3E45C03325E1264C00C1519C /* FontSchemeSizes.xib in Resources */,
 				3E6668B12ADB4AF500BBD119 /* WindowLayoutSetup.xib in Resources */,
-				3E6C12A725CEBE2700BF0D07 /* Alerts.xib in Resources */,
 				3EC793882B74700900AF7E9E /* CompactPlayQueue.xib in Resources */,
 				3E25B65027F7818900D10A5F /* PlayQueueWindow.xib in Resources */,
 				3E91932925E0CF5D00F30F81 /* FontSchemeFonts.xib in Resources */,
@@ -5780,7 +5773,6 @@
 				3E02190B2C23490E00865AC2 /* LegacyPlaylistPreferences.swift in Sources */,
 				3E0218222C23490E00865AC2 /* FilesAndPaths.swift in Sources */,
 				3E64AE112BD6FFB900630B8B /* ProgressArc.swift in Sources */,
-				3E6C129C25CEBE2700BF0D07 /* AlertWindowController.swift in Sources */,
 				3E0219A22C23490E00865AC2 /* Globals.swift in Sources */,
 				3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */,
 				3EF28DBB2694E46B005D5B43 /* AppMode.swift in Sources */,

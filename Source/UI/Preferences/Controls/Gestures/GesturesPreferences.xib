@@ -151,7 +151,7 @@
                 <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLa-we-T2F">
                     <rect key="frame" x="115" y="358" width="72" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Disable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="it4-vf-Tk3" customClass="ModalDialogControlButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Disable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="it4-vf-Tk3">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="12" name="Play-Regular"/>
                     </buttonCell>
@@ -162,7 +162,7 @@
                 <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iaK-ur-RVS">
                     <rect key="frame" x="32" y="358" width="72" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Enable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="57x-5K-lme" customClass="ModalDialogControlButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Enable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="57x-5K-lme">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="12" name="Play-Regular"/>
                     </buttonCell>

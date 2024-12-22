@@ -795,7 +795,7 @@ CA
                                 <menu key="submenu" title=" Recent items" autoenablesItems="NO" id="O8Z-ZZ-NUj"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Srn-8q-b5U"/>
-                            <menuItem title=" Resume last played track sequence" image="play" catalog="system" id="sYa-3o-gtH">
+                            <menuItem title=" Resume last played track / sequence" image="play" catalog="system" id="sYa-3o-gtH">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="resumeLastPlayedSequenceAction:" target="7Mj-fX-Ivy" id="Cub-Fz-ao6"/>

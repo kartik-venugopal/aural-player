@@ -46,8 +46,6 @@ class PlayQueueContainerViewController: NSViewController {
     
     lazy var fileOpenDialog = DialogsAndAlerts.openFilesAndFoldersDialog
     
-    lazy var alertDialog: AlertWindowController = .instance
-    
     lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
     
     var currentViewController: PlayQueueViewController {
@@ -218,7 +216,9 @@ class PlayQueueContainerViewController: NSViewController {
         let playQueueBeingModified = playQueueDelegate.isBeingModified
         
         if playQueueBeingModified {
-            alertDialog.showAlert(.error, "Play Queue not modified", "The Play Queue cannot be modified while tracks are being added", "Please wait till the Play Queue is done adding tracks ...")
+            
+            NSAlert.showError(withTitle: "Play Queue not modified",
+                              andText: "The Play Queue cannot be modified while tracks are being added. Please wait till the Play Queue is done adding tracks ...")
         }
         
         return playQueueBeingModified

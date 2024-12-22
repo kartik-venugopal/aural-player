@@ -44,7 +44,6 @@ class PlaylistContainerViewController: NSViewController {
     lazy var searchWindowController: SearchWindowController = .shared
     
     lazy var fileOpenDialog = DialogsAndAlerts.openFilesAndFoldersDialog
-    lazy var alertDialog: AlertWindowController = .instance
     lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
     
     var currentViewController: PlaylistSimpleViewController {
@@ -159,7 +158,8 @@ class PlaylistContainerViewController: NSViewController {
         
         if playlistBeingModified {
             
-            alertDialog.showAlert(.error, "Playlist not modified", "The Playlist cannot be modified while tracks are being added", "Please wait till the Playlist is done adding tracks ...")
+            NSAlert.showError(withTitle: "Playlist not modified",
+                              andText: "The playlist cannot be modified while tracks are being added. Please wait till the playlist is done adding tracks ...")
         }
         
         return playlistBeingModified

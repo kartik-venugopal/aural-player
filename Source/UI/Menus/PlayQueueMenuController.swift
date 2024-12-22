@@ -38,8 +38,6 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var scrollToTopItem: NSMenuItem!
     @IBOutlet weak var scrollToBottomItem: NSMenuItem!
     
-    private lazy var alertDialog: AlertWindowController = .instance
-    
     private lazy var messenger = Messenger(for: self)
     
     func menuNeedsUpdate(_ menu: NSMenu) {

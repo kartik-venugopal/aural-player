@@ -559,7 +559,7 @@
     </objects>
     <resources>
         <image name="ScrollToBottom" width="33" height="37"/>
-        <image name="ScrollToTop" width="33" height="37"/>
+        <image name="ScrollToTop" width="269" height="266"/>
         <image name="Sort" width="35" height="25"/>
         <image name="arrow.down" catalog="system" width="13" height="14"/>
         <image name="arrow.down.to.line.alt" catalog="system" width="13" height="14"/>
