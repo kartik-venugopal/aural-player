@@ -1,5 +1,5 @@
 //
-//  PlayQueueSimpleViewController.swift
+//  PlayQueueTabularViewController.swift
 //  Aural
 //
 //  Copyright © 2024 Kartik Venugopal. All rights reserved.
@@ -10,12 +10,12 @@
 
 import Cocoa
 
-class PlayQueueSimpleViewController: PlayQueueViewController {
+class PlayQueueTabularViewController: PlayQueueViewController {
     
-    override var nibName: NSNib.Name? {"PlayQueueSimpleView"}
+    override var nibName: NSNib.Name? {"PlayQueueTabularView"}
     
     override var playQueueView: PlayQueueView {
-        .simple
+        .tabular
     }
     
     override var rowHeight: CGFloat {30}
@@ -88,61 +88,5 @@ class PlayQueueSimpleViewController: PlayQueueViewController {
             
             return nil
         }
-    }
-}
-
-class AttrCellView: NSTableCellView {
-    
-    var row: Int = -1
-    var rowSelectionStateFunction: () -> Bool = {false}
-    
-    var rowIsSelected: Bool {rowSelectionStateFunction()}
-    
-    var attrText: NSAttributedString?
-    var selectedAttributedText: NSAttributedString?
-    
-    lazy var textFieldConstraintsManager = LayoutConstraintsManager(for: textField!)
-    
-    func update(artist: String, title: String) {
-        
-        let muthu = "\(artist)  ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)
-        
-        let selMuthu = "\(artist)  ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondarySelectedTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primarySelectedTextColor)
-        
-        let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        style.lineBreakMode = .byTruncatingTail
-        muthu.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, muthu.length))
-        
-        self.attributedText = muthu
-        self.attrText = muthu
-        self.selectedAttributedText = selMuthu
-    }
-    
-    func update(title: String) {
-        
-        let muthu = title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)
-        let selMuthu = title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primarySelectedTextColor)
-        
-        let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        style.lineBreakMode = .byTruncatingTail
-        muthu.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, muthu.length))
-        
-        self.attributedText = muthu
-        self.attrText = muthu
-        self.selectedAttributedText = selMuthu
-    }
-    
-    override var backgroundStyle: NSView.BackgroundStyle {
-        
-        didSet {
-            self.attributedText = rowIsSelected ? self.selectedAttributedText : self.attrText
-        }
-    }
-    
-    // Constraints
-    func realignTextBottom(yOffset: CGFloat) {
-        
-        textFieldConstraintsManager.removeAll(withAttributes: [.bottom])
-        textFieldConstraintsManager.setBottom(relatedToBottomOf: self, offset: yOffset)
     }
 }

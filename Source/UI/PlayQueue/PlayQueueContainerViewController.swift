@@ -31,25 +31,39 @@ class PlayQueueContainerViewController: NSViewController {
     
     @IBOutlet weak var btnSimpleView: TrackListTabButton!
     @IBOutlet weak var btnExpandedView: TrackListTabButton!
+    @IBOutlet weak var btnTabularView: TrackListTabButton!
     
     var buttonColorChangeReceivers: [ColorSchemePropertyChangeReceiver] = []
     
-    lazy var tabButtons: [TrackListTabButton] = [btnSimpleView, btnExpandedView]
+    lazy var tabButtons: [TrackListTabButton] = [btnSimpleView, btnExpandedView, btnTabularView]
     
     @IBOutlet weak var sortOrderMenuItemView: SortOrderMenuItemView!
     
     @IBOutlet weak var simpleViewController: PlayQueueSimpleViewController!
     @IBOutlet weak var expandedViewController: PlayQueueExpandedViewController!
+    @IBOutlet weak var tabularViewController: PlayQueueTabularViewController!
+    
     lazy var searchViewController: PlayQueueSearchViewController = PlayQueueSearchViewController()
     
-    lazy var controllers: [PlayQueueViewController] = [simpleViewController, expandedViewController]
+    lazy var controllers: [PlayQueueViewController] = [simpleViewController, expandedViewController, tabularViewController]
     
     lazy var fileOpenDialog = DialogsAndAlerts.openFilesAndFoldersDialog
     
     lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
     
     var currentViewController: PlayQueueViewController {
-        playQueueUIState.currentView == .simple ? simpleViewController : expandedViewController
+        
+        switch playQueueUIState.currentView {
+            
+        case .simple:
+            return simpleViewController
+            
+        case .expanded:
+            return expandedViewController
+            
+        case .tabular:
+            return tabularViewController
+        }
     }
     
     lazy var messenger: Messenger = Messenger(for: self)
@@ -75,13 +89,14 @@ class PlayQueueContainerViewController: NSViewController {
         }
         
         let simpleView = simpleViewController.view
-        let prettyView = expandedViewController.view
+        let expandedView = expandedViewController.view
+        let tabularView = tabularViewController.view
         let searchView = searchViewController.view
         
-        for (index, view) in [simpleView, prettyView].enumerated() {
+        for (index, controller) in controllers.enumerated() {
             
-            playQueueTabGroup.tabViewItem(at: index).view?.addSubview(view)
-            view.anchorToSuperview()
+            playQueueTabGroup.tabViewItem(at: index).view?.addSubview(controller.view)
+            controller.view.anchorToSuperview()
         }
         
         for (index, view) in [containerView, searchView].compactMap({$0}).enumerated() {
@@ -307,11 +322,7 @@ class PlayQueueContainerViewController: NSViewController {
 extension PlayQueueContainerViewController: NSTabViewDelegate {
     
     func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
-        
-        // Ignore this when searching the PQ
-        if playQueueTabGroup.selectedIndex == 2 {return}
-        
-         playQueueUIState.currentView = playQueueTabGroup.selectedIndex == 0 ? .simple : .expanded
+        playQueueUIState.currentView = .init(rawValue: playQueueTabGroup.selectedIndex)!
     }
 }
 

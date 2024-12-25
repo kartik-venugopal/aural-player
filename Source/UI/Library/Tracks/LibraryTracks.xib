@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -33,7 +32,7 @@
                     <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </box>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oJQ-Ad-Jvy" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oJQ-Ad-Jvy" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="-2" y="187" width="214" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="3lC-gV-azo"/>
@@ -76,7 +75,7 @@
                                                 <rect key="frame" x="1" y="2" width="36" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chy-Pf-ny0" userLabel="Index">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chy-Pf-ny0" userLabel="Index">
                                                         <rect key="frame" x="6" y="0.0" width="32" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="rtd-NF-0HF"/>
@@ -126,7 +125,7 @@
                                                 <rect key="frame" x="40" y="2" width="470" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Mae-3N-D0X" userLabel="Track Name">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Mae-3N-D0X" userLabel="Track Name">
                                                         <rect key="frame" x="-2" y="0.0" width="474" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="TFW-d7-jEQ"/>
@@ -165,7 +164,7 @@
                                                 <rect key="frame" x="513" y="2" width="66" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="gSo-s0-EeT" userLabel="Duration">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="gSo-s0-EeT" userLabel="Duration">
                                                         <rect key="frame" x="-2" y="0.0" width="62" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="nPu-41-C8I"/>
@@ -223,7 +222,7 @@
                         </ciFilter>
                     </contentFilters>
                 </progressIndicator>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L8K-b9-L5F" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L8K-b9-L5F" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="3" y="5" width="214" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="JlG-xQ-4KN"/>
@@ -235,7 +234,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1gC-fy-8UJ" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1gC-fy-8UJ" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="364" y="5" width="204" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="2mG-oY-Uh3"/>
@@ -573,7 +572,7 @@
                         <action selector="changeSortOrderAction:" target="O6f-Kb-kUP" id="A5U-p6-ryf"/>
                     </connections>
                 </button>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I10-QW-Wa3">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I10-QW-Wa3">
                     <rect key="frame" x="11" y="1" width="86" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Sort order:" id="uiy-be-n96">
@@ -592,7 +591,7 @@
     </objects>
     <resources>
         <image name="ScrollToBottom" width="33" height="37"/>
-        <image name="ScrollToTop" width="33" height="37"/>
+        <image name="ScrollToTop" width="269" height="266"/>
         <image name="Sort" width="35" height="25"/>
         <image name="arrow.right.arrow.left" catalog="system" width="16" height="17"/>
         <image name="arrowtriangle.down" catalog="system" width="14" height="13"/>

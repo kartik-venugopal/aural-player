@@ -28,7 +28,7 @@
             <windowStyleMask key="styleMask" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="800" height="500"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
             <value key="minSize" type="size" width="640" height="400"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
@@ -91,7 +91,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="3Ep-XV-pMg" userLabel="Tab View">
-                                                        <rect key="frame" x="10" y="25" width="619" height="206"/>
+                                                        <rect key="frame" x="10" y="0.0" width="619" height="206"/>
                                                         <font key="font" metaFont="system"/>
                                                     </tabView>
                                                 </subviews>
@@ -197,7 +197,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="HdP-Q9-02D"/>
                     </imageView>
                     <button toolTip="Toggle Sidebar" wantsLayer="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="SuE-cK-RHB" userLabel="Toggle Sidebar Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="753" y="472.5" width="15" height="11"/>
+                        <rect key="frame" x="753" y="473.5" width="15" height="11"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="sidebar.left" catalog="system" imagePosition="only" alignment="center" refusesFirstResponder="YES" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="jc4-Hm-pTR">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -230,7 +230,7 @@
                     <constraint firstItem="aim-2G-bxd" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="7Zb-hT-M6Z"/>
                     <constraint firstAttribute="trailing" secondItem="qQ2-PJ-W1D" secondAttribute="trailing" id="Avo-Wi-aXA"/>
                     <constraint firstItem="zSX-rs-0Aq" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="10" id="BjK-fc-HpW"/>
-                    <constraint firstItem="Jbr-GM-SIl" firstAttribute="centerY" secondItem="SuE-cK-RHB" secondAttribute="centerY" id="C7T-cs-k6D"/>
+                    <constraint firstItem="Jbr-GM-SIl" firstAttribute="centerY" secondItem="SuE-cK-RHB" secondAttribute="centerY" constant="1" id="C7T-cs-k6D"/>
                     <constraint firstAttribute="trailing" secondItem="aim-2G-bxd" secondAttribute="trailing" id="IMa-kj-s2m"/>
                     <constraint firstItem="aim-2G-bxd" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="O6g-f9-cVb"/>
                     <constraint firstAttribute="bottom" secondItem="zSX-rs-0Aq" secondAttribute="bottom" constant="10" id="Pq5-M4-kV6"/>

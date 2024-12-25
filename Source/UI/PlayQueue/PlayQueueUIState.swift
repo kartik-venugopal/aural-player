@@ -35,6 +35,7 @@ enum PlayQueueView: Int, CaseIterable, Codable {
     
     case simple
     case expanded
+    case tabular
 }
 
 struct PlayQueueUIDefaults {

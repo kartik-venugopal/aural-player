@@ -709,7 +709,6 @@
 		3E6C12C625CEBE6700BF0D07 /* PitchShiftUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEF25CEB98600BF0D07 /* PitchShiftUnitView.swift */; };
 		3E6C12C725CEBE6700BF0D07 /* TimeStretchUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100325CEB98600BF0D07 /* TimeStretchUnitView.swift */; };
 		3E6C12C825CEBE6700BF0D07 /* ReverbUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFE25CEB98600BF0D07 /* ReverbUnit.xib */; };
-		3E6C12C925CEBE6700BF0D07 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEC25CEB98600BF0D07 /* Colors.swift */; };
 		3E6C12CA25CEBE6700BF0D07 /* EffectsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */; };
 		3E6C12CB25CEBE6700BF0D07 /* TimeStretchUnit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100225CEB98600BF0D07 /* TimeStretchUnit.xib */; };
 		3E6C12CE25CEBE6700BF0D07 /* ReverbUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFF25CEB98600BF0D07 /* ReverbUnitView.swift */; };
@@ -841,6 +840,8 @@
 		3EA89D972699F0240021CDB9 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89D962699F0240021CDB9 /* EventMonitor.swift */; };
 		3EA89D9B2699F50C0021CDB9 /* ScrollSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89D9A2699F50C0021CDB9 /* ScrollSession.swift */; };
 		3EA89D9E2699F5270021CDB9 /* GestureDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89D9D2699F5270021CDB9 /* GestureDirection.swift */; };
+		3EABA5D42D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABA5D22D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift */; };
+		3EABA5D52D1CCA7400E39AE1 /* PlayQueueTabularView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EABA5D32D1CCA7400E39AE1 /* PlayQueueTabularView.xib */; };
 		3EABDDD82694BA75008066E8 /* VisualizerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */; };
 		3EABDDE52694BC24008066E8 /* VisualizationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDE22694BC1E008066E8 /* VisualizationType.swift */; };
 		3EABDDEA2694BC40008066E8 /* VisualizerViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDE72694BC30008066E8 /* VisualizerViewOptions.swift */; };
@@ -1801,7 +1802,6 @@
 		3E6C0FE825CEB98600BF0D07 /* SupportMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMenuController.swift; sourceTree = "<group>"; };
 		3E6C0FE925CEB98600BF0D07 /* BookmarksMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksMenuController.swift; sourceTree = "<group>"; };
 		3E6C0FEA25CEB98600BF0D07 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
-		3E6C0FEC25CEB98600BF0D07 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3E6C0FEF25CEB98600BF0D07 /* PitchShiftUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftUnitView.swift; sourceTree = "<group>"; };
 		3E6C0FF025CEB98600BF0D07 /* PitchShiftUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShiftUnitViewController.swift; sourceTree = "<group>"; };
 		3E6C0FF125CEB98600BF0D07 /* PitchShiftUnit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PitchShiftUnit.xib; sourceTree = "<group>"; };
@@ -1945,6 +1945,8 @@
 		3EA89D9A2699F50C0021CDB9 /* ScrollSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSession.swift; sourceTree = "<group>"; };
 		3EA89D9D2699F5270021CDB9 /* GestureDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureDirection.swift; sourceTree = "<group>"; };
 		3EA8A90C28319B02006B48C6 /* LibraryOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryOutlineViewController.swift; sourceTree = "<group>"; };
+		3EABA5D22D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueTabularViewController.swift; sourceTree = "<group>"; };
+		3EABA5D32D1CCA7400E39AE1 /* PlayQueueTabularView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayQueueTabularView.xib; sourceTree = "<group>"; };
 		3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerUIState.swift; sourceTree = "<group>"; };
 		3EABDDE22694BC1E008066E8 /* VisualizationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizationType.swift; sourceTree = "<group>"; };
 		3EABDDE72694BC30008066E8 /* VisualizerViewOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerViewOptions.swift; sourceTree = "<group>"; };
@@ -3448,6 +3450,7 @@
 				3EC856A72811BA7000647CF4 /* PlayQueueViewController+ContextMenuController.swift */,
 				3E25B65127F7859800D10A5F /* SimpleView */,
 				3E25B65227F785D800D10A5F /* ExpandedView */,
+				3EABA5D12D1CCA2400E39AE1 /* TabularView */,
 				3ECFB6EF2BFBCFD20002331A /* Search */,
 				3E47214C282AE3820097F1AB /* TrackListTabButton.swift */,
 				3EDCC4B7282C2223002AF3AE /* PlayQueueUIState.swift */,
@@ -4917,7 +4920,6 @@
 			isa = PBXGroup;
 			children = (
 				3EEBC6ED27C16CF700880DFD /* EffectsUnitStateObserverRegistry.swift */,
-				3E6C0FEC25CEB98600BF0D07 /* Colors.swift */,
 				3EABDE192694CFD4008066E8 /* ColorConstants.swift */,
 				3EF28DA72694DDC8005D5B43 /* FontConstants.swift */,
 				3EAFB5EA267FEC4500F0DC96 /* Extensions */,
@@ -4952,6 +4954,15 @@
 				3E634D72284698A9008A47EC /* LibraryOutlineViewController+DataSource.swift */,
 			);
 			path = OutlineViewController;
+			sourceTree = "<group>";
+		};
+		3EABA5D12D1CCA2400E39AE1 /* TabularView */ = {
+			isa = PBXGroup;
+			children = (
+				3EABA5D32D1CCA7400E39AE1 /* PlayQueueTabularView.xib */,
+				3EABA5D22D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift */,
+			);
+			path = TabularView;
 			sourceTree = "<group>";
 		};
 		3EAE9CB92836ADE2004499FE /* Tracks */ = {
@@ -5627,6 +5638,7 @@
 				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
 				3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */,
 				3ECFA87D2AE1EB01001096DC /* EffectsContainer.xib in Resources */,
+				3EABA5D52D1CCA7400E39AE1 /* PlayQueueTabularView.xib in Resources */,
 				3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */,
 				3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */,
 				3E8B8C3A2BF004E50025D60B /* CompactChaptersList.xib in Resources */,
@@ -5843,7 +5855,6 @@
 				3E0218832C23490E00865AC2 /* VisualizerNotifications.swift in Sources */,
 				3E6C129B25CEBE2700BF0D07 /* ColoredCursorTextField.swift in Sources */,
 				3E02180C2C23490E00865AC2 /* EffectsUnitPresets.swift in Sources */,
-				3E6C12C925CEBE6700BF0D07 /* Colors.swift in Sources */,
 				3E0219722C23490E00865AC2 /* ConcurrentCompositeKeyMap.swift in Sources */,
 				3E6C128025CEBE1800BF0D07 /* ColorScheme.swift in Sources */,
 				3E0219192C23490E00865AC2 /* RemoteControlPreferences.swift in Sources */,
@@ -6421,6 +6432,7 @@
 				3E3B56262C98D2B900B280FB /* ItemMoveResults.swift in Sources */,
 				3E0218C52C23490E00865AC2 /* PlaybackDelegate.swift in Sources */,
 				3E045D0F281352370069DEFE /* SortOrderMenuItemView.swift in Sources */,
+				3EABA5D42D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift in Sources */,
 				3E0218AF2C23490E00865AC2 /* MusicBrainzCachePersistentState.swift in Sources */,
 				3E0218022C23490E00865AC2 /* HostedAudioUnitProtocol.swift in Sources */,
 				3ED373E62C70DA4800836511 /* ReplayGainUnitDelegate.swift in Sources */,

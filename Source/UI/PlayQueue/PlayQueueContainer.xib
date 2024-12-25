@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="btnExpandedView" destination="oBz-bN-54e" id="OMb-2t-ihI"/>
                 <outlet property="btnSimpleView" destination="Mqv-5I-yxs" id="cbR-fM-Maa"/>
+                <outlet property="btnTabularView" destination="QP2-Ze-BAm" id="fUY-oC-Lw0"/>
                 <outlet property="containerTabGroup" destination="zEA-Vj-ax8" id="rgO-ah-7Wf"/>
                 <outlet property="containerView" destination="c22-O7-iKe" id="vCM-5z-AVV"/>
                 <outlet property="expandedViewController" destination="kd5-kG-XlG" id="PaA-6P-YZT"/>
@@ -22,6 +23,7 @@
                 <outlet property="simpleViewController" destination="X6e-yN-Epj" id="WKK-F0-yQa"/>
                 <outlet property="sortOrderMenuItemView" destination="vVB-il-Bv5" id="Rfp-LE-7WQ"/>
                 <outlet property="tabButtonsContainer" destination="tEn-S2-HfY" id="yo4-n5-neY"/>
+                <outlet property="tabularViewController" destination="dv6-MY-Bxv" id="tJS-dX-Zdl"/>
                 <outlet property="view" destination="zEA-Vj-ax8" id="5D5-gW-9VK"/>
             </connections>
         </customObject>
@@ -67,6 +69,27 @@
                 <outlet property="playNowMenuItem" destination="yLf-Z8-HKY" id="MX3-ax-gFl"/>
                 <outlet property="removeSelectedTracksMenuItem" destination="q5r-Ka-hvq" id="bdS-eV-d2n"/>
                 <outlet property="viewChaptersListMenuItem" destination="wSF-DA-Xzf" id="GtB-Dr-Q3q"/>
+            </connections>
+        </customObject>
+        <customObject id="dv6-MY-Bxv" customClass="PlayQueueTabularViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="chaptersMenu" destination="ZBm-wF-2ER" id="ldP-Ag-15R"/>
+                <outlet property="contextMenu" destination="Cdz-XH-gVz" id="G9S-ks-2Tb"/>
+                <outlet property="cropSelectionMenuItem" destination="P2t-mU-c8U" id="PbR-he-qkk"/>
+                <outlet property="favoriteFolderMenuItem" destination="Aem-Rh-zL1" id="GjA-oW-BZ2"/>
+                <outlet property="favoriteMenu" destination="YdI-S6-ECx" id="e3S-ql-c9y"/>
+                <outlet property="favoriteMenuItem" destination="zUu-GT-tTB" id="7vN-FS-ntu"/>
+                <outlet property="favoriteTrackMenuItem" destination="J4u-pe-wd5" id="sCT-cc-9IN"/>
+                <outlet property="infoMenuItem" destination="gkC-2Y-06q" id="6YJ-4c-4ze"/>
+                <outlet property="jumpToChapterMenuItem" destination="wqo-qf-3cg" id="gEf-gp-dQJ"/>
+                <outlet property="moveTracksDownMenuItem" destination="Eix-CI-G9n" id="hM2-2z-Zl3"/>
+                <outlet property="moveTracksToBottomMenuItem" destination="O3S-j8-C1c" id="CdQ-SZ-u0v"/>
+                <outlet property="moveTracksToTopMenuItem" destination="5MI-wU-fuP" id="pCY-rY-tPh"/>
+                <outlet property="moveTracksUpMenuItem" destination="xhD-0V-jMz" id="VT8-C7-gls"/>
+                <outlet property="playNextMenuItem" destination="74g-y8-018" id="pEi-Ph-LGi"/>
+                <outlet property="playNowMenuItem" destination="yLf-Z8-HKY" id="CzV-VG-b7w"/>
+                <outlet property="removeSelectedTracksMenuItem" destination="q5r-Ka-hvq" id="ntE-QJ-auj"/>
+                <outlet property="viewChaptersListMenuItem" destination="wSF-DA-Xzf" id="vQH-Sb-EbY"/>
             </connections>
         </customObject>
         <tabView type="noTabsNoBorder" id="zEA-Vj-ax8" userLabel="Container Tab View">
@@ -288,8 +311,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="125" height="30"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button toolTip="Table view" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mqv-5I-yxs" userLabel="Table View Button" customClass="TrackListTabButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="83" y="2" width="16" height="28"/>
+                            <button toolTip="Simple view" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mqv-5I-yxs" userLabel="Simple View Button" customClass="TrackListTabButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="58" y="2" width="16" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="list.dash" catalog="system" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="gAp-ZP-RdG" customClass="TrackListViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -307,8 +330,8 @@
                                     <action selector="tabViewAction:" target="-2" id="HnG-wz-3d8"/>
                                 </connections>
                             </button>
-                            <button toolTip="List view" focusRingType="none" tag="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oBz-bN-54e" userLabel="List View Button" customClass="TrackListTabButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="108" y="2" width="16" height="28"/>
+                            <button toolTip="Expanded view" focusRingType="none" tag="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oBz-bN-54e" userLabel="Expanded View Button" customClass="TrackListTabButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="83" y="2" width="16" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="text.below.photo.rtl" catalog="system" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="f1T-uw-lMF" customClass="TrackListViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -316,6 +339,17 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="tabViewAction:" target="-2" id="zQS-6S-5uK"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Table view" focusRingType="none" tag="2" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QP2-Ze-BAm" userLabel="Tabular View Button" customClass="TrackListTabButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="108" y="2" width="16" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="table" catalog="system" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="9iM-KF-YlF" customClass="TrackListViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="tabViewAction:" target="-2" id="UJI-KV-2oe"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -339,13 +373,13 @@
                         </tabViewItem>
                         <tabViewItem label="Expanded View" identifier="" id="RYT-FF-CbI">
                             <view key="view" id="6OS-gK-fGF">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="198"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="202"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Search" identifier="" id="QTn-0U-y2v">
-                            <view key="view" id="19o-Y0-gWS">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="198"/>
+                        <tabViewItem label="Tabular View" identifier="" id="WXE-BO-YF7" userLabel="Tabular View">
+                            <view key="view" id="0Qm-O6-arq">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="202"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
@@ -782,6 +816,7 @@
         <image name="plus.rectangle.on.folder" catalog="system" width="19" height="15"/>
         <image name="scissors" catalog="system" width="20" height="15"/>
         <image name="square.slash" catalog="system" width="15" height="17"/>
+        <image name="table" catalog="system" width="18" height="14"/>
         <image name="text.badge.plus" catalog="system" width="16" height="14"/>
         <image name="text.below.photo.rtl" catalog="system" width="17" height="19"/>
         <image name="trash" catalog="system" width="15" height="17"/>
