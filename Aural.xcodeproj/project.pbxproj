@@ -749,8 +749,6 @@
 		3E6C131325CEBE8F00BF0D07 /* WindowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105125CEB98600BF0D07 /* WindowLayout.swift */; };
 		3E6C131425CEBE8F00BF0D07 /* AudioTrackInfoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103E25CEB98600BF0D07 /* AudioTrackInfoSource.swift */; };
 		3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */; };
-		3E6C39F826AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C39F726AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift */; };
-		3E6C39FC26AA169500AF5009 /* FilterPreviewChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C39FB26AA169500AF5009 /* FilterPreviewChart.swift */; };
 		3E6E6B792C84CFAD00B87FF6 /* Track+Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E6B782C84CFAD00B87FF6 /* Track+Metadata.swift */; };
 		3E6EFFA32815309500C813AC /* TextColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6EFFA12815309500C813AC /* TextColorScheme.xib */; };
 		3E6EFFA42815309500C813AC /* TextColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EFFA22815309500C813AC /* TextColorSchemeViewController.swift */; };
@@ -857,12 +855,10 @@
 		3EAFB5F6267FEE9D00F0DC96 /* NSWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5F5267FEE9D00F0DC96 /* NSWindowExtensions.swift */; };
 		3EAFB5F8267FEEC700F0DC96 /* NSBezierPathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5F7267FEEC700F0DC96 /* NSBezierPathExtensions.swift */; };
 		3EAFB5FC267FEF1C00F0DC96 /* NSColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5FB267FEF1C00F0DC96 /* NSColorExtensions.swift */; };
-		3EAFB5FE267FEF3700F0DC96 /* NSGradientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5FD267FEF3700F0DC96 /* NSGradientExtensions.swift */; };
 		3EAFB600267FF0D400F0DC96 /* NoTitleBarWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5FF267FF0D400F0DC96 /* NoTitleBarWindow.swift */; };
 		3EAFB605267FF1E700F0DC96 /* NSRectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB604267FF1E700F0DC96 /* NSRectExtensions.swift */; };
 		3EAFB607267FF24900F0DC96 /* SeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB606267FF24900F0DC96 /* SeekSliderCell.swift */; };
 		3EAFB609267FF29300F0DC96 /* VolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB608267FF29300F0DC96 /* VolumeSliderCell.swift */; };
-		3EAFB60B267FF2B900F0DC96 /* PreferencesSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB60A267FF2B900F0DC96 /* PreferencesSliderCell.swift */; };
 		3EAFB60F267FF35900F0DC96 /* EffectsUnitSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB60E267FF35900F0DC96 /* EffectsUnitSliderCell.swift */; };
 		3EAFB615267FF47200F0DC96 /* FilterBandSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */; };
 		3EAFB617267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */; };
@@ -1857,8 +1853,6 @@
 		3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutPresets.swift; sourceTree = "<group>"; };
 		3E6C113425CEB98700BF0D07 /* MediaKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyHandler.swift; sourceTree = "<group>"; };
 		3E6C115325CEB9C100BF0D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3E6C39F726AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutoffFrequencySliderPreviewCell.swift; sourceTree = "<group>"; };
-		3E6C39FB26AA169500AF5009 /* FilterPreviewChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPreviewChart.swift; sourceTree = "<group>"; };
 		3E6E6B782C84CFAD00B87FF6 /* Track+Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Metadata.swift"; sourceTree = "<group>"; };
 		3E6EFFA12815309500C813AC /* TextColorScheme.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextColorScheme.xib; sourceTree = "<group>"; };
 		3E6EFFA22815309500C813AC /* TextColorSchemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextColorSchemeViewController.swift; sourceTree = "<group>"; };
@@ -1967,12 +1961,10 @@
 		3EAFB5F5267FEE9D00F0DC96 /* NSWindowExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindowExtensions.swift; sourceTree = "<group>"; };
 		3EAFB5F7267FEEC700F0DC96 /* NSBezierPathExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSBezierPathExtensions.swift; sourceTree = "<group>"; };
 		3EAFB5FB267FEF1C00F0DC96 /* NSColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtensions.swift; sourceTree = "<group>"; };
-		3EAFB5FD267FEF3700F0DC96 /* NSGradientExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSGradientExtensions.swift; sourceTree = "<group>"; };
 		3EAFB5FF267FF0D400F0DC96 /* NoTitleBarWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTitleBarWindow.swift; sourceTree = "<group>"; };
 		3EAFB604267FF1E700F0DC96 /* NSRectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRectExtensions.swift; sourceTree = "<group>"; };
 		3EAFB606267FF24900F0DC96 /* SeekSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB608267FF29300F0DC96 /* VolumeSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSliderCell.swift; sourceTree = "<group>"; };
-		3EAFB60A267FF2B900F0DC96 /* PreferencesSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB60E267FF35900F0DC96 /* EffectsUnitSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandSlider.swift; sourceTree = "<group>"; };
 		3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsSliderPreviewCell.swift; sourceTree = "<group>"; };
@@ -4076,7 +4068,6 @@
 			children = (
 				3E6C0F2C25CEB98500BF0D07 /* Preferences.xib */,
 				3E6C0F2B25CEB98500BF0D07 /* PreferencesWindowController.swift */,
-				3EAFB60A267FF2B900F0DC96 /* PreferencesSliderCell.swift */,
 				3E6C0F2525CEB98500BF0D07 /* PlayQueue */,
 				3E6C0F2D25CEB98500BF0D07 /* Playback */,
 				3E6C0F3825CEB98600BF0D07 /* Sound */,
@@ -4262,8 +4253,6 @@
 				3E6C0F8125CEB98600BF0D07 /* FilterPresetsManager.xib */,
 				3E6C0F8325CEB98600BF0D07 /* FilterPresetsManagerViewController.swift */,
 				3E6C0F8225CEB98600BF0D07 /* FilterPresetBandsViewDelegate.swift */,
-				3E6C39F726AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift */,
-				3E6C39FB26AA169500AF5009 /* FilterPreviewChart.swift */,
 				3E7C35FD26AADD2A00B3552D /* FilterPresetView.swift */,
 			);
 			path = Filter;
@@ -4986,7 +4975,6 @@
 				3E5F3DF226814C9700E826F0 /* NSAlertExtensions.swift */,
 				3EAFB5F7267FEEC700F0DC96 /* NSBezierPathExtensions.swift */,
 				3EAFB5FB267FEF1C00F0DC96 /* NSColorExtensions.swift */,
-				3EAFB5FD267FEF3700F0DC96 /* NSGradientExtensions.swift */,
 				3EAFB604267FF1E700F0DC96 /* NSRectExtensions.swift */,
 				3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */,
 				3EE2CC3226811074002C1B29 /* NSTableViewExtensions.swift */,
@@ -6151,7 +6139,6 @@
 				3E0218072C23490E00865AC2 /* ReverbUnitProtocol.swift in Sources */,
 				3EC7425D2C41C6E300C100DE /* AVFScheduler+Gapless.swift in Sources */,
 				3E02191F2C23490E00865AC2 /* RemoteCommandManager.swift in Sources */,
-				3E6C39FC26AA169500AF5009 /* FilterPreviewChart.swift in Sources */,
 				3E02199D2C23490E00865AC2 /* TimeUtils.swift in Sources */,
 				3E0217E82C23490E00865AC2 /* EffectsUnitDelegateProtocol.swift in Sources */,
 				3E8836172B6E0AC30009ABE2 /* TrackInfoViewController.swift in Sources */,
@@ -6249,7 +6236,6 @@
 				3EAFB5F2267FEE0400F0DC96 /* NSControlExtensions.swift in Sources */,
 				3E5F3DF126813F2400E826F0 /* NSEventExtensions.swift in Sources */,
 				3E0218642C23490E00865AC2 /* AppReopenedNotification.swift in Sources */,
-				3EAFB5FE267FEF3700F0DC96 /* NSGradientExtensions.swift in Sources */,
 				3E7C978D268BB8BE00287158 /* NSLayoutConstraintExtensions.swift in Sources */,
 				3EAFB5F0267FEDD700F0DC96 /* NSMenuItemExtensions.swift in Sources */,
 				3E02187A2C23490E00865AC2 /* MenuBarPlayerNotifications.swift in Sources */,
@@ -6344,7 +6330,6 @@
 				3E0218552C23490E00865AC2 /* LastFM_WSClient.swift in Sources */,
 				3EBF293526869A1200D87021 /* PreferencesPopupMenuCell.swift in Sources */,
 				3E0218D92C23490E00865AC2 /* PlaybackSession.swift in Sources */,
-				3EAFB60B267FF2B900F0DC96 /* PreferencesSliderCell.swift in Sources */,
 				3ED65A532C45BA3000859677 /* PlayerViewController+Actions.swift in Sources */,
 				3ED373E42C70D99400836511 /* ReplayGainUnitDelegateProtocol.swift in Sources */,
 				3EF4CDA32C65909C00A5922D /* AVFWaveformDecoder.swift in Sources */,
@@ -6355,7 +6340,6 @@
 				3E0219852C23490E00865AC2 /* JSONSerializationExtensions.swift in Sources */,
 				3E0218662C23490E00865AC2 /* ChapterChangedNotification.swift in Sources */,
 				3E0218002C23490E00865AC2 /* FilterUnitProtocol.swift in Sources */,
-				3E6C39F826AA110200AF5009 /* CutoffFrequencySliderPreviewCell.swift in Sources */,
 				3E3D7C8F2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift in Sources */,
 				3ECF71BC2B75B48E00FDB69B /* CompactPlayQueueSearchViewController.swift in Sources */,
 				3E02197D2C23490E00865AC2 /* AVFExtensions.swift in Sources */,

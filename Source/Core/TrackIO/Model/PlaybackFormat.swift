@@ -27,7 +27,7 @@ struct PlaybackFormat {
         if self.layoutTag == kAudioChannelLayoutTag_UseChannelBitmap {
             self.channelBitmapRawValue = audioFormat.channelLayout?.layout.pointee.mChannelBitmap.rawValue
         } else {
-            self.channelBitmapRawValue = 0
+            self.channelBitmapRawValue = nil
         }
     }
     

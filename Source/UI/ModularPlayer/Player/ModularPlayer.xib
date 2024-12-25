@@ -292,11 +292,11 @@
                                 </connections>
                             </button>
                             <button wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0i-s5-xcg" userLabel="Play / Pause Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="211" y="13" width="18" height="18"/>
+                                <rect key="frame" x="211" y="9" width="18.5" height="26"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="cDf-1c-IoQ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="message" size="11"/>
-                                    <imageReference key="image" image="Play" symbolScale="large"/>
+                                    <imageReference key="image" image="play" catalog="system" symbolScale="large"/>
                                 </buttonCell>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="18" id="RDR-do-Flh"/>
@@ -414,7 +414,6 @@
     </objects>
     <resources>
         <image name="Loop" width="18" height="25"/>
-        <image name="Play" width="40" height="40"/>
         <image name="backward" catalog="system" width="19" height="12"/>
         <image name="backward.end" catalog="system" width="13" height="13"/>
         <image name="bookmark" catalog="system" width="14" height="16"/>
@@ -426,6 +425,7 @@
         <image name="heart.slash" catalog="system" width="16" height="17"/>
         <image name="info" catalog="system" width="11" height="16"/>
         <image name="music.quarternote.3" catalog="system" width="18" height="15"/>
+        <image name="play" catalog="system" width="15" height="17"/>
         <image name="repeat" catalog="system" width="17" height="14"/>
         <image name="shuffle" catalog="system" width="18" height="14"/>
         <image name="speaker.wave.3" catalog="system" width="27" height="19"/>

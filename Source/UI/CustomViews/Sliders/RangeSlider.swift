@@ -44,7 +44,7 @@ fileprivate let bypassedColor: NSColor = .white35Percent
 fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0)
 
 @IBDesignable
-class RangeSlider: NSControl, FXUnitStateObserver {
+class RangeSlider: NSControl {
     
     //****************************************************************************//
     //****************************************************************************//
@@ -172,59 +172,9 @@ class RangeSlider: NSControl, FXUnitStateObserver {
     
     //MARK: - Appearance -
     
-    var barBackgroundColor: NSColor {systemColorScheme.inactiveControlColor}
+    var barBackgroundColor: NSColor {.white15Percent}
     
-    private lazy var sliderGradient: NSGradient = {
-        let backgroundStart = NSColor(white: 0.92, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.80, alpha: 1.0)
-        let barBackgroundColor = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundColor != nil, "Couldn't generate gradient.")
-        
-        return barBackgroundColor!
-    }()
-    
-    // TODO: Change this to a computed color
-    var knobColor: NSColor {.white50Percent}
-    
-    var controlStateColor: NSColor {
-        systemColorScheme.colorForEffectsUnitState(fxUnitStateObserverRegistry.currentState(forObserver: self))
-    }
-    
-    var barFillColor: NSColor {
-        
-        switch fxUnitStateObserverRegistry.currentState(forObserver: self) {
-            
-        case .active:   return bandPassColor
-            
-        case .bypassed: return bypassedColor
-            
-        case .suppressed:   return suppressedColor
-            
-        }
-    }
-    
-    private let barStrokeColor: NSColor = NSColor(white: 0.0, alpha: 0.25)
-    
-    private var barFillStrokeColor: NSColor = NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
-    
-    private var _sliderShadow: NSShadow? = nil
-    private func sliderShadow() -> NSShadow? {
-        
-        if (_sliderShadow == nil) {
-            let shadowOffset = NSMakeSize(2.0, -2.0)
-            let shadowBlurRadius: CGFloat = 2.0
-            let shadowColor = NSColor(white: 0.0, alpha: 0.12)
-            
-            let shadow = NSShadow()
-            shadow.shadowOffset = shadowOffset
-            shadow.shadowBlurRadius = shadowBlurRadius
-            shadow.shadowColor = shadowColor
-            
-            _sliderShadow = shadow
-        }
-        
-        return _sliderShadow
-    }
+    var barFillColor: NSColor {.white}
     
     //MARK: - UI Sizing -
     
@@ -232,7 +182,7 @@ class RangeSlider: NSControl, FXUnitStateObserver {
     private let sliderHeight: CGFloat = 7
     
     private let minSliderX: CGFloat = 0
-    private var maxSliderX: CGFloat { return NSWidth(bounds) - sliderWidth - barTrailingMargin }
+    private var maxSliderX: CGFloat { return bounds.width - sliderWidth - barTrailingMargin }
     
     //MARK: - Event -
     
@@ -276,7 +226,7 @@ class RangeSlider: NSControl, FXUnitStateObserver {
         
         guard currentSliderDragging != nil else {return}
         
-        var x = Double(point.x / NSWidth(bounds))
+        var x = Double(point.x / bounds.width)
         x = max(min(1.0, x), 0.0)
         
         if currentSliderDragging! == .start {
@@ -294,8 +244,8 @@ class RangeSlider: NSControl, FXUnitStateObserver {
         /*  Floor the rect values here, rather than use NSIntegralRect etc. */
         var newRect = NSMakeRect(floor(rect.origin.x),
                                  floor(rect.origin.y),
-                                 floor(rect.size.width),
-                                 floor(rect.size.height))
+                                 floor(rect.width),
+                                 floor(rect.height))
         newRect.origin.x += 0.5
         newRect.origin.y += 0.5
         
@@ -303,20 +253,20 @@ class RangeSlider: NSControl, FXUnitStateObserver {
     }
     
     private func startKnobFrame() -> NSRect {
-        var x = max(CGFloat(selection.start) * NSWidth(bounds) - (sliderWidth / 2.0), minSliderX)
+        var x = max(CGFloat(selection.start) * bounds.width - (sliderWidth / 2.0), minSliderX)
         x = min(x, maxSliderX)
         
-        return crispLineRect(NSMakeRect(x, (NSHeight(bounds) - sliderHeight) / 2.0, sliderWidth, sliderHeight))
+        return crispLineRect(NSMakeRect(x, (bounds.height - sliderHeight) / 2.0, sliderWidth, sliderHeight))
     }
     
     private func endKnobFrame() -> NSRect {
-        let width = NSWidth(bounds)
+        let width = bounds.width
         var x = CGFloat(selection.end) * width
         x -= (sliderWidth / 2.0)
         x = min(x, maxSliderX)
         x = max(x, minSliderX)
         
-        return crispLineRect(NSMakeRect(x, (NSHeight(bounds) - sliderHeight) / 2.0, sliderWidth, sliderHeight))
+        return crispLineRect(NSMakeRect(x, (bounds.height - sliderHeight) / 2.0, sliderWidth, sliderHeight))
     }
     
     //MARK: - Layout
@@ -324,9 +274,9 @@ class RangeSlider: NSControl, FXUnitStateObserver {
     override func layout() {
         super.layout()
         
-        assert(NSWidth(bounds) >= (NSHeight(bounds) * 2), "Range control expects a reasonable width to height ratio, width should be greater than twice the height at least.");
-        assert(NSWidth(bounds) >= (sliderWidth * 2.0), "Width must be able to accommodate two range sliders.")
-        assert(NSHeight(bounds) >= sliderHeight, "Expects minimum height of at least \(sliderHeight)")
+        assert(bounds.width >= (bounds.height * 2), "Range control expects a reasonable width to height ratio, width should be greater than twice the height at least.");
+        assert(bounds.width >= (sliderWidth * 2.0), "Width must be able to accommodate two range sliders.")
+        assert(bounds.height >= sliderHeight, "Expects minimum height of at least \(sliderHeight)")
     }
     
     //MARK: - Drawing -
@@ -334,8 +284,8 @@ class RangeSlider: NSControl, FXUnitStateObserver {
     override func draw(_ dirtyRect: NSRect) {
         
         /*  Setup, calculations */
-        let width = NSWidth(bounds) - barTrailingMargin
-        let height = NSHeight(bounds)
+        let width = bounds.width - barTrailingMargin
+        let height = bounds.height
         
         let barHeight: CGFloat = 3
         let barY = floor((height - barHeight) / 2.0)
@@ -355,27 +305,17 @@ class RangeSlider: NSControl, FXUnitStateObserver {
         
         let startPoint = NSMakePoint(barRect.minX, barRect.centerY)
         let endPoint = NSMakePoint(barRect.maxX, barRect.centerY)
-        GraphicsUtils.drawLine(barBackgroundColor, pt1: startPoint, pt2: endPoint, width: 1)
+        GraphicsUtils.drawLine(barBackgroundColor, pt1: startPoint, pt2: endPoint, width: 2)
         
         /*  Draw bar fill */
-        if NSWidth(selectedRect) > 0.0 {
-
+        if selectedRect.width > 0.0 {
             selectedPath.fill(withColor: barFillColor)
-            barFillStrokeColor.setStroke()
         }
         
-        /*  Draw slider knobs */
-        sliderGradient.draw(in: endSliderPath, angle: .horizontalGradientDegrees)
-        endSliderPath.stroke()
-        
-        sliderGradient.draw(in: startSliderPath, angle: .horizontalGradientDegrees)
-        startSliderPath.stroke()
-        
-        startSliderPath.fill(withColor: knobColor)
+        startSliderPath.fill(withColor: barFillColor)
         NSBezierPath.strokeRoundedRect(startSliderFrame, radius: 1, withColor: systemColorScheme.backgroundColor, lineWidth: 2)
         
-        endSliderPath.fill(withColor: knobColor)
+        endSliderPath.fill(withColor: barFillColor)
         NSBezierPath.strokeRoundedRect(endSliderFrame, radius: 1, withColor: systemColorScheme.backgroundColor, lineWidth: 2)
     }
 }
-

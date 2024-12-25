@@ -229,10 +229,6 @@ class SeekSliderPreviewCell: SeekSliderCell {
     var _foregroundColor: NSColor = NSColor.white
     var _backgroundColor: NSColor = NSColor.gray
     var _knobColor: NSColor = NSColor.white
-    
-//    override var backgroundGradient: NSGradient {NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!}
-//    override var foregroundGradient: NSGradient {NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!}
-//    override var knobColor: NSColor {_knobColor}
 }
 
 class EQSliderPreviewCell: EQSliderCell {
@@ -240,66 +236,4 @@ class EQSliderPreviewCell: EQSliderCell {
     var _foregroundColor: NSColor = NSColor.white
     var _backgroundColor: NSColor = NSColor.gray
     var _knobColor: NSColor = NSColor.white
-    
-//    override var foregroundGradient: NSGradient {
-//        NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!
-//    }
-//
-//    override var backgroundGradient: NSGradient {
-//        NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!
-//    }
-//
-//    override var knobColor: NSColor {_knobColor}
 }
-
-class EQSliderConstantColorPreviewCell: EQSliderCell {
-    
-//    override var foregroundGradient: NSGradient {
-//
-//        switch self.unitState {
-//
-//        case .active:   return Colors.Effects.defaultActiveSliderGradient
-//
-//        case .bypassed: return Colors.Effects.defaultBypassedSliderGradient
-//
-//        case .suppressed:   return Colors.Effects.defaultSuppressedSliderGradient
-//
-//        }
-//    }
-//
-//    override var backgroundGradient: NSGradient {
-//        Colors.Effects.defaultSliderBackgroundGradient
-//    }
-//
-//    override var knobColor: NSColor {
-//
-//        switch self.unitState {
-//
-//        case .active:   return Colors.Effects.defaultActiveUnitColor
-//
-//        case .bypassed: return Colors.Effects.defaultBypassedUnitColor
-//
-//        case .suppressed:   return Colors.Effects.defaultSuppressedUnitColor
-//
-//        }
-//    }
-}
-
-//class PlaylistPreviewTabButtonCell: TrackListViewsButtonCell {
-//    
-//    var tabButtonTextColor: NSColor = NSColor.white
-//    var selectedTabButtonTextColor: NSColor = NSColor.white
-//    var _selectionBoxColor: NSColor = .white15Percent
-//    
-//    override var unselectedTextColor: NSColor {tabButtonTextColor}
-//    override var selectedTextColor: NSColor {selectedTabButtonTextColor}
-//    override var selectionBoxColor: NSColor {_selectionBoxColor}
-//    
-//    override var textFont: NSFont {_textFont}
-//    var _textFont: NSFont = .largeTabButtonFont
-//    
-//    override var boldTextFont: NSFont {_boldTextFont}
-//    var _boldTextFont: NSFont = .largeTabButtonFont
-//    
-//    override var yOffset: CGFloat {1}
-//}

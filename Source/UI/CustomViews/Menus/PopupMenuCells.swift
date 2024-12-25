@@ -73,14 +73,3 @@ class FontsPopupMenuCell: PopupMenuCell {
     override var arrowColor: NSColor {.lightPopupMenuArrowColor}
     override var textOffsetY: CGFloat {3}
 }
-
-class EffectsPreviewPopupMenuCell: NicerPopupMenuCell {
-    
-//    override var menuGradient: NSGradient {Colors.Effects.defaultPopupMenuGradient}
-//
-//    override var titleColor: NSColor {Colors.Effects.defaultPopupMenuTextColor}
-    
-//    override var arrowColor: NSColor {titleColor}
-    
-    override var textOffsetY: CGFloat {-1}
-}

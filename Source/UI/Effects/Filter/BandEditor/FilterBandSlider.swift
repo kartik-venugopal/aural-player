@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class FilterBandSlider: RangeSlider {
+class FilterBandSlider: RangeSlider, FXUnitStateObserver {
     
     var filterType: FilterBandType = .bandStop {
         didSet {redraw()}
@@ -43,12 +43,8 @@ class FilterBandSlider: RangeSlider {
         if band.type == .bandStop, !band.bypass, filterUnit.state == .active {
             return systemColorScheme.activeControlColor
         }
-        
-        return super.barBackgroundColor
-    }
-    
-    override var knobColor: NSColor {
-        barFillColor
+
+        return systemColorScheme.inactiveControlColor
     }
     
     var startFrequency: Float {

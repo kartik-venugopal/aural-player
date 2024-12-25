@@ -86,14 +86,3 @@ extension NSColor {
     // Color of text inside any of the container boxes
     static let boxTextColor: NSColor = .white70Percent
 }
-
-extension NSGradient {
-    
-    static let sliderBarGradient: NSGradient = NSGradient(starting: .white70Percent, ending: .white20Percent)!
-
-    static let popupMenuGradient: NSGradient = NSGradient(starting: .white35Percent, ending: .white10Percent)!
-    
-    static let modalDialogButtonGradient: NSGradient = NSGradient(starting: .white50Percent, ending: .white20Percent)!
-    
-    static let modalDialogButtonGradient_disabled: NSGradient = NSGradient(starting: .white25Percent, ending: .white10Percent)!
-}

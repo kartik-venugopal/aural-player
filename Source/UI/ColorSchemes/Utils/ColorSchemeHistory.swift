@@ -35,7 +35,7 @@ struct ColorSchemeChange {
     // The value that should be assigned to the changed control if/when a redo is performed on this field.
     let redoValue: Any
     
-    // The type of change that this record represents (i.e. a color change or a gradient amount change).
+    // The type of change that this record represents (i.e. a color change).
     let changeType: ColorSchemeChangeType
 }
 
