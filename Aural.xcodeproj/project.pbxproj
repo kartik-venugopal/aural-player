@@ -842,6 +842,7 @@
 		3EA89D9E2699F5270021CDB9 /* GestureDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89D9D2699F5270021CDB9 /* GestureDirection.swift */; };
 		3EABA5D42D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABA5D22D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift */; };
 		3EABA5D52D1CCA7400E39AE1 /* PlayQueueTabularView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EABA5D32D1CCA7400E39AE1 /* PlayQueueTabularView.xib */; };
+		3EABA5D72D1CD51D00E39AE1 /* PlayQueueTabularViewTableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABA5D62D1CD51D00E39AE1 /* PlayQueueTabularViewTableHeaderCell.swift */; };
 		3EABDDD82694BA75008066E8 /* VisualizerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */; };
 		3EABDDE52694BC24008066E8 /* VisualizationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDE22694BC1E008066E8 /* VisualizationType.swift */; };
 		3EABDDEA2694BC40008066E8 /* VisualizerViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDE72694BC30008066E8 /* VisualizerViewOptions.swift */; };
@@ -1947,6 +1948,7 @@
 		3EA8A90C28319B02006B48C6 /* LibraryOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryOutlineViewController.swift; sourceTree = "<group>"; };
 		3EABA5D22D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayQueueTabularViewController.swift; sourceTree = "<group>"; };
 		3EABA5D32D1CCA7400E39AE1 /* PlayQueueTabularView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayQueueTabularView.xib; sourceTree = "<group>"; };
+		3EABA5D62D1CD51D00E39AE1 /* PlayQueueTabularViewTableHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueTabularViewTableHeaderCell.swift; sourceTree = "<group>"; };
 		3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerUIState.swift; sourceTree = "<group>"; };
 		3EABDDE22694BC1E008066E8 /* VisualizationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizationType.swift; sourceTree = "<group>"; };
 		3EABDDE72694BC30008066E8 /* VisualizerViewOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerViewOptions.swift; sourceTree = "<group>"; };
@@ -4961,6 +4963,7 @@
 			children = (
 				3EABA5D32D1CCA7400E39AE1 /* PlayQueueTabularView.xib */,
 				3EABA5D22D1CCA7400E39AE1 /* PlayQueueTabularViewController.swift */,
+				3EABA5D62D1CD51D00E39AE1 /* PlayQueueTabularViewTableHeaderCell.swift */,
 			);
 			path = TabularView;
 			sourceTree = "<group>";
@@ -6473,6 +6476,7 @@
 				3E95A78F2D10BE9700D0E4D8 /* AutoplayPreferencesViewController.swift in Sources */,
 				3E0219602C23490E00865AC2 /* TrackComparators.swift in Sources */,
 				3ED373C22C70B62200836511 /* ReplayGainUnitProtocol.swift in Sources */,
+				3EABA5D72D1CD51D00E39AE1 /* PlayQueueTabularViewTableHeaderCell.swift in Sources */,
 				3E0219172C23490E00865AC2 /* Preferences.swift in Sources */,
 				3E0218F12C23490E00865AC2 /* TracksSort.swift in Sources */,
 				3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */,

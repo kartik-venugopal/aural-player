@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -133,13 +132,13 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <scrollView borderType="none" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U24-9d-uRM" userLabel="FileSystemBrowser">
-                        <rect key="frame" x="0.0" y="43" width="700" height="102"/>
+                        <rect key="frame" x="0.0" y="43" width="700" height="46"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="JxV-7x-wTQ">
-                            <rect key="frame" x="0.0" y="0.0" width="685" height="102"/>
+                            <rect key="frame" x="0.0" y="0.0" width="685" height="46"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" headerView="eGL-lw-kpG" viewBased="YES" indentationPerLevel="16" outlineTableColumn="wQR-x7-Rh4" id="aWI-Z6-ODA" customClass="TuneBrowserOutlineView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="685" height="74"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="685" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -537,7 +536,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="CPl-ZX-sKk">
-                            <rect key="frame" x="685" y="28" width="15" height="74"/>
+                            <rect key="frame" x="685" y="28" width="15" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" wantsLayer="YES" id="eGL-lw-kpG">

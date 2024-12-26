@@ -61,6 +61,14 @@ extension NSUserInterfaceItemIdentifier {
     
     static let cid_trackName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Name")
     
+    static let cid_title: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Title")
+    
+    static let cid_artist: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Artist")
+    
+    static let cid_album: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Album")
+    
+    static let cid_genre: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Genre")
+    
     static let cid_duration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Duration")
     
     static let cid_chapterIndex: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_chapterIndex")

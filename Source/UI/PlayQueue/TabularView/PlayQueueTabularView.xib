@@ -19,20 +19,20 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="KbK-mP-1to">
-                    <rect key="frame" x="0.0" y="0.0" width="404" height="177"/>
+                    <rect key="frame" x="0.0" y="0.0" width="411" height="37"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="kLV-1o-whq">
-                        <rect key="frame" x="0.0" y="0.0" width="404" height="177"/>
+                        <rect key="frame" x="0.0" y="0.0" width="411" height="37"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView identifier="tid_PlayQueueSimpleView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="RAo-B3-mxT" customClass="AuralTableView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="404" height="177"/>
+                            <tableView identifier="tid_PlayQueueSimpleView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" autosaveColumns="NO" rowHeight="30" headerView="jal-TJ-HVq" viewBased="YES" id="RAo-B3-mxT" customClass="AuralTableView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1282" height="34"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_Index" width="42" minWidth="40" maxWidth="55" id="rvb-uN-FXW" userLabel="Index">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                    <tableColumn identifier="cid_Index" width="40" minWidth="40" maxWidth="55" id="rvb-uN-FXW" userLabel="Index">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="#">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -44,11 +44,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="5Eo-Qb-3K3" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="42" height="30"/>
+                                                <rect key="frame" x="1" y="2" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tkS-pN-cgb" userLabel="Index">
-                                                        <rect key="frame" x="8" y="0.0" width="36" height="30"/>
+                                                        <rect key="frame" x="8" y="0.0" width="34" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="tbH-6B-RZ3"/>
                                                         </constraints>
@@ -81,8 +81,8 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Name" width="292" minWidth="290" maxWidth="10000" id="qHp-l5-fT0" userLabel="Track Name">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                    <tableColumn identifier="cid_Title" width="880" minWidth="290" maxWidth="10000" id="qHp-l5-fT0">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -93,12 +93,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="sQN-39-9YE" customClass="AttrCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="46" y="2" width="292" height="30"/>
+                                            <tableCellView id="sQN-39-9YE" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="44" y="2" width="880" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rpo-cg-01s" userLabel="Track Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="292" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="880" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="3lh-C3-aYp"/>
                                                         </constraints>
@@ -120,8 +120,125 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Duration" width="61" minWidth="60" maxWidth="80" id="2LC-mu-qhQ" userLabel="Duration">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                    <tableColumn identifier="cid_Artist" width="290" minWidth="290" maxWidth="10000" id="92b-8j-vNF">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Artist">
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" title="Text Cell" id="F8Z-kq-gdd">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+                                            <tableCellView id="BHb-Wf-df0" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="927" y="2" width="290" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="S7y-hr-mx9" userLabel="Track Name">
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="wo8-Ao-5zt"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="fRT-yd-xl3" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <font key="font" size="13" name="Play-Regular"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="S7y-hr-mx9" secondAttribute="trailing" constant="2" id="GU6-Hh-zpF"/>
+                                                    <constraint firstAttribute="bottom" secondItem="S7y-hr-mx9" secondAttribute="bottom" id="LDk-bw-MRW"/>
+                                                    <constraint firstItem="S7y-hr-mx9" firstAttribute="leading" secondItem="BHb-Wf-df0" secondAttribute="leading" constant="2" id="oTM-LZ-FQg"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="textField" destination="S7y-hr-mx9" id="gyW-9W-QUD"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                    <tableColumn identifier="cid_Name" width="378" minWidth="290" maxWidth="10000" hidden="YES" id="E9G-4o-LOY">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Album">
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" title="Text Cell" id="0e9-3O-8in">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+                                            <tableCellView misplaced="YES" id="nQh-de-Qu7" customClass="AttrCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="1" y="2" width="0.0" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ryf-Tn-6yd" userLabel="Track Name">
+                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="7eB-w6-IUf"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Tne-Ct-m9C" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <font key="font" size="13" name="Play-Regular"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Ryf-Tn-6yd" secondAttribute="trailing" constant="2" id="DAT-rZ-s1o"/>
+                                                    <constraint firstItem="Ryf-Tn-6yd" firstAttribute="leading" secondItem="nQh-de-Qu7" secondAttribute="leading" constant="2" id="R6C-i9-ZKy"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Ryf-Tn-6yd" secondAttribute="bottom" id="thT-Zy-eLg"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="textField" destination="Ryf-Tn-6yd" id="xmv-Dm-B73"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                    <tableColumn identifier="cid_Name" width="568" minWidth="290" maxWidth="10000" hidden="YES" id="K2y-UD-ys3">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Genre">
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" title="Text Cell" id="WKs-vX-YHy">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+                                            <tableCellView misplaced="YES" id="yX7-10-suM" customClass="AttrCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="1" y="2" width="0.0" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-qi-ddp" userLabel="Track Name">
+                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="fqJ-DU-BnK"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="jeU-eG-fed" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <font key="font" size="13" name="Play-Regular"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="DzO-qi-ddp" secondAttribute="bottom" id="BmC-oV-ZeL"/>
+                                                    <constraint firstItem="DzO-qi-ddp" firstAttribute="leading" secondItem="yX7-10-suM" secondAttribute="leading" constant="2" id="GOO-0D-oGL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DzO-qi-ddp" secondAttribute="trailing" constant="2" id="eeO-t8-5CJ"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="textField" destination="DzO-qi-ddp" id="ots-vd-aZT"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                    <tableColumn identifier="cid_Duration" width="60" minWidth="60" maxWidth="80" id="2LC-mu-qhQ" userLabel="Duration">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Duration">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableHeaderCell>
@@ -133,11 +250,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="2RN-iX-l7t" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="341" y="2" width="61" height="30"/>
+                                                <rect key="frame" x="1220" y="2" width="60" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bxe-de-Six" userLabel="Duration">
-                                                        <rect key="frame" x="-2" y="0.0" width="57" height="30"/>
+                                                        <rect key="frame" x="-2" y="0.0" width="56" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="J5d-DA-zWJ"/>
                                                         </constraints>
@@ -181,6 +298,10 @@
                             <outlet property="scrollView" destination="KbK-mP-1to" id="uhf-op-tb0"/>
                         </connections>
                     </scroller>
+                    <tableHeaderView key="headerView" wantsLayer="YES" id="jal-TJ-HVq">
+                        <rect key="frame" x="0.0" y="0.0" width="1282" height="28"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tableHeaderView>
                 </scrollView>
             </subviews>
             <constraints>

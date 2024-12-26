@@ -20,6 +20,12 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     
     override var rowHeight: CGFloat {30}
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.customizeHeader(heightIncrease: 0, customCellType: PlayQueueTabularViewTableHeaderCell.self)
+    }
+    
     // MARK: Table view delegate / data source --------------------------------------------------------------------------------------------------------
     
     override func moveTracks(from sourceIndices: IndexSet, to destRow: Int) {
@@ -34,11 +40,11 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         
         guard let track = trackList[row], let column = tableColumn?.identifier else {return nil}
         
+        let builder = TableCellBuilder()
+        
         switch column {
             
         case .cid_index:
-            
-            let builder = TableCellBuilder()
             
             if track == playQueueDelegate.currentTrack {
                 builder.withImage(image: .imgPlayFilled, inColor: systemColorScheme.activeControlColor)
@@ -50,43 +56,36 @@ class PlayQueueTabularViewController: PlayQueueViewController {
                                         bottomYOffset: systemFontScheme.tableYOffset)
             }
             
-            return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
+        case .cid_title:
             
-        case .cid_trackName:
+            let title = track.titleOrDefaultDisplayName
             
-            let titleAndArtist = track.titleAndArtist
-            guard let cell = tableView.makeView(withIdentifier: .cid_trackName, owner: nil) as? AttrCellView else {return nil}
+            builder.withText(text: title,
+                             inFont: systemFontScheme.normalFont, andColor: systemColorScheme.primaryTextColor,
+                             selectedTextColor: systemColorScheme.primarySelectedTextColor,
+                             bottomYOffset: systemFontScheme.tableYOffset)
             
-            if let artist = titleAndArtist.artist {
-                cell.update(artist: artist, title: titleAndArtist.title)
-                
-            } else {
-                cell.update(title: titleAndArtist.title)
-            }
+        case .cid_artist:
             
-            cell.realignTextBottom(yOffset: systemFontScheme.tableYOffset)
+            guard let artist = track.artist else {return nil}
             
-            cell.row = row
-            cell.rowSelectionStateFunction = {[weak tableView] in
-                tableView?.selectedRowIndexes.contains(row) ?? false
-            }
-            
-            return cell
+            builder.withText(text: artist,
+                             inFont: systemFontScheme.normalFont, andColor: systemColorScheme.primaryTextColor,
+                             selectedTextColor: systemColorScheme.primarySelectedTextColor,
+                             bottomYOffset: systemFontScheme.tableYOffset)
             
         case .cid_duration:
-            
-            let builder = TableCellBuilder()
             
             builder.withText(text: ValueFormatter.formatSecondsToHMS(track.duration),
                                     inFont: systemFontScheme.normalFont, andColor: systemColorScheme.tertiaryTextColor,
                                     selectedTextColor: systemColorScheme.tertiarySelectedTextColor,
                                     bottomYOffset: systemFontScheme.tableYOffset)
             
-            return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
-            
         default:
             
             return nil
         }
+        
+        return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
     }
 }
