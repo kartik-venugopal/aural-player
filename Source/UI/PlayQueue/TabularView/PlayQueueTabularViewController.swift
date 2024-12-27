@@ -21,9 +21,57 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     override var rowHeight: CGFloat {30}
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        super.viewDidLoad()
         tableView.customizeHeader(heightIncrease: 0, customCellType: PlayQueueTabularViewTableHeaderCell.self)
+    }
+    
+    override func viewWillAppear() {
+        
+        super.viewWillAppear()
+        restoreDisplayedColumns()
+    }
+    
+    override func viewWillDisappear() {
+        
+        super.viewWillDisappear()
+        saveColumnsState()
+    }
+    
+    private func restoreDisplayedColumns() {
+        
+        var displayedColumnIds: [String] = playQueueUIState.displayedColumns.values.map {$0.id}
+
+        // Show default columns if none have been selected (eg. first time app is launched).
+        if displayedColumnIds.isEmpty {
+            displayedColumnIds = [NSUserInterfaceItemIdentifier.cid_index.rawValue, NSUserInterfaceItemIdentifier.cid_title.rawValue]
+        }
+
+        for column in tableView.tableColumns {
+//            column.headerCell = LibraryTableHeaderCell(stringValue: column.headerCell.stringValue)
+            column.isHidden = !displayedColumnIds.contains(column.identifier.rawValue)
+        }
+
+        for (index, columnId) in displayedColumnIds.enumerated() {
+
+            let oldIndex = tableView.column(withIdentifier: NSUserInterfaceItemIdentifier(columnId))
+            tableView.moveColumn(oldIndex, toColumn: index)
+        }
+
+        for column in playQueueUIState.displayedColumns.values {
+            tableView.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier(column.id))?.width = column.width
+        }
+    }
+    
+    func saveColumnsState() {
+        
+        playQueueUIState.displayedColumns.removeAll()
+        
+        for column in tableView.tableColumns.filter({$0.isShown}) {
+            
+            let colID = column.identifier.rawValue
+            playQueueUIState.displayedColumns[colID] = .init(id: colID, width: column.width)
+        }
     }
     
     // MARK: Table view delegate / data source --------------------------------------------------------------------------------------------------------

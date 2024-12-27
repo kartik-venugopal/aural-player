@@ -14,4 +14,14 @@ struct PlayQueueUIPersistentState: Codable {
     
     let currentView: PlayQueueView?
     let searchSettings: SearchSettings?
+    
+    let displayedColumns: [PlayQueueTableColumnPersistentState]?
+    let sortColumn: String?
+    let sortIsAscending: Bool?
+}
+
+struct PlayQueueTableColumnPersistentState: Codable {
+    
+    let id: String?
+    let width: CGFloat?
 }
