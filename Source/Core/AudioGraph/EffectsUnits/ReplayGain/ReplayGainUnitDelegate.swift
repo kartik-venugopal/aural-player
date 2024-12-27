@@ -75,15 +75,39 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     
     private(set) var scanStatus: String? = nil
     
+    private lazy var messenger = Messenger(for: self)
+    
+    override init(for unit: ReplayGainUnit) {
+        
+        super.init(for: unit)
+        
+        messenger.subscribe(to: .Player.preTrackPlayback, handler: preTrackPlayback(_:))
+        messenger.subscribe(to: .Effects.ReplayGainUnit.stateChanged, handler: reactToStateChange)
+    }
+    
+    override func toggleState() -> EffectsUnitState {
+        
+        let newState = super.toggleState()
+        reactToStateChange()
+        return newState
+    }
+    
+    private func reactToStateChange() {
+        
+        if isActive {
+            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
+        } else {
+            noReplayGain()
+        }
+    }
+    
     func applyReplayGain(forTrack track: Track?) {
+        
+        print("\napplyReplayGain(forTrack: \(track))")
         
         guard let theTrack = track else {
             
-            unit.replayGain = nil
-            self._isScanning.setFalse()
-            replayGainScanner.cancelOngoingScan()
-            Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
-            
+            noReplayGain()
             return
         }
         
@@ -111,6 +135,16 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
         case .analysisOnly:
             analyze(track: theTrack)
         }
+    }
+    
+    private func noReplayGain() {
+        
+        print("\nnoReplayGain()")
+        
+        unit.replayGain = nil
+        self._isScanning.setFalse()
+        replayGainScanner.cancelOngoingScan()
+        Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
     }
     
     private func hasEnoughInfo(replayGain: ReplayGain) -> Bool {
@@ -161,6 +195,13 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
             Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
             
             replayGainScanner.scanTrack(file: file, completionHandler)
+        }
+    }
+    
+    private func preTrackPlayback(_ notification: PreTrackPlaybackNotification) {
+        
+        if isActive {
+            applyReplayGain(forTrack: notification.newTrack)
         }
     }
 }

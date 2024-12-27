@@ -273,9 +273,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             graph.captureSystemSoundProfile()
             graph.applySoundProfile(profile)
         }
-        
-        // Replay gain ------------------------------------------------------------
-        replayGainUnit.applyReplayGain(forTrack: newTrack)
     }
     
     @inline(__always)

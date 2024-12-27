@@ -38,4 +38,18 @@ class ConcurrentSet<T: Hashable> {
             _set.insert(value)
         }
     }
+    
+    func performUnion(with values: any Sequence<T>) {
+        
+        lock.executeAfterWait {
+            _set = _set.union(values)
+        }
+    }
+    
+    func remove(_ value: T) {
+        
+        lock.executeAfterWait {
+            _set.remove(value)
+        }
+    }
 }

@@ -26,7 +26,7 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
     /// Keeps a record of all tracks that have been prepped for playback.
     /// Is useful when closing files that no longer need to be open.
     ///
-    private var preppedTracks: Set<Track> = Set()
+    private var preppedTracks: ConcurrentSet<Track> = ConcurrentSet()
     
     init(playQueue: PlayQueueProtocol, trackReader: TrackReader) {
         
@@ -52,17 +52,14 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
             
             // Prepare each of the candidate tracks for playback.
             predictedNextTracks.forEach {
-                
-                do {
-                    try self.trackReader.prepareForPlayback(track: $0, immediate: false)
-                } catch {}
+                try? self.trackReader.prepareForPlayback(track: $0, immediate: false)
             }
             
             // Update the preppedTracks set and close files that no longer need to be open (i.e. not
             // currently playing and not predicted to play next).
             
             let playingTrack: Track? = context.requestedTrack
-            let tracksToClose: [Track] = self.preppedTracks.filter {$0 != playingTrack && !predictedNextTracks.contains($0)}
+            let tracksToClose: [Track] = self.preppedTracks.set.filter {$0 != playingTrack && !predictedNextTracks.contains($0)}
             
             for track in tracksToClose {
                 
@@ -71,7 +68,7 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
             }
             
             // Add the candidate tracks to the preppedTracks set.
-            self.preppedTracks = self.preppedTracks.union(predictedNextTracks)
+            self.preppedTracks.performUnion(with: predictedNextTracks)
         }
             
         chain.proceed(context)
