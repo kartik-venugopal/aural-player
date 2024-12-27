@@ -14,12 +14,13 @@ class PlaylistFileHistoryItem: HistoryItem {
     
     let playlistFile: URL
     
-    init(playlistFile: URL, lastEventTime: Date, eventCount: Int = 1) {
+    init(playlistFile: URL, addCount: HistoryEventCounter, playCount: HistoryEventCounter) {
         
         self.playlistFile = playlistFile
         super.init(displayName: playlistFile.lastPathComponents(count: 2), 
                    key: Self.key(forPlaylistFile: playlistFile),
-                   lastEventTime: lastEventTime, eventCount: eventCount)
+                   addCount: addCount,
+                   playCount: playCount)
     }
     
     static func key(forPlaylistFile playlistFile: URL) -> CompositeKey {

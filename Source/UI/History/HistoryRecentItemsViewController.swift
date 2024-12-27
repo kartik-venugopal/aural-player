@@ -134,10 +134,10 @@ extension HistoryRecentItemsViewController: NSTableViewDataSource, NSTableViewDe
         
         let builder = TableCellBuilder()
             
-        builder.withAttributedText(strings: [(text: item.lastEventTime.hmsString,
-                                                         font: systemFontScheme.normalFont,
-                                                         color: systemColorScheme.primaryTextColor)], selectedTextColors: [systemColorScheme.primarySelectedTextColor],
-                                              bottomYOffset: systemFontScheme.tableYOffset)
+//        builder.withAttributedText(strings: [(text: item.lastEventTime.hmsString,
+//                                                         font: systemFontScheme.normalFont,
+//                                                         color: systemColorScheme.primaryTextColor)], selectedTextColors: [systemColorScheme.primarySelectedTextColor],
+//                                              bottomYOffset: systemFontScheme.tableYOffset)
         
         return builder.buildCell(forTableView: tableView, forColumnWithId: column.identifier, inRow: row)
     }
@@ -146,7 +146,7 @@ extension HistoryRecentItemsViewController: NSTableViewDataSource, NSTableViewDe
         
         let builder = TableCellBuilder()
         
-        builder.withAttributedText(strings: [(text: "\(item.eventCount)",
+        builder.withAttributedText(strings: [(text: "\(item.addCount)",
                                               font: systemFontScheme.normalFont,
                                               color: systemColorScheme.primaryTextColor)], selectedTextColors: [systemColorScheme.primarySelectedTextColor],
                                    bottomYOffset: systemFontScheme.tableYOffset)

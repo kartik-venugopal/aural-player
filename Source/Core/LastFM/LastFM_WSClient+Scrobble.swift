@@ -31,6 +31,7 @@ extension LastFM_WSClient {
         guard self.scrobblingEnabled,
            track.canBeScrobbledOnLastFM,
               let historyLastPlayedItem = historyDelegate.lastPlayedItem,
+              let lastPlayedTime = historyLastPlayedItem.playCount.lastEventTime,
               historyLastPlayedItem.track == track else {
             
             NSLog("Cannot scrobble track '\(track)' on Last.fm because scrobbling eligibility conditions were not met.")
@@ -38,12 +39,12 @@ extension LastFM_WSClient {
         }
         
         let now = Date()
-        let playbackTime = now.timeIntervalSince(historyLastPlayedItem.lastEventTime)
+        let playbackTime = now.timeIntervalSince(lastPlayedTime)
         
         if playbackTime >= min(track.duration / 2, Self.maxPlaybackTime) {
             
             DispatchQueue.global(qos: .background).async {
-                self.scrobbleTrack(track: track, timestamp: historyLastPlayedItem.lastEventTime.epochTime)
+                self.scrobbleTrack(track: track, timestamp: lastPlayedTime.epochTime)
             }
         }
     }

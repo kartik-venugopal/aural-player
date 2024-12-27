@@ -15,14 +15,15 @@ class GroupHistoryItem: HistoryItem {
     let groupName: String
     let groupType: GroupType
     
-    init(groupName: String, groupType: GroupType, lastEventTime: Date, eventCount: Int = 1) {
+    init(groupName: String, groupType: GroupType, addCount: HistoryEventCounter, playCount: HistoryEventCounter) {
         
         self.groupName = groupName
         self.groupType = groupType
         
         super.init(displayName: groupName,
                    key: Self.key(forGroupName: groupName, andType: groupType),
-                   lastEventTime: lastEventTime, eventCount: eventCount)
+                   addCount: addCount,
+                   playCount: playCount)
     }
     
     static func key(forGroupName groupName: String, andType groupType: GroupType) -> CompositeKey {

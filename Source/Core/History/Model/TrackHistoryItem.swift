@@ -22,12 +22,13 @@ class TrackHistoryItem: HistoryItem {
         set {}
     }
     
-    init(track: Track, lastEventTime: Date, eventCount: Int = 1) {
+    init(track: Track, addCount: HistoryEventCounter, playCount: HistoryEventCounter) {
         
         self.track = track
         super.init(displayName: track.displayName,
                    key: Self.key(forTrack: track),
-                   lastEventTime: lastEventTime, eventCount: eventCount)
+                   addCount: addCount,
+                   playCount: playCount)
     }
     
     static func key(forTrack track: Track) -> CompositeKey {

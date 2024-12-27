@@ -17,12 +17,13 @@ class PlaylistHistoryItem: HistoryItem {
     
     let playlistName: String
     
-    init(playlistName: String, lastEventTime: Date, eventCount: Int = 1) {
+    init(playlistName: String, addCount: HistoryEventCounter, playCount: HistoryEventCounter) {
         
         self.playlistName = playlistName
         super.init(displayName: playlistName,
                    key: Self.key(forPlaylistNamed: playlistName),
-                   lastEventTime: lastEventTime, eventCount: eventCount)
+                   addCount: addCount,
+                   playCount: playCount)
     }
     
     static func key(forPlaylistNamed playlistName: String) -> CompositeKey {

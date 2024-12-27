@@ -14,19 +14,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     // Recently played items
     var recentItems: OrderedDictionary<CompositeKey, HistoryItem> = OrderedDictionary()
     
-    var numberOfItems: Int {
-        recentItems.count
-    }
-    
     var lastPlaybackPosition: Double = 0
-    
-    var lastPlayedItem: TrackHistoryItem? {
-        recentItems.values.last(where: {$0 is TrackHistoryItem}) as? TrackHistoryItem
-    }
-    
-    func historyItem(at index: Int) -> HistoryItem {
-        recentItems.values[index]
-    }
     
     var displayName: String {playQueue.displayName}
     

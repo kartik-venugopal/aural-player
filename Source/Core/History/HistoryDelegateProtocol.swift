@@ -49,9 +49,11 @@ protocol HistoryDelegateProtocol {
     
     func resumeLastPlayedSequence()
     
+    func trackItem(forTrack track: Track) -> TrackHistoryItem?
+    
     func playCount(forTrack track: Track) -> Int
     
-    func lastEventTime(forTrack track: Track) -> Date?
+    func lastPlayedTime(forTrack track: Track) -> Date?
     
     // TODO: getPlayStats(), getAddStats()
 }

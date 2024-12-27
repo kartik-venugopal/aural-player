@@ -59,8 +59,9 @@ enum HistoryPersistentItemType: String, Codable {
 struct HistoryItemPersistentState: Codable {
     
     let itemType: HistoryPersistentItemType?
-    let lastEventTime: Date?
-    let eventCount: Int?
+
+    let addCount: HistoryEventCounterPersistentState?
+    let playCount: HistoryEventCounterPersistentState?
     
     var trackFile: URL? = nil
     
@@ -73,8 +74,8 @@ struct HistoryItemPersistentState: Codable {
     
     init?(item: HistoryItem) {
         
-        self.lastEventTime = item.lastEventTime
-        self.eventCount = item.eventCount
+        self.addCount = .init(counter: item.addCount)
+        self.playCount = .init(counter: item.playCount)
         
         if let trackHistoryItem = item as? TrackHistoryItem {
             
@@ -115,14 +116,32 @@ struct HistoryItemPersistentState: Codable {
     init(legacyPersistentState: LegacyHistoryItemPersistentState) {
         
         self.itemType = .track
-        self.eventCount = 1
         
-        self.lastEventTime = legacyPersistentState.dateFromTimestamp
+        self.addCount = .init(lastEventTime: legacyPersistentState.dateFromTimestamp, eventCount: 1)
+        self.playCount = .init()
         
         if let filePath = legacyPersistentState.file {
             self.trackFile = URL(fileURLWithPath: filePath)
         } else {
             self.trackFile = nil
         }
+    }
+}
+
+struct HistoryEventCounterPersistentState: Codable {
+    
+    let lastEventTime: Date?
+    let eventCount: Int?
+    
+    init(counter: HistoryEventCounter) {
+        
+        self.lastEventTime = counter.lastEventTime
+        self.eventCount = counter.eventCount
+    }
+    
+    init(lastEventTime: Date? = nil, eventCount: Int? = nil) {
+        
+        self.lastEventTime = lastEventTime
+        self.eventCount = eventCount
     }
 }

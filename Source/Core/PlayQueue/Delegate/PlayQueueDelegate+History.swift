@@ -12,6 +12,18 @@ import Foundation
 
 extension PlayQueueDelegate {
     
+    var numberOfItems: Int {
+        recentItems.count
+    }
+    
+    var lastPlayedItem: TrackHistoryItem? {
+        recentItems.values.last(where: {$0 is TrackHistoryItem}) as? TrackHistoryItem
+    }
+    
+    func historyItem(at index: Int) -> HistoryItem {
+        recentItems.values[index]
+    }
+    
     var allRecentItems: [HistoryItem] {
         
         // Reverse the array for chronological order (most recent items first).
@@ -69,22 +81,18 @@ extension PlayQueueDelegate {
         }
     }
     
-    func playCount(forTrack track: Track) -> Int {
+    func trackItem(forTrack track: Track) -> TrackHistoryItem? {
         
-        if let matchingItem = recentItems.values.first(where: {($0 as? TrackHistoryItem)?.track == track}) {
-            return matchingItem.eventCount
-        }
-        
-        return 0
+        let trackKey = TrackHistoryItem.key(forTrack: track)
+        return recentItems[trackKey] as? TrackHistoryItem
     }
     
-    func lastEventTime(forTrack track: Track) -> Date? {
-        
-        if let matchingItem = recentItems.values.first(where: {($0 as? TrackHistoryItem)?.track == track}) {
-            return matchingItem.lastEventTime
-        }
-        
-        return nil
+    func playCount(forTrack track: Track) -> Int {
+        trackItem(forTrack: track)?.playCount.eventCount ?? 0
+    }
+    
+    func lastPlayedTime(forTrack track: Track) -> Date? {
+        trackItem(forTrack: track)?.playCount.lastEventTime
     }
     
     // MARK: Event handling for Tracks ---------------------------------------------------------------
@@ -96,14 +104,14 @@ extension PlayQueueDelegate {
             if url.isSupportedAudioFile {
                 
                 if let track = self.findTrack(forFile: url) {
-                    markEventForTrack(track)
+                    markAddEventForTrack(track)
                 }
                 
             } else if url.isDirectory {
-                markEventForFolder(url)
+                markAddEventForFolder(url)
                 
             } else if url.isSupportedPlaylistFile {
-                markEventForPlaylistFile(url)
+                markAddEventForPlaylistFile(url)
             }
         }
     }
@@ -113,7 +121,7 @@ extension PlayQueueDelegate {
         
         if let newTrack = notification.endTrack {
             
-            markEventForTrack(newTrack)
+            markAddEventForTrack(newTrack)
             messenger.publish(.History.updated)
         }
     }
@@ -121,13 +129,13 @@ extension PlayQueueDelegate {
     func tracksEnqueued(_ tracks: [Track]) {
         
         for track in tracks {
-            markEventForTrack(track)
+            markAddEventForTrack(track)
         }
         
         messenger.publish(.History.updated)
     }
     
-    fileprivate func markEventForTrack(_ track: Track) {
+    fileprivate func markAddEventForTrack(_ track: Track) {
         
         let trackKey = TrackHistoryItem.key(forTrack: track)
         
@@ -136,7 +144,7 @@ extension PlayQueueDelegate {
             
         } else {
             
-            recentItems[trackKey] = TrackHistoryItem(track: track, lastEventTime: Date())
+            recentItems[trackKey] = TrackHistoryItem(track: track, addCount: .createWithFirstEvent(), playCount: .init())
             maintainListSize()
         }
     }
@@ -148,20 +156,20 @@ extension PlayQueueDelegate {
 //        for fileSystemItem in fileSystemItems {
 //            
 //            if fileSystemItem.isTrack, let trackItem = fileSystemItem as? FileSystemTrackItem {
-//                markEventForTrack(trackItem.track)
+//                markAddEventForTrack(trackItem.track)
 //                
 //            } else if fileSystemItem.isDirectory {
-//                markEventForFolder(fileSystemItem.url)
+//                markAddEventForFolder(fileSystemItem.url)
 //                
 //            } else {
-//                markEventForPlaylistFile(fileSystemItem.url)
+//                markAddEventForPlaylistFile(fileSystemItem.url)
 //            }
 //        }
 //        
 //        messenger.publish(.History.updated)
 //    }
     
-    fileprivate func markEventForFolder(_ folder: URL) {
+    fileprivate func markAddEventForFolder(_ folder: URL) {
         
         let folderKey = FolderHistoryItem.key(forFolder: folder)
         
@@ -170,7 +178,7 @@ extension PlayQueueDelegate {
             
         } else {
             
-            recentItems[folderKey] = FolderHistoryItem(folder: folder, lastEventTime: Date())
+            recentItems[folderKey] = FolderHistoryItem(folder: folder, addCount: .createWithFirstEvent(), playCount: .init())
             maintainListSize()
         }
     }
@@ -182,7 +190,7 @@ extension PlayQueueDelegate {
         }
         
         for playlistFile in playlistFiles {
-            markEventForPlaylistFile(playlistFile.file)
+            markAddEventForPlaylistFile(playlistFile.file)
         }
         
         tracksEnqueued(deDupedTracks)
@@ -190,7 +198,7 @@ extension PlayQueueDelegate {
         messenger.publish(.History.updated)
     }
     
-    fileprivate func markEventForPlaylistFile(_ playlistFile: URL) {
+    fileprivate func markAddEventForPlaylistFile(_ playlistFile: URL) {
         
         let playlistFileKey = PlaylistFileHistoryItem.key(forPlaylistFile: playlistFile)
         
@@ -199,7 +207,8 @@ extension PlayQueueDelegate {
             
         } else {
             
-            recentItems[playlistFileKey] = PlaylistFileHistoryItem(playlistFile: playlistFile, lastEventTime: Date())
+            recentItems[playlistFileKey] = PlaylistFileHistoryItem(playlistFile: playlistFile,
+                                                                   addCount: .createWithFirstEvent(), playCount: .init())
             maintainListSize()
         }
     }
@@ -213,7 +222,7 @@ extension PlayQueueDelegate {
 //        }
 //        
 //        for group in groups {
-//            markEventForGroup(group)
+//            markAddEventForGroup(group)
 //        }
 //        
 //        tracksEnqueued(deDupedTracks)
@@ -221,7 +230,7 @@ extension PlayQueueDelegate {
 //        messenger.publish(.History.updated)
 //    }
 //    
-//    fileprivate func markEventForGroup(_ group: Group) {
+//    fileprivate func markAddEventForGroup(_ group: Group) {
 //        
 //        let groupKey = GroupHistoryItem.key(forGroupName: group.name, andType: group.type)
 //        
@@ -253,7 +262,7 @@ extension PlayQueueDelegate {
     
     private func markNewEvent(forItem existingHistoryItem: HistoryItem) {
         
-        existingHistoryItem.markEvent()
+        existingHistoryItem.markAddEvent()
         
         // Move to bottom (i.e. most recent)
         recentItems.removeValue(forKey: existingHistoryItem.key)

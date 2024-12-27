@@ -124,7 +124,7 @@
             </connections>
             <point key="canvasLocation" x="-147" y="-1180"/>
         </menu>
-        <box focusRingType="none" misplaced="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" id="fke-7G-0dx" userLabel="Root Container">
+        <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" id="fke-7G-0dx" userLabel="Root Container">
             <rect key="frame" x="0.0" y="0.0" width="700" height="341"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="tdp-f1-awf">
@@ -132,13 +132,13 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <scrollView borderType="none" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U24-9d-uRM" userLabel="FileSystemBrowser">
-                        <rect key="frame" x="0.0" y="43" width="700" height="46"/>
+                        <rect key="frame" x="0.0" y="43" width="700" height="270"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="JxV-7x-wTQ">
-                            <rect key="frame" x="0.0" y="0.0" width="685" height="46"/>
+                            <rect key="frame" x="0.0" y="0.0" width="685" height="270"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" headerView="eGL-lw-kpG" viewBased="YES" indentationPerLevel="16" outlineTableColumn="wQR-x7-Rh4" id="aWI-Z6-ODA" customClass="TuneBrowserOutlineView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="685" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="685" height="242"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -536,7 +536,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="CPl-ZX-sKk">
-                            <rect key="frame" x="685" y="28" width="15" height="18"/>
+                            <rect key="frame" x="685" y="28" width="15" height="242"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" wantsLayer="YES" id="eGL-lw-kpG">

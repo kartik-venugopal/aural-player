@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView identifier="tid_PlayQueueSimpleView" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" autosaveColumns="NO" rowHeight="30" headerView="jal-TJ-HVq" viewBased="YES" id="RAo-B3-mxT" customClass="AuralTableView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1532" height="6"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1532" height="34"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -594,39 +594,75 @@
             <items>
                 <menuItem title="Title" identifier="playQueue_title" id="Y2t-RY-HXU">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="S91-EJ-yHr"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Filename" identifier="playQueue_filename" id="mdl-tr-hkE">
+                <menuItem title="Filename" tag="1" identifier="playQueue_filename" id="mdl-tr-hkE">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="DAN-bL-nQs"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Artist" identifier="playQueue_artist" id="k9Q-C5-bfZ" userLabel="Artist">
+                <menuItem title="Artist" tag="2" identifier="playQueue_artist" id="k9Q-C5-bfZ" userLabel="Artist">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="w7L-rG-U2e"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Album" identifier="playQueue_album" id="bps-cG-O8X" userLabel="Album">
+                <menuItem title="Album" tag="3" identifier="playQueue_album" id="bps-cG-O8X" userLabel="Album">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="rlu-ke-5eL"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Genre" identifier="playQueue_genre" id="BzY-Ae-60L" userLabel="Genre">
+                <menuItem title="Genre" tag="4" identifier="playQueue_genre" id="BzY-Ae-60L" userLabel="Genre">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="piz-fL-kTb"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Track #" identifier="playQueue_trackNum" id="xHx-71-qh5">
+                <menuItem title="Track #" tag="5" identifier="playQueue_trackNum" id="xHx-71-qh5">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="yCh-Nm-V5b"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Disc #" identifier="playQueue_discNum" id="954-YD-Ulk">
+                <menuItem title="Disc #" tag="6" identifier="playQueue_discNum" id="954-YD-Ulk">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="NBM-1F-wlE"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Year" identifier="playQueue_year" id="lya-Y2-TwU">
+                <menuItem title="Year" tag="7" identifier="playQueue_year" id="lya-Y2-TwU">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="cus-vX-aWB"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Duration" identifier="playQueue_duration" id="fFK-7E-5r1" userLabel="Duration">
+                <menuItem title="Duration" tag="8" identifier="playQueue_duration" id="fFK-7E-5r1" userLabel="Duration">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="5gj-JP-7dr"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Format" identifier="playQueue_format" id="LbG-am-zqQ" userLabel="Format">
+                <menuItem title="Format" tag="9" identifier="playQueue_format" id="LbG-am-zqQ" userLabel="Format">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="XqJ-Yq-Zfu"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Play Count" identifier="playQueue_playCount" id="Qua-EW-eTn">
+                <menuItem title="Play Count" tag="10" identifier="playQueue_playCount" id="Qua-EW-eTn">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="pkN-Oy-MBA"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Last Played" identifier="playQueue_lastPlayed" id="wC4-bC-GW2">
+                <menuItem title="Last Played" tag="11" identifier="playQueue_lastPlayed" id="wC4-bC-GW2">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleColumnAction:" target="-2" id="3mi-wj-8Tg"/>
+                    </connections>
                 </menuItem>
             </items>
             <point key="canvasLocation" x="-305" y="154"/>

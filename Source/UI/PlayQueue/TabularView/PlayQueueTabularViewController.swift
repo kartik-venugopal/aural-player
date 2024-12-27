@@ -142,6 +142,24 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         
         return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
     }
+    
+    private static let columnIDs: [NSUserInterfaceItemIdentifier] = [.cid_title, .cid_fileName, .cid_artist, .cid_album, .cid_genre, .cid_trackNum, .cid_discNum, .cid_year, .cid_duration, .cid_format, .cid_playCount, .cid_lastPlayed]
+    
+    @IBAction func toggleColumnAction(_ sender: NSMenuItem) {
+        
+        // TODO: Validation - Don't allow 0 columns to be shown.
+        
+        let index = sender.tag
+        guard Self.columnIDs.indices.contains(index), let column = tableView.tableColumn(withIdentifier: Self.columnIDs[index]) else {return}
+        
+        column.isHidden.toggle()
+        
+        //        if col.isHidden {
+        //            tuneBrowserUIState.displayedColumns.removeValue(forKey: id.rawValue)
+        //        } else {
+        //            tuneBrowserUIState.displayedColumns[id.rawValue] = .init(id: id.rawValue, width: col.width)
+        //        }
+    }
 }
 
 fileprivate extension TableCellBuilder {
