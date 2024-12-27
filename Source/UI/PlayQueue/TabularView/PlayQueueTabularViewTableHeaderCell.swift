@@ -37,7 +37,7 @@ class PlayQueueTabularViewTableHeaderCell: NSTableHeaderCell {
         default:
             
             // Left alignment
-            x = cellFrame.minX
+            x = cellFrame.minX + 5
         }
         
         let rect = NSRect(x: x, y: cellFrame.minY, width: size.width, height: cellFrame.height)

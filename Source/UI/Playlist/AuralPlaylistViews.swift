@@ -61,6 +61,8 @@ extension NSUserInterfaceItemIdentifier {
     
     static let cid_trackName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Name")
     
+    static let cid_fileName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_FileName")
+    
     static let cid_title: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Title")
     
     static let cid_artist: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Artist")
@@ -69,7 +71,19 @@ extension NSUserInterfaceItemIdentifier {
     
     static let cid_genre: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Genre")
     
+    static let cid_trackNum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_TrackNum")
+    
+    static let cid_discNum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_DiscNum")
+    
+    static let cid_year: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Year")
+    
     static let cid_duration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Duration")
+    
+    static let cid_format: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Format")
+    
+    static let cid_playCount: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_PlayCount")
+    
+    static let cid_lastPlayed: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_LastPlayed")
     
     static let cid_chapterIndex: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_chapterIndex")
     

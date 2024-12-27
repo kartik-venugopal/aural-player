@@ -18,6 +18,8 @@ class FileSystemInfo {
     let file: URL
     
     let fileName: String
+    let fileNameWithExtension: String
+    
     let defaultDisplayName: String
     let isNativelySupported: Bool
     
@@ -35,6 +37,7 @@ class FileSystemInfo {
         
         self.file = file
         self.fileName = file.nameWithoutExtension
+        self.fileNameWithExtension = file.lastPathComponent
         self.isNativelySupported = file.isNativelySupported
         self.defaultDisplayName = self.fileName
     }

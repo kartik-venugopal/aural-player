@@ -80,30 +80,23 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     override init(for unit: ReplayGainUnit) {
         
         super.init(for: unit)
-        
         messenger.subscribe(to: .Player.preTrackPlayback, handler: preTrackPlayback(_:))
-        messenger.subscribe(to: .Effects.ReplayGainUnit.stateChanged, handler: reactToStateChange)
     }
     
     override func toggleState() -> EffectsUnitState {
         
         let newState = super.toggleState()
-        reactToStateChange()
-        return newState
-    }
-    
-    private func reactToStateChange() {
         
         if isActive {
             applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
         } else {
             noReplayGain()
         }
+        
+        return newState
     }
     
     func applyReplayGain(forTrack track: Track?) {
-        
-        print("\napplyReplayGain(forTrack: \(track))")
         
         guard let theTrack = track else {
             
@@ -138,8 +131,6 @@ class ReplayGainUnitDelegate: EffectsUnitDelegate<ReplayGainUnit>, ReplayGainUni
     }
     
     private func noReplayGain() {
-        
-        print("\nnoReplayGain()")
         
         unit.replayGain = nil
         self._isScanning.setFalse()

@@ -14,6 +14,10 @@ extension Track {
     
     private static let minDurationForScrobblingOnLastFM: Double = 30      // 30 seconds
     
+    var fileName: String {
+        fileSystemInfo.fileNameWithExtension
+    }
+    
     var isNativelySupported: Bool {
         metadata.fileSystemInfo.isNativelySupported
     }

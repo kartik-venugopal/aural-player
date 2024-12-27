@@ -69,6 +69,24 @@ extension PlayQueueDelegate {
         }
     }
     
+    func playCount(forTrack track: Track) -> Int {
+        
+        if let matchingItem = recentItems.values.first(where: {($0 as? TrackHistoryItem)?.track == track}) {
+            return matchingItem.eventCount
+        }
+        
+        return 0
+    }
+    
+    func lastEventTime(forTrack track: Track) -> Date? {
+        
+        if let matchingItem = recentItems.values.first(where: {($0 as? TrackHistoryItem)?.track == track}) {
+            return matchingItem.lastEventTime
+        }
+        
+        return nil
+    }
+    
     // MARK: Event handling for Tracks ---------------------------------------------------------------
     
     func itemsLoadedFromFileSystem(notif: HistoryItemsAddedNotification) {
