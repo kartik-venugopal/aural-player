@@ -27,8 +27,6 @@ struct AVFMappedMetadata {
     ///
     let avAsset: AVURLAsset
     
-    let audioFormat: AVAudioFormat
-    
     ///
     /// The AVFoundation audio track object that contains track-level information (such as bit rate).
     ///
@@ -57,7 +55,6 @@ struct AVFMappedMetadata {
         guard let audioTrack = avAsset.tracks.first(where: {$0.mediaType == .audio}) else {return nil}
         
         self.audioTrack = audioTrack
-        self.audioFormat = .init(cmAudioFormatDescription: audioTrack.formatDescription)
         
         // Iterate through all metadata items, and group them based on
         // key space.

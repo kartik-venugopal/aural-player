@@ -25,7 +25,7 @@ extension FavoritesDelegate {
                 let track = Track(trackFile)
                 self.favoriteTracks[trackFile] = FavoriteTrack(track: track)
                 
-                trackReader.loadPrimaryMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
+                trackReader.loadMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
             }
             
 //            for favArtist in state.favoriteArtists?.compactMap({$0.groupName}) ?? [] {

@@ -23,8 +23,6 @@ class FileSystemInfo {
     let defaultDisplayName: String
     let isNativelySupported: Bool
     
-    // TODO: Should these be recomputed every time ? File attributes (eg. last opened) can change over the course of an app run.
-    
     private lazy var attributes = file.attributes
     
     lazy var kindOfFile: String? = attributes.kindOfFile

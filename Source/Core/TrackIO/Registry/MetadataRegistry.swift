@@ -16,7 +16,7 @@ class MetadataRegistry: PersistentRootObject {
         "metadata"
     }
     
-    private let registry: ConcurrentMap<URL, PrimaryMetadata> = ConcurrentMap()
+    private let registry: ConcurrentMap<URL, FileMetadata> = ConcurrentMap()
     private let opQueue: OperationQueue = .init(opCount: (Double(System.physicalCores) * 1.5).roundedInt, qos: .userInteractive)
     
     private let fileImageCache: ImageCache = ImageCache(baseDir: FilesAndPaths.metadataDir.appendingPathComponent("coverArt", isDirectory: true),
@@ -25,10 +25,10 @@ class MetadataRegistry: PersistentRootObject {
     
     init(persistentState: MetadataPersistentState?) {
         
-        if let metadataPersistentState: [URL: PrimaryMetadataPersistentState] = persistentState?.metadata {
-            
-            registry.bulkAddAndMap(map: metadataPersistentState) {(metadataState: PrimaryMetadataPersistentState) in
-                PrimaryMetadata(persistentState: metadataState, persistentCoverArt: nil)
+        if let metadataPersistentState: [URL: FileMetadataPersistentState] = persistentState?.metadata {
+
+            registry.bulkAddAndMap(map: metadataPersistentState) {(file: URL, metadataState: FileMetadataPersistentState) in
+                FileMetadata(file: file, persistentState: metadataState, persistentCoverArt: nil)
             }
         }
         
@@ -48,7 +48,7 @@ class MetadataRegistry: PersistentRootObject {
         fileImageCache.persistAllEntries()
     }
     
-    subscript(_ track: Track) -> PrimaryMetadata? {
+    subscript(_ track: Track) -> FileMetadata? {
         
         get {
             registry[track.file]
@@ -73,10 +73,10 @@ class MetadataRegistry: PersistentRootObject {
     
     var persistentState: MetadataPersistentState {
         
-        var map: [URL: PrimaryMetadataPersistentState] = [:]
+        var map: [URL: FileMetadataPersistentState] = [:]
         
         for (file, metadata) in registry.map {
-            map[file] = PrimaryMetadataPersistentState(metadata: metadata)
+            map[file] = FileMetadataPersistentState(metadata: metadata)
         }
         
         return MetadataPersistentState(metadata: map, coverArt: fileImageCache.persistentState)

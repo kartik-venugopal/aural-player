@@ -33,11 +33,4 @@ protocol FileReaderProtocol {
     /// Loads cover art for a file.
     ///
     func getArt(for file: URL) -> CoverArt?
-    
-    ///
-    /// Loads all non-essential ("auxiliary") metadata associated with a track, for display in the "Detailed track info" view.
-    ///
-    func getAudioInfo(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AudioInfo
-    
-//    func getAllMetadata(for file: URL) -> FileMetadata
 }

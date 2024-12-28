@@ -18,11 +18,16 @@ class Track: Hashable, PlayableItem {
     var metadata: FileMetadata
     var playbackContext: PlaybackContextProtocol?
     
-    init(_ file: URL, cueSheetMetadata: CueSheetMetadata? = nil, primaryMetadata: PrimaryMetadata? = nil) {
+    init(_ file: URL, primaryMetadata: PrimaryMetadata? = nil, cueSheetMetadata: CueSheetMetadata? = nil) {
 
         self.file = file
         self.metadata = FileMetadata(file: file)
-        self.metadata.primary = primaryMetadata
+        
+        if let primaryMetadata {
+            self.metadata.updatePrimaryMetadata(with: primaryMetadata)
+        }
+        
+        self.metadata.cueSheetMetadata = cueSheetMetadata
     }
     
     static func == (lhs: Track, rhs: Track) -> Bool {

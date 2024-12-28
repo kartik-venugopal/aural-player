@@ -15,10 +15,69 @@ import Foundation
 class FileMetadata {
 
     let fileSystemInfo: FileSystemInfo
+    var audioInfo: AudioInfo
     
-    var primary: PrimaryMetadata?
-    var cueSheet: CueSheetMetadata?
-    var audioInfo: AudioInfo?
+    // ------------------------------------------------
+    
+    var playbackFormat: PlaybackFormat?
+    
+    var title: String?
+    var artist: String?
+    var albumArtist: String?
+    var album: String?
+    var genre: String?
+    
+    var year: Int? {
+        
+        didSet {
+            
+            guard let year = self.year else {
+                
+                self.decade = nil
+                return
+            }
+            
+            let firstYearOfDecade = year - (year % 10)
+            self.decade = "\(firstYearOfDecade)'s"
+        }
+    }
+    
+    private(set) var decade: String?
+    
+    var composer: String?
+    var conductor: String?
+    var performer: String?
+    var lyricist: String?
+    
+    var trackNumber: Int?
+    var totalTracks: Int?
+    
+    var discNumber: Int?
+    var totalDiscs: Int?
+    
+    var duration: Double = 0
+    var durationIsAccurate: Bool = false
+    
+    var isProtected: Bool?
+    
+    var chapters: [Chapter] = []
+    
+    var bpm: Int?
+    
+    var lyrics: String?
+    
+    var nonEssentialMetadata: [String: MetadataEntry] = [:]
+    
+    var art: CoverArt?
+    
+    // Used by the metadata cache to determine whether or not to look for art
+    var hasArt: Bool {art != nil}
+    
+    var replayGain: ReplayGain?
+    
+    var cueSheetMetadata: CueSheetMetadata?
+    
+    // ----------------------------------------------------
     
     var isPlayable: Bool {validationError == nil}
     var validationError: DisplayableError?
@@ -27,6 +86,89 @@ class FileMetadata {
     var preparationError: DisplayableError?
     
     init(file: URL) {
+        
         self.fileSystemInfo = FileSystemInfo(file: file)
+        self.audioInfo = .init()
+    }
+    
+    init?(file: URL, persistentState: FileMetadataPersistentState, persistentCoverArt: CoverArt?) {
+        
+        self.fileSystemInfo = FileSystemInfo(file: file)
+        self.audioInfo = .init()
+        
+        guard let playbackFormatState = persistentState.playbackFormat,
+              let playbackFormat = PlaybackFormat(persistentState: playbackFormatState) else {return nil}
+        
+        self.playbackFormat = playbackFormat
+        
+        self.title = persistentState.title
+        self.artist = persistentState.artist
+        self.album = persistentState.album
+        self.albumArtist = persistentState.albumArtist
+        self.genre = persistentState.genre
+        self.year = persistentState.year
+        
+        self.composer = persistentState.composer
+        self.conductor = persistentState.conductor
+        self.performer = persistentState.performer
+        self.lyricist = persistentState.lyricist
+        
+        self.trackNumber = persistentState.trackNumber
+        self.totalTracks = persistentState.totalTracks
+        
+        self.discNumber = persistentState.discNumber
+        self.totalDiscs = persistentState.totalDiscs
+        
+        self.duration = persistentState.duration ?? 0
+        self.durationIsAccurate = persistentState.durationIsAccurate ?? true
+        
+        self.isProtected = persistentState.isProtected
+        
+        self.chapters = (persistentState.chapters ?? []).enumerated().compactMap {Chapter.init(persistentState: $1, index: $0)}
+        
+        self.bpm = persistentState.bpm
+        self.lyrics = persistentState.lyrics
+        self.nonEssentialMetadata = persistentState.nonEssentialMetadata
+        
+        self.art = persistentCoverArt
+    }
+    
+    func updatePrimaryMetadata(with metadata: PrimaryMetadata) {
+        
+        self.title = metadata.title
+        self.artist = metadata.artist
+        self.album = metadata.album
+        self.albumArtist = metadata.albumArtist
+        self.genre = metadata.genre
+        
+        self.year = metadata.year
+        
+        self.trackNumber = metadata.trackNumber
+        self.discNumber = metadata.discNumber
+        
+        self.totalTracks = metadata.totalTracks
+        self.totalDiscs = metadata.totalDiscs
+        
+        self.composer = metadata.composer
+        self.conductor = metadata.conductor
+        self.performer = metadata.performer
+        self.lyricist = metadata.lyricist
+        
+        self.duration = metadata.duration
+        self.durationIsAccurate = metadata.durationIsAccurate
+        
+        self.isProtected = metadata.isProtected
+        
+        self.chapters = metadata.chapters
+        
+        self.bpm = metadata.bpm
+        self.lyrics = metadata.lyrics
+        self.nonEssentialMetadata = metadata.nonEssentialMetadata
+        
+        self.art = metadata.art
+        
+        if let audioInfo = metadata.audioInfo {
+            self.audioInfo = audioInfo
+        }
     }
 }

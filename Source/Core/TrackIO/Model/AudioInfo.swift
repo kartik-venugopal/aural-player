@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// Encapsulates all techincal audio metadata for a track.
 ///
-struct AudioInfo {
+class AudioInfo {
     
     // The total number of frames in the track
     var frames: AVAudioFramePosition?

@@ -72,31 +72,41 @@ class FFmpegFileReader: FileReaderProtocol {
     
     func getPrimaryMetadata(for file: URL) throws -> PrimaryMetadata {
         
+        let playbackContext = try FFmpegPlaybackContext(for: file)
+        
         // Construct an ffmpeg file context for this track.
         // This will be the source of all track metadata.
-        let fctx = try FFmpegFileContext(for: file)
-        
-        // The file must have an audio stream, otherwise it's invalid.
-        guard let stream = fctx.bestAudioStream else {throw NoAudioTracksError(file)}
-        let codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
-        
+        guard let fileContext = playbackContext.fileContext else {
+            throw FormatContextInitializationError(description: "Invalid playback context for file: '\(file.path)'.")
+        }
+
         // Construct a metadata map for this track, using the file context.
-        let metadataMap = FFmpegMappedMetadata(for: fctx)
+        let metadataMap = FFmpegMappedMetadata(for: fileContext)
         
         // Determine which parsers (and in what order) will examine the track's metadata.
         let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
         allParsers.forEach {$0.mapMetadata(metadataMap)}
         let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
         
-        return try doGetPrimaryMetadata(for: file, fromCtx: fctx, stream: stream, codec: codec, andMap: metadataMap, usingParsers: relevantParsers)
+        return try doGetPrimaryMetadata(for: file, fromPlaybackContext: playbackContext, andMap: metadataMap, usingParsers: relevantParsers)
     }
     
-    private func doGetPrimaryMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, stream: FFmpegAudioStream, codec: FFmpegAudioCodec, andMap metadataMap: FFmpegMappedMetadata, usingParsers relevantParsers: [FFmpegMetadataParser]) throws -> PrimaryMetadata {
+    private func doGetPrimaryMetadata(for file: URL,
+                                      fromPlaybackContext playbackContext: FFmpegPlaybackContext,
+                                      andMap metadataMap: FFmpegMappedMetadata,
+                                      usingParsers relevantParsers: [FFmpegMetadataParser]) throws -> PrimaryMetadata {
+        
+        guard let fileContext = playbackContext.fileContext,
+                let stream = playbackContext.decoder?.stream,
+              let codec = playbackContext.audioCodec else {
+            
+            throw FormatContextInitializationError(description: "Invalid playback context for file: '\(file.path)'.")
+        }
         
         let audioFormat: AVAudioFormat = .init(standardFormatWithSampleRate: Double(codec.sampleRate), 
                                                channelLayout: codec.channelLayout.avfLayout)
         
-        let metadata = PrimaryMetadata(playbackFormat: .init(audioFormat: audioFormat))
+        let metadata = PrimaryMetadata(playbackContext: playbackContext)
 
         // Read all essential metadata fields.
         
@@ -152,56 +162,20 @@ class FFmpegFileReader: FileReaderProtocol {
             metadata.art = CoverArt(source: .file, originalImageData: imageData)
         }
         
+        metadata.audioInfo = doGetAudioInfo(for: file, fromCtx: fileContext, loadingAudioInfoFrom: playbackContext)
+        
         return metadata
     }
     
-    func computeAccurateDuration(for file: URL) -> Double? {
+    private func doGetAudioInfo(for file: URL, fromCtx fctx: FFmpegFileContext, loadingAudioInfoFrom playbackContext: FFmpegPlaybackContext) -> AudioInfo {
         
-        do {
-            
-            // Construct an ffmpeg file context for this track.
-            return try FFmpegFileContext(for: file).bruteForceDuration
-            
-        } catch {
-            
-            NSLog("Unable to compute accurate duration for track \(file.path). Error: \(error)")
-            return nil
-        }
-    }
-    
-    func getAudioInfo(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AudioInfo {
-        
-        do {
-            
-            // Construct an ffmpeg file context for this track.
-            // This will be the source of all track metadata.
-            let fctx = try FFmpegFileContext(for: file)
-            
-            // The file must have an audio stream, otherwise it's invalid.
-            guard fctx.bestAudioStream != nil else {throw NoAudioTracksError(file)}
-            
-            return doGetAudioInfo(for: file, fromCtx: fctx, loadingAudioInfoFrom: playbackContext)
-            
-        } catch {
-            return AudioInfo()
-        }
-    }
-    
-    private func doGetAudioInfo(for file: URL, fromCtx fctx: FFmpegFileContext, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AudioInfo {
-        
-        var audioInfo = AudioInfo()
+        let audioInfo = AudioInfo()
         
         audioInfo.format = fctx.formatLongName
         audioInfo.bitRate = (Double(fctx.bitRate) / Double(FileSize.KB)).roundedInt
         
-        if let ffmpegPlaybackCtx = playbackContext as? FFmpegPlaybackContext {
-            
-            audioInfo.codec = ffmpegPlaybackCtx.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
-            audioInfo.channelLayout = ffmpegPlaybackCtx.audioFormat.channelLayoutString
-            
-        } else {
-            audioInfo.codec = fctx.bestAudioStream?.codecLongName ?? fctx.formatName
-        }
+        audioInfo.codec = playbackContext.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
+        audioInfo.channelLayout = playbackContext.audioFormat.channelLayoutString
         
         if let audioStream = fctx.bestAudioStream {
             
@@ -221,41 +195,19 @@ class FFmpegFileReader: FileReaderProtocol {
         return audioInfo
     }
     
-//    func getAllMetadata(for file: URL) -> FileMetadata {
-//        
-//        do {
-//            
-//            // Construct an ffmpeg file context for this track.
-//            // This will be the source of all track metadata.
-//            let fctx = try FFmpegFileContext(for: file)
-//            
-//            // The file must have an audio stream, otherwise it's invalid.
-//            guard let stream = fctx.bestAudioStream else {throw NoAudioTracksError(file)}
-//            let codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
-//            
-//            // Construct a metadata map for this track, using the file context.
-//            let metadataMap = FFmpegMappedMetadata(for: fctx)
-//
-//            // Determine which parsers (and in what order) will examine the track's metadata.
-//            let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
-//            allParsers.forEach {$0.mapMetadata(metadataMap)}
-//            let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
-//            
-//            var metadata = FileMetadata(primary: try doGetPrimaryMetadata(for: file, fromCtx: fctx, stream: stream, codec: codec, andMap: metadataMap, usingParsers: relevantParsers))
-//            metadata.audioInfo = doGetAudioInfo(for: file, fromCtx: fctx, loadingAudioInfoFrom: nil)
-//            
-//            if let imageData = fctx.bestImageStream?.attachedPic.data {
-//                metadata.primary?.art = CoverArt(imageData: imageData)
-//            }
-//            
-//            return metadata
-//            
-//        } catch {
-//            
-//            NSLog("Error retrieving metadata for file: '\(file.path)'. Error: \(error)")
-//            return FileMetadata(primary: nil)
-//        }
-//    }
+    func computeAccurateDuration(for file: URL) -> Double? {
+        
+        do {
+            
+            // Construct an ffmpeg file context for this track.
+            return try FFmpegFileContext(for: file).bruteForceDuration
+            
+        } catch {
+            
+            NSLog("Unable to compute accurate duration for track \(file.path). Error: \(error)")
+            return nil
+        }
+    }
     
     func getArt(for file: URL) -> CoverArt? {
         

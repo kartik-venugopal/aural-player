@@ -91,7 +91,7 @@ class TrackLoadSession {
         let tracksToRead = tracks.values.filter {$0.result != .existsInTrackList}.map {$0.track}
         
         for track in tracksToRead {
-            trackReader.loadPrimaryMetadataAsync(for: track, onQueue: queue)
+            trackReader.loadMetadataAsync(for: track, onQueue: queue)
         }
         
         queue.waitUntilAllOperationsAreFinished()

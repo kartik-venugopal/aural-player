@@ -18,6 +18,7 @@ import Foundation
 ///
 class PrimaryMetadata {
     
+    let playbackContext: PlaybackContextProtocol
     let playbackFormat: PlaybackFormat
     
     var title: String?
@@ -31,7 +32,7 @@ class PrimaryMetadata {
         didSet {
             
             guard let year = self.year else {
-                
+
                 self.decade = nil
                 return
             }
@@ -74,47 +75,11 @@ class PrimaryMetadata {
     
     var replayGain: ReplayGain?
     
-    init(playbackFormat: PlaybackFormat) {
-        self.playbackFormat = playbackFormat
-    }
+    var audioInfo: AudioInfo?
     
-    init?(persistentState: PrimaryMetadataPersistentState, persistentCoverArt: CoverArt?) {
+    init(playbackContext: PlaybackContextProtocol) {
         
-        guard let playbackFormatState = persistentState.playbackFormat,
-              let playbackFormat = PlaybackFormat(persistentState: playbackFormatState) else {return nil}
-        
-        self.playbackFormat = playbackFormat
-        
-        self.title = persistentState.title
-        self.artist = persistentState.artist
-        self.album = persistentState.album
-        self.albumArtist = persistentState.albumArtist
-        self.genre = persistentState.genre
-        self.year = persistentState.year
-        
-        self.composer = persistentState.composer
-        self.conductor = persistentState.conductor
-        self.performer = persistentState.performer
-        self.lyricist = persistentState.lyricist
-        
-        self.trackNumber = persistentState.trackNumber
-        self.totalTracks = persistentState.totalTracks
-        
-        self.discNumber = persistentState.discNumber
-        self.totalDiscs = persistentState.totalDiscs
-        
-        self.duration = persistentState.duration ?? 0
-        self.durationIsAccurate = persistentState.durationIsAccurate ?? true
-        
-        self.isProtected = persistentState.isProtected
-        
-        self.chapters = (persistentState.chapters ?? []).enumerated().compactMap {Chapter.init(persistentState: $1, index: $0)}
-        
-        self.bpm = persistentState.bpm
-        self.lyrics = persistentState.lyrics
-        self.nonEssentialMetadata = persistentState.nonEssentialMetadata
-        
-        self.art = persistentCoverArt
-        self.hasArt = self.art != nil
+        self.playbackContext = playbackContext
+        self.playbackFormat = .init(audioFormat: playbackContext.audioFormat)
     }
 }

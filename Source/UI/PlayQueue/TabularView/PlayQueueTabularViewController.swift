@@ -175,7 +175,7 @@ class PlayQueueTabularViewController: PlayQueueViewController {
             
         case .cid_format:
             
-            guard let format = track.audioInfo?.format?.capitalizingFirstLetter() else {return nil}
+            guard let format = track.audioInfo.format?.capitalizingFirstLetter() else {return nil}
             builder.withPrimaryText(format)
             
         case .cid_playCount:

@@ -30,13 +30,13 @@ class TrackReader {
     ///
     /// Loads the essential metadata fields that are required for a track to be loaded into the playlist.
     ///
-    func loadPrimaryMetadataAsync(for track: Track, onQueue opQueue: OperationQueue, completionHandler: TrackIOCompletionHandler? = nil) {
+    func loadMetadataAsync(for track: Track, onQueue opQueue: OperationQueue, completionHandler: TrackIOCompletionHandler? = nil) {
         
         let metadataCacheEnabled = preferences.metadataPreferences.cacheTrackMetadata.value
         
         if metadataCacheEnabled, let cachedMetadata = metadataRegistry[track] {
             
-            doLoadPrimaryMetadata(for: track, with: cachedMetadata, onQueue: opQueue, 
+            doLoadMetadata(for: track, with: cachedMetadata, onQueue: opQueue, 
                                   metadataCacheEnabled: metadataCacheEnabled,
                                   completionHandler: completionHandler)
             return
@@ -47,7 +47,7 @@ class TrackReader {
             do {
                 
                 let primaryMetadata = try fileReader.getPrimaryMetadata(for: track.file)
-                self.doLoadPrimaryMetadata(for: track, with: primaryMetadata, onQueue: opQueue,
+                self.doLoadMetadata(for: track, with: primaryMetadata, onQueue: opQueue,
                                            metadataCacheEnabled: metadataCacheEnabled,
                                            completionHandler: completionHandler)
                 
@@ -63,10 +63,10 @@ class TrackReader {
         }
     }
     
-    private func doLoadPrimaryMetadata(for track: Track, with metadata: PrimaryMetadata, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool,
+    private func doLoadMetadata(for track: Track, with metadata: FileMetadata, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool,
                                        completionHandler: TrackIOCompletionHandler?) {
         
-        track.metadata.primary = metadata
+        track.metadata.updatePrimaryMetadata(with: metadata)
         
         if metadata.art == nil {
             metadata.art = musicBrainzCache.getCoverArt(forTrack: track)
@@ -89,8 +89,8 @@ class TrackReader {
             
             guard let duration = fileReader.computeAccurateDuration(for: track.file), duration > 0 else {return}
             
-            track.metadata.primary?.duration = duration
-            track.metadata.primary?.durationIsAccurate = true
+            track.metadata.duration = duration
+            track.metadata.durationIsAccurate = true
             
             if metadataCacheEnabled, let metadataInCache = metadataRegistry[track] {
 
@@ -111,7 +111,7 @@ class TrackReader {
         // If duration has changed as a result of precise computation, set it in the track and send out an update notification
         if !track.durationIsAccurate, let playbackContext = track.playbackContext, track.duration != playbackContext.duration {
             
-            track.metadata.primary?.duration = playbackContext.duration
+            track.metadata.duration = playbackContext.duration
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
             
             // Update the metadata cache with the updated duration.
@@ -222,7 +222,7 @@ class TrackReader {
             if let existingArt = track.art {
                 existingArt.merge(withOther: art)
             } else {
-                track.metadata.primary?.art = art
+                track.metadata.art = art
             }
             
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
@@ -234,15 +234,10 @@ class TrackReader {
     ///
     func loadAuxiliaryMetadata(for track: Track) {
         
-        if track.audioInfo == nil {
             
-            var audioInfo = fileReader.getAudioInfo(for: track.file, loadingAudioInfoFrom: track.playbackContext)
-            audioInfo.replayGainFromMetadata = track.replayGain
-            track.metadata.audioInfo = audioInfo
-            
+            track.audioInfo.replayGainFromMetadata = track.replayGain
             loadArtAsync(for: track)
-        }
         
-        track.metadata.audioInfo?.replayGainFromAnalysis = replayGainScanner.cachedReplayGainData(forTrack: track)
+        track.audioInfo.replayGainFromAnalysis = replayGainScanner.cachedReplayGainData(forTrack: track)
     }
 }

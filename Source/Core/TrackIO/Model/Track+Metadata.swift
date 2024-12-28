@@ -27,7 +27,7 @@ extension Track {
     }
     
     var playbackFormat: PlaybackFormat? {
-        metadata.primary?.playbackFormat
+        metadata.playbackFormat
     }
     
     var displayName: String {
@@ -39,15 +39,15 @@ extension Track {
     }
     
     var duration: Double {
-        metadata.primary?.duration ?? 0
+        metadata.duration
     }
     
     var durationIsAccurate: Bool {
-        metadata.primary?.durationIsAccurate ?? false
+        metadata.durationIsAccurate
     }
     
     var title: String? {
-        metadata.primary?.title ?? metadata.cueSheet?.title
+        metadata.title ?? metadata.cueSheetMetadata?.title
     }
     
     var titleOrDefaultDisplayName: String {
@@ -55,7 +55,7 @@ extension Track {
     }
     
     var artist: String? {
-        metadata.primary?.artist ?? metadata.primary?.albumArtist ?? metadata.primary?.performer ?? cueSheetMetadata?.artist
+        metadata.artist ?? metadata.albumArtist ?? metadata.performer ?? cueSheetMetadata?.artist
     }
     
     var artistTitleString: String? {
@@ -72,15 +72,15 @@ extension Track {
     }
     
     var album: String? {
-        metadata.primary?.album
+        metadata.album
     }
     
     var genre: String? {
-        metadata.primary?.genre
+        metadata.genre
     }
     
     var albumArtist: String? {
-        metadata.primary?.albumArtist
+        metadata.albumArtist
     }
     
     var canBeScrobbledOnLastFM: Bool {
@@ -88,68 +88,68 @@ extension Track {
     }
     
     var composer: String? {
-        metadata.primary?.composer
+        metadata.composer
     }
     
     var conductor: String? {
-        metadata.primary?.conductor
+        metadata.conductor
     }
     
     var performer: String? {
-        metadata.primary?.performer
+        metadata.performer
     }
     
     var lyricist: String? {
-        metadata.primary?.lyricist
+        metadata.lyricist
     }
     
     var art: CoverArt? {
-        metadata.primary?.art
+        metadata.art
     }
     
     var trackNumber: Int? {
-        metadata.primary?.trackNumber
+        metadata.trackNumber
     }
     
     var totalTracks: Int? {
-        metadata.primary?.totalTracks
+        metadata.totalTracks
     }
     
     var discNumber: Int? {
-        metadata.primary?.discNumber
+        metadata.discNumber
     }
     
     var totalDiscs: Int? {
-        metadata.primary?.totalDiscs
+        metadata.totalDiscs
     }
     
     var year: Int? {
-        metadata.primary?.year
+        metadata.year
     }
     
     var decade: String? {
-        metadata.primary?.decade
+        metadata.decade
     }
 
     var bpm: Int? {
-        metadata.primary?.bpm
+        metadata.bpm
     }
 
     var lyrics: String? {
-        metadata.primary?.lyrics
+        metadata.lyrics
     }
     
     // Non-essential metadata
     var nonEssentialMetadata: [String: MetadataEntry] {
-        metadata.primary?.nonEssentialMetadata ?? [:]
+        metadata.nonEssentialMetadata
     }
 
     var cueSheetMetadata: CueSheetMetadata? {
-        metadata.cueSheet
+        metadata.cueSheetMetadata
     }
 
     var chapters: [Chapter] {
-        metadata.primary?.chapters ?? []
+        metadata.chapters
     }
     
     var hasChapters: Bool {
@@ -157,14 +157,14 @@ extension Track {
     }
     
     var replayGain: ReplayGain? {
-        metadata.primary?.replayGain
+        metadata.replayGain
     }
 
     var fileSystemInfo: FileSystemInfo {
         metadata.fileSystemInfo
     }
     
-    var audioInfo: AudioInfo? {
+    var audioInfo: AudioInfo {
         metadata.audioInfo
     }
     

@@ -27,16 +27,16 @@ class AudioTrackInfoSource: TrackInfoSource {
         let audioInfo = track.audioInfo
         
         trackInfo.append(KeyValuePair(key: "Format",
-                                      value: audioInfo?.format?.capitalizingFirstLetter() ?? TrackInfoConstants.value_unknown))
+                                      value: audioInfo.format?.capitalizingFirstLetter() ?? TrackInfoConstants.value_unknown))
         
-        if let codec = audioInfo?.codec {
+        if let codec = audioInfo.codec {
             trackInfo.append(KeyValuePair(key: "Codec", value: codec))
         }
         
         trackInfo.append(KeyValuePair(key: "Duration",
                                       value: ValueFormatter.formatSecondsToHMS(track.duration)))
         
-        if let bitRate = audioInfo?.bitRate {
+        if let bitRate = audioInfo.bitRate {
             
             if bitRate < 1000 {
                 trackInfo.append(KeyValuePair(key: "Bit Rate",
@@ -50,7 +50,7 @@ class AudioTrackInfoSource: TrackInfoSource {
             trackInfo.append(KeyValuePair(key: "Bit Rate", value: TrackInfoConstants.value_unknown))
         }
         
-        if let sampleRate = audioInfo?.sampleRate {
+        if let sampleRate = audioInfo.sampleRate {
             
             trackInfo.append(KeyValuePair(key: "Sample Rate",
                                           value: String(format: "%@ Hz", ValueFormatter.readableLongInteger(Int64(sampleRate)))))
@@ -59,15 +59,15 @@ class AudioTrackInfoSource: TrackInfoSource {
             trackInfo.append(KeyValuePair(key: "Sample Rate", value: TrackInfoConstants.value_unknown))
         }
         
-        if let sampleFormat = audioInfo?.sampleFormat {
+        if let sampleFormat = audioInfo.sampleFormat {
             trackInfo.append(KeyValuePair(key: "Sample Format", value: sampleFormat))
         }
         
-        if let layout = audioInfo?.channelLayout {
+        if let layout = audioInfo.channelLayout {
             trackInfo.append(KeyValuePair(key: "Channel Layout", value: layout.capitalized))
         } else {
             
-            if let numChannels = audioInfo?.numChannels {
+            if let numChannels = audioInfo.numChannels {
                 
                 trackInfo.append(KeyValuePair(key: "Channel Layout",
                                               value: channelLayout(numChannels)))
@@ -76,7 +76,7 @@ class AudioTrackInfoSource: TrackInfoSource {
             }
         }
         
-        if let frameCount = audioInfo?.frames {
+        if let frameCount = audioInfo.frames {
             
             trackInfo.append(KeyValuePair(key: "Frames",
                                           value: ValueFormatter.readableLongInteger(frameCount)))
@@ -84,13 +84,13 @@ class AudioTrackInfoSource: TrackInfoSource {
             trackInfo.append(KeyValuePair(key: "Frames", value: TrackInfoConstants.value_unknown))
         }
         
-        if let replayGain = audioInfo?.replayGainFromMetadata {
+        if let replayGain = audioInfo.replayGainFromMetadata {
             
             trackInfo.append(KeyValuePair(key: "Replay Gain (from metadata)",
                                           value: replayGainString(for: replayGain)))
         }
         
-        if let replayGain = audioInfo?.replayGainFromAnalysis {
+        if let replayGain = audioInfo.replayGainFromAnalysis {
             
             trackInfo.append(KeyValuePair(key: "Replay Gain (from analysis)",
                                           value: replayGainString(for: replayGain)))

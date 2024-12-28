@@ -12,13 +12,14 @@ import AVFoundation
 
 struct MetadataPersistentState: Codable {
     
-    let metadata: [URL: PrimaryMetadataPersistentState]?
+    let metadata: [URL: FileMetadataPersistentState]?
     let coverArt: [URL: MD5String]?
 }
 
-struct PrimaryMetadataPersistentState: Codable {
+struct FileMetadataPersistentState: Codable {
     
     let playbackFormat: PlaybackFormatPersistentState?
+    let audioInfo: AudioInfoPersistentState?
     
     let title: String?
     let artist: String?
@@ -52,9 +53,15 @@ struct PrimaryMetadataPersistentState: Codable {
     
     var replayGain: ReplayGain?
     
-    init(metadata: PrimaryMetadata) {
+    init(metadata: FileMetadata) {
         
-        self.playbackFormat = .init(format: metadata.playbackFormat)
+        if let playbackFormat = metadata.playbackFormat {
+            self.playbackFormat = .init(format: playbackFormat)
+        } else {
+            self.playbackFormat = nil
+        }
+        
+        self.audioInfo = .init(audioInfo: metadata.audioInfo)
         
         self.title = metadata.title
         self.artist = metadata.artist
@@ -86,6 +93,50 @@ struct PrimaryMetadataPersistentState: Codable {
         self.chapters = metadata.chapters.map {ChapterPersistentState(chapter: $0)}
         
         self.replayGain = metadata.replayGain
+    }
+}
+
+struct AudioInfoPersistentState: Codable {
+    
+    // The total number of frames in the track
+    let frames: AVAudioFramePosition?
+    
+    // The sample rate of the track (in Hz)
+    let sampleRate: Int32?
+    
+    // eg. "32-bit Floating point planar" or "Signed 16-bit Integer interleaved".
+    let sampleFormat: String?
+    
+    // Number of audio channels
+    let numChannels: Int?
+    
+    // Bit rate (in kbps)
+    let bitRate: Int?
+    
+    // Audio format (e.g. "mp3", "aac", or "lpcm")
+    let format: String?
+    
+    // The codec that was used to decode the track.
+    let codec: String?
+    
+    // A description of the channel layout, eg. "5.1 Surround".
+    let channelLayout: String?
+    
+    let replayGainFromMetadata: ReplayGain?
+    let replayGainFromAnalysis: ReplayGain?
+    
+    init(audioInfo: AudioInfo) {
+        
+        self.frames = audioInfo.frames
+        self.sampleRate = audioInfo.sampleRate
+        self.sampleFormat = audioInfo.sampleFormat
+        self.numChannels = audioInfo.numChannels
+        self.bitRate = audioInfo.bitRate
+        self.format = audioInfo.format
+        self.codec = audioInfo.codec
+        self.channelLayout = audioInfo.channelLayout
+        self.replayGainFromMetadata = audioInfo.replayGainFromMetadata
+        self.replayGainFromAnalysis = audioInfo.replayGainFromAnalysis
     }
 }
 

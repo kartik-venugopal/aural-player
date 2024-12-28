@@ -65,8 +65,8 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
                        lcArtist == pqLCArtist,
                        lcTrackAlbum == pqLCAlbum {
                         
-                        if pqTrack.metadata.primary?.art == nil {
-                            pqTrack.metadata.primary?.art = coverArt
+                        if pqTrack.metadata.art == nil {
+                            pqTrack.metadata.art = coverArt
                         }
                         
                         updatedTracks.append(index)

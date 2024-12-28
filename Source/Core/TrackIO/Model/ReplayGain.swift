@@ -10,7 +10,7 @@
 
 import Foundation
 
-struct ReplayGain: Codable {
+class ReplayGain: Codable {
     
     let trackGain: Float?
     let trackPeak: Float?
@@ -40,13 +40,13 @@ struct ReplayGain: Codable {
         return newPeak > maxPeak ? gain - (20 * log10(newPeak / maxPeak)) : gain
     }
     
-    mutating func applyClippingPrevention(usingMaxPeakLevel maxPeakLevel: Float) {
+    func applyClippingPrevention(usingMaxPeakLevel maxPeakLevel: Float) {
         
         applyClippingPreventionToTrackGain(usingMaxPeakLevel: maxPeakLevel)
         applyClippingPreventionToAlbumGain(usingMaxPeakLevel: maxPeakLevel)
     }
     
-    mutating func applyClippingPreventionToTrackGain(usingMaxPeakLevel maxPeakLevel: Float) {
+    func applyClippingPreventionToTrackGain(usingMaxPeakLevel maxPeakLevel: Float) {
         
         if let theTrackGain = trackGain, let theTrackPeak = trackPeak {
             self.trackGainToPreventClipping = gainToPreventClipping(gain: theTrackGain, peak: theTrackPeak, usingMaxPeakLevel: maxPeakLevel)
@@ -56,7 +56,7 @@ struct ReplayGain: Codable {
         }
     }
     
-    mutating func applyClippingPreventionToAlbumGain(usingMaxPeakLevel maxPeakLevel: Float) {
+    func applyClippingPreventionToAlbumGain(usingMaxPeakLevel maxPeakLevel: Float) {
         
         if let theAlbumGain = albumGain, let theAlbumPeak = albumPeak {
             self.albumGainToPreventClipping = gainToPreventClipping(gain: theAlbumGain, peak: theAlbumPeak, usingMaxPeakLevel: maxPeakLevel)

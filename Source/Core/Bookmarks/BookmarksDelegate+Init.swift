@@ -30,7 +30,7 @@ extension BookmarksDelegate {
                 
                 tracksByFile[trackFile] = track
                 
-                trackReader.loadPrimaryMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
+                trackReader.loadMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
             }
         }
     }

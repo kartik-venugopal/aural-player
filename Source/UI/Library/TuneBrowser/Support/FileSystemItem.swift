@@ -97,8 +97,8 @@ class FileSystemFolderItem: FileSystemItem, Equatable {
 //
 //            children.sortValues(by: {
 //
-//                let title0: String = $0.metadata?.primary?.title ?? ""
-//                let title1: String = $1.metadata?.primary?.title ?? ""
+//                let title0: String = $0.metadata?.title ?? ""
+//                let title1: String = $1.metadata?.title ?? ""
 //
 //                return ascending ? title0 < title1 : title0 > title1
 //            })
@@ -107,8 +107,8 @@ class FileSystemFolderItem: FileSystemItem, Equatable {
 //
 //            children.sortValues(by: {
 //
-//                let artist0: String = $0.metadata?.primary?.artist ?? ""
-//                let artist1: String = $1.metadata?.primary?.artist ?? ""
+//                let artist0: String = $0.metadata?.artist ?? ""
+//                let artist1: String = $1.metadata?.artist ?? ""
 //
 //                return ascending ? artist0 < artist1 : artist0 > artist1
 //            })
@@ -117,8 +117,8 @@ class FileSystemFolderItem: FileSystemItem, Equatable {
 //
 //            children.sortValues(by: {
 //
-//                let album0: String = $0.metadata?.primary?.album ?? ""
-//                let album1: String = $1.metadata?.primary?.album ?? ""
+//                let album0: String = $0.metadata?.album ?? ""
+//                let album1: String = $1.metadata?.album ?? ""
 //
 //                return ascending ? album0 < album1 : album0 > album1
 //            })
@@ -127,8 +127,8 @@ class FileSystemFolderItem: FileSystemItem, Equatable {
 //
 //            children.sortValues(by: {
 //
-//                let genre0: String = $0.metadata?.primary?.genre ?? ""
-//                let genre1: String = $1.metadata?.primary?.genre ?? ""
+//                let genre0: String = $0.metadata?.genre ?? ""
+//                let genre1: String = $1.metadata?.genre ?? ""
 //
 //                return ascending ? genre0 < genre1 : genre0 > genre1
 //            })
@@ -150,8 +150,8 @@ class FileSystemFolderItem: FileSystemItem, Equatable {
 //
 //            children.sortValues(by: {
 //
-//                let duration0: Double = $0.metadata?.primary?.duration ?? 0
-//                let duration1: Double = $1.metadata?.primary?.duration ?? 0
+//                let duration0: Double = $0.metadata?.duration ?? 0
+//                let duration1: Double = $1.metadata?.duration ?? 0
 //
 //                return ascending ? duration0 < duration1 : duration0 > duration1
 //            } )
@@ -160,8 +160,8 @@ class FileSystemFolderItem: FileSystemItem, Equatable {
 //
 //            children.sortValues(by: {
 //
-//                let year0: Int = $0.metadata?.primary?.year ?? 0
-//                let year1: Int = $1.metadata?.primary?.year ?? 0
+//                let year0: Int = $0.metadata?.year ?? 0
+//                let year1: Int = $1.metadata?.year ?? 0
 //
 //                return ascending ? year0 < year1 : year0 > year1
 //            } )
@@ -170,8 +170,8 @@ class FileSystemFolderItem: FileSystemItem, Equatable {
 //
 //            children.sortValues(by: {
 //
-//                let trackNum0: Int = $0.metadata?.primary?.trackNumber ?? 0
-//                let trackNum1: Int = $1.metadata?.primary?.trackNumber ?? 0
+//                let trackNum0: Int = $0.metadata?.trackNumber ?? 0
+//                let trackNum1: Int = $1.metadata?.trackNumber ?? 0
 //
 //                return ascending ? trackNum0 < trackNum1 : trackNum0 > trackNum1
 //            } )

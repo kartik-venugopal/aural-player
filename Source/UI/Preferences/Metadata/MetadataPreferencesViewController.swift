@@ -86,11 +86,11 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
             
             DispatchQueue.global(qos: .utility).async {
                 
-                for track in playQueueDelegate.tracks {
-                    metadataRegistry[track] = track.metadata.primary
-                }
-                
-                metadataRegistry.persistCoverArt()
+//                for track in playQueueDelegate.tracks {
+//                    metadataRegistry[track] = track.metadata
+//                }
+//                
+//                metadataRegistry.persistCoverArt()
             }
         }
         
