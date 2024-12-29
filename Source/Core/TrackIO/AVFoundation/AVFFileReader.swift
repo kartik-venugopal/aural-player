@@ -54,10 +54,7 @@ class AVFFileReader: FileReaderProtocol {
             throw DRMProtectionError(file)
         }
         
-        let audioFile = try AVAudioFile(forReading: file)
-        let playbackContext = AVFPlaybackContext(for: audioFile)
-        
-        let metadata = PrimaryMetadata(playbackContext: playbackContext)
+        let metadata = PrimaryMetadata(audioFormat: metadataMap.audioFormat)
         
         // Obtain the parsers relevant to this track, based on the metadata present.
         let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
@@ -101,7 +98,7 @@ class AVFFileReader: FileReaderProtocol {
         
         metadata.nonEssentialMetadata = auxiliaryMetadata
         
-        metadata.audioInfo = doGetAudioInfo(for: file, havingDuration: metadata.duration, fromMap: metadataMap, and: playbackContext)
+        metadata.audioInfo = doGetAudioInfo(for: file, havingDuration: metadata.duration, fromMap: metadataMap)
         
         return metadata
     }
@@ -125,7 +122,7 @@ class AVFFileReader: FileReaderProtocol {
     }
     
     private func doGetAudioInfo(for file: URL, havingDuration duration: Double, 
-                                fromMap metadataMap: AVFMappedMetadata, and playbackContext: PlaybackContextProtocol) -> AudioInfo {
+                                fromMap metadataMap: AVFMappedMetadata) -> AudioInfo {
         
         // Load audio info for the track.
         
@@ -133,11 +130,16 @@ class AVFFileReader: FileReaderProtocol {
         
         // Transfer audio info from the playback context
         
-        audioInfo.numChannels = Int(playbackContext.audioFormat.channelCount)
-        audioInfo.channelLayout = playbackContext.audioFormat.channelLayoutString
+        let audioFormat = metadataMap.audioFormat
         
-        audioInfo.sampleRate = Int32(playbackContext.sampleRate)
-        audioInfo.frames = playbackContext.frameCount
+        audioInfo.numChannels = Int(audioFormat.channelCount)
+        audioInfo.channelLayout = audioFormat.channelLayoutString
+        
+        let sampleRate = audioFormat.sampleRate
+        audioInfo.sampleRate = Int32(sampleRate)
+        
+        // This is going to be imprecise and should be updated when the playback context is created.
+        audioInfo.frames = Int64(duration * sampleRate)
         
         // Compute the bit rate in kilobits/sec (kbps).
         

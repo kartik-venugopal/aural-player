@@ -15,13 +15,16 @@ import Foundation
 class Track: Hashable, PlayableItem {
     
     let file: URL
+    
+    let fileSystemInfo: FileSystemInfo
     var metadata: FileMetadata
     var playbackContext: PlaybackContextProtocol?
     
     init(_ file: URL, primaryMetadata: PrimaryMetadata? = nil, cueSheetMetadata: CueSheetMetadata? = nil) {
 
         self.file = file
-        self.metadata = FileMetadata(file: file)
+        self.fileSystemInfo = .init(file: file)
+        self.metadata = FileMetadata()
         
         if let primaryMetadata {
             self.metadata.updatePrimaryMetadata(with: primaryMetadata)

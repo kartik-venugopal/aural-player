@@ -27,12 +27,24 @@ class MetadataRegistry: PersistentRootObject {
         
         if let metadataPersistentState: [URL: FileMetadataPersistentState] = persistentState?.metadata {
 
-            registry.bulkAddAndMap(map: metadataPersistentState) {(file: URL, metadataState: FileMetadataPersistentState) in
-                FileMetadata(file: file, persistentState: metadataState, persistentCoverArt: nil)
+            registry.bulkAddAndMap(map: metadataPersistentState) {(metadataState: FileMetadataPersistentState) in
+                FileMetadata(persistentState: metadataState, persistentCoverArt: nil)
             }
         }
         
         fileImageCache.keyFunction = {track, coverArt in coverArt.originalImage?.imageData?.md5String}
+    }
+    
+    func bulkAddMetadata(from tracks: [Track]) {
+        
+        var map: [URL: FileMetadata] = [:]
+        
+        for track in tracks {
+            map[track.file] = track.metadata
+        }
+        
+        registry.bulkAdd(map: map)
+        persistCoverArt()
     }
     
     func initializeImageCache(fromPersistentState persistentState: MetadataPersistentState?) {

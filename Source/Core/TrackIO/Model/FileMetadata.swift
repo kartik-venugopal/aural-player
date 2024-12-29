@@ -14,7 +14,6 @@ import Foundation
 ///
 class FileMetadata {
 
-    let fileSystemInfo: FileSystemInfo
     var audioInfo: AudioInfo
     
     // ------------------------------------------------
@@ -85,16 +84,17 @@ class FileMetadata {
     var preparationFailed: Bool = false
     var preparationError: DisplayableError?
     
-    init(file: URL) {
-        
-        self.fileSystemInfo = FileSystemInfo(file: file)
+    init() {
         self.audioInfo = .init()
     }
     
-    init?(file: URL, persistentState: FileMetadataPersistentState, persistentCoverArt: CoverArt?) {
+    init?(persistentState: FileMetadataPersistentState, persistentCoverArt: CoverArt?) {
         
-        self.fileSystemInfo = FileSystemInfo(file: file)
-        self.audioInfo = .init()
+        if let audioInfo = persistentState.audioInfo {
+            self.audioInfo = .init(persistentState: audioInfo)
+        } else {
+            self.audioInfo = .init()
+        }
         
         guard let playbackFormatState = persistentState.playbackFormat,
               let playbackFormat = PlaybackFormat(persistentState: playbackFormatState) else {return nil}
@@ -134,6 +134,8 @@ class FileMetadata {
     }
     
     func updatePrimaryMetadata(with metadata: PrimaryMetadata) {
+        
+        self.playbackFormat = metadata.playbackFormat
         
         self.title = metadata.title
         self.artist = metadata.artist

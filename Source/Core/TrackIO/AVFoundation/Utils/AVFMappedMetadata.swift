@@ -32,6 +32,8 @@ struct AVFMappedMetadata {
     ///
     let audioTrack: AVAssetTrack
     
+    let audioFormat: AVAudioFormat
+    
     ///
     /// The following dictionaries contain mappings of key -> AVMetadataItem for each of the supported metadata key spaces.
     /// Metadata parsers can use these maps to quickly look up items having specific keys (e.g. "title" or "artist").
@@ -55,6 +57,7 @@ struct AVFMappedMetadata {
         guard let audioTrack = avAsset.tracks.first(where: {$0.mediaType == .audio}) else {return nil}
         
         self.audioTrack = audioTrack
+        self.audioFormat = .init(cmAudioFormatDescription: audioTrack.formatDescription)
         
         // Iterate through all metadata items, and group them based on
         // key space.

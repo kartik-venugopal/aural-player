@@ -27,6 +27,9 @@ class TrackReader {
     
     private lazy var logger: Logger = .init(for: self)
     
+    var hits: AtomicIntCounter = .init()
+    var misses: AtomicIntCounter = .init()
+    
     ///
     /// Loads the essential metadata fields that are required for a track to be loaded into the playlist.
     ///
@@ -36,23 +39,31 @@ class TrackReader {
         
         if metadataCacheEnabled, let cachedMetadata = metadataRegistry[track] {
             
-            doLoadMetadata(for: track, with: cachedMetadata, onQueue: opQueue, 
+            hits.increment()
+            
+            track.metadata = cachedMetadata
+            
+            doLoadMetadata(for: track, onQueue: opQueue,
                                   metadataCacheEnabled: metadataCacheEnabled,
                                   completionHandler: completionHandler)
             return
         }
+        
+        misses.increment()
         
         opQueue.addOperation {
             
             do {
                 
                 let primaryMetadata = try fileReader.getPrimaryMetadata(for: track.file)
-                self.doLoadMetadata(for: track, with: primaryMetadata, onQueue: opQueue,
-                                           metadataCacheEnabled: metadataCacheEnabled,
-                                           completionHandler: completionHandler)
+                track.metadata.updatePrimaryMetadata(with: primaryMetadata)
+                
+                self.doLoadMetadata(for: track, onQueue: opQueue,
+                                    metadataCacheEnabled: metadataCacheEnabled,
+                                    completionHandler: completionHandler)
                 
                 if metadataCacheEnabled {
-                    metadataRegistry[track] = primaryMetadata
+                    metadataRegistry[track] = track.metadata
                 }
                 
             } catch {
@@ -63,10 +74,10 @@ class TrackReader {
         }
     }
     
-    private func doLoadMetadata(for track: Track, with metadata: FileMetadata, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool,
+    private func doLoadMetadata(for track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool,
                                        completionHandler: TrackIOCompletionHandler?) {
         
-        track.metadata.updatePrimaryMetadata(with: metadata)
+        let metadata = track.metadata
         
         if metadata.art == nil {
             metadata.art = musicBrainzCache.getCoverArt(forTrack: track)
@@ -107,6 +118,10 @@ class TrackReader {
     func computePlaybackContext(for track: Track) throws {
         
         track.playbackContext = try fileReader.getPlaybackMetadata(for: track.file)
+        
+        if let updatedFrameCount = track.playbackContext?.frameCount {
+            track.audioInfo.frames = updatedFrameCount
+        }
         
         // If duration has changed as a result of precise computation, set it in the track and send out an update notification
         if !track.durationIsAccurate, let playbackContext = track.playbackContext, track.duration != playbackContext.duration {

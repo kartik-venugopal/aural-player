@@ -7,7 +7,7 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Foundation
+import AVFoundation
 
 ///
 /// A container for all metadata required for a track to be displayed within the playlist.
@@ -18,7 +18,6 @@ import Foundation
 ///
 class PrimaryMetadata {
     
-    let playbackContext: PlaybackContextProtocol
     let playbackFormat: PlaybackFormat
     
     var title: String?
@@ -77,9 +76,7 @@ class PrimaryMetadata {
     
     var audioInfo: AudioInfo?
     
-    init(playbackContext: PlaybackContextProtocol) {
-        
-        self.playbackContext = playbackContext
-        self.playbackFormat = .init(audioFormat: playbackContext.audioFormat)
+    init(audioFormat: AVAudioFormat) {
+        self.playbackFormat = .init(audioFormat: audioFormat)
     }
 }

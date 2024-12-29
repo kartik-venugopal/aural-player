@@ -72,56 +72,46 @@ class FFmpegFileReader: FileReaderProtocol {
     
     func getPrimaryMetadata(for file: URL) throws -> PrimaryMetadata {
         
-        let playbackContext = try FFmpegPlaybackContext(for: file)
-        
         // Construct an ffmpeg file context for this track.
         // This will be the source of all track metadata.
-        guard let fileContext = playbackContext.fileContext else {
-            throw FormatContextInitializationError(description: "Invalid playback context for file: '\(file.path)'.")
-        }
-
+        let fctx = try FFmpegFileContext(for: file)
+        
+        // The file must have an audio stream, otherwise it's invalid.
+        guard let stream = fctx.bestAudioStream else {throw NoAudioTracksError(file)}
+        let codec = try FFmpegAudioCodec(fromParameters: stream.avStream.codecpar)
+        
         // Construct a metadata map for this track, using the file context.
-        let metadataMap = FFmpegMappedMetadata(for: fileContext)
+        let metadataMap = FFmpegMappedMetadata(for: fctx)
         
         // Determine which parsers (and in what order) will examine the track's metadata.
         let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
         allParsers.forEach {$0.mapMetadata(metadataMap)}
         let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
         
-        return try doGetPrimaryMetadata(for: file, fromPlaybackContext: playbackContext, andMap: metadataMap, usingParsers: relevantParsers)
+        return try doGetPrimaryMetadata(for: file, fromCtx: fctx, stream: stream, codec: codec, andMap: metadataMap, usingParsers: relevantParsers)
     }
     
-    private func doGetPrimaryMetadata(for file: URL,
-                                      fromPlaybackContext playbackContext: FFmpegPlaybackContext,
-                                      andMap metadataMap: FFmpegMappedMetadata,
-                                      usingParsers relevantParsers: [FFmpegMetadataParser]) throws -> PrimaryMetadata {
+    private func doGetPrimaryMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, stream: FFmpegAudioStream, codec: FFmpegAudioCodec, andMap metadataMap: FFmpegMappedMetadata, usingParsers relevantParsers: [FFmpegMetadataParser]) throws -> PrimaryMetadata {
         
-        guard let fileContext = playbackContext.fileContext,
-                let stream = playbackContext.decoder?.stream,
-              let codec = playbackContext.audioCodec else {
-            
-            throw FormatContextInitializationError(description: "Invalid playback context for file: '\(file.path)'.")
-        }
-        
-        let audioFormat: AVAudioFormat = .init(standardFormatWithSampleRate: Double(codec.sampleRate), 
+        let audioFormat: AVAudioFormat = .init(standardFormatWithSampleRate: Double(codec.sampleRate),
                                                channelLayout: codec.channelLayout.avfLayout)
         
-        let metadata = PrimaryMetadata(playbackContext: playbackContext)
-
+        let metadata = PrimaryMetadata(audioFormat: audioFormat)
+        
         // Read all essential metadata fields.
         
         metadata.title = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getTitle(metadataMap)})
         metadata.artist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getArtist(metadataMap)})
         metadata.album = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getAlbum(metadataMap)})
         metadata.genre = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getGenre(metadataMap)})
-
+        
         metadata.isProtected = relevantParsers.firstNonNilMappedValue {$0.isDRMProtected(metadataMap)}
         
         if metadata.isProtected ?? false {throw DRMProtectionError(file)}
         
         var trackNumberAndTotal = relevantParsers.firstNonNilMappedValue {$0.getTrackNumber(metadataMap)}
         if let trackNum = trackNumberAndTotal?.number, trackNumberAndTotal?.total == nil,
-            let totalTracks = relevantParsers.firstNonNilMappedValue({$0.getTotalTracks(metadataMap)}) {
+           let totalTracks = relevantParsers.firstNonNilMappedValue({$0.getTotalTracks(metadataMap)}) {
             
             trackNumberAndTotal = (trackNum, totalTracks)
         }
@@ -131,7 +121,7 @@ class FFmpegFileReader: FileReaderProtocol {
         
         var discNumberAndTotal = relevantParsers.firstNonNilMappedValue {$0.getDiscNumber(metadataMap)}
         if let discNum = discNumberAndTotal?.number, discNumberAndTotal?.total == nil,
-            let totalDiscs = relevantParsers.firstNonNilMappedValue({$0.getTotalDiscs(metadataMap)}) {
+           let totalDiscs = relevantParsers.firstNonNilMappedValue({$0.getTotalDiscs(metadataMap)}) {
             
             discNumberAndTotal = (discNum, totalDiscs)
         }
@@ -139,11 +129,11 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.discNumber = discNumberAndTotal?.number
         metadata.totalDiscs = discNumberAndTotal?.total
         
-        metadata.duration = metadataMap.fileCtx.duration
-//        print("For file: \(file.path), est. method = \(metadataMap.fileCtx.avContext.duration_estimation_method)")
-        metadata.durationIsAccurate = metadata.duration > 0 && metadataMap.fileCtx.estimatedDurationIsAccurate
+        metadata.duration = fctx.duration
+        //        print("For file: \(file.path), est. method = \(fctx.avContext.duration_estimation_method)")
+        metadata.durationIsAccurate = fctx.duration > 0 && fctx.estimatedDurationIsAccurate
         
-        metadata.chapters = metadataMap.fileCtx.chapters.map {Chapter($0)}
+        metadata.chapters = fctx.chapters.map {Chapter($0)}
         
         metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
         metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
@@ -158,39 +148,32 @@ class FFmpegFileReader: FileReaderProtocol {
         
         metadata.nonEssentialMetadata = auxiliaryMetadata
         
-        if let imageData = metadataMap.fileCtx.bestImageStream?.attachedPic.data {
+        // MARK: Cover Art -------------------------------------------------------------------------------------------------
+        
+        if let imageData = metadataMap.imageStream?.attachedPic.data {
             metadata.art = CoverArt(source: .file, originalImageData: imageData)
         }
         
-        metadata.audioInfo = doGetAudioInfo(for: file, fromCtx: fileContext, loadingAudioInfoFrom: playbackContext)
+        // MARK: Audio Info -------------------------------------------------------------------------------------------------
+        
+        metadata.audioInfo = doGetAudioInfo(for: file, fromCtx: fctx, stream: stream, codec: codec)
         
         return metadata
     }
     
-    private func doGetAudioInfo(for file: URL, fromCtx fctx: FFmpegFileContext, loadingAudioInfoFrom playbackContext: FFmpegPlaybackContext) -> AudioInfo {
+    private func doGetAudioInfo(for file: URL, fromCtx fctx: FFmpegFileContext, stream: FFmpegAudioStream, codec: FFmpegAudioCodec) -> AudioInfo {
         
         let audioInfo = AudioInfo()
         
         audioInfo.format = fctx.formatLongName
+        audioInfo.codec = codec.longName
+        
+        audioInfo.channelLayout = codec.channelLayout.description
+        audioInfo.sampleRate = stream.sampleRate
+        audioInfo.sampleFormat = codec.sampleFormat.description
+        audioInfo.frames = Int64(Double(stream.sampleRate) * fctx.duration)
+        audioInfo.numChannels = Int(stream.channelCount)
         audioInfo.bitRate = (Double(fctx.bitRate) / Double(FileSize.KB)).roundedInt
-        
-        audioInfo.codec = playbackContext.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
-        audioInfo.channelLayout = playbackContext.audioFormat.channelLayoutString
-        
-        if let audioStream = fctx.bestAudioStream {
-            
-            audioInfo.sampleRate = audioStream.sampleRate
-            
-            audioInfo.sampleFormat = FFmpegSampleFormat(encapsulating: AVSampleFormat(rawValue: audioStream.codecParams.format)).description
-            
-            audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
-            
-            audioInfo.numChannels = Int(audioStream.channelCount)
-            
-            if audioInfo.channelLayout == nil {
-                audioInfo.channelLayout = FFmpegChannelLayout(encapsulating: audioStream.avChannelLayout).description
-            }
-        }
         
         return audioInfo
     }
@@ -211,17 +194,13 @@ class FFmpegFileReader: FileReaderProtocol {
     
     func getArt(for file: URL) -> CoverArt? {
         
-        do {
+        // Construct an ffmpeg file context for this track.
+        // This will be used to read cover art.
+        if let fctx = try? FFmpegFileContext(for: file),
+           let imageData = fctx.bestImageStream?.attachedPic.data {
             
-            // Construct an ffmpeg file context for this track.
-            // This will be used to read cover art.
-            let fctx = try FFmpegFileContext(for: file)
-            
-            if let imageData = fctx.bestImageStream?.attachedPic.data {
-                return CoverArt(source: .file, originalImageData: imageData)
-            }
-            
-        } catch {}
+            return CoverArt(source: .file, originalImageData: imageData)
+        }
         
         return nil
     }

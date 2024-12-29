@@ -19,7 +19,7 @@ extension Track {
     }
     
     var isNativelySupported: Bool {
-        metadata.fileSystemInfo.isNativelySupported
+        fileSystemInfo.isNativelySupported
     }
     
     var isPlayable: Bool {
@@ -35,7 +35,7 @@ extension Track {
     }
     
     var defaultDisplayName: String {
-        metadata.fileSystemInfo.defaultDisplayName
+        fileSystemInfo.defaultDisplayName
     }
     
     var duration: Double {
@@ -158,10 +158,6 @@ extension Track {
     
     var replayGain: ReplayGain? {
         metadata.replayGain
-    }
-
-    var fileSystemInfo: FileSystemInfo {
-        metadata.fileSystemInfo
     }
     
     var audioInfo: AudioInfo {

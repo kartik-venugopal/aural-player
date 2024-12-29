@@ -40,4 +40,20 @@ class AudioInfo {
     
     var replayGainFromMetadata: ReplayGain?
     var replayGainFromAnalysis: ReplayGain?
+    
+    init() {}
+    
+    init(persistentState: AudioInfoPersistentState) {
+        
+        self.frames = persistentState.frames
+        self.sampleRate = persistentState.sampleRate
+        self.sampleFormat = persistentState.sampleFormat
+        self.numChannels = persistentState.numChannels
+        self.bitRate = persistentState.bitRate
+        self.format = persistentState.format
+        self.codec = persistentState.codec
+        self.channelLayout = persistentState.channelLayout
+        self.replayGainFromAnalysis = persistentState.replayGainFromAnalysis
+        self.replayGainFromMetadata = persistentState.replayGainFromMetadata
+    }
 }

@@ -85,12 +85,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
             // Was not caching before, now need to cache all PQ tracks.
             
             DispatchQueue.global(qos: .utility).async {
-                
-//                for track in playQueueDelegate.tracks {
-//                    metadataRegistry[track] = track.metadata
-//                }
-//                
-//                metadataRegistry.persistCoverArt()
+                metadataRegistry.bulkAddMetadata(from: playQueueDelegate.tracks)
             }
         }
         
