@@ -146,6 +146,8 @@ If you would like to show your appreciation for my work on this app by donating,
 
 [![PayPal donation button](https://raw.githubusercontent.com/kartik-venugopal/aural-player/main/Resources/PayPal-DonateButton.png)](https://www.paypal.com/donate/?hosted_button_id=QMC632322THC2)
 
+(If the button doesn't work, you can use my PayPal ID which is: kartikv.de@gmail.com)
+
 ______
 
 ## Contact and conversation
