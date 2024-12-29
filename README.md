@@ -11,9 +11,8 @@
     + [Limitations](#limitations)
   * [Download](#download)
     + [Compatibility](#compatibility)
-  * [Building the app](#building-the-app)
   * [Documentation](#documentation)
-  * [Known issues (and solutions)](#known-issues-and-solutions)
+  * [Donation](#donation)
   * [Contact and conversation](#contact-and-conversation)
   * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
@@ -123,12 +122,6 @@ This table lists the range of compatible Aural Player versions for your hardware
 
 ______
 
-## Building the app
-
-All you need is Xcode 15 and the [source code](https://github.com/kartik-venugopal/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
-
-Read the [quick start guide](https://github.com/kartik-venugopal/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide)) for more details.
-
 ## Documentation
 
 All the documentation can be found on the [wiki](https://github.com/kartik-venugopal/aural-player/wiki).
@@ -146,20 +139,14 @@ NOTE - Documentation generally lags behind app development, so pages may contain
 [Developer reference](https://github.com/kartik-venugopal/aural-player/wiki/Developer-reference)
 
 ______
-     
-## Known issues (and solutions)
-
-* [The text is too small on my Mac screen.](https://github.com/kartik-venugopal/aural-player/wiki/App-text-is-too-small-on-my-Mac-screen)
-
-* [My media keys don't work with Aural Player](https://github.com/kartik-venugopal/aural-player/wiki/My-media-keys-don't-work-with-Aural-Player)
-
-______
 
 ## Donation
 
-If you would like to send me a little something for my efforts on developing this app, you can do so via PayPal:
+If you would like to show your appreciation for my work on this app by donating, you can do so via PayPal. Any donations are 100% voluntary, and any amount is much appreciated!
 
 [![PayPal donation button](https://raw.githubusercontent.com/kartik-venugopal/aural-player/main/Resources/PayPal-DonateButton.png)](https://www.paypal.com/donate/?hosted_button_id=QMC632322THC2)
+
+______
 
 ## Contact and conversation
 
