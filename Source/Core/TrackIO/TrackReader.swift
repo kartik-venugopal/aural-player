@@ -27,9 +27,6 @@ class TrackReader {
     
     private lazy var logger: Logger = .init(for: self)
     
-    var hits: AtomicIntCounter = .init()
-    var misses: AtomicIntCounter = .init()
-    
     ///
     /// Loads the essential metadata fields that are required for a track to be loaded into the playlist.
     ///
@@ -39,8 +36,6 @@ class TrackReader {
         
         if metadataCacheEnabled, let cachedMetadata = metadataRegistry[track] {
             
-            hits.increment()
-            
             track.metadata = cachedMetadata
             
             doLoadMetadata(for: track, onQueue: opQueue,
@@ -48,8 +43,6 @@ class TrackReader {
                                   completionHandler: completionHandler)
             return
         }
-        
-        misses.increment()
         
         opQueue.addOperation {
             

@@ -32,25 +32,27 @@ extension SearchViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         guard let column = tableColumn?.identifier,
-              let result = searchResults?.results[row] else {return nil}
+              let result = searchResults?.results[row],
+              let cell = tableView.makeView(withIdentifier: column, owner: nil) as? AuralTableCellView else {return nil}
         
-        let builder = TableCellBuilder()
         let track = result.location.track
         
         switch column {
             
         case .cid_index:
             
-//            if track == playQueueDelegate.currentTrack {
-//                builder.withImage(image: .imgPlayFilled, inColor: systemColorScheme.activeControlColor)
-//                
-//            } else {
+            cell.text = "\(row + 1)"
+            cell.textFont = systemFontScheme.normalFont
+            cell.textColor = systemColorScheme.tertiaryTextColor
+            cell.realignTextBottom(yOffset: systemFontScheme.tableYOffset)
             
-                builder.withText(text: "\(row + 1)",
-                                        inFont: systemFontScheme.normalFont, andColor: systemColorScheme.tertiaryTextColor,
-                                        selectedTextColor: systemColorScheme.tertiarySelectedTextColor,
-                                        bottomYOffset: systemFontScheme.tableYOffset)
-//            }
+            // Used by play button action (to play the search result)
+            
+            if let pqResultCell = cell as? CompactPlayQueueSearchResultIndexCell {
+                
+                pqResultCell.index = row + 1
+                pqResultCell.playQueueTrackIndex = (result.location as? PlayQueueSearchResultLocation)?.index ?? 0
+            }
             
         case .cid_trackName:
             
@@ -58,29 +60,26 @@ extension SearchViewController: NSTableViewDelegate {
             
             if let artist = titleAndArtist.artist {
                 
-                builder.withAttributedText(strings: [(text: artist + "  ", font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor),
-                                                            (text: titleAndArtist.title, font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)],
-                                                  selectedTextColors: [systemColorScheme.secondarySelectedTextColor, systemColorScheme.primarySelectedTextColor],
-                                                  bottomYOffset: systemFontScheme.tableYOffset)
+                let attrText = "\(artist)  ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondaryTextColor) + titleAndArtist.title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)
+                
+                attrText.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byTruncatingTail, range: NSMakeRange(0, attrText.length))
+                
+                cell.attributedText = attrText
+                cell.textField?.lineBreakMode = .byTruncatingTail
+                cell.textField?.usesSingleLineMode = true
                 
             } else {
                 
-                builder.withText(text: titleAndArtist.title, inFont: systemFontScheme.normalFont, andColor: systemColorScheme.primaryTextColor,
-                                        selectedTextColor: systemColorScheme.primarySelectedTextColor, bottomYOffset: systemFontScheme.tableYOffset)
+                cell.text = titleAndArtist.title
+                cell.textFont = systemFontScheme.normalFont
+                cell.textColor = systemColorScheme.primaryTextColor
             }
             
-            return builder.buildCell(forTableView: tableView, forColumnWithId: .cid_trackName, inRow: row)
+            cell.realignTextBottom(yOffset: systemFontScheme.tableYOffset)
             
         default:
             
             return nil
-        }
-        
-        let cell = builder.buildGenericCell(ofType: CompactPlayQueueSearchResultIndexCell.self, forTableView: tableView, forColumnWithId: column, inRow: row)
-        
-        if column == .cid_index {
-            cell?.index = row + 1
-            cell?.playQueueTrackIndex = (result.location as? PlayQueueSearchResultLocation)?.index ?? 0
         }
         
         return cell

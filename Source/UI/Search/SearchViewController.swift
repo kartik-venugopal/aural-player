@@ -65,26 +65,38 @@ class SearchViewController: NSViewController {
         
         defer {resultsTable.startTracking()}
         
+        DispatchQueue.global(qos: .userInitiated).async {
+         
+            self.doUpdateSearch()
+            
+            DispatchQueue.main.async {
+                
+                self.resultsTable.searchUpdated()
+                self.resultsTable.reloadData()
+                self.updateSummary()
+            }
+        }
+    }
+    
+    private func doUpdateSearch() {
+        
         switch searchQuery.scope {
             
         case .playQueue:
-            updateSearchResultsForPlayQueue()
+            searchResults = playQueueDelegate.search(searchQuery)
             
         default:
             return
         }
-        
-        if !searchResults.hasResults {
-            
-            lblSummary.stringValue = "0 results"
-            return
-        }
-        
-        lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results")"
     }
     
-    private func updateSearchResultsForPlayQueue() {
-        searchResults = playQueueDelegate.search(searchQuery)
+    private func updateSummary() {
+        
+        if searchResults.hasResults {
+            lblSummary.stringValue = "\(searchResults.count) \(searchResults.count == 1 ? "result" : "results")"
+        } else {
+            lblSummary.stringValue = "0 results"
+        }
     }
     
     private func noResultsFound() {
@@ -92,13 +104,12 @@ class SearchViewController: NSViewController {
         lblSummary.stringValue = "0 results"
         searchResults = .noPlayQueueResults
         resultsTable.reset()
+        resultsTable.reloadData()
     }
     
     // If no fields to compare or no search text, don't do the search
     private func redoSearchIfPossible() {
-        
         searchQuery.queryPossible ? updateSearch() : noResultsFound()
-        resultsTable.reloadData()
     }
     
     private func searchSettingsUpdated() {

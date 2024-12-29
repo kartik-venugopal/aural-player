@@ -109,9 +109,7 @@ class AttrCellView: NSTableCellView {
         
         let selMuthu = "\(artist)  ".attributed(font: systemFontScheme.normalFont, color: systemColorScheme.secondarySelectedTextColor) + title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primarySelectedTextColor)
         
-        let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        style.lineBreakMode = .byTruncatingTail
-        muthu.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, muthu.length))
+        muthu.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byTruncatingTail, range: NSMakeRange(0, muthu.length))
         
         self.attributedText = muthu
         self.attrText = muthu
@@ -123,9 +121,7 @@ class AttrCellView: NSTableCellView {
         let muthu = title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primaryTextColor)
         let selMuthu = title.attributed(font: systemFontScheme.normalFont, color: systemColorScheme.primarySelectedTextColor)
         
-        let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        style.lineBreakMode = .byTruncatingTail
-        muthu.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, muthu.length))
+        muthu.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byTruncatingTail, range: NSMakeRange(0, muthu.length))
         
         self.attributedText = muthu
         self.attrText = muthu
