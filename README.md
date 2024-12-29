@@ -155,6 +155,12 @@ ______
 
 ______
 
+## Donation
+
+If you would like to send me a little something for my efforts on developing this app, you can do so via PayPal:
+
+[![PayPal donation button](https://raw.githubusercontent.com/kartik-venugopal/aural-player/main/Resources/PayPal-DonateButton.png)](https://www.paypal.com/donate/?hosted_button_id=QMC632322THC2)
+
 ## Contact and conversation
 
 **(NEW!) Discussions:** https://github.com/kartik-venugopal/aural-player/discussions
