@@ -44,7 +44,11 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
             case .playQueue:
                 
                 windowLoaders.append(WindowLoader(windowID: .playQueue, windowControllerType: PlayQueueWindowController.self))
-                
+
+            case .lyrics:
+
+                    windowLoaders.append(WindowLoader(windowID: .lyrics, windowControllerType: LyricsWindowController.self))
+
             case .effects:
                 
                 windowLoaders.append(WindowLoader(windowID: .effects, windowControllerType: EffectsWindowController.self))

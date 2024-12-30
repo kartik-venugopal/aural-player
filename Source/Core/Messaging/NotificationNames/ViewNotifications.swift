@@ -20,7 +20,8 @@ extension Notification.Name {
         static let toggleVisualizer = Notification.Name("view_toggleVisualizer")
         static let toggleTrackInfo = Notification.Name("view_toggleTrackInfo")
         static let toggleWaveform = Notification.Name("view_toggleWaveform")
-        
+        static let toggleLyrics = Notification.Name("view_toggleLyrics")
+
         static let changeWindowCornerRadius = Notification.Name("view_changeWindowCornerRadius")
         
         struct CompactPlayer {

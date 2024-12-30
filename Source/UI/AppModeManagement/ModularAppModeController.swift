@@ -44,7 +44,11 @@ class ModularAppModeController: AppModeController {
     var isShowingEffects: Bool {
         windowLayoutsManager.isShowingWindow(withId: .effects)
     }
-    
+
+    var isShowingLyrics: Bool {
+        windowLayoutsManager.isShowingWindow(withId: .lyrics)
+    }
+
     var isShowingChaptersList: Bool {
         windowLayoutsManager.isShowingWindow(withId: .chaptersList)
     }

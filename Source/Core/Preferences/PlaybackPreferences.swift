@@ -88,7 +88,10 @@ class PlaybackPreferences {
     
     lazy var rememberLastPositionForAllTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).rememberLastPositionForAllTracks",
                                                                                                 defaultValue: Defaults.rememberLastPositionForAllTracks)
-    
+
+    lazy var showChineseLyricsTranslation: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showChineseLyricsTranslation",
+                                                                            defaultValue: Defaults.showChineseLyricsTranslation)
+
     enum SeekLengthOption: String, CaseIterable {
         
         case constant

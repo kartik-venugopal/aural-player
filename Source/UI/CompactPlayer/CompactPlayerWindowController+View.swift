@@ -19,7 +19,11 @@ extension CompactPlayerWindowController {
     var isShowingPlayQueue: Bool {
         compactPlayerUIState.displayedView == .playQueue
     }
-    
+
+    var isShowingLyrics: Bool {
+        true
+    }
+
     var isShowingEffects: Bool {
         compactPlayerUIState.displayedView == .effects
     }

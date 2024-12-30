@@ -136,7 +136,7 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.chapters = fctx.chapters.map {Chapter($0)}
         
         metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
-        metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
+        metadata.lyrics = relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)}
         
         metadata.replayGain = codec.replayGain ?? relevantParsers.firstNonNilMappedValue {$0.getReplayGain(from: metadataMap)}
         

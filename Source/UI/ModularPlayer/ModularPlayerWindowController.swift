@@ -78,6 +78,7 @@ class ModularPlayerWindowController: NSWindowController {
         
         messenger.subscribe(to: .View.togglePlayQueue, handler: togglePlayQueue)
         messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
+        messenger.subscribe(to: .View.toggleLyrics, handler: toggleLyrics)
         messenger.subscribe(to: .View.toggleChaptersList, handler: toggleChaptersList)
         messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
         messenger.subscribe(to: .View.toggleWaveform, handler: toggleWaveform)
@@ -127,7 +128,11 @@ class ModularPlayerWindowController: NSWindowController {
     private func toggleEffects() {
         windowLayoutsManager.toggleWindow(withId: .effects)
     }
-    
+
+    private func toggleLyrics() {
+        windowLayoutsManager.toggleWindow(withId: .lyrics)
+    }
+
     private func toggleChaptersList() {
         windowLayoutsManager.toggleWindow(withId: .chaptersList)
     }

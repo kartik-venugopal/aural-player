@@ -51,6 +51,7 @@ struct PreferencesDefaults {
         static let autoplayAfterOpeningOption: PlaybackPreferences.AutoplayAfterOpeningOption = .always
         
         static let rememberLastPositionForAllTracks: Bool = false
+        static let showChineseLyricsTranslation: Bool = false
     }
     
     ///

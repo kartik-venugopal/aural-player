@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,6 +68,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="toggleWaveformAction:" target="Ro6-ma-Phw" id="kw2-pe-Isj"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Lyrics" id="bt2-0U-e0w">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleLyricsAction:" target="Ro6-ma-Phw" id="m4w-F0-zql"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="y9v-7f-Vob"/>
@@ -272,6 +278,7 @@
                 <outlet property="saveCurrentWindowLayoutMenuItem" destination="tC2-xb-Xzp" id="bFD-oR-0SX"/>
                 <outlet property="toggleChaptersListMenuItem" destination="EF3-EJ-g9z" id="rBk-jg-tsQ"/>
                 <outlet property="toggleEffectsMenuItem" destination="EMc-En-1DG" id="0OS-ut-4dc"/>
+                <outlet property="toggleLyricsMenuItem" destination="bt2-0U-e0w" id="XmE-vd-Zxp"/>
                 <outlet property="togglePlayQueueMenuItem" destination="YMp-Mn-vwN" id="PiD-aY-lrs"/>
                 <outlet property="togglePlayerMenuItem" destination="PVu-em-g7u" id="9u5-u8-hG8"/>
                 <outlet property="toggleTrackInfoMenuItem" destination="rxD-Gp-Awn" id="4By-RL-oGM"/>
@@ -284,7 +291,7 @@
             <rect key="frame" x="0.0" y="0.0" width="214" height="25"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ibj-MQ-TTc">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ibj-MQ-TTc">
                     <rect key="frame" x="9" y="5" width="156" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="    Window corner radius" id="Oh9-dm-Qiu">
@@ -293,7 +300,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aoN-1d-cnL">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aoN-1d-cnL">
                     <rect key="frame" x="156" y="5" width="39" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="VJt-A2-ysJ">
