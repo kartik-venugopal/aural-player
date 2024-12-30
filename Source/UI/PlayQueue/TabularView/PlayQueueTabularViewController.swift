@@ -21,17 +21,24 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     override var rowHeight: CGFloat {30}
     
     @IBOutlet weak var rogueBox: NSBox!
+    @IBOutlet weak var columnsMenu: NSMenu!
+    private lazy var columnsMenuDelegate: PlayQueueTabularViewColumnsMenuDelegate = .init(tableView: tableView)
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         tableView.customizeHeader(heightIncrease: 0, customCellType: PlayQueueTabularViewTableHeaderCell.self)
+        columnsMenu.delegate = columnsMenuDelegate
     }
     
-    override func viewWillAppear() {
+    override func viewDidAppear() {
         
-        super.viewWillAppear()
-        restoreDisplayedColumns()
+        super.viewDidAppear()
+        
+        DispatchQueue.main.async {
+            self.restoreDisplayedColumns()
+        }
     }
     
     override func viewWillDisappear() {
@@ -89,16 +96,7 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     }
     
     func tableView(_ tableView: NSTableView, shouldReorderColumn columnIndex: Int, toColumn newColumnIndex: Int) -> Bool {
-        
-        if tableView.tableColumns[columnIndex].identifier.equalsOneOf(.cid_index, .cid_duration) {
-            return false
-        }
-        
-        if newColumnIndex.equalsOneOf(0, tableView.numberOfVisibleColumns - 1) {
-            return false
-        }
-        
-        return true
+        tableView.tableColumns[columnIndex].identifier != .cid_index && newColumnIndex != 0
     }
     
     func tableViewColumnDidMove(_ notification: Notification) {
@@ -216,7 +214,7 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         return builder.buildCell(forTableView: tableView, forColumnWithId: column, inRow: row)
     }
     
-    private static let columnIDs: [NSUserInterfaceItemIdentifier] = [.cid_title, .cid_fileName, .cid_artist, .cid_album, .cid_genre, .cid_trackNum, .cid_discNum, .cid_year, .cid_duration, .cid_format, .cid_playCount, .cid_lastPlayed]
+    fileprivate static let columnIDs: [NSUserInterfaceItemIdentifier] = [.cid_title, .cid_fileName, .cid_artist, .cid_album, .cid_genre, .cid_trackNum, .cid_discNum, .cid_year, .cid_duration, .cid_format, .cid_playCount, .cid_lastPlayed]
     
     @IBAction func toggleColumnAction(_ sender: NSMenuItem) {
         
@@ -252,5 +250,28 @@ fileprivate extension TableCellBuilder {
                  inFont: systemFontScheme.normalFont, andColor: systemColorScheme.primaryTextColor,
                  selectedTextColor: systemColorScheme.primarySelectedTextColor,
                  bottomYOffset: systemFontScheme.tableYOffset)
+    }
+}
+
+class PlayQueueTabularViewColumnsMenuDelegate: NSObject, NSMenuDelegate {
+    
+    let tableView: NSTableView
+    
+    init(tableView: NSTableView) {
+        self.tableView = tableView
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        for item in menu.items {
+            
+            let index = item.tag
+            
+            if PlayQueueTabularViewController.columnIDs.indices.contains(index),
+               let column = tableView.tableColumn(withIdentifier: PlayQueueTabularViewController.columnIDs[index]) {
+                
+                item.onIf(column.isShown)
+            }
+        }
     }
 }
