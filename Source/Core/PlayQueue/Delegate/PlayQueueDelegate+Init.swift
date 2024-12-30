@@ -80,42 +80,48 @@ extension PlayQueueDelegate {
     
     private func historyItemForState(_ state: HistoryItemPersistentState) -> HistoryItem? {
         
-//        guard let itemType = state.itemType, let lastEventTime = state.lastEventTime, let addCount = state.addCount else {return nil}
-//        
-//        var item: HistoryItem? = nil
-//        
-//        switch itemType {
-//            
-//        case .track:
-//            
-//            guard let trackFile = state.trackFile else {return nil}
-//            
-//            let track = Track(trackFile)
-//            item = TrackHistoryItem(track: track, lastEventTime: lastEventTime, addCount: addCount)
-//            
-//            trackReader.loadPrimaryMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
-//            
-//        case .playlistFile:
-//            
-//            if let playlistFile = state.playlistFile {
-//                item = PlaylistFileHistoryItem(playlistFile: playlistFile, lastEventTime: lastEventTime, addCount: addCount)
+        guard let itemType = state.itemType, state.addCount != nil || state.playCount != nil else {return nil}
+        
+        var item: HistoryItem? = nil
+        
+        switch itemType {
+            
+        case .track:
+            
+            guard let trackFile = state.trackFile else {return nil}
+            
+            let track = Track(trackFile)
+            
+            item = TrackHistoryItem(track: track,
+                                    addCount: .init(persistentState: state.addCount) ?? .init(),
+                                    playCount: .init(persistentState: state.playCount) ?? .init())
+            
+            trackReader.loadMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
+            
+        case .playlistFile:
+            
+            guard let playlistFile = state.playlistFile else {return nil}
+            
+            item = PlaylistFileHistoryItem(playlistFile: playlistFile,
+                                           addCount: .init(persistentState: state.addCount) ?? .init(),
+                                           playCount: .init(persistentState: state.playCount) ?? .init())
+            
+        case .folder:
+            
+            guard let folder = state.folder else {return nil}
+            
+            item = FolderHistoryItem(folder: folder,
+                                     addCount: .init(persistentState: state.addCount) ?? .init(),
+                                     playCount: .init(persistentState: state.playCount) ?? .init())
+            
+        case .group:
+            
+//            if let groupName = state.groupName, let groupType = state.groupType {
+//                item = GroupHistoryItem(groupName: groupName, groupType: groupType, lastEventTime: lastEventTime, addCount: addCount)
 //            }
-//            
-//        case .folder:
-//            
-//            if let folder = state.folder {
-//                item = FolderHistoryItem(folder: folder, lastEventTime: lastEventTime, addCount: addCount)
-//            }
-//            
-//        case .group:
-//            
-////            if let groupName = state.groupName, let groupType = state.groupType {
-////                item = GroupHistoryItem(groupName: groupName, groupType: groupType, lastEventTime: lastEventTime, addCount: addCount)
-////            }
-//            return nil
-//        }
-//        
-//        return item
-        nil
+            return nil
+        }
+        
+        return item
     }
 }

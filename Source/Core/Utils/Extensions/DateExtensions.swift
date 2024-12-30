@@ -59,7 +59,9 @@ extension Date {
     }
     
     // Computes a time category (see TimeElapsed) representing the time elapsed since a given date (until now)
-    static func timeElapsedSince(_ date: Date) -> TimeElapsed {
+    static func timeElapsedSince(_ date: Date?) -> TimeElapsed {
+        
+        guard let date else {return .unknown}
         
         // Convert a TimeInterval to a TimeElapsed
         
@@ -125,4 +127,6 @@ enum TimeElapsed: String {
     case past30Days = "Past 30 days"
     
     case olderThan30Days = "Older than 30 days"
+    
+    case unknown = "Unknown"
 }

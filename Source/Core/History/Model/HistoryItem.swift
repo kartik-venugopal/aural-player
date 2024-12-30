@@ -20,6 +20,21 @@ class HistoryItem {
     var addCount: HistoryEventCounter
     var playCount: HistoryEventCounter
     
+    var lastEventTime: Date? {
+        
+        if let lastAddTime = addCount.lastEventTime {
+            
+            if let lastPlayTime = playCount.lastEventTime {
+                return max(lastAddTime, lastPlayTime)
+            } else {
+                return lastAddTime
+            }
+            
+        } else {
+            return playCount.lastEventTime
+        }
+    }
+    
     init(displayName: String, key: CompositeKey, addCount: HistoryEventCounter, playCount: HistoryEventCounter) {
         
         self.displayName = displayName
@@ -49,6 +64,8 @@ class HistoryEventCounter {
         eventCount.increment()
     }
     
+    init() {}
+    
     static func createWithFirstEvent() -> HistoryEventCounter {
         
         let instance = HistoryEventCounter()
@@ -57,5 +74,13 @@ class HistoryEventCounter {
         instance.eventCount = 1
         
         return instance
+    }
+    
+    init?(persistentState: HistoryEventCounterPersistentState?) {
+        
+        guard let persistentState else {return nil}
+        
+        self.lastEventTime = persistentState.lastEventTime
+        self.eventCount = persistentState.eventCount ?? 0
     }
 }

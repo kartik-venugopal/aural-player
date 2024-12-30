@@ -121,7 +121,7 @@ extension PlayQueueDelegate {
         
         if let newTrack = notification.endTrack {
             
-            markAddEventForTrack(newTrack)
+            markPlayEventForTrack(newTrack)
             messenger.publish(.History.updated)
         }
     }
@@ -140,11 +140,25 @@ extension PlayQueueDelegate {
         let trackKey = TrackHistoryItem.key(forTrack: track)
         
         if let existingHistoryItem: TrackHistoryItem = recentItems[trackKey] as? TrackHistoryItem {
-            markNewEvent(forItem: existingHistoryItem)
+            markNewAddEvent(forItem: existingHistoryItem)
             
         } else {
             
             recentItems[trackKey] = TrackHistoryItem(track: track, addCount: .createWithFirstEvent(), playCount: .init())
+            maintainListSize()
+        }
+    }
+    
+    fileprivate func markPlayEventForTrack(_ track: Track) {
+        
+        let trackKey = TrackHistoryItem.key(forTrack: track)
+        
+        if let existingHistoryItem: TrackHistoryItem = recentItems[trackKey] as? TrackHistoryItem {
+            markNewPlayEvent(forItem: existingHistoryItem)
+            
+        } else {
+            
+            recentItems[trackKey] = TrackHistoryItem(track: track, addCount: .init(), playCount: .createWithFirstEvent())
             maintainListSize()
         }
     }
@@ -174,7 +188,7 @@ extension PlayQueueDelegate {
         let folderKey = FolderHistoryItem.key(forFolder: folder)
         
         if let existingHistoryItem: FolderHistoryItem = recentItems[folderKey] as? FolderHistoryItem {
-            markNewEvent(forItem: existingHistoryItem)
+            markNewAddEvent(forItem: existingHistoryItem)
             
         } else {
             
@@ -203,7 +217,7 @@ extension PlayQueueDelegate {
         let playlistFileKey = PlaylistFileHistoryItem.key(forPlaylistFile: playlistFile)
         
         if let existingHistoryItem: PlaylistFileHistoryItem = recentItems[playlistFileKey] as? PlaylistFileHistoryItem {
-            markNewEvent(forItem: existingHistoryItem)
+            markNewAddEvent(forItem: existingHistoryItem)
             
         } else {
             
@@ -260,9 +274,18 @@ extension PlayQueueDelegate {
 //        }
 //    }
     
-    private func markNewEvent(forItem existingHistoryItem: HistoryItem) {
+    private func markNewAddEvent(forItem existingHistoryItem: HistoryItem) {
         
         existingHistoryItem.markAddEvent()
+        
+        // Move to bottom (i.e. most recent)
+        recentItems.removeValue(forKey: existingHistoryItem.key)
+        recentItems[existingHistoryItem.key] = existingHistoryItem
+    }
+    
+    private func markNewPlayEvent(forItem existingHistoryItem: HistoryItem) {
+        
+        existingHistoryItem.markPlayEvent()
         
         // Move to bottom (i.e. most recent)
         recentItems.removeValue(forKey: existingHistoryItem.key)

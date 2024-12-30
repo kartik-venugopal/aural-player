@@ -12,6 +12,7 @@ struct PlayQueueTrackAddResult {
 class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     // Recently played items
+    // TODO: Does this need to be thread-safe ??? Assess which threads it's accessed from.
     var recentItems: OrderedDictionary<CompositeKey, HistoryItem> = OrderedDictionary()
     
     var lastPlaybackPosition: Double = 0

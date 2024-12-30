@@ -93,18 +93,18 @@ fileprivate func createChronologicalMenu(_ items: [HistoryItem], _ menu: NSMenu,
         let menuItem = createHistoryMenuItem(item, actionTarget, action)
         
         // Figure out how old this item is
-//        let timeElapsed = Date.timeElapsedSince(item.lastEventTime)
-//        
-//        // If this category doesn't already exist, create it
-//        if !timeCategories.contains(timeElapsed) {
-//            
-//            timeCategories.insert(timeElapsed)
-//            
-//            // Add a descriptor menu item that describes the time category, between 2 separators
-//            menu.addItem(NSMenuItem.separator())
-//            menu.addItem(NSMenuItem.createDescriptor(title: timeElapsed.rawValue))
-//            menu.addItem(NSMenuItem.separator())
-//        }
+        let timeElapsed = Date.timeElapsedSince(item.lastEventTime)
+        
+        // If this category doesn't already exist, create it
+        if !timeCategories.contains(timeElapsed) {
+            
+            timeCategories.insert(timeElapsed)
+            
+            // Add a descriptor menu item that describes the time category, between 2 separators
+            menu.addItem(NSMenuItem.separator())
+            menu.addItem(NSMenuItem.createDescriptor(title: timeElapsed.rawValue))
+            menu.addItem(NSMenuItem.separator())
+        }
         
         // Add the history menu item to the menu
         menu.addItem(menuItem)
