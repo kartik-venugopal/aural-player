@@ -23,9 +23,26 @@ class MetadataRegistry: PersistentRootObject {
                                                          downscaledSize: NSMakeSize(30, 30),
                                                          persistOriginalImage: false)
     
+    let initCache: Bool
+    
     init(persistentState: MetadataPersistentState?) {
         
-        if let metadataPersistentState: [URL: FileMetadataPersistentState] = persistentState?.metadata {
+        var initCache: Bool = true
+        
+        if let appVersion = appPersistentState.appVersion, appVersion.contains("4.0.0-preview") {
+            
+            let previewVersion = appVersion.replacingOccurrences(of: "4.0.0-preview", with: "")
+            if let version = Int(previewVersion) {
+                
+                if version < 23 {
+                    initCache = false
+                }
+            }
+        }
+        
+        self.initCache = initCache
+        
+        if initCache, let metadataPersistentState: [URL: FileMetadataPersistentState] = persistentState?.metadata {
 
             registry.bulkAddAndMap(map: metadataPersistentState) {(metadataState: FileMetadataPersistentState) in
                 FileMetadata(persistentState: metadataState, persistentCoverArt: nil)
@@ -48,6 +65,8 @@ class MetadataRegistry: PersistentRootObject {
     }
     
     func initializeImageCache(fromPersistentState persistentState: MetadataPersistentState?) {
+        
+        guard initCache else {return}
         
         fileImageCache.initialize(fromPersistentState: persistentState?.coverArt)
         

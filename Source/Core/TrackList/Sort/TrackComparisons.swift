@@ -80,6 +80,10 @@ let trackLastModifiedTimeComparison: TrackComparison = {t1, t2 in
     return .orderedDescending
 }
 
+let trackYearComparison: TrackComparison = {t1, t2 in
+    (t1.year ?? 0).compare(t2.year ?? 0)
+}
+
 func chainTrackComparisons(_ c1: @escaping TrackComparison, _ c2: @escaping TrackComparison) -> TrackComparison {
 
     {t1, t2 in

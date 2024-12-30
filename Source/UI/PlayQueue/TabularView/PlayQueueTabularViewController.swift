@@ -26,6 +26,8 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     @IBOutlet weak var columnsMenu: NSMenu!
     private lazy var columnsMenuDelegate: PlayQueueTabularViewColumnsMenuDelegate = .init(tableView: tableView)
     
+    var columnsRestored: Bool = false
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -43,25 +45,21 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         }
     }
     
-    override func viewWillDisappear() {
-        
-        super.viewWillDisappear()
-        saveColumnsState()
-    }
-    
     private func restoreDisplayedColumns() {
         
         let displayedColumns = playQueueUIState.displayedColumns.values
         let displayedColumnIds: [String] = displayedColumns.map {$0.id}
         
+        defer {tableView.sizeToFit()}
+        
         if displayedColumns.isEmpty {
             
+            columnsRestored = true
             saveColumnsState()
             return
         }
 
         for column in tableView.tableColumns {
-//            column.headerCell = LibraryTableHeaderCell(stringValue: column.headerCell.stringValue)
             column.isHidden = !displayedColumnIds.contains(column.identifier.rawValue)
         }
 
@@ -74,6 +72,8 @@ class PlayQueueTabularViewController: PlayQueueViewController {
             
             tableView.tableColumn(withIdentifier: colID)?.width = column.width
         }
+        
+        columnsRestored = true
     }
     
     func saveColumnsState() {
@@ -105,6 +105,8 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         guard Self.columnIDs.indices.contains(index), let column = tableView.tableColumn(withIdentifier: Self.columnIDs[index]) else {return}
         
         column.isHidden.toggle()
+        tableView.sizeToFit()
+        
         saveColumnsState()
     }
     

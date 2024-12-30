@@ -99,8 +99,8 @@ class MusicBrainzCache: PersistentModelObject {
         
         guard let artist = track.artist?.lowerCasedAndTrimmed() else {return nil}
         
-        if let album = track.album?.lowerCasedAndTrimmed() {
-            return getForRelease(artist: artist, title: album)?.art
+        if let album = track.album?.lowerCasedAndTrimmed(), let coverArt = getForRelease(artist: artist, title: album)?.art {
+            return coverArt
         }
         
         if let title = track.title?.lowerCasedAndTrimmed() {

@@ -130,11 +130,17 @@ extension PlayQueueTabularViewController {
     }
     
     func tableViewColumnDidMove(_ notification: Notification) {
-        saveColumnsState()
+        
+        if columnsRestored {
+            saveColumnsState()
+        }
     }
     
     func tableViewColumnDidResize(_ notification: Notification) {
-        saveColumnsState()
+        
+        if columnsRestored {
+            saveColumnsState()
+        }
     }
     
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
@@ -142,8 +148,6 @@ extension PlayQueueTabularViewController {
         guard let sortDescriptor = tableView.sortDescriptors.first, let key = sortDescriptor.key else {return}
         let ascending = sortDescriptor.ascending
         let sortOrder = sortDescriptor.sortOrder
-        
-        print("Desc: \(key), Asc: \(ascending)")
         
         switch key {
             
@@ -164,6 +168,12 @@ extension PlayQueueTabularViewController {
             
         case "genre":
             doSort(by: [.genre], order: sortOrder)
+            
+        case "trackNum":
+            doSort(by: [.trackNumber], order: sortOrder)
+            
+        case "year":
+            doSort(by: [.year], order: sortOrder)
             
 //        case "format":
 //            

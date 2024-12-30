@@ -86,7 +86,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Title" width="250" minWidth="150" maxWidth="1000" id="qHp-l5-fT0">
+                                    <tableColumn identifier="cid_Title" width="255" minWidth="150" maxWidth="1000" id="qHp-l5-fT0">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -100,11 +100,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="sQN-39-9YE" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="69" y="2" width="250" height="30"/>
+                                                <rect key="frame" x="69" y="2" width="255" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rpo-cg-01s" userLabel="Track Name">
-                                                        <rect key="frame" x="3" y="0.0" width="247" height="30"/>
+                                                        <rect key="frame" x="3" y="0.0" width="252" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="3lh-C3-aYp"/>
                                                         </constraints>
@@ -136,7 +136,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="filename"/>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="fileName"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView misplaced="YES" id="Zrn-bN-gVx" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
@@ -420,7 +420,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="iSn-LM-V7g" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="322" y="2" width="80" height="30"/>
+                                                <rect key="frame" x="327" y="2" width="80" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XJ6-89-L5c" userLabel="Duration">
@@ -593,7 +593,7 @@
                             <outlet property="scrollView" destination="KbK-mP-1to" id="uhf-op-tb0"/>
                         </connections>
                     </scroller>
-                    <tableHeaderView key="headerView" clipsToBounds="YES" wantsLayer="YES" id="jal-TJ-HVq" customClass="PlayQueueTabularViewTableHeaderView" customModule="Aural" customModuleProvider="target">
+                    <tableHeaderView key="headerView" clipsToBounds="YES" wantsLayer="YES" id="jal-TJ-HVq">
                         <rect key="frame" x="0.0" y="0.0" width="427" height="28"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>

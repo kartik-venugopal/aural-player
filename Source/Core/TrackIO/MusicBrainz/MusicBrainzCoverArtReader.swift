@@ -90,7 +90,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
            let coverArt = searchRecordings(forArtist: lcArtist, andRecordingTitle: title.lowerCasedAndTrimmed(), from: lcTrackAlbum) {
             
 //            CoverArtCache.addEntry(track.file, coverArt)
-            updatePlayQueueTracks(withCoverArt: coverArt)
+//            updatePlayQueueTracks(withCoverArt: coverArt)
             return coverArt
         }
         
