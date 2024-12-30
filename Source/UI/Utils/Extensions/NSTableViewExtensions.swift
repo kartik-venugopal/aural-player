@@ -25,6 +25,10 @@ extension NSTableView {
         }
     }
     
+    var numberOfVisibleColumns: Int {
+        tableColumns.filter {$0.isShown}.count
+    }
+    
     func isRowSelected(_ row: Int) -> Bool {
         selectedRowIndexes.contains(row)
     }
@@ -169,6 +173,7 @@ extension NSTableView {
             header.stringValue = col.headerCell.stringValue
             header.isBordered = false
             
+            header.identifier = col.identifier
             col.headerCell = header
         }
     }

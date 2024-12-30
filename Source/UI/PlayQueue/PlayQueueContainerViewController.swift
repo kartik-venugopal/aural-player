@@ -114,7 +114,7 @@ class PlayQueueContainerViewController: NSViewController {
     
     func setUpTheming() {
         
-        buttonColorChangeReceivers = [btnSimpleView, btnExpandedView]
+        buttonColorChangeReceivers = tabButtons
         
         fontSchemesManager.registerObserver(self)
         
@@ -335,7 +335,7 @@ extension PlayQueueContainerViewController: ThemeInitialization {
         
         updateSummary()
         
-        [btnSimpleView, btnExpandedView].forEach {
+        tabButtons.forEach {
             $0.redraw()
         }
         
@@ -356,7 +356,7 @@ extension PlayQueueContainerViewController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
         
-        [btnSimpleView, btnExpandedView].forEach {
+        tabButtons.forEach {
             $0.redraw()
         }
         

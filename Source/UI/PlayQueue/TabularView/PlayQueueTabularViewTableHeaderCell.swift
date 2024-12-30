@@ -16,6 +16,11 @@ class PlayQueueTabularViewTableHeaderCell: NSTableHeaderCell {
         
         cellFrame.fill(withColor: systemColorScheme.backgroundColor)
         
+        if stringValue != "#" {
+            
+            GraphicsUtils.drawLine(systemColorScheme.tertiaryTextColor, pt1: NSMakePoint(cellFrame.minX + 1, cellFrame.minY + 2), pt2: NSMakePoint(cellFrame.minX + 1, cellFrame.maxY), width: 1)
+        }
+        
         let size: CGSize = stringValue.size(withFont: systemFontScheme.normalFont)
         
         // Calculate the x co-ordinate for text rendering, according to its intended aligment
@@ -37,10 +42,10 @@ class PlayQueueTabularViewTableHeaderCell: NSTableHeaderCell {
         default:
             
             // Left alignment
-            x = cellFrame.minX + 5
+            x = cellFrame.minX + 10
         }
         
-        let rect = NSRect(x: x, y: cellFrame.minY, width: size.width, height: cellFrame.height)
+        let rect = NSRect(x: x, y: cellFrame.minY + 5, width: size.width, height: cellFrame.height)
         stringValue.draw(in: rect, withFont: systemFontScheme.normalFont,
                          andColor: systemColorScheme.secondaryTextColor)
     }

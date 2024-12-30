@@ -20,6 +20,8 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     
     override var rowHeight: CGFloat {30}
     
+    @IBOutlet weak var rogueBox: NSBox!
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -40,11 +42,13 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     
     private func restoreDisplayedColumns() {
         
-        var displayedColumnIds: [String] = playQueueUIState.displayedColumns.values.map {$0.id}
-
-        // Show default columns if none have been selected (eg. first time app is launched).
-        if displayedColumnIds.isEmpty {
-            displayedColumnIds = [NSUserInterfaceItemIdentifier.cid_index.rawValue, NSUserInterfaceItemIdentifier.cid_title.rawValue]
+        let displayedColumns = playQueueUIState.displayedColumns.values
+        let displayedColumnIds: [String] = displayedColumns.map {$0.id}
+        
+        if displayedColumns.isEmpty {
+            
+            saveColumnsState()
+            return
         }
 
         for column in tableView.tableColumns {
@@ -58,7 +62,7 @@ class PlayQueueTabularViewController: PlayQueueViewController {
             tableView.moveColumn(oldIndex, toColumn: index)
         }
 
-        for column in playQueueUIState.displayedColumns.values {
+        for column in displayedColumns {
             tableView.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier(column.id))?.width = column.width
         }
     }
@@ -82,6 +86,27 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         
         // Tell the other (sibling) table to refresh
         messenger.publish(.PlayQueue.refresh, payload: [PlayQueueView.expanded])
+    }
+    
+    func tableView(_ tableView: NSTableView, shouldReorderColumn columnIndex: Int, toColumn newColumnIndex: Int) -> Bool {
+        
+        if tableView.tableColumns[columnIndex].identifier.equalsOneOf(.cid_index, .cid_duration) {
+            return false
+        }
+        
+        if newColumnIndex.equalsOneOf(0, tableView.numberOfVisibleColumns - 1) {
+            return false
+        }
+        
+        return true
+    }
+    
+    func tableViewColumnDidMove(_ notification: Notification) {
+        saveColumnsState()
+    }
+    
+    func tableViewColumnDidResize(_ notification: Notification) {
+        saveColumnsState()
     }
     
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -201,12 +226,21 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         guard Self.columnIDs.indices.contains(index), let column = tableView.tableColumn(withIdentifier: Self.columnIDs[index]) else {return}
         
         column.isHidden.toggle()
+        saveColumnsState()
+    }
+    
+    override func colorSchemeChanged() {
         
-        //        if col.isHidden {
-        //            tuneBrowserUIState.displayedColumns.removeValue(forKey: id.rawValue)
-        //        } else {
-        //            tuneBrowserUIState.displayedColumns[id.rawValue] = .init(id: id.rawValue, width: col.width)
-        //        }
+        super.colorSchemeChanged()
+        tableView.headerView?.redraw()
+        rogueBox.fillColor = systemColorScheme.backgroundColor
+    }
+    
+    override func initTheme() {
+        
+        super.initTheme()
+        tableView.headerView?.redraw()
+        rogueBox.fillColor = systemColorScheme.backgroundColor
     }
 }
 
