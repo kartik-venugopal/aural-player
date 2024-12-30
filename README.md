@@ -4,6 +4,7 @@
 
 ## Table of Contents
   * [Overview](#overview)
+    + [Project philosophy & mission](#project-philosophy-mission)
   * [Key features](#key-features)
   * [What's new in v4](#whats-new-in-v4)
   * [Roadmap](#roadmap)
