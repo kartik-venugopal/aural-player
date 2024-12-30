@@ -7,11 +7,11 @@
 //
 
 import ComposableArchitecture
+import LyricsService
 import LyricsUI
 import LyricsXCore
 import MusicPlayer
 import SwiftUI
-import LyricsService
 
 struct LyricsWrappedView: View {
 
@@ -25,6 +25,8 @@ struct LyricsWrappedView: View {
     public var viewStore: ViewStore<LyricsXCoreState, LyricsXCoreAction>
 
     @State private var isAutoScrollEnabled = true
+
+    @State private var searchLyricsWindowController: NSWindowController?
 
     init(
         track: MusicTrack? = nil,
@@ -90,6 +92,9 @@ struct LyricsWrappedView: View {
 
     /// Show search lyrics window
     func showSearchLyricsWindow() {
+        // Close previous window if exists
+        searchLyricsWindowController?.close()
+
         let windowController = NSWindowController(window: nil)
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 1000, height: 600),
@@ -105,12 +110,14 @@ struct LyricsWrappedView: View {
         if #available(macOS 12.0, *) {
             let contentView = LyricsSearchView(searchService: searchService) { lyrics in
                 self.onLyricsUpdate?(lyrics)
-                windowController.close()
+                self.searchLyricsWindowController?.close()
+                self.searchLyricsWindowController = nil
             }
             window.contentView = NSHostingView(rootView: contentView)
         }
 
         windowController.window = window
+        searchLyricsWindowController = windowController
         windowController.showWindow(nil)
     }
 }
