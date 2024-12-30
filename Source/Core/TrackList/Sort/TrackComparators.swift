@@ -22,6 +22,22 @@ let trackNameDescendingComparator: TrackComparator = {t1, t2 in
     trackNameComparison(t1, t2) == .orderedDescending
 }
 
+let trackTitleAscendingComparator: TrackComparator = {t1, t2 in
+    trackTitleComparison(t1, t2) == .orderedAscending
+}
+
+let trackTitleDescendingComparator: TrackComparator = {t1, t2 in
+    trackTitleComparison(t1, t2) == .orderedDescending
+}
+
+let trackFileNameAscendingComparator: TrackComparator = {t1, t2 in
+    trackFileNameComparison(t1, t2) == .orderedAscending
+}
+
+let trackFileNameDescendingComparator: TrackComparator = {t1, t2 in
+    trackFileNameComparison(t1, t2) == .orderedDescending
+}
+
 let trackArtistAscendingComparator: TrackComparator = {t1, t2 in
     trackArtistComparison(t1, t2) == .orderedAscending
 }
@@ -36,6 +52,14 @@ let trackAlbumAscendingComparator: TrackComparator = {t1, t2 in
 
 let trackAlbumDescendingComparator: TrackComparator = {t1, t2 in
     trackAlbumComparison(t1, t2) == .orderedDescending
+}
+
+let trackGenreAscendingComparator: TrackComparator = {t1, t2 in
+    trackGenreComparison(t1, t2) == .orderedAscending
+}
+
+let trackGenreDescendingComparator: TrackComparator = {t1, t2 in
+    trackGenreComparison(t1, t2) == .orderedDescending
 }
 
 let trackNumberAscendingComparator: TrackComparator = {t1, t2 in

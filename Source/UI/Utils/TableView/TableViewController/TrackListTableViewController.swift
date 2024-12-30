@@ -104,7 +104,7 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
     }
     
     // Returns a view for a single column
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    @objc dynamic func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         guard let track = track(forRow: row), let columnId = tableColumn?.identifier else {return nil}
         

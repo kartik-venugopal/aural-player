@@ -16,12 +16,24 @@ let trackNameComparison: TrackComparison = {t1, t2 in
     t1.titleOrDefaultDisplayName.compare(t2.titleOrDefaultDisplayName)
 }
 
+let trackTitleComparison: TrackComparison = {t1, t2 in
+    (t1.title ?? "zz").compare(t2.title ?? "zz")
+}
+
+let trackFileNameComparison: TrackComparison = {t1, t2 in
+    t1.fileName.compare(t2.fileName)
+}
+
 let trackArtistComparison: TrackComparison = {t1, t2 in
     (t1.artist ?? "zz").compare(t2.artist ?? "zz")
 }
 
 let trackAlbumComparison: TrackComparison = {t1, t2 in
     (t1.album ?? "zz").compare(t2.album ?? "zz")
+}
+
+let trackGenreComparison: TrackComparison = {t1, t2 in
+    (t1.genre ?? "zz").compare(t2.genre ?? "zz")
 }
 
 let trackNumberComparison: TrackComparison = {t1, t2 in
