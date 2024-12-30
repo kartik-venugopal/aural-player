@@ -11,6 +11,9 @@ import SwiftUI
 import LyricsUI
 import LyricsService
 
+let lyricsWindowWidth: CGFloat = 400
+let lyricsWindowHeight: CGFloat = 625
+
 /// Controller for the Lyrics window, host LyricsScrollView
 class LyricsWindowController: NSWindowController {
 
@@ -30,7 +33,7 @@ class LyricsWindowController: NSWindowController {
 
     override init(window: NSWindow?) {
         let window = SnappingWindow(
-            contentRect: NSRect(x: 0, y: 0, width: lyricsWidth, height: lyricsHeight),
+            contentRect: NSRect(x: 0, y: 0, width: lyricsWindowWidth, height: lyricsWindowHeight),
             styleMask: [.resizable],
             backing: .buffered,
             defer: false
@@ -167,7 +170,7 @@ class LyricsWindowController: NSWindowController {
 
     /// Save lyrics to file, and update track info
     private func saveLyrics(_ lyrics: Lyrics) {
-        guard let fileName = track?.fileName else {
+        guard let fileName = track?.defaultDisplayName else {
             return
         }
 

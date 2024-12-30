@@ -35,11 +35,6 @@ extension Lyrics {
 
 extension Track {
 
-    /// The name of the file associated with this track, eg. "Too Far - Anna F."
-    var fileName: String {
-        fileSystemInfo.fileName
-    }
-
     /// Fetches local lyrics for this track from multiple sources in the following order:
     /// 1. Lyrics directory
     /// 2. Audio file directory
@@ -84,8 +79,8 @@ extension Track {
     /// - Returns: URL of the found lyrics file, nil if not found
     private func locateLyricsFile(in directory: URL) -> URL? {
         let possibleFiles = [
-            directory.appendingPathComponent(fileName + ".lrc"),
-            directory.appendingPathComponent(fileName + ".lrcx"),
+            directory.appendingPathComponent(defaultDisplayName + ".lrc"),
+            directory.appendingPathComponent(defaultDisplayName + ".lrcx"),
         ]
 
         return possibleFiles.first { FileManager.default.fileExists(atPath: $0.path) }
@@ -110,7 +105,7 @@ extension Track {
 extension Track {
     var musicTrack: MusicTrack {
         return MusicTrack(
-            id: fileName,
+            id: defaultDisplayName,
             title: title,
             album: album,
             artist: artist,
