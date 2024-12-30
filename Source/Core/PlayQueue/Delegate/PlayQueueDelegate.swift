@@ -61,7 +61,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         // Subscribe to notifications
         messenger.subscribe(to: .Application.reopened, handler: appReopened(_:))
         messenger.subscribe(to: .History.itemsAdded, handler: itemsLoadedFromFileSystem(notif:))
-        messenger.subscribe(to: .Player.trackTransitioned, handler: trackPlayed(_:))
+        messenger.subscribe(to: .Player.preTrackPlayback, handler: trackPlayed(_:))
         messenger.subscribe(to: .Application.willExit, handler: appWillExit)
     }
     

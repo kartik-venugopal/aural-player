@@ -117,9 +117,9 @@ extension PlayQueueDelegate {
     }
     
     // Whenever a track is played by the player, add an entry in the "Recently played" list
-    func trackPlayed(_ notification: TrackTransitionNotification) {
+    func trackPlayed(_ notification: PreTrackPlaybackNotification) {
         
-        if let newTrack = notification.endTrack {
+        if let newTrack = notification.newTrack {
             
             markPlayEventForTrack(newTrack)
             messenger.publish(.History.updated)

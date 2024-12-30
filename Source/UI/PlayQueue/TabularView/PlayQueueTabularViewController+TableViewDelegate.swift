@@ -41,27 +41,27 @@ extension PlayQueueTabularViewController {
         case .cid_artist:
             
             guard let artist = track.artist else {return nil}
-            builder.withPrimaryText(artist)
+            builder.withSecondaryText(artist)
             
         case .cid_album:
             
             guard let album = track.album else {return nil}
-            builder.withPrimaryText(album)
+            builder.withSecondaryText(album)
             
         case .cid_genre:
             
             guard let genre = track.genre else {return nil}
-            builder.withPrimaryText(genre)
+            builder.withSecondaryText(genre)
             
         case .cid_trackNum:
             
             if let trackNum = track.trackNumber {
 
                 if let totalTracks = track.totalTracks, totalTracks > 0 {
-                    builder.withPrimaryText("\(trackNum) / \(totalTracks)")
+                    builder.withSecondaryText("\(trackNum) / \(totalTracks)")
                     
                 } else if trackNum > 0 {
-                    builder.withPrimaryText("\(trackNum)")
+                    builder.withSecondaryText("\(trackNum)")
                     
                 } else {
                     return nil
@@ -76,10 +76,10 @@ extension PlayQueueTabularViewController {
             if let discNum = track.discNumber {
                 
                 if let totalDiscs = track.totalDiscs, totalDiscs > 0 {
-                    builder.withPrimaryText("\(discNum) / \(totalDiscs)")
+                    builder.withSecondaryText("\(discNum) / \(totalDiscs)")
                     
                 } else if discNum > 0 {
-                    builder.withPrimaryText("\(discNum)")
+                    builder.withSecondaryText("\(discNum)")
                     
                 } else {
                     return nil
@@ -92,7 +92,7 @@ extension PlayQueueTabularViewController {
         case .cid_year:
             
             guard let year = track.year else {return nil}
-            builder.withPrimaryText("\(year)")
+            builder.withSecondaryText("\(year)")
             
         case .cid_duration:
             
@@ -104,18 +104,18 @@ extension PlayQueueTabularViewController {
         case .cid_format:
             
             guard let format = track.audioInfo.format?.capitalizingFirstLetter() else {return nil}
-            builder.withPrimaryText(format)
+            builder.withSecondaryText(format)
             
         case .cid_playCount:
-            builder.withPrimaryText("\(historyDelegate.playCount(forTrack: track))")
+            builder.withSecondaryText("\(historyDelegate.playCount(forTrack: track))")
             
         case .cid_playCount:
-            builder.withPrimaryText("\(historyDelegate.playCount(forTrack: track))")
+            builder.withSecondaryText("\(historyDelegate.playCount(forTrack: track))")
             
         case .cid_lastPlayed:
             
             if let lastPlayedTime = historyDelegate.lastPlayedTime(forTrack: track) {
-                builder.withPrimaryText("\(lastPlayedTime.hmsString)")
+                builder.withSecondaryText("\(lastPlayedTime.hmsString)")
             }
             
         default:
@@ -146,7 +146,6 @@ extension PlayQueueTabularViewController {
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         
         guard let sortDescriptor = tableView.sortDescriptors.first, let key = sortDescriptor.key else {return}
-        let ascending = sortDescriptor.ascending
         let sortOrder = sortDescriptor.sortOrder
         
         switch key {
@@ -207,6 +206,14 @@ fileprivate extension TableCellBuilder {
         withText(text: text,
                  inFont: systemFontScheme.normalFont, andColor: systemColorScheme.primaryTextColor,
                  selectedTextColor: systemColorScheme.primarySelectedTextColor,
+                 bottomYOffset: systemFontScheme.tableYOffset)
+    }
+    
+    func withSecondaryText(_ text: String) {
+        
+        withText(text: text,
+                 inFont: systemFontScheme.normalFont, andColor: systemColorScheme.secondaryTextColor,
+                 selectedTextColor: systemColorScheme.secondarySelectedTextColor,
                  bottomYOffset: systemFontScheme.tableYOffset)
     }
 }

@@ -36,7 +36,7 @@ class PlayQueueExpandedViewController: PlayQueueViewController {
         super.moveTracks(from: sourceIndices, to: destRow)
 
         // Tell the other (sibling) table to refresh
-        messenger.publish(.PlayQueue.refresh, payload: [PlayQueueView.simple])
+        messenger.publish(.PlayQueue.refresh, payload: [PlayQueueView.simple, PlayQueueView.tabular])
     }
     
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
