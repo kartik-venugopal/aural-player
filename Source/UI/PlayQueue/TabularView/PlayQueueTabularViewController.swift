@@ -65,14 +65,14 @@ class PlayQueueTabularViewController: PlayQueueViewController {
             column.isHidden = !displayedColumnIds.contains(column.identifier.rawValue)
         }
 
-        for (index, columnId) in displayedColumnIds.enumerated() {
-
-            let oldIndex = tableView.column(withIdentifier: NSUserInterfaceItemIdentifier(columnId))
+        for (index, column) in displayedColumns.enumerated() {
+            
+            let colID = NSUserInterfaceItemIdentifier(column.id)
+            
+            let oldIndex = tableView.column(withIdentifier: colID)
             tableView.moveColumn(oldIndex, toColumn: index)
-        }
-
-        for column in displayedColumns {
-            tableView.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier(column.id))?.width = column.width
+            
+            tableView.tableColumn(withIdentifier: colID)?.width = column.width
         }
     }
     
@@ -208,6 +208,12 @@ class PlayQueueTabularViewController: PlayQueueViewController {
             
         case .cid_playCount:
             builder.withPrimaryText("\(historyDelegate.playCount(forTrack: track))")
+            
+        case .cid_lastPlayed:
+            
+            if let lastPlayedTime = historyDelegate.lastPlayedTime(forTrack: track) {
+                builder.withPrimaryText("\(lastPlayedTime.hmsString)")
+            }
             
         default:
             return nil
