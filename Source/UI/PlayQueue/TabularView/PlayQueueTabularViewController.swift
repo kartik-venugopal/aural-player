@@ -95,11 +95,9 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         messenger.publish(.PlayQueue.refresh, payload: [PlayQueueView.simple, PlayQueueView.expanded])
     }
     
-    fileprivate static let columnIDs: [NSUserInterfaceItemIdentifier] = [.cid_title, .cid_fileName, .cid_artist, .cid_album, .cid_genre, .cid_trackNum, .cid_discNum, .cid_year, .cid_duration, .cid_format, .cid_playCount, .cid_lastPlayed]
+    fileprivate static let columnIDs: [NSUserInterfaceItemIdentifier] = [.cid_title, .cid_fileName, .cid_artist, .cid_album, .cid_genre, .cid_trackNum, .cid_discNum, .cid_year, .cid_format, .cid_playCount, .cid_lastPlayed]
     
     @IBAction func toggleColumnAction(_ sender: NSMenuItem) {
-        
-        // TODO: Validation - Don't allow 0 columns to be shown.
         
         let index = sender.tag
         guard Self.columnIDs.indices.contains(index), let column = tableView.tableColumn(withIdentifier: Self.columnIDs[index]) else {return}

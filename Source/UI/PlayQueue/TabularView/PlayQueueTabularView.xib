@@ -224,7 +224,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ryf-Tn-6yd" userLabel="Track Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="30"/>
+                                                        <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="7eB-w6-IUf"/>
                                                         </constraints>
@@ -237,7 +237,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Ryf-Tn-6yd" secondAttribute="trailing" constant="2" id="DAT-rZ-s1o"/>
-                                                    <constraint firstItem="Ryf-Tn-6yd" firstAttribute="leading" secondItem="nQh-de-Qu7" secondAttribute="leading" constant="2" id="R6C-i9-ZKy"/>
+                                                    <constraint firstItem="Ryf-Tn-6yd" firstAttribute="leading" secondItem="nQh-de-Qu7" secondAttribute="leading" constant="5" id="R6C-i9-ZKy"/>
                                                     <constraint firstAttribute="bottom" secondItem="Ryf-Tn-6yd" secondAttribute="bottom" id="thT-Zy-eLg"/>
                                                 </constraints>
                                                 <connections>
@@ -264,7 +264,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-qi-ddp" userLabel="Track Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="30"/>
+                                                        <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="fqJ-DU-BnK"/>
                                                         </constraints>
@@ -277,7 +277,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="DzO-qi-ddp" secondAttribute="bottom" id="BmC-oV-ZeL"/>
-                                                    <constraint firstItem="DzO-qi-ddp" firstAttribute="leading" secondItem="yX7-10-suM" secondAttribute="leading" constant="2" id="GOO-0D-oGL"/>
+                                                    <constraint firstItem="DzO-qi-ddp" firstAttribute="leading" secondItem="yX7-10-suM" secondAttribute="leading" constant="5" id="GOO-0D-oGL"/>
                                                     <constraint firstAttribute="trailing" secondItem="DzO-qi-ddp" secondAttribute="trailing" constant="2" id="eeO-t8-5CJ"/>
                                                 </constraints>
                                                 <connections>
@@ -303,8 +303,8 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="J46-dT-vS3" userLabel="Track Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="30"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="J46-dT-vS3" userLabel="Track #">
+                                                        <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="O4e-sP-KuT"/>
                                                         </constraints>
@@ -318,7 +318,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="J46-dT-vS3" secondAttribute="bottom" id="3y2-uQ-KFz"/>
                                                     <constraint firstAttribute="trailing" secondItem="J46-dT-vS3" secondAttribute="trailing" constant="2" id="l6b-cI-Nt9"/>
-                                                    <constraint firstItem="J46-dT-vS3" firstAttribute="leading" secondItem="pbO-xP-fTp" secondAttribute="leading" constant="2" id="nAB-mk-6Wh"/>
+                                                    <constraint firstItem="J46-dT-vS3" firstAttribute="leading" secondItem="pbO-xP-fTp" secondAttribute="leading" constant="5" id="nAB-mk-6Wh"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="J46-dT-vS3" id="ivK-4e-7no"/>
@@ -343,8 +343,8 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xoC-uA-Btw" userLabel="Track Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="30"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xoC-uA-Btw" userLabel="Disc #">
+                                                        <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="h2q-mD-CmW"/>
                                                         </constraints>
@@ -356,7 +356,7 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="xoC-uA-Btw" firstAttribute="leading" secondItem="vtu-ha-atK" secondAttribute="leading" constant="2" id="2Yc-tB-AXt"/>
+                                                    <constraint firstItem="xoC-uA-Btw" firstAttribute="leading" secondItem="vtu-ha-atK" secondAttribute="leading" constant="5" id="2Yc-tB-AXt"/>
                                                     <constraint firstAttribute="bottom" secondItem="xoC-uA-Btw" secondAttribute="bottom" id="N6e-J6-dfe"/>
                                                     <constraint firstAttribute="trailing" secondItem="xoC-uA-Btw" secondAttribute="trailing" constant="2" id="b93-ZV-P4q"/>
                                                 </constraints>
@@ -464,7 +464,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="A60-vZ-KyS" userLabel="Format">
-                                                        <rect key="frame" x="-2" y="0.0" width="4" height="30"/>
+                                                        <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="IyB-CM-k6b"/>
                                                         </constraints>
@@ -476,7 +476,7 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="A60-vZ-KyS" firstAttribute="leading" secondItem="RBR-Ba-726" secondAttribute="leading" id="GkD-e4-5Ig"/>
+                                                    <constraint firstItem="A60-vZ-KyS" firstAttribute="leading" secondItem="RBR-Ba-726" secondAttribute="leading" constant="5" id="GkD-e4-5Ig"/>
                                                     <constraint firstAttribute="trailing" secondItem="A60-vZ-KyS" secondAttribute="trailing" constant="8" id="Gwj-Pm-B37"/>
                                                     <constraint firstAttribute="bottom" secondItem="A60-vZ-KyS" secondAttribute="bottom" id="XpJ-pl-Hek"/>
                                                 </constraints>
@@ -544,7 +544,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Pdp-lS-BZk" userLabel="Last Played">
-                                                        <rect key="frame" x="-2" y="0.0" width="4" height="30"/>
+                                                        <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Ibx-8I-3jm"/>
                                                         </constraints>
@@ -557,8 +557,8 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="Pdp-lS-BZk" secondAttribute="bottom" id="7jh-Nc-bTY"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Pdp-lS-BZk" secondAttribute="trailing" constant="8" id="DUf-6W-LVf"/>
-                                                    <constraint firstItem="Pdp-lS-BZk" firstAttribute="leading" secondItem="aCM-nX-zvR" secondAttribute="leading" id="EGT-wU-0wl"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Pdp-lS-BZk" secondAttribute="trailing" constant="2" id="DUf-6W-LVf"/>
+                                                    <constraint firstItem="Pdp-lS-BZk" firstAttribute="leading" secondItem="aCM-nX-zvR" secondAttribute="leading" constant="5" id="EGT-wU-0wl"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="Pdp-lS-BZk" id="rVy-lb-0ld"/>
@@ -691,25 +691,19 @@
                         <action selector="toggleColumnAction:" target="-2" id="cus-vX-aWB"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Duration" tag="8" identifier="playQueue_duration" id="fFK-7E-5r1" userLabel="Duration">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="toggleColumnAction:" target="-2" id="5gj-JP-7dr"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Format" tag="9" identifier="playQueue_format" id="LbG-am-zqQ" userLabel="Format">
+                <menuItem title="Format" tag="8" identifier="playQueue_format" id="LbG-am-zqQ" userLabel="Format">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="toggleColumnAction:" target="-2" id="XqJ-Yq-Zfu"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Play Count" tag="10" identifier="playQueue_playCount" id="Qua-EW-eTn">
+                <menuItem title="Play Count" tag="9" identifier="playQueue_playCount" id="Qua-EW-eTn">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="toggleColumnAction:" target="-2" id="pkN-Oy-MBA"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Last Played" tag="11" identifier="playQueue_lastPlayed" id="wC4-bC-GW2">
+                <menuItem title="Last Played" tag="10" identifier="playQueue_lastPlayed" id="wC4-bC-GW2">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="toggleColumnAction:" target="-2" id="3mi-wj-8Tg"/>
