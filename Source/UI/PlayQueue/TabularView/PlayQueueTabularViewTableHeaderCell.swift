@@ -18,7 +18,7 @@ class PlayQueueTabularViewTableHeaderCell: NSTableHeaderCell {
         
         if stringValue != "#" {
             
-            GraphicsUtils.drawLine(systemColorScheme.tertiaryTextColor, pt1: NSMakePoint(cellFrame.minX + 1, cellFrame.minY + 2), pt2: NSMakePoint(cellFrame.minX + 1, cellFrame.maxY), width: 1)
+            GraphicsUtils.drawLine(systemColorScheme.tertiaryTextColor, pt1: NSMakePoint(cellFrame.minX + 1, cellFrame.minY + 2), pt2: NSMakePoint(cellFrame.minX + 1, cellFrame.maxY - 5), width: 1)
         }
         
         let size: CGSize = stringValue.size(withFont: systemFontScheme.normalFont)

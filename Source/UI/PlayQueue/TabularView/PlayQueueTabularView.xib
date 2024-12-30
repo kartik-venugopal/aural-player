@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <capability name="System colors introduced in macOS 10.13" minToolsVersion="9.0"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,15 +11,16 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PlayQueueTabularViewController">
             <connections>
                 <outlet property="columnsMenu" destination="Fbo-zE-Ul8" id="yML-4g-8gU"/>
-                <outlet property="rogueBox" destination="VpP-Mf-lao" id="IzB-cI-bVp"/>
+                <outlet property="coverBox" destination="VpP-Mf-lao" id="IzB-cI-bVp"/>
+                <outlet property="coverBox2" destination="pdN-dc-Glx" id="XxZ-6e-V3X"/>
                 <outlet property="tableView" destination="RAo-B3-mxT" id="dsz-R1-5kW"/>
                 <outlet property="view" destination="c22-O7-iKe" id="XKF-eG-k8l"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView misplaced="YES" id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="417" height="49"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="427" height="49"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="KbK-mP-1to">
@@ -562,14 +564,19 @@
                         </subviews>
                         <nil key="backgroundColor"/>
                     </clipView>
-                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="DS9-1V-pJB">
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="DS9-1V-pJB" customClass="PrettyHorizontalScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="34" width="427" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="contentView" destination="RAo-B3-mxT" id="9YB-E5-3uk"/>
+                            <outlet property="scrollView" destination="KbK-mP-1to" id="wPh-BB-OkN"/>
+                        </connections>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="NrJ-XW-mbV" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="NrJ-XW-mbV" customClass="PrettyVerticalScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="-100" y="-100" width="15" height="177"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
+                            <outlet property="clipView" destination="kLV-1o-whq" id="KJE-YB-2Jo"/>
                             <outlet property="contentView" destination="RAo-B3-mxT" id="5i0-LU-yBh"/>
                             <outlet property="scrollView" destination="KbK-mP-1to" id="uhf-op-tb0"/>
                         </connections>
@@ -582,7 +589,7 @@
                         </connections>
                     </tableHeaderView>
                 </scrollView>
-                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="VpP-Mf-lao">
+                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="VpP-Mf-lao" userLabel="Cover Box 1">
                     <rect key="frame" x="412" y="21" width="16" height="28"/>
                     <view key="contentView" id="Vrl-wJ-c7o">
                         <rect key="frame" x="0.0" y="0.0" width="16" height="28"/>
@@ -595,8 +602,23 @@
                     <color key="borderColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="fillColor" red="1" green="0.0" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </box>
+                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pdN-dc-Glx" userLabel="Cover Box 2">
+                    <rect key="frame" x="411" y="0.0" width="16" height="16"/>
+                    <view key="contentView" id="sSh-7C-0aN">
+                        <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Ok4-fX-vwx"/>
+                        <constraint firstAttribute="width" constant="16" id="mn4-W6-VE8"/>
+                    </constraints>
+                    <color key="borderColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="fillColor" name="findHighlightColor" catalog="System" colorSpace="catalog"/>
+                </box>
             </subviews>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="pdN-dc-Glx" secondAttribute="bottom" id="07V-bT-djj"/>
+                <constraint firstAttribute="trailing" secondItem="pdN-dc-Glx" secondAttribute="trailing" id="2Jh-JE-KWL"/>
                 <constraint firstItem="VpP-Mf-lao" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="4th-1C-kpl"/>
                 <constraint firstItem="VpP-Mf-lao" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="Jat-xz-Jlv"/>
                 <constraint firstAttribute="trailing" secondItem="VpP-Mf-lao" secondAttribute="trailing" constant="-1" id="Xfn-Tl-A8Y"/>
@@ -605,7 +627,7 @@
                 <constraint firstItem="KbK-mP-1to" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="sWZ-fp-FU3"/>
                 <constraint firstAttribute="trailing" secondItem="KbK-mP-1to" secondAttribute="trailing" id="tRD-qk-jZi"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="153.5"/>
+            <point key="canvasLocation" x="181.5" y="234.5"/>
         </customView>
         <menu id="Fbo-zE-Ul8" userLabel="Column Selection Menu">
             <items>

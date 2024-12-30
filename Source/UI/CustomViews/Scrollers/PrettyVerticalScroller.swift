@@ -1,5 +1,5 @@
 //
-//  PrettyScroller.swift
+//  PrettyVerticalScroller.swift
 //  Aural
 //
 //  Copyright © 2024 Kartik Venugopal. All rights reserved.
@@ -7,9 +7,9 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Cocoa
+import AppKit
 
-class PrettyScroller: NSScroller {
+class PrettyVerticalScroller: NSScroller {
     
     let barRadius: CGFloat = 0.75
     let barInsetX: CGFloat = 7
@@ -19,17 +19,15 @@ class PrettyScroller: NSScroller {
     let knobInsetY: CGFloat = 0
     let knobRadius: CGFloat = 1
 
-    var knobColor: NSColor = NSColor.gray
-    
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
     @IBOutlet weak var contentView: NSView!
     
-    var scrollerKnobColor: NSColor {
+    var knobColor: NSColor {
         systemColorScheme.inactiveControlColor
     }
     
-    var scrollerBarColor: NSColor {
+    var barColor: NSColor {
         systemColorScheme.inactiveControlColor
     }
     
@@ -48,19 +46,19 @@ class PrettyScroller: NSScroller {
         let knobRect = self.rect(for: .knob).insetBy(dx: knobInsetX, dy: knobInsetY)
         if knobRect.height <= 0 || knobRect.width <= 0 {return}
         
-        NSBezierPath.fillRoundedRect(knobRect, radius: knobRadius, withColor: scrollerKnobColor)
+        NSBezierPath.fillRoundedRect(knobRect, radius: knobRadius, withColor: knobColor)
     }
     
     override func draw(_ dirtyRect: NSRect) {
         
         let rect = dirtyRect.insetBy(dx: barInsetX, dy: barInsetY)
-        NSBezierPath.fillRoundedRect(rect, radius: barRadius, withColor: scrollerBarColor)
+        NSBezierPath.fillRoundedRect(rect, radius: barRadius, withColor: barColor)
         
         self.drawKnob()
     }
 }
 
-extension PrettyScroller: ColorSchemeObserver {
+extension PrettyVerticalScroller: ColorSchemeObserver {
     
     @objc func registerColorSchemeObserver() {
         
@@ -73,20 +71,20 @@ extension PrettyScroller: ColorSchemeObserver {
     }
 }
 
-extension PrettyScroller: ColorSchemePropertyChangeReceiver {
+extension PrettyVerticalScroller: ColorSchemePropertyChangeReceiver {
     
     func colorChanged(_ newColor: NSColor) {
         redraw()
     }
 }
 
-class SimplePrettyScroller: PrettyScroller {
+class SimplePrettyVerticalScroller: PrettyVerticalScroller {
     
-    override var scrollerKnobColor: NSColor {
+    override var knobColor: NSColor {
         .white40Percent
     }
     
-    override var scrollerBarColor: NSColor {
+    override var barColor: NSColor {
         .white25Percent
     }
     

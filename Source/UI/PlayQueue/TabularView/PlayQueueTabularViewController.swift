@@ -20,7 +20,9 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     
     override var rowHeight: CGFloat {30}
     
-    @IBOutlet weak var rogueBox: NSBox!
+    @IBOutlet weak var coverBox: NSBox!
+    @IBOutlet weak var coverBox2: NSBox!
+    
     @IBOutlet weak var columnsMenu: NSMenu!
     private lazy var columnsMenuDelegate: PlayQueueTabularViewColumnsMenuDelegate = .init(tableView: tableView)
     
@@ -231,14 +233,16 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         
         super.colorSchemeChanged()
         tableView.headerView?.redraw()
-        rogueBox.fillColor = systemColorScheme.backgroundColor
+        coverBox.fillColor = systemColorScheme.backgroundColor
+        coverBox2.fillColor = systemColorScheme.backgroundColor
     }
     
     override func initTheme() {
         
         super.initTheme()
         tableView.headerView?.redraw()
-        rogueBox.fillColor = systemColorScheme.backgroundColor
+        coverBox.fillColor = systemColorScheme.backgroundColor
+        coverBox2.fillColor = systemColorScheme.backgroundColor
     }
 }
 
