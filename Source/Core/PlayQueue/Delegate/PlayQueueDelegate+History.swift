@@ -331,6 +331,7 @@ extension PlayQueueDelegate {
 //            
 //        } else {
             loadTracks(from: [playlistFileHistoryItem.playlistFile], params: .init(autoplayFirstAddedTrack: true))
+            markNewPlayEvent(forItem: playlistFileHistoryItem)
 //        }
     }
     
@@ -342,13 +343,12 @@ extension PlayQueueDelegate {
     
     private func playFolderItem(_ folderHistoryItem: FolderHistoryItem) {
         
-        let folder = folderHistoryItem.folder
-//        
 //        if let fsFolderItem = libraryDelegate.findFileSystemFolder(atLocation: folder) {
 //            enqueueToPlayNow(fileSystemItems: [fsFolderItem], clearQueue: false)
 //            
 //        } else {
-            loadTracks(from: [folder], params: .init(autoplayFirstAddedTrack: true))
+        loadTracks(from: [folderHistoryItem.folder], params: .init(autoplayFirstAddedTrack: true))
+        markNewPlayEvent(forItem: folderHistoryItem)
 //        }
     }
     

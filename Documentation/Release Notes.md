@@ -1,8 +1,8 @@
-#  What's New in Version 4.0.0-preview22
+#  What's New in Version 4.0.0-preview23
 
-## Fixed gapless playback
+## New "Table view" in Play Queue
 
-## Fixed other bugs
+## Fixed bugs
 
 ### **For more info**
 Visit the [official release page](https://github.com/kartik-venugopal/aural-player/releases/tag/4.0.0-preview)
