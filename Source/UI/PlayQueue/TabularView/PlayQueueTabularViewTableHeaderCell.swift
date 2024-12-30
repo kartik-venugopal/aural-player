@@ -47,6 +47,6 @@ class PlayQueueTabularViewTableHeaderCell: NSTableHeaderCell {
         
         let rect = NSRect(x: x, y: cellFrame.minY + 5, width: size.width, height: cellFrame.height)
         stringValue.draw(in: rect, withFont: systemFontScheme.normalFont,
-                         andColor: systemColorScheme.tertiaryTextColor)
+                         andColor: systemColorScheme.captionTextColor)
     }
 }

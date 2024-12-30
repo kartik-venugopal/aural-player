@@ -118,6 +118,22 @@ let trackYearDescendingComparator: TrackComparator = {t1, t2 in
     trackYearComparison(t1, t2) == .orderedDescending
 }
 
+let trackPlayCountAscendingComparator: TrackComparator = {t1, t2 in
+    trackPlayCountComparison(t1, t2) == .orderedAscending
+}
+
+let trackPlayCountDescendingComparator: TrackComparator = {t1, t2 in
+    trackPlayCountComparison(t1, t2) == .orderedDescending
+}
+
+let trackFormatAscendingComparator: TrackComparator = {t1, t2 in
+    trackFormatComparison(t1, t2) == .orderedAscending
+}
+
+let trackFormatDescendingComparator: TrackComparator = {t1, t2 in
+    trackFormatComparison(t1, t2) == .orderedDescending
+}
+
 func comparisonToAscendingTrackComparator(_ comparison: @escaping TrackComparison) -> TrackComparator {
     
     {t1, t2 in

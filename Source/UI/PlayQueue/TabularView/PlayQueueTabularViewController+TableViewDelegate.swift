@@ -174,11 +174,11 @@ extension PlayQueueTabularViewController {
         case "year":
             doSort(by: [.year], order: sortOrder)
             
-//        case "format":
-//            
-//
-//        case "trackNum":
+        case "playCount":
+            doSort(by: [.playCount], order: sortOrder)
             
+        case "format":
+            doSort(by: [.format], order: sortOrder)
                         
         default: return
             

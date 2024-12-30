@@ -24,54 +24,51 @@ enum TrackSortField {
     case discNumberAndTrackNumber
     case fileLastModifiedTime
     case year
+    case playCount
+    case format
     
     var comparison: TrackComparison {
         
         switch self {
             
         case .name:
-            
             return trackNameComparison
             
         case .title:
-            
             return trackTitleComparison
             
         case .fileName:
-            
             return trackFileNameComparison
             
         case .artist:
-            
             return trackArtistComparison
             
         case .album:
-            
             return trackAlbumComparison
             
         case .genre:
-            
             return trackGenreComparison
             
         case .trackNumber:
-            
             return trackNumberComparison
             
         case .discNumberAndTrackNumber:
-            
             return trackDiscAndTrackNumberComparison
             
         case .duration:
-            
             return trackDurationComparison
             
         case .fileLastModifiedTime:
-            
             return trackLastModifiedTimeComparison
             
         case .year:
-            
             return trackYearComparison
+            
+        case .playCount:
+            return trackPlayCountComparison
+            
+        case .format:
+            return trackFormatComparison
         }
     }
     
@@ -122,6 +119,14 @@ enum TrackSortField {
         case .year:
             
             return order == .ascending ? trackYearAscendingComparator : trackYearDescendingComparator
+            
+        case .playCount:
+            
+            return order == .ascending ? trackPlayCountAscendingComparator : trackPlayCountDescendingComparator
+            
+        case .format:
+            
+            return order == .ascending ? trackFormatAscendingComparator : trackFormatDescendingComparator
         }
     }
 }

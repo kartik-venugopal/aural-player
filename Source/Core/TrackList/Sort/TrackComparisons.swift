@@ -33,7 +33,7 @@ let trackAlbumComparison: TrackComparison = {t1, t2 in
 }
 
 let trackGenreComparison: TrackComparison = {t1, t2 in
-    (t1.genre ?? "zz").compare(t2.genre ?? "zz")
+    (t1.genre?.lowercased() ?? "zz").compare(t2.genre?.lowercased() ?? "zz")
 }
 
 let trackNumberComparison: TrackComparison = {t1, t2 in
@@ -82,6 +82,22 @@ let trackLastModifiedTimeComparison: TrackComparison = {t1, t2 in
 
 let trackYearComparison: TrackComparison = {t1, t2 in
     (t1.year ?? 0).compare(t2.year ?? 0)
+}
+
+let trackPlayCountComparison: TrackComparison = {t1, t2 in
+    
+    let pc1 = historyDelegate.playCount(forTrack: t1)
+    let pc2 = historyDelegate.playCount(forTrack: t2)
+    
+    return pc1.compare(pc2)
+}
+
+let trackFormatComparison: TrackComparison = {t1, t2 in
+    
+    let fmt1 = t1.audioInfo.format?.lowercased() ?? ""
+    let fmt2 = t2.audioInfo.format?.lowercased() ?? ""
+    
+    return fmt1.compare(fmt2)
 }
 
 func chainTrackComparisons(_ c1: @escaping TrackComparison, _ c2: @escaping TrackComparison) -> TrackComparison {

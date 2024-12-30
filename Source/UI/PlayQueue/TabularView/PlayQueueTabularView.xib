@@ -383,12 +383,12 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bxe-de-Six" userLabel="Duration">
-                                                        <rect key="frame" x="-2" y="0.0" width="4" height="30"/>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bxe-de-Six" userLabel="Year">
+                                                        <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="J5d-DA-zWJ"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="0HX-Et-nxx" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="0HX-Et-nxx" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -396,8 +396,8 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="bxe-de-Six" firstAttribute="leading" secondItem="2RN-iX-l7t" secondAttribute="leading" id="K6i-UD-cBr"/>
-                                                    <constraint firstAttribute="trailing" secondItem="bxe-de-Six" secondAttribute="trailing" constant="8" id="pyz-QU-fQX"/>
+                                                    <constraint firstItem="bxe-de-Six" firstAttribute="leading" secondItem="2RN-iX-l7t" secondAttribute="leading" constant="5" id="K6i-UD-cBr"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bxe-de-Six" secondAttribute="trailing" id="pyz-QU-fQX"/>
                                                     <constraint firstAttribute="bottom" secondItem="bxe-de-Six" secondAttribute="bottom" id="zyx-2k-sHK"/>
                                                 </constraints>
                                                 <connections>
