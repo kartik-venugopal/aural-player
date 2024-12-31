@@ -953,6 +953,8 @@
 		3ED8E74A281482C9002E313F /* TableImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E749281482C9002E313F /* TableImageCell.swift */; };
 		3ED8E74F2814A312002E313F /* GeneralColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E74D2814A312002E313F /* GeneralColorSchemeViewController.swift */; };
 		3ED8E7502814A312002E313F /* GeneralColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8E74E2814A312002E313F /* GeneralColorScheme.xib */; };
+		3ED9BC822D2375F3000C54A4 /* LyricsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED9BC812D2375F3000C54A4 /* LyricsWindow.xib */; };
+		3ED9BC862D237631000C54A4 /* LyricsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9BC852D237631000C54A4 /* LyricsWindowController.swift */; };
 		3EDC157C27C2ACB100B91157 /* HorizontalSymmetricSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDC157B27C2ACB100B91157 /* HorizontalSymmetricSliderCell.swift */; };
 		3EDCC4B8282C2223002AF3AE /* PlayQueueUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCC4B7282C2223002AF3AE /* PlayQueueUIState.swift */; };
 		3EDCC4BE282C3912002AF3AE /* PlayQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCC4BD282C3912002AF3AE /* PlayQueueViewController.swift */; };
@@ -2093,6 +2095,8 @@
 		3ED8E749281482C9002E313F /* TableImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableImageCell.swift; sourceTree = "<group>"; };
 		3ED8E74D2814A312002E313F /* GeneralColorSchemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3ED8E74E2814A312002E313F /* GeneralColorScheme.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralColorScheme.xib; sourceTree = "<group>"; };
+		3ED9BC812D2375F3000C54A4 /* LyricsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LyricsWindow.xib; sourceTree = "<group>"; };
+		3ED9BC852D237631000C54A4 /* LyricsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsWindowController.swift; sourceTree = "<group>"; };
 		3EDC157B27C2ACB100B91157 /* HorizontalSymmetricSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSymmetricSliderCell.swift; sourceTree = "<group>"; };
 		3EDCC4B7282C2223002AF3AE /* PlayQueueUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueUIState.swift; sourceTree = "<group>"; };
 		3EDCC4BD282C3912002AF3AE /* PlayQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueViewController.swift; sourceTree = "<group>"; };
@@ -3371,6 +3375,7 @@
 				3E10179428D793B1002C0D8E /* Effects */,
 				3E2C4BD52B38E5D300FC65DD /* Search */,
 				3EFA0C112C67E3DD006FB326 /* Waveform */,
+				3ED9BC802D2375DE000C54A4 /* Lyrics */,
 			);
 			path = ModularPlayer;
 			sourceTree = "<group>";
@@ -5388,6 +5393,15 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		3ED9BC802D2375DE000C54A4 /* Lyrics */ = {
+			isa = PBXGroup;
+			children = (
+				3ED9BC812D2375F3000C54A4 /* LyricsWindow.xib */,
+				3ED9BC852D237631000C54A4 /* LyricsWindowController.swift */,
+			);
+			path = Lyrics;
+			sourceTree = "<group>";
+		};
 		3EE2ACFF2A1FF71300D7BA7D /* GeneratedView */ = {
 			isa = PBXGroup;
 			children = (
@@ -5681,6 +5695,7 @@
 				3E0219C22C23497D00865AC2 /* AnironRegular.ttf in Resources */,
 				3E86B5072C234A420097746A /* buildingLibrary.gif in Resources */,
 				3E045D06281322450069DEFE /* TrackInfoWindow.xib in Resources */,
+				3ED9BC822D2375F3000C54A4 /* LyricsWindow.xib in Resources */,
 				3E0219C32C23497D00865AC2 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3ED8E7502814A312002E313F /* GeneralColorScheme.xib in Resources */,
 				3E7638AB2857D88B00461F4D /* UnifiedPlayerWindow.xib in Resources */,
@@ -6456,6 +6471,7 @@
 				3E0218022C23490E00865AC2 /* HostedAudioUnitProtocol.swift in Sources */,
 				3ED373E62C70DA4800836511 /* ReplayGainUnitDelegate.swift in Sources */,
 				3E02183D2C23490E00865AC2 /* FFmpegFrame.swift in Sources */,
+				3ED9BC862D237631000C54A4 /* LyricsWindowController.swift in Sources */,
 				3E0219352C23490E00865AC2 /* CoverArt.swift in Sources */,
 				3E0217E02C23490E00865AC2 /* FlexibleFilterNode.swift in Sources */,
 				3E5F943725E571A6002DEF80 /* SpectrogramBar.swift in Sources */,

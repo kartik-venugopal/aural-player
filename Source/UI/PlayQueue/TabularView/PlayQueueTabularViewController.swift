@@ -20,6 +20,7 @@ class PlayQueueTabularViewController: PlayQueueViewController {
     
     override var rowHeight: CGFloat {30}
     
+    @IBOutlet weak var headerView: NSTableHeaderView!
     @IBOutlet weak var coverBox: NSBox!
     @IBOutlet weak var coverBox2: NSBox!
     
@@ -34,6 +35,9 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         
         tableView.customizeHeader(heightIncrease: 0, customCellType: PlayQueueTabularViewTableHeaderCell.self)
         columnsMenu.delegate = columnsMenuDelegate
+        
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceivers: [coverBox, coverBox2])
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, handler: headerViewColorChanged(_:))
     }
     
     override func viewDidAppear() {
@@ -122,6 +126,10 @@ class PlayQueueTabularViewController: PlayQueueViewController {
         tableView.headerView?.redraw()
         coverBox.fillColor = systemColorScheme.backgroundColor
         coverBox2.fillColor = systemColorScheme.backgroundColor
+    }
+    
+    private func headerViewColorChanged(_ newColor: NSColor) {
+        headerView.redraw()
     }
 }
 

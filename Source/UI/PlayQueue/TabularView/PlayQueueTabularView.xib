@@ -13,6 +13,7 @@
                 <outlet property="columnsMenu" destination="Fbo-zE-Ul8" id="yML-4g-8gU"/>
                 <outlet property="coverBox" destination="VpP-Mf-lao" id="IzB-cI-bVp"/>
                 <outlet property="coverBox2" destination="pdN-dc-Glx" id="XxZ-6e-V3X"/>
+                <outlet property="headerView" destination="jal-TJ-HVq" id="yQ3-Qh-fyt"/>
                 <outlet property="tableView" destination="RAo-B3-mxT" id="dsz-R1-5kW"/>
                 <outlet property="view" destination="c22-O7-iKe" id="XKF-eG-k8l"/>
             </connections>
