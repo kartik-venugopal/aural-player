@@ -64,12 +64,6 @@ ______
 
 ## Roadmap
 
-### Version 3 archived
-
-Version 3 has been archived, and no further work will be done on it. The source code for it can be found in the new repository: [aural-player-archive](https://github.com/kartik-venugopal/aural-player-archive)
-
-All pending and newly filed issues (bugs or feature requests), if implemented, will be implemented in v4.
-
 ### V4 Preview releases
 
 Preview builds are unstable pre-release builds containing incremental updates as v4 continues to be developed. They may contain significant bugs. Several preview builds have been put out and more are expected to come out before the milestone releases.
@@ -80,9 +74,15 @@ As of Nov 11, 2024, there are 2 upcoming major milestones for Version 4:
 
 <ins>Partial release</ins>: The partial release of v4 will contain all core + new functionality, except for the new Library and all related functionality. It will be stable and free from major bugs.
 
-<ins>Full release</ins>: The full release of v4 will be the first official (and complete) release of v4.
+<ins>Full release</ins>: The full release will be the first official (and complete) release of v4.
 
 There are no current date estimates for the milestone releases.
+
+### Version 3 archived
+
+[aural-player-archive](https://github.com/kartik-venugopal/aural-player-archive)
+
+NOTE - Some of the most recent v3 releases continue to be available.
 
 ______
 
