@@ -30,9 +30,9 @@ class ViewPreferences {
     lazy var windowGap: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).snap.toWindows.gap",
                                                                     defaultValue: Defaults.windowGap)
 
-    lazy var showChineseLyricsTranslation: UserPreference<Bool> = .init(
-        defaultsKey: "\(Self.keyPrefix).showChineseLyricsTranslation",
-        defaultValue: Defaults.showChineseLyricsTranslation
+    lazy var showLyricsTranslation: UserPreference<Bool> = .init(
+        defaultsKey: "\(Self.keyPrefix).showLyricsTranslation",
+        defaultValue: Defaults.showLyricsTranslation
     )
 
     init(legacyPreferences: LegacyViewPreferences? = nil) {

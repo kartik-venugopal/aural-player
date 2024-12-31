@@ -8,13 +8,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ViewPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnShowLyricsTranslation" destination="Bfd-kM-fhe" id="hIH-ug-ZYE"/>
                 <outlet property="btnSnapToScreen" destination="lLF-UP-XoA" id="GbA-xi-isP"/>
                 <outlet property="btnSnapToWindows" destination="DUF-2F-cuz" id="lRt-Qo-CT3"/>
                 <outlet property="btnWindowMagnetism" destination="DhU-QU-Pvk" id="6ZL-jS-dr6"/>
                 <outlet property="gapStepper" destination="JM6-3k-x8N" id="QeI-Qi-F1T"/>
                 <outlet property="lblWindowGap" destination="raN-A4-2KT" id="rJW-kh-qoM"/>
                 <outlet property="lblWindowGapCaption" destination="VBM-JL-EGo" id="i3F-Re-scj"/>
-                <outlet property="showChineseLyricsTranslation" destination="Bfd-kM-fhe" id="a01-RT-ns3"/>
                 <outlet property="view" destination="YPU-Wt-2pN" id="oYL-9k-17W"/>
             </connections>
         </customObject>
@@ -114,7 +114,7 @@
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bfd-kM-fhe" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="38" y="232" width="323" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Show Chinese translation of lyrics if available" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="nu3-8B-NNm">
+                    <buttonCell key="cell" type="check" title="Show translation of lyrics if available" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="nu3-8B-NNm">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>

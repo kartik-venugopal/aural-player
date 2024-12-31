@@ -51,7 +51,6 @@ struct PreferencesDefaults {
         static let autoplayAfterOpeningOption: PlaybackPreferences.AutoplayAfterOpeningOption = .always
         
         static let rememberLastPositionForAllTracks: Bool = false
-        static let showChineseLyricsTranslation: Bool = false
     }
     
     ///
@@ -78,7 +77,7 @@ struct PreferencesDefaults {
         static let snapToWindows: Bool = true
         static let snapToScreen: Bool = true
         static let windowGap: Float = 0
-        static let showChineseLyricsTranslation: Bool = false
+        static let showLyricsTranslation: Bool = false
     }
     
     ///
