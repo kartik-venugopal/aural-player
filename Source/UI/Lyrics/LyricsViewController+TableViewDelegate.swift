@@ -17,7 +17,7 @@ extension LyricsViewController: NSTableViewDataSource {
 
 extension LyricsViewController: NSTableViewDelegate {
     
-    private static let rowHeight: CGFloat = 30
+    private static let rowHeight: CGFloat = 35
     
     // Returns a custom view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
@@ -28,17 +28,20 @@ extension LyricsViewController: NSTableViewDelegate {
         Self.rowHeight
     }
     
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {false}
+    
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        guard tableColumn?.identifier == .cid_lyricsLine,
-              let lyrics = self.lyrics,
+        guard let lyrics,
               let cell = tableView.makeView(withIdentifier: .cid_lyricsLine, owner: nil) as? AuralTableCellView
         else {return nil}
         
+        let isCurrentLine = row == self.curLine
+        
         cell.text = lyrics.lines[row].content
-        cell.textFont = systemFontScheme.prominentFont
-        cell.textColor = row == self.curLine ? systemColorScheme.activeControlColor : systemColorScheme.secondaryTextColor
+        cell.textFont = isCurrentLine ? systemFontScheme.lyricsHighlightFont : systemFontScheme.prominentFont
+        cell.textColor = isCurrentLine ? systemColorScheme.activeControlColor : systemColorScheme.secondaryTextColor
         
         cell.textField?.show()
         cell.textField?.lineBreakMode = .byTruncatingTail

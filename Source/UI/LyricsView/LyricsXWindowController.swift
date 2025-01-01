@@ -96,35 +96,35 @@ class LyricsXWindowController: NSWindowController {
             print(line.timeTags.map {$0.time})
         }
         
-        let lyricsView = LyricsWrappedView(
-            track: track?.musicTrack,
-            lyrics: lyrics,
-            elapsedTime: elapsedTime,
-            isPlaying: isPlaying,
-            onLyricsTap: { [weak self] index, proxy in
-                let position = self?.lyrics?[index].position ?? 0
-                self?.messenger.publish(.Player.jumpToTime, payload: position)
-            },
-            onLyricsUpdate: { [weak self] lyrics in
-                self?.saveLyrics(lyrics)
-            }
-        )
-
-        self.lyricsView = lyricsView
-
-        if hostingView == nil {
-            hostingView = NSHostingView(rootView: lyricsView)
-            hostingView?.wantsLayer = true
-            hostingView?.layer?.cornerRadius = playerUIState.cornerRadius
-            hostingView?.layer?.masksToBounds = true
-            window?.contentView = hostingView
-        } else {
-            hostingView?.rootView = lyricsView
-        }
-
-        applyColorScheme(systemColorScheme)
-
-        lyricsView.seekTo(position: elapsedTime, isPlaying: isPlaying)
+//        let lyricsView = LyricsWrappedView(
+//            track: track?.musicTrack,
+//            lyrics: lyrics,
+//            elapsedTime: elapsedTime,
+//            isPlaying: isPlaying,
+//            onLyricsTap: { [weak self] index, proxy in
+//                let position = self?.lyrics?[index].position ?? 0
+//                self?.messenger.publish(.Player.jumpToTime, payload: position)
+//            },
+//            onLyricsUpdate: { [weak self] lyrics in
+//                self?.saveLyrics(lyrics)
+//            }
+//        )
+//
+//        self.lyricsView = lyricsView
+//
+//        if hostingView == nil {
+//            hostingView = NSHostingView(rootView: lyricsView)
+//            hostingView?.wantsLayer = true
+//            hostingView?.layer?.cornerRadius = playerUIState.cornerRadius
+//            hostingView?.layer?.masksToBounds = true
+//            window?.contentView = hostingView
+//        } else {
+//            hostingView?.rootView = lyricsView
+//        }
+//
+//        applyColorScheme(systemColorScheme)
+//
+//        lyricsView.seekTo(position: elapsedTime, isPlaying: isPlaying)
     }
 
     /// Update color theme
@@ -164,19 +164,19 @@ class LyricsXWindowController: NSWindowController {
     /// Auto search lyrics if lyrics is nil
     private func autoSearchLyrics() {
 
-        guard let track, lyrics == nil else {
-            return
-        }
-
-        let searchService = LyricsSearchService()
-
-        Task {
-            let musicTrack = track.musicTrack
-            let lyricsList = await searchService.searchLyrics(with: musicTrack.searchQuery)
-            if let bestLyrics = lyricsList.bestMatch(for: musicTrack) {
-                self.saveLyrics(bestLyrics)
-            }
-        }
+//        guard let track, lyrics == nil else {
+//            return
+//        }
+//
+//        let searchService = LyricsSearchService()
+//
+//        Task {
+//            let musicTrack = track.musicTrack
+//            let lyricsList = await searchService.searchLyrics(with: musicTrack.searchQuery)
+//            if let bestLyrics = lyricsList.bestMatch(for: musicTrack) {
+//                self.saveLyrics(bestLyrics)
+//            }
+//        }
     }
 
     /// Save lyrics to file, and update track info

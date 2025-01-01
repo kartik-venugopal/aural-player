@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="lblCaption" destination="aBL-Sc-nfX" id="rXg-C3-8Oq"/>
                 <outlet property="tableView" destination="VEn-Ks-t68" id="gd4-o2-1QR"/>
+                <outlet property="vertScroller" destination="ilo-hb-1SA" id="hFY-fe-aKk"/>
                 <outlet property="view" destination="Smw-Xh-94l" id="DaP-5f-809"/>
             </connections>
         </customObject>
@@ -33,20 +34,20 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvy-aA-oGb">
-                    <rect key="frame" x="25" y="15" width="473" height="296"/>
+                <scrollView borderType="none" horizontalLineScroll="35" horizontalPageScroll="10" verticalLineScroll="35" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvy-aA-oGb">
+                    <rect key="frame" x="15" y="30" width="483" height="281"/>
                     <clipView key="contentView" id="n2f-37-6gY">
-                        <rect key="frame" x="0.0" y="0.0" width="473" height="296"/>
+                        <rect key="frame" x="0.0" y="0.0" width="468" height="281"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="30" viewBased="YES" id="VEn-Ks-t68">
-                                <rect key="frame" x="0.0" y="0.0" width="473" height="296"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="35" viewBased="YES" id="VEn-Ks-t68">
+                                <rect key="frame" x="0.0" y="0.0" width="468" height="281"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <size key="intercellSpacing" width="17" height="0.0"/>
+                                <size key="intercellSpacing" width="5" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_LyricsLine" width="441" minWidth="40" maxWidth="1000" id="Fc9-X3-Irq" userLabel="Lyrics Line">
+                                    <tableColumn identifier="cid_LyricsLine" width="436" minWidth="40" maxWidth="1000" id="Fc9-X3-Irq" userLabel="Lyrics Line">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -59,11 +60,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="QDR-Zf-hdH" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="18" y="0.0" width="436" height="30"/>
+                                                <rect key="frame" x="12" y="0.0" width="443" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsF-it-ius">
-                                                        <rect key="frame" x="0.0" y="0.0" width="436" height="30"/>
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsF-it-ius" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="443" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="94S-ay-top">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -85,9 +86,11 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="JTY-ed-dkm" customClass="PrettyHorizontalScroller" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="1" y="119" width="223" height="15"/>
+                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="JTY-ed-dkm">
+                        <rect key="frame" x="-100" y="-100" width="223" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <outlet property="clipView" destination="n2f-37-6gY" id="5d1-Ed-ecu"/>
@@ -95,8 +98,8 @@
                             <outlet property="scrollView" destination="Qvy-aA-oGb" id="SJt-Eg-HUv"/>
                         </connections>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ilo-hb-1SA" customClass="PrettyVerticalScroller" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="224" y="17" width="15" height="102"/>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ilo-hb-1SA" customClass="PrettyVerticalScroller" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="468" y="0.0" width="15" height="281"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <outlet property="clipView" destination="n2f-37-6gY" id="mF6-9J-vFT"/>
@@ -108,11 +111,11 @@
             </subviews>
             <constraints>
                 <constraint firstItem="aBL-Sc-nfX" firstAttribute="leading" secondItem="Smw-Xh-94l" secondAttribute="leading" constant="30" id="02U-ht-5VB"/>
-                <constraint firstItem="Qvy-aA-oGb" firstAttribute="leading" secondItem="Smw-Xh-94l" secondAttribute="leading" constant="25" id="IaL-5F-9MM"/>
+                <constraint firstItem="Qvy-aA-oGb" firstAttribute="leading" secondItem="Smw-Xh-94l" secondAttribute="leading" constant="15" id="IaL-5F-9MM"/>
                 <constraint firstItem="aBL-Sc-nfX" firstAttribute="top" secondItem="Smw-Xh-94l" secondAttribute="top" constant="3" id="OKL-ei-pSL"/>
                 <constraint firstAttribute="trailing" secondItem="Qvy-aA-oGb" secondAttribute="trailing" constant="15" id="cmC-2t-31R"/>
                 <constraint firstItem="Qvy-aA-oGb" firstAttribute="top" secondItem="aBL-Sc-nfX" secondAttribute="bottom" constant="17" id="hLk-m3-wVX"/>
-                <constraint firstAttribute="bottom" secondItem="Qvy-aA-oGb" secondAttribute="bottom" constant="15" id="u8y-Lt-CjT"/>
+                <constraint firstAttribute="bottom" secondItem="Qvy-aA-oGb" secondAttribute="bottom" constant="30" id="u8y-Lt-CjT"/>
             </constraints>
             <point key="canvasLocation" x="168.5" y="200"/>
         </view>

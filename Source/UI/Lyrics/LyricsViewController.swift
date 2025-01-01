@@ -17,6 +17,7 @@ class LyricsViewController: NSViewController {
     
     @IBOutlet weak var lblCaption: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var vertScroller: PrettyVerticalScroller!
     
     var track: Track?
     var lyrics: Lyrics?
@@ -35,11 +36,14 @@ class LyricsViewController: NSViewController {
         
         view.wantsLayer = true
         
-        fontSchemeChanged()
-        colorSchemeChanged()
         changeCornerRadius(playerUIState.cornerRadius)
         
+        fontSchemesManager.registerObserver(self)
+        colorSchemesManager.registerSchemeObservers(self)
+        
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribeAsync(to: .Player.playbackStateChanged, handler: playbackStateChanged)
+        messenger.subscribeAsync(to: .Player.seekPerformed, handler: seekPerformed)
     }
     
     override func viewDidAppear() {
@@ -94,8 +98,30 @@ class LyricsViewController: NSViewController {
         updateForTrack(notif.endTrack)
     }
     
+    private func playbackStateChanged() {
+        player.state == .playing ? timer.startOrResume() : timer.pause()
+    }
+
+    private func seekPerformed() {
+        highlightCurrentLine()
+    }
+    
     func changeCornerRadius(_ radius: CGFloat) {
         view.layer?.cornerRadius = radius
+    }
+}
+
+extension LyricsViewController: ThemeInitialization {
+    
+    func initTheme() {
+     
+        lblCaption.font = systemFontScheme.captionFont
+        view.layer?.backgroundColor = systemColorScheme.backgroundColor.cgColor
+        lblCaption.textColor = systemColorScheme.captionTextColor
+        tableView.setBackgroundColor(systemColorScheme.backgroundColor)
+        vertScroller.redraw()
+        
+        updateLyricsText()
     }
 }
 
@@ -115,62 +141,7 @@ extension LyricsViewController: ColorSchemeObserver {
         view.layer?.backgroundColor = systemColorScheme.backgroundColor.cgColor
         lblCaption.textColor = systemColorScheme.captionTextColor
         tableView.setBackgroundColor(systemColorScheme.backgroundColor)
+        vertScroller.redraw()
         updateLyricsText()
     }
-}
-
-extension Lyrics {
-    
-    func currentLine(at position: TimeInterval) -> Int? {
-        
-        var left = 0
-        var right = lines.count - 1
-
-        while left <= right {
-            
-            let mid = (left + right) / 2
-            let candidate: LyricsLine = lines[mid]
-            
-            switch candidate.relativePosition(to: position) {
-                
-            case .match:
-                return mid
-                
-            case .left:
-                left = mid + 1
-                
-            case .right:
-                right = mid - 1
-            }
-        }
-        
-        return nil
-    }
-}
-
-extension LyricsLine {
-    
-    func relativePosition(to target: TimeInterval) -> LyricsLineRelativePosition {
-        
-        if target < self.position {
-            return .right
-        }
-        
-        if target > self.maxPosition {
-            return .left
-        }
-        
-        return .match
-    }
-    
-    func isCurrent(atPosition target: TimeInterval) -> Bool {
-        target >= self.position && target <= self.maxPosition
-    }
-}
-
-enum LyricsLineRelativePosition {
-    
-    case match
-    case left
-    case right
 }

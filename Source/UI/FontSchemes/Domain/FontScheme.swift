@@ -34,7 +34,16 @@ class FontScheme: NSObject, UserManagedObject {
     var captionFont: NSFont
     
     var normalFont: NSFont
-    var prominentFont: NSFont
+    
+    var prominentFont: NSFont {
+        
+        didSet {
+            self.lyricsHighlightFont = NSFont(name: prominentFont.familyName!, size: prominentFont.pointSize * 1.2)!
+        }
+    }
+    
+    var lyricsHighlightFont: NSFont
+    
     var smallFont: NSFont
     var extraSmallFont: NSFont
     
@@ -48,6 +57,7 @@ class FontScheme: NSObject, UserManagedObject {
         self.captionFont = captionFont
         self.normalFont = normalFont
         self.prominentFont = prominentFont
+        self.lyricsHighlightFont = NSFont(name: prominentFont.familyName!, size: prominentFont.pointSize * 1.2)!
         self.smallFont = smallFont
         self.extraSmallFont = extraSmallFont
         
@@ -83,6 +93,7 @@ class FontScheme: NSObject, UserManagedObject {
         
         self.normalFont = normalFont
         self.prominentFont = prominentFont
+        self.lyricsHighlightFont = NSFont(name: prominentFont.familyName!, size: prominentFont.pointSize * 1.2)!
         self.smallFont = smallFont
         self.extraSmallFont = extraSmallFont
         
@@ -101,6 +112,7 @@ class FontScheme: NSObject, UserManagedObject {
         
         self.normalFont = otherScheme.normalFont
         self.prominentFont = otherScheme.prominentFont
+        self.lyricsHighlightFont = otherScheme.lyricsHighlightFont
         self.smallFont = otherScheme.smallFont
         self.extraSmallFont = otherScheme.extraSmallFont
         

@@ -23,11 +23,15 @@ class PrettyVerticalScroller: NSScroller {
     @IBOutlet weak var clipView: NSClipView!
     @IBOutlet weak var contentView: NSView!
     
-    var knobColor: NSColor {
-        systemColorScheme.inactiveControlColor
+    var backgroundColor: NSColor {
+        systemColorScheme.backgroundColor
     }
     
     var barColor: NSColor {
+        systemColorScheme.inactiveControlColor
+    }
+    
+    var knobColor: NSColor {
         systemColorScheme.inactiveControlColor
     }
     
@@ -50,6 +54,8 @@ class PrettyVerticalScroller: NSScroller {
     }
     
     override func draw(_ dirtyRect: NSRect) {
+        
+        NSBezierPath.fillRoundedRect(dirtyRect, radius: 0, withColor: backgroundColor)
         
         let rect = dirtyRect.insetBy(dx: barInsetX, dy: barInsetY)
         NSBezierPath.fillRoundedRect(rect, radius: barRadius, withColor: barColor)

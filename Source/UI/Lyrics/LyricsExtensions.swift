@@ -1,18 +1,47 @@
 //
-//  Track+Lyrics.swift
-//  Aural
-//
-//  Created by tisfeng on 2024/12/17.
-//  Copyright © 2024 Kartik Venugopal. All rights reserved.
+// LyricsExtensions.swift
+// Aural
+// 
+// Copyright © 2025 Kartik Venugopal. All rights reserved.
+// 
+// This software is licensed under the MIT software license.
+// See the file "LICENSE" in the project root directory for license terms.
 //
 
 import Foundation
 import LyricsCore
-import MusicPlayer
 
 extension Lyrics {
+    
+    func currentLine(at position: TimeInterval) -> Int? {
+        
+        var left = 0
+        var right = lines.count - 1
+
+        while left <= right {
+            
+            let mid = (left + right) / 2
+            let candidate: LyricsLine = lines[mid]
+            
+            switch candidate.relativePosition(to: position) {
+                
+            case .match:
+                return mid
+                
+            case .left:
+                left = mid + 1
+                
+            case .right:
+                right = mid - 1
+            }
+        }
+        
+        return nil
+    }
+    
     /// Saves lyrics to the lyrics directory with .lrcx format.
     func persistToFile(_ fileName: String) {
+        
         let url = FilesAndPaths.lyricsDir.appendingPathComponent(fileName + ".lrcx")
         persistLyrics(self, to: url)
     }
@@ -23,6 +52,7 @@ extension Lyrics {
     ///   - lyrics: The lyrics to save
     ///   - url: The destination URL
     private func persistLyrics(_ lyrics: Lyrics, to url: URL) {
+        
         url.parentDir.createDirectory()
 
         do {
@@ -31,6 +61,33 @@ extension Lyrics {
             print("Failed to write lyrics to \(url.path): \(error.localizedDescription)")
         }
     }
+}
+
+extension LyricsLine {
+    
+    fileprivate func relativePosition(to target: TimeInterval) -> LyricsLineRelativePosition {
+        
+        if target < self.position {
+            return .right
+        }
+        
+        if target > self.maxPosition {
+            return .left
+        }
+        
+        return .match
+    }
+    
+    func isCurrent(atPosition target: TimeInterval) -> Bool {
+        target >= self.position && target <= self.maxPosition
+    }
+}
+
+fileprivate enum LyricsLineRelativePosition {
+    
+    case match
+    case left
+    case right
 }
 
 extension Track {
@@ -66,9 +123,11 @@ extension Track {
     /// - Parameter directory: The directory to search for lyrics files
     /// - Returns: A Lyrics object if found and successfully loaded, nil otherwise
     private func loadLyricsFromDirectory(_ directory: URL) -> Lyrics? {
+        
         if let lyricsFile = locateLyricsFile(in: directory) {
             return loadLyricsFromFile(at: lyricsFile)
         }
+        
         return nil
     }
 
@@ -78,6 +137,7 @@ extension Track {
     /// - Parameter directory: The directory to search in
     /// - Returns: URL of the found lyrics file, nil if not found
     private func locateLyricsFile(in directory: URL) -> URL? {
+        
         let possibleFiles = [
             directory.appendingPathComponent(defaultDisplayName + ".lrc"),
             directory.appendingPathComponent(defaultDisplayName + ".lrcx"),
@@ -91,28 +151,16 @@ extension Track {
     /// - Parameter url: The URL of the lyrics file
     /// - Returns: A Lyrics object if successfully loaded, nil otherwise
     private func loadLyricsFromFile(at url: URL) -> Lyrics? {
+        
         do {
+            
             let lyricsText = try String(contentsOf: url, encoding: .utf8)
             return Lyrics(lyricsText)
+            
         } catch {
+            
             print("Failed to read lyrics file at \(url.path): \(error.localizedDescription)")
             return nil
         }
-    }
-
-}
-
-extension Track {
-    var musicTrack: MusicTrack {
-        return MusicTrack(
-            id: defaultDisplayName,
-            title: title,
-            album: album,
-            artist: artist,
-            duration: duration,
-            fileURL: file,
-            artwork: art?.originalImage?.image,
-            originalTrack: self
-        )
     }
 }
