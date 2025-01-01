@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LyricsWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnClose" destination="hQO-wC-qAg" id="cqL-5r-FV7"/>
                 <outlet property="window" destination="tJ0-b1-ec3" id="kbH-Ga-OqE"/>
             </connections>
         </customObject>
@@ -16,23 +17,19 @@
         <window identifier="playlists" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingIdentifier="playlists" titleVisibility="hidden" id="tJ0-b1-ec3" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="575" height="432"/>
+            <rect key="contentRect" x="196" y="240" width="440" height="600"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
-            <value key="minSize" type="size" width="575" height="432"/>
+            <value key="minSize" type="size" width="200" height="150"/>
             <view key="contentView" wantsLayer="YES" id="6Hu-GY-eN1" userLabel="Root View">
-                <rect key="frame" x="0.0" y="0.0" width="575" height="432"/>
+                <rect key="frame" x="0.0" y="0.0" width="440" height="600"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button toolTip="Hide Track Info" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQO-wC-qAg" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="7" y="411.5" width="11.5" height="10"/>
+                        <rect key="frame" x="7" y="576.5" width="14.5" height="13"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="kSR-VI-B6y">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="11" id="42W-8B-iK6"/>
-                            <constraint firstAttribute="height" constant="6" id="JqX-ED-NwR"/>
-                        </constraints>
                     </button>
                 </subviews>
                 <constraints>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LyricsViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="lblCaption" destination="aBL-Sc-nfX" id="rXg-C3-8Oq"/>
+                <outlet property="textView" destination="LEF-j7-JLE" id="44d-PM-SF7"/>
+                <outlet property="view" destination="Smw-Xh-94l" id="DaP-5f-809"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view wantsLayer="YES" id="Smw-Xh-94l">
+            <rect key="frame" x="0.0" y="0.0" width="440" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aBL-Sc-nfX" userLabel="Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="28" y="172" width="214" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="125" id="CdN-m3-O6L"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="Wdq-zf-IdX"/>
+                        <constraint firstAttribute="height" constant="25" id="lfT-UW-6yA"/>
+                        <constraint firstAttribute="width" constant="210" id="r7v-6u-tZC"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Lyrics" id="bnf-g2-HOv">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="fk7-QD-m1Z">
+                    <rect key="frame" x="25" y="15" width="400" height="125"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ocx-8O-U9s">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="125"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="LEF-j7-JLE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.097370866210000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="minSize" width="390" height="125"/>
+                                <size key="maxSize" width="525" height="10000000"/>
+                                <color key="insertionPointColor" white="0.70124099039999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.099406517619999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </clipView>
+                    <edgeInsets key="contentInsets" left="0.0" right="10" top="0.0" bottom="0.0"/>
+                    <edgeInsets key="scrollerInsets" left="0.0" right="-9" top="0.0" bottom="0.0"/>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="IcY-ET-Aje">
+                        <rect key="frame" x="-100" y="-100" width="100" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="gv0-Ha-fQH" customClass="PrettyVerticalScroller" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="509" y="0.0" width="15" height="255"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="aBL-Sc-nfX" firstAttribute="leading" secondItem="Smw-Xh-94l" secondAttribute="leading" constant="30" id="02U-ht-5VB"/>
+                <constraint firstItem="fk7-QD-m1Z" firstAttribute="top" secondItem="Smw-Xh-94l" secondAttribute="top" constant="60" id="2EI-V2-krI"/>
+                <constraint firstAttribute="trailing" secondItem="fk7-QD-m1Z" secondAttribute="trailing" constant="15" id="HXR-aO-Bsq"/>
+                <constraint firstItem="aBL-Sc-nfX" firstAttribute="top" secondItem="Smw-Xh-94l" secondAttribute="top" constant="3" id="OKL-ei-pSL"/>
+                <constraint firstItem="fk7-QD-m1Z" firstAttribute="leading" secondItem="Smw-Xh-94l" secondAttribute="leading" constant="25" id="Uyo-90-NR3"/>
+                <constraint firstAttribute="bottom" secondItem="fk7-QD-m1Z" secondAttribute="bottom" constant="15" id="vDZ-Rk-4ys"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="122"/>
+        </view>
+    </objects>
+</document>

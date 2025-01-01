@@ -15,7 +15,7 @@ let lyricsWindowWidth: CGFloat = 400
 let lyricsWindowHeight: CGFloat = 625
 
 /// Controller for the Lyrics window, host LyricsScrollView
-class LyricsWindowController: NSWindowController {
+class LyricsXWindowController: NSWindowController {
 
     private var hostingView: NSHostingView<LyricsWrappedView>?
     private var lyricsView: LyricsWrappedView?
@@ -85,6 +85,17 @@ class LyricsWindowController: NSWindowController {
     // MARK: - View Management
 
     private func updateLyricsView() {
+        
+        guard let lyrics else {return}
+        
+        print("\n---------------------------------------------------------")
+        
+        for line in lyrics.lines {
+            
+            print("\n\(line.position) - \(line.maxPosition) : \(line.content)")
+            print(line.timeTags.map {$0.time})
+        }
+        
         let lyricsView = LyricsWrappedView(
             track: track?.musicTrack,
             lyrics: lyrics,
@@ -200,7 +211,8 @@ class LyricsWindowController: NSWindowController {
     }
 }
 
-extension LyricsWindowController: ColorSchemeObserver {
+extension LyricsXWindowController: ColorSchemeObserver {
+    
     func colorSchemeChanged() {
         applyColorScheme(systemColorScheme)
     }
