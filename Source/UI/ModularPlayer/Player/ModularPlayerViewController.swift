@@ -125,7 +125,7 @@ class ModularPlayerViewController: PlayerViewController {
         
         windowLayoutsManager.showWindow(withId: .trackInfo)
     }
-    
+
     override func setUpColorSchemePropertyObservation() {
         
         super.setUpColorSchemePropertyObservation()

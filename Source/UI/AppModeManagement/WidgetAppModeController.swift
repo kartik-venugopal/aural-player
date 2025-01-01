@@ -28,6 +28,10 @@ class WidgetAppModeController: AppModeController {
     var isShowingPlayer: Bool {true}
     
     var isShowingPlayQueue: Bool {true}
+
+    var isShowingLyrics: Bool {
+        true
+    }
     
     var isShowingEffects: Bool {true}
     

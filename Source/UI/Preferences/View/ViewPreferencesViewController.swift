@@ -22,7 +22,9 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     @IBOutlet weak var gapStepper: NSStepper!
     
     @IBOutlet weak var btnSnapToScreen: CheckBox!
-    
+
+    @IBOutlet weak var btnShowLyricsTranslation: CheckBox!
+
     private static let disabledControlTooltip: String = "<This preference is only applicable to the \"Modular\" app mode>"
     
     var preferencesView: NSView {self.view}
@@ -39,7 +41,9 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         [lblWindowGap, gapStepper].forEach {$0!.enableIf(btnSnapToWindows.isOn)}
         
         btnSnapToScreen.onIf(viewPrefs.snapToScreen.value)
-        
+
+        btnShowLyricsTranslation.onIf(viewPrefs.showLyricsTranslation.value)
+
         if appModeManager.currentMode != .modular {
             disableIrrelevantControls()
         }
@@ -80,5 +84,6 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         viewPrefs.snapToWindows.value = btnSnapToWindows.isOn
         viewPrefs.windowGap.value = gapStepper.floatValue
         viewPrefs.snapToScreen.value = btnSnapToScreen.isOn
+        viewPrefs.showLyricsTranslation.value = btnShowLyricsTranslation.isOn
     }
 }

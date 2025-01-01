@@ -25,10 +25,16 @@ class ViewPreferences {
     
     lazy var snapToScreen: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).snap.toScreen",
                                                                     defaultValue: Defaults.snapToScreen)
-    
+
     // Only used when snapToWindows == true
     lazy var windowGap: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).snap.toWindows.gap",
                                                                     defaultValue: Defaults.windowGap)
+
+    lazy var showLyricsTranslation: UserPreference<Bool> = .init(
+        defaultsKey: "\(Self.keyPrefix).showLyricsTranslation",
+        defaultValue: Defaults.showLyricsTranslation
+    )
+
     init(legacyPreferences: LegacyViewPreferences? = nil) {
         legacyPreferences?.deleteAll()
     }

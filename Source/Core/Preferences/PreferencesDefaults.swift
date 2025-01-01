@@ -77,6 +77,7 @@ struct PreferencesDefaults {
         static let snapToWindows: Bool = true
         static let snapToScreen: Bool = true
         static let windowGap: Float = 0
+        static let showLyricsTranslation: Bool = false
     }
     
     ///

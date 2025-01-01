@@ -52,7 +52,11 @@ class UnifiedAppModeController: AppModeController {
     var isShowingPlayQueue: Bool {
         windowController?.isShowingPlayQueue ?? false
     }
-    
+
+    var isShowingLyrics: Bool {
+        true
+    }
+
     var isShowingEffects: Bool {
         windowController?.isShowingEffects ?? false
     }

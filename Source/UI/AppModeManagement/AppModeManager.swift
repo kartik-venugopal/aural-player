@@ -38,7 +38,11 @@ class AppModeManager {
     var isShowingPlayQueue: Bool {
         modeController?.isShowingPlayQueue ?? false
     }
-    
+
+    var isShowingLyrics: Bool {
+        modeController?.isShowingLyrics ?? false
+    }
+
     var isShowingEffects: Bool {
         modeController?.isShowingEffects ?? false
     }
