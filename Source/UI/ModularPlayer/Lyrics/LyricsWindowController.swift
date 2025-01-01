@@ -9,7 +9,6 @@
 //
 
 import AppKit
-import LyricsCore
 
 class LyricsWindowController: NSWindowController {
     

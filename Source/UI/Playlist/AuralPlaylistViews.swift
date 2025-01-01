@@ -92,4 +92,6 @@ extension NSUserInterfaceItemIdentifier {
     static let cid_chapterStartTime: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_chapterStartTime")
     
     static let cid_chapterDuration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_chapterDuration")
+    
+    static let cid_lyricsLine: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_LyricsLine")
 }
