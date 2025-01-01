@@ -69,17 +69,17 @@ class LyricsViewController: NSViewController {
     
     private func highlightCurrentLine() {
         
-        guard let lyrics else {return}
+        guard let track, let lyrics else {return}
         
         let seekPos = playbackInfoDelegate.seekPosition.timeElapsed
         
-        if let curLine, lyrics.lines[curLine].isCurrent(atPosition: seekPos) {
+        if let curLine, lyrics.isLineCurrent(atIndex: curLine, atPosition: seekPos, ofTrack: track) {
             
             // Current line is still current, do nothing.
             return
         }
         
-        let newCurLine = lyrics.currentLine(at: seekPos)
+        let newCurLine = lyrics.currentLine(at: seekPos, ofTrack: track)
         
         if newCurLine != self.curLine {
             

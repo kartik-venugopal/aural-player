@@ -13,7 +13,7 @@ import LyricsCore
 
 extension Lyrics {
     
-    func currentLine(at position: TimeInterval) -> Int? {
+    func currentLine(at position: TimeInterval, ofTrack track: Track) -> Int? {
         
         var left = 0
         var right = lines.count - 1
@@ -21,9 +21,8 @@ extension Lyrics {
         while left <= right {
             
             let mid = (left + right) / 2
-            let candidate: LyricsLine = lines[mid]
             
-            switch candidate.relativePosition(to: position) {
+            switch relativePosition(ofLineAtIndex: mid, to: position, forTrack: track) {
                 
             case .match:
                 return mid
@@ -61,25 +60,41 @@ extension Lyrics {
             print("Failed to write lyrics to \(url.path): \(error.localizedDescription)")
         }
     }
-}
-
-extension LyricsLine {
     
-    fileprivate func relativePosition(to target: TimeInterval) -> LyricsLineRelativePosition {
+    fileprivate func relativePosition(ofLineAtIndex index: Int, to target: TimeInterval, forTrack track: Track) -> LyricsLineRelativePosition {
         
-        if target < self.position {
+        let line = lines[index]
+        
+        if target < line.position {
             return .right
         }
         
-        if target > self.maxPosition {
+        if target > self.maxPosition(ofLineAtIndex: index, forTrack: track) {
             return .left
         }
         
         return .match
     }
     
-    func isCurrent(atPosition target: TimeInterval) -> Bool {
-        target >= self.position && target <= self.maxPosition
+    func isLineCurrent(atIndex index: Int, atPosition target: TimeInterval, ofTrack track: Track) -> Bool {
+        
+        let line = lines[index]
+        return target >= line.position && target <= self.maxPosition(ofLineAtIndex: index, forTrack: track)
+    }
+    
+    fileprivate func maxPosition(ofLineAtIndex index: Int, forTrack track: Track) -> TimeInterval {
+        
+        let line = lines[index]
+        
+        if line.timeTagDuration > 0 {
+            return line.maxPosition
+        }
+        
+        if index < self.lastIndex {
+            return lines[index + 1].position - 0.001
+        }
+        
+        return track.duration - 0.001
     }
 }
 
