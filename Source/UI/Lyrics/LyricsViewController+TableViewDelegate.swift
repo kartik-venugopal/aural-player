@@ -12,12 +12,12 @@ import AppKit
 
 extension LyricsViewController: NSTableViewDataSource {
     
-    func numberOfRows(in tableView: NSTableView) -> Int {lyrics?.lines.count ?? 0}
+    func numberOfRows(in tableView: NSTableView) -> Int {timedLyrics?.lines.count ?? 0}
 }
 
 extension LyricsViewController: NSTableViewDelegate {
     
-    private static let rowHeight: CGFloat = 35
+    private static let rowHeight: CGFloat = 30
     
     // Returns a custom view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
@@ -31,8 +31,8 @@ extension LyricsViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         
         // Seek to clicked line.
-        if let lyrics, lyrics.lines.indices.contains(row) {
-            messenger.publish(.Player.jumpToTime, payload: max(0, lyrics.lines[row].position))
+        if let timedLyrics, timedLyrics.lines.indices.contains(row) {
+            messenger.publish(.Player.jumpToTime, payload: max(0, timedLyrics.lines[row].position))
         }
         
         return false
@@ -41,13 +41,13 @@ extension LyricsViewController: NSTableViewDelegate {
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        guard let lyrics,
+        guard let timedLyrics,
               let cell = tableView.makeView(withIdentifier: .cid_lyricsLine, owner: nil) as? AuralTableCellView
         else {return nil}
         
         let isCurrentLine = row == self.curLine
         
-        cell.text = lyrics.lines[row].content
+        cell.text = timedLyrics.lines[row].content
         cell.textFont = isCurrentLine ? systemFontScheme.lyricsHighlightFont : systemFontScheme.prominentFont
         cell.textColor = isCurrentLine ? systemColorScheme.activeControlColor : systemColorScheme.secondaryTextColor
         

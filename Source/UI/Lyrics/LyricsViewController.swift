@@ -16,11 +16,20 @@ class LyricsViewController: NSViewController {
     override var nibName: NSNib.Name? {"Lyrics"}
     
     @IBOutlet weak var lblCaption: NSTextField!
+    
+    @IBOutlet weak var tabView: NSTabView!
+    
+    @IBOutlet weak var textView: NSTextView!
+    @IBOutlet weak var textVertScroller: PrettyVerticalScroller!
+    
     @IBOutlet weak var tableView: NSTableView!
-    @IBOutlet weak var vertScroller: PrettyVerticalScroller!
+    @IBOutlet weak var tableVertScroller: PrettyVerticalScroller!
     
     var track: Track?
-    var lyrics: Lyrics?
+    
+    var staticLyrics: String?
+    
+    var timedLyrics: TimedLyrics?
     var curLine: Int?
     
     lazy var messenger = Messenger(for: self)
@@ -42,8 +51,6 @@ class LyricsViewController: NSViewController {
         colorSchemesManager.registerSchemeObservers(self)
         
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
-        messenger.subscribeAsync(to: .Player.playbackStateChanged, handler: playbackStateChanged)
-        messenger.subscribeAsync(to: .Player.seekPerformed, handler: seekPerformed)
     }
     
     override func viewDidAppear() {
@@ -52,58 +59,49 @@ class LyricsViewController: NSViewController {
         updateForTrack(playbackInfoDelegate.playingTrack)
     }
     
+    var showingTimedLyrics: Bool {
+        tabView.selectedIndex == 1
+    }
+    
     private func updateForTrack(_ track: Track?) {
         
-        self.track = track
-        self.lyrics = track?.fetchLocalLyrics()
-        
-        updateLyricsText()
-        track != nil ? timer.startOrResume() : timer.pause()
-    }
-    
-    private func updateLyricsText() {
-        
-        tableView.reloadData()
-        curLine = nil
-    }
-    
-    private func highlightCurrentLine() {
-        
-        guard let track, let lyrics else {return}
-        
-        let seekPos = playbackInfoDelegate.seekPosition.timeElapsed
-        
-        if let curLine, lyrics.isLineCurrent(atIndex: curLine, atPosition: seekPos, ofTrack: track) {
+        guard self.track != track else {
             
-            // Current line is still current, do nothing.
+            if showingTimedLyrics {
+                highlightCurrentLine()
+            }
+            
             return
         }
         
-        let newCurLine = lyrics.currentLine(at: seekPos, ofTrack: track)
+        self.track = track
         
-        if newCurLine != self.curLine {
+        self.timedLyrics = track?.fetchLocalTimedLyrics()
+        
+        if timedLyrics != nil {
+            showTimedLyricsView()
             
-            // Try curLine + 1 (in most cases, playback proceeds sequentially, so this is the most likely line to match)
-            let refreshIndices = [self.curLine, newCurLine].compactMap {$0}
-            self.curLine = newCurLine
-            tableView.reloadRows(refreshIndices)
+        } else if let staticLyrics = track?.lyrics {
+
+            dismissTimedLyricsView()
+            self.staticLyrics = staticLyrics
+            updateStaticLyricsText()
             
-            if let curLine {
-                tableView.scrollRowToVisible(curLine)
+        } else {
+            
+            let wasShowingTimedLyrics = tabView.selectedIndex == 1
+            
+            tabView.selectTabViewItem(at: 0)
+            textView.string = "No lyrics available"
+            
+            if wasShowingTimedLyrics {
+                dismissTimedLyricsView()
             }
         }
     }
     
     private func trackTransitioned(_ notif: TrackTransitionNotification) {
         updateForTrack(notif.endTrack)
-    }
-    
-    private func playbackStateChanged() {
-        player.state == .playing ? timer.startOrResume() : timer.pause()
-    }
-
-    private func seekPerformed() {
-        highlightCurrentLine()
     }
     
     func changeCornerRadius(_ radius: CGFloat) {
@@ -116,12 +114,20 @@ extension LyricsViewController: ThemeInitialization {
     func initTheme() {
      
         lblCaption.font = systemFontScheme.captionFont
-        view.layer?.backgroundColor = systemColorScheme.backgroundColor.cgColor
         lblCaption.textColor = systemColorScheme.captionTextColor
-        tableView.setBackgroundColor(systemColorScheme.backgroundColor)
-        vertScroller.redraw()
         
-        updateLyricsText()
+        view.layer?.backgroundColor = systemColorScheme.backgroundColor.cgColor
+        textView.backgroundColor = systemColorScheme.backgroundColor
+        tableView.setBackgroundColor(systemColorScheme.backgroundColor)
+        
+        textVertScroller.redraw()
+        tableVertScroller.redraw()
+        
+        if showingTimedLyrics {
+            updateTimedLyricsText()
+        } else {
+            updateStaticLyricsText()
+        }
     }
 }
 
@@ -130,7 +136,12 @@ extension LyricsViewController: FontSchemeObserver {
     func fontSchemeChanged() {
         
         lblCaption.font = systemFontScheme.captionFont
-        updateLyricsText()
+        
+        if showingTimedLyrics {
+            updateTimedLyricsText()
+        } else {
+            updateStaticLyricsText()
+        }
     }
 }
 
@@ -138,10 +149,19 @@ extension LyricsViewController: ColorSchemeObserver {
     
     func colorSchemeChanged() {
 
-        view.layer?.backgroundColor = systemColorScheme.backgroundColor.cgColor
         lblCaption.textColor = systemColorScheme.captionTextColor
+
+        view.layer?.backgroundColor = systemColorScheme.backgroundColor.cgColor
+        textView.backgroundColor = systemColorScheme.backgroundColor
         tableView.setBackgroundColor(systemColorScheme.backgroundColor)
-        vertScroller.redraw()
-        updateLyricsText()
+        
+        textVertScroller.redraw()
+        tableVertScroller.redraw()
+        
+        if showingTimedLyrics {
+            updateTimedLyricsText()
+        } else {
+            updateStaticLyricsText()
+        }
     }
 }

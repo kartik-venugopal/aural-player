@@ -148,7 +148,7 @@ class LyricsXWindowController: NSWindowController {
 
     private func updateTrackInfo() {
         track = playbackDelegate.playingTrack
-        lyrics = track?.fetchLocalLyrics()
+        lyrics = track?.fetchLocalTimedLyrics()
         updatePlaybackState()
 
         DispatchQueue.main.async {

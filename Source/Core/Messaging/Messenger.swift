@@ -84,6 +84,8 @@ class Messenger {
                            handler: @escaping PayloadMessageHandler<P>,
                            filter: PayloadMessageFilter<P>? = nil) {
         
+        guard subscriptions[notifName] == nil else {return}
+        
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
         // the handler, if the optionally provided filter allows it.
@@ -138,6 +140,8 @@ class Messenger {
                            handler: @escaping MessageHandler,
                            filter: @escaping PayloadMessageFilter<P>) {
         
+        guard subscriptions[notifName] == nil else {return}
+        
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
         // the handler, if the optionally provided filter allows it.
@@ -186,6 +190,8 @@ class Messenger {
                    handler: @escaping MessageHandler,
                    filter: MessageFilter? = nil) {
         
+        guard subscriptions[notifName] == nil else {return}
+        
         // Wrap the provided handler function in a block that receives a Notification.
         // Invoke the handler, if the optionally provided filter allows it.
         
@@ -218,6 +224,8 @@ class Messenger {
     func subscribeAsync<P: Any>(to notifName: Notification.Name,
                                 handler: @escaping PayloadMessageHandler<P>,
                                 filter: PayloadMessageFilter<P>? = nil) {
+        
+        guard subscriptions[notifName] == nil else {return}
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
@@ -273,6 +281,8 @@ class Messenger {
     func subscribeAsync(to notifName: Notification.Name,
                         handler: @escaping MessageHandler,
                         filter: MessageFilter? = nil) {
+        
+        guard subscriptions[notifName] == nil else {return}
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Invoke the handler, if the optionally provided filter allows it.

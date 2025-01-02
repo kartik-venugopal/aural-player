@@ -568,6 +568,8 @@
 		3E51F34A262AFF310048452F /* ThemesManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F349262AFF300048452F /* ThemesManagerViewController.swift */; };
 		3E5563A0269D642B00864598 /* ChaptersListTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E55639F269D642B00864598 /* ChaptersListTableCellView.swift */; };
 		3E5701962C6EB16A007B8611 /* ReplayGain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5701952C6EB16A007B8611 /* ReplayGain.swift */; };
+		3E57443B2D261E28004B5AE7 /* LyricsViewController+Timed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */; };
+		3E57443D2D262104004B5AE7 /* LyricsViewController+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57443C2D262104004B5AE7 /* LyricsViewController+Static.swift */; };
 		3E5864A02B76DD0000BDB5A6 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */; };
 		3E5864A22B76EC8700BDB5A6 /* MenuBarPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5864A12B76EC8700BDB5A6 /* MenuBarPlayerViewController.swift */; };
 		3E58A9252D1421CC00591DEA /* GaplessPlaybackProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E58A9242D1421CC00591DEA /* GaplessPlaybackProgress.xib */; };
@@ -1662,6 +1664,8 @@
 		3E51F349262AFF300048452F /* ThemesManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesManagerViewController.swift; sourceTree = "<group>"; };
 		3E55639F269D642B00864598 /* ChaptersListTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListTableCellView.swift; sourceTree = "<group>"; };
 		3E5701952C6EB16A007B8611 /* ReplayGain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGain.swift; sourceTree = "<group>"; };
+		3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LyricsViewController+Timed.swift"; sourceTree = "<group>"; };
+		3E57443C2D262104004B5AE7 /* LyricsViewController+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LyricsViewController+Static.swift"; sourceTree = "<group>"; };
 		3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3E5864A12B76EC8700BDB5A6 /* MenuBarPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewController.swift; sourceTree = "<group>"; };
 		3E5896082C6E6D6E00BB9EBC /* NewREADME.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NewREADME.md; sourceTree = "<group>"; };
@@ -5028,6 +5032,8 @@
 			children = (
 				3EAF72782D25B1F900E24245 /* Lyrics.xib */,
 				3EAF727A2D25B24700E24245 /* LyricsViewController.swift */,
+				3E57443C2D262104004B5AE7 /* LyricsViewController+Static.swift */,
+				3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */,
 				3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */,
 				3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */,
 			);
@@ -5861,6 +5867,7 @@
 				3E804D222C29F7840049AC27 /* GestureHandler.swift in Sources */,
 				3E36BD3D26A6902F00B6E28B /* AudioTrackInfoViewController.swift in Sources */,
 				3E4C763D2AD774DA00DDED45 /* AppSetupWindowController.swift in Sources */,
+				3E57443D2D262104004B5AE7 /* LyricsViewController+Static.swift in Sources */,
 				3E0218BD2C23490E00865AC2 /* MarkLastPlaybackPositionAction.swift in Sources */,
 				3E02196A2C23490E00865AC2 /* NSAlert+Extensions.swift in Sources */,
 				3E02188E2C23490E00865AC2 /* SoundProfilePersistentState.swift in Sources */,
@@ -6548,6 +6555,7 @@
 				3E0218542C23490E00865AC2 /* HistoryDelegateProtocol.swift in Sources */,
 				3E6E6B792C84CFAD00B87FF6 /* Track+Metadata.swift in Sources */,
 				3E68B8292C4433EE00F65D43 /* FFmpegScheduler+Gapless.swift in Sources */,
+				3E57443B2D261E28004B5AE7 /* LyricsViewController+Timed.swift in Sources */,
 				3E9C12112622208F00D90EA4 /* Theme.swift in Sources */,
 				3E0219202C23490E00865AC2 /* RemoteControlManager.swift in Sources */,
 				3ECF71AD2B755ACF00FDB69B /* CompactPlayerUIState.swift in Sources */,

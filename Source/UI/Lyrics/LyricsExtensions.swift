@@ -11,7 +11,10 @@
 import Foundation
 import LyricsCore
 
-extension Lyrics {
+typealias TimedLyrics = LyricsCore.Lyrics
+typealias TimedLyricsLine = LyricsCore.LyricsLine
+
+extension TimedLyrics {
     
     func currentLine(at position: TimeInterval, ofTrack track: Track) -> Int? {
         
@@ -50,7 +53,7 @@ extension Lyrics {
     /// - Parameters:
     ///   - lyrics: The lyrics to save
     ///   - url: The destination URL
-    private func persistLyrics(_ lyrics: Lyrics, to url: URL) {
+    private func persistLyrics(_ lyrics: TimedLyrics, to url: URL) {
         
         url.parentDir.createDirectory()
 
@@ -61,7 +64,7 @@ extension Lyrics {
         }
     }
     
-    fileprivate func relativePosition(ofLineAtIndex index: Int, to target: TimeInterval, forTrack track: Track) -> LyricsLineRelativePosition {
+    fileprivate func relativePosition(ofLineAtIndex index: Int, to target: TimeInterval, forTrack track: Track) -> TimedLyricsLineRelativePosition {
         
         let line = lines[index]
         
@@ -98,7 +101,7 @@ extension Lyrics {
     }
 }
 
-fileprivate enum LyricsLineRelativePosition {
+fileprivate enum TimedLyricsLineRelativePosition {
     
     case match
     case left
@@ -113,15 +116,15 @@ extension Track {
     /// 3. Embedded lyrics in the audio file
     ///
     /// - Returns: A Lyrics object if found, nil otherwise
-    func fetchLocalLyrics() -> Lyrics? {
+    func fetchLocalTimedLyrics() -> TimedLyrics? {
 
         // 1. First try to find lyrics from Aural lyrics directory
-        if let lyrics = loadLyricsFromDirectory(FilesAndPaths.lyricsDir) {
+        if let lyrics = loadTimedLyricsFromDirectory(FilesAndPaths.lyricsDir) {
             return lyrics
         }
 
         // 2. Then try to find lyrics from audio file directory
-        if let lyrics = loadLyricsFromDirectory(file.deletingLastPathComponent()) {
+        if let lyrics = loadTimedLyricsFromDirectory(file.deletingLastPathComponent()) {
             return lyrics
         }
 
@@ -137,10 +140,10 @@ extension Track {
     ///
     /// - Parameter directory: The directory to search for lyrics files
     /// - Returns: A Lyrics object if found and successfully loaded, nil otherwise
-    private func loadLyricsFromDirectory(_ directory: URL) -> Lyrics? {
+    private func loadTimedLyricsFromDirectory(_ directory: URL) -> TimedLyrics? {
         
-        if let lyricsFile = locateLyricsFile(in: directory) {
-            return loadLyricsFromFile(at: lyricsFile)
+        if let lyricsFile = locateTimedLyricsFile(in: directory) {
+            return loadTimedLyricsFromFile(at: lyricsFile)
         }
         
         return nil
@@ -151,7 +154,7 @@ extension Track {
     ///
     /// - Parameter directory: The directory to search in
     /// - Returns: URL of the found lyrics file, nil if not found
-    private func locateLyricsFile(in directory: URL) -> URL? {
+    private func locateTimedLyricsFile(in directory: URL) -> URL? {
         
         let possibleFiles = [
             directory.appendingPathComponent(defaultDisplayName + ".lrc"),
@@ -165,12 +168,12 @@ extension Track {
     ///
     /// - Parameter url: The URL of the lyrics file
     /// - Returns: A Lyrics object if successfully loaded, nil otherwise
-    private func loadLyricsFromFile(at url: URL) -> Lyrics? {
+    private func loadTimedLyricsFromFile(at url: URL) -> TimedLyrics? {
         
         do {
             
             let lyricsText = try String(contentsOf: url, encoding: .utf8)
-            return Lyrics(lyricsText)
+            return TimedLyrics(lyricsText)
             
         } catch {
             

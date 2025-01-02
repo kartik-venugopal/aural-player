@@ -24,8 +24,6 @@ struct FilesAndPaths {
     static let baseDir: URL = musicDir.appendingPathComponent("aural", isDirectory: true)
     static let metadataDir: URL = baseDir.appendingPathComponent("metadata", isDirectory: true)
     
-    static let userDocumentsDirectory: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    
     // App state/log files
     static let persistentStateFileName = "state.json"
     static let persistentStateFile: URL = baseDir.appendingPathComponent(persistentStateFileName, isDirectory: false)
