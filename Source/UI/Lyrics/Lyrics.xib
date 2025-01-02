@@ -81,8 +81,8 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <outlet property="dataSource" destination="-2" id="SEs-Ul-k5f"/>
-                                    <outlet property="delegate" destination="-2" id="GBF-n3-wGj"/>
+                                    <outlet property="dataSource" destination="-2" id="6Xr-4M-a2S"/>
+                                    <outlet property="delegate" destination="-2" id="1N2-Lh-lTh"/>
                                 </connections>
                             </tableView>
                         </subviews>

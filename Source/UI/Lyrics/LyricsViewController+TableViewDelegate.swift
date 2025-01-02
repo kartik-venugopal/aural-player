@@ -28,7 +28,15 @@ extension LyricsViewController: NSTableViewDelegate {
         Self.rowHeight
     }
     
-    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {false}
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        
+        // Seek to clicked line.
+        if let lyrics, lyrics.lines.indices.contains(row) {
+            messenger.publish(.Player.jumpToTime, payload: max(0, lyrics.lines[row].position))
+        }
+        
+        return false
+    }
     
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
