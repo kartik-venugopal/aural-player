@@ -38,26 +38,26 @@
                     </textFieldCell>
                 </textField>
                 <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Wwc-zH-Fb1" userLabel="Tab Group">
-                    <rect key="frame" x="15" y="25" width="483" height="278"/>
+                    <rect key="frame" x="15" y="25" width="483" height="288"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Tab" identifier="" id="1m1-2C-dcF" userLabel="Static">
                             <view key="view" id="QUY-Wb-nEn">
-                                <rect key="frame" x="0.0" y="0.0" width="483" height="278"/>
+                                <rect key="frame" x="0.0" y="0.0" width="483" height="288"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="wze-rE-bVw">
-                                        <rect key="frame" x="10" y="0.0" width="473" height="268"/>
+                                        <rect key="frame" x="13" y="0.0" width="470" height="271"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rnh-Ru-bcn">
-                                            <rect key="frame" x="0.0" y="0.0" width="473" height="268"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="470" height="271"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="0kP-Rg-Uqy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="268"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="445" height="271"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" white="0.69835256609999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="backgroundColor" white="0.097370866210000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="463" height="268"/>
+                                                    <size key="minSize" width="460" height="271"/>
                                                     <size key="maxSize" width="525" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.70124099039999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </textView>
@@ -73,13 +73,18 @@
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="eR0-BN-vo4" customClass="PrettyVerticalScroller" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="456" y="0.0" width="16" height="268"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <connections>
+                                                <outlet property="clipView" destination="rnh-Ru-bcn" id="DTA-o8-X5Q"/>
+                                                <outlet property="contentView" destination="0kP-Rg-Uqy" id="3fI-td-gqt"/>
+                                                <outlet property="scrollView" destination="wze-rE-bVw" id="H30-9d-7ro"/>
+                                            </connections>
                                         </scroller>
                                     </scrollView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="wze-rE-bVw" secondAttribute="bottom" id="F82-ha-hpa"/>
-                                    <constraint firstItem="wze-rE-bVw" firstAttribute="top" secondItem="QUY-Wb-nEn" secondAttribute="top" constant="10" id="YAS-Fb-Yjq"/>
-                                    <constraint firstItem="wze-rE-bVw" firstAttribute="leading" secondItem="QUY-Wb-nEn" secondAttribute="leading" constant="10" id="boR-ba-TOj"/>
+                                    <constraint firstItem="wze-rE-bVw" firstAttribute="top" secondItem="QUY-Wb-nEn" secondAttribute="top" constant="17" id="YAS-Fb-Yjq"/>
+                                    <constraint firstItem="wze-rE-bVw" firstAttribute="leading" secondItem="QUY-Wb-nEn" secondAttribute="leading" constant="13" id="boR-ba-TOj"/>
                                     <constraint firstAttribute="trailing" secondItem="wze-rE-bVw" secondAttribute="trailing" id="gnO-0z-bID"/>
                                 </constraints>
                             </view>
@@ -92,16 +97,16 @@
                                     <scrollView borderType="none" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvy-aA-oGb">
                                         <rect key="frame" x="0.0" y="0.0" width="483" height="278"/>
                                         <clipView key="contentView" id="n2f-37-6gY">
-                                            <rect key="frame" x="0.0" y="0.0" width="483" height="278"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="468" height="278"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="30" viewBased="YES" id="VEn-Ks-t68">
-                                                    <rect key="frame" x="0.0" y="0.0" width="483" height="278"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="468" height="278"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn identifier="cid_LyricsLine" width="451" minWidth="40" maxWidth="1000" id="Fc9-X3-Irq" userLabel="Lyrics Line">
+                                                        <tableColumn identifier="cid_LyricsLine" width="436" minWidth="40" maxWidth="1000" id="Fc9-X3-Irq" userLabel="Lyrics Line">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -114,11 +119,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="QDR-Zf-hdH" customClass="AuralTableCellView" customModule="Aural" customModuleProvider="target">
-                                                                    <rect key="frame" x="10" y="0.0" width="458" height="30"/>
+                                                                    <rect key="frame" x="10" y="0.0" width="448" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tsF-it-ius" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="458" height="30"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="30"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="30" id="amb-sU-blK"/>
                                                                             </constraints>
@@ -158,7 +163,7 @@
                                             </connections>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ilo-hb-1SA" customClass="PrettyVerticalScroller" customModule="Aural" customModuleProvider="target">
-                                            <rect key="frame" x="467" y="0.0" width="16" height="278"/>
+                                            <rect key="frame" x="468" y="0.0" width="15" height="278"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <connections>
                                                 <outlet property="clipView" destination="n2f-37-6gY" id="mF6-9J-vFT"/>
@@ -184,7 +189,7 @@
                 <constraint firstAttribute="bottom" secondItem="Wwc-zH-Fb1" secondAttribute="bottom" constant="25" id="49U-ap-wpx"/>
                 <constraint firstItem="Wwc-zH-Fb1" firstAttribute="leading" secondItem="Smw-Xh-94l" secondAttribute="leading" constant="15" id="5cX-Wn-6xq"/>
                 <constraint firstItem="aBL-Sc-nfX" firstAttribute="top" secondItem="Smw-Xh-94l" secondAttribute="top" constant="3" id="OKL-ei-pSL"/>
-                <constraint firstItem="Wwc-zH-Fb1" firstAttribute="top" secondItem="aBL-Sc-nfX" secondAttribute="bottom" constant="25" id="Q3P-jW-Dqu"/>
+                <constraint firstItem="Wwc-zH-Fb1" firstAttribute="top" secondItem="aBL-Sc-nfX" secondAttribute="bottom" constant="15" id="Q3P-jW-Dqu"/>
                 <constraint firstAttribute="trailing" secondItem="Wwc-zH-Fb1" secondAttribute="trailing" constant="15" id="Zh5-Q5-hF1"/>
             </constraints>
             <point key="canvasLocation" x="168.5" y="200"/>

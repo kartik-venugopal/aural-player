@@ -459,7 +459,7 @@
 		3E1341282B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */; };
 		3E13412A2B6F0115009782B6 /* TrackInfoViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */; };
 		3E143C592D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */; };
-		3E143C5B2D26010A00F40A67 /* LyricsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */; };
+		3E143C5B2D26010A00F40A67 /* TimedLyricsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C5A2D26010A00F40A67 /* TimedLyricsExtensions.swift */; };
 		3E154A912BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */; };
 		3E1572AC2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1572AB2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift */; };
 		3E1741462801EA0A00772ED1 /* TableCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1741452801EA0A00772ED1 /* TableCellBuilder.swift */; };
@@ -1535,7 +1535,7 @@
 		3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+MenuDelegate.swift"; sourceTree = "<group>"; };
 		3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+Theming.swift"; sourceTree = "<group>"; };
 		3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LyricsViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
-		3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsExtensions.swift; sourceTree = "<group>"; };
+		3E143C5A2D26010A00F40A67 /* TimedLyricsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedLyricsExtensions.swift; sourceTree = "<group>"; };
 		3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPresetsManagerWindowController.swift; sourceTree = "<group>"; };
 		3E1572AB2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitEditorDialogController+PresetsMenu.swift"; sourceTree = "<group>"; };
 		3E16BE0B280DB48E00CE9FE9 /* PlaylistsUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsUIState.swift; sourceTree = "<group>"; };
@@ -5035,7 +5035,7 @@
 				3E57443C2D262104004B5AE7 /* LyricsViewController+Static.swift */,
 				3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */,
 				3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */,
-				3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */,
+				3E143C5A2D26010A00F40A67 /* TimedLyricsExtensions.swift */,
 			);
 			path = Lyrics;
 			sourceTree = "<group>";
@@ -6409,7 +6409,7 @@
 				3E0218272C23490E00865AC2 /* FavoriteFolder.swift in Sources */,
 				3E60EAD92B5D9DE2002EBFD3 /* TrackListTableViewController+Actions.swift in Sources */,
 				3E02186D2C23490E00865AC2 /* TrackInfoUpdatedNotification.swift in Sources */,
-				3E143C5B2D26010A00F40A67 /* LyricsExtensions.swift in Sources */,
+				3E143C5B2D26010A00F40A67 /* TimedLyricsExtensions.swift in Sources */,
 				3E0219902C23490E00865AC2 /* HTTPErrors.swift in Sources */,
 				3E0217EA2C23490E00865AC2 /* EQUnitDelegateProtocol.swift in Sources */,
 				3E02191B2C23490E00865AC2 /* UserDefaultsExtensions.swift in Sources */,

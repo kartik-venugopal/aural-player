@@ -19,8 +19,6 @@ class LyricsWindowController: NSWindowController {
     
     private var viewController: LyricsViewController = .init()
     
-    private lazy var messenger = Messenger(for: self)
-    
     override func windowDidLoad() {
         
         super.windowDidLoad()
@@ -37,16 +35,6 @@ class LyricsWindowController: NSWindowController {
         
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
-        
-        changeWindowCornerRadius(playerUIState.cornerRadius)
-        
-        DispatchQueue.main.async {
-            self.theWindow.showCenteredOnScreen()
-        }
-    }
-    
-    func changeWindowCornerRadius(_ radius: CGFloat) {
-        viewController.changeCornerRadius(radius)
     }
 }
 

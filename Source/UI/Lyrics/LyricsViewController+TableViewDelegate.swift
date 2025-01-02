@@ -19,11 +19,6 @@ extension LyricsViewController: NSTableViewDelegate {
     
     private static let rowHeight: CGFloat = 30
     
-    // Returns a custom view for a single row
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        AuralTableRowView()
-    }
-    
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         Self.rowHeight
     }

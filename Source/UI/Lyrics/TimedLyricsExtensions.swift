@@ -1,5 +1,5 @@
 //
-// LyricsExtensions.swift
+// TimedLyricsExtensions.swift
 // Aural
 // 
 // Copyright © 2025 Kartik Venugopal. All rights reserved.
@@ -15,6 +15,15 @@ typealias TimedLyrics = LyricsCore.Lyrics
 typealias TimedLyricsLine = LyricsCore.LyricsLine
 
 extension TimedLyrics {
+    
+    var offset: TimeInterval {
+        
+        if let offsetTag = self.idTags[.offset], let theOffset = TimeInterval(offsetTag) {
+            return theOffset
+        }
+        
+        return 0
+    }
     
     func currentLine(at position: TimeInterval, ofTrack track: Track) -> Int? {
         

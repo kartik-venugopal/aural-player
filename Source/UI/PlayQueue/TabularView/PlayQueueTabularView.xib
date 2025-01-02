@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="System colors introduced in macOS 10.13" minToolsVersion="9.0"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -53,7 +53,7 @@
                                                 <rect key="frame" x="1" y="2" width="65" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tkS-pN-cgb" userLabel="Index">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tkS-pN-cgb" userLabel="Index">
                                                         <rect key="frame" x="8" y="0.0" width="59" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="tbH-6B-RZ3"/>
@@ -87,7 +87,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Title" width="255" minWidth="150" maxWidth="1000" id="qHp-l5-fT0">
+                                    <tableColumn identifier="cid_Title" width="255" minWidth="150" maxWidth="10000" id="qHp-l5-fT0">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -104,7 +104,7 @@
                                                 <rect key="frame" x="69" y="2" width="255" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rpo-cg-01s" userLabel="Track Name">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rpo-cg-01s" userLabel="Track Name">
                                                         <rect key="frame" x="3" y="0.0" width="252" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="3lh-C3-aYp"/>
@@ -144,7 +144,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Dci-Cg-Dll" userLabel="Track Name">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Dci-Cg-Dll" userLabel="Track Name">
                                                         <rect key="frame" x="0.0" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="hx0-Vp-Jmg"/>
@@ -184,7 +184,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="S7y-hr-mx9" userLabel="Track Name">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="S7y-hr-mx9" userLabel="Track Name">
                                                         <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="wo8-Ao-5zt"/>
@@ -224,7 +224,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ryf-Tn-6yd" userLabel="Track Name">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ryf-Tn-6yd" userLabel="Track Name">
                                                         <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="7eB-w6-IUf"/>
@@ -264,7 +264,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-qi-ddp" userLabel="Track Name">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-qi-ddp" userLabel="Track Name">
                                                         <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="fqJ-DU-BnK"/>
@@ -304,7 +304,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="J46-dT-vS3" userLabel="Track #">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="J46-dT-vS3" userLabel="Track #">
                                                         <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="O4e-sP-KuT"/>
@@ -344,7 +344,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xoC-uA-Btw" userLabel="Disc #">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xoC-uA-Btw" userLabel="Disc #">
                                                         <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="h2q-mD-CmW"/>
@@ -384,7 +384,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bxe-de-Six" userLabel="Year">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="bxe-de-Six" userLabel="Year">
                                                         <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="J5d-DA-zWJ"/>
@@ -424,7 +424,7 @@
                                                 <rect key="frame" x="327" y="2" width="80" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XJ6-89-L5c" userLabel="Duration">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XJ6-89-L5c" userLabel="Duration">
                                                         <rect key="frame" x="-2" y="0.0" width="76" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="kGk-hE-KXJ"/>
@@ -464,7 +464,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="A60-vZ-KyS" userLabel="Format">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="A60-vZ-KyS" userLabel="Format">
                                                         <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="IyB-CM-k6b"/>
@@ -504,7 +504,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="X3C-AD-04p" userLabel="Play Count">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="X3C-AD-04p" userLabel="Play Count">
                                                         <rect key="frame" x="-2" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="esl-si-gqn"/>
@@ -544,7 +544,7 @@
                                                 <rect key="frame" x="1" y="2" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Pdp-lS-BZk" userLabel="Last Played">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Pdp-lS-BZk" userLabel="Last Played">
                                                         <rect key="frame" x="3" y="0.0" width="4" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Ibx-8I-3jm"/>

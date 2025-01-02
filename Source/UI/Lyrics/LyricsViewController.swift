@@ -44,13 +44,13 @@ class LyricsViewController: NSViewController {
         super.viewDidLoad()
         
         view.wantsLayer = true
-        
-        changeCornerRadius(playerUIState.cornerRadius)
+        changeCornerRadius(to: playerUIState.cornerRadius)
         
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObservers(self)
         
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeCornerRadius(to:))
     }
     
     override func viewDidAppear() {
@@ -104,7 +104,7 @@ class LyricsViewController: NSViewController {
         updateForTrack(notif.endTrack)
     }
     
-    func changeCornerRadius(_ radius: CGFloat) {
+    func changeCornerRadius(to radius: CGFloat) {
         view.layer?.cornerRadius = radius
     }
 }
