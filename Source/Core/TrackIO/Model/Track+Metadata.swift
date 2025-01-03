@@ -139,6 +139,10 @@ extension Track {
         metadata.lyrics
     }
     
+    var timedLyrics: TimedLyrics? {
+        metadata.timedLyrics
+    }
+    
     // Non-essential metadata
     var nonEssentialMetadata: [String: MetadataEntry] {
         metadata.nonEssentialMetadata

@@ -76,7 +76,7 @@ class LyricsViewController: NSViewController {
         
         self.track = track
         
-        self.timedLyrics = track?.fetchLocalLyrics()
+        self.timedLyrics = track?.timedLyrics
         
         if timedLyrics != nil {
             

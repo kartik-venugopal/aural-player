@@ -65,6 +65,8 @@ class PrimaryMetadata {
     
     var lyrics: String?
     
+    var timedLyrics: TimedLyrics?
+    
     var nonEssentialMetadata: [String: MetadataEntry] = [:]
     
     var art: CoverArt?

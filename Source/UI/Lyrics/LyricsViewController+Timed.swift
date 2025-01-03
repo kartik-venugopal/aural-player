@@ -41,7 +41,7 @@ extension LyricsViewController {
     
     func loadLyrics(fromFile lyricsFile: URL) {
         
-        guard let track, let timedLyrics = track.loadTimedLyricsFromFile(at: lyricsFile) else {
+        guard let track, let timedLyrics = trackReader.loadTimedLyricsFromFile(at: lyricsFile, for: track) else {
             
             NSAlert.showError(withTitle: "Lyrics not loaded", andText: "Failed to load synced lyrics from file: '\(lyricsFile.lastPathComponent)'")
             return

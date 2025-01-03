@@ -28,10 +28,10 @@ struct FileMetadataPersistentState: Codable {
     let genre: String?
     let year: Int?
     
-    var composer: String?
-    var conductor: String?
-    var performer: String?
-    var lyricist: String?
+    let composer: String?
+    let conductor: String?
+    let performer: String?
+    let lyricist: String?
     
     let trackNumber: Int?
     let totalTracks: Int?
@@ -43,15 +43,17 @@ struct FileMetadataPersistentState: Codable {
     let durationIsAccurate: Bool?
     let isProtected: Bool?
     
-    var bpm: Int?
+    let bpm: Int?
     
-    var lyrics: String?
+    let lyrics: String?
     
-    var nonEssentialMetadata: [String: MetadataEntry] = [:]
+    let timedLyrics: TimedLyricsPersistentState?
+    
+    let nonEssentialMetadata: [String: MetadataEntry]
     
     let chapters: [ChapterPersistentState]?
     
-    var replayGain: ReplayGain?
+    let replayGain: ReplayGain?
     
     init(metadata: FileMetadata) {
         
@@ -88,6 +90,13 @@ struct FileMetadataPersistentState: Codable {
         
         self.bpm = metadata.bpm
         self.lyrics = metadata.lyrics
+        
+        if let timedLyrics = metadata.timedLyrics {
+            self.timedLyrics = .init(lyrics: timedLyrics)
+        } else {
+            self.timedLyrics = nil
+        }
+        
         self.nonEssentialMetadata = metadata.nonEssentialMetadata
         
         self.chapters = metadata.chapters.map {ChapterPersistentState(chapter: $0)}
@@ -173,5 +182,28 @@ struct ChapterPersistentState: Codable {
         self.startTime = chapter.startTime
         self.endTime = chapter.endTime
         self.duration = chapter.duration
+    }
+}
+
+struct TimedLyricsPersistentState: Codable {
+    
+    let lines: [TimedLyricsLinePersistentState]?
+    
+    init(lyrics: TimedLyrics) {
+        self.lines = lyrics.lines.map {.init(lyricsLine: $0)}
+    }
+}
+
+struct TimedLyricsLinePersistentState: Codable {
+    
+    let content: String?
+    let position: TimeInterval?
+    let maxPosition: TimeInterval?
+    
+    init(lyricsLine: TimedLyricsLine) {
+        
+        self.content = lyricsLine.content
+        self.position = lyricsLine.position
+        self.maxPosition = lyricsLine.maxPosition
     }
 }

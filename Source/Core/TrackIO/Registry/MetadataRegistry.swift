@@ -33,10 +33,7 @@ class MetadataRegistry: PersistentRootObject {
             
             let previewVersion = appVersion.replacingOccurrences(of: "4.0.0-preview", with: "")
             if let version = Int(previewVersion) {
-                
-                if version < 23 {
-                    initCache = false
-                }
+                initCache = version >= 24
             }
         }
         

@@ -65,6 +65,8 @@ class FileMetadata {
     
     var lyrics: String?
     
+    var timedLyrics: TimedLyrics?
+    
     var nonEssentialMetadata: [String: MetadataEntry] = [:]
     
     var art: CoverArt?
@@ -128,6 +130,11 @@ class FileMetadata {
         
         self.bpm = persistentState.bpm
         self.lyrics = persistentState.lyrics
+        
+        if let timedLyrics = persistentState.timedLyrics {
+            self.timedLyrics = .init(persistentState: timedLyrics)
+        }
+        
         self.nonEssentialMetadata = persistentState.nonEssentialMetadata
         
         self.art = persistentCoverArt
@@ -165,6 +172,7 @@ class FileMetadata {
         
         self.bpm = metadata.bpm
         self.lyrics = metadata.lyrics
+        self.timedLyrics = metadata.timedLyrics
         self.nonEssentialMetadata = metadata.nonEssentialMetadata
         
         self.art = metadata.art

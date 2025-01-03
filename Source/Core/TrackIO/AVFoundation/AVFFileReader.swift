@@ -7,7 +7,9 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
+
 import AVFoundation
+import LyricsCore
 
 ///
 /// Handles loading of track metadata from natively supported tracks, using AVFoundation.
@@ -83,7 +85,18 @@ class AVFFileReader: FileReaderProtocol {
         metadata.art = getArt(for: file)
         
         metadata.year = parsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
-        metadata.lyrics = parsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)}
+        
+        if let lyrics = parsers.firstNonNilMappedValue({$0.getLyrics(metadataMap)}) {
+            
+            if let lrcLyrics = Lyrics.init(lyrics) {
+                
+                print("Got timed lyrics for: \(metadata.title ?? file.lastPathComponent)")
+                metadata.timedLyrics = TimedLyrics(from: lrcLyrics, trackDuration: metadata.duration)
+                
+            } else {
+                metadata.lyrics = lyrics
+            }
+        }
         
         metadata.replayGain = parsers.firstNonNilMappedValue {$0.getReplayGain(from: metadataMap)}
         

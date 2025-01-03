@@ -148,6 +148,13 @@ class ModularPlayerWindowController: NSWindowController {
     func changeWindowCornerRadius(to radius: CGFloat) {
         rootContainerBox.cornerRadius = radius.clamped(to: 0...20)
     }
+    
+    private func trackTransitioned(_ notif: TrackTransitionNotification) {
+        
+        if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value, let newTrack = notif.endTrack, newTrack.lyrics != nil {
+            windowLayoutsManager.showWindow(withId: .lyrics)
+        }
+    }
 }
 
 extension ModularPlayerWindowController: ColorSchemeObserver {

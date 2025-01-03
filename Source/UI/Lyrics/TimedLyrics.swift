@@ -14,12 +14,8 @@ import LyricsCore
 struct TimedLyrics {
     
     let lines: [TimedLyricsLine]
-    private let trackDuration: TimeInterval
     
-    init(from lyrics: LyricsCore.Lyrics, for track: Track) {
-        
-        let trackDuration = track.duration
-        self.trackDuration = trackDuration
+    init(from lyrics: LyricsCore.Lyrics, trackDuration: TimeInterval) {
         
         let offset = lyrics.offset
         let maxPossiblePosition = trackDuration - 0.001
@@ -33,6 +29,12 @@ struct TimedLyrics {
             
             return TimedLyricsLine(content: line.content, position: position, maxPosition: maxPosition)
         }
+    }
+    
+    init?(persistentState: TimedLyricsPersistentState) {
+        
+        self.lines = persistentState.lines?.compactMap {TimedLyricsLine.init(persistentState: $0)} ?? []
+        guard lines.isNonEmpty else {return nil}
     }
     
     func currentLine(at position: TimeInterval) -> Int? {
@@ -66,7 +68,25 @@ struct TimedLyricsLine {
     
     let content: String
     let position: TimeInterval
-    let maxPosition: TimeInterval
+    var maxPosition: TimeInterval
+    
+    init(content: String, position: TimeInterval, maxPosition: TimeInterval) {
+        
+        self.content = content
+        self.position = position
+        self.maxPosition = maxPosition
+    }
+    
+    init?(persistentState: TimedLyricsLinePersistentState) {
+        
+        guard let content = persistentState.content,
+              let position = persistentState.position,
+        let maxPosition = persistentState.maxPosition else {return nil}
+        
+        self.content = content
+        self.position = position
+        self.maxPosition = maxPosition
+    }
     
     fileprivate func relativePosition(to target: TimeInterval) -> LyricsLineRelativePosition {
         

@@ -22,10 +22,12 @@ class MetadataPreferences {
     
     let musicBrainz: MusicBrainzPreferences
     let lastFM: LastFMPreferences
+    let lyrics: LyricsPreferences
     
     init() {
         
         musicBrainz = MusicBrainzPreferences()
         lastFM = LastFMPreferences()
+        lyrics = LyricsPreferences()
     }
 }

@@ -7,7 +7,9 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
+
 import Foundation
+import LyricsCore
 
 typealias TrackIOCompletionHandler = () -> Void
 
@@ -30,7 +32,7 @@ class TrackReader {
     ///
     /// Loads the essential metadata fields that are required for a track to be loaded into the playlist.
     ///
-    func loadMetadataAsync(for track: Track, onQueue opQueue: OperationQueue, completionHandler: TrackIOCompletionHandler? = nil) {
+    func loadMetadataAsync(for track: Track, onQueue opQueue: OperationQueue) {
         
         let metadataCacheEnabled = preferences.metadataPreferences.cacheTrackMetadata.value
         
@@ -38,9 +40,11 @@ class TrackReader {
             
             track.metadata = cachedMetadata
             
+            // TODO: Temporary (can be removed after a few versions)
+            doLoadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: true)
+            
             doLoadMetadata(for: track, onQueue: opQueue,
-                                  metadataCacheEnabled: metadataCacheEnabled,
-                                  completionHandler: completionHandler)
+                                  metadataCacheEnabled: metadataCacheEnabled)
             return
         }
         
@@ -52,8 +56,9 @@ class TrackReader {
                 track.metadata.updatePrimaryMetadata(with: primaryMetadata)
                 
                 self.doLoadMetadata(for: track, onQueue: opQueue,
-                                    metadataCacheEnabled: metadataCacheEnabled,
-                                    completionHandler: completionHandler)
+                                    metadataCacheEnabled: metadataCacheEnabled)
+                
+                self.doLoadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: metadataCacheEnabled)
                 
                 if metadataCacheEnabled {
                     metadataRegistry[track] = track.metadata
@@ -67,8 +72,7 @@ class TrackReader {
         }
     }
     
-    private func doLoadMetadata(for track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool,
-                                       completionHandler: TrackIOCompletionHandler?) {
+    private func doLoadMetadata(for track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {
         
         let metadata = track.metadata
         
@@ -83,8 +87,67 @@ class TrackReader {
         if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
             computeAccurateDuration(forTrack: track, onQueue: opQueue, metadataCacheEnabled: metadataCacheEnabled)
         }
+    }
+    
+    private func doLoadExternalLyrics(for track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {
         
-        completionHandler?()
+        guard track.timedLyrics == nil else {return}
+        
+        opQueue.addOperation {
+            
+            track.metadata.timedLyrics = self.loadLyricsFromDirectory(FilesAndPaths.lyricsDir, for: track) ??
+            self.loadLyricsFromDirectory(track.file.parentDir, for: track)
+            
+            if let timedLyrics = track.timedLyrics, metadataCacheEnabled {
+                metadataRegistry[track]?.timedLyrics = timedLyrics
+            }
+        }
+    }
+    
+    /// Loads lyrics from a specified directory by searching for .lrc or .lrcx files
+    ///
+    /// - Parameter directory: The directory to search for lyrics files
+    /// - Returns: A Lyrics object if found and successfully loaded, nil otherwise
+    ///
+    private func loadLyricsFromDirectory(_ directory: URL, for track: Track) -> TimedLyrics? {
+        
+        let possibleFiles = SupportedTypes.lyricsFileExtensions.map {
+            directory.appendingPathComponent(track.defaultDisplayName).appendingPathExtension($0)
+        }
+        
+        if let lyricsFile = possibleFiles.first(where: {$0.exists}) {
+            return loadTimedLyricsFromFile(at: lyricsFile, for: track)
+        }
+        
+        return nil
+    }
+    
+    func loadTimedLyricsFromFile(at url: URL, for track: Track) -> TimedLyrics? {
+        
+        if let lyrics = loadLyricsFromFile(at: url) {
+            return TimedLyrics(from: lyrics, trackDuration: track.duration)
+        }
+        
+        return nil
+    }
+
+    /// Loads lyrics content from a file at the specified URL
+    ///
+    /// - Parameter url: The URL of the lyrics file
+    /// - Returns: A Lyrics object if successfully loaded, nil otherwise
+    ///
+    private func loadLyricsFromFile(at url: URL) -> LyricsCore.Lyrics? {
+        
+        do {
+            
+            let lyricsText = try String(contentsOf: url, encoding: .utf8)
+            return LyricsCore.Lyrics(lyricsText)
+            
+        } catch {
+            
+            print("Failed to read lyrics file at \(url.path): \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func computeAccurateDuration(forTrack track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {

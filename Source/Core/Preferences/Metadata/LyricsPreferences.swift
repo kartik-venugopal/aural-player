@@ -19,5 +19,11 @@ class LyricsPreferences {
                                                                  defaultValue: Defaults.showWindowWhenPresent)
     
     lazy var enableAutoSearch: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoSearch",
-                                                                 defaultValue: Defaults.enableAutoSearch)
+                                                            defaultValue: Defaults.enableAutoSearch)
+    
+    lazy var enableAutoScroll: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoScroll",
+                                                            defaultValue: Defaults.enableAutoSearch)
+    
+    lazy var showTranslations: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showTranslations",
+                                                                 defaultValue: Defaults.showWindowWhenPresent)
 }
