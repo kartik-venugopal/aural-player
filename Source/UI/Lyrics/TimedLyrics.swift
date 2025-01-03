@@ -16,7 +16,7 @@ struct TimedLyrics {
     let lines: [TimedLyricsLine]
     private let trackDuration: TimeInterval
     
-    init(from lyrics: Lyrics, for track: Track) {
+    init(from lyrics: LyricsCore.Lyrics, for track: Track) {
         
         let trackDuration = track.duration
         self.trackDuration = trackDuration

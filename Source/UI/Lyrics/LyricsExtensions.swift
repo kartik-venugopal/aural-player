@@ -10,8 +10,9 @@
 
 import Foundation
 import LyricsCore
+import LyricsXCore
 
-extension Lyrics {
+extension LyricsCore.Lyrics {
     
     var offset: TimeInterval {
         
@@ -33,8 +34,8 @@ extension Lyrics {
         
         let line = lines[index]
         
-        if line.timeTagDuration > 0 {
-            return line.maxPosition
+        if let timeTagDuration = line.timeTags.last?.time, timeTagDuration > 0 {
+            return line.position + timeTagDuration
         }
         
         if index < self.lastIndex {
@@ -49,7 +50,7 @@ extension Lyrics {
     /// - Parameters:
     ///   - lyrics: The lyrics to save
     ///   - url: The destination URL
-    private func persistLyrics(_ lyrics: Lyrics, to url: URL) {
+    private func persistLyrics(_ lyrics: LyricsCore.Lyrics, to url: URL) {
         
         url.parentDir.createDirectory()
 
@@ -58,6 +59,17 @@ extension Lyrics {
         } catch {
             print("Failed to write lyrics to \(url.path): \(error.localizedDescription)")
         }
+    }
+}
+
+extension LyricsLine {
+
+    var timeTags: [Attachments.InlineTimeTag.Tag] {
+        attachments.timetag?.tags ?? []
+    }
+
+    var timeTagDuration: TimeInterval {
+        timeTags.last?.time ?? 0
     }
 }
 
@@ -90,7 +102,7 @@ extension Track {
         }
 
         // 3. Fallback to embedded lyrics
-        if let lyrics, let theLyrics = Lyrics(lyrics) {
+        if let lyrics, let theLyrics = LyricsCore.Lyrics(lyrics) {
             return TimedLyrics(from: theLyrics, for: self)
         }
 
@@ -102,7 +114,7 @@ extension Track {
     /// - Parameter directory: The directory to search for lyrics files
     /// - Returns: A Lyrics object if found and successfully loaded, nil otherwise
     ///
-    private func loadLyricsFromDirectory(_ directory: URL) -> Lyrics? {
+    private func loadLyricsFromDirectory(_ directory: URL) -> LyricsCore.Lyrics? {
         
         if let lyricsFile = locateLyricsFile(in: directory) {
             return loadLyricsFromFile(at: lyricsFile)
@@ -140,12 +152,12 @@ extension Track {
     /// - Parameter url: The URL of the lyrics file
     /// - Returns: A Lyrics object if successfully loaded, nil otherwise
     ///
-    private func loadLyricsFromFile(at url: URL) -> Lyrics? {
+    private func loadLyricsFromFile(at url: URL) -> LyricsCore.Lyrics? {
         
         do {
             
             let lyricsText = try String(contentsOf: url, encoding: .utf8)
-            return Lyrics(lyricsText)
+            return LyricsCore.Lyrics(lyricsText)
             
         } catch {
             

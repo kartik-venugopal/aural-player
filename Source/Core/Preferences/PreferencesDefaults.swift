@@ -154,5 +154,13 @@ struct PreferencesDefaults {
             static let enableScrobbling: Bool = false
             static let enableLoveUnlove: Bool = false
         }
+        
+        struct Lyrics {
+            
+            static let showWindowWhenPresent: Bool = true
+            static let enableAutoSearch: Bool = true
+            static let enableAutoScroll: Bool = true
+            static let showTranslations: Bool = true
+        }
     }
 }
