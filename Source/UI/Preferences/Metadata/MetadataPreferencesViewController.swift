@@ -21,6 +21,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var timeoutStepper: NSStepper!
     @IBOutlet weak var lblTimeout: NSTextField!
     
+    private let lyricsPreferencesView: PreferencesViewProtocol = LyricsPreferencesViewController()
     private let musicBrainzPreferencesView: PreferencesViewProtocol = MusicBrainzPreferencesViewController()
     private let lastFMPreferencesView: PreferencesViewProtocol = LastFMPreferencesViewController()
     
@@ -34,7 +35,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         super.viewDidLoad()
         
-        subViews = [musicBrainzPreferencesView, lastFMPreferencesView]
+        subViews = [lyricsPreferencesView, musicBrainzPreferencesView, lastFMPreferencesView]
         
         let actualViews = subViews.map {$0.preferencesView}
         for (index, view) in actualViews.enumerated() {

@@ -84,6 +84,8 @@ class ModularPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .View.toggleWaveform, handler: toggleWaveform)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         
+        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: logoImage)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.backgroundColor, changeReceiver: rootContainerBox)
@@ -151,7 +153,9 @@ class ModularPlayerWindowController: NSWindowController {
     
     private func trackTransitioned(_ notif: TrackTransitionNotification) {
         
-        if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value, let newTrack = notif.endTrack, newTrack.lyrics != nil {
+        if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
+            let newTrack = notif.endTrack, newTrack.hasLyrics {
+            
             windowLayoutsManager.showWindow(withId: .lyrics)
         }
     }

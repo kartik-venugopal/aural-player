@@ -814,6 +814,8 @@
 		3E8B8C3A2BF004E50025D60B /* CompactChaptersList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8B8C392BF004E50025D60B /* CompactChaptersList.xib */; };
 		3E8B8C3E2BF008AD0025D60B /* CompactChaptersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8B8C3D2BF008AD0025D60B /* CompactChaptersListViewController.swift */; };
 		3E8C370D2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8C370C2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib */; };
+		3E8CECA62D28889C00F9B0CC /* LyricsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8CECA52D28889C00F9B0CC /* LyricsPreferences.xib */; };
+		3E8CECA82D28892800F9B0CC /* LyricsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8CECA72D28892800F9B0CC /* LyricsPreferencesViewController.swift */; };
 		3E8F31AA26AC9623009C58B5 /* AudioUnitsTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F31A926AC9623009C58B5 /* AudioUnitsTableViews.swift */; };
 		3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932325E0CE2500F30F81 /* FontSchemes.xib */; };
 		3E91932925E0CF5D00F30F81 /* FontSchemeFonts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* FontSchemeFonts.xib */; };
@@ -1929,6 +1931,8 @@
 		3E8B8C392BF004E50025D60B /* CompactChaptersList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompactChaptersList.xib; sourceTree = "<group>"; };
 		3E8B8C3D2BF008AD0025D60B /* CompactChaptersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactChaptersListViewController.swift; sourceTree = "<group>"; };
 		3E8C370C2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompactPlayerCoverArtTrackInfo.xib; sourceTree = "<group>"; };
+		3E8CECA52D28889C00F9B0CC /* LyricsPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LyricsPreferences.xib; sourceTree = "<group>"; };
+		3E8CECA72D28892800F9B0CC /* LyricsPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E8DD6402844988500FED49D /* LibraryArtists.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryArtists.xib; sourceTree = "<group>"; };
 		3E8DD6422844998500FED49D /* LibraryArtistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryArtistsViewController.swift; sourceTree = "<group>"; };
 		3E8DD6452845633500FED49D /* LibraryGenres.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryGenres.xib; sourceTree = "<group>"; };
@@ -3727,6 +3731,7 @@
 			children = (
 				3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */,
 				3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */,
+				3E8CECA42D28888400F9B0CC /* Lyrics */,
 				3E8B8C2D2BEF58020025D60B /* MusicBrainz */,
 				3E8B8C342BEF59960025D60B /* Last.fm */,
 			);
@@ -4840,6 +4845,15 @@
 			path = ChaptersList;
 			sourceTree = "<group>";
 		};
+		3E8CECA42D28888400F9B0CC /* Lyrics */ = {
+			isa = PBXGroup;
+			children = (
+				3E8CECA52D28889C00F9B0CC /* LyricsPreferences.xib */,
+				3E8CECA72D28892800F9B0CC /* LyricsPreferencesViewController.swift */,
+			);
+			path = Lyrics;
+			sourceTree = "<group>";
+		};
 		3E8DD63F2844985F00FED49D /* Artists */ = {
 			isa = PBXGroup;
 			children = (
@@ -5801,6 +5815,7 @@
 				3E95A78D2D10BE8C00D0E4D8 /* AutoplayPreferences.xib in Resources */,
 				3E36BD4426A6908200B6E28B /* CoverArtTrackInfo.xib in Resources */,
 				3E0219D12C23497D00865AC2 /* shufen.regular.ttf in Resources */,
+				3E8CECA62D28889C00F9B0CC /* LyricsPreferences.xib in Resources */,
 				3E6C127A25CEBE1800BF0D07 /* ColorSchemes.xib in Resources */,
 				3E9D706F27C1DE2F00CAC4F1 /* Devices.xib in Resources */,
 				3ECBF3082619D58E00AD5C30 /* AudioUnits.xib in Resources */,
@@ -6243,6 +6258,7 @@
 				3E0219A02C23490E00865AC2 /* ValueFormatter.swift in Sources */,
 				3E0219372C23490E00865AC2 /* FileSystemInfo.swift in Sources */,
 				3E51CCF6285E8CBB002CBEF2 /* UnifiedPlayerSidebarViewController+DataSource.swift in Sources */,
+				3E8CECA82D28892800F9B0CC /* LyricsPreferencesViewController.swift in Sources */,
 				3E0219122C23490E00865AC2 /* MediaKeysControlsPreferences.swift in Sources */,
 				3ED8E74A281482C9002E313F /* TableImageCell.swift in Sources */,
 				3ECF71A52B74EDE000FDB69B /* CompactPlayQueueContainer.swift in Sources */,

@@ -17,7 +17,7 @@ extension LyricsViewController {
     func showTimedLyricsView() {
         
         tabView.selectTabViewItem(at: 1)
-
+        
         curLine = nil
         tableView.reloadData()
         
@@ -36,18 +36,19 @@ extension LyricsViewController {
     
     @IBAction func searchForLyricsOnlineButtonAction(_ sender: NSButton) {
         
-        // TODO: 
+        // TODO:
     }
     
     func loadLyrics(fromFile lyricsFile: URL) {
         
-        guard let track, let timedLyrics = trackReader.loadTimedLyricsFromFile(at: lyricsFile, for: track) else {
+        guard let track, trackReader.loadTimedLyricsFromFile(at: lyricsFile, for: track) else {
             
             NSAlert.showError(withTitle: "Lyrics not loaded", andText: "Failed to load synced lyrics from file: '\(lyricsFile.lastPathComponent)'")
             return
         }
         
-        self.timedLyrics = timedLyrics
+        self.timedLyrics = track.externalTimedLyrics
+        
         showTimedLyricsView()
     }
     
@@ -60,6 +61,10 @@ extension LyricsViewController {
         timer.pause()
         messenger.unsubscribe(from: .Player.playbackStateChanged)
         messenger.unsubscribe(from: .Player.seekPerformed)
+    }
+    
+    private var isAutoScrollEnabled: Bool {
+        preferences.metadataPreferences.lyrics.enableAutoScroll.value
     }
     
     func highlightCurrentLine() {
@@ -83,7 +88,7 @@ extension LyricsViewController {
             self.curLine = newCurLine
             tableView.reloadRows(refreshIndices)
             
-            if let curLine {
+            if isAutoScrollEnabled, let curLine {
                 tableView.scrollRowToVisible(curLine)
             }
         }

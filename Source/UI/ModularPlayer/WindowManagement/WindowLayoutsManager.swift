@@ -371,20 +371,6 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         loader(withID: id).isWindowLoaded
     }
     
-    func showChaptersListWindow() {
-        
-//        let shouldCenterChaptersListWindow = !chaptersListWindowLoader.isWindowLoaded
-
-//        mainWindow.addChildWindow(_chaptersListWindow, ordered: .above)
-//        _chaptersListWindow.makeKeyAndOrderFront(self)
-//
-//        // This will happen only once after each app launch - the very first time the window is shown.
-//        // After that, the window will be restored to its previous on-screen location
-//        if shouldCenterChaptersListWindow && playlistWindowLoaded {
-//            _chaptersListWindow.showCentered(relativeTo: _playlistWindow)
-////        }
-    }
-    
     var isShowingPlayQueue: Bool {
         isShowingWindow(withId: .playQueue)
     }
@@ -430,21 +416,5 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         let systemLayoutState = WindowLayoutPersistentState(layout: systemLayout)
         
         return WindowLayoutsPersistentState(systemLayout: systemLayoutState, userLayouts: userLayoutsState)
-    }
-}
-
-extension NSRect: Hashable {
-
-//    static func == (lhs: NSRect, rhs: NSRect) -> Bool {
-//        lhs == rhs
-//    }
-    
-    public func hash(into hasher: inout Hasher) {
-        
-        hasher.combine(minX)
-        hasher.combine(minY)
-        
-        hasher.combine(width)
-        hasher.combine(height)
     }
 }

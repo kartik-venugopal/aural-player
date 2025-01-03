@@ -67,6 +67,9 @@ class FileMetadata {
     
     var timedLyrics: TimedLyrics?
     
+    var externalLyricsFile: URL?
+    var externalTimedLyrics: TimedLyrics?
+    
     var nonEssentialMetadata: [String: MetadataEntry] = [:]
     
     var art: CoverArt?
@@ -134,6 +137,8 @@ class FileMetadata {
         if let timedLyrics = persistentState.timedLyrics {
             self.timedLyrics = .init(persistentState: timedLyrics)
         }
+        
+        self.externalLyricsFile = persistentState.externalLyricsFile
         
         self.nonEssentialMetadata = persistentState.nonEssentialMetadata
         

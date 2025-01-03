@@ -41,7 +41,7 @@ class TrackReader {
             track.metadata = cachedMetadata
             
             // TODO: Temporary (can be removed after a few versions)
-            doLoadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: true)
+            loadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: true)
             
             doLoadMetadata(for: track, onQueue: opQueue,
                                   metadataCacheEnabled: metadataCacheEnabled)
@@ -58,7 +58,7 @@ class TrackReader {
                 self.doLoadMetadata(for: track, onQueue: opQueue,
                                     metadataCacheEnabled: metadataCacheEnabled)
                 
-                self.doLoadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: metadataCacheEnabled)
+                self.loadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: metadataCacheEnabled)
                 
                 if metadataCacheEnabled {
                     metadataRegistry[track] = track.metadata
@@ -89,17 +89,36 @@ class TrackReader {
         }
     }
     
-    private func doLoadExternalLyrics(for track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {
+    private func loadExternalLyrics(for track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {
         
-        guard track.timedLyrics == nil else {return}
+        print("BEFORE - In cache, it's: \(metadataRegistry[track]?.externalTimedLyrics != nil)")
         
         opQueue.addOperation {
             
-            track.metadata.timedLyrics = self.loadLyricsFromDirectory(FilesAndPaths.lyricsDir, for: track) ??
-            self.loadLyricsFromDirectory(track.file.parentDir, for: track)
+            // Load lyrics from previously assigned external file
+            if let externalLyricsFile = track.metadata.externalLyricsFile, externalLyricsFile.exists,
+               let lyrics = self.loadLyricsFromFile(at: externalLyricsFile) {
+                
+                track.metadata.externalTimedLyrics = TimedLyrics(from: lyrics, trackDuration: track.duration)
+                print("AFTER In cache, it's: \(metadataRegistry[track]?.externalTimedLyrics != nil)")
+                return
+            }
             
-            if let timedLyrics = track.timedLyrics, metadataCacheEnabled {
-                metadataRegistry[track]?.timedLyrics = timedLyrics
+            // Look for lyrics in candidate directories
+            let lyricsFolder = preferences.metadataPreferences.lyrics.lyricsFilesDirectory.value
+            
+            for dir in [lyricsFolder, track.file.parentDir, FilesAndPaths.lyricsDir].compactMap({$0}) {
+                
+                if self.loadLyricsFromDirectory(dir, for: track) {
+                    
+                    print("AFTER In cache, it's: \(metadataRegistry[track]?.externalTimedLyrics != nil) for \(track)")
+                    
+                    if metadataCacheEnabled {
+                        metadataRegistry[track]?.externalTimedLyrics = track.externalTimedLyrics
+                    }
+                    
+                    return
+                }
             }
         }
     }
@@ -109,7 +128,7 @@ class TrackReader {
     /// - Parameter directory: The directory to search for lyrics files
     /// - Returns: A Lyrics object if found and successfully loaded, nil otherwise
     ///
-    private func loadLyricsFromDirectory(_ directory: URL, for track: Track) -> TimedLyrics? {
+    private func loadLyricsFromDirectory(_ directory: URL, for track: Track) -> Bool {
         
         let possibleFiles = SupportedTypes.lyricsFileExtensions.map {
             directory.appendingPathComponent(track.defaultDisplayName).appendingPathExtension($0)
@@ -119,16 +138,19 @@ class TrackReader {
             return loadTimedLyricsFromFile(at: lyricsFile, for: track)
         }
         
-        return nil
+        return false
     }
     
-    func loadTimedLyricsFromFile(at url: URL, for track: Track) -> TimedLyrics? {
+    func loadTimedLyricsFromFile(at url: URL, for track: Track) -> Bool {
         
         if let lyrics = loadLyricsFromFile(at: url) {
-            return TimedLyrics(from: lyrics, trackDuration: track.duration)
+            
+            track.metadata.externalTimedLyrics = TimedLyrics(from: lyrics, trackDuration: track.duration)
+            track.metadata.externalLyricsFile = url
+            return true
         }
         
-        return nil
+        return false
     }
 
     /// Loads lyrics content from a file at the specified URL
@@ -183,6 +205,8 @@ class TrackReader {
         if !track.durationIsAccurate, let playbackContext = track.playbackContext, track.duration != playbackContext.duration {
             
             track.metadata.duration = playbackContext.duration
+            track.metadata.durationIsAccurate = true
+            
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
             
             // Update the metadata cache with the updated duration.

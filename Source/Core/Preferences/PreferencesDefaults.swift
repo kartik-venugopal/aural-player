@@ -158,8 +158,9 @@ struct PreferencesDefaults {
         struct Lyrics {
             
             static let showWindowWhenPresent: Bool = true
-            static let enableAutoSearch: Bool = true
             static let enableAutoScroll: Bool = true
+            
+            static let enableAutoSearch: Bool = true
             static let showTranslations: Bool = true
         }
     }

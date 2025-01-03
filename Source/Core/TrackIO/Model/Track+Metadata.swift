@@ -143,6 +143,18 @@ extension Track {
         metadata.timedLyrics
     }
     
+    var externalTimedLyrics: TimedLyrics? {
+        metadata.externalTimedLyrics
+    }
+    
+    var externalOrEmbeddedTimedLyrics: TimedLyrics? {
+        metadata.externalTimedLyrics ?? metadata.timedLyrics
+    }
+    
+    var hasLyrics: Bool {
+        metadata.lyrics != nil || metadata.timedLyrics != nil
+    }
+    
     // Non-essential metadata
     var nonEssentialMetadata: [String: MetadataEntry] {
         metadata.nonEssentialMetadata

@@ -45,7 +45,7 @@ struct DialogsAndAlerts {
     
     static var openLyricsFileDialog: NSOpenPanel {
         
-        configureOpenPanel(title: "Choose a (.\(SupportedTypes.lrc)/.\(SupportedTypes.lrcx) lyrics file",
+        configureOpenPanel(title: "Choose a (.\(SupportedTypes.lrc)/.\(SupportedTypes.lrcx)) lyrics file",
                            canChooseFiles: true,
                            canChooseDirectories: false,
                            allowsMultipleSelection: false,
@@ -58,6 +58,17 @@ struct DialogsAndAlerts {
     static var openFolderDialog: NSOpenPanel {
         
         configureOpenPanel(title: "Choose a folder containing tracks",
+                               canChooseFiles: false,
+                               canChooseDirectories: true,
+                               allowsMultipleSelection: false,
+                               allowedFileTypes: nil)
+        
+        return openPanel
+    }
+    
+    static var openLyricsFolderDialog: NSOpenPanel {
+        
+        configureOpenPanel(title: "Choose a folder containing (.\(SupportedTypes.lrc)/.\(SupportedTypes.lrcx)) lyrics files",
                                canChooseFiles: false,
                                canChooseDirectories: true,
                                allowsMultipleSelection: false,
