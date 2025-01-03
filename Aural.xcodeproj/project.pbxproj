@@ -760,6 +760,8 @@
 		3E6EFFA32815309500C813AC /* TextColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6EFFA12815309500C813AC /* TextColorScheme.xib */; };
 		3E6EFFA42815309500C813AC /* TextColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EFFA22815309500C813AC /* TextColorSchemeViewController.swift */; };
 		3E7181C32B6C5A350006F66B /* FontScheme+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7181C22B6C5A350006F66B /* FontScheme+Presets.swift */; };
+		3E719D8F2D28A154000A33B9 /* LyricsSheetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E719D8E2D28A154000A33B9 /* LyricsSheetView.xib */; };
+		3E719D912D28A183000A33B9 /* LyricsSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E719D902D28A183000A33B9 /* LyricsSheetViewController.swift */; };
 		3E7204BF2B853DC800E40D87 /* AuralPlaylistViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7204BD2B853DC800E40D87 /* AuralPlaylistViews.swift */; };
 		3E7204C02B853DC800E40D87 /* FlatPlaylistTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7204BE2B853DC800E40D87 /* FlatPlaylistTableViews.swift */; };
 		3E7204C32B85404F00E40D87 /* ImageTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7204C12B85404F00E40D87 /* ImageTabButtonCell.swift */; };
@@ -1884,6 +1886,8 @@
 		3E6EFFA22815309500C813AC /* TextColorSchemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3E7181C02B6B08DD0006F66B /* TuneBrowserTabViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuneBrowserTabViewController+Actions.swift"; sourceTree = "<group>"; };
 		3E7181C22B6C5A350006F66B /* FontScheme+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontScheme+Presets.swift"; sourceTree = "<group>"; };
+		3E719D8E2D28A154000A33B9 /* LyricsSheetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LyricsSheetView.xib; sourceTree = "<group>"; };
+		3E719D902D28A183000A33B9 /* LyricsSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsSheetViewController.swift; sourceTree = "<group>"; };
 		3E71FBEB2AE34B3C00AB6C18 /* LibraryImportedPlaylists.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryImportedPlaylists.xib; sourceTree = "<group>"; };
 		3E71FBED2AE34B4800AB6C18 /* LibraryImportedPlaylistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryImportedPlaylistsViewController.swift; sourceTree = "<group>"; };
 		3E7204BD2B853DC800E40D87 /* AuralPlaylistViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralPlaylistViews.swift; sourceTree = "<group>"; };
@@ -4721,6 +4725,24 @@
 			path = Text;
 			sourceTree = "<group>";
 		};
+		3E719D8C2D28A105000A33B9 /* SheetView */ = {
+			isa = PBXGroup;
+			children = (
+				3E719D8E2D28A154000A33B9 /* LyricsSheetView.xib */,
+				3E719D902D28A183000A33B9 /* LyricsSheetViewController.swift */,
+			);
+			path = SheetView;
+			sourceTree = "<group>";
+		};
+		3E719D8D2D28A12D000A33B9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3EA21A432D27518E008B5B21 /* TimedLyrics.swift */,
+				3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		3E71FBEA2AE348ED00AB6C18 /* ImportedPlaylists */ = {
 			isa = PBXGroup;
 			children = (
@@ -5081,8 +5103,8 @@
 				3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */,
 				3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */,
 				3EA21A452D2763B3008B5B21 /* LyricsFileDropView.swift */,
-				3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */,
-				3EA21A432D27518E008B5B21 /* TimedLyrics.swift */,
+				3E719D8C2D28A105000A33B9 /* SheetView */,
+				3E719D8D2D28A12D000A33B9 /* Utils */,
 			);
 			path = Lyrics;
 			sourceTree = "<group>";
@@ -5875,6 +5897,7 @@
 				3E25B65027F7818900D10A5F /* PlayQueueWindow.xib in Resources */,
 				3E91932925E0CF5D00F30F81 /* FontSchemeFonts.xib in Resources */,
 				3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */,
+				3E719D8F2D28A154000A33B9 /* LyricsSheetView.xib in Resources */,
 				3E0219C12C23497D00865AC2 /* AlmendraSC-Regular.ttf in Resources */,
 				3E2D09DD2AD4C5440062D3C9 /* RenderQualityMenu.xib in Resources */,
 				3E2C4BD02B38D46400FC65DD /* Search.xib in Resources */,
@@ -6204,6 +6227,7 @@
 				3E0219042C23490E00865AC2 /* PlayQueueGrouping.swift in Sources */,
 				3E2F48CF2CE567D900631975 /* SearchSettingsWindowController.swift in Sources */,
 				3E0219112C23490E00865AC2 /* LastFMPreferences.swift in Sources */,
+				3E719D912D28A183000A33B9 /* LyricsSheetViewController.swift in Sources */,
 				3E0217EE2C23490E00865AC2 /* HostedAudioUnitDelegateProtocol.swift in Sources */,
 				3E6C130B25CEBE8F00BF0D07 /* FileSystemTrackInfoSource.swift in Sources */,
 				3E0219882C23490E00865AC2 /* NSApplicationExtensions.swift in Sources */,

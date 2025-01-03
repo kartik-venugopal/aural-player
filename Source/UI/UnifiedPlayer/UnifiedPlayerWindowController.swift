@@ -45,6 +45,9 @@ class UnifiedPlayerWindowController: NSWindowController {
     private lazy var effectsViewLoader: LazyViewLoader<EffectsSheetViewController> = .init()
     var effectsSheetViewController: EffectsSheetViewController {effectsViewLoader.controller}
     
+    private lazy var lyricsViewLoader: LazyViewLoader<LyricsSheetViewController> = .init()
+    var lyricsSheetViewController: LyricsSheetViewController {lyricsViewLoader.controller}
+    
     private lazy var chaptersListViewLoader: LazyViewLoader<ChaptersListViewController> = .init()
     private var chaptersListController: ChaptersListViewController {chaptersListViewLoader.controller}
     
@@ -88,6 +91,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .View.togglePlayQueue, handler: showPlayQueue)
         messenger.subscribe(to: .View.toggleEffects, handler: toggleEffects)
         messenger.subscribe(to: .View.toggleChaptersList, handler: viewChaptersList)
+        messenger.subscribe(to: .View.toggleLyrics, handler: toggleLyrics)
 //        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
         messenger.subscribe(to: .View.toggleWaveform, handler: toggleWaveform)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
@@ -144,7 +148,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         
 //        [playerController, sidebarController, playQueueController, libraryTracksController, libraryArtistsController, libraryAlbumsController, libraryGenresController, libraryDecadesController, tuneBrowserViewController, playlistsViewController].forEach {$0.destroy()}
         
-        [playerViewController, sidebarController, playQueueController, waveformViewController].forEach {$0.destroy()}
+        [playerViewController, sidebarController, playQueueController, waveformViewController, lyricsSheetViewController].forEach {$0.destroy()}
         
         effectsViewLoader.destroy()
         chaptersListViewLoader.destroy()
@@ -183,7 +187,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     // MARK: Message handling -----------------------------------------------------------
     
     private func toggleEffects() {
-        attachedSheetViewController != nil ? hideEffects() : showEffects()
+        attachedSheetViewController == effectsSheetViewController ? hideEffects() : showEffects()
     }
     
     private func showEffects() {
@@ -247,6 +251,20 @@ class UnifiedPlayerWindowController: NSWindowController {
         appDelegate.playQueueMenuRootItem.disable()
     }
     
+    private func toggleLyrics() {
+        attachedSheetViewController == lyricsSheetViewController ? hideLyrics() : showLyrics()
+    }
+    
+    private func showLyrics() {
+        
+        playerViewController.presentAsSheet(lyricsSheetViewController)
+        appDelegate.playQueueMenuRootItem.disable()
+    }
+    
+    private func hideLyrics() {
+        lyricsSheetViewController.endSheet()
+    }
+    
     private func hideModule(forItem item: UnifiedPlayerSidebarItem) {
         
         switch item.module {
@@ -288,6 +306,12 @@ class UnifiedPlayerWindowController: NSWindowController {
                 
             } else {
                 closeChaptersList()
+            }
+            
+            if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
+                newTrack.hasLyrics {
+                
+                showLyrics()
             }
             
         } else {

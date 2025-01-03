@@ -25,6 +25,8 @@ extension UnifiedPlayerWindowController {
     // Handles a single key press event. Returns nil if the event has been successfully handled (or needs to be suppressed),
     // returns the same event otherwise.
     func handleKeyDown(_ event: NSEvent) -> NSEvent? {
+        
+        guard attachedSheetViewController == nil else {return event}
 
         // One-off special case: Without this, a space key press (for play/pause) is not sent to main window
         // Send the space key event to the main window unless a modal component is currently displayed
@@ -41,6 +43,8 @@ extension UnifiedPlayerWindowController {
     
     // Handles a single scroll event
     func handleScroll(_ event: NSEvent) -> NSEvent? {
+        
+        guard attachedSheetViewController == nil else {return event}
 
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
@@ -62,6 +66,8 @@ extension UnifiedPlayerWindowController {
     
     // Handles a single swipe event
     func handleSwipe(_ event: NSEvent) -> NSEvent? {
+        
+        guard attachedSheetViewController == nil else {return event}
 
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)

@@ -6,23 +6,24 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="EffectsSheetViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="LyricsSheetViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnClose" destination="Rlv-q4-pzN" id="L0p-e3-o3q"/>
-                <outlet property="effectsViewController" destination="QBi-HM-RcU" id="zD9-Gr-cja"/>
-                <outlet property="view" destination="c22-O7-iKe" id="2xO-er-hUv"/>
+                <outlet property="btnClose" destination="Obo-V4-khR" id="5CE-0C-I4E"/>
+                <outlet property="lyricsViewController" destination="qDB-xm-V0y" id="QMg-rf-ma5"/>
+                <outlet property="view" destination="azX-wX-HgR" id="bpE-qt-Gjm"/>
             </connections>
         </customObject>
+        <customObject id="qDB-xm-V0y" customClass="LyricsViewController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="440" height="200"/>
+        <customView id="azX-wX-HgR">
+            <rect key="frame" x="0.0" y="0.0" width="440" height="600"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button toolTip="Hide the effects panel" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rlv-q4-pzN" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="10" y="175.5" width="11.5" height="10"/>
+                <button toolTip="Hide Lyrics" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Obo-V4-khR" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="10" y="575.5" width="11.5" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="OfZ-lb-HbF">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="X6J-Ev-a9K">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -30,13 +31,12 @@ Gw
 </string>
                     </buttonCell>
                     <connections>
-                        <action selector="closeAction:" target="-2" id="A4c-ie-mXI"/>
+                        <action selector="closeAction:" target="-2" id="kch-1a-DCf"/>
                     </connections>
                 </button>
             </subviews>
             <point key="canvasLocation" x="5" y="154"/>
         </customView>
-        <customObject id="QBi-HM-RcU" customClass="EffectsContainerViewController" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
         <image name="xmark" catalog="system" width="14" height="13"/>
