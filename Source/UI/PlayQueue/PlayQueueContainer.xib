@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -253,8 +253,8 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V4b-GL-5dm" userLabel="Play Queue Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="-2" y="249" width="214" height="25"/>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V4b-GL-5dm" userLabel="Play Queue Caption Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="-2" y="248" width="214" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="CkT-6k-eC0"/>
                         <constraint firstAttribute="width" constant="210" id="WPR-bl-y4c"/>
@@ -265,7 +265,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uBj-uC-pvY" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uBj-uC-pvY" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="8" y="5" width="214" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="210" id="gdk-pw-xc0"/>
@@ -277,7 +277,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Cy-DF-Q4T" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Cy-DF-Q4T" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="263" y="5" width="204" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="M7I-9D-CJr"/>
@@ -716,7 +716,7 @@
                 <constraint firstItem="GxK-EL-OP6" firstAttribute="leading" secondItem="Q0x-re-Z6p" secondAttribute="trailing" constant="12" id="hDl-L4-Q7v"/>
                 <constraint firstAttribute="bottom" secondItem="LjQ-xb-h2D" secondAttribute="bottom" constant="6" id="hLR-6c-iTY"/>
                 <constraint firstItem="gwX-l4-ioP" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="ina-vV-gPI"/>
-                <constraint firstItem="V4b-GL-5dm" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="3" id="lAd-Kc-PvQ"/>
+                <constraint firstItem="V4b-GL-5dm" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="4" id="lAd-Kc-PvQ"/>
                 <constraint firstAttribute="bottom" secondItem="iDC-BP-5rL" secondAttribute="bottom" constant="5" id="pTP-J9-PGU"/>
                 <constraint firstItem="Q0x-re-Z6p" firstAttribute="leading" secondItem="J7Y-d2-B86" secondAttribute="trailing" constant="1" id="qlf-tC-F4T"/>
                 <constraint firstAttribute="bottom" secondItem="fTC-f4-YZK" secondAttribute="bottom" constant="7" id="tQA-VP-IIG"/>
@@ -776,7 +776,7 @@
                         <action selector="changeSortOrderAction:" target="vVB-il-Bv5" id="rOq-X6-hS7"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="asR-w1-6xS">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="asR-w1-6xS">
                     <rect key="frame" x="11" y="1" width="86" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Sort order:" id="XcP-lP-9Bb">

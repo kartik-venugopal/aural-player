@@ -13,7 +13,7 @@ import Foundation
 extension FontScheme {
     
     static let standard: FontScheme = .init(name: FontSchemePreset.standard.name, systemDefined: true,
-                                            captionFont: standardFontSet.captionFont(size: 14),
+                                            captionFont: standardFontSet.captionFont(size: 15),
                                             normalFont: standardFontSet.mainFont(size: 12),
                                             prominentFont: standardFontSet.mainFont(size: 14),
                                             smallFont: standardFontSet.mainFont(size: 11),

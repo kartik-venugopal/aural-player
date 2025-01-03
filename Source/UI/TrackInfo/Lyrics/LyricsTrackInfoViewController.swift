@@ -30,7 +30,45 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
     func refresh() {
-        textView?.string = TrackInfoViewContext.displayedTrack?.lyrics ?? noLyricsText
+        
+        if let timedLyrics = TrackInfoViewContext.displayedTrack?.timedLyrics {
+            
+            textView.string = ""
+            
+            for line in timedLyrics.lines {
+                
+                appendLine(text: line.content,
+                           font: systemFontScheme.normalFont,
+                           color: systemColorScheme.primaryTextColor,
+                           lineSpacing: 10)
+            }
+            
+        } else {
+            
+            textView?.string = TrackInfoViewContext.displayedTrack?.lyrics ?? noLyricsText
+        }
+    }
+    
+    func appendLine(text: String, font: NSFont, color: NSColor, lineSpacing: CGFloat? = nil) {
+        
+        var attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
+        let style = NSMutableParagraphStyle()
+        var str: String = text
+        
+        style.alignment = .left
+        
+        if let spacing = lineSpacing {
+            
+            // If lineSpacing is specified, add a paragraph style attribute and set its lineSpacing field.
+            style.lineSpacing = spacing
+            
+            // Add a newline character to the text to create a line break
+            str += "\n"
+        }
+        
+        attributes[.paragraphStyle] = style
+        
+        textView.textStorage?.append(NSAttributedString(string: str, attributes: attributes))
     }
     
     var jsonObject: AnyObject? {
@@ -54,13 +92,13 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     }
     
     func fontSchemeChanged() {
-        textView.font = systemFontScheme.normalFont
+        refresh()
     }
     
     func colorSchemeChanged() {
         
         backgroundColorChanged(systemColorScheme.backgroundColor)
-        primaryTextColorChanged(systemColorScheme.primaryTextColor)
+        refresh()
     }
     
     func backgroundColorChanged(_ newColor: NSColor) {
@@ -68,7 +106,7 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     }
     
     func primaryTextColorChanged(_ newColor: NSColor) {
-        textView.textColor = newColor
+        refresh()
     }
     
     func secondaryTextColorChanged(_ newColor: NSColor) {}

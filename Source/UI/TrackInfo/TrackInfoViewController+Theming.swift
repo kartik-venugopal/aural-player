@@ -21,6 +21,7 @@ extension TrackInfoViewController: ThemeInitialization {
         lblTabCaption?.textColor = systemColorScheme.captionTextColor
         
         lblTrackTitle?.font = systemFontScheme.prominentFont
+        lblTrackTitle?.textColor = systemColorScheme.primaryTextColor
         updateTrackTitle()
         
         exportMenuIcon?.colorChanged(systemColorScheme.buttonColor)
@@ -42,7 +43,10 @@ extension TrackInfoViewController: FontSchemeObserver {
     func fontSchemeChanged() {
         
         lblMainCaption.font = systemFontScheme.captionFont
+        
         lblTrackTitle?.font = systemFontScheme.prominentFont
+        updateTrackTitle()
+        
         lblTabCaption?.font = systemFontScheme.captionFont
         
         tabViewControllers.forEach {
@@ -56,7 +60,10 @@ extension TrackInfoViewController: ColorSchemeObserver {
     func colorSchemeChanged() {
 
         lblMainCaption.textColor = systemColorScheme.captionTextColor
+        
+        lblTrackTitle?.textColor = systemColorScheme.primaryTextColor
         updateTrackTitle()
+        
         lblTabCaption?.textColor = systemColorScheme.captionTextColor
         
         exportMenuIcon?.colorChanged(systemColorScheme.buttonColor)
