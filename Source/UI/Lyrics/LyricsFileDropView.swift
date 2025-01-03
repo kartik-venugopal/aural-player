@@ -34,8 +34,14 @@ class LyricsFileDropView: NSView {
         
         guard let lyricsFile = sender.urls?.first else {return false}
         
-        
-        
+        Messenger.publish(.Lyrics.loadFromFile, payload: lyricsFile)
         return true
+    }
+}
+
+extension Notification.Name {
+    
+    struct Lyrics {
+        static let loadFromFile = Notification.Name("lyrics_loadFromFile")
     }
 }

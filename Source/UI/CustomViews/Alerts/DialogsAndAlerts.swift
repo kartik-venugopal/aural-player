@@ -22,11 +22,11 @@ struct DialogsAndAlerts {
     static var openFilesAndFoldersDialog: NSOpenPanel {
         
         configureOpenPanel(title: String(format: "Choose audio files, playlists (.%@/.%@), or directories",
-                                                    SupportedTypes.m3u, SupportedTypes.m3u8),
-                               canChooseFiles: true,
-                               canChooseDirectories: true,
-                               allowsMultipleSelection: true,
-                               allowedFileTypes: SupportedTypes.all)
+                                         SupportedTypes.m3u, SupportedTypes.m3u8),
+                           canChooseFiles: true,
+                           canChooseDirectories: true,
+                           allowsMultipleSelection: true,
+                           allowedFileTypes: SupportedTypes.all)
         
         return openPanel
     }
@@ -35,10 +35,21 @@ struct DialogsAndAlerts {
     static var openPlaylistFileDialog: NSOpenPanel {
         
         configureOpenPanel(title: String(format: "Choose a (.%@/.%@) playlist file", SupportedTypes.m3u, SupportedTypes.m3u8),
-                               canChooseFiles: true,
-                               canChooseDirectories: false,
-                               allowsMultipleSelection: false,
-                               allowedFileTypes: SupportedTypes.playlistExtensions)
+                           canChooseFiles: true,
+                           canChooseDirectories: false,
+                           allowsMultipleSelection: false,
+                           allowedFileTypes: SupportedTypes.playlistExtensions)
+        
+        return openPanel
+    }
+    
+    static var openLyricsFileDialog: NSOpenPanel {
+        
+        configureOpenPanel(title: "Choose a (.\(SupportedTypes.lrc)/.\(SupportedTypes.lrcx) lyrics file",
+                           canChooseFiles: true,
+                           canChooseDirectories: false,
+                           allowsMultipleSelection: false,
+                           allowedFileTypes: SupportedTypes.lyricsFileExtensions)
         
         return openPanel
     }

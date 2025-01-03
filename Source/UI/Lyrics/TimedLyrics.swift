@@ -24,6 +24,8 @@ struct TimedLyrics {
         let offset = lyrics.offset
         let maxPossiblePosition = trackDuration - 0.001
         
+        // TODO: Validate duration vs time/duration of last lyrics line ?
+        
         self.lines = lyrics.lines.enumerated().map {index, line in
             
             let position = max(0, line.position - offset)

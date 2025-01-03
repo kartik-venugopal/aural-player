@@ -28,7 +28,9 @@ struct SupportedTypes {
 
     static let allAudioExtensions: Set<String> = nativeAudioExtensions.union(nonNativeAudioExtensions)
     
-    static let lyricsFileExtensions: Set<String> = ["lrc", "lrcx"]
+    static let lrc: String = "lrc"
+    static let lrcx: String = "lrcx"
+    static let lyricsFileExtensions: [String] = [lrc, lrcx]
     
     // Supported AV Foundation formats
     

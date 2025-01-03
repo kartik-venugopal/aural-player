@@ -5035,11 +5035,11 @@
 			isa = PBXGroup;
 			children = (
 				3EAF72782D25B1F900E24245 /* Lyrics.xib */,
-				3EA21A452D2763B3008B5B21 /* LyricsFileDropView.swift */,
 				3EAF727A2D25B24700E24245 /* LyricsViewController.swift */,
 				3E57443C2D262104004B5AE7 /* LyricsViewController+Static.swift */,
 				3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */,
 				3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */,
+				3EA21A452D2763B3008B5B21 /* LyricsFileDropView.swift */,
 				3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */,
 				3EA21A432D27518E008B5B21 /* TimedLyrics.swift */,
 			);

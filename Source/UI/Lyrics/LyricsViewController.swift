@@ -51,6 +51,7 @@ class LyricsViewController: NSViewController {
         
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeCornerRadius(to:))
+        messenger.subscribe(to: .Lyrics.loadFromFile, handler: loadLyrics(fromFile:))
     }
     
     override func viewWillAppear() {
@@ -73,9 +74,6 @@ class LyricsViewController: NSViewController {
     
     private func updateForTrack(_ track: Track?) {
         
-        tabView.selectTabViewItem(at: 2)
-        return
-        
         self.track = track
         
         self.timedLyrics = track?.fetchLocalLyrics()
@@ -95,8 +93,9 @@ class LyricsViewController: NSViewController {
             
             let wasShowingTimedLyrics = tabView.selectedIndex == 1
             
-            tabView.selectTabViewItem(at: 0)
-            textView.string = "No lyrics available"
+            tabView.selectTabViewItem(at: 2)
+            
+            dismissStaticLyricsText()
             
             if wasShowingTimedLyrics {
                 dismissTimedLyricsView()

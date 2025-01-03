@@ -125,6 +125,15 @@ extension Track {
 
         return possibleFiles.first {$0.exists}
     }
+    
+    func loadTimedLyricsFromFile(at url: URL) -> TimedLyrics? {
+        
+        if let lyrics = loadLyricsFromFile(at: url) {
+            return TimedLyrics(from: lyrics, for: self)
+        }
+        
+        return nil
+    }
 
     /// Loads lyrics content from a file at the specified URL
     ///

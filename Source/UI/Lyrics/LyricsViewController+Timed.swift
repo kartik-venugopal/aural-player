@@ -12,6 +12,8 @@ import AppKit
 
 extension LyricsViewController {
     
+    var fileOpenDialog: NSOpenPanel {DialogsAndAlerts.openLyricsFileDialog}
+    
     func showTimedLyricsView() {
         
         tabView.selectTabViewItem(at: 1)
@@ -23,6 +25,30 @@ extension LyricsViewController {
         
         messenger.subscribeAsync(to: .Player.playbackStateChanged, handler: playbackStateChanged)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: seekPerformed)
+    }
+    
+    @IBAction func loadLyricsButtonAction(_ sender: NSButton) {
+        
+        if fileOpenDialog.runModal() == .OK, let lyricsFile = fileOpenDialog.url {
+            loadLyrics(fromFile: lyricsFile)
+        }
+    }
+    
+    @IBAction func searchForLyricsOnlineButtonAction(_ sender: NSButton) {
+        
+        // TODO: 
+    }
+    
+    func loadLyrics(fromFile lyricsFile: URL) {
+        
+        guard let track, let timedLyrics = track.loadTimedLyricsFromFile(at: lyricsFile) else {
+            
+            NSAlert.showError(withTitle: "Lyrics not loaded", andText: "Failed to load synced lyrics from file: '\(lyricsFile.lastPathComponent)'")
+            return
+        }
+        
+        self.timedLyrics = timedLyrics
+        showTimedLyricsView()
     }
     
     func updateTimedLyricsText() {
