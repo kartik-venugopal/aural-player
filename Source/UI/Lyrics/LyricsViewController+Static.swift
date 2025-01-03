@@ -24,4 +24,8 @@ extension LyricsViewController {
                                                                  lineSpacing: 15))
         }
     }
+    
+    func dismissStaticLyricsText() {
+        textView.string = ""
+    }
 }

@@ -147,13 +147,13 @@ class LyricsXWindowController: NSWindowController {
     // MARK: - Update Methods
 
     private func updateTrackInfo() {
-        track = playbackDelegate.playingTrack
-        lyrics = track?.fetchLocalTimedLyrics()
-        updatePlaybackState()
-
-        DispatchQueue.main.async {
-            self.updateLyricsView()
-        }
+//        track = playbackDelegate.playingTrack
+//        lyrics = track?.fetchLocalLyrics()
+//        updatePlaybackState()
+//
+//        DispatchQueue.main.async {
+//            self.updateLyricsView()
+//        }
     }
 
     private func updatePlaybackState() {

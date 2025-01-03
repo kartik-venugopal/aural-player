@@ -46,6 +46,10 @@ extension URL {
         isSupportedAudioFile || isSupportedPlaylistFile
     }
     
+    var isSupportedLyricsFile: Bool {
+        SupportedTypes.lyricsFileExtensions.contains(lowerCasedExtension)
+    }
+    
     // Checks if a file exists
     var exists: Bool {
         fileManager.fileExists(atPath: self.path)

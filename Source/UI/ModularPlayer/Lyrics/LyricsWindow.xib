@@ -19,17 +19,20 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="440" height="600"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
-            <value key="minSize" type="size" width="200" height="150"/>
+            <value key="minSize" type="size" width="440" height="200"/>
             <view key="contentView" wantsLayer="YES" id="6Hu-GY-eN1" userLabel="Root View">
                 <rect key="frame" x="0.0" y="0.0" width="440" height="600"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <button toolTip="Hide Track Info" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQO-wC-qAg" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button toolTip="Hide Lyrics" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQO-wC-qAg" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="7" y="576.5" width="14.5" height="13"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="xmark" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="kSR-VI-B6y">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="closeWindowAction:" target="-2" id="4nv-qn-E7v"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

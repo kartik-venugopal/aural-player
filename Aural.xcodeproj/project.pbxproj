@@ -459,7 +459,7 @@
 		3E1341282B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */; };
 		3E13412A2B6F0115009782B6 /* TrackInfoViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */; };
 		3E143C592D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */; };
-		3E143C5B2D26010A00F40A67 /* TimedLyricsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C5A2D26010A00F40A67 /* TimedLyricsExtensions.swift */; };
+		3E143C5B2D26010A00F40A67 /* LyricsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */; };
 		3E154A912BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */; };
 		3E1572AC2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1572AB2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift */; };
 		3E1741462801EA0A00772ED1 /* TableCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1741452801EA0A00772ED1 /* TableCellBuilder.swift */; };
@@ -839,6 +839,8 @@
 		3E9E591025DB6B150064EB5F /* ModularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* ModularAppModeController.swift */; };
 		3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */; };
 		3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */; };
+		3EA21A442D27518E008B5B21 /* TimedLyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA21A432D27518E008B5B21 /* TimedLyrics.swift */; };
+		3EA21A462D2763B3008B5B21 /* LyricsFileDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA21A452D2763B3008B5B21 /* LyricsFileDropView.swift */; };
 		3EA306282AD8A81E006692FE /* PresentationModeSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA306272AD8A81E006692FE /* PresentationModeSetupViewController.swift */; };
 		3EA3062A2AD8A831006692FE /* PresentationModeSetup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA306292AD8A831006692FE /* PresentationModeSetup.xib */; };
 		3EA3062C2AD8B1C9006692FE /* AppSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3062B2AD8B1C9006692FE /* AppSetup.swift */; };
@@ -1535,7 +1537,7 @@
 		3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+MenuDelegate.swift"; sourceTree = "<group>"; };
 		3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+Theming.swift"; sourceTree = "<group>"; };
 		3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LyricsViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
-		3E143C5A2D26010A00F40A67 /* TimedLyricsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedLyricsExtensions.swift; sourceTree = "<group>"; };
+		3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsExtensions.swift; sourceTree = "<group>"; };
 		3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPresetsManagerWindowController.swift; sourceTree = "<group>"; };
 		3E1572AB2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitEditorDialogController+PresetsMenu.swift"; sourceTree = "<group>"; };
 		3E16BE0B280DB48E00CE9FE9 /* PlaylistsUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsUIState.swift; sourceTree = "<group>"; };
@@ -1956,6 +1958,8 @@
 		3E9F692126B9CE26001FAFA3 /* PlaylistControlsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistControlsContainer.swift; sourceTree = "<group>"; };
 		3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeHistory.swift; sourceTree = "<group>"; };
 		3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeChangeContext.swift; sourceTree = "<group>"; };
+		3EA21A432D27518E008B5B21 /* TimedLyrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedLyrics.swift; sourceTree = "<group>"; };
+		3EA21A452D2763B3008B5B21 /* LyricsFileDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsFileDropView.swift; sourceTree = "<group>"; };
 		3EA306272AD8A81E006692FE /* PresentationModeSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationModeSetupViewController.swift; sourceTree = "<group>"; };
 		3EA306292AD8A831006692FE /* PresentationModeSetup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresentationModeSetup.xib; sourceTree = "<group>"; };
 		3EA3062B2AD8B1C9006692FE /* AppSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetup.swift; sourceTree = "<group>"; };
@@ -5031,11 +5035,13 @@
 			isa = PBXGroup;
 			children = (
 				3EAF72782D25B1F900E24245 /* Lyrics.xib */,
+				3EA21A452D2763B3008B5B21 /* LyricsFileDropView.swift */,
 				3EAF727A2D25B24700E24245 /* LyricsViewController.swift */,
 				3E57443C2D262104004B5AE7 /* LyricsViewController+Static.swift */,
 				3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */,
 				3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */,
-				3E143C5A2D26010A00F40A67 /* TimedLyricsExtensions.swift */,
+				3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */,
+				3EA21A432D27518E008B5B21 /* TimedLyrics.swift */,
 			);
 			path = Lyrics;
 			sourceTree = "<group>";
@@ -6409,7 +6415,7 @@
 				3E0218272C23490E00865AC2 /* FavoriteFolder.swift in Sources */,
 				3E60EAD92B5D9DE2002EBFD3 /* TrackListTableViewController+Actions.swift in Sources */,
 				3E02186D2C23490E00865AC2 /* TrackInfoUpdatedNotification.swift in Sources */,
-				3E143C5B2D26010A00F40A67 /* TimedLyricsExtensions.swift in Sources */,
+				3E143C5B2D26010A00F40A67 /* LyricsExtensions.swift in Sources */,
 				3E0219902C23490E00865AC2 /* HTTPErrors.swift in Sources */,
 				3E0217EA2C23490E00865AC2 /* EQUnitDelegateProtocol.swift in Sources */,
 				3E02191B2C23490E00865AC2 /* UserDefaultsExtensions.swift in Sources */,
@@ -6618,6 +6624,7 @@
 				3E6C128625CEBE1800BF0D07 /* TrackPeekingButton.swift in Sources */,
 				3EEFBCB52BEECC9100F90BE7 /* ScreenArrangement.swift in Sources */,
 				3EEFBCB32BEEB2B800F90BE7 /* PlayQueueWindowController+GestureHandling.swift in Sources */,
+				3EA21A462D2763B3008B5B21 /* LyricsFileDropView.swift in Sources */,
 				3E0217D62C23490E00865AC2 /* FileWatcher.swift in Sources */,
 				3E0397E82B83EB73004454DB /* AppDelegate+Init.swift in Sources */,
 				3E7204C62B854BFB00E40D87 /* UnifiedPlayerViewController+AutoHide.swift in Sources */,
@@ -6653,6 +6660,7 @@
 				3E0217F02C23490E00865AC2 /* MasterUnitDelegateProtocol.swift in Sources */,
 				3E6C12B825CEBE5800BF0D07 /* ViewMenuController.swift in Sources */,
 				3E0218332C23490E00865AC2 /* FFmpegErrors.swift in Sources */,
+				3EA21A442D27518E008B5B21 /* TimedLyrics.swift in Sources */,
 				3E0218BB2C23490E00865AC2 /* EndPlaybackSequenceAction.swift in Sources */,
 				3E6C121E25CEBDE600BF0D07 /* ViewPreferencesViewController.swift in Sources */,
 				3EABDDE52694BC24008066E8 /* VisualizationType.swift in Sources */,

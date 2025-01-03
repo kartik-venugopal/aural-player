@@ -38,17 +38,17 @@ extension LyricsViewController {
     
     func highlightCurrentLine() {
         
-        guard let track, let timedLyrics else {return}
+        guard let timedLyrics else {return}
         
         let seekPos = playbackInfoDelegate.seekPosition.timeElapsed
         
-        if let curLine, timedLyrics.isLineCurrent(atIndex: curLine, atPosition: seekPos, ofTrack: track) {
+        if let curLine, timedLyrics.lines[curLine].isCurrent(atPosition: seekPos) {
             
             // Current line is still current, do nothing.
             return
         }
         
-        let newCurLine = timedLyrics.currentLine(at: seekPos, ofTrack: track)
+        let newCurLine = timedLyrics.currentLine(at: seekPos)
         
         if newCurLine != self.curLine {
             

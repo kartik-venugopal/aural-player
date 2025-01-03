@@ -53,10 +53,18 @@ class LyricsViewController: NSViewController {
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeCornerRadius(to:))
     }
     
-    override func viewDidAppear() {
+    override func viewWillAppear() {
         
-        super.viewDidAppear()
+        super.viewWillAppear()
         updateForTrack(playbackInfoDelegate.playingTrack)
+    }
+    
+    override func viewDidDisappear() {
+        
+        super.viewDidDisappear()
+        
+        dismissStaticLyricsText()
+        dismissTimedLyricsView()
     }
     
     var showingTimedLyrics: Bool {
@@ -65,20 +73,16 @@ class LyricsViewController: NSViewController {
     
     private func updateForTrack(_ track: Track?) {
         
-        guard self.track != track else {
-            
-            if showingTimedLyrics {
-                highlightCurrentLine()
-            }
-            
-            return
-        }
+        tabView.selectTabViewItem(at: 2)
+        return
         
         self.track = track
         
-        self.timedLyrics = track?.fetchLocalTimedLyrics()
+        self.timedLyrics = track?.fetchLocalLyrics()
         
         if timedLyrics != nil {
+            
+            dismissStaticLyricsText()
             showTimedLyricsView()
             
         } else if let staticLyrics = track?.lyrics {
@@ -101,7 +105,10 @@ class LyricsViewController: NSViewController {
     }
     
     private func trackTransitioned(_ notif: TrackTransitionNotification) {
-        updateForTrack(notif.endTrack)
+        
+        if appModeManager.isShowingLyrics {
+            updateForTrack(notif.endTrack)
+        }
     }
     
     func changeCornerRadius(to radius: CGFloat) {

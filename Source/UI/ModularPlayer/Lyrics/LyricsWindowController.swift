@@ -36,6 +36,10 @@ class LyricsWindowController: NSWindowController {
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
     }
+    
+    @IBAction func closeWindowAction(_ sender: AnyObject) {
+        windowLayoutsManager.hideWindow(withId: .lyrics)
+    }
 }
 
 extension LyricsWindowController: ColorSchemeObserver {

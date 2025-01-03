@@ -57,7 +57,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" white="0.69835256609999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="backgroundColor" white="0.097370866210000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="460" height="271"/>
+                                                    <size key="minSize" width="445" height="271"/>
                                                     <size key="maxSize" width="525" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.70124099039999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </textView>
@@ -91,11 +91,11 @@
                         </tabViewItem>
                         <tabViewItem label="View" identifier="" id="3jB-kL-mrl" userLabel="Timed">
                             <view key="view" id="FEP-f5-89c">
-                                <rect key="frame" x="0.0" y="0.0" width="483" height="278"/>
+                                <rect key="frame" x="0.0" y="0.0" width="483" height="288"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView borderType="none" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvy-aA-oGb">
-                                        <rect key="frame" x="0.0" y="0.0" width="483" height="278"/>
+                                        <rect key="frame" x="0.0" y="10" width="483" height="278"/>
                                         <clipView key="contentView" id="n2f-37-6gY">
                                             <rect key="frame" x="0.0" y="0.0" width="468" height="278"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -181,6 +181,73 @@
                                 </constraints>
                             </view>
                         </tabViewItem>
+                        <tabViewItem label="Item 2" identifier="" id="evw-re-C2X" userLabel="No Lyrics">
+                            <view key="view" id="uWv-Bx-tbk">
+                                <rect key="frame" x="0.0" y="0.0" width="483" height="288"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gZB-93-eKR" userLabel="Drop a Lyrics file (.lrc / .lrcx)" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="100" y="175" width="284" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="280" id="1N5-HP-HN6"/>
+                                            <constraint firstAttribute="height" constant="25" id="my4-th-YOW"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Drop a Lyrics file (.lrc / .lrcx) here" id="ZqR-BU-8p4">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="4Ba-Cw-5kU">
+                                        <rect key="frame" x="137" y="138" width="210" height="32"/>
+                                        <buttonCell key="cell" type="square" title="Choose a Lyrics file" bezelStyle="shadowlessSquare" image="doc" catalog="system" imagePosition="trailing" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4eO-ks-b8F">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="Jtq-l6-SAM"/>
+                                            <constraint firstAttribute="width" constant="210" id="nqY-0d-Yt6"/>
+                                        </constraints>
+                                    </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="iK1-0v-Gl9" userLabel="Search for Lyrics online">
+                                        <rect key="frame" x="137" y="96" width="210" height="32"/>
+                                        <buttonCell key="cell" type="square" title="Search for Lyrics online" bezelStyle="shadowlessSquare" image="network" catalog="system" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wUR-Kh-wyH">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="210" id="1km-33-leo"/>
+                                            <constraint firstAttribute="height" constant="32" id="bHu-vv-kAD"/>
+                                        </constraints>
+                                    </button>
+                                    <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="IuN-AA-y49" userLabel="Drop Box">
+                                        <rect key="frame" x="0.0" y="0.0" width="483" height="288"/>
+                                        <view key="contentView" id="y84-jg-I0Q">
+                                            <rect key="frame" x="1" y="1" width="481" height="286"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </box>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gZB-93-eKR" firstAttribute="centerX" secondItem="uWv-Bx-tbk" secondAttribute="centerX" id="0SZ-xs-1du"/>
+                                    <constraint firstItem="4Ba-Cw-5kU" firstAttribute="top" secondItem="gZB-93-eKR" secondAttribute="bottom" constant="5" id="111-MX-Hcm"/>
+                                    <constraint firstItem="4Ba-Cw-5kU" firstAttribute="centerY" secondItem="uWv-Bx-tbk" secondAttribute="centerY" constant="-10" id="1xv-lk-Hrp"/>
+                                    <constraint firstAttribute="bottom" secondItem="IuN-AA-y49" secondAttribute="bottom" id="6pP-OV-ht9"/>
+                                    <constraint firstItem="IuN-AA-y49" firstAttribute="top" secondItem="uWv-Bx-tbk" secondAttribute="top" id="83f-De-ckP"/>
+                                    <constraint firstItem="iK1-0v-Gl9" firstAttribute="top" secondItem="4Ba-Cw-5kU" secondAttribute="bottom" constant="10" symbolic="YES" id="EAT-yI-qRc"/>
+                                    <constraint firstItem="iK1-0v-Gl9" firstAttribute="leading" secondItem="4Ba-Cw-5kU" secondAttribute="leading" id="Go4-8O-cWM"/>
+                                    <constraint firstItem="IuN-AA-y49" firstAttribute="leading" secondItem="uWv-Bx-tbk" secondAttribute="leading" id="iUB-Um-Lj1"/>
+                                    <constraint firstAttribute="trailing" secondItem="IuN-AA-y49" secondAttribute="trailing" id="ocB-pY-r52"/>
+                                    <constraint firstItem="4Ba-Cw-5kU" firstAttribute="centerX" secondItem="gZB-93-eKR" secondAttribute="centerX" id="pJ0-mO-aMJ"/>
+                                </constraints>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Item 3" identifier="" id="Ff8-6O-AzC" userLabel="No Track">
+                            <view key="view" id="bZU-bQ-yFl">
+                                <rect key="frame" x="0.0" y="0.0" width="483" height="288"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
                     </tabViewItems>
                 </tabView>
             </subviews>
@@ -195,4 +262,8 @@
             <point key="canvasLocation" x="168.5" y="200"/>
         </view>
     </objects>
+    <resources>
+        <image name="doc" catalog="system" width="14" height="16"/>
+        <image name="network" catalog="system" width="15" height="15"/>
+    </resources>
 </document>

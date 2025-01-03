@@ -28,6 +28,8 @@ struct SupportedTypes {
 
     static let allAudioExtensions: Set<String> = nativeAudioExtensions.union(nonNativeAudioExtensions)
     
+    static let lyricsFileExtensions: Set<String> = ["lrc", "lrcx"]
+    
     // Supported AV Foundation formats
     
     static let avFileTypes: [AVFileType] = [.mp3, .m4a, .mp4, .m4v, .aiff, .aifc, .caf, .wav, .ac3, .amr, .au]
