@@ -59,6 +59,7 @@ Version 4 of the app is bringing with it a lot of great improvements: (NOTE - so
 - Replay Gain.
 - CUE sheet support.
 - Gapless playback.
+- Synchronized lyrics + online lyrics search
 
 ______
 
