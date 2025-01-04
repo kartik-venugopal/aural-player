@@ -443,6 +443,8 @@ class PlayerViewController: NSViewController {
         messenger.subscribe(to: .Player.setPlaybackPositionDisplayType, handler: setPlaybackPositionDisplayType(to:))
         
         messenger.subscribe(to: .Player.trackInfo, handler: showTrackInfo(for:))
+        
+        messenger.subscribe(to: .Lyrics.addLyricsFile, handler: addLyricsFile)
     }
     
     func previousTrack() {
@@ -556,6 +558,26 @@ class PlayerViewController: NSViewController {
         TrackInfoViewContext.displayedTrack = theTrack
         
         showTrackInfoView()
+    }
+    
+    func addLyricsFile() {
+        
+        let fileOpenDialog: NSOpenPanel = DialogsAndAlerts.openLyricsFileDialog
+        
+        if fileOpenDialog.runModal() == .OK, let lyricsFile = fileOpenDialog.url {
+            
+            guard let track = playbackInfoDelegate.playingTrack, trackReader.loadTimedLyricsFromFile(at: lyricsFile, for: track) else {
+                
+                NSAlert.showError(withTitle: "Lyrics not loaded", andText: "Failed to load synced lyrics from file: '\(lyricsFile.lastPathComponent)'")
+                return
+            }
+            
+            if !appModeManager.isShowingLyrics {
+                Messenger.publish(.View.toggleLyrics)
+            }
+            
+            Messenger.publish(.Lyrics.lyricsUpdated, payload: track)
+        }
     }
     
     // Override this in subclasses!

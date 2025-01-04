@@ -26,7 +26,6 @@
         <customObject id="RpY-aa-Z01" customClass="AuralMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="qXQ-AJ-SLV" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="detailedInfoMenuItem" destination="5RG-cG-bTv" id="fkL-IB-0CL"/>
                 <outlet property="gaplessPlaybackMenuItem" destination="y5o-W4-GGY" id="4gu-7J-mRh"/>
                 <outlet property="jumpToTimeMenuItem" destination="iTN-3t-xfn" id="hzB-NT-r4x"/>
                 <outlet property="loopChapterMenuItem" destination="paH-a9-iy2" id="nGs-2W-8Mi"/>
@@ -101,15 +100,21 @@
                 <outlet property="sortItem" destination="tfL-Xn-Fip" id="RNy-Rl-Wae"/>
             </connections>
         </customObject>
+        <customObject id="RL2-vF-Zyu" customClass="MetadataMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="addLyricsFileMenuItem" destination="8BA-me-5uv" id="DGZ-yH-WHo"/>
+                <outlet property="detailedInfoMenuItem" destination="LJ6-A4-cet" id="fwF-TZ-Rr1"/>
+            </connections>
+        </customObject>
         <customObject id="7Mj-fX-Ivy" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="recentItemsMenu" destination="O8Z-ZZ-NUj" id="c3M-Yd-t4b"/>
                 <outlet property="resumeSequenceItem" destination="sYa-3o-gtH" id="Yau-Cj-AFE"/>
             </connections>
         </customObject>
-        <customObject id="RL2-vF-Zyu" customClass="FavoritesMenuController" customModule="Aural" customModuleProvider="target">
+        <customObject id="RG0-8A-W3W" customClass="FavoritesMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="addRemoveFavoritesMenuItem" destination="nrK-Id-adG" id="uOx-gE-l3A"/>
+                <outlet property="addRemoveFavoritesMenuItem" destination="nrK-Id-adG" id="aAE-XL-s9V"/>
             </connections>
         </customObject>
         <customObject id="YKA-Ef-7Bi" customClass="FavoriteTracksMenuController" customModule="Aural" customModuleProvider="target"/>
@@ -387,11 +392,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="NI6-sl-T0s"/>
-                            <menuItem title=" Detailed playing track info" image="info" catalog="system" enabled="NO" keyEquivalent="i" id="5RG-cG-bTv" userLabel="Detailed info">
-                                <connections>
-                                    <action selector="moreInfoAction:" target="qXQ-AJ-SLV" id="etO-k5-yxn"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title=" Show playing track in Play Queue" image="text.insert" catalog="system" enabled="NO" keyEquivalent="p" id="4jN-mX-32n" userLabel="Show track in play queue">
                                 <connections>
                                     <action selector="showPlayingTrackAction:" target="qXQ-AJ-SLV" id="6eQ-pZ-0Lp"/>
@@ -787,6 +787,26 @@ CA
                         </connections>
                     </menu>
                 </menuItem>
+                <menuItem title="Metadata" id="TiH-OD-rFR" userLabel="Metadata">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Metadata" autoenablesItems="NO" id="VoA-DH-v1h">
+                        <items>
+                            <menuItem title="   Detailed playing track info" image="info" catalog="system" enabled="NO" keyEquivalent="i" id="LJ6-A4-cet" userLabel="Detailed info">
+                                <connections>
+                                    <action selector="moreInfoAction:" target="RL2-vF-Zyu" id="OHW-wF-lMp"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Add lyrics file (LRC / LRCX) for playing track" image="music.mic" catalog="system" enabled="NO" keyEquivalent="L" id="8BA-me-5uv" userLabel="Scroll to bottom of playlist">
+                                <connections>
+                                    <action selector="addLyricsFileAction:" target="RL2-vF-Zyu" id="fOq-54-dsY"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                        <connections>
+                            <outlet property="delegate" destination="RL2-vF-Zyu" id="KNB-ha-E14"/>
+                        </connections>
+                    </menu>
+                </menuItem>
                 <menuItem title="History" id="yIf-Rx-BsM" userLabel="History">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="History" autoenablesItems="NO" id="Dcb-WG-hNt">
@@ -826,15 +846,9 @@ CA
                                     <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="heart" catalog="system"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="heart.slash" catalog="system"/>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="playingTrackFavoritesAction:" target="RL2-vF-Zyu" id="fEf-xi-7YW"/>
-                                </connections>
                             </menuItem>
                             <menuItem title="  Manage favorites" hidden="YES" enabled="NO" keyEquivalent="f" id="uPE-Lz-Ycv" userLabel="Manage Favorites">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="manageFavoritesAction:" target="RL2-vF-Zyu" id="ab1-lY-y10"/>
-                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="BY2-rc-vgF"/>
                             <menuItem title="  Tracks" image="music.quarternote.3" catalog="system" id="4Uc-NF-13M" userLabel="Tracks">
@@ -1298,7 +1312,7 @@ CA
             <rect key="frame" x="0.0" y="0.0" width="260" height="28"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RdI-Ey-O72">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RdI-Ey-O72">
                     <rect key="frame" x="46" y="1" width="156" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="uEr-lr-SQZ">
@@ -1307,7 +1321,7 @@ CA
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zug-e2-ouS">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zug-e2-ouS">
                     <rect key="frame" x="188" y="1" width="39" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="pS8-yD-xCT">

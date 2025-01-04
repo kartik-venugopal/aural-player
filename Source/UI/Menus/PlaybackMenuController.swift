@@ -61,8 +61,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private lazy var jumpToTimeDialogLoader: LazyWindowLoader<JumpToTimeEditorWindowController> = LazyWindowLoader()
     
-    private lazy var messenger = Messenger(for: self)
-    
     // One-time setup
     override func awakeFromNib() {
         playOrPauseMenuItem.off()
@@ -135,79 +133,79 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Plays, pauses or resumes playback
     @IBAction func playOrPauseAction(_ sender: AnyObject) {
-        messenger.publish(.Player.playOrPause)
+        Messenger.publish(.Player.playOrPause)
     }
     
     @IBAction func beginGaplessPlaybackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.beginGaplessPlayback)
+        Messenger.publish(.Player.beginGaplessPlayback)
     }
     
     @IBAction func stopAction(_ sender: AnyObject) {
-        messenger.publish(.Player.stop)
+        Messenger.publish(.Player.stop)
     }
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.previousTrack)
+        Messenger.publish(.Player.previousTrack)
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.nextTrack)
+        Messenger.publish(.Player.nextTrack)
     }
     
     // Replays the currently playing track from the beginning, if there is one
     @IBAction func replayTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.replayTrack)
+        Messenger.publish(.Player.replayTrack)
     }
     
     // Toggles A ⇋ B playback loop
     @IBAction func toggleLoopAction(_ sender: AnyObject) {
-        messenger.publish(.Player.toggleLoop)
+        Messenger.publish(.Player.toggleLoop)
     }
     
     // MARK: Basic playback functions (chapters)
     
     // Plays the previous available chapter
     @IBAction func previousChapterAction(_ sender: AnyObject) {
-        messenger.publish(.Player.previousChapter)
+        Messenger.publish(.Player.previousChapter)
     }
     
     // Plays the next available chapter
     @IBAction func nextChapterAction(_ sender: AnyObject) {
-        messenger.publish(.Player.nextChapter)
+        Messenger.publish(.Player.nextChapter)
     }
     
     // Replays the currently playing chapter from the beginning, if there is one
     @IBAction func replayChapterAction(_ sender: AnyObject) {
-        messenger.publish(.Player.replayChapter)
+        Messenger.publish(.Player.replayChapter)
     }
     
     // Toggles current chapter playback loop
     @IBAction func toggleChapterLoopAction(_ sender: AnyObject) {
-        messenger.publish(.Player.toggleChapterLoop)
+        Messenger.publish(.Player.toggleChapterLoop)
     }
     
     // MARK: Seeking functions
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        messenger.publish(.Player.seekBackward, payload: UserInputMode.discrete)
+        Messenger.publish(.Player.seekBackward, payload: UserInputMode.discrete)
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
-        messenger.publish(.Player.seekForward, payload: UserInputMode.discrete)
+        Messenger.publish(.Player.seekForward, payload: UserInputMode.discrete)
     }
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardSecondaryAction(_ sender: AnyObject) {
-        messenger.publish(.Player.seekBackward_secondary)
+        Messenger.publish(.Player.seekBackward_secondary)
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardSecondaryAction(_ sender: AnyObject) {
-        messenger.publish(.Player.seekForward_secondary)
+        Messenger.publish(.Player.seekForward_secondary)
     }
     
     @IBAction func jumpToTimeAction(_ sender: AnyObject) {
@@ -218,53 +216,52 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Sets the repeat mode to "Off"
     @IBAction func repeatOffAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.off)
+        Messenger.publish(.Player.setRepeatMode, payload: RepeatMode.off)
     }
     
     // Sets the repeat mode to "Repeat One"
     @IBAction func repeatOneAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.one)
+        Messenger.publish(.Player.setRepeatMode, payload: RepeatMode.one)
     }
     
     // Sets the repeat mode to "Repeat All"
     @IBAction func repeatAllAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.all)
+        Messenger.publish(.Player.setRepeatMode, payload: RepeatMode.all)
     }
     
     // Toggles the repeat mode.
     @IBAction func toggleRepeatModeAction(_ sender: AnyObject) {
-        messenger.publish(.Player.toggleRepeatMode)
+        Messenger.publish(.Player.toggleRepeatMode)
     }
     
     // Sets the shuffle mode to "Off"
     @IBAction func shuffleOffAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setShuffleMode, payload: ShuffleMode.off)
+        Messenger.publish(.Player.setShuffleMode, payload: ShuffleMode.off)
     }
     
     // Sets the shuffle mode to "On"
     @IBAction func shuffleOnAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setShuffleMode, payload: ShuffleMode.on)
+        Messenger.publish(.Player.setShuffleMode, payload: ShuffleMode.on)
     }
     
     // Toggles the shuffle mode.
     @IBAction func toggleShuffleModeAction(_ sender: AnyObject) {
-        messenger.publish(.Player.toggleShuffleMode)
+        Messenger.publish(.Player.toggleShuffleMode)
     }
     
     // MARK: Miscellaneous playing track functions
     
-    // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
-        messenger.publish(.Player.trackInfo)
+        Messenger.publish(.Player.trackInfo)
     }
     
     // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.showPlayingTrack)
+        Messenger.publish(.PlayQueue.showPlayingTrack)
     }
     
     @IBAction func rememberLastPositionAction(_ sender: ToggleMenuItem) {
-        messenger.publish(!rememberLastPositionMenuItem.isOn ? .Player.savePlaybackProfile : .Player.deletePlaybackProfile)
+        Messenger.publish(!rememberLastPositionMenuItem.isOn ? .Player.savePlaybackProfile : .Player.deletePlaybackProfile)
     }
     
     // Updates the menu item states per the current playback modes

@@ -38,10 +38,3 @@ class LyricsFileDropView: NSView {
         return true
     }
 }
-
-extension Notification.Name {
-    
-    struct Lyrics {
-        static let loadFromFile = Notification.Name("lyrics_loadFromFile")
-    }
-}

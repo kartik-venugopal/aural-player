@@ -38,8 +38,6 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var scrollToTopItem: NSMenuItem!
     @IBOutlet weak var scrollToBottomItem: NSMenuItem!
     
-    private lazy var messenger = Messenger(for: self)
-    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         if appModeManager.currentMode == .unified, unifiedPlayerUIState.sidebarSelectedItem?.module != .playQueue {
@@ -90,87 +88,87 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
     
     // Plays the selected play queue track.
     @IBAction func playSelectedTrackAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.playSelectedTrack)
+        Messenger.publish(.PlayQueue.playSelectedTrack)
     }
     
     // Shows the file open dialog to let the user select files / folders / playlists (M3U) to add to the play queue.
     @IBAction func importFilesAndFoldersAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.addTracks)
+        Messenger.publish(.PlayQueue.addTracks)
     }
     
     // Exports the play queue as an M3U playlist file.
     @IBAction func exportAsPlaylistFileAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.exportAsPlaylistFile)
+        Messenger.publish(.PlayQueue.exportAsPlaylistFile)
     }
     
     // Removes any selected tracks from the play queue
     @IBAction func removeSelectedTracksAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.removeTracks)
+        Messenger.publish(.PlayQueue.removeTracks)
     }
     
     // Crops track selection.
     @IBAction func cropSelectedTracksAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.cropSelection)
+        Messenger.publish(.PlayQueue.cropSelection)
     }
     
     // Removes all tracks from the play queue.
     @IBAction func removeAllTracksAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.removeAllTracks)
+        Messenger.publish(.PlayQueue.removeAllTracks)
     }
     
     @IBAction func selectAllTracksAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.selectAllTracks)
+        Messenger.publish(.PlayQueue.selectAllTracks)
     }
     
     // Clears the play queue table view selection.
     @IBAction func clearSelectionAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.clearSelection)
+        Messenger.publish(.PlayQueue.clearSelection)
     }
     
     // Inverts the play queue table view selection.
     @IBAction func invertSelectionAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.invertSelection)
+        Messenger.publish(.PlayQueue.invertSelection)
     }
     
     // Moves any selected tracks up one row in the play queue
     @IBAction func moveTracksUpAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.moveTracksUp)
+        Messenger.publish(.PlayQueue.moveTracksUp)
     }
     
     // Moves the selected playlist item up one row in the play queue
     @IBAction func moveTracksToTopAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.moveTracksToTop)
+        Messenger.publish(.PlayQueue.moveTracksToTop)
     }
     
     // Moves any selected tracks down one row in the play queue
     @IBAction func moveTracksDownAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.moveTracksDown)
+        Messenger.publish(.PlayQueue.moveTracksDown)
     }
     
     // Moves the selected playlist item up one row in the play queue
     @IBAction func moveTracksToBottomAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.moveTracksToBottom)
+        Messenger.publish(.PlayQueue.moveTracksToBottom)
     }
     
     // Scrolls the current playlist view to the very top.
     @IBAction func scrollToTopAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.scrollToTop)
+        Messenger.publish(.PlayQueue.scrollToTop)
     }
     
     // Scrolls the current playlist view to the very bottom.
     @IBAction func scrollToBottomAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.scrollToBottom)
+        Messenger.publish(.PlayQueue.scrollToBottom)
     }
     
     @IBAction func pageUpAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.pageUp)
+        Messenger.publish(.PlayQueue.pageUp)
     }
     
     @IBAction func pageDownAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.pageDown)
+        Messenger.publish(.PlayQueue.pageDown)
     }
     
     @IBAction func searchAction(_ sender: Any) {
-        messenger.publish(.PlayQueue.search)
+        Messenger.publish(.PlayQueue.search)
     }
 }

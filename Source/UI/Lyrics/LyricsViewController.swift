@@ -52,6 +52,7 @@ class LyricsViewController: NSViewController {
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeCornerRadius(to:))
         messenger.subscribe(to: .Lyrics.loadFromFile, handler: loadLyrics(fromFile:))
+        messenger.subscribe(to: .Lyrics.lyricsUpdated, handler: updateForTrack(_:))
     }
     
     override func viewWillAppear() {
