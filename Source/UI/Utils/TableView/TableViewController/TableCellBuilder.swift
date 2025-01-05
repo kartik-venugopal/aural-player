@@ -83,12 +83,9 @@ class TableCellBuilder {
                 selAttStr = selAttStr + strings[index].text.attributed(font: strings[index].font, color: selectedTextColors[index])
             }
         }
-        
-        let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        style.lineBreakMode = .byTruncatingTail
 
-        attStr.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, attStr.length))
-        selAttStr.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, selAttStr.length))
+        attStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byTruncatingTail, range: NSMakeRange(0, attStr.length))
+        selAttStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byTruncatingTail, range: NSMakeRange(0, selAttStr.length))
         
         self.attributedText = attStr
         self.selectedAttributedText = selAttStr

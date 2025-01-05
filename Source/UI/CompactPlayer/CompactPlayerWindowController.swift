@@ -34,6 +34,7 @@ class CompactPlayerWindowController: NSWindowController {
     let searchViewController: CompactPlayQueueSearchViewController = .init()
     let chaptersListViewController: CompactChaptersListViewController = .init()
     let trackInfoViewController: CompactPlayerTrackInfoViewController = .init()
+    let lyricsViewController: CompactPlayerLyricsViewController = .init()
     
     lazy var effectsViewLoader: LazyViewLoader<EffectsSheetViewController> = .init()
     private var effectsSheetViewController: EffectsSheetViewController {effectsViewLoader.controller}
@@ -56,6 +57,7 @@ class CompactPlayerWindowController: NSWindowController {
         tabView.tabViewItem(at: 2).view?.addSubview(searchViewController.view)
         tabView.tabViewItem(at: 3).view?.addSubview(chaptersListViewController.view)
         tabView.tabViewItem(at: 4).view?.addSubview(trackInfoViewController.view)
+        tabView.tabViewItem(at: 5).view?.addSubview(lyricsViewController.view)
         
         playQueueViewController.view.anchorToSuperview()
         searchViewController.view.anchorToSuperview()
@@ -80,6 +82,8 @@ class CompactPlayerWindowController: NSWindowController {
         
         messenger.subscribe(to: .View.toggleTrackInfo, handler: showTrackInfo)
         messenger.subscribe(to: .Player.trackInfo, handler: showTrackInfo)
+        
+        messenger.subscribe(to: .View.toggleLyrics, handler: showLyrics)
         
 //        messenger.subscribe(to: .View.toggleVisualizer, handler: toggleVisualizer)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
@@ -200,6 +204,10 @@ class CompactPlayerWindowController: NSWindowController {
         tabView.selectTabViewItem(at: 4)
     }
     
+    private func showLyrics() {
+        tabView.selectTabViewItem(at: 5)
+    }
+    
     func showPlayingTrackInPlayQueue() {
         showPlayQueue()
     }
@@ -247,6 +255,9 @@ class CompactPlayerWindowController: NSWindowController {
             
         case 4:
             compactPlayerUIState.displayedView = .trackInfo
+            
+        case 5:
+            compactPlayerUIState.displayedView = .lyrics
             
         default:
             return

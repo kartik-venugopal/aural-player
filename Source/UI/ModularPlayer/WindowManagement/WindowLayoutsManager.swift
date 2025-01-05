@@ -418,3 +418,15 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
         return WindowLayoutsPersistentState(systemLayout: systemLayoutState, userLayouts: userLayoutsState)
     }
 }
+
+extension NSRect: @retroactive Hashable {
+    
+    public func hash(into hasher: inout Hasher) {
+        
+        hasher.combine(minX)
+        hasher.combine(minY)
+        
+        hasher.combine(width)
+        hasher.combine(height)
+    }
+}

@@ -460,6 +460,13 @@ extension NSMutableParagraphStyle {
         return style
     }()
     
+    static let byWordWrapping: NSMutableParagraphStyle = {
+        
+        let style: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        style.lineBreakMode = .byWordWrapping
+        return style
+    }()
+    
     convenience init(lineSpacing: CGFloat) {
 
         self.init()

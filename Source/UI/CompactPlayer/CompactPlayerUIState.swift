@@ -46,4 +46,5 @@ enum CompactPlayerDisplayedView {
     case search
     case effects
     case trackInfo
+    case lyrics
 }

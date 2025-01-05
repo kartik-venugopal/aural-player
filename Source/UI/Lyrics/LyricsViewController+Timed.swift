@@ -187,7 +187,7 @@ extension LyricsViewController: NSTableViewDelegate {
         }
         
         cell.textField?.show()
-        cell.textField?.lineBreakMode = .byTruncatingTail
+//        cell.textField?.lineBreakMode = .byWordWrapping
         
         return cell
     }
@@ -201,6 +201,7 @@ extension LyricsViewController: NSTableViewDelegate {
             cell.text = line.content
             cell.textFont = systemFontScheme.lyricsHighlightFont
             cell.textColor = systemColorScheme.primarySelectedTextColor
+            cell.textField?.lineBreakMode = .byWordWrapping
             
             return
         }
@@ -216,11 +217,16 @@ extension LyricsViewController: NSTableViewDelegate {
             
             let subString = line.content.substring(range: preSegmentRange.intRange)
             let attrStr =  subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
+//            attrStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byWordWrapping, range: NSMakeRange(0, attrStr.length))
             mutStr = mutStr + attrStr
         }
         
         let subString = line.content.substring(range: segment.range.intRange)
-        mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
+        
+        let attrStr = subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
+//        attrStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byWordWrapping, range: NSMakeRange(0, attrStr.length))
+        
+        mutStr = mutStr + attrStr
         
         let segmentLen = segment.range.length
         let segmentEnd = segmentLoc + segmentLen
@@ -232,9 +238,14 @@ extension LyricsViewController: NSTableViewDelegate {
             
             let subString = line.content.substring(range: postSegmentRange.intRange)
             let attrStr = subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
+//            attrStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byWordWrapping, range: NSMakeRange(0, attrStr.length))
+            
             mutStr = mutStr + attrStr
         }
         
+        mutStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byWordWrapping, range: NSMakeRange(0, mutStr.length))
+        
+//        cell.textField?.lineBreakMode = .byWordWrapping
         cell.attributedText = mutStr
     }
     
@@ -243,5 +254,6 @@ extension LyricsViewController: NSTableViewDelegate {
         cell.text = line.content
         cell.textFont = isCurrentLine ? systemFontScheme.lyricsHighlightFont : systemFontScheme.prominentFont
         cell.textColor = isCurrentLine ? systemColorScheme.activeControlColor : systemColorScheme.secondaryTextColor
+        cell.textField?.lineBreakMode = .byWordWrapping
     }
 }
