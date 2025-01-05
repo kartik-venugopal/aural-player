@@ -17,5 +17,6 @@ extension Notification.Name {
         static let loadFromFile = Notification.Name("lyrics_loadFromFile")
         static let addLyricsFile = Notification.Name("lyrics_addLyricsFile")
         static let lyricsUpdated = Notification.Name("lyrics_lyricsUpdated")
+        static let karaokeModePreferenceUpdated = Notification.Name("lyrics_karaokeModePreferenceUpdated")
     }
 }

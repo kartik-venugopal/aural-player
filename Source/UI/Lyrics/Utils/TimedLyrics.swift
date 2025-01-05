@@ -85,8 +85,8 @@ struct TimedLyricsLine {
         
         var segments: [TimedLyricsLineSegment] = []
         
-        print("\n---------------------------------------------")
-        print("For line: \(content)\n")
+//        print("\n---------------------------------------------")
+//        print("For line: \(content)\n")
         
         for (index, tag) in timeTags.enumerated() {
             
@@ -102,9 +102,8 @@ struct TimedLyricsLine {
                 }
                 
                 if startPos >= position, endPos <= maxPosition, startPos < endPos, let range {
-                    
                     segments.append(.init(startPos: position + tag.time, endPos: position + nextTag.time, range: range))
-                    print("Segment \(segments.count): \(startPos), \(endPos), \(range)")
+//                    print("Segment \(segments.count): \(startPos), \(endPos), \(range)")
                 }
             }
         }

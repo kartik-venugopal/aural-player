@@ -304,14 +304,17 @@ class Messenger {
     ///
     /// Unsubscribes the client from notifications with the given notification name.
     ///
-    /// - Parameter notifName:      The name of the notification the client wishes to unsubscribe from.
+    /// - Parameter notifNames:      The names of the notifications the client wishes to unsubscribe from.
     ///
-    func unsubscribe(from notifName: Notification.Name) {
+    func unsubscribe(from notifNames: Notification.Name...) {
         
-        if let observer = subscriptions[notifName] {
+        for notifName in notifNames {
             
-            notifCtr.removeObserver(observer)
-            subscriptions.removeValue(forKey: notifName)
+            if let observer = subscriptions[notifName] {
+                
+                notifCtr.removeObserver(observer)
+                subscriptions.removeValue(forKey: notifName)
+            }
         }
     }
     

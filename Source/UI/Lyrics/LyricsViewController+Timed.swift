@@ -10,6 +10,10 @@
 
 import AppKit
 
+fileprivate var isKaraokeModeEnabled: Bool {
+    preferences.metadataPreferences.lyrics.enableKaraokeMode.value
+}
+
 extension LyricsViewController {
     
     var fileOpenDialog: NSOpenPanel {DialogsAndAlerts.openLyricsFileDialog}
@@ -26,6 +30,7 @@ extension LyricsViewController {
         
         messenger.subscribeAsync(to: .Player.playbackStateChanged, handler: playbackStateChanged)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: seekPerformed)
+        messenger.subscribeAsync(to: .Lyrics.karaokeModePreferenceUpdated, handler: karaokeModePreferenceUpdated)
     }
     
     @IBAction func loadLyricsButtonAction(_ sender: NSButton) {
@@ -60,8 +65,10 @@ extension LyricsViewController {
     func dismissTimedLyricsView() {
         
         timer.pause()
-        messenger.unsubscribe(from: .Player.playbackStateChanged)
-        messenger.unsubscribe(from: .Player.seekPerformed)
+        
+        messenger.unsubscribe(from: .Player.playbackStateChanged,
+                              .Player.seekPerformed,
+                              .Lyrics.karaokeModePreferenceUpdated)
     }
     
     private var isAutoScrollEnabled: Bool {
@@ -79,6 +86,8 @@ extension LyricsViewController {
             let line = timedLyrics.lines[curLine]
             
             if line.isCurrent(atPosition: seekPos) {
+                
+                if !isKaraokeModeEnabled {return}
                 
                 // Current line is still current. Find the current segment, if required.
                 
@@ -124,6 +133,18 @@ extension LyricsViewController {
     func seekPerformed() {
         highlightCurrentLine()
     }
+    
+    func karaokeModePreferenceUpdated() {
+        
+        self.curSegment = nil
+        
+        if isKaraokeModeEnabled {
+            highlightCurrentLine()
+            
+        } else if let curLine {
+            tableView.reloadRows([curLine])
+        }
+    }
 }
 
 extension LyricsViewController: NSTableViewDataSource {
@@ -158,62 +179,69 @@ extension LyricsViewController: NSTableViewDelegate {
         
         let isCurrentLine = row == self.curLine
         let line = timedLyrics.lines[row]
-        
-        if isCurrentLine, line.segments.isNonEmpty {
-            
-            if let curSegment {
-                
-                var mutStr: NSMutableAttributedString = .init(string: "")
-                
-                let segment = line.segments[curSegment]
-                let segmentLoc = segment.range.location
-                
-                if segmentLoc > 1 {
-                    
-                    let preSegmentRange = NSMakeRange(0, segmentLoc)
 
-                    let subString = line.content.substring(range: preSegmentRange.intRange)
-                    let attrStr =  subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
-                    mutStr = mutStr + attrStr
-                }
-                
-                let subString = line.content.substring(range: segment.range.intRange)
-                mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
-                
-                let segmentLen = segment.range.length
-                let segmentEnd = segmentLoc + segmentLen
-                let contentLength = line.contentLength
-                
-                if segmentEnd < contentLength {
-                    
-                    let postSegmentRange = NSMakeRange(segmentEnd, contentLength - segmentEnd)
-                    
-                    let subString = line.content.substring(range: postSegmentRange.intRange)
-                    let attrStr = subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
-                    mutStr = mutStr + attrStr
-                }
-                
-                cell.attributedText = mutStr
-                
-            } else {
-                
-                // No cur segment
-                
-                cell.text = line.content
-                cell.textFont = systemFontScheme.lyricsHighlightFont
-                cell.textColor = systemColorScheme.primarySelectedTextColor
-            }
-            
+        if isCurrentLine, isKaraokeModeEnabled, line.segments.isNonEmpty {
+            updateCurrentLineCellInKaraokeMode(cell, line: line)
         } else {
-            
-            cell.text = line.content
-            cell.textFont = isCurrentLine ? systemFontScheme.lyricsHighlightFont : systemFontScheme.prominentFont
-            cell.textColor = isCurrentLine ? systemColorScheme.activeControlColor : systemColorScheme.secondaryTextColor
+            updateCellWithDefaultAppearance(cell, line: line, isCurrentLine: isCurrentLine)
         }
         
         cell.textField?.show()
         cell.textField?.lineBreakMode = .byTruncatingTail
         
         return cell
+    }
+    
+    private func updateCurrentLineCellInKaraokeMode(_ cell: AuralTableCellView, line: TimedLyricsLine) {
+        
+        guard let curSegment else {
+            
+            // No current segment (eg. between words)
+            
+            cell.text = line.content
+            cell.textFont = systemFontScheme.lyricsHighlightFont
+            cell.textColor = systemColorScheme.primarySelectedTextColor
+            
+            return
+        }
+        
+        var mutStr: NSMutableAttributedString = .init(string: "")
+        
+        let segment = line.segments[curSegment]
+        let segmentLoc = segment.range.location
+        
+        if segmentLoc > 1 {
+            
+            let preSegmentRange = NSMakeRange(0, segmentLoc)
+            
+            let subString = line.content.substring(range: preSegmentRange.intRange)
+            let attrStr =  subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
+            mutStr = mutStr + attrStr
+        }
+        
+        let subString = line.content.substring(range: segment.range.intRange)
+        mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
+        
+        let segmentLen = segment.range.length
+        let segmentEnd = segmentLoc + segmentLen
+        let contentLength = line.contentLength
+        
+        if segmentEnd < contentLength {
+            
+            let postSegmentRange = NSMakeRange(segmentEnd, contentLength - segmentEnd)
+            
+            let subString = line.content.substring(range: postSegmentRange.intRange)
+            let attrStr = subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
+            mutStr = mutStr + attrStr
+        }
+        
+        cell.attributedText = mutStr
+    }
+    
+    private func updateCellWithDefaultAppearance(_ cell: AuralTableCellView, line: TimedLyricsLine, isCurrentLine: Bool) {
+        
+        cell.text = line.content
+        cell.textFont = isCurrentLine ? systemFontScheme.lyricsHighlightFont : systemFontScheme.prominentFont
+        cell.textColor = isCurrentLine ? systemColorScheme.activeControlColor : systemColorScheme.secondaryTextColor
     }
 }

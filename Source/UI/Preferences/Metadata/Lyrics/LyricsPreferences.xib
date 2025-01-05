@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="btnEnableAutoScroll" destination="FXN-q7-QXF" id="X7u-OC-Yjl"/>
                 <outlet property="btnEnableAutoShowWindow" destination="yd1-72-Yf8" id="BZT-Mf-geN"/>
+                <outlet property="btnEnableKaraokeMode" destination="vYe-YM-Jep" id="lTn-AI-jRN"/>
                 <outlet property="lblLyricsFolder" destination="B4P-Hb-LUM" id="FU4-je-o2p"/>
                 <outlet property="view" destination="W8Y-oq-0wu" id="YaQ-nL-8LG"/>
             </connections>
@@ -21,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yd1-72-Yf8" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="26" y="243" width="515" height="32"/>
+                    <rect key="frame" x="26" y="253" width="515" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Automatically show Lyrics window when playing a track that has lyrics" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Xav-Fp-VUg">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -29,15 +30,15 @@
                     </buttonCell>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FXN-q7-QXF" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="26" y="200" width="515" height="32"/>
+                    <rect key="frame" x="41" y="170" width="515" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Automatically scroll to show the current lyrics line (for synchronized lyrics only)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kQB-Cf-nc1">
+                    <buttonCell key="cell" type="check" title="Automatically scroll to show the current lyrics line" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kQB-Cf-nc1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4P-Hb-LUM">
-                    <rect key="frame" x="46" y="132" width="520" height="22"/>
+                    <rect key="frame" x="61" y="82" width="395" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingHead" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" id="gVS-Zj-f6c" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -46,7 +47,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pP1-Np-lPR">
-                    <rect key="frame" x="44" y="160" width="399" height="20"/>
+                    <rect key="frame" x="59" y="110" width="399" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Look for synchronized lyrics files (LRC / LRCX) in directory:" id="Ahy-EN-3fU">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -55,9 +56,9 @@
                     </textFieldCell>
                 </textField>
                 <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ryU-o6-Lar" userLabel="Btn Browse">
-                    <rect key="frame" x="457" y="155" width="116" height="32"/>
+                    <rect key="frame" x="472" y="105" width="116" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Npq-Np-IAU">
+                    <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" image="folder" catalog="system" imagePosition="trailing" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Npq-Np-IAU">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -68,8 +69,40 @@ DQ
                         <action selector="chooseLyricsFolderAction:" target="-2" id="cbC-yq-4Nk"/>
                     </connections>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYe-YM-Jep" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="41" y="140" width="515" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Enable Karaoke mode (when time tags are available )" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rfF-Mj-AhF">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CBd-Of-GfX">
+                    <rect key="frame" x="472" y="77" width="116" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" image="xmark.circle" catalog="system" imagePosition="trailing" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gFz-7h-9Lv">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clearLyricsFolderAction:" target="-2" id="x5T-m4-CKc"/>
+                    </connections>
+                </button>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6eJ-Yg-8mL">
+                    <rect key="frame" x="26" y="212" width="281" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Synchronized lyrics" id="emH-jl-zDa">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="148" y="-450"/>
         </view>
     </objects>
+    <resources>
+        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="xmark.circle" catalog="system" width="15" height="15"/>
+    </resources>
 </document>

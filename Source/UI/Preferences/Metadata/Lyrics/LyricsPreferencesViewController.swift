@@ -16,6 +16,7 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
     
     @IBOutlet weak var btnEnableAutoShowWindow: CheckBox!
     @IBOutlet weak var btnEnableAutoScroll: CheckBox!
+    @IBOutlet weak var btnEnableKaraokeMode: CheckBox!
     @IBOutlet weak var lblLyricsFolder: NSTextField!
     
     private var lyricsFilesFolder: URL?
@@ -32,6 +33,7 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
         
         btnEnableAutoShowWindow.onIf(lyricsPrefs.showWindowWhenPresent.value)
         btnEnableAutoScroll.onIf(lyricsPrefs.enableAutoScroll.value)
+        btnEnableKaraokeMode.onIf(lyricsPrefs.enableKaraokeMode.value)
         
         if let dir = lyricsPrefs.lyricsFilesDirectory.value {
             lblLyricsFolder.stringValue = dir.path
@@ -51,13 +53,26 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
         }
     }
     
+    @IBAction func clearLyricsFolderAction(_ sender: NSButton) {
+        lblLyricsFolder.stringValue = ""
+    }
+    
     func save() throws {
         
         lyricsPrefs.showWindowWhenPresent.value = btnEnableAutoShowWindow.isOn
         lyricsPrefs.enableAutoScroll.value = btnEnableAutoScroll.isOn
         
+        let oldKaraokeModeValue = lyricsPrefs.enableKaraokeMode.value
+        lyricsPrefs.enableKaraokeMode.value = btnEnableKaraokeMode.isOn
+        
         if !String.isEmpty(lblLyricsFolder.stringValue) {
             lyricsPrefs.lyricsFilesDirectory.value = URL(fileURLWithPath: lblLyricsFolder.stringValue)
+        } else {
+            lyricsPrefs.lyricsFilesDirectory.value = nil
+        }
+        
+        if lyricsPrefs.enableKaraokeMode.value != oldKaraokeModeValue {
+            Messenger.publish(.Lyrics.karaokeModePreferenceUpdated)
         }
     }
 }

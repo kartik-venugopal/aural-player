@@ -22,6 +22,10 @@ class LyricsPreferences {
     lazy var enableAutoScroll: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoScroll",
                                                             defaultValue: Defaults.enableAutoSearch)
     
+    // For timed (LRC) lyrics only
+    lazy var enableKaraokeMode: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableKaraokeMode",
+                                                             defaultValue: Defaults.enableKaraokeMode)
+    
     lazy var lyricsFilesDirectory: OptionalUserPreference<URL> = .init(defaultsKey: "\(Self.keyPrefix).lyricsFilesDirectory")
     
     lazy var enableAutoSearch: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoSearch",

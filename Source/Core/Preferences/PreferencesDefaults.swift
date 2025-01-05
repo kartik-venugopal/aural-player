@@ -159,6 +159,7 @@ struct PreferencesDefaults {
             
             static let showWindowWhenPresent: Bool = true
             static let enableAutoScroll: Bool = true
+            static let enableKaraokeMode: Bool = true
             
             static let enableAutoSearch: Bool = true
             static let showTranslations: Bool = true
