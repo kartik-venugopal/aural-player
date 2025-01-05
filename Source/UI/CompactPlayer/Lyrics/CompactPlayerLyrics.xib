@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="Gmv-Z7-M5H" userLabel="Compact Play Queue">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="uk9-hs-UDb">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="390"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VB1-cw-yTt" userLabel="Caption Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="8" y="360" width="114" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="110" id="uUI-1x-dY7"/>
+                            <constraint firstAttribute="height" constant="25" id="xIS-El-b6H"/>
+                        </constraints>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Lyrics" id="NdY-sI-U4n">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <tabView appearanceType="darkAqua" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="szN-4T-TLA" userLabel="Tab group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="15" y="15" width="270" height="330"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="Metadata" identifier="0" id="BMW-oX-4xa" userLabel="Metadata" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="QeG-IA-16e">
+                                    <rect key="frame" x="0.0" y="0.0" width="270" height="330"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Lyrics" identifier="1" id="eVb-lz-9fx" userLabel="Lyrics" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="omG-qq-syO">
+                                    <rect key="frame" x="0.0" y="0.0" width="270" height="315"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Cover Art" identifier="2" id="zoq-9E-Vwa" userLabel="Cover Art" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="pfd-5E-A6n">
+                                    <rect key="frame" x="0.0" y="0.0" width="270" height="315"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Audio" identifier="3" id="AW2-8f-5zr" userLabel="Audio" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="MD7-3S-fak">
+                                    <rect key="frame" x="0.0" y="0.0" width="270" height="315"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="File System" identifier="4" id="HOT-Wm-tiB" userLabel="File System" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="X6y-wW-7wF">
+                                    <rect key="frame" x="0.0" y="0.0" width="270" height="315"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                    </tabView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="szN-4T-TLA" secondAttribute="trailing" constant="15" id="8Ji-8h-A3S"/>
+                    <constraint firstItem="VB1-cw-yTt" firstAttribute="top" secondItem="uk9-hs-UDb" secondAttribute="top" constant="5" id="VFl-Oj-kBp"/>
+                    <constraint firstItem="szN-4T-TLA" firstAttribute="top" secondItem="VB1-cw-yTt" secondAttribute="bottom" constant="15" id="bHa-jD-JUq"/>
+                    <constraint firstItem="VB1-cw-yTt" firstAttribute="leading" secondItem="uk9-hs-UDb" secondAttribute="leading" constant="10" id="baC-xC-rnt"/>
+                    <constraint firstAttribute="bottom" secondItem="szN-4T-TLA" secondAttribute="bottom" constant="15" id="njz-9Y-BVR"/>
+                    <constraint firstItem="szN-4T-TLA" firstAttribute="leading" secondItem="uk9-hs-UDb" secondAttribute="leading" constant="15" id="rJ3-m4-b2T"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="44" y="48"/>
+        </box>
+    </objects>
+</document>
