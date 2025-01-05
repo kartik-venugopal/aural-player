@@ -31,6 +31,7 @@ class LyricsViewController: NSViewController {
     
     var timedLyrics: TimedLyrics?
     var curLine: Int?
+    var curSegment: Int?
     
     lazy var messenger = Messenger(for: self)
     

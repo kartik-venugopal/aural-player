@@ -458,7 +458,6 @@
 		3E10179028D7722B002C0D8E /* EffectsUnitToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */; };
 		3E1341282B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */; };
 		3E13412A2B6F0115009782B6 /* TrackInfoViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */; };
-		3E143C592D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */; };
 		3E143C5B2D26010A00F40A67 /* LyricsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */; };
 		3E154A912BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */; };
 		3E1572AC2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1572AB2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift */; };
@@ -969,6 +968,8 @@
 		3ED373F52C71803F00836511 /* FFmpegPacketSideData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED373F42C71803F00836511 /* FFmpegPacketSideData.swift */; };
 		3ED65A532C45BA3000859677 /* PlayerViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */; };
 		3ED65A552C45BAD000859677 /* PlayerViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */; };
+		3ED8831C2D296A9E00F39E68 /* CompactPlayerLyrics.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8831B2D296A9E00F39E68 /* CompactPlayerLyrics.xib */; };
+		3ED8831E2D296AB200F39E68 /* CompactPlayerLyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8831D2D296AB200F39E68 /* CompactPlayerLyricsViewController.swift */; };
 		3ED8E74A281482C9002E313F /* TableImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E749281482C9002E313F /* TableImageCell.swift */; };
 		3ED8E74F2814A312002E313F /* GeneralColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E74D2814A312002E313F /* GeneralColorSchemeViewController.swift */; };
 		3ED8E7502814A312002E313F /* GeneralColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8E74E2814A312002E313F /* GeneralColorScheme.xib */; };
@@ -1543,7 +1544,6 @@
 		3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitToggle.swift; sourceTree = "<group>"; };
 		3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+MenuDelegate.swift"; sourceTree = "<group>"; };
 		3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+Theming.swift"; sourceTree = "<group>"; };
-		3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LyricsViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsExtensions.swift; sourceTree = "<group>"; };
 		3E154A902BFA03A100F18EE9 /* EffectsPresetsManagerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPresetsManagerWindowController.swift; sourceTree = "<group>"; };
 		3E1572AB2C28C0C2006E9965 /* AudioUnitEditorDialogController+PresetsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitEditorDialogController+PresetsMenu.swift"; sourceTree = "<group>"; };
@@ -2128,6 +2128,8 @@
 		3ED373F42C71803F00836511 /* FFmpegPacketSideData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegPacketSideData.swift; sourceTree = "<group>"; };
 		3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Actions.swift"; sourceTree = "<group>"; };
 		3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Theming.swift"; sourceTree = "<group>"; };
+		3ED8831B2D296A9E00F39E68 /* CompactPlayerLyrics.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactPlayerLyrics.xib; sourceTree = "<group>"; };
+		3ED8831D2D296AB200F39E68 /* CompactPlayerLyricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayerLyricsViewController.swift; sourceTree = "<group>"; };
 		3ED8E749281482C9002E313F /* TableImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableImageCell.swift; sourceTree = "<group>"; };
 		3ED8E74D2814A312002E313F /* GeneralColorSchemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3ED8E74E2814A312002E313F /* GeneralColorScheme.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralColorScheme.xib; sourceTree = "<group>"; };
@@ -5107,7 +5109,6 @@
 				3EAF727A2D25B24700E24245 /* LyricsViewController.swift */,
 				3E57443C2D262104004B5AE7 /* LyricsViewController+Static.swift */,
 				3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */,
-				3E143C582D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift */,
 				3EA21A452D2763B3008B5B21 /* LyricsFileDropView.swift */,
 				3E719D8C2D28A105000A33B9 /* SheetView */,
 				3E719D8D2D28A12D000A33B9 /* Utils */,
@@ -5248,6 +5249,7 @@
 				3EC793842B746C6000AF7E9E /* PlayQueue */,
 				3E8B8C382BF004AB0025D60B /* ChaptersList */,
 				3E2EA6E72BD322D7001ABFEE /* TrackInfo */,
+				3ED8831A2D296A6700F39E68 /* Lyrics */,
 			);
 			path = CompactPlayer;
 			sourceTree = "<group>";
@@ -5501,6 +5503,15 @@
 				3E634D772846BDE2008A47EC /* LibraryHoverControlsBox.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		3ED8831A2D296A6700F39E68 /* Lyrics */ = {
+			isa = PBXGroup;
+			children = (
+				3ED8831B2D296A9E00F39E68 /* CompactPlayerLyrics.xib */,
+				3ED8831D2D296AB200F39E68 /* CompactPlayerLyricsViewController.swift */,
+			);
+			path = Lyrics;
 			sourceTree = "<group>";
 		};
 		3ED8E74C2814A312002E313F /* General */ = {
@@ -5824,6 +5835,7 @@
 				3E6C121D25CEBDE600BF0D07 /* Preferences.xib in Resources */,
 				3EA3335B2AE098620041B4FA /* MenuBarPlayer.xib in Resources */,
 				3E2C4BD72B38E5E600FC65DD /* SearchWindow.xib in Resources */,
+				3ED8831C2D296A9E00F39E68 /* CompactPlayerLyrics.xib in Resources */,
 				3EC7937F2B745E0800AF7E9E /* EffectsSheetView.xib in Resources */,
 				3ED2385928207E2C0048CF8E /* FilterBandEditorDialog.xib in Resources */,
 				3E6C121525CEBDE500BF0D07 /* ViewPreferences.xib in Resources */,
@@ -6000,7 +6012,6 @@
 				3E0219412C23490E00865AC2 /* MusicBrainzCoverArtArchive.swift in Sources */,
 				3E0219842C23490E00865AC2 /* IntExtensions.swift in Sources */,
 				3E02193B2C23490E00865AC2 /* MetadataFormat.swift in Sources */,
-				3E143C592D25E6BB00F40A67 /* LyricsViewController+TableViewDelegate.swift in Sources */,
 				3E6C123A25CEBDF400BF0D07 /* ChaptersListWindowController.swift in Sources */,
 				3E0218C32C23490E00865AC2 /* SavePlaybackProfileAction.swift in Sources */,
 				3EAF727B2D25B24700E24245 /* LyricsViewController.swift in Sources */,
@@ -6315,6 +6326,7 @@
 				3E02195A2C23490E00865AC2 /* SearchResultLocation.swift in Sources */,
 				3E02199A2C23490E00865AC2 /* MenuItemMappable.swift in Sources */,
 				3E2000C7267CEEF7008BAB70 /* GesturesPreferencesViewController.swift in Sources */,
+				3ED8831E2D296AB200F39E68 /* CompactPlayerLyricsViewController.swift in Sources */,
 				3E0218072C23490E00865AC2 /* ReverbUnitProtocol.swift in Sources */,
 				3EC7425D2C41C6E300C100DE /* AVFScheduler+Gapless.swift in Sources */,
 				3E02191F2C23490E00865AC2 /* RemoteCommandManager.swift in Sources */,

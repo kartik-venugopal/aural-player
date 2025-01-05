@@ -154,13 +154,3 @@ import Cocoa
 //        90 + (percentage * 360 / 100)
 //    }
 //}
-
-extension String {
-    
-    ///
-    /// Converts this ``String`` to a ``NSAttributedString`` with the given font and color as attributes.
-    ///
-    func attributed(withFont font: NSFont, andColor color: NSColor) -> NSAttributedString {
-        return NSAttributedString(string: self, attributes: [.font: font, .foregroundColor: color])
-    }
-}

@@ -415,6 +415,13 @@ extension String {
     func encodedAsURLQueryParameter() -> String {
         self.replacingOccurrences(of: " ", with: "+").addingPercentEncoding(withAllowedCharacters: .queryParmCharacters) ?? self.replacingOccurrences(of: " ", with: "+")
     }
+    
+    ///
+    /// Converts this ``String`` to a ``NSAttributedString`` with the given font and color as attributes.
+    ///
+    func attributed(withFont font: NSFont, andColor color: NSColor) -> NSAttributedString {
+        return NSAttributedString(string: self, attributes: [.font: font, .foregroundColor: color])
+    }
 }
 
 extension Character {
@@ -471,5 +478,12 @@ extension NSMutableAttributedString {
 //        return result
         left.append(right)
         return left
+    }
+}
+
+extension NSRange {
+    
+    var intRange: Range<Int> {
+        location..<(location + length)
     }
 }

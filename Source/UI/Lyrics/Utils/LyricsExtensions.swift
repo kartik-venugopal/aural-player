@@ -10,9 +10,8 @@
 
 import Foundation
 import LyricsCore
-import LyricsXCore
 
-extension LyricsCore.Lyrics {
+extension Lyrics {
     
     var offset: TimeInterval {
         
@@ -51,7 +50,7 @@ extension LyricsCore.Lyrics {
     ///   - lyrics: The lyrics to save
     ///   - url: The destination URL
     ///
-    private func persistLyrics(_ lyrics: LyricsCore.Lyrics, to url: URL) {
+    private func persistLyrics(_ lyrics: Lyrics, to url: URL) {
         
         url.parentDir.createDirectory()
 

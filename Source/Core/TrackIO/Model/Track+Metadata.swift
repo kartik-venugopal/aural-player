@@ -152,7 +152,7 @@ extension Track {
     }
     
     var hasLyrics: Bool {
-        metadata.lyrics != nil || metadata.timedLyrics != nil
+        metadata.lyrics != nil || metadata.timedLyrics != nil || metadata.externalTimedLyrics != nil
     }
     
     // Non-essential metadata

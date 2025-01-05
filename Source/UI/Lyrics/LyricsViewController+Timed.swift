@@ -19,6 +19,7 @@ extension LyricsViewController {
         tabView.selectTabViewItem(at: 1)
         
         curLine = nil
+        curSegment = nil
         tableView.reloadData()
         
         track != nil ? timer.startOrResume() : timer.pause()
@@ -73,10 +74,29 @@ extension LyricsViewController {
         
         let seekPos = playbackInfoDelegate.seekPosition.timeElapsed
         
-        if let curLine, timedLyrics.lines[curLine].isCurrent(atPosition: seekPos) {
+        if let curLine {
             
-            // Current line is still current, do nothing.
-            return
+            let line = timedLyrics.lines[curLine]
+            
+            if line.isCurrent(atPosition: seekPos) {
+                
+                // Current line is still current. Find the current segment, if required.
+                
+                if line.segments.isEmpty {return}
+                
+                if let curSegment, line.segments[curSegment].isCurrent(atPosition: seekPos) {return}
+                
+                // No current segment or segment no longer current, find the new current one.
+                let newCurSegment = line.findCurrentSegment(at: seekPos)
+                
+                if self.curSegment != newCurSegment {
+                    
+                    self.curSegment = newCurSegment
+                    tableView.reloadRows([curLine])
+                }
+                
+                return
+            }
         }
         
         let newCurLine = timedLyrics.currentLine(at: seekPos)
@@ -85,7 +105,10 @@ extension LyricsViewController {
             
             // Try curLine + 1 (in most cases, playback proceeds sequentially, so this is the most likely line to match)
             let refreshIndices = [self.curLine, newCurLine].compactMap {$0}
+            
             self.curLine = newCurLine
+            self.curSegment = nil
+            
             tableView.reloadRows(refreshIndices)
             
             if isAutoScrollEnabled, let curLine {
@@ -100,5 +123,97 @@ extension LyricsViewController {
 
     func seekPerformed() {
         highlightCurrentLine()
+    }
+}
+
+extension LyricsViewController: NSTableViewDataSource {
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {timedLyrics?.lines.count ?? 0}
+}
+
+extension LyricsViewController: NSTableViewDelegate {
+    
+    private static let rowHeight: CGFloat = 30
+    
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        Self.rowHeight
+    }
+    
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        
+        // Seek to clicked line.
+        if let timedLyrics, timedLyrics.lines.indices.contains(row) {
+            messenger.publish(.Player.jumpToTime, payload: max(0, timedLyrics.lines[row].position))
+        }
+        
+        return false
+    }
+    
+    // Returns a view for a single column
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        guard let timedLyrics,
+              let cell = tableView.makeView(withIdentifier: .cid_lyricsLine, owner: nil) as? AuralTableCellView
+        else {return nil}
+        
+        let isCurrentLine = row == self.curLine
+        let line = timedLyrics.lines[row]
+        
+        if isCurrentLine, line.segments.isNonEmpty {
+            
+            if let curSegment {
+                
+                var mutStr: NSMutableAttributedString = .init(string: "")
+                
+                let segment = line.segments[curSegment]
+                let segmentLoc = segment.range.location
+                
+                if segmentLoc > 1 {
+                    
+                    let preSegmentRange = NSMakeRange(0, segmentLoc)
+
+                    let subString = line.content.substring(range: preSegmentRange.intRange)
+                    let attrStr =  subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
+                    mutStr = mutStr + attrStr
+                }
+                
+                let subString = line.content.substring(range: segment.range.intRange)
+                mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
+                
+                let segmentLen = segment.range.length
+                let segmentEnd = segmentLoc + segmentLen
+                let contentLength = line.contentLength
+                
+                if segmentEnd < contentLength {
+                    
+                    let postSegmentRange = NSMakeRange(segmentEnd, contentLength - segmentEnd)
+                    
+                    let subString = line.content.substring(range: postSegmentRange.intRange)
+                    let attrStr = subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
+                    mutStr = mutStr + attrStr
+                }
+                
+                cell.attributedText = mutStr
+                
+            } else {
+                
+                // No cur segment
+                
+                cell.text = line.content
+                cell.textFont = systemFontScheme.lyricsHighlightFont
+                cell.textColor = systemColorScheme.primarySelectedTextColor
+            }
+            
+        } else {
+            
+            cell.text = line.content
+            cell.textFont = isCurrentLine ? systemFontScheme.lyricsHighlightFont : systemFontScheme.prominentFont
+            cell.textColor = isCurrentLine ? systemColorScheme.activeControlColor : systemColorScheme.secondaryTextColor
+        }
+        
+        cell.textField?.show()
+        cell.textField?.lineBreakMode = .byTruncatingTail
+        
+        return cell
     }
 }
