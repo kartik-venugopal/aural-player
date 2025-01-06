@@ -201,13 +201,31 @@ struct TimedLyricsPersistentState: Codable {
 struct TimedLyricsLinePersistentState: Codable {
     
     let content: String?
+ 
     let position: TimeInterval?
     let maxPosition: TimeInterval?
+    
+    let segments: [TimedLyricsLineSegmentPersistentState]?
     
     init(lyricsLine: TimedLyricsLine) {
         
         self.content = lyricsLine.content
         self.position = lyricsLine.position
         self.maxPosition = lyricsLine.maxPosition
+        self.segments = lyricsLine.segments.map {.init(segment: $0)}
+    }
+}
+
+struct TimedLyricsLineSegmentPersistentState: Codable {
+    
+    let startPos: TimeInterval?
+    let endPos: TimeInterval?
+    let range: NSRange?
+    
+    init(segment: TimedLyricsLineSegment) {
+        
+        self.startPos = segment.startPos
+        self.endPos = segment.endPos
+        self.range = segment.range
     }
 }

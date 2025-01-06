@@ -212,29 +212,15 @@ extension LyricsViewController: NSTableViewDelegate {
         var mutStr: NSMutableAttributedString = .init(string: "")
         
         let segment = line.segments[curSegment]
-        let segmentLoc = segment.range.location
         
-        if segmentLoc > 1 {
-            
-            let preSegmentRange = NSMakeRange(0, segmentLoc)
-            
-            let subString = line.content.substring(range: preSegmentRange.intRange)
-            mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
+        if !String.isEmpty(segment.preSegmentContent) {
+            mutStr = mutStr + segment.preSegmentContent.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
         }
-        
-        let subString = line.content.substring(range: segment.range.intRange)
-        mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
-        
-        let segmentLen = segment.range.length
-        let segmentEnd = segmentLoc + segmentLen
-        let contentLength = line.contentLength
-        
-        if segmentEnd < contentLength {
             
-            let postSegmentRange = NSMakeRange(segmentEnd, contentLength - segmentEnd)
-            
-            let subString = line.content.substring(range: postSegmentRange.intRange)
-            mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
+        mutStr = mutStr + segment.content.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
+        
+        if !String.isEmpty(segment.postSegmentContent) {
+            mutStr = mutStr + segment.postSegmentContent.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
         }
         
         cell.attributedText = mutStr

@@ -12,7 +12,7 @@ import Foundation
 import LyricsCore
 import LyricsXCore
 
-struct TimedLyrics {
+class TimedLyrics {
     
     let lines: [TimedLyricsLine]
     
@@ -65,15 +65,28 @@ struct TimedLyrics {
     }
 }
 
-struct TimedLyricsLine {
+class TimedLyricsLine {
     
     let content: String
-    let position: TimeInterval
-    var maxPosition: TimeInterval
-    let segments: [TimedLyricsLineSegment]
     
-    var contentLength: Int {
-        content.count
+    let position: TimeInterval
+    let maxPosition: TimeInterval
+
+    let segments: [TimedLyricsLineSegment]
+    let numSegments: Int
+    
+    subscript(segmentsContent range: Range<Int>) -> String {
+        
+        let indices = segments.indices
+        guard let min = range.min(), let max = range.max(), indices.contains(min), indices.contains(max) else {return ""}
+        
+        var str = ""
+        
+        for index in range {
+            str += segments[index].content
+        }
+
+        return str
     }
     
     init(content: String, position: TimeInterval, maxPosition: TimeInterval,
@@ -84,9 +97,6 @@ struct TimedLyricsLine {
         self.maxPosition = maxPosition
         
         var segments: [TimedLyricsLineSegment] = []
-        
-//        print("\n---------------------------------------------")
-//        print("For line: \(content)\n")
         
         for (index, tag) in timeTags.enumerated() {
             
@@ -102,13 +112,29 @@ struct TimedLyricsLine {
                 }
                 
                 if startPos >= position, endPos <= maxPosition, startPos < endPos, let range {
-                    segments.append(.init(startPos: position + tag.time, endPos: position + nextTag.time, range: range))
-//                    print("Segment \(segments.count): \(startPos), \(endPos), \(range)")
+                    
+                    let segmentContent = content.substring(range: range.intRange)
+                    segments.append(.init(startPos: position + tag.time, endPos: position + nextTag.time, range: range, content: segmentContent))
                 }
             }
         }
         
         self.segments = segments
+        self.numSegments = segments.count
+        
+        updatePreAndPostSegmentContent()
+    }
+    
+    private func updatePreAndPostSegmentContent() {
+        
+        for (index, segment) in segments.enumerated() {
+            
+            let preSegmentContent = index > 0 ? self[segmentsContent: 0..<index] : ""
+            let postSegmentContent = (index + 1) < numSegments ? self[segmentsContent: (index + 1)..<numSegments] : ""
+            
+            segment.preSegmentContent = preSegmentContent
+            segment.postSegmentContent = postSegmentContent
+        }
     }
     
     init?(persistentState: TimedLyricsLinePersistentState) {
@@ -121,8 +147,12 @@ struct TimedLyricsLine {
         self.position = position
         self.maxPosition = maxPosition
         
-        // TODO: Implement this!
-        self.segments = []
+        self.segments = persistentState.segments?.compactMap {
+            TimedLyricsLineSegment(persistentState: $0, lineContent: content)
+        } ?? []
+        
+        self.numSegments = segments.count
+        updatePreAndPostSegmentContent()
     }
     
     fileprivate func relativePosition(to target: TimeInterval) -> LyricsLineRelativePosition {
@@ -169,11 +199,36 @@ struct TimedLyricsLine {
     }
 }
 
-struct TimedLyricsLineSegment {
+class TimedLyricsLineSegment {
     
     let startPos: TimeInterval
     let endPos: TimeInterval
+    
     let range: NSRange
+    
+    let content: String
+    var preSegmentContent: String = ""
+    var postSegmentContent: String = ""
+    
+    init(startPos: TimeInterval, endPos: TimeInterval, range: NSRange, content: String) {
+        
+        self.startPos = startPos
+        self.endPos = endPos
+        self.range = range
+        self.content = content
+    }
+    
+    init?(persistentState: TimedLyricsLineSegmentPersistentState, lineContent: String) {
+        
+        guard let startPos = persistentState.startPos,
+              let endPos = persistentState.endPos,
+              let range = persistentState.range else {return nil}
+        
+        self.startPos = startPos
+        self.endPos = endPos
+        self.range = range
+        self.content = lineContent.substring(range: range.intRange)
+    }
     
     func isCurrent(atPosition target: TimeInterval) -> Bool {
         target >= startPos && target <= endPos
