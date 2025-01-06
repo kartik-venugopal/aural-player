@@ -74,7 +74,7 @@ class LyricsViewController: NSViewController {
         tabView.selectedIndex == 1
     }
     
-    private func updateForTrack(_ track: Track?) {
+    func updateForTrack(_ track: Track?) {
         
         self.track = track
         
@@ -105,7 +105,7 @@ class LyricsViewController: NSViewController {
         }
     }
     
-    private func trackTransitioned(_ notif: TrackTransitionNotification) {
+    func trackTransitioned(_ notif: TrackTransitionNotification) {
         
         if appModeManager.isShowingLyrics {
             updateForTrack(notif.endTrack)

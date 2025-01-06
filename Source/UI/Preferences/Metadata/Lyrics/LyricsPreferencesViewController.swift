@@ -21,6 +21,8 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
     
     private var lyricsFilesFolder: URL?
     
+    private static let disabledControlTooltip: String = "<This preference is only applicable to the \"Modular\" and \"Unified\" app modes>"
+    
     var preferencesView: NSView {
         view
     }
@@ -40,6 +42,16 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
         } else {
             lblLyricsFolder.stringValue = ""
         }
+        
+        disableIrrelevantControls()
+    }
+    
+    private func disableIrrelevantControls() {
+        
+        guard let currentMode = appModeManager.currentMode, !currentMode.equalsOneOf(.modular, .unified) else {return}
+        
+        btnEnableAutoShowWindow.disable()
+        btnEnableAutoShowWindow.toolTip = Self.disabledControlTooltip
     }
     
     @IBAction func chooseLyricsFolderAction(_ sender: NSButton) {

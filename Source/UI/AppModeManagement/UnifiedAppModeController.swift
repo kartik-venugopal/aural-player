@@ -54,7 +54,7 @@ class UnifiedAppModeController: AppModeController {
     }
 
     var isShowingLyrics: Bool {
-        true
+        windowController?.isShowingLyrics ?? false
     }
 
     var isShowingEffects: Bool {

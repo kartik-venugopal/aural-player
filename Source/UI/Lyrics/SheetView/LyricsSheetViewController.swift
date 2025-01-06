@@ -17,16 +17,25 @@ class LyricsSheetViewController: NSViewController {
     @IBOutlet weak var btnClose: TintedImageButton!
     @IBOutlet weak var lyricsViewController: LyricsViewController!
     
+    private static let windowMinSize: NSSize = NSMakeSize(400, 200)
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         view.addSubview(lyricsViewController.view)
+        
         lyricsViewController.view.anchorToSuperview()
         
         btnClose.bringToFront()
         
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnClose)
+    }
+    
+    override func viewDidAppear() {
+        
+        super.viewDidAppear()
+        view.window?.minSize = Self.windowMinSize
     }
     
     @IBAction func closeAction(_ sender: NSButton) {

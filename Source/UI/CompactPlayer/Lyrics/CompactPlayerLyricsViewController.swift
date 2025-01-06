@@ -35,4 +35,15 @@ class CompactPlayerLyricsViewController: LyricsViewController {
         // The desired row height is the maximum of the two heights, plus some padding
         return max(30, rowHeight + 5)
     }
+    
+    override func trackTransitioned(_ notif: TrackTransitionNotification) {
+        
+        guard appModeManager.isShowingLyrics else {return}
+            
+        updateForTrack(notif.endTrack)
+        
+        if notif.endTrack == nil {
+            messenger.publish(.View.CompactPlayer.showPlayer)
+        }
+    }
 }

@@ -34,6 +34,16 @@ class EffectsSheetViewController: NSViewController {
         effectsViewController.showTab(.master)
     }
     
+    override func viewDidAppear() {
+        
+        super.viewDidAppear()
+        
+        // Disable resizing of the view
+        let contentSize = effectsViewController.view.frame.size
+        view.window?.minSize = contentSize
+        view.window?.maxSize = contentSize
+    }
+    
     @IBAction func closeAction(_ sender: NSButton) {
         endSheet()
     }

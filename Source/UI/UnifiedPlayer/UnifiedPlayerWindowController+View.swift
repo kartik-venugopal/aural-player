@@ -17,11 +17,15 @@ extension UnifiedPlayerWindowController {
     }
     
     var isShowingEffects: Bool {
-        attachedSheetViewController != nil
+        attachedSheetViewController == effectsSheetViewController
     }
     
     var isShowingChaptersList: Bool {
         tabGroup.selectedIndex == 1
+    }
+    
+    var isShowingLyrics: Bool {
+        attachedSheetViewController == lyricsSheetViewController
     }
     
     // TODO: Viz

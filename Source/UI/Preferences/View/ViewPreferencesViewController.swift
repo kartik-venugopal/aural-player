@@ -44,12 +44,12 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
 
         btnShowLyricsTranslation.onIf(viewPrefs.showLyricsTranslation.value)
 
-        if appModeManager.currentMode != .modular {
-            disableIrrelevantControls()
-        }
+        disableIrrelevantControls()
     }
     
     private func disableIrrelevantControls() {
+        
+        guard appModeManager.currentMode != .modular else {return}
         
         [btnSnapToWindows, gapStepper].forEach {
             
