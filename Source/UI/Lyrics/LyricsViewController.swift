@@ -10,6 +10,8 @@
 
 import AppKit
 import LyricsCore
+import LyricsService
+import MusicPlayer
 
 class LyricsViewController: NSViewController {
     
@@ -80,6 +82,15 @@ class LyricsViewController: NSViewController {
         
         self.timedLyrics = track?.externalOrEmbeddedTimedLyrics
         
+        if let track, timedLyrics == nil {
+            searchForLyricsOnline(for: track)
+        }
+        
+        doUpdate()
+    }
+    
+    func doUpdate() {
+        
         if timedLyrics != nil {
             
             dismissStaticLyricsText()
@@ -109,6 +120,34 @@ class LyricsViewController: NSViewController {
         
         if appModeManager.isShowingLyrics {
             updateForTrack(notif.endTrack)
+        }
+    }
+    
+    var onlineSearchEnabled: Bool {
+        preferences.metadataPreferences.lyrics.enableAutoSearch.value
+    }
+    
+    private func searchForLyricsOnline(for track: Track) {
+        
+        guard onlineSearchEnabled else {return}
+        
+        let searchService = LyricsSearchService()
+        
+        Task.detached(priority: .userInitiated) {
+            
+            if let bestLyrics = await searchService.searchLyrics(for: track) {
+
+                // Update the UI
+                await MainActor.run {
+                    
+                    self.timedLyrics = TimedLyrics(from: bestLyrics, trackDuration: track.duration)
+                    self.doUpdate()
+                }
+                
+                if let cachedLyricsFile = bestLyrics.persistToFile(track.defaultDisplayName) {
+                    track.metadata.externalLyricsFile = cachedLyricsFile
+                }
+            }
         }
     }
     
@@ -171,5 +210,25 @@ extension LyricsViewController: ColorSchemeObserver {
         } else {
             updateStaticLyricsText()
         }
+    }
+}
+
+fileprivate extension LyricsSearchService {
+    
+    func searchLyrics(for track: Track) async -> Lyrics? {
+        
+        let musicTrack = MusicTrack(
+            id: track.defaultDisplayName,
+            title: track.title,
+            album: track.album,
+            artist: track.artist,
+            duration: track.duration,
+            fileURL: track.file,
+            artwork: track.art?.originalImage?.image,
+            originalTrack: track
+        )
+        
+        let allLyrics = await searchLyrics(with: musicTrack.searchQuery)
+        return allLyrics.bestMatch(for: musicTrack)
     }
 }

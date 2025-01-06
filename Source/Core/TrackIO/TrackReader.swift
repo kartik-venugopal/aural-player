@@ -40,7 +40,6 @@ class TrackReader {
             
             track.metadata = cachedMetadata
             
-            // TODO: Temporary (can be removed after a few versions)
             loadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: true)
             
             doLoadMetadata(for: track, onQueue: opQueue,

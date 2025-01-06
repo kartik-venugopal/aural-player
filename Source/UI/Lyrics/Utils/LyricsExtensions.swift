@@ -10,6 +10,7 @@
 
 import Foundation
 import LyricsCore
+import MusicPlayer
 
 extension Lyrics {
     
@@ -23,10 +24,12 @@ extension Lyrics {
     }
     
     /// Saves lyrics to the lyrics directory with .lrcx format.
-    func persistToFile(_ fileName: String) {
+    func persistToFile(_ fileName: String) -> URL? {
         
         let url = FilesAndPaths.lyricsDir.appendingPathComponent(fileName + ".lrcx")
-        persistLyrics(self, to: url)
+     
+        guard persistLyrics(self, to: url) else {return nil}
+        return url
     }
     
     func maxPosition(ofLineAtIndex index: Int, maxPossiblePosition: TimeInterval) -> TimeInterval {
@@ -50,14 +53,19 @@ extension Lyrics {
     ///   - lyrics: The lyrics to save
     ///   - url: The destination URL
     ///
-    private func persistLyrics(_ lyrics: Lyrics, to url: URL) {
+    private func persistLyrics(_ lyrics: Lyrics, to url: URL) -> Bool {
         
         url.parentDir.createDirectory()
 
         do {
+            
             try lyrics.description.write(to: url, atomically: true, encoding: .utf8)
+            return true
+            
         } catch {
+            
             print("Failed to write lyrics to \(url.path): \(error.localizedDescription)")
+            return false
         }
     }
 }
@@ -78,9 +86,4 @@ enum LyricsLineRelativePosition {
     case match
     case left
     case right
-}
-
-extension Track {
-
-    
 }
