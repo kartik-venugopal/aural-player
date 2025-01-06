@@ -24,9 +24,11 @@ extension LyricsViewController {
         
         curLine = nil
         curSegment = nil
-        tableView.reloadData()
         
-        track != nil ? timer.startOrResume() : timer.pause()
+        tableView.reloadData()
+        highlightCurrentLine()
+        
+        track != nil && playbackInfoDelegate.state == .playing ? timer.startOrResume() : timer.pause()
         
         messenger.subscribeAsync(to: .Player.playbackStateChanged, handler: playbackStateChanged)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: seekPerformed)
@@ -127,7 +129,7 @@ extension LyricsViewController {
     }
     
     func playbackStateChanged() {
-        player.state == .playing ? timer.startOrResume() : timer.pause()
+        playbackInfoDelegate.state == .playing ? timer.startOrResume() : timer.pause()
     }
 
     func seekPerformed() {

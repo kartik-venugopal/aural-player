@@ -572,11 +572,11 @@ class PlayerViewController: NSViewController {
                 return
             }
             
-            if !appModeManager.isShowingLyrics {
+            if appModeManager.isShowingLyrics {
+                Messenger.publish(.Lyrics.lyricsUpdated, payload: track)
+            } else {
                 Messenger.publish(.View.toggleLyrics)
             }
-            
-            Messenger.publish(.Lyrics.lyricsUpdated, payload: track)
         }
     }
     
