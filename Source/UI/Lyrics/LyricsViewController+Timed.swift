@@ -156,6 +156,8 @@ extension LyricsViewController: NSTableViewDelegate {
     
     private static let rowHeight: CGFloat = 30
     
+    @objc var lineBreakMode: NSLineBreakMode {.byTruncatingTail}
+    
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         Self.rowHeight
     }
@@ -187,7 +189,7 @@ extension LyricsViewController: NSTableViewDelegate {
         }
         
         cell.textField?.show()
-//        cell.textField?.lineBreakMode = .byWordWrapping
+        cell.textField?.lineBreakMode = self.lineBreakMode
         
         return cell
     }
@@ -201,7 +203,6 @@ extension LyricsViewController: NSTableViewDelegate {
             cell.text = line.content
             cell.textFont = systemFontScheme.lyricsHighlightFont
             cell.textColor = systemColorScheme.primarySelectedTextColor
-            cell.textField?.lineBreakMode = .byWordWrapping
             
             return
         }
@@ -216,17 +217,11 @@ extension LyricsViewController: NSTableViewDelegate {
             let preSegmentRange = NSMakeRange(0, segmentLoc)
             
             let subString = line.content.substring(range: preSegmentRange.intRange)
-            let attrStr =  subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
-//            attrStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byWordWrapping, range: NSMakeRange(0, attrStr.length))
-            mutStr = mutStr + attrStr
+            mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
         }
         
         let subString = line.content.substring(range: segment.range.intRange)
-        
-        let attrStr = subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
-//        attrStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byWordWrapping, range: NSMakeRange(0, attrStr.length))
-        
-        mutStr = mutStr + attrStr
+        mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.activeControlColor)
         
         let segmentLen = segment.range.length
         let segmentEnd = segmentLoc + segmentLen
@@ -237,15 +232,9 @@ extension LyricsViewController: NSTableViewDelegate {
             let postSegmentRange = NSMakeRange(segmentEnd, contentLength - segmentEnd)
             
             let subString = line.content.substring(range: postSegmentRange.intRange)
-            let attrStr = subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
-//            attrStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byWordWrapping, range: NSMakeRange(0, attrStr.length))
-            
-            mutStr = mutStr + attrStr
+            mutStr = mutStr + subString.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
         }
         
-        mutStr.addAttribute(.paragraphStyle, value: NSMutableParagraphStyle.byWordWrapping, range: NSMakeRange(0, mutStr.length))
-        
-//        cell.textField?.lineBreakMode = .byWordWrapping
         cell.attributedText = mutStr
     }
     
@@ -254,6 +243,5 @@ extension LyricsViewController: NSTableViewDelegate {
         cell.text = line.content
         cell.textFont = isCurrentLine ? systemFontScheme.lyricsHighlightFont : systemFontScheme.prominentFont
         cell.textColor = isCurrentLine ? systemColorScheme.activeControlColor : systemColorScheme.secondaryTextColor
-        cell.textField?.lineBreakMode = .byWordWrapping
     }
 }
