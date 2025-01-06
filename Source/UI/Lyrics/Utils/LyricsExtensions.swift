@@ -11,6 +11,7 @@
 import Foundation
 import LyricsCore
 import MusicPlayer
+import LyricsUI
 
 extension Lyrics {
     
@@ -35,8 +36,9 @@ extension Lyrics {
     func maxPosition(ofLineAtIndex index: Int, maxPossiblePosition: TimeInterval) -> TimeInterval {
         
         let line = lines[index]
+        let timeTagDuration = line.timeTagDuration
         
-        if let timeTagDuration = line.timeTags.last?.time, timeTagDuration > 0 {
+        if timeTagDuration > 0 {
             return line.position + timeTagDuration
         }
         
@@ -67,17 +69,6 @@ extension Lyrics {
             print("Failed to write lyrics to \(url.path): \(error.localizedDescription)")
             return false
         }
-    }
-}
-
-extension LyricsLine {
-
-    var timeTags: [Attachments.InlineTimeTag.Tag] {
-        attachments.timetag?.tags ?? []
-    }
-
-    var timeTagDuration: TimeInterval {
-        timeTags.last?.time ?? 0
     }
 }
 

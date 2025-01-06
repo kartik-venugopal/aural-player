@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0307980F2D1DA17F00798C96 /* LyricsXCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0307980E2D1DA17F00798C96 /* LyricsXCore */; };
 		030E0F662D0566920040D030 /* LyricsXCore in Frameworks */ = {isa = PBXBuildFile; productRef = 030E0F652D0566920040D030 /* LyricsXCore */; };
-		033EA0F82CFDAE5E0017F86C /* LyricsWrappedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033EA0F72CFDAE5E0017F86C /* LyricsWrappedView.swift */; };
-		033EA1822CFF0AA30017F86C /* LyricsXWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033EA1812CFF0AA30017F86C /* LyricsXWindowController.swift */; };
 		3E0217D62C23490E00865AC2 /* FileWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215B62C23490E00865AC2 /* FileWatcher.swift */; };
 		3E0217D72C23490E00865AC2 /* FileWatcher+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215B72C23490E00865AC2 /* FileWatcher+Action.swift */; };
 		3E0217D82C23490E00865AC2 /* FileWatcherEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215B82C23490E00865AC2 /* FileWatcherEvent.swift */; };
@@ -1055,8 +1053,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		033EA0F72CFDAE5E0017F86C /* LyricsWrappedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsWrappedView.swift; sourceTree = "<group>"; };
-		033EA1812CFF0AA30017F86C /* LyricsXWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsXWindowController.swift; sourceTree = "<group>"; };
 		3E0215B62C23490E00865AC2 /* FileWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileWatcher.swift; sourceTree = "<group>"; };
 		3E0215B72C23490E00865AC2 /* FileWatcher+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileWatcher+Action.swift"; sourceTree = "<group>"; };
 		3E0215B82C23490E00865AC2 /* FileWatcherEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileWatcherEvent.swift; sourceTree = "<group>"; };
@@ -2220,15 +2216,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		030EFB2F2D0B22C20070A81F /* LyricsView */ = {
-			isa = PBXGroup;
-			children = (
-				033EA0F72CFDAE5E0017F86C /* LyricsWrappedView.swift */,
-				033EA1812CFF0AA30017F86C /* LyricsXWindowController.swift */,
-			);
-			path = LyricsView;
-			sourceTree = "<group>";
-		};
 		3E0215B92C23490E00865AC2 /* FileWatcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -4077,7 +4064,6 @@
 		3E6C0F1A25CEB98500BF0D07 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				030EFB2F2D0B22C20070A81F /* LyricsView */,
 				3E6C0FDD25CEB98600BF0D07 /* Menus */,
 				3E4C76392AD7701300DDED45 /* AppSetup */,
 				3E9E58FC25DB6B150064EB5F /* AppModeManagement */,
@@ -6087,7 +6073,6 @@
 				3EF020492C597E88005A841B /* AVChannelLayout+Extensions.swift in Sources */,
 				3E5864A02B76DD0000BDB5A6 /* PlayerViewController.swift in Sources */,
 				3E0218062C23490E00865AC2 /* ReverbUnit.swift in Sources */,
-				033EA0F82CFDAE5E0017F86C /* LyricsWrappedView.swift in Sources */,
 				3E0218C72C23490E00865AC2 /* PlaybackInfoDelegateProtocol.swift in Sources */,
 				3E0219692C23490E00865AC2 /* Images.swift in Sources */,
 				3E2C4BD92B38E5F800FC65DD /* SearchWindowController.swift in Sources */,
@@ -6286,7 +6271,6 @@
 				3E0218DB2C23490E00865AC2 /* Player.swift in Sources */,
 				3E02191C2C23490E00865AC2 /* UserPreference.swift in Sources */,
 				3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */,
-				033EA1822CFF0AA30017F86C /* LyricsXWindowController.swift in Sources */,
 				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesManagerViewController.swift in Sources */,
 				3EB3A61626A762750060487C /* FontSchemesViewProtocol.swift in Sources */,
 				3E0218ED2C23490E00865AC2 /* GroupsSort.swift in Sources */,

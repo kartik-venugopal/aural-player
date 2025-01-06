@@ -193,16 +193,16 @@
                                             <constraint firstAttribute="height" constant="25" id="my4-th-YOW"/>
                                         </constraints>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Drop a Lyrics file (.lrc / .lrcx) here" id="ZqR-BU-8p4">
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" size="15" name="Play-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="4Ba-Cw-5kU">
-                                        <rect key="frame" x="137" y="138" width="210" height="32"/>
-                                        <buttonCell key="cell" type="square" title="Choose a Lyrics file" bezelStyle="shadowlessSquare" image="doc" catalog="system" imagePosition="trailing" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4eO-ks-b8F">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Ba-Cw-5kU">
+                                        <rect key="frame" x="137" y="137" width="210" height="33"/>
+                                        <buttonCell key="cell" type="roundRect" title="Choose a Lyrics file" bezelStyle="roundedRect" image="doc" catalog="system" imagePosition="trailing" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4eO-ks-b8F">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                         </buttonCell>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="Jtq-l6-SAM"/>
@@ -212,9 +212,9 @@
                                             <action selector="loadLyricsButtonAction:" target="-2" id="QcN-bc-NQ4"/>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="iK1-0v-Gl9" userLabel="Search for Lyrics online">
-                                        <rect key="frame" x="137" y="96" width="210" height="32"/>
-                                        <buttonCell key="cell" type="square" title="Search for Lyrics online" bezelStyle="shadowlessSquare" image="network" catalog="system" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wUR-Kh-wyH">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iK1-0v-Gl9" userLabel="Search for Lyrics online">
+                                        <rect key="frame" x="137" y="97" width="210" height="33"/>
+                                        <buttonCell key="cell" type="roundRect" title="Search for Lyrics online" bezelStyle="roundedRect" image="network" catalog="system" imagePosition="right" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wUR-Kh-wyH">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -237,7 +237,7 @@
                                     <constraint firstItem="4Ba-Cw-5kU" firstAttribute="centerY" secondItem="uWv-Bx-tbk" secondAttribute="centerY" constant="-10" id="1xv-lk-Hrp"/>
                                     <constraint firstAttribute="bottom" secondItem="IuN-AA-y49" secondAttribute="bottom" id="6pP-OV-ht9"/>
                                     <constraint firstItem="IuN-AA-y49" firstAttribute="top" secondItem="uWv-Bx-tbk" secondAttribute="top" id="83f-De-ckP"/>
-                                    <constraint firstItem="iK1-0v-Gl9" firstAttribute="top" secondItem="4Ba-Cw-5kU" secondAttribute="bottom" constant="10" symbolic="YES" id="EAT-yI-qRc"/>
+                                    <constraint firstItem="iK1-0v-Gl9" firstAttribute="top" secondItem="4Ba-Cw-5kU" secondAttribute="bottom" constant="8" symbolic="YES" id="EAT-yI-qRc"/>
                                     <constraint firstItem="iK1-0v-Gl9" firstAttribute="leading" secondItem="4Ba-Cw-5kU" secondAttribute="leading" id="Go4-8O-cWM"/>
                                     <constraint firstItem="IuN-AA-y49" firstAttribute="leading" secondItem="uWv-Bx-tbk" secondAttribute="leading" id="iUB-Um-Lj1"/>
                                     <constraint firstAttribute="trailing" secondItem="IuN-AA-y49" secondAttribute="trailing" id="ocB-pY-r52"/>

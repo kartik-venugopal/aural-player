@@ -11,6 +11,8 @@
 import AppKit
 import LyricsService
 import MusicPlayer
+import LyricsXCore
+import LyricsUI
 
 fileprivate var isKaraokeModeEnabled: Bool {
     preferences.metadataPreferences.lyrics.enableKaraokeMode.value
@@ -205,6 +207,9 @@ extension LyricsSearchService {
         return allLyrics.bestMatch(for: musicTrack)
     }
 }
+
+
+// MARK: TableViewDelegate ---------------------------------------------------------------------------------
 
 
 extension LyricsViewController: NSTableViewDataSource {

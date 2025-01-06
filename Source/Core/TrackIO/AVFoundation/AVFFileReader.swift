@@ -89,8 +89,6 @@ class AVFFileReader: FileReaderProtocol {
         if let lyrics = parsers.firstNonNilMappedValue({$0.getLyrics(metadataMap)}) {
             
             if let lrcLyrics = Lyrics.init(lyrics) {
-                
-                print("Got timed lyrics for: \(metadata.title ?? file.lastPathComponent)")
                 metadata.timedLyrics = TimedLyrics(from: lrcLyrics, trackDuration: metadata.duration)
                 
             } else {
