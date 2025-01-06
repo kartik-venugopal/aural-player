@@ -161,7 +161,7 @@ struct PreferencesDefaults {
             static let enableAutoScroll: Bool = true
             static let enableKaraokeMode: Bool = true
             
-            static let enableAutoSearch: Bool = true
+            static let enableOnlineSearch: Bool = true
             static let showTranslations: Bool = true
         }
     }

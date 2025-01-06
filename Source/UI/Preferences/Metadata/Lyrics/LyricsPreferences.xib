@@ -11,6 +11,7 @@
                 <outlet property="btnEnableAutoScroll" destination="FXN-q7-QXF" id="X7u-OC-Yjl"/>
                 <outlet property="btnEnableAutoShowWindow" destination="yd1-72-Yf8" id="BZT-Mf-geN"/>
                 <outlet property="btnEnableKaraokeMode" destination="vYe-YM-Jep" id="lTn-AI-jRN"/>
+                <outlet property="btnEnableOnlineSearch" destination="oWK-HB-usa" id="vGa-X3-eK7"/>
                 <outlet property="lblLyricsFolder" destination="B4P-Hb-LUM" id="FU4-je-o2p"/>
                 <outlet property="view" destination="W8Y-oq-0wu" id="YaQ-nL-8LG"/>
             </connections>
@@ -38,7 +39,7 @@
                     </buttonCell>
                 </button>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4P-Hb-LUM">
-                    <rect key="frame" x="61" y="82" width="395" height="22"/>
+                    <rect key="frame" x="40" y="82" width="416" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingHead" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" id="gVS-Zj-f6c" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -47,7 +48,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pP1-Np-lPR">
-                    <rect key="frame" x="59" y="110" width="399" height="20"/>
+                    <rect key="frame" x="41" y="110" width="417" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Look for synchronized lyrics files (LRC / LRCX) in directory:" id="Ahy-EN-3fU">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -97,6 +98,14 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oWK-HB-usa" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="41" y="31" width="415" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Enable online search for lyrics" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="T4C-YV-TUj">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <point key="canvasLocation" x="148" y="-450"/>
         </view>

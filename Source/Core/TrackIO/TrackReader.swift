@@ -160,7 +160,7 @@ class TrackReader {
     }
     
     private var onlineSearchEnabled: Bool {
-        preferences.metadataPreferences.lyrics.enableAutoSearch.value
+        preferences.metadataPreferences.lyrics.enableOnlineSearch.value
     }
     
     func searchForLyricsOnline(for track: Track, using searchService: LyricsSearchService, uiUpdateBlock: @escaping (TimedLyrics) -> Void) async {

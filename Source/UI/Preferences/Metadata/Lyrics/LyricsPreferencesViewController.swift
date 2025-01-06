@@ -17,6 +17,7 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
     @IBOutlet weak var btnEnableAutoShowWindow: CheckBox!
     @IBOutlet weak var btnEnableAutoScroll: CheckBox!
     @IBOutlet weak var btnEnableKaraokeMode: CheckBox!
+    @IBOutlet weak var btnEnableOnlineSearch: CheckBox!
     @IBOutlet weak var lblLyricsFolder: NSTextField!
     
     private var lyricsFilesFolder: URL?
@@ -36,6 +37,7 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
         btnEnableAutoShowWindow.onIf(lyricsPrefs.showWindowWhenPresent.value)
         btnEnableAutoScroll.onIf(lyricsPrefs.enableAutoScroll.value)
         btnEnableKaraokeMode.onIf(lyricsPrefs.enableKaraokeMode.value)
+        btnEnableOnlineSearch.onIf(lyricsPrefs.enableOnlineSearch.value)
         
         if let dir = lyricsPrefs.lyricsFilesDirectory.value {
             lblLyricsFolder.stringValue = dir.path
@@ -73,6 +75,7 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
         
         lyricsPrefs.showWindowWhenPresent.value = btnEnableAutoShowWindow.isOn
         lyricsPrefs.enableAutoScroll.value = btnEnableAutoScroll.isOn
+        lyricsPrefs.enableOnlineSearch.value = btnEnableOnlineSearch.isOn
         
         let oldKaraokeModeValue = lyricsPrefs.enableKaraokeMode.value
         lyricsPrefs.enableKaraokeMode.value = btnEnableKaraokeMode.isOn

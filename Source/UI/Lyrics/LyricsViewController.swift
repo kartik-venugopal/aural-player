@@ -121,10 +121,6 @@ class LyricsViewController: NSViewController {
         }
     }
     
-    var onlineSearchEnabled: Bool {
-        preferences.metadataPreferences.lyrics.enableAutoSearch.value
-    }
-    
     func changeCornerRadius(to radius: CGFloat) {
         view.layer?.cornerRadius = radius
     }

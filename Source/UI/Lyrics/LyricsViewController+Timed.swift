@@ -150,7 +150,13 @@ extension LyricsViewController {
         }
     }
     
+    private var onlineSearchEnabled: Bool {
+        preferences.metadataPreferences.lyrics.enableOnlineSearch.value
+    }
+    
     func updateSearch(for track: Track?) {
+        
+        guard onlineSearchEnabled else {return}
         
         if let track {
             

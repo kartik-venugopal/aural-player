@@ -20,7 +20,7 @@ class LyricsPreferences {
     
     // For timed (LRC) lyrics only
     lazy var enableAutoScroll: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoScroll",
-                                                            defaultValue: Defaults.enableAutoSearch)
+                                                            defaultValue: Defaults.enableAutoScroll)
     
     // For timed (LRC) lyrics only
     lazy var enableKaraokeMode: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableKaraokeMode",
@@ -28,10 +28,10 @@ class LyricsPreferences {
     
     lazy var lyricsFilesDirectory: OptionalUserPreference<URL> = .init(defaultsKey: "\(Self.keyPrefix).lyricsFilesDirectory")
     
-    lazy var enableAutoSearch: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoSearch",
-                                                            defaultValue: Defaults.enableAutoSearch)
+    lazy var enableOnlineSearch: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableOnlineSearch",
+                                                            defaultValue: Defaults.enableOnlineSearch)
     
     // For timed (LRC) lyrics only
-    lazy var showTranslations: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showTranslations",
-                                                                 defaultValue: Defaults.showWindowWhenPresent)
+//    lazy var showTranslations: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showTranslations",
+//                                                            defaultValue: Defaults.showTranslations)
 }
