@@ -111,7 +111,12 @@ class UnifiedPlayerViewController: PlayerViewController {
     }
     
     override func showTrackInfoView() {
-        self.presentAsSheet(trackInfoSheetViewController)
+        
+        if let windowController = view.window?.windowController {
+            
+            windowController.dismissAttachedSheet()
+            self.presentAsSheet(trackInfoSheetViewController)
+        }
     }
     
     var isShowingTrackInfo: Bool {

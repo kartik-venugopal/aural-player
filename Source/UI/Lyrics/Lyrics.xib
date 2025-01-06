@@ -249,6 +249,20 @@
                             <view key="view" id="bZU-bQ-yFl">
                                 <rect key="frame" x="0.0" y="0.0" width="483" height="287"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NvJ-F7-AdE">
+                                        <rect key="frame" x="192" y="91.5" width="100.5" height="107"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="mnB-b6-s0M"/>
+                                            <constraint firstAttribute="height" constant="100" id="xKI-26-0aj"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="music.mic" catalog="system" id="2D1-Q6-bLR"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="NvJ-F7-AdE" firstAttribute="centerY" secondItem="bZU-bQ-yFl" secondAttribute="centerY" id="Zjw-2t-skp"/>
+                                    <constraint firstItem="NvJ-F7-AdE" firstAttribute="centerX" secondItem="bZU-bQ-yFl" secondAttribute="centerX" id="fcn-Tb-CzY"/>
+                                </constraints>
                             </view>
                         </tabViewItem>
                     </tabViewItems>
@@ -267,6 +281,7 @@
     </objects>
     <resources>
         <image name="doc" catalog="system" width="14" height="16"/>
+        <image name="music.mic" catalog="system" width="16" height="16"/>
         <image name="network" catalog="system" width="15" height="15"/>
     </resources>
 </document>

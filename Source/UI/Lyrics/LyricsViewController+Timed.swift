@@ -9,6 +9,8 @@
 //
 
 import AppKit
+import LyricsService
+import MusicPlayer
 
 fileprivate var isKaraokeModeEnabled: Bool {
     preferences.metadataPreferences.lyrics.enableKaraokeMode.value
@@ -147,7 +149,57 @@ extension LyricsViewController {
             tableView.reloadRows([curLine])
         }
     }
+    
+    func updateSearch(for track: Track?) {
+        
+        if let track {
+            
+            if timedLyrics == nil {
+                searchForLyricsOnline(for: track)
+            }
+            
+        } else {
+            searchService.cancelSearch()
+        }
+    }
+    
+    private func searchForLyricsOnline(for track: Track) {
+        
+        let uiUpdateBlock = {(timedLyrics: TimedLyrics) in
+            
+            if playbackInfoDelegate.playingTrack == track {
+                
+                self.timedLyrics = timedLyrics
+                self.doUpdate()
+            }
+        }
+        
+        Task.detached(priority: .userInitiated) {
+            await trackReader.searchForLyricsOnline(for: track, using: self.searchService, uiUpdateBlock: uiUpdateBlock)
+        }
+    }
 }
+
+extension LyricsSearchService {
+    
+    func searchLyrics(for track: Track) async -> Lyrics? {
+        
+        let musicTrack = MusicTrack(
+            id: track.defaultDisplayName,
+            title: track.title,
+            album: track.album,
+            artist: track.artist,
+            duration: track.duration,
+            fileURL: track.file,
+            artwork: track.art?.originalImage?.image,
+            originalTrack: track
+        )
+        
+        let allLyrics = await searchLyrics(with: musicTrack.searchQuery)
+        return allLyrics.bestMatch(for: musicTrack)
+    }
+}
+
 
 extension LyricsViewController: NSTableViewDataSource {
     

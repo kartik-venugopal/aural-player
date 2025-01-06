@@ -11,7 +11,6 @@
 import AppKit
 import LyricsCore
 import LyricsService
-import MusicPlayer
 
 class LyricsViewController: NSViewController {
     
@@ -41,6 +40,8 @@ class LyricsViewController: NSViewController {
                                                                       task: {[weak self] in
         self?.highlightCurrentLine()},
                                                                       queue: .main)
+    
+    let searchService = LyricsSearchService()
     
     override func viewDidLoad() {
         
@@ -82,10 +83,7 @@ class LyricsViewController: NSViewController {
         
         self.timedLyrics = track?.externalOrEmbeddedTimedLyrics
         
-        if let track, timedLyrics == nil {
-            searchForLyricsOnline(for: track)
-        }
-        
+        updateSearch(for: track)
         doUpdate()
     }
     
@@ -106,7 +104,7 @@ class LyricsViewController: NSViewController {
             
             let wasShowingTimedLyrics = tabView.selectedIndex == 1
             
-            tabView.selectTabViewItem(at: 2)
+            tabView.selectTabViewItem(at: track == nil ? 3 : 2)
             
             dismissStaticLyricsText()
             
@@ -125,30 +123,6 @@ class LyricsViewController: NSViewController {
     
     var onlineSearchEnabled: Bool {
         preferences.metadataPreferences.lyrics.enableAutoSearch.value
-    }
-    
-    private func searchForLyricsOnline(for track: Track) {
-        
-        guard onlineSearchEnabled else {return}
-        
-        let searchService = LyricsSearchService()
-        
-        Task.detached(priority: .userInitiated) {
-            
-            if let bestLyrics = await searchService.searchLyrics(for: track) {
-
-                // Update the UI
-                await MainActor.run {
-                    
-                    self.timedLyrics = TimedLyrics(from: bestLyrics, trackDuration: track.duration)
-                    self.doUpdate()
-                }
-                
-                if let cachedLyricsFile = bestLyrics.persistToFile(track.defaultDisplayName) {
-                    track.metadata.externalLyricsFile = cachedLyricsFile
-                }
-            }
-        }
     }
     
     func changeCornerRadius(to radius: CGFloat) {
@@ -210,25 +184,5 @@ extension LyricsViewController: ColorSchemeObserver {
         } else {
             updateStaticLyricsText()
         }
-    }
-}
-
-fileprivate extension LyricsSearchService {
-    
-    func searchLyrics(for track: Track) async -> Lyrics? {
-        
-        let musicTrack = MusicTrack(
-            id: track.defaultDisplayName,
-            title: track.title,
-            album: track.album,
-            artist: track.artist,
-            duration: track.duration,
-            fileURL: track.file,
-            artwork: track.art?.originalImage?.image,
-            originalTrack: track
-        )
-        
-        let allLyrics = await searchLyrics(with: musicTrack.searchQuery)
-        return allLyrics.bestMatch(for: musicTrack)
     }
 }

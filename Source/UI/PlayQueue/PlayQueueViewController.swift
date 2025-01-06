@@ -56,8 +56,6 @@ class PlayQueueViewController: TrackListTableViewController {
     // Popup view that displays a brief notification when a selected track is added/removed to/from the Favorites list
     lazy var infoPopup: InfoPopupViewController = .instance
     
-    lazy var trackInfoSheetViewController: TrackInfoSheetViewController = .init()
-    
     lazy var messenger: Messenger = .init(for: self)
     
     override func viewDidLoad() {

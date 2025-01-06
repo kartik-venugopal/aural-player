@@ -10,6 +10,7 @@
 
 import Foundation
 import LyricsCore
+import LyricsService
 
 typealias TrackIOCompletionHandler = () -> Void
 
@@ -40,10 +41,9 @@ class TrackReader {
             
             track.metadata = cachedMetadata
             
-            loadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: true)
-            
-            doLoadMetadata(for: track, onQueue: opQueue,
-                                  metadataCacheEnabled: metadataCacheEnabled)
+            doLoadMetadata(for: track, onQueue: opQueue)
+            loadExternalLyrics(for: track, onQueue: opQueue)
+
             return
         }
         
@@ -54,14 +54,12 @@ class TrackReader {
                 let primaryMetadata = try fileReader.getPrimaryMetadata(for: track.file)
                 track.metadata.updatePrimaryMetadata(with: primaryMetadata)
                 
-                self.doLoadMetadata(for: track, onQueue: opQueue,
-                                    metadataCacheEnabled: metadataCacheEnabled)
-                
-                self.loadExternalLyrics(for: track, onQueue: opQueue, metadataCacheEnabled: metadataCacheEnabled)
-                
                 if metadataCacheEnabled {
                     metadataRegistry[track] = track.metadata
                 }
+                
+                self.doLoadMetadata(for: track, onQueue: opQueue)
+                self.loadExternalLyrics(for: track, onQueue: opQueue)
                 
             } catch {
                 
@@ -71,7 +69,7 @@ class TrackReader {
         }
     }
     
-    private func doLoadMetadata(for track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {
+    private func doLoadMetadata(for track: Track, onQueue opQueue: OperationQueue) {
         
         let metadata = track.metadata
         
@@ -84,13 +82,11 @@ class TrackReader {
         // For non-native tracks that don't have accurate duration, compute duration async.
         
         if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
-            computeAccurateDuration(forTrack: track, onQueue: opQueue, metadataCacheEnabled: metadataCacheEnabled)
+            computeAccurateDuration(forTrack: track, onQueue: opQueue)
         }
     }
     
-    private func loadExternalLyrics(for track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {
-        
-        print("BEFORE - In cache, it's: \(metadataRegistry[track]?.externalTimedLyrics != nil)")
+    private func loadExternalLyrics(for track: Track, onQueue opQueue: OperationQueue) {
         
         opQueue.addOperation {
             
@@ -99,7 +95,6 @@ class TrackReader {
                let lyrics = self.loadLyricsFromFile(at: externalLyricsFile) {
                 
                 track.metadata.externalTimedLyrics = TimedLyrics(from: lyrics, trackDuration: track.duration)
-                print("AFTER In cache, it's: \(metadataRegistry[track]?.externalTimedLyrics != nil)")
                 return
             }
             
@@ -109,13 +104,6 @@ class TrackReader {
             for dir in [lyricsFolder, track.file.parentDir, FilesAndPaths.lyricsDir].compactMap({$0}) {
                 
                 if self.loadLyricsFromDirectory(dir, for: track) {
-                    
-                    print("AFTER In cache, it's: \(metadataRegistry[track]?.externalTimedLyrics != nil) for \(track)")
-                    
-                    if metadataCacheEnabled {
-                        metadataRegistry[track]?.externalTimedLyrics = track.externalTimedLyrics
-                    }
-                    
                     return
                 }
             }
@@ -171,7 +159,33 @@ class TrackReader {
         }
     }
     
-    func computeAccurateDuration(forTrack track: Track, onQueue opQueue: OperationQueue, metadataCacheEnabled: Bool) {
+    private var onlineSearchEnabled: Bool {
+        preferences.metadataPreferences.lyrics.enableAutoSearch.value
+    }
+    
+    func searchForLyricsOnline(for track: Track, using searchService: LyricsSearchService, uiUpdateBlock: @escaping (TimedLyrics) -> Void) async {
+        
+        guard onlineSearchEnabled else {return}
+        
+        Task.detached(priority: .userInitiated) {
+            
+            guard let bestLyrics = await searchService.searchLyrics(for: track) else {return}
+            
+            let timedLyrics = TimedLyrics(from: bestLyrics, trackDuration: track.duration)
+            track.metadata.externalTimedLyrics = timedLyrics
+            
+            // Update the UI
+            await MainActor.run {
+                uiUpdateBlock(timedLyrics)
+            }
+            
+            if let cachedLyricsFile = bestLyrics.persistToFile(track.defaultDisplayName) {
+                track.metadata.externalLyricsFile = cachedLyricsFile
+            }
+        }
+    }
+    
+    func computeAccurateDuration(forTrack track: Track, onQueue opQueue: OperationQueue) {
         
         opQueue.addOperation {
             
@@ -179,14 +193,6 @@ class TrackReader {
             
             track.metadata.duration = duration
             track.metadata.durationIsAccurate = true
-            
-            if metadataCacheEnabled, let metadataInCache = metadataRegistry[track] {
-
-//                let diff = (abs(metadataInCache.duration - duration) / metadataInCache.duration) * 100.0
-//                print("Updating duration from \(metadataInCache.duration) -> \(duration), diff = \(diff)")
-                metadataInCache.duration = duration
-                metadataInCache.durationIsAccurate = true
-            }
             
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
         }

@@ -13,6 +13,8 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     
     override var nibName: NSNib.Name? {"LyricsTrackInfo"}
     
+    private lazy var messenger = Messenger(for: self)
+    
     @IBOutlet weak var textView: NSTextView! {
         
         didSet {
@@ -28,10 +30,29 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     
     private let noLyricsText: String = "< No lyrics available for this track >"
     
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        messenger.subscribe(to: .Lyrics.lyricsUpdated, handler: updateForTrack(_:))
+    }
+    
+    override func destroy() {
+        
+        super.destroy()
+        messenger.unsubscribeFromAll()
+    }
+    
+    private func updateForTrack(_ track: Track) {
+        
+        if TrackInfoViewContext.displayedTrack == track {
+            refresh()
+        }
+    }
+    
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
     func refresh() {
         
-        if let timedLyrics = TrackInfoViewContext.displayedTrack?.timedLyrics {
+        if let timedLyrics = TrackInfoViewContext.displayedTrack?.externalOrEmbeddedTimedLyrics {
             
             textView.string = ""
             

@@ -192,6 +192,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     private func showEffects() {
         
+        dismissAttachedSheet()
         playerViewController.presentAsSheet(effectsSheetViewController)
         appDelegate.playQueueMenuRootItem.disable()
     }
@@ -257,6 +258,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     private func showLyrics() {
         
+        dismissAttachedSheet()
         playerViewController.presentAsSheet(lyricsSheetViewController)
         appDelegate.playQueueMenuRootItem.disable()
     }

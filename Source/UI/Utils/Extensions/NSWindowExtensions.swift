@@ -110,5 +110,9 @@ extension NSWindowController: Destroyable {
         window?.attachedSheet?.contentViewController
     }
     
+    func dismissAttachedSheet() {
+        attachedSheetViewController?.dismiss(self)
+    }
+    
     @objc func destroy() {}
 }
