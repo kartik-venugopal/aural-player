@@ -54,6 +54,18 @@ extension LyricsViewController {
         }
     }
     
+    func loadLyrics(fromFile lyricsFile: URL) {
+        
+        guard let track, trackReader.loadTimedLyricsFromFile(at: lyricsFile, for: track) else {
+            
+            NSAlert.showError(withTitle: "Lyrics not loaded", andText: "Failed to load synced lyrics from file: '\(lyricsFile.lastPathComponent)'")
+            return
+        }
+        
+        self.timedLyrics = track.externalTimedLyrics
+        showTimedLyricsView()
+    }
+    
     @IBAction func searchForLyricsOnlineButtonAction(_ sender: NSButton) {
         
         guard let track else {return}
@@ -86,18 +98,6 @@ extension LyricsViewController {
         Task.detached(priority: .userInitiated) {
             await trackReader.searchForLyricsOnline(for: track, uiUpdateBlock: uiUpdateBlock)
         }
-    }
-    
-    func loadLyrics(fromFile lyricsFile: URL) {
-        
-        guard let track, trackReader.loadTimedLyricsFromFile(at: lyricsFile, for: track) else {
-            
-            NSAlert.showError(withTitle: "Lyrics not loaded", andText: "Failed to load synced lyrics from file: '\(lyricsFile.lastPathComponent)'")
-            return
-        }
-        
-        self.timedLyrics = track.externalTimedLyrics
-        showTimedLyricsView()
     }
     
     func updateTimedLyricsText() {
@@ -177,10 +177,6 @@ extension LyricsViewController {
         } else if let curLine {
             tableView.reloadRows([curLine])
         }
-    }
-    
-    private var onlineSearchEnabled: Bool {
-        preferences.metadataPreferences.lyrics.enableOnlineSearch.value
     }
     
     func lyricsLoaded(notif: TrackInfoUpdatedNotification) {

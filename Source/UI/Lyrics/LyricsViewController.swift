@@ -68,7 +68,6 @@ class LyricsViewController: NSViewController {
         })
         
         messenger.subscribe(to: .Lyrics.loadFromFile, handler: loadLyrics(fromFile:))
-        messenger.subscribe(to: .Lyrics.lyricsUpdated, handler: updateForTrack(_:))
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeCornerRadius(to:))
     }
     

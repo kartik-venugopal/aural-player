@@ -104,6 +104,7 @@
             <connections>
                 <outlet property="addLyricsFileMenuItem" destination="8BA-me-5uv" id="DGZ-yH-WHo"/>
                 <outlet property="detailedInfoMenuItem" destination="LJ6-A4-cet" id="fwF-TZ-Rr1"/>
+                <outlet property="searchForLyricsOnlineMenuItem" destination="4tR-6I-GhA" id="7cf-cD-jWE"/>
             </connections>
         </customObject>
         <customObject id="7Mj-fX-Ivy" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
@@ -791,14 +792,19 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Metadata" autoenablesItems="NO" id="VoA-DH-v1h">
                         <items>
-                            <menuItem title="   Detailed playing track info" image="info" catalog="system" enabled="NO" keyEquivalent="i" id="LJ6-A4-cet" userLabel="Detailed info">
+                            <menuItem title="  Detailed playing track info" image="info" catalog="system" enabled="NO" keyEquivalent="i" id="LJ6-A4-cet" userLabel="Detailed info">
                                 <connections>
                                     <action selector="moreInfoAction:" target="RL2-vF-Zyu" id="OHW-wF-lMp"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Add lyrics file (LRC / LRCX) for playing track" image="music.mic" catalog="system" enabled="NO" keyEquivalent="L" id="8BA-me-5uv" userLabel="Scroll to bottom of playlist">
+                            <menuItem title=" Add lyrics file (LRC / LRCX) for playing track" image="doc" catalog="system" enabled="NO" keyEquivalent="L" id="8BA-me-5uv" userLabel="Add lyrics file">
                                 <connections>
                                     <action selector="addLyricsFileAction:" target="RL2-vF-Zyu" id="fOq-54-dsY"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Search for lyrics online for playing track" image="network" catalog="system" enabled="NO" keyEquivalent="F" id="4tR-6I-GhA" userLabel="Search for lyrics online">
+                                <connections>
+                                    <action selector="searchForLyricsOnlineAction:" target="RL2-vF-Zyu" id="i9C-Gz-fcQ"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -1312,7 +1318,7 @@ CA
             <rect key="frame" x="0.0" y="0.0" width="260" height="28"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RdI-Ey-O72">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RdI-Ey-O72">
                     <rect key="frame" x="46" y="1" width="156" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="uEr-lr-SQZ">
@@ -1321,7 +1327,7 @@ CA
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zug-e2-ouS">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zug-e2-ouS">
                     <rect key="frame" x="188" y="1" width="39" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="pS8-yD-xCT">
@@ -1381,6 +1387,7 @@ CA
         <image name="music.mic" catalog="system" width="16" height="16"/>
         <image name="music.note.list" catalog="system" width="16" height="15"/>
         <image name="music.quarternote.3" catalog="system" width="18" height="15"/>
+        <image name="network" catalog="system" width="15" height="15"/>
         <image name="opticaldisc" catalog="system" width="15" height="15"/>
         <image name="paintbrush" catalog="system" width="17" height="18"/>
         <image name="paintpalette" catalog="system" width="18" height="15"/>

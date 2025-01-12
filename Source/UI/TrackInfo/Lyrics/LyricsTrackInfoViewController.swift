@@ -33,7 +33,10 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        messenger.subscribe(to: .Lyrics.lyricsUpdated, handler: updateForTrack(_:))
+        
+        messenger.subscribeAsync(to: .Player.trackInfoUpdated, handler: lyricsLoaded(notif:), filter: {notif in
+            notif.updatedFields.contains(.lyrics)
+        })
     }
     
     override func destroy() {
@@ -42,9 +45,9 @@ class LyricsTrackInfoViewController: NSViewController, TrackInfoViewProtocol {
         messenger.unsubscribeFromAll()
     }
     
-    private func updateForTrack(_ track: Track) {
+    func lyricsLoaded(notif: TrackInfoUpdatedNotification) {
         
-        if TrackInfoViewContext.displayedTrack == track {
+        if TrackInfoViewContext.displayedTrack == notif.updatedTrack {
             refresh()
         }
     }

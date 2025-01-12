@@ -14,11 +14,12 @@ class MetadataMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
     @IBOutlet weak var addLyricsFileMenuItem: NSMenuItem!
+    @IBOutlet weak var searchForLyricsOnlineMenuItem: NSMenuItem!
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         let isPlayingOrPaused = playbackInfoDelegate.state.isPlayingOrPaused
-        [detailedInfoMenuItem, addLyricsFileMenuItem].forEach {$0?.enableIf(isPlayingOrPaused)}
+        [detailedInfoMenuItem, addLyricsFileMenuItem, searchForLyricsOnlineMenuItem].forEach {$0?.enableIf(isPlayingOrPaused)}
     }
     
     @IBAction func moreInfoAction(_ sender: AnyObject) {
@@ -27,5 +28,9 @@ class MetadataMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func addLyricsFileAction(_ sender: AnyObject) {
         Messenger.publish(.Lyrics.addLyricsFile)
+    }
+    
+    @IBAction func searchForLyricsOnlineAction(_ sender: AnyObject) {
+        Messenger.publish(.Lyrics.searchForLyricsOnline)
     }
 }
