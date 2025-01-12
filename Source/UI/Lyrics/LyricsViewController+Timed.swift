@@ -43,7 +43,6 @@ extension LyricsViewController {
         
         messenger.unsubscribe(from: .Player.playbackStateChanged,
                               .Player.seekPerformed,
-                              .Player.trackInfoUpdated,
                               .Lyrics.karaokeModePreferenceUpdated)
     }
     

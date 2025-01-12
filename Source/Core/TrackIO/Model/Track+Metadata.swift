@@ -155,6 +155,10 @@ extension Track {
         metadata.lyrics != nil || metadata.timedLyrics != nil || metadata.externalTimedLyrics != nil
     }
     
+    var hasExternalLyrics: Bool {
+        metadata.externalLyricsFile != nil || metadata.externalTimedLyrics != nil
+    }
+    
     // Non-essential metadata
     var nonEssentialMetadata: [String: MetadataEntry] {
         metadata.nonEssentialMetadata
