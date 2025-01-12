@@ -16,6 +16,7 @@ class LyricsViewController: NSViewController {
     
     override var nibName: NSNib.Name? {"Lyrics"}
     
+    @IBOutlet weak var imgLyrics: NSImageView!
     @IBOutlet weak var lblCaption: NSTextField!
     
     @IBOutlet weak var tabView: NSTabView!
@@ -25,6 +26,13 @@ class LyricsViewController: NSViewController {
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var tableVertScroller: PrettyVerticalScroller!
+    
+    @IBOutlet weak var lblDragDrop: NSTextField!
+    @IBOutlet weak var btnChooseFile: NSButton!
+    @IBOutlet weak var btnSearchOnline: NSButton!
+    
+    @IBOutlet weak var lblSearching: NSTextField!
+    @IBOutlet weak var searchSpinner: NSProgressIndicator!
     
     var track: Track?
     
@@ -50,6 +58,8 @@ class LyricsViewController: NSViewController {
         
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObservers(self)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceivers: [imgLyrics, btnChooseFile, btnSearchOnline])
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.primaryTextColor, changeReceivers: [lblDragDrop, btnChooseFile, btnSearchOnline])
         
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
@@ -74,6 +84,10 @@ class LyricsViewController: NSViewController {
         
         dismissStaticLyricsText()
         dismissTimedLyricsView()
+    }
+    
+    var showingStaticLyrics: Bool {
+        tabView.selectedIndex == 0
     }
     
     var showingTimedLyrics: Bool {
@@ -106,6 +120,7 @@ class LyricsViewController: NSViewController {
             let wasShowingTimedLyrics = tabView.selectedIndex == 1
             
             tabView.selectTabViewItem(at: track == nil ? 3 : 2)
+            searchSpinner.stopAnimation(nil)
             
             dismissStaticLyricsText()
             
@@ -124,62 +139,5 @@ class LyricsViewController: NSViewController {
     
     func changeCornerRadius(to radius: CGFloat) {
         view.layer?.cornerRadius = radius
-    }
-}
-
-extension LyricsViewController: ThemeInitialization {
-    
-    func initTheme() {
-     
-        lblCaption.font = systemFontScheme.captionFont
-        lblCaption.textColor = systemColorScheme.captionTextColor
-        
-        view.layer?.backgroundColor = systemColorScheme.backgroundColor.cgColor
-        textView.backgroundColor = systemColorScheme.backgroundColor
-        tableView.setBackgroundColor(systemColorScheme.backgroundColor)
-        
-        textVertScroller.redraw()
-        tableVertScroller.redraw()
-        
-        if showingTimedLyrics {
-            updateTimedLyricsText()
-        } else {
-            updateStaticLyricsText()
-        }
-    }
-}
-
-extension LyricsViewController: FontSchemeObserver {
-    
-    func fontSchemeChanged() {
-        
-        lblCaption.font = systemFontScheme.captionFont
-        
-        if showingTimedLyrics {
-            updateTimedLyricsText()
-        } else {
-            updateStaticLyricsText()
-        }
-    }
-}
-
-extension LyricsViewController: ColorSchemeObserver {
-    
-    func colorSchemeChanged() {
-
-        lblCaption.textColor = systemColorScheme.captionTextColor
-
-        view.layer?.backgroundColor = systemColorScheme.backgroundColor.cgColor
-        textView.backgroundColor = systemColorScheme.backgroundColor
-        tableView.setBackgroundColor(systemColorScheme.backgroundColor)
-        
-        textVertScroller.redraw()
-        tableVertScroller.redraw()
-        
-        if showingTimedLyrics {
-            updateTimedLyricsText()
-        } else {
-            updateStaticLyricsText()
-        }
     }
 }

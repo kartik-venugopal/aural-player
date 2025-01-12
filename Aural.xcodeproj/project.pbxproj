@@ -838,6 +838,9 @@
 		3E9CF7F526A7D36D0068A21B /* ChangeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CF7F426A7D36D0068A21B /* ChangeHistory.swift */; };
 		3E9D706F27C1DE2F00CAC4F1 /* Devices.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E9D706E27C1DE2F00CAC4F1 /* Devices.xib */; };
 		3E9D707127C1E30100CAC4F1 /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9D707027C1E30100CAC4F1 /* DevicesViewController.swift */; };
+		3E9DA1952D34291B0094D6DE /* TextButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9DA1942D34291B0094D6DE /* TextButtonCell.swift */; };
+		3E9DA1972D342B080094D6DE /* TextAndImageButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9DA1962D342B080094D6DE /* TextAndImageButtonCell.swift */; };
+		3E9DA1992D342F6E0094D6DE /* LyricsViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9DA1982D342F6E0094D6DE /* LyricsViewController+Theming.swift */; };
 		3E9E590E25DB6B150064EB5F /* MenuBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */; };
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
 		3E9E591025DB6B150064EB5F /* ModularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* ModularAppModeController.swift */; };
@@ -1963,6 +1966,9 @@
 		3E9CF7F426A7D36D0068A21B /* ChangeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeHistory.swift; sourceTree = "<group>"; };
 		3E9D706E27C1DE2F00CAC4F1 /* Devices.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Devices.xib; sourceTree = "<group>"; };
 		3E9D707027C1E30100CAC4F1 /* DevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
+		3E9DA1942D34291B0094D6DE /* TextButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonCell.swift; sourceTree = "<group>"; };
+		3E9DA1962D342B080094D6DE /* TextAndImageButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAndImageButtonCell.swift; sourceTree = "<group>"; };
+		3E9DA1982D342F6E0094D6DE /* LyricsViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LyricsViewController+Theming.swift"; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
 		3E9E590125DB6B150064EB5F /* ModularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModularAppModeController.swift; sourceTree = "<group>"; };
@@ -4015,6 +4021,8 @@
 				3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */,
 				3EF172F426A989BA00BB4556 /* EffectsUnitLabels.swift */,
 				3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */,
+				3E9DA1942D34291B0094D6DE /* TextButtonCell.swift */,
+				3E9DA1962D342B080094D6DE /* TextAndImageButtonCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5098,6 +5106,7 @@
 				3EAF727A2D25B24700E24245 /* LyricsViewController.swift */,
 				3E57443C2D262104004B5AE7 /* LyricsViewController+Static.swift */,
 				3E57443A2D261E28004B5AE7 /* LyricsViewController+Timed.swift */,
+				3E9DA1982D342F6E0094D6DE /* LyricsViewController+Theming.swift */,
 				3EA21A452D2763B3008B5B21 /* LyricsFileDropView.swift */,
 				3E719D8C2D28A105000A33B9 /* SheetView */,
 				3E719D8D2D28A12D000A33B9 /* Utils */,
@@ -6120,6 +6129,7 @@
 				3E6C12EF25CEBE8100BF0D07 /* DelayUnitView.swift in Sources */,
 				3E0218942C23490E00865AC2 /* LegacyHistoryPersistentState.swift in Sources */,
 				3E02182A2C23490E00865AC2 /* FavoriteTrack.swift in Sources */,
+				3E9DA1952D34291B0094D6DE /* TextButtonCell.swift in Sources */,
 				3E6C12F025CEBE8100BF0D07 /* DelayUnitViewController.swift in Sources */,
 				3E02198C2C23490E00865AC2 /* OrderedSetExtensions.swift in Sources */,
 				3E0218AD2C23490E00865AC2 /* LibraryPersistentState.swift in Sources */,
@@ -6158,6 +6168,7 @@
 				3E0218392C23490E00865AC2 /* FFmpegAudioCodec.swift in Sources */,
 				3E02195E2C23490E00865AC2 /* SearchType.swift in Sources */,
 				3E0218D52C23490E00865AC2 /* PlaybackContextProtocol.swift in Sources */,
+				3E9DA1972D342B080094D6DE /* TextAndImageButtonCell.swift in Sources */,
 				3E7E9F4E2C66B1AF0011DE8E /* WaveformWindowController.swift in Sources */,
 				3E02189A2C23490E00865AC2 /* MenuBarPlayerUIPersistentState.swift in Sources */,
 				3E02195C2C23490E00865AC2 /* SearchResults.swift in Sources */,
@@ -6295,6 +6306,7 @@
 				3ECF71A52B74EDE000FDB69B /* CompactPlayQueueContainer.swift in Sources */,
 				3E0218262C23490E00865AC2 /* Favorite.swift in Sources */,
 				3EB3A62126A773350060487C /* FontSizeStepper.swift in Sources */,
+				3E9DA1992D342F6E0094D6DE /* LyricsViewController+Theming.swift in Sources */,
 				3ECFA87F2AE1EB29001096DC /* EffectsContainerViewController.swift in Sources */,
 				3E91932C25E0D96A00F30F81 /* FontSchemeFontsViewController.swift in Sources */,
 				3E3579D026835A6A009522A0 /* GenericPresetPopupMenuController.swift in Sources */,

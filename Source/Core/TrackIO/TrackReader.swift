@@ -211,7 +211,7 @@ class TrackReader {
         DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
             
             self.loadArt(for: track)
-            self.loadExternalLyrics(for: track)
+            self.loadExternalLyrics(for: track, immediate: immediate)
         }
     }
     

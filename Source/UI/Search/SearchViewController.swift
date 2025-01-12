@@ -20,6 +20,8 @@ class SearchViewController: NSViewController {
     @IBOutlet weak var lblSummary: NSTextField!
     @IBOutlet weak var resultsTable: CompactPlayQueueSearchResultsTableView!
     
+    @IBOutlet weak var btnDone: NSButton!
+    
     var searchQuery: SearchQuery = SearchQuery()
     
     // Current search results
@@ -38,6 +40,7 @@ class SearchViewController: NSViewController {
         fontSchemesManager.registerObserver(self)
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblCaption)
+        colorSchemesManager.registerPropertyObserver(self, forProperty: \.buttonColor, changeReceiver: btnDone)
         
         // Offset the caption label a bit to the right.
         if appModeManager.currentMode == .modular,

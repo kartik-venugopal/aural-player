@@ -33,6 +33,8 @@ extension LyricsViewController {
         messenger.subscribeAsync(to: .Player.playbackStateChanged, handler: playbackStateChanged)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: seekPerformed)
         messenger.subscribeAsync(to: .Lyrics.karaokeModePreferenceUpdated, handler: karaokeModePreferenceUpdated)
+        
+        searchSpinner.stopAnimation(nil)
     }
     
     func dismissTimedLyricsView() {
@@ -54,7 +56,23 @@ extension LyricsViewController {
     
     @IBAction func searchForLyricsOnlineButtonAction(_ sender: NSButton) {
         
-        // TODO:
+        guard let track else {return}
+        
+        tabView.selectTabViewItem(at: 4)
+        searchSpinner.startAnimation(nil)
+        
+        let uiUpdateBlock = {(timedLyrics: TimedLyrics) in
+            
+            if playbackInfoDelegate.playingTrack == track {
+                
+                self.timedLyrics = timedLyrics
+                self.doUpdate()
+            }
+        }
+        
+        Task.detached(priority: .userInitiated) {
+            await trackReader.searchForLyricsOnline(for: track, uiUpdateBlock: uiUpdateBlock)
+        }
     }
     
     func loadLyrics(fromFile lyricsFile: URL) {
@@ -150,22 +168,6 @@ extension LyricsViewController {
     
     private var onlineSearchEnabled: Bool {
         preferences.metadataPreferences.lyrics.enableOnlineSearch.value
-    }
-    
-    private func searchForLyricsOnline(for track: Track) {
-        
-        let uiUpdateBlock = {(timedLyrics: TimedLyrics) in
-            
-            if playbackInfoDelegate.playingTrack == track {
-                
-                self.timedLyrics = timedLyrics
-                self.doUpdate()
-            }
-        }
-        
-        Task.detached(priority: .userInitiated) {
-            await trackReader.searchForLyricsOnline(for: track, uiUpdateBlock: uiUpdateBlock)
-        }
     }
     
     func lyricsLoaded(notif: TrackInfoUpdatedNotification) {

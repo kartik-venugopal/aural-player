@@ -36,6 +36,7 @@ extension SearchViewController: FontSchemeObserver {
         lblSummary.font = systemFontScheme.normalFont
         
         resultsTable.reloadDataMaintainingSelection()
+        btnDone.redraw()
     }
 }
 
@@ -49,5 +50,6 @@ extension SearchViewController: ColorSchemeObserver {
         lblSummary.textColor = systemColorScheme.tertiaryTextColor
         
         resultsTable.reloadDataMaintainingSelection()
+        btnDone.redraw()
     }
 }

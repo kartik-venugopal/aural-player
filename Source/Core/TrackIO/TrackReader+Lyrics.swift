@@ -17,9 +17,9 @@ import LyricsUI
 
 extension TrackReader {
     
-    func loadExternalLyrics(for track: Track) {
+    func loadExternalLyrics(for track: Track, immediate: Bool) {
         
-        guard track.externalTimedLyrics == nil else {return}
+        guard track.externalOrEmbeddedTimedLyrics == nil else {return}
         
         // Load lyrics from previously assigned external file
         if let externalLyricsFile = track.metadata.externalLyricsFile, externalLyricsFile.exists,
@@ -45,7 +45,7 @@ extension TrackReader {
         // Online search
         guard onlineSearchEnabled else {return}
         
-        Task.detached(priority: .userInitiated) {
+        Task.detached(priority: immediate ? .userInitiated : .utility) {
             
             guard let bestLyrics = await LyricsSearchService().searchLyrics(for: track) else {return}
             
@@ -111,8 +111,6 @@ extension TrackReader {
     }
     
     func searchForLyricsOnline(for track: Track, uiUpdateBlock: @escaping (TimedLyrics) -> Void) async {
-        
-        guard onlineSearchEnabled else {return}
         
         Task.detached(priority: .userInitiated) {
             

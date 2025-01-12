@@ -23,6 +23,8 @@ extension LyricsViewController {
                                                                  color: systemColorScheme.secondaryTextColor,
                                                                  lineSpacing: 15))
         }
+        
+        searchSpinner.stopAnimation(nil)
     }
     
     func dismissStaticLyricsText() {
