@@ -84,7 +84,11 @@ class ModularPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .View.toggleWaveform, handler: toggleWaveform)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         
-        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(notif:))
+        
+        messenger.subscribeAsync(to: .Player.trackInfoUpdated, handler: lyricsLoaded(notif:), filter: {notif in
+            notif.updatedFields.contains(.lyrics)
+        })
         
         colorSchemesManager.registerSchemeObserver(self)
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: logoImage)
@@ -151,10 +155,20 @@ class ModularPlayerWindowController: NSWindowController {
         rootContainerBox.cornerRadius = radius.clamped(to: 0...20)
     }
     
-    private func trackTransitioned(_ notif: TrackTransitionNotification) {
+    private func trackTransitioned(notif: TrackTransitionNotification) {
         
         if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
             let newTrack = notif.endTrack, newTrack.hasLyrics {
+            
+            windowLayoutsManager.showWindow(withId: .lyrics)
+        }
+    }
+    
+    private func lyricsLoaded(notif: TrackInfoUpdatedNotification) {
+        
+        if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
+           playbackInfoDelegate.playingTrack == notif.updatedTrack,
+           !appModeManager.isShowingLyrics {
             
             windowLayoutsManager.showWindow(withId: .lyrics)
         }

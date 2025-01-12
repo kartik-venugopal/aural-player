@@ -9,10 +9,6 @@
 //
 
 import AppKit
-import LyricsService
-import MusicPlayer
-import LyricsXCore
-import LyricsUI
 
 fileprivate var isKaraokeModeEnabled: Bool {
     preferences.metadataPreferences.lyrics.enableKaraokeMode.value
@@ -39,6 +35,16 @@ extension LyricsViewController {
         messenger.subscribeAsync(to: .Lyrics.karaokeModePreferenceUpdated, handler: karaokeModePreferenceUpdated)
     }
     
+    func dismissTimedLyricsView() {
+        
+        timer.pause()
+        
+        messenger.unsubscribe(from: .Player.playbackStateChanged,
+                              .Player.seekPerformed,
+                              .Player.trackInfoUpdated,
+                              .Lyrics.karaokeModePreferenceUpdated)
+    }
+    
     @IBAction func loadLyricsButtonAction(_ sender: NSButton) {
         
         if fileOpenDialog.runModal() == .OK, let lyricsFile = fileOpenDialog.url {
@@ -60,21 +66,11 @@ extension LyricsViewController {
         }
         
         self.timedLyrics = track.externalTimedLyrics
-        
         showTimedLyricsView()
     }
     
     func updateTimedLyricsText() {
         tableView.reloadData()
-    }
-    
-    func dismissTimedLyricsView() {
-        
-        timer.pause()
-        
-        messenger.unsubscribe(from: .Player.playbackStateChanged,
-                              .Player.seekPerformed,
-                              .Lyrics.karaokeModePreferenceUpdated)
     }
     
     private var isAutoScrollEnabled: Bool {
@@ -156,15 +152,6 @@ extension LyricsViewController {
         preferences.metadataPreferences.lyrics.enableOnlineSearch.value
     }
     
-    func updateSearch(for track: Track?) {
-        
-        guard onlineSearchEnabled else {return}
-        
-        if let track, timedLyrics == nil {
-            searchForLyricsOnline(for: track)
-        }
-    }
-    
     private func searchForLyricsOnline(for track: Track) {
         
         let uiUpdateBlock = {(timedLyrics: TimedLyrics) in
@@ -177,31 +164,17 @@ extension LyricsViewController {
         }
         
         Task.detached(priority: .userInitiated) {
-            await trackReader.searchForLyricsOnline(for: track, using: .init(), uiUpdateBlock: uiUpdateBlock)
+            await trackReader.searchForLyricsOnline(for: track, uiUpdateBlock: uiUpdateBlock)
+        }
+    }
+    
+    func lyricsLoaded(notif: TrackInfoUpdatedNotification) {
+        
+        if playbackInfoDelegate.playingTrack == notif.updatedTrack, appModeManager.isShowingLyrics {
+            updateForTrack(notif.updatedTrack)
         }
     }
 }
-
-extension LyricsSearchService {
-    
-    func searchLyrics(for track: Track) async -> Lyrics? {
-        
-        let musicTrack = MusicTrack(
-            id: track.defaultDisplayName,
-            title: track.title,
-            album: track.album,
-            artist: track.artist,
-            duration: track.duration,
-            fileURL: track.file,
-            artwork: track.art?.originalImage?.image,
-            originalTrack: track
-        )
-        
-        let allLyrics = await searchLyrics(with: musicTrack.searchQuery)
-        return allLyrics.bestMatch(for: musicTrack)
-    }
-}
-
 
 // MARK: TableViewDelegate ---------------------------------------------------------------------------------
 

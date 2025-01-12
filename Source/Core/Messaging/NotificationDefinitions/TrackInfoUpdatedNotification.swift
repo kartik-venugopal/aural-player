@@ -38,4 +38,7 @@ enum UpdatedTrackInfoField: CaseIterable {
     
     // Track duration
     case duration
+    
+    // External lyrics (LRC file or online lyrics)
+    case lyrics
 }

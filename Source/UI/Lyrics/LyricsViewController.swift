@@ -52,9 +52,14 @@ class LyricsViewController: NSViewController {
         colorSchemesManager.registerSchemeObservers(self)
         
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
-        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeCornerRadius(to:))
+        
+        messenger.subscribeAsync(to: .Player.trackInfoUpdated, handler: lyricsLoaded(notif:), filter: {notif in
+            notif.updatedFields.contains(.lyrics)
+        })
+        
         messenger.subscribe(to: .Lyrics.loadFromFile, handler: loadLyrics(fromFile:))
         messenger.subscribe(to: .Lyrics.lyricsUpdated, handler: updateForTrack(_:))
+        messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeCornerRadius(to:))
     }
     
     override func viewWillAppear() {
@@ -80,8 +85,6 @@ class LyricsViewController: NSViewController {
         self.track = track
         
         self.timedLyrics = track?.externalOrEmbeddedTimedLyrics
-        
-        updateSearch(for: track)
         doUpdate()
     }
     

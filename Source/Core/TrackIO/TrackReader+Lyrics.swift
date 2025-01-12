@@ -11,16 +11,22 @@
 import Foundation
 import LyricsCore
 import LyricsService
+import MusicPlayer
+import LyricsXCore
+import LyricsUI
 
 extension TrackReader {
     
     func loadExternalLyrics(for track: Track) {
+        
+        guard track.externalTimedLyrics == nil else {return}
         
         // Load lyrics from previously assigned external file
         if let externalLyricsFile = track.metadata.externalLyricsFile, externalLyricsFile.exists,
            let lyrics = loadLyricsFromFile(at: externalLyricsFile) {
             
             track.metadata.externalTimedLyrics = TimedLyrics(from: lyrics, trackDuration: track.duration)
+            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .lyrics))
             return
         }
         
@@ -30,7 +36,26 @@ extension TrackReader {
         for dir in [lyricsFolder, track.file.parentDir, FilesAndPaths.lyricsDir].compactMap({$0}) {
             
             if loadLyricsFromDirectory(dir, for: track) {
+                
+                Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .lyrics))
                 return
+            }
+        }
+        
+        // Online search
+        guard onlineSearchEnabled else {return}
+        
+        Task.detached(priority: .userInitiated) {
+            
+            guard let bestLyrics = await LyricsSearchService().searchLyrics(for: track) else {return}
+            
+            let timedLyrics = TimedLyrics(from: bestLyrics, trackDuration: track.duration)
+            track.metadata.externalTimedLyrics = timedLyrics
+            
+            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .lyrics))
+            
+            if let cachedLyricsFile = bestLyrics.persistToFile(track.defaultDisplayName) {
+                track.metadata.externalLyricsFile = cachedLyricsFile
             }
         }
     }
@@ -85,13 +110,13 @@ extension TrackReader {
         preferences.metadataPreferences.lyrics.enableOnlineSearch.value
     }
     
-    func searchForLyricsOnline(for track: Track, using searchService: LyricsSearchService, uiUpdateBlock: @escaping (TimedLyrics) -> Void) async {
+    func searchForLyricsOnline(for track: Track, uiUpdateBlock: @escaping (TimedLyrics) -> Void) async {
         
         guard onlineSearchEnabled else {return}
         
         Task.detached(priority: .userInitiated) {
             
-            guard let bestLyrics = await searchService.searchLyrics(for: track) else {return}
+            guard let bestLyrics = await LyricsSearchService().searchLyrics(for: track) else {return}
             
             let timedLyrics = TimedLyrics(from: bestLyrics, trackDuration: track.duration)
             track.metadata.externalTimedLyrics = timedLyrics
@@ -105,5 +130,25 @@ extension TrackReader {
                 track.metadata.externalLyricsFile = cachedLyricsFile
             }
         }
+    }
+}
+
+extension LyricsSearchService {
+    
+    func searchLyrics(for track: Track) async -> Lyrics? {
+        
+        let musicTrack = MusicTrack(
+            id: track.defaultDisplayName,
+            title: track.title,
+            album: track.album,
+            artist: track.artist,
+            duration: track.duration,
+            fileURL: track.file,
+            artwork: track.art?.originalImage?.image,
+            originalTrack: track
+        )
+        
+        let allLyrics = await searchLyrics(with: musicTrack.searchQuery)
+        return allLyrics.bestMatch(for: musicTrack)
     }
 }
