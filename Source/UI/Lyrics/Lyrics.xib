@@ -276,10 +276,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NvJ-F7-AdE">
-                                        <rect key="frame" x="202" y="91.5" width="80.5" height="107"/>
+                                        <rect key="frame" x="202" y="101.5" width="80.5" height="87"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="mnB-b6-s0M"/>
-                                            <constraint firstAttribute="height" constant="100" id="xKI-26-0aj"/>
+                                            <constraint firstAttribute="height" constant="80" id="xKI-26-0aj"/>
                                         </constraints>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="music.mic" catalog="system" id="2D1-Q6-bLR"/>
                                     </imageView>

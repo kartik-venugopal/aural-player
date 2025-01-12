@@ -8,8 +8,14 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CompactPlayerLyricsViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnChooseFile" destination="W9L-ph-9nS" id="VGc-iC-5s6"/>
+                <outlet property="btnSearchOnline" destination="P9L-2Y-obt" id="TnH-zu-CRJ"/>
+                <outlet property="imgLyrics" destination="vX7-eY-UTv" id="crU-hZ-pKm"/>
                 <outlet property="lblCaption" destination="VB1-cw-yTt" id="cuL-fD-oxW"/>
+                <outlet property="lblDragDrop" destination="D2X-ff-icB" id="riH-Rp-EM7"/>
+                <outlet property="lblSearching" destination="iT9-Yb-xDR" id="HnS-dd-4kD"/>
                 <outlet property="prototypeTextField" destination="Aj8-VZ-vO8" id="Nxx-l2-GPd"/>
+                <outlet property="searchSpinner" destination="81V-Qi-dYv" id="pyR-DW-m4D"/>
                 <outlet property="tabView" destination="oKq-7S-hY6" id="5Fx-zO-dam"/>
                 <outlet property="tableVertScroller" destination="bmY-q1-lSZ" id="MNu-5f-ND5"/>
                 <outlet property="tableView" destination="Uiu-25-iep" id="zqp-rX-gFD"/>
@@ -198,7 +204,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D2X-ff-icB" userLabel="Drop a Lyrics file (.lrc / .lrcx)" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                            <rect key="frame" x="100" y="236" width="284" height="25"/>
+                                            <rect key="frame" x="8" y="206" width="284" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="PN0-sk-ZjN"/>
                                                 <constraint firstAttribute="width" constant="280" id="UY0-eu-GjJ"/>
@@ -210,8 +216,8 @@
                                             </textFieldCell>
                                         </textField>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="W9L-ph-9nS">
-                                            <rect key="frame" x="137" y="199" width="210" height="32"/>
-                                            <buttonCell key="cell" type="square" title="Choose a Lyrics file" bezelStyle="shadowlessSquare" image="doc" catalog="system" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d7X-uA-QiG">
+                                            <rect key="frame" x="45" y="169" width="210" height="32"/>
+                                            <buttonCell key="cell" type="square" title="Choose a Lyrics file" bezelStyle="shadowlessSquare" image="doc" catalog="system" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d7X-uA-QiG" customClass="TextAndImageButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -219,10 +225,13 @@
                                                 <constraint firstAttribute="width" constant="210" id="YAh-V5-0pe"/>
                                                 <constraint firstAttribute="height" constant="32" id="xvX-48-3Pf"/>
                                             </constraints>
+                                            <connections>
+                                                <action selector="loadLyricsButtonAction:" target="-2" id="WHe-NN-UE4"/>
+                                            </connections>
                                         </button>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="P9L-2Y-obt" userLabel="Search for Lyrics online">
-                                            <rect key="frame" x="137" y="157" width="210" height="32"/>
-                                            <buttonCell key="cell" type="square" title="Search for Lyrics online" bezelStyle="shadowlessSquare" image="network" catalog="system" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2KK-Pr-HbH">
+                                            <rect key="frame" x="45" y="127" width="210" height="32"/>
+                                            <buttonCell key="cell" type="square" title="Search for Lyrics online" bezelStyle="shadowlessSquare" image="network" catalog="system" imagePosition="right" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2KK-Pr-HbH" customClass="TextAndImageButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -230,11 +239,14 @@
                                                 <constraint firstAttribute="height" constant="32" id="KfC-74-eCW"/>
                                                 <constraint firstAttribute="width" constant="210" id="SIZ-QX-8l3"/>
                                             </constraints>
+                                            <connections>
+                                                <action selector="searchForLyricsOnlineButtonAction:" target="-2" id="0iA-yv-EPU"/>
+                                            </connections>
                                         </button>
-                                        <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="FTK-2U-EGC" userLabel="Drop Box">
-                                            <rect key="frame" x="0.0" y="61" width="483" height="288"/>
+                                        <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="FTK-2U-EGC" userLabel="Drop Box">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="349"/>
                                             <view key="contentView" id="yPY-Js-QWZ">
-                                                <rect key="frame" x="1" y="1" width="481" height="286"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="349"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                         </box>
@@ -257,6 +269,49 @@
                                 <view key="view" id="WJa-Hd-10b">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="349"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vX7-eY-UTv">
+                                            <rect key="frame" x="125" y="147.5" width="50.5" height="57"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="V3r-bO-aaq"/>
+                                                <constraint firstAttribute="height" constant="50" id="xpW-mM-trE"/>
+                                            </constraints>
+                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="music.mic" catalog="system" id="A8h-jB-XRc"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="vX7-eY-UTv" firstAttribute="centerX" secondItem="WJa-Hd-10b" secondAttribute="centerX" id="dSQ-ry-Sdd"/>
+                                        <constraint firstItem="vX7-eY-UTv" firstAttribute="centerY" secondItem="WJa-Hd-10b" secondAttribute="centerY" id="jKM-9D-cuy"/>
+                                    </constraints>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Item 3" identifier="" id="M7S-O3-P2T" userLabel="Searching">
+                                <view key="view" id="zyC-kh-n2e">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="349"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iT9-Yb-xDR" userLabel="Drop a Lyrics file (.lrc / .lrcx)" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="202" width="284" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="Tuh-iz-CQn"/>
+                                                <constraint firstAttribute="width" constant="280" id="xsQ-5n-IDv"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Searching for Lyrics online ..." id="juq-qj-6pU">
+                                                <font key="font" size="15" name="Play-Regular"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <progressIndicator maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="81V-Qi-dYv">
+                                            <rect key="frame" x="134" y="159" width="32" height="32"/>
+                                        </progressIndicator>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="81V-Qi-dYv" firstAttribute="centerY" secondItem="zyC-kh-n2e" secondAttribute="centerY" id="LwS-Qi-RxR"/>
+                                        <constraint firstItem="81V-Qi-dYv" firstAttribute="top" secondItem="iT9-Yb-xDR" secondAttribute="bottom" constant="11" id="OhY-Zp-jVz"/>
+                                        <constraint firstItem="iT9-Yb-xDR" firstAttribute="centerX" secondItem="zyC-kh-n2e" secondAttribute="centerX" id="YzB-Ia-v46"/>
+                                        <constraint firstItem="81V-Qi-dYv" firstAttribute="centerX" secondItem="iT9-Yb-xDR" secondAttribute="centerX" id="dfs-vz-gDJ"/>
+                                    </constraints>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
@@ -284,6 +339,7 @@
     </objects>
     <resources>
         <image name="doc" catalog="system" width="14" height="16"/>
+        <image name="music.mic" catalog="system" width="16" height="16"/>
         <image name="network" catalog="system" width="15" height="15"/>
     </resources>
 </document>

@@ -58,10 +58,23 @@ extension LyricsViewController {
         
         guard let track else {return}
         
+        guard track.title != nil || track.artist != nil else {
+            
+            NSAlert.showError(withTitle: "Online lyrics search not possible", andText: "The playing track does not have artist/title metadata.")
+            return
+        }
+        
         tabView.selectTabViewItem(at: 4)
         searchSpinner.startAnimation(nil)
         
-        let uiUpdateBlock = {(timedLyrics: TimedLyrics) in
+        let uiUpdateBlock = {(timedLyrics: TimedLyrics?) in
+            
+            guard let timedLyrics else {
+                
+                self.tabView.selectTabViewItem(at: 2)
+                self.searchSpinner.stopAnimation(nil)
+                return
+            }
             
             if playbackInfoDelegate.playingTrack == track {
                 
@@ -192,6 +205,10 @@ extension LyricsViewController: NSTableViewDelegate {
     
     @objc var lineBreakMode: NSLineBreakMode {.byTruncatingTail}
     
+    var paragraphStyle: NSMutableParagraphStyle {
+        lineBreakMode == .byTruncatingTail ? .byTruncatingTail : .byWordWrapping
+    }
+    
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         Self.rowHeight
     }
@@ -254,6 +271,8 @@ extension LyricsViewController: NSTableViewDelegate {
         if !String.isEmpty(segment.postSegmentContent) {
             mutStr = mutStr + segment.postSegmentContent.attributed(font: systemFontScheme.lyricsHighlightFont, color: systemColorScheme.primarySelectedTextColor)
         }
+        
+        mutStr.addAttribute(.paragraphStyle, value: self.paragraphStyle, range: NSMakeRange(0, mutStr.length))
         
         cell.attributedText = mutStr
     }

@@ -43,7 +43,7 @@ extension TrackReader {
         }
         
         // Online search
-        guard onlineSearchEnabled else {return}
+        guard onlineSearchEnabled, track.title != nil && track.artist != nil else {return}
         
         Task.detached(priority: immediate ? .userInitiated : .utility) {
             
@@ -110,11 +110,18 @@ extension TrackReader {
         preferences.metadataPreferences.lyrics.enableOnlineSearch.value
     }
     
-    func searchForLyricsOnline(for track: Track, uiUpdateBlock: @escaping (TimedLyrics) -> Void) async {
+    func searchForLyricsOnline(for track: Track, uiUpdateBlock: @escaping (TimedLyrics?) -> Void) async {
         
         Task.detached(priority: .userInitiated) {
             
-            guard let bestLyrics = await LyricsSearchService().searchLyrics(for: track) else {return}
+            guard let bestLyrics = await LyricsSearchService().searchLyrics(for: track) else {
+                
+                await MainActor.run {
+                    uiUpdateBlock(nil)
+                }
+                
+                return
+            }
             
             let timedLyrics = TimedLyrics(from: bestLyrics, trackDuration: track.duration)
             track.metadata.externalTimedLyrics = timedLyrics
