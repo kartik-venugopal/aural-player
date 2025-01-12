@@ -204,10 +204,6 @@ class TrackReader {
     
     func loadExternalMetadataAsync(for track: Track, immediate: Bool = true) {
         
-        guard track.externalMetadataLoaded.isFalse else {return}
-        
-        track.externalMetadataLoaded.setTrue()
-        
         DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
             
             self.loadArt(for: track)

@@ -19,7 +19,7 @@ extension TrackReader {
     
     func loadExternalLyrics(for track: Track, immediate: Bool) {
         
-        guard track.externalOrEmbeddedTimedLyrics == nil else {return}
+        guard !track.hasLyrics else {return}
         
         // Load lyrics from previously assigned external file
         if let externalLyricsFile = track.metadata.externalLyricsFile, externalLyricsFile.exists,

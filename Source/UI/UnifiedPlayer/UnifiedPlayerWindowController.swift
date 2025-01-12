@@ -96,7 +96,11 @@ class UnifiedPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .View.toggleWaveform, handler: toggleWaveform)
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeWindowCornerRadius(to:))
         
-        messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(notif:))
+        
+        messenger.subscribeAsync(to: .Player.trackInfoUpdated, handler: lyricsLoaded(notif:), filter: {notif in
+            notif.updatedFields.contains(.lyrics)
+        })
         
         messenger.subscribe(to: .Application.willExit, handler: preApplicationExit)
         
@@ -299,7 +303,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         }
     }
     
-    func trackTransitioned(_ notif: TrackTransitionNotification) {
+    private func trackTransitioned(notif: TrackTransitionNotification) {
         
         if let newTrack = notif.endTrack {
             
@@ -318,6 +322,16 @@ class UnifiedPlayerWindowController: NSWindowController {
             
         } else {
             closeChaptersList()
+        }
+    }
+    
+    private func lyricsLoaded(notif: TrackInfoUpdatedNotification) {
+        
+        if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
+           playbackInfoDelegate.playingTrack == notif.updatedTrack,
+           !appModeManager.isShowingLyrics {
+            
+            showLyrics()
         }
     }
 }
