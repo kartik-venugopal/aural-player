@@ -12,12 +12,12 @@ import Foundation
 ///
 /// A thread-safe boolean value.
 ///
-public final class AtomicBool {
+class AtomicBool {
     
     private let lock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     private var _value: Bool
     
-    public init(value initialValue: Bool = false) {
+    init(value initialValue: Bool = false) {
         _value = initialValue
     }
     
@@ -33,7 +33,7 @@ public final class AtomicBool {
         self.value = value
     }
     
-    public var value: Bool {
+    var value: Bool {
         
         get {
             
@@ -47,6 +47,20 @@ public final class AtomicBool {
             lock.executeAfterWait {
                 _value = newValue
             }
+        }
+    }
+    
+    var isTrue: Bool {
+        
+        lock.produceValueAfterWait {
+            _value
+        }
+    }
+    
+    var isFalse: Bool {
+        
+        lock.produceValueAfterWait {
+            _value == false
         }
     }
 }

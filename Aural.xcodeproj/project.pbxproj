@@ -481,6 +481,7 @@
 		3E25B65627F7875700D10A5F /* PlayQueueSimpleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E25B65527F7875700D10A5F /* PlayQueueSimpleView.xib */; };
 		3E25B65927F78C0B00D10A5F /* TrackListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E25B65827F78C0B00D10A5F /* TrackListTableViewController.swift */; };
 		3E25B65B27F78EE100D10A5F /* PlayQueueSimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E25B65A27F78EE100D10A5F /* PlayQueueSimpleViewController.swift */; };
+		3E28A5792D33DCCB007331AF /* TrackReader+Lyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28A5782D33DCCB007331AF /* TrackReader+Lyrics.swift */; };
 		3E2976132629473500459272 /* WindowCornerRadiusMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */; };
 		3E2C4BD02B38D46400FC65DD /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2C4BCF2B38D46400FC65DD /* Search.xib */; };
 		3E2C4BD42B38DD0400FC65DD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C4BD32B38DD0400FC65DD /* SearchViewController.swift */; };
@@ -1577,6 +1578,7 @@
 		3E25EA952B979D5100D76006 /* FavoritePlaylistFilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlaylistFilesViewController.swift; sourceTree = "<group>"; };
 		3E25EA972B97A12000D76006 /* FavoriteFolders.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteFolders.xib; sourceTree = "<group>"; };
 		3E25EA992B97A12700D76006 /* FavoriteFoldersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFoldersViewController.swift; sourceTree = "<group>"; };
+		3E28A5782D33DCCB007331AF /* TrackReader+Lyrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackReader+Lyrics.swift"; sourceTree = "<group>"; };
 		3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCornerRadiusMenuItemView.swift; sourceTree = "<group>"; };
 		3E2A2A052809B68A000F0539 /* PlaylistNamesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistNamesTableViewController.swift; sourceTree = "<group>"; };
 		3E2A2A0A280A032F000F0539 /* PlaylistTracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTracksViewController.swift; sourceTree = "<group>"; };
@@ -3078,6 +3080,7 @@
 				3E0217772C23490E00865AC2 /* FileReader.swift */,
 				3E0217782C23490E00865AC2 /* FileReaderProtocol.swift */,
 				3E0217792C23490E00865AC2 /* TrackReader.swift */,
+				3E28A5782D33DCCB007331AF /* TrackReader+Lyrics.swift */,
 			);
 			path = TrackIO;
 			sourceTree = "<group>";
@@ -6216,6 +6219,7 @@
 				3E0218382C23490E00865AC2 /* FFmpegString.swift in Sources */,
 				3EB805DD2B793FE7005E464A /* MenuBarPlayQueueContainer.swift in Sources */,
 				3E47D2352815A5BD00938F20 /* ControlStatesColorSchemeViewController.swift in Sources */,
+				3E28A5792D33DCCB007331AF /* TrackReader+Lyrics.swift in Sources */,
 				3E25B65B27F78EE100D10A5F /* PlayQueueSimpleViewController.swift in Sources */,
 				3E6C12B325CEBE5800BF0D07 /* FavoritesMenuController.swift in Sources */,
 				3E5F942E25E57190002DEF80 /* FFT.swift in Sources */,

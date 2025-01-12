@@ -41,8 +41,6 @@ class LyricsViewController: NSViewController {
         self?.highlightCurrentLine()},
                                                                       queue: .main)
     
-    let searchService = LyricsSearchService()
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()

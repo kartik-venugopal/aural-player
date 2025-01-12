@@ -18,6 +18,7 @@ class Track: Hashable, PlayableItem {
     
     let fileSystemInfo: FileSystemInfo
     var metadata: FileMetadata
+    var externalMetadataLoaded: AtomicBool = AtomicBool(value: false)
     var playbackContext: PlaybackContextProtocol?
     
     init(_ file: URL, primaryMetadata: PrimaryMetadata? = nil, cueSheetMetadata: CueSheetMetadata? = nil) {

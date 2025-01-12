@@ -160,14 +160,8 @@ extension LyricsViewController {
         
         guard onlineSearchEnabled else {return}
         
-        if let track {
-            
-            if timedLyrics == nil {
-                searchForLyricsOnline(for: track)
-            }
-            
-        } else {
-            searchService.cancelSearch()
+        if let track, timedLyrics == nil {
+            searchForLyricsOnline(for: track)
         }
     }
     
@@ -183,7 +177,7 @@ extension LyricsViewController {
         }
         
         Task.detached(priority: .userInitiated) {
-            await trackReader.searchForLyricsOnline(for: track, using: self.searchService, uiUpdateBlock: uiUpdateBlock)
+            await trackReader.searchForLyricsOnline(for: track, using: .init(), uiUpdateBlock: uiUpdateBlock)
         }
     }
 }

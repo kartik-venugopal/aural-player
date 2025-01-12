@@ -136,7 +136,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         messenger.publish(TrackTransitionNotification(beginTrack: currentTrack, beginState: .stopped,
                                                       endTrack: firstTrack, endState: player.state))
         
-        trackReader.loadArtAsync(for: firstTrack, immediate: true)
+        trackReader.loadExternalMetadataAsync(for: firstTrack, immediate: true)
     }
     
     private func changeGaplessTrack(mustStopIfNoTrack: Bool, trackProducer: TrackProducer) {
@@ -531,7 +531,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
 //            print("\(Date.nowTimestampString) - subsequentTrack: \(subsequentTrack)")
             
             session.track = subsequentTrack
-            trackReader.loadArtAsync(for: subsequentTrack, immediate: true)
+            trackReader.loadExternalMetadataAsync(for: subsequentTrack, immediate: true)
         }
         
         messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,

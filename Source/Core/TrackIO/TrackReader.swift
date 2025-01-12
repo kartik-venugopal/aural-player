@@ -9,8 +9,6 @@
 //
 
 import Foundation
-import LyricsCore
-import LyricsService
 
 typealias TrackIOCompletionHandler = () -> Void
 
@@ -42,8 +40,6 @@ class TrackReader {
             track.metadata = cachedMetadata
             
             doLoadMetadata(for: track, onQueue: opQueue)
-            loadExternalLyrics(for: track, onQueue: opQueue)
-
             return
         }
         
@@ -59,7 +55,6 @@ class TrackReader {
                 }
                 
                 self.doLoadMetadata(for: track, onQueue: opQueue)
-                self.loadExternalLyrics(for: track, onQueue: opQueue)
                 
             } catch {
                 
@@ -83,105 +78,6 @@ class TrackReader {
         
         if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
             computeAccurateDuration(forTrack: track, onQueue: opQueue)
-        }
-    }
-    
-    private func loadExternalLyrics(for track: Track, onQueue opQueue: OperationQueue) {
-        
-        opQueue.addOperation {
-            
-            // Load lyrics from previously assigned external file
-            if let externalLyricsFile = track.metadata.externalLyricsFile, externalLyricsFile.exists,
-               let lyrics = self.loadLyricsFromFile(at: externalLyricsFile) {
-                
-                track.metadata.externalTimedLyrics = TimedLyrics(from: lyrics, trackDuration: track.duration)
-                return
-            }
-            
-            // Look for lyrics in candidate directories
-            let lyricsFolder = preferences.metadataPreferences.lyrics.lyricsFilesDirectory.value
-            
-            for dir in [lyricsFolder, track.file.parentDir, FilesAndPaths.lyricsDir].compactMap({$0}) {
-                
-                if self.loadLyricsFromDirectory(dir, for: track) {
-                    return
-                }
-            }
-        }
-    }
-    
-    /// Loads lyrics from a specified directory by searching for .lrc or .lrcx files
-    ///
-    /// - Parameter directory: The directory to search for lyrics files
-    /// - Returns: A Lyrics object if found and successfully loaded, nil otherwise
-    ///
-    private func loadLyricsFromDirectory(_ directory: URL, for track: Track) -> Bool {
-        
-        let possibleFiles = SupportedTypes.lyricsFileExtensions.map {
-            directory.appendingPathComponent(track.defaultDisplayName).appendingPathExtension($0)
-        }
-        
-        if let lyricsFile = possibleFiles.first(where: {$0.exists}) {
-            return loadTimedLyricsFromFile(at: lyricsFile, for: track)
-        }
-        
-        return false
-    }
-    
-    func loadTimedLyricsFromFile(at url: URL, for track: Track) -> Bool {
-        
-        if let lyrics = loadLyricsFromFile(at: url) {
-            
-            track.metadata.externalTimedLyrics = TimedLyrics(from: lyrics, trackDuration: track.duration)
-            track.metadata.externalLyricsFile = url
-            return true
-        }
-        
-        return false
-    }
-
-    /// Loads lyrics content from a file at the specified URL
-    ///
-    /// - Parameter url: The URL of the lyrics file
-    /// - Returns: A Lyrics object if successfully loaded, nil otherwise
-    ///
-    private func loadLyricsFromFile(at url: URL) -> LyricsCore.Lyrics? {
-        
-        do {
-            
-            let lyricsText = try String(contentsOf: url, encoding: .utf8)
-            return LyricsCore.Lyrics(lyricsText)
-            
-        } catch {
-            
-            print("Failed to read lyrics file at \(url.path): \(error.localizedDescription)")
-            return nil
-        }
-    }
-    
-    private var onlineSearchEnabled: Bool {
-        preferences.metadataPreferences.lyrics.enableOnlineSearch.value
-    }
-    
-    func searchForLyricsOnline(for track: Track, using searchService: LyricsSearchService, uiUpdateBlock: @escaping (TimedLyrics) -> Void) async {
-        
-        guard onlineSearchEnabled else {return}
-        
-        Task.detached(priority: .userInitiated) {
-            
-            guard let bestLyrics = await searchService.searchLyrics(for: track) else {return}
-            
-            let timedLyrics = TimedLyrics(from: bestLyrics, trackDuration: track.duration)
-            track.metadata.externalTimedLyrics = timedLyrics
-            
-            // Update the UI
-            await MainActor.run {
-                uiUpdateBlock(timedLyrics)
-            }
-            
-            if let cachedLyricsFile = bestLyrics.persistToFile(track.defaultDisplayName) {
-                track.metadata.externalLyricsFile = cachedLyricsFile
-            }
         }
     }
     
@@ -253,8 +149,8 @@ class TrackReader {
                 try track.playbackContext?.open()
             }
             
-            // Load cover art for display in the player.
-            loadArtAsync(for: track, immediate: immediate)
+            // Load cover art / lyrics for display in the player.
+            loadExternalMetadataAsync(for: track, immediate: immediate)
             
         } catch {
             
@@ -306,26 +202,51 @@ class TrackReader {
         }
     }
     
+    func loadExternalMetadataAsync(for track: Track, immediate: Bool = true) {
+        
+        guard track.externalMetadataLoaded.isFalse else {return}
+        
+        track.externalMetadataLoaded.setTrue()
+        
+        DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
+            
+            self.loadArt(for: track)
+            self.loadExternalLyrics(for: track)
+        }
+    }
+    
     ///
     /// Loads cover art for a track, asynchronously. This is useful when
     /// cover art is not required immediately, and a short delay is acceptable.
     /// (eg. when preparing for playback)
     ///
+    func loadArt(for track: Track) {
+        
+        if track.art?.originalImage == nil {
+            doLoadArt(for: track)
+        }
+    }
+    
+    private func doLoadArt(for track: Track) {
+        
+        guard let art = coverArtReader.getCoverArt(forTrack: track) else {return}
+        
+        if let existingArt = track.art {
+            existingArt.merge(withOther: art)
+        } else {
+            track.metadata.art = art
+        }
+        
+        Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
+    }
+    
     func loadArtAsync(for track: Track, immediate: Bool = true) {
         
-        if track.art?.originalImage != nil {return}
-        
-        DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
+        if track.art?.originalImage == nil {
             
-            guard let art = coverArtReader.getCoverArt(forTrack: track) else {return}
-            
-            if let existingArt = track.art {
-                existingArt.merge(withOther: art)
-            } else {
-                track.metadata.art = art
+            DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
+                self.doLoadArt(for: track)
             }
-            
-            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
         }
     }
     
@@ -334,10 +255,9 @@ class TrackReader {
     ///
     func loadAuxiliaryMetadata(for track: Track) {
         
-            
-            track.audioInfo.replayGainFromMetadata = track.replayGain
-            loadArtAsync(for: track)
-        
+        track.audioInfo.replayGainFromMetadata = track.replayGain
         track.audioInfo.replayGainFromAnalysis = replayGainScanner.cachedReplayGainData(forTrack: track)
+        
+        loadExternalMetadataAsync(for: track)
     }
 }
