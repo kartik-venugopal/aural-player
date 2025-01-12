@@ -3,7 +3,7 @@
 //  Aural
 //
 //  Created by Kartik Venugopal on 12/01/2024.
-//  Copyright © 2024 Kartik Venugopal. All rights reserved.
+//  Copyright © 2025 Kartik Venugopal. All rights reserved.
 //
 
 import Foundation

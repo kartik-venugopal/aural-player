@@ -4,7 +4,7 @@
 #  Aural
 #
 #  Created by Kartik Venugopal on 22/09/22.
-#  Copyright © 2024 Kartik Venugopal. All rights reserved.
+#  Copyright © 2025 Kartik Venugopal. All rights reserved.
 
 # MARK: Constants -------------------------------------------------------------------------------------
 

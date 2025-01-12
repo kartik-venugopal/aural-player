@@ -4,7 +4,7 @@
 #  Aural
 #
 #  Created by Kartik Venugopal on 13/08/24.
-#  Copyright © 2024 Kartik Venugopal. All rights reserved.
+#  Copyright © 2025 Kartik Venugopal. All rights reserved.
 #
 
 export libVersion="2.3.0"
