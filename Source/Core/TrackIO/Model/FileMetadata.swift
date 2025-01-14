@@ -69,6 +69,7 @@ class FileMetadata {
     
     var externalLyricsFile: URL?
     var externalTimedLyrics: TimedLyrics?
+    var lyricsDownloaded: Bool = false
     
     var nonEssentialMetadata: [String: MetadataEntry] = [:]
     
@@ -139,6 +140,10 @@ class FileMetadata {
         }
         
         self.externalLyricsFile = persistentState.externalLyricsFile
+        
+        if let lyricsDownloaded = persistentState.lyricsDownloaded {
+            self.lyricsDownloaded = lyricsDownloaded
+        }
         
         self.nonEssentialMetadata = persistentState.nonEssentialMetadata
         

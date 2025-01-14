@@ -54,6 +54,7 @@ class LyricsViewController: NSViewController {
         super.viewDidLoad()
         
         view.wantsLayer = true
+        
         changeCornerRadius(to: playerUIState.cornerRadius)
         
         fontSchemesManager.registerObserver(self)
@@ -68,6 +69,9 @@ class LyricsViewController: NSViewController {
         })
         
         messenger.subscribe(to: .Lyrics.loadFromFile, handler: loadLyrics(fromFile:))
+        messenger.subscribe(to: .Lyrics.searchForLyricsOnline, handler: searchForLyricsOnline, filter: {
+            appModeManager.isShowingLyrics
+        })
         messenger.subscribe(to: .View.changeWindowCornerRadius, handler: changeCornerRadius(to:))
     }
     

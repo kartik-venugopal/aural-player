@@ -40,8 +40,8 @@ extension PlayQueueDelegate {
             
         case .rememberFromLastAppLaunch:
             
-            if let tracks = persistentState?.tracks, tracks.isNonEmpty {
-                loadTracks(from: tracks, params: pqParmsWithAutoplayAndNoHistory)
+            if let urls = persistentState?.tracks, urls.isNonEmpty {
+                loadTracks(from: urls, params: pqParmsWithAutoplayAndNoHistory)
             }
             
         case .loadPlaylistFile:

@@ -844,6 +844,7 @@
 		3E9E590E25DB6B150064EB5F /* MenuBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */; };
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
 		3E9E591025DB6B150064EB5F /* ModularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* ModularAppModeController.swift */; };
+		3E9F0AE72D370A2600A23BDE /* TrackInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9F0AE62D370A2600A23BDE /* TrackInitializer.swift */; };
 		3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */; };
 		3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */; };
 		3EA07ACA2D27D22B001A5124 /* LyricsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA07AC92D27D22B001A5124 /* LyricsPreferences.swift */; };
@@ -1972,6 +1973,7 @@
 		3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
 		3E9E590125DB6B150064EB5F /* ModularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModularAppModeController.swift; sourceTree = "<group>"; };
+		3E9F0AE62D370A2600A23BDE /* TrackInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInitializer.swift; sourceTree = "<group>"; };
 		3E9F692126B9CE26001FAFA3 /* PlaylistControlsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistControlsContainer.swift; sourceTree = "<group>"; };
 		3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeHistory.swift; sourceTree = "<group>"; };
 		3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeChangeContext.swift; sourceTree = "<group>"; };
@@ -3087,6 +3089,7 @@
 				3E0217782C23490E00865AC2 /* FileReaderProtocol.swift */,
 				3E0217792C23490E00865AC2 /* TrackReader.swift */,
 				3E28A5782D33DCCB007331AF /* TrackReader+Lyrics.swift */,
+				3E9F0AE62D370A2600A23BDE /* TrackInitializer.swift */,
 			);
 			path = TrackIO;
 			sourceTree = "<group>";
@@ -6170,6 +6173,7 @@
 				3E0218D52C23490E00865AC2 /* PlaybackContextProtocol.swift in Sources */,
 				3E9DA1972D342B080094D6DE /* TextAndImageButtonCell.swift in Sources */,
 				3E7E9F4E2C66B1AF0011DE8E /* WaveformWindowController.swift in Sources */,
+				3E9F0AE72D370A2600A23BDE /* TrackInitializer.swift in Sources */,
 				3E02189A2C23490E00865AC2 /* MenuBarPlayerUIPersistentState.swift in Sources */,
 				3E02195C2C23490E00865AC2 /* SearchResults.swift in Sources */,
 				3E6EFFA42815309500C813AC /* TextColorSchemeViewController.swift in Sources */,

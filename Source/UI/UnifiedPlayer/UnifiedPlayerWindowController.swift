@@ -99,7 +99,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         messenger.subscribe(to: .Player.trackTransitioned, handler: trackTransitioned(notif:))
         
         messenger.subscribeAsync(to: .Player.trackInfoUpdated, handler: lyricsLoaded(notif:), filter: {notif in
-            notif.updatedFields.contains(.lyrics)
+            notif.updatedFields.contains(.lyrics) && !notif.destructiveUpdate
         })
         
         messenger.subscribe(to: .Application.willExit, handler: preApplicationExit)
@@ -329,6 +329,7 @@ class UnifiedPlayerWindowController: NSWindowController {
         
         if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
            playbackInfoDelegate.playingTrack == notif.updatedTrack,
+           notif.updatedTrack.hasLyrics,
            !appModeManager.isShowingLyrics {
             
             showLyrics()

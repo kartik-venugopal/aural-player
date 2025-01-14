@@ -19,7 +19,6 @@ struct FilesAndPaths {
     
     // Default user's music directory (default place to look in, when opening/saving files)
     static let musicDir: URL = homeDir.appendingPathComponent("/Music", isDirectory: true).resolvedURL
-//    static let musicDir: URL = URL(fileURLWithPath: "/Volumes/MBP-Ext-4TB/Projects/Aural-Test/Aural-Music")
     
     static let baseDir: URL = musicDir.appendingPathComponent("aural", isDirectory: true)
     static let metadataDir: URL = baseDir.appendingPathComponent("metadata", isDirectory: true)

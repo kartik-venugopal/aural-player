@@ -66,6 +66,10 @@ extension LyricsViewController {
     }
     
     @IBAction func searchForLyricsOnlineButtonAction(_ sender: NSButton) {
+        searchForLyricsOnline()
+    }
+    
+    func searchForLyricsOnline() {
         
         guard let track else {return}
         

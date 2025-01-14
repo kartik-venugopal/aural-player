@@ -446,6 +446,7 @@ class PlayerViewController: NSViewController {
         
         messenger.subscribe(to: .Lyrics.addLyricsFile, handler: addLyricsFile)
         messenger.subscribe(to: .Lyrics.searchForLyricsOnline, handler: searchForLyricsOnline)
+        messenger.subscribe(to: .Lyrics.removeDownloadedLyrics, handler: removeDownloadedLyrics)
     }
     
     func previousTrack() {
@@ -579,26 +580,17 @@ class PlayerViewController: NSViewController {
     
     func searchForLyricsOnline() {
         
-        guard let track = playbackInfoDelegate.playingTrack else {return}
-        
-        guard track.title != nil || track.artist != nil else {
+        if !appModeManager.isShowingLyrics {
             
-            NSAlert.showError(withTitle: "Online lyrics search not possible", andText: "The playing track does not have artist/title metadata.")
-            return
+            Messenger.publish(.View.toggleLyrics)
+            Messenger.publish(.Lyrics.searchForLyricsOnline)
         }
+    }
+    
+    func removeDownloadedLyrics() {
         
-        let uiUpdateBlock = {(lyrics: TimedLyrics?) in
-            
-            if lyrics != nil {
-                Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .lyrics))
-                
-            } else {
-                NSAlert.showError(withTitle: "Lyrics not loaded", andText: "No lyrics found online for the playing track.")
-            }
-        }
-        
-        Task.detached(priority: .userInitiated) {
-            await trackReader.searchForLyricsOnline(for: track, uiUpdateBlock: uiUpdateBlock)
+        if let playingTrack = playbackInfoDelegate.playingTrack {
+            trackReader.removeDownloadedLyrics(for: playingTrack)
         }
     }
     

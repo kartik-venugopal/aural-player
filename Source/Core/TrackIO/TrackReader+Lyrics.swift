@@ -19,7 +19,7 @@ extension TrackReader {
     
     func loadExternalLyrics(for track: Track, immediate: Bool) {
         
-        guard !track.hasLyrics else {return}
+        guard !track.hasExternalLyrics else {return}
         
         // Load lyrics from previously assigned external file
         if let externalLyricsFile = track.metadata.externalLyricsFile, externalLyricsFile.exists,
@@ -43,7 +43,7 @@ extension TrackReader {
         }
         
         // Online search
-        guard onlineSearchEnabled, track.title != nil && track.artist != nil else {return}
+        guard !track.hasLyrics, onlineSearchEnabled, track.title != nil && track.artist != nil else {return}
         
         Task.detached(priority: immediate ? .userInitiated : .utility) {
             
@@ -55,7 +55,9 @@ extension TrackReader {
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .lyrics))
             
             if let cachedLyricsFile = bestLyrics.persistToFile(track.defaultDisplayName) {
+                
                 track.metadata.externalLyricsFile = cachedLyricsFile
+                track.metadata.lyricsDownloaded = true
             }
         }
     }
@@ -132,7 +134,26 @@ extension TrackReader {
             }
             
             if let cachedLyricsFile = bestLyrics.persistToFile(track.defaultDisplayName) {
+                
                 track.metadata.externalLyricsFile = cachedLyricsFile
+                track.metadata.lyricsDownloaded = true
+            }
+        }
+    }
+    
+    func removeDownloadedLyrics(for track: Track) {
+        
+        if let extLyricsFile = track.metadata.externalLyricsFile,
+           extLyricsFile.exists, extLyricsFile.parentDir == FilesAndPaths.lyricsDir {
+            
+            extLyricsFile.moveToTrash()
+            
+            track.metadata.externalLyricsFile = nil
+            track.metadata.externalTimedLyrics = nil
+            track.metadata.lyricsDownloaded = false
+            
+            if appModeManager.isShowingLyrics || appModeManager.isShowingTrackInfo {
+                Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .lyrics, destructiveUpdate: true))
             }
         }
     }

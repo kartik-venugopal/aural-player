@@ -50,6 +50,7 @@ struct FileMetadataPersistentState: Codable {
     let timedLyrics: TimedLyricsPersistentState?
     
     let externalLyricsFile: URL?
+    let lyricsDownloaded: Bool?
     
     let nonEssentialMetadata: [String: MetadataEntry]
     
@@ -100,6 +101,7 @@ struct FileMetadataPersistentState: Codable {
         }
         
         self.externalLyricsFile = metadata.externalLyricsFile
+        self.lyricsDownloaded = metadata.lyricsDownloaded
         
         self.nonEssentialMetadata = metadata.nonEssentialMetadata
         

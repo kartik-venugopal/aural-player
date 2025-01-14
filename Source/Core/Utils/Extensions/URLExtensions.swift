@@ -210,6 +210,18 @@ extension URL {
         }
     }
     
+    func moveToTrash() {
+        
+        guard exists else {return}
+        
+        do {
+            try fileManager.trashItem(at: self, resultingItemURL: nil)
+            
+        } catch let error as NSError {
+            NSLog("Error moving file '%@' to trash: %@", self.path, error.description)
+        }
+    }
+    
     // Renames this file
     func rename(to target: URL) {
         

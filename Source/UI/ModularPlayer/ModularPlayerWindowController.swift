@@ -87,7 +87,7 @@ class ModularPlayerWindowController: NSWindowController {
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(notif:))
         
         messenger.subscribeAsync(to: .Player.trackInfoUpdated, handler: lyricsLoaded(notif:), filter: {notif in
-            notif.updatedFields.contains(.lyrics)
+            notif.updatedFields.contains(.lyrics) && !notif.destructiveUpdate
         })
         
         colorSchemesManager.registerSchemeObserver(self)
@@ -168,6 +168,7 @@ class ModularPlayerWindowController: NSWindowController {
         
         if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
            playbackInfoDelegate.playingTrack == notif.updatedTrack,
+           notif.updatedTrack.hasLyrics,
            !appModeManager.isShowingLyrics {
             
             windowLayoutsManager.showWindow(withId: .lyrics)

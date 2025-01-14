@@ -23,10 +23,13 @@ struct TrackInfoUpdatedNotification: NotificationPayload {
     // The track info fields that have been updated. Different UI components may display different fields.
     let updatedFields: Set<UpdatedTrackInfoField>
     
-    init(updatedTrack: Track, updatedFields: UpdatedTrackInfoField...) {
+    let destructiveUpdate: Bool
+    
+    init(updatedTrack: Track, updatedFields: UpdatedTrackInfoField..., destructiveUpdate: Bool = false) {
         
         self.updatedTrack = updatedTrack
         self.updatedFields = Set(updatedFields)
+        self.destructiveUpdate = destructiveUpdate
     }
 }
 

@@ -104,6 +104,7 @@
             <connections>
                 <outlet property="addLyricsFileMenuItem" destination="8BA-me-5uv" id="DGZ-yH-WHo"/>
                 <outlet property="detailedInfoMenuItem" destination="LJ6-A4-cet" id="fwF-TZ-Rr1"/>
+                <outlet property="removeOnlineLyricsMenuItem" destination="g1E-77-pB7" id="a5t-Rt-rYO"/>
                 <outlet property="searchForLyricsOnlineMenuItem" destination="4tR-6I-GhA" id="7cf-cD-jWE"/>
             </connections>
         </customObject>
@@ -805,6 +806,12 @@ CA
                             <menuItem title=" Search for lyrics online for playing track" image="network" catalog="system" enabled="NO" keyEquivalent="F" id="4tR-6I-GhA" userLabel="Search for lyrics online">
                                 <connections>
                                     <action selector="searchForLyricsOnlineAction:" target="RL2-vF-Zyu" id="i9C-Gz-fcQ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Remove downloaded lyrics for playing track" image="xmark.bin" catalog="system" id="g1E-77-pB7">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="removeOnlineLyricsAction:" target="RL2-vF-Zyu" id="dcO-rU-QwY"/>
                                 </connections>
                             </menuItem>
                         </items>
