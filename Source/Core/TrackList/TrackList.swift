@@ -135,11 +135,11 @@ class TrackList: TrackListProtocol {
 
     @inlinable
     @inline(__always)
-    func deDupeTracks(_ tracks: [Track]) -> [Track] {
+    func deDupeTracks(_ tracks: any Sequence<Track>) -> [Track] {
         tracks.filter {_tracks[$0.file] == nil}
     }
     
-    @discardableResult func addTracks(_ newTracks: [Track]) -> IndexSet {
+    @discardableResult func addTracks(_ newTracks: any Sequence<Track>) -> IndexSet {
         
         let sizeBeforeAdd = self.size
         let dedupedTracks = deDupeTracks(newTracks)
@@ -154,7 +154,7 @@ class TrackList: TrackListProtocol {
     
     @inlinable
     @inline(__always)
-    func doAddTracks(_ newTracks: [Track]) {
+    func doAddTracks(_ newTracks: any Sequence<Track>) {
         
         tracksLock.write {
             self._tracks.addMappings(newTracks.map {($0.file, $0)})

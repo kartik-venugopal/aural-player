@@ -1,0 +1,88 @@
+//
+// PlayQueue+AppInit.swift
+// Aural
+// 
+// Copyright © 2025 Kartik Venugopal. All rights reserved.
+// 
+// This software is licensed under the MIT software license.
+// See the file "LICENSE" in the project root directory for license terms.
+//
+
+import Foundation
+
+extension PlayQueue: TrackInitComponent {
+    
+    var urlsForTrackInit: [URL] {
+        
+//        // Check if any launch parameters were specified
+//        if appLaunchFiles.isNonEmpty {
+//            
+//            // Launch parameters specified, override playlist saved state and add file paths in params to playlist
+//            loadTracks(from: appLaunchFiles, params: .init(autoplayFirstAddedTrack: playbackPreferences.autoplayAfterOpeningTracks.value))
+//            return
+//        }
+
+        let persistentState = appPersistentState.playQueue
+        let playQueuePreferences = preferences.playQueuePreferences
+        
+        switch playQueuePreferences.playQueueOnStartup.value {
+            
+        case .empty:
+            return []
+            
+        case .rememberFromLastAppLaunch:
+            
+            if let urls = persistentState?.tracks {
+                return urls
+            }
+            
+        case .loadPlaylistFile:
+            
+            if let playlistFile = playQueuePreferences.playlistFile.value {
+                return [playlistFile]
+            }
+            
+        case .loadFolder:
+            
+            if let folder = playQueuePreferences.tracksFolder.value {
+                return [folder]
+            }
+        }
+        
+        return []
+    }
+    
+    func preInitialize() {
+        
+        let persistentState = appPersistentState.playQueue
+        let playQueuePreferences = preferences.playQueuePreferences
+        let playbackPreferences = preferences.playbackPreferences
+        
+        let autoplayOnStartup: Bool = playbackPreferences.autoplayOnStartup.value
+        let autoplayOption: PlaybackPreferences.AutoplayOnStartupOption = playbackPreferences.autoplayOnStartupOption.value
+        
+        let pqParmsWithAutoplayAndNoHistory: PlayQueueTrackLoadParams =
+        autoplayOption == .firstTrack ?
+            .init(autoplayFirstAddedTrack: autoplayOnStartup, markLoadedItemsForHistory: false) :
+            .init(autoplayResumeSequence: autoplayOnStartup, markLoadedItemsForHistory: false)
+        
+        setTrackLoadParams(params: pqParmsWithAutoplayAndNoHistory)
+    }
+    
+    func initialize(withTracks tracks: [URL: Track]) {
+        
+        addTracks(Array(tracks.values))
+        
+        var persistentState = appPersistentState.playQueue
+        
+        // Cue Sheet metadata
+        for (file, track) in tracks {
+            
+            if track.cueSheetMetadata == nil,
+               let metadata = persistentState?.cueSheetMetadata(forFile: file) {
+                
+                track.metadata.cueSheetMetadata = metadata
+            }
+        }
+    }
+}

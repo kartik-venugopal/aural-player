@@ -43,7 +43,7 @@ protocol TrackListProtocol {
     
     func loadTracks(from urls: [URL], atPosition position: Int?)
     
-    @discardableResult func addTracks(_ newTracks: [Track]) -> IndexSet
+    @discardableResult func addTracks(_ newTracks: any Sequence<Track>) -> IndexSet
     
     // Inserts tracks from an external source (eg. saved playlist) at a given insertion index.
     func insertTracks(_ tracks: [Track], at insertionIndex: Int) -> IndexSet

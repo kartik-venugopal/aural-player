@@ -102,7 +102,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         playQueue.loadTracks(from: urls, atPosition: position, params: params)
     }
     
-    func addTracks(_ newTracks: [Track]) -> IndexSet {
+    func addTracks(_ newTracks: any Sequence<Track>) -> IndexSet {
         
         let indices = playQueue.addTracks(newTracks)
         messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))

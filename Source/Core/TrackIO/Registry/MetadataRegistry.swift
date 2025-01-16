@@ -16,10 +16,9 @@ class MetadataRegistry: PersistentRootObject {
         "metadata"
     }
     
-    private let registry: ConcurrentMap<URL, FileMetadata> = ConcurrentMap()
-    private let opQueue: OperationQueue = .init(opCount: (Double(System.physicalCores) * 1.5).roundedInt, qos: .userInteractive)
+    let registry: ConcurrentMap<URL, FileMetadata> = ConcurrentMap()
     
-    private let fileImageCache: ImageCache = ImageCache(baseDir: FilesAndPaths.metadataDir.appendingPathComponent("coverArt", isDirectory: true),
+    let fileImageCache: ImageCache = ImageCache(baseDir: FilesAndPaths.metadataDir.appendingPathComponent("coverArt", isDirectory: true),
                                                          downscaledSize: NSMakeSize(30, 30),
                                                          persistOriginalImage: false)
     
@@ -27,6 +26,7 @@ class MetadataRegistry: PersistentRootObject {
     
     init(persistentState: MetadataPersistentState?) {
         
+        // TODO: Remove this when partial is released.
         var initCache: Bool = true
         
         if let appVersion = appPersistentState.appVersion, appVersion.contains("4.0.0-preview") {
@@ -38,13 +38,6 @@ class MetadataRegistry: PersistentRootObject {
         }
         
         self.initCache = initCache
-        
-        if initCache, let metadataPersistentState: [URL: FileMetadataPersistentState] = persistentState?.metadata {
-
-            registry.bulkAddAndMap(map: metadataPersistentState) {(metadataState: FileMetadataPersistentState) in
-                FileMetadata(persistentState: metadataState, persistentCoverArt: nil)
-            }
-        }
         
         fileImageCache.keyFunction = {track, coverArt in coverArt.originalImage?.imageData?.md5String}
     }
@@ -59,17 +52,6 @@ class MetadataRegistry: PersistentRootObject {
         
         registry.bulkAdd(map: map)
         persistCoverArt()
-    }
-    
-    func initializeImageCache(fromPersistentState persistentState: MetadataPersistentState?) {
-        
-        guard initCache else {return}
-        
-        fileImageCache.initialize(fromPersistentState: persistentState?.coverArt)
-        
-        for (file, metadata) in registry.map {
-            metadata.art = fileImageCache[file]
-        }
     }
     
     func persistCoverArt() {

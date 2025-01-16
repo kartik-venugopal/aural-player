@@ -10,28 +10,48 @@
 
 import Foundation
 
-extension BookmarksDelegate {
+extension BookmarksDelegate: TrackInitComponent {
     
-    func initialize(fromPersistentState persistentState: BookmarksPersistentState?) {
+    var urlsForTrackInit: [URL] {
+        appPersistentState.bookmarks?.bookmarks?.compactMap {$0.trackFile} ?? []
+    }
+    
+    func preInitialize() {}
+    
+    func initialize(withTracks tracks: [URL: Track]) {
         
-        guard let state = persistentState else {return}
-        var tracksByFile: [URL: Track] = [:]
+        guard let state = appPersistentState.bookmarks?.bookmarks else {return}
         
-        DispatchQueue.global(qos: .utility).async {
+        for bookmark in state {
             
-            for bookmark in state.bookmarks ?? [] {
-                
-                guard let bookmarkName = bookmark.name, let trackFile = bookmark.trackFile, let startPosition = bookmark.startPosition else {continue}
-                
-                let track = tracksByFile[trackFile] ?? Track(trackFile)
+            guard let bookmarkName = bookmark.name, let trackFile = bookmark.trackFile, let startPosition = bookmark.startPosition else {continue}
+            
+            if let track = tracks[trackFile] {
                 self.bookmarks.addObject(Bookmark(name: bookmarkName, track: track, startPosition: startPosition, endPosition: bookmark.endPosition))
-                
-                guard tracksByFile[trackFile] == nil else {continue}
-                
-                tracksByFile[trackFile] = track
-                
-                trackReader.loadMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
             }
         }
     }
+    
+//    func initialize(fromPersistentState persistentState: BookmarksPersistentState?) {
+//        
+//        guard let state = persistentState else {return}
+//        var tracksByFile: [URL: Track] = [:]
+//        
+//        DispatchQueue.global(qos: .utility).async {
+//            
+//            for bookmark in state.bookmarks ?? [] {
+//                
+//                guard let bookmarkName = bookmark.name, let trackFile = bookmark.trackFile, let startPosition = bookmark.startPosition else {continue}
+//                
+//                let track = tracksByFile[trackFile] ?? Track(trackFile)
+//                self.bookmarks.addObject(Bookmark(name: bookmarkName, track: track, startPosition: startPosition, endPosition: bookmark.endPosition))
+//                
+//                guard tracksByFile[trackFile] == nil else {continue}
+//                
+//                tracksByFile[trackFile] = track
+//                
+//                trackReader.loadMetadataAsync(for: track, onQueue: TrackReader.mediumPriorityQueue)
+//            }
+//        }
+//    }
 }

@@ -81,13 +81,13 @@ extension AppDelegate {
     
     func initializeMetadataCache() {
         
-        if preferences.metadataPreferences.cacheTrackMetadata.value {
-            metadataRegistry.initializeImageCache(fromPersistentState: metadataPersistentState)
-        }
-        
-        if preferences.metadataPreferences.musicBrainz.cachingEnabled {
-            musicBrainzCache.initializeImageCache(fromPersistentState: appPersistentState.musicBrainzCache)
-        }
+//        if preferences.metadataPreferences.cacheTrackMetadata.value {
+//            metadataRegistry.initializeImageCache(fromPersistentState: metadataPersistentState)
+//        }
+//        
+//        if preferences.metadataPreferences.musicBrainz.cachingEnabled {
+//            musicBrainzCache.initializeImageCache(fromPersistentState: appPersistentState.musicBrainzCache)
+//        }
     }
     
     func initializeMetadataComponents() {

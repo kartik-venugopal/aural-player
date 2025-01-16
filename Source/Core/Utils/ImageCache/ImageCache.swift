@@ -31,7 +31,6 @@ class ImageCache {
         images.count
     }
     
-    private lazy var readOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .userInitiated)
     private lazy var writeOpQueue: OperationQueue = OperationQueue(opCount: System.numberOfActiveCores, qos: .background)
     
     init(baseDir: URL, downscaledSize: NSSize, persistOriginalImage: Bool) {
@@ -45,11 +44,11 @@ class ImageCache {
         }
     }
     
-    func initialize(fromPersistentState persistentState: [URL: String]?) {
+    func initialize(fromPersistentState persistentState: [URL: String], onQueue queue: OperationQueue) {
 
-        for (file, key) in persistentState ?? [:] {
+        for (file, key) in persistentState {
             
-            readOpQueue.addOperation {
+            queue.addOperation {
                 
                 var originalImage: NSImage?
                 var downscaledImage: NSImage?
@@ -71,8 +70,6 @@ class ImageCache {
                 self.images[key] = .init(key: key, coverArt: CoverArt(source: .file, originalImage: originalImage, downscaledImage: downscaledImage))
             }
         }
-        
-        readOpQueue.waitUntilAllOperationsAreFinished()
     }
     
     func addToCache(coverArt: CoverArt, forTrack track: Track, persistNewEntry: Bool) {

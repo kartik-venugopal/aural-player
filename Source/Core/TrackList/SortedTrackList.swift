@@ -32,7 +32,7 @@ class SortedTrackList: TrackList, SortedTrackListProtocol {
         })
     }
     
-    @discardableResult override func addTracks(_ newTracks: [Track]) -> IndexSet {
+    @discardableResult override func addTracks(_ newTracks: any Sequence<Track>) -> IndexSet {
         
         let dedupedTracks = deDupeTracks(newTracks)
         guard dedupedTracks.isNonEmpty else {return .empty}

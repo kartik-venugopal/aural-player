@@ -42,7 +42,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     private var autoplayResumeSequence: AtomicBool = AtomicBool(value: false)
     private var markLoadedItemsForHistory: AtomicBool = AtomicBool(value: true)
     
-    @discardableResult override func addTracks(_ newTracks: [Track]) -> IndexSet {
+    @discardableResult override func addTracks(_ newTracks: any Sequence<Track>) -> IndexSet {
         
         let sizeBeforeAdd = self.size
         let dedupedTracks = deDupeTracks(newTracks)
@@ -59,12 +59,16 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         return IndexSet(sizeBeforeAdd..<sizeAfterAdd)
     }
     
-    func loadTracks(from urls: [URL], atPosition position: Int?, params: PlayQueueTrackLoadParams) {
+    func setTrackLoadParams(params: PlayQueueTrackLoadParams) {
         
         autoplayFirstAddedTrack.setValue(params.autoplayFirstAddedTrack)
         autoplayResumeSequence.setValue(params.autoplayResumeSequence)
         markLoadedItemsForHistory.setValue(params.markLoadedItemsForHistory)
+    }
+    
+    func loadTracks(from urls: [URL], atPosition position: Int?, params: PlayQueueTrackLoadParams) {
         
+        setTrackLoadParams(params: params)
         loadTracks(from: urls, atPosition: position)
     }
     
