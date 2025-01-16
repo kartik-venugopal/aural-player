@@ -2,7 +2,7 @@ import Foundation
 
 protocol PlayQueueDelegateProtocol: TrackListProtocol, SequencingProtocol, HistoryDelegateProtocol {
     
-    func initialize(fromPersistentState persistentState: PlayQueuePersistentState?, appLaunchFiles: [URL])
+//    func initialize(fromPersistentState persistentState: PlayQueuePersistentState?, appLaunchFiles: [URL])
     
     var currentTrack: Track? {get}
     

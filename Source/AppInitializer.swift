@@ -16,12 +16,30 @@ fileprivate let lowPriorityQueue: OperationQueue = .init(opCount: max(2, System.
 
 class AppInitializer {
     
-    var steps: [AppInitializationStep] = []
+    let steps: [AppInitializationStep]
+    
+    private var dialogController: AppInitializerDialogController! = .init()
+    
+    init(steps: [AppInitializationStep]) {
+        self.steps = steps
+    }
     
     func initializeApp() {
         
-        for step in steps {
-            step.execute()
+        dialogController.showWindow(self)
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            for step in self.steps {
+                step.execute()
+            }
+            
+            DispatchQueue.main.async {
+                
+                self.dialogController.window?.close()
+                self.dialogController = nil
+                appModeManager.presentApp()
+            }
         }
     }
 }
@@ -29,12 +47,9 @@ class AppInitializer {
 class AppInitializationStep {
     
     let components: [AppInitializationComponent]
-    let async: Bool
     
-    init(components: [AppInitializationComponent], async: Bool) {
-        
+    init(components: [AppInitializationComponent]) {
         self.components = components
-        self.async = async
     }
     
     func execute() {
@@ -54,13 +69,6 @@ class AppInitializationStep {
                 
             @unknown default:
                 return
-            }
-        }
-        
-        if !async {
-            
-            [highPriorityQueue, mediumPriorityQueue, lowPriorityQueue].forEach {
-                $0.waitUntilAllOperationsAreFinished()
             }
         }
     }

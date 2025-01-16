@@ -67,6 +67,15 @@ let appPersistentState: AppPersistentState = {
 let userDefaults: UserDefaults = .standard
 let preferences: Preferences = Preferences(defaults: userDefaults, needToMigrateLegacySettings: needToMigrateLegacySettings)
 
+let appInitializer: AppInitializer = AppInitializer.init(steps: [
+    
+    AppInitializationStep(components: [metadataRegistry]),
+    
+    AppInitializationStep(components: [TrackInitializer(components: [
+        playQueue, historyDelegate, favoritesDelegate, bookmarksDelegate
+    ])])
+])
+
 let appModeManager: AppModeManager = AppModeManager(persistentState: appPersistentState.ui,
                                                     preferences: preferences.viewPreferences)
 

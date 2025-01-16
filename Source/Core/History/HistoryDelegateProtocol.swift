@@ -21,7 +21,7 @@ import Foundation
 /// - SeeAlso: `AddedItem`
 /// - SeeAlso: `PlayedItem`
 ///
-protocol HistoryDelegateProtocol {
+protocol HistoryDelegateProtocol: TrackInitComponent {
     
     // Retrieves all items from the Recently added list, in chronological order
     var allRecentItems: [HistoryItem] {get}

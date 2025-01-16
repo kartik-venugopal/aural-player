@@ -17,9 +17,9 @@ import Foundation
 ///
 /// - SeeAlso: `Favorite`
 ///
-protocol FavoritesDelegateProtocol {
+protocol FavoritesDelegateProtocol: TrackInitComponent {
     
-    func initialize(fromPersistentState persistentState: FavoritesPersistentState?)
+//    func initialize(fromPersistentState persistentState: FavoritesPersistentState?)
     
     func addFavorite(track: Track)
     

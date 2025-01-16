@@ -555,6 +555,8 @@
 		3E4B054E2D39A642000EBF47 /* PlayQueue+AppInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B054D2D39A642000EBF47 /* PlayQueue+AppInit.swift */; };
 		3E4B05502D39B63C000EBF47 /* MetadataRegistry+AppInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B054F2D39B63C000EBF47 /* MetadataRegistry+AppInit.swift */; };
 		3E4B05522D39BEFB000EBF47 /* PlayQueueDelegate+HistoryInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B05512D39BEFB000EBF47 /* PlayQueueDelegate+HistoryInit.swift */; };
+		3E4B05552D39C155000EBF47 /* AppInitializer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4B05542D39C155000EBF47 /* AppInitializer.xib */; };
+		3E4B05572D39C6BA000EBF47 /* AppInitializerDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B05562D39C6BA000EBF47 /* AppInitializerDialogController.swift */; };
 		3E4C763B2AD7713400DDED45 /* AppSetupWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4C763A2AD7713400DDED45 /* AppSetupWindow.xib */; };
 		3E4C763D2AD774DA00DDED45 /* AppSetupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4C763C2AD774DA00DDED45 /* AppSetupWindowController.swift */; };
 		3E508F662BB330CD00D4B677 /* HistoryRecentItems.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E508F652BB330CD00D4B677 /* HistoryRecentItems.xib */; };
@@ -1668,6 +1670,8 @@
 		3E4B054D2D39A642000EBF47 /* PlayQueue+AppInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayQueue+AppInit.swift"; sourceTree = "<group>"; };
 		3E4B054F2D39B63C000EBF47 /* MetadataRegistry+AppInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MetadataRegistry+AppInit.swift"; sourceTree = "<group>"; };
 		3E4B05512D39BEFB000EBF47 /* PlayQueueDelegate+HistoryInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayQueueDelegate+HistoryInit.swift"; sourceTree = "<group>"; };
+		3E4B05542D39C155000EBF47 /* AppInitializer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppInitializer.xib; sourceTree = "<group>"; };
+		3E4B05562D39C6BA000EBF47 /* AppInitializerDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInitializerDialogController.swift; sourceTree = "<group>"; };
 		3E4C763A2AD7713400DDED45 /* AppSetupWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppSetupWindow.xib; sourceTree = "<group>"; };
 		3E4C763C2AD774DA00DDED45 /* AppSetupWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetupWindowController.swift; sourceTree = "<group>"; };
 		3E508F652BB330CD00D4B677 /* HistoryRecentItems.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryRecentItems.xib; sourceTree = "<group>"; };
@@ -3812,6 +3816,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3E4B05532D39C13C000EBF47 /* AppInitializer */ = {
+			isa = PBXGroup;
+			children = (
+				3E4B05542D39C155000EBF47 /* AppInitializer.xib */,
+				3E4B05562D39C6BA000EBF47 /* AppInitializerDialogController.swift */,
+			);
+			path = AppInitializer;
+			sourceTree = "<group>";
+		};
 		3E4C76392AD7701300DDED45 /* AppSetup */ = {
 			isa = PBXGroup;
 			children = (
@@ -4089,6 +4102,7 @@
 		3E6C0F1A25CEB98500BF0D07 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3E4B05532D39C13C000EBF47 /* AppInitializer */,
 				3E6C0FDD25CEB98600BF0D07 /* Menus */,
 				3E4C76392AD7701300DDED45 /* AppSetup */,
 				3E9E58FC25DB6B150064EB5F /* AppModeManagement */,
@@ -5848,6 +5862,7 @@
 				3EA3335B2AE098620041B4FA /* MenuBarPlayer.xib in Resources */,
 				3E2C4BD72B38E5E600FC65DD /* SearchWindow.xib in Resources */,
 				3ED8831C2D296A9E00F39E68 /* CompactPlayerLyrics.xib in Resources */,
+				3E4B05552D39C155000EBF47 /* AppInitializer.xib in Resources */,
 				3EC7937F2B745E0800AF7E9E /* EffectsSheetView.xib in Resources */,
 				3ED2385928207E2C0048CF8E /* FilterBandEditorDialog.xib in Resources */,
 				3E6C121525CEBDE500BF0D07 /* ViewPreferences.xib in Resources */,
@@ -6045,6 +6060,7 @@
 				3E6C128025CEBE1800BF0D07 /* ColorScheme.swift in Sources */,
 				3E0219192C23490E00865AC2 /* RemoteControlPreferences.swift in Sources */,
 				3E0218232C23490E00865AC2 /* SoundConstants.swift in Sources */,
+				3E4B05572D39C6BA000EBF47 /* AppInitializerDialogController.swift in Sources */,
 				3E6C129125CEBE1800BF0D07 /* ColorSchemeHistory.swift in Sources */,
 				3E0219292C23490E00865AC2 /* ApeV2Parser.swift in Sources */,
 				3E0218252C23490E00865AC2 /* ValueConversions.swift in Sources */,

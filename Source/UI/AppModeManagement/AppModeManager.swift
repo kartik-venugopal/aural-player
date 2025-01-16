@@ -107,6 +107,29 @@ class AppModeManager {
         self.preferences = preferences
     }
     
+    var predictedMainWindowFrame: NSRect? {
+        
+        let mode = appSetup.setupCompleted ? appSetup.presentationMode : lastPresentedAppMode ?? .defaultMode
+        
+        switch mode {
+        
+        case .modular:
+            return modularMode.mainWindow?.frame
+            
+        case .unified:
+            return unifiedMode.mainWindow?.frame
+        
+        case .menuBar:
+            return nil
+            
+        case .widget:
+            return widgetMode.mainWindow?.frame
+            
+        case .compact:
+            return compactMode.mainWindow?.frame
+        }
+    }
+    
     func presentApp() {
         
         if appSetup.setupCompleted {
