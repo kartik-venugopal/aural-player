@@ -31,6 +31,8 @@ class AppInitializer {
         DispatchQueue.global(qos: .userInteractive).async {
             
             for step in self.steps {
+                
+                Messenger.publish(.AppInitialization.stepChanged, payload: step)
                 step.execute()
             }
             
@@ -46,9 +48,12 @@ class AppInitializer {
 
 class AppInitializationStep {
     
+    let description: String
     let components: [AppInitializationComponent]
     
-    init(components: [AppInitializationComponent]) {
+    init(description: String, components: [AppInitializationComponent]) {
+        
+        self.description = description
         self.components = components
     }
     
@@ -79,4 +84,12 @@ protocol AppInitializationComponent {
     var priority: DispatchQoS.QoSClass {get}
     
     func initialize(onQueue queue: OperationQueue)
+}
+
+extension NSNotification.Name {
+    
+    struct AppInitialization {
+        
+        static let stepChanged: NSNotification.Name = .init(rawValue: "appInitialization_stepChanged")
+    }
 }

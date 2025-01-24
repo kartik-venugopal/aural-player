@@ -34,7 +34,6 @@ class TrackInitializer: AppInitializationComponent {
         for component in components {
             initializeComponent(component, onQueue: queue)
         }
-
     }
     
     private func initializeComponent(_ component: TrackInitComponent, onQueue queue: OperationQueue) {
@@ -86,6 +85,8 @@ class TrackInitializer: AppInitializationComponent {
             return
         }
         
+        // TODO: Check TrackRegistry (via TrackReader) for the Track
+        // TODO: Can TrackReader create the Track ?
         let track = Track(file, cueSheetMetadata: metadata)
         
         tracks[file] = track

@@ -72,6 +72,13 @@ class ConcurrentMap<T: Hashable, U: Any> {
         }
     }
     
+    func performUpdate(updateFunction: (inout [T: U]) -> ()) {
+        
+        lock.executeAfterWait {
+            updateFunction(&self.map)
+        }
+    }
+    
     func hasForKey(_ key: T) -> Bool {
         
         lock.produceValueAfterWait {

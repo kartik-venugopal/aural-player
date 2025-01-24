@@ -69,9 +69,9 @@ let preferences: Preferences = Preferences(defaults: userDefaults, needToMigrate
 
 let appInitializer: AppInitializer = AppInitializer.init(steps: [
     
-    AppInitializationStep(components: [metadataRegistry]),
+    AppInitializationStep(description: "Initializing metadata cache", components: [metadataRegistry]),
     
-    AppInitializationStep(components: [TrackInitializer(components: [
+    AppInitializationStep(description: "Initializing track lists", components: [TrackInitializer(components: [
         playQueue, historyDelegate, favoritesDelegate, bookmarksDelegate
     ])])
 ])

@@ -549,6 +549,7 @@
 		3E47214D282AE3820097F1AB /* TrackListTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47214C282AE3820097F1AB /* TrackListTabButton.swift */; };
 		3E47D2342815A5BD00938F20 /* ControlStatesColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E47D2322815A5BD00938F20 /* ControlStatesColorScheme.xib */; };
 		3E47D2352815A5BD00938F20 /* ControlStatesColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47D2332815A5BD00938F20 /* ControlStatesColorSchemeViewController.swift */; };
+		3E47ECF32D42CC1C00200DED /* TrackRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47ECF22D42CC1C00200DED /* TrackRegistry.swift */; };
 		3E495B8A28108DF800D4766A /* PlayQueueContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E495B8928108DF800D4766A /* PlayQueueContainer.swift */; };
 		3E4A90FE27F79AFA003A6C80 /* WindowID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A90FD27F79AFA003A6C80 /* WindowID.swift */; };
 		3E4B054C2D399589000EBF47 /* AppInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B054B2D399589000EBF47 /* AppInitializer.swift */; };
@@ -1662,6 +1663,7 @@
 		3E47214C282AE3820097F1AB /* TrackListTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListTabButton.swift; sourceTree = "<group>"; };
 		3E47D2322815A5BD00938F20 /* ControlStatesColorScheme.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlStatesColorScheme.xib; sourceTree = "<group>"; };
 		3E47D2332815A5BD00938F20 /* ControlStatesColorSchemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStatesColorSchemeViewController.swift; sourceTree = "<group>"; };
+		3E47ECF22D42CC1C00200DED /* TrackRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRegistry.swift; sourceTree = "<group>"; };
 		3E495B8928108DF800D4766A /* PlayQueueContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueContainer.swift; sourceTree = "<group>"; };
 		3E498E25284D2DA400BF4157 /* TuneBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TuneBrowser.xib; sourceTree = "<group>"; };
 		3E498E27284D2E4800BF4157 /* TuneBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserViewController.swift; sourceTree = "<group>"; };
@@ -3102,6 +3104,7 @@
 				3E0217772C23490E00865AC2 /* FileReader.swift */,
 				3E0217782C23490E00865AC2 /* FileReaderProtocol.swift */,
 				3E0217792C23490E00865AC2 /* TrackReader.swift */,
+				3E47ECF22D42CC1C00200DED /* TrackRegistry.swift */,
 				3E28A5782D33DCCB007331AF /* TrackReader+Lyrics.swift */,
 				3E9F0AE62D370A2600A23BDE /* TrackInitializer.swift */,
 			);
@@ -6506,6 +6509,7 @@
 				3E508F682BB330F100D4B677 /* HistoryRecentItemsViewController.swift in Sources */,
 				3E45C03625E1269500C1519C /* FontSchemeSizesViewController.swift in Sources */,
 				3EC079492B78559C008CB68C /* MenuBarSettingsViewController.swift in Sources */,
+				3E47ECF32D42CC1C00200DED /* TrackRegistry.swift in Sources */,
 				3E0219962C23490E00865AC2 /* GraphicsUtils.swift in Sources */,
 				3E0219092C23490E00865AC2 /* LegacyMediaKeysControlsPreferences.swift in Sources */,
 				3E7AF10528065441006DC98F /* PlayQueueMenuController.swift in Sources */,

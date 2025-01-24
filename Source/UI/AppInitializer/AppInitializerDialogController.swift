@@ -17,18 +17,12 @@ class AppInitializerDialogController: NSWindowController {
     @IBOutlet weak var lblStatus: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func windowDidLoad() {
         
         super.windowDidLoad()
         window?.isMovableByWindowBackground = true
-        
-//        if let frame = appModeManager.predictedMainWindowFrame {
-//            
-//            print("Frame: \(frame)")
-//            window?.setFrame(frame, display: true)
-//        } else {
-            window?.center()
-//        }
         
         if let contentView = window?.contentView {
             
@@ -38,5 +32,32 @@ class AppInitializerDialogController: NSWindowController {
         }
         
         progressBar.animate()
+        
+        messenger.subscribeAsync(to: .AppInitialization.stepChanged, handler: stepChanged(to:))
+        
+        // TODO: Factor out the window positioning logic (also to be reused by Unified / Compact / Widget modes)
+        
+        if let sysLayoutState = appPersistentState.ui?.modularPlayer?.windowLayout?.systemLayout,
+           let mainWindow = sysLayoutState.mainWindow,
+           let offset = mainWindow.screenOffset {
+            
+            if let screen = NSScreen.main, let width = mainWindow.size?.width, let height = mainWindow.size?.height {
+                
+                let dw = (width - theWindow.width) / 2
+                let dh = (height - theWindow.height) / 2
+                let origin = screen.visibleFrame.origin.translating(offset.width + dw, offset.height + dh)
+                
+                var frame = theWindow.frame
+                frame.origin = origin
+                theWindow.setFrame(frame, display: true)
+                return
+            }
+        }
+        
+        window?.center()
+    }
+    
+    private func stepChanged(to newStep: AppInitializationStep) {
+        lblStatus.stringValue = "\(newStep.description) ..."
     }
 }
