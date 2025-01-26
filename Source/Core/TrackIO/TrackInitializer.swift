@@ -19,7 +19,6 @@ class TrackInitializer: AppInitializationComponent {
     }
     
     private let urls: Set<URL>
-    private var tracks: [URL: Track] = [:]
     private var tracksForComponent: [URL: Track] = [:]
     private var batch: [Track] = []
     
@@ -79,20 +78,16 @@ class TrackInitializer: AppInitializationComponent {
     
     private func readTrack(forFile file: URL, withCueSheetMetadata metadata: CueSheetMetadata? = nil, onQueue queue: OperationQueue) {
         
-        if let existingTrack = tracks[file] {
-            
-            tracksForComponent[file] = existingTrack
-            return
-        }
+        let trackFind = trackReader.findOrCreateTrack(at: file, withCueSheetMetadata: metadata)
         
-        // TODO: Check TrackRegistry (via TrackReader) for the Track
-        // TODO: Can TrackReader create the Track ?
-        let track = Track(file, cueSheetMetadata: metadata)
-        
-        tracks[file] = track
+        let track = trackFind.track
         tracksForComponent[file] = track
+        
+        if !trackFind.trackCreated {return}
+        
         batch.append(track)
         
+        // Flush the batch if full.
         if batch.count == queue.maxConcurrentOperationCount {
             
             for track in batch {

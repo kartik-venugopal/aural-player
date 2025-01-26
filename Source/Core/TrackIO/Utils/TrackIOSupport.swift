@@ -71,13 +71,27 @@ class TrackLoadSession {
         
         guard tracks[file] == nil else {return}
         
+        var result: TrackReadResult = .addedToTrackList
         let trackInList: Track? = loader.findTrack(forFile: file)
         
         // TODO: Only read Cue Sheet Metadata for the PQ, not the Library or other TrackLists
         
-        let track = trackInList ?? Track(file, cueSheetMetadata: metadata ?? playQueuePersistentState?.cueSheetMetadata(forFile: file))
-        let trackRead: TrackRead = TrackRead(track: track,
-                                             result: trackInList != nil ? .existsInTrackList : .addedToTrackList)
+        var trackFind: (track: Track, trackCreated: Bool)! = nil
+        
+        if trackInList == nil {
+            
+            trackFind = trackReader.findOrCreateTrack(at: file, withCueSheetMetadata: metadata ?? playQueuePersistentState?.cueSheetMetadata(forFile: file))
+            
+            if !trackFind.trackCreated {
+                result = .existsInTrackRegistry
+            }
+            
+        } else {
+            result = .existsInTrackList
+        }
+        
+        let track = trackInList ?? trackFind.track
+        let trackRead: TrackRead = TrackRead(track: track, result: result)
         
         tracks[trackRead.track.file] = trackRead
         
@@ -159,5 +173,5 @@ class TrackRead {
 
 enum TrackReadResult {
     
-    case existsInTrackList, addedToTrackList, error
+    case existsInTrackList, existsInTrackRegistry, addedToTrackList, error
 }

@@ -32,12 +32,12 @@ class TrackReader {
         preferences.metadataPreferences.cacheTrackMetadata.value
     }
     
-    func findOrCreateTrack(at file: URL, withCueSheetMetadata metadata: CueSheetMetadata? = nil) -> Track {
+    func findOrCreateTrack(at file: URL, withCueSheetMetadata metadata: CueSheetMetadata? = nil) -> (track: Track, trackCreated: Bool) {
         
         let metadataCacheEnabled = self.metadataCacheEnabled
         
         if metadataCacheEnabled, let track = trackRegistry.findTrack(forFile: file) {
-            return track
+            return (track, false)
         }
         
         let track = Track(file, cueSheetMetadata: metadata)
@@ -55,7 +55,7 @@ class TrackReader {
             }
         }
         
-        return track
+        return (track, true)
     }
     
     ///
