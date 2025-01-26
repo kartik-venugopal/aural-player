@@ -13,8 +13,13 @@ import Foundation
 class TrackRegistry {
     
     private var tracks: ConcurrentMap<URL, Track> = ConcurrentMap()
+    private var clients: [TrackRegistryClient] = []
     
-    func addOrUpdateTracks(_ tracks: any Sequence<Track>) {
+    func registerClient(_ client: TrackRegistryClient) {
+        clients.append(client)
+    }
+    
+    func addTracks(_ tracks: any Sequence<Track>) {
         
         self.tracks.performUpdate {map in
             
@@ -24,9 +29,23 @@ class TrackRegistry {
         }
     }
     
+    func updateTracks(_ tracks: any Sequence<Track>) {
+        
+        addTracks(tracks)
+        
+        clients.forEach {
+            $0.updateWithTracksIfPresent(tracks)
+        }
+    }
+    
     func findTrack(forFile file: URL) -> Track? {
         tracks[file]
     }
+}
+
+protocol TrackRegistryClient {
+    
+    func updateWithTracksIfPresent(_ tracks: any Sequence<Track>)
 }
 
 //class TrackRegistryEntry {

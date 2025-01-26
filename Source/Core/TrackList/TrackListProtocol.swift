@@ -56,6 +56,8 @@ protocol TrackListProtocol {
     
     func removeAllTracks()
     
+    func updateTracksIfPresent(_ tracks: any Sequence<Track>)
+    
     // MARK: Reordering ------------------------------------------------------------------------
 
     func moveTracksUp(from indices: IndexSet) -> [TrackMoveResult]

@@ -12,7 +12,7 @@ import Foundation
 
 class TrackHistoryItem: HistoryItem {
     
-    let track: Track
+    var track: Track
     
     /// Hack that's required because a track's displayName can change (once metadata is loaded).
     /// So, we need this to be computed on-the-fly.

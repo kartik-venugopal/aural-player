@@ -432,3 +432,16 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
                                  favoriteFolders: self.allFavoriteFolders.map {FavoriteFolderPersistentState(favorite: $0)})
     }
 }
+
+extension FavoritesDelegate: TrackRegistryClient {
+    
+    func updateWithTracksIfPresent(_ tracks: any  Sequence<Track>) {
+        
+        for track in tracks {
+            
+            if let favorite = favoriteTracks[track.file] {
+                favorite.track = track
+            }
+        }
+    }
+}

@@ -133,6 +133,7 @@ fileprivate let _favoritesDelegate: FavoritesDelegate = FavoritesDelegate(playQu
 var bookmarksDelegate: BookmarksDelegateProtocol {_bookmarksDelegate}
 fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQueueDelegate, playbackDelegate)
 
+let trackRegistry: TrackRegistry = .init()
 let fileReader: FileReader = FileReader()
 let trackReader: TrackReader = TrackReader()
 

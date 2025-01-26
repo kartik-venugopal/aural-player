@@ -161,6 +161,19 @@ class TrackList: TrackListProtocol {
         }
     }
     
+    func updateTracksIfPresent(_ tracks: any Sequence<Track>) {
+        
+        tracksLock.write {
+            
+            for track in tracks {
+                
+                if self._tracks[track.file] != nil {
+                    self._tracks[track.file] = track
+                }
+            }
+        }
+    }
+    
     @discardableResult func insertTracks(_ newTracks: [Track], at insertionIndex: Int) -> IndexSet {
         
         let dedupedTracks = deDupeTracks(newTracks)

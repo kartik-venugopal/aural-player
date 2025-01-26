@@ -28,12 +28,42 @@ class TrackReader {
     
     private lazy var logger: Logger = .init(for: self)
     
+    private var metadataCacheEnabled: Bool {
+        preferences.metadataPreferences.cacheTrackMetadata.value
+    }
+    
+    func findOrCreateTrack(at file: URL, withCueSheetMetadata metadata: CueSheetMetadata? = nil) -> Track {
+        
+        let metadataCacheEnabled = self.metadataCacheEnabled
+        
+        if metadataCacheEnabled, let track = trackRegistry.findTrack(forFile: file) {
+            return track
+        }
+        
+        let track = Track(file, cueSheetMetadata: metadata)
+        
+        if metadataCacheEnabled {
+            trackRegistry.addTracks([track])
+            
+        } else {
+            
+            if trackRegistry.findTrack(forFile: file) != nil {
+                trackRegistry.updateTracks([track])
+                
+            } else {
+                trackRegistry.addTracks([track])
+            }
+        }
+        
+        return track
+    }
+    
     ///
     /// Loads the essential metadata fields that are required for a track to be loaded into the playlist.
     ///
     func loadMetadataAsync(for track: Track, onQueue opQueue: OperationQueue) {
         
-        let metadataCacheEnabled = preferences.metadataPreferences.cacheTrackMetadata.value
+        let metadataCacheEnabled = self.metadataCacheEnabled
         
         if metadataCacheEnabled, let cachedMetadata = metadataRegistry[track] {
             

@@ -46,8 +46,8 @@ class UserManagedObjects<O: UserManagedObject>: PresetsManagerProtocol {
     
     typealias Object = O
 
-    private var userDefinedObjectsMap: OrderedDictionary<String, O> = OrderedDictionary()
-    private var systemDefinedObjectsMap: OrderedDictionary<String, O> = OrderedDictionary()
+    var userDefinedObjectsMap: OrderedDictionary<String, O> = OrderedDictionary()
+    var systemDefinedObjectsMap: OrderedDictionary<String, O> = OrderedDictionary()
     
     var userDefinedObjects: [O] {Array(userDefinedObjectsMap.values)}
     var systemDefinedObjects: [O] {Array(systemDefinedObjectsMap.values)}
@@ -130,5 +130,15 @@ class UserManagedObjects<O: UserManagedObject>: PresetsManagerProtocol {
     
     func sortUserDefinedObjects(by sortFunction: (O, O) -> Bool) {
         userDefinedObjectsMap.sort(by: {(key1AndObject1, key2AndObject2) in sortFunction(key1AndObject1.1, key2AndObject2.1)})
+    }
+    
+    func updateObjects(matchingPredicate predicate: (O) -> Bool, updateFunction: (O) -> Void) {
+        
+        for object in userDefinedObjectsMap.values {
+            
+            if predicate(object) {
+                updateFunction(object)
+            }
+        }
     }
 }

@@ -93,3 +93,15 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         .init(bookmarks: allBookmarks.map {BookmarkPersistentState(bookmark: $0)})
     }
 }
+
+extension BookmarksDelegate: TrackRegistryClient {
+    
+    func updateWithTracksIfPresent(_ tracks: any Sequence<Track>) {
+        
+        for track in tracks {
+            
+            bookmarks.updateObjects(matchingPredicate: {bookmark in bookmark.track == track},
+                                       updateFunction: {bookmark in bookmark.track = track})
+        }
+    }
+}

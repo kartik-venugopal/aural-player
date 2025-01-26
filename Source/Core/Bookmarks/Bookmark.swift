@@ -26,8 +26,8 @@ class Bookmark: UserManagedObject, Hashable {
     
     var userDefined: Bool {true}
     
-    // The file of the track being bookmarked
-    let track: Track
+    // The track being bookmarked
+    var track: Track
     
     // Seek position within track, expressed in seconds
     let startPosition: Double

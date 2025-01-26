@@ -349,5 +349,27 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         .init(sequence: shuffleSequence.sequence.compactMap {indexOfTrack($0)},
               playedTracks: shuffleSequence.playedTracks.compactMap {indexOfTrack($0)})
     }
+}
 
+extension PlayQueueDelegate: TrackRegistryClient {
+    
+    func updateTracksIfPresent(_ tracks: any Sequence<Track>) {
+        playQueue.updateTracksIfPresent(tracks)
+    }
+    
+    func updateWithTracksIfPresent(_ tracks: any Sequence<Track>) {
+        
+        // Play Queue
+        updateTracksIfPresent(tracks)
+        
+        // History
+        for track in tracks {
+            
+            let trackKey = TrackHistoryItem.key(forTrack: track)
+            
+            if let existingHistoryItem: TrackHistoryItem = recentItems[trackKey] as? TrackHistoryItem {
+                existingHistoryItem.track = track
+            }
+        }
+    }
 }
