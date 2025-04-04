@@ -9,6 +9,7 @@
 //  
 
 import Foundation
+import OrderedCollections
 
 extension FavoritesDelegate: TrackInitComponent {
     
@@ -18,7 +19,7 @@ extension FavoritesDelegate: TrackInitComponent {
     
     func preInitialize() {}
     
-    func initialize(withTracks tracks: [URL: Track]) {
+    func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {
         
         guard let state = appPersistentState.favorites else {return}
         

@@ -1530,7 +1530,6 @@
 		3E0219D62C23498700865AC2 /* build-release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-release.sh"; sourceTree = "<group>"; };
 		3E0219D72C23498700865AC2 /* exportOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportOptions.plist; sourceTree = "<group>"; };
 		3E0219D92C23498700865AC2 /* build-ffmpeg.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-ffmpeg.sh"; sourceTree = "<group>"; };
-		3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-7.0.1.tar.xz"; sourceTree = "<group>"; };
 		3E0219E12C23498700865AC2 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3E0219E32C23498700865AC2 /* copyright.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyright.sh; sourceTree = "<group>"; };
 		3E0219E42C23498700865AC2 /* copyright.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = copyright.txt; sourceTree = "<group>"; };
@@ -3376,7 +3375,6 @@
 			isa = PBXGroup;
 			children = (
 				3E0219D92C23498700865AC2 /* build-ffmpeg.sh */,
-				3E0219DE2C23498700865AC2 /* ffmpeg-7.0.1.tar.xz */,
 				3E0219E12C23498700865AC2 /* README.txt */,
 			);
 			path = FFmpegBuild;
@@ -7002,7 +7000,7 @@
 				CURRENT_PROJECT_VERSION = "4.0.0-preview24";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
-				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
+				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/..";
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Aural Player";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
@@ -7041,7 +7039,7 @@
 				CURRENT_PROJECT_VERSION = "4.0.0-preview24";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
-				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/../**";
+				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/..";
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Aural Player";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";

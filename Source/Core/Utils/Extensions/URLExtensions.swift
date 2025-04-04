@@ -59,11 +59,6 @@ extension URL {
         self.deletingLastPathComponent()
     }
     
-    // Checks if a file exists
-    static func exists(path: String) -> Bool {
-        fileManager.fileExists(atPath: path)
-    }
-    
     var isDirectory: Bool {
         (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
     }

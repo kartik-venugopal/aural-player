@@ -9,6 +9,7 @@
 //
 
 import Foundation
+import OrderedCollections
 
 class TrackInitializer: AppInitializationComponent {
     
@@ -19,7 +20,7 @@ class TrackInitializer: AppInitializationComponent {
     }
     
     private let urls: Set<URL>
-    private var tracksForComponent: [URL: Track] = [:]
+    private var tracksForComponent: OrderedDictionary<URL, Track> = [:]
     private var batch: [Track] = []
     
     init(components: [TrackInitComponent]) {
@@ -106,7 +107,7 @@ protocol TrackInitComponent {
     
     func preInitialize()
     
-    func initialize(withTracks tracks: [URL: Track])
+    func initialize(withTracks tracks: OrderedDictionary<URL, Track>)
 }
 
 enum TrackInitPriority: Int {

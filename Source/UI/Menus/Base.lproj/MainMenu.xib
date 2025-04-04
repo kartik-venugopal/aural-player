@@ -859,9 +859,15 @@ CA
                                     <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="heart" catalog="system"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="heart.slash" catalog="system"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="playingTrackFavoritesAction:" target="RG0-8A-W3W" id="GEA-y1-VEu"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="  Manage favorites" hidden="YES" enabled="NO" keyEquivalent="f" id="uPE-Lz-Ycv" userLabel="Manage Favorites">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="manageFavoritesAction:" target="RG0-8A-W3W" id="12F-7r-GS9"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="BY2-rc-vgF"/>
                             <menuItem title="  Tracks" image="music.quarternote.3" catalog="system" id="4Uc-NF-13M" userLabel="Tracks">
@@ -902,7 +908,7 @@ CA
                             </menuItem>
                         </items>
                         <connections>
-                            <outlet property="delegate" destination="RL2-vF-Zyu" id="MnZ-Bo-cnI"/>
+                            <outlet property="delegate" destination="RG0-8A-W3W" id="pb4-j9-hW9"/>
                         </connections>
                     </menu>
                 </menuItem>

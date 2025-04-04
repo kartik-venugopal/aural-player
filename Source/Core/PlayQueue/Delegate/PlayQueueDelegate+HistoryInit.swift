@@ -9,6 +9,7 @@
 //
 
 import Foundation
+import OrderedCollections
 
 extension PlayQueueDelegate: TrackInitComponent {
     
@@ -18,7 +19,7 @@ extension PlayQueueDelegate: TrackInitComponent {
     
     func preInitialize() {}
     
-    func initialize(withTracks tracks: [URL : Track]) {
+    func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {
         
         guard let recentItemsState = appPersistentState.playQueue?.history?.recentItems else {return}
         

@@ -9,6 +9,7 @@
 //
 
 import Foundation
+import OrderedCollections
 
 extension PlayQueue: TrackInitComponent {
     
@@ -69,9 +70,9 @@ extension PlayQueue: TrackInitComponent {
         setTrackLoadParams(params: pqParmsWithAutoplayAndNoHistory)
     }
     
-    func initialize(withTracks tracks: [URL: Track]) {
+    func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {
         
-        addTracks(Array(tracks.values))
+        addTracks(tracks.values)
         
         var persistentState = appPersistentState.playQueue
         
