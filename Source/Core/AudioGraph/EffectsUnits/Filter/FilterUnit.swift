@@ -19,6 +19,7 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     
     let node: FlexibleFilterNode = FlexibleFilterNode()
     let presets: FilterPresets
+    let maximumNumberOfBands: Int = 31
     
     override var avNodes: [AVAudioNode] {[node]}
     
@@ -36,6 +37,14 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         set {node.activeBands = newValue}
     }
     
+    var numberOfBands: Int {
+        node.numberOfBands
+    }
+    
+    var numberOfActiveBands: Int {
+        node.activeBands.filter {!$0.bypass}.count
+    }
+    
     override func stateChanged() {
         
         super.stateChanged()
@@ -48,8 +57,10 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         set {node[index] = newValue}
     }
     
-    func addBand(_ band: FilterBand) -> Int {
-        node.addBand(band)
+    func addBand(ofType bandType: FilterBandType) -> (band: FilterBand, index: Int) {
+        
+        let newBand: FilterBand = .ofType(bandType)
+        return (newBand, node.addBand(newBand))
     }
     
     func removeBands(at indices: IndexSet) {

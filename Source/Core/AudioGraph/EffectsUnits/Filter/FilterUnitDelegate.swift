@@ -39,9 +39,7 @@ class FilterUnitDelegate: EffectsUnitDelegate<FilterUnit>, FilterUnitDelegatePro
     }
     
     func addBand(ofType bandType: FilterBandType) -> (band: FilterBand, index: Int) {
-        
-        let newBand: FilterBand = .ofType(bandType)
-        return (newBand, unit.addBand(newBand))
+        unit.addBand(ofType: bandType)
     }
     
     subscript(_ index: Int) -> FilterBand {

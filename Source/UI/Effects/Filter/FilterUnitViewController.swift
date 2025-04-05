@@ -31,7 +31,7 @@ class FilterUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    var filterUnit: FilterUnitDelegateProtocol = audioGraphDelegate.filterUnit
+    var filterUnit: FilterUnitProtocol = audioGraph.filterUnit
     
     // ------------------------------------------------------------------------
     
@@ -41,7 +41,7 @@ class FilterUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-//        effectsUnit = filterUnit
+        effectsUnit = self.filterUnit
         presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(filterUnit.presets)
     }
     
@@ -168,7 +168,7 @@ class FilterUnitViewController: EffectsUnitViewController {
         
         bandEditors.removeItems(at: selRows)
         
-        filterUnit.removeBands(atIndices: selRows)
+        filterUnit.removeBands(at: selRows)
         bandsTableView.reloadData()
         updateSummary()
         filterUnitView.redrawChart()

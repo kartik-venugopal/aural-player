@@ -45,8 +45,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
 
         super.initControls()
         
-        timeStretchUnitView.setState(rate: timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
-                                 shiftPitch: timeStretchUnit.shiftPitch, shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
+        timeStretchUnitView.setState(rate: timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                     shiftPitch: timeStretchUnit.shiftPitch, shiftPitchString: timeStretchUnit.formattedPitch)
     }
     
     // ------------------------------------------------------------------------
@@ -66,8 +66,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     @IBAction func timeStretchAction(_ sender: AnyObject) {
         
         timeStretchUnit.rate = timeStretchUnitView.rate
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
-                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -81,8 +81,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     @IBAction func increaseRateByTenthAction(_ sender: AnyObject) {
         
         _ = timeStretchUnit.increaseRate(by: oneTenth, ensureActive: false)
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
-                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -93,8 +93,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     @IBAction func increaseRateByHundredthAction(_ sender: AnyObject) {
         
         _ = timeStretchUnit.increaseRate(by: oneHundredth, ensureActive: false)
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
-                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -105,8 +105,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     @IBAction func decreaseRateByTenthAction(_ sender: AnyObject) {
         
         _ = timeStretchUnit.decreaseRate(by: oneTenth, ensureActive: false)
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
-                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -117,8 +117,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     @IBAction func decreaseRateByHundredthAction(_ sender: AnyObject) {
         
         _ = timeStretchUnit.decreaseRate(by: oneHundredth, ensureActive: false)
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
-                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
+                                shiftPitchString: timeStretchUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -149,8 +149,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         let rate = timeStretchUnit.rate
         
         timeStretchUnitView.setRate(rate,
-                                    rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
-                                    shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
+                                    rateString: timeStretchUnit.formattedRate,
+                                    shiftPitchString: timeStretchUnit.formattedPitch)
         stateChanged()
 
         showThisTab()
@@ -189,5 +189,16 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         if timeStretchUnit.state == .suppressed {
             timeStretchUnitView.colorChanged(forUnitState: .suppressed)
         }
+    }
+}
+
+extension TimeStretchUnitProtocol {
+    
+    var formattedRate: String {
+        ValueFormatter.formatTimeStretchRate(rate)
+    }
+    
+    var formattedPitch: String {
+        ValueFormatter.formatPitch(pitch)
     }
 }

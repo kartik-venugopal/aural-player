@@ -23,4 +23,10 @@ protocol DelayUnitProtocol: EffectsUnitProtocol {
     var feedback: Float {get set}
     
     var lowPassCutoff: Float {get set}
+    
+    var presets: DelayPresets {get}
+    
+    func applyPreset(_ preset: DelayPreset)
+    
+    var settingsAsPreset: DelayPreset {get}
 }

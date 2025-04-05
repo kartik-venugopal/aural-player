@@ -44,9 +44,9 @@ class ReverbUnitViewController: EffectsUnitViewController {
         
         super.initControls()
         
-//        reverbUnitView.setState(space: reverbUnit.space.description,
-//                                amount: reverbUnit.amount,
-//                                amountString: reverbUnit.formattedAmount)
+        reverbUnitView.setState(space: reverbUnit.space.description,
+                                amount: reverbUnit.amount,
+                                amountString: reverbUnit.formattedAmount)
     }
     
     // ------------------------------------------------------------------------
@@ -113,5 +113,12 @@ extension ReverbUnitViewController: ThemeInitialization {
         super.colorSchemeChanged()
         
         reverbUnitView.updatePopupMenuColor(systemColorScheme.colorForEffectsUnitState(reverbUnit.state))
+    }
+}
+
+extension ReverbUnitProtocol {
+    
+    var formattedAmount: String {
+        ValueFormatter.formatReverbAmount(amount)
     }
 }

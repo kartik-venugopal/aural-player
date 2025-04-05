@@ -26,7 +26,7 @@ class DelayUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    var delayUnit: DelayUnitDelegateProtocol = audioGraphDelegate.delayUnit
+    var delayUnit: DelayUnitProtocol = audioGraph.delayUnit
     
     // ------------------------------------------------------------------------
     
@@ -36,7 +36,7 @@ class DelayUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-//        effectsUnit = delayUnit
+        effectsUnit = delayUnit
         presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
     }
     
@@ -87,4 +87,15 @@ class DelayUnitViewController: EffectsUnitViewController {
         delayUnit.lowPassCutoff = delayUnitView.cutoff
         delayUnitView.setCutoff(delayUnit.lowPassCutoff, cutoffString: delayUnit.formattedLowPassCutoff)
     }    
+}
+
+extension DelayUnitProtocol {
+    
+    var formattedAmount: String {ValueFormatter.formatDelayAmount(amount)}
+    
+    var formattedTime: String {ValueFormatter.formatDelayTime(time)}
+    
+    var formattedFeedback: String {ValueFormatter.formatDelayFeedback(feedback)}
+    
+    var formattedLowPassCutoff: String {ValueFormatter.formatDelayLowPassCutoff(lowPassCutoff)}
 }

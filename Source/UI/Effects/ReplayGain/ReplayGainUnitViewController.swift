@@ -43,7 +43,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var replayGainUnit: ReplayGainUnitDelegateProtocol = audioGraphDelegate.replayGainUnit
+    private var replayGainUnit: ReplayGainUnitProtocol = audioGraph.replayGainUnit
     
     // ------------------------------------------------------------------------
     
@@ -53,11 +53,11 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-//        self.effectsUnit = audioGraphDelegate.replayGainUnit
+        self.effectsUnit = self.replayGainUnit
         self.presetsWrapper = PresetsWrapper<ReplayGainPreset, ReplayGainPresets>(audioGraph.replayGainUnit.presets)
         
-//        fxUnitStateObserverRegistry.registerObserver(modeMenuButtonCell, forFXUnit: audioGraphDelegate.replayGainUnit)
-//        fxUnitStateObserverRegistry.registerObserver(btnPreventClipping, forFXUnit: audioGraphDelegate.replayGainUnit)
+        fxUnitStateObserverRegistry.registerObserver(modeMenuButtonCell, forFXUnit: replayGainUnit)
+        fxUnitStateObserverRegistry.registerObserver(btnPreventClipping, forFXUnit: replayGainUnit)
     }
     
     override func initControls() {
@@ -68,9 +68,9 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         preAmpSlider.floatValue = replayGainUnit.preAmp
         
-        if !replayGainUnit.isScanning {
-            updateGainLabel()
-        }
+//        if !replayGainUnit.isScanning {
+//            updateGainLabel()
+//        }
         
         lblPreAmp.stringValue = String(format: "%.2f dB", replayGainUnit.preAmp)
         btnPreventClipping.onIf(replayGainUnit.preventClipping)
@@ -113,16 +113,16 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         replayGainUnit.preventClipping = sender.isOn
         
-        if !replayGainUnit.isScanning {
-            updateGainLabel()
-        }
+//        if !replayGainUnit.isScanning {
+//            updateGainLabel()
+//        }
     }
     
     private func scanInitiated() {
         
-        if let scanStatus = replayGainUnit.scanStatus {
-            lblGain.stringValue = scanStatus
-        }
+//        if let scanStatus = replayGainUnit.scanStatus {
+//            lblGain.stringValue = scanStatus
+//        }
     }
     
     override func fontSchemeChanged() {
