@@ -49,7 +49,6 @@ struct LegacyMasterUnitPersistentState: Codable {
     
     let state: LegacyEffectsUnitState?
     let userPresets: [LegacyMasterPresetPersistentState]?
-    let currentPresetName: String?
 }
 
 struct LegacyMasterPresetPersistentState: Codable {
@@ -63,21 +62,12 @@ struct LegacyMasterPresetPersistentState: Codable {
     let reverb: LegacyReverbPresetPersistentState?
     let delay: LegacyDelayPresetPersistentState?
     let filter: LegacyFilterPresetPersistentState?
-    
-    let nameOfCurrentMasterPreset: String?
-    let nameOfCurrentEQPreset: String?
-    let nameOfCurrentPitchShiftPreset: String?
-    let nameOfCurrentTimeStretchPreset: String?
-    let nameOfCurrentReverbPreset: String?
-    let nameOfCurrentDelayPreset: String?
-    let nameOfCurrentFilterPreset: String?
 }
 
 struct LegacyEQUnitPersistentState: Codable {
     
     let state: LegacyEffectsUnitState?
     let userPresets: [LegacyEQPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let globalGain: Float?
@@ -97,7 +87,6 @@ struct LegacyPitchShiftUnitPersistentState: Codable {
     
     let state: LegacyEffectsUnitState?
     let userPresets: [LegacyPitchShiftPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let pitch: Float?
@@ -114,7 +103,6 @@ struct LegacyTimeStretchUnitPersistentState: Codable {
     
     let state: LegacyEffectsUnitState?
     let userPresets: [LegacyTimeStretchPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let rate: Float?
@@ -134,7 +122,6 @@ struct LegacyReverbUnitPersistentState: Codable {
     
     let state: LegacyEffectsUnitState?
     let userPresets: [LegacyReverbPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let space: ReverbSpace?
@@ -154,7 +141,6 @@ struct LegacyDelayUnitPersistentState: Codable {
     
     let state: LegacyEffectsUnitState?
     let userPresets: [LegacyDelayPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let amount: Float?
@@ -178,7 +164,6 @@ struct LegacyFilterUnitPersistentState: Codable {
     
     let state: LegacyEffectsUnitState?
     let userPresets: [LegacyFilterPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let bands: [LegacyFilterBandPersistentState]?

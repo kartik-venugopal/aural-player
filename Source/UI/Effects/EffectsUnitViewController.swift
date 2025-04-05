@@ -307,11 +307,5 @@ extension EffectsUnitViewController: NSMenuDelegate {
                                  action: #selector(presetsAction(_:)), target: self)
         
         presetsAndSettingsMenu.items.forEach {$0.state = .off}
-        
-//        if let currentPresetName = effectsUnit.nameOfCurrentPreset,
-//           let itemForCurrentPreset = presetsAndSettingsMenu.item(withTitle: currentPresetName) {
-//            
-//            itemForCurrentPreset.state = .on
-//        }
     }
 }

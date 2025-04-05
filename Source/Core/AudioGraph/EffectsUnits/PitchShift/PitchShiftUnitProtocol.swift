@@ -15,5 +15,39 @@ import Foundation
 protocol PitchShiftUnitProtocol: EffectsUnitProtocol {
     
     // The pitch shift value, in cents, specified as a value between -2400 and 2400
-    var pitch: Float {get set}
+    // The pitch shift value, in octaves, semitones, and cents.
+    var pitch: PitchShift {get set}
+    
+    var minPitch: Float {get}
+    var maxPitch: Float {get}
+    
+    // Increases the pitch shift by a small increment. Returns the new pitch shift value.
+    @discardableResult func increasePitch(by cents: Int) -> PitchShift
+    
+    // Increases the pitch shift by one octave. Returns the new pitch shift value.
+    @discardableResult func increasePitchOneOctave() -> PitchShift
+    
+    // Increases the pitch shift by one semitone. Returns the new pitch shift value.
+    @discardableResult func increasePitchOneSemitone() -> PitchShift
+    
+    // Increases the pitch shift by one cent. Returns the new pitch shift value.
+    @discardableResult func increasePitchOneCent() -> PitchShift
+    
+    // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
+    @discardableResult func decreasePitch(by cents: Int) -> PitchShift
+    
+    // Decreases the pitch shift by one octave. Returns the new pitch shift value.
+    @discardableResult func decreasePitchOneOctave() -> PitchShift
+    
+    // Decreases the pitch shift by one semitone. Returns the new pitch shift value.
+    @discardableResult func decreasePitchOneSemitone() -> PitchShift
+    
+    // Decreases the pitch shift by one cent. Returns the new pitch shift value.
+    @discardableResult func decreasePitchOneCent() -> PitchShift
+    
+    var presets: PitchShiftPresets {get}
+    
+    func applyPreset(_ preset: PitchShiftPreset)
+    
+    var settingsAsPreset: PitchShiftPreset {get}
 }

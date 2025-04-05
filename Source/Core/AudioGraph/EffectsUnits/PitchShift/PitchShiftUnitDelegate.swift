@@ -34,61 +34,61 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
     
     var pitch: PitchShift {
         
-        get {PitchShift(fromCents: unit.pitch)}
-        set {unit.pitch = newValue.asCentsFloat}
+        get {unit.pitch}
+        set {unit.pitch = newValue}
     }
     
     var presets: PitchShiftPresets {unit.presets}
     
-    func increasePitch() -> PitchShift {
-        
-        ensureActiveAndResetPitch()
-        return setUnitPitch((unit.pitch + Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
-    }
-    
-    func increasePitchOneOctave() -> PitchShift {
-        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
-    }
-    
-    func increasePitchOneSemitone() -> PitchShift {
-        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
-    }
-    
-    func increasePitchOneCent() -> PitchShift {
-        setUnitPitch((unit.pitch + Float(1)).clamped(to: pitchRange))
-    }
-    
-    func decreasePitch() -> PitchShift {
-        
-        ensureActiveAndResetPitch()
-        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
-    }
-    
-    func decreasePitchOneOctave() -> PitchShift {
-        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
-    }
-    
-    func decreasePitchOneSemitone() -> PitchShift {
-        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
-    }
-    
-    func decreasePitchOneCent() -> PitchShift {
-        setUnitPitch((unit.pitch - Float(1)).clamped(to: pitchRange))
-    }
-    
-    private func setUnitPitch(_ value: Float) -> PitchShift {
-        
-        unit.pitch = value
-        return pitch
-    }
-    
-    private func ensureActiveAndResetPitch() {
-        
-        // If the pitch unit is currently inactive, start at default pitch offset, before the increase/decrease
-        if !unit.isActive {
-            
-            _ = unit.toggleState()
-            unit.pitch = AudioGraphDefaults.pitchShift
-        }
-    }
+//    func increasePitch() -> PitchShift {
+//        
+//        ensureActiveAndResetPitch()
+//        return setUnitPitch((unit.pitch + Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
+//    }
+//    
+//    func increasePitchOneOctave() -> PitchShift {
+//        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
+//    }
+//    
+//    func increasePitchOneSemitone() -> PitchShift {
+//        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
+//    }
+//    
+//    func increasePitchOneCent() -> PitchShift {
+//        setUnitPitch((unit.pitch + Float(1)).clamped(to: pitchRange))
+//    }
+//    
+//    func decreasePitch() -> PitchShift {
+//        
+//        ensureActiveAndResetPitch()
+//        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
+//    }
+//    
+//    func decreasePitchOneOctave() -> PitchShift {
+//        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
+//    }
+//    
+//    func decreasePitchOneSemitone() -> PitchShift {
+//        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
+//    }
+//    
+//    func decreasePitchOneCent() -> PitchShift {
+//        setUnitPitch((unit.pitch - Float(1)).clamped(to: pitchRange))
+//    }
+//    
+//    private func setUnitPitch(_ value: Float) -> PitchShift {
+//        
+//        unit.pitch = value
+//        return pitch
+//    }
+//    
+//    private func ensureActiveAndResetPitch() {
+//        
+//        // If the pitch unit is currently inactive, start at default pitch offset, before the increase/decrease
+//        if !unit.isActive {
+//            
+//            _ = unit.toggleState()
+//            unit.pitch = AudioGraphDefaults.pitchShift
+//        }
+//    }
 }

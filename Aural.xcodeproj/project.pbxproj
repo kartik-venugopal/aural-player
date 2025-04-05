@@ -825,6 +825,7 @@
 		3E8CECA62D28889C00F9B0CC /* LyricsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8CECA52D28889C00F9B0CC /* LyricsPreferences.xib */; };
 		3E8CECA82D28892800F9B0CC /* LyricsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8CECA72D28892800F9B0CC /* LyricsPreferencesViewController.swift */; };
 		3E8F31AA26AC9623009C58B5 /* AudioUnitsTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F31A926AC9623009C58B5 /* AudioUnitsTableViews.swift */; };
+		3E912C492DA1E7E9008920AD /* PitchShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E912C482DA1E7E9008920AD /* PitchShift.swift */; };
 		3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932325E0CE2500F30F81 /* FontSchemes.xib */; };
 		3E91932925E0CF5D00F30F81 /* FontSchemeFonts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* FontSchemeFonts.xib */; };
 		3E91932C25E0D96A00F30F81 /* FontSchemeFontsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* FontSchemeFontsViewController.swift */; };
@@ -1960,6 +1961,7 @@
 		3E8DD6452845633500FED49D /* LibraryGenres.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryGenres.xib; sourceTree = "<group>"; };
 		3E8DD6472845641700FED49D /* LibraryGenresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGenresViewController.swift; sourceTree = "<group>"; };
 		3E8F31A926AC9623009C58B5 /* AudioUnitsTableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitsTableViews.swift; sourceTree = "<group>"; };
+		3E912C482DA1E7E9008920AD /* PitchShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchShift.swift; sourceTree = "<group>"; };
 		3E91932325E0CE2500F30F81 /* FontSchemes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemes.xib; sourceTree = "<group>"; };
 		3E91932825E0CF5D00F30F81 /* FontSchemeFonts.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemeFonts.xib; sourceTree = "<group>"; };
 		3E91932B25E0D96A00F30F81 /* FontSchemeFontsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeFontsViewController.swift; sourceTree = "<group>"; };
@@ -5431,6 +5433,7 @@
 				3E0215D82C23490E00865AC2 /* PitchShiftUnitDelegateProtocol.swift */,
 				3E0215EB2C23490E00865AC2 /* PitchShiftUnit.swift */,
 				3E0215D72C23490E00865AC2 /* PitchShiftUnitDelegate.swift */,
+				3E912C482DA1E7E9008920AD /* PitchShift.swift */,
 			);
 			path = PitchShift;
 			sourceTree = "<group>";
@@ -6199,6 +6202,7 @@
 				3E0218392C23490E00865AC2 /* FFmpegAudioCodec.swift in Sources */,
 				3E02195E2C23490E00865AC2 /* SearchType.swift in Sources */,
 				3E0218D52C23490E00865AC2 /* PlaybackContextProtocol.swift in Sources */,
+				3E912C492DA1E7E9008920AD /* PitchShift.swift in Sources */,
 				3E9DA1972D342B080094D6DE /* TextAndImageButtonCell.swift in Sources */,
 				3E7E9F4E2C66B1AF0011DE8E /* WaveformWindowController.swift in Sources */,
 				3E9F0AE72D370A2600A23BDE /* TrackInitializer.swift in Sources */,

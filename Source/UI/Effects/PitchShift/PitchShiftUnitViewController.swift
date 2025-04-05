@@ -26,7 +26,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var pitchShiftUnit: PitchShiftUnitDelegateProtocol = audioGraphDelegate.pitchShiftUnit
+    private var pitchShiftUnit: PitchShiftUnitProtocol = audioGraph.pitchShiftUnit
     
     // ------------------------------------------------------------------------
     
@@ -36,7 +36,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-//        effectsUnit = pitchShiftUnit
+        effectsUnit = pitchShiftUnit
         presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchShiftUnit.presets)
     }
     

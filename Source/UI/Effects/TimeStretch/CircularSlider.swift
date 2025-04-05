@@ -12,7 +12,7 @@ import Cocoa
 @IBDesignable
 class CircularSlider: NSControl, FXUnitStateObserver {
     
-    var effectsUnit: EffectsUnitDelegateProtocol!
+    var effectsUnit: EffectsUnitProtocol!
     
     override var floatValue: Float {
         didSet {redraw()}

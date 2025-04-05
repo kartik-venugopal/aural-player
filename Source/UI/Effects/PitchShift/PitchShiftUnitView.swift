@@ -21,8 +21,8 @@ class PitchShiftUnitView: NSView {
     @IBOutlet weak var lblSemitones: NSTextField!
     @IBOutlet weak var lblCents: NSTextField!
     
-    var pitchShiftUnit: PitchShiftUnitDelegateProtocol {
-        audioGraphDelegate.pitchShiftUnit
+    var pitchShiftUnit: PitchShiftUnitProtocol {
+        audioGraph.pitchShiftUnit
     }
     
     override func awakeFromNib() {

@@ -20,7 +20,6 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
     let node: AVAudioUnitDelay = AVAudioUnitDelay()
     let presets: DelayPresets
-    var currentPreset: DelayPreset? = nil
     
     init(persistentState: DelayUnitPersistentState?) {
         
@@ -31,12 +30,6 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
         amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
         feedback = persistentState?.feedback ?? AudioGraphDefaults.delayFeedback
         lowPassCutoff = persistentState?.lowPassCutoff ?? AudioGraphDefaults.delayLowPassCutoff
-        
-        if let currentPresetName = persistentState?.currentPresetName,
-            let matchingPreset = presets.object(named: currentPresetName) {
-            
-            currentPreset = matchingPreset
-        }
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -80,15 +73,12 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
         let newPreset = DelayPreset(name: presetName, state: .active, amount: amount,
                                     time: time, feedback: feedback, cutoff: lowPassCutoff, systemDefined: false)
         presets.addObject(newPreset)
-        currentPreset = newPreset
     }
     
     override func applyPreset(named presetName: String) {
         
         if let preset = presets.object(named: presetName) {
-            
             applyPreset(preset)
-            currentPreset = preset
         }
     }
     
@@ -106,18 +96,10 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
                     feedback: feedback, cutoff: lowPassCutoff, systemDefined: false)
     }
     
-    private func presetsDeleted(_ presetNames: [String]) {
-        
-        if let theCurrentPreset = currentPreset, theCurrentPreset.userDefined, presetNames.contains(theCurrentPreset.name) {
-            currentPreset = nil
-        }
-    }
-    
     var persistentState: DelayUnitPersistentState {
 
         DelayUnitPersistentState(state: state,
                                  userPresets: presets.userDefinedObjects.map {DelayPresetPersistentState(preset: $0)},
-                                 currentPresetName: currentPreset?.name,
                                  renderQuality: renderQualityPersistentState,
                                  amount: amount,
                                  time: time,

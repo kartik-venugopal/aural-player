@@ -19,6 +19,10 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
     let presets: PitchShiftPresets
     
+    let minPitch: Float = -2400
+    let maxPitch: Float = 2400
+    private lazy var pitchRange: ClosedRange<Float> = minPitch...maxPitch
+    
     init(persistentState: PitchShiftUnitPersistentState?) {
         
         presets = PitchShiftPresets(persistentState: persistentState)
@@ -29,10 +33,10 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     
     override var avNodes: [AVAudioNode] {[node]}
     
-    var pitch: Float {
+    var pitch: PitchShift {
         
-        get {node.pitch}
-        set {node.pitch = newValue}
+        get {PitchShift(fromCents: node.pitch)}
+        set {node.pitch = newValue.asCentsFloat}
     }
     
     override func stateChanged() {
@@ -41,9 +45,51 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         node.bypass = !isActive
     }
     
+    func increasePitch(by cents: Int) -> PitchShift {
+        
+        ensureActiveAndReset()
+        return setUnitPitch((node.pitch + Float(cents)).clamped(to: pitchRange))
+    }
+    
+    func increasePitchOneOctave() -> PitchShift {
+        setUnitPitch((node.pitch + Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
+    }
+    
+    func increasePitchOneSemitone() -> PitchShift {
+        setUnitPitch((node.pitch + Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
+    }
+    
+    func increasePitchOneCent() -> PitchShift {
+        setUnitPitch((node.pitch + Float(1)).clamped(to: pitchRange))
+    }
+    
+    func decreasePitch(by cents: Int) -> PitchShift {
+        
+        ensureActiveAndReset()
+        return setUnitPitch((node.pitch - Float(cents)).clamped(to: pitchRange))
+    }
+    
+    func decreasePitchOneOctave() -> PitchShift {
+        setUnitPitch((node.pitch - Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
+    }
+    
+    func decreasePitchOneSemitone() -> PitchShift {
+        setUnitPitch((node.pitch - Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
+    }
+    
+    func decreasePitchOneCent() -> PitchShift {
+        setUnitPitch((node.pitch - Float(1)).clamped(to: pitchRange))
+    }
+    
+    private func setUnitPitch(_ value: Float) -> PitchShift {
+        
+        node.pitch = value
+        return pitch
+    }
+    
     override func savePreset(named presetName: String) {
         
-        let newPreset = PitchShiftPreset(name: presetName, state: .active, pitch: pitch, systemDefined: false)
+        let newPreset = PitchShiftPreset(name: presetName, state: .active, pitch: node.pitch, systemDefined: false)
         presets.addObject(newPreset)
     }
 
@@ -55,11 +101,15 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     }
     
     func applyPreset(_ preset: PitchShiftPreset) {
-        pitch = preset.pitch
+        node.pitch = preset.pitch
     }
     
     var settingsAsPreset: PitchShiftPreset {
-        PitchShiftPreset(name: "pitchSettings", state: state, pitch: pitch, systemDefined: false)
+        PitchShiftPreset(name: "pitchSettings", state: state, pitch: node.pitch, systemDefined: false)
+    }
+    
+    override func reset() {
+        node.pitch = 0
     }
     
     var persistentState: PitchShiftUnitPersistentState {
@@ -67,6 +117,6 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         PitchShiftUnitPersistentState(state: state,
                                       userPresets: presets.userDefinedObjects.map {PitchShiftPresetPersistentState(preset: $0)},
                                       renderQuality: renderQualityPersistentState,
-                                      pitch: pitch)
+                                      pitch: node.pitch)
     }
 }

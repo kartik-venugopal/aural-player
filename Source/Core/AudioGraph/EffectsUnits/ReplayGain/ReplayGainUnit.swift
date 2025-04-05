@@ -14,7 +14,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     
     let node: ReplayGainNode
     let presets: ReplayGainPresets
-    var currentPreset: ReplayGainPreset? = nil
     
     var mode: ReplayGainMode {
         
@@ -133,12 +132,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
                    renderQuality: persistentState?.renderQuality)
         
         parmsChanged()
-
-        if let currentPresetName = persistentState?.currentPresetName,
-            let matchingPreset = presets.object(named: currentPresetName) {
-            
-            currentPreset = matchingPreset
-        }
     }
     
     override func stateChanged() {
@@ -155,15 +148,12 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
                                          mode: mode, preAmp: preAmp, preventClipping: preventClipping,
                                          systemDefined: false)
         presets.addObject(newPreset)
-        currentPreset = newPreset
     }
     
     override func applyPreset(named presetName: String) {
         
         if let preset = presets.object(named: presetName) {
-            
             applyPreset(preset)
-            currentPreset = preset
         }
     }
     
@@ -179,19 +169,10 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
                          systemDefined: false)
     }
     
-    private func presetsDeleted(_ presetNames: [String]) {
-        
-        // System-defined presets cannot be deleted.
-        if let theCurrentPreset = currentPreset, theCurrentPreset.userDefined, presetNames.contains(theCurrentPreset.name) {
-            currentPreset = nil
-        }
-    }
-    
     var persistentState: ReplayGainUnitPersistentState {
 
         ReplayGainUnitPersistentState(state: state,
                                       userPresets: presets.userDefinedObjects.map {ReplayGainPresetPersistentState(preset: $0)},
-                                      currentPresetName: currentPreset?.name,
                                       renderQuality: renderQualityPersistentState,
                                       mode: mode,
                                       preAmp: preAmp,

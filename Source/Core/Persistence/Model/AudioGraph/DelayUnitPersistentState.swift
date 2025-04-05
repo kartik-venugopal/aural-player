@@ -18,7 +18,6 @@ struct DelayUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [DelayPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let amount: Float?
@@ -26,11 +25,10 @@ struct DelayUnitPersistentState: Codable {
     let feedback: Float?
     let lowPassCutoff: Float?
     
-    init(state: EffectsUnitState?, userPresets: [DelayPresetPersistentState]?, currentPresetName: String?, renderQuality: Int?, amount: Float?, time: Double?, feedback: Float?, lowPassCutoff: Float?) {
+    init(state: EffectsUnitState?, userPresets: [DelayPresetPersistentState]?, renderQuality: Int?, amount: Float?, time: Double?, feedback: Float?, lowPassCutoff: Float?) {
         
         self.state = state
         self.userPresets = userPresets
-        self.currentPresetName = currentPresetName
         self.renderQuality = renderQuality
         self.amount = amount
         self.time = time
@@ -42,7 +40,6 @@ struct DelayUnitPersistentState: Codable {
         
         self.state = EffectsUnitState.fromLegacyState(legacyPersistentState?.state)
         self.userPresets = legacyPersistentState?.userPresets?.map {DelayPresetPersistentState(legacyPersistentState: $0)}
-        self.currentPresetName = legacyPersistentState?.currentPresetName
         self.renderQuality = legacyPersistentState?.renderQuality
         
         self.amount = legacyPersistentState?.amount

@@ -229,14 +229,14 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // Decreases the pitch by a certain preset decrement
     @IBAction func decreasePitchAction(_ sender: Any) {
         
-        pitchShiftUnit.decreasePitch()
+//        pitchShiftUnit.decreasePitch()
         messenger.publish(.Effects.PitchShiftUnit.pitchUpdated)
     }
     
     // Increases the pitch by a certain preset increment
     @IBAction func increasePitchAction(_ sender: Any) {
         
-        pitchShiftUnit.increasePitch()
+//        pitchShiftUnit.increasePitch()
         messenger.publish(.Effects.PitchShiftUnit.pitchUpdated)
     }
     
