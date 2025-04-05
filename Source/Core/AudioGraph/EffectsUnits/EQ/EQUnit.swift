@@ -42,19 +42,13 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     var globalGain: Float {
         
         get {node.globalGain}
-        
-        set {
-            node.globalGain = newValue
-        }
+        set {node.globalGain = newValue}
     }
     
     var bands: [Float] {
         
         get {node.bandGains}
-        
-        set(newBands) {
-            node.bandGains = newBands
-        }
+        set {node.bandGains = newValue}
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -62,10 +56,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     subscript(_ index: Int) -> Float {
         
         get {node[index]}
-        
-        set {
-            node[index] = newValue
-        }
+        set {node[index] = newValue}
     }
     
     func increaseBass(by increment: Float) -> [Float] {

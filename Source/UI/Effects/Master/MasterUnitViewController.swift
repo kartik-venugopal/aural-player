@@ -31,15 +31,15 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var masterUnit: MasterUnitDelegateProtocol {audioGraphDelegate.masterUnit}
-    private var eqUnit: EQUnitDelegateProtocol {audioGraphDelegate.eqUnit}
-    private var pitchShiftUnit: PitchShiftUnitDelegateProtocol {audioGraphDelegate.pitchShiftUnit}
-    private var timeStretchUnit: TimeStretchUnitDelegateProtocol {audioGraphDelegate.timeStretchUnit}
-    private var reverbUnit: ReverbUnitDelegateProtocol {audioGraphDelegate.reverbUnit}
-    private var delayUnit: DelayUnitDelegateProtocol {audioGraphDelegate.delayUnit}
-    private var filterUnit: FilterUnitDelegateProtocol {audioGraphDelegate.filterUnit}
+    private var masterUnit: MasterUnitProtocol {audioGraph.masterUnit}
+    private var eqUnit: EQUnitProtocol {audioGraph.eqUnit}
+    private var pitchShiftUnit: PitchShiftUnitProtocol {audioGraph.pitchShiftUnit}
+    private var timeStretchUnit: TimeStretchUnitProtocol {audioGraph.timeStretchUnit}
+    private var reverbUnit: ReverbUnitProtocol {audioGraph.reverbUnit}
+    private var delayUnit: DelayUnitProtocol {audioGraph.delayUnit}
+    private var filterUnit: FilterUnitProtocol {audioGraph.filterUnit}
     
-    private let soundProfiles: SoundProfiles = audioGraphDelegate.soundProfiles
+    private let soundProfiles: SoundProfiles = audioGraph.soundProfiles
     
     private let soundPreferences: SoundPreferences = preferences.soundPreferences
     private let playbackPreferences: PlaybackPreferences = preferences.playbackPreferences
@@ -148,7 +148,7 @@ class MasterUnitViewController: EffectsUnitViewController {
         
         guard let playingTrack = playQueueDelegate.currentTrack else {return}
         
-        let soundProfiles = audioGraphDelegate.soundProfiles
+        let soundProfiles = audioGraph.soundProfiles
         
         if soundProfiles.hasFor(playingTrack) {
             

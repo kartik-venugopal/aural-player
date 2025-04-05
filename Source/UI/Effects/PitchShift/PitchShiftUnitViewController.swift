@@ -56,27 +56,27 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     }
     
     @IBAction func increasePitchByOctaveAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitchOneOctave()
+        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitch(by: .oneOctave, ensureActive: false)
     }
     
     @IBAction func increasePitchBySemitoneAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitchOneSemitone()
+        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitch(by: .oneSemitone, ensureActive: false)
     }
     
     @IBAction func increasePitchByCentAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitchOneCent()
+        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitch(by: .oneCent, ensureActive: false)
     }
     
     @IBAction func decreasePitchByOctaveAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitchOneOctave()
+        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitch(by: .oneOctave, ensureActive: false)
     }
     
     @IBAction func decreasePitchBySemitoneAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitchOneSemitone()
+        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitch(by: .oneSemitone, ensureActive: false)
     }
     
     @IBAction func decreasePitchByCentAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitchOneCent()
+        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitch(by: .oneCent, ensureActive: false)
     }
     
     // ------------------------------------------------------------------------

@@ -22,28 +22,10 @@ protocol PitchShiftUnitProtocol: EffectsUnitProtocol {
     var maxPitch: Float {get}
     
     // Increases the pitch shift by a small increment. Returns the new pitch shift value.
-    @discardableResult func increasePitch(by cents: Int) -> PitchShift
-    
-    // Increases the pitch shift by one octave. Returns the new pitch shift value.
-    @discardableResult func increasePitchOneOctave() -> PitchShift
-    
-    // Increases the pitch shift by one semitone. Returns the new pitch shift value.
-    @discardableResult func increasePitchOneSemitone() -> PitchShift
-    
-    // Increases the pitch shift by one cent. Returns the new pitch shift value.
-    @discardableResult func increasePitchOneCent() -> PitchShift
+    @discardableResult func increasePitch(by pitchShift: PitchShift, ensureActive: Bool) -> PitchShift
     
     // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
-    @discardableResult func decreasePitch(by cents: Int) -> PitchShift
-    
-    // Decreases the pitch shift by one octave. Returns the new pitch shift value.
-    @discardableResult func decreasePitchOneOctave() -> PitchShift
-    
-    // Decreases the pitch shift by one semitone. Returns the new pitch shift value.
-    @discardableResult func decreasePitchOneSemitone() -> PitchShift
-    
-    // Decreases the pitch shift by one cent. Returns the new pitch shift value.
-    @discardableResult func decreasePitchOneCent() -> PitchShift
+    @discardableResult func decreasePitch(by pitchShift: PitchShift, ensureActive: Bool) -> PitchShift
     
     var presets: PitchShiftPresets {get}
     

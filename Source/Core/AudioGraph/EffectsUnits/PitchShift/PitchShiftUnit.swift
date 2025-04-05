@@ -45,45 +45,23 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         node.bypass = !isActive
     }
     
-    func increasePitch(by cents: Int) -> PitchShift {
+    func increasePitch(by pitchShift: PitchShift, ensureActive: Bool) -> PitchShift {
         
-        ensureActiveAndReset()
-        return setUnitPitch((node.pitch + Float(cents)).clamped(to: pitchRange))
-    }
-    
-    func increasePitchOneOctave() -> PitchShift {
-        setUnitPitch((node.pitch + Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
-    }
-    
-    func increasePitchOneSemitone() -> PitchShift {
-        setUnitPitch((node.pitch + Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
-    }
-    
-    func increasePitchOneCent() -> PitchShift {
-        setUnitPitch((node.pitch + Float(1)).clamped(to: pitchRange))
-    }
-    
-    func decreasePitch(by cents: Int) -> PitchShift {
+        if ensureActive {
+            ensureActiveAndReset()
+        }
         
-        ensureActiveAndReset()
-        return setUnitPitch((node.pitch - Float(cents)).clamped(to: pitchRange))
+        node.pitch = (node.pitch + pitchShift.asCentsFloat).clamped(to: pitchRange)
+        return pitch
     }
     
-    func decreasePitchOneOctave() -> PitchShift {
-        setUnitPitch((node.pitch - Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
-    }
-    
-    func decreasePitchOneSemitone() -> PitchShift {
-        setUnitPitch((node.pitch - Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
-    }
-    
-    func decreasePitchOneCent() -> PitchShift {
-        setUnitPitch((node.pitch - Float(1)).clamped(to: pitchRange))
-    }
-    
-    private func setUnitPitch(_ value: Float) -> PitchShift {
+    func decreasePitch(by pitchShift: PitchShift, ensureActive: Bool) -> PitchShift {
         
-        node.pitch = value
+        if ensureActive {
+            ensureActiveAndReset()
+        }
+        
+        node.pitch = (node.pitch - pitchShift.asCentsFloat).clamped(to: pitchRange)
         return pitch
     }
     

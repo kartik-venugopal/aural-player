@@ -21,6 +21,10 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     let node: VariableRateNode = VariableRateNode()
     let presets: TimeStretchPresets
     
+    let minRate: Float = 1.0/4
+    let maxRate: Float = 4
+    private lazy var rateRange: ClosedRange<Float> = minRate...maxRate
+    
     init(persistentState: TimeStretchUnitPersistentState?) {
         
         presets = TimeStretchPresets(persistentState: persistentState)
@@ -38,6 +42,10 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         set {node.rate = newValue}
     }
     
+    var effectiveRate: Float {
+        isActive ? rate : 1.0
+    }
+    
     var shiftPitch: Bool {
         
         get {node.shiftPitch}
@@ -52,6 +60,26 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         
         super.stateChanged()
         node.bypass = !isActive
+    }
+    
+    func increaseRate(by increment: Float, ensureActive: Bool) -> Float {
+        
+        if ensureActive {
+            ensureActiveAndReset()
+        }
+        
+        rate = (rate + increment).clamped(to: rateRange)
+        return rate
+    }
+    
+    func decreaseRate(by decrement: Float, ensureActive: Bool) -> Float {
+        
+        if ensureActive {
+            ensureActiveAndReset()
+        }
+        
+        rate = (rate - decrement).clamped(to: rateRange)
+        return rate
     }
     
     override func savePreset(named presetName: String) {

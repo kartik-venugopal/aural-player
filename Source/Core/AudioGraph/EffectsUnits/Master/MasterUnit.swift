@@ -9,7 +9,14 @@
 //
 import Foundation
 
-protocol MasterUnitProtocol: EffectsUnitProtocol {}
+protocol MasterUnitProtocol: EffectsUnitProtocol {
+    
+    var presets: MasterPresets {get}
+    
+    func applyPreset(_ preset: MasterPreset)
+    
+    var settingsAsPreset: MasterPreset {get}
+}
 
 ///
 /// A "master" effects unit that does not directly manipulate audio, but

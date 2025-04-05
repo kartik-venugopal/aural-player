@@ -16,6 +16,10 @@ struct PitchShift {
     let semitones: Int
     let cents: Int
     
+    static let oneOctave: PitchShift = .init(octaves: 1)
+    static let oneSemitone: PitchShift = .init(semitones: 1)
+    static let oneCent: PitchShift = .init(cents: 1)
+    
     var asCents: Int {
         
         octaves * ValueConversions.pitch_octaveToCents +

@@ -27,7 +27,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    var timeStretchUnit: TimeStretchUnitDelegateProtocol = audioGraphDelegate.timeStretchUnit
+    private var timeStretchUnit: TimeStretchUnitProtocol = audioGraph.timeStretchUnit
     
     // ------------------------------------------------------------------------
     
@@ -37,19 +37,16 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-//        effectsUnit = audioGraphDelegate.timeStretchUnit
+        effectsUnit = self.timeStretchUnit
         presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeStretchUnit.presets)
-
-        // TODO: Temporary
-        timeStretchUnit.shiftPitch = true
     }
 
     override func initControls() {
 
         super.initControls()
         
-        timeStretchUnitView.setState(rate: timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
-                                 shiftPitch: timeStretchUnit.shiftPitch, shiftPitchString: timeStretchUnit.formattedPitch)
+        timeStretchUnitView.setState(rate: timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
+                                 shiftPitch: timeStretchUnit.shiftPitch, shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
     }
     
     // ------------------------------------------------------------------------
@@ -69,8 +66,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     @IBAction func timeStretchAction(_ sender: AnyObject) {
         
         timeStretchUnit.rate = timeStretchUnitView.rate
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
-                                shiftPitchString: timeStretchUnit.formattedPitch)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
+                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -83,9 +80,9 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     
     @IBAction func increaseRateByTenthAction(_ sender: AnyObject) {
         
-        _ = timeStretchUnit.increaseRate(by: oneTenth)
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
-                                shiftPitchString: timeStretchUnit.formattedPitch)
+        _ = timeStretchUnit.increaseRate(by: oneTenth, ensureActive: false)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
+                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -95,9 +92,9 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     
     @IBAction func increaseRateByHundredthAction(_ sender: AnyObject) {
         
-        _ = timeStretchUnit.increaseRate(by: oneHundredth)
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
-                                shiftPitchString: timeStretchUnit.formattedPitch)
+        _ = timeStretchUnit.increaseRate(by: oneHundredth, ensureActive: false)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
+                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -107,9 +104,9 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     
     @IBAction func decreaseRateByTenthAction(_ sender: AnyObject) {
         
-        _ = timeStretchUnit.decreaseRate(by: oneTenth)
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
-                                shiftPitchString: timeStretchUnit.formattedPitch)
+        _ = timeStretchUnit.decreaseRate(by: oneTenth, ensureActive: false)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
+                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -119,9 +116,9 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     
     @IBAction func decreaseRateByHundredthAction(_ sender: AnyObject) {
         
-        _ = timeStretchUnit.decreaseRate(by: oneHundredth)
-        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: timeStretchUnit.formattedRate,
-                                shiftPitchString: timeStretchUnit.formattedPitch)
+        _ = timeStretchUnit.decreaseRate(by: oneHundredth, ensureActive: false)
+        timeStretchUnitView.setRate(timeStretchUnit.rate, rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
+                                shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
@@ -152,8 +149,8 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         let rate = timeStretchUnit.rate
         
         timeStretchUnitView.setRate(rate,
-                                    rateString: timeStretchUnit.formattedRate,
-                                    shiftPitchString: timeStretchUnit.formattedPitch)
+                                    rateString: ValueFormatter.formatTimeStretchRate(timeStretchUnit.rate),
+                                    shiftPitchString: ValueFormatter.formatPitch(timeStretchUnit.pitch))
         stateChanged()
 
         showThisTab()
