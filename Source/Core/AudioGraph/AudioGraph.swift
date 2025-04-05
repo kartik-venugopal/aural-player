@@ -48,6 +48,26 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var replayGainUnit: ReplayGainUnit
     var audioUnits: [HostedAudioUnit]
     
+    var allUnits: [any EffectsUnitProtocol] {
+        [masterUnit, eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit] + audioUnits
+    }
+    
+    private(set) lazy var audioUnitsStateFunction: EffectsUnitStateFunction = {[weak self] in
+        
+        for unit in self?.audioUnits ?? [] {
+        
+            if unit.state == .active {
+                return .active
+            }
+            
+            if unit.state == .suppressed {
+                return .suppressed
+            }
+        }
+        
+        return .bypassed
+    }
+    
     var soundProfiles: SoundProfiles
     
     var audioUnitPresets: AudioUnitPresetsMap
@@ -56,14 +76,23 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     let visualizationAnalysisBufferSize: Int = 2048
     
+    static let minVolume: Float = 0
+    static let maxVolume: Float = 1
+    
+    static let maxLeftPan: Float = -1
+    static let maxRightPan: Float = 1
+    
     // Used by callbacks
     fileprivate lazy var unmanagedReferenceToSelf: UnsafeMutableRawPointer = Unmanaged.passUnretained(self).toOpaque()
     fileprivate lazy var outputAudioUnit: AudioUnit = outputNode.audioUnit!
     
     // Sets up the audio engine
-    init(audioEngine: AudioEngine, audioUnitsManager: AudioUnitsManager, persistentState: AudioGraphPersistentState?) {
+    init(persistentState: AppPersistentState, audioUnitsManager: AudioUnitsManager) {
         
-        self.audioEngine = audioEngine
+        let persistentState: AudioGraphPersistentState? = persistentState.audioGraph
+        
+        self.audioEngine = AudioEngine()
+        self.audioUnitsManager = audioUnitsManager
         
         let volume = persistentState?.volume ?? AudioGraphDefaults.volume
         let pan = persistentState?.pan ?? AudioGraphDefaults.pan
@@ -85,7 +114,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)
         replayGainUnit = ReplayGainUnit(persistentState: persistentState?.replayGainUnit)
         
-        self.audioUnitsManager = audioUnitsManager
         audioUnits = []
         audioUnitPresets = AudioUnitPresetsMap(persistentState: persistentState?.audioUnitPresets)
         
@@ -118,6 +146,15 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
         
         audioEngine.start()
+        
+        // Check if remembered device is available (based on name and UID).
+        if let prefDeviceUID = persistentState?.outputDevice?.uid,
+           let foundDevice = availableDevices.first(where: {$0.uid == prefDeviceUID}) {
+            
+            self.outputDevice = foundDevice
+        }
+        
+        captureSystemSoundProfile()
     }
     
     func applySoundProfile(_ profile: SoundProfile) {
@@ -174,10 +211,45 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         set {playerNode.volume = newValue}
     }
     
+    func increaseVolume(inputMode: UserInputMode) -> Float {
+        
+//        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta.value : preferences.volumeDelta_continuous
+//        volume = min(Self.maxVolume, volume + volumeDelta)
+        
+        return volume
+    }
+    
+    func decreaseVolume(inputMode: UserInputMode) -> Float {
+        
+//        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta.value : preferences.volumeDelta_continuous
+//        volume = max(Self.minVolume, volume - volumeDelta)
+        
+        return volume
+    }
+    
     var pan: Float {
         
         get {playerNode.pan}
         set {playerNode.pan = newValue}
+    }
+    
+    func panLeft() -> Float {
+        
+//        let newPan = max(Self.maxLeftPan, pan - preferences.panDelta.value)
+//        
+//        // If the pan caused the balance to switch from L->R or R->L,
+//        // center the pan.
+//        pan = pan > 0 && newPan < 0 ? 0 : newPan
+        
+        return pan
+    }
+    
+    func panRight() -> Float {
+        
+//        let newPan = min(Self.maxRightPan, pan + preferences.panDelta.value)
+//        pan = pan < 0 && newPan > 0 ? 0 : newPan
+        
+        return pan
     }
     
     var muted: Bool {

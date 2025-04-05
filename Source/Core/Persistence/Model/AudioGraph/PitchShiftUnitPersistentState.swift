@@ -18,16 +18,14 @@ struct PitchShiftUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [PitchShiftPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let pitch: Float?
     
-    init(state: EffectsUnitState?, userPresets: [PitchShiftPresetPersistentState]?, currentPresetName: String?, renderQuality: Int?, pitch: Float?) {
+    init(state: EffectsUnitState?, userPresets: [PitchShiftPresetPersistentState]?, renderQuality: Int?, pitch: Float?) {
         
         self.state = state
         self.userPresets = userPresets
-        self.currentPresetName = currentPresetName
         self.renderQuality = renderQuality
         self.pitch = pitch
     }
@@ -36,7 +34,6 @@ struct PitchShiftUnitPersistentState: Codable {
         
         self.state = EffectsUnitState.fromLegacyState(legacyPersistentState?.state)
         self.userPresets = legacyPersistentState?.userPresets?.map {PitchShiftPresetPersistentState(legacyPersistentState: $0)}
-        self.currentPresetName = legacyPersistentState?.currentPresetName
         self.renderQuality = legacyPersistentState?.renderQuality
         
         self.pitch = legacyPersistentState?.pitch

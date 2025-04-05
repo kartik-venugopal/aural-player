@@ -87,7 +87,7 @@ extension FilterUnitViewController: NSTableViewDataSource, NSTableViewDelegate {
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? FilterBandSwitchCellView else {return nil}
         
         cell.bandIndex = row
-        fxUnitStateObserverRegistry.registerObserver(cell.btnSwitch, forFXUnit: filterUnit)
+//        fxUnitStateObserverRegistry.registerObserver(cell.btnSwitch, forFXUnit: filterUnit)
         
         cell.action = {[weak self] in
             

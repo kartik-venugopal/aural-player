@@ -17,7 +17,7 @@ class RenderQualityMenuViewController: NSViewController {
     @IBOutlet weak var renderQualitySlider: NSSlider!
     @IBOutlet weak var lblRenderQuality: NSTextField!
     
-    var effectsUnit: EffectsUnitDelegateProtocol!
+    var effectsUnit: (any EffectsUnitProtocol)!
     
     @IBAction func renderQualityAction(_ sender: AnyObject) {
         

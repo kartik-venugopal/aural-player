@@ -46,8 +46,4 @@ class ReplayGainPreset: EffectsUnitPreset {
         
         super.init(name: name, state: unitState, systemDefined: false)
     }
-    
-    func equalToOtherPreset(mode: ReplayGainMode, preAmp: Float, preventClipping: Bool) -> Bool {
-        self.mode == mode && Float.valuesEqual(self.preAmp, preAmp, tolerance: 0.001) && self.preventClipping == preventClipping
-    }
 }

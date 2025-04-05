@@ -37,10 +37,6 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
             
             currentPreset = matchingPreset
         }
-        
-        presets.registerPresetDeletionCallback(presetsDeleted(_:))
-        
-        unitInitialized = true
     }
     
     override var avNodes: [AVAudioNode] {[node]}
@@ -52,45 +48,25 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     var amount: Float {
         
         get {node.wetDryMix}
-        
-        set {
-            
-            node.wetDryMix = newValue
-            invalidateCurrentPreset()
-        }
+        set {node.wetDryMix = newValue}
     }
     
     var time: Double {
         
         get {node.delayTime}
-        
-        set {
-            
-            node.delayTime = newValue
-            invalidateCurrentPreset()
-        }
+        set {node.delayTime = newValue}
     }
     
     var feedback: Float {
         
         get {node.feedback}
-        
-        set {
-            
-            node.feedback = newValue
-            invalidateCurrentPreset()
-        }
+        set {node.feedback = newValue}
     }
     
     var lowPassCutoff: Float {
         
         get {node.lowPassCutoff}
-        
-        set {
-            
-            node.lowPassCutoff = newValue
-            invalidateCurrentPreset()
-        }
+        set {node.lowPassCutoff = newValue}
     }
     
     override func stateChanged() {
@@ -130,27 +106,10 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
                     feedback: feedback, cutoff: lowPassCutoff, systemDefined: false)
     }
     
-    private func invalidateCurrentPreset() {
-        
-        guard unitInitialized else {return}
-        
-        currentPreset = nil
-        masterUnit.currentPreset = nil
-    }
-    
     private func presetsDeleted(_ presetNames: [String]) {
         
         if let theCurrentPreset = currentPreset, theCurrentPreset.userDefined, presetNames.contains(theCurrentPreset.name) {
             currentPreset = nil
-        }
-    }
-    
-    func setCurrentPreset(byName presetName: String) {
-        
-        guard let matchingPreset = presets.object(named: presetName) else {return}
-        
-        if matchingPreset.equalToOtherPreset(amount: self.amount, time: self.time, feedback: self.feedback, lowPassCutoff: self.lowPassCutoff) {
-            self.currentPreset = matchingPreset
         }
     }
     

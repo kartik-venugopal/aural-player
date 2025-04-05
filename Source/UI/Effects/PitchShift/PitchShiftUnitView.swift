@@ -30,7 +30,7 @@ class PitchShiftUnitView: NSView {
         super.awakeFromNib()
         
         pitchSlider.effectsUnit = pitchShiftUnit
-        fxUnitStateObserverRegistry.registerObserver(pitchSlider, forFXUnit: pitchShiftUnit)
+//        fxUnitStateObserverRegistry.registerObserver(pitchSlider, forFXUnit: pitchShiftUnit)
         
         let minPitch = pitchShiftUnit.minPitch
         let maxPitch = pitchShiftUnit.maxPitch

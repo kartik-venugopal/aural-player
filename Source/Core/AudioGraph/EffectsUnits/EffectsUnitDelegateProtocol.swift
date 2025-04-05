@@ -39,8 +39,6 @@ protocol EffectsUnitDelegateProtocol {
     
     func applyPreset(named presetName: String)
     
-    var nameOfCurrentPreset: String? {get}
-    
     func observeState(handler: @escaping EffectsUnitStateChangeHandler) -> NSKeyValueObservation
     
     func removeObserver(_ observer: NSKeyValueObservation)

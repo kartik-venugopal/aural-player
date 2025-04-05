@@ -108,14 +108,14 @@ class EffectsContainerViewController: NSViewController {
             viewController.view.anchorToSuperview()
         }
 
-        fxUnitStateObserverRegistry.registerObserver(masterTabViewButton, forFXUnit: audioGraphDelegate.masterUnit)
-        fxUnitStateObserverRegistry.registerObserver(eqTabViewButton, forFXUnit: audioGraphDelegate.eqUnit)
-        fxUnitStateObserverRegistry.registerObserver(pitchTabViewButton, forFXUnit: audioGraphDelegate.pitchShiftUnit)
-        fxUnitStateObserverRegistry.registerObserver(timeTabViewButton, forFXUnit: audioGraphDelegate.timeStretchUnit)
-        fxUnitStateObserverRegistry.registerObserver(reverbTabViewButton, forFXUnit: audioGraphDelegate.reverbUnit)
-        fxUnitStateObserverRegistry.registerObserver(delayTabViewButton, forFXUnit: audioGraphDelegate.delayUnit)
-        fxUnitStateObserverRegistry.registerObserver(filterTabViewButton, forFXUnit: audioGraphDelegate.filterUnit)
-        fxUnitStateObserverRegistry.registerObserver(replayGainTabViewButton, forFXUnit: audioGraphDelegate.replayGainUnit)
+        fxUnitStateObserverRegistry.registerObserver(masterTabViewButton, forFXUnit: audioGraph.masterUnit)
+        fxUnitStateObserverRegistry.registerObserver(eqTabViewButton, forFXUnit: audioGraph.eqUnit)
+        fxUnitStateObserverRegistry.registerObserver(pitchTabViewButton, forFXUnit: audioGraph.pitchShiftUnit)
+        fxUnitStateObserverRegistry.registerObserver(timeTabViewButton, forFXUnit: audioGraph.timeStretchUnit)
+        fxUnitStateObserverRegistry.registerObserver(reverbTabViewButton, forFXUnit: audioGraph.reverbUnit)
+        fxUnitStateObserverRegistry.registerObserver(delayTabViewButton, forFXUnit: audioGraph.delayUnit)
+        fxUnitStateObserverRegistry.registerObserver(filterTabViewButton, forFXUnit: audioGraph.filterUnit)
+        fxUnitStateObserverRegistry.registerObserver(replayGainTabViewButton, forFXUnit: audioGraph.replayGainUnit)
         
         fxUnitStateObserverRegistry.registerAUObserver(auTabViewButton)
         

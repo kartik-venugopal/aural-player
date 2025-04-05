@@ -39,7 +39,7 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
     
     // MARK: Services, utilities, helpers, and properties
     
-    var effectsUnit: EffectsUnitDelegateProtocol!
+    var effectsUnit: (any EffectsUnitProtocol)!
     var unitType: EffectsUnitType {effectsUnit.unitType}
     var unitStateFunction: EffectsUnitStateFunction {effectsUnit.stateFunction}
     
@@ -308,10 +308,10 @@ extension EffectsUnitViewController: NSMenuDelegate {
         
         presetsAndSettingsMenu.items.forEach {$0.state = .off}
         
-        if let currentPresetName = effectsUnit.nameOfCurrentPreset,
-           let itemForCurrentPreset = presetsAndSettingsMenu.item(withTitle: currentPresetName) {
-            
-            itemForCurrentPreset.state = .on
-        }
+//        if let currentPresetName = effectsUnit.nameOfCurrentPreset,
+//           let itemForCurrentPreset = presetsAndSettingsMenu.item(withTitle: currentPresetName) {
+//            
+//            itemForCurrentPreset.state = .on
+//        }
     }
 }

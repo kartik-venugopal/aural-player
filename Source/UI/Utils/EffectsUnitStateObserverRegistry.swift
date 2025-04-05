@@ -21,7 +21,7 @@ class EffectsUnitStateObserverRegistry {
     private var auRegistry: [String: [FXUnitStateObserver]] = [:]
     
     private var auCompositeStateObservers: [FXUnitStateObserver] = []
-    private var reverseRegistry: [NSObject: EffectsUnitDelegateProtocol] = [:]
+    private var reverseRegistry: [NSObject: any EffectsUnitProtocol] = [:]
     
     private var auReverseRegistry: [NSObject: String] = [:]
     
@@ -77,7 +77,7 @@ class EffectsUnitStateObserverRegistry {
         }
     }
     
-    func registerObserver(_ observer: FXUnitStateObserver, forFXUnit fxUnit: EffectsUnitDelegateProtocol) {
+    func registerObserver(_ observer: FXUnitStateObserver, forFXUnit fxUnit: any EffectsUnitProtocol) {
         
         let unitType = fxUnit.unitType
         

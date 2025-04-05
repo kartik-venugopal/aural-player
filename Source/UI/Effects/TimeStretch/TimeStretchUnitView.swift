@@ -35,8 +35,8 @@ class TimeStretchUnitView: NSView {
         
         timeSlider.effectsUnit = audioGraphDelegate.timeStretchUnit
         
-        fxUnitStateObserverRegistry.registerObserver(timeSlider, forFXUnit: audioGraphDelegate.timeStretchUnit)
-        fxUnitStateObserverRegistry.registerObserver(btnShiftPitch, forFXUnit: audioGraphDelegate.timeStretchUnit)
+        fxUnitStateObserverRegistry.registerObserver(timeSlider, forFXUnit: audioGraph.timeStretchUnit)
+        fxUnitStateObserverRegistry.registerObserver(btnShiftPitch, forFXUnit: audioGraph.timeStretchUnit)
         
         timeSlider.allowedValues = 0.25...4
         

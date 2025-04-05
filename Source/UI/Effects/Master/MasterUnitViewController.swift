@@ -52,7 +52,7 @@ class MasterUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        effectsUnit = masterUnit
+//        effectsUnit = masterUnit
         presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(masterUnit.presets)
     }
     

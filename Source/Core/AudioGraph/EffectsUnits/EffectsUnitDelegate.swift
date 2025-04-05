@@ -83,8 +83,4 @@ class EffectsUnitDelegate<T: EffectsUnitProtocol>: EffectsUnitDelegateProtocol {
     func removeObserver(_ observer: NSKeyValueObservation) {
         kvoTokens.remove(observer)?.invalidate()
     }
-    
-    var nameOfCurrentPreset: String? {
-        unit.currentPreset?.name
-    }
 }

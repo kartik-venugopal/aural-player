@@ -18,17 +18,15 @@ struct TimeStretchUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [TimeStretchPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let rate: Float?
     let shiftPitch: Bool?
     
-    init(state: EffectsUnitState?, userPresets: [TimeStretchPresetPersistentState]?, currentPresetName: String?, renderQuality: Int?, rate: Float?, shiftPitch: Bool?) {
+    init(state: EffectsUnitState?, userPresets: [TimeStretchPresetPersistentState]?, renderQuality: Int?, rate: Float?, shiftPitch: Bool?) {
         
         self.state = state
         self.userPresets = userPresets
-        self.currentPresetName = currentPresetName
         self.renderQuality = renderQuality
         self.rate = rate
         self.shiftPitch = shiftPitch
@@ -38,7 +36,6 @@ struct TimeStretchUnitPersistentState: Codable {
         
         self.state = EffectsUnitState.fromLegacyState(legacyPersistentState?.state)
         self.userPresets = legacyPersistentState?.userPresets?.map {TimeStretchPresetPersistentState(legacyPersistentState: $0)}
-        self.currentPresetName = legacyPersistentState?.currentPresetName
         self.renderQuality = legacyPersistentState?.renderQuality
         
         self.rate = legacyPersistentState?.rate

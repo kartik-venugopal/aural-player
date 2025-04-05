@@ -94,10 +94,7 @@ fileprivate let _playQueueDelegate: PlayQueueDelegate = PlayQueueDelegate(playQu
 //                                                                           trackReader, preferences)
 
 let audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
-fileprivate let audioEngine: AudioEngine = AudioEngine()
-
-let audioGraph: AudioGraph = AudioGraph(audioEngine: audioEngine, audioUnitsManager: audioUnitsManager,
-                                                    persistentState: appPersistentState.audioGraph)
+let audioGraph: AudioGraph = AudioGraph(persistentState: appPersistentState, audioUnitsManager: audioUnitsManager)
 
 var audioGraphDelegate: AudioGraphDelegateProtocol = AudioGraphDelegate(graph: audioGraph, persistentState: appPersistentState.audioGraph,
                                                                         player: playbackDelegate, preferences: preferences.soundPreferences)

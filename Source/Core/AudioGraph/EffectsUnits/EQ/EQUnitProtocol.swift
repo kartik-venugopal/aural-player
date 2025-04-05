@@ -40,4 +40,10 @@ protocol EQUnitProtocol: EffectsUnitProtocol {
     
     // Decreases the equalizer treble band gains by a small decrement. Returns all EQ band gain values, mapped by index.
     func decreaseTreble(by decrement: Float) -> [Float]
+    
+    var presets: EQPresets {get}
+    
+    func applyPreset(_ preset: EQPreset)
+    
+    var settingsAsPreset: EQPreset {get}
 }

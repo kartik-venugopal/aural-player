@@ -46,32 +46,6 @@ class FilterPreset: EffectsUnitPreset {
         self.bands = bands.compactMap {FilterBand(persistentState: $0)}
         super.init(name: name, state: unitState, systemDefined: false)
     }
-    
-    func equalToOtherPreset(bands: [FilterBand]) -> Bool {
-
-        if self.bands.count != bands.count {
-            return false
-        }
-        
-        for index in self.bands.indices {
-            
-            if self.bands[index] != bands[index] {
-                return false
-            }
-        }
-        
-        return true
-    }
-}
-
-extension FilterBand: Equatable {
-    
-    static func == (lhs: FilterBand, rhs: FilterBand) -> Bool {
-        
-        lhs.type == rhs.type &&
-        Float.optionalValuesEqual(lhs.minFreq, rhs.minFreq, tolerance: 0.001) &&
-        Float.optionalValuesEqual(lhs.maxFreq, rhs.maxFreq, tolerance: 0.001)
-    }
 }
 
 ///

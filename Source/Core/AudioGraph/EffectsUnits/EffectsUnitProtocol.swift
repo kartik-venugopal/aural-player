@@ -31,24 +31,15 @@ protocol EffectsUnitProtocol {
     
     func unsuppress()
     
+    func reset()
+    
+    func ensureActiveAndReset()
+    
     var renderQuality: Int {get set}
     
     var avNodes: [AVAudioNode] {get}
     
-    associatedtype PresetType: EffectsUnitPreset
-    associatedtype PresetsType: EffectsUnitPresetsProtocol
-    
-    var presets: PresetsType {get}
-    
     func savePreset(named presetName: String)
     
     func applyPreset(named presetName: String)
-    
-    func applyPreset(_ preset: PresetType)
-    
-    var settingsAsPreset: PresetType {get}
-    
-    var currentPreset: PresetType? {get}
-    
-    func setCurrentPreset(byName presetName: String)
 }

@@ -26,7 +26,7 @@ class ReverbUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    var reverbUnit: ReverbUnitDelegateProtocol = audioGraphDelegate.reverbUnit
+    var reverbUnit: ReverbUnitProtocol = audioGraph.reverbUnit
     
     // ------------------------------------------------------------------------
     
@@ -36,7 +36,7 @@ class ReverbUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        effectsUnit = audioGraphDelegate.reverbUnit
+        effectsUnit = audioGraph.reverbUnit
         presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(reverbUnit.presets)
     }
     
@@ -44,9 +44,9 @@ class ReverbUnitViewController: EffectsUnitViewController {
         
         super.initControls()
         
-        reverbUnitView.setState(space: reverbUnit.space.description,
-                                amount: reverbUnit.amount,
-                                amountString: reverbUnit.formattedAmount)
+//        reverbUnitView.setState(space: reverbUnit.space.description,
+//                                amount: reverbUnit.amount,
+//                                amountString: reverbUnit.formattedAmount)
     }
     
     // ------------------------------------------------------------------------
@@ -62,7 +62,7 @@ class ReverbUnitViewController: EffectsUnitViewController {
     @IBAction func reverbAmountAction(_ sender: AnyObject) {
         
         reverbUnit.amount = reverbUnitView.amount
-        reverbUnitView.setAmount(reverbUnit.amount, amountString: reverbUnit.formattedAmount)
+//        reverbUnitView.setAmount(reverbUnit.amount, amountString: reverbUnit.formattedAmount)
     }
     
     override func fontSchemeChanged() {

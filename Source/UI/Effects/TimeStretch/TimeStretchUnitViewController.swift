@@ -37,7 +37,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        effectsUnit = audioGraphDelegate.timeStretchUnit
+//        effectsUnit = audioGraphDelegate.timeStretchUnit
         presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeStretchUnit.presets)
 
         // TODO: Temporary

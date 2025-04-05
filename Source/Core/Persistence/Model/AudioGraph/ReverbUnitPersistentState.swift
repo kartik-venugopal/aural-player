@@ -18,17 +18,15 @@ struct ReverbUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [ReverbPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let space: ReverbSpace?
     let amount: Float?
     
-    init(state: EffectsUnitState?, userPresets: [ReverbPresetPersistentState]?, currentPresetName: String?, renderQuality: Int?, space: ReverbSpace?, amount: Float?) {
+    init(state: EffectsUnitState?, userPresets: [ReverbPresetPersistentState]?, renderQuality: Int?, space: ReverbSpace?, amount: Float?) {
         
         self.state = state
         self.userPresets = userPresets
-        self.currentPresetName = currentPresetName
         self.renderQuality = renderQuality
         self.space = space
         self.amount = amount
@@ -38,7 +36,6 @@ struct ReverbUnitPersistentState: Codable {
         
         self.state = EffectsUnitState.fromLegacyState(legacyPersistentState?.state)
         self.userPresets = legacyPersistentState?.userPresets?.map {ReverbPresetPersistentState(legacyPersistentState: $0)}
-        self.currentPresetName = legacyPersistentState?.currentPresetName
         self.renderQuality = legacyPersistentState?.renderQuality
         
         self.space = legacyPersistentState?.space

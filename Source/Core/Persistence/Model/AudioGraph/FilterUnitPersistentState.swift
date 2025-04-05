@@ -18,16 +18,14 @@ struct FilterUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [FilterPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let bands: [FilterBandPersistentState]?
     
-    init(state: EffectsUnitState?, userPresets: [FilterPresetPersistentState]?, currentPresetName: String?, renderQuality: Int?, bands: [FilterBandPersistentState]?) {
+    init(state: EffectsUnitState?, userPresets: [FilterPresetPersistentState]?, renderQuality: Int?, bands: [FilterBandPersistentState]?) {
         
         self.state = state
         self.userPresets = userPresets
-        self.currentPresetName = currentPresetName
         self.renderQuality = renderQuality
         self.bands = bands
     }
@@ -36,7 +34,6 @@ struct FilterUnitPersistentState: Codable {
         
         self.state = EffectsUnitState.fromLegacyState(legacyPersistentState?.state)
         self.userPresets = legacyPersistentState?.userPresets?.map {FilterPresetPersistentState(legacyPersistentState: $0)}
-        self.currentPresetName = legacyPersistentState?.currentPresetName
         self.renderQuality = legacyPersistentState?.renderQuality
         
         self.bands = legacyPersistentState?.bands?.map {FilterBandPersistentState(legacyPersistentState: $0)}

@@ -36,7 +36,7 @@ class DelayUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        effectsUnit = delayUnit
+//        effectsUnit = delayUnit
         presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
     }
     

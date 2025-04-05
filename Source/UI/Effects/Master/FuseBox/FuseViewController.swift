@@ -39,9 +39,9 @@ class FuseViewController: NSViewController {
         
         icon.image = fxUnit.unitType.icon
         
-        ([imgBypass, icon, lblUnitCaption] as! [FXUnitStateObserver]).forEach {
-            fxUnitStateObserverRegistry.registerObserver($0, forFXUnit: fxUnit)
-        }
+//        ([imgBypass, icon, lblUnitCaption] as! [FXUnitStateObserver]).forEach {
+//            fxUnitStateObserverRegistry.registerObserver($0, forFXUnit: fxUnit)
+//        }
         
         imgBypass.addGestureRecognizer(NSClickGestureRecognizer(target: self,
                                                                        action: #selector(self.bypassAction)))

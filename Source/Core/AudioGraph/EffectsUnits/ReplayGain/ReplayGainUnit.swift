@@ -139,10 +139,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
             
             currentPreset = matchingPreset
         }
-        
-        presets.registerPresetDeletionCallback(presetsDeleted(_:))
-        
-        unitInitialized = true
     }
     
     override func stateChanged() {
@@ -181,23 +177,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         ReplayGainPreset(name: "replayGainSettings", state: state,
                          mode: mode, preAmp: preAmp, preventClipping: preventClipping,
                          systemDefined: false)
-    }
-    
-    private func invalidateCurrentPreset() {
-        
-        guard unitInitialized else {return}
-        
-        currentPreset = nil
-        masterUnit.currentPreset = nil
-    }
-    
-    func setCurrentPreset(byName presetName: String) {
-        
-        guard let matchingPreset = presets.object(named: presetName) else {return}
-        
-        if matchingPreset.equalToOtherPreset(mode: mode, preAmp: preAmp, preventClipping: preventClipping) {
-            self.currentPreset = matchingPreset
-        }
     }
     
     private func presetsDeleted(_ presetNames: [String]) {

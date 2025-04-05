@@ -60,14 +60,6 @@ class DelayPreset: EffectsUnitPreset {
         
         super.init(name: name, state: unitState, systemDefined: false)
     }
-    
-    func equalToOtherPreset(amount: Float, time: Double, feedback: Float, lowPassCutoff: Float) -> Bool {
-        
-        Float.valuesEqual(self.amount, amount, tolerance: 0.001) &&
-        Double.valuesEqual(self.time, time, tolerance: 0.001) &&
-        Float.valuesEqual(self.feedback, feedback, tolerance: 0.001) &&
-        Float.valuesEqual(self.lowPassCutoff, lowPassCutoff, tolerance: 0.001)
-    }
 }
 
 ///

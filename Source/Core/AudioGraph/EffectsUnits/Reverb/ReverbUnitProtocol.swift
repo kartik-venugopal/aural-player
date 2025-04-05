@@ -19,4 +19,10 @@ protocol ReverbUnitProtocol: EffectsUnitProtocol {
     var space: ReverbSpace {get set}
     
     var amount: Float {get set}
+    
+    var presets: ReverbPresets {get}
+    
+    func applyPreset(_ preset: ReverbPreset)
+    
+    var settingsAsPreset: ReverbPreset {get}
 }

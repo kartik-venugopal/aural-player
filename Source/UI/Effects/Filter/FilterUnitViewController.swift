@@ -41,7 +41,7 @@ class FilterUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        effectsUnit = filterUnit
+//        effectsUnit = filterUnit
         presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(filterUnit.presets)
     }
     

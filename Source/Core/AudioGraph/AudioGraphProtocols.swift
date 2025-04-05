@@ -19,15 +19,26 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     
     var availableDevices: [AudioDevice] {get}
     var numberOfDevices: Int {get}
+    
     var systemDevice: AudioDevice {get}
+    
     var outputDevice: AudioDevice {get set}
     var indexOfOutputDevice: Int {get}
+    
     var outputDeviceBufferSize: Int {get set}
     var outputDeviceSampleRate: Double {get}
+    
     var playerOutputFormat: AVAudioFormat {get}
     
     var volume: Float {get set}
+    
+    func increaseVolume(inputMode: UserInputMode) -> Float
+    func decreaseVolume(inputMode: UserInputMode) -> Float
+    
     var pan: Float {get set}
+    func panLeft() -> Float
+    func panRight() -> Float
+    
     var muted: Bool {get set}
     
     var masterUnit: MasterUnit {get}
@@ -40,8 +51,11 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var replayGainUnit: ReplayGainUnit {get}
     
     var audioUnits: [HostedAudioUnit] {get}
+    var audioUnitsStateFunction: EffectsUnitStateFunction {get}
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)?
     func removeAudioUnits(at indices: IndexSet)
+    
+    var allUnits: [any EffectsUnitProtocol] {get}
     
     var settingsAsMasterPreset: MasterPreset {get}
     
@@ -55,10 +69,10 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     func pauseRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func resumeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     
+    var visualizationAnalysisBufferSize: Int {get}
+    
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
-    
-    var visualizationAnalysisBufferSize: Int {get}
 }
 
 ///

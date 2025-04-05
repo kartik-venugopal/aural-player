@@ -57,8 +57,6 @@ class EffectsUnit: NSObject {
     
     lazy var messenger = Messenger(for: self)
     
-    var unitInitialized: Bool = false
-    
     init(unitType: EffectsUnitType, unitState: EffectsUnitState, renderQuality: Int? = nil) {
         
         self.unitType = unitType
@@ -78,15 +76,9 @@ class EffectsUnit: NSObject {
     }
     
     // Toggles the state of the effects unit, and returns its new state
-    func toggleState() -> EffectsUnitState {
+    @discardableResult func toggleState() -> EffectsUnitState {
         
         state = state == .active ? .bypassed : .active
-        
-        // If this is the Master unit, toggling state does not invalidate its own current preset.
-        if self.unitType != .master {
-            masterUnit.currentPreset = nil
-        }
-        
         return state
     }
     
@@ -126,6 +118,15 @@ class EffectsUnit: NSObject {
     
     // Intended to be overriden by subclasses.
     func reset() {}
+    
+    func ensureActiveAndReset() {
+        
+        if !isActive {
+            
+            toggleState()
+            reset()
+        }
+    }
     
     // Intended to be overriden by subclasses.
     func savePreset(named presetName: String) {}

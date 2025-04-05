@@ -21,8 +21,8 @@ class MasterUnitView: NSView {
         
         super.awakeFromNib()
         
-        fxUnitStateObserverRegistry.registerObserver(fuseBoxMenuButtonCell, forFXUnit: audioGraphDelegate.masterUnit)
-        fxUnitStateObserverRegistry.registerObserver(btnRememberSettings, forFXUnit: audioGraphDelegate.masterUnit)
+        fxUnitStateObserverRegistry.registerObserver(fuseBoxMenuButtonCell, forFXUnit: audioGraph.masterUnit)
+        fxUnitStateObserverRegistry.registerObserver(btnRememberSettings, forFXUnit: audioGraph.masterUnit)
         
         for fxUnit in audioGraphDelegate.allUnits.filter({$0.unitType != .master}) {
             doAddFuseBoxMenuItemForEffectsUnit(fxUnit)

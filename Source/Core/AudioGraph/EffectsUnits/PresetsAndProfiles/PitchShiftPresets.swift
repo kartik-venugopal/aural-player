@@ -47,10 +47,6 @@ class PitchShiftPreset: EffectsUnitPreset {
         
         super.init(name: name, state: unitState, systemDefined: false)
     }
-    
-    func equalToOtherPreset(pitch: Float) -> Bool {
-        Float.valuesEqual(self.pitch, pitch, tolerance: 0.001)
-    }
 }
 
 ///

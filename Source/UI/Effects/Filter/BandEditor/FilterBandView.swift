@@ -89,8 +89,8 @@ class FilterBandView: NSView {
         
         freqRangeSlider.onControlChanged = {[weak self] slider in self?.freqRangeChanged()}
         
-        fxUnitStateObserverRegistry.registerObserver(freqRangeSlider, forFXUnit: filterUnit)
-        fxUnitStateObserverRegistry.registerObserver(cutoffSlider, forFXUnit: filterUnit)
+//        fxUnitStateObserverRegistry.registerObserver(freqRangeSlider, forFXUnit: filterUnit)
+//        fxUnitStateObserverRegistry.registerObserver(cutoffSlider, forFXUnit: filterUnit)
         
         //fontSchemesManager.registerObservers([lblFilterTypeCaption, lblRangeCaption, lblCutoffCaption, lblFrequencies, lbl20Hz, lbl20KHz], forProperty: \.normalFont)
         

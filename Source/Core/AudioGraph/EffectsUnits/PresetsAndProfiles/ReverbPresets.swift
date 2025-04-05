@@ -47,8 +47,4 @@ class ReverbPreset: EffectsUnitPreset {
         
         super.init(name: name, state: unitState, systemDefined: false)
     }
-    
-    func equalToOtherPreset(space: ReverbSpace, amount: Float) -> Bool {
-        self.space == space && Float.valuesEqual(self.amount, amount, tolerance: 0.001)
-    }
 }

@@ -26,7 +26,7 @@ class EQUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var eqUnit: EQUnitDelegateProtocol = audioGraphDelegate.eqUnit
+    private var eqUnit: EQUnitProtocol = audioGraph.eqUnit
     
     // ------------------------------------------------------------------------
     
@@ -36,7 +36,7 @@ class EQUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        self.effectsUnit = audioGraphDelegate.eqUnit
+        self.effectsUnit = self.eqUnit
         self.presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
     }
     
@@ -71,7 +71,7 @@ class EQUnitViewController: EffectsUnitViewController {
     
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
     @IBAction func eqSliderAction(_ sender: EQSlider) {
-        
+         
         eqUnit[sender.tag] = sender.floatValue
         sender.toolTip = "\(sender.frequencyString!): \(String(format: "%.1f dB", sender.floatValue))"
     }

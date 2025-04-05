@@ -56,10 +56,6 @@ class TimeStretchPreset: EffectsUnitPreset {
         
         super.init(name: name, state: unitState, systemDefined: false)
     }
-    
-    func equalToOtherPreset(rate: Float, shiftPitch: Bool) -> Bool {
-        Float.valuesEqual(self.rate, rate, tolerance: 0.001) && self.shiftPitch == shiftPitch
-    }
 }
 
 ///

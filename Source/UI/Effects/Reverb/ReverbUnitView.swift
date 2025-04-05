@@ -28,7 +28,7 @@ class ReverbUnitView: NSView {
         super.awakeFromNib()
         
         if let popupMenuCell = reverbSpaceMenu.cell as? EffectsUnitPopupMenuCell {
-            fxUnitStateObserverRegistry.registerObserver(popupMenuCell, forFXUnit: audioGraphDelegate.reverbUnit)
+            fxUnitStateObserverRegistry.registerObserver(popupMenuCell, forFXUnit: audioGraph.reverbUnit)
         }
     }
     

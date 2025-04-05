@@ -18,17 +18,15 @@ struct EQUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [EQPresetPersistentState]?
-    let currentPresetName: String?
     let renderQuality: Int?
     
     let globalGain: Float?
     let bands: [Float]?
     
-    init(state: EffectsUnitState?, userPresets: [EQPresetPersistentState]?, currentPresetName: String?, renderQuality: Int?, globalGain: Float?, bands: [Float]?) {
+    init(state: EffectsUnitState?, userPresets: [EQPresetPersistentState]?, renderQuality: Int?, globalGain: Float?, bands: [Float]?) {
         
         self.state = state
         self.userPresets = userPresets
-        self.currentPresetName = currentPresetName
         self.renderQuality = renderQuality
         self.globalGain = globalGain
         self.bands = bands
@@ -38,7 +36,6 @@ struct EQUnitPersistentState: Codable {
         
         self.state = EffectsUnitState.fromLegacyState(legacyPersistentState?.state)
         self.userPresets = legacyPersistentState?.userPresets?.map {EQPresetPersistentState(legacyPersistentState: $0)}
-        self.currentPresetName = legacyPersistentState?.currentPresetName
         self.renderQuality = legacyPersistentState?.renderQuality
         
         self.globalGain = legacyPersistentState?.globalGain

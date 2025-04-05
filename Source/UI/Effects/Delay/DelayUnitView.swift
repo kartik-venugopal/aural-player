@@ -57,7 +57,7 @@ class DelayUnitView: NSView {
     
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
         
-        let delayUnit = audioGraphDelegate.delayUnit
+        let delayUnit = audioGraph.delayUnit
         
         sliders.forEach {
             fxUnitStateObserverRegistry.registerObserver($0, forFXUnit: delayUnit)

@@ -53,11 +53,11 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        self.effectsUnit = audioGraphDelegate.replayGainUnit
+//        self.effectsUnit = audioGraphDelegate.replayGainUnit
         self.presetsWrapper = PresetsWrapper<ReplayGainPreset, ReplayGainPresets>(audioGraph.replayGainUnit.presets)
         
-        fxUnitStateObserverRegistry.registerObserver(modeMenuButtonCell, forFXUnit: audioGraphDelegate.replayGainUnit)
-        fxUnitStateObserverRegistry.registerObserver(btnPreventClipping, forFXUnit: audioGraphDelegate.replayGainUnit)
+//        fxUnitStateObserverRegistry.registerObserver(modeMenuButtonCell, forFXUnit: audioGraphDelegate.replayGainUnit)
+//        fxUnitStateObserverRegistry.registerObserver(btnPreventClipping, forFXUnit: audioGraphDelegate.replayGainUnit)
     }
     
     override func initControls() {

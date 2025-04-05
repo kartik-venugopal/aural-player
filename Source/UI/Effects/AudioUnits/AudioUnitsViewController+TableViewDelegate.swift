@@ -67,7 +67,7 @@ extension AudioUnitsViewController: NSTableViewDelegate {
         cell.btnSwitch.onStateTooltip = "Deactivate this Audio Unit"
         
         cell.action = {[weak self] in
-            self?.toggleAudioUnitState(audioUnit: audioUnit)
+//            self?.toggleAudioUnitState(audioUnit: audioUnit)
         }
         
         return cell
@@ -99,7 +99,7 @@ extension AudioUnitsViewController: NSTableViewDelegate {
         cell.btnEdit.contentTintColor = systemColorScheme.buttonColor
         
         cell.action = {[weak self] in
-            self?.doEditAudioUnit(audioUnit)
+//            self?.doEditAudioUnit(audioUnit)
         }
         
         return cell
