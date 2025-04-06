@@ -20,10 +20,6 @@ class EffectsUnit: NSObject {
     
     var unitType: EffectsUnitType
     
-    var masterUnit: MasterUnit {
-        audioGraph.masterUnit
-    }
-    
     @objc dynamic var state: EffectsUnitState {
         didSet {stateChanged()}
     }
@@ -56,6 +52,8 @@ class EffectsUnit: NSObject {
     var isActive: Bool {state == .active}
     
     lazy var messenger = Messenger(for: self)
+    
+    private var kvoTokens: Set<NSKeyValueObservation> = Set()
     
     init(unitType: EffectsUnitType, unitState: EffectsUnitState, renderQuality: Int? = nil) {
         
@@ -133,4 +131,18 @@ class EffectsUnit: NSObject {
     
     // Intended to be overriden by subclasses.
     func applyPreset(named presetName: String) {}
+    
+    func observeState(handler: @escaping EffectsUnitStateChangeHandler) -> NSKeyValueObservation {
+        
+        let newToken = observe(\.state, options: [.initial, .new]) {unit,_ in
+            handler(unit.state)
+        }
+        
+        kvoTokens.insert(newToken)
+        return newToken
+    }
+    
+    func removeObserver(_ observer: NSKeyValueObservation) {
+        kvoTokens.remove(observer)?.invalidate()
+    }
 }

@@ -80,7 +80,7 @@ class AudioUnitsViewController: NSViewController {
     @IBAction func addAudioUnitAction(_ sender: Any) {
         
         guard let audioUnitComponent = btnAudioUnitsMenu.selectedItem?.representedObject as? AVAudioUnitComponent,
-              let result = audioGraphDelegate.addAudioUnit(ofType: audioUnitComponent.audioComponentDescription.componentType,
+              let result = audioGraph.addAudioUnit(ofType: audioUnitComponent.audioComponentDescription.componentType,
                                                    andSubType: audioUnitComponent.audioComponentDescription.componentSubType) else {return}
         
         let audioUnit = result.audioUnit
@@ -108,7 +108,7 @@ class AudioUnitsViewController: NSViewController {
         if selectedRow >= 0 {
 
             // Open the audio unit editor window with the new audio unit's custom view.
-            doEditAudioUnit(audioGraphDelegate.audioUnits[selectedRow])
+            doEditAudioUnit(audioGraph.audioUnits[selectedRow])
         }
     }
     
@@ -139,7 +139,7 @@ class AudioUnitsViewController: NSViewController {
         let selRows = tableView.selectedRowIndexes
         guard !selRows.isEmpty else {return}
         
-        for unit in audioGraphDelegate.removeAudioUnits(at: selRows) {
+        for unit in audioGraph.removeAudioUnits(at: selRows) {
             
             editorDialogs[unit.id]?.close()
             editorDialogs.removeValue(forKey: unit.id)

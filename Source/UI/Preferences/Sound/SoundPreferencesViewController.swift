@@ -101,7 +101,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         let isNowIndividualTracks: Bool = btnRememberSettingsforAllTracks.isOff
         
         if wasAllTracks && isNowIndividualTracks {
-            audioGraphDelegate.soundProfiles.removeAll()
+            audioGraph.soundProfiles.removeAll()
         }
     }
 }

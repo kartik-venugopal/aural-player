@@ -24,7 +24,7 @@ class MasterUnitView: NSView {
         fxUnitStateObserverRegistry.registerObserver(fuseBoxMenuButtonCell, forFXUnit: audioGraph.masterUnit)
         fxUnitStateObserverRegistry.registerObserver(btnRememberSettings, forFXUnit: audioGraph.masterUnit)
         
-        for fxUnit in audioGraphDelegate.allUnits.filter({$0.unitType != .master}) {
+        for fxUnit in audioGraph.allUnits.filter({$0.unitType != .master}) {
             doAddFuseBoxMenuItemForEffectsUnit(fxUnit)
         }
         
@@ -38,13 +38,13 @@ class MasterUnitView: NSView {
     private func updateRememberSettingsButtonState() {
         
         if let playingTrack = playbackInfoDelegate.playingTrack {
-            btnRememberSettings.onIf(audioGraphDelegate.soundProfiles.hasFor(playingTrack))
+            btnRememberSettings.onIf(audioGraph.soundProfiles.hasFor(playingTrack))
         } else {
             btnRememberSettings.off()
         }
     }
     
-    private func doAddFuseBoxMenuItemForEffectsUnit(_ unit: EffectsUnitDelegateProtocol) {
+    private func doAddFuseBoxMenuItemForEffectsUnit(_ unit: EffectsUnitProtocol) {
         
         let item = NSMenuItem(title: "")
         
@@ -73,12 +73,12 @@ class MasterUnitView: NSView {
     
     func redrawFuseBoxMenu() {
         
-        fuseBoxMenuButtonCell.unitStateChanged(to: audioGraphDelegate.masterUnit.state)
+        fuseBoxMenuButtonCell.unitStateChanged(to: audioGraph.masterUnit.state)
         btnFuseBoxMenu.redraw()
     }
     
     func redrawToggle() {
-        btnRememberSettings.redraw(forState: audioGraphDelegate.masterUnit.state)
+        btnRememberSettings.redraw(forState: audioGraph.masterUnit.state)
     }
     
     func applyPreset(_ preset: MasterPreset) {

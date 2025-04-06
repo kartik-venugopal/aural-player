@@ -44,7 +44,7 @@ class LyricsViewController: NSViewController {
     
     lazy var messenger = Messenger(for: self)
     
-    lazy var timer: RepeatingTaskExecutor = RepeatingTaskExecutor(intervalMillis: (1000 / (100 * audioGraphDelegate.timeStretchUnit.effectiveRate)).roundedInt,
+    lazy var timer: RepeatingTaskExecutor = RepeatingTaskExecutor(intervalMillis: (1000 / (100 * audioGraph.timeStretchUnit.effectiveRate)).roundedInt,
                                                                       task: {[weak self] in
         self?.highlightCurrentLine()},
                                                                       queue: .main)

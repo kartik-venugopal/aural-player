@@ -19,7 +19,7 @@ protocol EffectsUnitProtocol {
     var state: EffectsUnitState {get}
     
     // Toggles the state of the effects unit, and returns its new state
-    func toggleState() -> EffectsUnitState
+    @discardableResult func toggleState() -> EffectsUnitState
     
     func ensureActive()
     
@@ -42,4 +42,6 @@ protocol EffectsUnitProtocol {
     func savePreset(named presetName: String)
     
     func applyPreset(named presetName: String)
+    
+    func observeState(handler: @escaping EffectsUnitStateChangeHandler) -> NSKeyValueObservation
 }

@@ -12,7 +12,7 @@ import Cocoa
 class FilterChart: NSView {
 
     var bandsDataFunction: (() -> [FilterBand]) = {[]}
-    var filterUnit: FilterUnitDelegateProtocol = audioGraphDelegate.filterUnit
+    var filterUnit: FilterUnitProtocol = audioGraph.filterUnit
     
     var textFont: NSFont {
         systemFontScheme.normalFont

@@ -18,7 +18,7 @@ class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewControl
         super.awakeFromNib()
         
         unitType = .delay
-        effectsUnit = audioGraphDelegate.delayUnit
-        presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(audioGraphDelegate.delayUnit.presets)
+        effectsUnit = audioGraph.delayUnit
+        presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(audioGraph.delayUnit.presets)
     }
 }

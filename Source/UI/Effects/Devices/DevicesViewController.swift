@@ -31,8 +31,7 @@ class DevicesViewController: NSViewController {
     
     private lazy var labels: [VALabel] = [lblPan, lblBalance, lblPanLeft, lblPanRight]
     
-    private lazy var audioGraph: AudioGraphDelegateProtocol = audioGraphDelegate
-    private lazy var soundProfiles: SoundProfiles = audioGraphDelegate.soundProfiles
+    private lazy var soundProfiles: SoundProfiles = audioGraph.soundProfiles
     private lazy var messenger: Messenger = Messenger(for: self)
     
     var selectionChangeIsInternal: Bool = true
@@ -65,7 +64,7 @@ class DevicesViewController: NSViewController {
         
 //        deviceListUpdated()
         doMarkingSelectionChangeAsInternal {
-            self.tableView.selectRow(audioGraphDelegate.indexOfOutputDevice)
+            self.tableView.selectRow(audioGraph.indexOfOutputDevice)
         }
     }
     
@@ -117,14 +116,14 @@ class DevicesViewController: NSViewController {
         doMarkingSelectionChangeAsInternal {
             
             self.tableView.reloadData()
-            self.tableView.selectRow(audioGraphDelegate.indexOfOutputDevice)
+            self.tableView.selectRow(audioGraph.indexOfOutputDevice)
         }
     }
     
     private func defaultDeviceChanged() {
         
         doMarkingSelectionChangeAsInternal {
-            self.tableView.selectRow(audioGraphDelegate.indexOfOutputDevice)
+            self.tableView.selectRow(audioGraph.indexOfOutputDevice)
         }
     }
     
@@ -209,4 +208,9 @@ extension DevicesViewController: ColorSchemeObserver {
             self.tableView.redoRowSelection()
         }
     }
+}
+
+extension AudioGraphProtocol {
+    
+    var formattedPan: String {ValueFormatter.formatPan(pan)}
 }

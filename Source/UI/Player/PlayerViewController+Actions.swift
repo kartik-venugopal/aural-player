@@ -56,8 +56,8 @@ extension PlayerViewController {
     
     @IBAction func volumeAction(_ sender: NSSlider) {
         
-        audioGraphDelegate.volume = volumeSlider.floatValue
-        volumeChanged(volume: audioGraphDelegate.volume, muted: audioGraphDelegate.muted, updateSlider: false)
+        audioGraph.volume = volumeSlider.floatValue
+        volumeChanged(volume: audioGraph.volume, muted: audioGraph.muted, updateSlider: false)
     }
     
     @IBAction func muteOrUnmuteAction(_ sender: NSButton) {

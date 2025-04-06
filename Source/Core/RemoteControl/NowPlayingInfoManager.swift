@@ -23,9 +23,6 @@ class NowPlayingInfoManager: NSObject {
     /// Provides current player information (eg. which track is playing, playback state, playback position, etc).
     private let playbackInfo: PlaybackInfoDelegateProtocol
     
-    /// Provides audio engine information (eg. playback rate).
-    private let audioGraph: AudioGraphDelegateProtocol
-    
     /// Provides current playback sequence information (eg. repeat / shuffle modes, how many tracks are in the playback queue, etc).
     private let playQueue: PlayQueueDelegateProtocol
     
@@ -42,11 +39,10 @@ class NowPlayingInfoManager: NSObject {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(playbackInfo: PlaybackInfoDelegateProtocol, audioGraph: AudioGraphDelegateProtocol,
+    init(playbackInfo: PlaybackInfoDelegateProtocol,
          playQueue: PlayQueueDelegateProtocol) {
         
         self.playbackInfo = playbackInfo
-        self.audioGraph = audioGraph
         self.playQueue = playQueue
         
         super.init()

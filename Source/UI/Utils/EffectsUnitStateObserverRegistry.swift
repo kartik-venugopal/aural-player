@@ -29,7 +29,7 @@ class EffectsUnitStateObserverRegistry {
     
     private init() {
         
-        for unit in audioGraphDelegate.allUnits {
+        for unit in audioGraph.allUnits {
             
             // AUs are dealt with differently.
             guard unit.unitType != .au else {continue}
@@ -42,16 +42,16 @@ class EffectsUnitStateObserverRegistry {
             }
         }
         
-        for au in audioGraphDelegate.audioUnits {
+        for au in audioGraph.audioUnits {
             observeAU(au)
         }
     }
     
     var compositeAUState: EffectsUnitState {
-        audioGraphDelegate.audioUnitsStateFunction()
+        audioGraph.audioUnitsStateFunction()
     }
     
-    func observeAU(_ au: HostedAudioUnitDelegateProtocol) {
+    func observeAU(_ au: HostedAudioUnitProtocol) {
         
         _ = au.observeState {[weak self] newState in
             
@@ -95,7 +95,7 @@ class EffectsUnitStateObserverRegistry {
             
         } else {
             
-            guard let auDelegate = fxUnit as? HostedAudioUnitDelegateProtocol else {return}
+            guard let auDelegate = fxUnit as? HostedAudioUnitProtocol else {return}
             
             if auRegistry[auDelegate.id] == nil {
                 auRegistry[auDelegate.id] = []
@@ -136,7 +136,7 @@ class EffectsUnitStateObserverRegistry {
         if let auID = auReverseRegistry[object] {
             
             if auID != "_composite_" {
-                return audioGraphDelegate.audioUnits.first(where: {$0.id == auID})?.state ?? .bypassed
+                return audioGraph.audioUnits.first(where: {$0.id == auID})?.state ?? .bypassed
             } else {
                 return compositeAUState
             }

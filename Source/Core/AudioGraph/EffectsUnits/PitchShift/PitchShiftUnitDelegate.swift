@@ -1,94 +1,94 @@
+////
+////  PitchShiftUnitDelegate.swift
+////  Aural
+////
+////  Copyright © 2025 Kartik Venugopal. All rights reserved.
+////
+////  This software is licensed under the MIT software license.
+////  See the file "LICENSE" in the project root directory for license terms.
+////
+//import Foundation
 //
-//  PitchShiftUnitDelegate.swift
-//  Aural
-//
-//  Copyright © 2025 Kartik Venugopal. All rights reserved.
-//
-//  This software is licensed under the MIT software license.
-//  See the file "LICENSE" in the project root directory for license terms.
-//
-import Foundation
-
-///
-/// A delegate representing the Pitch Shift effects unit.
-///
-/// Acts as a middleman between the Effects UI and the Pitch Shift effects unit,
-/// providing a simplified interface / facade for the UI layer to control the Pitch Shift effects unit.
-///
-/// - SeeAlso: `PitchShiftUnit`
-/// - SeeAlso: `PitchUnitDelegateProtocol`
-///
-class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUnitDelegateProtocol {
-    
-    let preferences: SoundPreferences
-    
-    let minPitch: Float = -2400
-    let maxPitch: Float = 2400
-    private lazy var pitchRange: ClosedRange<Float> = minPitch...maxPitch
-    
-    init(for unit: PitchShiftUnit, preferences: SoundPreferences) {
-        
-        self.preferences = preferences
-        super.init(for: unit)
-    }
-    
-    var pitch: PitchShift {
-        
-        get {unit.pitch}
-        set {unit.pitch = newValue}
-    }
-    
-    var presets: PitchShiftPresets {unit.presets}
-    
-//    func increasePitch() -> PitchShift {
+/////
+///// A delegate representing the Pitch Shift effects unit.
+/////
+///// Acts as a middleman between the Effects UI and the Pitch Shift effects unit,
+///// providing a simplified interface / facade for the UI layer to control the Pitch Shift effects unit.
+/////
+///// - SeeAlso: `PitchShiftUnit`
+///// - SeeAlso: `PitchUnitDelegateProtocol`
+/////
+//class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUnitDelegateProtocol {
+//    
+//    let preferences: SoundPreferences
+//    
+//    let minPitch: Float = -2400
+//    let maxPitch: Float = 2400
+//    private lazy var pitchRange: ClosedRange<Float> = minPitch...maxPitch
+//    
+//    init(for unit: PitchShiftUnit, preferences: SoundPreferences) {
 //        
-//        ensureActiveAndResetPitch()
-//        return setUnitPitch((unit.pitch + Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
+//        self.preferences = preferences
+//        super.init(for: unit)
 //    }
 //    
-//    func increasePitchOneOctave() -> PitchShift {
-//        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
-//    }
-//    
-//    func increasePitchOneSemitone() -> PitchShift {
-//        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
-//    }
-//    
-//    func increasePitchOneCent() -> PitchShift {
-//        setUnitPitch((unit.pitch + Float(1)).clamped(to: pitchRange))
-//    }
-//    
-//    func decreasePitch() -> PitchShift {
+//    var pitch: PitchShift {
 //        
-//        ensureActiveAndResetPitch()
-//        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
+//        get {unit.pitch}
+//        set {unit.pitch = newValue}
 //    }
 //    
-//    func decreasePitchOneOctave() -> PitchShift {
-//        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
-//    }
+//    var presets: PitchShiftPresets {unit.presets}
 //    
-//    func decreasePitchOneSemitone() -> PitchShift {
-//        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
-//    }
-//    
-//    func decreasePitchOneCent() -> PitchShift {
-//        setUnitPitch((unit.pitch - Float(1)).clamped(to: pitchRange))
-//    }
-//    
-//    private func setUnitPitch(_ value: Float) -> PitchShift {
-//        
-//        unit.pitch = value
-//        return pitch
-//    }
-//    
-//    private func ensureActiveAndResetPitch() {
-//        
-//        // If the pitch unit is currently inactive, start at default pitch offset, before the increase/decrease
-//        if !unit.isActive {
-//            
-//            _ = unit.toggleState()
-//            unit.pitch = AudioGraphDefaults.pitchShift
-//        }
-//    }
-}
+////    func increasePitch() -> PitchShift {
+////        
+////        ensureActiveAndResetPitch()
+////        return setUnitPitch((unit.pitch + Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
+////    }
+////    
+////    func increasePitchOneOctave() -> PitchShift {
+////        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
+////    }
+////    
+////    func increasePitchOneSemitone() -> PitchShift {
+////        setUnitPitch((unit.pitch + Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
+////    }
+////    
+////    func increasePitchOneCent() -> PitchShift {
+////        setUnitPitch((unit.pitch + Float(1)).clamped(to: pitchRange))
+////    }
+////    
+////    func decreasePitch() -> PitchShift {
+////        
+////        ensureActiveAndResetPitch()
+////        return setUnitPitch((unit.pitch - Float(preferences.pitchDelta.value)).clamped(to: pitchRange))
+////    }
+////    
+////    func decreasePitchOneOctave() -> PitchShift {
+////        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_octaveToCents)).clamped(to: pitchRange))
+////    }
+////    
+////    func decreasePitchOneSemitone() -> PitchShift {
+////        setUnitPitch((unit.pitch - Float(ValueConversions.pitch_semitoneToCents)).clamped(to: pitchRange))
+////    }
+////    
+////    func decreasePitchOneCent() -> PitchShift {
+////        setUnitPitch((unit.pitch - Float(1)).clamped(to: pitchRange))
+////    }
+////    
+////    private func setUnitPitch(_ value: Float) -> PitchShift {
+////        
+////        unit.pitch = value
+////        return pitch
+////    }
+////    
+////    private func ensureActiveAndResetPitch() {
+////        
+////        // If the pitch unit is currently inactive, start at default pitch offset, before the increase/decrease
+////        if !unit.isActive {
+////            
+////            _ = unit.toggleState()
+////            unit.pitch = AudioGraphDefaults.pitchShift
+////        }
+////    }
+//}

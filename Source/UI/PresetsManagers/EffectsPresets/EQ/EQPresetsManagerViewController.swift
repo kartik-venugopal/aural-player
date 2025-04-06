@@ -18,7 +18,7 @@ class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController
         super.awakeFromNib()
         
         unitType = .eq
-        effectsUnit = audioGraphDelegate.eqUnit
-        presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(audioGraphDelegate.eqUnit.presets)
+        effectsUnit = audioGraph.eqUnit
+        presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(audioGraph.eqUnit.presets)
     }
 }

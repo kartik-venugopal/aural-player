@@ -86,7 +86,7 @@ class PlayerViewController: NSViewController {
     lazy var autoHidingVolumeLabel: AutoHidingView = AutoHidingView(lblVolume, Self.feedbackLabelAutoHideIntervalSeconds)
     
     // Timer that periodically updates the seek position slider and label
-    lazy var seekTimer: RepeatingTaskExecutor = RepeatingTaskExecutor(intervalMillis: (1000 / (2 * audioGraphDelegate.timeStretchUnit.effectiveRate)).roundedInt,
+    lazy var seekTimer: RepeatingTaskExecutor = RepeatingTaskExecutor(intervalMillis: (1000 / (2 * audioGraph.timeStretchUnit.effectiveRate)).roundedInt,
                                                                       task: {[weak self] in
                                                                         self?.updateSeekPosition()},
                                                                       queue: .main)
@@ -374,7 +374,7 @@ class PlayerViewController: NSViewController {
         // Volume controls
         
         // Volume may have changed because of sound profiles
-        volumeChanged(volume: audioGraphDelegate.volume, muted: audioGraphDelegate.muted)
+        volumeChanged(volume: audioGraph.volume, muted: audioGraph.muted)
     }
     
     // Creates a recurring task that polls the player to detect a change in the currently playing track chapter.
@@ -701,21 +701,21 @@ class PlayerViewController: NSViewController {
     // Decreases the volume by a certain preset decrement
     func decreaseVolume(inputMode: UserInputMode) {
         
-        let newVolume = audioGraphDelegate.decreaseVolume(inputMode: inputMode)
+        let newVolume = audioGraph.decreaseVolume(inputMode: inputMode)
         volumeChanged(volume: newVolume, muted: audioGraph.muted)
     }
     
     // Increases the volume by a certain preset increment
     func increaseVolume(inputMode: UserInputMode) {
         
-        let newVolume = audioGraphDelegate.increaseVolume(inputMode: inputMode)
+        let newVolume = audioGraph.increaseVolume(inputMode: inputMode)
         volumeChanged(volume: newVolume, muted: audioGraph.muted)
     }
     
     func muteOrUnmute() {
         
-        audioGraphDelegate.muted.toggle()
-        updateVolumeMuteButtonImage(volume: audioGraphDelegate.volume, muted: audioGraphDelegate.muted)
+        audioGraph.muted.toggle()
+        updateVolumeMuteButtonImage(volume: audioGraph.volume, muted: audioGraph.muted)
     }
     
     // updateSlider should be true if the action was not triggered by the slider in the first place.
@@ -725,8 +725,8 @@ class PlayerViewController: NSViewController {
             volumeSlider.floatValue = volume
         }
         
-        lblVolume.stringValue = audioGraphDelegate.formattedVolume
-        volumeSlider.toolTip = "Volume: \(audioGraphDelegate.formattedVolume)" + (muted ? " (muted)" : "")
+        lblVolume.stringValue = audioGraph.formattedVolume
+        volumeSlider.toolTip = "Volume: \(audioGraph.formattedVolume)" + (muted ? " (muted)" : "")
         
         updateVolumeMuteButtonImage(volume: volume, muted: muted)
         
@@ -761,7 +761,7 @@ class PlayerViewController: NSViewController {
             }
         }
         
-        volumeSlider.toolTip = "Volume: \(audioGraphDelegate.formattedVolume)" + (muted ? " (muted)" : "")
+        volumeSlider.toolTip = "Volume: \(audioGraph.formattedVolume)" + (muted ? " (muted)" : "")
     }
     
     func toggleRepeatMode() {
@@ -896,4 +896,9 @@ class PlayerViewController: NSViewController {
         super.destroy()
         messenger.unsubscribeFromAll()
     }
+}
+
+extension AudioGraphProtocol {
+    
+    var formattedVolume: String {ValueFormatter.formatVolume(volume)}
 }

@@ -49,13 +49,12 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rememberSettingsMenuItem: ToggleMenuItem!
     
     // Delegate that alters the audio graph
-    private lazy var graph: AudioGraphDelegateProtocol = audioGraphDelegate
-    private let soundProfiles: SoundProfiles = audioGraphDelegate.soundProfiles
+    private let soundProfiles: SoundProfiles = audioGraph.soundProfiles
     
-    private lazy var masterUnit: MasterUnitDelegateProtocol = graph.masterUnit
-    private lazy var eqUnit: EQUnitDelegateProtocol = graph.eqUnit
-    private lazy var pitchShiftUnit: PitchShiftUnitDelegateProtocol = graph.pitchShiftUnit
-    private lazy var timeStretchUnit: TimeStretchUnitDelegateProtocol = graph.timeStretchUnit
+    private lazy var masterUnit: MasterUnitProtocol = audioGraph.masterUnit
+    private lazy var eqUnit: EQUnitProtocol = audioGraph.eqUnit
+    private lazy var pitchShiftUnit: PitchShiftUnitProtocol = audioGraph.pitchShiftUnit
+    private lazy var timeStretchUnit: TimeStretchUnitProtocol = audioGraph.timeStretchUnit
     
     private let soundPreferences: SoundPreferences = preferences.soundPreferences
     
@@ -104,10 +103,10 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
             devicesMenu.removeAllItems()
             
-            let outputDeviceName: String = graph.outputDevice.name
+            let outputDeviceName: String = audioGraph.outputDevice.name
             
             // Add menu items for each available device
-            for device in graph.availableDevices {
+            for device in audioGraph.availableDevices {
                 
                 let newItem = devicesMenu.addItem(withTitle: device.name,
                                                   action: #selector(self.outputDeviceAction(_:)),
@@ -134,7 +133,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBAction func outputDeviceAction(_ sender: NSMenuItem) {
         
         if let outputDevice = sender.representedObject as? AudioDevice {
-            graph.outputDevice = outputDevice
+            audioGraph.outputDevice = outputDevice
         }
     }
     
@@ -185,42 +184,42 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // Decreases each of the EQ bass bands by a certain preset decrement
     @IBAction func decreaseBassAction(_ sender: Any) {
         
-        eqUnit.decreaseBass()
+//        eqUnit.decreaseBass()
         messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     @IBAction func increaseBassAction(_ sender: Any) {
         
-        eqUnit.increaseBass()
+//        eqUnit.increaseBass()
         messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     @IBAction func decreaseMidsAction(_ sender: Any) {
         
-        eqUnit.decreaseMids()
+//        eqUnit.decreaseMids()
         messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Increases each of the EQ mid-frequency bands by a certain preset increment
     @IBAction func increaseMidsAction(_ sender: Any) {
         
-        eqUnit.increaseMids()
+//        eqUnit.increaseMids()
         messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Decreases each of the EQ treble bands by a certain preset decrement
     @IBAction func decreaseTrebleAction(_ sender: Any) {
         
-        eqUnit.decreaseTreble()
+//        eqUnit.decreaseTreble()
         messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
     // Decreases each of the EQ treble bands by a certain preset increment
     @IBAction func increaseTrebleAction(_ sender: Any) {
         
-        eqUnit.increaseTreble()
+//        eqUnit.increaseTreble()
         messenger.publish(.Effects.EQUnit.bandsUpdated)
     }
     
@@ -256,14 +255,14 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // Decreases the playback rate by a certain preset decrement
     @IBAction func decreaseRateAction(_ sender: Any) {
         
-        timeStretchUnit.decreaseRate()
+//        timeStretchUnit.decreaseRate()
         messenger.publish(.Effects.TimeStretchUnit.rateUpdated)
     }
     
     // Increases the playback rate by a certain preset increment
     @IBAction func increaseRateAction(_ sender: Any) {
         
-        timeStretchUnit.increaseRate()
+//        timeStretchUnit.increaseRate()
         messenger.publish(.Effects.TimeStretchUnit.rateUpdated)
     }
     

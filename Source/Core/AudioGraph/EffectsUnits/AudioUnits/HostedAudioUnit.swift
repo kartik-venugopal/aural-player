@@ -16,6 +16,7 @@ import AVFoundation
 ///
 class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateObserver {
     
+    let id: String
     let node: HostedAUNode
     
     var name: String {node.componentName}
@@ -50,6 +51,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     // Called when the user adds a new audio unit.
     init(forComponent component: AVAudioUnitComponent, presets: AudioUnitPresets) {
         
+        self.id = UUID().uuidString
         self.node = HostedAUNode(forComponent: component)
         self.presets = presets
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name,
@@ -62,6 +64,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     // Called upon app startup when restoring from persisted state.
     init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitPersistentState, presets: AudioUnitPresets) {
         
+        self.id = UUID().uuidString
         self.node = HostedAUNode(forComponent: component)
         self.presets = presets
         

@@ -27,11 +27,11 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
     
     func setUp() {
         
-        normalDeviceBufferSize = audioGraphDelegate.outputDeviceBufferSize
-        audioGraphDelegate.outputDeviceBufferSize = audioGraphDelegate.visualizationAnalysisBufferSize
+        normalDeviceBufferSize = audioGraph.outputDeviceBufferSize
+        audioGraph.outputDeviceBufferSize = audioGraph.visualizationAnalysisBufferSize
         
-        fft.setUp(sampleRate: Float(audioGraphDelegate.outputDeviceSampleRate),
-                  bufferSize: audioGraphDelegate.outputDeviceBufferSize)
+        fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate),
+                  bufferSize: audioGraph.outputDeviceBufferSize)
     }
     
     func destroy() {
@@ -41,21 +41,21 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
     // MARK: Client (analysis) functions -------------------------
     
     func startAnalysis() {
-        audioGraphDelegate.registerRenderObserver(self)
+        audioGraph.registerRenderObserver(self)
     }
     
     func pauseAnalysis() {
-        audioGraphDelegate.pauseRenderObserver(self)
+        audioGraph.pauseRenderObserver(self)
     }
     
     func resumeAnalysis() {
-        audioGraphDelegate.resumeRenderObserver(self)
+        audioGraph.resumeRenderObserver(self)
     }
     
     func stopAnalysis() {
 
-        audioGraphDelegate.removeRenderObserver(self)
-        audioGraphDelegate.outputDeviceBufferSize = normalDeviceBufferSize
+        audioGraph.removeRenderObserver(self)
+        audioGraph.outputDeviceBufferSize = normalDeviceBufferSize
     }
     
     // MARK: AudioGraphRenderObserverProtocol functions -------------------
@@ -70,12 +70,12 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
         
         normalDeviceBufferSize = newDeviceBufferSize
         
-        if newDeviceBufferSize != audioGraphDelegate.visualizationAnalysisBufferSize {
+        if newDeviceBufferSize != audioGraph.visualizationAnalysisBufferSize {
             
-            audioGraphDelegate.outputDeviceBufferSize = audioGraphDelegate.visualizationAnalysisBufferSize
+            audioGraph.outputDeviceBufferSize = audioGraph.visualizationAnalysisBufferSize
             
-            fft.setUp(sampleRate: Float(audioGraphDelegate.outputDeviceSampleRate),
-                      bufferSize: audioGraphDelegate.outputDeviceBufferSize)
+            fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate),
+                      bufferSize: audioGraph.outputDeviceBufferSize)
         }
     }
     

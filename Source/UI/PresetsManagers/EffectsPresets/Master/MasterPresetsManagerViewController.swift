@@ -18,7 +18,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         super.awakeFromNib()
         
         unitType = .master
-        effectsUnit = audioGraphDelegate.masterUnit
-        presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(audioGraphDelegate.masterUnit.presets)
+        effectsUnit = audioGraph.masterUnit
+        presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(audioGraph.masterUnit.presets)
     }
 }

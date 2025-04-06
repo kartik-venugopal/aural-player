@@ -13,7 +13,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     
     @IBOutlet weak var tableView: NSTableView!
     
-    var effectsUnit: EffectsUnitDelegateProtocol!
+    var effectsUnit: EffectsUnitProtocol!
     var presetsWrapper: PresetsWrapperProtocol!
     var unitType: EffectsUnitType!
     

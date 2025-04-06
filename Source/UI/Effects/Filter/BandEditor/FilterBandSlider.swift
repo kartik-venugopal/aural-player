@@ -22,7 +22,7 @@ class FilterBandSlider: RangeSlider, FXUnitStateObserver {
     }
     
     private var filterUnit: FilterUnitDelegateProtocol {
-        audioGraphDelegate.filterUnit
+        audioGraph.filterUnit
     }
     
     override var barFillColor: NSColor {

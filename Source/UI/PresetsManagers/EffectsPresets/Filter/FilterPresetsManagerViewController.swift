@@ -18,7 +18,7 @@ class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         super.awakeFromNib()
         
         unitType = .filter
-        effectsUnit = audioGraphDelegate.filterUnit
-        presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(audioGraphDelegate.filterUnit.presets)
+        effectsUnit = audioGraph.filterUnit
+        presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(audioGraph.filterUnit.presets)
     }
 }

@@ -18,7 +18,7 @@ class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewCo
         super.awakeFromNib()
         
         unitType = .pitch
-        effectsUnit = audioGraphDelegate.pitchShiftUnit
-        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(audioGraphDelegate.pitchShiftUnit.presets)
+        effectsUnit = audioGraph.pitchShiftUnit
+        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(audioGraph.pitchShiftUnit.presets)
     }
 }

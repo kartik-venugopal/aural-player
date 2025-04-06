@@ -18,7 +18,7 @@ class TimeStretchPresetsManagerViewController: EffectsPresetsManagerGenericViewC
         super.awakeFromNib()
         
         unitType = .time
-        effectsUnit = audioGraphDelegate.timeStretchUnit
-        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(audioGraphDelegate.timeStretchUnit.presets)
+        effectsUnit = audioGraph.timeStretchUnit
+        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(audioGraph.timeStretchUnit.presets)
     }
 }

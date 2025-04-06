@@ -19,7 +19,7 @@ class FuseViewController: NSViewController {
     @IBOutlet weak var lblUnitCaption: EffectsUnitTriStateLabel!
     @IBOutlet weak var backgroundBox: NSBox!
     
-    var effectsUnit: EffectsUnitDelegateProtocol!
+    var effectsUnit: EffectsUnitProtocol!
     
     private lazy var messenger = Messenger(for: self)
     
@@ -31,7 +31,7 @@ class FuseViewController: NSViewController {
         
         let unitType = fxUnit.unitType
         
-        if let auUnit = effectsUnit as? HostedAudioUnitDelegateProtocol {
+        if let auUnit = effectsUnit as? HostedAudioUnitProtocol {
             lblUnitCaption.stringValue = "\(auUnit.name) v\(auUnit.version)"
         } else {
             lblUnitCaption.stringValue = unitType.caption

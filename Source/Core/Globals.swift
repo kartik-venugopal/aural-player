@@ -94,10 +94,11 @@ fileprivate let _playQueueDelegate: PlayQueueDelegate = PlayQueueDelegate(playQu
 //                                                                           trackReader, preferences)
 
 let audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
-let audioGraph: AudioGraph = AudioGraph(persistentState: appPersistentState, audioUnitsManager: audioUnitsManager)
+fileprivate let _audioGraph: AudioGraph = AudioGraph(persistentState: appPersistentState, audioUnitsManager: audioUnitsManager)
+var audioGraph: AudioGraphProtocol = _audioGraph
 
-var audioGraphDelegate: AudioGraphDelegateProtocol = AudioGraphDelegate(graph: audioGraph, persistentState: appPersistentState.audioGraph,
-                                                                        player: playbackDelegate, preferences: preferences.soundPreferences)
+//var audioGraph: AudioGraphDelegateProtocol = AudioGraphDelegate(graph: audioGraph, persistentState: appPersistentState.audioGraph,
+//                                                                        player: playbackDelegate, preferences: preferences.soundPreferences)
 
 let player: PlayerProtocol = Player(graph: audioGraph, avfScheduler: avfScheduler, ffmpegScheduler: ffmpegScheduler)
 
@@ -177,7 +178,6 @@ let mediaKeyHandler: MediaKeyHandler = MediaKeyHandler(preferences.controlsPrefe
 //let libraryMonitor: LibraryMonitor = .init(libraryPersistentState: appPersistentState.library)
 
 let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, playQueue: playQueueDelegate, 
-                                                                      audioGraph: audioGraphDelegate,
                                                                       preferences: preferences)
 
 var persistentStateOnExit: AppPersistentState {
@@ -187,7 +187,7 @@ var persistentStateOnExit: AppPersistentState {
     
     persistentState.appVersion = appVersion
     
-    persistentState.audioGraph = audioGraph.persistentState
+    persistentState.audioGraph = _audioGraph.persistentState
     persistentState.playQueue = _playQueueDelegate.persistentState
     
 //    persistentState.library = library.persistentState

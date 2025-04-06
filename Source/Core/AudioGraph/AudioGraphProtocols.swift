@@ -41,16 +41,16 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     
     var muted: Bool {get set}
     
-    var masterUnit: MasterUnit {get}
-    var eqUnit: EQUnit {get}
-    var pitchShiftUnit: PitchShiftUnit {get}
-    var timeStretchUnit: TimeStretchUnit {get}
-    var reverbUnit: ReverbUnit {get}
-    var delayUnit: DelayUnit {get}
-    var filterUnit: FilterUnit {get}
-    var replayGainUnit: ReplayGainUnit {get}
+    var masterUnit: MasterUnitProtocol {get}
+    var eqUnit: EQUnitProtocol {get}
+    var pitchShiftUnit: PitchShiftUnitProtocol {get}
+    var timeStretchUnit: TimeStretchUnitProtocol {get}
+    var reverbUnit: ReverbUnitProtocol {get}
+    var delayUnit: DelayUnitProtocol {get}
+    var filterUnit: FilterUnitProtocol {get}
+    var replayGainUnit: ReplayGainUnitProtocol {get}
     
-    var audioUnits: [HostedAudioUnit] {get}
+    var audioUnits: [HostedAudioUnitProtocol] {get}
     var audioUnitsStateFunction: EffectsUnitStateFunction {get}
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)?
     func removeAudioUnits(at indices: IndexSet)

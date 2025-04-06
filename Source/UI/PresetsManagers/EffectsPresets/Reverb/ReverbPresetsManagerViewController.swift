@@ -18,7 +18,7 @@ class ReverbPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
         super.awakeFromNib()
         
         unitType = .reverb
-        effectsUnit = audioGraphDelegate.reverbUnit
-        presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(audioGraphDelegate.reverbUnit.presets)
+        effectsUnit = audioGraph.reverbUnit
+        presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(audioGraph.reverbUnit.presets)
     }
 }

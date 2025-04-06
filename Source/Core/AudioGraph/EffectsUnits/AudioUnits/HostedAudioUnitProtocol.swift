@@ -16,7 +16,8 @@ import AVFoundation
 /// audio signals.
 ///
 protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
-    
+   
+    var id: String {get}
     var name: String {get}
     var version: String {get}
     var manufacturerName: String {get}

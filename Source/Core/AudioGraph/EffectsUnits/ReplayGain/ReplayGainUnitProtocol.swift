@@ -32,6 +32,12 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     
     var maxPeakLevel: ReplayGainMaxPeakLevel {get set}
     
+    var presets: ReplayGainPresets {get}
+    
+    func applyPreset(_ preset: ReplayGainPreset)
+    
+    var settingsAsPreset: ReplayGainPreset {get}
+    
     /*
      
      TODO:

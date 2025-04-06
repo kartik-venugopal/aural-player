@@ -38,15 +38,15 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     private let deviceManager: DeviceManager
     
     // Effects units
-    var masterUnit: MasterUnit
-    var eqUnit: EQUnit
-    var pitchShiftUnit: PitchShiftUnit
-    var timeStretchUnit: TimeStretchUnit
-    var reverbUnit: ReverbUnit
-    var delayUnit: DelayUnit
-    var filterUnit: FilterUnit
-    var replayGainUnit: ReplayGainUnit
-    var audioUnits: [HostedAudioUnit]
+    var masterUnit: MasterUnitProtocol
+    var eqUnit: EQUnitProtocol
+    var pitchShiftUnit: PitchShiftUnitProtocol
+    var timeStretchUnit: TimeStretchUnitProtocol
+    var reverbUnit: ReverbUnitProtocol
+    var delayUnit: DelayUnitProtocol
+    var filterUnit: FilterUnitProtocol
+    var replayGainUnit: ReplayGainUnitProtocol
+    var audioUnits: [HostedAudioUnitProtocol]
     
     var allUnits: [any EffectsUnitProtocol] {
         [masterUnit, eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit] + audioUnits
@@ -129,7 +129,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         }
         
         let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit]
-        masterUnit = MasterUnit(persistentState: persistentState?.masterUnit, nativeSlaveUnits: nativeSlaveUnits,
+        masterUnit = MasterUnit(persistentState: persistentState?.masterUnit, nativeSlaveUnits: nativeSlaveUnits.compactMap {$0 as? EffectsUnit},
                                 audioUnits: audioUnits)
         
         let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
