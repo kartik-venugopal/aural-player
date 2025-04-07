@@ -24,8 +24,12 @@ protocol PitchShiftUnitProtocol: EffectsUnitProtocol {
     // Increases the pitch shift by a small increment. Returns the new pitch shift value.
     @discardableResult func increasePitch(by pitchShift: PitchShift, ensureActive: Bool) -> PitchShift
     
+    @discardableResult func increasePitch(by cents: Float, ensureActive: Bool) -> PitchShift
+    
     // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
     @discardableResult func decreasePitch(by pitchShift: PitchShift, ensureActive: Bool) -> PitchShift
+    
+    @discardableResult func decreasePitch(by cents: Float, ensureActive: Bool) -> PitchShift
     
     var presets: PitchShiftPresets {get}
     

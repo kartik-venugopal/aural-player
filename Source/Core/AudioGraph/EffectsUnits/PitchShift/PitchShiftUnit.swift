@@ -36,7 +36,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     var pitch: PitchShift {
         
         get {PitchShift(fromCents: node.pitch)}
-        set {node.pitch = newValue.asCentsFloat}
+        set {node.pitch = newValue.asCentsFloat.clamped(to: pitchRange)}
     }
     
     override func stateChanged() {
@@ -55,6 +55,16 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         return pitch
     }
     
+    func increasePitch(by cents: Float, ensureActive: Bool) -> PitchShift {
+        
+        if ensureActive {
+            ensureActiveAndReset()
+        }
+        
+        node.pitch = (node.pitch + cents).clamped(to: pitchRange)
+        return pitch
+    }
+    
     func decreasePitch(by pitchShift: PitchShift, ensureActive: Bool) -> PitchShift {
         
         if ensureActive {
@@ -62,6 +72,16 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         }
         
         node.pitch = (node.pitch - pitchShift.asCentsFloat).clamped(to: pitchRange)
+        return pitch
+    }
+    
+    func decreasePitch(by cents: Float, ensureActive: Bool) -> PitchShift {
+        
+        if ensureActive {
+            ensureActiveAndReset()
+        }
+        
+        node.pitch = (node.pitch - cents).clamped(to: pitchRange)
         return pitch
     }
     

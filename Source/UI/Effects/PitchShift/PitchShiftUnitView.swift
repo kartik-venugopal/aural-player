@@ -21,19 +21,8 @@ class PitchShiftUnitView: NSView {
     @IBOutlet weak var lblSemitones: NSTextField!
     @IBOutlet weak var lblCents: NSTextField!
     
-    var pitchShiftUnit: PitchShiftUnitProtocol {
-        audioGraph.pitchShiftUnit
-    }
-    
-    override func awakeFromNib() {
+    func initialize(minPitch: Float, maxPitch: Float) {
         
-        super.awakeFromNib()
-        
-        pitchSlider.effectsUnit = pitchShiftUnit
-//        fxUnitStateObserverRegistry.registerObserver(pitchSlider, forFXUnit: pitchShiftUnit)
-        
-        let minPitch = pitchShiftUnit.minPitch
-        let maxPitch = pitchShiftUnit.maxPitch
         pitchSlider.allowedValues = minPitch...maxPitch
         
         pitchSlider.valueFunction = {(angle: CGFloat, arcRange: CGFloat, allowedValues: ClosedRange<Float>) in

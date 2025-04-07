@@ -21,6 +21,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     // MARK: UI fields
     
     @IBOutlet weak var pitchShiftUnitView: PitchShiftUnitView!
+    @IBOutlet weak var pitchSlider: CircularSlider!
     
     // ------------------------------------------------------------------------
     
@@ -38,6 +39,12 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
         
         effectsUnit = pitchShiftUnit
         presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchShiftUnit.presets)
+        
+        pitchSlider.effectsUnit = pitchShiftUnit
+        fxUnitStateObserverRegistry.registerObserver(pitchSlider, forFXUnit: pitchShiftUnit)
+        
+        pitchShiftUnitView.initialize(minPitch: pitchShiftUnit.minPitch,
+                                      maxPitch: pitchShiftUnit.maxPitch)
     }
     
     override func initControls() {
@@ -56,27 +63,27 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     }
     
     @IBAction func increasePitchByOctaveAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitch(by: .oneOctave, ensureActive: false)
+        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitchByOctave()
     }
     
     @IBAction func increasePitchBySemitoneAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitch(by: .oneSemitone, ensureActive: false)
+        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitchBySemitone()
     }
     
     @IBAction func increasePitchByCentAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitch(by: .oneCent, ensureActive: false)
+        pitchShiftUnitView.pitch = pitchShiftUnit.increasePitchByCent()
     }
     
     @IBAction func decreasePitchByOctaveAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitch(by: .oneOctave, ensureActive: false)
+        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitchByOctave()
     }
     
     @IBAction func decreasePitchBySemitoneAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitch(by: .oneSemitone, ensureActive: false)
+        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitchBySemitone()
     }
     
     @IBAction func decreasePitchByCentAction(_ sender: AnyObject) {
-        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitch(by: .oneCent, ensureActive: false)
+        pitchShiftUnitView.pitch = pitchShiftUnit.decreasePitchByCent()
     }
     
     // ------------------------------------------------------------------------
@@ -98,5 +105,32 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
         
         // Show the Pitch tab if the Effects panel is shown
         showThisTab()
+    }
+}
+
+extension PitchShiftUnitProtocol {
+    
+    func increasePitchByOctave() -> PitchShift {
+        increasePitch(by: .oneOctave, ensureActive: false)
+    }
+    
+    func increasePitchBySemitone() -> PitchShift {
+        increasePitch(by: .oneSemitone, ensureActive: false)
+    }
+    
+    func increasePitchByCent() -> PitchShift {
+        increasePitch(by: 1, ensureActive: false)
+    }
+    
+    func decreasePitchByOctave() -> PitchShift {
+        decreasePitch(by: .oneOctave, ensureActive: false)
+    }
+    
+    func decreasePitchBySemitone() -> PitchShift {
+        decreasePitch(by: .oneSemitone, ensureActive: false)
+    }
+    
+    func decreasePitchByCent() -> PitchShift {
+        decreasePitch(by: 1, ensureActive: false)
     }
 }

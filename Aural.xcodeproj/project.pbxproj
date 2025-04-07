@@ -463,6 +463,7 @@
 		3E1D255A2D161E98005EA767 /* PlaybackFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D25592D161E98005EA767 /* PlaybackFormat.swift */; };
 		3E1DA0D62BEC2B68004670B3 /* ContextHelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DA0D52BEC2B68004670B3 /* ContextHelpButton.swift */; };
 		3E1F04642DA3546F00DC6F40 /* SoundMenuController+EQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1F04632DA3546F00DC6F40 /* SoundMenuController+EQ.swift */; };
+		3E1F04662DA35D8700DC6F40 /* SoundMenuController+PitchShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1F04652DA35D8700DC6F40 /* SoundMenuController+PitchShift.swift */; };
 		3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */; };
 		3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */; };
 		3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */; };
@@ -1564,6 +1565,7 @@
 		3E1D25592D161E98005EA767 /* PlaybackFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackFormat.swift; sourceTree = "<group>"; };
 		3E1DA0D52BEC2B68004670B3 /* ContextHelpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextHelpButton.swift; sourceTree = "<group>"; };
 		3E1F04632DA3546F00DC6F40 /* SoundMenuController+EQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SoundMenuController+EQ.swift"; sourceTree = "<group>"; };
+		3E1F04652DA35D8700DC6F40 /* SoundMenuController+PitchShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SoundMenuController+PitchShift.swift"; sourceTree = "<group>"; };
 		3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaKeysPreferences.xib; sourceTree = "<group>"; };
 		3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GesturesPreferences.xib; sourceTree = "<group>"; };
 		3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteControlPreferences.xib; sourceTree = "<group>"; };
@@ -4511,6 +4513,7 @@
 				3E2207F12C1E0BE500ED286A /* ViewPopupMenuContainer.swift */,
 				3E6C0FE025CEB98600BF0D07 /* PlaybackMenuController.swift */,
 				3E6C0FE725CEB98600BF0D07 /* SoundMenuController.swift */,
+				3E1F04652DA35D8700DC6F40 /* SoundMenuController+PitchShift.swift */,
 				3E1F04632DA3546F00DC6F40 /* SoundMenuController+EQ.swift */,
 				3E7AF10428065441006DC98F /* PlayQueueMenuController.swift */,
 				3E719D922D28A90D000A33B9 /* MetadataMenuController.swift */,
@@ -6479,6 +6482,7 @@
 				3E0218712C23490E00865AC2 /* ApplicationNotifications.swift in Sources */,
 				3E0218B32C23490E00865AC2 /* PlayQueuePersistentState.swift in Sources */,
 				3E02180E2C23490E00865AC2 /* FilterPresets.swift in Sources */,
+				3E1F04662DA35D8700DC6F40 /* SoundMenuController+PitchShift.swift in Sources */,
 				3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */,
 				3EC869032C615BAA006CA63E /* CueSheetIO+Model.swift in Sources */,
 				3EE2CC3326811074002C1B29 /* NSTableViewExtensions.swift in Sources */,
