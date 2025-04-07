@@ -14,9 +14,6 @@ import Foundation
 ///
 class SoundPreferences {
     
-    private static let keyPrefix: String = "sound"
-    private typealias Defaults = PreferencesDefaults.Sound
-    
     @UserPreference(key: "sound.volumeDelta", defaultValue: Defaults.volumeDelta)
     var volumeDelta: Float
     
@@ -27,7 +24,7 @@ class SoundPreferences {
     ]
     
     var volumeDelta_continuous: Float {
-        scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity.value]!
+        scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity]!
     }
     
     @UserPreference(key: "sound.panDelta", defaultValue: Defaults.panDelta)
@@ -45,7 +42,7 @@ class SoundPreferences {
     @UserPreference(key: "sound.rememberEffectsSettingsForAllTracks", defaultValue: Defaults.rememberEffectsSettingsForAllTracks)
     var rememberEffectsSettingsForAllTracks: Bool
     
-    private var controlsPreferences: GesturesControlsPreferences!
+    private let controlsPreferences: GesturesControlsPreferences
 
     init(controlsPreferences: GesturesControlsPreferences, legacyPreferences: LegacySoundPreferences? = nil) {
         
@@ -62,5 +59,20 @@ class SoundPreferences {
         }
         
         legacyPreferences.deleteAll()
+    }
+    
+    ///
+    /// An enumeration of default values for audio / sound preferences.
+    ///
+    fileprivate struct Defaults {
+        
+        static let volumeDelta: Float = 0.05
+        static let panDelta: Float = 0.1
+        
+        static let eqDelta: Float = 1
+        static let pitchDelta: Int = 100
+        static let rateDelta: Float = 0.05
+        
+        static let rememberEffectsSettingsForAllTracks: Bool = false
     }
 }

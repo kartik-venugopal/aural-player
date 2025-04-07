@@ -14,31 +14,27 @@ import Cocoa
 ///
 class PlayQueuePreferences {
     
-    private typealias Defaults = PreferencesDefaults.PlayQueue
-    
-    // ------ MARK: Property keys ---------
-    
-    private static let keyPrefix: String = "playQueue"
-    
-    lazy var playQueueOnStartup: UserMuthu<PlayQueueStartupOption> = .init(defaultsKey: "\(Self.keyPrefix).playQueueOnStartup",
-                                                                                defaultValue: Defaults.playQueueOnStartup)
+    @EnumUserPreference(key: "playQueue.playQueueOnStartup", defaultValue: Defaults.playQueueOnStartup)
+    var playQueueOnStartup: PlayQueueStartupOption
     
     // This will be used only when playQueueOnStartup == PlayQueueStartupOption.loadFile
-    lazy var playlistFile: OptionalMuthu<URL> = .init(defaultsKey: "\(Self.keyPrefix).playQueueOnStartup.playlistFile")
+    @URLUserPreference(key: "playQueue.playQueueOnStartup.playlistFile")
+    var playlistFile: URL?
     
-    lazy var tracksFolder: OptionalMuthu<URL> = .init(defaultsKey: "\(Self.keyPrefix).playQueueOnStartup.tracksFolder")
+    @URLUserPreference(key: "playQueue.playQueueOnStartup.tracksFolder")
+    var tracksFolder: URL?
     
-    lazy var showNewTrackInPlayQueue: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showNewTrackInPlayQueue",
-                                                                   defaultValue: Defaults.showNewTrackInPlayQueue)
+    @UserPreference(key: "playQueue.showNewTrackInPlayQueue", defaultValue: Defaults.showNewTrackInPlayQueue)
+    var showNewTrackInPlayQueue: Bool
     
-    lazy var showChaptersList: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showChaptersList",
-                                                            defaultValue: Defaults.showChaptersList)
+    @UserPreference(key: "playQueue.showChaptersList", defaultValue: Defaults.showChaptersList)
+    var showChaptersList: Bool
     
-    lazy var dragDropAddMode: UserMuthu<PlayQueueTracksAddMode> = .init(defaultsKey: "\(Self.keyPrefix).dragDropAddMode",
-                                                                             defaultValue: Defaults.dragDropAddMode)
+    @EnumUserPreference(key: "playQueue.dragDropAddMode", defaultValue: Defaults.dragDropAddMode)
+    var dragDropAddMode: PlayQueueTracksAddMode
     
-    lazy var openWithAddMode: UserMuthu<PlayQueueTracksAddMode> = .init(defaultsKey: "\(Self.keyPrefix).openWithAddMode",
-                                                                             defaultValue: Defaults.openWithAddMode)
+    @EnumUserPreference(key: "playQueue.openWithAddMode", defaultValue: Defaults.openWithAddMode)
+    var openWithAddMode: PlayQueueTracksAddMode
     
     init(legacyPreferences: LegacyPlaylistPreferences? = nil) {
         
@@ -46,15 +42,15 @@ class PlayQueuePreferences {
         
         if let playlistOnStartup = legacyPreferences.playlistOnStartup {
             
-            self.playQueueOnStartup.value = .fromLegacyPlaylistStartupOption(playlistOnStartup)
+            self.playQueueOnStartup = .fromLegacyPlaylistStartupOption(playlistOnStartup)
             
             switch playlistOnStartup {
             
             case .loadFile:
-                self.playlistFile.value = legacyPreferences.playlistFile
+                self.playlistFile = legacyPreferences.playlistFile
                 
             case .loadFolder:
-                self.tracksFolder.value = legacyPreferences.tracksFolder
+                self.tracksFolder = legacyPreferences.tracksFolder
                 
             default:
                 break
@@ -62,19 +58,19 @@ class PlayQueuePreferences {
         }
         
         if let showNewTrackInPlaylist = legacyPreferences.showNewTrackInPlaylist {
-            self.showNewTrackInPlayQueue.value = showNewTrackInPlaylist
+            self.showNewTrackInPlayQueue = showNewTrackInPlaylist
         }
         
         if let showChaptersList = legacyPreferences.showChaptersList {
-            self.showChaptersList.value = showChaptersList
+            self.showChaptersList = showChaptersList
         }
         
         if let dragDropAddMode = legacyPreferences.dragDropAddMode {
-            self.dragDropAddMode.value = .fromLegacyPlaylistTracksAddMode(dragDropAddMode)
+            self.dragDropAddMode = .fromLegacyPlaylistTracksAddMode(dragDropAddMode)
         }
         
         if let openWithAddMode = legacyPreferences.openWithAddMode {
-            self.openWithAddMode.value = .fromLegacyPlaylistTracksAddMode(openWithAddMode)
+            self.openWithAddMode = .fromLegacyPlaylistTracksAddMode(openWithAddMode)
         }
         
         legacyPreferences.deleteAll()
@@ -127,5 +123,19 @@ class PlayQueuePreferences {
                 return .hybrid
             }
         }
+    }
+    
+    ///
+    /// An enumeration of default values for Play Queue preferences.
+    ///
+    fileprivate struct Defaults {
+        
+        static let playQueueOnStartup: PlayQueueStartupOption = .rememberFromLastAppLaunch
+        
+        static let showNewTrackInPlayQueue: Bool = true
+        static let showChaptersList: Bool = true
+        
+        static let dragDropAddMode: PlayQueueTracksAddMode = .append
+        static let openWithAddMode: PlayQueueTracksAddMode = .append
     }
 }

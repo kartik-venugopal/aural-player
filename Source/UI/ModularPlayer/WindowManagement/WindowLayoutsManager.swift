@@ -26,7 +26,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     var mainWindow: NSWindow {loader(withID: .main).window}
     
     private var windowGap: CGFloat {
-        CGFloat(preferences.viewPreferences.windowGap.value)
+        CGFloat(preferences.viewPreferences.windowGap)
     }
 
     init(persistentState: WindowLayoutsPersistentState?, viewPreferences: ViewPreferences) {
@@ -105,7 +105,7 @@ class WindowLayoutsManager: UserManagedObjects<WindowLayout>, Destroyable, Resto
     }
     
     var windowMagnetismEnabled: Bool {
-        preferences.viewPreferences.windowMagnetism.value
+        preferences.viewPreferences.windowMagnetism
     }
     
     // MARK - Core functionality ----------------------------------------------------

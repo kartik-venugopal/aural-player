@@ -141,7 +141,7 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         
         super.trackTransitioned(notification)
         
-        if preferences.playQueuePreferences.showNewTrackInPlayQueue.value, notification.endTrack != nil {
+        if preferences.playQueuePreferences.showNewTrackInPlayQueue, notification.endTrack != nil {
             showPlayingTrack()
         }
         

@@ -18,7 +18,7 @@ class GestureHandler {
     
     static func handleTrackChange(_ swipeDirection: GestureDirection) {
         
-        if gesturesPreferences.allowTrackChange.value {
+        if gesturesPreferences.allowTrackChange {
             
             // Publish the command notification
             Messenger.publish(swipeDirection == .left ? .Player.previousTrack : .Player.nextTrack)
@@ -27,7 +27,7 @@ class GestureHandler {
     
     static func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        if gesturesPreferences.allowVolumeControl.value && ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
+        if gesturesPreferences.allowVolumeControl && ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
         
             // Scroll up = increase volume, scroll down = decrease volume
             Messenger.publish(scrollDirection == .up ?.Player.increaseVolume : .Player.decreaseVolume, payload: UserInputMode.continuous)
@@ -36,7 +36,7 @@ class GestureHandler {
     
     static func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        guard gesturesPreferences.allowSeeking.value else {return}
+        guard gesturesPreferences.allowSeeking else {return}
         
         // If no track is playing, seeking cannot be performed
         if playbackInfoDelegate.state.isStopped {
@@ -59,14 +59,14 @@ class GestureHandler {
     
     static func handleScrollTopBottom(_ swipeDirection: GestureDirection) {
         
-        if gesturesPreferences.allowPlayQueueScrollingTopToBottom.value {
+        if gesturesPreferences.allowPlayQueueScrollingTopToBottom {
             Messenger.publish(swipeDirection == .up ? .PlayQueue.scrollToTop : .PlayQueue.scrollToBottom)
         }
     }
     
     static func handlePageUpDown(_ swipeDirection: GestureDirection) {
         
-        if gesturesPreferences.allowPlayQueueScrollingPageUpDown.value {
+        if gesturesPreferences.allowPlayQueueScrollingPageUpDown {
             Messenger.publish(swipeDirection == .left ? .PlayQueue.pageUp : .PlayQueue.pageDown)
         }
     }

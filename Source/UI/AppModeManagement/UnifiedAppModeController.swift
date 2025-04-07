@@ -18,7 +18,7 @@ class UnifiedAppModeController: AppModeController {
     
     var mainWindow: NSWindow? {windowController?.window}
     
-    var windowMagnetism: Bool = preferences.viewPreferences.windowMagnetism.value {
+    var windowMagnetism: Bool = preferences.viewPreferences.windowMagnetism {
         
         didSet {
             

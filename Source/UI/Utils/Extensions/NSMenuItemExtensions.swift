@@ -108,6 +108,15 @@ extension NSPopUpButton {
     func deselect() {
         selectItem(at: -1)
     }
+    
+    func enumValueForTitle<E: RawRepresentable>(ofType type: E.Type) -> E? where E.RawValue == String {
+        
+        if let title = titleOfSelectedItem?.lowercased() {
+            return E.init(rawValue: title)
+        }
+        
+        return nil
+    }
 }
 
 extension NSPopUpButton: ColorSchemePropertyChangeReceiver {

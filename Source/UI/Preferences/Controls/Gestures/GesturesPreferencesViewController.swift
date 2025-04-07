@@ -40,18 +40,18 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let controlsPrefs = preferences.controlsPreferences.gestures
         
-        btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl.value)
+        btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl)
         volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn)
-        volumeControlSensitivityMenu.selectItem(withTitle: controlsPrefs.volumeControlSensitivity.value.rawValue.capitalized)
+        volumeControlSensitivityMenu.selectItem(withTitle: controlsPrefs.volumeControlSensitivity.rawValue.capitalized)
         
-        btnAllowSeeking.onIf(controlsPrefs.allowSeeking.value)
+        btnAllowSeeking.onIf(controlsPrefs.allowSeeking)
         seekSensitivityMenu.enableIf(btnAllowSeeking.isOn)
-        seekSensitivityMenu.selectItem(withTitle: controlsPrefs.seekSensitivity.value.rawValue.capitalized)
+        seekSensitivityMenu.selectItem(withTitle: controlsPrefs.seekSensitivity.rawValue.capitalized)
         
-        btnAllowTrackChange.onIf(controlsPrefs.allowTrackChange.value)
+        btnAllowTrackChange.onIf(controlsPrefs.allowTrackChange)
         
-        btnAllowPlayQueueScrollingTopToBottom.onIf(controlsPrefs.allowPlayQueueScrollingTopToBottom.value)
-        btnAllowPlayQueueScrollingPageUpDown.onIf(controlsPrefs.allowPlayQueueScrollingPageUpDown.value)
+        btnAllowPlayQueueScrollingTopToBottom.onIf(controlsPrefs.allowPlayQueueScrollingTopToBottom)
+        btnAllowPlayQueueScrollingPageUpDown.onIf(controlsPrefs.allowPlayQueueScrollingPageUpDown)
     }
 
     @IBAction func allowVolumeControlAction(_ sender: Any) {
@@ -78,15 +78,21 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let controlsPrefs = preferences.controlsPreferences.gestures
         
-        controlsPrefs.allowVolumeControl.value = btnAllowVolumeControl.isOn
-        controlsPrefs.volumeControlSensitivity.value = GesturesControlsPreferences.ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.Gestures.volumeControlSensitivity
+        controlsPrefs.allowVolumeControl = btnAllowVolumeControl.isOn
+        
+        if let volumeControlSensitivity = volumeControlSensitivityMenu.enumValueForTitle(ofType: GesturesControlsPreferences.ScrollSensitivity.self) {
+            controlsPrefs.volumeControlSensitivity = volumeControlSensitivity
+        }
 
-        controlsPrefs.allowSeeking.value = btnAllowSeeking.isOn
-        controlsPrefs.seekSensitivity.value = GesturesControlsPreferences.ScrollSensitivity(rawValue: seekSensitivityMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.Gestures.seekSensitivity
+        controlsPrefs.allowSeeking = btnAllowSeeking.isOn
+        
+        if let seekSensitivity = seekSensitivityMenu.enumValueForTitle(ofType: GesturesControlsPreferences.ScrollSensitivity.self) {
+            controlsPrefs.seekSensitivity = seekSensitivity
+        }
 
-        controlsPrefs.allowTrackChange.value = btnAllowTrackChange.isOn
+        controlsPrefs.allowTrackChange = btnAllowTrackChange.isOn
 
-        controlsPrefs.allowPlayQueueScrollingTopToBottom.value = btnAllowPlayQueueScrollingTopToBottom.isOn
-        controlsPrefs.allowPlayQueueScrollingPageUpDown.value = btnAllowPlayQueueScrollingPageUpDown.isOn
+        controlsPrefs.allowPlayQueueScrollingTopToBottom = btnAllowPlayQueueScrollingTopToBottom.isOn
+        controlsPrefs.allowPlayQueueScrollingPageUpDown = btnAllowPlayQueueScrollingPageUpDown.isOn
     }
 }

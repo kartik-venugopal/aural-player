@@ -136,7 +136,7 @@ class UnifiedPlayerSidebarViewController: NSViewController {
         
         if let newTrack = notif.endTrack {
             
-            if newTrack.hasChapters, preferences.playQueuePreferences.showChaptersList.value {
+            if newTrack.hasChapters, preferences.playQueuePreferences.showChaptersList {
                 viewChaptersList()
                 
             } else {

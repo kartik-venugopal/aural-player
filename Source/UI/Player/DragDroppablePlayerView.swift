@@ -32,8 +32,8 @@ class DragDroppablePlayerView: NSView {
     
     var shouldAutoplayAfterAdding: Bool {
         
-        let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
-        lazy var option: PlaybackPreferences.AutoplayAfterAddingOption = preferences.playbackPreferences.autoplayAfterAddingOption
+        let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplay.autoplayAfterAddingTracks
+        lazy var option: AutoplayPlaybackPreferences.AutoplayAfterAddingOption = preferences.playbackPreferences.autoplay.autoplayAfterAddingOption
         lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
         
         return autoplayAfterAdding && (option == .always || playerIsStopped)
@@ -43,7 +43,7 @@ class DragDroppablePlayerView: NSView {
         
         guard let files = sender.urls else {return false}
         
-        let addMode = preferences.playQueuePreferences.dragDropAddMode.value
+        let addMode = preferences.playQueuePreferences.dragDropAddMode
         let clearQueue: Bool = addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet)
         
         playQueueDelegate.loadTracks(from: files, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: shouldAutoplayAfterAdding))

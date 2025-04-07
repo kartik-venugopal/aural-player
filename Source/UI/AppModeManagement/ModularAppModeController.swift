@@ -25,7 +25,7 @@ class ModularAppModeController: AppModeController {
     
     var isShowingPlayer: Bool {true}
     
-    var windowMagnetism: Bool = preferences.viewPreferences.windowMagnetism.value {
+    var windowMagnetism: Bool = preferences.viewPreferences.windowMagnetism {
         
         didSet {
             

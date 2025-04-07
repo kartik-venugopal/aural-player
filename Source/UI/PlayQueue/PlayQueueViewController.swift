@@ -166,15 +166,15 @@ class PlayQueueViewController: TrackListTableViewController {
     
     var shouldAutoplayAfterAdding: Bool {
         
-        let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
-        lazy var option: PlaybackPreferences.AutoplayAfterAddingOption = preferences.playbackPreferences.autoplayAfterAddingOption
+        let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplay.autoplayAfterAddingTracks
+        lazy var option: AutoplayPlaybackPreferences.AutoplayAfterAddingOption = preferences.playbackPreferences.autoplay.autoplayAfterAddingOption
         lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
         return autoplayAfterAdding && (option == .always || playerIsStopped)
     }
     
     func doLoadFinderTracks(from files: [URL], atPosition row: Int? = nil) {
         
-        let addMode = preferences.playQueuePreferences.dragDropAddMode.value
+        let addMode = preferences.playQueuePreferences.dragDropAddMode
         let clearQueue: Bool = addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet)
         
         playQueueDelegate.loadTracks(from: files, atPosition: clearQueue ? nil : row, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: shouldAutoplayAfterAdding))

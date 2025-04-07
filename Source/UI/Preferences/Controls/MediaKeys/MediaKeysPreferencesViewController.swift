@@ -31,12 +31,12 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
         
         let controlsPrefs = preferences.controlsPreferences.mediaKeys
         
-        btnRespondToMediaKeys.onIf(controlsPrefs.enabled.value)
+        btnRespondToMediaKeys.onIf(controlsPrefs.enabled)
         mediaKeyResponseAction(self)
         
         [btnHybrid, btnTrackChangesOnly, btnSeekingOnly].forEach {$0?.off()}
         
-        switch controlsPrefs.skipKeyBehavior.value {
+        switch controlsPrefs.skipKeyBehavior {
             
         case .hybrid:   btnHybrid.on()
             
@@ -46,7 +46,7 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
             
         }
         
-        repeatSpeedMenu.selectItem(withTitle: controlsPrefs.skipKeyRepeatSpeed.value.rawValue.capitalized)
+        repeatSpeedMenu.selectItem(withTitle: controlsPrefs.skipKeyRepeatSpeed.rawValue.capitalized)
     }
     
     @IBAction func mediaKeyResponseAction(_ sender: Any) {
@@ -61,19 +61,22 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
         
         let controlsPrefs = preferences.controlsPreferences
         
-        controlsPrefs.mediaKeys.enabled.value = btnRespondToMediaKeys.isOn
+        controlsPrefs.mediaKeys.enabled = btnRespondToMediaKeys.isOn
         
         if btnHybrid.isOn {
-            controlsPrefs.mediaKeys.skipKeyBehavior.value = .hybrid
+            controlsPrefs.mediaKeys.skipKeyBehavior = .hybrid
             
         } else if btnTrackChangesOnly.isOn {
-            controlsPrefs.mediaKeys.skipKeyBehavior.value = .trackChangesOnly
+            controlsPrefs.mediaKeys.skipKeyBehavior = .trackChangesOnly
             
         } else {
-            controlsPrefs.mediaKeys.skipKeyBehavior.value = .seekingOnly
+            controlsPrefs.mediaKeys.skipKeyBehavior = .seekingOnly
         }
         
-        controlsPrefs.mediaKeys.skipKeyRepeatSpeed.value = MediaKeysControlsPreferences.SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased()) ?? PreferencesDefaults.Controls.MediaKeys.skipKeyRepeatSpeed
-        controlsPrefs.mediaKeys.enabled.value ? mediaKeyHandler.startMonitoring() : mediaKeyHandler.stopMonitoring()
+        if let repeatSpeed = repeatSpeedMenu.enumValueForTitle(ofType: MediaKeysControlsPreferences.SkipKeyRepeatSpeed.self) {
+            controlsPrefs.mediaKeys.skipKeyRepeatSpeed = repeatSpeed
+        }
+        
+        controlsPrefs.mediaKeys.enabled ? mediaKeyHandler.startMonitoring() : mediaKeyHandler.stopMonitoring()
     }
 }

@@ -15,7 +15,6 @@ import Foundation
 class MetadataPreferences {
     
     private static let keyPrefix: String = "metadata"
-    private typealias Defaults = PreferencesDefaults.Metadata
     
     lazy var cacheTrackMetadata: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).cacheTrackMetadata", defaultValue: Defaults.cacheTrackMetadata)
     lazy var httpTimeout: UserMuthu<Int> = .init(defaultsKey: "\(Self.keyPrefix).httpTimeout", defaultValue: Defaults.httpTimeout)
@@ -29,5 +28,14 @@ class MetadataPreferences {
         musicBrainz = MusicBrainzPreferences()
         lastFM = LastFMPreferences()
         lyrics = LyricsPreferences()
+    }
+    
+    ///
+    /// An enumeration of default values for metadata retrieval preferences.
+    ///
+    fileprivate struct Defaults {
+        
+        static let cacheTrackMetadata: Bool = true
+        static let httpTimeout: Int = 5
     }
 }

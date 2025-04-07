@@ -64,7 +64,7 @@ class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
             windowLayoutsManager.hideWindow(withId: .chaptersList)
             
         } // Only show chapters list if preferred by user
-        else if preferences.playQueuePreferences.showChaptersList.value {
+        else if preferences.playQueuePreferences.showChaptersList {
             windowLayoutsManager.showWindow(withId: .chaptersList)
         }
     }

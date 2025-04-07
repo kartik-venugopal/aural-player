@@ -316,12 +316,12 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     func appReopened(_ notification: AppReopenedNotification) {
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-        let openWithAddMode = preferences.playQueuePreferences.openWithAddMode.value
+        let openWithAddMode = preferences.playQueuePreferences.openWithAddMode
         let clearQueue: Bool = openWithAddMode == .replace
         
         let notDuplicateNotification = !notification.isDuplicateNotification
-        lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplayAfterOpeningTracks
-        lazy var autoplayAfterOpeningOption: PlaybackPreferences.AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplayAfterOpeningOption
+        lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplay.autoplayAfterOpeningTracks
+        lazy var autoplayAfterOpeningOption: AutoplayPlaybackPreferences.AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplay.autoplayAfterOpeningOption
         lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
         lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
         let autoplay: Bool = notDuplicateNotification && autoplayPreference

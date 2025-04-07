@@ -14,9 +14,9 @@ import Foundation
 ///
 class ControlsPreferences {
     
-    var mediaKeys: MediaKeysControlsPreferences
-    var gestures: GesturesControlsPreferences
-    var remoteControl: RemoteControlPreferences
+    let mediaKeys: MediaKeysControlsPreferences
+    let gestures: GesturesControlsPreferences
+    let remoteControl: RemoteControlPreferences
     
     init(legacyPreferences: LegacyControlsPreferences? = nil) {
         

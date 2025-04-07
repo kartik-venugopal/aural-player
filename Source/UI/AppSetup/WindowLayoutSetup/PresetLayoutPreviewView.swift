@@ -28,7 +28,7 @@ class PresetLayoutPreviewView: NSView {
     }
     
     private var gapBetweenWindows: CGFloat {
-        CGFloat(preferences.viewPreferences.windowGap.value)
+        CGFloat(preferences.viewPreferences.windowGap)
     }
     
     func drawPreviewForPreset(_ preset: WindowLayoutPresets) {

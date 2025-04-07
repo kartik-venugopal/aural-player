@@ -17,6 +17,7 @@ class UserPreference<Value> {
     let defaultValue: Value
     
     init(key: String, defaultValue: Value) {
+        
         self.key = key
         self.defaultValue = defaultValue
     }

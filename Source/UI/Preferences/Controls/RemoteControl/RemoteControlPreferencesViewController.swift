@@ -26,10 +26,10 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
         
         let controlsPrefs = preferences.controlsPreferences.remoteControl
         
-        btnEnableRemoteControl.onIf(controlsPrefs.enabled.value)
+        btnEnableRemoteControl.onIf(controlsPrefs.enabled)
         enableRemoteControlAction(self)
         
-        let trackChangeOrSeekingOption = controlsPrefs.trackChangeOrSeekingOption.value
+        let trackChangeOrSeekingOption = controlsPrefs.trackChangeOrSeekingOption
         btnShowTrackChangeControls.onIf(trackChangeOrSeekingOption == .trackChange)
         btnShowSeekingControls.onIf(trackChangeOrSeekingOption == .seeking)
     }
@@ -49,15 +49,15 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
         
         let controlsPrefs = preferences.controlsPreferences.remoteControl
         
-        let wasEnabled: Bool = controlsPrefs.enabled.value
-        let oldTrackChangeOrSeekingOption = controlsPrefs.trackChangeOrSeekingOption.value
+        let wasEnabled: Bool = controlsPrefs.enabled
+        let oldTrackChangeOrSeekingOption = controlsPrefs.trackChangeOrSeekingOption
         
-        controlsPrefs.enabled.value = btnEnableRemoteControl.isOn
-        controlsPrefs.trackChangeOrSeekingOption.value = btnShowTrackChangeControls.isOn ? .trackChange : .seeking
+        controlsPrefs.enabled = btnEnableRemoteControl.isOn
+        controlsPrefs.trackChangeOrSeekingOption = btnShowTrackChangeControls.isOn ? .trackChange : .seeking
         
         // Don't do anything unless at least one preference was changed.
         
-        let prefsHaveChanged = (wasEnabled != controlsPrefs.enabled.value) || (oldTrackChangeOrSeekingOption != controlsPrefs.trackChangeOrSeekingOption.value)
+        let prefsHaveChanged = (wasEnabled != controlsPrefs.enabled) || (oldTrackChangeOrSeekingOption != controlsPrefs.trackChangeOrSeekingOption)
         
         if prefsHaveChanged {
             remoteControlManager.preferencesUpdated()

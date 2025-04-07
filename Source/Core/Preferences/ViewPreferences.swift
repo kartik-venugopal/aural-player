@@ -14,28 +14,35 @@ import Foundation
 ///
 class ViewPreferences {
     
-    private static let keyPrefix: String = "view"
-    private typealias Defaults = PreferencesDefaults.View
+    @UserPreference(key: "view.windowMagnetism", defaultValue: Defaults.windowMagnetism)
+    var windowMagnetism: Bool
     
-    lazy var windowMagnetism: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).windowMagnetism",
-                                                                    defaultValue: Defaults.windowMagnetism)
+    @UserPreference(key: "view.snap.toWindows", defaultValue: Defaults.snapToWindows)
+    var snapToWindows: Bool
     
-    lazy var snapToWindows: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).snap.toWindows",
-                                                                    defaultValue: Defaults.snapToWindows)
-    
-    lazy var snapToScreen: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).snap.toScreen",
-                                                                    defaultValue: Defaults.snapToScreen)
+    @UserPreference(key: "view.snap.toScreen", defaultValue: Defaults.snapToScreen)
+    var snapToScreen: Bool
 
     // Only used when snapToWindows == true
-    lazy var windowGap: UserMuthu<Float> = .init(defaultsKey: "\(Self.keyPrefix).snap.toWindows.gap",
-                                                                    defaultValue: Defaults.windowGap)
+    @UserPreference(key: "view.snap.toWindows.gap", defaultValue: Defaults.windowGap)
+    var windowGap: Float
 
-    lazy var showLyricsTranslation: UserMuthu<Bool> = .init(
-        defaultsKey: "\(Self.keyPrefix).showLyricsTranslation",
-        defaultValue: Defaults.showLyricsTranslation
-    )
+    @UserPreference(key: "view.showLyricsTranslation", defaultValue: Defaults.showLyricsTranslation)
+    var showLyricsTranslation: Bool
 
     init(legacyPreferences: LegacyViewPreferences? = nil) {
         legacyPreferences?.deleteAll()
+    }
+    
+    ///
+    /// An enumeration of default values for UI / view preferences.
+    ///
+    fileprivate struct Defaults {
+        
+        static let windowMagnetism: Bool = true
+        static let snapToWindows: Bool = true
+        static let snapToScreen: Bool = true
+        static let windowGap: Float = 0
+        static let showLyricsTranslation: Bool = false
     }
 }

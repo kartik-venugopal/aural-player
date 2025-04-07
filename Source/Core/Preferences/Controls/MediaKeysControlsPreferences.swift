@@ -14,28 +14,25 @@ import Foundation
 ///
 class MediaKeysControlsPreferences {
     
-    private static let keyPrefix: String = "controls.mediaKeys"
-    private typealias Defaults = PreferencesDefaults.Controls.MediaKeys
+    @UserPreference(key: "controls.mediaKeys.enabled", defaultValue: Defaults.enabled)
+    var enabled: Bool
     
-    lazy var enabled: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enabled",
-                                                                    defaultValue: Defaults.enabled)
+    @EnumUserPreference(key: "controls.mediaKeys.skipKey.behavior", defaultValue: Defaults.skipKeyBehavior)
+    var skipKeyBehavior: SkipKeyBehavior
     
-    lazy var skipKeyBehavior: UserMuthu<SkipKeyBehavior> = .init(defaultsKey: "\(Self.keyPrefix).skipKey.behavior",
-                                                                    defaultValue: Defaults.skipKeyBehavior)
-    
-    lazy var skipKeyRepeatSpeed: UserMuthu<SkipKeyRepeatSpeed> = .init(defaultsKey: "\(Self.keyPrefix).skipKey.repeatSpeed",
-                                                                    defaultValue: Defaults.skipKeyRepeatSpeed)
+    @EnumUserPreference(key: "controls.mediaKeys.skipKey.repeatSpeed", defaultValue: Defaults.skipKeyRepeatSpeed)
+    var skipKeyRepeatSpeed: SkipKeyRepeatSpeed
     
     init(legacyPreferences: LegacyMediaKeysControlsPreferences? = nil) {
         
         guard let legacyPreferences = legacyPreferences else {return}
         
         if let skipKeyBehavior = legacyPreferences.skipKeyBehavior {
-            self.skipKeyBehavior.value = skipKeyBehavior
+            self.skipKeyBehavior = skipKeyBehavior
         }
         
         if let repeatSpeed = legacyPreferences.repeatSpeed {
-            self.skipKeyRepeatSpeed.value = repeatSpeed
+            self.skipKeyRepeatSpeed = repeatSpeed
         }
         
         legacyPreferences.deleteAll()
@@ -53,5 +50,15 @@ class MediaKeysControlsPreferences {
         case slow
         case medium
         case fast
+    }
+    
+    ///
+    /// An enumeration of default values for media keys preferences.
+    ///
+    fileprivate struct Defaults {
+        
+        static let enabled: Bool = true
+        static let skipKeyBehavior: SkipKeyBehavior = .hybrid
+        static let skipKeyRepeatSpeed: SkipKeyRepeatSpeed = .medium
     }
 }

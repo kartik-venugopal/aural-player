@@ -17,10 +17,6 @@ class HistoryPreferences {
     @OptionalUserPreference(key: "history.recentItems.listSize")
     var recentItemsListSize: Int?
     
-    private static let keyPrefix: String = "history"
-    
-    private typealias Defaults = PreferencesDefaults.History
-    
     init(legacyPreferences: LegacyHistoryPreferences?) {
         legacyPreferences?.deleteAll()
     }

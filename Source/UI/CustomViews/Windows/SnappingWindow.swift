@@ -62,7 +62,7 @@ class SnappingWindow: NoTitleBarWindow {
     
     func checkForSnap(to mate: NSWindow) -> Bool {
         
-        let gap = viewPreferences.windowGap.value
+        let gap = viewPreferences.windowGap
         var snap: SnapToWindowType = .none
         
         func checkForValidSnap() -> Bool {

@@ -120,7 +120,7 @@ class AudioUnitsViewController: NSViewController {
         
         guard let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window else {return}
         
-        if preferences.viewPreferences.windowMagnetism.value {
+        if preferences.viewPreferences.windowMagnetism {
             appModeManager.mainWindow?.addChildWindow(dialogWindow, ordered: .above)
         }
         

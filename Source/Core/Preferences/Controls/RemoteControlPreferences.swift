@@ -15,18 +15,24 @@ import Foundation
 ///
 class RemoteControlPreferences {
     
-    lazy var enabled: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enabled",
-                                                                    defaultValue: Defaults.enabled)
+    @UserPreference(key: "controls.remoteControl.enabled", defaultValue: Defaults.enabled)
+    var enabled: Bool
     
-    lazy var trackChangeOrSeekingOption: UserMuthu<TrackChangeOrSeekingOptions> = .init(defaultsKey: "\(Self.keyPrefix).trackChangeOrSeekingOption",
-                                                                    defaultValue: Defaults.trackChangeOrSeekingOption)
-    
-    private static let keyPrefix: String = "controls.remoteControl"
-    private typealias Defaults = PreferencesDefaults.Controls.RemoteControl
+    @EnumUserPreference(key: "controls.remoteControl.trackChangeOrSeekingOption", defaultValue: Defaults.trackChangeOrSeekingOption)
+    var trackChangeOrSeekingOption: TrackChangeOrSeekingOptions
     
     enum TrackChangeOrSeekingOptions: String, CaseIterable {
         
         case trackChange
         case seeking
+    }
+    
+    ///
+    /// An enumeration of default values for **Remote Control** preferences.
+    ///
+    fileprivate struct Defaults {
+        
+        static let enabled: Bool = true
+        static let trackChangeOrSeekingOption: TrackChangeOrSeekingOptions = .trackChange
     }
 }

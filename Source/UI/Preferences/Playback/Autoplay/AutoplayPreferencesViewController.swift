@@ -32,7 +32,7 @@ class AutoplayPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func resetFields() {
         
-        let prefs = preferences.playbackPreferences
+        let prefs = preferences.playbackPreferences.autoplay
         
         btnAutoplayOnStartup.onIf(prefs.autoplayOnStartup)
         [btnAutoplayOnStartup_FirstTrack, btnAutoplayOnStartup_ResumeSequence].forEach {$0?.enableIf(btnAutoplayOnStartup.isOn)}
@@ -76,7 +76,7 @@ class AutoplayPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func save() throws {
         
-        let prefs = preferences.playbackPreferences
+        let prefs = preferences.playbackPreferences.autoplay
         
         prefs.autoplayOnStartup = btnAutoplayOnStartup.isOn
         prefs.autoplayOnStartupOption = btnAutoplayOnStartup_FirstTrack.isOn ? .firstTrack : .resumeSequence

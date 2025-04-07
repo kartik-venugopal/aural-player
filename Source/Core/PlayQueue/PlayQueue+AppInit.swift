@@ -19,14 +19,14 @@ extension PlayQueue: TrackInitComponent {
 //        if appLaunchFiles.isNonEmpty {
 //            
 //            // Launch parameters specified, override playlist saved state and add file paths in params to playlist
-//            loadTracks(from: appLaunchFiles, params: .init(autoplayFirstAddedTrack: playbackPreferences.autoplayAfterOpeningTracks.value))
+//            loadTracks(from: appLaunchFiles, params: .init(autoplayFirstAddedTrack: playbackPreferences.autoplayAfterOpeningTracks))
 //            return
 //        }
 
         let persistentState = appPersistentState.playQueue
         let playQueuePreferences = preferences.playQueuePreferences
         
-        switch playQueuePreferences.playQueueOnStartup.value {
+        switch playQueuePreferences.playQueueOnStartup {
             
         case .empty:
             return []
@@ -39,13 +39,13 @@ extension PlayQueue: TrackInitComponent {
             
         case .loadPlaylistFile:
             
-            if let playlistFile = playQueuePreferences.playlistFile.value {
+            if let playlistFile = playQueuePreferences.playlistFile {
                 return [playlistFile]
             }
             
         case .loadFolder:
             
-            if let folder = playQueuePreferences.tracksFolder.value {
+            if let folder = playQueuePreferences.tracksFolder {
                 return [folder]
             }
         }
@@ -55,12 +55,10 @@ extension PlayQueue: TrackInitComponent {
     
     func preInitialize() {
         
-        let persistentState = appPersistentState.playQueue
-        let playQueuePreferences = preferences.playQueuePreferences
         let playbackPreferences = preferences.playbackPreferences
         
-        let autoplayOnStartup: Bool = playbackPreferences.autoplayOnStartup
-        let autoplayOption: PlaybackPreferences.AutoplayOnStartupOption = playbackPreferences.autoplayOnStartupOption
+        let autoplayOnStartup: Bool = playbackPreferences.autoplay.autoplayOnStartup
+        let autoplayOption: AutoplayPlaybackPreferences.AutoplayOnStartupOption = playbackPreferences.autoplay.autoplayOnStartupOption
         
         let pqParmsWithAutoplayAndNoHistory: PlayQueueTrackLoadParams =
         autoplayOption == .firstTrack ?

@@ -14,36 +14,33 @@ import Foundation
 ///
 class GesturesControlsPreferences {
     
-    lazy var allowVolumeControl: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowVolumeControl",
-                                                              defaultValue: Defaults.allowVolumeControl)
+    @UserPreference(key: "controls.gestures.allowVolumeControl", defaultValue: Defaults.allowVolumeControl)
+    var allowVolumeControl: Bool
     
-    lazy var volumeControlSensitivity: UserMuthu<ScrollSensitivity> = .init(defaultsKey: "\(Self.keyPrefix).volumeControlSensitivity",
-                                                                                 defaultValue: Defaults.volumeControlSensitivity)
+    @EnumUserPreference(key: "controls.gestures.volumeControlSensitivity", defaultValue: Defaults.volumeControlSensitivity)
+    var volumeControlSensitivity: ScrollSensitivity
     
-    lazy var allowSeeking: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowSeeking",
-                                                        defaultValue: Defaults.allowSeeking)
+    @UserPreference(key: "controls.gestures.allowSeeking", defaultValue: Defaults.allowSeeking)
+    var allowSeeking: Bool
     
-    lazy var seekSensitivity: UserMuthu<ScrollSensitivity> = .init(defaultsKey: "\(Self.keyPrefix).seekSensitivity",
-                                                                        defaultValue: Defaults.seekSensitivity)
+    @EnumUserPreference(key: "controls.gestures.seekSensitivity", defaultValue: Defaults.seekSensitivity)
+    var seekSensitivity: ScrollSensitivity
     
-    lazy var allowTrackChange: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowTrackChange",
-                                                            defaultValue: Defaults.allowTrackChange)
+    @UserPreference(key: "controls.gestures.allowTrackChange", defaultValue: Defaults.allowTrackChange)
+    var allowTrackChange: Bool
     
-    lazy var allowPlayQueueScrollingTopToBottom: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowPlayQueueScrolling.topToBottom",
-                                                                              defaultValue: Defaults.allowPlayQueueScrollingTopToBottom)
+    @UserPreference(key: "controls.gestures.allowPlayQueueScrolling.topToBottom", defaultValue: Defaults.allowPlayQueueScrollingTopToBottom)
+    var allowPlayQueueScrollingTopToBottom: Bool
     
-    lazy var allowPlayQueueScrollingPageUpDown: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowPlayQueueScrolling.pageUpDown",
-                                                                             defaultValue: Defaults.allowPlayQueueScrollingPageUpDown)
-    
-    private static let keyPrefix: String = "controls.gestures"
-    private typealias Defaults = PreferencesDefaults.Controls.Gestures
+    @UserPreference(key: "controls.gestures.allowPlayQueueScrolling.pageUpDown", defaultValue: Defaults.allowPlayQueueScrollingPageUpDown)
+    var allowPlayQueueScrollingPageUpDown: Bool
     
     init(legacyPreferences: LegacyGesturesControlsPreferences? = nil) {
         
         guard let legacyPreferences = legacyPreferences else {return}
         
         if let allowPlaylistNavigation = legacyPreferences.allowPlaylistNavigation {
-            self.allowPlayQueueScrollingTopToBottom.value = allowPlaylistNavigation
+            self.allowPlayQueueScrollingTopToBottom = allowPlaylistNavigation
         }
         
         legacyPreferences.deleteAll()
@@ -54,5 +51,22 @@ class GesturesControlsPreferences {
         case low
         case medium
         case high
+    }
+    
+    ///
+    /// An enumeration of default values for trackpad / mouse gestures preferences.
+    ///
+    fileprivate struct Defaults {
+        
+        static let allowVolumeControl: Bool = true
+        static let allowSeeking: Bool = true
+        static let allowTrackChange: Bool = true
+        
+        static let allowPlayQueueScrollingTopToBottom: Bool = true
+        static let allowPlayQueueScrollingPageUpDown: Bool = true
+        
+        static let volumeControlSensitivity: ScrollSensitivity = .medium
+        static let seekSensitivity: ScrollSensitivity = .medium
+        
     }
 }

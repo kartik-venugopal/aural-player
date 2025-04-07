@@ -49,7 +49,7 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         
         let pqPrefs = preferences.playQueuePreferences
         
-        switch pqPrefs.playQueueOnStartup.value {
+        switch pqPrefs.playQueueOnStartup {
 
         case .empty:
             btnEmptyPlayQueue.on()
@@ -75,16 +75,16 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         hideError_playlistFile()
         hideError_tracksFolder()
         
-        lblPlaylistFile.stringValue = preferences.playQueuePreferences.playlistFile.value?.path ?? ""
-        lblFolder.stringValue = preferences.playQueuePreferences.tracksFolder.value?.path ?? ""
+        lblPlaylistFile.stringValue = preferences.playQueuePreferences.playlistFile?.path ?? ""
+        lblFolder.stringValue = preferences.playQueuePreferences.tracksFolder?.path ?? ""
         
         // Show new track
-        btnShowNewTrack.onIf(pqPrefs.showNewTrackInPlayQueue.value)
+        btnShowNewTrack.onIf(pqPrefs.showNewTrackInPlayQueue)
         
         // Show chapters list window
-        btnShowChaptersList.onIf(pqPrefs.showChaptersList.value)
+        btnShowChaptersList.onIf(pqPrefs.showChaptersList)
         
-        switch pqPrefs.dragDropAddMode.value {
+        switch pqPrefs.dragDropAddMode {
             
         case .append:
             
@@ -99,7 +99,7 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
             btnDragDropHybrid.on()
         }
         
-        if pqPrefs.openWithAddMode.value == .append {
+        if pqPrefs.openWithAddMode == .append {
             btnOpenWithAppend.on()
         } else {
             btnOpenWithReplace.on()
@@ -165,19 +165,19 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         
         if btnEmptyPlayQueue.isOn {
             
-            prefs.playQueueOnStartup.value = .empty
+            prefs.playQueueOnStartup = .empty
             
         } else if btnRememberPlayQueue.isOn {
             
-            prefs.playQueueOnStartup.value = .rememberFromLastAppLaunch
+            prefs.playQueueOnStartup = .rememberFromLastAppLaunch
             
         } else if btnLoadPlaylistFile.isOn {
             
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !String.isEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
                 
-                prefs.playQueueOnStartup.value = .loadPlaylistFile
-                prefs.playlistFile.value = URL(fileURLWithPath: lblPlaylistFile.stringValue)
+                prefs.playQueueOnStartup = .loadPlaylistFile
+                prefs.playlistFile = URL(fileURLWithPath: lblPlaylistFile.stringValue)
                 
             } else {
                 
@@ -193,8 +193,8 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !String.isEmpty(lblFolder.stringValue) && errorIcon_2.isHidden {
             
-                prefs.playQueueOnStartup.value = .loadFolder
-                prefs.tracksFolder.value = URL(fileURLWithPath: lblFolder.stringValue)
+                prefs.playQueueOnStartup = .loadFolder
+                prefs.tracksFolder = URL(fileURLWithPath: lblFolder.stringValue)
                 
             } else {
                 
@@ -205,22 +205,22 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         }
         
         // Show new track
-        prefs.showNewTrackInPlayQueue.value = btnShowNewTrack.isOn
+        prefs.showNewTrackInPlayQueue = btnShowNewTrack.isOn
 
         // Show chapters list window
-        prefs.showChaptersList.value = btnShowChaptersList.isOn
+        prefs.showChaptersList = btnShowChaptersList.isOn
 
         if btnDragDropAppend.isOn {
-            prefs.dragDropAddMode.value = .append
+            prefs.dragDropAddMode = .append
 
         } else if btnDragDropReplace.isOn {
-            prefs.dragDropAddMode.value = .replace
+            prefs.dragDropAddMode = .replace
 
         } else {
-            prefs.dragDropAddMode.value = .hybrid
+            prefs.dragDropAddMode = .hybrid
         }
         
-        prefs.openWithAddMode.value = btnOpenWithAppend.isOn ? .append : .replace
+        prefs.openWithAddMode = btnOpenWithAppend.isOn ? .append : .replace
     }
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {

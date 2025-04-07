@@ -13,7 +13,6 @@ import Foundation
 class LyricsPreferences {
     
     private static let keyPrefix: String = "metadata.lyrics"
-    private typealias Defaults = PreferencesDefaults.Metadata.Lyrics
     
     lazy var showWindowWhenPresent: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showWindowWhenPresent",
                                                                  defaultValue: Defaults.showWindowWhenPresent)
@@ -34,4 +33,14 @@ class LyricsPreferences {
     // For timed (LRC) lyrics only
 //    lazy var showTranslations: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showTranslations",
 //                                                            defaultValue: Defaults.showTranslations)
+    
+    fileprivate struct Defaults {
+        
+        static let showWindowWhenPresent: Bool = true
+        static let enableAutoScroll: Bool = true
+        static let enableKaraokeMode: Bool = true
+        
+        static let enableOnlineSearch: Bool = true
+        static let showTranslations: Bool = true
+    }
 }

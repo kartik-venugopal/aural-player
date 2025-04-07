@@ -33,16 +33,16 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     func resetFields() {
         
-        btnWindowMagnetism.onIf(viewPrefs.windowMagnetism.value)
+        btnWindowMagnetism.onIf(viewPrefs.windowMagnetism)
         
-        btnSnapToWindows.onIf(viewPrefs.snapToWindows.value)
-        gapStepper.floatValue = viewPrefs.windowGap.value
+        btnSnapToWindows.onIf(viewPrefs.snapToWindows)
+        gapStepper.floatValue = viewPrefs.windowGap
         lblWindowGap.stringValue = ValueFormatter.formatPixels(gapStepper.floatValue)
         [lblWindowGap, gapStepper].forEach {$0!.enableIf(btnSnapToWindows.isOn)}
         
-        btnSnapToScreen.onIf(viewPrefs.snapToScreen.value)
+        btnSnapToScreen.onIf(viewPrefs.snapToScreen)
 
-        btnShowLyricsTranslation.onIf(viewPrefs.showLyricsTranslation.value)
+        btnShowLyricsTranslation.onIf(viewPrefs.showLyricsTranslation)
 
         disableIrrelevantControls()
     }
@@ -74,16 +74,16 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
 
     func save() throws {
         
-        let oldMagnetismValue = viewPrefs.windowMagnetism.value
-        viewPrefs.windowMagnetism.value = btnWindowMagnetism.isOn
+        let oldMagnetismValue = viewPrefs.windowMagnetism
+        viewPrefs.windowMagnetism = btnWindowMagnetism.isOn
         
-        if viewPrefs.windowMagnetism.value != oldMagnetismValue {
-            appModeManager.windowMagnetism = viewPrefs.windowMagnetism.value
+        if viewPrefs.windowMagnetism != oldMagnetismValue {
+            appModeManager.windowMagnetism = viewPrefs.windowMagnetism
         }
         
-        viewPrefs.snapToWindows.value = btnSnapToWindows.isOn
-        viewPrefs.windowGap.value = gapStepper.floatValue
-        viewPrefs.snapToScreen.value = btnSnapToScreen.isOn
-        viewPrefs.showLyricsTranslation.value = btnShowLyricsTranslation.isOn
+        viewPrefs.snapToWindows = btnSnapToWindows.isOn
+        viewPrefs.windowGap = gapStepper.floatValue
+        viewPrefs.snapToScreen = btnSnapToScreen.isOn
+        viewPrefs.showLyricsTranslation = btnShowLyricsTranslation.isOn
     }
 }

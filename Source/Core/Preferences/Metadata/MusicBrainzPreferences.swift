@@ -23,5 +23,13 @@ class MusicBrainzPreferences {
     }
     
     private static let keyPrefix: String = "metadata.musicBrainz"
-    private typealias Defaults = PreferencesDefaults.Metadata.MusicBrainz
+    
+    ///
+    /// An enumeration of default values for **MusicBrainz** metadata retrieval preferences.
+    ///
+    fileprivate struct Defaults {
+        
+        static let enableCoverArtSearch: Bool = true
+        static let enableOnDiskCoverArtCache: Bool = true
+    }
 }
