@@ -32,10 +32,6 @@ class EQUnitView: NSView, Destroyable {
         globalGainSlider.floatValue
     }
     
-    var functionCaptionLabels: [NSTextField] {
-        subviews.compactMap {$0 as? NSTextField}
-    }
-    
     // ------------------------------------------------------------------------
     
     // MARK: View initialization
