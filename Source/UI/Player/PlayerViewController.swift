@@ -374,7 +374,7 @@ class PlayerViewController: NSViewController {
         // Volume controls
         
         // Volume may have changed because of sound profiles
-        volumeChanged(volume: audioGraph.volume, muted: audioGraph.muted)
+        volumeChanged(volume: audioGraph.scaledVolume, muted: audioGraph.muted)
     }
     
     // Creates a recurring task that polls the player to detect a change in the currently playing track chapter.
@@ -715,7 +715,7 @@ class PlayerViewController: NSViewController {
     func muteOrUnmute() {
         
         audioGraph.muted.toggle()
-        updateVolumeMuteButtonImage(volume: audioGraph.volume, muted: audioGraph.muted)
+        updateVolumeMuteButtonImage(volume: audioGraph.scaledVolume, muted: audioGraph.muted)
     }
     
     // updateSlider should be true if the action was not triggered by the slider in the first place.
@@ -804,13 +804,9 @@ class PlayerViewController: NSViewController {
         multilineTrackTextView.update()
     }
     
-    @objc dynamic func showOrHideAlbumArt() {
-        
-    }
+    @objc dynamic func showOrHideAlbumArt() {}
     
-    @objc dynamic func showOrHideMainControls() {
-        
-    }
+    @objc dynamic func showOrHideMainControls() {}
     
     func showOrHidePlaybackPosition() {
         
@@ -900,5 +896,29 @@ class PlayerViewController: NSViewController {
 
 extension AudioGraphProtocol {
     
-    var formattedVolume: String {ValueFormatter.formatVolume(volume)}
+    fileprivate var volumeDeltaDiscrete: Float {
+        preferences.soundPreferences.volumeDelta.value
+    }
+    
+    fileprivate var volumeDeltaContinuous: Float {
+        preferences.soundPreferences.volumeDelta_continuous
+    }
+    
+    var formattedVolume: String {
+        ValueFormatter.formatVolume(scaledVolume)
+    }
+    
+    func increaseVolume(inputMode: UserInputMode) -> Float {
+        
+        let volumeDelta = inputMode == .discrete ? volumeDeltaDiscrete : volumeDeltaContinuous
+        increaseVolume(by: volumeDelta)
+        return scaledVolume
+    }
+    
+    func decreaseVolume(inputMode: UserInputMode) -> Float {
+        
+        let volumeDelta = inputMode == .discrete ? volumeDeltaDiscrete : volumeDeltaContinuous
+        decreaseVolume(by: volumeDelta)
+        return scaledVolume
+    }
 }

@@ -130,7 +130,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit]
         masterUnit = MasterUnit(persistentState: persistentState?.masterUnit, nativeSlaveUnits: nativeSlaveUnits.compactMap {$0 as? EffectsUnit},
-                                audioUnits: audioUnits)
+                                audioUnits: audioUnits.compactMap {$0 as? HostedAudioUnit})
         
         let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
         let removableNodes = audioUnits.flatMap {$0.avNodes}
@@ -208,47 +208,36 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var volume: Float {
         
         get {playerNode.volume}
-        set {playerNode.volume = newValue}
+        set {playerNode.volume = newValue.clamped(to: Self.minVolume...Self.maxVolume)}
     }
     
-    func increaseVolume(inputMode: UserInputMode) -> Float {
+    func increaseVolume(by increment: Float) -> Float {
         
-//        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta.value : preferences.volumeDelta_continuous
-//        volume = min(Self.maxVolume, volume + volumeDelta)
-        
+        volume += increment
         return volume
     }
     
-    func decreaseVolume(inputMode: UserInputMode) -> Float {
+    func decreaseVolume(by decrement: Float) -> Float {
         
-//        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta.value : preferences.volumeDelta_continuous
-//        volume = max(Self.minVolume, volume - volumeDelta)
-        
+        volume -= decrement
         return volume
     }
     
     var pan: Float {
         
         get {playerNode.pan}
-        set {playerNode.pan = newValue}
+        set {playerNode.pan = newValue.clamped(to: Self.maxLeftPan...Self.maxRightPan)}
     }
     
-    func panLeft() -> Float {
+    func panLeft(by delta: Float) -> Float {
         
-//        let newPan = max(Self.maxLeftPan, pan - preferences.panDelta.value)
-//        
-//        // If the pan caused the balance to switch from L->R or R->L,
-//        // center the pan.
-//        pan = pan > 0 && newPan < 0 ? 0 : newPan
-        
+        pan -= delta
         return pan
     }
     
-    func panRight() -> Float {
+    func panRight(by delta: Float) -> Float {
         
-//        let newPan = min(Self.maxRightPan, pan + preferences.panDelta.value)
-//        pan = pan < 0 && newPan > 0 ? 0 : newPan
-        
+        pan += delta
         return pan
     }
     
@@ -303,7 +292,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
                                                        presets: audioUnitPresets.getPresetsForAU(componentType: type, componentSubType: subType))
         
         audioUnits.append(newUnit)
-        masterUnit.addAudioUnit(newUnit)
+//        masterUnit.addAudioUnit(newUnit)
         
         let context = AudioGraphChangeContext()
         messenger.publish(PreAudioGraphChangeNotification(context: context))
@@ -318,7 +307,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         let descendingIndices = indices.sortedDescending()
         descendingIndices.forEach {audioUnits.remove(at: $0)}
         
-        masterUnit.removeAudioUnits(at: descendingIndices)
+//        masterUnit.removeAudioUnits(at: descendingIndices)
         
         let context = AudioGraphChangeContext()
         messenger.publish(PreAudioGraphChangeNotification(context: context))
@@ -337,15 +326,15 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
                                   volume: volume,
                                   muted: muted,
                                   pan: pan,
-                                  masterUnit: masterUnit.persistentState,
-                                  eqUnit: eqUnit.persistentState,
-                                  pitchShiftUnit: pitchShiftUnit.persistentState,
-                                  timeStretchUnit: timeStretchUnit.persistentState,
-                                  reverbUnit: reverbUnit.persistentState,
-                                  delayUnit: delayUnit.persistentState,
-                                  filterUnit: filterUnit.persistentState,
-                                  replayGainUnit: replayGainUnit.persistentState,
-                                  audioUnits: audioUnits.map {$0.persistentState},
+                                  masterUnit: (masterUnit as! MasterUnit).persistentState,
+                                  eqUnit: (eqUnit as! EQUnit).persistentState,
+                                  pitchShiftUnit: (pitchShiftUnit as! PitchShiftUnit).persistentState,
+                                  timeStretchUnit: (timeStretchUnit as! TimeStretchUnit).persistentState,
+                                  reverbUnit: (reverbUnit as! ReverbUnit).persistentState,
+                                  delayUnit: (delayUnit as! DelayUnit).persistentState,
+                                  filterUnit: (filterUnit as! FilterUnit).persistentState,
+                                  replayGainUnit: (replayGainUnit as! ReplayGainUnit).persistentState,
+                                  audioUnits: audioUnits.compactMap { ($0 as? HostedAudioUnit)?.persistentState},
                                   audioUnitPresets: audioUnitPresets.persistentState,
                                   soundProfiles: soundProfiles.persistentState,
                                   replayGainAnalysisCache: replayGainScanner.persistentState)

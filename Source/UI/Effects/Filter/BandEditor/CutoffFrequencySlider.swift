@@ -39,7 +39,7 @@ class FilterCutoffFrequencySliderCell: CutoffFrequencySliderCell {
     
     var bandIndex: Int!
     
-    private var filterUnit: FilterUnitDelegateProtocol {
+    private var filterUnit: FilterUnitProtocol {
         audioGraph.filterUnit
     }
     

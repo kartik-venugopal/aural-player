@@ -30,14 +30,16 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     
     var playerOutputFormat: AVAudioFormat {get}
     
+    static var minVolume: Float {get}
+    static var maxVolume: Float {get}
     var volume: Float {get set}
     
-    func increaseVolume(inputMode: UserInputMode) -> Float
-    func decreaseVolume(inputMode: UserInputMode) -> Float
+    @discardableResult func increaseVolume(by increment: Float) -> Float
+    @discardableResult func decreaseVolume(by decrement: Float) -> Float
     
     var pan: Float {get set}
-    func panLeft() -> Float
-    func panRight() -> Float
+    @discardableResult func panLeft(by delta: Float) -> Float
+    @discardableResult func panRight(by delta: Float) -> Float
     
     var muted: Bool {get set}
     
@@ -73,6 +75,11 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
+}
+
+extension AudioGraphProtocol {
+    
+    
 }
 
 ///

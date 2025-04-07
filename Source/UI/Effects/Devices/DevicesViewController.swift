@@ -40,7 +40,7 @@ class DevicesViewController: NSViewController {
         
         super.viewDidLoad()
         
-        panSlider.floatValue = audioGraph.pan
+        panSlider.floatValue = audioGraph.scaledPan
         lblPan.stringValue = audioGraph.formattedPan
         
         fontSchemesManager.registerObserver(self)
@@ -76,7 +76,7 @@ class DevicesViewController: NSViewController {
     
     @IBAction func panAction(_ sender: Any) {
         
-        audioGraph.pan = panSlider.floatValue
+        audioGraph.scaledPan = panSlider.floatValue
         lblPan.stringValue = audioGraph.formattedPan
     }
     
@@ -103,7 +103,7 @@ class DevicesViewController: NSViewController {
         // Apply sound profile if there is one for the new track and the preferences allow it
         guard let theNewTrack = notification.endTrack, soundProfiles.hasFor(theNewTrack) else {return}
         
-        panSlider.floatValue = audioGraph.pan
+        panSlider.floatValue = audioGraph.scaledPan
         lblPan.stringValue = audioGraph.formattedPan
     }
     
@@ -212,5 +212,29 @@ extension DevicesViewController: ColorSchemeObserver {
 
 extension AudioGraphProtocol {
     
-    var formattedPan: String {ValueFormatter.formatPan(pan)}
+    var formattedPan: String {
+        ValueFormatter.formatPan(scaledPan)
+    }
+    
+    var scaledPan: Float {
+        
+        get {round(pan * ValueConversions.pan_audioGraphToUI)}
+        set {pan = newValue * ValueConversions.pan_UIToAudioGraph}
+    }
+    
+    fileprivate var panDelta: Float {
+        preferences.soundPreferences.panDelta.value
+    }
+    
+    func panLeft() -> Float {
+        
+        panLeft(by: panDelta)
+        return scaledPan
+    }
+    
+    func panRight() -> Float {
+        
+        panRight(by: panDelta)
+        return scaledPan
+    }
 }

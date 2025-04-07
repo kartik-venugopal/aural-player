@@ -21,7 +21,7 @@ class FilterBandSlider: RangeSlider, FXUnitStateObserver {
         filterUnit[bandIndex]
     }
     
-    private var filterUnit: FilterUnitDelegateProtocol {
+    private var filterUnit: FilterUnitProtocol {
         audioGraph.filterUnit
     }
     

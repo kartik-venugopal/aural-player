@@ -23,7 +23,7 @@ class AUControlViewController: NSViewController {
     private static let auParamControlViewWidth: CGFloat = 750
     private var totalHeight: CGFloat = 0
     
-    var audioUnit: HostedAudioUnitDelegateProtocol! {
+    var audioUnit: HostedAudioUnitProtocol! {
         
         didSet {
             generateControlsForAudioUnit()

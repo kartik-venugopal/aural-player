@@ -90,7 +90,7 @@ class AudioUnitsViewController: NSViewController {
         updateSummary()
         
         // Create an editor dialog for the new audio unit.
-        editorDialogs[audioUnit.id] = AudioUnitEditorDialogController(for: audioUnit)
+//        editorDialogs[audioUnit.id] = AudioUnitEditorDialogController(for: audioUnit)
         
         // Open the audio unit editor window with the new audio unit's custom view.
         DispatchQueue.main.async {
@@ -112,10 +112,10 @@ class AudioUnitsViewController: NSViewController {
         }
     }
     
-    func doEditAudioUnit(_ audioUnit: HostedAudioUnitDelegateProtocol) {
+    func doEditAudioUnit(_ audioUnit: HostedAudioUnitProtocol) {
         
         if editorDialogs[audioUnit.id] == nil {
-            editorDialogs[audioUnit.id] = AudioUnitEditorDialogController(for: audioUnit)
+//            editorDialogs[audioUnit.id] = AudioUnitEditorDialogController(for: audioUnit)
         }
         
         guard let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window else {return}
@@ -127,7 +127,7 @@ class AudioUnitsViewController: NSViewController {
         dialog.showWindow(self)
     }
     
-    func toggleAudioUnitState(audioUnit: HostedAudioUnitDelegateProtocol) {
+    func toggleAudioUnitState(audioUnit: HostedAudioUnitProtocol) {
         
         _ = audioUnit.toggleState()
         messenger.publish(.Effects.unitStateChanged)
@@ -139,11 +139,11 @@ class AudioUnitsViewController: NSViewController {
         let selRows = tableView.selectedRowIndexes
         guard !selRows.isEmpty else {return}
         
-        for unit in audioGraph.removeAudioUnits(at: selRows) {
-            
-            editorDialogs[unit.id]?.close()
-            editorDialogs.removeValue(forKey: unit.id)
-        }
+//        for unit in audioGraph.removeAudioUnits(at: selRows) {
+//            
+//            editorDialogs[unit.id]?.close()
+//            editorDialogs.removeValue(forKey: unit.id)
+//        }
         
         tableView.reloadData()
         updateSummary()

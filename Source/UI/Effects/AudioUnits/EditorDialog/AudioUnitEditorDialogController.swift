@@ -34,7 +34,7 @@ class AudioUnitEditorDialogController: NSWindowController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    var audioUnit: HostedAudioUnitDelegateProtocol!
+    var audioUnit: HostedAudioUnitProtocol!
     
     lazy var userPresetsMenuDelegate: AudioUnitUserPresetsMenuDelegate = AudioUnitUserPresetsMenuDelegate(for: audioUnit, applyPresetAction: #selector(self.applyUserPresetAction(_:)), target: self)
     
@@ -42,7 +42,7 @@ class AudioUnitEditorDialogController: NSWindowController {
     
     // MARK: UI initialization / life-cycle
     
-    convenience init(for audioUnit: HostedAudioUnitDelegateProtocol) {
+    convenience init(for audioUnit: HostedAudioUnitProtocol) {
         
         self.init()
         self.audioUnit = audioUnit
@@ -57,23 +57,23 @@ class AudioUnitEditorDialogController: NSWindowController {
         window?.isMovableByWindowBackground = true
         rootContainer.anchorToSuperview()
         
-        audioUnit.presentView {[weak self] auView in
-            
-            guard let strongSelf = self else {return}
-            
-            strongSelf.viewContainer.addSubview(auView)
-            auView.anchorToSuperview()
-            
-            // Resize the window to exactly contain the audio unit's view.
-            
-            let curWindowSize: NSSize = strongSelf.theWindow.size
-            let viewContainerSize: NSSize = strongSelf.viewContainer.size
-            
-            let widthDelta = viewContainerSize.width - auView.width
-            let heightDelta = viewContainerSize.height - auView.height
-            
-            strongSelf.theWindow.resize(curWindowSize.width - widthDelta, curWindowSize.height - heightDelta)
-        }
+//        audioUnit.presentView {[weak self] auView in
+//            
+//            guard let strongSelf = self else {return}
+//            
+//            strongSelf.viewContainer.addSubview(auView)
+//            auView.anchorToSuperview()
+//            
+//            // Resize the window to exactly contain the audio unit's view.
+//            
+//            let curWindowSize: NSSize = strongSelf.theWindow.size
+//            let viewContainerSize: NSSize = strongSelf.viewContainer.size
+//            
+//            let widthDelta = viewContainerSize.width - auView.width
+//            let heightDelta = viewContainerSize.height - auView.height
+//            
+//            strongSelf.theWindow.resize(curWindowSize.width - widthDelta, curWindowSize.height - heightDelta)
+//        }
         
         lblTitle.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
         

@@ -11,12 +11,12 @@ import Cocoa
 
 protocol EffectsUnitSliderProtocol {
     
-    var effectsUnit: EffectsUnitDelegateProtocol! {get set}
+    var effectsUnit: EffectsUnitProtocol! {get set}
 }
 
 protocol EffectsUnitSliderCellProtocol {
     
-    var effectsUnit: EffectsUnitDelegateProtocol! {get set}
+    var effectsUnit: EffectsUnitProtocol! {get set}
 }
 
 extension NSSlider {

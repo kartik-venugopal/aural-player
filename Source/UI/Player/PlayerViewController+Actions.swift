@@ -56,8 +56,8 @@ extension PlayerViewController {
     
     @IBAction func volumeAction(_ sender: NSSlider) {
         
-        audioGraph.volume = volumeSlider.floatValue
-        volumeChanged(volume: audioGraph.volume, muted: audioGraph.muted, updateSlider: false)
+        audioGraph.scaledVolume = volumeSlider.floatValue
+        volumeChanged(volume: audioGraph.scaledVolume, muted: audioGraph.muted, updateSlider: false)
     }
     
     @IBAction func muteOrUnmuteAction(_ sender: NSButton) {
@@ -77,5 +77,14 @@ extension PlayerViewController {
         }
         
         toggleShuffleMode()
+    }
+}
+
+extension AudioGraphProtocol {
+    
+    var scaledVolume: Float {
+        
+        get {round(volume * ValueConversions.volume_audioGraphToUI)}
+        set {volume = newValue * ValueConversions.volume_UIToAudioGraph}
     }
 }

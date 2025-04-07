@@ -93,7 +93,7 @@ class AUParameterControlViewController: NSViewController {
 
 class AUParameterControlViewDelegate {
     
-    let audioUnit: HostedAudioUnitDelegateProtocol
+    let audioUnit: HostedAudioUnitProtocol
     let parameter: AUParameter
 
     var name: String {parameter.displayName}
@@ -102,7 +102,7 @@ class AUParameterControlViewDelegate {
     var maxValue: Float {parameter.maxValue}
     var currentValue: Float {parameter.value}
     
-    init(audioUnit: HostedAudioUnitDelegateProtocol, parameter: AUParameter) {
+    init(audioUnit: HostedAudioUnitProtocol, parameter: AUParameter) {
         
         self.audioUnit = audioUnit
         self.parameter = parameter

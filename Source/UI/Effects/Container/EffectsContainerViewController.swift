@@ -59,9 +59,6 @@ class EffectsContainerViewController: NSViewController {
     // ------------------------------------------------------------------------
     
     // MARK: Services, utilities, helpers, and properties
-
-    // Delegate that alters the audio graph
-    private let graph: AudioGraphDelegateProtocol = audioGraphDelegate
     
     private let viewPreferences: ViewPreferences = preferences.viewPreferences
 
@@ -122,14 +119,14 @@ class EffectsContainerViewController: NSViewController {
         // TODO: Add state observer for AU tab button (complicated - composite function comprising states of individual AUs)
         // Might need an overload of registerObserver that takes a function instead of an FXUnitDelegate.
 
-        auTabViewButton.stateFunction = {[weak self] in
-            self?.graph.audioUnits.first(where: {$0.state == .active || $0.state == .suppressed})?.state ?? .bypassed
+        auTabViewButton.stateFunction = {
+            audioGraph.audioUnits.first(where: {$0.state == .active || $0.state == .suppressed})?.state ?? .bypassed
         }
         
         devicesTabViewButton.stateFunction = {.bypassed}
         
         // Select Master tab view by default
-        showTab(.master)
+        showTab(.eq)
     }
 
     override func destroy() {
@@ -235,39 +232,39 @@ extension EffectsContainerViewController: ColorSchemeObserver {
     
     private func updateTabButtons(forUnitState unitState: EffectsUnitState, newColor: NSColor) {
         
-        if graph.masterUnit.state == unitState {
+        if audioGraph.masterUnit.state == unitState {
             masterTabViewButton.redraw()
         }
         
-        if graph.eqUnit.state == unitState {
+        if audioGraph.eqUnit.state == unitState {
             eqTabViewButton.redraw()
         }
         
-        if graph.pitchShiftUnit.state == unitState {
+        if audioGraph.pitchShiftUnit.state == unitState {
             pitchTabViewButton.redraw()
         }
         
-        if graph.timeStretchUnit.state == unitState {
+        if audioGraph.timeStretchUnit.state == unitState {
             timeTabViewButton.redraw()
         }
         
-        if graph.reverbUnit.state == unitState {
+        if audioGraph.reverbUnit.state == unitState {
             reverbTabViewButton.redraw()
         }
         
-        if graph.delayUnit.state == unitState {
+        if audioGraph.delayUnit.state == unitState {
             delayTabViewButton.redraw()
         }
         
-        if graph.filterUnit.state == unitState {
+        if audioGraph.filterUnit.state == unitState {
             filterTabViewButton.redraw()
         }
         
-        if graph.replayGainUnit.state == unitState {
+        if audioGraph.replayGainUnit.state == unitState {
             replayGainTabViewButton.redraw()
         }
         
-        if graph.audioUnitsStateFunction() == unitState {
+        if audioGraph.audioUnitsStateFunction() == unitState {
             auTabViewButton.redraw()
         }
     }

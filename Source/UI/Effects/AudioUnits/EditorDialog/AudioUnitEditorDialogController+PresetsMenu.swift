@@ -26,13 +26,14 @@ extension AudioUnitEditorDialogController: StringInputReceiver {
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let presets = audioUnit.presets
-        
-        if presets.objectExists(named: string) {
-            return (false, "Preset with this name already exists !")
-        } else {
-            return (true, nil)
-        }
+//        let presets = audioUnit.presets
+//        
+//        if presets.objectExists(named: string) {
+//            return (false, "Preset with this name already exists !")
+//        } else {
+//            return (true, nil)
+//        }
+        return (true, nil)
     }
     
     // Receives a new EQ preset name and saves the new preset
@@ -64,12 +65,12 @@ class AudioUnitPresetsMenuDelegate: NSObject, NSMenuDelegate {
 
 class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
     
-    var audioUnit: HostedAudioUnitDelegateProtocol!
+    var audioUnit: HostedAudioUnitProtocol!
     
     var applyPresetAction: Selector!
     weak var target: AnyObject!
     
-    convenience init(for audioUnit: HostedAudioUnitDelegateProtocol, applyPresetAction: Selector, target: AnyObject) {
+    convenience init(for audioUnit: HostedAudioUnitProtocol, applyPresetAction: Selector, target: AnyObject) {
 
         self.init()
         
@@ -82,12 +83,12 @@ class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
         
         menu.items.removeAll()
         
-        guard let userPresets = audioUnit?.presets else {return}
-        
-        for preset in userPresets.userDefinedObjects.sorted(by: {$0.name < $1.name}) {
-            
-            menu.addItem(withTitle: preset.name, action: applyPresetAction, 
-                         target: self.target)
-        }
+//        guard let userPresets = audioUnit?.presets else {return}
+//        
+//        for preset in userPresets.userDefinedObjects.sorted(by: {$0.name < $1.name}) {
+//            
+//            menu.addItem(withTitle: preset.name, action: applyPresetAction, 
+//                         target: self.target)
+//        }
     }
 }
