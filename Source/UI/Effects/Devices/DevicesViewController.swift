@@ -223,7 +223,7 @@ extension AudioGraphProtocol {
     }
     
     fileprivate var panDelta: Float {
-        preferences.soundPreferences.panDelta.value
+        preferences.soundPreferences.panDelta
     }
     
     func panLeft() -> Float {

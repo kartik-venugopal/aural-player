@@ -14,7 +14,8 @@ import Foundation
 ///
 class HistoryPreferences {
     
-    lazy var recentItemsListSize: OptionalUserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).recentItems.listSize")
+    @OptionalUserPreference(key: "history.recentItems.listSize")
+    var recentItemsListSize: Int?
     
     private static let keyPrefix: String = "history"
     

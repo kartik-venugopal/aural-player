@@ -15,13 +15,13 @@ class LastFMPreferences {
     private static let keyPrefix: String = "metadata.lastFM"
     private typealias Defaults = PreferencesDefaults.Metadata.LastFM
     
-    lazy var sessionKey: OptionalUserPreference<String> = .init(defaultsKey: "\(Self.keyPrefix).sessionKey")
+    lazy var sessionKey: OptionalMuthu<String> = .init(defaultsKey: "\(Self.keyPrefix).sessionKey")
     
     var hasSessionKey: Bool {
         sessionKey.value != nil
     }
     
-    lazy var enableScrobbling: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableScrobbling", defaultValue: Defaults.enableScrobbling)
+    lazy var enableScrobbling: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableScrobbling", defaultValue: Defaults.enableScrobbling)
     
-    lazy var enableLoveUnlove: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableLoveUnlove", defaultValue: Defaults.enableLoveUnlove)
+    lazy var enableLoveUnlove: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableLoveUnlove", defaultValue: Defaults.enableLoveUnlove)
 }

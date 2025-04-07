@@ -372,7 +372,7 @@ extension PlayQueueDelegate {
     
     private func maintainListSize() {
         
-        if let maxListSize = preferences.historyPreferences.recentItemsListSize.value {
+        if let maxListSize = preferences.historyPreferences.recentItemsListSize {
             resizeRecentItemsList(to: maxListSize)
         }
     }

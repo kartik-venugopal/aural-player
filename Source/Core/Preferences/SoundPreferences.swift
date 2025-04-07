@@ -17,29 +17,33 @@ class SoundPreferences {
     private static let keyPrefix: String = "sound"
     private typealias Defaults = PreferencesDefaults.Sound
     
-    lazy var volumeDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).volumeDelta",
-                                                                    defaultValue: Defaults.volumeDelta)
+    @UserPreference(key: "sound.volumeDelta", defaultValue: Defaults.volumeDelta)
+    var volumeDelta: Float
     
-    private let scrollSensitiveVolumeDeltas: [GesturesControlsPreferences.ScrollSensitivity: Float] = [.low: 0.025, .medium: 0.05, .high: 0.1]
+    private let scrollSensitiveVolumeDeltas: [GesturesControlsPreferences.ScrollSensitivity: Float] = [
+        .low: 0.025,
+        .medium: 0.05,
+        .high: 0.1
+    ]
     
     var volumeDelta_continuous: Float {
         scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity.value]!
     }
     
-    lazy var panDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).panDelta",
-                                                                    defaultValue: Defaults.panDelta)
+    @UserPreference(key: "sound.panDelta", defaultValue: Defaults.panDelta)
+    var panDelta: Float
     
-    lazy var eqDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).eqDelta",
-                                                                    defaultValue: Defaults.eqDelta)
+    @UserPreference(key: "sound.eqDelta", defaultValue: Defaults.eqDelta)
+    var eqDelta: Float
     
-    lazy var pitchDelta: UserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).pitchDelta",
-                                                                    defaultValue: Defaults.pitchDelta)
+    @UserPreference(key: "sound.pitchDelta", defaultValue: Defaults.pitchDelta)
+    var pitchDelta: Int
     
-    lazy var rateDelta: UserPreference<Float> = .init(defaultsKey: "\(Self.keyPrefix).rateDelta",
-                                                                    defaultValue: Defaults.rateDelta)
+    @UserPreference(key: "sound.rateDelta", defaultValue: Defaults.rateDelta)
+    var rateDelta: Float
     
-    lazy var rememberEffectsSettingsForAllTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).rememberEffectsSettingsForAllTracks",
-                                                                    defaultValue: Defaults.rememberEffectsSettingsForAllTracks)
+    @UserPreference(key: "sound.rememberEffectsSettingsForAllTracks", defaultValue: Defaults.rememberEffectsSettingsForAllTracks)
+    var rememberEffectsSettingsForAllTracks: Bool
     
     private var controlsPreferences: GesturesControlsPreferences!
 
@@ -50,11 +54,11 @@ class SoundPreferences {
         guard let legacyPreferences = legacyPreferences else {return}
         
         if let rateDelta = legacyPreferences.timeDelta {
-            self.rateDelta.value = rateDelta
+            self.rateDelta = rateDelta
         }
         
         if let rememberEffectsSettingsOption = legacyPreferences.rememberEffectsSettingsOption {
-            self.rememberEffectsSettingsForAllTracks.value = rememberEffectsSettingsOption == .allTracks
+            self.rememberEffectsSettingsForAllTracks = rememberEffectsSettingsOption == .allTracks
         }
         
         legacyPreferences.deleteAll()

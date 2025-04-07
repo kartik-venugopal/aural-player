@@ -38,29 +38,29 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         let soundPrefs = preferences.soundPreferences
         
         // Per-track effects settings memory
-        btnRememberSettingsforAllTracks.onIf(soundPrefs.rememberEffectsSettingsForAllTracks.value)
+        btnRememberSettingsforAllTracks.onIf(soundPrefs.rememberEffectsSettingsForAllTracks)
         
         // Volume increment / decrement
         
-        let volumeDelta = (soundPrefs.volumeDelta.value * ValueConversions.volume_audioGraphToUI).roundedInt
+        let volumeDelta = (soundPrefs.volumeDelta * ValueConversions.volume_audioGraphToUI).roundedInt
         volumeDeltaStepper.integerValue = volumeDelta
         lblVolumeDelta.stringValue = String(format: "%d%%", volumeDelta)
         
         // Pan increment / decrement
         
-        let panDelta = (soundPrefs.panDelta.value * ValueConversions.pan_audioGraphToUI).roundedInt
+        let panDelta = (soundPrefs.panDelta * ValueConversions.pan_audioGraphToUI).roundedInt
         panDeltaStepper.integerValue = panDelta
         panDeltaAction(self)
         
-        let eqDelta = soundPrefs.eqDelta.value
+        let eqDelta = soundPrefs.eqDelta
         eqDeltaStepper.floatValue = eqDelta
         eqDeltaAction(self)
         
-        let pitchDelta = soundPrefs.pitchDelta.value
+        let pitchDelta = soundPrefs.pitchDelta
         pitchDeltaStepper.integerValue = pitchDelta
         pitchDeltaAction(self)
         
-        let rateDelta = soundPrefs.rateDelta.value
+        let rateDelta = soundPrefs.rateDelta
         rateDeltaStepper.floatValue = rateDelta
         rateDeltaAction(self)
     }
@@ -89,15 +89,15 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
-        soundPrefs.volumeDelta.value = volumeDeltaStepper.floatValue * ValueConversions.volume_UIToAudioGraph
-        soundPrefs.panDelta.value = panDeltaStepper.floatValue * ValueConversions.pan_UIToAudioGraph
+        soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * ValueConversions.volume_UIToAudioGraph
+        soundPrefs.panDelta = panDeltaStepper.floatValue * ValueConversions.pan_UIToAudioGraph
         
-        soundPrefs.eqDelta.value = eqDeltaStepper.floatValue
-        soundPrefs.pitchDelta.value = pitchDeltaStepper.integerValue
-        soundPrefs.rateDelta.value = rateDeltaStepper.floatValue
+        soundPrefs.eqDelta = eqDeltaStepper.floatValue
+        soundPrefs.pitchDelta = pitchDeltaStepper.integerValue
+        soundPrefs.rateDelta = rateDeltaStepper.floatValue
 
-        let wasAllTracks: Bool = soundPrefs.rememberEffectsSettingsForAllTracks.value
-        soundPrefs.rememberEffectsSettingsForAllTracks.value = btnRememberSettingsforAllTracks.isOn
+        let wasAllTracks: Bool = soundPrefs.rememberEffectsSettingsForAllTracks
+        soundPrefs.rememberEffectsSettingsForAllTracks = btnRememberSettingsforAllTracks.isOn
         let isNowIndividualTracks: Bool = btnRememberSettingsforAllTracks.isOff
         
         if wasAllTracks && isNowIndividualTracks {

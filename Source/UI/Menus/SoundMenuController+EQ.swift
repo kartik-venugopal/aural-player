@@ -58,7 +58,7 @@ extension SoundMenuController {
 extension EQUnitProtocol {
     
     fileprivate var eqDelta: Float {
-        preferences.soundPreferences.eqDelta.value
+        preferences.soundPreferences.eqDelta
     }
     
     func increaseBass() {

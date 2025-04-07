@@ -24,7 +24,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
         
         let historyPrefs = preferences.historyPreferences
         
-        if let recentItemsListSize = historyPrefs.recentItemsListSize.value {
+        if let recentItemsListSize = historyPrefs.recentItemsListSize {
             
             btnLimitRecentItemsListSize.on()
             recentItemsListSizeMenu.selectItem(withTag: recentItemsListSize)
@@ -49,9 +49,9 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
         
         let historyPrefs = preferences.historyPreferences
         
-        let listSizeBeforeChange = historyPrefs.recentItemsListSize.value ?? Int.max
-        historyPrefs.recentItemsListSize.value = btnLimitRecentItemsListSize.isOn ? recentItemsListSizeMenu.selectedTag() : nil
-        let listSizeAfterChange = historyPrefs.recentItemsListSize.value ?? Int.max
+        let listSizeBeforeChange = historyPrefs.recentItemsListSize ?? Int.max
+        historyPrefs.recentItemsListSize = btnLimitRecentItemsListSize.isOn ? recentItemsListSizeMenu.selectedTag() : nil
+        let listSizeAfterChange = historyPrefs.recentItemsListSize ?? Int.max
         
         if listSizeAfterChange < listSizeBeforeChange {
             

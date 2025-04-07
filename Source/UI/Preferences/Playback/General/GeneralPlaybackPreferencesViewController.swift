@@ -61,42 +61,42 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
         
         // Primary seek length
         
-        primarySeekLengthPicker.integerValue = prefs.primarySeekLengthConstant.value
+        primarySeekLengthPicker.integerValue = prefs.primarySeekLengthConstant
         primarySeekLengthAction(self)
         
-        let primarySeekLengthPerc = prefs.primarySeekLengthPercentage.value
+        let primarySeekLengthPerc = prefs.primarySeekLengthPercentage
         primarySeekLengthPercStepper.integerValue = primarySeekLengthPerc
         lblPrimarySeekLengthPerc.stringValue = String(format: "%d%%", primarySeekLengthPerc)
         
-        if prefs.primarySeekLengthOption.value == .constant {
+        if prefs.primarySeekLengthOption == .constant {
             btnPrimarySeekLengthConstant.on()
         } else {
             btnPrimarySeekLengthPerc.on()
         }
         
-        primarySeekLengthConstantFields.forEach {$0.enableIf(prefs.primarySeekLengthOption.value == .constant)}
-        primarySeekLengthPercStepper.enableIf(prefs.primarySeekLengthOption.value == .percentage)
+        primarySeekLengthConstantFields.forEach {$0.enableIf(prefs.primarySeekLengthOption == .constant)}
+        primarySeekLengthPercStepper.enableIf(prefs.primarySeekLengthOption == .percentage)
         
         // Secondary seek length
         
-        secondarySeekLengthPicker.integerValue = prefs.secondarySeekLengthConstant.value
+        secondarySeekLengthPicker.integerValue = prefs.secondarySeekLengthConstant
         secondarySeekLengthAction(self)
         
-        let secondarySeekLengthPerc = prefs.secondarySeekLengthPercentage.value
+        let secondarySeekLengthPerc = prefs.secondarySeekLengthPercentage
         secondarySeekLengthPercStepper.integerValue = secondarySeekLengthPerc
         lblSecondarySeekLengthPerc.stringValue = String(format: "%d%%", secondarySeekLengthPerc)
         
-        if prefs.secondarySeekLengthOption.value == .constant {
+        if prefs.secondarySeekLengthOption == .constant {
             btnSecondarySeekLengthConstant.on()
         } else {
             btnSecondarySeekLengthPerc.on()
         }
         
-        secondarySeekLengthConstantFields.forEach {$0.enableIf(prefs.secondarySeekLengthOption.value == .constant)}
-        secondarySeekLengthPercStepper.enableIf(prefs.secondarySeekLengthOption.value == .percentage)
+        secondarySeekLengthConstantFields.forEach {$0.enableIf(prefs.secondarySeekLengthOption == .constant)}
+        secondarySeekLengthPercStepper.enableIf(prefs.secondarySeekLengthOption == .percentage)
         
         // Remember last track position
-        btnRememberPositionForAllTracks.onIf(prefs.rememberLastPositionForAllTracks.value)
+        btnRememberPositionForAllTracks.onIf(prefs.rememberLastPositionForAllTracks)
     }
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
@@ -139,20 +139,20 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
         
         let prefs = preferences.playbackPreferences
         
-        let oldPrimarySeekLengthConstant = prefs.primarySeekLengthConstant.value
+        let oldPrimarySeekLengthConstant = prefs.primarySeekLengthConstant
         
-        prefs.primarySeekLengthOption.value = btnPrimarySeekLengthConstant.isOn ? .constant : .percentage
-        prefs.primarySeekLengthConstant.value = primarySeekLengthPicker.doubleValue.roundedInt
-        prefs.primarySeekLengthPercentage.value = primarySeekLengthPercStepper.integerValue
+        prefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.isOn ? .constant : .percentage
+        prefs.primarySeekLengthConstant = primarySeekLengthPicker.doubleValue.roundedInt
+        prefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
 
-        prefs.secondarySeekLengthOption.value = btnSecondarySeekLengthConstant.isOn ? .constant : .percentage
-        prefs.secondarySeekLengthConstant.value = secondarySeekLengthPicker.doubleValue.roundedInt
-        prefs.secondarySeekLengthPercentage.value = secondarySeekLengthPercStepper.integerValue
+        prefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.isOn ? .constant : .percentage
+        prefs.secondarySeekLengthConstant = secondarySeekLengthPicker.doubleValue.roundedInt
+        prefs.secondarySeekLengthPercentage = secondarySeekLengthPercStepper.integerValue
 
         // Playback profiles
         
-        let wasAllTracks: Bool = prefs.rememberLastPositionForAllTracks.value
-        prefs.rememberLastPositionForAllTracks.value = btnRememberPositionForAllTracks.isOn
+        let wasAllTracks: Bool = prefs.rememberLastPositionForAllTracks
+        prefs.rememberLastPositionForAllTracks = btnRememberPositionForAllTracks.isOn
         let isNowIndividualTracks: Bool = btnRememberPositionForAllTracks.isOff
         
         if wasAllTracks && isNowIndividualTracks {
@@ -162,8 +162,8 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
         // Remote Control (seek interval)
         
         // If the (primary) seek interval has changed, update Remote Control with the new interval.
-        if oldPrimarySeekLengthConstant != prefs.primarySeekLengthConstant.value {
-            remoteControlManager.updateSeekInterval(to: Double(prefs.primarySeekLengthConstant.value))
+        if oldPrimarySeekLengthConstant != prefs.primarySeekLengthConstant {
+            remoteControlManager.updateSeekInterval(to: Double(prefs.primarySeekLengthConstant))
         }
     }
 }

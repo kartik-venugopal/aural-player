@@ -15,20 +15,20 @@ class LyricsPreferences {
     private static let keyPrefix: String = "metadata.lyrics"
     private typealias Defaults = PreferencesDefaults.Metadata.Lyrics
     
-    lazy var showWindowWhenPresent: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showWindowWhenPresent",
+    lazy var showWindowWhenPresent: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showWindowWhenPresent",
                                                                  defaultValue: Defaults.showWindowWhenPresent)
     
     // For timed (LRC) lyrics only
-    lazy var enableAutoScroll: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoScroll",
+    lazy var enableAutoScroll: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoScroll",
                                                             defaultValue: Defaults.enableAutoScroll)
     
     // For timed (LRC) lyrics only
-    lazy var enableKaraokeMode: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableKaraokeMode",
+    lazy var enableKaraokeMode: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableKaraokeMode",
                                                              defaultValue: Defaults.enableKaraokeMode)
     
-    lazy var lyricsFilesDirectory: OptionalUserPreference<URL> = .init(defaultsKey: "\(Self.keyPrefix).lyricsFilesDirectory")
+    lazy var lyricsFilesDirectory: OptionalMuthu<URL> = .init(defaultsKey: "\(Self.keyPrefix).lyricsFilesDirectory")
     
-    lazy var enableOnlineSearch: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableOnlineSearch",
+    lazy var enableOnlineSearch: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableOnlineSearch",
                                                             defaultValue: Defaults.enableOnlineSearch)
     
     // For timed (LRC) lyrics only

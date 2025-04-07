@@ -14,25 +14,25 @@ import Foundation
 ///
 class GesturesControlsPreferences {
     
-    lazy var allowVolumeControl: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowVolumeControl",
+    lazy var allowVolumeControl: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowVolumeControl",
                                                               defaultValue: Defaults.allowVolumeControl)
     
-    lazy var volumeControlSensitivity: UserPreference<ScrollSensitivity> = .init(defaultsKey: "\(Self.keyPrefix).volumeControlSensitivity",
+    lazy var volumeControlSensitivity: UserMuthu<ScrollSensitivity> = .init(defaultsKey: "\(Self.keyPrefix).volumeControlSensitivity",
                                                                                  defaultValue: Defaults.volumeControlSensitivity)
     
-    lazy var allowSeeking: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowSeeking",
+    lazy var allowSeeking: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowSeeking",
                                                         defaultValue: Defaults.allowSeeking)
     
-    lazy var seekSensitivity: UserPreference<ScrollSensitivity> = .init(defaultsKey: "\(Self.keyPrefix).seekSensitivity",
+    lazy var seekSensitivity: UserMuthu<ScrollSensitivity> = .init(defaultsKey: "\(Self.keyPrefix).seekSensitivity",
                                                                         defaultValue: Defaults.seekSensitivity)
     
-    lazy var allowTrackChange: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowTrackChange",
+    lazy var allowTrackChange: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowTrackChange",
                                                             defaultValue: Defaults.allowTrackChange)
     
-    lazy var allowPlayQueueScrollingTopToBottom: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowPlayQueueScrolling.topToBottom",
+    lazy var allowPlayQueueScrollingTopToBottom: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowPlayQueueScrolling.topToBottom",
                                                                               defaultValue: Defaults.allowPlayQueueScrollingTopToBottom)
     
-    lazy var allowPlayQueueScrollingPageUpDown: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowPlayQueueScrolling.pageUpDown",
+    lazy var allowPlayQueueScrollingPageUpDown: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).allowPlayQueueScrolling.pageUpDown",
                                                                              defaultValue: Defaults.allowPlayQueueScrollingPageUpDown)
     
     private static let keyPrefix: String = "controls.gestures"

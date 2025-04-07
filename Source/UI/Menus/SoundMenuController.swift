@@ -70,16 +70,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         // Associate each of the menu items with a specific pitch shift or playback rate value, so that when the item is clicked later, that value can be readily retrieved and used in performing the action.
         
         setUpPitchShiftMenu()
-        
-        // Playback rate (Time) menu items
-        rate0_25MenuItem.paramValue = 0.25
-        rate0_5MenuItem.paramValue = 0.5
-        rate0_75MenuItem.paramValue = 0.75
-        rate1_25MenuItem.paramValue = 1.25
-        rate1_5MenuItem.paramValue = 1.5
-        rate2MenuItem.paramValue = 2
-        rate3MenuItem.paramValue = 3
-        rate4MenuItem.paramValue = 4
+        setUpTimeStretchMenu()
     }
     
     // When the menu is about to open, update the menu item states
@@ -118,7 +109,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
             masterBypassMenuItem.onIf(masterUnit.isActive)
             
-            rememberSettingsMenuItem.showIf(!soundPreferences.rememberEffectsSettingsForAllTracks.value)
+            rememberSettingsMenuItem.showIf(!soundPreferences.rememberEffectsSettingsForAllTracks)
             
             if let playingTrack = playbackInfoDelegate.playingTrack {
                 rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
@@ -173,32 +164,6 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func managePresetsAction(_ sender: Any) {
         effectsPresetsManager.showWindow(self)
-    }
-    
-    // MARK: Time Stretch ---------------------------------------------------------------------------
-    
-    // Decreases the playback rate by a certain preset decrement
-    @IBAction func decreaseRateAction(_ sender: Any) {
-        
-//        timeStretchUnit.decreaseRate()
-        messenger.publish(.Effects.TimeStretchUnit.rateUpdated)
-    }
-    
-    // Increases the playback rate by a certain preset increment
-    @IBAction func increaseRateAction(_ sender: Any) {
-        
-//        timeStretchUnit.increaseRate()
-        messenger.publish(.Effects.TimeStretchUnit.rateUpdated)
-    }
-    
-    // Sets the playback rate to a value specified by the menu item clicked
-    @IBAction func setRateAction(_ sender: SoundParameterMenuItem) {
-        
-        // Menu item's "paramValue" specifies the playback rate value associated with the menu item
-        let rate = sender.paramValue
-        timeStretchUnit.rate = rate
-        timeStretchUnit.ensureActive()
-        messenger.publish(.Effects.TimeStretchUnit.rateUpdated)
     }
     
     // ------------------------------------------------------------------------------------------------------------

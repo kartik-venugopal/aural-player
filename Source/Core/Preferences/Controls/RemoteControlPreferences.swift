@@ -15,10 +15,10 @@ import Foundation
 ///
 class RemoteControlPreferences {
     
-    lazy var enabled: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enabled",
+    lazy var enabled: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enabled",
                                                                     defaultValue: Defaults.enabled)
     
-    lazy var trackChangeOrSeekingOption: UserPreference<TrackChangeOrSeekingOptions> = .init(defaultsKey: "\(Self.keyPrefix).trackChangeOrSeekingOption",
+    lazy var trackChangeOrSeekingOption: UserMuthu<TrackChangeOrSeekingOptions> = .init(defaultsKey: "\(Self.keyPrefix).trackChangeOrSeekingOption",
                                                                     defaultValue: Defaults.trackChangeOrSeekingOption)
     
     private static let keyPrefix: String = "controls.remoteControl"

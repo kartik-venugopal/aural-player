@@ -897,7 +897,7 @@ class PlayerViewController: NSViewController {
 extension AudioGraphProtocol {
     
     fileprivate var volumeDeltaDiscrete: Float {
-        preferences.soundPreferences.volumeDelta.value
+        preferences.soundPreferences.volumeDelta
     }
     
     fileprivate var volumeDeltaContinuous: Float {

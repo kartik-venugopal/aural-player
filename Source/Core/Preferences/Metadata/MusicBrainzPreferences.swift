@@ -15,8 +15,8 @@ import Foundation
 ///
 class MusicBrainzPreferences {
 
-    lazy var enableCoverArtSearch: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableCoverArtSearch", defaultValue: Defaults.enableCoverArtSearch)
-    lazy var enableOnDiskCoverArtCache: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableOnDiskCoverArtCache", defaultValue: Defaults.enableOnDiskCoverArtCache)
+    lazy var enableCoverArtSearch: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableCoverArtSearch", defaultValue: Defaults.enableCoverArtSearch)
+    lazy var enableOnDiskCoverArtCache: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableOnDiskCoverArtCache", defaultValue: Defaults.enableOnDiskCoverArtCache)
     
     var cachingEnabled: Bool {
         enableCoverArtSearch.value && enableOnDiskCoverArtCache.value

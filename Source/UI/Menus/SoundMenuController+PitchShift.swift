@@ -50,7 +50,7 @@ extension SoundMenuController {
 extension PitchShiftUnitProtocol {
     
     fileprivate var pitchShiftDelta: Float {
-        Float(preferences.soundPreferences.pitchDelta.value)
+        Float(preferences.soundPreferences.pitchDelta)
     }
     
     func decreasePitch() {

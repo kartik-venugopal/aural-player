@@ -17,13 +17,13 @@ class MediaKeysControlsPreferences {
     private static let keyPrefix: String = "controls.mediaKeys"
     private typealias Defaults = PreferencesDefaults.Controls.MediaKeys
     
-    lazy var enabled: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enabled",
+    lazy var enabled: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enabled",
                                                                     defaultValue: Defaults.enabled)
     
-    lazy var skipKeyBehavior: UserPreference<SkipKeyBehavior> = .init(defaultsKey: "\(Self.keyPrefix).skipKey.behavior",
+    lazy var skipKeyBehavior: UserMuthu<SkipKeyBehavior> = .init(defaultsKey: "\(Self.keyPrefix).skipKey.behavior",
                                                                     defaultValue: Defaults.skipKeyBehavior)
     
-    lazy var skipKeyRepeatSpeed: UserPreference<SkipKeyRepeatSpeed> = .init(defaultsKey: "\(Self.keyPrefix).skipKey.repeatSpeed",
+    lazy var skipKeyRepeatSpeed: UserMuthu<SkipKeyRepeatSpeed> = .init(defaultsKey: "\(Self.keyPrefix).skipKey.repeatSpeed",
                                                                     defaultValue: Defaults.skipKeyRepeatSpeed)
     
     init(legacyPreferences: LegacyMediaKeysControlsPreferences? = nil) {

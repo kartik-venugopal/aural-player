@@ -59,8 +59,8 @@ extension PlayQueue: TrackInitComponent {
         let playQueuePreferences = preferences.playQueuePreferences
         let playbackPreferences = preferences.playbackPreferences
         
-        let autoplayOnStartup: Bool = playbackPreferences.autoplayOnStartup.value
-        let autoplayOption: PlaybackPreferences.AutoplayOnStartupOption = playbackPreferences.autoplayOnStartupOption.value
+        let autoplayOnStartup: Bool = playbackPreferences.autoplayOnStartup
+        let autoplayOption: PlaybackPreferences.AutoplayOnStartupOption = playbackPreferences.autoplayOnStartupOption
         
         let pqParmsWithAutoplayAndNoHistory: PlayQueueTrackLoadParams =
         autoplayOption == .firstTrack ?

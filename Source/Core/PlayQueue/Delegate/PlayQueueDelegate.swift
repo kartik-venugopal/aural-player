@@ -320,8 +320,8 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         let clearQueue: Bool = openWithAddMode == .replace
         
         let notDuplicateNotification = !notification.isDuplicateNotification
-        lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplayAfterOpeningTracks.value
-        lazy var autoplayAfterOpeningOption: PlaybackPreferences.AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplayAfterOpeningOption.value
+        lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplayAfterOpeningTracks
+        lazy var autoplayAfterOpeningOption: PlaybackPreferences.AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplayAfterOpeningOption
         lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
         lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
         let autoplay: Bool = notDuplicateNotification && autoplayPreference

@@ -1,76 +1,85 @@
 //
-//  UserPreference.swift
-//  Aural
+// UserPreference.swift
+// Aural
+// 
+// Copyright © 2025 Kartik Venugopal. All rights reserved.
+// 
+// This software is licensed under the MIT software license.
+// See the file "LICENSE" in the project root directory for license terms.
 //
-//  Copyright © 2025 Kartik Venugopal. All rights reserved.
-//
-//  This software is licensed under the MIT software license.
-//  See the file "LICENSE" in the project root directory for license terms.
-//  
 
 import Foundation
 
-struct UserPreference<T> {
+@propertyWrapper
+class UserPreference<Value> {
     
-    let defaultsKey: String
-    let defaultValue: T
+    let key: String
+    let defaultValue: Value
     
-    // TODO: Add a description field that can be used as a label tooltip in the Preferences UI ???
+    init(key: String, defaultValue: Value) {
+        self.key = key
+        self.defaultValue = defaultValue
+    }
     
-    var value: T {
+    var wrappedValue: Value {
         
         get {
-            userDefaults.object(forKey: defaultsKey) as? T ?? defaultValue
+            userDefaults.object(forKey: key) as? Value ?? defaultValue
         }
         
         set {
-            userDefaults.setValue(newValue, forKey: defaultsKey)
+            userDefaults.set(newValue, forKey: key)
         }
     }
 }
 
-extension UserPreference where T: RawRepresentable {
+@propertyWrapper
+struct OptionalUserPreference<Value> {
     
-    var value: T {
+    let key: String
+    
+    var wrappedValue: Value? {
+        
+        get {
+            userDefaults.object(forKey: key) as? Value
+        }
+        
+        set {
+            userDefaults.set(newValue, forKey: key)
+        }
+    }
+}
+
+@propertyWrapper
+class EnumUserPreference<Value: RawRepresentable>: UserPreference<Value> {
+    
+    override var wrappedValue: Value {
         
         get {
             
-            if let rawValue = userDefaults.object(forKey: defaultsKey) as? T.RawValue {
-                return T(rawValue: rawValue) ?? defaultValue
+            if let rawValue = userDefaults.object(forKey: key) as? Value.RawValue {
+                return Value(rawValue: rawValue) ?? defaultValue
             }
             
             return defaultValue
         }
         
         set {
-            userDefaults.setValue(newValue.rawValue, forKey: defaultsKey)
+            userDefaults.set(newValue.rawValue, forKey: key)
         }
     }
 }
 
-struct OptionalUserPreference<T> {
+@propertyWrapper
+struct URLUserPreference {
     
-    let defaultsKey: String
+    let key: String
     
-    var value: T? {
-        
-        get {
-            userDefaults.object(forKey: defaultsKey) as? T
-        }
-        
-        set {
-            userDefaults.setValue(newValue, forKey: defaultsKey)
-        }
-    }
-}
-
-extension OptionalUserPreference where T == URL {
-    
-    var value: T? {
+    var wrappedValue: URL? {
         
         get {
             
-            if let path = userDefaults.string(forKey: defaultsKey) {
+            if let path = userDefaults.string(forKey: key) {
                 return URL(fileURLWithPath: path)
             }
             
@@ -78,7 +87,7 @@ extension OptionalUserPreference where T == URL {
         }
         
         set {
-            userDefaults.setValue(newValue?.path, forKey: defaultsKey)
+            userDefaults.set(newValue?.path, forKey: key)
         }
     }
 }

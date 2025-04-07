@@ -27,31 +27,30 @@ class PlaybackPreferences {
         guard let legacyPreferences = legacyPreferences else {return}
         
         if let rememberLastPositionOption = legacyPreferences.rememberLastPositionOption {
-            self.rememberLastPositionForAllTracks.value = rememberLastPositionOption == .allTracks
+            self.rememberLastPositionForAllTracks = rememberLastPositionOption == .allTracks
         }
         
         legacyPreferences.deleteAll()
     }
     
     // General preferences
+    @EnumUserPreference(key: "playback.seekLength.primary.option", defaultValue: Defaults.primarySeekLengthOption)
+    var primarySeekLengthOption: SeekLengthOption
     
-    lazy var primarySeekLengthOption: UserPreference<SeekLengthOption> = .init(defaultsKey: "\(Self.keyPrefix).seekLength.primary.option",
-                                                                               defaultValue: Defaults.primarySeekLengthOption)
+    @UserPreference(key: "playback.seekLength.primary.constant", defaultValue: Defaults.primarySeekLengthConstant)
+    var primarySeekLengthConstant: Int
     
-    lazy var primarySeekLengthConstant: UserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).seekLength.primary.constant",
-                                                                    defaultValue: Defaults.primarySeekLengthConstant)
+    @UserPreference(key: "playback.seekLength.primary.percentage", defaultValue: Defaults.primarySeekLengthPercentage)
+    var primarySeekLengthPercentage: Int
     
-    lazy var primarySeekLengthPercentage: UserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).seekLength.primary.percentage",
-                                                                      defaultValue: Defaults.primarySeekLengthPercentage)
+    @EnumUserPreference(key: "playback.seekLength.secondary.option", defaultValue: Defaults.secondarySeekLengthOption)
+    var secondarySeekLengthOption: SeekLengthOption
     
-    lazy var secondarySeekLengthOption: UserPreference<SeekLengthOption> = .init(defaultsKey: "\(Self.keyPrefix).seekLength.secondary.option",
-                                                                                 defaultValue: Defaults.secondarySeekLengthOption)
+    @UserPreference(key: "playback.seekLength.secondary.constant", defaultValue: Defaults.secondarySeekLengthConstant)
+    var secondarySeekLengthConstant: Int
     
-    lazy var secondarySeekLengthConstant: UserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).seekLength.secondary.constant",
-                                                                      defaultValue: Defaults.secondarySeekLengthConstant)
-    
-    lazy var secondarySeekLengthPercentage: UserPreference<Int> = .init(defaultsKey: "\(Self.keyPrefix).seekLength.secondary.percentage",
-                                                                        defaultValue: Defaults.secondarySeekLengthConstant)
+    @UserPreference(key: "playback.seekLength.secondary.percentage", defaultValue: Defaults.secondarySeekLengthPercentage)
+    var secondarySeekLengthPercentage: Int
     
     var seekLength_continuous: Double {
         
@@ -68,28 +67,28 @@ class PlaybackPreferences {
         }
     }
     
-    lazy var autoplayOnStartup: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.onStartup",
-                                                             defaultValue: Defaults.autoplayOnStartup)
+    @UserPreference(key: "playback.autoplay.onStartup", defaultValue: Defaults.autoplayOnStartup)
+    var autoplayOnStartup: Bool
     
-    lazy var autoplayOnStartupOption: UserPreference<AutoplayOnStartupOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.onStartup.option",
-                                                             defaultValue: Defaults.autoplayOnStartupOption)
+    @EnumUserPreference(key: "playback.autoplay.onStartup.option", defaultValue: Defaults.autoplayOnStartupOption)
+    var autoplayOnStartupOption: AutoplayOnStartupOption
     
-    lazy var autoplayAfterAddingTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.afterAddingTracks",
-                                                                     defaultValue: Defaults.autoplayAfterAddingTracks)
+    @UserPreference(key: "playback.autoplay.afterAddingTracks", defaultValue: Defaults.autoplayAfterAddingTracks)
+    var autoplayAfterAddingTracks: Bool
     
-    lazy var autoplayAfterAddingOption: UserPreference<AutoplayAfterAddingOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.afterAddingTracks.option",
-                                                                                          defaultValue: Defaults.autoplayAfterAddingOption)
+    @EnumUserPreference(key: "playback.autoplay.afterAddingTracks.option", defaultValue: Defaults.autoplayAfterAddingOption)
+    var autoplayAfterAddingOption: AutoplayAfterAddingOption
     
-    lazy var autoplayAfterOpeningTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.afterOpeningTracks",
-                                                                      defaultValue: Defaults.autoplayAfterOpeningTracks)
+    @UserPreference(key: "playback.autoplay.afterOpeningTracks", defaultValue: Defaults.autoplayAfterOpeningTracks)
+    var autoplayAfterOpeningTracks: Bool
     
-    lazy var autoplayAfterOpeningOption: UserPreference<AutoplayAfterOpeningOption> = .init(defaultsKey: "\(Self.keyPrefix).autoplay.afterOpeningTracks.option",
-                                                                                            defaultValue: Defaults.autoplayAfterOpeningOption)
+    @EnumUserPreference(key: "playback.autoplay.afterOpeningTracks.option", defaultValue: Defaults.autoplayAfterOpeningOption)
+    var autoplayAfterOpeningOption: AutoplayAfterOpeningOption
     
-    lazy var rememberLastPositionForAllTracks: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).rememberLastPositionForAllTracks",
-                                                                                                defaultValue: Defaults.rememberLastPositionForAllTracks)
+    @UserPreference(key: "playback.rememberLastPositionForAllTracks", defaultValue: Defaults.rememberLastPositionForAllTracks)
+    var rememberLastPositionForAllTracks: Bool
 
-    enum SeekLengthOption: String, CaseIterable {
+    public enum SeekLengthOption: String, CaseIterable {
         
         case constant
         case percentage

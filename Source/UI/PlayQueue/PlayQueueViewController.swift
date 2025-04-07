@@ -166,8 +166,8 @@ class PlayQueueViewController: TrackListTableViewController {
     
     var shouldAutoplayAfterAdding: Bool {
         
-        let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks.value
-        lazy var option: PlaybackPreferences.AutoplayAfterAddingOption = preferences.playbackPreferences.autoplayAfterAddingOption.value
+        let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
+        lazy var option: PlaybackPreferences.AutoplayAfterAddingOption = preferences.playbackPreferences.autoplayAfterAddingOption
         lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
         return autoplayAfterAdding && (option == .always || playerIsStopped)
     }
