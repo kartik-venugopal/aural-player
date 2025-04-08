@@ -55,6 +55,12 @@ class ParametricEQNode: AVAudioUnitEQ {
         }
     }
     
+    override var globalGain: Float {
+        
+        get {super.globalGain}
+        set {super.globalGain = newValue.clamped(to: Self.validGainRange)}
+    }
+    
     var bandGains: [Float] {
         
         get {bands.map {$0.gain}}
@@ -70,7 +76,7 @@ class ParametricEQNode: AVAudioUnitEQ {
     subscript(_ index: Int) -> Float {
         
         get {bands[index].gain}
-        set {bands[index].gain = newValue}
+        set {bands[index].gain = newValue.clamped(to: Self.validGainRange)}
     }
     
     func increaseBass(by increment: Float) -> [Float] {

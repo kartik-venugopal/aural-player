@@ -39,7 +39,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     var rate: Float {
         
         get {node.rate}
-        set {node.rate = newValue}
+        set {node.rate = newValue.clamped(to: rateRange)}
     }
     
     var effectiveRate: Float {
