@@ -11,7 +11,7 @@
 import AppKit
 
 fileprivate var isKaraokeModeEnabled: Bool {
-    preferences.metadataPreferences.lyrics.enableKaraokeMode.value
+    preferences.metadataPreferences.lyrics.enableKaraokeMode
 }
 
 extension LyricsViewController {
@@ -108,7 +108,7 @@ extension LyricsViewController {
     }
     
     private var isAutoScrollEnabled: Bool {
-        preferences.metadataPreferences.lyrics.enableAutoScroll.value
+        preferences.metadataPreferences.lyrics.enableAutoScroll
     }
     
     func highlightCurrentLine() {

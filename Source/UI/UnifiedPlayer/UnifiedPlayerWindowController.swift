@@ -314,7 +314,7 @@ class UnifiedPlayerWindowController: NSWindowController {
                 closeChaptersList()
             }
             
-            if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
+            if preferences.metadataPreferences.lyrics.showWindowWhenPresent,
                 newTrack.hasLyrics {
                 
                 showLyrics()
@@ -327,7 +327,7 @@ class UnifiedPlayerWindowController: NSWindowController {
     
     private func lyricsLoaded(notif: TrackInfoUpdatedNotification) {
         
-        if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
+        if preferences.metadataPreferences.lyrics.showWindowWhenPresent,
            playbackInfoDelegate.playingTrack == notif.updatedTrack,
            notif.updatedTrack.hasLyrics,
            !appModeManager.isShowingLyrics {

@@ -31,15 +31,15 @@ class LastFM_WSClient: LastFM_WSClientProtocol {
     }
     
     var sessionKey: String? {
-        lastFMPreferences.sessionKey.value
+        lastFMPreferences.sessionKey
     }
     
     var scrobblingEnabled: Bool {
-        lastFMPreferences.enableScrobbling.value
+        lastFMPreferences.enableScrobbling
     }
     
     var loveUnloveEnabled: Bool {
-        lastFMPreferences.enableLoveUnlove.value
+        lastFMPreferences.enableLoveUnlove
     }
     
     init(cache: LastFMScrobbleCache) {

@@ -292,7 +292,6 @@
 		3E0219192C23490E00865AC2 /* RemoteControlPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217312C23490E00865AC2 /* RemoteControlPreferences.swift */; };
 		3E02191A2C23490E00865AC2 /* SoundPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217322C23490E00865AC2 /* SoundPreferences.swift */; };
 		3E02191B2C23490E00865AC2 /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217332C23490E00865AC2 /* UserDefaultsExtensions.swift */; };
-		3E02191C2C23490E00865AC2 /* UserMuthu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217342C23490E00865AC2 /* UserMuthu.swift */; };
 		3E02191D2C23490E00865AC2 /* ViewPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217352C23490E00865AC2 /* ViewPreferences.swift */; };
 		3E02191E2C23490E00865AC2 /* NowPlayingInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217372C23490E00865AC2 /* NowPlayingInfoManager.swift */; };
 		3E02191F2C23490E00865AC2 /* RemoteCommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0217382C23490E00865AC2 /* RemoteCommandManager.swift */; };
@@ -1373,7 +1372,6 @@
 		3E0217312C23490E00865AC2 /* RemoteControlPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferences.swift; sourceTree = "<group>"; };
 		3E0217322C23490E00865AC2 /* SoundPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPreferences.swift; sourceTree = "<group>"; };
 		3E0217332C23490E00865AC2 /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
-		3E0217342C23490E00865AC2 /* UserMuthu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMuthu.swift; sourceTree = "<group>"; };
 		3E0217352C23490E00865AC2 /* ViewPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPreferences.swift; sourceTree = "<group>"; };
 		3E0217372C23490E00865AC2 /* NowPlayingInfoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingInfoManager.swift; sourceTree = "<group>"; };
 		3E0217382C23490E00865AC2 /* RemoteCommandManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteCommandManager.swift; sourceTree = "<group>"; };
@@ -5055,9 +5053,8 @@
 		3EA07AC82D27D1ED001A5124 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3E0217332C23490E00865AC2 /* UserDefaultsExtensions.swift */,
-				3E0217342C23490E00865AC2 /* UserMuthu.swift */,
 				3E1F04672DA3621500DC6F40 /* UserPreference.swift */,
+				3E0217332C23490E00865AC2 /* UserDefaultsExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -6343,7 +6340,6 @@
 				3E2D09DC2AD4C5440062D3C9 /* RenderQualityMenuViewController.swift in Sources */,
 				3E0219582C23490E00865AC2 /* SearchQuery.swift in Sources */,
 				3E0218DB2C23490E00865AC2 /* Player.swift in Sources */,
-				3E02191C2C23490E00865AC2 /* UserMuthu.swift in Sources */,
 				3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */,
 				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesManagerViewController.swift in Sources */,
 				3EB3A61626A762750060487C /* FontSchemesViewProtocol.swift in Sources */,

@@ -14,10 +14,11 @@ import Foundation
 ///
 class MetadataPreferences {
     
-    private static let keyPrefix: String = "metadata"
+    @UserPreference(key: "metadata.cacheTrackMetadata", defaultValue: Defaults.cacheTrackMetadata)
+    var cacheTrackMetadata: Bool
     
-    lazy var cacheTrackMetadata: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).cacheTrackMetadata", defaultValue: Defaults.cacheTrackMetadata)
-    lazy var httpTimeout: UserMuthu<Int> = .init(defaultsKey: "\(Self.keyPrefix).httpTimeout", defaultValue: Defaults.httpTimeout)
+    @UserPreference(key: "metadata.httpTimeout", defaultValue: Defaults.httpTimeout)
+    var httpTimeout: Int
     
     let musicBrainz: MusicBrainzPreferences
     let lastFM: LastFMPreferences

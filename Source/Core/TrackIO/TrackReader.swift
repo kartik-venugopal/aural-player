@@ -29,7 +29,7 @@ class TrackReader {
     private lazy var logger: Logger = .init(for: self)
     
     private var metadataCacheEnabled: Bool {
-        preferences.metadataPreferences.cacheTrackMetadata.value
+        preferences.metadataPreferences.cacheTrackMetadata
     }
     
     func findOrCreateTrack(at file: URL, withCueSheetMetadata metadata: CueSheetMetadata? = nil) -> (track: Track, trackCreated: Bool) {
@@ -141,7 +141,7 @@ class TrackReader {
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
             
             // Update the metadata cache with the updated duration.
-            let metadataCacheEnabled = preferences.metadataPreferences.cacheTrackMetadata.value
+            let metadataCacheEnabled = preferences.metadataPreferences.cacheTrackMetadata
             if metadataCacheEnabled, let metadataInCache = metadataRegistry[track] {
                 
                 metadataInCache.duration = playbackContext.duration

@@ -157,7 +157,7 @@ class ModularPlayerWindowController: NSWindowController {
     
     private func trackTransitioned(notif: TrackTransitionNotification) {
         
-        if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
+        if preferences.metadataPreferences.lyrics.showWindowWhenPresent,
             let newTrack = notif.endTrack, newTrack.hasLyrics {
             
             windowLayoutsManager.showWindow(withId: .lyrics)
@@ -166,7 +166,7 @@ class ModularPlayerWindowController: NSWindowController {
     
     private func lyricsLoaded(notif: TrackInfoUpdatedNotification) {
         
-        if preferences.metadataPreferences.lyrics.showWindowWhenPresent.value,
+        if preferences.metadataPreferences.lyrics.showWindowWhenPresent,
            playbackInfoDelegate.playingTrack == notif.updatedTrack,
            notif.updatedTrack.hasLyrics,
            !appModeManager.isShowingLyrics {

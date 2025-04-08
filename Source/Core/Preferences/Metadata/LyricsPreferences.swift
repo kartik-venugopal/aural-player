@@ -12,27 +12,22 @@ import Foundation
 
 class LyricsPreferences {
     
-    private static let keyPrefix: String = "metadata.lyrics"
-    
-    lazy var showWindowWhenPresent: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showWindowWhenPresent",
-                                                                 defaultValue: Defaults.showWindowWhenPresent)
+    @UserPreference(key: "metadata.lyrics.showWindowWhenPresent", defaultValue: Defaults.showWindowWhenPresent)
+    var showWindowWhenPresent: Bool
     
     // For timed (LRC) lyrics only
-    lazy var enableAutoScroll: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableAutoScroll",
-                                                            defaultValue: Defaults.enableAutoScroll)
+    @UserPreference(key: "metadata.lyrics.enableAutoScroll", defaultValue: Defaults.enableAutoScroll)
+    var enableAutoScroll: Bool
     
     // For timed (LRC) lyrics only
-    lazy var enableKaraokeMode: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableKaraokeMode",
-                                                             defaultValue: Defaults.enableKaraokeMode)
+    @UserPreference(key: "metadata.lyrics.enableKaraokeMode", defaultValue: Defaults.enableKaraokeMode)
+    var enableKaraokeMode: Bool
     
-    lazy var lyricsFilesDirectory: OptionalMuthu<URL> = .init(defaultsKey: "\(Self.keyPrefix).lyricsFilesDirectory")
+    @URLUserPreference(key: "metadata.lyrics.lyricsFilesDirectory")
+    var lyricsFilesDirectory: URL?
     
-    lazy var enableOnlineSearch: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableOnlineSearch",
-                                                            defaultValue: Defaults.enableOnlineSearch)
-    
-    // For timed (LRC) lyrics only
-//    lazy var showTranslations: UserPreference<Bool> = .init(defaultsKey: "\(Self.keyPrefix).showTranslations",
-//                                                            defaultValue: Defaults.showTranslations)
+    @UserPreference(key: "metadata.lyrics.enableOnlineSearch", defaultValue: Defaults.enableOnlineSearch)
+    var enableOnlineSearch: Bool
     
     fileprivate struct Defaults {
         

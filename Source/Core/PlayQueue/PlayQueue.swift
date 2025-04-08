@@ -280,7 +280,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             Messenger.publish(HistoryItemsAddedNotification(itemURLs: session.urls))
         }
         
-        if preferences.metadataPreferences.cacheTrackMetadata.value {
+        if preferences.metadataPreferences.cacheTrackMetadata {
             metadataRegistry.persistCoverArt()
         }
         

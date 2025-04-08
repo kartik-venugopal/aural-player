@@ -12,17 +12,18 @@ import Foundation
 
 class LastFMPreferences {
     
-    private static let keyPrefix: String = "metadata.lastFM"
-    
-    lazy var sessionKey: OptionalMuthu<String> = .init(defaultsKey: "\(Self.keyPrefix).sessionKey")
+    @OptionalUserPreference(key: "metadata.lastFM.sessionKey")
+    var sessionKey: String?
     
     var hasSessionKey: Bool {
-        sessionKey.value != nil
+        sessionKey != nil
     }
     
-    lazy var enableScrobbling: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableScrobbling", defaultValue: Defaults.enableScrobbling)
+    @UserPreference(key: "metadata.lastFM.enableScrobbling", defaultValue: Defaults.enableScrobbling)
+    var enableScrobbling: Bool
     
-    lazy var enableLoveUnlove: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableLoveUnlove", defaultValue: Defaults.enableLoveUnlove)
+    @UserPreference(key: "metadata.lastFM.enableLoveUnlove", defaultValue: Defaults.enableLoveUnlove)
+    var enableLoveUnlove: Bool
     
     ///
     /// An enumeration of default values for **LastFM** metadata scrobbling / retrieval preferences.

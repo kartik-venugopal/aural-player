@@ -34,12 +34,12 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
     
     func resetFields() {
         
-        btnEnableAutoShowWindow.onIf(lyricsPrefs.showWindowWhenPresent.value)
-        btnEnableAutoScroll.onIf(lyricsPrefs.enableAutoScroll.value)
-        btnEnableKaraokeMode.onIf(lyricsPrefs.enableKaraokeMode.value)
-        btnEnableOnlineSearch.onIf(lyricsPrefs.enableOnlineSearch.value)
+        btnEnableAutoShowWindow.onIf(lyricsPrefs.showWindowWhenPresent)
+        btnEnableAutoScroll.onIf(lyricsPrefs.enableAutoScroll)
+        btnEnableKaraokeMode.onIf(lyricsPrefs.enableKaraokeMode)
+        btnEnableOnlineSearch.onIf(lyricsPrefs.enableOnlineSearch)
         
-        if let dir = lyricsPrefs.lyricsFilesDirectory.value {
+        if let dir = lyricsPrefs.lyricsFilesDirectory {
             lblLyricsFolder.stringValue = dir.path
         } else {
             lblLyricsFolder.stringValue = ""
@@ -73,20 +73,20 @@ class LyricsPreferencesViewController: NSViewController, PreferencesViewProtocol
     
     func save() throws {
         
-        lyricsPrefs.showWindowWhenPresent.value = btnEnableAutoShowWindow.isOn
-        lyricsPrefs.enableAutoScroll.value = btnEnableAutoScroll.isOn
-        lyricsPrefs.enableOnlineSearch.value = btnEnableOnlineSearch.isOn
+        lyricsPrefs.showWindowWhenPresent = btnEnableAutoShowWindow.isOn
+        lyricsPrefs.enableAutoScroll = btnEnableAutoScroll.isOn
+        lyricsPrefs.enableOnlineSearch = btnEnableOnlineSearch.isOn
         
-        let oldKaraokeModeValue = lyricsPrefs.enableKaraokeMode.value
-        lyricsPrefs.enableKaraokeMode.value = btnEnableKaraokeMode.isOn
+        let oldKaraokeModeValue = lyricsPrefs.enableKaraokeMode
+        lyricsPrefs.enableKaraokeMode = btnEnableKaraokeMode.isOn
         
         if !String.isEmpty(lblLyricsFolder.stringValue) {
-            lyricsPrefs.lyricsFilesDirectory.value = URL(fileURLWithPath: lblLyricsFolder.stringValue)
+            lyricsPrefs.lyricsFilesDirectory = URL(fileURLWithPath: lblLyricsFolder.stringValue)
         } else {
-            lyricsPrefs.lyricsFilesDirectory.value = nil
+            lyricsPrefs.lyricsFilesDirectory = nil
         }
         
-        if lyricsPrefs.enableKaraokeMode.value != oldKaraokeModeValue {
+        if lyricsPrefs.enableKaraokeMode != oldKaraokeModeValue {
             Messenger.publish(.Lyrics.karaokeModePreferenceUpdated)
         }
     }

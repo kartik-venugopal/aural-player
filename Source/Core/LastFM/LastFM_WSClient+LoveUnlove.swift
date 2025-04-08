@@ -112,7 +112,7 @@ extension LastFM_WSClient {
     
     func favoritesRemoved(favorites: Set<Favorite>) {
         
-        guard lastFMPreferences.enableLoveUnlove.value else {return}
+        guard lastFMPreferences.enableLoveUnlove else {return}
         
         DispatchQueue.global(qos: .background).async {
             

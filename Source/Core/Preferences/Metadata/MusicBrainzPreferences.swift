@@ -15,14 +15,15 @@ import Foundation
 ///
 class MusicBrainzPreferences {
 
-    lazy var enableCoverArtSearch: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableCoverArtSearch", defaultValue: Defaults.enableCoverArtSearch)
-    lazy var enableOnDiskCoverArtCache: UserMuthu<Bool> = .init(defaultsKey: "\(Self.keyPrefix).enableOnDiskCoverArtCache", defaultValue: Defaults.enableOnDiskCoverArtCache)
+    @UserPreference(key: "metadata.musicBrainz.enableCoverArtSearch", defaultValue: Defaults.enableCoverArtSearch)
+    var enableCoverArtSearch: Bool
+    
+    @UserPreference(key: "metadata.musicBrainz.enableOnDiskCoverArtCache", defaultValue: Defaults.enableOnDiskCoverArtCache)
+    var enableOnDiskCoverArtCache: Bool
     
     var cachingEnabled: Bool {
-        enableCoverArtSearch.value && enableOnDiskCoverArtCache.value
+        enableCoverArtSearch && enableOnDiskCoverArtCache
     }
-    
-    private static let keyPrefix: String = "metadata.musicBrainz"
     
     ///
     /// An enumeration of default values for **MusicBrainz** metadata retrieval preferences.

@@ -49,10 +49,10 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func resetFields() {
         
-        btnCacheTrackMetadata.onIf(metadataPrefs.cacheTrackMetadata.value)
+        btnCacheTrackMetadata.onIf(metadataPrefs.cacheTrackMetadata)
         enableCacheAction(self)
         
-        timeoutStepper.integerValue = metadataPrefs.httpTimeout.value
+        timeoutStepper.integerValue = metadataPrefs.httpTimeout
         lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
         
         subViews.forEach {$0.resetFields()}
@@ -74,14 +74,14 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func save() throws {
         
-        let wasCachingMetadata: Bool = metadataPrefs.cacheTrackMetadata.value
-        metadataPrefs.cacheTrackMetadata.value = btnCacheTrackMetadata.isOn
+        let wasCachingMetadata: Bool = metadataPrefs.cacheTrackMetadata
+        metadataPrefs.cacheTrackMetadata = btnCacheTrackMetadata.isOn
         
         // If no longer caching track metadata, empty the cache.
-        if wasCachingMetadata && (metadataPrefs.cacheTrackMetadata.value == false) {
+        if wasCachingMetadata && (metadataPrefs.cacheTrackMetadata == false) {
             metadataRegistry.clearRegistry()
             
-        } else if (!wasCachingMetadata) && metadataPrefs.cacheTrackMetadata.value {
+        } else if (!wasCachingMetadata) && metadataPrefs.cacheTrackMetadata {
             
             // Was not caching before, now need to cache all PQ tracks.
             
@@ -90,7 +90,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
             }
         }
         
-        metadataPrefs.httpTimeout.value = timeoutStepper.integerValue
+        metadataPrefs.httpTimeout = timeoutStepper.integerValue
         
         for subView in subViews {
             try subView.save()

@@ -42,7 +42,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     
     func getCoverArt(forTrack track: Track) -> CoverArt? {
         
-        if (!mbPreferences.enableCoverArtSearch.value) || searchedTracks.contains(track) {return nil}
+        if (!mbPreferences.enableCoverArtSearch) || searchedTracks.contains(track) {return nil}
         
         searchedTracks.insert(track)
         

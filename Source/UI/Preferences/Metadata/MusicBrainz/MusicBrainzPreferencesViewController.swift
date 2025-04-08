@@ -29,9 +29,9 @@ class MusicBrainzPreferencesViewController: NSViewController, PreferencesViewPro
     
     func resetFields() {
 
-        btnEnableCoverArtSearch.onIf(musicBrainzPrefs.enableCoverArtSearch.value)
+        btnEnableCoverArtSearch.onIf(musicBrainzPrefs.enableCoverArtSearch)
 
-        if musicBrainzPrefs.enableOnDiskCoverArtCache.value {
+        if musicBrainzPrefs.enableOnDiskCoverArtCache {
             btnEnableOnDiskCache.on()
         } else {
             btnDisableOnDiskCache.on()
@@ -43,13 +43,13 @@ class MusicBrainzPreferencesViewController: NSViewController, PreferencesViewPro
     
     func save() throws {
         
-        let wasSearchDisabled: Bool = !musicBrainzPrefs.enableCoverArtSearch.value
-        musicBrainzPrefs.enableCoverArtSearch.value = btnEnableCoverArtSearch.isOn
+        let wasSearchDisabled: Bool = !musicBrainzPrefs.enableCoverArtSearch
+        musicBrainzPrefs.enableCoverArtSearch = btnEnableCoverArtSearch.isOn
         
-        musicBrainzPrefs.enableOnDiskCoverArtCache.value = btnEnableOnDiskCache.isOn
+        musicBrainzPrefs.enableOnDiskCoverArtCache = btnEnableOnDiskCache.isOn
         
         // If searching was disabled before but has been switched on, let's search for art for the playing track, if required.
-        if wasSearchDisabled && musicBrainzPrefs.enableCoverArtSearch.value, let playingTrack = playbackInfoDelegate.playingTrack {
+        if wasSearchDisabled && musicBrainzPrefs.enableCoverArtSearch, let playingTrack = playbackInfoDelegate.playingTrack {
             trackReader.loadArtAsync(for: playingTrack, immediate: true)
         }
         

@@ -53,7 +53,7 @@ class MusicBrainzRESTClient {
     private let thumbnailSizes: [String] = ["front-500", "front-250", "front", "front-1200"]
     
     private var httpTimeout: Int {
-        preferences.metadataPreferences.httpTimeout.value
+        preferences.metadataPreferences.httpTimeout
     }
     
     ///

@@ -31,7 +31,7 @@ extension TrackReader {
         }
         
         // Look for lyrics in candidate directories
-        let lyricsFolder = preferences.metadataPreferences.lyrics.lyricsFilesDirectory.value
+        let lyricsFolder = preferences.metadataPreferences.lyrics.lyricsFilesDirectory
         
         for dir in [lyricsFolder, track.file.parentDir, FilesAndPaths.lyricsDir].compactMap({$0}) {
             
@@ -109,7 +109,7 @@ extension TrackReader {
     }
     
     private var onlineSearchEnabled: Bool {
-        preferences.metadataPreferences.lyrics.enableOnlineSearch.value
+        preferences.metadataPreferences.lyrics.enableOnlineSearch
     }
     
     func searchForLyricsOnline(for track: Track, uiUpdateBlock: @escaping (TimedLyrics?) -> Void) async {

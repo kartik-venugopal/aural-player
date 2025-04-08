@@ -41,10 +41,10 @@ class LastFMPreferencesViewController: NSViewController, PreferencesViewProtocol
     
     func resetFields() {
         
-        btnEnableScrobbling.onIf(lastFMPrefs.enableScrobbling.value)
-        btnEnableLoveUnlove.onIf(lastFMPrefs.enableLoveUnlove.value)
+        btnEnableScrobbling.onIf(lastFMPrefs.enableScrobbling)
+        btnEnableLoveUnlove.onIf(lastFMPrefs.enableLoveUnlove)
         
-        if lastFMPrefs.sessionKey.value == nil {
+        if lastFMPrefs.sessionKey == nil {
             showLastFMAuthFields()
             
         } else {
@@ -92,7 +92,7 @@ class LastFMPreferencesViewController: NSViewController, PreferencesViewProtocol
         self.lastFMToken = nil
         
         // Reset session key
-        lastFMPrefs.sessionKey.value = nil
+        lastFMPrefs.sessionKey = nil
         
         // Allow the user to re-authenticate.
         showLastFMAuthFields()
@@ -145,7 +145,7 @@ class LastFMPreferencesViewController: NSViewController, PreferencesViewProtocol
                 
                 let session = try lastFMClient.getSession(forToken: token)
                 
-                self.lastFMPrefs.sessionKey.value = session.key
+                self.lastFMPrefs.sessionKey = session.key
                 
                 DispatchQueue.main.async {
                     self.hideLastFMAuthFields()
@@ -168,8 +168,8 @@ class LastFMPreferencesViewController: NSViewController, PreferencesViewProtocol
         
         let lastFMPrefs = preferences.metadataPreferences.lastFM
         
-        lastFMPrefs.enableScrobbling.value = btnEnableScrobbling.isOn
-        lastFMPrefs.enableLoveUnlove.value = btnEnableLoveUnlove.isOn
+        lastFMPrefs.enableScrobbling = btnEnableScrobbling.isOn
+        lastFMPrefs.enableLoveUnlove = btnEnableLoveUnlove.isOn
         
         self.lastFMToken = nil
     }

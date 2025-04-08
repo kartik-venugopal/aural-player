@@ -122,7 +122,7 @@ class MusicBrainzCache: PersistentModelObject {
         
         releasesCache[artist, title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
         
-        if preferences.enableOnDiskCoverArtCache.value, let foundArt = coverArt {
+        if preferences.enableOnDiskCoverArtCache, let foundArt = coverArt {
             persistForRelease(artist: artist, title: title, coverArt: foundArt)
         }
     }
@@ -150,7 +150,7 @@ class MusicBrainzCache: PersistentModelObject {
         
         recordingsCache[artist, title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
         
-        if preferences.enableOnDiskCoverArtCache.value, let foundArt = coverArt {
+        if preferences.enableOnDiskCoverArtCache, let foundArt = coverArt {
             persistForRecording(artist: artist, title: title, coverArt: foundArt)
         }
     }
