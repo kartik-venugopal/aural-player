@@ -65,6 +65,14 @@ ______
 
 ## Roadmap
 
+### Architecture refactoring
+
+As a result of the addition of a large number of new features, the code has become bloated and fragile, resulting in the frequent introduction of bugs that are hard to find / fix. 
+
+This has necessitated a significant refactoring of the architecture. Most app functionality will remain intact ... some minor features may be removed during this overhaul.
+
+This will likely delay the milestone releases, but aims to bring about better long-term app stability ... fewer bugs, easier maintenance, etc.
+
 ### V4 Preview releases
 
 Preview builds are unstable pre-release builds containing incremental updates as v4 continues to be developed. They may contain significant bugs. Several preview builds have been put out and more are expected to come out before the milestone releases.
@@ -165,6 +173,8 @@ ______
 **GitHub Issues** https://github.com/kartik-venugopal/aural-player/issues.
 
 The app is what it is today largely thanks to the numerous bug reports and valuable feedback of users over the years. I urge you to file issues for any bugs you encounter or for features / behavior you would like to see implemented. I am generally pretty good at responding to issues, and at the very least, I will read, contemplate, and respond.
+
+Note - When filing issues or requesting new features, please keep in mind that there is exactly one person developing this app ... there is no team. Just one person with 2 hands and a normal and busy life situation. I appreciate your understanding :-)
 
 ______
 
