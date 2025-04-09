@@ -11,13 +11,28 @@ import Cocoa
 
 class EffectsPresetsManagerViewController: NSViewController {
     
-    private let masterPresetsManagerViewController: MasterPresetsManagerViewController = MasterPresetsManagerViewController()
-    private let eqPresetsManagerViewController: EQPresetsManagerViewController = EQPresetsManagerViewController()
-    private let pitchPresetsManagerViewController: PitchShiftPresetsManagerViewController = PitchShiftPresetsManagerViewController()
-    private let timePresetsManagerViewController: TimeStretchPresetsManagerViewController = TimeStretchPresetsManagerViewController()
-    private let reverbPresetsManagerViewController: ReverbPresetsManagerViewController = ReverbPresetsManagerViewController()
-    private let delayPresetsManagerViewController: DelayPresetsManagerViewController = DelayPresetsManagerViewController()
-    private let filterPresetsManagerViewController: FilterPresetsManagerViewController = FilterPresetsManagerViewController()
+    private let masterPresetsManagerViewController: MasterPresetsManagerViewController = .create(for: audioGraph.masterUnit,
+                                                                                                 presets: audioGraph.masterUnit.presets)
+    
+    private let eqPresetsManagerViewController: EQPresetsManagerViewController = .create(for: audioGraph.eqUnit,
+                                                                                         presets: audioGraph.eqUnit.presets)
+    
+    private let pitchPresetsManagerViewController: PitchShiftPresetsManagerViewController = .create(for: audioGraph.pitchShiftUnit,
+                                                                                                    presets: audioGraph.pitchShiftUnit.presets)
+    
+    private let timePresetsManagerViewController: TimeStretchPresetsManagerViewController = .create(for: audioGraph.timeStretchUnit,
+                                                                                                    presets: audioGraph.timeStretchUnit.presets)
+    
+    private let reverbPresetsManagerViewController: ReverbPresetsManagerViewController = .create(for: audioGraph.reverbUnit,
+                                                                                                 presets: audioGraph.reverbUnit.presets)
+    
+    private let delayPresetsManagerViewController: DelayPresetsManagerViewController = .create(for: audioGraph.delayUnit,
+                                                                                               presets: audioGraph.delayUnit.presets)
+    
+    private let filterPresetsManagerViewController: FilterPresetsManagerViewController = .create(for: audioGraph.filterUnit,
+                                                                                                 presets: audioGraph.filterUnit.presets)
+    
+    // TODO: Replay Gain Presets VC !!!
     
     // Tab view and its buttons
     

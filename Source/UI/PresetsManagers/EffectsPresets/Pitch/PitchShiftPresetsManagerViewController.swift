@@ -12,13 +12,4 @@ import Cocoa
 class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     override var nibName: NSNib.Name? {"PitchShiftPresetsManager"}
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        unitType = .pitch
-        effectsUnit = audioGraph.pitchShiftUnit
-        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(audioGraph.pitchShiftUnit.presets)
-    }
 }

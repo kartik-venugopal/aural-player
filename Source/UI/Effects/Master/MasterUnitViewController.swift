@@ -48,14 +48,6 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     // MARK: UI initialization / life-cycle
     
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        effectsUnit = masterUnit
-        presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(masterUnit.presets)
-    }
-    
     override func initControls() {
         
         super.initControls()

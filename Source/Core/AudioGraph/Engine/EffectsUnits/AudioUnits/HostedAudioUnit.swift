@@ -167,4 +167,10 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
                                  componentSubType: self.componentSubType,
                                  params: self.parameterValues.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)})
     }
+    
+    override func stopObserving() {
+        
+        super.stopObserving()
+        node.stopObserving()
+    }
 }

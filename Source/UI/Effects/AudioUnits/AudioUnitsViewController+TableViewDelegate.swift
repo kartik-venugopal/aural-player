@@ -59,15 +59,18 @@ extension AudioUnitsViewController: NSTableViewDelegate {
      
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitSwitchCellView else {return nil}
         
-        let audioUnit = audioGraph.audioUnits[row]
+        let audioUnit = audioGraph.audioUnits[row] as! HostedAudioUnit
         
         fxUnitStateObserverRegistry.registerObserver(cell.btnSwitch, forFXUnit: audioUnit)
 
         cell.btnSwitch.offStateTooltip = "Activate this Audio Unit"
         cell.btnSwitch.onStateTooltip = "Deactivate this Audio Unit"
         
-        cell.action = {[weak self] in
-//            self?.toggleAudioUnitState(audioUnit: audioUnit)
+        cell.action = {[weak self, weak audioUnit] in
+            
+            if let audioUnit {
+                self?.toggleAudioUnitState(audioUnit: audioUnit)
+            }
         }
         
         return cell
@@ -91,15 +94,14 @@ extension AudioUnitsViewController: NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitEditCellView else {return nil}
         
-        let audioUnit = audioGraph.audioUnits[row]
-        
-//        cell.btnEdit.tintFunction = {[weak self] in self?.systemColorScheme.buttonColor ?? ColorSchemePreset.blackAttack.functionButtonColor}
-        
-//        cell.btnEdit.reTint()
+        let audioUnit = audioGraph.audioUnits[row] as! HostedAudioUnit
         cell.btnEdit.contentTintColor = systemColorScheme.buttonColor
         
-        cell.action = {[weak self] in
-//            self?.doEditAudioUnit(audioUnit)
+        cell.action = {[weak self, weak audioUnit] in
+            
+            if let audioUnit {
+                self?.doEditAudioUnit(audioUnit)
+            }
         }
         
         return cell

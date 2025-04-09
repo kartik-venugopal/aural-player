@@ -12,13 +12,4 @@ import Cocoa
 class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     override var nibName: NSNib.Name? {"FilterPresetsManager"}
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        unitType = .filter
-        effectsUnit = audioGraph.filterUnit
-        presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(audioGraph.filterUnit.presets)
-    }
 }

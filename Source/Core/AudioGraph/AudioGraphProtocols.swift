@@ -53,7 +53,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var audioUnits: [HostedAudioUnitProtocol] {get}
     var audioUnitsState: EffectsUnitState {get}
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)?
-    func removeAudioUnits(at indices: IndexSet)
+    func removeAudioUnits(at indices: IndexSet) -> [HostedAudioUnitProtocol]
     
     var allUnits: [any EffectsUnitProtocol] {get}
     

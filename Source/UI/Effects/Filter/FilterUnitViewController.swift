@@ -37,14 +37,6 @@ class FilterUnitViewController: EffectsUnitViewController {
     
     // MARK: UI initialization / life-cycle
     
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        effectsUnit = self.filterUnit
-        presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(filterUnit.presets)
-    }
-    
     override func oneTimeSetup() {
         
         super.oneTimeSetup()

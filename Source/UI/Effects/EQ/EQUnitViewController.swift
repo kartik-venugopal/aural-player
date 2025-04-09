@@ -32,14 +32,6 @@ class EQUnitViewController: EffectsUnitViewController {
     
     // MARK: UI initialization / life-cycle
     
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        self.effectsUnit = self.eqUnit
-        self.presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
-    }
-    
     override func oneTimeSetup() {
         
         super.oneTimeSetup()

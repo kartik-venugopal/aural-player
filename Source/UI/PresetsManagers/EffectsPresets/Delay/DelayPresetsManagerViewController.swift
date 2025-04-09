@@ -12,13 +12,4 @@ import Cocoa
 class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     override var nibName: NSNib.Name? {"DelayPresetsManager"}
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        unitType = .delay
-        effectsUnit = audioGraph.delayUnit
-        presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(audioGraph.delayUnit.presets)
-    }
 }

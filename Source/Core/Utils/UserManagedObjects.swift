@@ -52,6 +52,10 @@ class UserManagedObjects<O: UserManagedObject>: PresetsManagerProtocol {
     var userDefinedObjects: [O] {Array(userDefinedObjectsMap.values)}
     var systemDefinedObjects: [O] {Array(systemDefinedObjectsMap.values)}
     
+    var hasAnyObjects: Bool {
+        systemDefinedObjects.isNonEmpty || userDefinedObjects.isNonEmpty
+    }
+    
     var defaultPreset: O? {nil}
     
     init(systemDefinedObjects: [O], userDefinedObjects: [O]) {

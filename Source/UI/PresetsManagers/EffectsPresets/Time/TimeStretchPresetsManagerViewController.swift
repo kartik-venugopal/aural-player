@@ -12,13 +12,4 @@ import Cocoa
 class TimeStretchPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     override var nibName: NSNib.Name? {"TimeStretchPresetsManager"}
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        unitType = .time
-        effectsUnit = audioGraph.timeStretchUnit
-        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(audioGraph.timeStretchUnit.presets)
-    }
 }

@@ -24,7 +24,7 @@ extension AudioGraph {
         engine.addAudioUnit(ofType: type, andSubType: subType)
     }
     
-    func removeAudioUnits(at indices: IndexSet) {
+    func removeAudioUnits(at indices: IndexSet) -> [HostedAudioUnitProtocol] {
         engine.removeAudioUnits(at: indices)
     }
 }

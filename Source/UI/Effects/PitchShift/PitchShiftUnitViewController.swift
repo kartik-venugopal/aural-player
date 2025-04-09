@@ -37,9 +37,6 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
         
         super.awakeFromNib()
         
-        effectsUnit = pitchShiftUnit
-        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchShiftUnit.presets)
-        
         pitchSlider.effectsUnit = pitchShiftUnit
         fxUnitStateObserverRegistry.registerObserver(pitchSlider, forFXUnit: pitchShiftUnit)
         

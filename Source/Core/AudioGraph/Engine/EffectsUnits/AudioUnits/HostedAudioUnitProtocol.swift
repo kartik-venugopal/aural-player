@@ -16,7 +16,7 @@ import AVFoundation
 /// audio signals.
 ///
 protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
-   
+
     var id: String {get}
     var name: String {get}
     var version: String {get}
@@ -32,6 +32,9 @@ protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
     func setValue(_ value: Float, forParameterWithAddress address: AUParameterAddress)
     
     var auAudioUnit: AUAudioUnit {get}
+    
+    var presets: AudioUnitPresets {get}
+    var supportsUserPresets: Bool {get}
     
     var factoryPresets: [AudioUnitFactoryPreset] {get}
     

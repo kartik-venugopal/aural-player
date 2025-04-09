@@ -22,14 +22,29 @@ class EffectsContainerViewController: NSViewController {
 
     // The constituent sub-views, one for each effects unit
     
-    private let masterViewController: MasterUnitViewController = MasterUnitViewController()
-    private let eqViewController: EQUnitViewController = EQUnitViewController()
-    private let pitchViewController: PitchShiftUnitViewController = PitchShiftUnitViewController()
-    private let timeViewController: TimeStretchUnitViewController = TimeStretchUnitViewController()
-    private let reverbViewController: ReverbUnitViewController = ReverbUnitViewController()
-    private let delayViewController: DelayUnitViewController = DelayUnitViewController()
-    private let filterViewController: FilterUnitViewController = FilterUnitViewController()
-    private let replayGainViewController: ReplayGainUnitViewController = ReplayGainUnitViewController()
+    private let masterViewController: MasterUnitViewController = .init(for: audioGraph.masterUnit,
+                                                                       presets: audioGraph.masterUnit.presets)
+    
+    private let eqViewController: EQUnitViewController = .init(for: audioGraph.eqUnit,
+                                                               presets: audioGraph.eqUnit.presets)
+    
+    private let pitchViewController: PitchShiftUnitViewController = .init(for: audioGraph.pitchShiftUnit,
+                                                                          presets: audioGraph.pitchShiftUnit.presets)
+    
+    private let timeViewController: TimeStretchUnitViewController = .init(for: audioGraph.timeStretchUnit,
+                                                                          presets: audioGraph.timeStretchUnit.presets)
+    
+    private let reverbViewController: ReverbUnitViewController = .init(for: audioGraph.reverbUnit,
+                                                                       presets: audioGraph.reverbUnit.presets)
+    
+    private let delayViewController: DelayUnitViewController = .init(for: audioGraph.delayUnit,
+                                                                     presets: audioGraph.delayUnit.presets)
+    
+    private let filterViewController: FilterUnitViewController = .init(for: audioGraph.filterUnit,
+                                                                       presets: audioGraph.filterUnit.presets)
+    
+    private let replayGainViewController: ReplayGainUnitViewController = .init(for: audioGraph.replayGainUnit,
+                                                                               presets: audioGraph.replayGainUnit.presets)
     
     private let auViewController: AudioUnitsViewController = AudioUnitsViewController()
     private let devicesViewController: DevicesViewController = DevicesViewController()
@@ -126,7 +141,7 @@ class EffectsContainerViewController: NSViewController {
         devicesTabViewButton.stateFunction = {.bypassed}
         
         // Select Master tab view by default
-        showTab(.eq)
+        showTab(.au)
     }
 
     override func destroy() {

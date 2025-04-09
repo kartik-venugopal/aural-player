@@ -12,13 +12,4 @@ import Cocoa
 class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
 
     override var nibName: NSNib.Name? {"MasterPresetsManager"}
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        unitType = .master
-        effectsUnit = audioGraph.masterUnit
-        presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(audioGraph.masterUnit.presets)
-    }
 }

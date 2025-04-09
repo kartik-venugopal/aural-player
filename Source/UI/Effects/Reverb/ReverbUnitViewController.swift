@@ -32,14 +32,6 @@ class ReverbUnitViewController: EffectsUnitViewController {
     
     // MARK: UI initialization / life-cycle
     
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        effectsUnit = audioGraph.reverbUnit
-        presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(reverbUnit.presets)
-    }
-    
     override func initControls() {
         
         super.initControls()

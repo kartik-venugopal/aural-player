@@ -12,13 +12,4 @@ import Cocoa
 class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     override var nibName: NSNib.Name? {"EQPresetsManager"}
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        unitType = .eq
-        effectsUnit = audioGraph.eqUnit
-        presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(audioGraph.eqUnit.presets)
-    }
 }

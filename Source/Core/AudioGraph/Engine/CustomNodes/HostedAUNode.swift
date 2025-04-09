@@ -75,6 +75,10 @@ class HostedAUNode: AVAudioUnitEffect {
         bypassStateObservers.append(observer)
     }
     
+    func stopObserving() {
+        bypassStateObservers.removeAll()
+    }
+    
     func savePreset(named presetName: String) -> AUAudioUnitPreset? {
         
         guard auAudioUnit.supportsUserPresets else {

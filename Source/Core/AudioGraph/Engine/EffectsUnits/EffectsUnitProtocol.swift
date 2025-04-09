@@ -44,4 +44,6 @@ protocol EffectsUnitProtocol {
     func applyPreset(named presetName: String)
     
     func observeState(handler: @escaping EffectsUnitStateChangeHandler) -> NSKeyValueObservation
+    
+    func stopObserving()
 }

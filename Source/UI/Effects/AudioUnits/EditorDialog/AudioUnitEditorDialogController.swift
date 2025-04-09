@@ -35,6 +35,8 @@ class AudioUnitEditorDialogController: NSWindowController {
     // MARK: Services, utilities, helpers, and properties
     
     var audioUnit: HostedAudioUnitProtocol!
+    private var auViewController: NSViewController!
+    private var generatedView: NSView?
     
     lazy var userPresetsMenuDelegate: AudioUnitUserPresetsMenuDelegate = AudioUnitUserPresetsMenuDelegate(for: audioUnit, applyPresetAction: #selector(self.applyUserPresetAction(_:)), target: self)
     
@@ -57,23 +59,7 @@ class AudioUnitEditorDialogController: NSWindowController {
         window?.isMovableByWindowBackground = true
         rootContainer.anchorToSuperview()
         
-//        audioUnit.presentView {[weak self] auView in
-//            
-//            guard let strongSelf = self else {return}
-//            
-//            strongSelf.viewContainer.addSubview(auView)
-//            auView.anchorToSuperview()
-//            
-//            // Resize the window to exactly contain the audio unit's view.
-//            
-//            let curWindowSize: NSSize = strongSelf.theWindow.size
-//            let viewContainerSize: NSSize = strongSelf.viewContainer.size
-//            
-//            let widthDelta = viewContainerSize.width - auView.width
-//            let heightDelta = viewContainerSize.height - auView.height
-//            
-//            strongSelf.theWindow.resize(curWindowSize.width - widthDelta, curWindowSize.height - heightDelta)
-//        }
+        presentCustomAUView()
         
         lblTitle.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
         
@@ -100,10 +86,75 @@ class AudioUnitEditorDialogController: NSWindowController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.captionTextColor, changeReceiver: lblTitle)
     }
     
+    private func presentCustomAUView() {
+        
+        presentView {[weak self] auView in
+            
+            guard let strongSelf = self else {return}
+            
+            strongSelf.viewContainer.addSubview(auView)
+            auView.anchorToSuperview()
+            
+            // Resize the window to exactly contain the audio unit's view.
+            
+            let curWindowSize: NSSize = strongSelf.theWindow.size
+            let viewContainerSize: NSSize = strongSelf.viewContainer.size
+            
+            let widthDelta = viewContainerSize.width - auView.width
+            let heightDelta = viewContainerSize.height - auView.height
+            
+            strongSelf.theWindow.resize(curWindowSize.width - widthDelta, curWindowSize.height - heightDelta)
+        }
+    }
+    
+    func presentView(_ handler: @escaping (NSView) -> Void) {
+        
+        if !audioUnit.hasCustomView {
+            
+            if let theGeneratedView = generatedView {
+                handler(theGeneratedView)
+            }
+            
+            let generatedView = generateView()
+            self.generatedView = generatedView
+            handler(generatedView)
+            
+            return
+        }
+        
+        if let viewController = self.auViewController {
+            
+            handler(viewController.view)
+            return
+        }
+        
+        audioUnit.auAudioUnit.requestViewController(completionHandler: {controller in
+            
+            if let controller {
+                
+                self.auViewController = controller
+                handler(controller.view)
+            }
+        })
+    }
+    
+    private func generateView() -> NSView {
+        
+        let viewController = AUControlViewController()
+        viewController.audioUnit = self.audioUnit
+        self.auViewController = viewController
+        
+        return viewController.view
+    }
+    
+    func forceViewRedraw() {
+        (auViewController as? AUControlViewController)?.refreshControls()
+    }
+    
     override func destroy() {
         
         messenger.unsubscribeFromAll()
-//        userPresetsPopover.destroy()
+        //        userPresetsPopover.destroy()
     }
     
     func changeWindowCornerRadius(to radius: CGFloat) {
@@ -119,11 +170,15 @@ class AudioUnitEditorDialogController: NSWindowController {
     }
     
     @IBAction func applyFactoryPresetAction(_ sender: NSMenuItem) {
+        
         audioUnit.applyFactoryPreset(named: sender.title)
+        (auViewController as? AUControlViewController)?.refreshControls()
     }
     
     @IBAction func applyUserPresetAction(_ sender: NSMenuItem) {
+        
         audioUnit.applyPreset(named: sender.title)
+        (auViewController as? AUControlViewController)?.refreshControls()
     }
     
     // Displays a popover to allow the user to name the new custom preset.
@@ -158,7 +213,7 @@ extension AudioUnitEditorDialogController: ColorSchemeObserver {
 /// Prevents the AU editor window from moving when some custom AU views are manipulated (eg. circular sliders)
 ///
 class AUViewContainer: MouseTrackingView {
-
+    
     override func mouseEntered(with event: NSEvent) {
         
         super.mouseEntered(with: event)

@@ -143,4 +143,13 @@ class EffectsUnit: NSObject {
     func removeObserver(_ observer: NSKeyValueObservation) {
         kvoTokens.remove(observer)?.invalidate()
     }
+    
+    func stopObserving() {
+        
+        for token in kvoTokens {
+            token.invalidate()
+        }
+        
+        kvoTokens.removeAll()
+    }
 }

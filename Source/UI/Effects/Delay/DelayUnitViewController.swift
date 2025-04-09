@@ -32,14 +32,6 @@ class DelayUnitViewController: EffectsUnitViewController {
     
     // MARK: UI initialization / life-cycle
     
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        effectsUnit = delayUnit
-        presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
-    }
-    
     override func oneTimeSetup() {
         
         super.oneTimeSetup()

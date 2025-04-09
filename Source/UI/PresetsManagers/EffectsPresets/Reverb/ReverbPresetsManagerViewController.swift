@@ -12,13 +12,4 @@ import Cocoa
 class ReverbPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     override var nibName: NSNib.Name? {"ReverbPresetsManager"}
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        unitType = .reverb
-        effectsUnit = audioGraph.reverbUnit
-        presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(audioGraph.reverbUnit.presets)
-    }
 }

@@ -67,6 +67,12 @@ class FuseViewController: NSViewController {
         // Update the bypass buttons for all effects units
         messenger.publish(.Effects.unitStateChanged)
     }
+    
+    override func destroy() {
+        
+        messenger.unsubscribeFromAll()
+        effectsUnit = nil
+    }
 }
 
 extension FuseViewController: FontSchemeObserver {

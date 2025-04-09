@@ -32,14 +32,6 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     // ------------------------------------------------------------------------
     
     // MARK: UI initialization / life-cycle
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        effectsUnit = self.timeStretchUnit
-        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeStretchUnit.presets)
-    }
 
     override func initControls() {
 

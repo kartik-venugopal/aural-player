@@ -19,9 +19,13 @@ protocol EffectsUnitPresetsProtocol {
     var userDefinedObjects: [T] {get}
     var systemDefinedObjects: [T] {get}
     
+    var hasAnyObjects: Bool {get}
+    
     func object(named name: String) -> T?
     
-    func deleteObjects(named presetNames: [String]) -> [T]
+    @discardableResult func deleteObjects(atIndices indices: IndexSet) -> [T]
+    
+    @discardableResult func deleteObjects(named presetNames: [String]) -> [T]
     
     func renameObject(named oldName: String, to newName: String)
     

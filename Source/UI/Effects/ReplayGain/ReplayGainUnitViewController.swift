@@ -27,10 +27,6 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        
-        self.effectsUnit = self.replayGainUnit
-        self.presetsWrapper = PresetsWrapper<ReplayGainPreset, ReplayGainPresets>(audioGraph.replayGainUnit.presets)
-        
         fxUnitStateObserverRegistry.registerObservers(replayGainUnitView.unitStateObservers, forFXUnit: replayGainUnit)
     }
     

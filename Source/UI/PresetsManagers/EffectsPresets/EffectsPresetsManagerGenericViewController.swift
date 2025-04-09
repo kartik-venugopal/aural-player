@@ -14,10 +14,20 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     @IBOutlet weak var tableView: NSTableView!
     
     var effectsUnit: EffectsUnitProtocol!
-    var presetsWrapper: PresetsWrapperProtocol!
+    var presets: (any EffectsUnitPresetsProtocol)!
     var unitType: EffectsUnitType!
     
     private lazy var messenger = Messenger(for: self)
+    
+    static func create(for effectsUnit: EffectsUnitProtocol!, presets: any EffectsUnitPresetsProtocol) -> Self {
+        
+        let controller = Self.init()
+        controller.effectsUnit = effectsUnit
+        controller.unitType = effectsUnit.unitType
+        controller.presets = presets
+        
+        return controller
+    }
     
     override func viewDidLoad() {
         
@@ -49,14 +59,14 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     
     func deleteSelectedPresets() {
         
-        presetsWrapper.deletePresets(atIndices: tableView.selectedRowIndexes)
+        presets.deleteObjects(atIndices: tableView.selectedRowIndexes)
         tableView.reloadData()
         
         messenger.publish(.PresetsManager.selectionChanged, payload: Int(0))
     }
     
     var selectedPresets: [EffectsUnitPreset] {
-        tableView.selectedRowIndexes.map {presetsWrapper.userDefinedPresets[$0]}
+        tableView.selectedRowIndexes.map {presets.userDefinedObjects[$0]}
     }
     
     var firstSelectedPreset: EffectsUnitPreset? {selectedPresets.first}
@@ -84,7 +94,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        presetsWrapper.userDefinedPresets.count
+        presets.userDefinedObjects.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -97,7 +107,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         guard let column = tableColumn,
               let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? NSTableCellView else {return nil}
         
-        let preset = presetsWrapper.userDefinedPresets[row]
+        let preset = presets.userDefinedObjects[row]
         
         cell.text = preset.name
         cell.textField?.delegate = self
@@ -116,7 +126,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         guard let editedTextField = obj.object as? NSTextField else {return}
         
         let rowIndex = tableView.selectedRow
-        let preset = presetsWrapper.userDefinedPresets[rowIndex]
+        let preset = presets.userDefinedObjects[rowIndex]
         
         let oldPresetName = preset.name
         let newPresetName = editedTextField.stringValue
@@ -131,7 +141,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
             
             _ = DialogsAndAlerts.genericErrorAlert("Can't rename preset", "Preset name must have at least one non-whitespace character.", "Please type a valid name.").showModal()
             
-        } else if presetsWrapper.presetExists(named: newPresetName) {
+        } else if presets.objectExists(named: newPresetName) {
             
             editedTextField.stringValue = preset.name
             
@@ -145,6 +155,6 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     func renamePreset(named name: String, to newName: String) {
         
         // Update the preset name
-        presetsWrapper.renamePreset(named: name, to: newName)
+        presets.renameObject(named: name, to: newName)
     }
 }

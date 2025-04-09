@@ -43,13 +43,20 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
     var unitType: EffectsUnitType {effectsUnit.unitType}
     var unitStateFunction: EffectsUnitStateFunction {effectsUnit.stateFunction}
     
-    var presetsWrapper: PresetsWrapperProtocol!
+    var presets: (any EffectsUnitPresetsProtocol)!
     
     lazy var messenger = Messenger(for: self)
     
     // ------------------------------------------------------------------------
     
     // MARK: UI initialization / life-cycle
+    
+    convenience init(for effectsUnit: any EffectsUnitProtocol, presets: any EffectsUnitPresetsProtocol) {
+        
+        self.init()
+        self.effectsUnit = effectsUnit
+        self.presets = presets
+    }
     
     override func viewDidLoad() {
         
@@ -275,7 +282,7 @@ extension EffectsUnitViewController: StringInputReceiver {
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        if presetsWrapper.presetExists(named: string) {
+        if presets.objectExists(named: string) {
             return (false, "Preset with this name already exists !")
         } else {
             return (true, nil)
@@ -296,14 +303,14 @@ extension EffectsUnitViewController: NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        guard presetsWrapper.hasAnyPresets else {
+        guard presets.hasAnyObjects else {
 
             loadPresetsMenuItem?.disable()
             return
         }
 
         loadPresetsMenuItem?.enable()
-        presetsAndSettingsMenu.recreateMenu(insertingItemsAt: 0, fromItems: presetsWrapper.userDefinedPresets,
+        presetsAndSettingsMenu.recreateMenu(insertingItemsAt: 0, fromItems: presets.userDefinedObjects,
                                  action: #selector(presetsAction(_:)), target: self)
         
         presetsAndSettingsMenu.items.forEach {$0.state = .off}

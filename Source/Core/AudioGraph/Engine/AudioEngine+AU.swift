@@ -27,13 +27,21 @@ extension AudioEngine {
         insertNode(newUnit.avNodes[0])
         messenger.publish(AudioGraphChangedNotification(context: context))
         
+        fxUnitStateObserverRegistry.observeAU(newUnit)
+        
         return (audioUnit: newUnit, index: audioUnits.lastIndex)
     }
     
-    func removeAudioUnits(at indices: IndexSet) {
+    func removeAudioUnits(at indices: IndexSet) -> [HostedAudioUnitProtocol] {
         
         let descendingIndices = indices.sortedDescending()
-        descendingIndices.forEach {audioUnits.remove(at: $0)}
+        
+        let removedAUs: [HostedAudioUnitProtocol] = descendingIndices.map {
+            
+            let audioUnit = audioUnits.remove(at: $0)
+            audioUnit.stopObserving()
+            return audioUnit
+        }
         
         masterUnit.removeAudioUnits(at: descendingIndices)
         
@@ -41,6 +49,10 @@ extension AudioEngine {
         messenger.publish(PreAudioGraphChangeNotification(context: context))
         removeNodes(at: descendingIndices)
         messenger.publish(AudioGraphChangedNotification(context: context))
+        
+        defer {fxUnitStateObserverRegistry.compositeAUStateUpdated()}
+        
+        return removedAUs
     }
     
     var audioUnitsState: EffectsUnitState {

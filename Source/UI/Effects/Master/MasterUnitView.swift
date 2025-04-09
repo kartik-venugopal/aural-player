@@ -17,12 +17,13 @@ class MasterUnitView: NSView {
     
     private lazy var messenger = Messenger(for: self)
     
+    private var fuseVCs: [FuseViewController] = []
+    
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
-        fxUnitStateObserverRegistry.registerObserver(fuseBoxMenuButtonCell, forFXUnit: audioGraph.masterUnit)
-        fxUnitStateObserverRegistry.registerObserver(btnRememberSettings, forFXUnit: audioGraph.masterUnit)
+        fxUnitStateObserverRegistry.registerObservers([fuseBoxMenuButtonCell, btnRememberSettings], forFXUnit: audioGraph.masterUnit)
         
         for fxUnit in audioGraph.allUnits.filter({$0.unitType != .master}) {
             doAddFuseBoxMenuItemForEffectsUnit(fxUnit)
@@ -49,6 +50,7 @@ class MasterUnitView: NSView {
         let item = NSMenuItem(title: "")
         
         let vc = FuseViewController()
+        fuseVCs.append(vc)
         vc.effectsUnit = unit
         
         item.view = vc.view
@@ -59,9 +61,10 @@ class MasterUnitView: NSView {
         
         for index in indexes.sorted(by: {$0 > $1}) {
             
-            // Adjust index for icon menu item + 6 built-in FX units.
+            // Adjust index for icon menu item + 7 built-in FX units.
             let adjustedIndex = index + 7
             btnFuseBoxMenu.menu?.removeItem(at: adjustedIndex)
+            fuseVCs.remove(at: adjustedIndex).destroy()
         }
     }
     
