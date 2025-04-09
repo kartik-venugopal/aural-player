@@ -65,6 +65,14 @@ ______
 
 ## Roadmap
 
+### Architecture refactoring
+
+As a result of the addition of a large number of new features, the code has become bloated and fragile, resulting in the frequent introduction of bugs that are hard to find / fix. 
+
+This has necessitated a significant refactoring of the architecture. Most app functionality will remain intact ... some minor features may be removed during this overhaul.
+
+This will likely delay the milestone releases, but aims to bring about better long-term app stability ... fewer bugs, easier maintenance, etc.
+
 ### V4 Preview releases
 
 Preview builds are unstable pre-release builds containing incremental updates as v4 continues to be developed. They may contain significant bugs. Several preview builds have been put out and more are expected to come out before the milestone releases.
