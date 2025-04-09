@@ -20,7 +20,11 @@ extension AudioGraph {
     }
     
     func captureSystemSoundProfile() {
-        soundProfiles.systemProfile = SoundProfile(file: URL(fileURLWithPath: "system"), volume: volume, pan: pan, effects: settingsAsMasterPreset)
+        
+        soundProfiles.systemProfile = SoundProfile(file: URL(fileURLWithPath: "system"),
+                                                   volume: volume,
+                                                   pan: pan,
+                                                   effects: settingsAsMasterPreset)
     }
     
     func restoreSystemSoundProfile() {

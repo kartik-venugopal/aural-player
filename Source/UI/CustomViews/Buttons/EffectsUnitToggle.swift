@@ -36,6 +36,12 @@ class EffectsUnitToggle: NSButton, FXUnitStateObserver {
         alternateImage = alternateImage?.tintedWithColor(tintColor)
     }
     
+    func redraw(withTintColor tintColor: NSColor) {
+        
+        image = image?.tintedWithColor(tintColor)
+        alternateImage = alternateImage?.tintedWithColor(tintColor)
+    }
+    
     func unitStateChanged(to newState: EffectsUnitState) {
         redraw(forState: newState)
     }

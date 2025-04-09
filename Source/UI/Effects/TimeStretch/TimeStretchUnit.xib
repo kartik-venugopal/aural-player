@@ -10,6 +10,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TimeStretchUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="0b3-aI-4fr" id="b9o-1J-3tO"/>
+                <outlet property="loadPresetsMenuItem" destination="Fzv-K8-hJF" id="cly-xU-BNF"/>
                 <outlet property="presetsAndSettingsMenu" destination="OBh-pH-csn" id="OZp-im-tu6"/>
                 <outlet property="presetsAndSettingsMenuButton" destination="SzE-Ik-872" id="ud1-pS-ufy"/>
                 <outlet property="presetsAndSettingsMenuIconItem" destination="HQi-sq-AI8" id="zbw-Qt-GBa"/>

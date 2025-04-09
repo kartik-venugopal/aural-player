@@ -75,7 +75,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
                                   delayUnit: (delayUnit as! DelayUnit).persistentState,
                                   filterUnit: (filterUnit as! FilterUnit).persistentState,
                                   replayGainUnit: (replayGainUnit as! ReplayGainUnit).persistentState,
-                                  audioUnits: audioUnits.compactMap { ($0 as? HostedAudioUnit)?.persistentState},
+                                  audioUnits: audioUnits.compactMap {($0 as? HostedAudioUnit)?.persistentState},
                                   audioUnitPresets: audioUnitPresets.persistentState,
                                   soundProfiles: soundProfiles.persistentState,
                                   replayGainAnalysisCache: replayGainScanner.persistentState)

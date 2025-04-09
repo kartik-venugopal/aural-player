@@ -198,14 +198,14 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
         messenger.publish(.Effects.showEffectsUnitTab, payload: unitType)
     }
     
-    func fontSchemeChanged() {
+    @objc dynamic func fontSchemeChanged() {
         
         (functionLabels + functionValueLabels).forEach {
             $0.font = systemFontScheme.smallFont
         }
     }
     
-    func colorSchemeChanged() {
+    @objc dynamic func colorSchemeChanged() {
         
         btnBypass.contentTintColor = systemColorScheme.colorForEffectsUnitState(self.effectsUnit.state)
 //        presetsAndSettingsMenuIconItem.colorChanged(systemColorScheme.buttonColor)
@@ -226,7 +226,7 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
         redrawSliders()
     }
     
-    func activeControlColorChanged(_ newColor: NSColor) {
+    @objc dynamic func activeControlColorChanged(_ newColor: NSColor) {
         
         guard self.effectsUnit.state == .active else {return}
         
@@ -234,7 +234,7 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
         redrawSliders()
     }
     
-    func inactiveControlColorChanged(_ newColor: NSColor) {
+    @objc dynamic func inactiveControlColorChanged(_ newColor: NSColor) {
         
         if self.effectsUnit.state == .bypassed {
             btnBypass.contentTintColor = newColor
@@ -243,7 +243,7 @@ class EffectsUnitViewController: NSViewController, FontSchemeObserver, ColorSche
         redrawSliders()
     }
     
-    func suppressedControlColorChanged(_ newColor: NSColor) {
+    @objc dynamic func suppressedControlColorChanged(_ newColor: NSColor) {
         
         guard self.effectsUnit.state == .suppressed else {return}
         

@@ -10,6 +10,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PitchShiftUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="0Wm-Yf-mhU" id="lt6-Dr-xyx"/>
+                <outlet property="loadPresetsMenuItem" destination="4DL-vP-sNz" id="j8y-Go-kGT"/>
                 <outlet property="pitchShiftUnitView" destination="Nbf-AE-zAG" id="UXG-p7-MF7"/>
                 <outlet property="pitchSlider" destination="1hj-dj-GDp" id="rqv-VK-JrW"/>
                 <outlet property="presetsAndSettingsMenu" destination="H4F-YF-hmn" id="OYO-0R-YpX"/>

@@ -77,6 +77,13 @@ class EffectsUnitStateObserverRegistry {
         }
     }
     
+    func registerObservers(_ observers: [FXUnitStateObserver], forFXUnit fxUnit: any EffectsUnitProtocol) {
+        
+        for observer in observers {
+            registerObserver(observer, forFXUnit: fxUnit)
+        }
+    }
+    
     func registerObserver(_ observer: FXUnitStateObserver, forFXUnit fxUnit: any EffectsUnitProtocol) {
         
         let unitType = fxUnit.unitType

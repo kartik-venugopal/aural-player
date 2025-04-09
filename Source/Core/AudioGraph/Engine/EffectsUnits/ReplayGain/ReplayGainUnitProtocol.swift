@@ -38,6 +38,14 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     
     var settingsAsPreset: ReplayGainPreset {get}
     
+    var hasAppliedGain: Bool {get}
+    
+    var isScanning: Bool {get}
+    
+    var scanStatus: String? {get}
+    
+    func applyReplayGain(forTrack track: Track?)
+    
     /*
      
      TODO:

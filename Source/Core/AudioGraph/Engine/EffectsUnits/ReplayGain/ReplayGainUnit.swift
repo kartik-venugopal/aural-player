@@ -15,10 +15,55 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     let node: ReplayGainNode
     let presets: ReplayGainPresets
     
+    var isScanning: Bool {_isScanning.value}
+    var _isScanning: AtomicBool = AtomicBool(value: false)
+    
+    var scanStatus: String? = nil
+    
+    private lazy var messenger = Messenger(for: self)
+    
+    init(persistentState: ReplayGainUnitPersistentState?) {
+        
+        node = ReplayGainNode()
+        node.preAmp = persistentState?.preAmp ?? AudioGraphDefaults.replayGainPreAmp
+
+        mode = persistentState?.mode ?? AudioGraphDefaults.replayGainMode
+        replayGain = nil
+        preventClipping = persistentState?.preventClipping ?? AudioGraphDefaults.replayGainPreventClipping
+        
+        maxPeakLevel = persistentState?.maxPeakLevel ?? AudioGraphDefaults.replayGainMaxPeakLevel
+        dataSource = persistentState?.dataSource ?? AudioGraphDefaults.replayGainDataSource
+        
+        presets = ReplayGainPresets(persistentState: persistentState)
+        
+        super.init(unitType: .replayGain,
+                   unitState: persistentState?.state ?? AudioGraphDefaults.replayGainState,
+                   renderQuality: persistentState?.renderQuality)
+        
+        parmsChanged()
+        
+        messenger.subscribe(to: .Player.preTrackPlayback, handler: preTrackPlayback(_:))
+    }
+    
+    override func toggleState() -> EffectsUnitState {
+        
+        let newState = super.toggleState()
+        
+        if isActive {
+            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
+        } else {
+            noReplayGain()
+        }
+        
+        return newState
+    }
+    
     var mode: ReplayGainMode {
         
         didSet {
+            
             parmsChanged()
+            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
         }
     }
     
@@ -34,6 +79,10 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         }
     }
     
+    var hasAppliedGain: Bool {
+        replayGain != nil
+    }
+    
     var preAmp: Float {
         
         get {node.preAmp}
@@ -47,7 +96,12 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         }
     }
     
-    var dataSource: ReplayGainDataSource
+    var dataSource: ReplayGainDataSource {
+        
+        didSet {
+            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
+        }
+    }
     
     var maxPeakLevel: ReplayGainMaxPeakLevel {
         
@@ -111,27 +165,6 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     
     var effectiveGain: Float {
         node.globalGain
-    }
-    
-    init(persistentState: ReplayGainUnitPersistentState?) {
-        
-        node = ReplayGainNode()
-        node.preAmp = persistentState?.preAmp ?? AudioGraphDefaults.replayGainPreAmp
-
-        mode = persistentState?.mode ?? AudioGraphDefaults.replayGainMode
-        replayGain = nil
-        preventClipping = persistentState?.preventClipping ?? AudioGraphDefaults.replayGainPreventClipping
-        
-        maxPeakLevel = persistentState?.maxPeakLevel ?? AudioGraphDefaults.replayGainMaxPeakLevel
-        dataSource = persistentState?.dataSource ?? AudioGraphDefaults.replayGainDataSource
-        
-        presets = ReplayGainPresets(persistentState: persistentState)
-        
-        super.init(unitType: .replayGain, 
-                   unitState: persistentState?.state ?? AudioGraphDefaults.replayGainState,
-                   renderQuality: persistentState?.renderQuality)
-        
-        parmsChanged()
     }
     
     override func stateChanged() {

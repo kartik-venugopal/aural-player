@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ReplayGainUnitViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="0Oi-jb-bmq" id="dap-fq-cQl"/>
-                <outlet property="btnPreventClipping" destination="gyR-LY-TRQ" id="3Ti-JX-Ltn"/>
-                <outlet property="dataSourceMenuItem_analysisOnly" destination="oAW-lt-z2d" id="1D1-mA-qw4"/>
-                <outlet property="dataSourceMenuItem_metadataOnly" destination="MvS-R2-mfL" id="Y1w-bT-xUA"/>
-                <outlet property="dataSourceMenuItem_metadataOrAnalysis" destination="5rn-qY-y6D" id="kXl-fa-9BB"/>
-                <outlet property="lblGain" destination="38g-mP-xOa" id="akW-qc-Cvo"/>
-                <outlet property="lblPreAmp" destination="uIb-6C-Dgf" id="4KQ-yg-RQo"/>
-                <outlet property="maxPeakLevelMenuItem_zero" destination="soD-cA-mVk" id="IKz-lH-vke"/>
-                <outlet property="maxPeakLevelSelectorView" destination="7tV-ol-wCL" id="bKs-Y0-fTn"/>
-                <outlet property="modeMenuButton" destination="MJF-dG-Epe" id="8Mo-35-wc8"/>
-                <outlet property="modeMenuButtonCell" destination="QJF-Wc-9uh" id="3XF-F6-9ps"/>
-                <outlet property="preAmpSlider" destination="ngp-pO-uWT" id="vJQ-0f-POm"/>
+                <outlet property="loadPresetsMenuItem" destination="6Va-Tw-Vsb" id="cFo-cG-dpG"/>
                 <outlet property="presetsAndSettingsMenu" destination="hG2-4q-Wg7" id="lHQ-Bf-2In"/>
                 <outlet property="presetsAndSettingsMenuButton" destination="aWr-na-Gft" id="NtQ-RJ-K45"/>
                 <outlet property="presetsAndSettingsMenuIconItem" destination="yH6-SM-gen" id="fc8-1J-E4b"/>
                 <outlet property="renderQualityMenu" destination="QdN-fd-QH0" id="QZL-i9-FPA"/>
+                <outlet property="replayGainUnitView" destination="tFM-tl-kaj" id="skz-ME-opf"/>
                 <outlet property="view" destination="eXu-49-wDq" id="ENz-f9-LMp"/>
             </connections>
         </customObject>
@@ -84,7 +75,7 @@
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <menu key="submenu" title="Max. peak level (for clipping prevention)" id="EbX-JJ-3B7">
                                         <items>
-                                            <menuItem title="0 dB" id="soD-cA-mVk" userLabel="-18dB">
+                                            <menuItem title="0 dB" id="soD-cA-mVk" userLabel="0 db">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                 <connections>
                                                     <action selector="maxPeakLevelAction:" target="-2" id="Jdw-Nt-c4l"/>
@@ -131,11 +122,11 @@
                         <action selector="presetsAction:" target="-2" id="q7f-4W-hZC"/>
                     </connections>
                 </popUpButton>
-                <view id="tFM-tl-kaj">
+                <view id="tFM-tl-kaj" customClass="ReplayGainUnitView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="48" y="0.0" width="380" height="160"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HzS-aY-W4u" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HzS-aY-W4u" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="5" y="127" width="65" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Mode" id="nw4-95-wYE">
@@ -168,7 +159,7 @@
                                 <action selector="modeAction:" target="-2" id="cfx-Gc-gXy"/>
                             </connections>
                         </popUpButton>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cG0-Qq-OUs" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cG0-Qq-OUs" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="5" y="92" width="65" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Gain" id="fas-t4-L4N">
@@ -177,7 +168,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38g-mP-xOa" userLabel="Lbl Applied Gain" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38g-mP-xOa" userLabel="Lbl Applied Gain" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="107" y="92" width="240" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 dB  (Track gain)" id="TD9-7u-npw">
@@ -186,7 +177,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFa-x8-qPj" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFa-x8-qPj" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="5" y="57" width="65" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Pre-amp" id="vCc-cy-Ast">
@@ -203,7 +194,7 @@
                                 <action selector="preAmpAction:" target="-2" id="Phx-W2-0oz"/>
                             </connections>
                         </slider>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ob7-3G-QFa" userLabel="-20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ob7-3G-QFa" userLabel="-20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="90" y="57" width="35" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-15" id="PF4-7v-Mk9">
@@ -212,7 +203,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HkG-br-QNW" userLabel="20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HkG-br-QNW" userLabel="20 dB" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="254" y="57" width="35" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="+15" id="nmd-q7-pKl">
@@ -221,7 +212,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIb-6C-Dgf" userLabel="Lbl PreAmp" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIb-6C-Dgf" userLabel="Lbl PreAmp" customClass="CenterTextFunctionValueLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="290" y="57" width="56" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 dB" id="YMZ-Ip-d3E">
@@ -241,7 +232,7 @@
                                 <action selector="preventClippingAction:" target="-2" id="qI4-JI-Sl1"/>
                             </connections>
                         </button>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bjo-mY-7G4" userLabel="Prevent Clipping" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bjo-mY-7G4" userLabel="Prevent Clipping" customClass="CenterTextFunctionCaptionLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="5" y="22" width="104" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <string key="toolTip">When this option is enabled, the replay gain will be adjusted (reduced) if clipping is predicted based on the computed loudness peak.</string>
@@ -252,6 +243,19 @@
                             </textFieldCell>
                         </textField>
                     </subviews>
+                    <connections>
+                        <outlet property="btnPreventClipping" destination="gyR-LY-TRQ" id="LcR-nM-ixC"/>
+                        <outlet property="dataSourceMenuItem_analysisOnly" destination="oAW-lt-z2d" id="zDl-3P-7l2"/>
+                        <outlet property="dataSourceMenuItem_metadataOnly" destination="MvS-R2-mfL" id="QSc-Te-BvK"/>
+                        <outlet property="dataSourceMenuItem_metadataOrAnalysis" destination="5rn-qY-y6D" id="dxN-Nl-ELc"/>
+                        <outlet property="lblGain" destination="38g-mP-xOa" id="d9K-Ny-GIU"/>
+                        <outlet property="lblPreAmp" destination="uIb-6C-Dgf" id="kcH-iz-IMq"/>
+                        <outlet property="maxPeakLevelMenuItem_zero" destination="soD-cA-mVk" id="I7J-YC-ySp"/>
+                        <outlet property="maxPeakLevelSelectorView" destination="7tV-ol-wCL" id="MLn-Cr-b4t"/>
+                        <outlet property="modeMenuButton" destination="MJF-dG-Epe" id="xiG-9b-D7N"/>
+                        <outlet property="modeMenuButtonCell" destination="QJF-Wc-9uh" id="RPe-JO-Q3e"/>
+                        <outlet property="preAmpSlider" destination="ngp-pO-uWT" id="T2a-mK-t5n"/>
+                    </connections>
                 </view>
             </subviews>
             <point key="canvasLocation" x="139" y="153"/>
@@ -260,7 +264,7 @@
             <rect key="frame" x="0.0" y="0.0" width="197" height="28"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XWM-n3-cUs" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XWM-n3-cUs" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="107" y="3" width="65" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="0.0 dB" id="onX-gZ-Svg">
