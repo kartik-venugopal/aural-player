@@ -12,6 +12,10 @@ import Foundation
 
 protocol MasterUnitProtocol: EffectsUnitProtocol {
     
+    func addAudioUnit(_ unit: HostedAudioUnit)
+    
+    func removeAudioUnits(at descendingIndices: [Int])
+    
     var presets: MasterPresets {get}
     
     func applyPreset(_ preset: MasterPreset)

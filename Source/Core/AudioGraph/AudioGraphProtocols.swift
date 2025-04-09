@@ -30,8 +30,6 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     
     var playerOutputFormat: AVAudioFormat {get}
     
-    static var minVolume: Float {get}
-    static var maxVolume: Float {get}
     var volume: Float {get set}
     
     @discardableResult func increaseVolume(by increment: Float) -> Float
@@ -53,7 +51,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var replayGainUnit: ReplayGainUnitProtocol {get}
     
     var audioUnits: [HostedAudioUnitProtocol] {get}
-    var audioUnitsStateFunction: EffectsUnitStateFunction {get}
+    var audioUnitsState: EffectsUnitState {get}
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)?
     func removeAudioUnits(at indices: IndexSet)
     
@@ -72,14 +70,11 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     func resumeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     
     var visualizationAnalysisBufferSize: Int {get}
+    var isSetUpForVisualizationAnalysis: Bool {get}
+    func setUpForVisualizationAnalysis()
     
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
-}
-
-extension AudioGraphProtocol {
-    
-    
 }
 
 ///

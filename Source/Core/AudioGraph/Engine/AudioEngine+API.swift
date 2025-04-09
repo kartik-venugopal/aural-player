@@ -1,65 +1,60 @@
 //
-//  AudioEngine.swift
-//  Aural
+// AudioEngine+API.swift
+// Aural
+// 
+// Copyright © 2025 Kartik Venugopal. All rights reserved.
+// 
+// This software is licensed under the MIT software license.
+// See the file "LICENSE" in the project root directory for license terms.
 //
-//  Copyright © 2025 Kartik Venugopal. All rights reserved.
-//
-//  This software is licensed under the MIT software license.
-//  See the file "LICENSE" in the project root directory for license terms.
-//
+
 import AVFoundation
 
-///
-/// Encapsulates an **AVAudioEngine** and provides convenient audio engine lifecycle functions.
-/// It also provides functions to add or remove audio processing nodes and manage their connections
-/// to each other.
-///
-class AudioEngine {
+extension AudioEngine {
     
-    private let engine: AVAudioEngine
+    private static let volumeRange: ClosedRange<Float> = 0...1
+    private static let panRange: ClosedRange<Float> = -1...1
     
-    private var permanentNodes: [AVAudioNode] = []
-    private var removableNodes: [AVAudioNode] = []
-    
-    private var allNodes: [AVAudioNode] {
-        permanentNodes + removableNodes
+    var volume: Float {
+        
+        get {playerNode.volume}
+        set {playerNode.volume = newValue.clamped(to: Self.volumeRange)}
     }
     
-    private(set) lazy var outputNode: AVAudioOutputNode = engine.outputNode
-    private(set) lazy var mainMixerNode: AVAudioMixerNode = engine.mainMixerNode
-    
-    init() {
-        self.engine = AVAudioEngine()
+    func increaseVolume(by increment: Float) -> Float {
+        
+        volume += increment
+        return volume
     }
     
-    // Connects all nodes in sequence.
-    func addNodes(permanentNodes: [AVAudioNode], removableNodes: [AVAudioNode]) {
+    func decreaseVolume(by decrement: Float) -> Float {
         
-        self.permanentNodes = permanentNodes
-        self.removableNodes = removableNodes
+        volume -= decrement
+        return volume
+    }
+    
+    var pan: Float {
         
-        let allNodes = self.allNodes
+        get {playerNode.pan}
+        set {playerNode.pan = newValue.clamped(to: Self.panRange)}
+    }
+    
+    func panLeft(by delta: Float) -> Float {
         
-        // Attach and connect the nodes, forming a chain.
+        pan -= delta
+        return pan
+    }
+    
+    func panRight(by delta: Float) -> Float {
         
-        allNodes.forEach {engine.attach($0)}
+        pan += delta
+        return pan
+    }
+    
+    var muted: Bool {
         
-        var input: AVAudioNode, output: AVAudioNode
-        
-        // At least 2 nodes required for this to work
-        if allNodes.count >= 2 {
-            
-            for i in 0...allNodes.count - 2 {
-                
-                input = allNodes[i]
-                output = allNodes[i + 1]
-                
-                engine.connect(input, to: output, format: nil)
-            }
-        }
-        
-        // Connect last node to main mixer
-        engine.connect(allNodes.last!, to: mainMixerNode, format: nil)
+        get {auxMixer.muted}
+        set {auxMixer.muted = newValue}
     }
     
     func insertNode(_ node: AVAudioNode) {
@@ -123,11 +118,24 @@ class AudioEngine {
         }
     }
     
-    // Reconnects two nodes with the given audio format (required when a track change occurs)
-    func reconnect(outputOf node1: AVAudioNode, toInputOf node2: AVAudioNode, withFormat format: AVAudioFormat) {
+    var playerOutputFormat: AVAudioFormat {
+        playerNode.outputFormat(forBus: 0)
+    }
+    
+    func reconnectPlayerNode(withFormat format: AVAudioFormat) {
         
-        engine.disconnectNodeOutput(node1)
-        engine.connect(node1, to: node2, format: format)
+        if playerOutputFormat != format {
+            
+            engine.disconnectNodeOutput(playerNode)
+            engine.connect(playerNode, to: auxMixer, format: format)
+        }
+    }
+    
+    func clearSoundTails() {
+        
+        // Clear sound tails from reverb and delay nodes, if they're active
+        if delayUnit.isActive {delayUnit.reset()}
+        if reverbUnit.isActive {reverbUnit.reset()}
     }
     
     func start() {

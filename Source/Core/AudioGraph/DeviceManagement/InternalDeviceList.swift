@@ -33,8 +33,6 @@ class InternalDeviceList {
     // Used to ensure that simultaneous reads/writes cannot occur.
     private let lock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     
-    private lazy var messenger = Messenger(for: self)
-    
     init() {
         
         rebuildList()
@@ -78,7 +76,7 @@ class InternalDeviceList {
             let newDeviceIds = Set(devices.map {$0.id})
             
             if newDeviceIds != oldDeviceIds {
-                messenger.publish(.deviceManager_deviceListUpdated)
+                Messenger.publish(.deviceManager_deviceListUpdated)
             }
         }
     }

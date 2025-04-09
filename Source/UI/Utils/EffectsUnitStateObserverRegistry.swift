@@ -48,7 +48,7 @@ class EffectsUnitStateObserverRegistry {
     }
     
     var compositeAUState: EffectsUnitState {
-        audioGraph.audioUnitsStateFunction()
+        audioGraph.audioUnitsState
     }
     
     func observeAU(_ au: HostedAudioUnitProtocol) {

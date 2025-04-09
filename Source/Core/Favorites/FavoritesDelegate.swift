@@ -35,8 +35,6 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    private lazy var messenger = Messenger(for: self)
-    
     init(_ playQueue: PlayQueueDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.player = player
@@ -198,49 +196,49 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         let favorite = FavoriteTrack(track: track)
         favoriteTracks[track.file] = favorite
-        messenger.publish(.Favorites.itemAdded, payload: favorite)
+        Messenger.publish(.Favorites.itemAdded, payload: favorite)
     }
     
 //    func addFavorite(artist: String) {
 //        
 //        let favorite = FavoriteGroup(groupName: artist, groupType: .artist)
 //        favoriteArtists[artist] = favorite
-//        messenger.publish(.Favorites.itemAdded, payload: favorite)
+//        Messenger.publish(.Favorites.itemAdded, payload: favorite)
 //    }
 //    
 //    func addFavorite(album: String) {
 //        
 //        let favorite = FavoriteGroup(groupName: album, groupType: .album)
 //        favoriteAlbums[album] = favorite
-//        messenger.publish(.Favorites.itemAdded, payload: favorite)
+//        Messenger.publish(.Favorites.itemAdded, payload: favorite)
 //    }
 //    
 //    func addFavorite(genre: String) {
 //        
 //        let favorite = FavoriteGroup(groupName: genre, groupType: .genre)
 //        favoriteGenres[genre] = favorite
-//        messenger.publish(.Favorites.itemAdded, payload: favorite)
+//        Messenger.publish(.Favorites.itemAdded, payload: favorite)
 //    }
 //
 //    func addFavorite(decade: String) {
 //        
 //        let favorite = FavoriteGroup(groupName: decade, groupType: .decade)
 //        favoriteDecades[decade] = favorite
-//        messenger.publish(.Favorites.itemAdded, payload: favorite)
+//        Messenger.publish(.Favorites.itemAdded, payload: favorite)
 //    }
     
     func addFavorite(folder: URL) {
      
         let favorite = FavoriteFolder(folder: folder)
         favoriteFolders[folder] = favorite
-        messenger.publish(.Favorites.itemAdded, payload: favorite)
+        Messenger.publish(.Favorites.itemAdded, payload: favorite)
     }
     
     func addFavorite(playlistFile: URL) {
         
         let favorite = FavoritePlaylistFile(playlistFile: playlistFile)
         favoritePlaylistFiles[playlistFile] = favorite
-        messenger.publish(.Favorites.itemAdded, payload: favorite)
+        Messenger.publish(.Favorites.itemAdded, payload: favorite)
     }
     
     func removeFavorite(_ favorite: Favorite) {
@@ -279,49 +277,49 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     func removeFavorite(track: Track) {
         
         if let removedFav = favoriteTracks.removeValue(forKey: track.file) {
-            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+            Messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
         }
     }
     
 //    func removeFavorite(artist: String) {
 //        
 //        if let removedFav = favoriteArtists.removeValue(forKey: artist) {
-//            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+//            Messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
 //        }
 //    }
 //    
 //    func removeFavorite(album: String) {
 //        
 //        if let removedFav = favoriteAlbums.removeValue(forKey: album) {
-//            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+//            Messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
 //        }
 //    }
 //    
 //    func removeFavorite(genre: String) {
 //        
 //        if let removedFav = favoriteGenres.removeValue(forKey: genre) {
-//            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+//            Messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
 //        }
 //    }
 //    
 //    func removeFavorite(decade: String) {
 //        
 //        if let removedFav = favoriteDecades.removeValue(forKey: decade) {
-//            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+//            Messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
 //        }
 //    }
     
     func removeFavorite(folder: URL) {
         
         if let removedFav = favoriteFolders.removeValue(forKey: folder) {
-            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+            Messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
         }
     }
     
     func removeFavorite(playlistFile: URL) {
         
         if let removedFav = favoritePlaylistFiles.removeValue(forKey: playlistFile) {
-            messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
+            Messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([removedFav]))
         }
     }
     

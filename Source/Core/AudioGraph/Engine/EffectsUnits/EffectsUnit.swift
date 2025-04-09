@@ -51,8 +51,6 @@ class EffectsUnit: NSObject {
     
     var isActive: Bool {state == .active}
     
-    lazy var messenger = Messenger(for: self)
-    
     private var kvoTokens: Set<NSKeyValueObservation> = Set()
     
     init(unitType: EffectsUnitType, unitState: EffectsUnitState, renderQuality: Int? = nil) {
@@ -69,7 +67,7 @@ class EffectsUnit: NSObject {
     func stateChanged() {
         
         if stateChangeRequiresNotification, isActive, unitType != .master {
-            messenger.publish(.Effects.unitActivated)
+            Messenger.publish(.Effects.unitActivated)
         }
     }
     

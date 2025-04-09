@@ -264,7 +264,7 @@ extension EffectsContainerViewController: ColorSchemeObserver {
             replayGainTabViewButton.redraw()
         }
         
-        if audioGraph.audioUnitsStateFunction() == unitState {
+        if audioGraph.audioUnitsState == unitState {
             auTabViewButton.redraw()
         }
     }

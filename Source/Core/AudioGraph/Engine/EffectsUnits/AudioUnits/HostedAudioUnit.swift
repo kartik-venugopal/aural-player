@@ -99,8 +99,8 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
             self.state = nodeIsBypassed ? .bypassed : .active
             shouldUpdateNodeBypassState = true
             
-            messenger.publish(.Effects.unitStateChanged)
-            messenger.publish(.Effects.auStateChanged)
+            Messenger.publish(.Effects.unitStateChanged)
+            Messenger.publish(.Effects.auStateChanged)
         }
     }
     

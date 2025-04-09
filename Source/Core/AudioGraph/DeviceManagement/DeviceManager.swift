@@ -26,8 +26,6 @@ public class DeviceManager {
     
     private let list: InternalDeviceList
     
-    private lazy var messenger = Messenger(for: self)
-    
     init(outputAudioUnit: AudioUnit) {
         
         self.outputAudioUnit = outputAudioUnit
@@ -84,7 +82,7 @@ public class DeviceManager {
     }
     
     private func outputDeviceChanged() {
-        messenger.publish(.deviceManager_defaultDeviceChanged)
+        Messenger.publish(.deviceManager_defaultDeviceChanged)
     }
     
     var outputDeviceBufferSize: Int {

@@ -31,8 +31,6 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    private lazy var messenger = Messenger(for: self)
-    
     init(_ playQueue: PlayQueueDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.playQueue = playQueue
@@ -46,7 +44,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         let newBookmark = Bookmark(name: name, track: track, startPosition: startPosition, endPosition: endPosition)
         bookmarks.addObject(newBookmark)
         
-        messenger.publish(.Bookmarks.added, payload: newBookmark)
+        Messenger.publish(.Bookmarks.added, payload: newBookmark)
         return newBookmark
     }
     
@@ -79,13 +77,13 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     func deleteBookmarks(atIndices indices: IndexSet) {
         
         let deletedBookmarks = bookmarks.deleteObjects(atIndices: indices)
-        messenger.publish(.Bookmarks.removed, payload: Set(deletedBookmarks))
+        Messenger.publish(.Bookmarks.removed, payload: Set(deletedBookmarks))
     }
     
     func deleteBookmarkWithName(_ name: String) {
         
         if let deletedBookmark = bookmarks.deleteObject(named: name) {
-            messenger.publish(.Bookmarks.removed, payload: Set([deletedBookmark]))
+            Messenger.publish(.Bookmarks.removed, payload: Set([deletedBookmark]))
         }
     }
     
