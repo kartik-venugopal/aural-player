@@ -174,6 +174,8 @@ ______
 
 The app is what it is today largely thanks to the numerous bug reports and valuable feedback of users over the years. I urge you to file issues for any bugs you encounter or for features / behavior you would like to see implemented. I am generally pretty good at responding to issues, and at the very least, I will read, contemplate, and respond.
 
+Note - When filing issues or requesting new features, please keep in mind that there is exactly one person developing this app ... there is no team. Just one person with 2 hands and a normal and busy life situation. I appreciate your understanding :-)
+
 ______
 
 ## Third party code attributions
