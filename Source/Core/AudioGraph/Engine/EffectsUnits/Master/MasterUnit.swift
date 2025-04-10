@@ -49,6 +49,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         
         super.init(unitType: .master, unitState: persistentState?.state ?? AudioGraphDefaults.masterState)
         
+        // TODO: Can be done with an observer on the fx state registry.
         messenger.subscribe(to: .Effects.unitActivated, handler: ensureActive)
     }
     

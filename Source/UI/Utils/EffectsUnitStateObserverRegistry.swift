@@ -177,6 +177,8 @@ extension FXUnitStateObserver {
     func unitStateChanged(to newState: EffectsUnitState) {
         redraw()
     }
+    
+    func redraw() {}
 }
 
 protocol TintableFXUnitStateObserver: FXUnitStateObserver {

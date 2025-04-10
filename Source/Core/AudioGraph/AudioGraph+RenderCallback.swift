@@ -80,10 +80,10 @@ extension AudioGraph {
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
         
-        renderObserver = observer
-        
         guard let outputAudioUnit: AudioUnit = outputNode.audioUnit else {return}
+        
         let unmanagedReferenceToSelf: UnsafeMutableRawPointer = Unmanaged.passUnretained(self).toOpaque()
+        renderObserver = observer
         
         outputAudioUnit.registerRenderCallback(inProc: renderCallback, inProcUserData: unmanagedReferenceToSelf)
         outputAudioUnit.registerDeviceChangeCallback(inProc: deviceChangeCallback, inProcUserData: unmanagedReferenceToSelf)

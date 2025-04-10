@@ -14,7 +14,7 @@ extension ReplayGainUnit {
     
     func applyReplayGain(forTrack track: Track?) {
         
-        guard let theTrack = track else {
+        guard let track else {
             
             noReplayGain()
             return
@@ -24,7 +24,7 @@ extension ReplayGainUnit {
             
         case .metadataOrAnalysis:
             
-            if let replayGain = theTrack.replayGain, hasEnoughInfo(replayGain: replayGain) {
+            if let replayGain = track.replayGain, hasEnoughInfo(replayGain: replayGain) {
                 
                 // Has metadata
                 self.replayGain = replayGain
@@ -35,14 +35,14 @@ extension ReplayGainUnit {
                 self.replayGain = nil
                 
                 // Analyze
-                analyze(track: theTrack)
+                analyze(track: track)
             }
             
         case .metadataOnly:
-            self.replayGain = theTrack.replayGain
+            self.replayGain = track.replayGain
             
         case .analysisOnly:
-            analyze(track: theTrack)
+            analyze(track: track)
         }
     }
     

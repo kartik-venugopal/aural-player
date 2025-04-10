@@ -81,7 +81,7 @@ class EffectsUnit: NSObject {
     func ensureActive() {
         
         if !isActive {
-            _ = toggleState()
+            toggleState()
         }
     }
     
