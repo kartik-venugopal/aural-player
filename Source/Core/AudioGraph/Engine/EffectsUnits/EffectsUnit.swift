@@ -130,14 +130,11 @@ class EffectsUnit: NSObject {
     // Intended to be overriden by subclasses.
     func applyPreset(named presetName: String) {}
     
-    func observeState(handler: @escaping EffectsUnitStateChangeHandler) -> NSKeyValueObservation {
+    func observeState(handler: @escaping EffectsUnitStateChangeHandler) {
         
-        let newToken = observe(\.state, options: [.initial, .new]) {unit,_ in
+        kvoTokens.insert(observe(\.state, options: [.initial, .new]) {unit,_ in
             handler(unit.state)
-        }
-        
-        kvoTokens.insert(newToken)
-        return newToken
+        })
     }
     
     func removeObserver(_ observer: NSKeyValueObservation) {

@@ -21,8 +21,6 @@
 		3E0217E02C23490E00865AC2 /* FlexibleFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215C42C23490E00865AC2 /* FlexibleFilterNode.swift */; };
 		3E0217E12C23490E00865AC2 /* HostedAUNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215C62C23490E00865AC2 /* HostedAUNode.swift */; };
 		3E0217E22C23490E00865AC2 /* VariableRateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215C72C23490E00865AC2 /* VariableRateNode.swift */; };
-		3E0217E72C23490E00865AC2 /* EffectsUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215CD2C23490E00865AC2 /* EffectsUnitDelegate.swift */; };
-		3E0217E82C23490E00865AC2 /* EffectsUnitDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215CE2C23490E00865AC2 /* EffectsUnitDelegateProtocol.swift */; };
 		3E0217F72C23490E00865AC2 /* DelayUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215DE2C23490E00865AC2 /* DelayUnit.swift */; };
 		3E0217F82C23490E00865AC2 /* DelayUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215DF2C23490E00865AC2 /* DelayUnitProtocol.swift */; };
 		3E0217F92C23490E00865AC2 /* EffectsUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215E02C23490E00865AC2 /* EffectsUnit.swift */; };
@@ -1074,8 +1072,6 @@
 		3E0215C42C23490E00865AC2 /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
 		3E0215C62C23490E00865AC2 /* HostedAUNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostedAUNode.swift; sourceTree = "<group>"; };
 		3E0215C72C23490E00865AC2 /* VariableRateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableRateNode.swift; sourceTree = "<group>"; };
-		3E0215CD2C23490E00865AC2 /* EffectsUnitDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitDelegate.swift; sourceTree = "<group>"; };
-		3E0215CE2C23490E00865AC2 /* EffectsUnitDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E0215DE2C23490E00865AC2 /* DelayUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayUnit.swift; sourceTree = "<group>"; };
 		3E0215DF2C23490E00865AC2 /* DelayUnitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayUnitProtocol.swift; sourceTree = "<group>"; };
 		3E0215E02C23490E00865AC2 /* EffectsUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnit.swift; sourceTree = "<group>"; };
@@ -2289,9 +2285,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0215E12C23490E00865AC2 /* EffectsUnitProtocol.swift */,
-				3E0215CE2C23490E00865AC2 /* EffectsUnitDelegateProtocol.swift */,
 				3E0215E02C23490E00865AC2 /* EffectsUnit.swift */,
-				3E0215CD2C23490E00865AC2 /* EffectsUnitDelegate.swift */,
 				3E0215E22C23490E00865AC2 /* EffectsUnitState.swift */,
 				3E0215E32C23490E00865AC2 /* EffectsUnitType.swift */,
 				3ED373E82C70DDD700836511 /* Master */,
@@ -6384,7 +6378,6 @@
 				3EC7425D2C41C6E300C100DE /* AVFScheduler+Gapless.swift in Sources */,
 				3E02191F2C23490E00865AC2 /* RemoteCommandManager.swift in Sources */,
 				3E02199D2C23490E00865AC2 /* TimeUtils.swift in Sources */,
-				3E0217E82C23490E00865AC2 /* EffectsUnitDelegateProtocol.swift in Sources */,
 				3E8836172B6E0AC30009ABE2 /* TrackInfoViewController.swift in Sources */,
 				3E0218602C23490E00865AC2 /* PlaylistCommandNotification.swift in Sources */,
 				3E0217DF2C23490E00865AC2 /* FilterBandType.swift in Sources */,
@@ -6640,7 +6633,6 @@
 				3EE7B8822DA532E90001EE47 /* AudioGraph+RenderCallback.swift in Sources */,
 				3E02195B2C23490E00865AC2 /* SearchResultMatch.swift in Sources */,
 				3E7E9F4C2C66B06F0011DE8E /* WaveformViewController.swift in Sources */,
-				3E0217E72C23490E00865AC2 /* EffectsUnitDelegate.swift in Sources */,
 				3E0218D72C23490E00865AC2 /* PlaybackParams.swift in Sources */,
 				3E02193F2C23490E00865AC2 /* MusicBrainzArtist.swift in Sources */,
 				3E6C12A225CEBE2700BF0D07 /* SnappingWindow.swift in Sources */,

@@ -48,9 +48,6 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         presets = MasterPresets(persistentState: persistentState)
         
         super.init(unitType: .master, unitState: persistentState?.state ?? AudioGraphDefaults.masterState)
-        
-        // TODO: Can be done with an observer on the fx state registry.
-        messenger.subscribe(to: .Effects.unitActivated, handler: ensureActive)
     }
     
     override func toggleState() -> EffectsUnitState {
@@ -136,7 +133,9 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     }
     
     func addAudioUnit(_ unit: HostedAudioUnit) {
+        
         audioUnits.append(unit)
+        fxUnitStateObserverRegistry.registerObserver(self, forFXUnit: unit)
     }
     
     func removeAudioUnits(at descendingIndices: [Int]) {
@@ -147,5 +146,16 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
 
         MasterUnitPersistentState(state: state,
                                   userPresets: presets.userDefinedObjects.map {MasterPresetPersistentState(preset: $0)})
+    }
+}
+
+extension MasterUnit: FXUnitStateObserver {
+    
+    func unitStateChanged(to newState: EffectsUnitState) {
+
+        // If a previously suppressed unit was activated, master unit needs to be re-activated
+        if newState == .active {
+            ensureActive()
+        }
     }
 }

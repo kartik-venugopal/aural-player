@@ -129,7 +129,7 @@ class EffectsContainerViewController: NSViewController {
         fxUnitStateObserverRegistry.registerObserver(filterTabViewButton, forFXUnit: audioGraph.filterUnit)
         fxUnitStateObserverRegistry.registerObserver(replayGainTabViewButton, forFXUnit: audioGraph.replayGainUnit)
         
-        fxUnitStateObserverRegistry.registerAUObserver(auTabViewButton)
+        fxUnitStateObserverRegistry.registerAUCompositeStateObserver(auTabViewButton)
         
         // TODO: Add state observer for AU tab button (complicated - composite function comprising states of individual AUs)
         // Might need an overload of registerObserver that takes a function instead of an FXUnitDelegate.

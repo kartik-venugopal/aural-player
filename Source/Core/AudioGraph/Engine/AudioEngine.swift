@@ -96,6 +96,7 @@ class AudioEngine {
         self.removableNodes = audioUnits.flatMap {$0.avNodes}
         
         setUpConnections()
+        messenger.subscribe(to: .Application.launched, handler: setUpMasterUnitStateObservation)
     }
     
     // Connects all nodes in sequence.
@@ -123,5 +124,15 @@ class AudioEngine {
         
         // Connect last node to main mixer
         engine.connect(allNodes.last!, to: mainMixerNode, format: nil)
+    }
+    
+    private func setUpMasterUnitStateObservation() {
+        
+        for unit in allUnits {
+            
+            if unit.unitType != .master {
+                fxUnitStateObserverRegistry.registerObserver(masterUnit as! MasterUnit, forFXUnit: unit, setInitialValue: false)
+            }
+        }
     }
 }

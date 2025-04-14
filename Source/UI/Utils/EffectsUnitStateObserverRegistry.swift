@@ -34,7 +34,7 @@ class EffectsUnitStateObserverRegistry {
             // AUs are dealt with differently.
             guard unit.unitType != .au else {continue}
             
-            _ = unit.observeState {[weak self] newState in
+            unit.observeState {[weak self] newState in
                 
                 for observer in self?.registry[unit.unitType] ?? [] {
                     observer.unitStateChanged(to: newState)
@@ -53,7 +53,7 @@ class EffectsUnitStateObserverRegistry {
     
     func observeAU(_ au: HostedAudioUnitProtocol) {
         
-        _ = au.observeState {[weak self] newState in
+        au.observeState {[weak self] newState in
             
             guard let strongSelf = self else {return}
             
@@ -84,7 +84,7 @@ class EffectsUnitStateObserverRegistry {
         }
     }
     
-    func registerObserver(_ observer: FXUnitStateObserver, forFXUnit fxUnit: any EffectsUnitProtocol) {
+    func registerObserver(_ observer: FXUnitStateObserver, forFXUnit fxUnit: any EffectsUnitProtocol, setInitialValue: Bool = true) {
         
         let unitType = fxUnit.unitType
         
@@ -113,15 +113,15 @@ class EffectsUnitStateObserverRegistry {
             if let object = observer as? NSObject {
                 auReverseRegistry[object] = auDelegate.id
             }
-            
-            // TODO: Reverse registry
         }
         
         // Set initial value.
-        observer.unitStateChanged(to: fxUnit.state)
+        if setInitialValue {
+            observer.unitStateChanged(to: fxUnit.state)
+        }
     }
     
-    func registerAUObserver(_ observer: FXUnitStateObserver) {
+    func registerAUCompositeStateObserver(_ observer: FXUnitStateObserver) {
         
         auCompositeStateObservers.append(observer)
         
