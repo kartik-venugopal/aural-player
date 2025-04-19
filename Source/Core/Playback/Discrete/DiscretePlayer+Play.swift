@@ -116,7 +116,7 @@ extension DiscretePlayer {
         
         if state.isPlayingOrPaused {
             
-            seekToTime(0)
+            forceSeek(to: 0)
             resumeIfPaused()
         }
     }

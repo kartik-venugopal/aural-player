@@ -116,7 +116,7 @@ class NowPlayingInfoManager: NSObject {
         
         // Playback rate
         
-        let playbackRate: Double = player.state == .playing ? Double(audioGraph.timeStretchUnit.effectiveRate) : .zero
+        let playbackRate: Double = player.isPlaying ? Double(audioGraph.timeStretchUnit.effectiveRate) : .zero
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         
@@ -172,7 +172,7 @@ class NowPlayingInfoManager: NSObject {
         var nowPlayingInfo = infoCenter.nowPlayingInfo!
         
         // Set playback rate
-        let playbackRate: Double = player.state == .playing ? Double(newRate) : .zero
+        let playbackRate: Double = player.isPlaying ? Double(newRate) : .zero
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         

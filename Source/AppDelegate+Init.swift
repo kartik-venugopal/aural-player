@@ -28,7 +28,7 @@ fileprivate var initOpQueue: OperationQueue = OperationQueue(opCount: 2, qos: .u
 extension AppDelegate {
     
     /// A window of time within which multiple file open operations will be considered as chunks of one single operation
-    private static let fileOpenNotificationWindow_seconds: Double = 3
+    private static let fileOpenNotificationWindow_seconds: TimeInterval = 3
     
     /// Measured in seconds
     static let persistenceTaskInterval: Int = 60

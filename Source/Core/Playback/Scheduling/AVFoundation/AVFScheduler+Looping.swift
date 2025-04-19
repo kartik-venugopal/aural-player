@@ -13,15 +13,15 @@ import AVFoundation
 extension AVFScheduler {
     
     // Starts loop playback at the beginning of the loop
-    func playLoop(_ session: PlaybackSession, _ beginPlayback: Bool) {
+    func playLoop(_ session: PlaybackSession, beginPlayback: Bool) {
         
         if let loop = session.loop {
-            playLoop(session, loop.startTime, beginPlayback)
+            playLoop(session, from: loop.startTime, beginPlayback: beginPlayback)
         }
     }
 
     // Starts loop playback but not necessarily at the beginning of the loop (e.g. chapter loop)
-    func playLoop(_ session: PlaybackSession, _ startTime: Double, _ beginPlayback: Bool) {
+    func playLoop(_ session: PlaybackSession, from startTime: TimeInterval, beginPlayback: Bool) {
 
         stop()
 

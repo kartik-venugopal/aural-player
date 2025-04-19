@@ -43,7 +43,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
     // MARK: Track scheduling, playback, and seeking functions -------------------------------------------------------------------------------------------
     
     // Start track playback from a given position expressed in seconds
-    func playTrack(_ session: PlaybackSession, _ startPosition: Double? = nil) {
+    func playTrack(_ session: PlaybackSession, from startPosition: Double? = nil) {
         seekToTime(session, startPosition ?? 0, true)
     }
 
@@ -53,7 +53,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
         // If a complete loop is defined (i.e. seeking within a loop), call playLoop() instead.
         if session.hasCompleteLoop() {
             
-            playLoop(session, startTime, beginPlayback)
+            playLoop(session, from: startTime, beginPlayback: beginPlayback)
             return
         }
         

@@ -22,7 +22,7 @@ extension DiscretePlayer {
             let curSeekPos = playerPosition
             
             // Resume playback from the same seek position
-            scheduler.seekToTime(curSession, curSeekPos, state == .playing)
+            scheduler.seekToTime(curSession, curSeekPos, isPlaying)
         }
     }
     
@@ -31,7 +31,7 @@ extension DiscretePlayer {
         if let currentSession = PlaybackSession.currentSession {
             
             notif.context.playbackSession = currentSession
-            notif.context.isPlaying = state == .playing
+            notif.context.isPlaying = isPlaying
             
             notif.context.seekPosition = playerPosition
             cachedSeekPosition = notif.context.seekPosition

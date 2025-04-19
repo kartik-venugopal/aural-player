@@ -30,7 +30,7 @@ extension PlayerViewController {
     
     func seekToPercentage(_ percentage: Double) {
         
-        player.seekToPercentage(percentage)
+        player.seekTo(percentage: percentage)
         updateSeekPosition()
     }
     

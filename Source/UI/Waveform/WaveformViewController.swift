@@ -150,7 +150,7 @@ class WaveformViewController: NSViewController {
     
     private func updateForCurrentPlaybackState() {
         
-        if player.state == .playing {
+        if player.isPlaying {
             seekTimer.startOrResume()
         } else {
             seekTimer.pause()

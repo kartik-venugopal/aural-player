@@ -15,20 +15,20 @@ import Foundation
 protocol PlaybackSchedulerProtocol: GaplessSchedulerProtocol {
     
     // Schedule and play the track (specified by the given playback session), starting at the given start position
-    func playTrack(_ playbackSession: PlaybackSession, _ startPosition: Double?)
+    func playTrack(_ playbackSession: PlaybackSession, from startPosition: TimeInterval?)
     
     // Schedule playback of a segment loop (specified by the given playback session), starting at the loop's start time. Begin playback if beginPlayback is true.
-    func playLoop(_ playbackSession: PlaybackSession, _ beginPlayback: Bool)
+    func playLoop(_ playbackSession: PlaybackSession, beginPlayback: Bool)
     
     // Schedule playback of a segment loop (specified by the given playback session), starting at the given playback start time. Begin playback if beginPlayback is true.
-    func playLoop(_ playbackSession: PlaybackSession, _ playbackStartTime: Double, _ beginPlayback: Bool)
+    func playLoop(_ playbackSession: PlaybackSession, from playbackStartTime: TimeInterval, beginPlayback: Bool)
     
     // End scheduling and playback for the segment loop (specified by the given playback session). Resume normal playback till the end of the track.
     // The loopEndTime parameter specifies the start time for the new segment: [loopEndTime, trackDuration].
-    func endLoop(_ session: PlaybackSession, _ loopEndTime: Double, _ beginPlayback: Bool)
+    func endLoop(_ session: PlaybackSession, _ loopEndTime: TimeInterval, _ beginPlayback: Bool)
     
     // Seeks to a certain position (seconds) within the currently playing track (specified by the given playback session). Begin playback if beginPlayback is true.
-    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool)
+    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: TimeInterval, _ beginPlayback: Bool)
     
     // Pause the player.
     func pause()
@@ -44,5 +44,5 @@ protocol GaplessSchedulerProtocol {
     
     func playGapless(tracks: [Track], currentSession: PlaybackSession)
     
-    func seekGapless(toTime seconds: Double, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track])
+    func seekGapless(toTime seconds: TimeInterval, currentSession: PlaybackSession, beginPlayback: Bool, otherTracksToSchedule: [Track])
 }

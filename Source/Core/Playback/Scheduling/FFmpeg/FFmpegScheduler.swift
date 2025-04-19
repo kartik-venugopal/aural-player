@@ -58,7 +58,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         self.playerNode = playerNode
     }
     
-    func playTrack(_ session: PlaybackSession, _ startPosition: Double? = nil) {
+    func playTrack(_ session: PlaybackSession, from startPosition: TimeInterval? = nil) {
         doPlayTrack(in: session, from: startPosition)
     }
     
@@ -95,7 +95,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         // Check if there's a complete loop defined. If so, defer to playLoop().
         if let loop = session.loop, loop.isComplete {
             
-            playLoop(session, seconds, beginPlayback)
+            playLoop(session, from: seconds, beginPlayback: beginPlayback)
             return
         }
         

@@ -14,7 +14,7 @@ import AVFoundation
 ///
 extension FFmpegScheduler {
     
-    func playLoop(_ session: PlaybackSession, _ beginPlayback: Bool = true) {
+    func playLoop(_ session: PlaybackSession, beginPlayback: Bool = true) {
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
               let decoder = thePlaybackCtx.decoder,
@@ -172,7 +172,7 @@ extension FFmpegScheduler {
     }
     
     // This function is for seeking within a complete segment loop
-    func playLoop(_ session: PlaybackSession, _ playbackStartTime: Double, _ beginPlayback: Bool) {
+    func playLoop(_ session: PlaybackSession, from playbackStartTime: TimeInterval, beginPlayback: Bool) {
         
         stop()
         scheduledBufferCounts[session] = AtomicCounter()

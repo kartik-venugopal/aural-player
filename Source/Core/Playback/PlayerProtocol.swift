@@ -19,6 +19,8 @@ protocol PlayerProtocol {
     // Returns the current playback state of the player. See PlaybackState for more details
     var state: PlaybackState {get}
     
+    var isPlaying: Bool {get}
+    
     // Returns the current seek position of the player, for the current track, i.e. time elapsed, in terms of seconds and percentage (of the total duration), and the total track duration (also in seconds)
     var seekPosition: PlaybackPosition {get}
     
@@ -82,23 +84,23 @@ protocol PlayerProtocol {
     func seekBackward(by interval: TimeInterval)
     
     // Seeks to a specific percentage of the track duration, within the current track
-    func seekToPercentage(_ percentage: Double)
+    func seekTo(percentage: Double)
     
     // Seeks to a specific time position, expressed in seconds, within the current track
-    func seekToTime(_ seconds: TimeInterval)
+    func seekTo(time seconds: TimeInterval)
     
     // Attempts to seek to a certain time within the currently playing track
     // If the provided time parameter is invalid (e.g. < 0 or > track duration),
     // it will be adjusted to a valid value.
     //
     // NOTE - If a segment loop exists, it will be preserved
-    func attemptSeekToTime(_ seconds: TimeInterval) -> PlayerSeekResult
+//    func attemptSeekToTime(_ seconds: TimeInterval) -> PlayerSeekResult
     
     // Seeks to an exact time within the currently playing track.
     //
     // NOTE - If a segment loop exists, and the requested seek time is outside the
     // loop's time bounds, the loop will be removed.
-    func forceSeekToTime(_ seconds: TimeInterval) -> PlayerSeekResult
+//    func forceSeekToTime(_ seconds: TimeInterval) -> PlayerSeekResult
     
     // Define a segment loop bounded by the given start/end time values (and continue playback as before, from the current position).
     // The isChapterLoop parameter indicates whether or not this segment loop is associated with (i.e. bounded by) a chapter marking
@@ -137,8 +139,6 @@ protocol PlayerProtocol {
     
     // Whether or not a loop exists for the currently playing chapter
     var chapterLoopExists: Bool {get}
-    
-    func doTrackPlaybackCompleted()
     
     // Performs any required cleanup before the app exits
     func tearDown()

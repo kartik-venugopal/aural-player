@@ -64,6 +64,10 @@ class DiscretePlayer: PlayerProtocol {
         }
     }
     
+    var isPlaying: Bool {
+        state == .playing
+    }
+    
     var seekPosition: PlaybackPosition {
         
         guard let track = playingTrack else {return .zero}
@@ -110,18 +114,5 @@ class DiscretePlayer: PlayerProtocol {
     
     var playingTrackStartTime: TimeInterval? {
         PlaybackSession.currentSession?.timestamp
-    }
-    
-    var playbackLoop: PlaybackLoop? {
-        PlaybackSession.currentLoop
-    }
-    
-    var playbackLoopState: PlaybackLoopState {
-        
-        if let loop = playbackLoop {
-            return loop.isComplete ? .complete : .started
-        }
-        
-        return .none
     }
 }

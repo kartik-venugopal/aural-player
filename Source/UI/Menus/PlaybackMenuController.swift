@@ -118,7 +118,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         updateRepeatAndShuffleMenuItemStates()
         
         // Play/pause enabled if at least one track available
-        playOrPauseMenuItem.onIf(player.state == .playing)
+        playOrPauseMenuItem.onIf(player.isPlaying)
         rememberLastPositionMenuItem.showIf(!playbackPreferences.rememberLastPositionForAllTracks)
         
         if let playingTrack = player.playingTrack {

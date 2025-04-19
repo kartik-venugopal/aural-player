@@ -545,9 +545,9 @@ class PlayerViewController: NSViewController {
         updateSeekPosition()
     }
     
-    func jumpToTime(_ time: Double) {
+    func jumpToTime(_ time: TimeInterval) {
         
-        player.seekToTime(time)
+        player.seekTo(time: time)
         updateSeekPosition()
     }
     
@@ -619,7 +619,7 @@ class PlayerViewController: NSViewController {
     }
     
     var shouldEnableSeekTimer: Bool {
-        player.state == .playing
+        player.isPlaying
     }
     
     func updateSeekTimerState() {
