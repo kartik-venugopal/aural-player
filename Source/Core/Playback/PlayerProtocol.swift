@@ -166,18 +166,6 @@ extension PlayerProtocol {
 //    }
 }
 
-///
-/// Encapsulates information about the playback position of the currently playing track.
-///
-struct PlaybackPosition {
-    
-    let timeElapsed: TimeInterval
-    let percentageElapsed: Double
-    let trackDuration: TimeInterval
-    
-    static let zero: PlaybackPosition = PlaybackPosition(timeElapsed: 0, percentageElapsed: 0, trackDuration: 0)
-}
-
 protocol GaplessPlaybackProtocol {
     
     var isInGaplessPlaybackMode: Bool {get}
