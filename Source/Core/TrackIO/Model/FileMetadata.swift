@@ -54,7 +54,7 @@ class FileMetadata {
     var discNumber: Int?
     var totalDiscs: Int?
     
-    var duration: Double = 0
+    var duration: TimeInterval = 0
     var durationIsAccurate: Bool = false
     
     var isProtected: Bool?

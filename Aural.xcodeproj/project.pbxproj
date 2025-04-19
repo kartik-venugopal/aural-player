@@ -812,6 +812,11 @@
 		3E8B8C3A2BF004E50025D60B /* CompactChaptersList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8B8C392BF004E50025D60B /* CompactChaptersList.xib */; };
 		3E8B8C3E2BF008AD0025D60B /* CompactChaptersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8B8C3D2BF008AD0025D60B /* CompactChaptersListViewController.swift */; };
 		3E8C370D2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8C370C2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib */; };
+		3E8C97962DB2C8F3000BB827 /* DiscretePlayer+Play.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8C97952DB2C8F3000BB827 /* DiscretePlayer+Play.swift */; };
+		3E8C97982DB2CD3D000BB827 /* DiscretePlayer+Seek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8C97972DB2CD3D000BB827 /* DiscretePlayer+Seek.swift */; };
+		3E8C979A2DB2CD95000BB827 /* DiscretePlayer+Looping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8C97992DB2CD95000BB827 /* DiscretePlayer+Looping.swift */; };
+		3E8C979C2DB2CDD3000BB827 /* DiscretePlayer+Chapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8C979B2DB2CDD3000BB827 /* DiscretePlayer+Chapters.swift */; };
+		3E8C979E2DB2CEA2000BB827 /* DiscretePlayer+AudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8C979D2DB2CEA2000BB827 /* DiscretePlayer+AudioGraph.swift */; };
 		3E8CECA62D28889C00F9B0CC /* LyricsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E8CECA52D28889C00F9B0CC /* LyricsPreferences.xib */; };
 		3E8CECA82D28892800F9B0CC /* LyricsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8CECA72D28892800F9B0CC /* LyricsPreferencesViewController.swift */; };
 		3E8F31AA26AC9623009C58B5 /* AudioUnitsTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F31A926AC9623009C58B5 /* AudioUnitsTableViews.swift */; };
@@ -888,6 +893,7 @@
 		3EB179752D12F38700E739CB /* NSProgressIndicatorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB179742D12F38700E739CB /* NSProgressIndicatorExtensions.swift */; };
 		3EB1A8112826D14F00866012 /* ThemablePopupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1A8102826D14F00866012 /* ThemablePopupButton.swift */; };
 		3EB1A8132826FCE900866012 /* DevicesViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1A8122826FCE900866012 /* DevicesViewController+TableViewDelegate.swift */; };
+		3EB23AA92DB1C7E600B0C13E /* DiscretePlayer+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB23AA82DB1C7E600B0C13E /* DiscretePlayer+State.swift */; };
 		3EB3A60426A726EF0060487C /* NSTableCellViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */; };
 		3EB3A60726A73E720060487C /* NSPopoverExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60626A73E720060487C /* NSPopoverExtensions.swift */; };
 		3EB3A60B26A7425C0060487C /* SingletonWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A60A26A7425C0060487C /* SingletonWindowController.swift */; };
@@ -1939,6 +1945,11 @@
 		3E8B8C392BF004E50025D60B /* CompactChaptersList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompactChaptersList.xib; sourceTree = "<group>"; };
 		3E8B8C3D2BF008AD0025D60B /* CompactChaptersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactChaptersListViewController.swift; sourceTree = "<group>"; };
 		3E8C370C2BD402080045FC92 /* CompactPlayerCoverArtTrackInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompactPlayerCoverArtTrackInfo.xib; sourceTree = "<group>"; };
+		3E8C97952DB2C8F3000BB827 /* DiscretePlayer+Play.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscretePlayer+Play.swift"; sourceTree = "<group>"; };
+		3E8C97972DB2CD3D000BB827 /* DiscretePlayer+Seek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscretePlayer+Seek.swift"; sourceTree = "<group>"; };
+		3E8C97992DB2CD95000BB827 /* DiscretePlayer+Looping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscretePlayer+Looping.swift"; sourceTree = "<group>"; };
+		3E8C979B2DB2CDD3000BB827 /* DiscretePlayer+Chapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscretePlayer+Chapters.swift"; sourceTree = "<group>"; };
+		3E8C979D2DB2CEA2000BB827 /* DiscretePlayer+AudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscretePlayer+AudioGraph.swift"; sourceTree = "<group>"; };
 		3E8CECA52D28889C00F9B0CC /* LyricsPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LyricsPreferences.xib; sourceTree = "<group>"; };
 		3E8CECA72D28892800F9B0CC /* LyricsPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E8DD6402844988500FED49D /* LibraryArtists.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryArtists.xib; sourceTree = "<group>"; };
@@ -2028,6 +2039,7 @@
 		3EB179742D12F38700E739CB /* NSProgressIndicatorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSProgressIndicatorExtensions.swift; sourceTree = "<group>"; };
 		3EB1A8102826D14F00866012 /* ThemablePopupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemablePopupButton.swift; sourceTree = "<group>"; };
 		3EB1A8122826FCE900866012 /* DevicesViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DevicesViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
+		3EB23AA82DB1C7E600B0C13E /* DiscretePlayer+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscretePlayer+State.swift"; sourceTree = "<group>"; };
 		3EB3A60326A726EF0060487C /* NSTableCellViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableCellViewExtensions.swift; sourceTree = "<group>"; };
 		3EB3A60626A73E720060487C /* NSPopoverExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPopoverExtensions.swift; sourceTree = "<group>"; };
 		3EB3A60A26A7425C0060487C /* SingletonWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonWindowController.swift; sourceTree = "<group>"; };
@@ -2824,6 +2836,12 @@
 				3E0216EA2C23490E00865AC2 /* Player.swift */,
 				3EC742582C41C44B00C100DE /* Player+Looping.swift */,
 				3EC7425A2C41C4A100C100DE /* Player+Gapless.swift */,
+				3EB23AA82DB1C7E600B0C13E /* DiscretePlayer+State.swift */,
+				3E8C97952DB2C8F3000BB827 /* DiscretePlayer+Play.swift */,
+				3E8C97972DB2CD3D000BB827 /* DiscretePlayer+Seek.swift */,
+				3E8C97992DB2CD95000BB827 /* DiscretePlayer+Looping.swift */,
+				3E8C979B2DB2CDD3000BB827 /* DiscretePlayer+Chapters.swift */,
+				3E8C979D2DB2CEA2000BB827 /* DiscretePlayer+AudioGraph.swift */,
 				3E0216EB2C23490E00865AC2 /* PlayerProtocol.swift */,
 				3E0216EC2C23490E00865AC2 /* PlayerSeekResult.swift */,
 			);
@@ -6178,6 +6196,7 @@
 				3E0218AD2C23490E00865AC2 /* LibraryPersistentState.swift in Sources */,
 				3E62979A26A3CD3800C96AB8 /* Destroyable.swift in Sources */,
 				3E02187F2C23490E00865AC2 /* SearchNotifications.swift in Sources */,
+				3E8C979C2DB2CDD3000BB827 /* DiscretePlayer+Chapters.swift in Sources */,
 				3E0218AA2C23490E00865AC2 /* FavoritePersistentState.swift in Sources */,
 				3E8B8C3E2BF008AD0025D60B /* CompactChaptersListViewController.swift in Sources */,
 				3E6C131225CEBE8F00BF0D07 /* TrackInfoWindowController.swift in Sources */,
@@ -6197,6 +6216,7 @@
 				3E6C12B225CEBE5800BF0D07 /* DockMenuController.swift in Sources */,
 				3E3633E02685FB10006A88ED /* EffectsPresetsManagerGenericViewController.swift in Sources */,
 				3E74579A2C6A7D220086C888 /* LibCueErrors.swift in Sources */,
+				3E8C979E2DB2CEA2000BB827 /* DiscretePlayer+AudioGraph.swift in Sources */,
 				3E02184F2C23490E00865AC2 /* HistoryItem.swift in Sources */,
 				3E0218C82C23490E00865AC2 /* AVFScheduler.swift in Sources */,
 				3E0218142C23490E00865AC2 /* TimeStretchPresets.swift in Sources */,
@@ -6238,6 +6258,7 @@
 				3E6C12A525CEBE2700BF0D07 /* EffectsUnitSlider.swift in Sources */,
 				3E0218B72C23490E00865AC2 /* PredictiveTrackPreparationAction.swift in Sources */,
 				3EBF292D2686961300D87021 /* EffectsUnitTabButton.swift in Sources */,
+				3EB23AA92DB1C7E600B0C13E /* DiscretePlayer+State.swift in Sources */,
 				3E2549432B7A7E0B00FD83D1 /* ModularPlayerViewController.swift in Sources */,
 				3E0219402C23490E00865AC2 /* MusicBrainzArtistCredit.swift in Sources */,
 				3EF72D6C2B71AAF5005166BF /* DiscreteCircularSlider.swift in Sources */,
@@ -6264,6 +6285,7 @@
 				3E0219712C23490E00865AC2 /* ExclusiveAccessSemaphore.swift in Sources */,
 				3E6C129E25CEBE2700BF0D07 /* EQSliderCell.swift in Sources */,
 				3EFFEB8727D9D33D006A333B /* FontSchemesManager+Observer.swift in Sources */,
+				3E8C979A2DB2CD95000BB827 /* DiscretePlayer+Looping.swift in Sources */,
 				3E6C12C425CEBE6700BF0D07 /* EQUnitView.swift in Sources */,
 				3E0218D82C23490E00865AC2 /* PlaybackProfiles.swift in Sources */,
 				3E6C12BF25CEBE6700BF0D07 /* EQUnitViewController.swift in Sources */,
@@ -6617,6 +6639,7 @@
 				3E9D707127C1E30100CAC4F1 /* DevicesViewController.swift in Sources */,
 				3E02193D2C23490E00865AC2 /* PrimaryMetadata.swift in Sources */,
 				3E0219002C23490E00865AC2 /* PlayQueueDelegateProtocol.swift in Sources */,
+				3E8C97962DB2C8F3000BB827 /* DiscretePlayer+Play.swift in Sources */,
 				3E6C12D825CEBE8100BF0D07 /* SeekTimerTaskQueue.swift in Sources */,
 				3EB3A60E26A744C80060487C /* SingletonPopoverViewController.swift in Sources */,
 				3EF4CDAE2C6591D800A5922D /* FFmpegWaveformDecoder.swift in Sources */,
@@ -6670,6 +6693,7 @@
 				3E6C12A325CEBE2700BF0D07 /* StringInputPopoverViewController.swift in Sources */,
 				3E74579C2C6A8CB60086C888 /* LibCueMapper.swift in Sources */,
 				3EA07ACA2D27D22B001A5124 /* LyricsPreferences.swift in Sources */,
+				3E8C97982DB2CD3D000BB827 /* DiscretePlayer+Seek.swift in Sources */,
 				3E02192D2C23490E00865AC2 /* VorbisCommentParser.swift in Sources */,
 				3E6C12AF25CEBE2700BF0D07 /* StringInputReceiver.swift in Sources */,
 				3E0218A62C23490E00865AC2 /* WidgetPlayerUIPersistentState.swift in Sources */,

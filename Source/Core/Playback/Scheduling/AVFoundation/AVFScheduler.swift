@@ -33,7 +33,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
     
     lazy var messenger = Messenger(for: self)
     
-    init(_ playerNode: AuralPlayerNode) {
+    init(playerNode: AuralPlayerNode) {
         
         self.playerNode = playerNode
         playerNode.completionCallbackType = .dataPlayedBack

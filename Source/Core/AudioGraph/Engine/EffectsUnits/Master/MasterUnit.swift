@@ -31,8 +31,6 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     var nativeSlaveUnits: [EffectsUnit]
     var audioUnits: [HostedAudioUnit]
     
-    private lazy var messenger = Messenger(for: self)
-
     init(persistentState: MasterUnitPersistentState?, nativeSlaveUnits: [EffectsUnit], audioUnits: [HostedAudioUnit]) {
         
         self.nativeSlaveUnits = nativeSlaveUnits

@@ -66,9 +66,9 @@ class EffectsUnit: NSObject {
     
     func stateChanged() {
         
-        if stateChangeRequiresNotification, isActive, unitType != .master {
-            Messenger.publish(.Effects.unitActivated)
-        }
+//        if stateChangeRequiresNotification, isActive, unitType != .master {
+//            Messenger.publish(.Effects.unitActivated)
+//        }
     }
     
     // Toggles the state of the effects unit, and returns its new state

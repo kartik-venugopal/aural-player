@@ -100,13 +100,15 @@ var audioGraph: AudioGraphProtocol = _audioGraph
 //var audioGraph: AudioGraphDelegateProtocol = AudioGraphDelegate(graph: audioGraph, persistentState: appPersistentState.audioGraph,
 //                                                                        player: playbackDelegate, preferences: preferences.soundPreferences)
 
-let player: PlayerProtocol = Player(graph: audioGraph, avfScheduler: avfScheduler, ffmpegScheduler: ffmpegScheduler)
+let player: PlayerProtocol = DiscretePlayer(audioGraph: audioGraph)
 
-fileprivate let avfScheduler: PlaybackSchedulerProtocol = AVFScheduler(audioGraph.playerNode)
+fileprivate let avfScheduler: PlaybackSchedulerProtocol = AVFScheduler(playerNode: audioGraph.playerNode)
 
 fileprivate let ffmpegScheduler: PlaybackSchedulerProtocol = FFmpegScheduler(playerNode: audioGraph.playerNode)
 
-let playbackProfiles = PlaybackProfiles(persistentState: appPersistentState.playbackProfiles ?? [])
+let playbackProfiles = PlaybackProfiles(player: player, playQueue: playQueueDelegate,
+                                        preferences: preferences.playbackPreferences,
+                                        persistentState: appPersistentState.playbackProfiles ?? [])
 
 let playbackDelegate: PlaybackDelegateProtocol = {
     

@@ -38,7 +38,7 @@ extension Track {
         fileSystemInfo.defaultDisplayName
     }
     
-    var duration: Double {
+    var duration: TimeInterval {
         metadata.duration
     }
     

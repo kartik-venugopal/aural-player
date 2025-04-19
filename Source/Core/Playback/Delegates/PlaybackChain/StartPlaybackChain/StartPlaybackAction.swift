@@ -36,7 +36,8 @@ class StartPlaybackAction: PlaybackChainAction {
         }
         
         // Start playback
-        player.play(newTrack, context.requestParams.startPosition, context.requestParams.endPosition)
+        let params = PlaybackParams.defaultParams().withStartAndEndPosition(context.requestParams.startPosition, context.requestParams.endPosition)
+        player.play(track: newTrack, params: params)
         
         // Inform observers of the track change/transition.
         Messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,

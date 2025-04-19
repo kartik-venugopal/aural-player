@@ -45,7 +45,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
     var isInGaplessPlaybackMode: Bool {
-        player.isInGaplessPlaybackMode
+//        player.isInGaplessPlaybackMode
+        false
     }
     
     private(set) lazy var messenger = Messenger(for: self)
@@ -117,55 +118,55 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     
     private func doBeginGaplessPlayback(currentTrack: Track? = nil) {
         
-        guard let firstTrack = playQueueDelegate.tracks.first else {return}
-        
-        do {
-            try trackReader.prepareForPlayback(track: firstTrack)
-            
-        } catch {
-            
-            Messenger.publish(TrackNotPlayedNotification(oldTrack: currentTrack, errorTrack: firstTrack,
-                                                         error: error as? DisplayableError ?? TrackNotPlayableError(firstTrack.file)))
-        }
-        
-        _ = playQueueDelegate.start()
-
-        player.playGapless(tracks: playQueueDelegate.tracks)
-        
-        // Inform observers of the track change/transition.
-        messenger.publish(TrackTransitionNotification(beginTrack: currentTrack, beginState: .stopped,
-                                                      endTrack: firstTrack, endState: player.state))
-        
-        trackReader.loadExternalMetadataAsync(for: firstTrack, immediate: true)
+//        guard let firstTrack = playQueueDelegate.tracks.first else {return}
+//        
+//        do {
+//            try trackReader.prepareForPlayback(track: firstTrack)
+//            
+//        } catch {
+//            
+//            Messenger.publish(TrackNotPlayedNotification(oldTrack: currentTrack, errorTrack: firstTrack,
+//                                                         error: error as? DisplayableError ?? TrackNotPlayableError(firstTrack.file)))
+//        }
+//        
+//        _ = playQueueDelegate.start()
+//
+//        player.playGapless(tracks: playQueueDelegate.tracks)
+//        
+//        // Inform observers of the track change/transition.
+//        messenger.publish(TrackTransitionNotification(beginTrack: currentTrack, beginState: .stopped,
+//                                                      endTrack: firstTrack, endState: player.state))
+//        
+//        trackReader.loadExternalMetadataAsync(for: firstTrack, immediate: true)
     }
     
     private func changeGaplessTrack(mustStopIfNoTrack: Bool, trackProducer: TrackProducer) {
         
-        let beginTrack = playQueueDelegate.currentTrack
-        let beginState = player.state
-        
-        if let newTrack = trackProducer() {
-            
-            do {
-                try trackReader.prepareForPlayback(track: newTrack)
-                
-            } catch {
-                
-                Messenger.publish(TrackNotPlayedNotification(oldTrack: beginTrack, errorTrack: newTrack,
-                                                             error: error as? DisplayableError ?? TrackNotPlayableError(newTrack.file)))
-            }
-            
-            player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
-            
-        } else if mustStopIfNoTrack {
-            doStop(beginTrack)
-            
-        } else {
-            return
-        }
-        
-        messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
-                                                      endTrack: playQueueDelegate.currentTrack, endState: player.state))
+//        let beginTrack = playQueueDelegate.currentTrack
+//        let beginState = player.state
+//        
+//        if let newTrack = trackProducer() {
+//            
+//            do {
+//                try trackReader.prepareForPlayback(track: newTrack)
+//                
+//            } catch {
+//                
+//                Messenger.publish(TrackNotPlayedNotification(oldTrack: beginTrack, errorTrack: newTrack,
+//                                                             error: error as? DisplayableError ?? TrackNotPlayableError(newTrack.file)))
+//            }
+//            
+//            player.playGapless(tracks: playQueueDelegate.tracksPendingPlayback)
+//            
+//        } else if mustStopIfNoTrack {
+//            doStop(beginTrack)
+//            
+//        } else {
+//            return
+//        }
+//        
+//        messenger.publish(TrackTransitionNotification(beginTrack: beginTrack, beginState: beginState,
+//                                                      endTrack: playQueueDelegate.currentTrack, endState: player.state))
     }
     
     func previousTrack() {
@@ -290,41 +291,41 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     // MARK: Seeking functions
     
     func seekBackward(_ inputMode: UserInputMode = .discrete) {
-        attemptSeek(player.seekPosition - getPrimarySeekLength(inputMode))
+//        attemptSeek(player.seekPosition - getPrimarySeekLength(inputMode))
     }
     
     func seekBackwardSecondary() {
-        attemptSeek(player.seekPosition - secondarySeekLength)
+//        attemptSeek(player.seekPosition - secondarySeekLength)
     }
     
     func seekForward(_ inputMode: UserInputMode = .discrete) {
-        attemptSeek(player.seekPosition + getPrimarySeekLength(inputMode))
+//        attemptSeek(player.seekPosition + getPrimarySeekLength(inputMode))
     }
     
     func seekForwardSecondary() {
-        attemptSeek(player.seekPosition + secondarySeekLength)
+//        attemptSeek(player.seekPosition + secondarySeekLength)
     }
     
     // An attempted seek cannot seek outside the bounds of a segment loop (if one is defined).
     // It occurs, for instance, when seeking backward/forward.
     private func attemptSeek(_ seekPosn: Double) {
         
-        guard state.isPlayingOrPaused, let track = playingTrack else {return}
-        
-        let seekResult = player.attemptSeekToTime(track, seekPosn)
-        
-        if seekResult.trackPlaybackCompleted {
-            
-            if isInGaplessPlaybackMode {
-                
-                changeGaplessTrack(mustStopIfNoTrack: true) {
-                    playQueueDelegate.subsequent()
-                }
-                
-            } else {
-                doTrackPlaybackCompleted()
-            }
-        }
+//        guard let track = playingTrack else {return}
+//        
+//        let seekResult = player.attemptSeekToTime(track, seekPosn)
+//        
+//        if seekResult.trackPlaybackCompleted {
+//            
+//            if isInGaplessPlaybackMode {
+//                
+//                changeGaplessTrack(mustStopIfNoTrack: true) {
+//                    playQueueDelegate.subsequent()
+//                }
+//                
+//            } else {
+//                doTrackPlaybackCompleted()
+//            }
+//        }
     }
     
     /*
@@ -396,16 +397,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     // It occurs, for instance, when clicking on the seek bar, or using the "Jump to time" function.
     private func forceSeek(_ seekPosn: Double) {
         
-        guard state.isPlayingOrPaused, let track = playingTrack else {return}
-        
-        let seekResult = player.forceSeekToTime(track, seekPosn)
-        
-        if seekResult.trackPlaybackCompleted {
-            doTrackPlaybackCompleted()
-            
-        } else if seekResult.loopRemoved {
-            messenger.publish(.Player.playbackLoopChanged)
-        }
+//        guard state.isPlayingOrPaused, let track = playingTrack else {return}
+//        
+//        let seekResult = player.forceSeekToTime(track, seekPosn)
+//        
+//        if seekResult.trackPlaybackCompleted {
+//            doTrackPlaybackCompleted()
+//            
+//        } else if seekResult.loopRemoved {
+//            messenger.publish(.Player.playbackLoopChanged)
+//        }
     }
     
     // MARK: Variables that indicate the current player state
@@ -416,18 +417,18 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         guard let track = playingTrack else {return .zero}
         
-        let elapsedTime: Double = player.seekPosition
+        let elapsedTime: Double = player.seekPosition.timeElapsed
         let duration: Double = track.duration
         
         return PlaybackPosition(timeElapsed: elapsedTime, percentageElapsed: elapsedTime * 100 / duration, trackDuration: duration)
     }
     
     var playingTrack: Track? {
-        state.isPlayingOrPaused ? playQueueDelegate.currentTrack : nil
+        playQueueDelegate.currentTrack
     }
     
     var hasPlayingTrack: Bool {
-        playQueueDelegate.currentTrack != nil
+        playingTrack != nil
     }
     
     var playingTrackStartTime: TimeInterval? {

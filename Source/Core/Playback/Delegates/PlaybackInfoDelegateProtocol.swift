@@ -61,9 +61,9 @@ protocol PlaybackInfoDelegateProtocol {
 ///
 struct PlaybackPosition {
     
-    let timeElapsed: Double
+    let timeElapsed: TimeInterval
     let percentageElapsed: Double
-    let trackDuration: Double
+    let trackDuration: TimeInterval
     
     static let zero: PlaybackPosition = PlaybackPosition(timeElapsed: 0, percentageElapsed: 0, trackDuration: 0)
 }

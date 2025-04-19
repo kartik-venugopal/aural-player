@@ -16,7 +16,16 @@ import Foundation
 ///
 class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
     
-    init(persistentState: [PlaybackProfilePersistentState]?) {
+    private let player: PlayerProtocol
+    private let playQueue: PlayQueueDelegateProtocol
+    private let preferences: PlaybackPreferences
+    
+    init(player: PlayerProtocol, playQueue: PlayQueueDelegateProtocol,
+         preferences: PlaybackPreferences, persistentState: [PlaybackProfilePersistentState]?) {
+        
+        self.player = player
+        self.playQueue = playQueue
+        self.preferences = preferences
         
         super.init()
         
@@ -28,12 +37,55 @@ class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
         }
     }
     
-    init(_ profiles: [PlaybackProfile]) {
+    init(player: PlayerProtocol, playQueue: PlayQueueDelegateProtocol,
+         preferences: PlaybackPreferences, _ profiles: [PlaybackProfile]) {
+        
+        self.player = player
+        self.playQueue = playQueue
+        self.preferences = preferences
         
         super.init()
         
         for profile in profiles {
             self[profile.file] = profile
+        }
+    }
+    
+    func savePlaybackProfileForPlayingTrack() {
+        
+        if let track = playQueue.currentTrack {
+            self[track] = PlaybackProfile(track, player.seekPosition.timeElapsed)
+        }
+    }
+    
+    func deletePlaybackProfileForPlayingTrack() {
+        
+        if let track = playQueue.currentTrack {
+            self.removeFor(track)
+        }
+    }
+    
+    func savePlaybackProfileIfNeeded(for track: Track, _ position: Double? = nil) {
+        
+        // Save playback settings if the option either requires saving settings for all tracks, or if
+        // the option has been set for this particular playing track.
+        if preferences.rememberLastPositionForAllTracks || self.hasFor(track) {
+            
+            // Remember the current playback settings the next time this track plays.
+            // Update the profile with the latest settings for this track.
+            
+            // If a specific position has been specified, use it. Otherwise, use the current seek position.
+            // NOTE - If the seek position has reached the end of the track, the profile position will be reset to 0.
+            let seekPosition = player.seekPosition
+            let lastPosition = position ?? (seekPosition.timeElapsed >= track.duration ? 0 : seekPosition.timeElapsed)
+            self[track] = PlaybackProfile(track, lastPosition)
+        }
+    }
+    
+    func onAppExit() {
+        
+        if let track = playQueue.currentTrack {
+            savePlaybackProfileIfNeeded(for: track)
         }
     }
 }

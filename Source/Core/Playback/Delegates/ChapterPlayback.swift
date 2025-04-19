@@ -71,7 +71,7 @@ extension PlaybackDelegate {
                 let startTime = chapter.startTime + (chapter.startTime > 0 ? chapterPlaybackStartTimeMargin : 0)
                 let endTime = chapter.endTime - chapterPlaybackStartTimeMargin
                 
-                player.defineLoop(startTime, endTime, true)
+//                player.defineLoop(startTime, endTime, true)
                 return true
                 
             } else {
@@ -119,19 +119,19 @@ extension PlaybackDelegate {
             
             while first <= last {
                 
-                if centerChapter.containsTimePosition(seekTime) {
-                    
-                    // Found a matching chapter
-                    return center
-                    
-                } else if seekTime < centerChapter.startTime {
-                    
-                    last = center - 1
-                    
-                } else if seekTime > centerChapter.endTime {
-                    
-                    first = center + 1
-                }
+//                if centerChapter.containsTimePosition(seekTime) {
+//                    
+//                    // Found a matching chapter
+//                    return center
+//                    
+//                } else if seekTime < centerChapter.startTime {
+//                    
+//                    last = center - 1
+//                    
+//                } else if seekTime > centerChapter.endTime {
+//                    
+//                    first = center + 1
+//                }
                 
                 center = (first + last) / 2
                 centerChapter = chapters[center]
@@ -157,33 +157,33 @@ extension PlaybackDelegate {
             
             while first <= last {
                 
-                if centerChapter.containsTimePosition(seekTime) {
-                    
-                    // Found a matching chapter
-                    return center - 1 < 0 ? nil : center - 1
-                    
-                } else if seekTime < centerChapter.startTime {
-                    
-                    last = center - 1
-                    
-                } else if seekTime > centerChapter.endTime {
-                    
-                    first = center + 1
-                }
+//                if centerChapter.containsTimePosition(seekTime) {
+//                    
+//                    // Found a matching chapter
+//                    return center - 1 < 0 ? nil : center - 1
+//                    
+//                } else if seekTime < centerChapter.startTime {
+//                    
+//                    last = center - 1
+//                    
+//                } else if seekTime > centerChapter.endTime {
+//                    
+//                    first = center + 1
+//                }
                 
                 center = (first + last) / 2
                 centerChapter = chapters[center]
             }
             
             // If no matching chapter was found for the current seek position, try to determine a previous chapter.
-            if seekTime < centerChapter.startTime {
-                
-                return center - 1 < 0 ? nil : center - 1
-                
-            } else {
-                
-                return center
-            }
+//            if seekTime < centerChapter.startTime {
+//                
+//                return center - 1 < 0 ? nil : center - 1
+//                
+//            } else {
+//                
+//                return center
+//            }
         }
         
         return nil
@@ -205,33 +205,33 @@ extension PlaybackDelegate {
             
             while first <= last {
                 
-                if centerChapter.containsTimePosition(seekTime) {
-                    
-                    // Found a matching chapter
-                    return center + 1 >= chapters.count ? nil : center + 1
-                    
-                } else if seekTime < centerChapter.startTime {
-                    
-                    last = center - 1
-                    
-                } else if seekTime > centerChapter.endTime {
-                    
-                    first = center + 1
-                }
+//                if centerChapter.containsTimePosition(seekTime) {
+//                    
+//                    // Found a matching chapter
+//                    return center + 1 >= chapters.count ? nil : center + 1
+//                    
+//                } else if seekTime < centerChapter.startTime {
+//                    
+//                    last = center - 1
+//                    
+//                } else if seekTime > centerChapter.endTime {
+//                    
+//                    first = center + 1
+//                }
                 
                 center = (first + last) / 2
                 centerChapter = chapters[center]
             }
             
             // If no matching chapter was found for the current seek position, try to determine a next chapter.
-            if seekTime < centerChapter.startTime {
-                
-                return center
-                
-            } else {
-                
-                return center + 1 >= chapters.count ? nil : center + 1
-            }
+//            if seekTime < centerChapter.startTime {
+//                
+//                return center
+//                
+//            } else {
+//                
+//                return center + 1 >= chapters.count ? nil : center + 1
+//            }
         }
         
         return nil
