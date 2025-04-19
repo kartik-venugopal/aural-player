@@ -77,7 +77,7 @@ extension NSEvent {
     var isResidualScroll: Bool {
         
         // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
-        guard let playingTrackStartTime = playbackInfoDelegate.playingTrackStartTime,
+        guard let playingTrackStartTime = player.playingTrackStartTime,
               let scrollSessionStartTime = ScrollSession.sessionStartTime,
               scrollSessionStartTime < playingTrackStartTime else {return false}
         

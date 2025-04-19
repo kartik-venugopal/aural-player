@@ -70,7 +70,7 @@ class WaveformViewController: NSViewController {
     override func viewDidAppear() {
         
         super.viewDidAppear()
-        updateForTrack(playbackInfoDelegate.playingTrack)
+        updateForTrack(player.playingTrack)
     }
     
     override func destroy() {
@@ -80,7 +80,7 @@ class WaveformViewController: NSViewController {
     }
     
     private func updateProgress() {
-        waveformView.progress = playbackInfoDelegate.seekPosition.percentageElapsed / 100.0
+        waveformView.progress = player.seekPosition.percentageElapsed / 100.0
     }
     
     ///
@@ -98,7 +98,7 @@ class WaveformViewController: NSViewController {
     
     private func updateChannelLabels() {
         
-        if let track = playbackInfoDelegate.playingTrack,
+        if let track = player.playingTrack,
            let audioFormat = track.playbackContext?.audioFormat {
             
             let isMono: Bool = audioFormat.channelCount < 2
@@ -129,7 +129,7 @@ class WaveformViewController: NSViewController {
     
     private func playbackLoopChanged() {
         
-        if let playingTrack = playbackInfoDelegate.playingTrack, let loop = playbackInfoDelegate.playbackLoop {
+        if let playingTrack = player.playingTrack, let loop = player.playbackLoop {
             waveformView.loopStartProgress = loop.startTime / playingTrack.duration
             
         } else {
@@ -150,7 +150,7 @@ class WaveformViewController: NSViewController {
     
     private func updateForCurrentPlaybackState() {
         
-        if playbackInfoDelegate.state == .playing {
+        if player.state == .playing {
             seekTimer.startOrResume()
         } else {
             seekTimer.pause()

@@ -32,9 +32,9 @@ extension PlayQueueDelegate {
     
     func appWillExit() {
         
-        if playbackInfoDelegate.state == .stopped {return}
+        if player.state == .stopped {return}
         
-        let playerPosition = playbackInfoDelegate.seekPosition.timeElapsed
+        let playerPosition = player.seekPosition.timeElapsed
         
         if playerPosition > 0 {
             self.lastPlaybackPosition = playerPosition
@@ -76,7 +76,7 @@ extension PlayQueueDelegate {
         if let lastPlayedItem = lastPlayedItem,
            let playingTrack = shuffleSequence.playingTrack, playingTrack == lastPlayedItem.track {
             
-            playbackDelegate.resumeShuffleSequence(with: playingTrack,
+            player.resumeShuffleSequence(with: playingTrack,
                                                    atPosition: lastPlaybackPosition)
         }
     }
@@ -317,9 +317,9 @@ extension PlayQueueDelegate {
         enqueueToPlayLater(tracks: [trackHistoryItem.track])
         
         if let seekPosition = position {
-            playbackDelegate.play(track: trackHistoryItem.track, PlaybackParams().withStartAndEndPosition(seekPosition))
+            player.play(track: trackHistoryItem.track, params: PlaybackParams().withStartAndEndPosition(seekPosition))
         } else {
-            playbackDelegate.play(track: trackHistoryItem.track)
+            player.play(track: trackHistoryItem.track)
         }
     }
     

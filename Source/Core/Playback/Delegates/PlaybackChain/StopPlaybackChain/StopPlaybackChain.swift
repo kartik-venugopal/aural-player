@@ -17,13 +17,16 @@ import Foundation
 ///
 class StopPlaybackChain: PlaybackChain {
     
-    init(_ player: PlayerProtocol, _ playQueue: PlayQueueProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
+    init(playerStopFunction: @escaping PlayerStopFunction,
+         playQueue: PlayQueueProtocol,
+         profiles: PlaybackProfiles,
+         preferences: PlaybackPreferences) {
         
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
             .withAction(MarkLastPlaybackPositionAction())
-            .withAction(HaltPlaybackAction(player))
+            .withAction(HaltPlaybackAction(playerStopFunction: playerStopFunction))
             .withAction(EndPlaybackSequenceAction())
             .withAction(CloseFileHandlesAction())
             .withAction(LastFMScrobbleAction())

@@ -64,7 +64,7 @@ extension WaveformView: NSGestureRecognizerDelegate {
     
     @objc func handleClick(_ recognizer: NSGestureRecognizer) {
         
-        if playbackInfoDelegate.hasPlayingTrack {
+        if player.hasPlayingTrack {
             handleSeek(initiatedBy: recognizer)
         }
     }
@@ -72,7 +72,7 @@ extension WaveformView: NSGestureRecognizerDelegate {
     // Handles a single scroll event
     func handleScroll(_ event: NSEvent) -> NSEvent? {
         
-        guard playbackInfoDelegate.hasPlayingTrack else {return event}
+        guard player.hasPlayingTrack else {return event}
 
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)

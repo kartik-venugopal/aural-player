@@ -12,6 +12,11 @@ import Foundation
 
 extension DiscretePlayer {
     
+    ///
+    /// A "producer" (or factory) function that produces an optional Track (used when deciding which track will play next).
+    ///
+    fileprivate typealias TrackProducer = () -> Track?
+    
     func togglePlayPause() {
         
         // Determine current state of player, to then toggle it
@@ -32,15 +37,58 @@ extension DiscretePlayer {
     }
     
     private func beginPlayback() {
-//        doPlay({playQueueDelegate.start()}, PlaybackParams.defaultParams())
+        doPlay(playQueue.start)
     }
     
     func play(trackAtIndex index: Int, params: PlaybackParams) {
         
+        doPlay({
+            playQueue.select(trackAt: index)
+        }, params)
     }
     
     func play(track: Track, params: PlaybackParams) {
         
+        doPlay({
+            playQueue.selectTrack(track)
+        }, params)
+    }
+    
+    func previousTrack() {
+        
+        if state.isPlayingOrPaused {
+            doPlay(playQueue.previous)
+        }
+    }
+    
+    func nextTrack() {
+        
+        if state.isPlayingOrPaused {
+            doPlay(playQueue.next)
+        }
+    }
+    
+    func resumeShuffleSequence(with track: Track, atPosition position: TimeInterval) {
+        
+        doPlay({
+            playQueue.resumeShuffleSequence(with: track)
+        }, .init().withStartAndEndPosition(position))
+    }
+    
+    // Captures the current player state and proceeds with playback according to the playback sequence
+    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = .defaultParams()) {
+        
+        let trackBeforeChange = playingTrack
+        let stateBeforeChange = state
+        let seekPositionBeforeChange = playerPosition
+        
+        let okToPlay = params.interruptPlayback || trackBeforeChange == nil
+        
+        if okToPlay, let newTrack = trackProducer() {
+            
+            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, params)
+            startPlaybackChain.execute(requestContext)
+        }
     }
     
     func pause() {
@@ -57,8 +105,20 @@ extension DiscretePlayer {
         state = .playing
     }
     
+    func resumeIfPaused() {
+        
+        if state == .paused {
+            player.resume()
+        }
+    }
+    
     func replay() {
         
+        if state.isPlayingOrPaused {
+            
+            seekToTime(0)
+            resumeIfPaused()
+        }
     }
     
     func stop() {
@@ -70,5 +130,29 @@ extension DiscretePlayer {
         audioGraph.clearSoundTails()
         
         state = .stopped
+    }
+    
+    // Continues playback when a track finishes playing.
+    func doTrackPlaybackCompleted() {
+        
+        let trackBeforeChange = playingTrack
+        let stateBeforeChange = state
+        
+        // NOTE - Seek position should always be 0 here because the track finished playing.
+        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, 0, nil, PlaybackParams.defaultParams())
+        
+        trackPlaybackCompletedChain.execute(requestContext)
+    }
+    
+    // MARK: Gapless ------------------------------------------------------
+    
+    func beginGaplessPlayback() throws {
+        
+        try playQueue.prepareForGaplessPlayback()
+//        doBeginGaplessPlayback()
+    }
+    
+    var isInGaplessPlaybackMode: Bool {
+        false
     }
 }

@@ -30,7 +30,7 @@ extension PlayerViewController {
     
     func seekToPercentage(_ percentage: Double) {
         
-        playbackDelegate.seekToPercentage(percentage)
+        player.seekToPercentage(percentage)
         updateSeekPosition()
     }
     
@@ -70,7 +70,7 @@ extension PlayerViewController {
     
     @IBAction func toggleShuffleModeAction(_ sender: NSButton) {
         
-        guard !playbackDelegate.isInGaplessPlaybackMode else {
+        guard !player.isInGaplessPlaybackMode else {
             
             NSAlert.showInfo(withTitle: "Function unavailable", andText: "Shuffling is not possible while in gapless playback mode.")
             return

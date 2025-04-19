@@ -16,9 +16,6 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     private var bookmarks: BookmarksDelegateProtocol = bookmarksDelegate
     
-    // Delegate used to perform playback
-    private let player: PlaybackDelegateProtocol = playbackDelegate
-    
     @IBOutlet weak var bookmarkTrackPositionMenuItem: NSMenuItem!
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
 //    @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem?

@@ -21,7 +21,7 @@ class NowPlayingInfoManager: NSObject {
     private let infoCenter = MPNowPlayingInfoCenter.default()
     
     /// Provides current player information (eg. which track is playing, playback state, playback position, etc).
-    private let playbackInfo: PlaybackInfoDelegateProtocol
+    private let player: PlayerProtocol
     
     /// Provides current playback sequence information (eg. repeat / shuffle modes, how many tracks are in the playback queue, etc).
     private let playQueue: PlayQueueDelegateProtocol
@@ -39,10 +39,10 @@ class NowPlayingInfoManager: NSObject {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(playbackInfo: PlaybackInfoDelegateProtocol,
+    init(player: PlayerProtocol,
          playQueue: PlayQueueDelegateProtocol) {
         
-        self.playbackInfo = playbackInfo
+        self.player = player
         self.playQueue = playQueue
         
         super.init()
@@ -92,7 +92,7 @@ class NowPlayingInfoManager: NSObject {
     private func updateNowPlayingInfo() {
         
         var nowPlayingInfo = infoCenter.nowPlayingInfo!
-        let playingTrack = playbackInfo.playingTrack
+        let playingTrack = player.playingTrack
         
         // Metadata
         
@@ -111,12 +111,12 @@ class NowPlayingInfoManager: NSObject {
         
         // Seek position and duration
         
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.seekPosition.timeElapsed
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = playingTrack?.duration
         
         // Playback rate
         
-        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeStretchUnit.effectiveRate) : .zero
+        let playbackRate: Double = player.state == .playing ? Double(audioGraph.timeStretchUnit.effectiveRate) : .zero
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         
@@ -127,7 +127,7 @@ class NowPlayingInfoManager: NSObject {
         
         // Update the nowPlayingInfo dictionary in the Now Playing Info Center.
         
-        infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
+        infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(player.state)
         infoCenter.nowPlayingInfo = nowPlayingInfo
     }
     
@@ -163,7 +163,7 @@ class NowPlayingInfoManager: NSObject {
         // because another notification will be sent shortly.
         if preTrackChange {return}
         
-        infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
+        infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(player.state)
         playbackRateChanged(audioGraph.timeStretchUnit.effectiveRate)
     }
     
@@ -172,12 +172,12 @@ class NowPlayingInfoManager: NSObject {
         var nowPlayingInfo = infoCenter.nowPlayingInfo!
         
         // Set playback rate
-        let playbackRate: Double = playbackInfo.state == .playing ? Double(newRate) : .zero
+        let playbackRate: Double = player.state == .playing ? Double(newRate) : .zero
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         
         // Set elapsed time
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.seekPosition.timeElapsed
         
         infoCenter.nowPlayingInfo = nowPlayingInfo
     }
@@ -187,12 +187,12 @@ class NowPlayingInfoManager: NSObject {
     ///
     private func seekPerformed() {
         
-        infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
+        infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.seekPosition.timeElapsed
 
         // This is a dirty hack to get the seek position to be updated properly when a seek occurs or a segment loop is restarted.
         // Without this hack, the Control Center's playback position sometimes goes out of sync with the actual playback position.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            self.infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.playbackInfo.seekPosition.timeElapsed
+            self.infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.player.seekPosition.timeElapsed
         })
     }
 }

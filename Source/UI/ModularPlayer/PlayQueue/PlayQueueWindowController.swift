@@ -60,7 +60,7 @@ class PlayQueueWindowController: NSWindowController, ColorSchemeObserver {
     func trackTransitioned(_ notif: TrackTransitionNotification) {
         
         // New track has no chapters, or there is no new track
-        if playbackInfoDelegate.chapterCount == 0 {
+        if player.chapterCount == 0 {
             windowLayoutsManager.hideWindow(withId: .chaptersList)
             
         } // Only show chapters list if preferred by user

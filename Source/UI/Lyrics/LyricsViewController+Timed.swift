@@ -28,7 +28,7 @@ extension LyricsViewController {
         tableView.reloadData()
         highlightCurrentLine()
         
-        track != nil && playbackInfoDelegate.state == .playing ? timer.startOrResume() : timer.pause()
+        track != nil && player.state == .playing ? timer.startOrResume() : timer.pause()
         
         messenger.subscribeAsync(to: .Player.playbackStateChanged, handler: playbackStateChanged)
         messenger.subscribeAsync(to: .Player.seekPerformed, handler: seekPerformed)
@@ -91,7 +91,7 @@ extension LyricsViewController {
                 return
             }
             
-            if playbackInfoDelegate.playingTrack == track {
+            if player.playingTrack == track {
                 
                 self.timedLyrics = timedLyrics
                 self.doUpdate()
@@ -115,7 +115,7 @@ extension LyricsViewController {
         
         guard let timedLyrics else {return}
         
-        let seekPos = playbackInfoDelegate.seekPosition.timeElapsed
+        let seekPos = player.seekPosition.timeElapsed
         
         if let curLine {
             
@@ -163,7 +163,7 @@ extension LyricsViewController {
     }
     
     func playbackStateChanged() {
-        playbackInfoDelegate.state == .playing ? timer.startOrResume() : timer.pause()
+        player.state == .playing ? timer.startOrResume() : timer.pause()
     }
 
     func seekPerformed() {
@@ -184,7 +184,7 @@ extension LyricsViewController {
     
     func lyricsLoaded(notif: TrackInfoUpdatedNotification) {
         
-        if playbackInfoDelegate.playingTrack == notif.updatedTrack, appModeManager.isShowingLyrics {
+        if player.playingTrack == notif.updatedTrack, appModeManager.isShowingLyrics {
             updateForTrack(notif.updatedTrack)
         }
     }

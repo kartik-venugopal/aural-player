@@ -78,7 +78,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         let isReceivingTextInput: Bool = NSApp.isReceivingTextInput
         [panLeftMenuItem, panRightMenuItem].forEach {$0?.enableIf(!isReceivingTextInput)}
-        rememberSettingsMenuItem.enableIf(playbackInfoDelegate.playingTrack != nil)
+        rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
@@ -111,7 +111,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
             rememberSettingsMenuItem.showIf(!soundPreferences.rememberEffectsSettingsForAllTracks)
             
-            if let playingTrack = playbackInfoDelegate.playingTrack {
+            if let playingTrack = player.playingTrack {
                 rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
             }
         }

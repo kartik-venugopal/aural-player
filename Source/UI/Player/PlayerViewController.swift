@@ -38,7 +38,7 @@ class PlayerViewController: NSViewController {
     
     lazy var btnPlayPauseStateMachine: ButtonStateMachine<PlaybackState> =
     
-    ButtonStateMachine(initialState: playbackDelegate.state,
+    ButtonStateMachine(initialState: player.state,
                        mappings: [
                         ButtonStateMachine.StateMapping(state: .stopped, image: .imgPlay, colorProperty: \.buttonColor, toolTip: "Play"),
                         ButtonStateMachine.StateMapping(state: .playing, image: .imgPause, colorProperty: \.buttonColor, toolTip: "Pause"),
@@ -61,7 +61,7 @@ class PlayerViewController: NSViewController {
                                                                                                   ],
                                                                                                   button: btnShuffle)
     
-    lazy var btnLoopStateMachine: ButtonStateMachine<PlaybackLoopState> = ButtonStateMachine(initialState: playbackDelegate.playbackLoopState,
+    lazy var btnLoopStateMachine: ButtonStateMachine<PlaybackLoopState> = ButtonStateMachine(initialState: player.playbackLoopState,
                                                                                                      mappings: [
                                                                                                         ButtonStateMachine.StateMapping(state: .none, image: .imgLoop, colorProperty: \.inactiveControlColor, toolTip: "Initiate a segment loop"),
                                                                                                         ButtonStateMachine.StateMapping(state: .started, image: .imgLoopStarted, colorProperty: \.activeControlColor, toolTip: "Complete the segment loop"),
@@ -181,7 +181,7 @@ class PlayerViewController: NSViewController {
         setUpPlaybackControls()
         setUpTheming()
         
-        trackChanged(to: playbackDelegate.playingTrack)
+        trackChanged(to: player.playingTrack)
         
         setUpNotificationHandling()
         setUpCommandHandling()
@@ -224,7 +224,7 @@ class PlayerViewController: NSViewController {
     ///
     var widthForSeekPosLabel: CGFloat {
         
-        guard let track = playbackDelegate.playingTrack else {return 0}
+        guard let track = player.playingTrack else {return 0}
         
         let widthOfWidestNumber = String.widthOfWidestNumber(forFont: playbackPositionFont)
         let duration = track.duration
@@ -287,7 +287,7 @@ class PlayerViewController: NSViewController {
     
     func trackChanged(to newTrack: Track?) {
         
-        updateTrackInfo(for: newTrack, playingChapterTitle: playbackDelegate.playingChapter?.chapter.title)
+        updateTrackInfo(for: newTrack, playingChapterTitle: player.playingChapter?.chapter.title)
         updatePlaybackControls(for: newTrack)
     }
     
@@ -347,7 +347,7 @@ class PlayerViewController: NSViewController {
         
         // Button state
         
-        btnPlayPauseStateMachine.setState(playbackDelegate.state)
+        btnPlayPauseStateMachine.setState(player.state)
         updateRepeatAndShuffleControls(modes: playQueueDelegate.repeatAndShuffleModes)
         
         // Seek controls state
@@ -383,7 +383,7 @@ class PlayerViewController: NSViewController {
         
         seekTimerTaskQueue.enqueueTask(Self.chapterChangePollingTaskId, {
             
-            let playingChapter: IndexedChapter? = playbackDelegate.playingChapter
+            let playingChapter: IndexedChapter? = player.playingChapter
             
             // Compare the current chapter with the last known value of current chapter.
             if self.curChapter != playingChapter {
@@ -450,22 +450,22 @@ class PlayerViewController: NSViewController {
     }
     
     func previousTrack() {
-        playbackDelegate.previousTrack()
+        player.previousTrack()
     }
     
     func nextTrack() {
-        playbackDelegate.nextTrack()
+        player.nextTrack()
     }
     
     func playOrPause() {
         
-        let priorState = playbackDelegate.state
-        playbackDelegate.togglePlayPause()
+        let priorState = player.state
+        player.togglePlayPause()
         
         // If a track change occurred, we don't need to do these updates. A notif will take care of it.
         if priorState.isPlayingOrPaused {
             
-            btnPlayPauseStateMachine.setState(playbackDelegate.state)
+            btnPlayPauseStateMachine.setState(player.state)
             updateSeekTimerState()
         }
     }
@@ -473,7 +473,7 @@ class PlayerViewController: NSViewController {
     func beginGaplessPlayback() {
         
         do {
-            try playbackDelegate.beginGaplessPlayback()
+            try player.beginGaplessPlayback()
             
         } catch {
             
@@ -491,70 +491,70 @@ class PlayerViewController: NSViewController {
         case .index:
             
             if let index = command.index {
-                playbackDelegate.play(trackAtIndex: index, .defaultParams())
+                player.play(trackAtIndex: index, params: .defaultParams())
             }
             
         case .track:
             
             if let track = command.track {
-                playbackDelegate.play(track: track, .defaultParams())
+                player.play(track: track, params: .defaultParams())
             }
         }
     }
     
     func stop() {
-        playbackDelegate.stop()
+        player.stop()
     }
     
     // Replays the currently playing track, from the beginning, if there is one
     func replayTrack() {
         
-        let wasPaused: Bool = playbackDelegate.state == .paused
+        let wasPaused: Bool = player.state == .paused
         
-        playbackDelegate.replay()
+        player.replay()
         updateSeekPosition()
         
         if wasPaused {
             
-            btnPlayPauseStateMachine.setState(playbackDelegate.state)
+            btnPlayPauseStateMachine.setState(player.state)
             updateSeekTimerState()
         }
     }
     
     func seekBackward(inputMode: UserInputMode) {
         
-        playbackDelegate.seekBackward(inputMode)
+        player.seekBackward(inputMode: inputMode)
         updateSeekPosition()
     }
     
     func seekForward(inputMode: UserInputMode) {
         
-        playbackDelegate.seekForward(inputMode)
+        player.seekForward(inputMode: inputMode)
         updateSeekPosition()
     }
     
     func seekBackward_secondary() {
         
-        playbackDelegate.seekBackwardSecondary()
+        player.seekBackwardSecondary()
         updateSeekPosition()
     }
     
     func seekForward_secondary() {
         
-        playbackDelegate.seekForwardSecondary()
+        player.seekForwardSecondary()
         updateSeekPosition()
     }
     
     func jumpToTime(_ time: Double) {
         
-        playbackDelegate.seekToTime(time)
+        player.seekToTime(time)
         updateSeekPosition()
     }
     
     func showTrackInfo(for track: Track?) {
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
-        guard let theTrack = track ?? playbackInfoDelegate.playingTrack else {return}
+        guard let theTrack = track ?? player.playingTrack else {return}
                 
         trackReader.loadAuxiliaryMetadata(for: theTrack)
         TrackInfoViewContext.displayedTrack = theTrack
@@ -568,7 +568,7 @@ class PlayerViewController: NSViewController {
         
         if fileOpenDialog.runModal() == .OK, let lyricsFile = fileOpenDialog.url {
             
-            guard let track = playbackInfoDelegate.playingTrack, trackReader.loadTimedLyricsFromFile(at: lyricsFile, for: track) else {
+            guard let track = player.playingTrack, trackReader.loadTimedLyricsFromFile(at: lyricsFile, for: track) else {
                 
                 NSAlert.showError(withTitle: "Lyrics not loaded", andText: "Failed to load synced lyrics from file: '\(lyricsFile.lastPathComponent)'")
                 return
@@ -589,7 +589,7 @@ class PlayerViewController: NSViewController {
     
     func removeDownloadedLyrics() {
         
-        if let playingTrack = playbackInfoDelegate.playingTrack {
+        if let playingTrack = player.playingTrack {
             trackReader.removeDownloadedLyrics(for: playingTrack)
         }
     }
@@ -599,15 +599,15 @@ class PlayerViewController: NSViewController {
     
     func toggleLoop() {
         
-        guard playbackDelegate.state.isPlayingOrPaused else {return}
+        guard player.state.isPlayingOrPaused else {return}
         
-        playbackDelegate.toggleLoop()
+        player.toggleLoop()
         messenger.publish(.Player.playbackLoopChanged)
     }
     
     func updateSeekPosition() {
         
-        let seekPosn = playbackDelegate.seekPosition
+        let seekPosn = player.seekPosition
         seekSlider.doubleValue = seekPosn.percentageElapsed
         
         lblPlaybackPosition.stringValue = ValueFormatter.formatPlaybackPosition(elapsedSeconds: seekPosn.timeElapsed, duration: seekPosn.trackDuration,
@@ -619,7 +619,7 @@ class PlayerViewController: NSViewController {
     }
     
     var shouldEnableSeekTimer: Bool {
-        playbackDelegate.state == .playing
+        player.state == .playing
     }
     
     func updateSeekTimerState() {
@@ -632,11 +632,11 @@ class PlayerViewController: NSViewController {
     
     func playbackLoopChanged() {
         
-        btnLoopStateMachine.setState(playbackDelegate.playbackLoopState)
+        btnLoopStateMachine.setState(player.playbackLoopState)
 
         // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
         
-        if let playingTrack = playbackDelegate.playingTrack, let loop = playbackDelegate.playbackLoop {
+        if let playingTrack = player.playingTrack, let loop = player.playbackLoop {
             
             // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
             
@@ -661,38 +661,38 @@ class PlayerViewController: NSViewController {
     
     func playChapter(index: Int) {
         
-        playbackDelegate.playChapter(index)
+        player.playChapter(index)
         postChapterChange()
     }
     
     func previousChapter() {
         
-        playbackDelegate.previousChapter()
+        player.previousChapter()
         postChapterChange()
     }
     
     func nextChapter() {
         
-        playbackDelegate.nextChapter()
+        player.nextChapter()
         postChapterChange()
     }
     
     func replayChapter() {
         
-        playbackDelegate.replayChapter()
+        player.replayChapter()
         postChapterChange()
     }
     
     private func postChapterChange() {
         
         playbackLoopChanged()
-        btnPlayPauseStateMachine.setState(playbackDelegate.state)
+        btnPlayPauseStateMachine.setState(player.state)
         updateSeekTimerState()
     }
     
     func toggleChapterLoop() {
         
-        playbackDelegate.toggleChapterLoop()
+        player.toggleChapterLoop()
         playbackLoopChanged()
         
         messenger.publish(.Player.playbackLoopChanged)
@@ -810,13 +810,13 @@ class PlayerViewController: NSViewController {
     
     func showOrHidePlaybackPosition() {
         
-        lblPlaybackPosition.showIf(playbackDelegate.playingTrack != nil && showPlaybackPosition)
+        lblPlaybackPosition.showIf(player.playingTrack != nil && showPlaybackPosition)
         updateSeekTimerState()
     }
     
     func setPlaybackPositionDisplayType(to format: PlaybackPositionDisplayType) {
         
-        let seekPosn = playbackDelegate.seekPosition
+        let seekPosn = player.seekPosition
         lblPlaybackPosition.stringValue = ValueFormatter.formatPlaybackPosition(elapsedSeconds: seekPosn.timeElapsed, duration: seekPosn.trackDuration,
                                                                   percentageElapsed: seekPosn.percentageElapsed, playbackPositionDisplayType: playerUIState.playbackPositionDisplayType)
         
@@ -829,7 +829,7 @@ class PlayerViewController: NSViewController {
         
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribeAsync(to: .Player.trackInfoUpdated, handler: playingTrackInfoUpdated(_:), filter: {notif in
-            notif.updatedTrack == playbackDelegate.playingTrack
+            notif.updatedTrack == player.playingTrack
         })
         
         messenger.subscribe(to: .Player.playbackLoopChanged, handler: playbackLoopChanged)
@@ -872,7 +872,7 @@ class PlayerViewController: NSViewController {
     
     func trackNoLongerReadable(notification: TrackNoLongerReadableNotification) {
         
-        playbackDelegate.stop()
+        player.stop()
         
         NSAlert.showError(withTitle: "Track no longer readable",
                           andText: "Error playing audio file '\(notification.errorTrack.file.lastPathComponent)':\n\(notification.detailMessage)")

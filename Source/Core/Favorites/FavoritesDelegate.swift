@@ -33,9 +33,9 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     private let playQueue: PlayQueueDelegateProtocol
     
     // Delegate used to perform playback
-    private let player: PlaybackDelegateProtocol
+    private let player: PlayerProtocol
     
-    init(_ playQueue: PlayQueueDelegateProtocol, _ player: PlaybackDelegateProtocol) {
+    init(playQueue: PlayQueueDelegateProtocol, player: PlayerProtocol) {
         
         self.player = player
         self.playQueue = playQueue

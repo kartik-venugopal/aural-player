@@ -262,11 +262,11 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         if shuffleMode == .off {
             
             if let firstIndex = indices.first {
-                playbackDelegate.play(trackAtIndex: firstIndex, .defaultParams())
+                player.play(trackAtIndex: firstIndex)
             }
             
         } else if let randomFirstIndex = indices.randomElement() {
-            playbackDelegate.play(trackAtIndex: randomFirstIndex, .defaultParams())
+            player.play(trackAtIndex: randomFirstIndex)
         }
     }
     
@@ -325,8 +325,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             if autoplayResumeSequence.value, let track = sequenceTracks.first,
                let playbackPosition = historyPersistentState.lastPlaybackPosition {
                 
-                playbackDelegate.resumeShuffleSequence(with: track,
-                                                       atPosition: playbackPosition)
+                player.resumeShuffleSequence(with: track, atPosition: playbackPosition)
             }
         }
         
@@ -337,7 +336,7 @@ class PlayQueue: TrackList, PlayQueueProtocol {
            let playbackPosition = historyPersistentState.lastPlaybackPosition,
            playbackPosition > 0 {
             
-            playbackDelegate.play(track: track, PlaybackParams().withStartAndEndPosition(playbackPosition))
+            player.play(track: track, params: PlaybackParams().withStartAndEndPosition(playbackPosition))
         }
     }
 }

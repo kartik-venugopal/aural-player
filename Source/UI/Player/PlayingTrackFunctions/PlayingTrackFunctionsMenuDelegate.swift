@@ -61,14 +61,14 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
     
     private func updateRememberPositionMenuItemState() {
         
-        if let playingTrack = playbackInfoDelegate.playingTrack {
+        if let playingTrack = player.playingTrack {
             rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))
         }
     }
     
     private func updateFavoriteButtonState() {
         
-        if let playingTrack = playbackInfoDelegate.playingTrack {
+        if let playingTrack = player.playingTrack {
             favoritesMenuItem.onIf(favorites.favoriteExists(track: playingTrack))
         }
     }
@@ -97,7 +97,7 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
     
     private func addOrRemoveFavorite() {
         
-        guard let playingTrack = playbackInfoDelegate.playingTrack else {return}
+        guard let playingTrack = player.playingTrack else {return}
 
         // Toggle the button state
         if favorites.favoriteExists(track: playingTrack) {
@@ -111,8 +111,8 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
     // Adds the currently playing track position to/from the "Bookmarks" list
     @IBAction func bookmarkAction(_ sender: Any) {
         
-        if let playingTrack = playbackInfoDelegate.playingTrack {
-            doBookmark(playingTrack, playbackInfoDelegate.seekPosition.timeElapsed)
+        if let playingTrack = player.playingTrack {
+            doBookmark(playingTrack, player.seekPosition.timeElapsed)
         }
     }
     
@@ -124,7 +124,7 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
     private func bookmarkLoop() {
         
         // Check if we have a complete loop
-        if let playingTrack = playbackInfoDelegate.playingTrack, let loop = playbackInfoDelegate.playbackLoop, let loopEndTime = loop.endTime {
+        if let playingTrack = player.playingTrack, let loop = player.playbackLoop, let loopEndTime = loop.endTime {
             doBookmark(playingTrack, loop.startTime, loopEndTime)
         }
     }
@@ -178,7 +178,7 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
     private func favoritesUpdated(_ updatedFavoritesFiles: Set<URL>, _ added: Bool) {
         
         // Do this only if the track in the message is the playing track
-        guard let playingTrack = playbackInfoDelegate.playingTrack,
+        guard let playingTrack = player.playingTrack,
                 updatedFavoritesFiles.contains(playingTrack.file) else {return}
         
         // TODO: Is this really required ???

@@ -34,8 +34,6 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate 
     @IBOutlet weak var txtPercentage: NSTextField!
     @IBOutlet weak var percentageStepper: NSStepper!
     
-    private let playbackInfo: PlaybackInfoDelegateProtocol = playbackInfoDelegate
-    
     private lazy var messenger = Messenger(for: self)
     
     private var modalDialogResponse: ModalDialogResponse = .ok
@@ -84,7 +82,7 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate 
         
         forceLoadingOfWindow()
         
-        guard let playingTrack = playbackInfo.playingTrack else {
+        guard let playingTrack = player.playingTrack else {
             
             // Should never happen
             cancelAction(self)

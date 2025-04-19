@@ -52,7 +52,7 @@ class MasterUnitViewController: EffectsUnitViewController {
         
         super.initControls()
         
-        updateSettingsMemoryControls(forTrack: playbackInfoDelegate.playingTrack)
+        updateSettingsMemoryControls(forTrack: player.playingTrack)
         broadcastStateChangeNotification()
     }
     

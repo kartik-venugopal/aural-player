@@ -60,7 +60,7 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
             playingTrackSelected = true
         }
         
-        let notInGaplessMode = !playbackDelegate.isInGaplessPlaybackMode
+        let notInGaplessMode = !player.isInGaplessPlaybackMode
         
         playSelectedTrackItem.enableIf(selRows.count == 1 && (!playingTrackSelected))
         

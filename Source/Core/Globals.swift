@@ -83,7 +83,8 @@ fileprivate let playQueue: PlayQueue = PlayQueue()
 
 var playQueueDelegate: PlayQueueDelegateProtocol {_playQueueDelegate}
 fileprivate let _playQueueDelegate: PlayQueueDelegate = PlayQueueDelegate(playQueue: playQueue,
-                                                                     persistentState: appPersistentState.playQueue)
+                                                                          player: player,
+                                                                          persistentState: appPersistentState.playQueue)
 
 //let library: Library = Library(persistentState: appPersistentState.library)
 //let libraryDelegate: LibraryDelegateProtocol = LibraryDelegate()
@@ -97,10 +98,7 @@ let audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
 fileprivate let _audioGraph: AudioGraph = AudioGraph(persistentState: appPersistentState, audioUnitsManager: audioUnitsManager)
 var audioGraph: AudioGraphProtocol = _audioGraph
 
-//var audioGraph: AudioGraphDelegateProtocol = AudioGraphDelegate(graph: audioGraph, persistentState: appPersistentState.audioGraph,
-//                                                                        player: playbackDelegate, preferences: preferences.soundPreferences)
-
-let player: PlayerProtocol = DiscretePlayer(audioGraph: audioGraph)
+let player: PlayerProtocol = DiscretePlayer(audioGraph: audioGraph, playQueue: playQueue)
 
 fileprivate let avfScheduler: PlaybackSchedulerProtocol = AVFScheduler(playerNode: audioGraph.playerNode)
 
@@ -110,28 +108,15 @@ let playbackProfiles = PlaybackProfiles(player: player, playQueue: playQueueDele
                                         preferences: preferences.playbackPreferences,
                                         persistentState: appPersistentState.playbackProfiles ?? [])
 
-let playbackDelegate: PlaybackDelegateProtocol = {
-    
-    let startPlaybackChain = StartPlaybackChain(player, playQueue: playQueue, trackReader: trackReader, playbackProfiles, preferences.playbackPreferences)
-    let stopPlaybackChain = StopPlaybackChain(player, playQueue, playbackProfiles, preferences.playbackPreferences)
-    let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain)
-    
-    // Playback Delegate
-    return PlaybackDelegate(player, playQueue: playQueue, playbackProfiles, preferences.playbackPreferences,
-                            startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
-}()
-
-var playbackInfoDelegate: PlaybackInfoDelegateProtocol {playbackDelegate}
-
 let replayGainScanner = ReplayGainScanner(persistentState: appPersistentState.audioGraph?.replayGainAnalysisCache)
 
 var historyDelegate: HistoryDelegateProtocol {playQueueDelegate}
 
 var favoritesDelegate: FavoritesDelegateProtocol {_favoritesDelegate}
-fileprivate let _favoritesDelegate: FavoritesDelegate = FavoritesDelegate(playQueueDelegate, playbackDelegate)
+fileprivate let _favoritesDelegate: FavoritesDelegate = FavoritesDelegate(playQueue: playQueueDelegate, player: player)
 
 var bookmarksDelegate: BookmarksDelegateProtocol {_bookmarksDelegate}
-fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQueueDelegate, playbackDelegate)
+fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQueueDelegate, player)
 
 let trackRegistry: TrackRegistry = .init()
 let fileReader: FileReader = FileReader()
@@ -179,7 +164,7 @@ let mediaKeyHandler: MediaKeyHandler = MediaKeyHandler(preferences.controlsPrefe
 
 //let libraryMonitor: LibraryMonitor = .init(libraryPersistentState: appPersistentState.library)
 
-let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, playQueue: playQueueDelegate, 
+let remoteControlManager: RemoteControlManager = RemoteControlManager(player: player, playQueue: playQueueDelegate,
                                                                       preferences: preferences)
 
 var persistentStateOnExit: AppPersistentState {
@@ -197,7 +182,7 @@ var persistentStateOnExit: AppPersistentState {
     persistentState.favorites = _favoritesDelegate.persistentState
     persistentState.bookmarks = _bookmarksDelegate.persistentState
     
-    persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
+    persistentState.playbackProfiles = playbackProfiles.all().map {PlaybackProfilePersistentState(profile: $0)}
     
     persistentState.ui = UIPersistentState(appMode: appModeManager.currentMode,
                                            windowLayout: windowLayoutsManager.persistentState,

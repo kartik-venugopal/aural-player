@@ -20,6 +20,8 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     var displayName: String {playQueue.displayName}
     
     var playQueue: PlayQueueProtocol
+    
+    let player: PlayerProtocol
 
     var tracks: [Track] {playQueue.tracks}
     
@@ -51,9 +53,10 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     lazy var messenger: Messenger = .init(for: self)
     
-    init(playQueue: PlayQueueProtocol, persistentState: PlayQueuePersistentState?) {
+    init(playQueue: PlayQueueProtocol, player: PlayerProtocol, persistentState: PlayQueuePersistentState?) {
 
         self.playQueue = playQueue
+        self.player = player
         
         _ = setRepeatMode(persistentState?.repeatMode ?? .defaultMode)
         _ = setShuffleMode(persistentState?.shuffleMode ?? .defaultMode)
@@ -157,7 +160,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
         
         if let trackToPlay = tracks.first {
-            playbackDelegate.play(track: trackToPlay, params)
+            player.play(track: trackToPlay, params: params)
         }
             
         return indices
@@ -322,7 +325,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         let notDuplicateNotification = !notification.isDuplicateNotification
         lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplay.autoplayAfterOpeningTracks
         lazy var autoplayAfterOpeningOption: AutoplayPlaybackPreferences.AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplay.autoplayAfterOpeningOption
-        lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
+        lazy var playerIsStopped: Bool = player.state.isStopped
         lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
         let autoplay: Bool = notDuplicateNotification && autoplayPreference
         

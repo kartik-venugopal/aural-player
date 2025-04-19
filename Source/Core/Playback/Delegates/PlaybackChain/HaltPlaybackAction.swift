@@ -14,17 +14,17 @@ import Foundation
 ///
 class HaltPlaybackAction: PlaybackChainAction {
     
-    private let player: PlayerProtocol
+    private let playerStopFunction: PlayerStopFunction
     
-    init(_ player: PlayerProtocol) {
-        self.player = player
+    init(playerStopFunction: @escaping PlayerStopFunction) {
+        self.playerStopFunction = playerStopFunction
     }
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         if context.currentState != .stopped, let playingTrack = context.currentTrack {
             
-            player.stop()
+            playerStopFunction()
             playingTrack.playbackContext?.close()
         }
         

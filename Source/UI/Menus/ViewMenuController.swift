@@ -47,7 +47,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        toggleChaptersListMenuItem.enableIf(playbackInfoDelegate.chapterCount > 0)
+        toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
         
         let isCompactMode = appModeManager.currentMode == .compact
         toggleTrackInfoMenuItem.showIf(isCompactMode)
@@ -56,7 +56,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         if isCompactMode {
             
             let isShowingTrackInfo = appModeManager.isShowingTrackInfo
-            let isPlaying = playbackInfoDelegate.state.isPlayingOrPaused
+            let isPlaying = player.state.isPlayingOrPaused
             toggleTrackInfoMenuItem.enableIf(isShowingTrackInfo || isPlaying)
         }
         

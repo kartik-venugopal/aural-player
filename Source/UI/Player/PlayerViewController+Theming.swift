@@ -155,7 +155,7 @@ extension PlayerViewController: ColorSchemeObserver {
     @objc func artViewTintColorChanged(_ newColor: NSColor) {
         
         // Re-tint the default playing track cover art, if no track cover art is displayed.
-        if playbackDelegate.playingTrack?.art == nil {
+        if player.playingTrack?.art == nil {
             artView.contentTintColor = newColor
         }
     }

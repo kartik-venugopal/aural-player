@@ -25,7 +25,7 @@ class UnifiedPlayerViewController: PlayerViewController {
     
     override var shouldEnableSeekTimer: Bool {
         
-        if playbackDelegate.state != .playing {
+        if player.state != .playing {
             return false
         }
         
@@ -61,7 +61,7 @@ class UnifiedPlayerViewController: PlayerViewController {
         
         restartTrackingView(options: [.activeAlways, .mouseEnteredAndExited])
         
-        if playbackInfoDelegate.state.isPlayingOrPaused {
+        if player.state.isPlayingOrPaused {
             multilineTrackTextView.resized()
         }
     }

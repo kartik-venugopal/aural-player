@@ -22,18 +22,12 @@ protocol PlayerProtocol {
     // Returns the current seek position of the player, for the current track, i.e. time elapsed, in terms of seconds and percentage (of the total duration), and the total track duration (also in seconds)
     var seekPosition: PlaybackPosition {get}
     
+    var playerPosition: TimeInterval {get}
+    
     // Returns the currently playing (or paused) track, if there is one
     var playingTrack: Track? {get}
     
     var hasPlayingTrack: Bool {get}
-    
-    // For the currently playing track, returns the total number of defined chapter markings
-    var chapterCount: Int {get}
-    
-    // For the currently playing track, returns the index of the currently playing chapter. Returns nil if:
-    // 1 - There are no chapter markings for the current track
-    // 2 - There are chapter markings but the current seek position is not within the time bounds of any of the chapters
-    var playingChapter: IndexedChapter? {get}
     
     /*
         Returns a TimeInterval indicating when the currently playing track began playing. Returns nil if no track is playing.
@@ -47,6 +41,14 @@ protocol PlayerProtocol {
     
     var playbackLoopState: PlaybackLoopState {get}
     
+    // For the currently playing track, returns the total number of defined chapter markings
+    var chapterCount: Int {get}
+    
+    // For the currently playing track, returns the index of the currently playing chapter. Returns nil if:
+    // 1 - There are no chapter markings for the current track
+    // 2 - There are chapter markings but the current seek position is not within the time bounds of any of the chapters
+    var playingChapter: IndexedChapter? {get}
+    
     // MARK: Functions ------------------------------------------------------
     
     func togglePlayPause()
@@ -54,6 +56,14 @@ protocol PlayerProtocol {
     func play(trackAtIndex index: Int, params: PlaybackParams)
     
     func play(track: Track, params: PlaybackParams)
+    
+    // Plays (and returns) the next track, if there is one. Throws an error if the next track cannot be played back
+    func nextTrack()
+    
+    // Plays (and returns) the previous track, if there is one. Throws an error if the previous track cannot be played back
+    func previousTrack()
+    
+    func resumeShuffleSequence(with track: Track, atPosition position: TimeInterval)
     
     // Pauses the currently playing track
     func pause()
@@ -128,8 +138,44 @@ protocol PlayerProtocol {
     // Whether or not a loop exists for the currently playing chapter
     var chapterLoopExists: Bool {get}
     
+    func doTrackPlaybackCompleted()
+    
     // Performs any required cleanup before the app exits
     func tearDown()
+    
+    // MARK: Gapless -----------------------------------------------
+    
+    func beginGaplessPlayback() throws
+    
+    var isInGaplessPlaybackMode: Bool {get}
+}
+
+// Default function implementations
+extension PlayerProtocol {
+
+    func play(trackAtIndex index: Int) {
+        play(trackAtIndex: index, params: .defaultParams())
+    }
+    
+    func play(track: Track) {
+        play(track: track, params: .defaultParams())
+    }
+    
+//    func play(_ group: Group, _ params: PlaybackParams = .defaultParams()) {
+//        play(group, params)
+//    }
+}
+
+///
+/// Encapsulates information about the playback position of the currently playing track.
+///
+struct PlaybackPosition {
+    
+    let timeElapsed: TimeInterval
+    let percentageElapsed: Double
+    let trackDuration: TimeInterval
+    
+    static let zero: PlaybackPosition = PlaybackPosition(timeElapsed: 0, percentageElapsed: 0, trackDuration: 0)
 }
 
 protocol GaplessPlaybackProtocol {
@@ -138,3 +184,6 @@ protocol GaplessPlaybackProtocol {
     
     func playGapless(tracks: [Track])
 }
+
+typealias PlayerPlayFunction = (Track, PlaybackParams) -> Void
+typealias PlayerStopFunction = () -> Void

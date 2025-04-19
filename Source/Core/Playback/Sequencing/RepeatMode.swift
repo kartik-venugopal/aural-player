@@ -26,10 +26,6 @@ enum RepeatMode: String, CaseIterable, Codable {
     case one
     
     func toggleMode() -> RepeatMode {
-        playbackDelegate.isInGaplessPlaybackMode ? toggleOffOrAll() : toggleCase()
-    }
-    
-    private func toggleOffOrAll() -> RepeatMode {
-        self == .off ? .all : .off
+        toggleCase()
     }
 }

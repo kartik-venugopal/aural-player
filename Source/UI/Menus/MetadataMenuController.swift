@@ -19,12 +19,12 @@ class MetadataMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let isPlayingOrPaused = playbackInfoDelegate.state.isPlayingOrPaused
+        let isPlayingOrPaused = player.state.isPlayingOrPaused
         [detailedInfoMenuItem, addLyricsFileMenuItem, searchForLyricsOnlineMenuItem].forEach {$0?.enableIf(isPlayingOrPaused)}
         
         var enableRemoveLyricsMenuItem = false
         
-        if let playingTrack = playbackInfoDelegate.playingTrack, playingTrack.metadata.lyricsDownloaded {
+        if let playingTrack = player.playingTrack, playingTrack.metadata.lyricsDownloaded {
             
             if let extLyricsFile = playingTrack.metadata.externalLyricsFile,
                extLyricsFile.exists, extLyricsFile.parentDir == FilesAndPaths.lyricsDir {

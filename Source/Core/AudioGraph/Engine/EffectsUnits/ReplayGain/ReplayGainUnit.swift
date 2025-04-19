@@ -50,7 +50,7 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         let newState = super.toggleState()
         
         if isActive {
-            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
+            applyReplayGain(forTrack: player.playingTrack)
         } else {
             noReplayGain()
         }
@@ -63,7 +63,7 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         didSet {
             
             parmsChanged()
-            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
+            applyReplayGain(forTrack: player.playingTrack)
         }
     }
     
@@ -99,7 +99,7 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
     var dataSource: ReplayGainDataSource {
         
         didSet {
-            applyReplayGain(forTrack: playbackInfoDelegate.playingTrack)
+            applyReplayGain(forTrack: player.playingTrack)
         }
     }
     

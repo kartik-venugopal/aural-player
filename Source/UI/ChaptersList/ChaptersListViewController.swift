@@ -33,8 +33,6 @@ class ChaptersListViewController: NSViewController {
     @IBOutlet weak var btnReplayChapter: TintedImageButton!
     @IBOutlet weak var btnLoopChapter: OnOffImageButton!
     
-    let player: PlaybackDelegateProtocol = playbackDelegate
-    
     private lazy var messenger = Messenger(for: self)
     
     override func viewDidLoad() {

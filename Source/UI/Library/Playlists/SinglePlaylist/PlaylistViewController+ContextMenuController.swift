@@ -28,7 +28,7 @@ extension PlaylistViewController: NSMenuDelegate {
             $0.showIf(oneRowSelected)
         }
         
-        playNextMenuItem.showIf(atLeastOneRowSelected && playbackInfoDelegate.state.isPlayingOrPaused && !playingTrackSelected)
+        playNextMenuItem.showIf(atLeastOneRowSelected && player.state.isPlayingOrPaused && !playingTrackSelected)
         
         // TODO: playlist names menu should have a separate delegate so that the menu
         // is not unnecessarily updated until required.
@@ -42,7 +42,7 @@ extension PlaylistViewController: NSMenuDelegate {
         // Update the state of the favorites menu items (based on if the clicked track / group is already in the favorites list or not)
         guard let theClickedTrack = selectedTracks.first else {return}
         
-        let clickedPlayingTrack = playbackInfoDelegate.playingTrack == theClickedTrack
+        let clickedPlayingTrack = player.playingTrack == theClickedTrack
         let clickedPlayingTrackAndHasChapters = clickedPlayingTrack && theClickedTrack.hasChapters
         
         [moveTracksUpMenuItem, moveTracksDownMenuItem, moveTracksToTopMenuItem, moveTracksToBottomMenuItem].forEach {

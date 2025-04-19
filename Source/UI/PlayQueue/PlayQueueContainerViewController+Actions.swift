@@ -205,7 +205,7 @@ extension PlayQueueContainerViewController {
     
     private func checkForGaplessMode(actionText: String) -> Bool {
         
-        if playbackDelegate.isInGaplessPlaybackMode {
+        if player.isInGaplessPlaybackMode {
             
             DispatchQueue.main.async {
                 

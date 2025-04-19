@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0307980F2D1DA17F00798C96 /* LyricsXCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0307980E2D1DA17F00798C96 /* LyricsXCore */; };
 		030E0F662D0566920040D030 /* LyricsXCore in Frameworks */ = {isa = PBXBuildFile; productRef = 030E0F652D0566920040D030 /* LyricsXCore */; };
+		3E009E2B2DB457E200596E0A /* PlayerViewController+Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E009E2A2DB457E200596E0A /* PlayerViewController+Player.swift */; };
 		3E0217D62C23490E00865AC2 /* FileWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215B62C23490E00865AC2 /* FileWatcher.swift */; };
 		3E0217D72C23490E00865AC2 /* FileWatcher+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215B72C23490E00865AC2 /* FileWatcher+Action.swift */; };
 		3E0217D82C23490E00865AC2 /* FileWatcherEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215B82C23490E00865AC2 /* FileWatcherEvent.swift */; };
@@ -1066,6 +1067,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E009E2A2DB457E200596E0A /* PlayerViewController+Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Player.swift"; sourceTree = "<group>"; };
 		3E0215B62C23490E00865AC2 /* FileWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileWatcher.swift; sourceTree = "<group>"; };
 		3E0215B72C23490E00865AC2 /* FileWatcher+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileWatcher+Action.swift"; sourceTree = "<group>"; };
 		3E0215B82C23490E00865AC2 /* FileWatcherEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileWatcherEvent.swift; sourceTree = "<group>"; };
@@ -4653,6 +4655,7 @@
 			isa = PBXGroup;
 			children = (
 				3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */,
+				3E009E2A2DB457E200596E0A /* PlayerViewController+Player.swift */,
 				3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */,
 				3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */,
 				3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */,
@@ -6011,6 +6014,7 @@
 				3E02185E2C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift in Sources */,
 				3E0218722C23490E00865AC2 /* AppSetupNotifications.swift in Sources */,
 				3EC7425B2C41C4A100C100DE /* Player+Gapless.swift in Sources */,
+				3E009E2B2DB457E200596E0A /* PlayerViewController+Player.swift in Sources */,
 				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
 				3E804D222C29F7840049AC27 /* GestureHandler.swift in Sources */,
 				3E36BD3D26A6902F00B6E28B /* AudioTrackInfoViewController.swift in Sources */,

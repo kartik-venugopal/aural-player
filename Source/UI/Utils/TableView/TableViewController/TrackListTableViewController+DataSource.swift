@@ -61,7 +61,7 @@ extension TrackListTableViewController: NSTableViewDataSource {
         if let sourceTable = info.draggingSource as? NSTableView {
             
             // TODO: Move this to the PQ, this is not valid for the Library or other track lists.
-            if playbackDelegate.isInGaplessPlaybackMode {
+            if player.isInGaplessPlaybackMode {
                 
                 DispatchQueue.main.async {
                     NSAlert.showInfo(withTitle: "Function unavailable", andText: "Reordering of Play Queue tracks is not possible while in gapless playback mode.")
@@ -107,7 +107,7 @@ extension TrackListTableViewController: NSTableViewDataSource {
         } else if let files = info.urls {
             
             // TODO: Move this to the PQ, this is not valid for the Library or other track lists.
-            if playbackDelegate.isInGaplessPlaybackMode {
+            if player.isInGaplessPlaybackMode {
                 
                 DispatchQueue.main.async {
                     NSAlert.showInfo(withTitle: "Function unavailable", andText: "Adding tracks to the Play Queue is not possible while in gapless playback mode.")

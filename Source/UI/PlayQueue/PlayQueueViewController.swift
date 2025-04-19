@@ -168,7 +168,7 @@ class PlayQueueViewController: TrackListTableViewController {
         
         let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplay.autoplayAfterAddingTracks
         lazy var option: AutoplayPlaybackPreferences.AutoplayAfterAddingOption = preferences.playbackPreferences.autoplay.autoplayAfterAddingOption
-        lazy var playerIsStopped: Bool = playbackInfoDelegate.state.isStopped
+        lazy var playerIsStopped: Bool = player.state.isStopped
         return autoplayAfterAdding && (option == .always || playerIsStopped)
     }
     
@@ -233,7 +233,7 @@ class PlayQueueViewController: TrackListTableViewController {
     
     private func checkForGaplessMode() -> Bool {
         
-        if playbackDelegate.isInGaplessPlaybackMode {
+        if player.isInGaplessPlaybackMode {
             
             DispatchQueue.main.async {
                 

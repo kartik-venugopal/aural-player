@@ -25,7 +25,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // These menu item actions are only available when a track is currently playing/paused
-        addRemoveFavoritesMenuItem.enableIf(playbackInfoDelegate.state.isPlayingOrPaused)
+        addRemoveFavoritesMenuItem.enableIf(player.state.isPlayingOrPaused)
         
         // Menu has 3 static items
 //        manageFavoritesMenuItem?.enableIf(favoritesDelegate.hasAnyFavorites)
@@ -33,7 +33,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
 
     func menuWillOpen(_ menu: NSMenu) {
         
-        if let playingTrack = playbackInfoDelegate.playingTrack {
+        if let playingTrack = player.playingTrack {
             addRemoveFavoritesMenuItem.onIf(favoritesDelegate.favoriteExists(track: playingTrack))
         } else {
             addRemoveFavoritesMenuItem.off()

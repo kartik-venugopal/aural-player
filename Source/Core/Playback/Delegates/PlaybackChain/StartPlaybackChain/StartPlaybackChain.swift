@@ -17,22 +17,26 @@ import Foundation
 ///
 class StartPlaybackChain: PlaybackChain {
 
-    private let player: PlayerProtocol
+    private let playerPlayFunction: PlayerPlayFunction
+    private let playerStopFunction: PlayerStopFunction
     private let playQueue: PlayQueueProtocol
     
-    init(_ player: PlayerProtocol, playQueue: PlayQueueProtocol,
+    init(playerPlayFunction: @escaping PlayerPlayFunction,
+         playerStopFunction: @escaping PlayerStopFunction,
+         playQueue: PlayQueueProtocol,
          trackReader: TrackReader, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
         
-        self.player = player
+        self.playerPlayFunction = playerPlayFunction
+        self.playerStopFunction = playerStopFunction
         self.playQueue = playQueue
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
         .withAction(LastFMScrobbleAction())
-        .withAction(HaltPlaybackAction(player))
+        .withAction(HaltPlaybackAction(playerStopFunction: playerStopFunction))
         .withAction(AudioFilePreparationAction(trackReader: trackReader))
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
-        .withAction(StartPlaybackAction(player))
+        .withAction(StartPlaybackAction(playerPlayFunction: playerPlayFunction))
         .withAction(PredictiveTrackPreparationAction(playQueue: playQueue, trackReader: trackReader))
         
         // TODO: Add an UpdateHistoryAction !!!

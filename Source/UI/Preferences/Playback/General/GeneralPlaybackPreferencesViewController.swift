@@ -41,8 +41,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
     @IBOutlet weak var btnInfo_primarySeekLength: ContextHelpButton!
     @IBOutlet weak var btnInfo_secondarySeekLength: ContextHelpButton!
     
-    private lazy var playbackProfiles: PlaybackProfiles = playbackDelegate.profiles
-    
     var preferencesView: NSView {
         view
     }

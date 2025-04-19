@@ -78,7 +78,7 @@ class LyricsViewController: NSViewController {
     override func viewWillAppear() {
         
         super.viewWillAppear()
-        updateForTrack(playbackInfoDelegate.playingTrack)
+        updateForTrack(player.playingTrack)
     }
     
     override func viewDidDisappear() {

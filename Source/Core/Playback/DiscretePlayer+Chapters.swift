@@ -12,6 +12,12 @@ import Foundation
 
 extension DiscretePlayer {
     
+    ///
+    /// A small margin of time that is added to the start time of a chapter to prevent an
+    /// "overlap" with the previous chapter.
+    ///
+    private static let chapterPlaybackStartTimeMargin: TimeInterval = 0.001
+    
     var chapterCount: Int {0}
     
     var playingChapter: IndexedChapter? {nil}

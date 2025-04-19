@@ -38,7 +38,7 @@ class MasterUnitView: NSView {
     
     private func updateRememberSettingsButtonState() {
         
-        if let playingTrack = playbackInfoDelegate.playingTrack {
+        if let playingTrack = player.playingTrack {
             btnRememberSettings.onIf(audioGraph.soundProfiles.hasFor(playingTrack))
         } else {
             btnRememberSettings.off()

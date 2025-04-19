@@ -14,6 +14,7 @@ class DiscretePlayer: PlayerProtocol {
     
     let audioGraph: AudioGraphProtocol
     let playerNode: AuralPlayerNode
+    let playQueue: PlayQueueProtocol
     
     // Helper used for actual scheduling and playback
     var scheduler: PlaybackSchedulerProtocol!
@@ -21,17 +22,37 @@ class DiscretePlayer: PlayerProtocol {
     let avfScheduler: PlaybackSchedulerProtocol
     let ffmpegScheduler: PlaybackSchedulerProtocol
     
+    // "Chain of responsibility" chains that are used to perform a sequence of actions when changing tracks
+    var startPlaybackChain: StartPlaybackChain!
+    var stopPlaybackChain: StopPlaybackChain!
+    var trackPlaybackCompletedChain: TrackPlaybackCompletedChain!
+    
     var cachedSeekPosition: TimeInterval?
     
     private(set) lazy var messenger = Messenger(for: self)
     
-    init(audioGraph: AudioGraphProtocol) {
+    init(audioGraph: AudioGraphProtocol, playQueue: PlayQueueProtocol) {
         
         self.audioGraph = audioGraph
         self.playerNode = audioGraph.playerNode
+        self.playQueue = playQueue
         
         self.avfScheduler = AVFScheduler(playerNode: playerNode)
         self.ffmpegScheduler = FFmpegScheduler(playerNode: playerNode)
+        
+        self.startPlaybackChain = StartPlaybackChain(playerPlayFunction: self.play(track:params:),
+                                                    playerStopFunction: self.stop,
+                                                    playQueue: playQueue,
+                                                    trackReader: trackReader,
+                                                    playbackProfiles,
+                                                    preferences.playbackPreferences)
+        
+        self.stopPlaybackChain = StopPlaybackChain(playerStopFunction: self.stop,
+                                                  playQueue: playQueue,
+                                                  profiles: playbackProfiles,
+                                                  preferences: preferences.playbackPreferences)
+        
+        self.trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain)
     }
     
     // MARK: Variables that indicate the current player state

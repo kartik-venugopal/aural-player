@@ -43,9 +43,6 @@ class DockMenuController: NSObject, NSMenuDelegate {
     // Sub-menu that displays bookmarks. Clicking on any of these items will result in the corresponding track being played.
     @IBOutlet weak var bookmarksMenu: NSMenu!
     
-    // Delegate that retrieves current playback info (e.g. currently playing track)
-    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = playbackInfoDelegate
-    
     // Delegate that performs CRUD on the history model
     private lazy var history: HistoryDelegateProtocol = historyDelegate
     private lazy var favorites: FavoritesDelegateProtocol = favoritesDelegate

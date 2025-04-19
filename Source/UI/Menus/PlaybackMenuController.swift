@@ -54,9 +54,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
-    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = playbackInfoDelegate
-    private lazy var playbackProfiles: PlaybackProfiles = playbackDelegate.profiles
-    
     private let playbackPreferences: PlaybackPreferences = preferences.playbackPreferences
     
     private lazy var jumpToTimeDialogLoader: LazyWindowLoader<JumpToTimeEditorWindowController> = LazyWindowLoader()
@@ -69,13 +66,13 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let playbackState = playbackInfo.state
+        let playbackState = player.state
         let isPlayingOrPaused = playbackState.isPlayingOrPaused
         let isShowingPlayQueue = appModeManager.isShowingPlayQueue
         let noTrack = playbackState == .stopped
         
-        let notInGaplessMode = !playbackDelegate.isInGaplessPlaybackMode
-        let hasChapters = playbackInfo.chapterCount > 0
+        let notInGaplessMode = !player.isInGaplessPlaybackMode
+        let hasChapters = player.chapterCount > 0
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.enableIf(playQueueDelegate.size > 0 && !NSApp.isReceivingTextInput)
@@ -121,10 +118,10 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         updateRepeatAndShuffleMenuItemStates()
         
         // Play/pause enabled if at least one track available
-        playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
+        playOrPauseMenuItem.onIf(player.state == .playing)
         rememberLastPositionMenuItem.showIf(!playbackPreferences.rememberLastPositionForAllTracks)
         
-        if let playingTrack = playbackInfo.playingTrack {
+        if let playingTrack = player.playingTrack {
             rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))
         }
     }

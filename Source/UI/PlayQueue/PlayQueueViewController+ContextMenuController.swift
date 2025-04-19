@@ -19,7 +19,7 @@ extension PlayQueueViewController: NSMenuDelegate {
         
         let atLeastOneRowSelected = selectedRowCount >= 1
         let oneRowSelected = selectedRowCount == 1
-        let notInGaplessMode = !playbackDelegate.isInGaplessPlaybackMode
+        let notInGaplessMode = !player.isInGaplessPlaybackMode
         var playingTrackSelected = false
         if let currentTrackIndex = playQueueDelegate.currentTrackIndex, selectedRows.contains(currentTrackIndex) {
             playingTrackSelected = true
@@ -35,7 +35,7 @@ extension PlayQueueViewController: NSMenuDelegate {
             $0.showIf(oneRowSelected)
         }
         
-        playNextMenuItem.showIf(atLeastOneRowSelected && playbackInfoDelegate.state.isPlayingOrPaused && !playingTrackSelected && notInGaplessMode)
+        playNextMenuItem.showIf(atLeastOneRowSelected && player.state.isPlayingOrPaused && !playingTrackSelected && notInGaplessMode)
         
         // TODO: playlist names menu should have a separate delegate so that the menu
         // is not unnecessarily updated until required.
@@ -51,13 +51,13 @@ extension PlayQueueViewController: NSMenuDelegate {
         // Update the state of the favorites menu items (based on if the clicked track / group is already in the favorites list or not)
         guard let theClickedTrack = selectedTracks.first else {return}
         
-        let clickedPlayingTrack = playbackInfoDelegate.playingTrack == theClickedTrack
+        let clickedPlayingTrack = player.playingTrack == theClickedTrack
         let clickedPlayingTrackAndHasChapters = clickedPlayingTrack && theClickedTrack.hasChapters
         
         viewChaptersListMenuItem.showIf(clickedPlayingTrackAndHasChapters)
         jumpToChapterMenuItem.showIf(clickedPlayingTrackAndHasChapters)
         
-        if clickedPlayingTrackAndHasChapters, let playingChapter = playbackInfoDelegate.playingChapter {
+        if clickedPlayingTrackAndHasChapters, let playingChapter = player.playingChapter {
             
             let chapters = theClickedTrack.chapters
             

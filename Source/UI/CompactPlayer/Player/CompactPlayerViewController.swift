@@ -115,7 +115,7 @@ class CompactPlayerViewController: PlayerViewController {
     
     override func mouseEntered(with event: NSEvent) {
         
-        if playbackInfoDelegate.playingTrack != nil {
+        if player.playingTrack != nil {
             functionsMenuContainerBox.show()
         }
     }
