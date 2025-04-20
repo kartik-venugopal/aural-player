@@ -108,7 +108,7 @@ extension DiscretePlayer {
     func resumeIfPaused() {
         
         if state == .paused {
-            player.resume()
+            resume()
         }
     }
     

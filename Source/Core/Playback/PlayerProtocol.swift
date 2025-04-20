@@ -89,19 +89,6 @@ protocol PlayerProtocol {
     // Seeks to a specific time position, expressed in seconds, within the current track
     func seekTo(time seconds: TimeInterval)
     
-    // Attempts to seek to a certain time within the currently playing track
-    // If the provided time parameter is invalid (e.g. < 0 or > track duration),
-    // it will be adjusted to a valid value.
-    //
-    // NOTE - If a segment loop exists, it will be preserved
-//    func attemptSeekToTime(_ seconds: TimeInterval) -> PlayerSeekResult
-    
-    // Seeks to an exact time within the currently playing track.
-    //
-    // NOTE - If a segment loop exists, and the requested seek time is outside the
-    // loop's time bounds, the loop will be removed.
-//    func forceSeekToTime(_ seconds: TimeInterval) -> PlayerSeekResult
-    
     // Define a segment loop bounded by the given start/end time values (and continue playback as before, from the current position).
     // The isChapterLoop parameter indicates whether or not this segment loop is associated with (i.e. bounded by) a chapter marking
     // of the currently playing track.

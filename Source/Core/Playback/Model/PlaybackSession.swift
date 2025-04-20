@@ -115,7 +115,7 @@ class PlaybackSession: Hashable {
     }
     
     // End the current session. Returns the ended session so that callers may potentially use it to hand off information to the next session (e.g. segment loop)
-    static func endCurrent() -> PlaybackSession? {
+    @discardableResult static func endCurrent() -> PlaybackSession? {
         
         let endedSession = currentSession
         currentSession = nil

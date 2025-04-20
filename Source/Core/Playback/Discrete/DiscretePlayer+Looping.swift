@@ -21,7 +21,7 @@ extension DiscretePlayer {
         }
     }
     
-    func toggleLoop() -> PlaybackLoop? {
+    @discardableResult func toggleLoop() -> PlaybackLoop? {
         
         // Capture the current seek position
         let currentSeekPos = playerPosition
