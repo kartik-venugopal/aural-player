@@ -107,14 +107,14 @@ extension PlayQueueTabularViewController {
             builder.withSecondaryText(format)
             
         case .cid_playCount:
-            builder.withSecondaryText("\(historyDelegate.playCount(forTrack: track))")
+            builder.withSecondaryText("\(history.playCount(forTrack: track))")
             
         case .cid_playCount:
-            builder.withSecondaryText("\(historyDelegate.playCount(forTrack: track))")
+            builder.withSecondaryText("\(history.playCount(forTrack: track))")
             
         case .cid_lastPlayed:
             
-            if let lastPlayedTime = historyDelegate.lastPlayedTime(forTrack: track) {
+            if let lastPlayedTime = history.lastPlayedTime(forTrack: track) {
                 builder.withSecondaryText("\(lastPlayedTime.hmsString)")
             }
             

@@ -26,27 +26,27 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         recentItemsMenu.removeAllItems()
         
         // Retrieve the model and re-create all sub-menu items
-        createChronologicalMenu(historyDelegate.allRecentItems, recentItemsMenu, self, #selector(self.playSelectedItemAction(_:)))
+        createChronologicalMenu(history.allRecentItems, recentItemsMenu, self, #selector(self.playSelectedItemAction(_:)))
         
         let isStopped = player.state == .stopped
         
-        resumeSequenceItem.enableIf(isStopped && historyDelegate.canResumeLastPlayedSequence)
+        resumeSequenceItem.enableIf(isStopped && history.canResumeLastPlayedSequence)
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: HistoryMenuItem) {
         
         if let item = sender.historyItem {
-            historyDelegate.playItem(item)
+            history.playItem(item)
         }
     }
     
     @IBAction fileprivate func resumeLastPlayedSequenceAction(_ sender: NSMenuItem) {
-        historyDelegate.resumeLastPlayedSequence()
+        history.resumeLastPlayedSequence()
     }
     
     @IBAction fileprivate func clearHistoryAction(_ sender: NSMenuItem) {
-        historyDelegate.clearAllHistory()
+        history.clearAllHistory()
     }
 }
 

@@ -56,7 +56,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
         if listSizeAfterChange < listSizeBeforeChange {
             
             // Need to trim "Recent Items" list
-            historyDelegate.resizeRecentItemsList(to: listSizeAfterChange)
+            history.resizeRecentItemsList(to: listSizeAfterChange)
         }
     }
 }

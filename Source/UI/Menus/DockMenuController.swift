@@ -44,7 +44,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var bookmarksMenu: NSMenu!
     
     // Delegate that performs CRUD on the history model
-    private lazy var history: HistoryDelegateProtocol = historyDelegate
+    private lazy var history: HistoryProtocol = history
     private lazy var favorites: FavoritesDelegateProtocol = favoritesDelegate
     private lazy var bookmarks: BookmarksDelegateProtocol = bookmarksDelegate
     

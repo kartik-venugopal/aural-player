@@ -37,7 +37,7 @@ extension HistoryRecentItemsViewController: NSTableViewDataSource, NSTableViewDe
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        historyDelegate.numberOfItems
+        history.numberOfItems
     }
     
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
@@ -56,7 +56,7 @@ extension HistoryRecentItemsViewController: NSTableViewDataSource, NSTableViewDe
         guard let column = tableColumn else {return nil}
         let colID = column.identifier
         
-        let item = historyDelegate.historyItem(at: row)
+        let item = history[row]
         
         switch colID {
             

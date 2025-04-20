@@ -86,8 +86,8 @@ let trackYearComparison: TrackComparison = {t1, t2 in
 
 let trackPlayCountComparison: TrackComparison = {t1, t2 in
     
-    let pc1 = historyDelegate.playCount(forTrack: t1)
-    let pc2 = historyDelegate.playCount(forTrack: t2)
+    let pc1 = history.playCount(forTrack: t1)
+    let pc2 = history.playCount(forTrack: t2)
     
     return pc1.compare(pc2)
 }

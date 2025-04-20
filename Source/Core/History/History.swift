@@ -1,16 +1,36 @@
 //
-//  PlayQueueDelegate+History.swift
-//  Aural
+// History.swift
+// Aural
+// 
+// Copyright © 2025 Kartik Venugopal. All rights reserved.
+// 
+// This software is licensed under the MIT software license.
+// See the file "LICENSE" in the project root directory for license terms.
 //
-//  Copyright © 2025 Kartik Venugopal. All rights reserved.
-//
-//  This software is licensed under the MIT software license.
-//  See the file "LICENSE" in the project root directory for license terms.
-//  
 
 import Foundation
+import OrderedCollections
 
-extension PlayQueueDelegate {
+class History: HistoryProtocol {
+    
+    // Recently played items
+    // TODO: Does this need to be thread-safe ??? Assess which threads it's accessed from.
+    var recentItems: OrderedDictionary<CompositeKey, HistoryItem> = OrderedDictionary()
+    
+    var lastPlaybackPosition: TimeInterval = 0
+    
+    private lazy var messenger: Messenger = .init(for: self)
+    
+    init() {
+        
+        messenger.subscribe(to: .History.itemsAdded, handler: itemsLoadedFromFileSystem(notif:))
+        messenger.subscribe(to: .Player.preTrackPlayback, handler: trackPlayed(_:))
+        messenger.subscribe(to: .Application.willExit, handler: appWillExit)
+    }
+    
+    subscript(index: Int) -> HistoryItem {
+        recentItems.values[index]
+    }
     
     var numberOfItems: Int {
         recentItems.count
@@ -18,10 +38,6 @@ extension PlayQueueDelegate {
     
     var lastPlayedItem: TrackHistoryItem? {
         recentItems.values.last(where: {$0 is TrackHistoryItem}) as? TrackHistoryItem
-    }
-    
-    func historyItem(at index: Int) -> HistoryItem {
-        recentItems.values[index]
     }
     
     var allRecentItems: [HistoryItem] {
@@ -41,12 +57,16 @@ extension PlayQueueDelegate {
         }
     }
     
+    // TODO: ???
     var canResumeLastPlayedSequence: Bool {
-        shuffleMode == .off ? canResumeLastPlayedTrack : canResumeShuffleSequence
+        //        shuffleMode == .off ? canResumeLastPlayedTrack : canResumeShuffleSequence
+        canResumeLastPlayedTrack
     }
     
+    // TODO: ???
     func resumeLastPlayedSequence() {
-        shuffleMode == .off ? resumeLastPlayedTrack() : resumeShuffleSequence()
+        //        shuffleMode == .off ? resumeLastPlayedTrack() : resumeShuffleSequence()
+        resumeLastPlayedTrack()
     }
     
     var canResumeLastPlayedTrack: Bool {
@@ -60,25 +80,27 @@ extension PlayQueueDelegate {
         }
     }
     
+    // TODO: ???
     var canResumeShuffleSequence: Bool {
         
-        if let lastPlayedItem = lastPlayedItem,
-           let playingTrack = shuffleSequence.playingTrack, playingTrack == lastPlayedItem.track {
-
-            return true
-        }
+        //        if let lastPlayedItem = lastPlayedItem,
+        //           let playingTrack = shuffleSequence.playingTrack, playingTrack == lastPlayedItem.track {
+        //
+        //            return true
+        //        }
         
         return false
     }
     
+    // TODO: ???
     func resumeShuffleSequence() {
         
-        if let lastPlayedItem = lastPlayedItem,
-           let playingTrack = shuffleSequence.playingTrack, playingTrack == lastPlayedItem.track {
-            
-            player.resumeShuffleSequence(with: playingTrack,
-                                                   atPosition: lastPlaybackPosition)
-        }
+        //        if let lastPlayedItem = lastPlayedItem,
+        //           let playingTrack = shuffleSequence.playingTrack, playingTrack == lastPlayedItem.track {
+        //
+        //            player.resumeShuffleSequence(with: playingTrack,
+        //                                                   atPosition: lastPlaybackPosition)
+        //        }
     }
     
     func trackItem(forTrack track: Track) -> TrackHistoryItem? {
@@ -103,7 +125,7 @@ extension PlayQueueDelegate {
             
             if url.isSupportedAudioFile {
                 
-                if let track = self.findTrack(forFile: url) {
+                if let track = playQueue.findTrack(forFile: url) {
                     markAddEventForTrack(track)
                 }
                 
@@ -165,23 +187,23 @@ extension PlayQueueDelegate {
     
     // MARK: Event handling for FileSystemItems ---------------------------------------------------------------
     
-//    func fileSystemItemsEnqueued(_ fileSystemItems: [FileSystemItem]) {
-//        
-//        for fileSystemItem in fileSystemItems {
-//            
-//            if fileSystemItem.isTrack, let trackItem = fileSystemItem as? FileSystemTrackItem {
-//                markAddEventForTrack(trackItem.track)
-//                
-//            } else if fileSystemItem.isDirectory {
-//                markAddEventForFolder(fileSystemItem.url)
-//                
-//            } else {
-//                markAddEventForPlaylistFile(fileSystemItem.url)
-//            }
-//        }
-//        
-//        messenger.publish(.History.updated)
-//    }
+    //    func fileSystemItemsEnqueued(_ fileSystemItems: [FileSystemItem]) {
+    //
+    //        for fileSystemItem in fileSystemItems {
+    //
+    //            if fileSystemItem.isTrack, let trackItem = fileSystemItem as? FileSystemTrackItem {
+    //                markAddEventForTrack(trackItem.track)
+    //
+    //            } else if fileSystemItem.isDirectory {
+    //                markAddEventForFolder(fileSystemItem.url)
+    //
+    //            } else {
+    //                markAddEventForPlaylistFile(fileSystemItem.url)
+    //            }
+    //        }
+    //
+    //        messenger.publish(.History.updated)
+    //    }
     
     fileprivate func markAddEventForFolder(_ folder: URL) {
         
@@ -229,50 +251,50 @@ extension PlayQueueDelegate {
     
     // MARK: Event handling for Groups ---------------------------------------------------------------
     
-//    func groupsAndTracksEnqueued(groups: [Group], tracks: [Track]) {
-//        
-//        let deDupedTracks: [Track] = tracks.filter {track in
-//            !groups.contains(where: {$0.hasTrack(forFile: track.file)})
-//        }
-//        
-//        for group in groups {
-//            markAddEventForGroup(group)
-//        }
-//        
-//        tracksEnqueued(deDupedTracks)
-//        
-//        messenger.publish(.History.updated)
-//    }
-//    
-//    fileprivate func markAddEventForGroup(_ group: Group) {
-//        
-//        let groupKey = GroupHistoryItem.key(forGroupName: group.name, andType: group.type)
-//        
-//        if let existingHistoryItem: GroupHistoryItem = recentItems[groupKey] as? GroupHistoryItem {
-//            markNewEvent(forItem: existingHistoryItem)
-//            
-//        } else {
-//            
-//            recentItems[groupKey] = GroupHistoryItem(groupName: group.name, groupType: group.type, lastEventTime: Date())
-//            maintainListSize()
-//        }
-//    }
+    //    func groupsAndTracksEnqueued(groups: [Group], tracks: [Track]) {
+    //
+    //        let deDupedTracks: [Track] = tracks.filter {track in
+    //            !groups.contains(where: {$0.hasTrack(forFile: track.file)})
+    //        }
+    //
+    //        for group in groups {
+    //            markAddEventForGroup(group)
+    //        }
+    //
+    //        tracksEnqueued(deDupedTracks)
+    //
+    //        messenger.publish(.History.updated)
+    //    }
+    //
+    //    fileprivate func markAddEventForGroup(_ group: Group) {
+    //
+    //        let groupKey = GroupHistoryItem.key(forGroupName: group.name, andType: group.type)
+    //
+    //        if let existingHistoryItem: GroupHistoryItem = recentItems[groupKey] as? GroupHistoryItem {
+    //            markNewEvent(forItem: existingHistoryItem)
+    //
+    //        } else {
+    //
+    //            recentItems[groupKey] = GroupHistoryItem(groupName: group.name, groupType: group.type, lastEventTime: Date())
+    //            maintainListSize()
+    //        }
+    //    }
     
     // MARK: Event handling for Playlists ---------------------------------------------------------------
     
-//    func playlistEnqueued(_ playlist: Playlist) {
-//        
-//        let playlistKey = PlaylistHistoryItem.key(forPlaylistNamed: playlist.name)
-//        
-//        if let existingHistoryItem: PlaylistHistoryItem = recentItems[playlistKey] as? PlaylistHistoryItem {
-//            markNewEvent(forItem: existingHistoryItem)
-//            
-//        } else {
-//            
-//            recentItems[playlistKey] = PlaylistHistoryItem(playlistName: playlist.name, lastEventTime: Date())
-//            maintainListSize()
-//        }
-//    }
+    //    func playlistEnqueued(_ playlist: Playlist) {
+    //
+    //        let playlistKey = PlaylistHistoryItem.key(forPlaylistNamed: playlist.name)
+    //
+    //        if let existingHistoryItem: PlaylistHistoryItem = recentItems[playlistKey] as? PlaylistHistoryItem {
+    //            markNewEvent(forItem: existingHistoryItem)
+    //
+    //        } else {
+    //
+    //            recentItems[playlistKey] = PlaylistHistoryItem(playlistName: playlist.name, lastEventTime: Date())
+    //            maintainListSize()
+    //        }
+    //    }
     
     private func markNewAddEvent(forItem existingHistoryItem: HistoryItem) {
         
@@ -304,9 +326,9 @@ extension PlayQueueDelegate {
             
         } else if let folderHistoryItem = item as? FolderHistoryItem {
             playFolderItem(folderHistoryItem)
-//            
-//        } else if let groupHistoryItem = item as? GroupHistoryItem {
-//            playGroupItem(groupHistoryItem)
+            //
+            //        } else if let groupHistoryItem = item as? GroupHistoryItem {
+            //            playGroupItem(groupHistoryItem)
         }
     }
     
@@ -314,7 +336,7 @@ extension PlayQueueDelegate {
         
         // TODO: Augment enqueueToPlayNow() with a PlaybackParams parm so you can pass in position.
         // Add it to the PQ
-        enqueueToPlayLater(tracks: [trackHistoryItem.track])
+        playQueueDelegate.enqueueToPlayLater(tracks: [trackHistoryItem.track])
         
         if let seekPosition = position {
             player.play(track: trackHistoryItem.track, params: PlaybackParams().withStartAndEndPosition(seekPosition))
@@ -325,31 +347,31 @@ extension PlayQueueDelegate {
     
     private func playPlaylistFileItem(_ playlistFileHistoryItem: PlaylistFileHistoryItem) {
         
-//        // Add it to the PQ
-//        if let importedPlaylist = libraryDelegate.findImportedPlaylist(atLocation: playlistFileHistoryItem.playlistFile) {
-//            enqueueToPlayNow(playlistFile: importedPlaylist, clearQueue: false)
-//            
-//        } else {
-            loadTracks(from: [playlistFileHistoryItem.playlistFile], params: .init(autoplayFirstAddedTrack: true))
-            markNewPlayEvent(forItem: playlistFileHistoryItem)
-//        }
+        //        // Add it to the PQ
+        //        if let importedPlaylist = libraryDelegate.findImportedPlaylist(atLocation: playlistFileHistoryItem.playlistFile) {
+        //            enqueueToPlayNow(playlistFile: importedPlaylist, clearQueue: false)
+        //
+        //        } else {
+        playQueue.loadTracks(from: [playlistFileHistoryItem.playlistFile], params: .init(autoplayFirstAddedTrack: true))
+        markNewPlayEvent(forItem: playlistFileHistoryItem)
+        //        }
     }
     
-//    private func playGroupItem(_ groupHistoryItem: GroupHistoryItem) {
-//        
-////        guard let group = libraryDelegate.findGroup(named: groupHistoryItem.groupName, ofType: groupHistoryItem.groupType) else {return}
-////        enqueueToPlayNow(group: group, clearQueue: false)
-//    }
+    //    private func playGroupItem(_ groupHistoryItem: GroupHistoryItem) {
+    //
+    ////        guard let group = libraryDelegate.findGroup(named: groupHistoryItem.groupName, ofType: groupHistoryItem.groupType) else {return}
+    ////        enqueueToPlayNow(group: group, clearQueue: false)
+    //    }
     
     private func playFolderItem(_ folderHistoryItem: FolderHistoryItem) {
         
-//        if let fsFolderItem = libraryDelegate.findFileSystemFolder(atLocation: folder) {
-//            enqueueToPlayNow(fileSystemItems: [fsFolderItem], clearQueue: false)
-//            
-//        } else {
-        loadTracks(from: [folderHistoryItem.folder], params: .init(autoplayFirstAddedTrack: true))
+        //        if let fsFolderItem = libraryDelegate.findFileSystemFolder(atLocation: folder) {
+        //            enqueueToPlayNow(fileSystemItems: [fsFolderItem], clearQueue: false)
+        //
+        //        } else {
+        playQueue.loadTracks(from: [folderHistoryItem.folder], params: .init(autoplayFirstAddedTrack: true))
         markNewPlayEvent(forItem: folderHistoryItem)
-//        }
+        //        }
     }
     
     func markLastPlaybackPosition(_ position: Double) {
@@ -359,7 +381,7 @@ extension PlayQueueDelegate {
     // MARK: Management of history (cleanup, resizing) ---------------------------------------------------------------------------------------------------------
     
     func deleteItem(_ item: HistoryItem) {
-//        recentlyPlayedItems.remove(item)
+        //        recentlyPlayedItems.remove(item)
     }
     
     func resizeRecentItemsList(to newListSize: Int) {
@@ -379,5 +401,17 @@ extension PlayQueueDelegate {
     
     func clearAllHistory() {
         recentItems.removeAll()
+    }
+}
+
+extension History: PersistentModelObject {
+    
+    var persistentState: HistoryPersistentState {
+        
+        // TODO: ???
+        .init(recentItems: recentItems.values.compactMap(HistoryItemPersistentState.init),
+              lastPlaybackPosition: lastPlaybackPosition,
+              shuffleSequence: nil)
+//              shuffleSequence: shuffleMode == .on && shuffleSequence.isPlaying ? shuffleSequencePersistentState : nil)
     }
 }

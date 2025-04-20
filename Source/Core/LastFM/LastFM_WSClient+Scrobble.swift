@@ -30,7 +30,7 @@ extension LastFM_WSClient {
         
         guard self.scrobblingEnabled,
            track.canBeScrobbledOnLastFM,
-              let historyLastPlayedItem = historyDelegate.lastPlayedItem,
+              let historyLastPlayedItem = history.lastPlayedItem,
               let lastPlayedTime = historyLastPlayedItem.playCount.lastEventTime,
               historyLastPlayedItem.track == track else {
             

@@ -1,6 +1,6 @@
 import Foundation
 
-protocol PlayQueueDelegateProtocol: TrackListProtocol, SequencingProtocol, HistoryDelegateProtocol {
+protocol PlayQueueDelegateProtocol: TrackListProtocol, SequencingProtocol {
     
 //    func initialize(fromPersistentState persistentState: PlayQueuePersistentState?, appLaunchFiles: [URL])
     

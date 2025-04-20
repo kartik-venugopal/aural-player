@@ -9,6 +9,31 @@
 //  
 
 import AppKit
+
+@propertyWrapper
+struct Injected<Object> {
+    
+    let lazy: Bool
+    
+    init(lazy: Bool = false) {
+        self.lazy = lazy
+    }
+    
+    var wrappedValue: Object? {
+        
+        get {
+            
+            if Object.self == AudioUnitsManager.self {
+                return audioUnitsManager as? Object
+            }
+            
+            return nil
+        }
+        
+        set {}
+    }
+}
+
 let appVersion: String = NSApp.appVersion
 let appSetup: AppSetup = .shared
 
@@ -72,14 +97,14 @@ let appInitializer: AppInitializer = AppInitializer.init(steps: [
     AppInitializationStep(description: "Initializing metadata cache", components: [metadataRegistry]),
     
     AppInitializationStep(description: "Initializing track lists", components: [TrackInitializer(components: [
-        playQueue, historyDelegate, favoritesDelegate, bookmarksDelegate
+        playQueue, history, favoritesDelegate, bookmarksDelegate
     ])])
 ])
 
 let appModeManager: AppModeManager = AppModeManager(persistentState: appPersistentState.ui,
                                                     preferences: preferences.viewPreferences)
 
-fileprivate let playQueue: PlayQueue = PlayQueue()
+let playQueue: PlayQueue = PlayQueue()
 
 var playQueueDelegate: PlayQueueDelegateProtocol {_playQueueDelegate}
 fileprivate let _playQueueDelegate: PlayQueueDelegate = PlayQueueDelegate(playQueue: playQueue,
@@ -100,17 +125,13 @@ var audioGraph: AudioGraphProtocol = _audioGraph
 
 let player: PlayerProtocol = DiscretePlayer(audioGraph: audioGraph, playQueue: playQueue)
 
-fileprivate let avfScheduler: PlaybackSchedulerProtocol = AVFScheduler(playerNode: audioGraph.playerNode)
-
-fileprivate let ffmpegScheduler: PlaybackSchedulerProtocol = FFmpegScheduler(playerNode: audioGraph.playerNode)
-
 let playbackProfiles = PlaybackProfiles(player: player, playQueue: playQueueDelegate,
                                         preferences: preferences.playbackPreferences,
                                         persistentState: appPersistentState.playbackProfiles ?? [])
 
 let replayGainScanner = ReplayGainScanner(persistentState: appPersistentState.audioGraph?.replayGainAnalysisCache)
 
-var historyDelegate: HistoryDelegateProtocol {playQueueDelegate}
+let history: HistoryProtocol = History()
 
 var favoritesDelegate: FavoritesDelegateProtocol {_favoritesDelegate}
 fileprivate let _favoritesDelegate: FavoritesDelegate = FavoritesDelegate(playQueue: playQueueDelegate, player: player)

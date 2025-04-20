@@ -17,7 +17,7 @@ class MarkLastPlaybackPositionAction: PlaybackChainAction {
         if let stoppedTrack = context.currentTrack {
             
             // If the track finished playing, then mark the position as 0 (resume from beginning).
-            historyDelegate.markLastPlaybackPosition(context.currentSeekPosition >= stoppedTrack.duration ? 0 : context.currentSeekPosition)
+            history.markLastPlaybackPosition(context.currentSeekPosition >= stoppedTrack.duration ? 0 : context.currentSeekPosition)
         }
         
         chain.proceed(context)

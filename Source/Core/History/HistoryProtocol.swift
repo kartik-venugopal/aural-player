@@ -1,5 +1,5 @@
 //
-//  HistoryDelegateProtocol.swift
+//  HistoryProtocol.swift
 //  Aural
 //
 //  Copyright © 2025 Kartik Venugopal. All rights reserved.
@@ -10,8 +10,8 @@
 import Foundation
 
 ///
-/// A functional contract for a delegate allowing access to the chronologically ordered track lists:
-/// 1. tracks recently added to the playlist
+/// A functional contract for access to the chronologically ordered track lists:
+/// 1. tracks recently added to the play queue
 /// 2. tracks recently played
 ///
 /// Acts as a middleman between the UI and the History lists,
@@ -21,14 +21,14 @@ import Foundation
 /// - SeeAlso: `AddedItem`
 /// - SeeAlso: `PlayedItem`
 ///
-protocol HistoryDelegateProtocol: TrackInitComponent {
+protocol HistoryProtocol: TrackInitComponent {
     
     // Retrieves all items from the Recently added list, in chronological order
     var allRecentItems: [HistoryItem] {get}
     
     var numberOfItems: Int {get}
     
-    func historyItem(at index: Int) -> HistoryItem
+    subscript(_ index: Int) -> HistoryItem {get}
     
     // Plays a given item.
     func playItem(_ item: HistoryItem)
@@ -39,9 +39,9 @@ protocol HistoryDelegateProtocol: TrackInitComponent {
     
     func deleteItem(_ item: HistoryItem)
     
-    func markLastPlaybackPosition(_ position: Double)
+    func markLastPlaybackPosition(_ position: TimeInterval)
     
-    var lastPlaybackPosition: Double {get}
+    var lastPlaybackPosition: TimeInterval {get}
     
     var lastPlayedItem: TrackHistoryItem? {get}
     

@@ -18,9 +18,9 @@ struct PlayQueuePersistentState: Codable {
     let repeatMode: RepeatMode?
     let shuffleMode: ShuffleMode?
     
-    let history: HistoryPersistentState?
+//    let history: HistoryPersistentState?
     
-    init(tracks: [Track], repeatMode: RepeatMode, shuffleMode: ShuffleMode, history: HistoryPersistentState) {
+    init(tracks: [Track], repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
         var files: [URL] = []
         var cueSheetMetadata: [URL: CueSheetMetadata] = [:]
@@ -40,7 +40,7 @@ struct PlayQueuePersistentState: Codable {
         self.repeatMode = repeatMode
         self.shuffleMode = shuffleMode
         
-        self.history = history
+//        self.history = history
     }
     
     init(legacyPlaylistPersistentState: LegacyPlaylistPersistentState?, legacyPlaybackSequencePersistentState: LegacyPlaybackSequencePersistentState?, legacyHistoryPersistentState: LegacyHistoryPersistentState?) {
@@ -49,7 +49,7 @@ struct PlayQueuePersistentState: Codable {
         self.cueSheetMetadata = nil
         self.repeatMode = legacyPlaybackSequencePersistentState?.repeatMode
         self.shuffleMode = legacyPlaybackSequencePersistentState?.shuffleMode
-        self.history = HistoryPersistentState(legacyPersistentState: legacyHistoryPersistentState)
+//        self.history = HistoryPersistentState(legacyPersistentState: legacyHistoryPersistentState)
     }
     
     mutating func cueSheetMetadata(forFile file: URL) -> CueSheetMetadata? {

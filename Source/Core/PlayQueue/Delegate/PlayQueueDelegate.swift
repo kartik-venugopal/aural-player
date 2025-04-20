@@ -1,21 +1,7 @@
 import Foundation
 import OrderedCollections
 
-struct PlayQueueTrackAddResult {
-    
-    let track: Track
-    
-    // Index of the added track, within the play queue
-    let index: Int
-}
-
 class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
-    
-    // Recently played items
-    // TODO: Does this need to be thread-safe ??? Assess which threads it's accessed from.
-    var recentItems: OrderedDictionary<CompositeKey, HistoryItem> = OrderedDictionary()
-    
-    var lastPlaybackPosition: Double = 0
     
     var displayName: String {playQueue.displayName}
     
@@ -63,9 +49,6 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         
         // Subscribe to notifications
         messenger.subscribe(to: .Application.reopened, handler: appReopened(_:))
-        messenger.subscribe(to: .History.itemsAdded, handler: itemsLoadedFromFileSystem(notif:))
-        messenger.subscribe(to: .Player.preTrackPlayback, handler: trackPlayed(_:))
-        messenger.subscribe(to: .Application.willExit, handler: appWillExit)
     }
     
     func hasTrack(_ track: Track) -> Bool {
@@ -122,7 +105,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History
     @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
         
-        tracksEnqueued(tracks)
+//        tracksEnqueued(tracks)
         return doEnqueueToPlayNow(tracks: tracks, clearQueue: clearQueue, params: params)
     }
     
@@ -170,7 +153,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     @discardableResult func enqueueToPlayNext(tracks: [Track]) -> IndexSet {
         
-        tracksEnqueued(tracks)
+//        tracksEnqueued(tracks)
         return doEnqueueToPlayNext(tracks: tracks)
     }
     
@@ -209,7 +192,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
     
     @discardableResult func enqueueToPlayLater(tracks: [Track]) -> IndexSet {
         
-        tracksEnqueued(tracks)
+//        tracksEnqueued(tracks)
         return doEnqueueToPlayLater(tracks: tracks)
     }
     
@@ -336,15 +319,7 @@ class PlayQueueDelegate: PlayQueueDelegateProtocol, PersistentModelObject {
         
         .init(tracks: tracks,
               repeatMode: repeatMode,
-              shuffleMode: shuffleMode,
-              history: self.historyPersistentState)
-    }
-    
-    var historyPersistentState: HistoryPersistentState {
-        
-        .init(recentItems: recentItems.values.compactMap(HistoryItemPersistentState.init),
-              lastPlaybackPosition: lastPlaybackPosition,
-              shuffleSequence: shuffleMode == .on && shuffleSequence.isPlaying ? shuffleSequencePersistentState : nil)
+              shuffleMode: shuffleMode)
     }
     
     var shuffleSequencePersistentState: ShuffleSequencePersistentState {
@@ -365,14 +340,14 @@ extension PlayQueueDelegate: TrackRegistryClient {
         // Play Queue
         updateTracksIfPresent(tracks)
         
-        // History
-        for track in tracks {
-            
-            let trackKey = TrackHistoryItem.key(forTrack: track)
-            
-            if let existingHistoryItem: TrackHistoryItem = recentItems[trackKey] as? TrackHistoryItem {
-                existingHistoryItem.track = track
-            }
-        }
+        // TODO: History
+//        for track in tracks {
+//            
+//            let trackKey = TrackHistoryItem.key(forTrack: track)
+//            
+//            if let existingHistoryItem: TrackHistoryItem = recentItems[trackKey] as? TrackHistoryItem {
+//                existingHistoryItem.track = track
+//            }
+//        }
     }
 }
