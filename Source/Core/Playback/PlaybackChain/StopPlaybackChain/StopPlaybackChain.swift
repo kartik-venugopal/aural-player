@@ -19,12 +19,11 @@ class StopPlaybackChain: PlaybackChain {
     
     init(playerStopFunction: @escaping PlayerStopFunction,
          playQueue: PlayQueueProtocol,
-         profiles: PlaybackProfiles,
          preferences: PlaybackPreferences) {
         
         super.init()
         
-        _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
+        _ = self.withAction(SavePlaybackProfileAction(preferences: preferences))
             .withAction(MarkLastPlaybackPositionAction())
             .withAction(HaltPlaybackAction(playerStopFunction: playerStopFunction))
             .withAction(EndPlaybackSequenceAction())

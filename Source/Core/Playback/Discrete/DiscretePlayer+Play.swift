@@ -37,19 +37,19 @@ extension DiscretePlayer {
     }
     
     private func beginPlayback() {
-        doPlay(playQueue.start)
+        initiatePlayback(playQueue.start)
     }
     
     func play(trackAtIndex index: Int, params: PlaybackParams) {
         
-        doPlay({
+        initiatePlayback({
             playQueue.select(trackAt: index)
         }, params)
     }
     
     func play(track: Track, params: PlaybackParams) {
         
-        doPlay({
+        initiatePlayback({
             playQueue.selectTrack(track)
         }, params)
     }
@@ -57,26 +57,26 @@ extension DiscretePlayer {
     func previousTrack() {
         
         if state.isPlayingOrPaused {
-            doPlay(playQueue.previous)
+            initiatePlayback(playQueue.previous)
         }
     }
     
     func nextTrack() {
         
         if state.isPlayingOrPaused {
-            doPlay(playQueue.next)
+            initiatePlayback(playQueue.next)
         }
     }
     
     func resumeShuffleSequence(with track: Track, atPosition position: TimeInterval) {
         
-        doPlay({
+        initiatePlayback({
             playQueue.resumeShuffleSequence(with: track)
         }, .init().withStartAndEndPosition(position))
     }
     
     // Captures the current player state and proceeds with playback according to the playback sequence
-    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = .defaultParams()) {
+    private func initiatePlayback(_ trackProducer: TrackProducer, _ params: PlaybackParams = .defaultParams()) {
         
         let trackBeforeChange = playingTrack
         let stateBeforeChange = state
@@ -89,6 +89,35 @@ extension DiscretePlayer {
             let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, params)
             startPlaybackChain.execute(requestContext)
         }
+    }
+    
+    func doPlay(track: Track, params: PlaybackParams) {
+        
+        guard let audioFormat = track.playbackContext?.audioFormat else {
+            
+            NSLog("Player.play() - Unable to play track \(track.displayName) because no audio format is set in its playback context.")
+            return
+        }
+        
+        // Disconnect player from audio graph and reconnect with the file's processing format
+        audioGraph.reconnectPlayerNode(withFormat: audioFormat)
+        
+        let session = PlaybackSession.start(track)
+        self.scheduler = track.isNativelySupported ? avfScheduler : ffmpegScheduler
+        
+        if let end = params.endPosition {
+            
+            // Segment loop is defined
+            PlaybackSession.defineLoop(params.startPosition ?? 0, end)
+            scheduler.playLoop(session, beginPlayback: true)
+            
+        } else {
+            
+            // No segment loop
+            scheduler.playTrack(session, from: params.startPosition)
+        }
+        
+        state = .playing
     }
     
     func pause() {
@@ -122,8 +151,30 @@ extension DiscretePlayer {
     }
     
     func stop() {
+        initiateStop()
+    }
+    
+    // theCurrentTrack points to the (precomputed) current track before this stop operation.
+    // It is required because sometimes, the sequence will have been cleared before stop() is called,
+    // making it impossible to capture the current track before stopping playback.
+    // If nil, the current track can be computed normally (by calling playingTrack).
+    func initiateStop(_ theCurrentTrack: Track? = nil) {
         
-        _ = PlaybackSession.endCurrent()
+        let stateBeforeChange = state
+        
+        if stateBeforeChange != .stopped {
+            
+            let trackBeforeChange = theCurrentTrack ?? playingTrack
+            let seekPositionBeforeChange = seekPosition.timeElapsed
+            
+            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
+            stopPlaybackChain.execute(requestContext)
+        }
+    }
+    
+    func doStop() {
+        
+        PlaybackSession.endCurrent()
         
         scheduler?.stop()
         playerNode.reset()
@@ -133,7 +184,7 @@ extension DiscretePlayer {
     }
     
     // Continues playback when a track finishes playing.
-    func doTrackPlaybackCompleted() {
+    func trackPlaybackCompleted() {
         
         let trackBeforeChange = playingTrack
         let stateBeforeChange = state

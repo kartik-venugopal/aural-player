@@ -40,17 +40,15 @@ class DiscretePlayer: PlayerProtocol {
         self.avfScheduler = AVFScheduler(playerNode: playerNode)
         self.ffmpegScheduler = FFmpegScheduler(playerNode: playerNode)
         
-        self.startPlaybackChain = StartPlaybackChain(playerPlayFunction: self.play(track:params:),
-                                                    playerStopFunction: self.stop,
-                                                    playQueue: playQueue,
-                                                    trackReader: trackReader,
-                                                    playbackProfiles,
-                                                    preferences.playbackPreferences)
+        self.startPlaybackChain = StartPlaybackChain(playerPlayFunction: self.doPlay(track:params:),
+                                                     playerStopFunction: self.doStop,
+                                                     playQueue: playQueue,
+                                                     trackReader: trackReader,
+                                                     preferences.playbackPreferences)
         
-        self.stopPlaybackChain = StopPlaybackChain(playerStopFunction: self.stop,
-                                                  playQueue: playQueue,
-                                                  profiles: playbackProfiles,
-                                                  preferences: preferences.playbackPreferences)
+        self.stopPlaybackChain = StopPlaybackChain(playerStopFunction: self.doStop,
+                                                   playQueue: playQueue,
+                                                   preferences: preferences.playbackPreferences)
         
         self.trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain)
     }

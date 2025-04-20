@@ -20,12 +20,9 @@ import Foundation
 ///
 class ApplyPlaybackProfileAction: PlaybackChainAction {
     
-    private let profiles: PlaybackProfiles
     private let preferences: PlaybackPreferences
     
-    init(_ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
-        
-        self.profiles = profiles
+    init(preferences: PlaybackPreferences) {
         self.preferences = preferences
     }
     
@@ -37,7 +34,7 @@ class ApplyPlaybackProfileAction: PlaybackChainAction {
             
             // Check for an existing playback profile for the requested track, and only apply the profile
             // if no start position is defined in the request params.
-            if let profile = profiles[newTrack], params.startPosition == nil {
+            if let profile = playbackProfiles[newTrack], params.startPosition == nil {
                 
                 // Validate the playback profile before applying it
                 params.startPosition = (profile.lastPosition >= newTrack.duration ? 0 : profile.lastPosition)

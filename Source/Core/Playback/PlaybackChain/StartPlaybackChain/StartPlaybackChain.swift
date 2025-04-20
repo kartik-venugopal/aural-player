@@ -24,18 +24,19 @@ class StartPlaybackChain: PlaybackChain {
     init(playerPlayFunction: @escaping PlayerPlayFunction,
          playerStopFunction: @escaping PlayerStopFunction,
          playQueue: PlayQueueProtocol,
-         trackReader: TrackReader, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
+         trackReader: TrackReader,
+         _ preferences: PlaybackPreferences) {
         
         self.playerPlayFunction = playerPlayFunction
         self.playerStopFunction = playerStopFunction
         self.playQueue = playQueue
         super.init()
         
-        _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
+        _ = self.withAction(SavePlaybackProfileAction(preferences: preferences))
         .withAction(LastFMScrobbleAction())
         .withAction(HaltPlaybackAction(playerStopFunction: playerStopFunction))
         .withAction(AudioFilePreparationAction(trackReader: trackReader))
-        .withAction(ApplyPlaybackProfileAction(profiles, preferences))
+        .withAction(ApplyPlaybackProfileAction(preferences: preferences))
         .withAction(StartPlaybackAction(playerPlayFunction: playerPlayFunction))
         .withAction(PredictiveTrackPreparationAction(playQueue: playQueue, trackReader: trackReader))
         

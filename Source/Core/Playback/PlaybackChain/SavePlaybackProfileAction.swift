@@ -18,12 +18,9 @@ import Foundation
 ///
 class SavePlaybackProfileAction: PlaybackChainAction {
     
-    private let profiles: PlaybackProfiles
     private let preferences: PlaybackPreferences
     
-    init(_ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
-        
-        self.profiles = profiles
+    init(preferences: PlaybackPreferences) {
         self.preferences = preferences
     }
     
@@ -35,14 +32,14 @@ class SavePlaybackProfileAction: PlaybackChainAction {
         // Save playback profile if needed
         // Don't do this unless the preferences require it and the last track was actually playing/paused
         if isPlayingOrPaused, let currentTrack = context.currentTrack,
-           preferences.rememberLastPositionForAllTracks || profiles.hasFor(currentTrack) {
+           preferences.rememberLastPositionForAllTracks || playbackProfiles.hasFor(currentTrack) {
             
             // Update last position for current track
             // If track finished playing, reset the last position to 0
             let lastPosition = (context.currentSeekPosition >= currentTrack.duration ? 0 : context.currentSeekPosition)
             
             // Save the profile
-            profiles[currentTrack] = PlaybackProfile(currentTrack, lastPosition)
+            playbackProfiles[currentTrack] = PlaybackProfile(currentTrack, lastPosition)
         }
         
         chain.proceed(context)
