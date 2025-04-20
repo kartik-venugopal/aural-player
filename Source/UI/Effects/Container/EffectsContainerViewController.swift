@@ -141,7 +141,7 @@ class EffectsContainerViewController: NSViewController {
         devicesTabViewButton.stateFunction = {.bypassed}
         
         // Select Master tab view by default
-        showTab(.au)
+        showTab(.master)
     }
 
     override func destroy() {
