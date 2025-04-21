@@ -87,7 +87,7 @@
 //    
 //    private func importTracksFromPlayQueue(intoPlaylist destinationPlaylist: Playlist, sourceIndices: IndexSet) {
 //        
-//        let destinationIndices = destinationPlaylist.addTracks(playQueueDelegate[sourceIndices])
+//        let destinationIndices = destinationPlaylist.addTracks(playQueue[sourceIndices])
 //        
 //        if destinationPlaylist == playlistsUIState.displayedPlaylist {
 //            messenger.publish(PlaylistTracksAddedNotification(playlistName: destinationPlaylist.name, trackIndices: destinationIndices))

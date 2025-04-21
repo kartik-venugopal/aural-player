@@ -48,15 +48,15 @@ class PlayQueueMenuController: NSObject, NSMenuDelegate {
         
         let selRows = playQueueUIState.selectedRows
         let hasSelRows = selRows.isNonEmpty
-        let notBeingModified = !playQueueDelegate.isBeingModified
+        let notBeingModified = !playQueue.isBeingModified
         
-        let pqSize = playQueueDelegate.size
+        let pqSize = playQueue.size
         let pqHasTracks = pqSize > 0
         let moreThanOneTrack = pqSize > 1
         let notAllTracksSelected = selRows.count < pqSize
         
         var playingTrackSelected = false
-        if let currentTrackIndex = playQueueDelegate.currentTrackIndex, selRows.contains(currentTrackIndex) {
+        if let currentTrackIndex = playQueue.currentTrackIndex, selRows.contains(currentTrackIndex) {
             playingTrackSelected = true
         }
         

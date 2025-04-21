@@ -103,7 +103,7 @@ class DiscretePlayer: PlayerProtocol {
     }
     
     var playingTrack: Track? {
-        playQueueDelegate.currentTrack
+        playQueue.currentTrack
     }
     
     var hasPlayingTrack: Bool {

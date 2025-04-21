@@ -104,12 +104,7 @@ let appInitializer: AppInitializer = AppInitializer.init(steps: [
 let appModeManager: AppModeManager = AppModeManager(persistentState: appPersistentState.ui,
                                                     preferences: preferences.viewPreferences)
 
-let playQueue: PlayQueue = PlayQueue()
-
-var playQueueDelegate: PlayQueueDelegateProtocol {_playQueueDelegate}
-fileprivate let _playQueueDelegate: PlayQueueDelegate = PlayQueueDelegate(playQueue: playQueue,
-                                                                          player: player,
-                                                                          persistentState: appPersistentState.playQueue)
+let playQueue: PlayQueue = PlayQueue(persistentState: appPersistentState.playQueue)
 
 //let library: Library = Library(persistentState: appPersistentState.library)
 //let libraryDelegate: LibraryDelegateProtocol = LibraryDelegate()
@@ -125,7 +120,7 @@ var audioGraph: AudioGraphProtocol = _audioGraph
 
 let player: PlayerProtocol = DiscretePlayer(audioGraph: audioGraph, playQueue: playQueue)
 
-let playbackProfiles = PlaybackProfiles(player: player, playQueue: playQueueDelegate,
+let playbackProfiles = PlaybackProfiles(player: player, playQueue: playQueue,
                                         preferences: preferences.playbackPreferences,
                                         persistentState: appPersistentState.playbackProfiles ?? [])
 
@@ -134,10 +129,10 @@ let replayGainScanner = ReplayGainScanner(persistentState: appPersistentState.au
 let history: HistoryProtocol = History()
 
 var favoritesDelegate: FavoritesDelegateProtocol {_favoritesDelegate}
-fileprivate let _favoritesDelegate: FavoritesDelegate = FavoritesDelegate(playQueue: playQueueDelegate, player: player)
+fileprivate let _favoritesDelegate: FavoritesDelegate = FavoritesDelegate(playQueue: playQueue, player: player)
 
 var bookmarksDelegate: BookmarksDelegateProtocol {_bookmarksDelegate}
-fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQueueDelegate, player)
+fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQueue, player)
 
 let trackRegistry: TrackRegistry = .init()
 let fileReader: FileReader = FileReader()
@@ -185,7 +180,7 @@ let mediaKeyHandler: MediaKeyHandler = MediaKeyHandler(preferences.controlsPrefe
 
 //let libraryMonitor: LibraryMonitor = .init(libraryPersistentState: appPersistentState.library)
 
-let remoteControlManager: RemoteControlManager = RemoteControlManager(player: player, playQueue: playQueueDelegate,
+let remoteControlManager: RemoteControlManager = RemoteControlManager(player: player, playQueue: playQueue,
                                                                       preferences: preferences)
 
 var persistentStateOnExit: AppPersistentState {
@@ -196,7 +191,7 @@ var persistentStateOnExit: AppPersistentState {
     persistentState.appVersion = appVersion
     
     persistentState.audioGraph = _audioGraph.persistentState
-    persistentState.playQueue = _playQueueDelegate.persistentState
+    persistentState.playQueue = playQueue.persistentState
     
 //    persistentState.library = library.persistentState
 //    persistentState.playlists = playlistsManager.persistentState

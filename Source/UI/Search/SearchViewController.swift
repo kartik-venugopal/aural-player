@@ -86,7 +86,7 @@ class SearchViewController: NSViewController {
         switch searchQuery.scope {
             
         case .playQueue:
-            searchResults = playQueueDelegate.search(searchQuery)
+            searchResults = playQueue.search(searchQuery)
             
         default:
             return

@@ -23,11 +23,11 @@ extension CompactPlayQueueViewController {
         // Check for at least 1 row (and also get the minimum index).
         guard let firstRemovedRow = selectedRows.min() else {return}
         
-        _ = playQueueDelegate.removeTracks(at: selectedRows)
+        _ = playQueue.removeTracks(at: selectedRows)
         clearSelection()
         
         // Update all rows from the first (i.e. smallest index) removed row, down to the end of the track list.
-        let lastRowAfterRemove = playQueueDelegate.size - 1
+        let lastRowAfterRemove = playQueue.size - 1
         
         // Tell the playlist view that the number of rows has changed (should result in removal of rows)
         noteNumberOfRowsChanged()
@@ -46,7 +46,7 @@ extension CompactPlayQueueViewController {
     
     func playNext() {
         
-        let destRows = playQueueDelegate.moveTracksToPlayNext(from: selectedRows)
+        let destRows = playQueue.moveTracksToPlayNext(from: selectedRows)
         tableView.reloadData()
         
         // The current playing track index may have changed as a result of this operation.

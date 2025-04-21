@@ -113,11 +113,11 @@ class LibraryHoverControlsBox: NSBox {
     private func doPlay(clearPlayQueue: Bool) {
         
         if let group = self.group {
-            playQueueDelegate.enqueueToPlayNow(group: group, clearQueue: clearPlayQueue)
+            playQueue.enqueueToPlayNow(group: group, clearQueue: clearPlayQueue)
         }
         
         if let playlist = self.playlist {
-            playQueueDelegate.enqueueToPlayNow(playlistFile: playlist, clearQueue: clearPlayQueue)
+            playQueue.enqueueToPlayNow(playlistFile: playlist, clearQueue: clearPlayQueue)
         }
     }
 }

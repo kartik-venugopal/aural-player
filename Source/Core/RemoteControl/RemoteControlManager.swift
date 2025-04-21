@@ -35,7 +35,7 @@ class RemoteControlManager {
     var seekInterval: Double {Double(playbackPreferences.primarySeekLengthConstant)}
     
     init(player: PlayerProtocol,
-         playQueue: PlayQueueDelegateProtocol,
+         playQueue: PlayQueueProtocol,
          preferences: Preferences) {
         
         self.remoteCommandManager = RemoteCommandManager()

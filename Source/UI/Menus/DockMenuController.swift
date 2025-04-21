@@ -44,10 +44,6 @@ class DockMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var bookmarksMenu: NSMenu!
     
     // Delegate that performs CRUD on the history model
-    private lazy var history: HistoryProtocol = history
-    private lazy var favorites: FavoritesDelegateProtocol = favoritesDelegate
-    private lazy var bookmarks: BookmarksDelegateProtocol = bookmarksDelegate
-    
     private lazy var messenger = Messenger(for: self)
     
     // One-time setup. When the menu is loaded for the first time, update the menu item states per the current playback modes
@@ -138,7 +134,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
     @IBAction func playSelectedFavoriteAction(_ sender: FavoritesMenuItem) {
         
         guard let favorite = sender.favorite else {return}
-        favorites.playFavorite(favorite)
+        favoritesDelegate.playFavorite(favorite)
     }
     
     @IBAction func playSelectedBookmarkAction(_ sender: BookmarksMenuItem) {
@@ -147,7 +143,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
         
         do {
             
-            try bookmarks.playBookmark(bookmark)
+            try bookmarksDelegate.playBookmark(bookmark)
             
         } catch {
             
@@ -158,7 +154,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
                     
                     // Position and display an alert with error info
                     _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark").showModal()
-                    self.bookmarks.deleteBookmarkWithName(sender.bookmark.name)
+                    bookmarksDelegate.deleteBookmarkWithName(sender.bookmark.name)
                 }
             }
         }
@@ -241,7 +237,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
     // Updates the menu item states per the current playback modes
     private func updateRepeatAndShuffleMenuItemStates() {
         
-        let modes = playQueueDelegate.repeatAndShuffleModes
+        let modes = playQueue.repeatAndShuffleModes
 
         shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
         shuffleOnMenuItem.onIf(modes.shuffleMode == .on)

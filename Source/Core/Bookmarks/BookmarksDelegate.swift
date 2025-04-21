@@ -26,12 +26,12 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     let bookmarks: Bookmarks
     
     // Delegate used to perform CRUD on the playlist
-    private let playQueue: PlayQueueDelegateProtocol
+    private let playQueue: PlayQueueProtocol
     
     // Delegate used to perform playback
     private let player: PlayerProtocol
     
-    init(_ playQueue: PlayQueueDelegateProtocol, _ player: PlayerProtocol) {
+    init(_ playQueue: PlayQueueProtocol, _ player: PlayerProtocol) {
         
         self.playQueue = playQueue
         self.player = player
@@ -66,7 +66,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     
     func playBookmark(_ bookmark: Bookmark) throws {
         
-        playQueueDelegate.enqueueToPlayNow(tracks: [bookmark.track], clearQueue: false,
+        playQueue.enqueueToPlayNow(tracks: [bookmark.track], clearQueue: false,
                                            params: PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition))
     }
     

@@ -58,7 +58,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
                 
                 var updatedTracks = [Int]()
                 
-                for (index, pqTrack) in playQueueDelegate.tracks.enumerated() {
+                for (index, pqTrack) in playQueue.tracks.enumerated() {
                     
                     if let pqLCArtist = pqTrack.artist?.lowerCasedAndTrimmed(),
                        let pqLCAlbum = pqTrack.album?.lowerCasedAndTrimmed(),

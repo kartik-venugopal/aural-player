@@ -17,9 +17,9 @@ class PlayQueueViewController: TrackListTableViewController {
         .simple
     }
     
-    override var isTrackListBeingModified: Bool {playQueueDelegate.isBeingModified}
+    override var isTrackListBeingModified: Bool {playQueue.isBeingModified}
     
-    override var trackList: TrackListProtocol! {playQueueDelegate}
+    override var trackList: TrackListProtocol! {playQueue}
     
     // MARK: Menu items (for menu delegate)
     
@@ -123,7 +123,7 @@ class PlayQueueViewController: TrackListTableViewController {
     
     func showPlayingTrack() {
         
-        if let indexOfPlayingTrack = playQueueDelegate.currentTrackIndex {
+        if let indexOfPlayingTrack = playQueue.currentTrackIndex {
             selectTrack(at: indexOfPlayingTrack)
         }
     }
@@ -132,7 +132,7 @@ class PlayQueueViewController: TrackListTableViewController {
     
     func activeControlColorChanged(_ newColor: NSColor) {
         
-        if let playingTrackIndex = playQueueDelegate.currentTrackIndex {
+        if let playingTrackIndex = playQueue.currentTrackIndex {
             tableView.reloadRows([playingTrackIndex])
         }
     }
@@ -145,7 +145,7 @@ class PlayQueueViewController: TrackListTableViewController {
         
         let refreshIndexes: [Int] = Set([notification.beginTrack, notification.endTrack]
             .compactMap {$0})
-            .compactMap {playQueueDelegate.indexOfTrack($0)}
+            .compactMap {playQueue.indexOfTrack($0)}
         
         // If this is not done async, the row view could get garbled.
         // (because of other potential simultaneous updates - e.g. PlayingTrackInfoUpdated)
@@ -177,7 +177,7 @@ class PlayQueueViewController: TrackListTableViewController {
         let addMode = preferences.playQueuePreferences.dragDropAddMode
         let clearQueue: Bool = addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet)
         
-        playQueueDelegate.loadTracks(from: files, atPosition: clearQueue ? nil : row, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
+        playQueue.loadTracks(from: files, atPosition: clearQueue ? nil : row, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -190,7 +190,7 @@ class PlayQueueViewController: TrackListTableViewController {
     override func importFilesAndFolders() {
         
         if fileOpenDialog.runModal() == .OK {
-            playQueueDelegate.loadTracks(from: fileOpenDialog.urls, params: .init(autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
+            playQueue.loadTracks(from: fileOpenDialog.urls, params: .init(autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
         }
     }
     
@@ -250,7 +250,7 @@ class PlayQueueViewController: TrackListTableViewController {
     func tracksRemoved(firstRemovedRow: Int) {
         
         // Update all rows from the first (i.e. smallest index) removed row, down to the end of the track list.
-        let lastRowAfterRemove = playQueueDelegate.size - 1
+        let lastRowAfterRemove = playQueue.size - 1
         
         // Tell the playlist view that the number of rows has changed (should result in removal of rows)
         noteNumberOfRowsChanged()

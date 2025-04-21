@@ -336,7 +336,7 @@ class History: HistoryProtocol {
         
         // TODO: Augment enqueueToPlayNow() with a PlaybackParams parm so you can pass in position.
         // Add it to the PQ
-        playQueueDelegate.enqueueToPlayLater(tracks: [trackHistoryItem.track])
+        playQueue.enqueueToPlayLater(tracks: [trackHistoryItem.track])
         
         if let seekPosition = position {
             player.play(track: trackHistoryItem.track, params: PlaybackParams().withStartAndEndPosition(seekPosition))

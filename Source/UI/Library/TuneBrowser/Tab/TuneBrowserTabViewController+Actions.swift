@@ -33,7 +33,7 @@ extension TuneBrowserTabViewController {
               let fsItem = item as? FileSystemItem else {return}
         
         if fsItem.isTrack || fsItem.isPlaylist {
-            playQueueDelegate.enqueueToPlayNow(fileSystemItems: [fsItem], clearQueue: false)
+            playQueue.enqueueToPlayNow(fileSystemItems: [fsItem], clearQueue: false)
             
         } else if let folderItem = fsItem as? FileSystemFolderItem {
             

@@ -46,7 +46,7 @@ class PlayerViewController: NSViewController {
                        ],
                        button: btnPlayPause)
     
-    lazy var btnRepeatStateMachine: ButtonStateMachine<RepeatMode> = ButtonStateMachine(initialState: playQueueDelegate.repeatAndShuffleModes.repeatMode,
+    lazy var btnRepeatStateMachine: ButtonStateMachine<RepeatMode> = ButtonStateMachine(initialState: playQueue.repeatAndShuffleModes.repeatMode,
                                                                                                 mappings: [
                                                                                                     ButtonStateMachine.StateMapping(state: .off, image: .imgRepeat, colorProperty: \.inactiveControlColor, toolTip: "Repeat"),
                                                                                                     ButtonStateMachine.StateMapping(state: .all, image: .imgRepeat, colorProperty: \.activeControlColor, toolTip: "Repeat"),
@@ -54,7 +54,7 @@ class PlayerViewController: NSViewController {
                                                                                                 ],
                                                                                                 button: btnRepeat)
     
-    lazy var btnShuffleStateMachine: ButtonStateMachine<ShuffleMode> = ButtonStateMachine(initialState: playQueueDelegate.repeatAndShuffleModes.shuffleMode,
+    lazy var btnShuffleStateMachine: ButtonStateMachine<ShuffleMode> = ButtonStateMachine(initialState: playQueue.repeatAndShuffleModes.shuffleMode,
                                                                                                   mappings: [
                                                                                                     ButtonStateMachine.StateMapping(state: .off, image: .imgShuffle, colorProperty: \.inactiveControlColor, toolTip: "Shuffle"),
                                                                                                     ButtonStateMachine.StateMapping(state: .on, image: .imgShuffle, colorProperty: \.activeControlColor, toolTip: "Shuffle")
@@ -262,7 +262,7 @@ class PlayerViewController: NSViewController {
             
             peekingPreviousTrackButton.toolTipFunction = {
                 
-                if let prevTrack = playQueueDelegate.peekPrevious() {
+                if let prevTrack = playQueue.peekPrevious() {
                     return String(format: "Previous track: '%@'", prevTrack.displayName)
                 }
                 
@@ -274,7 +274,7 @@ class PlayerViewController: NSViewController {
             
             peekingNextTrackButton.toolTipFunction = {
                 
-                if let nextTrack = playQueueDelegate.peekNext() {
+                if let nextTrack = playQueue.peekNext() {
                     return String(format: "Next track: '%@'", nextTrack.displayName)
                 }
 
@@ -348,7 +348,7 @@ class PlayerViewController: NSViewController {
         // Button state
         
         btnPlayPauseStateMachine.setState(player.state)
-        updateRepeatAndShuffleControls(modes: playQueueDelegate.repeatAndShuffleModes)
+        updateRepeatAndShuffleControls(modes: playQueue.repeatAndShuffleModes)
         
         // Seek controls state
         
@@ -765,11 +765,11 @@ class PlayerViewController: NSViewController {
     }
     
     func toggleRepeatMode() {
-        updateRepeatAndShuffleControls(modes: playQueueDelegate.toggleRepeatMode())
+        updateRepeatAndShuffleControls(modes: playQueue.toggleRepeatMode())
     }
     
     func toggleShuffleMode() {
-        updateRepeatAndShuffleControls(modes: playQueueDelegate.toggleShuffleMode())
+        updateRepeatAndShuffleControls(modes: playQueue.toggleShuffleMode())
     }
     
     func updateRepeatAndShuffleControls(modes: RepeatAndShuffleModes) {
@@ -779,17 +779,17 @@ class PlayerViewController: NSViewController {
     }
     
     func setRepeatMode(to repeatMode: RepeatMode) {
-        updateRepeatAndShuffleControls(modes: playQueueDelegate.setRepeatMode(repeatMode))
+        updateRepeatAndShuffleControls(modes: playQueue.setRepeatMode(repeatMode))
     }
     
     func setShuffleMode(to shuffleMode: ShuffleMode) {
-        updateRepeatAndShuffleControls(modes: playQueueDelegate.setShuffleMode(shuffleMode))
+        updateRepeatAndShuffleControls(modes: playQueue.setShuffleMode(shuffleMode))
     }
     
     func setRepeatAndShuffleModes(_ notif: RepeatAndShuffleModesCommandNotification) {
         
-        playQueueDelegate.setRepeatAndShuffleModes(repeatMode: notif.repeatMode, shuffleMode: notif.shuffleMode)
-        updateRepeatAndShuffleControls(modes: playQueueDelegate.repeatAndShuffleModes)
+        playQueue.setRepeatAndShuffleModes(repeatMode: notif.repeatMode, shuffleMode: notif.shuffleMode)
+        updateRepeatAndShuffleControls(modes: playQueue.repeatAndShuffleModes)
     }
     
     @objc dynamic func showOrHideArtist() {

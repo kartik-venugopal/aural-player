@@ -56,7 +56,7 @@ class CompactPlayQueueSearchViewController: NSViewController {
     // Called when any of the search criteria have changed, performs a new search
     private func updateSearch() {
         
-        searchResults = playQueueDelegate.search(searchQuery)
+        searchResults = playQueue.search(searchQuery)
         
         guard searchResults.hasResults else {
             

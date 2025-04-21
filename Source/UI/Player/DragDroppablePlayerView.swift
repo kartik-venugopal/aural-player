@@ -46,7 +46,7 @@ class DragDroppablePlayerView: NSView {
         let addMode = preferences.playQueuePreferences.dragDropAddMode
         let clearQueue: Bool = addMode == .replace || (addMode == .hybrid && NSEvent.optionFlagSet)
         
-        playQueueDelegate.loadTracks(from: files, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
+        playQueue.loadTracks(from: files, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: shouldAutoplayAfterAdding))
         
         return true
     }

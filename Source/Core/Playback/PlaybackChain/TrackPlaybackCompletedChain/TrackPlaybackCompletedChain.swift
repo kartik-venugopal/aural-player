@@ -35,7 +35,7 @@ class TrackPlaybackCompletedChain: PlaybackChain {
         
         super.execute(context)
         
-        context.requestedTrack = playQueueDelegate.subsequent()
+        context.requestedTrack = playQueue.subsequent()
         
         // Continue playback with the subsequent track (or stop if no subsequent track).
         if context.requestedTrack != nil {

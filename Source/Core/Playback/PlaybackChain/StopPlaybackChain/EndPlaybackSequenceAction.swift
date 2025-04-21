@@ -22,9 +22,9 @@ class EndPlaybackSequenceAction: PlaybackChainAction {
         messenger.publish(PreTrackPlaybackNotification(oldTrack: context.currentTrack, oldState: context.currentState, newTrack: nil))
         
         if context.sequenceEnded {
-            playQueueDelegate.sequenceEnded()
+            playQueue.sequenceEnded()
         } else{
-            playQueueDelegate.stop()
+            playQueue.stop()
         }
         
         messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,

@@ -206,9 +206,9 @@ class TuneBrowserTabViewController: NSViewController, NSMenuDelegate, FileSystem
     func doAddBrowserItemsToPlayQueue(items: [FileSystemItem], clearQueue: Bool = false, beginPlayback: Bool = false) {
         
         if beginPlayback {
-            playQueueDelegate.enqueueToPlayNow(fileSystemItems: items, clearQueue: clearQueue)
+            playQueue.enqueueToPlayNow(fileSystemItems: items, clearQueue: clearQueue)
         } else {
-            playQueueDelegate.enqueueToPlayLater(fileSystemItems: items)
+            playQueue.enqueueToPlayLater(fileSystemItems: items)
         }
     }
 }

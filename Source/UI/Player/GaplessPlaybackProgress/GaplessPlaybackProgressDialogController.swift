@@ -36,7 +36,7 @@ class GaplessPlaybackProgressDialogController: NSWindowController {
         
         activitySpinner.animate()
         imgStatus.hide()
-        lblStatus.stringValue = "Analyzing \(playQueueDelegate.size) tracks ..."
+        lblStatus.stringValue = "Analyzing \(playQueue.size) tracks ..."
         lblDetail.hide()
         btnOK.hide()
      

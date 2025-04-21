@@ -258,6 +258,8 @@ extension PlayQueue {
     // Sets the repeat mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
     @discardableResult func setRepeatMode(_ repeatMode: RepeatMode) -> RepeatAndShuffleModes {
         
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        
         self.repeatMode = repeatMode
         
         // If repeating one track, cannot also shuffle
@@ -272,6 +274,8 @@ extension PlayQueue {
     
     // Sets the shuffle mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
     @discardableResult func setShuffleMode(_ shuffleMode: ShuffleMode) -> RepeatAndShuffleModes {
+        
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
         
         // Execute this method only if the desired shuffle mode is different from the current shuffle mode.
         guard shuffleMode != self.shuffleMode else {return repeatAndShuffleModes}
@@ -300,18 +304,24 @@ extension PlayQueue {
     
     func setRepeatAndShuffleModes(repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        
         setRepeatMode(repeatMode)
         setShuffleMode(shuffleMode)
     }
 
     // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> RepeatAndShuffleModes {
-        setRepeatMode(repeatMode.toggleMode())
+        
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        return setRepeatMode(repeatMode.toggleMode())
     }
     
     // Toggles between shuffle modes. See ShuffleMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleShuffleMode() -> RepeatAndShuffleModes {
-        setShuffleMode(shuffleMode.toggleCase())
+        
+        defer {Messenger.publish(.PlayQueue.shuffleModeUpdated)}
+        return setShuffleMode(shuffleMode.toggleCase())
     }
     
     var repeatAndShuffleModes: RepeatAndShuffleModes {

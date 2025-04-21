@@ -91,17 +91,17 @@ class CompactPlayQueueViewController: PlayQueueViewController {
     
     override func updateSummary() {
         
-        let tracksCardinalString = playQueueDelegate.size == 1 ? "track" : "tracks"
+        let tracksCardinalString = playQueue.size == 1 ? "track" : "tracks"
         
-        if let playingTrackIndex = playQueueDelegate.currentTrackIndex {
+        if let playingTrackIndex = playQueue.currentTrackIndex {
             
-            if playQueueDelegate.shuffleMode == .on {
+            if playQueue.shuffleMode == .on {
                 updateShuffleSequenceProgress()
                 
             } else {
                 
                 let playIconAttStr = "▶".attributed(font: futuristicFontSet.mainFont(size: 12), color: systemColorScheme.secondaryTextColor)
-                let tracksSummaryAttStr = "  \(playingTrackIndex + 1) / \(playQueueDelegate.size) \(tracksCardinalString)".attributed(font: systemFontScheme.smallFont,
+                let tracksSummaryAttStr = "  \(playingTrackIndex + 1) / \(playQueue.size) \(tracksCardinalString)".attributed(font: systemFontScheme.smallFont,
                                                                                                                                       color: systemColorScheme.secondaryTextColor)
                 
                 lblTracksSummary.attributedStringValue = playIconAttStr + tracksSummaryAttStr
@@ -109,12 +109,12 @@ class CompactPlayQueueViewController: PlayQueueViewController {
             
         } else {
             
-            lblTracksSummary.stringValue = "\(playQueueDelegate.size) \(tracksCardinalString)"
+            lblTracksSummary.stringValue = "\(playQueue.size) \(tracksCardinalString)"
             lblTracksSummary.font = systemFontScheme.smallFont
             lblTracksSummary.textColor = systemColorScheme.secondaryTextColor
         }
         
-        lblDurationSummary.stringValue = ValueFormatter.formatSecondsToHMS(playQueueDelegate.duration)
+        lblDurationSummary.stringValue = ValueFormatter.formatSecondsToHMS(playQueue.duration)
         lblDurationSummary.font = systemFontScheme.smallFont
         lblDurationSummary.textColor = systemColorScheme.secondaryTextColor
     }
@@ -125,8 +125,8 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         imgAttachment.image = .imgShuffle
         let imgAttrString = NSMutableAttributedString(attachment: imgAttachment)
         
-        let sequenceProgress = playQueueDelegate.shuffleSequence.progress
-        let tracksSummaryAttStr = "  \(sequenceProgress.tracksPlayed) / \(playQueueDelegate.size) tracks".attributed(font: systemFontScheme.smallFont,
+        let sequenceProgress = playQueue.shuffleSequence.progress
+        let tracksSummaryAttStr = "  \(sequenceProgress.tracksPlayed) / \(playQueue.size) tracks".attributed(font: systemFontScheme.smallFont,
                                                                                                                     color: systemColorScheme.secondaryTextColor)
         lblTracksSummary.attributedStringValue = imgAttrString + tracksSummaryAttStr
     }

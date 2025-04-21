@@ -18,7 +18,7 @@ extension PlaylistViewController: NSMenuDelegate {
         let oneRowSelected = selectedRowCount == 1
         
         var playingTrackSelected = false
-        if let currentTrackIndex = playQueueDelegate.currentTrackIndex, selectedRows.contains(currentTrackIndex) {
+        if let currentTrackIndex = playQueue.currentTrackIndex, selectedRows.contains(currentTrackIndex) {
             playingTrackSelected = true
         }
         

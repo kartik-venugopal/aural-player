@@ -24,7 +24,7 @@ extension CompactPlayQueueViewController {
             
             let builder = TableCellBuilder()
             
-            if track == playQueueDelegate.currentTrack {
+            if track == playQueue.currentTrack {
                 
                 return builder.withImage(image: .imgPlayFilled, inColor: systemColorScheme.activeControlColor).buildCell(forTableView: tableView,
                                                                                                                          forColumnWithId: columnId, inRow: row)

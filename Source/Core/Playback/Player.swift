@@ -147,10 +147,10 @@
 //            
 //            if isInGaplessPlaybackMode {
 //                
-//                if let currentTrackIndex = playQueueDelegate.currentTrackIndex {
+//                if let currentTrackIndex = playQueue.currentTrackIndex {
 //                    
-//                    let otherTracks = currentTrackIndex < (playQueueDelegate.size - 1) ? 
-//                    Array(playQueueDelegate.tracks[(currentTrackIndex + 1)..<playQueueDelegate.size]) : []
+//                    let otherTracks = currentTrackIndex < (playQueue.size - 1) ? 
+//                    Array(playQueue.tracks[(currentTrackIndex + 1)..<playQueue.size]) : []
 //                    
 //                    scheduler.seekGapless(toTime: actualSeekTime, 
 //                                          currentSession: newSession, 

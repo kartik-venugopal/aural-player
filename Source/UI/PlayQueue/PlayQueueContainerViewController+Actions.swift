@@ -68,7 +68,7 @@ extension PlayQueueContainerViewController {
         
         guard tracksToDelete.isNonEmpty else {return}
         
-        _ = playQueueDelegate.removeTracks(at: tracksToDelete)
+        _ = playQueue.removeTracks(at: tracksToDelete)
         
         controllers.forEach {
             $0.reloadTable()
@@ -79,7 +79,7 @@ extension PlayQueueContainerViewController {
     
     @IBAction func removeAllTracksAction(_ sender: NSButton) {
         
-        playQueueDelegate.removeAllTracks()
+        playQueue.removeAllTracks()
         controllers.forEach {$0.reloadTable()}
         updateSummary()
     }
@@ -96,7 +96,7 @@ extension PlayQueueContainerViewController {
         guard currentViewController.atLeastTwoRowsAndNotAllSelected else {return}
 
         let selectedRows = currentViewController.selectedRows
-        let results = playQueueDelegate.moveTracksUp(from: selectedRows)
+        let results = playQueue.moveTracksUp(from: selectedRows)
         
         controllers.forEach {
             $0.moveAndReloadItems(results.sorted(by: <))
@@ -121,7 +121,7 @@ extension PlayQueueContainerViewController {
         guard currentViewController.atLeastTwoRowsAndNotAllSelected else {return}
 
         let selectedRows = currentViewController.selectedRows
-        let results = playQueueDelegate.moveTracksDown(from: selectedRows)
+        let results = playQueue.moveTracksDown(from: selectedRows)
         
         controllers.forEach {
             $0.moveAndReloadItems(results.sorted(by: >))
@@ -147,7 +147,7 @@ extension PlayQueueContainerViewController {
         
         let selectedRows = currentViewController.selectedRows
         let selectedRowCount = currentViewController.selectedRowCount
-        let results = playQueueDelegate.moveTracksToTop(from: selectedRows)
+        let results = playQueue.moveTracksToTop(from: selectedRows)
         
         // Move the rows
         controllers.forEach {
@@ -180,7 +180,7 @@ extension PlayQueueContainerViewController {
         
         let selectedRows = currentViewController.selectedRows
         let selectedRowCount = currentViewController.selectedRowCount
-        let results = playQueueDelegate.moveTracksToBottom(from: selectedRows)
+        let results = playQueue.moveTracksToBottom(from: selectedRows)
         let lastRow = currentViewController.lastRow
         
         controllers.forEach {
@@ -235,19 +235,19 @@ extension PlayQueueContainerViewController {
     func exportToPlaylistFile() {
         
         // Make sure there is at least one track to save.
-        guard playQueueDelegate.size > 0, !checkIfPlayQueueIsBeingModified() else {return}
+        guard playQueue.size > 0, !checkIfPlayQueueIsBeingModified() else {return}
 
         if saveDialog.runModal() == .OK,
            let playlistFile = saveDialog.url {
             
-            playQueueDelegate.exportToFile(playlistFile)
+            playQueue.exportToFile(playlistFile)
         }
     }
     
     // TODO: Can this func be put somewhere common / shared ???
     private func checkIfPlayQueueIsBeingModified() -> Bool {
         
-        let playQueueBeingModified = playQueueDelegate.isBeingModified
+        let playQueueBeingModified = playQueue.isBeingModified
 
         if playQueueBeingModified {
 
@@ -314,7 +314,7 @@ extension PlayQueueContainerViewController {
     
     func playNext() {
         
-        let destRows = playQueueDelegate.moveTracksToPlayNext(from: currentViewController.selectedRows)
+        let destRows = playQueue.moveTracksToPlayNext(from: currentViewController.selectedRows)
         
         controllers.forEach {
             $0.tableView.reloadData()
@@ -333,7 +333,7 @@ extension PlayQueueContainerViewController {
     
 //    func enqueueAndPlayNow(_ command: EnqueueAndPlayNowCommand) {
 //        
-//        let indices = playQueueDelegate.enqueueToPlayNow(tracks: command.tracks, clearQueue: command.clearPlayQueue)
+//        let indices = playQueue.enqueueToPlayNow(tracks: command.tracks, clearQueue: command.clearPlayQueue)
 //        
 //        if indices.isNonEmpty, !command.clearPlayQueue {
 //            
@@ -355,7 +355,7 @@ extension PlayQueueContainerViewController {
     
     func loadAndPlayNow(_ command: LoadAndPlayNowCommand) {
         
-        playQueueDelegate.loadTracks(from: command.files, params: .init(clearQueue: command.clearPlayQueue, autoplayFirstAddedTrack: true))
+        playQueue.loadTracks(from: command.files, params: .init(clearQueue: command.clearPlayQueue, autoplayFirstAddedTrack: true))
         
 //        controllers.forEach {
 //            
@@ -367,13 +367,13 @@ extension PlayQueueContainerViewController {
     // TODO:
     func enqueueAndPlayNext(_ tracks: [Track]) {
         
-//        let indices = playQueueDelegate.enqueueTracksToPlayNext(tracks)
+//        let indices = playQueue.enqueueTracksToPlayNext(tracks)
         
     }
     
     // TODO:
     func enqueueAndPlayLater(_ tracks: [Track]) {
         
-//        let indices = playQueueDelegate.enqueueTracks(tracks, clearQueue: false)
+//        let indices = playQueue.enqueueTracks(tracks, clearQueue: false)
     }
 }

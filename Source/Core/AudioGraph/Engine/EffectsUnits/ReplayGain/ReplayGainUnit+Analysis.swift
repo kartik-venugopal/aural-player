@@ -86,7 +86,7 @@ extension ReplayGainUnit {
             
             if self.mode == .preferAlbumGain, let albumName = track.album {
                 
-                let albumFiles = playQueueDelegate.tracks.filter {$0.album == albumName}.map {$0.file}
+                let albumFiles = playQueue.tracks.filter {$0.album == albumName}.map {$0.file}
                 
                 if albumFiles.count > 1 {
                     

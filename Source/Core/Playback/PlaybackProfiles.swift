@@ -17,10 +17,10 @@ import Foundation
 class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
     
     private let player: PlayerProtocol
-    private let playQueue: PlayQueueDelegateProtocol
+    private let playQueue: PlayQueueProtocol
     private let preferences: PlaybackPreferences
     
-    init(player: PlayerProtocol, playQueue: PlayQueueDelegateProtocol,
+    init(player: PlayerProtocol, playQueue: PlayQueueProtocol,
          preferences: PlaybackPreferences, persistentState: [PlaybackProfilePersistentState]?) {
         
         self.player = player
@@ -37,7 +37,7 @@ class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
         }
     }
     
-    init(player: PlayerProtocol, playQueue: PlayQueueDelegateProtocol,
+    init(player: PlayerProtocol, playQueue: PlayQueueProtocol,
          preferences: PlaybackPreferences, _ profiles: [PlaybackProfile]) {
         
         self.player = player

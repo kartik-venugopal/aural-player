@@ -138,7 +138,7 @@ class MasterUnitViewController: EffectsUnitViewController {
     // Sound profile for current track.
     @IBAction func rememberSettingsAction(_ sender: AnyObject) {
         
-        guard let playingTrack = playQueueDelegate.currentTrack else {return}
+        guard let playingTrack = playQueue.currentTrack else {return}
         
         let soundProfiles = audioGraph.soundProfiles
         

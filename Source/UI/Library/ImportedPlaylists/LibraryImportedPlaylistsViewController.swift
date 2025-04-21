@@ -174,10 +174,10 @@ class LibraryImportedPlaylistsViewController: NSViewController, NSOutlineViewDel
         let selectedItem = outlineView.selectedItem
         
         if let clickedPlaylist = selectedItem as? ImportedPlaylist {
-            playQueueDelegate.enqueueToPlayNow(playlistFile: clickedPlaylist, clearQueue: false)
+            playQueue.enqueueToPlayNow(playlistFile: clickedPlaylist, clearQueue: false)
             
         } else if let clickedTrack = selectedItem as? IndexedTrack {
-            playQueueDelegate.enqueueToPlayNow(tracks: [clickedTrack.track], clearQueue: false)
+            playQueue.enqueueToPlayNow(tracks: [clickedTrack.track], clearQueue: false)
         }
     }
 }

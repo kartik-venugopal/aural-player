@@ -75,9 +75,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let hasChapters = player.chapterCount > 0
         
         // Play/pause enabled if at least one track available
-        playOrPauseMenuItem.enableIf(playQueueDelegate.size > 0 && !NSApp.isReceivingTextInput)
+        playOrPauseMenuItem.enableIf(playQueue.size > 0 && !NSApp.isReceivingTextInput)
         
-        gaplessPlaybackMenuItem.enableIf(noTrack && playQueueDelegate.size > 1 && (!playQueueDelegate.isBeingModified))
+        gaplessPlaybackMenuItem.enableIf(noTrack && playQueue.size > 1 && (!playQueue.isBeingModified))
         
         stopMenuItem.enableIf(!noTrack)
         jumpToTimeMenuItem?.enableIf(isPlayingOrPaused)
@@ -264,7 +264,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Updates the menu item states per the current playback modes
     private func updateRepeatAndShuffleMenuItemStates() {
         
-        let modes = playQueueDelegate.repeatAndShuffleModes
+        let modes = playQueue.repeatAndShuffleModes
         
         shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
         shuffleOnMenuItem.onIf(modes.shuffleMode == .on)

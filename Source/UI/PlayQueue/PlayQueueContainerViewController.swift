@@ -107,7 +107,7 @@ class PlayQueueContainerViewController: NSViewController {
         
         doSelectTab(at: playQueueUIState.currentView.rawValue)
         
-        if playQueueDelegate.isBeingModified {
+        if playQueue.isBeingModified {
             startedAddingTracks()
         }
     }
@@ -194,9 +194,9 @@ class PlayQueueContainerViewController: NSViewController {
     // Removes all items from the playlist
     func removeAllTracks() {
         
-        guard playQueueDelegate.size > 0, !checkIfPlayQueueIsBeingModified() else {return}
+        guard playQueue.size > 0, !checkIfPlayQueueIsBeingModified() else {return}
         
-        playQueueDelegate.removeAllTracks()
+        playQueue.removeAllTracks()
         
         // Tell the play queue UI to refresh its views.
         controllers.forEach {
@@ -228,7 +228,7 @@ class PlayQueueContainerViewController: NSViewController {
     
     private func checkIfPlayQueueIsBeingModified() -> Bool {
         
-        let playQueueBeingModified = playQueueDelegate.isBeingModified
+        let playQueueBeingModified = playQueue.isBeingModified
         
         if playQueueBeingModified {
             
@@ -260,17 +260,17 @@ class PlayQueueContainerViewController: NSViewController {
     
     func updateSummary() {
         
-        let tracksCardinalString = playQueueDelegate.size == 1 ? "track" : "tracks"
+        let tracksCardinalString = playQueue.size == 1 ? "track" : "tracks"
         
-        if let playingTrackIndex = playQueueDelegate.currentTrackIndex {
+        if let playingTrackIndex = playQueue.currentTrackIndex {
             
-            if playQueueDelegate.shuffleMode == .on {
+            if playQueue.shuffleMode == .on {
                 updateShuffleSequenceProgress()
                 
             } else {
                 
                 let playIconAttStr = "▶".attributed(font: futuristicFontSet.mainFont(size: 12), color: systemColorScheme.secondaryTextColor)
-                let tracksSummaryAttStr = "  \(playingTrackIndex + 1) / \(playQueueDelegate.size) \(tracksCardinalString)".attributed(font: systemFontScheme.smallFont,
+                let tracksSummaryAttStr = "  \(playingTrackIndex + 1) / \(playQueue.size) \(tracksCardinalString)".attributed(font: systemFontScheme.smallFont,
                                                                                                                                       color: systemColorScheme.secondaryTextColor)
                 
                 lblTracksSummary.attributedStringValue = playIconAttStr + tracksSummaryAttStr
@@ -278,12 +278,12 @@ class PlayQueueContainerViewController: NSViewController {
             
         } else {
             
-            lblTracksSummary.stringValue = "\(playQueueDelegate.size) \(tracksCardinalString)"
+            lblTracksSummary.stringValue = "\(playQueue.size) \(tracksCardinalString)"
             lblTracksSummary.font = systemFontScheme.smallFont
             lblTracksSummary.textColor = systemColorScheme.secondaryTextColor
         }
         
-        lblDurationSummary.stringValue = ValueFormatter.formatSecondsToHMS(playQueueDelegate.duration)
+        lblDurationSummary.stringValue = ValueFormatter.formatSecondsToHMS(playQueue.duration)
         lblDurationSummary.font = systemFontScheme.smallFont
         lblDurationSummary.textColor = systemColorScheme.secondaryTextColor
     }
@@ -294,8 +294,8 @@ class PlayQueueContainerViewController: NSViewController {
         imgAttachment.image = .imgShuffle
         let imgAttrString = NSMutableAttributedString(attachment: imgAttachment)
         
-        let sequenceProgress = playQueueDelegate.shuffleSequence.progress
-        let tracksSummaryAttStr = "  \(sequenceProgress.tracksPlayed) / \(playQueueDelegate.size) tracks".attributed(font: systemFontScheme.smallFont,
+        let sequenceProgress = playQueue.shuffleSequence.progress
+        let tracksSummaryAttStr = "  \(sequenceProgress.tracksPlayed) / \(playQueue.size) tracks".attributed(font: systemFontScheme.smallFont,
                                                                                                                     color: systemColorScheme.secondaryTextColor)
         lblTracksSummary.attributedStringValue = imgAttrString + tracksSummaryAttStr
     }

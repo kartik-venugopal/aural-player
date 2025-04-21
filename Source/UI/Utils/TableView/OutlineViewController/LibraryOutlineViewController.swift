@@ -204,10 +204,10 @@ class LibraryOutlineViewController: NSViewController, NSOutlineViewDelegate, Fon
         guard let item = outlineView.selectedItem else {return}
         
         if let track = item as? Track {
-            playQueueDelegate.enqueueToPlayNow(tracks: [track], clearQueue: false)
+            playQueue.enqueueToPlayNow(tracks: [track], clearQueue: false)
             
         } else if let group = item as? Group {
-            playQueueDelegate.enqueueToPlayNow(group: group, clearQueue: false)
+            playQueue.enqueueToPlayNow(group: group, clearQueue: false)
         }
     }
     

@@ -66,7 +66,7 @@ class PlayQueueExpandedViewController: PlayQueueViewController {
     private func createArtCell(tableView: NSTableView, track: Track) -> PlayQueueListArtCell? {
         
         guard let cell = tableView.makeView(withIdentifier: .cid_art, owner: nil) as? PlayQueueListArtCell else {return nil}
-        cell.updateForTrack(track, isPlayingTrack: playQueueDelegate.currentTrack == track)
+        cell.updateForTrack(track, isPlayingTrack: playQueue.currentTrack == track)
         
         return cell
     }

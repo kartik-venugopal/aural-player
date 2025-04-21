@@ -40,7 +40,7 @@ class PlayQueueSimpleViewController: PlayQueueViewController {
             
             let builder = TableCellBuilder()
             
-            if track == playQueueDelegate.currentTrack {
+            if track == playQueue.currentTrack {
                 builder.withImage(image: .imgPlayFilled, inColor: systemColorScheme.activeControlColor)
                 
             } else {

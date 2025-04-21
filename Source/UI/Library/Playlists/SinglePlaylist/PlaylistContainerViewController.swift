@@ -128,7 +128,7 @@ class PlaylistContainerViewController: NSViewController {
         
         guard playlist.size > 0, !checkIfPlaylistIsBeingModified() else {return}
         
-        playQueueDelegate.removeAllTracks()
+        playQueue.removeAllTracks()
         
         // Tell the play queue UI to refresh its views.
         messenger.publish(.PlayQueue.refresh)

@@ -22,7 +22,7 @@ extension PlayQueueTabularViewController {
             
         case .cid_index:
             
-            if track == playQueueDelegate.currentTrack {
+            if track == playQueue.currentTrack {
                 builder.withImage(image: .imgPlayFilled, inColor: systemColorScheme.activeControlColor)
                 
             } else {

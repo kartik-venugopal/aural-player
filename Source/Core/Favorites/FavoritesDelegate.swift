@@ -30,12 +30,12 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     var favoriteFolders: OrderedDictionary<URL, FavoriteFolder>
     var favoritePlaylistFiles: OrderedDictionary<URL, FavoritePlaylistFile>
     
-    private let playQueue: PlayQueueDelegateProtocol
+    private let playQueue: PlayQueueProtocol
     
     // Delegate used to perform playback
     private let player: PlayerProtocol
     
-    init(playQueue: PlayQueueDelegateProtocol, player: PlayerProtocol) {
+    init(playQueue: PlayQueueProtocol, player: PlayerProtocol) {
         
         self.player = player
         self.playQueue = playQueue
@@ -354,32 +354,32 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     func playFavorite(_ favorite: Favorite) {
 
         if let favTrack = favorite as? FavoriteTrack {
-            playQueueDelegate.enqueueToPlayNow(tracks: [favTrack.track], clearQueue: false)
+            playQueue.enqueueToPlayNow(tracks: [favTrack.track], clearQueue: false)
             
 //        } else if let favGroup = favorite as? FavoriteGroup,
 //                  let group = libraryDelegate.findGroup(named: favGroup.groupName, ofType: favGroup.groupType) {
 //         
-//            playQueueDelegate.enqueueToPlayNow(group: group, clearQueue: false)
+//            playQueue.enqueueToPlayNow(group: group, clearQueue: false)
             
         } else if let favFolder = favorite as? FavoriteFolder {
             
             // Recursively get all tracks, then add them to the PQ before playing
             
 //            if let folder = libraryDelegate.findFileSystemFolder(atLocation: favFolder.folder) {
-//                playQueueDelegate.enqueueToPlayNow(fileSystemItems: [folder], clearQueue: false)
+//                playQueue.enqueueToPlayNow(fileSystemItems: [folder], clearQueue: false)
 //                
 //            } else {
-                playQueueDelegate.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: true))
+                playQueue.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: true))
 //            }
             
         } 
 //        else if let favPlaylistFile = favorite as? FavoritePlaylistFile {
 //            
 //            if let importedPlaylist = libraryDelegate.findImportedPlaylist(atLocation: favPlaylistFile.playlistFile) {
-//                playQueueDelegate.enqueueToPlayNow(playlistFile: importedPlaylist, clearQueue: false)
+//                playQueue.enqueueToPlayNow(playlistFile: importedPlaylist, clearQueue: false)
 //                
 //            } else {
-//                playQueueDelegate.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplay: true))
+//                playQueue.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplay: true))
 //            }
 //        }
     }
@@ -387,31 +387,31 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     func enqueueFavorite(_ favorite: Favorite) {
         
         if let favTrack = favorite as? FavoriteTrack {
-            playQueueDelegate.enqueueToPlayLater(tracks: [favTrack.track])
+            playQueue.enqueueToPlayLater(tracks: [favTrack.track])
             
 //        } else if let favGroup = favorite as? FavoriteGroup,
 //                  let group = libraryDelegate.findGroup(named: favGroup.groupName, ofType: favGroup.groupType) {
 //         
-//            playQueueDelegate.enqueueToPlayLater(group: group)
+//            playQueue.enqueueToPlayLater(group: group)
             
         } else if let favFolder = favorite as? FavoriteFolder {
             
             // Recursively get all tracks, then add them to the PQ before playing
             
 //            if let folder = libraryDelegate.findFileSystemFolder(atLocation: favFolder.folder) {
-//                playQueueDelegate.enqueueToPlayLater(fileSystemItems: [folder])
+//                playQueue.enqueueToPlayLater(fileSystemItems: [folder])
 //                
 //            } else {
-                playQueueDelegate.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: false))
+                playQueue.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: false))
 //            }
             
         } else if let favPlaylistFile = favorite as? FavoritePlaylistFile {
             
 //            if let importedPlaylist = libraryDelegate.findImportedPlaylist(atLocation: favPlaylistFile.playlistFile) {
-//                playQueueDelegate.enqueueToPlayLater(playlistFile: importedPlaylist)
+//                playQueue.enqueueToPlayLater(playlistFile: importedPlaylist)
 //                
 //            } else {
-                playQueueDelegate.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplayFirstAddedTrack: false))
+                playQueue.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplayFirstAddedTrack: false))
 //            }
         }
     }

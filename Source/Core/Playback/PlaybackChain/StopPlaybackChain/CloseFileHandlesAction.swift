@@ -23,7 +23,7 @@ class CloseFileHandlesAction: PlaybackChainAction {
             // Iterate through all tracks in the playlist,
             // and close their associated playback contexts
             // i.e. audio file handles.
-            for track in playQueueDelegate.tracks {
+            for track in playQueue.tracks {
                 track.playbackContext?.close()
             }
         }

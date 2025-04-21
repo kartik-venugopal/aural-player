@@ -69,7 +69,7 @@ class LibrarySidebarViewController: NSViewController {
         case .fileSystem:
             
             if let folder = sidebarItem.tuneBrowserFolder {
-                playQueueDelegate.enqueueToPlayNow(fileSystemItems: [folder], clearQueue: false)
+                playQueue.enqueueToPlayNow(fileSystemItems: [folder], clearQueue: false)
             }
             
         default:

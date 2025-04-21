@@ -101,7 +101,7 @@ class PlaylistViewController: TrackListTableViewController {
     func playSelectedTrack() {
         
         if let firstSelectedRow = selectedRows.min(), let track = playlist[firstSelectedRow] {
-            playQueueDelegate.enqueueToPlayNow(tracks: [track], clearQueue: false)
+            playQueue.enqueueToPlayNow(tracks: [track], clearQueue: false)
         }
     }
     

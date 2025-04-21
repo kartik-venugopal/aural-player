@@ -1,7 +1,7 @@
 import AVFoundation
 import OrderedCollections
 
-class PlayQueue: TrackList, PlayQueueProtocol {
+class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     override var displayName: String {"The Play Queue"}
     
@@ -42,6 +42,19 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     private var autoplayResumeSequence: AtomicBool = AtomicBool(value: false)
     private var markLoadedItemsForHistory: AtomicBool = AtomicBool(value: true)
     
+    lazy var messenger: Messenger = .init(for: self)
+    
+    init(persistentState: PlayQueuePersistentState?) {
+        
+        super.init()
+        
+        _ = setRepeatMode(persistentState?.repeatMode ?? .defaultMode)
+        _ = setShuffleMode(persistentState?.shuffleMode ?? .defaultMode)
+        
+        // Subscribe to notifications
+        messenger.subscribe(to: .Application.reopened, handler: appReopened(_:))
+    }
+    
     @discardableResult override func addTracks(_ newTracks: any Sequence<Track>) -> IndexSet {
         
         let sizeBeforeAdd = self.size
@@ -56,7 +69,9 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             shuffleSequence.addTracks(dedupedTracks)
         }
         
-        return IndexSet(sizeBeforeAdd..<sizeAfterAdd)
+        let indices = IndexSet(sizeBeforeAdd..<sizeAfterAdd)
+        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+        return indices
     }
     
     func setTrackLoadParams(params: PlayQueueTrackLoadParams) {
@@ -67,6 +82,10 @@ class PlayQueue: TrackList, PlayQueueProtocol {
     }
     
     func loadTracks(from urls: [URL], atPosition position: Int?, params: PlayQueueTrackLoadParams) {
+        
+        if params.clearQueue {
+            removeAllTracks()
+        }
         
         setTrackLoadParams(params: params)
         loadTracks(from: urls, atPosition: position)
@@ -101,14 +120,6 @@ class PlayQueue: TrackList, PlayQueueProtocol {
         return IndexSet(curTrackIndex...(insertionIndex - 1))
     }
     
-    func moveTracksAfterCurrentTrack(from indices: IndexSet) -> IndexSet {
-        
-        guard let currentTrackIndex = currentTrackIndex else {return .empty}
-        
-        let results = moveTracks(from: indices, to: currentTrackIndex + 1)
-        return IndexSet(results.map {$0.destinationIndex})
-    }
-    
     override func insertTracks(_ newTracks: [Track], at insertionIndex: Int) -> IndexSet {
         
         let dedupedTracks = deDupeTracks(newTracks)
@@ -135,7 +146,9 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             }
         }
         
-        return IndexSet(insertionIndex..<(insertionIndex + dedupedTracks.count))
+        let indices = IndexSet(insertionIndex..<(insertionIndex + dedupedTracks.count))
+        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+        return indices
     }
     
     override func removeTracks(at indexes: IndexSet) -> [Track] {
@@ -146,6 +159,8 @@ class PlayQueue: TrackList, PlayQueueProtocol {
 
             // Playing track removed
             if indexes.contains(playingTrackIndex) {
+                
+                messenger.publish(.Player.stop)
                 stop()
 
             } else {
@@ -168,8 +183,14 @@ class PlayQueue: TrackList, PlayQueueProtocol {
 
     override func removeAllTracks() {
         
+        let playingTrack: Track? = currentTrack
+        
         super.removeAllTracks()
         stop()
+        
+        if let playingTrack {
+            messenger.publish(.PlayQueue.playingTrackRemoved, payload: playingTrack)
+        }
     }
 
     override func moveTracksUp(from indices: IndexSet) -> [TrackMoveResult] {
@@ -218,6 +239,63 @@ class PlayQueue: TrackList, PlayQueueProtocol {
             self.currentTrackIndex = indexOfTrack(playingTrack)
         }
     }
+    
+    // MARK: Play Now, Play Next, Play Later ------------------------------------------------------------------------
+    
+    // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History
+    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
+        
+//        tracksEnqueued(tracks)
+        return doEnqueueToPlayNow(tracks: tracks, clearQueue: clearQueue, params: params)
+    }
+    
+    @discardableResult func doEnqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
+        
+        let indices = enqueueTracks(tracks, clearQueue: clearQueue)
+        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+        
+        if let trackToPlay = tracks.first {
+            player.play(track: trackToPlay, params: params)
+        }
+            
+        return indices
+    }
+    
+    @discardableResult func enqueueToPlayNext(tracks: [Track]) -> IndexSet {
+        
+//        tracksEnqueued(tracks)
+        return doEnqueueToPlayNext(tracks: tracks)
+    }
+    
+    @discardableResult private func doEnqueueToPlayNext(tracks: [Track]) -> IndexSet {
+        
+        let indices = enqueueTracksAfterCurrentTrack(tracks)
+        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+        return indices
+    }
+    
+    func moveTracksToPlayNext(from indices: IndexSet) -> IndexSet {
+        
+        guard let currentTrackIndex = currentTrackIndex else {return .empty}
+        
+        let results = moveTracks(from: indices, to: currentTrackIndex + 1)
+        return IndexSet(results.map {$0.destinationIndex})
+    }
+    
+    @discardableResult func enqueueToPlayLater(tracks: [Track]) -> IndexSet {
+        
+//        tracksEnqueued(tracks)
+        return doEnqueueToPlayLater(tracks: tracks)
+    }
+    
+    @discardableResult private func doEnqueueToPlayLater(tracks: [Track]) -> IndexSet {
+        
+        let indices = playQueue.addTracks(tracks)
+        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+        return indices
+    }
+    
+    // ------------------------------------------------------------------------
     
     func prepareForGaplessPlayback() throws {
         
@@ -339,6 +417,53 @@ class PlayQueue: TrackList, PlayQueueProtocol {
 //           playbackPosition > 0 {
 //            
 //            player.play(track: track, params: PlaybackParams().withStartAndEndPosition(playbackPosition))
+//        }
+    }
+    
+    // MARK: Notification handling ---------------------------------------------------------------
+    
+    func appReopened(_ notification: AppReopenedNotification) {
+        
+        // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
+        let openWithAddMode = preferences.playQueuePreferences.openWithAddMode
+        let clearQueue: Bool = openWithAddMode == .replace
+        
+        let notDuplicateNotification = !notification.isDuplicateNotification
+        lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplay.autoplayAfterOpeningTracks
+        lazy var autoplayAfterOpeningOption: AutoplayPlaybackPreferences.AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplay.autoplayAfterOpeningOption
+        lazy var playerIsStopped: Bool = player.state.isStopped
+        lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
+        let autoplay: Bool = notDuplicateNotification && autoplayPreference
+        
+        loadTracks(from: notification.filesToOpen, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: autoplay))
+    }
+    
+    var persistentState: PlayQueuePersistentState {
+        
+        .init(tracks: tracks,
+              repeatMode: repeatMode,
+              shuffleMode: shuffleMode)
+    }
+    
+    var shuffleSequencePersistentState: ShuffleSequencePersistentState {
+        
+        .init(sequence: shuffleSequence.sequence.compactMap {indexOfTrack($0)},
+              playedTracks: shuffleSequence.playedTracks.compactMap {indexOfTrack($0)})
+    }
+    
+    func updateWithTracksIfPresent(_ tracks: any Sequence<Track>) {
+        
+        // Play Queue
+        updateTracksIfPresent(tracks)
+        
+        // TODO: History
+//        for track in tracks {
+//
+//            let trackKey = TrackHistoryItem.key(forTrack: track)
+//
+//            if let existingHistoryItem: TrackHistoryItem = recentItems[trackKey] as? TrackHistoryItem {
+//                existingHistoryItem.track = track
+//            }
 //        }
     }
 }
