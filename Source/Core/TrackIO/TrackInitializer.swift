@@ -79,6 +79,8 @@ class TrackInitializer: AppInitializationComponent {
                 }
             }
         }
+        
+        flushBatch(onQueue: queue)
     }
     
     private func readTrack(forFile file: URL, withCueSheetMetadata metadata: CueSheetMetadata? = nil, onQueue queue: OperationQueue) {
