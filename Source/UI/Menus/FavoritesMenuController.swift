@@ -28,13 +28,13 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         addRemoveFavoritesMenuItem.enableIf(player.state.isPlayingOrPaused)
         
         // Menu has 3 static items
-//        manageFavoritesMenuItem?.enableIf(favoritesDelegate.hasAnyFavorites)
+//        manageFavoritesMenuItem?.enableIf(favorites.hasAnyFavorites)
     }
 
     func menuWillOpen(_ menu: NSMenu) {
         
         if let playingTrack = player.playingTrack {
-            addRemoveFavoritesMenuItem.onIf(favoritesDelegate.favoriteExists(track: playingTrack))
+            addRemoveFavoritesMenuItem.onIf(favorites.favoriteExists(track: playingTrack))
         } else {
             addRemoveFavoritesMenuItem.off()
         }
@@ -88,7 +88,7 @@ class GenericFavoritesMenuController: NSObject, NSMenuDelegate {
     @IBAction fileprivate func playSelectedItemAction(_ sender: FavoritesMenuItem) {
         
         if let fav = sender.favorite {
-            favoritesDelegate.playFavorite(fav)
+            favorites.playFavorite(fav)
         }
     }
 }
@@ -96,7 +96,7 @@ class GenericFavoritesMenuController: NSObject, NSMenuDelegate {
 class FavoriteTracksMenuController: GenericFavoritesMenuController {
     
     override var favoritesFunction: () -> [Favorite] {
-        {favoritesDelegate.allFavoriteTracks}
+        {favorites.allFavoriteTracks}
     }
     
     override var itemImageFunction: (Favorite) -> NSImage? {
@@ -109,7 +109,7 @@ class FavoriteTracksMenuController: GenericFavoritesMenuController {
 //class FavoriteArtistsMenuController: GenericFavoritesMenuController {
 //    
 //    override var favoritesFunction: () -> [Favorite] {
-//        {favoritesDelegate.allFavoriteArtists}
+//        {favorites.allFavoriteArtists}
 //    }
 //    
 //    override var itemImageFunction: (Favorite) -> NSImage? {
@@ -120,7 +120,7 @@ class FavoriteTracksMenuController: GenericFavoritesMenuController {
 //class FavoriteAlbumsMenuController: GenericFavoritesMenuController {
 //    
 //    override var favoritesFunction: () -> [Favorite] {
-//        {favoritesDelegate.allFavoriteAlbums}
+//        {favorites.allFavoriteAlbums}
 //    }
 //    
 //    override var itemImageFunction: (Favorite) -> NSImage? {
@@ -139,7 +139,7 @@ class FavoriteTracksMenuController: GenericFavoritesMenuController {
 //class FavoriteGenresMenuController: GenericFavoritesMenuController {
 //    
 //    override var favoritesFunction: () -> [Favorite] {
-//        {favoritesDelegate.allFavoriteGenres}
+//        {favorites.allFavoriteGenres}
 //    }
 //    
 //    override var itemImageFunction: (Favorite) -> NSImage? {
@@ -150,7 +150,7 @@ class FavoriteTracksMenuController: GenericFavoritesMenuController {
 //class FavoriteDecadesMenuController: GenericFavoritesMenuController {
 //    
 //    override var favoritesFunction: () -> [Favorite] {
-//        {favoritesDelegate.allFavoriteDecades}
+//        {favorites.allFavoriteDecades}
 //    }
 //    
 //    override var itemImageFunction: (Favorite) -> NSImage? {
@@ -161,7 +161,7 @@ class FavoriteTracksMenuController: GenericFavoritesMenuController {
 class FavoriteFoldersMenuController: GenericFavoritesMenuController {
     
     override var favoritesFunction: () -> [Favorite] {
-        {favoritesDelegate.allFavoriteFolders}
+        {favorites.allFavoriteFolders}
     }
     
     override var itemImageFunction: (Favorite) -> NSImage? {
@@ -172,7 +172,7 @@ class FavoriteFoldersMenuController: GenericFavoritesMenuController {
 class FavoritePlaylistFilesMenuController: GenericFavoritesMenuController {
     
     override var favoritesFunction: () -> [Favorite] {
-        {favoritesDelegate.allFavoritePlaylistFiles}
+        {favorites.allFavoritePlaylistFiles}
     }
     
     override var itemImageFunction: (Favorite) -> NSImage? {

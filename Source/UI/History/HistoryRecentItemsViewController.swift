@@ -45,7 +45,7 @@ extension HistoryRecentItemsViewController: NSTableViewDataSource, NSTableViewDe
     }
 
 //    override func renamePreset(named name: String, to newName: String) {
-//        bookmarksDelegate.renameBookmark(named: name, to: newName)
+//        bookmarks.renameBookmark(named: name, to: newName)
 //    }
 //
     // MARK: View delegate functions

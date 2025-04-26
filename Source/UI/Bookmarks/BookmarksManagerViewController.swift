@@ -40,7 +40,7 @@ class BookmarksManagerViewController: NSViewController {
     
     func updateSummary() {
         
-        let numBookmarks = bookmarksDelegate.count
+        let numBookmarks = bookmarks.count
         lblSummary.stringValue = "\(numBookmarks)  \(numBookmarks == 1 ? "bookmark" : "bookmarks")"
     }
     
@@ -50,7 +50,7 @@ class BookmarksManagerViewController: NSViewController {
         guard index >= 0 else {return}
         
         do {
-            try bookmarksDelegate.playBookmark(bookmarksDelegate[index])
+            try bookmarks.playBookmark(bookmarks[index])
         } catch {
             // TODO: Log the error
         }
@@ -63,14 +63,14 @@ extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDele
         30
     }
     
-    func numberOfRows(in tableView: NSTableView) -> Int {bookmarksDelegate.count}
+    func numberOfRows(in tableView: NSTableView) -> Int {bookmarks.count}
     
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         AuralTableRowView()
     }
 
 //    override func renamePreset(named name: String, to newName: String) {
-//        bookmarksDelegate.renameBookmark(named: name, to: newName)
+//        bookmarks.renameBookmark(named: name, to: newName)
 //    }
 //    
     // MARK: View delegate functions
@@ -81,7 +81,7 @@ extension BookmarksManagerViewController: NSTableViewDataSource, NSTableViewDele
         guard let column = tableColumn else {return nil}
         let colID = column.identifier
         
-        let bookmark = bookmarksDelegate[row]
+        let bookmark = bookmarks[row]
         
         switch colID {
             
@@ -196,7 +196,7 @@ extension BookmarksManagerViewController: NSTextFieldDelegate {
         guard let cell = rowView?.view(atColumn: 0) as? NSTableCellView,
               let editedTextField = cell.textField as? EditableTextField else {return}
         
-        let oldPresetName = bookmarksDelegate[rowIndex].name
+        let oldPresetName = bookmarks[rowIndex].name
         let newPresetName = editedTextField.stringValue
         
         editedTextField.restoreTextColor()

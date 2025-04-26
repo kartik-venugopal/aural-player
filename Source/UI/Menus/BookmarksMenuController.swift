@@ -14,8 +14,6 @@ import Cocoa
  */
 class BookmarksMenuController: NSObject, NSMenuDelegate {
     
-    private var bookmarks: BookmarksDelegateProtocol = bookmarksDelegate
-    
     @IBOutlet weak var bookmarkTrackPositionMenuItem: NSMenuItem!
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
 //    @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem?
@@ -107,7 +105,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
                     
                     // Position and display an alert with error info
                     _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark").showModal()
-                    self.bookmarks.deleteBookmarkWithName(sender.bookmark.name)
+                    bookmarks.deleteBookmarkWithName(sender.bookmark.name)
                 }
             }
         }

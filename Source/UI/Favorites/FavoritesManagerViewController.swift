@@ -126,43 +126,43 @@ class FavoritesManagerViewController: NSViewController {
         case 0:
             
             // Tracks
-            let numFavorites = favoritesDelegate.numberOfFavoriteTracks
+            let numFavorites = favorites.numberOfFavoriteTracks
             lblSummary.stringValue = "\(numFavorites)  favorite \(numFavorites == 1 ? "track" : "tracks")"
             
         case 1:
             
             // Artists
-            let numFavorites = favoritesDelegate.numberOfFavoriteArtists
+            let numFavorites = favorites.numberOfFavoriteArtists
             lblSummary.stringValue = "\(numFavorites)  favorite \(numFavorites == 1 ? "artist" : "artists")"
             
         case 2:
             
             // Albums
-            let numFavorites = favoritesDelegate.numberOfFavoriteAlbums
+            let numFavorites = favorites.numberOfFavoriteAlbums
             lblSummary.stringValue = "\(numFavorites)  favorite \(numFavorites == 1 ? "album" : "albums")"
             
         case 3:
             
             // Genres
-            let numFavorites = favoritesDelegate.numberOfFavoriteGenres
+            let numFavorites = favorites.numberOfFavoriteGenres
             lblSummary.stringValue = "\(numFavorites)  favorite \(numFavorites == 1 ? "genre" : "genres")"
             
         case 4:
             
             // Decades
-            let numFavorites = favoritesDelegate.numberOfFavoriteDecades
+            let numFavorites = favorites.numberOfFavoriteDecades
             lblSummary.stringValue = "\(numFavorites)  favorite \(numFavorites == 1 ? "decade" : "decades")"
             
         case 5:
             
             // Playlist Files
-            let numFavorites = favoritesDelegate.numberOfFavoritePlaylistFiles
+            let numFavorites = favorites.numberOfFavoritePlaylistFiles
             lblSummary.stringValue = "\(numFavorites)  favorite playlist \(numFavorites == 1 ? "file" : "files")"
             
         case 6:
             
             // Folders
-            let numFavorites = favoritesDelegate.numberOfFavoriteFolders
+            let numFavorites = favorites.numberOfFavoriteFolders
             lblSummary.stringValue = "\(numFavorites)  favorite \(numFavorites == 1 ? "folder" : "folders")"
             
         default:

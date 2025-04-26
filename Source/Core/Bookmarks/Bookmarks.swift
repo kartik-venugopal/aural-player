@@ -1,5 +1,5 @@
 //
-//  BookmarksDelegate.swift
+//  Bookmarks.swift
 //  Aural
 //
 //  Copyright © 2025 Kartik Venugopal. All rights reserved.
@@ -19,7 +19,7 @@ import Foundation
 ///
 /// - SeeAlso: `Bookmark`
 ///
-class BookmarksDelegate: BookmarksDelegateProtocol {
+class Bookmarks: BookmarksProtocol {
     
     typealias Bookmarks = UserManagedObjects<Bookmark>
     
@@ -92,7 +92,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     }
 }
 
-extension BookmarksDelegate: TrackRegistryClient {
+extension Bookmarks: TrackRegistryClient {
     
     func updateWithTracksIfPresent(_ tracks: any Sequence<Track>) {
         

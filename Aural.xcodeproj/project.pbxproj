@@ -65,9 +65,9 @@
 		3E02181C2C23490E00865AC2 /* AudioGraphDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216072C23490E00865AC2 /* AudioGraphDefaults.swift */; };
 		3E02181D2C23490E00865AC2 /* AudioGraphProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216082C23490E00865AC2 /* AudioGraphProtocols.swift */; };
 		3E02181E2C23490E00865AC2 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02160A2C23490E00865AC2 /* Bookmark.swift */; };
-		3E02181F2C23490E00865AC2 /* BookmarksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02160B2C23490E00865AC2 /* BookmarksDelegate.swift */; };
+		3E02181F2C23490E00865AC2 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02160B2C23490E00865AC2 /* Bookmarks.swift */; };
 		3E0218202C23490E00865AC2 /* BookmarksDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02160C2C23490E00865AC2 /* BookmarksDelegate+Init.swift */; };
-		3E0218212C23490E00865AC2 /* BookmarksDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02160D2C23490E00865AC2 /* BookmarksDelegateProtocol.swift */; };
+		3E0218212C23490E00865AC2 /* BookmarksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02160D2C23490E00865AC2 /* BookmarksProtocol.swift */; };
 		3E0218222C23490E00865AC2 /* FilesAndPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02160F2C23490E00865AC2 /* FilesAndPaths.swift */; };
 		3E0218232C23490E00865AC2 /* SoundConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216102C23490E00865AC2 /* SoundConstants.swift */; };
 		3E0218242C23490E00865AC2 /* SupportedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216112C23490E00865AC2 /* SupportedTypes.swift */; };
@@ -1125,9 +1125,9 @@
 		3E0216072C23490E00865AC2 /* AudioGraphDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDefaults.swift; sourceTree = "<group>"; };
 		3E0216082C23490E00865AC2 /* AudioGraphProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphProtocols.swift; sourceTree = "<group>"; };
 		3E02160A2C23490E00865AC2 /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
-		3E02160B2C23490E00865AC2 /* BookmarksDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksDelegate.swift; sourceTree = "<group>"; };
+		3E02160B2C23490E00865AC2 /* Bookmarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
 		3E02160C2C23490E00865AC2 /* BookmarksDelegate+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookmarksDelegate+Init.swift"; sourceTree = "<group>"; };
-		3E02160D2C23490E00865AC2 /* BookmarksDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksDelegateProtocol.swift; sourceTree = "<group>"; };
+		3E02160D2C23490E00865AC2 /* BookmarksProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksProtocol.swift; sourceTree = "<group>"; };
 		3E02160F2C23490E00865AC2 /* FilesAndPaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesAndPaths.swift; sourceTree = "<group>"; };
 		3E0216102C23490E00865AC2 /* SoundConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundConstants.swift; sourceTree = "<group>"; };
 		3E0216112C23490E00865AC2 /* SupportedTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportedTypes.swift; sourceTree = "<group>"; };
@@ -2419,10 +2419,10 @@
 		3E02160E2C23490E00865AC2 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				3E02160D2C23490E00865AC2 /* BookmarksProtocol.swift */,
 				3E02160A2C23490E00865AC2 /* Bookmark.swift */,
-				3E02160B2C23490E00865AC2 /* BookmarksDelegate.swift */,
+				3E02160B2C23490E00865AC2 /* Bookmarks.swift */,
 				3E02160C2C23490E00865AC2 /* BookmarksDelegate+Init.swift */,
-				3E02160D2C23490E00865AC2 /* BookmarksDelegateProtocol.swift */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -6038,7 +6038,7 @@
 				3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */,
 				3EF28DBB2694E46B005D5B43 /* AppMode.swift in Sources */,
 				3ED373ED2C70EBB400836511 /* ReplayGainUnitViewController.swift in Sources */,
-				3E0218212C23490E00865AC2 /* BookmarksDelegateProtocol.swift in Sources */,
+				3E0218212C23490E00865AC2 /* BookmarksProtocol.swift in Sources */,
 				3E02192E2C23490E00865AC2 /* WMParser.swift in Sources */,
 				3E9792E326A24EFF0010BE99 /* AppModeController.swift in Sources */,
 				3E02185E2C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift in Sources */,
@@ -6064,7 +6064,7 @@
 				3E02186B2C23490E00865AC2 /* PreTrackPlaybackNotification.swift in Sources */,
 				3ECBF3062619D58500AD5C30 /* AudioUnitsViewController.swift in Sources */,
 				3E0218192C23490E00865AC2 /* AUExtensions.swift in Sources */,
-				3E02181F2C23490E00865AC2 /* BookmarksDelegate.swift in Sources */,
+				3E02181F2C23490E00865AC2 /* Bookmarks.swift in Sources */,
 				3E6C128525CEBE1800BF0D07 /* AuralColorPicker.swift in Sources */,
 				3E0218EB2C23490E00865AC2 /* M3UPlaylistIO.swift in Sources */,
 				3E02180D2C23490E00865AC2 /* EQPresets.swift in Sources */,

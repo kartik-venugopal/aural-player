@@ -93,8 +93,8 @@ extension AppDelegate {
     func initializeMetadataComponents() {
         
 //        playQueue.initialize(fromPersistentState: appPersistentState.playQueue, appLaunchFiles: filesToOpen)
-//        favoritesDelegate.initialize(fromPersistentState: appPersistentState.favorites)
-//        bookmarksDelegate.initialize(fromPersistentState: appPersistentState.bookmarks)
+//        favorites.initialize(fromPersistentState: appPersistentState.favorites)
+//        bookmarks.initialize(fromPersistentState: appPersistentState.bookmarks)
     }
     
     func postLaunch() {

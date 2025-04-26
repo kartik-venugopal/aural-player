@@ -28,7 +28,7 @@ class BookmarkNameInputReceiver: StringInputReceiver {
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !bookmarksDelegate.bookmarkWithNameExists(string)
+        let valid = !bookmarks.bookmarkWithNameExists(string)
         return valid ? (true, nil) : (false, "A bookmark with this name already exists !")
     }
     
@@ -36,7 +36,7 @@ class BookmarkNameInputReceiver: StringInputReceiver {
     func acceptInput(_ string: String) {
         
         if let track = context?.track, let startPosition = context?.startPosition {
-            _ = bookmarksDelegate.addBookmark(string, track, startPosition, context?.endPosition)
+            _ = bookmarks.addBookmark(string, track, startPosition, context?.endPosition)
         }
     }
 }

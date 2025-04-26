@@ -1,5 +1,5 @@
 //
-//  BookmarksDelegateProtocol.swift
+//  BookmarksProtocol.swift
 //  Aural
 //
 //  Copyright © 2025 Kartik Venugopal. All rights reserved.
@@ -17,7 +17,7 @@ import Foundation
 ///
 /// - SeeAlso: `Bookmark`
 ///
-protocol BookmarksDelegateProtocol: TrackInitComponent {
+protocol BookmarksProtocol: TrackInitComponent {
     
 //    func initialize(fromPersistentState persistentState: BookmarksPersistentState?)
 

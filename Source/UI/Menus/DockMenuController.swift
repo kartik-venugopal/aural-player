@@ -134,7 +134,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
     @IBAction func playSelectedFavoriteAction(_ sender: FavoritesMenuItem) {
         
         guard let favorite = sender.favorite else {return}
-        favoritesDelegate.playFavorite(favorite)
+        favorites.playFavorite(favorite)
     }
     
     @IBAction func playSelectedBookmarkAction(_ sender: BookmarksMenuItem) {
@@ -143,7 +143,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
         
         do {
             
-            try bookmarksDelegate.playBookmark(bookmark)
+            try bookmarks.playBookmark(bookmark)
             
         } catch {
             
@@ -154,7 +154,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
                     
                     // Position and display an alert with error info
                     _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark").showModal()
-                    bookmarksDelegate.deleteBookmarkWithName(sender.bookmark.name)
+                    bookmarks.deleteBookmarkWithName(sender.bookmark.name)
                 }
             }
         }

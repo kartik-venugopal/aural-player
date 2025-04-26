@@ -97,13 +97,13 @@ extension TuneBrowserTabViewController {
         guard let selItem = browserView.selectedFileSystemItems.first else {return}
         
         if selItem.isDirectory {
-            favoritesDelegate.addFavorite(folder: selItem.url)
+            favorites.addFavorite(folder: selItem.url)
             
         } else if selItem.isTrack, let track = selItem as? FileSystemTrackItem {
-            favoritesDelegate.addFavorite(track: track.track)
+            favorites.addFavorite(track: track.track)
             
         } else if selItem.isPlaylist {
-            favoritesDelegate.addFavorite(playlistFile: selItem.url)
+            favorites.addFavorite(playlistFile: selItem.url)
         }
     }
     

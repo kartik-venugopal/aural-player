@@ -15,11 +15,11 @@ class FavoriteAlbumsViewController: FavoritesTableViewController {
     override var nibName: NSNib.Name? {"FavoriteAlbums"}
     
     override var numberOfFavorites: Int {
-        favoritesDelegate.numberOfFavoriteAlbums
+        favorites.numberOfFavoriteAlbums
     }
     
     override func nameOfFavorite(forRow row: Int) -> String? {
-        favoritesDelegate.favoriteAlbum(atChronologicalIndex: row)?.groupName
+        favorites.favoriteAlbum(atChronologicalIndex: row)?.groupName
     }
     
     override func image(forRow row: Int) -> NSImage {

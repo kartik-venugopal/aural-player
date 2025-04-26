@@ -16,14 +16,14 @@ class FavoriteTracksViewController: FavoritesTableViewController {
     
     // Override this !!!
     @objc override var numberOfFavorites: Int {
-        favoritesDelegate.numberOfFavoriteTracks
+        favorites.numberOfFavoriteTracks
     }
     
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         guard let columnId = tableColumn?.identifier,
               columnId == .cid_favoriteColumn,
-              let track = favoritesDelegate.favoriteTrack(atChronologicalIndex: row)?.track else {return nil}
+              let track = favorites.favoriteTrack(atChronologicalIndex: row)?.track else {return nil}
         
         let titleAndArtist = track.titleAndArtist
         let builder = TableCellBuilder()

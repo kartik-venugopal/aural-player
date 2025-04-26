@@ -16,7 +16,7 @@ class FavoritesContainerView: MouseTrackingView {
     @IBOutlet weak var hoverControls: FavoritesHoverControlsBox!
     
     var favoriteAtRowFunction: (Int) -> Favorite? {
-        {row in favoritesDelegate.favoriteTrack(atChronologicalIndex: row)}
+        {row in favorites.favoriteTrack(atChronologicalIndex: row)}
     }
     
     override func mouseMoved(with event: NSEvent) {
@@ -61,42 +61,42 @@ class FavoritesContainerView: MouseTrackingView {
 class FavoriteArtistsContainerView: FavoritesContainerView {
     
     override var favoriteAtRowFunction: (Int) -> Favorite? {
-        {row in favoritesDelegate.favoriteArtist(atChronologicalIndex: row)}
+        {row in favorites.favoriteArtist(atChronologicalIndex: row)}
     }
 }
 
 class FavoriteAlbumsContainerView: FavoritesContainerView {
     
     override var favoriteAtRowFunction: (Int) -> Favorite? {
-        {row in favoritesDelegate.favoriteAlbum(atChronologicalIndex: row)}
+        {row in favorites.favoriteAlbum(atChronologicalIndex: row)}
     }
 }
 
 class FavoriteGenresContainerView: FavoritesContainerView {
     
     override var favoriteAtRowFunction: (Int) -> Favorite? {
-        {row in favoritesDelegate.favoriteGenre(atChronologicalIndex: row)}
+        {row in favorites.favoriteGenre(atChronologicalIndex: row)}
     }
 }
 
 class FavoriteDecadesContainerView: FavoritesContainerView {
     
     override var favoriteAtRowFunction: (Int) -> Favorite? {
-        {row in favoritesDelegate.favoriteDecade(atChronologicalIndex: row)}
+        {row in favorites.favoriteDecade(atChronologicalIndex: row)}
     }
 }
 
 class FavoriteFoldersContainerView: FavoritesContainerView {
     
     override var favoriteAtRowFunction: (Int) -> Favorite? {
-        {row in favoritesDelegate.favoriteFolder(atChronologicalIndex: row)}
+        {row in favorites.favoriteFolder(atChronologicalIndex: row)}
     }
 }
 
 class FavoritePlaylistFilesContainerView: FavoritesContainerView {
     
     override var favoriteAtRowFunction: (Int) -> Favorite? {
-        {row in favoritesDelegate.favoritePlaylistFile(atChronologicalIndex: row)}
+        {row in favorites.favoritePlaylistFile(atChronologicalIndex: row)}
     }
 }
 
@@ -133,14 +133,14 @@ class FavoritesHoverControlsBox: NSBox {
     @IBAction func playFavoriteAction(_ sender: NSButton) {
         
         if let favorite = self.favorite {
-            favoritesDelegate.playFavorite(favorite)
+            favorites.playFavorite(favorite)
         }
     }
     
     @IBAction func enqueueAndPlayFavoriteAction(_ sender: NSButton) {
         
         if let favorite = self.favorite {
-            favoritesDelegate.enqueueFavorite(favorite)
+            favorites.enqueueFavorite(favorite)
         }
     }
     
@@ -148,7 +148,7 @@ class FavoritesHoverControlsBox: NSBox {
         
         if let favorite = self.favorite {
             
-            favoritesDelegate.removeFavorite(favorite)
+            favorites.removeFavorite(favorite)
             messenger.publish(.Favorites.itemsRemoved, payload: Set<Favorite>([favorite]))
             self.hide()
         }

@@ -11,7 +11,7 @@
 import Foundation
 import OrderedCollections
 
-extension BookmarksDelegate: TrackInitComponent {
+extension Bookmarks: TrackInitComponent {
     
     var urlsForTrackInit: [URL] {
         appPersistentState.bookmarks?.bookmarks?.compactMap {$0.trackFile} ?? []

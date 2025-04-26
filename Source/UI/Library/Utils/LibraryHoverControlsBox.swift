@@ -87,16 +87,16 @@ class LibraryHoverControlsBox: NSBox {
             switch group.type {
                 
             case .artist:
-                favoritesDelegate.addFavorite(artist: group.name)
+                favorites.addFavorite(artist: group.name)
                 
             case .album:
-                favoritesDelegate.addFavorite(album: group.name)
+                favorites.addFavorite(album: group.name)
                 
             case .genre:
-                favoritesDelegate.addFavorite(genre: group.name)
+                favorites.addFavorite(genre: group.name)
                 
             case .decade:
-                favoritesDelegate.addFavorite(decade: group.name)
+                favorites.addFavorite(decade: group.name)
                 
 //            case .albumDisc:
                 
