@@ -21,9 +21,12 @@ class History: HistoryProtocol {
     
     private lazy var messenger: Messenger = .init(for: self)
     
-    init() {
+    init(persistentState: HistoryPersistentState?) {
         
-        messenger.subscribe(to: .History.itemsAdded, handler: itemsLoadedFromFileSystem(notif:))
+        if let lastPlaybackPosition = persistentState?.lastPlaybackPosition {
+            self.markLastPlaybackPosition(lastPlaybackPosition)
+        }
+        
         messenger.subscribe(to: .Player.preTrackPlayback, handler: trackPlayed(_:))
         messenger.subscribe(to: .Application.willExit, handler: appWillExit)
     }
@@ -119,25 +122,6 @@ class History: HistoryProtocol {
     
     // MARK: Event handling for Tracks ---------------------------------------------------------------
     
-    func itemsLoadedFromFileSystem(notif: HistoryItemsAddedNotification) {
-        
-        for url in notif.itemURLs {
-            
-            if url.isSupportedAudioFile {
-                
-                if let track = playQueue.findTrack(forFile: url) {
-                    markAddEventForTrack(track)
-                }
-                
-            } else if url.isDirectory {
-                markAddEventForFolder(url)
-                
-            } else if url.isSupportedPlaylistFile {
-                markAddEventForPlaylistFile(url)
-            }
-        }
-    }
-    
     // Whenever a track is played by the player, add an entry in the "Recently played" list
     func trackPlayed(_ notification: PreTrackPlaybackNotification) {
         
@@ -146,15 +130,6 @@ class History: HistoryProtocol {
             markPlayEventForTrack(newTrack)
             messenger.publish(.History.updated)
         }
-    }
-    
-    func tracksEnqueued(_ tracks: [Track]) {
-        
-        for track in tracks {
-            markAddEventForTrack(track)
-        }
-        
-        messenger.publish(.History.updated)
     }
     
     fileprivate func markAddEventForTrack(_ track: Track) {
@@ -229,7 +204,7 @@ class History: HistoryProtocol {
             markAddEventForPlaylistFile(playlistFile.file)
         }
         
-        tracksEnqueued(deDupedTracks)
+        tracksAdded(deDupedTracks)
         
         messenger.publish(.History.updated)
     }
@@ -401,6 +376,37 @@ class History: HistoryProtocol {
     
     func clearAllHistory() {
         recentItems.removeAll()
+    }
+}
+
+extension History: HistoryConsumerProtocol {
+    
+    func fileSystemItemsAdded(urls: [URL]) {
+        
+        for url in urls {
+            
+            if url.isSupportedAudioFile {
+                
+                if let track = playQueue.findTrack(forFile: url) {
+                    markAddEventForTrack(track)
+                }
+                
+            } else if url.isDirectory {
+                markAddEventForFolder(url)
+                
+            } else if url.isSupportedPlaylistFile {
+                markAddEventForPlaylistFile(url)
+            }
+        }
+    }
+    
+    func tracksAdded(_ tracks: [Track]) {
+        
+        for track in tracks {
+            markAddEventForTrack(track)
+        }
+        
+        messenger.publish(.History.updated)
     }
 }
 

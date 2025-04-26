@@ -126,7 +126,7 @@ let playbackProfiles = PlaybackProfiles(player: player, playQueue: playQueue,
 
 let replayGainScanner = ReplayGainScanner(persistentState: appPersistentState.audioGraph?.replayGainAnalysisCache)
 
-let history: HistoryProtocol = History()
+let history: HistoryProtocol = History(persistentState: appPersistentState.history)
 
 var favoritesDelegate: FavoritesDelegateProtocol {_favoritesDelegate}
 fileprivate let _favoritesDelegate: FavoritesDelegate = FavoritesDelegate(playQueue: playQueue, player: player)
@@ -195,6 +195,7 @@ var persistentStateOnExit: AppPersistentState {
     
 //    persistentState.library = library.persistentState
 //    persistentState.playlists = playlistsManager.persistentState
+    persistentState.history = (history as! History).persistentState
     persistentState.favorites = _favoritesDelegate.persistentState
     persistentState.bookmarks = _bookmarksDelegate.persistentState
     

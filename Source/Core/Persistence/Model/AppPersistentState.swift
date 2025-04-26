@@ -28,9 +28,11 @@ struct AppPersistentState: Codable, PersistentRootObject {
     var audioGraph: AudioGraphPersistentState?
 //    var library: LibraryPersistentState?
     
-    var playlists: PlaylistsPersistentState?
+    var history: HistoryPersistentState?
     var favorites: FavoritesPersistentState?
     var bookmarks: BookmarksPersistentState?
+    
+    var playlists: PlaylistsPersistentState?
     
     var playbackProfiles: [PlaybackProfilePersistentState]?
     
@@ -46,6 +48,8 @@ struct AppPersistentState: Codable, PersistentRootObject {
                                legacyHistoryPersistentState: legacyAppPersistentState.history)
         
         self.audioGraph = AudioGraphPersistentState(legacyPersistentState: legacyAppPersistentState.audioGraph)
+        
+        self.history = .init(legacyPersistentState: legacyAppPersistentState.history)
         
         self.favorites = .init(legacyPersistentState: legacyAppPersistentState.favorites)
         

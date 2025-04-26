@@ -14,17 +14,14 @@ import OrderedCollections
 extension History: TrackInitComponent {
     
     var urlsForTrackInit: [URL] {
-//        appPersistentState.playQueue?.history?.recentItems?.filter {$0.itemType == .track}.compactMap {$0.trackFile} ?? []
-        []
+        appPersistentState.history?.recentItems?.filter {$0.itemType == .track}.compactMap {$0.trackFile} ?? []
     }
     
     func preInitialize() {}
     
     func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {
         
-//        guard let recentItemsState = appPersistentState.playQueue?.history?.recentItems else {return}
-        // TODO: ???
-        let recentItemsState = [HistoryItemPersistentState]()
+        guard let recentItemsState = appPersistentState.history?.recentItems else {return}
         
         for state in recentItemsState {
             

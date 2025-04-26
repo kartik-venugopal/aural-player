@@ -354,7 +354,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     func playFavorite(_ favorite: Favorite) {
 
         if let favTrack = favorite as? FavoriteTrack {
-            playQueue.enqueueToPlayNow(tracks: [favTrack.track], clearQueue: false)
+            player.playNow(tracks: [favTrack.track], clearQueue: false)
             
 //        } else if let favGroup = favorite as? FavoriteGroup,
 //                  let group = libraryDelegate.findGroup(named: favGroup.groupName, ofType: favGroup.groupType) {

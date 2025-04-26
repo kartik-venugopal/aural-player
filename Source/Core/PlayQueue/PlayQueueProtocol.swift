@@ -23,9 +23,6 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     // Returns whether or not gapless playback is possible.
     func prepareForGaplessPlayback() throws
     
-    // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History
-    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet
-    
     // Library (grouped views) / Favorites / History
 //    @discardableResult func enqueueToPlayNow(groups: [Group], tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet
     
@@ -69,10 +66,6 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
 }
 
 extension PlayQueueProtocol {
-    
-    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
-        enqueueToPlayNow(tracks: tracks, clearQueue: clearQueue, params: params)
-    }
     
     //    @discardableResult func enqueueToPlayNow(group: Group, clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
     //        enqueueToPlayNow(groups: [group], tracks: [], clearQueue: clearQueue, params: params)

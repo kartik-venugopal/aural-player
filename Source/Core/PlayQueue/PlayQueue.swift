@@ -242,28 +242,9 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     // MARK: Play Now, Play Next, Play Later ------------------------------------------------------------------------
     
-    // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History
-    @discardableResult func enqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
-        
-//        tracksEnqueued(tracks)
-        return doEnqueueToPlayNow(tracks: tracks, clearQueue: clearQueue, params: params)
-    }
-    
-    @discardableResult func doEnqueueToPlayNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams = .defaultParams()) -> IndexSet {
-        
-        let indices = enqueueTracks(tracks, clearQueue: clearQueue)
-        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
-        
-        if let trackToPlay = tracks.first {
-            player.play(track: trackToPlay, params: params)
-        }
-            
-        return indices
-    }
-    
     @discardableResult func enqueueToPlayNext(tracks: [Track]) -> IndexSet {
         
-//        tracksEnqueued(tracks)
+        defer {history.tracksAdded(tracks)}
         return doEnqueueToPlayNext(tracks: tracks)
     }
     
@@ -284,7 +265,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     @discardableResult func enqueueToPlayLater(tracks: [Track]) -> IndexSet {
         
-//        tracksEnqueued(tracks)
+        defer {history.tracksAdded(tracks)}
         return doEnqueueToPlayLater(tracks: tracks)
     }
     
@@ -355,14 +336,14 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     override func postTrackLoad() {
         
         if markLoadedItemsForHistory.value {
-            Messenger.publish(HistoryItemsAddedNotification(itemURLs: session.urls))
+            history.fileSystemItemsAdded(urls: session.urls)
         }
         
         if preferences.metadataPreferences.cacheTrackMetadata {
             metadataRegistry.persistCoverArt()
         }
         
-        Messenger.publish(.PlayQueue.doneAddingTracks)
+        messenger.publish(.PlayQueue.doneAddingTracks)
         
         defer {
             

@@ -66,7 +66,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     
     func playBookmark(_ bookmark: Bookmark) throws {
         
-        playQueue.enqueueToPlayNow(tracks: [bookmark.track], clearQueue: false,
+        player.playNow(tracks: [bookmark.track], clearQueue: false,
                                            params: PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition))
     }
     

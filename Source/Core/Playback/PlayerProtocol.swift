@@ -59,6 +59,9 @@ protocol PlayerProtocol {
     
     func play(track: Track, params: PlaybackParams)
     
+    // Library (Tracks view) / Managed Playlists / Favorites / Bookmarks / History
+    @discardableResult func playNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet
+    
     // Plays (and returns) the next track, if there is one. Throws an error if the next track cannot be played back
     func nextTrack()
     
@@ -146,6 +149,10 @@ extension PlayerProtocol {
     
     func play(track: Track) {
         play(track: track, params: .defaultParams())
+    }
+    
+    @discardableResult func playNow(tracks: [Track], clearQueue: Bool) -> IndexSet {
+        playNow(tracks: tracks, clearQueue: clearQueue, params: .defaultParams())
     }
     
 //    func play(_ group: Group, _ params: PlaybackParams = .defaultParams()) {

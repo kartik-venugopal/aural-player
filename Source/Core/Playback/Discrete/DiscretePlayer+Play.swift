@@ -54,6 +54,17 @@ extension DiscretePlayer {
         }, params)
     }
     
+    func playNow(tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet {
+        
+        let indices = playQueue.enqueueTracks(tracks, clearQueue: clearQueue)
+        
+        if let trackToPlay = tracks.first {
+            play(track: trackToPlay, params: params)
+        }
+        
+        return indices
+    }
+    
     func previousTrack() {
         
         if state.isPlayingOrPaused {
