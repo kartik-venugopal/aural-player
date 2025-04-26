@@ -14,6 +14,9 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var addRemoveFavoritesMenuItem: ToggleMenuItem!
 //    @IBOutlet weak var manageFavoritesMenuItem: NSMenuItem?
     
+    @IBOutlet weak var favoriteTracksMenuItem: NSMenuItem!
+    @IBOutlet weak var favoriteFoldersMenuItem: NSMenuItem!
+    
     private lazy var messenger = Messenger(for: self)
     
     // One-time setup, when the menu loads
@@ -29,6 +32,15 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         
         // Menu has 3 static items
 //        manageFavoritesMenuItem?.enableIf(favorites.hasAnyFavorites)
+        
+        let numFavTracks = favorites.numberOfFavoriteTracks
+        let numFavFolders = favorites.numberOfFavoriteFolders
+        
+        favoriteTracksMenuItem.title = "Tracks (\(numFavTracks))"
+        favoriteTracksMenuItem.enableIf(numFavTracks > 0)
+        
+        favoriteFoldersMenuItem.title = "Folders (\(numFavFolders))"
+        favoriteFoldersMenuItem.enableIf(numFavFolders > 0)
     }
 
     func menuWillOpen(_ menu: NSMenu) {

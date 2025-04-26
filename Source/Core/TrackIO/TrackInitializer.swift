@@ -34,6 +34,10 @@ class TrackInitializer: AppInitializationComponent {
         for component in components {
             initializeComponent(component, onQueue: queue)
         }
+        
+        if preferences.metadataPreferences.cacheTrackMetadata {
+            metadataRegistry.persistCoverArt()
+        }
     }
     
     private func initializeComponent(_ component: TrackInitComponent, onQueue queue: OperationQueue) {
@@ -90,14 +94,18 @@ class TrackInitializer: AppInitializationComponent {
         
         // Flush the batch if full.
         if batch.count == queue.maxConcurrentOperationCount {
-            
-            for track in batch {
-                trackReader.loadMetadataAsync(for: track, onQueue: queue)
-            }
-            
-            queue.waitUntilAllOperationsAreFinished()
-            batch.removeAll()
+            flushBatch(onQueue: queue)
         }
+    }
+    
+    private func flushBatch(onQueue queue: OperationQueue) {
+        
+        for track in batch {
+            trackReader.loadMetadataAsync(for: track, onQueue: queue)
+        }
+        
+        queue.waitUntilAllOperationsAreFinished()
+        batch.removeAll()
     }
 }
 

@@ -117,6 +117,8 @@
         <customObject id="RG0-8A-W3W" customClass="FavoritesMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="addRemoveFavoritesMenuItem" destination="nrK-Id-adG" id="aAE-XL-s9V"/>
+                <outlet property="favoriteFoldersMenuItem" destination="KBS-TC-SID" id="2g1-nn-H4G"/>
+                <outlet property="favoriteTracksMenuItem" destination="4Uc-NF-13M" id="4hG-Ob-BCv"/>
             </connections>
         </customObject>
         <customObject id="YKA-Ef-7Bi" customClass="FavoriteTracksMenuController" customModule="Aural" customModuleProvider="target"/>
