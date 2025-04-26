@@ -11,7 +11,7 @@
 import Foundation
 import OrderedCollections
 
-extension FavoritesDelegate: TrackInitComponent {
+extension Favorites: TrackInitComponent {
     
     var urlsForTrackInit: [URL] {
         appPersistentState.favorites?.favoriteTracks?.compactMap {$0.trackFile} ?? []

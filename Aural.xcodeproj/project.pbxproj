@@ -76,9 +76,9 @@
 		3E0218272C23490E00865AC2 /* FavoriteFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216152C23490E00865AC2 /* FavoriteFolder.swift */; };
 		3E0218292C23490E00865AC2 /* FavoritePlaylistFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216172C23490E00865AC2 /* FavoritePlaylistFile.swift */; };
 		3E02182A2C23490E00865AC2 /* FavoriteTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216182C23490E00865AC2 /* FavoriteTrack.swift */; };
-		3E02182B2C23490E00865AC2 /* FavoritesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161A2C23490E00865AC2 /* FavoritesDelegate.swift */; };
+		3E02182B2C23490E00865AC2 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161A2C23490E00865AC2 /* Favorites.swift */; };
 		3E02182C2C23490E00865AC2 /* FavoritesDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161B2C23490E00865AC2 /* FavoritesDelegate+Init.swift */; };
-		3E02182D2C23490E00865AC2 /* FavoritesDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161C2C23490E00865AC2 /* FavoritesDelegateProtocol.swift */; };
+		3E02182D2C23490E00865AC2 /* FavoritesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161C2C23490E00865AC2 /* FavoritesProtocol.swift */; };
 		3E02182F2C23490E00865AC2 /* FFmpegCoverArtReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02161F2C23490E00865AC2 /* FFmpegCoverArtReader.swift */; };
 		3E0218302C23490E00865AC2 /* FFmpegDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216202C23490E00865AC2 /* FFmpegDecoder.swift */; };
 		3E0218312C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216212C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift */; };
@@ -1137,9 +1137,9 @@
 		3E0216162C23490E00865AC2 /* FavoriteGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteGroup.swift; sourceTree = "<group>"; };
 		3E0216172C23490E00865AC2 /* FavoritePlaylistFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritePlaylistFile.swift; sourceTree = "<group>"; };
 		3E0216182C23490E00865AC2 /* FavoriteTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTrack.swift; sourceTree = "<group>"; };
-		3E02161A2C23490E00865AC2 /* FavoritesDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegate.swift; sourceTree = "<group>"; };
+		3E02161A2C23490E00865AC2 /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		3E02161B2C23490E00865AC2 /* FavoritesDelegate+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoritesDelegate+Init.swift"; sourceTree = "<group>"; };
-		3E02161C2C23490E00865AC2 /* FavoritesDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegateProtocol.swift; sourceTree = "<group>"; };
+		3E02161C2C23490E00865AC2 /* FavoritesProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesProtocol.swift; sourceTree = "<group>"; };
 		3E02161F2C23490E00865AC2 /* FFmpegCoverArtReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegCoverArtReader.swift; sourceTree = "<group>"; };
 		3E0216202C23490E00865AC2 /* FFmpegDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegDecoder.swift; sourceTree = "<group>"; };
 		3E0216212C23490E00865AC2 /* FFmpegDecoder+PCMBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FFmpegDecoder+PCMBuffer.swift"; sourceTree = "<group>"; };
@@ -2454,9 +2454,9 @@
 			isa = PBXGroup;
 			children = (
 				3E0216192C23490E00865AC2 /* Model */,
-				3E02161A2C23490E00865AC2 /* FavoritesDelegate.swift */,
+				3E02161A2C23490E00865AC2 /* Favorites.swift */,
 				3E02161B2C23490E00865AC2 /* FavoritesDelegate+Init.swift */,
-				3E02161C2C23490E00865AC2 /* FavoritesDelegateProtocol.swift */,
+				3E02161C2C23490E00865AC2 /* FavoritesProtocol.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -6164,7 +6164,7 @@
 				3E2331F12AE03728004A5473 /* PlayQueueContainerViewController+Actions.swift in Sources */,
 				3E0218452C23490E00865AC2 /* FFmpegChapter.swift in Sources */,
 				3E0218572C23490E00865AC2 /* LastFMScrobbleCache.swift in Sources */,
-				3E02182B2C23490E00865AC2 /* FavoritesDelegate.swift in Sources */,
+				3E02182B2C23490E00865AC2 /* Favorites.swift in Sources */,
 				3E43227F2687DE35009E8ADB /* WidgetPlayerWindowController.swift in Sources */,
 				3E02188B2C23490E00865AC2 /* MasterUnitPersistentState.swift in Sources */,
 				3E3975462688894C0055887E /* WidgetSeekSliderCell.swift in Sources */,
@@ -6799,7 +6799,7 @@
 				3ED65A552C45BAD000859677 /* PlayerViewController+Theming.swift in Sources */,
 				3E0217FD2C23490E00865AC2 /* EQUnit.swift in Sources */,
 				3EF4CDB02C65934700A5922D /* ConcurrentArray.swift in Sources */,
-				3E02182D2C23490E00865AC2 /* FavoritesDelegateProtocol.swift in Sources */,
+				3E02182D2C23490E00865AC2 /* FavoritesProtocol.swift in Sources */,
 				3E6C12A025CEBE2700BF0D07 /* TintedImageView.swift in Sources */,
 				3E0218C12C23490E00865AC2 /* PlaybackChain.swift in Sources */,
 				3E5701962C6EB16A007B8611 /* ReplayGain.swift in Sources */,

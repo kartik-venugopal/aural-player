@@ -1,5 +1,5 @@
 //
-//  FavoritesDelegateProtocol.swift
+//  FavoritesProtocol.swift
 //  Aural
 //
 //  Copyright © 2025 Kartik Venugopal. All rights reserved.
@@ -17,7 +17,7 @@ import Foundation
 ///
 /// - SeeAlso: `Favorite`
 ///
-protocol FavoritesDelegateProtocol: TrackInitComponent {
+protocol FavoritesProtocol: TrackInitComponent {
     
 //    func initialize(fromPersistentState persistentState: FavoritesPersistentState?)
     

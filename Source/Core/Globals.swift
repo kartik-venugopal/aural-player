@@ -97,7 +97,7 @@ let appInitializer: AppInitializer = AppInitializer.init(steps: [
     AppInitializationStep(description: "Initializing metadata cache", components: [metadataRegistry]),
     
     AppInitializationStep(description: "Initializing track lists", components: [TrackInitializer(components: [
-        playQueue, history, favoritesDelegate, bookmarksDelegate
+        playQueue, history, favorites, bookmarksDelegate
     ])])
 ])
 
@@ -128,8 +128,8 @@ let replayGainScanner = ReplayGainScanner(persistentState: appPersistentState.au
 
 let history: HistoryProtocol = History(persistentState: appPersistentState.history)
 
-var favoritesDelegate: FavoritesDelegateProtocol {_favoritesDelegate}
-fileprivate let _favoritesDelegate: FavoritesDelegate = FavoritesDelegate(playQueue: playQueue, player: player)
+var favorites: FavoritesProtocol {_favorites}
+fileprivate let _favorites: Favorites = Favorites(playQueue: playQueue, player: player)
 
 var bookmarksDelegate: BookmarksDelegateProtocol {_bookmarksDelegate}
 fileprivate let _bookmarksDelegate: BookmarksDelegate = BookmarksDelegate(playQueue, player)
@@ -196,7 +196,7 @@ var persistentStateOnExit: AppPersistentState {
 //    persistentState.library = library.persistentState
 //    persistentState.playlists = playlistsManager.persistentState
     persistentState.history = (history as! History).persistentState
-    persistentState.favorites = _favoritesDelegate.persistentState
+    persistentState.favorites = _favorites.persistentState
     persistentState.bookmarks = _bookmarksDelegate.persistentState
     
     persistentState.playbackProfiles = playbackProfiles.all().map {PlaybackProfilePersistentState(profile: $0)}

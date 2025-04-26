@@ -1,5 +1,5 @@
 //
-//  FavoritesDelegate.swift
+//  Favorites.swift
 //  Aural
 //
 //  Copyright © 2025 Kartik Venugopal. All rights reserved.
@@ -18,7 +18,7 @@ import OrderedCollections
 ///
 /// - SeeAlso: `Favorite`
 ///
-class FavoritesDelegate: FavoritesDelegateProtocol {
+class Favorites: FavoritesProtocol {
     
     var favoriteTracks: OrderedDictionary<URL, FavoriteTrack>
     
@@ -431,7 +431,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     }
 }
 
-extension FavoritesDelegate: TrackRegistryClient {
+extension Favorites: TrackRegistryClient {
     
     func updateWithTracksIfPresent(_ tracks: any  Sequence<Track>) {
         

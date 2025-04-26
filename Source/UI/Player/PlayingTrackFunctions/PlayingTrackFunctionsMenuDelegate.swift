@@ -24,9 +24,6 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
     
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
-    // Delegate that provides access to the Favorites track list.
-    private lazy var favorites: FavoritesDelegateProtocol = favoritesDelegate
-    
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var infoPopup: InfoPopupViewController = InfoPopupViewController.instance
     
