@@ -1,5 +1,5 @@
 //
-//  FavoritesDelegate+Init.swift
+//  Favorites+Init.swift
 //  Aural
 //
 //  Copyright © 2025 Kartik Venugopal. All rights reserved.

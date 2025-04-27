@@ -1,5 +1,5 @@
 //
-//  BookmarksDelegate+Init.swift
+//  Bookmarks+Init.swift
 //  Aural
 //
 //  Copyright © 2025 Kartik Venugopal. All rights reserved.

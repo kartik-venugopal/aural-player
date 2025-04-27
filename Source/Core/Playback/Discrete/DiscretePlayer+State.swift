@@ -51,6 +51,16 @@ class DiscretePlayer: PlayerProtocol {
                                                    preferences: preferences.playbackPreferences)
         
         self.trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain)
+        
+        // Subscribe to notifications
+        messenger.subscribeAsync(to: .Player.trackPlaybackCompleted, handler: trackPlaybackCompleted(_:))
+//        messenger.subscribeAsync(to: .Player.gaplessTrackPlaybackCompleted, handler: gaplessTrackPlaybackCompleted(_:))
+        messenger.subscribe(to: .PlayQueue.playingTrackRemoved, handler: initiateStop(_:))
+        
+        // Commands
+        messenger.subscribeAsync(to: .Player.autoplay, handler: autoplay(_:))
+        
+        messenger.subscribe(to: .Player.stop, handler: stop)
     }
     
     // MARK: Variables that indicate the current player state

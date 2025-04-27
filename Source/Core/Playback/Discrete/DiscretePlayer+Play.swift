@@ -65,6 +65,16 @@ extension DiscretePlayer {
         return indices
     }
     
+    func autoplay(_ command: AutoplayCommandNotification) {
+        
+        if command.type == .beginPlayback && state == .stopped {
+            beginPlayback()
+            
+        } else if command.type.equalsOneOf(.playFirstAddedTrack, .playSpecificTrack), let track = command.candidateTrack {
+            play(track: track, params: PlaybackParams().withInterruptPlayback(command.interruptPlayback))
+        }
+    }
+    
     func previousTrack() {
         
         if state.isPlayingOrPaused {
@@ -194,8 +204,16 @@ extension DiscretePlayer {
         state = .stopped
     }
     
+    func trackPlaybackCompleted(_ completedSession: PlaybackSession) {
+        
+        // If the given session has expired, do not continue playback.
+        if PlaybackSession.isCurrent(completedSession) {
+            doTrackPlaybackCompleted()
+        }
+    }
+    
     // Continues playback when a track finishes playing.
-    func trackPlaybackCompleted() {
+    func doTrackPlaybackCompleted() {
         
         let trackBeforeChange = playingTrack
         let stateBeforeChange = state
@@ -210,7 +228,7 @@ extension DiscretePlayer {
     
     func beginGaplessPlayback() throws {
         
-        try playQueue.prepareForGaplessPlayback()
+//        try playQueue.prepareForGaplessPlayback()
 //        doBeginGaplessPlayback()
     }
     

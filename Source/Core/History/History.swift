@@ -29,6 +29,8 @@ class History: HistoryProtocol {
         
         messenger.subscribe(to: .Player.preTrackPlayback, handler: trackPlayed(_:))
         messenger.subscribe(to: .Application.willExit, handler: appWillExit)
+        messenger.subscribe(to: .PlayQueue.doneAddingTracks, handler: fileSystemItemsAdded(urls:))
+            
     }
     
     subscript(index: Int) -> HistoryItem {
@@ -307,16 +309,12 @@ class History: HistoryProtocol {
         }
     }
     
-    private func playTrackItem(_ trackHistoryItem: TrackHistoryItem, fromPosition position: Double? = nil) {
-        
-        // TODO: Augment enqueueToPlayNow() with a PlaybackParams parm so you can pass in position.
-        // Add it to the PQ
-        playQueue.enqueueToPlayLater(tracks: [trackHistoryItem.track])
+    private func playTrackItem(_ trackHistoryItem: TrackHistoryItem, fromPosition position: TimeInterval? = nil) {
         
         if let seekPosition = position {
-            player.play(track: trackHistoryItem.track, params: PlaybackParams().withStartAndEndPosition(seekPosition))
+            player.playNow(tracks: [trackHistoryItem.track], clearQueue: false, params: PlaybackParams().withStartAndEndPosition(seekPosition))
         } else {
-            player.play(track: trackHistoryItem.track)
+            player.playNow(tracks: [trackHistoryItem.track], clearQueue: false)
         }
     }
     

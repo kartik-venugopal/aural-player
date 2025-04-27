@@ -384,37 +384,37 @@ class Favorites: FavoritesProtocol {
 //        }
     }
     
-    func enqueueFavorite(_ favorite: Favorite) {
-        
-        if let favTrack = favorite as? FavoriteTrack {
-            playQueue.enqueueToPlayLater(tracks: [favTrack.track])
-            
+//    func enqueueFavorite(_ favorite: Favorite) {
+//        
+//        if let favTrack = favorite as? FavoriteTrack {
+//            playQueue.enqueueToPlayLater(tracks: [favTrack.track])
+//            
 //        } else if let favGroup = favorite as? FavoriteGroup,
 //                  let group = libraryDelegate.findGroup(named: favGroup.groupName, ofType: favGroup.groupType) {
 //         
 //            playQueue.enqueueToPlayLater(group: group)
-            
-        } else if let favFolder = favorite as? FavoriteFolder {
-            
-            // Recursively get all tracks, then add them to the PQ before playing
-            
+//            
+//        } else if let favFolder = favorite as? FavoriteFolder {
+//            
+//            // Recursively get all tracks, then add them to the PQ before playing
+//            
 //            if let folder = libraryDelegate.findFileSystemFolder(atLocation: favFolder.folder) {
 //                playQueue.enqueueToPlayLater(fileSystemItems: [folder])
 //                
 //            } else {
-                playQueue.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: false))
+//                playQueue.loadTracks(from: [favFolder.folder], params: .init(autoplayFirstAddedTrack: false))
 //            }
-            
-        } else if let favPlaylistFile = favorite as? FavoritePlaylistFile {
-            
+//            
+//        } else if let favPlaylistFile = favorite as? FavoritePlaylistFile {
+//            
 //            if let importedPlaylist = libraryDelegate.findImportedPlaylist(atLocation: favPlaylistFile.playlistFile) {
 //                playQueue.enqueueToPlayLater(playlistFile: importedPlaylist)
 //                
 //            } else {
-                playQueue.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplayFirstAddedTrack: false))
+//                playQueue.loadTracks(from: [favPlaylistFile.playlistFile], params: .init(autoplayFirstAddedTrack: false))
 //            }
-        }
-    }
+//        }
+//    }
     
     var persistentState: FavoritesPersistentState {
         

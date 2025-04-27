@@ -258,7 +258,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func rememberLastPositionAction(_ sender: ToggleMenuItem) {
-        Messenger.publish(!rememberLastPositionMenuItem.isOn ? .Player.savePlaybackProfile : .Player.deletePlaybackProfile)
+        
+        if rememberLastPositionMenuItem.isOn {
+            playbackProfiles.deletePlaybackProfileForPlayingTrack()
+        } else {
+            playbackProfiles.savePlaybackProfileForPlayingTrack()
+        }
     }
     
     // Updates the menu item states per the current playback modes

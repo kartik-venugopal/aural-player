@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -71,13 +70,13 @@
                     </connections>
                 </box>
                 <scrollView borderType="none" horizontalLineScroll="28" horizontalPageScroll="10" verticalLineScroll="28" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7p-bs-zOr" userLabel="Favorites Table">
-                    <rect key="frame" x="0.0" y="0.0" width="926" height="407"/>
+                    <rect key="frame" x="0.0" y="0.0" width="966" height="407"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ta3-1U-8Dq">
-                        <rect key="frame" x="0.0" y="0.0" width="911" height="407"/>
+                        <rect key="frame" x="0.0" y="0.0" width="951" height="407"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" viewBased="YES" id="yfT-pP-Sc2" userLabel="Favorites Table View">
-                                <rect key="frame" x="0.0" y="0.0" width="911" height="397"/>
+                                <rect key="frame" x="0.0" y="0.0" width="951" height="397"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -142,7 +141,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gqa-3a-dus">
-                        <rect key="frame" x="911" y="0.0" width="15" height="407"/>
+                        <rect key="frame" x="951" y="0.0" width="15" height="407"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>

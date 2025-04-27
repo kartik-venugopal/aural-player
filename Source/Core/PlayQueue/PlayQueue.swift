@@ -100,25 +100,25 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         return addTracks(newTracks)
     }
 
-    func enqueueTracksAfterCurrentTrack(_ newTracks: [Track]) -> IndexSet {
-        
-        guard let curTrackIndex = self.currentTrackIndex else {
-            return addTracks(newTracks)
-        }
-        
-        var insertionIndex = curTrackIndex + 1
-
-        for track in newTracks {
-            
-            if let sourceIndex = indexOfTrack(track) {
-                _tracks.removeAndInsertItem(sourceIndex, insertionIndex.getAndIncrement())
-            } else {
-                _ = insertTracks([track], at: insertionIndex.getAndIncrement())
-            }
-        }
-        
-        return IndexSet(curTrackIndex...(insertionIndex - 1))
-    }
+//    func enqueueTracksAfterCurrentTrack(_ newTracks: [Track]) -> IndexSet {
+//        
+//        guard let curTrackIndex = self.currentTrackIndex else {
+//            return addTracks(newTracks)
+//        }
+//        
+//        var insertionIndex = curTrackIndex + 1
+//
+//        for track in newTracks {
+//            
+//            if let sourceIndex = indexOfTrack(track) {
+//                _tracks.removeAndInsertItem(sourceIndex, insertionIndex.getAndIncrement())
+//            } else {
+//                _ = insertTracks([track], at: insertionIndex.getAndIncrement())
+//            }
+//        }
+//        
+//        return IndexSet(curTrackIndex...(insertionIndex - 1))
+//    }
     
     override func insertTracks(_ newTracks: [Track], at insertionIndex: Int) -> IndexSet {
         
@@ -242,19 +242,19 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     // MARK: Play Now, Play Next, Play Later ------------------------------------------------------------------------
     
-    @discardableResult func enqueueToPlayNext(tracks: [Track]) -> IndexSet {
-        
-        defer {history.tracksAdded(tracks)}
-        return doEnqueueToPlayNext(tracks: tracks)
-    }
-    
-    @discardableResult private func doEnqueueToPlayNext(tracks: [Track]) -> IndexSet {
-        
-        let indices = enqueueTracksAfterCurrentTrack(tracks)
-        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
-        return indices
-    }
-    
+//    @discardableResult func enqueueToPlayNext(tracks: [Track]) -> IndexSet {
+//        
+//        defer {history.tracksAdded(tracks)}
+//        return doEnqueueToPlayNext(tracks: tracks)
+//    }
+//    
+//    @discardableResult private func doEnqueueToPlayNext(tracks: [Track]) -> IndexSet {
+//        
+//        let indices = enqueueTracksAfterCurrentTrack(tracks)
+//        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+//        return indices
+//    }
+//    
     func moveTracksToPlayNext(from indices: IndexSet) -> IndexSet {
         
         guard let currentTrackIndex = currentTrackIndex else {return .empty}
@@ -262,52 +262,21 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         let results = moveTracks(from: indices, to: currentTrackIndex + 1)
         return IndexSet(results.map {$0.destinationIndex})
     }
-    
-    @discardableResult func enqueueToPlayLater(tracks: [Track]) -> IndexSet {
-        
-        defer {history.tracksAdded(tracks)}
-        return doEnqueueToPlayLater(tracks: tracks)
-    }
-    
-    @discardableResult private func doEnqueueToPlayLater(tracks: [Track]) -> IndexSet {
-        
-        let indices = playQueue.addTracks(tracks)
-        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
-        return indices
-    }
+//    
+//    @discardableResult func enqueueToPlayLater(tracks: [Track]) -> IndexSet {
+//        
+//        defer {history.tracksAdded(tracks)}
+//        return doEnqueueToPlayLater(tracks: tracks)
+//    }
+//    
+//    @discardableResult private func doEnqueueToPlayLater(tracks: [Track]) -> IndexSet {
+//        
+//        let indices = playQueue.addTracks(tracks)
+//        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+//        return indices
+//    }
     
     // ------------------------------------------------------------------------
-    
-    func prepareForGaplessPlayback() throws {
-        
-        var audioFormatsSet: Set<PlaybackFormat> = Set()
-        var errorMsg: String? = nil
-        
-        for track in self.tracks {
-            
-            if let audioFormat = track.playbackFormat {
-                audioFormatsSet.insert(audioFormat)
-                
-            } else {
-                errorMsg = "Unable to prepare for gapless playback: No audio format for track: \(track)."
-            }
-            
-            if audioFormatsSet.count > 1 {
-                throw GaplessPlaybackNotPossibleError("The tracks in the Play Queue do not all have the same audio format.")
-                
-            } else if let errorMsg {
-                throw GaplessPlaybackNotPossibleError(errorMsg)
-            }
-        }
-        
-        if repeatMode == .one {
-            repeatMode = .off
-        }
-        
-        if shuffleMode == .on {
-            shuffleMode = .off
-        }
-    }
     
     override func preTrackLoad() {
         Messenger.publish(.PlayQueue.startedAddingTracks)
@@ -329,21 +298,13 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
     }
     
-    override func postBatchLoad(indices: IndexSet) {
-        Messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
-    }
+//    override func postBatchLoad(indices: IndexSet) {
+//        Messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
+//    }
     
     override func postTrackLoad() {
         
-        if markLoadedItemsForHistory.value {
-            history.fileSystemItemsAdded(urls: session.urls)
-        }
-        
-        if preferences.metadataPreferences.cacheTrackMetadata {
-            metadataRegistry.persistCoverArt()
-        }
-        
-        messenger.publish(.PlayQueue.doneAddingTracks)
+        messenger.publish(.PlayQueue.doneAddingTracks, payload: session.urls)
         
         defer {
             
@@ -403,6 +364,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     // MARK: Notification handling ---------------------------------------------------------------
     
+    // TODO: Move to player!
     func appReopened(_ notification: AppReopenedNotification) {
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
@@ -446,6 +408,37 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
 //                existingHistoryItem.track = track
 //            }
 //        }
+    }
+    
+    func prepareForGaplessPlayback() throws {
+        
+        var audioFormatsSet: Set<PlaybackFormat> = Set()
+        var errorMsg: String? = nil
+        
+        for track in self.tracks {
+            
+            if let audioFormat = track.playbackFormat {
+                audioFormatsSet.insert(audioFormat)
+                
+            } else {
+                errorMsg = "Unable to prepare for gapless playback: No audio format for track: \(track)."
+            }
+            
+            if audioFormatsSet.count > 1 {
+                throw GaplessPlaybackNotPossibleError("The tracks in the Play Queue do not all have the same audio format.")
+                
+            } else if let errorMsg {
+                throw GaplessPlaybackNotPossibleError(errorMsg)
+            }
+        }
+        
+        if repeatMode == .one {
+            repeatMode = .off
+        }
+        
+        if shuffleMode == .on {
+            shuffleMode = .off
+        }
     }
 }
 

@@ -37,7 +37,7 @@ extension DiscretePlayer {
         let seekResult = doSeek(to: seconds, canSeekOutsideLoop: false)
         
         if seekResult.trackPlaybackCompleted {
-            trackPlaybackCompleted()
+            doTrackPlaybackCompleted()
         }
     }
     
@@ -46,7 +46,7 @@ extension DiscretePlayer {
         let seekResult = doSeek(to: seconds, canSeekOutsideLoop: true)
         
         if seekResult.trackPlaybackCompleted {
-            trackPlaybackCompleted()
+            doTrackPlaybackCompleted()
             
         } else if seekResult.loopRemoved {
             messenger.publish(.Player.playbackLoopChanged)

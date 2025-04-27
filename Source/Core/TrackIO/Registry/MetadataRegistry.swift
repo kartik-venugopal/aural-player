@@ -24,6 +24,8 @@ class MetadataRegistry: PersistentRootObject {
     
     let initCache: Bool
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(persistentState: MetadataPersistentState?) {
         
         // TODO: Remove this when partial is released.
@@ -40,6 +42,9 @@ class MetadataRegistry: PersistentRootObject {
         self.initCache = initCache
         
         fileImageCache.keyFunction = {track, coverArt in coverArt.originalImage?.imageData?.md5String}
+        
+        messenger.subscribe(to: .PlayQueue.doneAddingTracks, handler: persistCoverArt,
+                            filter: {preferences.metadataPreferences.cacheTrackMetadata})
     }
     
     func bulkAddMetadata(from tracks: [Track]) {

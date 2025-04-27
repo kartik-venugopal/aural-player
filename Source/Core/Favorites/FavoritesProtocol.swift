@@ -103,5 +103,5 @@ protocol FavoritesProtocol: TrackInitComponent {
     
     func playFavorite(_ favorite: Favorite)
     
-    func enqueueFavorite(_ favorite: Favorite)
+//    func enqueueFavorite(_ favorite: Favorite)
 }

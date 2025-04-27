@@ -155,7 +155,12 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
     }
     
     @IBAction func rememberLastPositionAction(_ sender: ToggleMenuItem) {
-        messenger.publish(!rememberLastPositionMenuItem.isOn ? .Player.savePlaybackProfile : .Player.deletePlaybackProfile)
+        
+        if rememberLastPositionMenuItem.isOn {
+            playbackProfiles.deletePlaybackProfileForPlayingTrack()
+        } else {
+            playbackProfiles.savePlaybackProfileForPlayingTrack()
+        }
     }
     
     // MARK: Notif handling

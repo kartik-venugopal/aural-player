@@ -14,14 +14,14 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     func enqueueTracks(_ newTracks: [Track], clearQueue: Bool) -> IndexSet
 
     // Inserts tracks immediately after the current track, i.e. "Play Next"
-    func enqueueTracksAfterCurrentTrack(_ newTracks: [Track]) -> IndexSet
+//    func enqueueTracksAfterCurrentTrack(_ newTracks: [Track]) -> IndexSet
     
     func loadTracks(from urls: [URL], atPosition position: Int?, params: PlayQueueTrackLoadParams)
     
     // MARK: Play Now ---------------------------------------------------------------
     
     // Returns whether or not gapless playback is possible.
-    func prepareForGaplessPlayback() throws
+//    func prepareForGaplessPlayback() throws
     
     // Library (grouped views) / Favorites / History
 //    @discardableResult func enqueueToPlayNow(groups: [Group], tracks: [Track], clearQueue: Bool, params: PlaybackParams) -> IndexSet
@@ -39,7 +39,7 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     
     // Inserts tracks immediately after the current track, i.e. "Play Next"
     
-    @discardableResult func enqueueToPlayNext(tracks: [Track]) -> IndexSet
+//    @discardableResult func enqueueToPlayNext(tracks: [Track]) -> IndexSet
     
 //    @discardableResult func enqueueToPlayNext(groups: [Group], tracks: [Track]) -> IndexSet
 //
@@ -54,7 +54,7 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     
     // MARK: Play Later ---------------------------------------------------------------
     
-    @discardableResult func enqueueToPlayLater(tracks: [Track]) -> IndexSet
+//    @discardableResult func enqueueToPlayLater(tracks: [Track]) -> IndexSet
     
 //    @discardableResult func enqueueToPlayLater(groups: [Group], tracks: [Track]) -> IndexSet
 //
