@@ -29,7 +29,6 @@ class History: HistoryProtocol {
         
         messenger.subscribe(to: .Player.preTrackPlayback, handler: trackPlayed(_:))
         messenger.subscribe(to: .Application.willExit, handler: appWillExit)
-//        messenger.subscribe(to: .PlayQueue.doneAddingTracks, handler: fileSystemItemsAdded(urls:))
         
         playQueue.registerObserver(self)
     }

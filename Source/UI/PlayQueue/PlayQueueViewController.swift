@@ -63,18 +63,16 @@ class PlayQueueViewController: TrackListTableViewController {
         super.viewDidLoad()
         
         tableView.menu = contextMenu
+        playQueue.registerObserver(self)
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, handler: activeControlColorChanged(_:))
         
-//        messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: tracksAdded(_:))
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribe(to: .PlayQueue.refresh, handler: tableView.reloadData, filter: {[weak self] (views: [PlayQueueView]) in
             
             guard let selfPQView = self?.playQueueView else {return false}
             return views.contains(selfPQView)
         })
-        
-        playQueue.registerObserver(self)
         
         // OS-specific images
         moveTracksToTopMenuItem?.image = .imgMoveToTop

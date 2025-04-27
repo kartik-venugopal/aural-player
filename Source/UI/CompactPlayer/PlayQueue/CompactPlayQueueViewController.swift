@@ -29,9 +29,6 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         
         super.viewDidLoad()
         
-//        messenger.subscribeAsync(to: .PlayQueue.startedAddingTracks, handler: startedAddingTracks)
-//        messenger.subscribeAsync(to: .PlayQueue.doneAddingTracks, handler: doneAddingTracks)
-        
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
         messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
         
@@ -123,7 +120,6 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         lblTracksSummary.attributedStringValue = imgAttrString + tracksSummaryAttStr
     }
     
-        super.tracksAdded(notif)
     override func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         super.trackTransitioned(notification)

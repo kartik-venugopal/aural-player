@@ -124,6 +124,8 @@ class PlayQueueContainerViewController: NSViewController {
     
     func initSubscriptions() {
         
+        playQueue.registerObserver(self)
+        
         messenger.subscribe(to: .PlayQueue.addTracks, handler: importFilesAndFolders)
         
         messenger.subscribe(to: .PlayQueue.removeTracks, handler: removeTracks)
@@ -161,17 +163,10 @@ class PlayQueueContainerViewController: NSViewController {
         
         messenger.subscribe(to: .PlayQueue.exportAsPlaylistFile, handler: exportToPlaylistFile)
         
-//        messenger.subscribeAsync(to: .PlayQueue.startedAddingTracks, handler: startedAddingTracks)
-//        messenger.subscribeAsync(to: .PlayQueue.doneAddingTracks, handler: doneAddingTracks)
-//        
-//        messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: updateSummary)
-        
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
         messenger.subscribe(to: .PlayQueue.shuffleModeUpdated, handler: updateSummary)
-        
-        playQueue.registerObserver(self)
     }
     
     func playSelectedTrack() {

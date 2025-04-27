@@ -43,9 +43,6 @@ class MetadataRegistry: PersistentRootObject {
         
         fileImageCache.keyFunction = {track, coverArt in coverArt.originalImage?.imageData?.md5String}
         
-//        messenger.subscribe(to: .PlayQueue.doneAddingTracks, handler: persistCoverArt,
-//                            filter: {preferences.metadataPreferences.cacheTrackMetadata})
-        
         playQueue.registerObserver(self)
     }
     

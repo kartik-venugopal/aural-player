@@ -79,7 +79,6 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
         
         let indices = IndexSet(sizeBeforeAdd..<sizeAfterAdd)
-//        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
         
         for observer in observers.values {
             observer.addedTracks(at: indices)
@@ -161,7 +160,6 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
         
         let indices = IndexSet(insertionIndex..<(insertionIndex + dedupedTracks.count))
-//        messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
         
         for observer in observers.values {
             observer.addedTracks(at: indices)
@@ -298,7 +296,6 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     // ------------------------------------------------------------------------
     
     override func preTrackLoad() {
-//        Messenger.publish(.PlayQueue.startedAddingTracks)
         
         for observer in observers.values {
             observer.startedAddingTracks()
@@ -321,17 +318,11 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
     }
     
-//    override func postBatchLoad(indices: IndexSet) {
-//        Messenger.publish(PlayQueueTracksAddedNotification(trackIndices: indices))
-//    }
-    
     override func postTrackLoad() {
         
         for observer in observers.values {
             observer.doneAddingTracks(urls: session.urls)
         }
-        
-//        messenger.publish(.PlayQueue.doneAddingTracks, payload: session.urls)
         
         defer {
             
