@@ -38,8 +38,8 @@ class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
             self[url] = PlaybackProfile(url, lastPosition)
         }
         
-        messenger.subscribe(to: .Application.willExit, handler: onAppExit)
         messenger.subscribe(to: .Player.trackPlaybackCompleted, handler: trackPlaybackCompleted(_:))
+        messenger.subscribe(to: .Application.willExit, handler: onAppExit)
     }
     
     init(player: PlayerProtocol, playQueue: PlayQueueProtocol,

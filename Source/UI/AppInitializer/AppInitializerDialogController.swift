@@ -37,24 +37,66 @@ class AppInitializerDialogController: NSWindowController {
         
         // TODO: Factor out the window positioning logic (also to be reused by Unified / Compact / Widget modes)
         
-        if let sysLayoutState = appPersistentState.ui?.modularPlayer?.windowLayout?.systemLayout,
-           let mainWindow = sysLayoutState.mainWindow,
-           let offset = mainWindow.screenOffset {
+        guard let uiState = appPersistentState.ui else {return}
+        guard let appMode = uiState.appMode else {return}
+        
+        switch appMode {
             
-            if let screen = NSScreen.main, let width = mainWindow.size?.width, let height = mainWindow.size?.height {
-                
-                let dw = (width - theWindow.width) / 2
-                let dh = (height - theWindow.height) / 2
-                let origin = screen.visibleFrame.origin.translating(offset.width + dw, offset.height + dh)
-                
-                var frame = theWindow.frame
-                frame.origin = origin
-                theWindow.setFrame(frame, display: true)
-                return
-            }
+        case .modular:
+            
+            guard let sysLayoutState = uiState.modularPlayer?.windowLayout?.systemLayout,
+                  let mainWindow = sysLayoutState.mainWindow,
+                  let offset = mainWindow.screenOffset else {return}
+            
+            guard let screen = NSScreen.main, let size = mainWindow.size else {return}
+//
+//            let dw = (width - theWindow.width) / 2
+//            let dh = (height - theWindow.height) / 2
+//            let origin = screen.visibleFrame.origin.translating(offset.width + dw, offset.height + dh)
+//            
+//            var frame = theWindow.frame
+//            frame.origin = origin
+//            theWindow.setFrame(frame, display: true)
+            
+            let origin = screen.visibleFrame.origin.translating(offset.width, offset.height)
+            centerWRT(otherFrame: NSMakeRect(origin.x, origin.y, size.width, size.height))
+            
+            return
+            
+        case .unified:
+            
+            guard let unifiedPlayer = uiState.unifiedPlayer,
+                  let windowFrame = unifiedPlayer.windowFrame else {return}
+            
+            centerWRT(otherFrame: windowFrame)
+            
+        case .compact:
+            
+            guard let compactPlayer = uiState.compactPlayer,
+                  let windowLocation = compactPlayer.windowLocation else {return}
+            
+            centerWRT(otherFrame: NSMakeRect(windowLocation.x, windowLocation.y, 300, 430))
+            
+        default:
+            return
         }
         
-        window?.center()
+//        window?.center()
+    }
+    
+    private func centerWRT(otherFrame: NSRect) {
+        
+        let width = otherFrame.width
+        let height = otherFrame.height
+        
+        let dw = (width - theWindow.width) / 2
+        let dh = (height - theWindow.height) / 2
+        
+        let origin = otherFrame.origin.translating(dw, dh)
+        
+        var frame = theWindow.frame
+        frame.origin = origin
+        theWindow.setFrame(frame, display: true)
     }
     
     private func stepChanged(to newStep: AppInitializationStep) {

@@ -90,6 +90,8 @@ class CompactPlayerWindowController: NSWindowController {
         
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrackInPlayQueue)
         
+        messenger.subscribe(to: .Application.willExit, handler: transferViewState)
+        
         setUpEventHandling()
         updateMainMenuState()
     }
@@ -97,7 +99,6 @@ class CompactPlayerWindowController: NSWindowController {
     private func initWindow() {
         
         window?.isMovableByWindowBackground = true
-        window?.center()
         
         viewPopupMenuContainer.forceLoadingOfView()
         btnViewMenu.menu?.importItems(from: viewPopupMenuContainer.popupMenu)
@@ -234,7 +235,7 @@ class CompactPlayerWindowController: NSWindowController {
         transferViewState()
         NSApp.terminate(self)
     }
-    
+
     private func updateDisplayedTabState() {
         
         // NOTE: Effects does not have its own tab (it's displayed in a separate sheet view).

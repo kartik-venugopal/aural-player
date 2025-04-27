@@ -83,12 +83,7 @@ class UnifiedAppModeController: AppModeController {
         NSApp.menu = (NSApp.delegate as? AppDelegate)?.mainMenu
         
         windowController = UnifiedPlayerWindowController()
-        
-        if let frame = unifiedPlayerUIState.windowFrame {
-            windowController?.window?.setFrame(frame, display: true)
-        }
-        
-        windowController?.theWindow.showCenteredOnScreen()
+        windowController?.showWindow(self)
         
         reactivateApp(previousMode: previousMode)
         
