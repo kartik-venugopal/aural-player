@@ -29,8 +29,8 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         
         super.viewDidLoad()
         
-        messenger.subscribeAsync(to: .PlayQueue.startedAddingTracks, handler: startedAddingTracks)
-        messenger.subscribeAsync(to: .PlayQueue.doneAddingTracks, handler: doneAddingTracks)
+//        messenger.subscribeAsync(to: .PlayQueue.startedAddingTracks, handler: startedAddingTracks)
+//        messenger.subscribeAsync(to: .PlayQueue.doneAddingTracks, handler: doneAddingTracks)
         
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
         messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
@@ -65,14 +65,6 @@ class CompactPlayQueueViewController: PlayQueueViewController {
     }
     
     // MARK: Notification handling ----------------------------------------------------------------------------------
-    
-    func startedAddingTracks() {
-        progressSpinner.animate()
-    }
-    
-    func doneAddingTracks() {
-        progressSpinner.dismiss()
-    }
     
     // TODO: This is a hack ! Re-investigate the superClass method that calls this. eg. doSort()
     override func notifyReloadTable() {
@@ -131,12 +123,7 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         lblTracksSummary.attributedStringValue = imgAttrString + tracksSummaryAttStr
     }
     
-    override func tracksAdded(_ notif: PlayQueueTracksAddedNotification) {
-        
         super.tracksAdded(notif)
-        updateSummary()
-    }
-    
     override func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         super.trackTransitioned(notification)

@@ -29,8 +29,9 @@ class History: HistoryProtocol {
         
         messenger.subscribe(to: .Player.preTrackPlayback, handler: trackPlayed(_:))
         messenger.subscribe(to: .Application.willExit, handler: appWillExit)
-        messenger.subscribe(to: .PlayQueue.doneAddingTracks, handler: fileSystemItemsAdded(urls:))
-            
+//        messenger.subscribe(to: .PlayQueue.doneAddingTracks, handler: fileSystemItemsAdded(urls:))
+        
+        playQueue.registerObserver(self)
     }
     
     subscript(index: Int) -> HistoryItem {
@@ -134,7 +135,7 @@ class History: HistoryProtocol {
         }
     }
     
-    fileprivate func markAddEventForTrack(_ track: Track) {
+    func markAddEventForTrack(_ track: Track) {
         
         let trackKey = TrackHistoryItem.key(forTrack: track)
         
@@ -182,7 +183,7 @@ class History: HistoryProtocol {
     //        messenger.publish(.History.updated)
     //    }
     
-    fileprivate func markAddEventForFolder(_ folder: URL) {
+    func markAddEventForFolder(_ folder: URL) {
         
         let folderKey = FolderHistoryItem.key(forFolder: folder)
         
@@ -211,7 +212,7 @@ class History: HistoryProtocol {
         messenger.publish(.History.updated)
     }
     
-    fileprivate func markAddEventForPlaylistFile(_ playlistFile: URL) {
+    func markAddEventForPlaylistFile(_ playlistFile: URL) {
         
         let playlistFileKey = PlaylistFileHistoryItem.key(forPlaylistFile: playlistFile)
         
@@ -377,7 +378,7 @@ class History: HistoryProtocol {
     }
 }
 
-extension History: HistoryConsumerProtocol {
+extension History {
     
     func fileSystemItemsAdded(urls: [URL]) {
         

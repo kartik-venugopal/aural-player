@@ -21,7 +21,7 @@ import Foundation
 /// - SeeAlso: `AddedItem`
 /// - SeeAlso: `PlayedItem`
 ///
-protocol HistoryProtocol: HistoryConsumerProtocol, TrackInitComponent {
+protocol HistoryProtocol: TrackInitComponent {
     
     // Retrieves all items from the Recently added list, in chronological order
     var allRecentItems: [HistoryItem] {get}
@@ -56,11 +56,4 @@ protocol HistoryProtocol: HistoryConsumerProtocol, TrackInitComponent {
     func lastPlayedTime(forTrack track: Track) -> Date?
     
     // TODO: getPlayStats(), getAddStats()
-}
-
-protocol HistoryConsumerProtocol {
-    
-    func fileSystemItemsAdded(urls: [URL])
-    
-    func tracksAdded(_ tracks: [Track])
 }

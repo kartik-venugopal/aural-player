@@ -38,12 +38,12 @@ class TracksRemovedNotification: NotificationPayload {
     }
 }
 
-class PlayQueueTracksAddedNotification: TracksAddedNotification {
-    
-    init(trackIndices: IndexSet) {
-        super.init(notificationName: .PlayQueue.tracksAdded, trackIndices: trackIndices)
-    }
-}
+//class PlayQueueTracksAddedNotification: TracksAddedNotification {
+//    
+//    init(trackIndices: IndexSet) {
+//        super.init(notificationName: .PlayQueue.tracksAdded, trackIndices: trackIndices)
+//    }
+//}
 
 //class LibraryTracksAddedNotification: TracksAddedNotification {
 //    

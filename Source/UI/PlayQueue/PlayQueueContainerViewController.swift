@@ -88,9 +88,6 @@ class PlayQueueContainerViewController: NSViewController {
             lblCaptionLeadingConstraint.constant = 23
         }
         
-        let simpleView = simpleViewController.view
-        let expandedView = expandedViewController.view
-        let tabularView = tabularViewController.view
         let searchView = searchViewController.view
         
         for (index, controller) in controllers.enumerated() {
@@ -164,15 +161,17 @@ class PlayQueueContainerViewController: NSViewController {
         
         messenger.subscribe(to: .PlayQueue.exportAsPlaylistFile, handler: exportToPlaylistFile)
         
-        messenger.subscribeAsync(to: .PlayQueue.startedAddingTracks, handler: startedAddingTracks)
-        messenger.subscribeAsync(to: .PlayQueue.doneAddingTracks, handler: doneAddingTracks)
-        
-        messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: updateSummary)
+//        messenger.subscribeAsync(to: .PlayQueue.startedAddingTracks, handler: startedAddingTracks)
+//        messenger.subscribeAsync(to: .PlayQueue.doneAddingTracks, handler: doneAddingTracks)
+//        
+//        messenger.subscribeAsync(to: .PlayQueue.tracksAdded, handler: updateSummary)
         
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
         messenger.subscribe(to: .PlayQueue.shuffleModeUpdated, handler: updateSummary)
+        
+        playQueue.registerObserver(self)
     }
     
     func playSelectedTrack() {
@@ -240,14 +239,6 @@ class PlayQueueContainerViewController: NSViewController {
     }
     
     // MARK: Notification handling ----------------------------------------------------------------------------------
-    
-    func startedAddingTracks() {
-        progressSpinner.animate()
-    }
-    
-    func doneAddingTracks() {
-        progressSpinner.dismiss()
-    }
     
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         

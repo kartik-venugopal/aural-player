@@ -17,16 +17,16 @@ extension Notification.Name {
         // MARK: Notifications published by the play queue.
         
         // Signifies that the play queue has begun adding a set of tracks.
-        static let startedAddingTracks = Notification.Name("playQueue_startedAddingTracks")
+//        static let startedAddingTracks = Notification.Name("playQueue_startedAddingTracks")
         
         // Signifies that the play queue has finished adding a set of tracks.
-        static let doneAddingTracks = Notification.Name("playQueue_doneAddingTracks")
+//        static let doneAddingTracks = Notification.Name("playQueue_doneAddingTracks")
         
         // Signifies that some chosen tracks could not be added to the play queue (i.e. an error condition).
         static let tracksNotAdded = Notification.Name("playQueue_tracksNotAdded")
         
         // Signifies that new tracks have been added to the play queue.
-        static let tracksAdded = Notification.Name("playQueue_tracksAdded")
+//        static let tracksAdded = Notification.Name("playQueue_tracksAdded")
         
         static let tracksRemoved = Notification.Name("playQueue_tracksRemoved")
         

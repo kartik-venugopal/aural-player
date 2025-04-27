@@ -8,6 +8,10 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     
     var tracksPendingPlayback: [Track] {get}
     
+    func registerObserver(_ observer: any PlayQueueObserver)
+    
+    func removeObserver(_ observer: any PlayQueueObserver)
+    
     // MARK: Mutating functions ---------------------------------------------------------------
     
     // Adds tracks to the end of the queue, i.e. "Play Later"
