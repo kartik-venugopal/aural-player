@@ -16,7 +16,7 @@ extension MetadataRegistry: PlayQueueObserver {
         "MetadataRegistry"
     }
     
-    func startedAddingTracks() {}
+    func startedAddingTracks(params: PlayQueueTrackLoadParams) {}
     
     func addedTracks(at trackIndices: IndexSet) {}
     

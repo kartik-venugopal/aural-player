@@ -23,15 +23,12 @@ extension DiscretePlayer {
         switch state {
             
         case .stopped:
-            
             beginPlayback()
             
         case .paused:
-            
             resume()
             
         case .playing:
-            
             pause()
         }
     }

@@ -96,8 +96,6 @@ protocol TrackListFileSystemLoadingProtocol {
     
     func indexOfTrack(_ track: Track) -> Int?
     
-    func firstBatchLoaded(atIndices indices: IndexSet)
-    
     func acceptBatch(fromSession session: TrackLoadSession) -> IndexSet
     
     func postBatchLoad(indices: IndexSet)

@@ -16,7 +16,11 @@ extension PlayQueueViewController: PlayQueueObserver {
         className
     }
     
-    @objc func startedAddingTracks() {}
+    func startedAddingTracks(params: PlayQueueTrackLoadParams) {
+        doStartedAddingTracks()
+    }
+    
+    @objc func doStartedAddingTracks() {}
     
     @objc func addedTracks(at trackIndices: IndexSet) {
 

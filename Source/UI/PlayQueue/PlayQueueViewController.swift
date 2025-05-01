@@ -83,14 +83,13 @@ class PlayQueueViewController: TrackListTableViewController {
         
         super.viewWillAppear()
         
-        if contextMenu != nil {
-            
-            contextMenu.delegate = self
-            
-            //            for item in contextMenu.items + favoriteMenu.items + playlistNamesMenu.items {
-            for item in contextMenu.items + favoriteMenu.items {
-                item.target = self
-            }
+        guard let contextMenu else {return}
+        
+        contextMenu.delegate = self
+        
+        //            for item in contextMenu.items + favoriteMenu.items + playlistNamesMenu.items {
+        for item in contextMenu.items + favoriteMenu.items {
+            item.target = self
         }
     }
     

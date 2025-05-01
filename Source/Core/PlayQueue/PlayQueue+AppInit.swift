@@ -65,7 +65,7 @@ extension PlayQueue: TrackInitComponent {
             .init(autoplayFirstAddedTrack: autoplayOnStartup, markLoadedItemsForHistory: false) :
             .init(autoplayResumeSequence: autoplayOnStartup, markLoadedItemsForHistory: false)
         
-        setTrackLoadParams(params: pqParmsWithAutoplayAndNoHistory)
+        self.params = pqParmsWithAutoplayAndNoHistory
     }
     
     func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {

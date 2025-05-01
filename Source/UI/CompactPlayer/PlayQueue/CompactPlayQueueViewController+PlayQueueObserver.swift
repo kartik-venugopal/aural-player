@@ -12,7 +12,7 @@ import AppKit
 
 extension CompactPlayQueueViewController {
     
-    override func startedAddingTracks() {
+    override func doStartedAddingTracks() {
         
         DispatchQueue.main.async {
             self.progressSpinner.animate()

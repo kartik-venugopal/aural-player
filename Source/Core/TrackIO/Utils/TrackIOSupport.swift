@@ -24,8 +24,6 @@ class TrackLoadSession {
     // Progress
     private(set) var errors: [DisplayableError] = []
     
-    private var triggeredFirstReadCallback: Bool = false
-    
     var playQueuePersistentState: PlayQueuePersistentState?
     
     init(forLoader loader: TrackListFileSystemLoadingProtocol, withPriority priority: DispatchQoS.QoSClass, urls: [URL], insertionIndex: Int?) {
@@ -113,13 +111,6 @@ class TrackLoadSession {
         
         let newTrackIndices = loader.acceptBatch(fromSession: self)
         loader.postBatchLoad(indices: newTrackIndices)
-        
-        // For Autoplay
-        if !triggeredFirstReadCallback, newTrackIndices.isNonEmpty {
-
-            loader.firstBatchLoaded(atIndices: newTrackIndices)
-            triggeredFirstReadCallback = true
-        }
         
         clearBatch(numTracksAdded: newTrackIndices.count)
     }

@@ -426,6 +426,7 @@
 		3E0328272C794D1200A389B6 /* ReplayGainAlbumScannerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0328262C794D1200A389B6 /* ReplayGainAlbumScannerOperation.swift */; };
 		3E0397E82B83EB73004454DB /* AppDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0397E72B83EB73004454DB /* AppDelegate+Init.swift */; };
 		3E0397EA2B83EC27004454DB /* AppDelegate+TearDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0397E92B83EC27004454DB /* AppDelegate+TearDown.swift */; };
+		3E03FCAC2DC2D19000086533 /* AutoplayPlayQueueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03FCAB2DC2D19000086533 /* AutoplayPlayQueueObserver.swift */; };
 		3E045D06281322450069DEFE /* TrackInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E045D05281322450069DEFE /* TrackInfoWindow.xib */; };
 		3E045D0F281352370069DEFE /* SortOrderMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E045D0E281352370069DEFE /* SortOrderMenuItemView.swift */; };
 		3E0610852B7A8F48004C5B3B /* ModularPlayerViewController+AutoHide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0610842B7A8F48004C5B3B /* ModularPlayerViewController+AutoHide.swift */; };
@@ -1530,6 +1531,7 @@
 		3E0328262C794D1200A389B6 /* ReplayGainAlbumScannerOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayGainAlbumScannerOperation.swift; sourceTree = "<group>"; };
 		3E0397E72B83EB73004454DB /* AppDelegate+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Init.swift"; sourceTree = "<group>"; };
 		3E0397E92B83EC27004454DB /* AppDelegate+TearDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+TearDown.swift"; sourceTree = "<group>"; };
+		3E03FCAB2DC2D19000086533 /* AutoplayPlayQueueObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoplayPlayQueueObserver.swift; sourceTree = "<group>"; };
 		3E045D05281322450069DEFE /* TrackInfoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackInfoWindow.xib; sourceTree = "<group>"; };
 		3E045D0E281352370069DEFE /* SortOrderMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderMenuItemView.swift; sourceTree = "<group>"; };
 		3E05FD41283A453D00EB7861 /* LibraryAlbums.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryAlbums.xib; sourceTree = "<group>"; };
@@ -2265,6 +2267,7 @@
 			children = (
 				3EB23AA82DB1C7E600B0C13E /* DiscretePlayer+State.swift */,
 				3E8C97952DB2C8F3000BB827 /* DiscretePlayer+Play.swift */,
+				3E03FCAB2DC2D19000086533 /* AutoplayPlayQueueObserver.swift */,
 				3E8C97972DB2CD3D000BB827 /* DiscretePlayer+Seek.swift */,
 				3E8C97992DB2CD95000BB827 /* DiscretePlayer+Looping.swift */,
 				3E8C979B2DB2CDD3000BB827 /* DiscretePlayer+Chapters.swift */,
@@ -6344,6 +6347,7 @@
 				3E0218D82C23490E00865AC2 /* PlaybackProfiles.swift in Sources */,
 				3E6C12BF25CEBE6700BF0D07 /* EQUnitViewController.swift in Sources */,
 				3E0218082C23490E00865AC2 /* TimeStretchUnit.swift in Sources */,
+				3E03FCAC2DC2D19000086533 /* AutoplayPlayQueueObserver.swift in Sources */,
 				3E0218982C23490E00865AC2 /* FontSchemesPersistentState.swift in Sources */,
 				3E1F04682DA3621500DC6F40 /* UserPreference.swift in Sources */,
 				3EA89D972699F0240021CDB9 /* EventMonitor.swift in Sources */,

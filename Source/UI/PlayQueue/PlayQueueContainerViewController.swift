@@ -105,7 +105,7 @@ class PlayQueueContainerViewController: NSViewController {
         doSelectTab(at: playQueueUIState.currentView.rawValue)
         
         if playQueue.isBeingModified {
-            startedAddingTracks()
+            doStartedAddingTracks()
         }
     }
     

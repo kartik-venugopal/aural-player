@@ -295,8 +295,6 @@ class TrackList: TrackListProtocol {
     
     func preTrackLoad() {}
     
-    func firstBatchLoaded(atIndices indices: IndexSet) {}
-    
     func postBatchLoad(indices: IndexSet) {}
     
     func postTrackLoad() {}

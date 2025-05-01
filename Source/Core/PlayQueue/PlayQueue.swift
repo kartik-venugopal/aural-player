@@ -38,9 +38,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     // MARK: Mutator functions ------------------------------------------------------------------------
     
-    private var autoplayFirstAddedTrack: AtomicBool = AtomicBool(value: false)
-    private var autoplayResumeSequence: AtomicBool = AtomicBool(value: false)
-    private var markLoadedItemsForHistory: AtomicBool = AtomicBool(value: true)
+    var params: PlayQueueTrackLoadParams!
     
     lazy var messenger: Messenger = .init(for: self)
     var observers: [String: any PlayQueueObserver] = [:]
@@ -87,20 +85,13 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         return indices
     }
     
-    func setTrackLoadParams(params: PlayQueueTrackLoadParams) {
-        
-        autoplayFirstAddedTrack.setValue(params.autoplayFirstAddedTrack)
-        autoplayResumeSequence.setValue(params.autoplayResumeSequence)
-        markLoadedItemsForHistory.setValue(params.markLoadedItemsForHistory)
-    }
-    
     func loadTracks(from urls: [URL], atPosition position: Int?, params: PlayQueueTrackLoadParams) {
         
         if params.clearQueue {
             removeAllTracks()
         }
         
-        setTrackLoadParams(params: params)
+        self.params = params
         loadTracks(from: urls, atPosition: position)
     }
     
@@ -298,23 +289,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     override func preTrackLoad() {
         
         for observer in observers.values {
-            observer.startedAddingTracks()
-        }
-    }
-    
-    override func firstBatchLoaded(atIndices indices: IndexSet) {
-        
-        // Use for autoplay
-        guard autoplayFirstAddedTrack.value else {return}
-        
-        if shuffleMode == .off {
-            
-            if let firstIndex = indices.first {
-                player.play(trackAtIndex: firstIndex)
-            }
-            
-        } else if let randomFirstIndex = indices.randomElement() {
-            player.play(trackAtIndex: randomFirstIndex)
+            observer.startedAddingTracks(params: self.params)
         }
     }
     
@@ -324,11 +299,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
             observer.doneAddingTracks(urls: session.urls)
         }
         
-        defer {
-            
-            firstTrackLoad = false
-            autoplayResumeSequence.setFalse()
-        }
+        self.params = nil
         
         // TODO: Move to history
         
@@ -459,7 +430,5 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
     }
 }
-
-fileprivate var firstTrackLoad: Bool = true
 
 class GaplessPlaybackNotPossibleError: DisplayableError {}

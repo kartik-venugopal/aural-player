@@ -16,7 +16,11 @@ extension PlayQueueContainerViewController: PlayQueueObserver {
         className
     }
     
-    func startedAddingTracks() {
+    func startedAddingTracks(params: PlayQueueTrackLoadParams) {
+        doStartedAddingTracks()
+    }
+    
+    func doStartedAddingTracks() {
         
         DispatchQueue.main.async {
             self.progressSpinner.animate()
