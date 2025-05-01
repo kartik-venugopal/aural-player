@@ -42,6 +42,8 @@ class AutoplayPlayQueueObserver: PlayQueueObserver {
     }
     
     func doneAddingTracks(urls: [URL]) {
-        
+
+        autoplayFirstAddedTrack = false
+        firstBatch = false
     }
 }

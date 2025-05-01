@@ -61,6 +61,8 @@ class DiscretePlayer: PlayerProtocol {
         messenger.subscribeAsync(to: .Player.autoplay, handler: autoplay(_:))
         
         messenger.subscribe(to: .Player.stop, handler: stop)
+        
+        playQueue.registerObserver(AutoplayPlayQueueObserver())
     }
     
     // MARK: Variables that indicate the current player state
