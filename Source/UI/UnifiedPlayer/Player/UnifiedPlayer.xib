@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -207,7 +207,7 @@
                                     <action selector="volumeAction:" target="-2" id="c5o-Ja-OJv"/>
                                 </connections>
                             </slider>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N4q-3Q-hsG" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                            <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N4q-3Q-hsG" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="813" y="29" width="50" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="JC0-1u-iqk"/>
@@ -289,7 +289,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4S-AL-UJd" userLabel="Lbl Time Elapsed" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                            <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4S-AL-UJd" userLabel="Lbl Time Elapsed" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="713" y="23" width="70" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="66" id="Gf6-Pc-z8E"/>
@@ -408,6 +408,7 @@
         <customObject id="YDH-Lw-Yxg" customClass="PlayingTrackFunctionsMenuDelegate" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="favoritesMenuItem" destination="OM8-1p-7Dk" id="hrp-WR-UM0"/>
+                <outlet property="playerView" destination="aXk-ne-Q1U" id="LVX-yN-Pbj"/>
                 <outlet property="rememberLastPositionMenuItem" destination="HWr-ZV-QQS" id="hMu-xC-cdW"/>
             </connections>
         </customObject>
