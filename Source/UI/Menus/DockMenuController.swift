@@ -285,6 +285,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
     
     // MARK: Notification handling ---------------------------------------------------------------
     
+    // TODO: Implement!
     func appLaunched(_ filesToOpen: [URL]) {
         
 //        recreateHistoryMenus()
@@ -307,6 +308,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
 //        }
     }
     
+    // TODO: Implement!
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         
 //        if let track = notification.endTrack {

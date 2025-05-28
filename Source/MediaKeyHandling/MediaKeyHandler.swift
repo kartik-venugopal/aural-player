@@ -54,15 +54,14 @@ class MediaKeyHandler: MediaKeyTapDelegate {
     
     func startMonitoring() {
         
-        if !monitoringEnabled {
-            
-            if mediaKeyTap == nil {
-                mediaKeyTap = MediaKeyTap(delegate: self, on: .keyDownAndUp)
-            }
-            
-            mediaKeyTap?.start()
-            monitoringEnabled = true
+        if monitoringEnabled {return}
+        
+        if mediaKeyTap == nil {
+            mediaKeyTap = MediaKeyTap(delegate: self, on: .keyDownAndUp)
         }
+        
+        mediaKeyTap?.start()
+        monitoringEnabled = true
     }
     
     func stopMonitoring() {

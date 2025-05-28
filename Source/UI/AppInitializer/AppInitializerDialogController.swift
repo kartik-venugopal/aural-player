@@ -17,8 +17,6 @@ class AppInitializerDialogController: NSWindowController {
     @IBOutlet weak var lblStatus: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
     
-    private lazy var messenger = Messenger(for: self)
-    
     override func windowDidLoad() {
         
         super.windowDidLoad()
@@ -32,8 +30,6 @@ class AppInitializerDialogController: NSWindowController {
         }
         
         progressBar.animate()
-        
-        messenger.subscribeAsync(to: .AppInitialization.stepChanged, handler: stepChanged(to:))
         
         // TODO: Factor out the window positioning logic (also to be reused by Unified / Compact / Widget modes)
         
@@ -49,14 +45,6 @@ class AppInitializerDialogController: NSWindowController {
                   let offset = mainWindow.screenOffset else {return}
             
             guard let screen = NSScreen.main, let size = mainWindow.size else {return}
-//
-//            let dw = (width - theWindow.width) / 2
-//            let dh = (height - theWindow.height) / 2
-//            let origin = screen.visibleFrame.origin.translating(offset.width + dw, offset.height + dh)
-//            
-//            var frame = theWindow.frame
-//            frame.origin = origin
-//            theWindow.setFrame(frame, display: true)
             
             let origin = screen.visibleFrame.origin.translating(offset.width, offset.height)
             centerWRT(otherFrame: NSMakeRect(origin.x, origin.y, size.width, size.height))
@@ -99,7 +87,7 @@ class AppInitializerDialogController: NSWindowController {
         theWindow.setFrame(frame, display: true)
     }
     
-    private func stepChanged(to newStep: AppInitializationStep) {
+    func stepChanged(to newStep: AppInitializationStep) {
         lblStatus.stringValue = "\(newStep.description) ..."
     }
 }

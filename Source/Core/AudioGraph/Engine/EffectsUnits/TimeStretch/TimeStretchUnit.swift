@@ -102,6 +102,10 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         shiftPitch = preset.shiftPitch
     }
     
+    override func reset() {
+        node.rate = 1
+    }
+    
     var settingsAsPreset: TimeStretchPreset {
         
         TimeStretchPreset(name: "timeSettings", state: state, rate: rate,
