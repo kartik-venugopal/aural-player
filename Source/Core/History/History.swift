@@ -82,8 +82,6 @@ class History: HistoryProtocol {
     
     func resumeLastPlayedTrack() {
         
-        print("HERE LastTrack: \(self.lastPlayedItem?.track), pos = \(self.lastPlaybackPosition)")
-        
         if let lastPlayedItem = self.lastPlayedItem, lastPlaybackPosition > 0 {
             playTrackItem(lastPlayedItem, fromPosition: lastPlaybackPosition)
         }

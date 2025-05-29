@@ -27,7 +27,7 @@ extension PlayQueueContainerViewController: PlayQueueObserver {
         }
     }
     
-    func addedTracks(at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
+    func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
         
         DispatchQueue.main.async {
             self.updateSummary()

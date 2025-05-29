@@ -68,7 +68,5 @@ extension History: TrackInitComponent {
                 self.recentItems[item.key] = item
             }
         }
-        
-        print("LastTrack: \(self.lastPlayedItem?.track), pos = \(self.lastPlaybackPosition)")
     }
 }

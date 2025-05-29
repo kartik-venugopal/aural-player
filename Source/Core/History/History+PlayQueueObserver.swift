@@ -18,7 +18,7 @@ extension History: PlayQueueObserver {
     
     func startedAddingTracks(params: PlayQueueTrackLoadParams) {}
     
-    func addedTracks(at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {}
+    func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {}
     
     func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams) {
         

@@ -11,6 +11,8 @@
 import Foundation
 import OrderedCollections
 
+fileprivate var autoplayCandidates: [URL]? = nil
+
 extension PlayQueue: TrackInitComponent {
     
     var urlsForTrackInit: [URL] {
@@ -63,7 +65,11 @@ extension PlayQueue: TrackInitComponent {
         
         if appDelegate.filesToOpen.isNonEmpty {
             
-            self.params = .init(autoplayFirstAddedTrack: autoplayPreferences.autoplayAfterOpeningTracks, markLoadedItemsForHistory: true)
+            if preferences.playQueuePreferences.openWithAddMode == .append {
+                autoplayCandidates = appDelegate.filesToOpen
+            }
+            
+            self.params = .init(autoplayFirstAddedTrack: autoplayPreferences.autoplayAfterOpeningTracks, markLoadedItemsForHistory: true, autoplayCandidates: autoplayCandidates)
             return
         }
         

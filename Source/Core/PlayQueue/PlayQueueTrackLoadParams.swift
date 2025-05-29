@@ -17,28 +17,33 @@ struct PlayQueueTrackLoadParams {
     let autoplayResumeSequence: Bool
     let markLoadedItemsForHistory: Bool
     
-    init(clearQueue: Bool, autoplayFirstAddedTrack: Bool, autoplayResumeSequence: Bool, markLoadedItemsForHistory: Bool) {
+    let autoplayCandidates: [URL]?
+    
+    init(clearQueue: Bool, autoplayFirstAddedTrack: Bool, autoplayResumeSequence: Bool, markLoadedItemsForHistory: Bool, autoplayCandidates: [URL]? = nil) {
         
         self.clearQueue = clearQueue
         self.autoplayFirstAddedTrack = autoplayFirstAddedTrack
         self.autoplayResumeSequence = autoplayResumeSequence
         self.markLoadedItemsForHistory = markLoadedItemsForHistory
+        self.autoplayCandidates = autoplayCandidates
     }
     
-    init(autoplayFirstAddedTrack: Bool) {
+    init(autoplayFirstAddedTrack: Bool, autoplayCandidates: [URL]? = nil) {
         
         self.clearQueue = false
         self.autoplayFirstAddedTrack = autoplayFirstAddedTrack
         self.autoplayResumeSequence = false
         self.markLoadedItemsForHistory = true
+        self.autoplayCandidates = autoplayCandidates
     }
     
-    init(autoplayFirstAddedTrack: Bool, markLoadedItemsForHistory: Bool) {
+    init(autoplayFirstAddedTrack: Bool, markLoadedItemsForHistory: Bool, autoplayCandidates: [URL]? = nil) {
         
         self.clearQueue = false
         self.autoplayFirstAddedTrack = autoplayFirstAddedTrack
         self.autoplayResumeSequence = false
         self.markLoadedItemsForHistory = markLoadedItemsForHistory
+        self.autoplayCandidates = autoplayCandidates
     }
     
     init(autoplayResumeSequence: Bool, markLoadedItemsForHistory: Bool) {
@@ -47,15 +52,17 @@ struct PlayQueueTrackLoadParams {
         self.autoplayFirstAddedTrack = false
         self.autoplayResumeSequence = autoplayResumeSequence
         self.markLoadedItemsForHistory = markLoadedItemsForHistory
+        self.autoplayCandidates = nil
     }
     
-    init(clearQueue: Bool, autoplayFirstAddedTrack: Bool) {
+    init(clearQueue: Bool, autoplayFirstAddedTrack: Bool, autoplayCandidates: [URL]? = nil) {
         
         self.clearQueue = clearQueue
         self.autoplayFirstAddedTrack = autoplayFirstAddedTrack
         self.autoplayResumeSequence = false
         self.markLoadedItemsForHistory = true
+        self.autoplayCandidates = autoplayCandidates
     }
     
-    static let defaultParams: PlayQueueTrackLoadParams = .init(clearQueue: false, autoplayFirstAddedTrack: false, autoplayResumeSequence: false, markLoadedItemsForHistory: true)
+    static let defaultParams: PlayQueueTrackLoadParams = .init(clearQueue: false, autoplayFirstAddedTrack: false, autoplayResumeSequence: false, markLoadedItemsForHistory: true, autoplayCandidates: nil)
 }

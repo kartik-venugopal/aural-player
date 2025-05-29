@@ -79,7 +79,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         let indices = IndexSet(sizeBeforeAdd..<sizeAfterAdd)
         
         for observer in observers.values {
-            observer.addedTracks(at: indices, params: self.params)
+            observer.addedTracks(dedupedTracks, at: indices, params: self.params)
         }
         
         return indices
@@ -153,7 +153,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         let indices = IndexSet(insertionIndex..<(insertionIndex + dedupedTracks.count))
         
         for observer in observers.values {
-            observer.addedTracks(at: indices, params: self.params)
+            observer.addedTracks(dedupedTracks, at: indices, params: self.params)
         }
         
         return indices
@@ -306,6 +306,18 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     // TODO: Move to player!
     func appReopened(_ notification: AppReopenedNotification) {
+
+        // TODO: What if opened files are already in PQ ??? How does autoplay work then ?
+//        if shuffleMode == .off {
+//            
+//            if let firstFile = notification.filesToOpen.first, let foundTrack = findTrack(forFile: firstFile) {
+//                
+//                // Add autoplay candidate
+//            }
+//            
+//        } else {
+//            
+//        }
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
         let openWithAddMode = preferences.playQueuePreferences.openWithAddMode

@@ -22,7 +22,7 @@ extension PlayQueueViewController: PlayQueueObserver {
     
     @objc func doStartedAddingTracks() {}
     
-    func addedTracks(at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
+    func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
         doAddedTracks(at: trackIndices)
     }
     

@@ -16,41 +16,62 @@ class AutoplayPlayQueueObserver: PlayQueueObserver {
         "AutoplayPlayQueueObserver"
     }
     
-    private var firstBatch: Bool = false
     private var autoplayFirstAddedTrack: Bool = false
     
     func startedAddingTracks(params: PlayQueueTrackLoadParams) {
-        
-        NSLog("Yazhik !!! \(params.autoplayFirstAddedTrack)")
-        
         autoplayFirstAddedTrack = params.autoplayFirstAddedTrack
-        firstBatch = true
     }
     
-    func addedTracks(at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
+    func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
         
-        // TODO: Add appDelegate.filesToOpen to parms so only those tracks are played.
-        // Revisit autoplay params model
+        // TODO: Case when "Open with" / 
         
-        NSLog("AYYAPPA !!! \(autoplayFirstAddedTrack) | \(firstBatch) | \(params.autoplayFirstAddedTrack)")
-        
-        guard autoplayFirstAddedTrack && firstBatch else {return}
-        firstBatch = false
+        guard autoplayFirstAddedTrack else {return}
         
         if playQueue.shuffleMode == .off {
-
-            if let firstIndex = trackIndices.first {
+            
+            if let autoplayCandidates = params.autoplayCandidates {
+                
+                for candidate in autoplayCandidates {
+                    
+                    if let track = playQueue.findTrack(forFile: candidate) {
+                        
+                        player.play(track: track)
+                        autoplayFirstAddedTrack = false
+                        return
+                    }
+                }
+                
+            } else if let firstIndex = trackIndices.first {
+                
                 player.play(trackAtIndex: firstIndex)
+                autoplayFirstAddedTrack = false
+                return
             }
 
-        } else if let randomFirstIndex = trackIndices.randomElement() {
+        } else if let autoplayCandidates = params.autoplayCandidates {      // Shuffle ON
+            
+            var addedURLs: Set<URL> = Set()
+            tracks.forEach {addedURLs.insert($0.file)}
+            
+            let intersection = addedURLs.intersection(autoplayCandidates)
+            
+            if intersection.isNonEmpty, let randomURL = intersection.randomElement(), let track = playQueue.findTrack(forFile: randomURL) {
+                
+                player.play(track: track)
+                autoplayFirstAddedTrack = false
+                return
+            }
+            
+        } else if let randomFirstIndex = trackIndices.randomElement() {     // Shuffle ON
+            
             player.play(trackAtIndex: randomFirstIndex)
+            autoplayFirstAddedTrack = false
+            return
         }
     }
     
     func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams) {
-
         autoplayFirstAddedTrack = false
-        firstBatch = false
     }
 }

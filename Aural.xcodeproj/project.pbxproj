@@ -2572,8 +2572,8 @@
 			children = (
 				3E02164C2C23490E00865AC2 /* HistoryProtocol.swift */,
 				3E6B46132DB5B08B006FBC65 /* History.swift */,
-				3E2712CA2DBEE6F600E64BBE /* History+PlayQueueObserver.swift */,
 				3E6B46152DB5B224006FBC65 /* History+Init.swift */,
+				3E2712CA2DBEE6F600E64BBE /* History+PlayQueueObserver.swift */,
 				3E02164A2C23490E00865AC2 /* Model */,
 			);
 			path = History;
