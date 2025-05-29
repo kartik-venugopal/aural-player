@@ -27,14 +27,14 @@ extension PlayQueueContainerViewController: PlayQueueObserver {
         }
     }
     
-    func addedTracks(at trackIndices: IndexSet) {
+    func addedTracks(at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
         
         DispatchQueue.main.async {
             self.updateSummary()
         }
     }
     
-    func doneAddingTracks(urls: [URL]) {
+    func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams) {
         
         DispatchQueue.main.async {
             self.progressSpinner.dismiss()

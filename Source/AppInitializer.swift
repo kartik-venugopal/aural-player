@@ -54,31 +54,45 @@ class AppInitializationStep {
     
     let description: String
     let components: [AppInitializationComponent]
+    let isBlocking: Bool
     
-    init(description: String, components: [AppInitializationComponent]) {
+    init(description: String, components: [AppInitializationComponent], isBlocking: Bool) {
         
         self.description = description
         self.components = components
+        self.isBlocking = isBlocking
     }
     
     func execute() {
+        
+        var queues: Set<OperationQueue> = Set()
         
         for component in components {
             
             switch component.priority {
                 
             case .userInitiated, .userInteractive:
+                
                 component.initialize(onQueue: highPriorityQueue)
+                queues.insert(highPriorityQueue)
                 
             case .utility, .default, .unspecified:
+                
                 component.initialize(onQueue: mediumPriorityQueue)
+                queues.insert(mediumPriorityQueue)
                 
             case .background:
+                
                 component.initialize(onQueue: lowPriorityQueue)
+                queues.insert(lowPriorityQueue)
                 
             @unknown default:
                 return
             }
+        }
+        
+        if isBlocking {
+            queues.forEach {$0.waitUntilAllOperationsAreFinished()}
         }
     }
 }
@@ -88,4 +102,47 @@ protocol AppInitializationComponent {
     var priority: DispatchQoS.QoSClass {get}
     
     func initialize(onQueue queue: OperationQueue)
+}
+
+///
+/// Does nothing ... simply referencing objects in the caller will cause them to be eagerly initialized.
+///
+func eagerlyInitializeObjects(_ : Any...) {}
+
+class PersistentStateInitializer: AppInitializationComponent {
+    
+    var priority: DispatchQoS.QoSClass {
+        .userInteractive
+    }
+    
+    func initialize(onQueue queue: OperationQueue) {
+        
+        queue.addOperation {
+            
+            // Force eager loading of persistent state
+            eagerlyInitializeObjects(appPersistentState)
+        }
+    }
+}
+
+class SecondaryObjectsInitializer: AppInitializationComponent {
+    
+    var priority: DispatchQoS.QoSClass {
+        .background
+    }
+    
+    func initialize(onQueue queue: OperationQueue) {
+        
+        queue.addOperation {
+            
+            // Force initialization of objects that would not be initialized soon enough otherwise
+            // (they are not referred to in code that is executed on app startup).
+            
+            //        _ = libraryDelegate
+            
+            eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
+            WaveformView.initializeImageCache()
+            lastFMClient.retryFailedScrobbleAttempts()
+        }
+    }
 }

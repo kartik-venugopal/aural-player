@@ -19,7 +19,7 @@ extension CompactPlayQueueViewController {
         }
     }
     
-    override func addedTracks(at trackIndices: IndexSet) {
+    override func doAddedTracks(at trackIndices: IndexSet) {
         
         DispatchQueue.main.async {
             
@@ -28,7 +28,7 @@ extension CompactPlayQueueViewController {
         }
     }
     
-    override func doneAddingTracks(urls: [URL]) {
+    override func doDoneAddingTracks() {
         
         DispatchQueue.main.async {
             self.progressSpinner.dismiss()

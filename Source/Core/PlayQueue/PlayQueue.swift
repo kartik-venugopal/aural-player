@@ -79,7 +79,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         let indices = IndexSet(sizeBeforeAdd..<sizeAfterAdd)
         
         for observer in observers.values {
-            observer.addedTracks(at: indices)
+            observer.addedTracks(at: indices, params: self.params)
         }
         
         return indices
@@ -153,7 +153,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         let indices = IndexSet(insertionIndex..<(insertionIndex + dedupedTracks.count))
         
         for observer in observers.values {
-            observer.addedTracks(at: indices)
+            observer.addedTracks(at: indices, params: self.params)
         }
         
         return indices
@@ -296,7 +296,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     override func postTrackLoad() {
         
         for observer in observers.values {
-            observer.doneAddingTracks(urls: session.urls)
+            observer.doneAddingTracks(urls: session.urls, params: self.params)
         }
         
         self.params = nil

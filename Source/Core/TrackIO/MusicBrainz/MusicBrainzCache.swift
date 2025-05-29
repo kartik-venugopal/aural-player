@@ -21,18 +21,17 @@ class MusicBrainzCache: PersistentModelObject {
     let preferences: MusicBrainzPreferences
     
     // For a given artist / release title combo, cache art for later use (other tracks from the same album).
-    private var releasesCache: ConcurrentCompositeKeyMap<String, CachedCoverArtResult> = ConcurrentCompositeKeyMap()
-    private var recordingsCache: ConcurrentCompositeKeyMap<String, CachedCoverArtResult> = ConcurrentCompositeKeyMap()
+    var releasesCache: ConcurrentCompositeKeyMap<String, CachedCoverArtResult> = ConcurrentCompositeKeyMap()
+    var recordingsCache: ConcurrentCompositeKeyMap<String, CachedCoverArtResult> = ConcurrentCompositeKeyMap()
     
     var onDiskReleasesCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     var onDiskRecordingsCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     
-    private let baseDir: URL = FilesAndPaths.subDirectory(named: "musicBrainzCache")
+    let baseDir: URL = FilesAndPaths.subDirectory(named: "musicBrainzCache")
     private lazy var releasesDir: URL = baseDir.appendingPathComponent("releases", isDirectory: true)
     private lazy var recordingsDir: URL = baseDir.appendingPathComponent("recordings", isDirectory: true)
     
-    private let diskIOOpQueue: OperationQueue = OperationQueue(opCount: System.physicalCores,
-                                                               qos: .utility)
+    private let diskIOOpQueue: OperationQueue = OperationQueue(opCount: System.physicalCores, qos: .utility)
     
     private lazy var messenger = Messenger(for: self)
     
@@ -40,59 +39,6 @@ class MusicBrainzCache: PersistentModelObject {
         
         self.preferences = preferences
         messenger.subscribe(to: .Application.willExit, handler: onAppExit)
-        
-        guard preferences.cachingEnabled else {
-            
-            self.baseDir.delete()
-            return
-        }
-        
-        self.baseDir.createDirectory()
-    }
-    
-    func initializeImageCache(fromPersistentState state: MusicBrainzCachePersistentState?) {
-        
-        // Initialize the cache with entries that were previously persisted to disk.
-            
-        for entry in state?.releases ?? [] {
-            
-            guard let file = entry.file, let artist = entry.artist,
-                  let title = entry.title else {continue}
-            
-            diskIOOpQueue.addOperation {
-                
-                // Ensure that the image file exists and that it contains a valid image.
-                if file.exists, let coverArt = CoverArt(source: .musicBrainz, originalImageFile: file) {
-                    
-                    // Entry is valid, enter it into the cache.
-                    
-                    self.releasesCache[artist, title] = CachedCoverArtResult(art: coverArt)
-                    self.onDiskReleasesCache[artist, title] = file
-                }
-            }
-        }
-        
-        for entry in state?.recordings ?? [] {
-            
-            guard let file = entry.file, let artist = entry.artist,
-                  let title = entry.title else {continue}
-            
-            diskIOOpQueue.addOperation {
-                
-                // Ensure that the image file exists and that it contains a valid image.
-                if file.exists, let coverArt = CoverArt(source: .musicBrainz, originalImageFile: file) {
-                    
-                    // Entry is valid, enter it into the cache.
-                    
-                    self.recordingsCache[artist, title] = CachedCoverArtResult(art: coverArt)
-                    self.onDiskRecordingsCache[artist, title] = file
-                }
-            }
-        }
-        
-        // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
-        diskIOOpQueue.waitUntilAllOperationsAreFinished()
-        self.cleanUpUnmappedFiles()
     }
     
     func getCoverArt(forTrack track: Track) -> CoverArt? {

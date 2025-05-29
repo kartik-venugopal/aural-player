@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         super.init()
         
-        System.openFilesLimit = 10000
+        System.openFilesLimit = 50000
         configureLogging()
         
 //        copyOverV3State()
@@ -62,9 +62,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
-        // Force eager loading of persistent state
-        eagerlyInitializeObjects(appPersistentState)
         
         // TODO: Temporarily disabling app setup
         

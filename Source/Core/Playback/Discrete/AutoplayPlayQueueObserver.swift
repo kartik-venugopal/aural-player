@@ -21,11 +21,18 @@ class AutoplayPlayQueueObserver: PlayQueueObserver {
     
     func startedAddingTracks(params: PlayQueueTrackLoadParams) {
         
+        NSLog("Yazhik !!! \(params.autoplayFirstAddedTrack)")
+        
         autoplayFirstAddedTrack = params.autoplayFirstAddedTrack
         firstBatch = true
     }
     
-    func addedTracks(at trackIndices: IndexSet) {
+    func addedTracks(at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
+        
+        // TODO: Add appDelegate.filesToOpen to parms so only those tracks are played.
+        // Revisit autoplay params model
+        
+        NSLog("AYYAPPA !!! \(autoplayFirstAddedTrack) | \(firstBatch) | \(params.autoplayFirstAddedTrack)")
         
         guard autoplayFirstAddedTrack && firstBatch else {return}
         firstBatch = false
@@ -41,7 +48,7 @@ class AutoplayPlayQueueObserver: PlayQueueObserver {
         }
     }
     
-    func doneAddingTracks(urls: [URL]) {
+    func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams) {
 
         autoplayFirstAddedTrack = false
         firstBatch = false

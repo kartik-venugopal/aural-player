@@ -16,7 +16,7 @@ extension PlayQueue: TrackInitComponent {
     var urlsForTrackInit: [URL] {
         
         // Check if any launch parameters were specified
-        if appDelegate.filesToOpen.isNonEmpty {
+        if appDelegate.filesToOpen.isNonEmpty && preferences.playQueuePreferences.openWithAddMode == .replace {
             return appDelegate.filesToOpen
         }
 
@@ -26,37 +26,44 @@ extension PlayQueue: TrackInitComponent {
         switch playQueuePreferences.playQueueOnStartup {
             
         case .empty:
-            return []
+            return appDelegate.filesToOpen
             
         case .rememberFromLastAppLaunch:
             
             if let urls = persistentState?.tracks {
-                return urls
+                return urls + appDelegate.filesToOpen
             }
             
         case .loadPlaylistFile:
             
             if let playlistFile = playQueuePreferences.playlistFile {
-                return [playlistFile]
+                return [playlistFile] + appDelegate.filesToOpen
             }
             
         case .loadFolder:
             
             if let folder = playQueuePreferences.tracksFolder {
-                return [folder]
+                return [folder] + appDelegate.filesToOpen
             }
         }
         
-        return []
+        return appDelegate.filesToOpen
     }
     
     func preInitialize() {
+        
+        defer {
+            
+            for observer in observers.values {
+                observer.startedAddingTracks(params: self.params)
+            }
+        }
         
         let autoplayPreferences = preferences.playbackPreferences.autoplay
         
         if appDelegate.filesToOpen.isNonEmpty {
             
-            self.params = .init(autoplayFirstAddedTrack: autoplayPreferences.autoplayAfterOpeningTracks)
+            self.params = .init(autoplayFirstAddedTrack: autoplayPreferences.autoplayAfterOpeningTracks, markLoadedItemsForHistory: true)
             return
         }
         
@@ -69,10 +76,6 @@ extension PlayQueue: TrackInitComponent {
             .init(autoplayResumeSequence: autoplayOnStartup, markLoadedItemsForHistory: false)
         
         self.params = pqParmsWithAutoplayAndNoHistory
-        
-        for observer in observers.values {
-            observer.startedAddingTracks(params: self.params)
-        }
     }
     
     func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {
@@ -94,8 +97,10 @@ extension PlayQueue: TrackInitComponent {
     
     func postInitialize() {
         
+        // Only appDelegate.filesToOpen can be considered for history
+        
         for observer in observers.values {
-            observer.doneAddingTracks(urls: tracks.map {$0.file})
+            observer.doneAddingTracks(urls: appDelegate.filesToOpen, params: self.params)
         }
     }
 }

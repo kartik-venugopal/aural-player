@@ -18,9 +18,9 @@ extension MetadataRegistry: PlayQueueObserver {
     
     func startedAddingTracks(params: PlayQueueTrackLoadParams) {}
     
-    func addedTracks(at trackIndices: IndexSet) {}
+    func addedTracks(at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {}
     
-    func doneAddingTracks(urls: [URL]) {
+    func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams) {
         
         if preferences.metadataPreferences.cacheTrackMetadata {
             persistCoverArt()

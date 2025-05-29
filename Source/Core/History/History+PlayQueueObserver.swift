@@ -18,15 +18,17 @@ extension History: PlayQueueObserver {
     
     func startedAddingTracks(params: PlayQueueTrackLoadParams) {}
     
-    func addedTracks(at trackIndices: IndexSet) {}
+    func addedTracks(at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {}
     
-    func doneAddingTracks(urls: [URL]) {
+    func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams) {
         
         if firstTrackLoad {
             
             firstTrackLoad = false
             resumeSequenceOnStartup()
         }
+        
+        guard params.markLoadedItemsForHistory else {return}
         
         for url in urls {
             
@@ -49,13 +51,12 @@ extension History: PlayQueueObserver {
         
         let autoplayPrefs = preferences.playbackPreferences.autoplay
         
-        if autoplayPrefs.autoplayOnStartup && autoplayPrefs.autoplayOnStartupOption == .resumeSequence {
-            
-            if playQueue.shuffleMode == .off {
-                resumeLastPlayedTrack()
-            } else {
-                resumeShuffleSequence()
-            }
+        guard autoplayPrefs.autoplayOnStartup && autoplayPrefs.autoplayOnStartupOption == .resumeSequence else {return}
+        
+        if playQueue.shuffleMode == .off {
+            resumeLastPlayedTrack()
+        } else {
+            resumeShuffleSequence()
         }
     }
     

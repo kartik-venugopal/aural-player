@@ -526,6 +526,7 @@
 		3E3B8D362B72E2700060C7C7 /* FuseBoxPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B8D352B72E2700060C7C7 /* FuseBoxPopupMenuCell.swift */; };
 		3E3B8D382B72E5580060C7C7 /* Fuse.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3B8D372B72E5580060C7C7 /* Fuse.xib */; };
 		3E3B8D3A2B72E5AF0060C7C7 /* FuseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B8D392B72E5AF0060C7C7 /* FuseViewController.swift */; };
+		3E3BB1B12DE8CAD400B8B6A3 /* MusicBrainzCache+AppInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3BB1B02DE8CAD400B8B6A3 /* MusicBrainzCache+AppInit.swift */; };
 		3E3C1FEF2849631800A023EC /* NSTableColumnExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C1FEE2849631800A023EC /* NSTableColumnExtensions.swift */; };
 		3E3D7C8D2BDAC77100A82646 /* MenuBarColorSchemesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D7C8C2BDAC77100A82646 /* MenuBarColorSchemesTableViewDelegate.swift */; };
 		3E3D7C8F2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D7C8E2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift */; };
@@ -1650,6 +1651,7 @@
 		3E3B8D352B72E2700060C7C7 /* FuseBoxPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuseBoxPopupMenuCell.swift; sourceTree = "<group>"; };
 		3E3B8D372B72E5580060C7C7 /* Fuse.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Fuse.xib; sourceTree = "<group>"; };
 		3E3B8D392B72E5AF0060C7C7 /* FuseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuseViewController.swift; sourceTree = "<group>"; };
+		3E3BB1B02DE8CAD400B8B6A3 /* MusicBrainzCache+AppInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicBrainzCache+AppInit.swift"; sourceTree = "<group>"; };
 		3E3C1FEE2849631800A023EC /* NSTableColumnExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTableColumnExtensions.swift; sourceTree = "<group>"; };
 		3E3D7C8C2BDAC77100A82646 /* MenuBarColorSchemesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarColorSchemesTableViewDelegate.swift; sourceTree = "<group>"; };
 		3E3D7C8E2BDAEC8000A82646 /* MenuBarFontSchemesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarFontSchemesTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -3109,6 +3111,7 @@
 			children = (
 				3E0217642C23490E00865AC2 /* Model */,
 				3E0217652C23490E00865AC2 /* MusicBrainzCache.swift */,
+				3E3BB1B02DE8CAD400B8B6A3 /* MusicBrainzCache+AppInit.swift */,
 				3E0217662C23490E00865AC2 /* MusicBrainzCoverArtReader.swift */,
 				3E0217672C23490E00865AC2 /* MusicBrainzRESTClient.swift */,
 			);
@@ -6410,6 +6413,7 @@
 				3E0219582C23490E00865AC2 /* SearchQuery.swift in Sources */,
 				3E0218DB2C23490E00865AC2 /* Player.swift in Sources */,
 				3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */,
+				3E3BB1B12DE8CAD400B8B6A3 /* MusicBrainzCache+AppInit.swift in Sources */,
 				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesManagerViewController.swift in Sources */,
 				3EB3A61626A762750060487C /* FontSchemesViewProtocol.swift in Sources */,
 				3E0218ED2C23490E00865AC2 /* GroupsSort.swift in Sources */,

@@ -76,28 +76,9 @@ extension AppDelegate {
         appSetupWindowController.showWindow(self)
     }
     
-    func initializeMetadataCache() {
-        
-//        if preferences.metadataPreferences.cacheTrackMetadata.value {
-//            metadataRegistry.initializeImageCache(fromPersistentState: metadataPersistentState)
-//        }
-//        
-//        if preferences.metadataPreferences.musicBrainz.cachingEnabled {
-//            musicBrainzCache.initializeImageCache(fromPersistentState: appPersistentState.musicBrainzCache)
-//        }
-    }
-    
-    func initializeMetadataComponents() {
-        
-//        playQueue.initialize(fromPersistentState: appPersistentState.playQueue, appLaunchFiles: filesToOpen)
-//        favorites.initialize(fromPersistentState: appPersistentState.favorites)
-//        bookmarks.initialize(fromPersistentState: appPersistentState.bookmarks)
-    }
-    
     func postLaunch() {
         
         appInitializer.initializeApp()
-        initializeSecondaryObjects()
         
         // Update the appLaunched flag
         appLaunched = true
@@ -107,23 +88,6 @@ extension AppDelegate {
         
         //                self.beginPeriodicPersistence()
     }
-    
-    func initializeSecondaryObjects() {
-        
-        // Force initialization of objects that would not be initialized soon enough otherwise
-        // (they are not referred to in code that is executed on app startup).
-        
-        //        _ = libraryDelegate
-        
-        self.eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
-        WaveformView.initializeImageCache()
-        lastFMClient.retryFailedScrobbleAttempts()
-    }
-    
-    ///
-    /// Does nothing ... simply referencing objects in the caller will cause them to be eagerly initialized.
-    ///
-    func eagerlyInitializeObjects(_ : Any...) {}
     
 //    func beginPeriodicPersistence() {
 //        

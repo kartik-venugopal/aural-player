@@ -45,10 +45,10 @@ class ImageCache {
     }
     
     func initialize(fromPersistentState persistentState: [URL: String], onQueue queue: OperationQueue) {
+        
+        let ops = persistentState.map {(file, key) in
 
-        for (file, key) in persistentState {
-            
-            queue.addOperation {
+            BlockOperation {
                 
                 var originalImage: NSImage?
                 var downscaledImage: NSImage?
@@ -70,6 +70,8 @@ class ImageCache {
                 self.images[key] = .init(key: key, coverArt: CoverArt(source: .file, originalImage: originalImage, downscaledImage: downscaledImage))
             }
         }
+
+        queue.addOperations(ops, waitUntilFinished: true)
     }
     
     func addToCache(coverArt: CoverArt, forTrack track: Track, persistNewEntry: Bool) {

@@ -42,10 +42,6 @@ class TrackInitializer: AppInitializationComponent {
         for component in components {
             component.postInitialize()
         }
-        
-        if preferences.metadataPreferences.cacheTrackMetadata {
-            metadataRegistry.persistCoverArt()
-        }
     }
     
     private func initializeComponent(_ component: TrackInitComponent, onQueue queue: OperationQueue) {

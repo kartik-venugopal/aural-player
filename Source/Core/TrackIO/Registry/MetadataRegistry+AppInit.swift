@@ -20,21 +20,22 @@ extension MetadataRegistry: AppInitializationComponent {
         
         guard initCache else {return}
         
-        if let metadataPersistentState: [URL: FileMetadataPersistentState] = metadataPersistentState?.metadata {
+        queue.addOperation {
+            
+            if let metadataPersistentState: [URL: FileMetadataPersistentState] = metadataPersistentState?.metadata {
 
-            registry.bulkAddAndMap(map: metadataPersistentState) {(metadataState: FileMetadataPersistentState) in
-                FileMetadata(persistentState: metadataState, persistentCoverArt: nil)
+                self.registry.bulkAddAndMap(map: metadataPersistentState) {(metadataState: FileMetadataPersistentState) in
+                    FileMetadata(persistentState: metadataState, persistentCoverArt: nil)
+                }
             }
-        }
-        
-        if let coverArtState = metadataPersistentState?.coverArt {
-            fileImageCache.initialize(fromPersistentState: coverArtState, onQueue: queue)
-        }
-        
-        queue.waitUntilAllOperationsAreFinished()
-        
-        for (file, metadata) in registry.map {
-            metadata.art = fileImageCache[file]
+            
+            if let coverArtState = metadataPersistentState?.coverArt {
+                self.fileImageCache.initialize(fromPersistentState: coverArtState, onQueue: queue)
+            }
+            
+            for (file, metadata) in self.registry.map {
+                metadata.art = self.fileImageCache[file]
+            }
         }
     }
 }

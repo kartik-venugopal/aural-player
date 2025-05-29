@@ -94,11 +94,15 @@ let preferences: Preferences = Preferences(defaults: userDefaults, needToMigrate
 
 let appInitializer: AppInitializer = AppInitializer.init(steps: [
     
-    AppInitializationStep(description: "Initializing metadata cache", components: [metadataRegistry]),
+    AppInitializationStep(description: "Reading persistent app state", components: [PersistentStateInitializer()], isBlocking: true),
+    
+    AppInitializationStep(description: "Initializing metadata cache", components: [metadataRegistry, musicBrainzCache], isBlocking: true),
     
     AppInitializationStep(description: "Initializing track lists", components: [TrackInitializer(components: [
         playQueue, history, favorites, bookmarks
-    ])])
+    ])], isBlocking: true),
+    
+    AppInitializationStep(description: "Initializing secondary objects", components: [SecondaryObjectsInitializer()], isBlocking: false),
 ])
 
 let appModeManager: AppModeManager = AppModeManager(persistentState: appPersistentState.ui,
