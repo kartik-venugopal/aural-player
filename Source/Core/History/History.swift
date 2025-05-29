@@ -19,6 +19,8 @@ class History: HistoryProtocol {
     
     var lastPlaybackPosition: TimeInterval = 0
     
+    var firstTrackLoad: Bool = true
+    
     private lazy var messenger: Messenger = .init(for: self)
     
     init(persistentState: HistoryPersistentState?) {

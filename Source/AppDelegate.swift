@@ -21,6 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var soundMenuRootItem: NSMenuItem!
     @IBOutlet weak var playQueueMenuRootItem: NSMenuItem!
     
+    /// (Optional) launch parameters: files to open upon launch (can be audio or playlist files)
+    var filesToOpen: [URL] = []
+    
     lazy var messenger = Messenger(for: self)
     
     override init() {

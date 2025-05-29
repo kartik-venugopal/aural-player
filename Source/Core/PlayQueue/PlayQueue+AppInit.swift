@@ -15,13 +15,10 @@ extension PlayQueue: TrackInitComponent {
     
     var urlsForTrackInit: [URL] {
         
-//        // Check if any launch parameters were specified
-//        if appLaunchFiles.isNonEmpty {
-//            
-//            // Launch parameters specified, override playlist saved state and add file paths in params to playlist
-//            loadTracks(from: appLaunchFiles, params: .init(autoplayFirstAddedTrack: playbackPreferences.autoplayAfterOpeningTracks))
-//            return
-//        }
+        // Check if any launch parameters were specified
+        if appDelegate.filesToOpen.isNonEmpty {
+            return appDelegate.filesToOpen
+        }
 
         let persistentState = appPersistentState.playQueue
         let playQueuePreferences = preferences.playQueuePreferences
@@ -55,10 +52,16 @@ extension PlayQueue: TrackInitComponent {
     
     func preInitialize() {
         
-        let playbackPreferences = preferences.playbackPreferences
+        let autoplayPreferences = preferences.playbackPreferences.autoplay
         
-        let autoplayOnStartup: Bool = playbackPreferences.autoplay.autoplayOnStartup
-        let autoplayOption: AutoplayPlaybackPreferences.AutoplayOnStartupOption = playbackPreferences.autoplay.autoplayOnStartupOption
+        if appDelegate.filesToOpen.isNonEmpty {
+            
+            self.params = .init(autoplayFirstAddedTrack: autoplayPreferences.autoplayAfterOpeningTracks)
+            return
+        }
+        
+        let autoplayOnStartup: Bool = autoplayPreferences.autoplayOnStartup
+        let autoplayOption: AutoplayPlaybackPreferences.AutoplayOnStartupOption = autoplayPreferences.autoplayOnStartupOption
         
         let pqParmsWithAutoplayAndNoHistory: PlayQueueTrackLoadParams =
         autoplayOption == .firstTrack ?
@@ -66,6 +69,10 @@ extension PlayQueue: TrackInitComponent {
             .init(autoplayResumeSequence: autoplayOnStartup, markLoadedItemsForHistory: false)
         
         self.params = pqParmsWithAutoplayAndNoHistory
+        
+        for observer in observers.values {
+            observer.startedAddingTracks(params: self.params)
+        }
     }
     
     func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {
@@ -82,6 +89,13 @@ extension PlayQueue: TrackInitComponent {
                 
                 track.metadata.cueSheetMetadata = metadata
             }
+        }
+    }
+    
+    func postInitialize() {
+        
+        for observer in observers.values {
+            observer.doneAddingTracks(urls: tracks.map {$0.file})
         }
     }
 }

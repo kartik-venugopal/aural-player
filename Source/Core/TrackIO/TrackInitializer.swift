@@ -32,7 +32,15 @@ class TrackInitializer: AppInitializationComponent {
     func initialize(onQueue queue: OperationQueue) {
         
         for component in components {
+            component.preInitialize()
+        }
+        
+        for component in components {
             initializeComponent(component, onQueue: queue)
+        }
+        
+        for component in components {
+            component.postInitialize()
         }
         
         if preferences.metadataPreferences.cacheTrackMetadata {
@@ -44,7 +52,7 @@ class TrackInitializer: AppInitializationComponent {
         
         tracksForComponent = [:]
         batch = []
-        
+
         readURLs(component.urlsForTrackInit, onQueue: queue)
         component.initialize(withTracks: tracksForComponent)
     }
@@ -118,6 +126,13 @@ protocol TrackInitComponent {
     func preInitialize()
     
     func initialize(withTracks tracks: OrderedDictionary<URL, Track>)
+    
+    func postInitialize()
+}
+
+extension TrackInitComponent {
+    
+    func postInitialize() {}
 }
 
 enum TrackInitPriority: Int {

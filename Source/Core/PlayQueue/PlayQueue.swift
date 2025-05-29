@@ -300,55 +300,6 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
         
         self.params = nil
-        
-        // TODO: Move to history
-        
-//        if firstTrackLoad, shuffleMode == .on,
-//           let pQPersistentState = appPersistentState.playQueue,
-//           let persistentTracks = pQPersistentState.tracks,
-//           let historyPersistentState = pQPersistentState.history,
-//           let shuffleSequencePersistentState = historyPersistentState.shuffleSequence,
-//           let playedTrackIndices = shuffleSequencePersistentState.playedTracks,
-//           let sequenceTrackIndices = shuffleSequencePersistentState.sequence,
-//           (sequenceTrackIndices.count + playedTrackIndices.count) == persistentTracks.count,
-//           let playingSequenceTrackIndex = sequenceTrackIndices.first,
-//           let lastPlayedSequenceTrack = _tracks[persistentTracks[playingSequenceTrackIndex]],
-//           let lastPlayedTrackFile = historyPersistentState.mostRecentTrackItem?.trackFile,
-//           lastPlayedTrackFile == lastPlayedSequenceTrack.file {
-//            
-//            var sequenceTracks: OrderedSet<Track> = OrderedSet(sequenceTrackIndices.compactMap {_tracks[persistentTracks[$0]]})
-//            let playedTracks: OrderedSet<Track> = OrderedSet(playedTrackIndices.compactMap {_tracks[persistentTracks[$0]]})
-//            
-//            // Add to the sequence tracks that weren't there before (if loading from folder, maybe new tracks were added to the folder between app runs).
-//            
-//            let persistentTracksSet = Set<URL>(persistentTracks)
-//            
-//            for (file, track) in _tracks {
-//                
-//                if !persistentTracksSet.contains(file) {
-//                    sequenceTracks.append(track)
-//                }
-//            }
-//            
-//            shuffleSequence.initialize(with: sequenceTracks,
-//                                       playedTracks: playedTracks)
-//            
-//            if autoplayResumeSequence.value, let track = sequenceTracks.first,
-//               let playbackPosition = historyPersistentState.lastPlaybackPosition {
-//                
-//                player.resumeShuffleSequence(with: track, atPosition: playbackPosition)
-//            }
-//        }
-//        
-//        if autoplayResumeSequence.value, shuffleMode == .off,
-//           let historyPersistentState = appPersistentState.playQueue?.history,
-//           let lastPlayedTrackFile = historyPersistentState.mostRecentTrackItem?.trackFile,
-//           let track = _tracks[lastPlayedTrackFile],
-//           let playbackPosition = historyPersistentState.lastPlaybackPosition,
-//           playbackPosition > 0 {
-//            
-//            player.play(track: track, params: PlaybackParams().withStartAndEndPosition(playbackPosition))
-//        }
     }
     
     // MARK: Notification handling ---------------------------------------------------------------

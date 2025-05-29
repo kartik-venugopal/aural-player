@@ -17,9 +17,6 @@ fileprivate var appSetupWindowController: AppSetupWindowController = .init()
 
 fileprivate var persistenceTaskExecutor: RepeatingTaskExecutor!
 
-/// (Optional) launch parameters: files to open upon launch (can be audio or playlist files)
-fileprivate var filesToOpen: [URL] = []
-
 /// Timestamp when the app last opened a set of files. This is used to consolidate multiple chunks of a file open operation into a single one (from the perspective of the user, it is one operation). This is necessary because a single Finder open operation results in multiple file open method calls here. Why ???
 fileprivate var lastFileOpenTime: Date?
 
@@ -100,6 +97,7 @@ extension AppDelegate {
     func postLaunch() {
         
         appInitializer.initializeApp()
+        initializeSecondaryObjects()
         
         // Update the appLaunched flag
         appLaunched = true
