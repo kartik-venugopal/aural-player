@@ -163,6 +163,7 @@ class PlayQueueViewController: TrackListTableViewController {
         doLoadFinderTracks(from: files, atPosition: row)
     }
     
+    // TODO: Handle files that exist in PQ
     var shouldAutoplayAfterAdding: Bool {
         
         let autoplayAfterAdding: Bool = preferences.playbackPreferences.autoplay.autoplayAfterAddingTracks

@@ -306,19 +306,39 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     // TODO: Move to player!
     func appReopened(_ notification: AppReopenedNotification) {
-
-        // TODO: What if opened files are already in PQ ??? How does autoplay work then ?
-//        if shuffleMode == .off {
-//            
-//            if let firstFile = notification.filesToOpen.first, let foundTrack = findTrack(forFile: firstFile) {
-//                
-//                // Add autoplay candidate
-//            }
-//            
-//        } else {
-//            
-//        }
         
+        var allFilesExistInPQ = true
+        var existingFiles: Set<URL> = Set()
+        
+        for file in notification.filesToOpen {
+            
+            if findTrack(forFile: file) == nil {
+                allFilesExistInPQ = false
+            } else {
+                existingFiles.insert(file)
+            }
+        }
+        
+        if allFilesExistInPQ {
+            
+            if shuffleMode == .off {
+                
+                if let firstFile = notification.filesToOpen.first, let track = findTrack(forFile: firstFile) {
+                    player.play(track: track)
+                }
+                
+            } else {
+                
+                if let randomFile = notification.filesToOpen.randomElement(), let track = findTrack(forFile: randomFile) {
+                    player.play(track: track)
+                }
+            }
+            
+            return
+        }
+        
+        // MARK: Need to add at least one file to PQ -----------------------------------------------
+
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
         let openWithAddMode = preferences.playQueuePreferences.openWithAddMode
         let clearQueue: Bool = openWithAddMode == .replace
@@ -329,8 +349,15 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         lazy var playerIsStopped: Bool = player.state.isStopped
         lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
         let autoplay: Bool = notDuplicateNotification && autoplayPreference
+        var autoplayCandidates: [URL]? = nil
         
-        loadTracks(from: notification.filesToOpen, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: autoplay))
+        if autoplay, let firstFile = existingFiles.first {
+
+            // Add autoplay candidate
+            autoplayCandidates = [firstFile]
+        }
+        
+        loadTracks(from: notification.filesToOpen, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: autoplay, autoplayCandidates: autoplayCandidates))
     }
     
     var persistentState: PlayQueuePersistentState {

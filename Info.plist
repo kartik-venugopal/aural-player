@@ -380,6 +380,8 @@
 			</array>
 		</dict>
 		<dict>
+			<key>LSTypeIsPackage</key>
+			<false/>
 			<key>CFBundleTypeName</key>
 			<string>folder</string>
 			<key>CFBundleTypeRole</key>
