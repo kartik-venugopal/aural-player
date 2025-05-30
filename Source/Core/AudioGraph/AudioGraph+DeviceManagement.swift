@@ -42,12 +42,14 @@ extension AudioGraph {
     
     func setInitialOutputDevice(persistentState: AudioGraphPersistentState?) {
         
+        // Should just use the system device
+        
         // Check if remembered device is available (based on name and UID).
-        if let prefDeviceUID = persistentState?.outputDevice?.uid,
-           let foundDevice = availableDevices.first(where: {$0.uid == prefDeviceUID}) {
-            
-            self.outputDevice = foundDevice
-        }
+//        if let prefDeviceUID = persistentState?.outputDevice?.uid,
+//           let foundDevice = availableDevices.first(where: {$0.uid == prefDeviceUID}) {
+//            
+//            self.outputDevice = foundDevice
+//        }
         
         deviceManager.maxFramesPerSlice = Self.visualizationAnalysisBufferSize
     }
