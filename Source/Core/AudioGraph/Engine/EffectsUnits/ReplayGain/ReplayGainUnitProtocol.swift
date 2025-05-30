@@ -14,7 +14,7 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     
     var mode: ReplayGainMode {get set}
     
-    // TODO: Maybe allow the user to specify whether to reset the pre-amp when no replay gain metadata is available ???
+    // TODO: [MED] Maybe allow the user to specify whether to reset the pre-amp when no replay gain metadata is available ???
     
     var replayGain: ReplayGain? {get set}
     

@@ -24,7 +24,7 @@ class AutoplayPlayQueueObserver: PlayQueueObserver {
     
     func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
         
-        // TODO: Case when "Open with" / 
+        // TODO: [?] Case when "Open with"
         
         guard autoplayFirstAddedTrack else {return}
         

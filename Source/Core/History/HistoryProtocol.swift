@@ -55,5 +55,7 @@ protocol HistoryProtocol: TrackInitComponent {
     
     func lastPlayedTime(forTrack track: Track) -> Date?
     
-    // TODO: getPlayStats(), getAddStats()
+    func trackPlayed(_ track: Track)
+    
+    // TODO: [MED] getPlayStats(), getAddStats()
 }

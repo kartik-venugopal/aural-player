@@ -53,7 +53,4 @@ struct LegacyEffectsFontSchemePersistentState: Codable {
     
     // Xtra Small text
     let filterChartSize: CGFloat?
-    
-    // TODO: Probably not required ???
-    let auRowTextYOffset: CGFloat?
 }

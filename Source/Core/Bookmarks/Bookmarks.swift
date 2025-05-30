@@ -9,8 +9,6 @@
 //
 import Foundation
 
-// TODO: Refactor this to BookmarksManager: UserManagedObjects<Bookmark>
-
 ///
 /// A delegate allowing access to the list of user-defined bookmarks.
 ///

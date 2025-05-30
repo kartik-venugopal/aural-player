@@ -14,7 +14,7 @@ import OrderedCollections
 class History: HistoryProtocol {
     
     // Recently played items
-    // TODO: Does this need to be thread-safe ??? Assess which threads it's accessed from.
+    // TODO: [MED] Does this need to be thread-safe ??? Assess which threads it's accessed from.
     var recentItems: OrderedDictionary<CompositeKey, HistoryItem> = OrderedDictionary()
     
     var lastPlaybackPosition: TimeInterval = 0
@@ -29,7 +29,6 @@ class History: HistoryProtocol {
             self.markLastPlaybackPosition(lastPlaybackPosition)
         }
         
-        messenger.subscribe(to: .Player.preTrackPlayback, handler: trackPlayed(_:))
         messenger.subscribe(to: .Application.willExit, handler: appWillExit)
         
         playQueue.registerObserver(self)
@@ -64,13 +63,13 @@ class History: HistoryProtocol {
         }
     }
     
-    // TODO: ???
+    // TODO: [HIGH] ???
     var canResumeLastPlayedSequence: Bool {
         //        shuffleMode == .off ? canResumeLastPlayedTrack : canResumeShuffleSequence
         canResumeLastPlayedTrack
     }
     
-    // TODO: ???
+    // TODO: [HIGH] ???
     func resumeLastPlayedSequence() {
         //        shuffleMode == .off ? resumeLastPlayedTrack() : resumeShuffleSequence()
         resumeLastPlayedTrack()
@@ -87,7 +86,7 @@ class History: HistoryProtocol {
         }
     }
     
-    // TODO: ???
+    // TODO: [HIGH] ???
     var canResumeShuffleSequence: Bool {
         
         //        if let lastPlayedItem = lastPlayedItem,
@@ -99,7 +98,7 @@ class History: HistoryProtocol {
         return false
     }
     
-    // TODO: ???
+    // TODO: [HIGH] ???
     func resumeShuffleSequence() {
         
         //        if let lastPlayedItem = lastPlayedItem,
@@ -127,13 +126,10 @@ class History: HistoryProtocol {
     // MARK: Event handling for Tracks ---------------------------------------------------------------
     
     // Whenever a track is played by the player, add an entry in the "Recently played" list
-    func trackPlayed(_ notification: PreTrackPlaybackNotification) {
+    func trackPlayed(_ track: Track) {
         
-        if let newTrack = notification.newTrack {
-            
-            markPlayEventForTrack(newTrack)
-            messenger.publish(.History.updated)
-        }
+        markPlayEventForTrack(track)
+        messenger.publish(.History.updated)
     }
     
     func markAddEventForTrack(_ track: Track) {
@@ -414,7 +410,7 @@ extension History: PersistentModelObject {
     
     var persistentState: HistoryPersistentState {
         
-        // TODO: ???
+        // TODO: [HIGH] ???
         .init(recentItems: recentItems.values.compactMap(HistoryItemPersistentState.init),
               lastPlaybackPosition: lastPlaybackPosition,
               shuffleSequence: nil)

@@ -63,7 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        // TODO: Temporarily disabling app setup
+        // TODO: [HIGH] Temporarily disabling app setup
         
 //        if appSetup.setupRequired {
 //            performAppSetup()

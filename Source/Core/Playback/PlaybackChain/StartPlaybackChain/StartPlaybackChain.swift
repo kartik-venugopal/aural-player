@@ -38,9 +38,8 @@ class StartPlaybackChain: PlaybackChain {
         .withAction(AudioFilePreparationAction(trackReader: trackReader))
         .withAction(ApplyPlaybackProfileAction(preferences: preferences))
         .withAction(StartPlaybackAction(playerPlayFunction: playerPlayFunction))
+        .withAction(UpdateHistoryAction())
         .withAction(PredictiveTrackPreparationAction(playQueue: playQueue, trackReader: trackReader))
-        
-        // TODO: Add an UpdateHistoryAction !!!
     }
     
     override func execute(_ context: PlaybackRequestContext) {

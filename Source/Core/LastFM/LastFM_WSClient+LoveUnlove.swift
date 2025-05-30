@@ -100,8 +100,6 @@ extension LastFM_WSClient {
     
     func favoriteAdded(favorite: Favorite) {
         
-        // TODO: Can we love/unlove a non-track ???
-        
         guard self.loveUnloveEnabled,
               let favTrack = favorite as? FavoriteTrack else {return}
         

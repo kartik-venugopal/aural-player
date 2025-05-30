@@ -87,7 +87,7 @@ public class DeviceManager {
         
         get {Int(outputAudioUnit.bufferFrameSize)}
         
-        // TODO: How to determine if this is safe / allowed / within the allowed range ?
+        // TODO: [MED] How to determine if this is safe / allowed / within the allowed range ?
         set {outputAudioUnit.bufferFrameSize = UInt32(newValue)}
     }
     

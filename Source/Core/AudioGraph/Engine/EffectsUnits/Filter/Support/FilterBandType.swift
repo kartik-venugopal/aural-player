@@ -14,7 +14,7 @@ import AVFoundation
 ///
 enum FilterBandType: String, CaseIterable, Codable {
     
-    // TODO: Look into adding more filter types (lowShelf, highShelf, resonantLowPass/HighPass, etc).
+    // TODO: [LOW] Look into adding more filter types (lowShelf, highShelf, resonantLowPass/HighPass, etc).
     
     case bandStop
     case bandPass

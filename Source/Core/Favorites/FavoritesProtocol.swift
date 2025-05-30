@@ -57,7 +57,7 @@ protocol FavoritesProtocol: TrackInitComponent {
     var numberOfFavoriteTracks: Int {get}
     func favoriteTrack(atChronologicalIndex index: Int) -> FavoriteTrack?
     
-    // TODO: or not TODO ?
+    // TODO: [?] or not ?
     var artistsFromFavoriteTracks: Set<String> {get}
     var albumsFromFavoriteTracks: Set<String> {get}
     var genresFromFavoriteTracks: Set<String> {get}
