@@ -47,6 +47,13 @@ class TrackReader {
             
         } else {
             
+            // When the metadata cache is disabled, we don't want to
+            // reuse any existing track metadata. So,
+            //
+            // 1 - Create the track from scratch.
+            // 2 - Update the registry with it.
+            // 3 - Update all track lists containing that track.
+            
             if trackRegistry.findTrack(forFile: file) != nil {
                 trackRegistry.updateTracks([track])
                 

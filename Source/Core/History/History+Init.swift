@@ -17,7 +17,9 @@ extension History: TrackInitComponent {
         appPersistentState.history?.recentItems?.filter {$0.itemType == .track}.compactMap {$0.trackFile} ?? []
     }
     
-    func preInitialize() {}
+    func preInitialize() {
+        trackRegistry.registerClient(self)
+    }
     
     func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {
         

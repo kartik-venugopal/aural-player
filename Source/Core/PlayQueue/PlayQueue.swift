@@ -377,16 +377,6 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         
         // Play Queue
         updateTracksIfPresent(tracks)
-        
-        // TODO: History
-//        for track in tracks {
-//
-//            let trackKey = TrackHistoryItem.key(forTrack: track)
-//
-//            if let existingHistoryItem: TrackHistoryItem = recentItems[trackKey] as? TrackHistoryItem {
-//                existingHistoryItem.track = track
-//            }
-//        }
     }
     
     func prepareForGaplessPlayback() throws {

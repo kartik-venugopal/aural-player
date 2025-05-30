@@ -61,6 +61,8 @@ extension PlayQueue: TrackInitComponent {
             }
         }
         
+        trackRegistry.registerClient(self)
+        
         let autoplayPreferences = preferences.playbackPreferences.autoplay
         
         if appDelegate.filesToOpen.isNonEmpty {

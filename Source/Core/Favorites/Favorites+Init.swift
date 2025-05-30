@@ -17,7 +17,9 @@ extension Favorites: TrackInitComponent {
         appPersistentState.favorites?.favoriteTracks?.compactMap {$0.trackFile} ?? []
     }
     
-    func preInitialize() {}
+    func preInitialize() {
+        trackRegistry.registerClient(self)
+    }
     
     func initialize(withTracks tracks: OrderedDictionary<URL, Track>) {
         

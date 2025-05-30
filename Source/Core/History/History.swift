@@ -406,6 +406,21 @@ extension History {
     }
 }
 
+extension History: TrackRegistryClient {
+    
+    func updateWithTracksIfPresent(_ tracks: any Sequence<Track>) {
+        
+        for track in tracks {
+            
+            let trackKey = TrackHistoryItem.key(forTrack: track)
+            
+            if let existingHistoryItem: TrackHistoryItem = recentItems[trackKey] as? TrackHistoryItem {
+                existingHistoryItem.track = track
+            }
+        }
+    }
+}
+
 extension History: PersistentModelObject {
     
     var persistentState: HistoryPersistentState {
