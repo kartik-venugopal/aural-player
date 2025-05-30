@@ -87,4 +87,11 @@ class InternalDeviceList {
             devicesMap[id]
         }
     }
+    
+    func hasDeviceById(_ id: AudioDeviceID) -> Bool {
+        
+        lock.produceValueAfterWait {
+            devicesMap[id] != nil
+        }
+    }
 }

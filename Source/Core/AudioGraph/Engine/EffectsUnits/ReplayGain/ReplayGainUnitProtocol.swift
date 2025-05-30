@@ -45,16 +45,6 @@ protocol ReplayGainUnitProtocol: EffectsUnitProtocol {
     var scanStatus: String? {get}
     
     func applyReplayGain(forTrack track: Track?)
-    
-    /*
-     
-     TODO:
-     
-     1 - Source (metadata / analysis)
-     2 - Configurable target loudness (-18 dB default)
-     3 - Configurable peak level (0 db default)
-     
-     */
 }
 
 enum ReplayGainMode: Int, Codable {

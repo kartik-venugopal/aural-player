@@ -51,7 +51,7 @@ extension AudioGraph {
 //            self.outputDevice = foundDevice
 //        }
         
-        deviceManager.maxFramesPerSlice = Self.visualizationAnalysisBufferSize
+//        deviceManager.maxFramesPerSlice = Self.visualizationAnalysisBufferSize
     }
     
     var visualizationAnalysisBufferSize: Int {
@@ -63,12 +63,12 @@ extension AudioGraph {
     }
     
     func setUpForVisualizationAnalysis() {
-        outputDeviceBufferSize = Self.visualizationAnalysisBufferSize
+//        outputDeviceBufferSize = Self.visualizationAnalysisBufferSize
     }
     
     func outputDeviceChanged() {
         
-        deviceManager.maxFramesPerSlice = Self.visualizationAnalysisBufferSize
+//        deviceManager.maxFramesPerSlice = Self.visualizationAnalysisBufferSize
         engine.start()
         
         // Send out a notification

@@ -73,9 +73,7 @@ public class DeviceManager {
         
         set(newDeviceId) {
             
-            // TODO: Validate that the device still exists ? By doing a lookup in list.map ???
-            
-            if outputDeviceId != newDeviceId {
+            if list.hasDeviceById(newDeviceId), outputDeviceId != newDeviceId {
                 outputAudioUnit.currentDevice = newDeviceId
             }
         }
@@ -89,7 +87,7 @@ public class DeviceManager {
         
         get {Int(outputAudioUnit.bufferFrameSize)}
         
-        // TODO: Before setting buffer size, check allowed buffer size range, and clamp the value accordingly ???
+        // TODO: How to determine if this is safe / allowed / within the allowed range ?
         set {outputAudioUnit.bufferFrameSize = UInt32(newValue)}
     }
     
