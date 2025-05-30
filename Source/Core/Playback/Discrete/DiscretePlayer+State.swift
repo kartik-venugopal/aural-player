@@ -57,6 +57,8 @@ class DiscretePlayer: PlayerProtocol {
 //        messenger.subscribeAsync(to: .Player.gaplessTrackPlaybackCompleted, handler: gaplessTrackPlaybackCompleted(_:))
         messenger.subscribe(to: .PlayQueue.playingTrackRemoved, handler: initiateStop(_:))
         
+        messenger.subscribeAsync(to: .AudioGraph.outputDeviceChanged, handler: audioOutputDeviceChanged)
+        
         // Commands
         messenger.subscribeAsync(to: .Player.autoplay, handler: autoplay(_:))
         
