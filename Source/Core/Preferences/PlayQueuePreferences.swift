@@ -36,6 +36,9 @@ class PlayQueuePreferences {
     @EnumUserPreference(key: "playQueue.openWithAddMode", defaultValue: Defaults.openWithAddMode)
     var openWithAddMode: PlayQueueTracksAddMode
     
+    @UserPreference(key: "playQueue.playParentFolder", defaultValue: Defaults.playParentFolder)
+    var playParentFolder: Bool
+    
     init(legacyPreferences: LegacyPlaylistPreferences? = nil) {
         
         guard let legacyPreferences = legacyPreferences else {return}
@@ -137,5 +140,7 @@ class PlayQueuePreferences {
         
         static let dragDropAddMode: PlayQueueTracksAddMode = .append
         static let openWithAddMode: PlayQueueTracksAddMode = .append
+        
+        static let playParentFolder: Bool = false
     }
 }

@@ -38,6 +38,23 @@ extension AppDelegate {
         // Clear previously added files from filesToOpen array, and add new files
         filesToOpen = filenames.map {URL(fileURLWithPath: $0)}
         
+        // If need to play entire parent folder, expand file(s) into parent folder
+        if preferences.playQueuePreferences.playParentFolder {
+            
+            let firstOpenedFile = filesToOpen.first
+            let parents = Set(filesToOpen.map {$0.parentDir})
+            
+            if parents.count == 1, let parent = parents.first, let filesInParentDir = parent.children?.filter({$0.isSupportedAudioFile}) {
+                
+                filesToOpen = filesInParentDir
+                filesToOpen.sort(by: {$0.lastPathComponent < $1.lastPathComponent})
+                
+                if let firstOpenedFile, let index = filesToOpen.firstIndex(of: firstOpenedFile) {
+                    filesToOpen.removeAndInsertItem(index, 0)
+                }
+            }
+        }
+        
         // If app has already launched, that means the app is "reopening" with the specified set of files
         if appLaunched {
             

@@ -11,10 +11,10 @@ import Cocoa
 
 class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var btnEmptyPlayQueue: NSButton!
-    @IBOutlet weak var btnRememberPlayQueue: NSButton!
+    @IBOutlet weak var btnEmptyPlayQueue: RadioButton!
+    @IBOutlet weak var btnRememberPlayQueue: RadioButton!
     
-    @IBOutlet weak var btnLoadPlaylistFile: NSButton!
+    @IBOutlet weak var btnLoadPlaylistFile: RadioButton!
     @IBOutlet weak var btnBrowseFile: NSButton!
     
     @IBOutlet weak var btnLoadTracksFromFolder: NSButton!
@@ -29,15 +29,17 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
     @IBOutlet weak var lblFolder: NSTextField!
     @IBOutlet weak var lblFolderCell: ValidatedLabelCell!
     
-    @IBOutlet weak var btnShowNewTrack: NSButton!
-    @IBOutlet weak var btnShowChaptersList: NSButton!
+    @IBOutlet weak var btnShowNewTrack: CheckBox!
+    @IBOutlet weak var btnShowChaptersList: CheckBox!
     
-    @IBOutlet weak var btnDragDropAppend: NSButton!
-    @IBOutlet weak var btnDragDropReplace: NSButton!
-    @IBOutlet weak var btnDragDropHybrid: NSButton!
+    @IBOutlet weak var btnDragDropAppend: RadioButton!
+    @IBOutlet weak var btnDragDropReplace: RadioButton!
+    @IBOutlet weak var btnDragDropHybrid: RadioButton!
     
-    @IBOutlet weak var btnOpenWithAppend: NSButton!
-    @IBOutlet weak var btnOpenWithReplace: NSButton!
+    @IBOutlet weak var btnOpenWithAppend: RadioButton!
+    @IBOutlet weak var btnOpenWithReplace: RadioButton!
+    
+    @IBOutlet weak var btnPlayParentFolder: CheckBox!
     
     override var nibName: NSNib.Name? {"PlayQueuePreferences"}
     
@@ -104,6 +106,8 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         } else {
             btnOpenWithReplace.on()
         }
+        
+        btnPlayParentFolder.onIf(pqPrefs.playParentFolder)
         
         if let appMode = appModeManager.currentMode, !appMode.equalsOneOf(.modular, .unified) {
             
@@ -221,6 +225,7 @@ class PlayQueuePreferencesViewController: NSViewController, PreferencesViewProto
         }
         
         prefs.openWithAddMode = btnOpenWithAppend.isOn ? .append : .replace
+        prefs.playParentFolder = btnPlayParentFolder.isOn
     }
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {

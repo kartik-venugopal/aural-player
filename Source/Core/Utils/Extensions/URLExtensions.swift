@@ -187,6 +187,23 @@ extension URL {
         }
     }
     
+    // Retrieves the files in a directory (skipping subdirectories)
+    var childrenFiles: [URL]? {
+        
+        guard exists, isDirectory else {return nil}
+        
+        do {
+            // Retrieve all files/subfolders within this folder
+            return try fileManager.contentsOfDirectory(at: self, includingPropertiesForKeys: [],
+                                                       options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+            
+        } catch let error as NSError {
+            
+            NSLog("Error retrieving contents of directory '%@': %@", self.path, error.description)
+            return nil
+        }
+    }
+    
     func findFileWithoutExtensionNamed(_ fileName: String) -> URL? {
         children?.first(where: {$0.nameWithoutExtension == fileName})
     }

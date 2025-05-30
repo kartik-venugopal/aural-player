@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,63 +20,63 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="120" y="65" width="746" height="623"/>
+            <rect key="contentRect" x="120" y="65" width="746" height="635"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
             <view key="contentView" id="fR8-8f-93h">
-                <rect key="frame" x="0.0" y="0.0" width="746" height="623"/>
+                <rect key="frame" x="0.0" y="0.0" width="746" height="635"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="nWY-5D-UP3" userLabel="Prefs Tab View">
-                        <rect key="frame" x="19" y="60" width="707" height="470"/>
+                        <rect key="frame" x="19" y="52" width="707" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Playlist" identifier="0" id="TYN-PH-4OO" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="EFS-Lg-2eG">
-                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="480"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Playback" identifier="1" id="qD8-pP-ieh" userLabel="Playback" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="KWv-RK-uzg">
-                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="480"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Sound" identifier="2" id="VXC-Sl-emE" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="eM4-j9-EOX">
-                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="480"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="View" identifier="3" id="C3g-xs-GOv" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="MBJ-Ma-zUx">
-                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="480"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="History" identifier="4" id="VOm-vG-6fp" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="5HA-lk-HSZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="480"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Controls" identifier="5" id="Dxa-HX-bnr" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="eys-OJ-Y8G">
-                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="480"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Metadata" identifier="6" id="lyq-n0-eNb" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="b8q-Qi-fGV">
-                                    <rect key="frame" x="0.0" y="0.0" width="707" height="470"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="707" height="480"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xZn-wk-Yzb" userLabel="Save button">
-                        <rect key="frame" x="599" y="3" width="64" height="32"/>
+                        <rect key="frame" x="599" y="5" width="64" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="g9T-gO-tSc">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -90,7 +90,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sD2-kU-JBa" userLabel="Cancel button">
-                        <rect key="frame" x="660" y="3" width="82" height="32"/>
+                        <rect key="frame" x="660" y="5" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fNg-0f-sEm">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -104,7 +104,7 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyV-Tw-wt7" userLabel="Save button">
-                        <rect key="frame" x="12" y="3" width="138" height="32"/>
+                        <rect key="frame" x="12" y="5" width="138" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Reset to defaults" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gf2-bf-ORi">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
