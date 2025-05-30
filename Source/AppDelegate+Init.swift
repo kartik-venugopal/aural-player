@@ -102,18 +102,5 @@ extension AppDelegate {
         
         // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
         messenger.publish(.Application.launched, payload: filesToOpen)
-        
-        //                self.beginPeriodicPersistence()
     }
-    
-//    func beginPeriodicPersistence() {
-//        
-//        persistenceTaskExecutor = RepeatingTaskExecutor(intervalMillis: Self.persistenceTaskInterval * 1000,
-//                                                                         task: savePersistentState,
-//                                                                         queue: .global(qos: .background))
-//        
-//        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + Double(Self.persistenceTaskInterval)) {
-//            persistenceTaskExecutor.startOrResume()
-//        }
-//    }
 }

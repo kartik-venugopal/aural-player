@@ -9,6 +9,8 @@
 //
 import Foundation
 
+fileprivate let logger: Logger = .init()
+
 ///
 /// Handles persistence of application state to / from disk.
 ///
@@ -39,8 +41,24 @@ class PersistenceManager {
         persistentState.save(toFile: persistentStateFile)
     }
     
+    var persistentStateJSONData: Data? {
+        
+        do {
+            return try String(contentsOf: persistentStateFile, encoding: .utf8).data(using: .utf8)
+            
+        } catch {
+            
+            logger.error("Error loading app state config file: \(error)")
+            return nil
+        }
+    }
+    
     func load<S>(objectOfType type: S.Type) -> S? where S: Decodable {
         type.load(fromFile: persistentStateFile)
+    }
+    
+    func load<S>(objectOfType type: S.Type, fromJSONData data: Data) -> S? where S: Decodable {
+        type.load(fromJSONData: data)
     }
     
     func loadMetadata() -> MetadataPersistentState? {

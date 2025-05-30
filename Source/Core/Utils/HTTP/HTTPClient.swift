@@ -59,7 +59,7 @@ class HTTPClient {
     )
         throws -> NSDictionary?
     {
-        return try performGET(toURL: url, withHeaders: headers, timeout: timeout).toJSONObject()
+        return try performGET(toURL: url, withHeaders: headers, timeout: timeout).jsonAsNSDictionary
     }
 
     ///
@@ -163,11 +163,33 @@ extension HTTPURLResponse {
 }
 
 extension Data {
-
+    
     ///
     /// Attempts to construct an NSDictionary by deserializing this object's bytes as JSON.
     ///
-    func toJSONObject() throws -> NSDictionary? {
-        return try JSONSerialization.jsonObject(with: self, options: []) as? NSDictionary
+    var jsonAsNSDictionary: NSDictionary? {
+        
+        do {
+            return try JSONSerialization.jsonObject(with: self, options: []) as? NSDictionary
+            
+        } catch {
+            
+            logger.error("Unable to deserialize JSON as NSDictionary. Error: \(error)")
+            return nil
+        }
+    }
+    
+    var jsonAsDictionary: [String: Any]? {
+        
+        do {
+            return try JSONSerialization.jsonObject(with: self, options: []) as? [String: Any]
+            
+        } catch {
+            
+            logger.error("Unable to deserialize JSON as [String: Any]. Error: \(error)")
+            return nil
+        }
     }
 }
+
+fileprivate let logger: Logger = .init()

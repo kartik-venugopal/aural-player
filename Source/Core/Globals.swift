@@ -51,42 +51,37 @@ let jsonEncoder: JSONEncoder = {
     return encoder
 }()
 
-fileprivate var needToMigrateLegacySettings: Bool = false
-
 let appDelegate: AppDelegate = NSApp.delegate as! AppDelegate
 
 let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile,
                                                                 metadataStateFile: FilesAndPaths.metadataStateFile)
 
+fileprivate var needToMigrateLegacySettings: Bool = false
+
 let appPersistentState: AppPersistentState = {
     
-    // TODO: Replace try? with do {try} and log the error!
-    // TODO: Add an arg to Logger.error(error: Error)
-    guard let jsonString = try? String(contentsOf: FilesAndPaths.persistentStateFile, encoding: .utf8),
-          let jsonData = jsonString.data(using: .utf8),
-          let dict = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] else {
-        
-        logger.warning("Error loading app state config file.")
-        return .defaults
-    }
+    guard let jsonData = persistenceManager.persistentStateJSONData else {return .defaults}
     
-    if let appVersionString = dict["appVersion"] as? String,
+    if let dict = jsonData.jsonAsDictionary,
+       let appVersionString = dict["appVersion"] as? String,
        let appVersion = AppVersion(versionString: appVersionString) {
         
         if appVersion.majorVersion < 4 {
             
             needToMigrateLegacySettings = true
             
-            if let legacyPersistentState: LegacyAppPersistentState = persistenceManager.load(objectOfType: LegacyAppPersistentState.self) {
+            if let legacyPersistentState: LegacyAppPersistentState = persistenceManager.load(objectOfType: LegacyAppPersistentState.self,
+                                                                                             fromJSONData: jsonData) {
                 
                 // Attempt migration and return the mapped instance.
-//                print("Mapped persistent state from app version: \(appVersionString)\n")
+                // print("Mapped persistent state from app version: \(appVersionString)\n")
                 return AppPersistentState(legacyAppPersistentState: legacyPersistentState)
             }
         }
     }
     
-    return persistenceManager.load(objectOfType: AppPersistentState.self) ?? .defaults
+    return persistenceManager.load(objectOfType: AppPersistentState.self,
+                                   fromJSONData: jsonData) ?? .defaults
 }()
 
 let userDefaults: UserDefaults = .standard

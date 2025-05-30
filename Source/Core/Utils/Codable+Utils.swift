@@ -48,4 +48,16 @@ extension Decodable where Self: Decodable {
         
         return nil
     }
+    
+    static func load(fromJSONData data: Data) -> Self? {
+        
+        do {
+            return try jsonDecoder.decode(Self.self, from: data)
+            
+        } catch let error as NSError {
+            
+            NSLog("Error loading Decodable of type \(Self.self) from jsonData. Error: \(error.description)")
+            return nil
+        }
+    }
 }
