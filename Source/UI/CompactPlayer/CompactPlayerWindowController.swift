@@ -109,7 +109,7 @@ class CompactPlayerWindowController: NSWindowController {
         compactPlayerUIState.displayedView = .player
         
         if let rememberedLocation = compactPlayerUIState.windowLocation {
-            window?.setFrameOrigin(rememberedLocation)
+            window?.moveTo(rememberedLocation)
         }
         
         changeWindowCornerRadius(to: playerUIState.cornerRadius)

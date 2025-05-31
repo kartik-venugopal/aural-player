@@ -37,20 +37,20 @@ extension NSWindow {
     
     // X co-ordinate of location
     var x: CGFloat {
-        return self.frame.origin.x
+        self.frame.origin.x
     }
     
     // Y co-ordinate of location
     var y: CGFloat {
-        return self.frame.origin.y
+        self.frame.origin.y
     }
     
     var maxX: CGFloat {
-        return self.frame.maxX
+        self.frame.maxX
     }
     
     var maxY: CGFloat {
-        return self.frame.maxY
+        self.frame.maxY
     }
     
     func show() {
@@ -77,17 +77,35 @@ extension NSWindow {
     // Centers this window with respect to the screen and shows it.
     func showCenteredOnScreen() {
         
-//        let xPadding = (screen.width - dialog.width) / 2
-//        let yPadding = (screen.height - dialog.height) / 2
-//
-//        setFrameOrigin(NSPoint(x: xPadding, y: yPadding))
-        
         center()
         setIsVisible(true)
         
         if canBecomeKey {
             makeKeyAndOrderFront(self)
         }
+    }
+    
+    func moveTo(_ point: NSPoint, ensureVisible: Bool = true) {
+        
+        setFrameOrigin(point)
+        
+        if ensureVisible {
+            self.ensureVisible()
+        }
+    }
+    
+    func ensureVisible() {
+        
+        let screens = NSScreen.screens
+        
+        for screen in screens {
+            
+            if CGRectContainsRect(screen.visibleFrame, self.frame) {
+                return
+            }
+        }
+        
+        showCenteredOnScreen()
     }
 }
 

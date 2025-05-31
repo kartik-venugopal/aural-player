@@ -80,7 +80,9 @@ class UnifiedPlayerWindowController: NSWindowController {
         theWindow.delegate = self
         
         if let frame = unifiedPlayerUIState.windowFrame {
+            
             window?.setFrame(frame, display: true)
+            window?.ensureVisible()
         }
         
         setUpEventHandling()
