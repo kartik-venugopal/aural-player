@@ -64,6 +64,8 @@ class DiscretePlayer: PlayerProtocol {
         
         messenger.subscribe(to: .Player.stop, handler: stop)
         
+        messenger.subscribe(to: .Application.reopened, handler: appReopened(_:))
+        
         playQueue.registerObserver(AutoplayPlayQueueObserver())
     }
     

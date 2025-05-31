@@ -47,11 +47,8 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         
         super.init()
         
-        _ = setRepeatMode(persistentState?.repeatMode ?? .defaultMode)
-        _ = setShuffleMode(persistentState?.shuffleMode ?? .defaultMode)
-        
-        // Subscribe to notifications
-        messenger.subscribe(to: .Application.reopened, handler: appReopened(_:))
+        setRepeatMode(persistentState?.repeatMode ?? .defaultMode)
+        setShuffleMode(persistentState?.shuffleMode ?? .defaultMode)
     }
     
     func registerObserver(_ observer: any PlayQueueObserver) {
@@ -79,8 +76,11 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         let indices = IndexSet(sizeBeforeAdd..<sizeAfterAdd)
         
         for observer in observers.values {
+            print(observer.id)
             observer.addedTracks(dedupedTracks, at: indices, params: self.params)
         }
+        
+        print("")
         
         return indices
     }
@@ -303,62 +303,6 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     }
     
     // MARK: Notification handling ---------------------------------------------------------------
-    
-    // TODO: Move to player!
-    func appReopened(_ notification: AppReopenedNotification) {
-        
-        var allFilesExistInPQ = true
-        var existingFiles: Set<URL> = Set()
-        
-        for file in notification.filesToOpen {
-            
-            if findTrack(forFile: file) == nil {
-                allFilesExistInPQ = false
-            } else {
-                existingFiles.insert(file)
-            }
-        }
-        
-        if allFilesExistInPQ {
-            
-            if shuffleMode == .off {
-                
-                if let firstFile = notification.filesToOpen.first, let track = findTrack(forFile: firstFile) {
-                    player.play(track: track)
-                }
-                
-            } else {
-                
-                if let randomFile = notification.filesToOpen.randomElement(), let track = findTrack(forFile: randomFile) {
-                    player.play(track: track)
-                }
-            }
-            
-            return
-        }
-        
-        // MARK: Need to add at least one file to PQ -----------------------------------------------
-
-        // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-        let openWithAddMode = preferences.playQueuePreferences.openWithAddMode
-        let clearQueue: Bool = openWithAddMode == .replace
-        
-        let notDuplicateNotification = !notification.isDuplicateNotification
-        lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplay.autoplayAfterOpeningTracks
-        lazy var autoplayAfterOpeningOption: AutoplayPlaybackPreferences.AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplay.autoplayAfterOpeningOption
-        lazy var playerIsStopped: Bool = player.state.isStopped
-        lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
-        let autoplay: Bool = notDuplicateNotification && autoplayPreference
-        var autoplayCandidates: [URL]? = nil
-        
-        if autoplay, let firstFile = existingFiles.first {
-
-            // Add autoplay candidate
-            autoplayCandidates = [firstFile]
-        }
-        
-        loadTracks(from: notification.filesToOpen, params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: autoplay, autoplayCandidates: autoplayCandidates))
-    }
     
     var persistentState: PlayQueuePersistentState {
         

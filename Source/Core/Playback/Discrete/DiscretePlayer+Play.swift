@@ -221,6 +221,64 @@ extension DiscretePlayer {
         trackPlaybackCompletedChain.execute(requestContext)
     }
     
+    // MARK: App file open (from Finder) ------------------------------------------------------
+    
+    func appReopened(_ notification: AppReopenedNotification) {
+        
+        // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
+        let openWithAddMode = preferences.playQueuePreferences.openWithAddMode
+        let clearQueue: Bool = openWithAddMode == .replace
+        
+        let notDuplicateNotification = !notification.isDuplicateNotification
+        lazy var autoplayAfterOpeningPreference: Bool = preferences.playbackPreferences.autoplay.autoplayAfterOpeningTracks
+        lazy var autoplayAfterOpeningOption: AutoplayPlaybackPreferences.AutoplayAfterOpeningOption = preferences.playbackPreferences.autoplay.autoplayAfterOpeningOption
+        lazy var playerIsStopped: Bool = player.state.isStopped
+        lazy var autoplayPreference: Bool = autoplayAfterOpeningPreference && (autoplayAfterOpeningOption == .always || playerIsStopped)
+        let autoplay: Bool = notDuplicateNotification && autoplayPreference
+        var autoplayCandidates: [URL]? = nil
+        
+        var allFilesExistInPQ = true
+        var existingFiles: Set<URL> = Set()
+        
+        for file in notification.filesToOpen {
+            
+            if playQueue.findTrack(forFile: file) == nil {
+                allFilesExistInPQ = false
+            } else {
+                existingFiles.insert(file)
+            }
+        }
+        
+        if allFilesExistInPQ {
+            
+            if playQueue.shuffleMode == .off {
+                
+                if autoplay, let firstFile = notification.filesToOpen.first, let track = playQueue.findTrack(forFile: firstFile) {
+                    play(track: track)
+                }
+                
+            } else {
+                
+                if autoplay, let randomFile = notification.filesToOpen.randomElement(), let track = playQueue.findTrack(forFile: randomFile) {
+                    play(track: track)
+                }
+            }
+            
+            return
+        }
+        
+        // MARK: Need to add at least one file to PQ -----------------------------------------------
+
+        if autoplay, let firstFile = existingFiles.first {
+
+            // Add autoplay candidate
+            autoplayCandidates = [firstFile]
+        }
+        
+        playQueue.loadTracks(from: notification.filesToOpen,
+                             params: .init(clearQueue: clearQueue, autoplayFirstAddedTrack: autoplay, autoplayCandidates: autoplayCandidates))
+    }
+    
     // MARK: Gapless ------------------------------------------------------
     
     func beginGaplessPlayback() throws {
