@@ -98,15 +98,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
             
             if let fnfError = error as? FileNotFoundError {
                 
-                // TODO: When this error occurs, offer more options like "Point to the new location of the file".
-                
-                // This needs to be done async. Otherwise, other open dialogs could hang.
-                DispatchQueue.main.async {
-                    
-                    // Position and display an alert with error info
-                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark").showModal()
-                    bookmarks.deleteBookmarkWithName(sender.bookmark.name)
-                }
+                // TODO: [MED] When this error occurs, offer more options like "Point to the new location of the file".
+                NSAlert.showTrackNotPlayedAlertWithError(fnfError)
             }
         }
     }

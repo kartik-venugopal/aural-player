@@ -24,7 +24,7 @@ class AppInitializer {
         self.steps = steps
     }
     
-    func initializeApp() {
+    func initializeApp(completionHandler: @escaping () -> Void) {
         
         dialogController.showWindow(self)
         
@@ -45,6 +45,8 @@ class AppInitializer {
                 self.dialogController = nil
                 
                 appModeManager.presentApp()
+                
+                completionHandler()
             }
         }
     }

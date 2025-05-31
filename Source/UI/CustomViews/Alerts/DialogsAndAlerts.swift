@@ -148,39 +148,6 @@ struct DialogsAndAlerts {
         return alert
     }
     
-    static func trackNotPlayedAlertWithError(_ error: InvalidTrackError) -> NSAlert {
-        
-        configureAlert(alert, title: "Track not played",
-                       message: String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent),
-                       info: error.message,
-                       icon: .imgError,
-                       buttonTitles: ["OK"])
-        
-        return alert
-    }
-    
-    static func trackNotPlayedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
-        
-        configureAlert(alert, title: "Track not played",
-                       message: String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent),
-                       info: error.message,
-                       icon: .imgError,
-                       buttonTitles: [actionMessage ?? "OK"])
-        
-        return alert
-    }
-    
-    static func historyItemNotAddedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
-        
-        configureAlert(alert, title: "History item not found",
-                       message: String(format: "The history item '%@' cannot be added to the playlist !", error.file.lastPathComponent),
-                       info: error.message,
-                       icon: .imgError,
-                       buttonTitles: [actionMessage ?? "OK"])
-        
-        return alert
-    }
-    
     // Used to warn the user that certain files were not added to the playlist
     static func tracksNotAddedAlert(errors: [DisplayableError]) -> NSAlert {
         

@@ -44,7 +44,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var bookmarksMenu: NSMenu!
     
     // Delegate that performs CRUD on the history model
-    private lazy var messenger = Messenger(for: self)
+    lazy var messenger = Messenger(for: self)
     
     // One-time setup. When the menu is loaded for the first time, update the menu item states per the current playback modes
     override func awakeFromNib() {
@@ -67,47 +67,51 @@ class DockMenuController: NSObject, NSMenuDelegate {
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        // TODO: Recreate history and favorites menus here ???
         updateRepeatAndShuffleMenuItemStates()
     }
     
-    // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
-    @IBAction func favoritesAction(_ sender: Any) {
-        messenger.publish(.Favorites.addOrRemove)
-    }
-    
     // Responds to a notification that a track has been added to the Favorites list, by updating the Favorites menu.
-    func trackAddedToFavorites(_ favorite: Favorite) {
+    private func trackAddedToFavorites(_ favorite: Favorite) {
+        
+        // We only care about tracks in the Favorites list here.
+        guard let favoriteTrack = favorite as? FavoriteTrack else {return}
         
         // Add it to the menu
         let item = FavoritesMenuItem(title: favorite.name, action: #selector(self.playSelectedFavoriteAction(_:)))
         item.target = self
-        item.favorite = favorite
+        item.favorite = favoriteTrack
         
         favoritesMenu.insertItem(item, at: 0)
         
         // Update the toggle menu item
-//        if let plTrack = playbackInfo.playingTrack, plTrack.file == favorite.file {
-//            favoritesMenuItem.on()
-//        }
+        if let plTrack = player.playingTrack, plTrack == favoriteTrack.track {
+            favoritesMenuItem.on()
+        }
     }
     
     // Responds to a notification that a track has been removed from the Favorites list, by updating the Favorites menu.
-    func tracksRemovedFromFavorites(_ removedFavorites: Set<Favorite>) {
+    private func tracksRemovedFromFavorites(_ removedFavorites: Set<Favorite>) {
         
-        let itemsToRemove = favoritesMenu.items.compactMap {$0 as? FavoritesMenuItem}.filter {removedFavorites.contains($0.favorite)}
+        let removedFavoriteTracks = removedFavorites.compactMap {$0 as? FavoriteTrack}
+        
+        let itemsToRemove = favoritesMenu.items.compactMap {$0 as? FavoritesMenuItem}.filter {
+            
+            guard let favTrack = $0.favorite as? FavoriteTrack else {return false}
+            return removedFavoriteTracks.contains(favTrack)
+        }
+        
         itemsToRemove.forEach {favoritesMenu.removeItem($0)}
         
         // Update the toggle menu item
-//        let removedFavoritesFiles = Set(removedFavorites.map {$0.file})
-//        if let plTrack = playbackInfo.playingTrack, removedFavoritesFiles.contains(plTrack.file) {
-//            favoritesMenuItem.off()
-//        }
+        let tracksFromRemovedFavorites = removedFavoriteTracks.map {$0.track}
+        
+        if let plTrack = player.playingTrack, tracksFromRemovedFavorites.contains(plTrack) {
+            favoritesMenuItem.off()
+        }
     }
     
     // Responds to a notification that a track has been added to the Bookmarks list, by updating the Bookmarks menu.
-    func trackAddedToBookmarks(_ bookmark: Bookmark) {
+    private func trackAddedToBookmarks(_ bookmark: Bookmark) {
         
         // Add it to the menu
         let item = BookmarksMenuItem(title: bookmark.name, action: #selector(self.playSelectedBookmarkAction(_:)))
@@ -118,120 +122,10 @@ class DockMenuController: NSObject, NSMenuDelegate {
     }
     
     // Responds to a notification that a track has been removed from the Bookmarks list, by updating the Bookmarks menu.
-    func tracksRemovedFromBookmarks(_ removedBookmarks: Set<Bookmark>) {
+    private func tracksRemovedFromBookmarks(_ removedBookmarks: Set<Bookmark>) {
         
         let itemsToRemove = bookmarksMenu.items.compactMap {$0 as? BookmarksMenuItem}.filter {removedBookmarks.contains($0.bookmark)}
         itemsToRemove.forEach {bookmarksMenu.removeItem($0)}
-    }
-    
-    // When a "Recently played" or "Favorites" menu item is clicked, the item is played
-    @IBAction func playSelectedHistoryItemAction(_ sender: HistoryMenuItem) {
-        
-        guard let item = sender.historyItem else {return}
-        history.playItem(item)
-    }
-    
-    @IBAction func playSelectedFavoriteAction(_ sender: FavoritesMenuItem) {
-        
-        guard let favorite = sender.favorite else {return}
-        favorites.playFavorite(favorite)
-    }
-    
-    @IBAction func playSelectedBookmarkAction(_ sender: BookmarksMenuItem) {
-        
-        guard let bookmark = sender.bookmark else {return}
-        
-        do {
-            
-            try bookmarks.playBookmark(bookmark)
-            
-        } catch {
-            
-            if let fnfError = error as? FileNotFoundError {
-                
-                // This needs to be done async. Otherwise, other open dialogs could hang.
-                DispatchQueue.main.async {
-                    
-                    // Position and display an alert with error info
-                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark").showModal()
-                    bookmarks.deleteBookmarkWithName(sender.bookmark.name)
-                }
-            }
-        }
-    }
-    
-    // Pauses or resumes playback
-    @IBAction func playOrPauseAction(_ sender: AnyObject) {
-        messenger.publish(.Player.playOrPause)
-    }
-    
-    @IBAction func stopAction(_ sender: AnyObject) {
-        messenger.publish(.Player.stop)
-    }
-    
-    // Replays the currently playing track from the beginning, if there is one
-    @IBAction func replayTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.replayTrack)
-    }
-    
-    // Plays the previous track in the current playback sequence
-    @IBAction func previousTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.previousTrack)
-    }
-    
-    // Plays the next track in the current playback sequence
-    @IBAction func nextTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.nextTrack)
-    }
-    
-    // Seeks backward within the currently playing track
-    @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        messenger.publish(.Player.seekBackward, payload: UserInputMode.discrete)
-    }
-    
-    // Seeks forward within the currently playing track
-    @IBAction func seekForwardAction(_ sender: AnyObject) {
-        messenger.publish(.Player.seekForward, payload: UserInputMode.discrete)
-    }
-    
-    // Sets the repeat mode to "Off"
-    @IBAction func repeatOffAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.off)
-    }
-    
-    // Sets the repeat mode to "Repeat One"
-    @IBAction func repeatOneAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.one)
-    }
-    
-    // Sets the repeat mode to "Repeat All"
-    @IBAction func repeatAllAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.all)
-    }
-    
-    // Sets the shuffle mode to "Off"
-    @IBAction func shuffleOffAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setShuffleMode, payload: ShuffleMode.off)
-    }
-    
-    // Sets the shuffle mode to "On"
-    @IBAction func shuffleOnAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setShuffleMode, payload: ShuffleMode.on)
-    }
-    
-    // Mutes or unmutes the player
-    @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
-        messenger.publish(.Player.muteOrUnmute)
-    }
-    
-    // Decreases the volume by a certain preset decrement
-    @IBAction func decreaseVolumeAction(_ sender: Any) {
-        messenger.publish(.Player.decreaseVolume, payload: UserInputMode.discrete)
-    }
-    
-    // Increases the volume by a certain preset increment
-    @IBAction func increaseVolumeAction(_ sender: Any) {
-        messenger.publish(.Player.increaseVolume, payload: UserInputMode.discrete)
     }
     
     // Updates the menu item states per the current playback modes
@@ -285,42 +179,40 @@ class DockMenuController: NSObject, NSMenuDelegate {
     
     // MARK: Notification handling ---------------------------------------------------------------
     
-    // TODO: Implement!
-    func appLaunched(_ filesToOpen: [URL]) {
+    private func appLaunched(_ filesToOpen: [URL]) {
         
-//        recreateHistoryMenus()
-//        
-//        // Favorites menu
-//        favorites.allFavorites.reversed().forEach {
-//            
-//            let item = FavoritesMenuItem(title: $0.name, action: #selector(self.playSelectedFavoriteAction(_:)))
-//            item.target = self
-//            item.favorite = $0
-//            favoritesMenu.addItem(item)
-//        }
-//        
-//        bookmarks.allBookmarks.reversed().forEach {
-//            
-//            let item = BookmarksMenuItem(title: $0.name, action: #selector(self.playSelectedBookmarkAction(_:)))
-//            item.target = self
-//            item.bookmark = $0
-//            bookmarksMenu.addItem(item)
-//        }
+        recreateHistoryMenus()
+        
+        // Favorites menu
+        favorites.allFavoriteTracks.reversed().forEach {
+            
+            let item = FavoritesMenuItem(title: $0.name, action: #selector(self.playSelectedFavoriteAction(_:)))
+            item.target = self
+            item.favorite = $0
+            favoritesMenu.addItem(item)
+        }
+        
+        bookmarks.allBookmarks.reversed().forEach {
+            
+            let item = BookmarksMenuItem(title: $0.name, action: #selector(self.playSelectedBookmarkAction(_:)))
+            item.target = self
+            item.bookmark = $0
+            bookmarksMenu.addItem(item)
+        }
     }
     
-    // TODO: Implement!
-    func trackTransitioned(_ notification: TrackTransitionNotification) {
+    private func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-//        if let track = notification.endTrack {
-//            
-//            favoritesMenuItem.enable()
-//            favoritesMenuItem.onIf(favorites.favoriteTrackExists(track))
-//            
-//        } else {
-//            
-//            // No track playing
-//            favoritesMenuItem.off()
-//            favoritesMenuItem.disable()
-//        }
+        if let track = notification.endTrack {
+            
+            favoritesMenuItem.enable()
+            favoritesMenuItem.onIf(favorites.favoriteExists(track: track))
+            
+        } else {
+            
+            // No track playing
+            favoritesMenuItem.off()
+            favoritesMenuItem.disable()
+        }
     }
 }

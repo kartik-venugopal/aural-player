@@ -64,6 +64,8 @@ class Bookmarks: BookmarksProtocol {
     
     func playBookmark(_ bookmark: Bookmark) throws {
         
+        // TODO: [HIGH] Check that file still exists.
+        
         player.playNow(tracks: [bookmark.track], clearQueue: false,
                        params: PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition))
     }

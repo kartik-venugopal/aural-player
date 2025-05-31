@@ -813,6 +813,7 @@
 		3E86B5112C234B440097746A /* libswresample.xcframework in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3E0219A62C23497200865AC2 /* libswresample.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E8729842C1B98AE00EA88C2 /* AppModeSubMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8729832C1B98AE00EA88C2 /* AppModeSubMenuController.swift */; };
 		3E873D242DEA60D600B2BEC4 /* UpdateHistoryAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873D232DEA60D600B2BEC4 /* UpdateHistoryAction.swift */; };
+		3E873D262DEA759600B2BEC4 /* DockMenuController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873D252DEA759600B2BEC4 /* DockMenuController+Actions.swift */; };
 		3E873FA72DA6AF6A00BBE508 /* AudioGraph+Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873FA62DA6AF6A00BBE508 /* AudioGraph+Engine.swift */; };
 		3E873FA92DA6BF1600BBE508 /* AudioEngine+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873FA82DA6BF1600BBE508 /* AudioEngine+API.swift */; };
 		3E873FAB2DA6C04F00BBE508 /* AudioEngine+AU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873FAA2DA6C04F00BBE508 /* AudioEngine+AU.swift */; };
@@ -1958,6 +1959,7 @@
 		3E86B5062C234A420097746A /* buildingLibrary.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = buildingLibrary.gif; sourceTree = "<group>"; };
 		3E8729832C1B98AE00EA88C2 /* AppModeSubMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModeSubMenuController.swift; sourceTree = "<group>"; };
 		3E873D232DEA60D600B2BEC4 /* UpdateHistoryAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateHistoryAction.swift; sourceTree = "<group>"; };
+		3E873D252DEA759600B2BEC4 /* DockMenuController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DockMenuController+Actions.swift"; sourceTree = "<group>"; };
 		3E873FA62DA6AF6A00BBE508 /* AudioGraph+Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioGraph+Engine.swift"; sourceTree = "<group>"; };
 		3E873FA82DA6BF1600BBE508 /* AudioEngine+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioEngine+API.swift"; sourceTree = "<group>"; };
 		3E873FAA2DA6C04F00BBE508 /* AudioEngine+AU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioEngine+AU.swift"; sourceTree = "<group>"; };
@@ -4598,6 +4600,7 @@
 				3E6C0FE525CEB98600BF0D07 /* ViewMenuController.swift */,
 				3E8729832C1B98AE00EA88C2 /* AppModeSubMenuController.swift */,
 				3E6C0FE625CEB98600BF0D07 /* DockMenuController.swift */,
+				3E873D252DEA759600B2BEC4 /* DockMenuController+Actions.swift */,
 				3E6C0FE825CEB98600BF0D07 /* SupportMenuController.swift */,
 				3E6C0FE925CEB98600BF0D07 /* BookmarksMenuController.swift */,
 				3E6C0FEA25CEB98600BF0D07 /* FavoritesMenuController.swift */,
@@ -6622,6 +6625,7 @@
 				3E25B65927F78C0B00D10A5F /* TrackListTableViewController.swift in Sources */,
 				3E0218CD2C23490E00865AC2 /* PlaybackSegment.swift in Sources */,
 				3E02190E2C23490E00865AC2 /* ControlsPreferences.swift in Sources */,
+				3E873D262DEA759600B2BEC4 /* DockMenuController+Actions.swift in Sources */,
 				3E009E322DB47A2900596E0A /* SequencingProtocol.swift in Sources */,
 				3E6C12E925CEBE8100BF0D07 /* PlayingTrackFunctionsMenuDelegate.swift in Sources */,
 				3E0218102C23490E00865AC2 /* PitchShiftPresets.swift in Sources */,

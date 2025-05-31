@@ -33,6 +33,17 @@ extension NSAlert {
         _ = shared.runModal()
     }
     
+    static func showTrackNotPlayedAlertWithError(_ error: FileNotFoundError) {
+        
+        shared.messageText = "Track not played"
+        shared.informativeText = "The track '\(error.file.lastPathComponent)' cannot be played back !"
+        
+        shared.alertStyle = .critical
+        shared.icon = .imgError
+        
+        _ = shared.runModal()
+    }
+    
     static func showInfo(withTitle title: String, andText text: String) {
         
         shared.messageText = title

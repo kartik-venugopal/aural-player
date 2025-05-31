@@ -95,12 +95,13 @@ extension AppDelegate {
     
     func postLaunch() {
         
-        appInitializer.initializeApp()
-        
-        // Update the appLaunched flag
-        appLaunched = true
-        
-        // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
-        messenger.publish(.Application.launched, payload: filesToOpen)
+        appInitializer.initializeApp {
+            
+            // Update the appLaunched flag
+            appLaunched = true
+            
+            // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
+            self.messenger.publish(.Application.launched, payload: self.filesToOpen)
+        }
     }
 }
