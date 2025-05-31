@@ -40,7 +40,6 @@ class RemoteControlManager {
         
         self.remoteCommandManager = RemoteCommandManager()
         
-        // TODO: Replace last arg with constructor arg
         self.nowPlayingInfoManager = NowPlayingInfoManager(player: player, playQueue: playQueue)
         
         self.preferences = preferences

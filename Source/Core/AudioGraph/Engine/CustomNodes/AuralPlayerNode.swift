@@ -219,8 +219,8 @@ class AuralPlayerNode: AVAudioPlayerNode {
     
     private func areStartAndEndTimeValid(_ startTime: Double, _ endTime: Double?) -> Bool {
         
-        if let theEndTime = endTime {
-            return startTime >= 0 && theEndTime >= 0 && startTime <= theEndTime
+        if let endTime {
+            return startTime >= 0 && endTime >= 0 && startTime <= endTime
         }
         
         return startTime >= 0
@@ -245,11 +245,11 @@ class AuralPlayerNode: AVAudioPlayerNode {
         var segmentEndTime: Double
 
         // Check if end time is specified.
-        if let theEndTime = endTime {
+        if let endTime {
 
             // Use loop end time to calculate the last frame. Ensure the last frame doesn't go past the actual last frame in the file. Rounding may cause this problem.
-            lastFrame = min(AVAudioFramePosition.fromPlaybackPosition(theEndTime, sampleRate), lastFrameInFile)
-            segmentEndTime = theEndTime
+            lastFrame = min(AVAudioFramePosition.fromPlaybackPosition(endTime, sampleRate), lastFrameInFile)
+            segmentEndTime = endTime
 
         } else {
 

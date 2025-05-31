@@ -58,10 +58,10 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     private func updateSettingsMemoryControls(forTrack track: Track?) {
         
-        if let theTrack = track {
+        if let track {
             
             [btnRememberSettings, lblRememberSettings].forEach {$0?.show()}
-            btnRememberSettings.onIf(soundProfiles.hasFor(theTrack))
+            btnRememberSettings.onIf(soundProfiles.hasFor(track))
             
         } else {
             [btnRememberSettings, lblRememberSettings].forEach {$0?.hide()}

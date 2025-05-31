@@ -153,8 +153,6 @@ class TrackRead {
     let track: Track
     var result: TrackReadResult
     
-    // TODO: Add a field for track.validationError ???
-    
     init(track: Track, result: TrackReadResult) {
         
         self.track = track

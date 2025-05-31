@@ -131,10 +131,10 @@ class PlayingTrackFunctionsMenuDelegate: NSObject, NSMenuDelegate, Destroyable {
         let formattedStartTime: String = ValueFormatter.formatSecondsToHMS(startTime)
         let defaultBookmarkName: String
         
-        if let theEndTime = endTime {
+        if let endTime {
             
             // Loop
-            let formattedEndTime: String = ValueFormatter.formatSecondsToHMS(theEndTime)
+            let formattedEndTime: String = ValueFormatter.formatSecondsToHMS(endTime)
             defaultBookmarkName = "\(playingTrack.displayName) (\(formattedStartTime) ⇄ \(formattedEndTime))"
             
         } else {

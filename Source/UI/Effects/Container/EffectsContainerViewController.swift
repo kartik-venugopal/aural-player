@@ -137,9 +137,6 @@ class EffectsContainerViewController: NSViewController {
         
         fxUnitStateObserverRegistry.registerAUCompositeStateObserver(auTabViewButton)
         
-        // TODO: Add state observer for AU tab button (complicated - composite function comprising states of individual AUs)
-        // Might need an overload of registerObserver that takes a function instead of an FXUnitDelegate.
-
         auTabViewButton.stateFunction = {
             audioGraph.audioUnits.first(where: {$0.state == .active || $0.state == .suppressed})?.state ?? .bypassed
         }

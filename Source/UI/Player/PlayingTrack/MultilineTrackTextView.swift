@@ -186,14 +186,6 @@ class MultilineTrackTextView: NSView {
      */
     private func attributedString(_ text: String, _ font: NSFont, _ color: NSColor, _ lineSpacing: CGFloat? = nil) -> NSAttributedString {
         
-        // TODO: Figure out how to do this flexibly and optimally
-        
-//        let shadow: NSShadow = NSShadow()
-//        shadow.shadowColor = shadowColor
-//        shadow.shadowOffset = NSSize(width: -0.5, height: -0.5)
-//        shadow.shadowBlurRadius = 3
-//        var attributes = [ NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.shadow: shadow ]
-        
         var attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
         let style = NSMutableParagraphStyle()
         var str: String = text

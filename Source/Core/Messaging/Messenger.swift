@@ -400,10 +400,10 @@ extension Notification {
         
         set {
             
-            if let theValue = newValue {
+            if let newValue {
                 
                 if userInfo == nil {userInfo = [:]}
-                userInfo![Self.userInfoKey_payload] = theValue
+                userInfo![Self.userInfoKey_payload] = newValue
             }
         }
     }

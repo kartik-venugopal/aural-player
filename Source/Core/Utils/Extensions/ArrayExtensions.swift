@@ -46,19 +46,6 @@ extension Array {
     }
 }
 
-// TODO: Replace Range / ClosedRange with IndexSet
-
-extension Array where Element: Hashable {
-    
-    mutating func addItems(_ items: OrderedSet<Element>) -> ClosedRange<Int> {
-        
-        let firstIndex: Int = self.count
-        self.append(contentsOf: items)
-        
-        return firstIndex...self.lastIndex
-    }
-}
-
 extension Array where Element: Equatable {
     
     mutating func removeItem(_ item: Element) -> Int? {
@@ -112,12 +99,12 @@ extension Array {
         return lastIndex
     }
     
-    mutating func addItems(_ items: [Element]) -> ClosedRange<Int> {
+    mutating func addItems(_ items: [Element]) -> IndexSet {
         
         let firstIndex: Int = self.count
         self.append(contentsOf: items)
         
-        return firstIndex...self.lastIndex
+        return IndexSet(firstIndex...self.lastIndex)
     }
     
     mutating func removeItem(at index: Int) -> Element? {

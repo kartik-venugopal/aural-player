@@ -50,8 +50,8 @@ struct PlaybackLoop: Equatable {
     // Calculates the duration of this loop (if end time is defined)
     var duration: Double {
         
-        if let theEndTime = endTime {
-            return theEndTime - startTime
+        if let endTime {
+            return endTime - startTime
         }
         
         return 0
@@ -60,8 +60,8 @@ struct PlaybackLoop: Equatable {
     private mutating func correctTimesIfNecessary() {
         
         // Because of floating-point precision, this may be necessary.
-        if let theEndTime = endTime, startTime > theEndTime {
-            self.startTime = theEndTime
+        if let endTime, startTime > endTime {
+            self.startTime = endTime
         }
     }
     
@@ -69,8 +69,8 @@ struct PlaybackLoop: Equatable {
     func containsPosition(_ timePosn: Double) -> Bool {
         
         // If the loop is complete, simply check if the time position is contained within the loop's bounds.
-        if let theEndTime = endTime {
-            return timePosn >= startTime && timePosn <= theEndTime
+        if let endTime {
+            return timePosn >= startTime && timePosn <= endTime
         }
         
         // If the loop is not complete, but the time position is greater than the start time, we can say that this loop contains

@@ -59,10 +59,13 @@ class MasterUnitView: NSView {
     
     private func audioUnitsRemoved(_ indexes: IndexSet) {
         
-        for index in indexes.sorted(by: {$0 > $1}) {
+        for index in indexes.sorted(by: >) {
             
-            // Adjust index for icon menu item + 7 built-in FX units.
-            let adjustedIndex = index + 7
+            // TODO: Replay Gain has been disabled, so now it's 6 built-in units.
+            // // Adjust index for icon menu item + 7 built-in FX units.
+            
+            // Adjust index for icon menu item + 6 built-in FX units.
+            let adjustedIndex = index + 6
             btnFuseBoxMenu.menu?.removeItem(at: adjustedIndex)
             fuseVCs.remove(at: adjustedIndex).destroy()
         }

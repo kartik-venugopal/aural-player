@@ -58,6 +58,8 @@ class DiscretePlayer: PlayerProtocol {
         messenger.subscribe(to: .PlayQueue.playingTrackRemoved, handler: initiateStop(_:))
         
         messenger.subscribeAsync(to: .AudioGraph.outputDeviceChanged, handler: audioOutputDeviceChanged)
+        messenger.subscribeAsync(to: .AudioGraph.preGraphChange, handler: preAudioGraphChange(_:))
+        messenger.subscribeAsync(to: .AudioGraph.graphChanged, handler: audioGraphChanged(_:))
         
         // Commands
         messenger.subscribeAsync(to: .Player.autoplay, handler: autoplay(_:))

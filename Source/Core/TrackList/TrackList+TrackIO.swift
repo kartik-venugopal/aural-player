@@ -10,11 +10,6 @@
 
 import Foundation
 
-// TODO: *********** How about using an OrderedSet<Track> to collect the tracks ?
-
-// What if a track exists in a different track list ? (Play Queue / Library). Should we have a global track registry ?
-// What about notifications / errors ? Return a result ?
-
 extension TrackList: TrackListFileSystemLoadingProtocol {
     
     func loadTracksAsync(from urls: [URL], atPosition insertionIndex: Int?) {
@@ -51,7 +46,6 @@ extension TrackList: TrackListFileSystemLoadingProtocol {
 
                 // Directory
 
-                // TODO: This is sorting by filename ... do we want this or something else ? User-configurable "add ordering" ?
                 if let dirContents = resolvedURL.children {
                     readURLs(dirContents.sorted(by: {$0.lastPathComponent < $1.lastPathComponent}))
                 }
