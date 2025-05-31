@@ -16,6 +16,8 @@ extension History: PlayQueueObserver {
         "History"
     }
     
+    var observerPriority: Int {1}
+    
     func startedAddingTracks(params: PlayQueueTrackLoadParams) {}
     
     func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {}

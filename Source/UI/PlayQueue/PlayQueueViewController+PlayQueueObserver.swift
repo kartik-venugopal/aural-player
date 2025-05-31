@@ -10,31 +10,12 @@
 
 import AppKit
 
-extension PlayQueueViewController: PlayQueueObserver {
-    
-    var id: String {
-        className
-    }
-    
-    func startedAddingTracks(params: PlayQueueTrackLoadParams) {
-        doStartedAddingTracks()
-    }
+extension PlayQueueViewController {
     
     @objc func doStartedAddingTracks() {}
     
-    func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams) {
-        doAddedTracks(at: trackIndices)
-    }
-    
     @objc func doAddedTracks(at trackIndices: IndexSet) {
-        
-        DispatchQueue.main.async {
-            self.tracksAdded(at: trackIndices)
-        }
-    }
-    
-    func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams) {
-        doDoneAddingTracks()
+        tracksAdded(at: trackIndices)
     }
     
     @objc func doDoneAddingTracks() {}

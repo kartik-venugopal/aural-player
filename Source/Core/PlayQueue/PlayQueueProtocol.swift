@@ -1,3 +1,13 @@
+//
+// DiscretePlayer+State.swift
+// Aural
+//
+// Copyright © 2025 Kartik Venugopal. All rights reserved.
+//
+// This software is licensed under the MIT software license.
+// See the file "LICENSE" in the project root directory for license terms.
+//
+
 import Foundation
 
 protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
@@ -8,7 +18,11 @@ protocol PlayQueueProtocol: TrackListProtocol, SequencingProtocol {
     
     var tracksPendingPlayback: [Track] {get}
     
+    func registerUIObserver(_ observer: any PlayQueueUIObserver)
+    
     func registerObserver(_ observer: any PlayQueueObserver)
+    
+    func removeUIObserver()
     
     func removeObserver(_ observer: any PlayQueueObserver)
     

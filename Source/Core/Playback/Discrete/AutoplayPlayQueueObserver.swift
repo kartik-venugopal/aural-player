@@ -16,6 +16,8 @@ class AutoplayPlayQueueObserver: PlayQueueObserver {
         "AutoplayPlayQueueObserver"
     }
     
+    var observerPriority: Int {0}
+    
     private var autoplayFirstAddedTrack: Bool = false
     
     func startedAddingTracks(params: PlayQueueTrackLoadParams) {

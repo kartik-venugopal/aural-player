@@ -10,16 +10,20 @@
 
 import AppKit
 
-extension CompactPlayQueueViewController {
+extension CompactPlayQueueViewController: PlayQueueUIObserver {
     
-    override func doStartedAddingTracks() {
+    var id: String {
+        className
+    }
+    
+    func startedAddingTracks(params: PlayQueueTrackLoadParams, completionHandler: @escaping () -> Void) {
         
         DispatchQueue.main.async {
             self.progressSpinner.animate()
         }
     }
     
-    override func doAddedTracks(at trackIndices: IndexSet) {
+    func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams, completionHandler: @escaping () -> Void) {
         
         DispatchQueue.main.async {
             
@@ -28,7 +32,7 @@ extension CompactPlayQueueViewController {
         }
     }
     
-    override func doDoneAddingTracks() {
+    func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams, completionHandler: @escaping () -> Void) {
         
         DispatchQueue.main.async {
             self.progressSpinner.dismiss()

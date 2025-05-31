@@ -14,9 +14,23 @@ protocol PlayQueueObserver {
     
     var id: String {get}
     
+    // Lower number = higher priority
+    var observerPriority: Int {get}
+    
     func startedAddingTracks(params: PlayQueueTrackLoadParams)
     
     func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams)
     
     func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams)
+}
+
+protocol PlayQueueUIObserver {
+    
+    var id: String {get}
+    
+    func startedAddingTracks(params: PlayQueueTrackLoadParams, completionHandler: @escaping () -> Void)
+    
+    func addedTracks(_ tracks: [Track], at trackIndices: IndexSet, params: PlayQueueTrackLoadParams, completionHandler: @escaping () -> Void)
+    
+    func doneAddingTracks(urls: [URL], params: PlayQueueTrackLoadParams, completionHandler: @escaping () -> Void)
 }

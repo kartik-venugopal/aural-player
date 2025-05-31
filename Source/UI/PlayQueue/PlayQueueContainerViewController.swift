@@ -66,6 +66,21 @@ class PlayQueueContainerViewController: NSViewController {
         }
     }
     
+    var nonCurrentViewControllers: [PlayQueueViewController] {
+        
+        switch playQueueUIState.currentView {
+            
+        case .simple:
+            return [expandedViewController, tabularViewController]
+            
+        case .expanded:
+            return [simpleViewController, tabularViewController]
+            
+        case .tabular:
+            return [simpleViewController, expandedViewController]
+        }
+    }
+    
     lazy var messenger: Messenger = Messenger(for: self)
     
     override func viewDidLoad() {
@@ -124,7 +139,7 @@ class PlayQueueContainerViewController: NSViewController {
     
     func initSubscriptions() {
         
-        playQueue.registerObserver(self)
+        playQueue.registerUIObserver(self)
         
         messenger.subscribe(to: .PlayQueue.addTracks, handler: importFilesAndFolders)
         

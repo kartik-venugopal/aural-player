@@ -1,5 +1,17 @@
+//
+// DiscretePlayer+State.swift
+// Aural
+//
+// Copyright © 2025 Kartik Venugopal. All rights reserved.
+//
+// This software is licensed under the MIT software license.
+// See the file "LICENSE" in the project root directory for license terms.
+//
+
 import AVFoundation
 import OrderedCollections
+
+fileprivate typealias ObserverNotification = () -> Void
 
 class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
@@ -41,7 +53,13 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     var params: PlayQueueTrackLoadParams!
     
     lazy var messenger: Messenger = .init(for: self)
+    
+    var uiObserver: (any PlayQueueUIObserver)? = nil
     var observers: [String: any PlayQueueObserver] = [:]
+    
+    private var sortedObservers: [PlayQueueObserver] {
+        observers.values.sorted(by: {$0.observerPriority < $1.observerPriority})
+    }
     
     init(persistentState: PlayQueuePersistentState?) {
         
@@ -49,6 +67,14 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         
         setRepeatMode(persistentState?.repeatMode ?? .defaultMode)
         setShuffleMode(persistentState?.shuffleMode ?? .defaultMode)
+    }
+    
+    func registerUIObserver(_ observer: any PlayQueueUIObserver) {
+        uiObserver = observer
+    }
+    
+    func removeUIObserver() {
+        uiObserver = nil
     }
     
     func registerObserver(_ observer: any PlayQueueObserver) {
@@ -74,13 +100,21 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
         
         let indices = IndexSet(sizeBeforeAdd..<sizeAfterAdd)
+        let copiedParams = self.params!
         
-        for observer in observers.values {
-            print(observer.id)
-            observer.addedTracks(dedupedTracks, at: indices, params: self.params)
+        let notification: ObserverNotification = {
+            
+            for observer in self.sortedObservers {
+                observer.addedTracks(dedupedTracks, at: indices, params: copiedParams)
+            }
         }
         
-        print("")
+        // Some Presentation Modes don't have a Play Queue UI (eg. Widget / Menu Bar)
+        if let uiObserver {
+            uiObserver.addedTracks(dedupedTracks, at: indices, params: copiedParams, completionHandler: notification)
+        } else {
+            notification()
+        }
         
         return indices
     }
@@ -151,9 +185,20 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
         
         let indices = IndexSet(insertionIndex..<(insertionIndex + dedupedTracks.count))
+        let copiedParams = self.params!
         
-        for observer in observers.values {
-            observer.addedTracks(dedupedTracks, at: indices, params: self.params)
+        let notification: ObserverNotification = {
+            
+            for observer in self.sortedObservers {
+                observer.addedTracks(dedupedTracks, at: indices, params: copiedParams)
+            }
+        }
+        
+        // Some Presentation Modes don't have a Play Queue UI (eg. Widget / Menu Bar)
+        if let uiObserver {
+            uiObserver.addedTracks(dedupedTracks, at: indices, params: copiedParams, completionHandler: notification)
+        } else {
+            notification()
         }
         
         return indices
@@ -288,15 +333,40 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
     
     override func preTrackLoad() {
         
-        for observer in observers.values {
-            observer.startedAddingTracks(params: self.params)
+        let copiedParams = self.params!
+        
+        let notification: ObserverNotification = {
+            
+            for observer in self.sortedObservers {
+                observer.startedAddingTracks(params: copiedParams)
+            }
+        }
+        
+        // Some Presentation Modes don't have a Play Queue UI (eg. Widget / Menu Bar)
+        if let uiObserver {
+            uiObserver.startedAddingTracks(params: copiedParams, completionHandler: notification)
+        } else {
+            notification()
         }
     }
     
     override func postTrackLoad() {
         
-        for observer in observers.values {
-            observer.doneAddingTracks(urls: session.urls, params: self.params)
+        let copiedParams = self.params!
+        let sessionURLs = self.session.urls
+        
+        let notification: ObserverNotification = {
+            
+            for observer in self.sortedObservers {
+                observer.doneAddingTracks(urls: sessionURLs, params: copiedParams)
+            }
+        }
+        
+        // Some Presentation Modes don't have a Play Queue UI (eg. Widget / Menu Bar)
+        if let uiObserver {
+            uiObserver.doneAddingTracks(urls: sessionURLs, params: copiedParams, completionHandler: notification)
+        } else {
+            notification()
         }
         
         self.params = nil

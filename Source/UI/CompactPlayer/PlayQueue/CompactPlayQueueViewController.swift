@@ -29,6 +29,8 @@ class CompactPlayQueueViewController: PlayQueueViewController {
         
         super.viewDidLoad()
         
+        playQueue.registerUIObserver(self)
+        
         messenger.subscribe(to: .PlayQueue.showPlayingTrack, handler: showPlayingTrack)
         messenger.subscribe(to: .PlayQueue.updateSummary, handler: updateSummary)
         

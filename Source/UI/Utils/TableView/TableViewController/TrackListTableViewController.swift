@@ -404,7 +404,10 @@ class TrackListTableViewController: NSViewController, NSTableViewDelegate, FontS
         guard indices.isNonEmpty else {return}
         
         tableView.noteNumberOfRowsChanged()
-        tableView.reloadRows(indices.min()!..<numberOfTracks)
+        
+        if let minIndex = indices.min() {
+            tableView.reloadRows(minIndex..<numberOfTracks)
+        }
     }
     
     func tracksAppended() {

@@ -63,7 +63,6 @@ class PlayQueueViewController: TrackListTableViewController {
         super.viewDidLoad()
         
         tableView.menu = contextMenu
-        playQueue.registerObserver(self)
         
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.activeControlColor, handler: activeControlColorChanged(_:))
         
