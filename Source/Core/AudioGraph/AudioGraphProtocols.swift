@@ -48,7 +48,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol {
     var reverbUnit: ReverbUnitProtocol {get}
     var delayUnit: DelayUnitProtocol {get}
     var filterUnit: FilterUnitProtocol {get}
-    var replayGainUnit: ReplayGainUnitProtocol {get}
+//    var replayGainUnit: ReplayGainUnitProtocol {get}
     
     var audioUnits: [HostedAudioUnitProtocol] {get}
     var audioUnitsState: EffectsUnitState {get}

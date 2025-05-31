@@ -50,7 +50,7 @@ extension ReplayGainUnit {
         
         replayGain = nil
         self._isScanning.setFalse()
-        replayGainScanner.cancelOngoingScan()
+//        replayGainScanner.cancelOngoingScan()
         Messenger.publish(.Effects.ReplayGainUnit.scanCompleted)
     }
     
@@ -93,7 +93,7 @@ extension ReplayGainUnit {
                     self.scanStatus = "Analyzing album ..."
                     Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
                     
-                    replayGainScanner.scanAlbum(named: albumName, withFiles: albumFiles, forFile: track.file, completionHandler)
+//                    replayGainScanner.scanAlbum(named: albumName, withFiles: albumFiles, forFile: track.file, completionHandler)
                     return
                 }
             }
@@ -101,7 +101,7 @@ extension ReplayGainUnit {
             self.scanStatus = "Analyzing track ..."
             Messenger.publish(.Effects.ReplayGainUnit.scanInitiated)
             
-            replayGainScanner.scanTrack(file: file, completionHandler)
+//            replayGainScanner.scanTrack(file: file, completionHandler)
         }
     }
     

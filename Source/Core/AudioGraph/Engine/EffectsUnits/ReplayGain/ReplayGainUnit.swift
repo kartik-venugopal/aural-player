@@ -36,9 +36,13 @@ class ReplayGainUnit: EffectsUnit, ReplayGainUnitProtocol {
         
         presets = ReplayGainPresets(persistentState: persistentState)
         
-        super.init(unitType: .replayGain,
+        super.init(unitType: .eq,
                    unitState: persistentState?.state ?? AudioGraphDefaults.replayGainState,
                    renderQuality: persistentState?.renderQuality)
+        
+//        super.init(unitType: .replayGain,
+//                   unitState: persistentState?.state ?? AudioGraphDefaults.replayGainState,
+//                   renderQuality: persistentState?.renderQuality)
         
         parmsChanged()
         

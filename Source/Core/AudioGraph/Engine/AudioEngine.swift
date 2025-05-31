@@ -31,11 +31,12 @@ class AudioEngine {
     var reverbUnit: ReverbUnitProtocol
     var delayUnit: DelayUnitProtocol
     var filterUnit: FilterUnitProtocol
-    var replayGainUnit: ReplayGainUnitProtocol
+//    var replayGainUnit: ReplayGainUnitProtocol
     var audioUnits: [HostedAudioUnitProtocol]
     
     var allUnits: [any EffectsUnitProtocol] {
-        [masterUnit, eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit] + audioUnits
+//        [masterUnit, eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit] + audioUnits
+        [masterUnit, eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit] + audioUnits
     }
     
     var allNodes: [AVAudioNode] {
@@ -71,7 +72,7 @@ class AudioEngine {
         reverbUnit = ReverbUnit(persistentState: persistentState?.reverbUnit)
         delayUnit = DelayUnit(persistentState: persistentState?.delayUnit)
         filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)
-        replayGainUnit = ReplayGainUnit(persistentState: persistentState?.replayGainUnit)
+//        replayGainUnit = ReplayGainUnit(persistentState: persistentState?.replayGainUnit)
         
         audioUnitPresets = AudioUnitPresetsMap(persistentState: persistentState?.audioUnitPresets)
         audioUnits = []
@@ -87,7 +88,8 @@ class AudioEngine {
             audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState, presets: presets))
         }
         
-        let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit]
+//        let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit]
+        let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit]
         masterUnit = MasterUnit(persistentState: persistentState?.masterUnit,
                                 nativeSlaveUnits: nativeSlaveUnits.compactMap {$0 as? EffectsUnit},
                                 audioUnits: audioUnits.compactMap {$0 as? HostedAudioUnit})

@@ -142,7 +142,8 @@ class SecondaryObjectsInitializer: AppInitializationComponent {
             
             //        _ = libraryDelegate
             
-            eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
+//            eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager, replayGainScanner)
+            eagerlyInitializeObjects(mediaKeyHandler, remoteControlManager)
             WaveformView.initializeImageCache()
             lastFMClient.retryFailedScrobbleAttempts()
         }

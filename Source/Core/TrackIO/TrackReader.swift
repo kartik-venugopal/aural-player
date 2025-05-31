@@ -288,8 +288,8 @@ class TrackReader {
     ///
     func loadAuxiliaryMetadata(for track: Track) {
         
-        track.audioInfo.replayGainFromMetadata = track.replayGain
-        track.audioInfo.replayGainFromAnalysis = replayGainScanner.cachedReplayGainData(forTrack: track)
+//        track.audioInfo.replayGainFromMetadata = track.replayGain
+//        track.audioInfo.replayGainFromAnalysis = replayGainScanner.cachedReplayGainData(forTrack: track)
         
         loadExternalMetadataAsync(for: track)
     }

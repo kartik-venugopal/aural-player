@@ -123,7 +123,7 @@ let playbackProfiles = PlaybackProfiles(player: player, playQueue: playQueue,
                                         preferences: preferences.playbackPreferences,
                                         persistentState: appPersistentState.playbackProfiles ?? [])
 
-let replayGainScanner = ReplayGainScanner(persistentState: appPersistentState.audioGraph?.replayGainAnalysisCache)
+//let replayGainScanner = ReplayGainScanner(persistentState: appPersistentState.audioGraph?.replayGainAnalysisCache)
 
 let history: HistoryProtocol = History(persistentState: appPersistentState.history)
 

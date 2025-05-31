@@ -1,5 +1,5 @@
 //
-// DiscretePlayer+State.swift
+// PlayQueueProtocol.swift
 // Aural
 //
 // Copyright © 2025 Kartik Venugopal. All rights reserved.

@@ -43,14 +43,17 @@ class EffectsContainerViewController: NSViewController {
     private let filterViewController: FilterUnitViewController = .init(for: audioGraph.filterUnit,
                                                                        presets: audioGraph.filterUnit.presets)
     
-    private let replayGainViewController: ReplayGainUnitViewController = .init(for: audioGraph.replayGainUnit,
-                                                                               presets: audioGraph.replayGainUnit.presets)
+//    private let replayGainViewController: ReplayGainUnitViewController = .init(for: audioGraph.replayGainUnit,
+//                                                                               presets: audioGraph.replayGainUnit.presets)
     
     private let auViewController: AudioUnitsViewController = AudioUnitsViewController()
     private let devicesViewController: DevicesViewController = DevicesViewController()
     
     private lazy var viewControllers = [masterViewController, eqViewController, pitchViewController, timeViewController,
-                                        reverbViewController, delayViewController, filterViewController, replayGainViewController, auViewController, devicesViewController]
+                                        reverbViewController, delayViewController, filterViewController, auViewController, devicesViewController]
+    
+//    private lazy var viewControllers = [masterViewController, eqViewController, pitchViewController, timeViewController,
+//                                        reverbViewController, delayViewController, filterViewController, replayGainViewController, auViewController, devicesViewController]
 
     // Tab view and its buttons
 
@@ -64,12 +67,15 @@ class EffectsContainerViewController: NSViewController {
     @IBOutlet weak var reverbTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var delayTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var replayGainTabViewButton: EffectsUnitTabButton!
+//    @IBOutlet weak var replayGainTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var auTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var devicesTabViewButton: EffectsUnitTabButton!
-
+    
     private lazy var tabViewButtons: [EffectsUnitTabButton] = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton,
-                                                                                delayTabViewButton, filterTabViewButton, replayGainTabViewButton, auTabViewButton, devicesTabViewButton]
+                                                                                delayTabViewButton, filterTabViewButton, auTabViewButton, devicesTabViewButton]
+
+//    private lazy var tabViewButtons: [EffectsUnitTabButton] = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton,
+//                                                                                delayTabViewButton, filterTabViewButton, replayGainTabViewButton, auTabViewButton, devicesTabViewButton]
     
     // ------------------------------------------------------------------------
     
@@ -127,7 +133,7 @@ class EffectsContainerViewController: NSViewController {
         fxUnitStateObserverRegistry.registerObserver(reverbTabViewButton, forFXUnit: audioGraph.reverbUnit)
         fxUnitStateObserverRegistry.registerObserver(delayTabViewButton, forFXUnit: audioGraph.delayUnit)
         fxUnitStateObserverRegistry.registerObserver(filterTabViewButton, forFXUnit: audioGraph.filterUnit)
-        fxUnitStateObserverRegistry.registerObserver(replayGainTabViewButton, forFXUnit: audioGraph.replayGainUnit)
+//        fxUnitStateObserverRegistry.registerObserver(replayGainTabViewButton, forFXUnit: audioGraph.replayGainUnit)
         
         fxUnitStateObserverRegistry.registerAUCompositeStateObserver(auTabViewButton)
         
@@ -146,8 +152,11 @@ class EffectsContainerViewController: NSViewController {
 
     override func destroy() {
         
+//        ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController,
+//          delayViewController, filterViewController, replayGainViewController, auViewController, devicesViewController] as? [Destroyable])?.forEach {$0.destroy()}
+        
         ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController,
-          delayViewController, filterViewController, replayGainViewController, auViewController, devicesViewController] as? [Destroyable])?.forEach {$0.destroy()}
+          delayViewController, filterViewController, auViewController, devicesViewController] as? [Destroyable])?.forEach {$0.destroy()}
         
         messenger.unsubscribeFromAll()
         fxUnitStateObserverRegistry.removeAllObservers()
@@ -201,7 +210,7 @@ class EffectsContainerViewController: NSViewController {
 
         case .filter: doTabViewAction(filterTabViewButton)
             
-        case .replayGain: doTabViewAction(replayGainTabViewButton)
+//        case .replayGain: doTabViewAction(replayGainTabViewButton)
             
         case .au: doTabViewAction(auTabViewButton)
             
@@ -275,9 +284,9 @@ extension EffectsContainerViewController: ColorSchemeObserver {
             filterTabViewButton.redraw()
         }
         
-        if audioGraph.replayGainUnit.state == unitState {
-            replayGainTabViewButton.redraw()
-        }
+//        if audioGraph.replayGainUnit.state == unitState {
+//            replayGainTabViewButton.redraw()
+//        }
         
         if audioGraph.audioUnitsState == unitState {
             auTabViewButton.redraw()
