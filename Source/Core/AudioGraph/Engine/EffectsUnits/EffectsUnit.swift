@@ -16,7 +16,7 @@ import AVFoundation
 /// No instances of this type are to be used directly, as this class is only intended to be used as a base
 /// class for concrete effects unit classes.
 ///
-class EffectsUnit: NSObject {
+class EffectsUnit: NSObject, EffectsUnitProtocol {
     
     var unitType: EffectsUnitType
     

@@ -293,7 +293,7 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
         }
     }
     
-    // MARK: Play Now, Play Next, Play Later ------------------------------------------------------------------------
+    // MARK: Play Next, Play Later ------------------------------------------------------------------------
     
 //    @discardableResult func enqueueToPlayNext(tracks: [Track]) -> IndexSet {
 //        

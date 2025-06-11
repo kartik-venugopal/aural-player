@@ -112,16 +112,12 @@ class AudioEngine {
         
         var input: AVAudioNode, output: AVAudioNode
         
-        // At least 2 nodes required for this to work
-        if allNodes.count >= 2 {
+        for i in 0...(allNodes.count - 2) {
             
-            for i in 0...(allNodes.count - 2) {
-                
-                input = allNodes[i]
-                output = allNodes[i + 1]
-                
-                engine.connect(input, to: output, format: nil)
-            }
+            input = allNodes[i]
+            output = allNodes[i + 1]
+            
+            engine.connect(input, to: output, format: nil)
         }
         
         // Connect last node to main mixer
@@ -130,11 +126,10 @@ class AudioEngine {
     
     private func setUpMasterUnitStateObservation() {
         
-        for unit in allUnits {
-            
-            if unit.unitType != .master {
-                fxUnitStateObserverRegistry.registerObserver(masterUnit as! MasterUnit, forFXUnit: unit, setInitialValue: false)
-            }
+        let masterUnit = self.masterUnit as! MasterUnit
+        
+        for unit in masterUnit.nativeSlaveUnits {
+            fxUnitStateObserverRegistry.registerObserver(masterUnit, forFXUnit: unit, setInitialValue: false)
         }
     }
 }
