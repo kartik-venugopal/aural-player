@@ -62,7 +62,9 @@ struct AVFMappedMetadata {
         // Iterate through all metadata items, and group them based on
         // key space.
         
-        for item in avAsset.metadata {
+        let allMetadata = avAsset.metadata + avAsset.commonMetadata + audioTrack.commonMetadata
+        
+        for item in allMetadata {
             
             // Determine key space for this item
             guard let keySpace = item.keySpace, let key = item.keyAsString else {continue}

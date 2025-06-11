@@ -7105,9 +7105,11 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview27";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview28";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/..";
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Aural Player";
@@ -7122,10 +7124,12 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview27";
+				MARKETING_VERSION = "4.0.0-preview28";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -7144,9 +7148,10 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "4.0.0-preview27";
+				CURRENT_PROJECT_VERSION = "4.0.0-preview28";
 				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/..";
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Aural Player";
@@ -7161,9 +7166,11 @@
 					"$(PROJECT_DIR)/ToolsAndScripts/LibCueBuild",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "4.0.0-preview27";
+				MARKETING_VERSION = "4.0.0-preview28";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Core/bridge.h;
 				SWIFT_VERSION = 5.0;
 			};

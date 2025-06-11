@@ -82,7 +82,7 @@ class AVFFileReader: FileReaderProtocol {
         
         metadata.chapters = getChapters(for: file, from: metadataMap.avAsset)
         
-        metadata.art = getArt(for: file)
+        metadata.art = parsers.firstNonNilMappedValue {$0.getArt(metadataMap)}
         
         metadata.year = parsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
         
