@@ -62,6 +62,15 @@ function buildAppBundle {
     # Export the app bundle from the archive.
     xcodebuild -archivePath "${archive}" -exportArchive -exportPath "${releaseDir}" -exportOptionsPlist exportOptions.plist
     
+    if [ -n "${AURAL_RELEASES_DIR+x}" ]; then
+        curDir=$(pwd)
+        echo "Copying dSYM from $curDir, archive is: '$archive' ..."
+        cd "${archive}"
+        mkdir -p "$AURAL_RELEASES_DIR/$releaseVersion"
+        cp -r dSYMs "$AURAL_RELEASES_DIR/$releaseVersion"
+        cd "${curDir}"
+    fi
+    
     # Remove the archive (no longer required).
     rm -rf "${archive}"
 }
@@ -93,6 +102,11 @@ function buildDMG {
       --add-file "LICENSE.txt" "${licenseFile}" 320 270 \
       "${installer}" \
       "${releaseDir}"
+      
+      if [ -n "${AURAL_RELEASES_DIR+x}" ]; then
+          echo "Copying release ..."
+          cp "${installer}" "$AURAL_RELEASES_DIR/$releaseVersion"
+      fi
       
     # Remove the app bundle (no longer required).
     rm -rf "${releaseDir}"
