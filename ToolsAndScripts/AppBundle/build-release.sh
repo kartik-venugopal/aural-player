@@ -105,7 +105,7 @@ function buildDMG {
       
       if [ -n "${AURAL_RELEASES_DIR+x}" ]; then
           echo "Copying release ..."
-          cp "${installer}" "$AURAL_RELEASES_DIR/$releaseVersion"
+          cp "${installer}" "$AURAL_RELEASES_DIR/$releaseVersion" && rm -rf "${installer}"
       fi
       
     # Remove the app bundle (no longer required).
