@@ -27,6 +27,14 @@ Aural is an audio file player for macOS. Inspired by the classic Winamp player f
 
 Driven by love, and bounded by time and knowledge constraints 😄, this project is about developing a fun and useful app for macOS users who have a bunch of audio files sitting around. Over the years, the app has absorbed countless amazing ideas from the community that uses and loves it. While improvement will always be a goal, the app does **NOT** aim to be "perfect" or "the best" or "better than" ... it just is.
 
+## Current status
+
+Less than ideal - there are a lot of bugs in v4 right now (which is still being developed), v3 (which is in archived mode) does not work well on the newer macOS systems. So, I ask for your patience right now as I slowly work towards a stable release of v4. I am a one-man team, and the time constraints have really limited my ability to push hard for the release.
+
+I encourage you to try out the v4 preview pre-release build but it may be a while before this once again becomes a rock-solid app.
+
+Thanks for your understanding!
+
 ______
 
 ## Key features
