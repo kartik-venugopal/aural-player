@@ -2,6 +2,4 @@
 
 ![App demo](/Documentation/aural4-modes.png?raw=true "App demo")
 
-## Overview
-
-Please check back later for a working release.
+## Please check back later for a working release.
