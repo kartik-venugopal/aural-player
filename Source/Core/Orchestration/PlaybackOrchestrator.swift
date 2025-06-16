@@ -11,86 +11,37 @@ import Foundation
 
 class PlaybackOrchestrator: PlaybackOrchestratorProtocol {
     
-    private let player: PlayerProtocol
-    private let playQueue: PlayQueueProtocol
+    let player: PlayerProtocol
+    let playQueue: PlayQueueProtocol
+    let playbackPreferences: PlaybackPreferences
     
-    private lazy var startPlaybackChain: StartPlaybackChain = StartPlaybackChain(playerPlayFunction: player.play(track:params:),
+    lazy var startPlaybackChain: StartPlaybackChain = StartPlaybackChain(playerPlayFunction: player.play(track:params:),
                                                                                  playerStopFunction: player.stop,
                                                                                  playQueue: playQueue,
                                                                                  trackReader: trackReader,
                                                                                  preferences.playbackPreferences)
     
-    private lazy var stopPlaybackChain: StopPlaybackChain = StopPlaybackChain(playerStopFunction: player.stop,
+    lazy var stopPlaybackChain: StopPlaybackChain = StopPlaybackChain(playerStopFunction: player.stop,
                                                                               playQueue: playQueue,
                                                                               preferences: preferences.playbackPreferences)
     
-    /// A "producer" (or factory) function that produces an optional Track (used when deciding which track will play next).
-    fileprivate typealias TrackProducer = () -> Track?
+    var ui: PlaybackUI?
     
-    init(player: PlayerProtocol, playQueue: PlayQueueProtocol) {
+    init(player: PlayerProtocol, playQueue: PlayQueueProtocol, playbackPreferences: PlaybackPreferences) {
         
         self.player = player
         self.playQueue = playQueue
+        self.playbackPreferences = playbackPreferences
     }
     
-    func togglePlayPause() -> PlaybackCommandResult {
-        
-        // Determine current state of player, to then toggle it
-        switch state {
-            
-        case .stopped:
-            beginPlayback()
-            
-        case .paused:
-            resume()
-            
-        case .playing:
-            pause()
-        }
-        
-        return currentStateAsCommandResult
+    func registerUI(ui: any PlaybackUI) {
+        self.ui = ui
     }
     
-    private func beginPlayback() {
+    func deregisterUI(ui: any PlaybackUI) {
         
-        doPlay(withParams: .defaultParams){
-            playQueue.start()
-        }
-    }
-    
-    private func pause() {
-        player.pause()
-    }
-    
-    private func resume() {
-        player.resume()
-    }
-    
-    func previousTrack() -> PlaybackCommandResult {
-        
-        doPlay {playQueue.previous()}
-        return currentStateAsCommandResult
-    }
-    
-    func nextTrack() -> PlaybackCommandResult {
-        
-        doPlay {playQueue.next()}
-        return currentStateAsCommandResult
-    }
-    
-    // Captures the current player state and proceeds with playback according to the playback sequence
-    private func doPlay(withParams params: PlaybackParams = .defaultParams, trackProducer: TrackProducer) {
-        
-        let trackBeforeChange = playingTrack
-        let stateBeforeChange = state
-        let seekPositionBeforeChange = player.seekPosition.timeElapsed
-        
-        let okToPlay = params.interruptPlayback || trackBeforeChange == nil
-        
-        if okToPlay, let newTrack = trackProducer() {
-            
-            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, params)
-            startPlaybackChain.execute(requestContext)
+        if ui.id == self.ui?.id {
+            self.ui = nil
         }
     }
     
@@ -104,19 +55,5 @@ class PlaybackOrchestrator: PlaybackOrchestratorProtocol {
     
     var playingTrack: Track? {
         player.playingTrack
-    }
-    
-    var currentStateAsCommandResult: PlaybackCommandResult {
-        
-        guard let playingTrack = self.playingTrack,
-              let playbackPosition = self.playbackPosition else {
-            
-            return .noTrack
-        }
-        
-        return PlaybackCommandResult(state: state,
-                                     playingTrackInfo: PlayingTrackInfo(track: playingTrack,
-                                                                        playbackPosition: playbackPosition,
-                                                                        playingChapterTitle: player.playingChapter?.track.title))
     }
 }

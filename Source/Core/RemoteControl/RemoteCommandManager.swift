@@ -137,7 +137,7 @@ class RemoteCommandManager: NSObject {
     ///
     @objc func handleStop(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         
-        messenger.publish(.Player.stop)
+        playbackOrch.stop()
         return .success
     }
     
@@ -150,7 +150,7 @@ class RemoteCommandManager: NSObject {
     ///
     @objc func handlePreviousTrack(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         
-        messenger.publish(.Player.previousTrack)
+        playbackOrch.previousTrack()
         return .success
     }
     
@@ -163,7 +163,7 @@ class RemoteCommandManager: NSObject {
     ///
     @objc func handleNextTrack(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         
-        messenger.publish(.Player.nextTrack)
+        playbackOrch.nextTrack()
         return .success
     }
     
@@ -176,7 +176,7 @@ class RemoteCommandManager: NSObject {
     ///
     @objc func handleSkipBackward(_ event: MPSkipIntervalCommandEvent) -> MPRemoteCommandHandlerStatus {
 
-        messenger.publish(.Player.seekBackward, payload: UserInputMode.discrete)
+        playbackOrch.seekBackward()
         return .success
     }
     
@@ -189,7 +189,7 @@ class RemoteCommandManager: NSObject {
     ///
     @objc func handleSkipForward(_ event: MPSkipIntervalCommandEvent) -> MPRemoteCommandHandlerStatus {
         
-        messenger.publish(.Player.seekForward, payload: UserInputMode.discrete)
+        playbackOrch.seekForward()
         return .success
     }
     

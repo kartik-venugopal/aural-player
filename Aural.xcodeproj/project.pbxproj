@@ -988,6 +988,8 @@
 		3ED373F52C71803F00836511 /* FFmpegPacketSideData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED373F42C71803F00836511 /* FFmpegPacketSideData.swift */; };
 		3ED65A532C45BA3000859677 /* PlayerViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */; };
 		3ED65A552C45BAD000859677 /* PlayerViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */; };
+		3ED80C1D2E00C2950082B638 /* PlaybackOrchestrator+Play.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED80C1C2E00C2950082B638 /* PlaybackOrchestrator+Play.swift */; };
+		3ED80C1F2E00CA370082B638 /* PlayerViewController+PlaybackUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED80C1E2E00CA370082B638 /* PlayerViewController+PlaybackUI.swift */; };
 		3ED8831C2D296A9E00F39E68 /* CompactPlayerLyrics.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8831B2D296A9E00F39E68 /* CompactPlayerLyrics.xib */; };
 		3ED8831E2D296AB200F39E68 /* CompactPlayerLyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8831D2D296AB200F39E68 /* CompactPlayerLyricsViewController.swift */; };
 		3ED8E74A281482C9002E313F /* TableImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8E749281482C9002E313F /* TableImageCell.swift */; };
@@ -2175,6 +2177,8 @@
 		3ED373F42C71803F00836511 /* FFmpegPacketSideData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegPacketSideData.swift; sourceTree = "<group>"; };
 		3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Actions.swift"; sourceTree = "<group>"; };
 		3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+Theming.swift"; sourceTree = "<group>"; };
+		3ED80C1C2E00C2950082B638 /* PlaybackOrchestrator+Play.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaybackOrchestrator+Play.swift"; sourceTree = "<group>"; };
+		3ED80C1E2E00CA370082B638 /* PlayerViewController+PlaybackUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+PlaybackUI.swift"; sourceTree = "<group>"; };
 		3ED8831B2D296A9E00F39E68 /* CompactPlayerLyrics.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactPlayerLyrics.xib; sourceTree = "<group>"; };
 		3ED8831D2D296AB200F39E68 /* CompactPlayerLyricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPlayerLyricsViewController.swift; sourceTree = "<group>"; };
 		3ED8E749281482C9002E313F /* TableImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableImageCell.swift; sourceTree = "<group>"; };
@@ -4721,6 +4725,7 @@
 			isa = PBXGroup;
 			children = (
 				3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */,
+				3ED80C1E2E00CA370082B638 /* PlayerViewController+PlaybackUI.swift */,
 				3E009E2A2DB457E200596E0A /* PlayerViewController+Player.swift */,
 				3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */,
 				3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */,
@@ -4979,6 +4984,7 @@
 			children = (
 				3E8999192DFF4B4A005DC74E /* PlaybackOrchestratorProtocol.swift */,
 				3E89991B2DFF712A005DC74E /* PlaybackOrchestrator.swift */,
+				3ED80C1C2E00C2950082B638 /* PlaybackOrchestrator+Play.swift */,
 				3E89991D2DFF7A98005DC74E /* PlaybackOrchestrator+Seek.swift */,
 			);
 			path = Orchestration;
@@ -6253,6 +6259,7 @@
 				3ECF71C02B75B77B00FDB69B /* CompactPlayQueueSearchResultsTableView.swift in Sources */,
 				3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */,
 				3E0219262C23490E00865AC2 /* AVFMappedMetadata.swift in Sources */,
+				3ED80C1F2E00CA370082B638 /* PlayerViewController+PlaybackUI.swift in Sources */,
 				3E2331EF2AE036E4004A5473 /* PlayQueueContainerViewController.swift in Sources */,
 				3EF4CDA52C65909C00A5922D /* WaveformRenderOperation.swift in Sources */,
 				3E02180A2C23490E00865AC2 /* AudioUnitPresets.swift in Sources */,
@@ -6824,6 +6831,7 @@
 				3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */,
 				3E9C12152622259500D90EA4 /* ThemePreset.swift in Sources */,
 				3E0218BA2C23490E00865AC2 /* CloseFileHandlesAction.swift in Sources */,
+				3ED80C1D2E00C2950082B638 /* PlaybackOrchestrator+Play.swift in Sources */,
 				3E7204C02B853DC800E40D87 /* FlatPlaylistTableViews.swift in Sources */,
 				3E51F348262AFDF80048452F /* ThemePreviewView.swift in Sources */,
 				3E0218132C23490E00865AC2 /* SoundProfiles.swift in Sources */,

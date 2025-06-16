@@ -138,22 +138,22 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func stopAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.stop)
+        playbackOrch.stop()
     }
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.previousTrack)
+        playbackOrch.previousTrack()
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.nextTrack)
+        playbackOrch.nextTrack()
     }
     
     // Replays the currently playing track from the beginning, if there is one
     @IBAction func replayTrackAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.replayTrack)
+        playbackOrch.replayTrack()
     }
     
     // Toggles A ⇋ B playback loop
@@ -187,22 +187,22 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.seekBackward, payload: UserInputMode.discrete)
+        playbackOrch.seekBackward()
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.seekForward, payload: UserInputMode.discrete)
+        playbackOrch.seekForward()
     }
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardSecondaryAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.seekBackward_secondary)
+        playbackOrch.seekBackwardSecondary()
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardSecondaryAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.seekForward_secondary)
+        playbackOrch.seekForwardSecondary()
     }
     
     @IBAction func jumpToTimeAction(_ sender: AnyObject) {

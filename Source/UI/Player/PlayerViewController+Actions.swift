@@ -20,7 +20,6 @@ extension PlayerViewController {
     }
     
     @IBAction func previousTrackAction(_ sender: NSButton) {
-//        previousTrack()
         playbackOrch.previousTrack()
     }
     
@@ -33,14 +32,12 @@ extension PlayerViewController {
     }
     
     func seekToPercentage(_ percentage: Double) {
-        
-        player.seekTo(percentage: percentage)
-        updateSeekPosition()
+        playbackOrch.seekTo(percentage: percentage)
     }
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: NSButton) {
-        seekBackward(inputMode: .discrete)
+        playbackOrch.seekBackward()
     }
     
     // Seeks forward within the currently playing track

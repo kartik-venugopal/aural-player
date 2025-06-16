@@ -71,30 +71,6 @@ extension Notification.Name {
         
         static let beginGaplessPlayback = Notification.Name("player_beginGaplessPlayback")
         
-        // Commands the player to stop playback
-        static let stop = Notification.Name("player_stop")
-        
-        // Commands the player to play the previous track in the current playback sequence
-        static let previousTrack = Notification.Name("player_previousTrack")
-        
-        // Commands the player to play the next track in the current playback sequence
-        static let nextTrack = Notification.Name("player_nextTrack")
-        
-        // Commands the player to replay the currently playing track from the beginning, if there is one
-        static let replayTrack = Notification.Name("player_replayTrack")
-        
-        // Commands the player to seek backward within the currently playing track
-        static let seekBackward = Notification.Name("player_seekBackward")
-        
-        // Commands the player to seek forward within the currently playing track
-        static let seekForward = Notification.Name("player_seekForward")
-        
-        // Commands the player to seek backward within the currently playing track (secondary seek function - allows a different seek interval)
-        static let seekBackward_secondary = Notification.Name("player_seekBackward_secondary")
-        
-        // Commands the player to seek forward within the currently playing track (secondary seek function - allows a different seek interval)
-        static let seekForward_secondary = Notification.Name("player_seekForward_secondary")
-        
         // Commands the player to seek to a specific percentage (of duration) within the currently playing track
         static let seekToPercentage = Notification.Name("player_seekToPercentage")
         

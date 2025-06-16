@@ -23,7 +23,7 @@ class StartPlaybackAction: PlaybackChainAction {
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         // Cannot proceed if no requested track is specified.
-        guard let newTrack = context.requestedTrack else {
+        guard let newTrack = context.requestedTrack, let requestParams = context.requestParams else {
             
             chain.terminate(context, NoRequestedTrackError.instance)
             return
@@ -36,7 +36,7 @@ class StartPlaybackAction: PlaybackChainAction {
         }
         
         // Start playback
-        let params = PlaybackParams.defaultParams.withStartAndEndPosition(context.requestParams.startPosition, context.requestParams.endPosition)
+        let params = PlaybackParams.defaultParams.withStartAndEndPosition(requestParams.startPosition, requestParams.endPosition)
         playerPlayFunction(newTrack, params)
         
         // Inform observers of the track change/transition.

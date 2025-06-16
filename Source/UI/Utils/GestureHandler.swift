@@ -18,20 +18,21 @@ class GestureHandler {
     
     static func handleTrackChange(_ swipeDirection: GestureDirection) {
         
-        if gesturesPreferences.allowTrackChange {
-            
-            // Publish the command notification
-            Messenger.publish(swipeDirection == .left ? .Player.previousTrack : .Player.nextTrack)
+        guard gesturesPreferences.allowTrackChange else {return}
+        
+        if swipeDirection == .left {
+            playbackOrch.previousTrack()
+        } else {
+            playbackOrch.nextTrack()
         }
     }
     
     static func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        if gesturesPreferences.allowVolumeControl && ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
+        guard gesturesPreferences.allowVolumeControl, ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) else {return}
         
-            // Scroll up = increase volume, scroll down = decrease volume
-            Messenger.publish(scrollDirection == .up ?.Player.increaseVolume : .Player.decreaseVolume, payload: UserInputMode.continuous)
-        }
+        // Scroll up = increase volume, scroll down = decrease volume
+        Messenger.publish(scrollDirection == .up ?.Player.increaseVolume : .Player.decreaseVolume, payload: UserInputMode.continuous)
     }
     
     static func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
@@ -39,7 +40,7 @@ class GestureHandler {
         guard gesturesPreferences.allowSeeking else {return}
         
         // If no track is playing, seeking cannot be performed
-        if player.state.isStopped {
+        if playbackOrch.state.isStopped {
             return
         }
         
@@ -51,7 +52,11 @@ class GestureHandler {
         if ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
             
             // Scroll left = seek backward, scroll right = seek forward
-            Messenger.publish(scrollDirection == .left ? .Player.seekBackward : .Player.seekForward, payload: UserInputMode.continuous)
+            if scrollDirection == .left {
+                playbackOrch.seekBackward(userInputMode: .continuous)
+            } else {
+                playbackOrch.seekForward(userInputMode: .continuous)
+            }
         }
     }
     

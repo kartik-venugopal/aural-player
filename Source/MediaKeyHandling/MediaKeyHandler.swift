@@ -115,7 +115,12 @@ class MediaKeyHandler: MediaKeyTapDelegate {
             
             // Seeking (repeated)
             initTimerIfRequired {
-                self.messenger.publish(isFwd ? .Player.seekForward : .Player.seekBackward, payload: UserInputMode.discrete)
+                
+                if isFwd {
+                    playbackOrch.seekForward()
+                } else {
+                    playbackOrch.seekBackward()
+                }
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed {
@@ -132,7 +137,12 @@ class MediaKeyHandler: MediaKeyTapDelegate {
                 
                 // Change track
                 DispatchQueue.main.async {
-                    self.messenger.publish(isFwd ? .Player.nextTrack : .Player.previousTrack)
+                    
+                    if isFwd {
+                        playbackOrch.nextTrack()
+                    } else {
+                        playbackOrch.previousTrack()
+                    }
                 }
             }
         }
@@ -144,17 +154,26 @@ class MediaKeyHandler: MediaKeyTapDelegate {
         
         let isFwd: Bool = mediaKey.equalsOneOf(.fastForward, .next)
         
+        func previousOrNextTrack() {
+            
+            if isFwd {
+                playbackOrch.nextTrack()
+            } else {
+                playbackOrch.previousTrack()
+            }
+        }
+        
         if event.keyPressed && !event.keyRepeat {
             
             DispatchQueue.main.async {
-                self.messenger.publish(isFwd ? .Player.nextTrack : .Player.previousTrack)
+                previousOrNextTrack()
             }
             
             // Only do this on keyDown, if it is being repeated
         } else if event.keyPressed && event.keyRepeat {
             
             initTimerIfRequired {
-                self.messenger.publish(isFwd ? .Player.nextTrack : .Player.previousTrack)
+                previousOrNextTrack()
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && lastEvent.keyRepeat {
@@ -171,10 +190,19 @@ class MediaKeyHandler: MediaKeyTapDelegate {
         
         let isFwd: Bool = mediaKey.equalsOneOf(.fastForward, .next)
         
+        func seekBackwardOrForward() {
+            
+            if isFwd {
+                playbackOrch.seekForward()
+            } else {
+                playbackOrch.seekBackward()
+            }
+        }
+        
         if event.keyPressed && !event.keyRepeat {
             
             DispatchQueue.main.async {
-                self.messenger.publish(isFwd ? .Player.seekForward : .Player.seekBackward, payload: UserInputMode.discrete)
+                seekBackwardOrForward()
             }
             
         // Only do this on keyDown, if it is being repeated
@@ -182,7 +210,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
             
             // Seeking (repeated)
             initTimerIfRequired {
-                self.messenger.publish(isFwd ? .Player.seekForward : .Player.seekBackward, payload: UserInputMode.discrete)
+                seekBackwardOrForward()
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && lastEvent.keyRepeat {

@@ -28,9 +28,7 @@ class ApplyPlaybackProfileAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        if let newTrack = context.requestedTrack {
-            
-            let params = context.requestParams
+        if let newTrack = context.requestedTrack, let params = context.requestParams {
             
             // Check for an existing playback profile for the requested track, and only apply the profile
             // if no start position is defined in the request params.

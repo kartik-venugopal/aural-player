@@ -83,7 +83,7 @@ class PlaybackPreferences {
     ///
     /// An enumeration of default values for playback preferences.
     ///
-    fileprivate struct Defaults {
+    struct Defaults {
         
         static let primarySeekLengthOption: SeekLengthOption = .constant
         static let primarySeekLengthConstant: Int = 5

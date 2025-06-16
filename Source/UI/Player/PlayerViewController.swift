@@ -185,6 +185,8 @@ class PlayerViewController: NSViewController {
         
         setUpNotificationHandling()
         setUpCommandHandling()
+        
+        playbackOrch.registerUI(ui: self)
     }
     
     func setUpTrackInfoView() {
@@ -410,14 +412,6 @@ class PlayerViewController: NSViewController {
         
         messenger.subscribe(to: .Player.playOrPause, handler: playOrPause)
         messenger.subscribe(to: .Player.beginGaplessPlayback, handler: beginGaplessPlayback)
-        messenger.subscribe(to: .Player.stop, handler: stop)
-        messenger.subscribe(to: .Player.replayTrack, handler: replayTrack)
-        messenger.subscribe(to: .Player.previousTrack, handler: previousTrack)
-        messenger.subscribe(to: .Player.nextTrack, handler: nextTrack)
-        messenger.subscribe(to: .Player.seekBackward, handler: seekBackward(inputMode:))
-        messenger.subscribe(to: .Player.seekForward, handler: seekForward(inputMode:))
-        messenger.subscribe(to: .Player.seekBackward_secondary, handler: seekBackward_secondary)
-        messenger.subscribe(to: .Player.seekForward_secondary, handler: seekForward_secondary)
         messenger.subscribe(to: .Player.seekToPercentage, handler: seekToPercentage(_:))
         messenger.subscribe(to: .Player.jumpToTime, handler: jumpToTime(_:))
         messenger.subscribe(to: .Player.toggleLoop, handler: toggleLoop)
@@ -447,14 +441,6 @@ class PlayerViewController: NSViewController {
         messenger.subscribe(to: .Lyrics.addLyricsFile, handler: addLyricsFile)
         messenger.subscribe(to: .Lyrics.searchForLyricsOnline, handler: searchForLyricsOnline)
         messenger.subscribe(to: .Lyrics.removeDownloadedLyrics, handler: removeDownloadedLyrics)
-    }
-    
-    func previousTrack() {
-        player.previousTrack()
-    }
-    
-    func nextTrack() {
-        player.nextTrack()
     }
     
     func playOrPause() {
@@ -500,49 +486,6 @@ class PlayerViewController: NSViewController {
                 player.play(track: track, params: .defaultParams)
             }
         }
-    }
-    
-    func stop() {
-        player.stop()
-    }
-    
-    // Replays the currently playing track, from the beginning, if there is one
-    func replayTrack() {
-        
-        let wasPaused: Bool = player.state == .paused
-        
-        player.replay()
-        updateSeekPosition()
-        
-        if wasPaused {
-            
-            btnPlayPauseStateMachine.setState(player.state)
-            updateSeekTimerState()
-        }
-    }
-    
-    func seekBackward(inputMode: UserInputMode) {
-        
-        player.seekBackward(inputMode: inputMode)
-        updateSeekPosition()
-    }
-    
-    func seekForward(inputMode: UserInputMode) {
-        
-        player.seekForward(inputMode: inputMode)
-        updateSeekPosition()
-    }
-    
-    func seekBackward_secondary() {
-        
-        player.seekBackwardSecondary()
-        updateSeekPosition()
-    }
-    
-    func seekForward_secondary() {
-        
-        player.seekForwardSecondary()
-        updateSeekPosition()
     }
     
     func jumpToTime(_ time: TimeInterval) {
@@ -606,12 +549,15 @@ class PlayerViewController: NSViewController {
     }
     
     func updateSeekPosition() {
+        updateSeekPosition(to: player.seekPosition)
+    }
+    
+    func updateSeekPosition(to newPosition: PlaybackPosition) {
         
-        let seekPosn = player.seekPosition
-        seekSlider.doubleValue = seekPosn.percentageElapsed
+        seekSlider.doubleValue = newPosition.percentageElapsed
         
-        lblPlaybackPosition.stringValue = ValueFormatter.formatPlaybackPosition(elapsedSeconds: seekPosn.timeElapsed, duration: seekPosn.trackDuration,
-                                                                  percentageElapsed: seekPosn.percentageElapsed, playbackPositionDisplayType: playerUIState.playbackPositionDisplayType)
+        lblPlaybackPosition.stringValue = ValueFormatter.formatPlaybackPosition(elapsedSeconds: newPosition.timeElapsed, duration: newPosition.trackDuration,
+                                                                  percentageElapsed: newPosition.percentageElapsed, playbackPositionDisplayType: playerUIState.playbackPositionDisplayType)
         
         for task in seekTimerTaskQueue.tasks {
             task()

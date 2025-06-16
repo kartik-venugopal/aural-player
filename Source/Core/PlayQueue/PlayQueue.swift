@@ -213,7 +213,8 @@ class PlayQueue: TrackList, PlayQueueProtocol, TrackRegistryClient {
             // Playing track removed
             if indexes.contains(playingTrackIndex) {
                 
-                messenger.publish(.Player.stop)
+                // TODO: All this moves to PQOrchestrator, and this becomes a message to PlaybackOrchestrator!
+//                messenger.publish(.Player.stop)
                 stop()
 
             } else {

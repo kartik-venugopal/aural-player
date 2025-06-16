@@ -31,9 +31,9 @@ class PlaybackRequestContext {
     
     // Playback-related parameters provided prior to execution of this request.
     // Request params may change as the preparation chain executes.
-    var requestParams: PlaybackParams
+    var requestParams: PlaybackParams?
     
-    init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestParams: PlaybackParams,
+    init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, requestParams: PlaybackParams? = nil,
          sequenceEnded: Bool = false) {
         
         self.currentState = currentState

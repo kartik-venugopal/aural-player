@@ -119,7 +119,7 @@ var audioGraph: AudioGraphProtocol = _audioGraph
 
 let player: PlayerProtocol = DiscretePlayer(audioGraph: audioGraph, playQueue: playQueue)
 
-let playbackOrch: PlaybackOrchestratorProtocol = PlaybackOrchestrator(player: player, playQueue: playQueue)
+let playbackOrch: PlaybackOrchestratorProtocol = PlaybackOrchestrator(player: player, playQueue: playQueue, playbackPreferences: preferences.playbackPreferences)
 
 let playbackProfiles = PlaybackProfiles(player: player, playQueue: playQueue,
                                         preferences: preferences.playbackPreferences,

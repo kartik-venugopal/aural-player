@@ -92,6 +92,8 @@ protocol PlayerProtocol {
     // Seeks to a specific time position, expressed in seconds, within the current track
     func seekTo(time seconds: TimeInterval)
     
+    @discardableResult func seek(to attemptedSeekTime: Double, canSeekOutsideLoop: Bool) -> PlayerSeekResult
+    
     // Define a segment loop bounded by the given start/end time values (and continue playback as before, from the current position).
     // The isChapterLoop parameter indicates whether or not this segment loop is associated with (i.e. bounded by) a chapter marking
     // of the currently playing track.

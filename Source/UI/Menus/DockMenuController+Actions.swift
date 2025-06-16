@@ -44,32 +44,32 @@ extension DockMenuController {
     }
     
     @IBAction func stopAction(_ sender: AnyObject) {
-        messenger.publish(.Player.stop)
+        playbackOrch.stop()
     }
     
     // Replays the currently playing track from the beginning, if there is one
     @IBAction func replayTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.replayTrack)
+        playbackOrch.replayTrack()
     }
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.previousTrack)
+        playbackOrch.previousTrack()
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
-        messenger.publish(.Player.nextTrack)
+        playbackOrch.nextTrack()
     }
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        messenger.publish(.Player.seekBackward, payload: UserInputMode.discrete)
+        playbackOrch.seekBackward()
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
-        messenger.publish(.Player.seekForward, payload: UserInputMode.discrete)
+        playbackOrch.seekForward()
     }
     
     // Sets the repeat mode to "Off"

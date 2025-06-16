@@ -34,23 +34,23 @@ extension DiscretePlayer {
     // Attempts to perform a seek to a given seek position, respecting the bounds of a defined segment loop. See doSeekToTime() for more details.
     func attemptSeek(to seconds: TimeInterval) {
         
-        let seekResult = doSeek(to: seconds, canSeekOutsideLoop: false)
-        
-        if seekResult.trackPlaybackCompleted {
-            doTrackPlaybackCompleted()
-        }
+//        let seekResult = doSeek(to: seconds, canSeekOutsideLoop: false)
+//        
+//        if seekResult.trackPlaybackCompleted {
+//            doTrackPlaybackCompleted()
+//        }
     }
     
     func forceSeek(to seconds: TimeInterval) {
         
-        let seekResult = doSeek(to: seconds, canSeekOutsideLoop: true)
-        
-        if seekResult.trackPlaybackCompleted {
-            doTrackPlaybackCompleted()
-            
-        } else if seekResult.loopRemoved {
-            messenger.publish(.Player.playbackLoopChanged)
-        }
+//        let seekResult = doSeek(to: seconds, canSeekOutsideLoop: true)
+//        
+//        if seekResult.trackPlaybackCompleted {
+//            doTrackPlaybackCompleted()
+//            
+//        } else if seekResult.loopRemoved {
+//            messenger.publish(.Player.playbackLoopChanged)
+//        }
     }
     
     ///     Attempts to seek to a given track position, checking the validity of the desired seek time. Returns an object encapsulating the result of the seek operation.
@@ -61,7 +61,7 @@ extension DiscretePlayer {
     ///
     ///     NOTE - If a seek reaches the end of a track, and the player is playing, track playback completion will be signaled.
     ///
-    private func doSeek(to attemptedSeekTime: Double, canSeekOutsideLoop: Bool) -> PlayerSeekResult {
+    func seek(to attemptedSeekTime: Double, canSeekOutsideLoop: Bool) -> PlayerSeekResult {
         
         guard let curSession = PlaybackSession.currentSession else {
             return PlayerSeekResult(actualSeekPosition: 0, loopRemoved: false, trackPlaybackCompleted: false)
