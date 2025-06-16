@@ -94,7 +94,7 @@ extension DiscretePlayer {
     }
     
     // Captures the current player state and proceeds with playback according to the playback sequence
-    private func initiatePlayback(_ trackProducer: TrackProducer, _ params: PlaybackParams = .defaultParams()) {
+    private func initiatePlayback(_ trackProducer: TrackProducer, _ params: PlaybackParams = .defaultParams) {
         
         let trackBeforeChange = playingTrack
         let stateBeforeChange = state
@@ -185,7 +185,7 @@ extension DiscretePlayer {
             let trackBeforeChange = theCurrentTrack ?? playingTrack
             let seekPositionBeforeChange = seekPosition.timeElapsed
             
-            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
+            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, .defaultParams)
             stopPlaybackChain.execute(requestContext)
         }
     }
@@ -216,7 +216,7 @@ extension DiscretePlayer {
         let stateBeforeChange = state
         
         // NOTE - Seek position should always be 0 here because the track finished playing.
-        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, 0, nil, PlaybackParams.defaultParams())
+        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, 0, nil, .defaultParams)
         
         trackPlaybackCompletedChain.execute(requestContext)
     }

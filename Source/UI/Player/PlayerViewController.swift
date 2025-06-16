@@ -304,7 +304,7 @@ class PlayerViewController: NSViewController {
     func updateMultilineTrackTextView(for track: Track?, playingChapterTitle: String? = nil) {
         
         if let theTrack = track {
-            multilineTrackTextView.trackInfo = PlayingTrackInfo(track: theTrack, playingChapterTitle: playingChapterTitle)
+            multilineTrackTextView.trackInfo = PlayingTrackInfo(track: theTrack, playbackPosition: playbackOrch.playbackPosition!, playingChapterTitle: playingChapterTitle)
             
         } else {
             multilineTrackTextView.trackInfo = nil
@@ -491,13 +491,13 @@ class PlayerViewController: NSViewController {
         case .index:
             
             if let index = command.index {
-                player.play(trackAtIndex: index, params: .defaultParams())
+                player.play(trackAtIndex: index, params: .defaultParams)
             }
             
         case .track:
             
             if let track = command.track {
-                player.play(track: track, params: .defaultParams())
+                player.play(track: track, params: .defaultParams)
             }
         }
     }
@@ -847,7 +847,7 @@ class PlayerViewController: NSViewController {
     func chapterChanged(_ notification: ChapterChangedNotification) {
         
         if let playingTrack = notification.newChapter?.track {
-            multilineTrackTextView?.trackInfo = PlayingTrackInfo(track: playingTrack, playingChapterTitle: notification.newChapter?.chapter.title)
+            multilineTrackTextView?.trackInfo = PlayingTrackInfo(track: playingTrack, playbackPosition: playbackOrch.playbackPosition!, playingChapterTitle: notification.newChapter?.chapter.title)
         }
     }
     

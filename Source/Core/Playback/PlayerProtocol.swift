@@ -144,15 +144,15 @@ protocol PlayerProtocol {
 extension PlayerProtocol {
 
     func play(trackAtIndex index: Int) {
-        play(trackAtIndex: index, params: .defaultParams())
+        play(trackAtIndex: index, params: .defaultParams)
     }
     
     func play(track: Track) {
-        play(track: track, params: .defaultParams())
+        play(track: track, params: .defaultParams)
     }
     
     @discardableResult func playNow(tracks: [Track], clearQueue: Bool) -> IndexSet {
-        playNow(tracks: tracks, clearQueue: clearQueue, params: .defaultParams())
+        playNow(tracks: tracks, clearQueue: clearQueue, params: .defaultParams)
     }
     
 //    func play(_ group: Group, _ params: PlaybackParams = .defaultParams()) {

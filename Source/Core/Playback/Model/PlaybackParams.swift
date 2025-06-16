@@ -46,7 +46,7 @@ class PlaybackParams {
     }
     
     // Factory method to create an instance with default request parameters.
-    static func defaultParams() -> PlaybackParams {
-        return PlaybackParams()
+    static var defaultParams: PlaybackParams {
+        PlaybackParams()
     }
 }

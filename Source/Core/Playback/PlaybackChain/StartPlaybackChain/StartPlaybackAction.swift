@@ -36,7 +36,7 @@ class StartPlaybackAction: PlaybackChainAction {
         }
         
         // Start playback
-        let params = PlaybackParams.defaultParams().withStartAndEndPosition(context.requestParams.startPosition, context.requestParams.endPosition)
+        let params = PlaybackParams.defaultParams.withStartAndEndPosition(context.requestParams.startPosition, context.requestParams.endPosition)
         playerPlayFunction(newTrack, params)
         
         // Inform observers of the track change/transition.

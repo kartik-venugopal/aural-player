@@ -13,15 +13,19 @@ import AppKit
 extension PlayerViewController {
     
     @IBAction func togglePlayPauseAction(_ sender: NSButton) {
-        playOrPause()
+
+        let result = playbackOrch.togglePlayPause()
+        btnPlayPauseStateMachine.setState(result.state)
+        
     }
     
     @IBAction func previousTrackAction(_ sender: NSButton) {
-        previousTrack()
+//        previousTrack()
+        playbackOrch.previousTrack()
     }
     
     @IBAction func nextTrackAction(_ sender: NSButton) {
-        nextTrack()
+        playbackOrch.nextTrack()
     }
     
     @IBAction func seekSliderAction(_ sender: NSSlider) {
@@ -41,7 +45,8 @@ extension PlayerViewController {
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: NSButton) {
-        seekForward(inputMode: .discrete)
+//        seekForward(inputMode: .discrete)
+        playbackOrch.seekForward()
     }
     
     @IBAction func toggleLoopAction(_ sender: NSButton) {

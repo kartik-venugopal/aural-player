@@ -12,28 +12,20 @@ import Cocoa
 // Encapsulates displayed information for the currently playing track.
 struct PlayingTrackInfo {
     
-    let track: Track
+    let title: String?
+    let artist: String?
+    let album: String?
+    let art: NSImage?
+    let playbackPosition: PlaybackPosition
     let playingChapterTitle: String?
     
-    init(track: Track, playingChapterTitle: String? = nil) {
-        
-        self.track = track
+    init(track: Track, playbackPosition: PlaybackPosition, playingChapterTitle: String? = nil) {
+
+        self.title = track.title ?? track.defaultDisplayName
+        self.artist = track.artist
+        self.album = track.album
+        self.art = track.art?.originalOrDownscaledImage
+        self.playbackPosition = playbackPosition
         self.playingChapterTitle = playingChapterTitle
-    }
-    
-    var art: NSImage? {
-        track.art?.originalOrDownscaledImage
-    }
-    
-    var artist: String? {
-        track.artist
-    }
-    
-    var album: String? {
-        track.album
-    }
-    
-    var title: String? {
-        track.title ?? track.defaultDisplayName
     }
 }
