@@ -163,26 +163,26 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate 
     
     @IBAction func okAction(_ sender: Any) {
         
-        var jumpToTime: Double = 0
+        var targetTime: TimeInterval = 0
         
         if btnHMS.isOn {
             
             // HH : MM : SS
-            jumpToTime = hmsStepper.doubleValue
+            targetTime = hmsStepper.doubleValue
             
         } else if btnSeconds.isOn {
             
             // Seconds
-            jumpToTime = secondsStepper.doubleValue
+            targetTime = secondsStepper.doubleValue
             
         } else {
             
             // Percentage
             // NOTE - secondsStepper.maxValue = track duration
-            jumpToTime = percentageStepper.doubleValue * secondsStepper.maxValue / 100
+            targetTime = percentageStepper.doubleValue * secondsStepper.maxValue / 100
         }
         
-        messenger.publish(.Player.jumpToTime, payload: jumpToTime)
+        playbackOrch.seekTo(position: targetTime)
         
         modalDialogResponse = .ok
         theWindow.close()

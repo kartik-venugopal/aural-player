@@ -66,16 +66,7 @@ extension Notification.Name {
         // Commands the player to perform "autoplay"
         static let autoplay = Notification.Name("player_autoplay")
         
-        // Commands the player to play, pause, or resume playback
-        static let playOrPause = Notification.Name("player_playOrPause")
-        
         static let beginGaplessPlayback = Notification.Name("player_beginGaplessPlayback")
-        
-        // Commands the player to seek to a specific percentage (of duration) within the currently playing track
-        static let seekToPercentage = Notification.Name("player_seekToPercentage")
-        
-        // Commands the player to seek to a specific position within the currently playing track
-        static let jumpToTime = Notification.Name("player_jumpToTime")
         
         // Commands the player to toggle A ⇋ B segment playback loop
         static let toggleLoop = Notification.Name("player_toggleLoop")

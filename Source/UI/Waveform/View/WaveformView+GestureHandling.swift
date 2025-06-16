@@ -98,8 +98,7 @@ extension WaveformView: NSGestureRecognizerDelegate {
         let percentage: Double = Double(tapLocation.x * 100 / bounds.width)
         self.progress = percentage / 100
         
-        // Broadcast a notification informing observers of the progress change.
-        Messenger.publish(.Player.seekToPercentage, payload: percentage)
+        playbackOrch.seekTo(percentage: percentage)
     }
 }
 

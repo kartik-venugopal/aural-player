@@ -124,7 +124,7 @@ class RemoteCommandManager: NSObject {
     ///
     @objc func handleTogglePlayPause(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         
-        messenger.publish(.Player.playOrPause)
+        playbackOrch.togglePlayPause()
         return .success
     }
     
@@ -202,7 +202,7 @@ class RemoteCommandManager: NSObject {
     ///
     @objc func handleChangePlaybackPosition(_ event: MPChangePlaybackPositionCommandEvent) -> MPRemoteCommandHandlerStatus {
         
-        messenger.publish(.Player.jumpToTime, payload: event.positionTime)
+        playbackOrch.seekTo(position: event.positionTime)
         return .success
     }
 }

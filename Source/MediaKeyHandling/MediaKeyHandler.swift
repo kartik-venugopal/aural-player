@@ -83,7 +83,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
             if event.keyPressed {
                 
                 DispatchQueue.main.async {
-                    self.messenger.publish(.Player.playOrPause)
+                    playbackOrch.togglePlayPause()
                 }
             }
             

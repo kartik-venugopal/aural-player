@@ -410,10 +410,7 @@ class PlayerViewController: NSViewController {
         messenger.subscribe(to: .Player.decreaseVolume, handler: decreaseVolume(inputMode:))
         messenger.subscribe(to: .Player.increaseVolume, handler: increaseVolume(inputMode:))
         
-        messenger.subscribe(to: .Player.playOrPause, handler: playOrPause)
         messenger.subscribe(to: .Player.beginGaplessPlayback, handler: beginGaplessPlayback)
-        messenger.subscribe(to: .Player.seekToPercentage, handler: seekToPercentage(_:))
-        messenger.subscribe(to: .Player.jumpToTime, handler: jumpToTime(_:))
         messenger.subscribe(to: .Player.toggleLoop, handler: toggleLoop)
         
         messenger.subscribe(to: .Player.setRepeatMode, handler: setRepeatMode(to:))
@@ -441,19 +438,6 @@ class PlayerViewController: NSViewController {
         messenger.subscribe(to: .Lyrics.addLyricsFile, handler: addLyricsFile)
         messenger.subscribe(to: .Lyrics.searchForLyricsOnline, handler: searchForLyricsOnline)
         messenger.subscribe(to: .Lyrics.removeDownloadedLyrics, handler: removeDownloadedLyrics)
-    }
-    
-    func playOrPause() {
-        
-        let priorState = player.state
-        player.togglePlayPause()
-        
-        // If a track change occurred, we don't need to do these updates. A notif will take care of it.
-        if priorState.isPlayingOrPaused {
-            
-            btnPlayPauseStateMachine.setState(player.state)
-            updateSeekTimerState()
-        }
     }
     
     func beginGaplessPlayback() {
@@ -486,12 +470,6 @@ class PlayerViewController: NSViewController {
                 player.play(track: track, params: .defaultParams)
             }
         }
-    }
-    
-    func jumpToTime(_ time: TimeInterval) {
-        
-        player.seekTo(time: time)
-        updateSeekPosition()
     }
     
     func showTrackInfo(for track: Track?) {

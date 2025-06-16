@@ -130,7 +130,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Plays, pauses or resumes playback
     @IBAction func playOrPauseAction(_ sender: AnyObject) {
-        Messenger.publish(.Player.playOrPause)
+        playbackOrch.togglePlayPause()
     }
     
     @IBAction func beginGaplessPlaybackAction(_ sender: AnyObject) {

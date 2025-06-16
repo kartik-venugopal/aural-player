@@ -40,7 +40,7 @@ extension DockMenuController {
     
     // Pauses or resumes playback
     @IBAction func playOrPauseAction(_ sender: AnyObject) {
-        messenger.publish(.Player.playOrPause)
+        playbackOrch.togglePlayPause()
     }
     
     @IBAction func stopAction(_ sender: AnyObject) {

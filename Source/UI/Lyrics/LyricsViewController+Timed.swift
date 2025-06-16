@@ -216,7 +216,7 @@ extension LyricsViewController: NSTableViewDelegate {
         
         // Seek to clicked line.
         if let timedLyrics, timedLyrics.lines.indices.contains(row) {
-            messenger.publish(.Player.jumpToTime, payload: max(0, timedLyrics.lines[row].position))
+            playbackOrch.seekTo(position: max(0, timedLyrics.lines[row].position))
         }
         
         return false

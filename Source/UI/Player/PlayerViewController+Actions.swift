@@ -28,11 +28,7 @@ extension PlayerViewController {
     }
     
     @IBAction func seekSliderAction(_ sender: NSSlider) {
-        seekToPercentage(seekSlider.doubleValue)
-    }
-    
-    func seekToPercentage(_ percentage: Double) {
-        playbackOrch.seekTo(percentage: percentage)
+        playbackOrch.seekTo(percentage: seekSlider.doubleValue)
     }
     
     // Seeks backward within the currently playing track
