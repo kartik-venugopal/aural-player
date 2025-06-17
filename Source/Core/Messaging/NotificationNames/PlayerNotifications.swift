@@ -113,24 +113,6 @@ extension Notification.Name {
         
         // ----------------------------------------------------------------------------------------
         
-        // MARK: Player sequencing commands
-        
-        // Commands the player to set the repeat mode (to a specific value)
-        static let setRepeatMode = Notification.Name("player_setRepeatMode")
-        
-        // Commands the player to toggle the repeat mode.
-        static let toggleRepeatMode = Notification.Name("player_toggleRepeatMode")
-        
-        // Commands the player to set the shuffle mode (to a specific value)
-        static let setShuffleMode = Notification.Name("player_setShuffleMode")
-        
-        // Commands the player to toggle the shuffle mode.
-        static let toggleShuffleMode = Notification.Name("player_toggleShuffleMode")
-        
-        static let setRepeatAndShuffleModes = Notification.Name("player_setRepeatAndShuffleModes")
-        
-        // ----------------------------------------------------------------------------------------
-        
         // MARK: Player view commands
         
         // Commands the player to show or hide album art for the current track.

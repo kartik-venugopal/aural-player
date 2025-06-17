@@ -63,18 +63,18 @@ extension PlayerViewController {
     }
     
     @IBAction func toggleRepeatModeAction(_ sender: NSButton) {
-        toggleRepeatMode()
+        playbackOrch.toggleRepeatMode()
     }
     
     @IBAction func toggleShuffleModeAction(_ sender: NSButton) {
         
-        guard !player.isInGaplessPlaybackMode else {
-            
-            NSAlert.showInfo(withTitle: "Function unavailable", andText: "Shuffling is not possible while in gapless playback mode.")
-            return
-        }
+//        guard !player.isInGaplessPlaybackMode else {
+//            
+//            NSAlert.showInfo(withTitle: "Function unavailable", andText: "Shuffling is not possible while in gapless playback mode.")
+//            return
+//        }
         
-        toggleShuffleMode()
+        playbackOrch.toggleShuffleMode()
     }
 }
 

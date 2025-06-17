@@ -58,4 +58,10 @@ extension PlayerViewController: PlaybackUI {
         seekSlider.redraw()
         updateSeekPosition()
     }
+    
+    func repeatAndShuffleModesChanged(newRepeatMode: RepeatMode, newShuffleMode: ShuffleMode) {
+        
+        btnRepeatStateMachine.setState(newRepeatMode)
+        btnShuffleStateMachine.setState(newShuffleMode)
+    }
 }

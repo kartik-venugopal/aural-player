@@ -350,7 +350,9 @@ class PlayerViewController: NSViewController {
         // Button state
         
         btnPlayPauseStateMachine.setState(player.state)
-        updateRepeatAndShuffleControls(modes: playQueue.repeatAndShuffleModes)
+        
+        btnRepeatStateMachine.setState(playQueue.repeatMode)
+        btnShuffleStateMachine.setState(playQueue.shuffleMode)
         
         // Seek controls state
         
@@ -409,12 +411,6 @@ class PlayerViewController: NSViewController {
         messenger.subscribe(to: .Player.increaseVolume, handler: increaseVolume(inputMode:))
         
         messenger.subscribe(to: .Player.beginGaplessPlayback, handler: beginGaplessPlayback)
-        
-        messenger.subscribe(to: .Player.setRepeatMode, handler: setRepeatMode(to:))
-        messenger.subscribe(to: .Player.toggleRepeatMode, handler: toggleRepeatMode)
-        messenger.subscribe(to: .Player.setShuffleMode, handler: setShuffleMode(to:))
-        messenger.subscribe(to: .Player.toggleShuffleMode, handler: toggleShuffleMode)
-        messenger.subscribe(to: .Player.setRepeatAndShuffleModes, handler: setRepeatAndShuffleModes(_:))
         
         messenger.subscribe(to: .Player.playChapter, handler: playChapter(index:))
         messenger.subscribe(to: .Player.previousChapter, handler: previousChapter)
@@ -659,34 +655,6 @@ class PlayerViewController: NSViewController {
         }
         
         volumeSlider.toolTip = "Volume: \(audioGraph.formattedVolume)" + (muted ? " (muted)" : "")
-    }
-    
-    func toggleRepeatMode() {
-        updateRepeatAndShuffleControls(modes: playQueue.toggleRepeatMode())
-    }
-    
-    func toggleShuffleMode() {
-        updateRepeatAndShuffleControls(modes: playQueue.toggleShuffleMode())
-    }
-    
-    func updateRepeatAndShuffleControls(modes: RepeatAndShuffleModes) {
-        
-        btnRepeatStateMachine.setState(modes.repeatMode)
-        btnShuffleStateMachine.setState(modes.shuffleMode)
-    }
-    
-    func setRepeatMode(to repeatMode: RepeatMode) {
-        updateRepeatAndShuffleControls(modes: playQueue.setRepeatMode(repeatMode))
-    }
-    
-    func setShuffleMode(to shuffleMode: ShuffleMode) {
-        updateRepeatAndShuffleControls(modes: playQueue.setShuffleMode(shuffleMode))
-    }
-    
-    func setRepeatAndShuffleModes(_ notif: RepeatAndShuffleModesCommandNotification) {
-        
-        playQueue.setRepeatAndShuffleModes(repeatMode: notif.repeatMode, shuffleMode: notif.shuffleMode)
-        updateRepeatAndShuffleControls(modes: playQueue.repeatAndShuffleModes)
     }
     
     @objc dynamic func showOrHideArtist() {

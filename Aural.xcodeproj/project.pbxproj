@@ -115,7 +115,6 @@
 		3E02185C2C23490E00865AC2 /* AutoplayCommandNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216572C23490E00865AC2 /* AutoplayCommandNotification.swift */; };
 		3E02185E2C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216592C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift */; };
 		3E0218602C23490E00865AC2 /* PlaylistCommandNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02165B2C23490E00865AC2 /* PlaylistCommandNotification.swift */; };
-		3E0218612C23490E00865AC2 /* RepeatAndShuffleModesCommandNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02165C2C23490E00865AC2 /* RepeatAndShuffleModesCommandNotification.swift */; };
 		3E0218622C23490E00865AC2 /* SelectSearchResultCommandNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02165D2C23490E00865AC2 /* SelectSearchResultCommandNotification.swift */; };
 		3E0218642C23490E00865AC2 /* AppReopenedNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216602C23490E00865AC2 /* AppReopenedNotification.swift */; };
 		3E0218652C23490E00865AC2 /* AudioGraphChangeNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216612C23490E00865AC2 /* AudioGraphChangeNotifications.swift */; };
@@ -433,6 +432,7 @@
 		3E08AC11281B214F004A53F7 /* TintableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08AC10281B214F004A53F7 /* TintableTextField.swift */; };
 		3E08AC13281B27DF004A53F7 /* NSSlider+ColorSchemeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08AC12281B27DF004A53F7 /* NSSlider+ColorSchemeObserver.swift */; };
 		3E10179028D7722B002C0D8E /* EffectsUnitToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */; };
+		3E12A3B02E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12A3AF2E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift */; };
 		3E1341282B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */; };
 		3E13412A2B6F0115009782B6 /* TrackInfoViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */; };
 		3E143C5B2D26010A00F40A67 /* LyricsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */; };
@@ -1202,7 +1202,6 @@
 		3E0216592C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueueAndPlayNowCommand.swift; sourceTree = "<group>"; };
 		3E02165A2C23490E00865AC2 /* OpenTuneBrowserFolderCommandNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenTuneBrowserFolderCommandNotification.swift; sourceTree = "<group>"; };
 		3E02165B2C23490E00865AC2 /* PlaylistCommandNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCommandNotification.swift; sourceTree = "<group>"; };
-		3E02165C2C23490E00865AC2 /* RepeatAndShuffleModesCommandNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatAndShuffleModesCommandNotification.swift; sourceTree = "<group>"; };
 		3E02165D2C23490E00865AC2 /* SelectSearchResultCommandNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSearchResultCommandNotification.swift; sourceTree = "<group>"; };
 		3E0216602C23490E00865AC2 /* AppReopenedNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReopenedNotification.swift; sourceTree = "<group>"; };
 		3E0216612C23490E00865AC2 /* AudioGraphChangeNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphChangeNotifications.swift; sourceTree = "<group>"; };
@@ -1547,6 +1546,7 @@
 		3E08AC10281B214F004A53F7 /* TintableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintableTextField.swift; sourceTree = "<group>"; };
 		3E08AC12281B27DF004A53F7 /* NSSlider+ColorSchemeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSlider+ColorSchemeObserver.swift"; sourceTree = "<group>"; };
 		3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitToggle.swift; sourceTree = "<group>"; };
+		3E12A3AF2E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaybackOrchestrator+Sequencing.swift"; sourceTree = "<group>"; };
 		3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+MenuDelegate.swift"; sourceTree = "<group>"; };
 		3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+Theming.swift"; sourceTree = "<group>"; };
 		3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsExtensions.swift; sourceTree = "<group>"; };
@@ -2624,7 +2624,6 @@
 				3E0216592C23490E00865AC2 /* EnqueueAndPlayNowCommand.swift */,
 				3E02165A2C23490E00865AC2 /* OpenTuneBrowserFolderCommandNotification.swift */,
 				3E02165B2C23490E00865AC2 /* PlaylistCommandNotification.swift */,
-				3E02165C2C23490E00865AC2 /* RepeatAndShuffleModesCommandNotification.swift */,
 				3E02165D2C23490E00865AC2 /* SelectSearchResultCommandNotification.swift */,
 			);
 			path = Commands;
@@ -4983,6 +4982,7 @@
 				3E89991B2DFF712A005DC74E /* PlaybackOrchestrator.swift */,
 				3ED80C1C2E00C2950082B638 /* PlaybackOrchestrator+Play.swift */,
 				3E89991D2DFF7A98005DC74E /* PlaybackOrchestrator+Seek.swift */,
+				3E12A3AF2E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift */,
 			);
 			path = Orchestration;
 			sourceTree = "<group>";
@@ -6552,6 +6552,7 @@
 				3EC793812B745E1200AF7E9E /* EffectsSheetViewController.swift in Sources */,
 				3E02192A2C23490E00865AC2 /* CommonFFMpegMetadataParser.swift in Sources */,
 				3E9E590E25DB6B150064EB5F /* MenuBarAppModeController.swift in Sources */,
+				3E12A3B02E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift in Sources */,
 				3E0218162C23490E00865AC2 /* DeviceManager.swift in Sources */,
 				3EFB64952772491C00D47A6B /* EffectsUnitTriStateCheckButton.swift in Sources */,
 				3E6668B32ADB515600BBD119 /* PresetLayoutPreviewView.swift in Sources */,
@@ -6966,7 +6967,6 @@
 				3E0218A02C23490E00865AC2 /* PlayQueueUIPersistentState.swift in Sources */,
 				3E6C130525CEBE8F00BF0D07 /* WindowLayoutsManager.swift in Sources */,
 				3E6668B52ADB55A400BBD119 /* WindowLayoutSetupViewController.swift in Sources */,
-				3E0218612C23490E00865AC2 /* RepeatAndShuffleModesCommandNotification.swift in Sources */,
 				3E02197C2C23490E00865AC2 /* AVAudioFramePositionExtensions.swift in Sources */,
 				3EF4CDAC2C65909C00A5922D /* WaveformView+GestureHandling.swift in Sources */,
 				3E1741462801EA0A00772ED1 /* TableCellBuilder.swift in Sources */,

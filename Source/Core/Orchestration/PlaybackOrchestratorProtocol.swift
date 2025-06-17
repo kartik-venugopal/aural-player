@@ -38,7 +38,17 @@ protocol PlaybackOrchestratorProtocol {
     
     @discardableResult func stop() -> PlaybackCommandResult
     
-    // TODO: Segment looping
+    var repeatMode: RepeatMode {get}
+    
+    func toggleRepeatMode()
+    
+    func setRepeatMode(_ repeatMode: RepeatMode)
+    
+    var shuffleMode: ShuffleMode {get}
+    
+    func toggleShuffleMode()
+    
+    func setShuffleMode(_ shuffleMode: ShuffleMode)
     
     func registerUI(ui: PlaybackUI)
     
@@ -79,6 +89,8 @@ protocol PlaybackUI {
     func playbackPositionChanged(newPosition: PlaybackPosition?)
     
     func playbackLoopChanged(newLoop: PlaybackLoop?, newLoopState: PlaybackLoopState)
+    
+    func repeatAndShuffleModesChanged(newRepeatMode: RepeatMode, newShuffleMode: ShuffleMode)
 }
 
 struct PlaybackCommandResult {

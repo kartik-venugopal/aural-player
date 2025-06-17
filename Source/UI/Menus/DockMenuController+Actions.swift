@@ -74,27 +74,27 @@ extension DockMenuController {
     
     // Sets the repeat mode to "Off"
     @IBAction func repeatOffAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.off)
+        playbackOrch.setRepeatMode(.off)
     }
     
     // Sets the repeat mode to "Repeat One"
     @IBAction func repeatOneAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.one)
+        playbackOrch.setRepeatMode(.one)
     }
     
     // Sets the repeat mode to "Repeat All"
     @IBAction func repeatAllAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setRepeatMode, payload: RepeatMode.all)
+        playbackOrch.setRepeatMode(.all)
     }
     
     // Sets the shuffle mode to "Off"
     @IBAction func shuffleOffAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setShuffleMode, payload: ShuffleMode.off)
+        playbackOrch.setShuffleMode(.off)
     }
     
     // Sets the shuffle mode to "On"
     @IBAction func shuffleOnAction(_ sender: AnyObject) {
-        messenger.publish(.Player.setShuffleMode, payload: ShuffleMode.on)
+        playbackOrch.setShuffleMode(.on)
     }
     
     // Mutes or unmutes the player
