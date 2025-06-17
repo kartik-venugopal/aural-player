@@ -140,7 +140,7 @@ class SearchViewController: NSViewController {
         if resultsTable.selectedRow >= 0, let results = self.searchResults,
             let pqLocation = results.results[resultsTable.selectedRow].location as? PlayQueueSearchResultLocation {
             
-            messenger.publish(TrackPlaybackCommandNotification(index: pqLocation.index))
+            playbackOrch.playTrack(atIndex: pqLocation.index)
         }
     }
     

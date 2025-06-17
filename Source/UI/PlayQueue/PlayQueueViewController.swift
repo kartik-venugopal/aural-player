@@ -115,7 +115,7 @@ class PlayQueueViewController: TrackListTableViewController {
     func playSelectedTrack() {
         
         if let firstSelectedRow = selectedRows.min() {
-            messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow))
+            playbackOrch.playTrack(atIndex: firstSelectedRow)
         }
     }
     

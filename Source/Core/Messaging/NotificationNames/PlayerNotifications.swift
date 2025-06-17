@@ -60,16 +60,10 @@ extension Notification.Name {
         
         // MARK: Playback commands (sent to the player)
         
-        // Commands the player to play a specific track
-        static let playTrack = Notification.Name("player_playTrack")
-        
         // Commands the player to perform "autoplay"
         static let autoplay = Notification.Name("player_autoplay")
         
         static let beginGaplessPlayback = Notification.Name("player_beginGaplessPlayback")
-        
-        // Commands the player to toggle A ⇋ B segment playback loop
-        static let toggleLoop = Notification.Name("player_toggleLoop")
         
         // ----------------------------------------------------------------------------------------
         

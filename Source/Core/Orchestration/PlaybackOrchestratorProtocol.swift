@@ -14,9 +14,13 @@ protocol PlaybackOrchestratorProtocol {
     
     @discardableResult func togglePlayPause() -> PlaybackCommandResult
     
+    func playTrack(atIndex index: Int, params: PlaybackParams)
+    
     @discardableResult func previousTrack() -> PlaybackCommandResult
     
     @discardableResult func nextTrack() -> PlaybackCommandResult
+    
+    @discardableResult func replayTrack() -> PlaybackCommandResult
     
     @discardableResult func seekTo(percentage: Double) -> PlaybackCommandResult
     
@@ -30,7 +34,7 @@ protocol PlaybackOrchestratorProtocol {
     
     @discardableResult func seekForwardSecondary() -> PlaybackCommandResult
     
-    @discardableResult func replayTrack() -> PlaybackCommandResult
+    func toggleLoop()
     
     @discardableResult func stop() -> PlaybackCommandResult
     
@@ -45,9 +49,15 @@ protocol PlaybackOrchestratorProtocol {
     var playbackPosition: PlaybackPosition? {get}
     
     var playingTrack: Track? {get}
+    
+    var playbackLoop: PlaybackLoop? {get}
 }
 
 extension PlaybackOrchestratorProtocol {
+    
+    func playTrack(atIndex index: Int) {
+        playTrack(atIndex: index, params: .defaultParams)
+    }
     
     @discardableResult func seekBackward() -> PlaybackCommandResult {
         seekBackward(userInputMode: .discrete)
@@ -67,6 +77,8 @@ protocol PlaybackUI {
     func playingTrackChanged(newTrack: Track?)
     
     func playbackPositionChanged(newPosition: PlaybackPosition?)
+    
+    func playbackLoopChanged(newLoop: PlaybackLoop?, newLoopState: PlaybackLoopState)
 }
 
 struct PlaybackCommandResult {

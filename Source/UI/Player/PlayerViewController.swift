@@ -404,14 +404,11 @@ class PlayerViewController: NSViewController {
     
     func setUpCommandHandling() {
         
-        messenger.subscribeAsync(to: .Player.playTrack, handler: performTrackPlayback(_:))
-        
         messenger.subscribe(to: .Player.muteOrUnmute, handler: muteOrUnmute)
         messenger.subscribe(to: .Player.decreaseVolume, handler: decreaseVolume(inputMode:))
         messenger.subscribe(to: .Player.increaseVolume, handler: increaseVolume(inputMode:))
         
         messenger.subscribe(to: .Player.beginGaplessPlayback, handler: beginGaplessPlayback)
-        messenger.subscribe(to: .Player.toggleLoop, handler: toggleLoop)
         
         messenger.subscribe(to: .Player.setRepeatMode, handler: setRepeatMode(to:))
         messenger.subscribe(to: .Player.toggleRepeatMode, handler: toggleRepeatMode)
@@ -451,24 +448,6 @@ class PlayerViewController: NSViewController {
             
             NSAlert.showError(withTitle: "Gapless Playback not possible",
                               andText: "Error: \(errorMsg)")
-        }
-    }
-    
-    func performTrackPlayback(_ command: TrackPlaybackCommandNotification) {
-        
-        switch command.type {
-            
-        case .index:
-            
-            if let index = command.index {
-                player.play(trackAtIndex: index, params: .defaultParams)
-            }
-            
-        case .track:
-            
-            if let track = command.track {
-                player.play(track: track, params: .defaultParams)
-            }
         }
     }
     
@@ -518,19 +497,13 @@ class PlayerViewController: NSViewController {
     // Override this in subclasses!
     func showTrackInfoView() {}
     
-    func toggleLoop() {
-        
-        guard player.state.isPlayingOrPaused else {return}
-        
-        player.toggleLoop()
-        messenger.publish(.Player.playbackLoopChanged)
-    }
-    
     func updateSeekPosition() {
-        updateSeekPosition(to: player.seekPosition)
+        updateSeekPosition(to: playbackOrch.playbackPosition)
     }
     
-    func updateSeekPosition(to newPosition: PlaybackPosition) {
+    func updateSeekPosition(to newPosition: PlaybackPosition?) {
+        
+        guard let newPosition else {return}
         
         seekSlider.doubleValue = newPosition.percentageElapsed
         

@@ -56,4 +56,12 @@ class PlaybackOrchestrator: PlaybackOrchestratorProtocol {
     var playingTrack: Track? {
         player.playingTrack
     }
+    
+    var playbackLoop: PlaybackLoop? {
+        player.playbackLoop
+    }
+    
+    var playbackLoopState: PlaybackLoopState {
+        player.playbackLoopState
+    }
 }

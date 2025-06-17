@@ -43,7 +43,7 @@ extension PlayerViewController {
     }
     
     @IBAction func toggleLoopAction(_ sender: NSButton) {
-        toggleLoop()
+        playbackOrch.toggleLoop()
     }
     
     @IBAction func togglePlaybackPositionDisplayTypeAction(_ sender: NSTextField) {

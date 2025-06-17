@@ -99,7 +99,7 @@ class CompactPlayQueueSearchViewController: NSViewController {
             let result = searchResults?.results[resultIndex],
            let pqLocation = result.location as? PlayQueueSearchResultLocation {
             
-            messenger.publish(TrackPlaybackCommandNotification(index: pqLocation.index))
+            playbackOrch.playTrack(atIndex: pqLocation.index)
         }
     }
     

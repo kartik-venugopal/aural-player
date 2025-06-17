@@ -42,6 +42,16 @@ extension PlaybackOrchestrator {
         ui?.playbackPositionChanged(newPosition: self.playbackPosition)
     }
     
+    func playTrack(atIndex index: Int, params: PlaybackParams) {
+        
+        if doPlay(withParams: params, trackProducer: {playQueue.select(trackAt: index)}) {
+            
+            ui?.playingTrackChanged(newTrack: self.playingTrack)
+            ui?.playbackStateChanged(newState: self.state)
+            ui?.playbackPositionChanged(newPosition: self.playbackPosition)
+        }
+    }
+    
     private func pause() {
         
         player.pause()
@@ -55,10 +65,12 @@ extension PlaybackOrchestrator {
         ui?.playbackPositionChanged(newPosition: self.playbackPosition)
     }
     
-    func resumeIfPaused() {
+    func resumeAfterSeekIfPaused() {
         
         if state == .paused {
             resume()
+        } else {
+            ui?.playbackPositionChanged(newPosition: self.playbackPosition)
         }
     }
     
@@ -67,7 +79,7 @@ extension PlaybackOrchestrator {
         if state.isPlayingOrPaused {
             
             player.seek(to: 0, canSeekOutsideLoop: true)
-            resumeIfPaused()
+            resumeAfterSeekIfPaused()
         }
         
         return currentStateAsCommandResult
@@ -95,6 +107,12 @@ extension PlaybackOrchestrator {
         }
         
         return currentStateAsCommandResult
+    }
+    
+    func toggleLoop() {
+        
+        player.toggleLoop()
+        ui?.playbackLoopChanged(newLoop: self.playbackLoop, newLoopState: self.playbackLoopState)
     }
     
     // Captures the current player state and proceeds with playback according to the playback sequence

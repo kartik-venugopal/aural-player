@@ -29,4 +29,33 @@ extension PlayerViewController: PlaybackUI {
     func playbackPositionChanged(newPosition: PlaybackPosition?) {
         updateSeekPosition(to: newPosition ?? .zero)
     }
+    
+    func playbackLoopChanged(newLoop: PlaybackLoop?, newLoopState: PlaybackLoopState) {
+        
+        btnLoopStateMachine.setState(newLoopState)
+
+        // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
+        
+        if let playingTrack = playbackOrch.playingTrack, let loop = newLoop {
+            
+            // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
+            
+            let trackDuration = playingTrack.duration
+            let startPerc = loop.startTime * 100 / trackDuration
+            seekSliderCell.markLoopStart(startPerc: startPerc)
+            
+            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+            if let loopEndTime = loop.endTime {
+                
+                let endPerc = (loopEndTime / trackDuration) * 100
+                seekSliderCell.markLoopEnd(endPerc: endPerc)
+            }
+            
+        } else {
+            seekSliderCell.removeLoop()
+        }
+
+        seekSlider.redraw()
+        updateSeekPosition()
+    }
 }

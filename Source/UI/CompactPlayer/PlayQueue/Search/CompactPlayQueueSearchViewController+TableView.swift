@@ -92,7 +92,7 @@ class CompactPlayQueueSearchResultIndexCell: AuralTableCellView {
     
     func playSearchResult() {
         
-        Messenger.publish(TrackPlaybackCommandNotification(index: playQueueTrackIndex))
+        playbackOrch.playTrack(atIndex: playQueueTrackIndex)
         Messenger.publish(.View.CompactPlayer.showPlayer)
     }
 }
