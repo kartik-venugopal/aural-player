@@ -59,6 +59,13 @@ extension PlayerViewController: PlaybackUI {
         updateSeekPosition()
     }
     
+    func chapterChanged(state: PlaybackState, position: PlaybackPosition, loop: PlaybackLoop?, loopState: PlaybackLoopState) {
+        
+        playbackLoopChanged(newLoop: loop, newLoopState: loopState)
+        btnPlayPauseStateMachine.setState(state)
+        setSeekTimerState(to: state.isPlaying)
+    }
+    
     func repeatAndShuffleModesChanged(newRepeatMode: RepeatMode, newShuffleMode: ShuffleMode) {
         
         btnRepeatStateMachine.setState(newRepeatMode)

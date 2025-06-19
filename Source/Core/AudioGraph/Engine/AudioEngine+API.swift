@@ -18,11 +18,7 @@ extension AudioEngine {
     var volume: Float {
         
         get {playerNode.volume}
-        set {
-            playerNode.volume = newValue.clamped(to: Self.volumeRange)
-            auxMixer.volume = newValue.clamped(to: Self.volumeRange)
-            print("Vol = \(playerNode.volume)")
-        }
+        set {playerNode.volume = newValue.clamped(to: Self.volumeRange)}
     }
     
     func increaseVolume(by increment: Float) -> Float {

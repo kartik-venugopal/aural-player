@@ -18,6 +18,10 @@ enum PlaybackState: String, CaseIterable {
     case paused
     case stopped
     
+    var isPlaying: Bool {
+        self == .playing
+    }
+    
     var isPlayingOrPaused: Bool {
         self != .stopped
     }

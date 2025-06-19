@@ -27,8 +27,8 @@ import AVFoundation
 ///
 class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
-    let engine: AudioEngine! = nil
-    let deviceManager: DeviceManager! = nil
+    let engine: AudioEngine
+    let deviceManager: DeviceManager
     var soundProfiles: SoundProfiles
     
     lazy var messenger = Messenger(for: self)
@@ -37,17 +37,17 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     init(persistentState: AppPersistentState, audioUnitsManager: AudioUnitsRegistry) {
         
         let persistentState: AudioGraphPersistentState? = persistentState.audioGraph
-//        
-//        self.engine = AudioEngine(persistentState: persistentState)
-//        self.deviceManager = DeviceManager(outputAudioUnit: engine.outputNode.audioUnit!)
+        
+        self.engine = AudioEngine(persistentState: persistentState)
+        self.deviceManager = DeviceManager(outputAudioUnit: engine.outputNode.audioUnit!)
         self.soundProfiles = SoundProfiles(persistentState: persistentState?.soundProfiles)
-//        
-//        // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
-//        messenger.subscribe(to: .AVAudioEngineConfigurationChange, handler: outputDeviceChanged)
-//        startEngine()
-//        setInitialOutputDevice(persistentState: persistentState)
-//        
-//        captureSystemSoundProfile()
+        
+        // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
+        messenger.subscribe(to: .AVAudioEngineConfigurationChange, handler: outputDeviceChanged)
+        startEngine()
+        setInitialOutputDevice(persistentState: persistentState)
+        
+        captureSystemSoundProfile()
     }
     
     func tearDown() {

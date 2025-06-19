@@ -504,6 +504,7 @@
 		3E31B6722B97C20100AA0067 /* TrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E31B6712B97C20100AA0067 /* TrackInfo.xib */; };
 		3E31B6752B97C5F400AA0067 /* TrackInfoSheetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E31B6742B97C5F400AA0067 /* TrackInfoSheetView.xib */; };
 		3E31B6772B97C69300AA0067 /* TrackInfoSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E31B6762B97C69300AA0067 /* TrackInfoSheetViewController.swift */; };
+		3E33C1392E040FF30053E352 /* PlaybackOrchestrator+Chapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C1382E040FF30053E352 /* PlaybackOrchestrator+Chapters.swift */; };
 		3E3579D026835A6A009522A0 /* GenericPresetPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */; };
 		3E3579D226837D3D009522A0 /* UIPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579D126837D3D009522A0 /* UIPresetsManagerViewController.swift */; };
 		3E35AC9F25E6254500EBCCEB /* VisualizerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */; };
@@ -1640,6 +1641,7 @@
 		3E31B6712B97C20100AA0067 /* TrackInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackInfo.xib; sourceTree = "<group>"; };
 		3E31B6742B97C5F400AA0067 /* TrackInfoSheetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackInfoSheetView.xib; sourceTree = "<group>"; };
 		3E31B6762B97C69300AA0067 /* TrackInfoSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoSheetViewController.swift; sourceTree = "<group>"; };
+		3E33C1382E040FF30053E352 /* PlaybackOrchestrator+Chapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaybackOrchestrator+Chapters.swift"; sourceTree = "<group>"; };
 		3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPresetPopupMenuController.swift; sourceTree = "<group>"; };
 		3E3579D126837D3D009522A0 /* UIPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPresetsManagerViewController.swift; sourceTree = "<group>"; };
 		3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerContainer.swift; sourceTree = "<group>"; };
@@ -3557,6 +3559,7 @@
 				3ED80C1C2E00C2950082B638 /* PlaybackOrchestrator+Play.swift */,
 				3E89991D2DFF7A98005DC74E /* PlaybackOrchestrator+Seek.swift */,
 				3E12A3AF2E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift */,
+				3E33C1382E040FF30053E352 /* PlaybackOrchestrator+Chapters.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -6542,6 +6545,7 @@
 				3E6C129325CEBE1800BF0D07 /* IntervalPicker.swift in Sources */,
 				3EA3062C2AD8B1C9006692FE /* AppSetup.swift in Sources */,
 				3E6C130125CEBE8F00BF0D07 /* JumpToTimeEditorWindowController.swift in Sources */,
+				3E33C1392E040FF30053E352 /* PlaybackOrchestrator+Chapters.swift in Sources */,
 				3E0219052C23490E00865AC2 /* PlayQueueProtocol.swift in Sources */,
 				3E0219362C23490E00865AC2 /* FileMetadata.swift in Sources */,
 				3E0217FF2C23490E00865AC2 /* FilterUnit.swift in Sources */,

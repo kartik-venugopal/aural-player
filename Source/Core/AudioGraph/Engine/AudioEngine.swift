@@ -57,7 +57,6 @@ class AudioEngine {
         self.audioUnitsRegistry = AudioUnitsRegistry()
         
         let volume = persistentState?.volume ?? AudioGraphDefaults.volume
-        print("HERE vol is: \(volume)")
         let pan = persistentState?.pan ?? AudioGraphDefaults.pan
         playerNode = AuralPlayerNode(volume: volume, pan: pan)
         

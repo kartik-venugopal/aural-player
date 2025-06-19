@@ -17,7 +17,7 @@
 //        if let currentSession = PlaybackSession.startNewSessionForPlayingTrack() {
 //
 //            PlaybackSession.defineLoop(loopStartPosition, loopEndPosition, isChapterLoop)
-//            scheduler.playLoop(currentSession, seekPosition, state == .playing)
+//            scheduler.playLoop(currentSession, seekPosition, state.isPlaying)
 //        }
 //    }
 //    
@@ -57,7 +57,7 @@
 //        
 //        // When the loop's end time is defined, playback jumps back to the loop's start time, and a new playback session is started.
 //        if let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
-//            scheduler.playLoop(newSession, state == .playing)
+//            scheduler.playLoop(newSession, state.isPlaying)
 //        }
 //    }
 //    
@@ -71,7 +71,7 @@
 //            
 //            // When a loop is removed, playback continues from the current position and a new playback session is started.
 //            if let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
-//                scheduler.endLoop(newSession, loopEndTime, state == .playing)
+//                scheduler.endLoop(newSession, loopEndTime, state.isPlaying)
 //            }
 //        }
 //    }

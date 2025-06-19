@@ -79,7 +79,7 @@ class DiscretePlayer: PlayerProtocol {
     }
     
     var isPlaying: Bool {
-        state == .playing
+        state.isPlaying
     }
     
     var seekPosition: PlaybackPosition {

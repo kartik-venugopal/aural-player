@@ -56,11 +56,45 @@ protocol PlaybackOrchestratorProtocol {
     
     var state: PlaybackState {get}
     
+    var isPlaying: Bool {get}
+    
     var playbackPosition: PlaybackPosition? {get}
     
     var playingTrack: Track? {get}
     
     var playbackLoop: PlaybackLoop? {get}
+    
+    var playbackLoopState: PlaybackLoopState {get}
+    
+    // For the currently playing track, returns the total number of defined chapter markings
+    var chapterCount: Int {get}
+    
+    // For the currently playing track, returns the index of the currently playing chapter. Returns nil if:
+    // 1 - There are no chapter markings for the current track
+    // 2 - There are chapter markings but the current seek position is not within the time bounds of any of the chapters
+    var playingChapter: IndexedChapter? {get}
+    
+    // For the currently playing track, plays the chapter with the given index, from the start time.
+    // If this chapter is already playing, it is played from the start time.
+    // NOTE - If there is a segment loop defined that does not contain the chapter start time, it will be removed to allow seeking
+    // to the chapter start time.
+    func playChapter(index: Int)
+    
+    // For the currently playing track, plays the previous chapter (relative to the current seek position or chapter)
+    func previousChapter()
+    
+    // For the currently playing track, plays the next chapter (relative to the current seek position or chapter)
+    func nextChapter()
+    
+    // For the currently playing track, replays the currently playing chapter (i.e. seeks to the chapter's start time)
+    func replayChapter()
+    
+    // For the currently playing track, toggles a segment loop bounded by the currently playing chapter's start and end time
+    // Returns whether or not a loop exists for the currently playing chapter, after the toggle operation.
+    @discardableResult func toggleChapterLoop() -> Bool
+    
+    // Whether or not a loop exists for the currently playing chapter
+    var chapterLoopExists: Bool {get}
 }
 
 extension PlaybackOrchestratorProtocol {
@@ -87,6 +121,8 @@ protocol PlaybackUI {
     func playingTrackChanged(newTrack: Track?)
     
     func playbackPositionChanged(newPosition: PlaybackPosition?)
+    
+    func chapterChanged(state: PlaybackState, position: PlaybackPosition, loop: PlaybackLoop?, loopState: PlaybackLoopState)
     
     func playbackLoopChanged(newLoop: PlaybackLoop?, newLoopState: PlaybackLoopState)
     

@@ -137,7 +137,7 @@
 //        }
 //        
 //        // Check if playback has completed (seek time has crossed the track duration)
-//        playbackCompleted = actualSeekTime >= track.duration && state == .playing
+//        playbackCompleted = actualSeekTime >= track.duration && state.isPlaying
 //
 //        // Correct the seek time to within the track's time bounds
 //        actualSeekTime = max(0, min(actualSeekTime, track.duration))
@@ -154,12 +154,12 @@
 //                    
 //                    scheduler.seekGapless(toTime: actualSeekTime, 
 //                                          currentSession: newSession, 
-//                                          beginPlayback: state == .playing,
+//                                          beginPlayback: state.isPlaying,
 //                                          otherTracksToSchedule: otherTracks)
 //                }
 //                
 //            } else {
-//                scheduler.seekToTime(newSession, actualSeekTime, state == .playing)
+//                scheduler.seekToTime(newSession, actualSeekTime, state.isPlaying)
 //            }
 //            
 //            messenger.publish(.Player.seekPerformed)
@@ -236,7 +236,7 @@
 //            let curSeekPos = seekPosition
 //            
 //            // Resume playback from the same seek position
-//            scheduler.seekToTime(curSession, curSeekPos, state == .playing)
+//            scheduler.seekToTime(curSession, curSeekPos, state.isPlaying)
 //        }
 //    }
 //    
@@ -245,7 +245,7 @@
 //        if let currentSession = PlaybackSession.currentSession {
 //            
 //            notif.context.playbackSession = currentSession
-//            notif.context.isPlaying = state == .playing
+//            notif.context.isPlaying = state.isPlaying
 //            
 //            notif.context.seekPosition = seekPosition
 //            cachedSeekPosition = notif.context.seekPosition

@@ -23,6 +23,9 @@ class SoundOrchestrator: SoundOrchestratorProtocol {
         self.engine = AudioEngine(persistentState: persistentState)
         self.deviceManager = DeviceManager(outputAudioUnit: engine.outputNode.audioUnit!)
         self.soundPreferences = soundPreferences
+        
+//        audioGraph.tearDown()
+//        engine.start()
     }
     
     func registerUI(ui: any SoundUI) {

@@ -49,6 +49,10 @@ class PlaybackOrchestrator: PlaybackOrchestratorProtocol {
         player.state
     }
     
+    var isPlaying: Bool {
+        state.isPlaying
+    }
+    
     var playbackPosition: PlaybackPosition? {
         player.seekPosition
     }
