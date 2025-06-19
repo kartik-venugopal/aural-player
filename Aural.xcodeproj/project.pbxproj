@@ -58,7 +58,7 @@
 		3E0218152C23490E00865AC2 /* AudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215FE2C23490E00865AC2 /* AudioDevice.swift */; };
 		3E0218162C23490E00865AC2 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0215FF2C23490E00865AC2 /* DeviceManager.swift */; };
 		3E0218172C23490E00865AC2 /* InternalDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216002C23490E00865AC2 /* InternalDeviceList.swift */; };
-		3E0218182C23490E00865AC2 /* AudioUnitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216022C23490E00865AC2 /* AudioUnitsManager.swift */; };
+		3E0218182C23490E00865AC2 /* AudioUnitsRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216022C23490E00865AC2 /* AudioUnitsRegistry.swift */; };
 		3E0218192C23490E00865AC2 /* AUExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216032C23490E00865AC2 /* AUExtensions.swift */; };
 		3E02181A2C23490E00865AC2 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216052C23490E00865AC2 /* AudioEngine.swift */; };
 		3E02181B2C23490E00865AC2 /* AudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0216062C23490E00865AC2 /* AudioGraph.swift */; };
@@ -433,6 +433,8 @@
 		3E08AC13281B27DF004A53F7 /* NSSlider+ColorSchemeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08AC12281B27DF004A53F7 /* NSSlider+ColorSchemeObserver.swift */; };
 		3E10179028D7722B002C0D8E /* EffectsUnitToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */; };
 		3E12A3B02E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12A3AF2E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift */; };
+		3E12A3B42E02096B00B4B4E3 /* SoundOrchestratorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12A3B32E02096B00B4B4E3 /* SoundOrchestratorProtocol.swift */; };
+		3E12A3B62E020AC900B4B4E3 /* SoundOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12A3B52E020AC900B4B4E3 /* SoundOrchestrator.swift */; };
 		3E1341282B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */; };
 		3E13412A2B6F0115009782B6 /* TrackInfoViewController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */; };
 		3E143C5B2D26010A00F40A67 /* LyricsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */; };
@@ -973,6 +975,8 @@
 		3ECFA87D2AE1EB01001096DC /* EffectsContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ECFA87C2AE1EB01001096DC /* EffectsContainer.xib */; };
 		3ECFA87F2AE1EB29001096DC /* EffectsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA87E2AE1EB29001096DC /* EffectsContainerViewController.swift */; };
 		3ECFB6F12BFBCFE20002331A /* PlayQueueSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFB6F02BFBCFE20002331A /* PlayQueueSearchViewController.swift */; };
+		3ED1DB7B2E03748D0095DC05 /* PlayerViewController+SoundUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1DB7A2E03748D0095DC05 /* PlayerViewController+SoundUI.swift */; };
+		3ED1DB7D2E037B5F0095DC05 /* DevicesViewController+SoundUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1DB7C2E037B5F0095DC05 /* DevicesViewController+SoundUI.swift */; };
 		3ED23857282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED23856282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift */; };
 		3ED2385928207E2C0048CF8E /* FilterBandEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ED2385828207E2C0048CF8E /* FilterBandEditorDialog.xib */; };
 		3ED2385C28207FD90048CF8E /* FilterBandEditorDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2385B28207FD90048CF8E /* FilterBandEditorDialogController.swift */; };
@@ -1132,7 +1136,7 @@
 		3E0215FE2C23490E00865AC2 /* AudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
 		3E0215FF2C23490E00865AC2 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		3E0216002C23490E00865AC2 /* InternalDeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalDeviceList.swift; sourceTree = "<group>"; };
-		3E0216022C23490E00865AC2 /* AudioUnitsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnitsManager.swift; sourceTree = "<group>"; };
+		3E0216022C23490E00865AC2 /* AudioUnitsRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnitsRegistry.swift; sourceTree = "<group>"; };
 		3E0216032C23490E00865AC2 /* AUExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUExtensions.swift; sourceTree = "<group>"; };
 		3E0216052C23490E00865AC2 /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		3E0216062C23490E00865AC2 /* AudioGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraph.swift; sourceTree = "<group>"; };
@@ -1547,6 +1551,8 @@
 		3E08AC12281B27DF004A53F7 /* NSSlider+ColorSchemeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSlider+ColorSchemeObserver.swift"; sourceTree = "<group>"; };
 		3E10178F28D7722B002C0D8E /* EffectsUnitToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitToggle.swift; sourceTree = "<group>"; };
 		3E12A3AF2E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaybackOrchestrator+Sequencing.swift"; sourceTree = "<group>"; };
+		3E12A3B32E02096B00B4B4E3 /* SoundOrchestratorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOrchestratorProtocol.swift; sourceTree = "<group>"; };
+		3E12A3B52E020AC900B4B4E3 /* SoundOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOrchestrator.swift; sourceTree = "<group>"; };
 		3E1341272B6F008E009782B6 /* TrackInfoViewController+MenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+MenuDelegate.swift"; sourceTree = "<group>"; };
 		3E1341292B6F0115009782B6 /* TrackInfoViewController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackInfoViewController+Theming.swift"; sourceTree = "<group>"; };
 		3E143C5A2D26010A00F40A67 /* LyricsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsExtensions.swift; sourceTree = "<group>"; };
@@ -2161,6 +2167,8 @@
 		3ECFA87C2AE1EB01001096DC /* EffectsContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsContainer.xib; sourceTree = "<group>"; };
 		3ECFA87E2AE1EB29001096DC /* EffectsContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsContainerViewController.swift; sourceTree = "<group>"; };
 		3ECFB6F02BFBCFE20002331A /* PlayQueueSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueueSearchViewController.swift; sourceTree = "<group>"; };
+		3ED1DB7A2E03748D0095DC05 /* PlayerViewController+SoundUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+SoundUI.swift"; sourceTree = "<group>"; };
+		3ED1DB7C2E037B5F0095DC05 /* DevicesViewController+SoundUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DevicesViewController+SoundUI.swift"; sourceTree = "<group>"; };
 		3ED23856282063330048CF8E /* FilterUnitViewController+TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterUnitViewController+TableViewDelegate.swift"; sourceTree = "<group>"; };
 		3ED2385828207E2C0048CF8E /* FilterBandEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterBandEditorDialog.xib; sourceTree = "<group>"; };
 		3ED2385B28207FD90048CF8E /* FilterBandEditorDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandEditorDialogController.swift; sourceTree = "<group>"; };
@@ -2420,7 +2428,7 @@
 		3E0216042C23490E00865AC2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3E0216022C23490E00865AC2 /* AudioUnitsManager.swift */,
+				3E0216022C23490E00865AC2 /* AudioUnitsRegistry.swift */,
 				3E0216032C23490E00865AC2 /* AUExtensions.swift */,
 			);
 			path = Utils;
@@ -3539,6 +3547,27 @@
 				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
 			);
 			path = Effects;
+			sourceTree = "<group>";
+		};
+		3E12A3B12E02093400B4B4E3 /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				3E8999192DFF4B4A005DC74E /* PlaybackOrchestratorProtocol.swift */,
+				3E89991B2DFF712A005DC74E /* PlaybackOrchestrator.swift */,
+				3ED80C1C2E00C2950082B638 /* PlaybackOrchestrator+Play.swift */,
+				3E89991D2DFF7A98005DC74E /* PlaybackOrchestrator+Seek.swift */,
+				3E12A3AF2E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift */,
+			);
+			path = Playback;
+			sourceTree = "<group>";
+		};
+		3E12A3B22E02094600B4B4E3 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				3E12A3B32E02096B00B4B4E3 /* SoundOrchestratorProtocol.swift */,
+				3E12A3B52E020AC900B4B4E3 /* SoundOrchestrator.swift */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		3E12F4EB2BFA721E003807F9 /* UIPresets */ = {
@@ -4722,6 +4751,7 @@
 			children = (
 				3E58649F2B76DD0000BDB5A6 /* PlayerViewController.swift */,
 				3ED80C1E2E00CA370082B638 /* PlayerViewController+PlaybackUI.swift */,
+				3ED1DB7A2E03748D0095DC05 /* PlayerViewController+SoundUI.swift */,
 				3E009E2A2DB457E200596E0A /* PlayerViewController+Player.swift */,
 				3ED65A522C45BA3000859677 /* PlayerViewController+Actions.swift */,
 				3ED65A542C45BAD000859677 /* PlayerViewController+Theming.swift */,
@@ -4978,11 +5008,8 @@
 		3E8999182DFF4B20005DC74E /* Orchestration */ = {
 			isa = PBXGroup;
 			children = (
-				3E8999192DFF4B4A005DC74E /* PlaybackOrchestratorProtocol.swift */,
-				3E89991B2DFF712A005DC74E /* PlaybackOrchestrator.swift */,
-				3ED80C1C2E00C2950082B638 /* PlaybackOrchestrator+Play.swift */,
-				3E89991D2DFF7A98005DC74E /* PlaybackOrchestrator+Seek.swift */,
-				3E12A3AF2E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift */,
+				3E12A3B22E02094600B4B4E3 /* Sound */,
+				3E12A3B12E02093400B4B4E3 /* Playback */,
 			);
 			path = Orchestration;
 			sourceTree = "<group>";
@@ -5098,6 +5125,7 @@
 			children = (
 				3E9D706E27C1DE2F00CAC4F1 /* Devices.xib */,
 				3E9D707027C1E30100CAC4F1 /* DevicesViewController.swift */,
+				3ED1DB7C2E037B5F0095DC05 /* DevicesViewController+SoundUI.swift */,
 				3EB1A8122826FCE900866012 /* DevicesViewController+TableViewDelegate.swift */,
 			);
 			path = Devices;
@@ -6153,6 +6181,7 @@
 				3E6C123825CEBDF400BF0D07 /* ChaptersListViewController.swift in Sources */,
 				3E6C123F25CEBDF400BF0D07 /* ChaptersListViewController+TableViewDelegate.swift in Sources */,
 				3E0218742C23490E00865AC2 /* BookmarksNotifications.swift in Sources */,
+				3ED1DB7B2E03748D0095DC05 /* PlayerViewController+SoundUI.swift in Sources */,
 				3E0219412C23490E00865AC2 /* MusicBrainzCoverArtArchive.swift in Sources */,
 				3E0219842C23490E00865AC2 /* IntExtensions.swift in Sources */,
 				3E02193B2C23490E00865AC2 /* MetadataFormat.swift in Sources */,
@@ -6459,6 +6488,7 @@
 				3E0219372C23490E00865AC2 /* FileSystemInfo.swift in Sources */,
 				3E51CCF6285E8CBB002CBEF2 /* UnifiedPlayerSidebarViewController+DataSource.swift in Sources */,
 				3E873FAB2DA6C04F00BBE508 /* AudioEngine+AU.swift in Sources */,
+				3E12A3B62E020AC900B4B4E3 /* SoundOrchestrator.swift in Sources */,
 				3E8CECA82D28892800F9B0CC /* LyricsPreferencesViewController.swift in Sources */,
 				3E0219122C23490E00865AC2 /* MediaKeysControlsPreferences.swift in Sources */,
 				3E873FA92DA6BF1600BBE508 /* AudioEngine+API.swift in Sources */,
@@ -6474,7 +6504,7 @@
 				3E0218C22C23490E00865AC2 /* PlaybackRequestContext.swift in Sources */,
 				3E0219422C23490E00865AC2 /* MusicBrainzRecording.swift in Sources */,
 				3E8729842C1B98AE00EA88C2 /* AppModeSubMenuController.swift in Sources */,
-				3E0218182C23490E00865AC2 /* AudioUnitsManager.swift in Sources */,
+				3E0218182C23490E00865AC2 /* AudioUnitsRegistry.swift in Sources */,
 				3E0219512C23490E00865AC2 /* FileCoverArtReader.swift in Sources */,
 				3E13412A2B6F0115009782B6 /* TrackInfoViewController+Theming.swift in Sources */,
 				3E0218A12C23490E00865AC2 /* ThemesPersistentState.swift in Sources */,
@@ -6550,6 +6580,7 @@
 				3E0217E22C23490E00865AC2 /* VariableRateNode.swift in Sources */,
 				3E02182F2C23490E00865AC2 /* FFmpegCoverArtReader.swift in Sources */,
 				3EC793812B745E1200AF7E9E /* EffectsSheetViewController.swift in Sources */,
+				3ED1DB7D2E037B5F0095DC05 /* DevicesViewController+SoundUI.swift in Sources */,
 				3E02192A2C23490E00865AC2 /* CommonFFMpegMetadataParser.swift in Sources */,
 				3E9E590E25DB6B150064EB5F /* MenuBarAppModeController.swift in Sources */,
 				3E12A3B02E01E5DB00B4B4E3 /* PlaybackOrchestrator+Sequencing.swift in Sources */,
@@ -6801,6 +6832,7 @@
 				3E0218202C23490E00865AC2 /* Bookmarks+Init.swift in Sources */,
 				3E6C128725CEBE1800BF0D07 /* TabGroupButtonCells.swift in Sources */,
 				3E0218FE2C23490E00865AC2 /* PlayQueueDelegate+Init.swift in Sources */,
+				3E12A3B42E02096B00B4B4E3 /* SoundOrchestratorProtocol.swift in Sources */,
 				3ED373EF2C71392E00836511 /* ReplayGainUnitPersistentState.swift in Sources */,
 				3E0218902C23490E00865AC2 /* LegacyAppPersistentState.swift in Sources */,
 				3EC9E67426A5E1EB00C17302 /* TableViewDragDropExtensions.swift in Sources */,

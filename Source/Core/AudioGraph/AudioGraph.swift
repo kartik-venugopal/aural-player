@@ -27,27 +27,27 @@ import AVFoundation
 ///
 class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
-    let engine: AudioEngine
-    let deviceManager: DeviceManager
+    let engine: AudioEngine! = nil
+    let deviceManager: DeviceManager! = nil
     var soundProfiles: SoundProfiles
     
     lazy var messenger = Messenger(for: self)
     
     // Sets up the audio engine
-    init(persistentState: AppPersistentState, audioUnitsManager: AudioUnitsManager) {
+    init(persistentState: AppPersistentState, audioUnitsManager: AudioUnitsRegistry) {
         
         let persistentState: AudioGraphPersistentState? = persistentState.audioGraph
-        
-        self.engine = AudioEngine(persistentState: persistentState, audioUnitsManager: audioUnitsManager)
-        self.deviceManager = DeviceManager(outputAudioUnit: engine.outputNode.audioUnit!)
+//        
+//        self.engine = AudioEngine(persistentState: persistentState)
+//        self.deviceManager = DeviceManager(outputAudioUnit: engine.outputNode.audioUnit!)
         self.soundProfiles = SoundProfiles(persistentState: persistentState?.soundProfiles)
-        
-        // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
-        messenger.subscribe(to: .AVAudioEngineConfigurationChange, handler: outputDeviceChanged)
-        startEngine()
-        setInitialOutputDevice(persistentState: persistentState)
-        
-        captureSystemSoundProfile()
+//        
+//        // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
+//        messenger.subscribe(to: .AVAudioEngineConfigurationChange, handler: outputDeviceChanged)
+//        startEngine()
+//        setInitialOutputDevice(persistentState: persistentState)
+//        
+//        captureSystemSoundProfile()
     }
     
     func tearDown() {

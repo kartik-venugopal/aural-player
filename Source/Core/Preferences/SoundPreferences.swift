@@ -14,32 +14,34 @@ import Foundation
 ///
 class SoundPreferences {
     
-    @UserPreference(key: "sound.volumeDelta", defaultValue: Defaults.volumeDelta)
+    private static let namespace: String = "sound"
+    
+    @UserPreference(key: "\(namespace).delta.volume", defaultValue: Defaults.volumeDelta)
     var volumeDelta: Float
     
     private let scrollSensitiveVolumeDeltas: [GesturesControlsPreferences.ScrollSensitivity: Float] = [
-        .low: 0.025,
-        .medium: 0.05,
-        .high: 0.1
+        .low: 2.5,
+        .medium: 5,
+        .high: 10
     ]
     
     var volumeDelta_continuous: Float {
         scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity]!
     }
     
-    @UserPreference(key: "sound.panDelta", defaultValue: Defaults.panDelta)
+    @UserPreference(key: "\(namespace).delta.pan", defaultValue: Defaults.panDelta)
     var panDelta: Float
     
-    @UserPreference(key: "sound.eqDelta", defaultValue: Defaults.eqDelta)
+    @UserPreference(key: "\(namespace).delta.eq", defaultValue: Defaults.eqDelta)
     var eqDelta: Float
     
-    @UserPreference(key: "sound.pitchDelta", defaultValue: Defaults.pitchDelta)
-    var pitchDelta: Int
+    @UserPreference(key: "\(namespace).delta.pitchShift", defaultValue: Defaults.pitchShiftDelta)
+    var pitchShiftDelta: Int
     
-    @UserPreference(key: "sound.rateDelta", defaultValue: Defaults.rateDelta)
-    var rateDelta: Float
+    @UserPreference(key: "\(namespace).delta.timeStretch", defaultValue: Defaults.timeStretchDelta)
+    var timeStretchDelta: Float
     
-    @UserPreference(key: "sound.rememberEffectsSettingsForAllTracks", defaultValue: Defaults.rememberEffectsSettingsForAllTracks)
+    @UserPreference(key: "\(namespace).rememberEffectsSettingsForAllTracks", defaultValue: Defaults.rememberEffectsSettingsForAllTracks)
     var rememberEffectsSettingsForAllTracks: Bool
     
     private let controlsPreferences: GesturesControlsPreferences
@@ -51,7 +53,7 @@ class SoundPreferences {
         guard let legacyPreferences = legacyPreferences else {return}
         
         if let rateDelta = legacyPreferences.timeDelta {
-            self.rateDelta = rateDelta
+            self.timeStretchDelta = rateDelta
         }
         
         if let rememberEffectsSettingsOption = legacyPreferences.rememberEffectsSettingsOption {
@@ -66,12 +68,12 @@ class SoundPreferences {
     ///
     fileprivate struct Defaults {
         
-        static let volumeDelta: Float = 0.05
-        static let panDelta: Float = 0.1
+        static let volumeDelta: Float = 5
+        static let panDelta: Float = 10
         
         static let eqDelta: Float = 1
-        static let pitchDelta: Int = 100
-        static let rateDelta: Float = 0.05
+        static let pitchShiftDelta: Int = 100
+        static let timeStretchDelta: Float = 0.05
         
         static let rememberEffectsSettingsForAllTracks: Bool = false
     }

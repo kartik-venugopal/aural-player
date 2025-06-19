@@ -94,25 +94,6 @@ extension Notification.Name {
         
         // ----------------------------------------------------------------------------------------
         
-        // MARK: Player sound commands
-        
-        // Command to mute or unmute the player
-        static let muteOrUnmute = Notification.Name("player_muteOrUnmute")
-        
-        // Command to decrease the volume by a certain preset decrement
-        static let decreaseVolume = Notification.Name("player_decreaseVolume")
-        
-        // Command to increase the volume by a certain preset increment
-        static let increaseVolume = Notification.Name("player_increaseVolume")
-        
-        // Command to pan the sound towards the left channel, by a certain preset value
-        static let panLeft = Notification.Name("player_panLeft")
-        
-        // Command to pan the sound towards the right channel, by a certain preset value
-        static let panRight = Notification.Name("player_panRight")
-        
-        // ----------------------------------------------------------------------------------------
-        
         // MARK: Player view commands
         
         // Commands the player to show or hide album art for the current track.

@@ -99,17 +99,17 @@ extension DockMenuController {
     
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
-        messenger.publish(.Player.muteOrUnmute)
+        soundOrch.toggleMuted()
     }
     
     // Decreases the volume by a certain preset decrement
     @IBAction func decreaseVolumeAction(_ sender: Any) {
-        messenger.publish(.Player.decreaseVolume, payload: UserInputMode.discrete)
+        soundOrch.decreaseVolume()
     }
     
     // Increases the volume by a certain preset increment
     @IBAction func increaseVolumeAction(_ sender: Any) {
-        messenger.publish(.Player.increaseVolume, payload: UserInputMode.discrete)
+        soundOrch.increaseVolume()
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played

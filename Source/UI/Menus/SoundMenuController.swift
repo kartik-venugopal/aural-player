@@ -128,29 +128,29 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
-        messenger.publish(.Player.muteOrUnmute)
+        soundOrch.toggleMuted()
     }
     
     // Decreases the volume by a certain preset decrement
     @IBAction func decreaseVolumeAction(_ sender: Any) {
-        messenger.publish(.Player.decreaseVolume, payload: UserInputMode.discrete)
+        soundOrch.decreaseVolume()
     }
     
     // Increases the volume by a certain preset increment
     @IBAction func increaseVolumeAction(_ sender: Any) {
-        messenger.publish(.Player.increaseVolume, payload: UserInputMode.discrete)
+        soundOrch.increaseVolume()
     }
     
     // MARK: Pan ---------------------------------------------------------------------------
     
     // Pans the sound towards the left channel, by a certain preset value
     @IBAction func panLeftAction(_ sender: Any) {
-        messenger.publish(.Player.panLeft)
+        soundOrch.panLeft()
     }
     
     // Pans the sound towards the right channel, by a certain preset value
     @IBAction func panRightAction(_ sender: Any) {
-        messenger.publish(.Player.panRight)
+        soundOrch.panRight()
     }
     
     // MARK: Master Unit ---------------------------------------------------------------------------

@@ -40,8 +40,10 @@ class DevicesViewController: NSViewController {
         
         super.viewDidLoad()
         
-        panSlider.floatValue = audioGraph.scaledPan
-        lblPan.stringValue = audioGraph.formattedPan
+        soundOrch.registerUI(ui: self)
+        
+        panSlider.floatValue = soundOrch.pan
+        lblPan.stringValue = soundOrch.displayedPan
         
         fontSchemesManager.registerObserver(self)
         
@@ -53,8 +55,8 @@ class DevicesViewController: NSViewController {
         colorSchemesManager.registerPropertyObserver(self, forProperty: \.textSelectionColor, handler: textSelectionColorChanged(_:))
         colorSchemesManager.registerPropertyObserver(self, forProperties: [\.activeControlColor, \.inactiveControlColor], handler: unitStateColorChanged(_:))
         
-        messenger.subscribe(to: .Player.panLeft, handler: panLeft)
-        messenger.subscribe(to: .Player.panRight, handler: panRight)
+//        messenger.subscribe(to: .Player.panLeft, handler: panLeft)
+//        messenger.subscribe(to: .Player.panRight, handler: panRight)
         
         messenger.subscribeAsync(to: .Player.trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged})
@@ -71,20 +73,22 @@ class DevicesViewController: NSViewController {
     override func destroy() {
         
         super.destroy()
+        
+        soundOrch.deregisterUI(ui: self)
         messenger.unsubscribeFromAll()
     }
     
     @IBAction func panAction(_ sender: Any) {
-        
-        audioGraph.scaledPan = panSlider.floatValue
-        lblPan.stringValue = audioGraph.formattedPan
+        soundOrch.pan = panSlider.floatValue
     }
     
     // Pans the sound towards the left channel, by a certain preset value
     func panLeft() {
         
-        panSlider.floatValue = audioGraph.panLeft()
-        lblPan.stringValue = audioGraph.formattedPan
+        soundOrch.panLeft()
+        
+//        panSlider.floatValue = audioGraph.panLeft()
+//        lblPan.stringValue = audioGraph.formattedPan
         
         messenger.publish(.Effects.showEffectsUnitTab, payload: EffectsUnitType.devices)
     }
@@ -92,8 +96,10 @@ class DevicesViewController: NSViewController {
     // Pans the sound towards the right channel, by a certain preset value
     func panRight() {
         
-        panSlider.floatValue = audioGraph.panRight()
-        lblPan.stringValue = audioGraph.formattedPan
+        soundOrch.panRight()
+        
+//        panSlider.floatValue = audioGraph.panRight()
+//        lblPan.stringValue = audioGraph.formattedPan
         
         messenger.publish(.Effects.showEffectsUnitTab, payload: EffectsUnitType.devices)
     }

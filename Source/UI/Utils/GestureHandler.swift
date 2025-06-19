@@ -29,10 +29,16 @@ class GestureHandler {
     
     static func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        guard gesturesPreferences.allowVolumeControl, ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) else {return}
+        guard gesturesPreferences.allowVolumeControl,
+                ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection)
+        else {return}
         
         // Scroll up = increase volume, scroll down = decrease volume
-        Messenger.publish(scrollDirection == .up ?.Player.increaseVolume : .Player.decreaseVolume, payload: UserInputMode.continuous)
+        if scrollDirection == .up {
+            soundOrch.increaseVolume(inputMode: .continuous)
+        } else {
+            soundOrch.decreaseVolume(inputMode: .continuous)
+        }
     }
     
     static func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {

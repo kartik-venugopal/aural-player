@@ -23,7 +23,7 @@ struct Injected<Object> {
         
         get {
             
-            if Object.self == AudioUnitsManager.self {
+            if Object.self == AudioUnitsRegistry.self {
                 return audioUnitsManager as? Object
             }
             
@@ -113,9 +113,11 @@ let playQueue: PlayQueue = PlayQueue(persistentState: appPersistentState.playQue
 //    let playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: appPersistentState.playlist, playlist,
 //                                                                           trackReader, preferences)
 
-let audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
+let audioUnitsManager: AudioUnitsRegistry = AudioUnitsRegistry()
 fileprivate let _audioGraph: AudioGraph = AudioGraph(persistentState: appPersistentState, audioUnitsManager: audioUnitsManager)
 var audioGraph: AudioGraphProtocol = _audioGraph
+
+var soundOrch: SoundOrchestratorProtocol = SoundOrchestrator(persistentState: appPersistentState.audioGraph, soundPreferences: preferences.soundPreferences)
 
 let player: PlayerProtocol = DiscretePlayer(audioGraph: audioGraph, playQueue: playQueue)
 

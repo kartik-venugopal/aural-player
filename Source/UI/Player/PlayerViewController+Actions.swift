@@ -52,16 +52,6 @@ extension PlayerViewController {
         setPlaybackPositionDisplayType(to: playerUIState.playbackPositionDisplayType)
     }
     
-    @IBAction func volumeAction(_ sender: NSSlider) {
-        
-        audioGraph.scaledVolume = volumeSlider.floatValue
-        volumeChanged(volume: audioGraph.scaledVolume, muted: audioGraph.muted, updateSlider: false)
-    }
-    
-    @IBAction func muteOrUnmuteAction(_ sender: NSButton) {
-        muteOrUnmute()
-    }
-    
     @IBAction func toggleRepeatModeAction(_ sender: NSButton) {
         playbackOrch.toggleRepeatMode()
     }
@@ -75,6 +65,14 @@ extension PlayerViewController {
 //        }
         
         playbackOrch.toggleShuffleMode()
+    }
+    
+    @IBAction func volumeAction(_ sender: NSSlider) {
+        soundOrch.volume = volumeSlider.floatValue
+    }
+    
+    @IBAction func muteOrUnmuteAction(_ sender: NSButton) {
+        soundOrch.toggleMuted()
     }
 }
 

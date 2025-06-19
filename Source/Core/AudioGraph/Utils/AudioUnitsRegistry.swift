@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// Utility class that determines which Audio Units (AU) plug-ins that are supported by the app are installed on the local system.
 ///
-class AudioUnitsManager {
+class AudioUnitsRegistry {
     
     private let componentManager: AVAudioUnitComponentManager = .shared()
     

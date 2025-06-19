@@ -14,14 +14,14 @@ import Cocoa
 ///
 class PlayQueuePreferences {
     
-    @EnumUserPreference(key: "playQueue.playQueueOnStartup", defaultValue: Defaults.playQueueOnStartup)
+    @EnumUserPreference(key: "playQueue.onStartup", defaultValue: Defaults.playQueueOnStartup)
     var playQueueOnStartup: PlayQueueStartupOption
     
     // This will be used only when playQueueOnStartup == PlayQueueStartupOption.loadFile
-    @URLUserPreference(key: "playQueue.playQueueOnStartup.playlistFile")
+    @URLUserPreference(key: "playQueue.onStartup.playlistFile")
     var playlistFile: URL?
     
-    @URLUserPreference(key: "playQueue.playQueueOnStartup.tracksFolder")
+    @URLUserPreference(key: "playQueue.onStartup.tracksFolder")
     var tracksFolder: URL?
     
     @UserPreference(key: "playQueue.showNewTrackInPlayQueue", defaultValue: Defaults.showNewTrackInPlayQueue)

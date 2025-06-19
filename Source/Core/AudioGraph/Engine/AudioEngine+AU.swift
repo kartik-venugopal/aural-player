@@ -14,7 +14,7 @@ extension AudioEngine {
     
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)? {
         
-        guard let auComponent = audioUnitsManager.audioUnit(ofType: type, andSubType: subType) else {return nil}
+        guard let auComponent = audioUnitsRegistry.audioUnit(ofType: type, andSubType: subType) else {return nil}
         
         let newUnit: HostedAudioUnit = HostedAudioUnit(forComponent: auComponent,
                                                        presets: audioUnitPresets.getPresetsForAU(componentType: type, componentSubType: subType))

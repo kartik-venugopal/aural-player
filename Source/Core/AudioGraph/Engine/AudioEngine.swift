@@ -17,6 +17,7 @@ import AVFoundation
 class AudioEngine {
     
     let engine: AVAudioEngine
+    let audioUnitsRegistry: AudioUnitsRegistry
     
     let playerNode: AuralPlayerNode
     let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
@@ -43,7 +44,6 @@ class AudioEngine {
         permanentNodes + removableNodes
     }
     
-    let audioUnitsManager: AudioUnitsManager
     var audioUnitPresets: AudioUnitPresetsMap
     
     var permanentNodes: [AVAudioNode] = []
@@ -51,12 +51,13 @@ class AudioEngine {
     
     lazy var messenger = Messenger(for: self)
     
-    init(persistentState: AudioGraphPersistentState?, audioUnitsManager: AudioUnitsManager) {
+    init(persistentState: AudioGraphPersistentState?) {
         
         self.engine = AVAudioEngine()
-        self.audioUnitsManager = audioUnitsManager
+        self.audioUnitsRegistry = AudioUnitsRegistry()
         
         let volume = persistentState?.volume ?? AudioGraphDefaults.volume
+        print("HERE vol is: \(volume)")
         let pan = persistentState?.pan ?? AudioGraphDefaults.pan
         playerNode = AuralPlayerNode(volume: volume, pan: pan)
         

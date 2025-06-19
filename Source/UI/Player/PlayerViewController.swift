@@ -187,6 +187,7 @@ class PlayerViewController: NSViewController {
         setUpCommandHandling()
         
         playbackOrch.registerUI(ui: self)
+        soundOrch.registerUI(ui: self)
     }
     
     func setUpTrackInfoView() {
@@ -378,7 +379,7 @@ class PlayerViewController: NSViewController {
         // Volume controls
         
         // Volume may have changed because of sound profiles
-        volumeChanged(volume: audioGraph.scaledVolume, muted: audioGraph.muted)
+        volumeChanged(volume: soundOrch.volume, displayedVolume: soundOrch.displayedVolume, muted: soundOrch.muted)
     }
     
     // Creates a recurring task that polls the player to detect a change in the currently playing track chapter.
@@ -405,10 +406,6 @@ class PlayerViewController: NSViewController {
     }
     
     func setUpCommandHandling() {
-        
-        messenger.subscribe(to: .Player.muteOrUnmute, handler: muteOrUnmute)
-        messenger.subscribe(to: .Player.decreaseVolume, handler: decreaseVolume(inputMode:))
-        messenger.subscribe(to: .Player.increaseVolume, handler: increaseVolume(inputMode:))
         
         messenger.subscribe(to: .Player.beginGaplessPlayback, handler: beginGaplessPlayback)
         
@@ -591,72 +588,6 @@ class PlayerViewController: NSViewController {
         messenger.publish(.Player.playbackLoopChanged)
     }
     
-    // Decreases the volume by a certain preset decrement
-    func decreaseVolume(inputMode: UserInputMode) {
-        
-        let newVolume = audioGraph.decreaseVolume(inputMode: inputMode)
-        volumeChanged(volume: newVolume, muted: audioGraph.muted)
-    }
-    
-    // Increases the volume by a certain preset increment
-    func increaseVolume(inputMode: UserInputMode) {
-        
-        let newVolume = audioGraph.increaseVolume(inputMode: inputMode)
-        volumeChanged(volume: newVolume, muted: audioGraph.muted)
-    }
-    
-    func muteOrUnmute() {
-        
-        audioGraph.muted.toggle()
-        updateVolumeMuteButtonImage(volume: audioGraph.scaledVolume, muted: audioGraph.muted)
-    }
-    
-    // updateSlider should be true if the action was not triggered by the slider in the first place.
-    func volumeChanged(volume: Float, muted: Bool, updateSlider: Bool = true, showFeedback: Bool = true) {
-        
-        if updateSlider {
-            volumeSlider.floatValue = volume
-        }
-        
-        lblVolume.stringValue = audioGraph.formattedVolume
-        volumeSlider.toolTip = "Volume: \(audioGraph.formattedVolume)" + (muted ? " (muted)" : "")
-        
-        updateVolumeMuteButtonImage(volume: volume, muted: muted)
-        
-        // Shows and automatically hides the volume label after a preset time interval
-        if showFeedback {
-            autoHidingVolumeLabel.showView()
-        }
-    }
-    
-    func updateVolumeMuteButtonImage(volume: Float, muted: Bool) {
-
-        if muted {
-            btnVolume.image = .imgMute
-            
-        } else {
-
-            // Zero / Low / Medium / High (different images)
-            
-            switch volume {
-                
-            case highVolumeRange:
-                btnVolume.image = .imgVolumeHigh
-                
-            case mediumVolumeRange:
-                btnVolume.image = .imgVolumeMedium
-                
-            case lowVolumeRange:
-                btnVolume.image = .imgVolumeLow
-                
-            default:
-                btnVolume.image = .imgVolumeZero
-            }
-        }
-        
-        volumeSlider.toolTip = "Volume: \(audioGraph.formattedVolume)" + (muted ? " (muted)" : "")
-    }
-    
     @objc dynamic func showOrHideArtist() {
         multilineTrackTextView.update()
     }
@@ -755,6 +686,8 @@ class PlayerViewController: NSViewController {
     override func destroy() {
         
         super.destroy()
+        
+        soundOrch.deregisterUI(ui: self)
         messenger.unsubscribeFromAll()
     }
 }

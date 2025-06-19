@@ -53,7 +53,7 @@ extension SoundMenuController {
 extension TimeStretchUnitProtocol {
     
     fileprivate var rateDelta: Float {
-        preferences.soundPreferences.rateDelta
+        preferences.soundPreferences.timeStretchDelta
     }
     
     func increaseRate() {
