@@ -14,12 +14,12 @@ import Foundation
 ///
 class PitchShiftPresets: EffectsUnitPresets<PitchShiftPreset> {
     
-    init(persistentState: PitchShiftUnitPersistentState?) {
+    func initialize(persistentState: PitchShiftUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedPitchShiftPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {PitchShiftPreset(persistentState: $0)}
         
-        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
+        super.initialize(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
     override var defaultPreset: PitchShiftPreset {systemDefinedObject(named: SystemDefinedPitchShiftPresetParams.normal.rawValue)!}

@@ -27,7 +27,7 @@ class TimeStretchUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var timeStretchUnit: TimeStretchUnitProtocol = audioGraph.timeStretchUnit
+    private var timeStretchUnit: TimeStretchUnitProtocol!
     
     // ------------------------------------------------------------------------
     

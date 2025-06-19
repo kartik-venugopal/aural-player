@@ -21,8 +21,9 @@ class FilterBandSlider: RangeSlider, FXUnitStateObserver {
         filterUnit[bandIndex]
     }
     
-    private var filterUnit: FilterUnitProtocol {
-        audioGraph.filterUnit
+    private var filterUnit: FilterUnitProtocol! {
+//        soundOrch.filterUnit
+        nil
     }
     
     override var barFillColor: NSColor {

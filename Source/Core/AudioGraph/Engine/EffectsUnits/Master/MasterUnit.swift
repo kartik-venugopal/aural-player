@@ -19,8 +19,6 @@ import Foundation
 ///
 class MasterUnit: EffectsUnit, MasterUnitProtocol {
     
-    let presets: MasterPresets
-    
     var eqUnit: EQUnit
     var pitchShiftUnit: PitchShiftUnit
     var timeStretchUnit: TimeStretchUnit
@@ -29,9 +27,11 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
     var filterUnit: FilterUnit
     
     var nativeSlaveUnits: [EffectsUnit]
-    var audioUnits: [HostedAudioUnit]
+    var audioUnits: [HostedAudioUnit] = []
     
-    init(persistentState: MasterUnitPersistentState?, nativeSlaveUnits: [EffectsUnit], audioUnits: [HostedAudioUnit]) {
+    let presets: MasterPresets = .init()
+    
+    init(nativeSlaveUnits: [EffectsUnit]) {
         
         self.nativeSlaveUnits = nativeSlaveUnits
         
@@ -42,10 +42,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol {
         delayUnit = nativeSlaveUnits.first(where: {$0 is DelayUnit}) as! DelayUnit
         filterUnit = nativeSlaveUnits.first(where: {$0 is FilterUnit}) as! FilterUnit
         
-        self.audioUnits = audioUnits
-        presets = MasterPresets(persistentState: persistentState)
-        
-        super.init(unitType: .master, unitState: persistentState?.state ?? AudioGraphDefaults.masterState)
+        super.init(unitType: .master, unitState: .active)
     }
     
     override func toggleState() -> EffectsUnitState {

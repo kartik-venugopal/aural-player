@@ -15,7 +15,7 @@ import Cocoa
 
 extension AudioUnitsViewController: NSTableViewDataSource {
     
-    func numberOfRows(in tableView: NSTableView) -> Int {audioGraph.audioUnits.count}
+    func numberOfRows(in tableView: NSTableView) -> Int {soundOrch.audioUnits.count}
 }
 
 // ------------------------------------------------------------------------
@@ -59,7 +59,7 @@ extension AudioUnitsViewController: NSTableViewDelegate {
      
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitSwitchCellView else {return nil}
         
-        let audioUnit = audioGraph.audioUnits[row] as! HostedAudioUnit
+        let audioUnit = soundOrch.audioUnits[row] as! HostedAudioUnit
         
         fxUnitStateObserverRegistry.registerObserver(cell.btnSwitch, forFXUnit: audioUnit)
 
@@ -80,7 +80,7 @@ extension AudioUnitsViewController: NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitNameCellView else {return nil}
         
-        let audioUnit = audioGraph.audioUnits[row]
+        let audioUnit = soundOrch.audioUnits[row]
         
         cell.text = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
         cell.textFont = systemFontScheme.normalFont
@@ -94,7 +94,7 @@ extension AudioUnitsViewController: NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitEditCellView else {return nil}
         
-        let audioUnit = audioGraph.audioUnits[row] as! HostedAudioUnit
+        let audioUnit = soundOrch.audioUnits[row] as! HostedAudioUnit
         cell.btnEdit.contentTintColor = systemColorScheme.buttonColor
         
         cell.action = {[weak self, weak audioUnit] in

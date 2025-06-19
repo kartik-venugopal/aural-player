@@ -18,7 +18,7 @@ class ReplayGainUnitViewController: EffectsUnitViewController {
     
     @IBOutlet weak var replayGainUnitView: ReplayGainUnitView!
     
-//    var replayGainUnit: ReplayGainUnitProtocol = audioGraph.replayGainUnit
+//    var replayGainUnit: ReplayGainUnitProtocol = soundOrch.replayGainUnit
     var replayGainUnit: ReplayGainUnitProtocol!
     
     // ------------------------------------------------------------------------

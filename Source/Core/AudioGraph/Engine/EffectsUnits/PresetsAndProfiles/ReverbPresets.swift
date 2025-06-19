@@ -14,10 +14,10 @@ import Foundation
 ///
 class ReverbPresets: EffectsUnitPresets<ReverbPreset> {
     
-    init(persistentState: ReverbUnitPersistentState?) {
+    func initialize(persistentState: ReverbUnitPersistentState?) {
         
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {ReverbPreset(persistentState: $0)}
-        super.init(systemDefinedObjects: [], userDefinedObjects: userDefinedPresets)
+        super.initialize(systemDefinedObjects: [], userDefinedObjects: userDefinedPresets)
     }
 }
 

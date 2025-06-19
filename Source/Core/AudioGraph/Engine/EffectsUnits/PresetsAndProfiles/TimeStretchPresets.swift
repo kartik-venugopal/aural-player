@@ -14,12 +14,12 @@ import Foundation
 ///
 class TimeStretchPresets: EffectsUnitPresets<TimeStretchPreset> {
     
-    init(persistentState: TimeStretchUnitPersistentState?) {
+    func initialize(persistentState: TimeStretchUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedTimeStretchPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {TimeStretchPreset(persistentState: $0)}
         
-        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
+        super.initialize(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
     override var defaultPreset: TimeStretchPreset {systemDefinedObject(named: SystemDefinedTimeStretchPresetParams.normal.rawValue)!}

@@ -53,7 +53,7 @@ class EffectsUnit: NSObject, EffectsUnitProtocol {
     
     private var kvoTokens: Set<NSKeyValueObservation> = Set()
     
-    init(unitType: EffectsUnitType, unitState: EffectsUnitState, renderQuality: Int? = nil) {
+    init(unitType: EffectsUnitType, unitState: EffectsUnitState = .bypassed, renderQuality: Int? = nil) {
         
         self.unitType = unitType
         self.state = unitState

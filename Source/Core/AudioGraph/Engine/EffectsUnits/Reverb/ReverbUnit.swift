@@ -18,30 +18,24 @@ import AVFoundation
 ///
 class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     
-    let node: AVAudioUnitReverb = AVAudioUnitReverb()
-    let presets: ReverbPresets
+    private let node: AVAudioUnitReverb = .init()
+    let presets: ReverbPresets = .init()
     
-    init(persistentState: ReverbUnitPersistentState?) {
+    var avSpace: AVAudioUnitReverbPreset = AudioGraphDefaults.reverbSpace.avPreset {
         
-        avSpace = (persistentState?.space ?? AudioGraphDefaults.reverbSpace).avPreset
-        presets = ReverbPresets(persistentState: persistentState)
-        
-        super.init(unitType: .reverb, unitState: persistentState?.state ?? AudioGraphDefaults.reverbState, renderQuality: persistentState?.renderQuality)
-        
-        amount = persistentState?.amount ?? AudioGraphDefaults.reverbAmount
+        didSet {
+            node.loadFactoryPreset(avSpace)
+        }
+    }
+    
+    init() {
+        super.init(unitType: .reverb)
     }
     
     override var avNodes: [AVAudioNode] {[node]}
     
     override func reset() {
         node.reset()
-    }
-    
-    var avSpace: AVAudioUnitReverbPreset {
-        
-        didSet {
-            node.loadFactoryPreset(avSpace)
-        }
     }
     
     var space: ReverbSpace {

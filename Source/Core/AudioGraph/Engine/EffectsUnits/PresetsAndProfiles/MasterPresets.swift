@@ -14,9 +14,9 @@ import Foundation
 ///
 class MasterPresets: EffectsUnitPresets<MasterPreset> {
     
-    init(persistentState: MasterUnitPersistentState?) {
+    func initialize(persistentState: MasterUnitPersistentState?) {
         
-        super.init(systemDefinedObjects: [],
+        super.initialize(systemDefinedObjects: [],
                    userDefinedObjects: (persistentState?.userPresets ?? []).compactMap {MasterPreset(persistentState: $0)})
     }
 }

@@ -29,26 +29,27 @@ class EffectsUnitStateObserverRegistry {
     
     private init() {
         
-        for unit in audioGraph.allUnits {
-            
-            // AUs are dealt with differently.
-            guard unit.unitType != .au else {continue}
-            
-            unit.observeState {[weak self] newState in
-                
-                for observer in self?.registry[unit.unitType] ?? [] {
-                    observer.unitStateChanged(to: newState)
-                }
-            }
-        }
-        
-        for au in audioGraph.audioUnits {
-            observeAU(au)
-        }
+//        for unit in soundOrch.allUnits {
+//            
+//            // AUs are dealt with differently.
+//            guard unit.unitType != .au else {continue}
+//            
+//            unit.observeState {[weak self] newState in
+//                
+//                for observer in self?.registry[unit.unitType] ?? [] {
+//                    observer.unitStateChanged(to: newState)
+//                }
+//            }
+//        }
+//        
+//        for au in soundOrch.audioUnits {
+//            observeAU(au)
+//        }
     }
     
     var compositeAUState: EffectsUnitState {
-        audioGraph.audioUnitsState
+//        soundOrch.audioUnitsState
+        .bypassed
     }
     
     func observeAU(_ au: HostedAudioUnitProtocol) {
@@ -142,11 +143,11 @@ class EffectsUnitStateObserverRegistry {
         
         if let auID = auReverseRegistry[object] {
             
-            if auID != "_composite_" {
-                return audioGraph.audioUnits.first(where: {$0.id == auID})?.state ?? .bypassed
-            } else {
+//            if auID != "_composite_" {
+//                return soundOrch.audioUnits.first(where: {$0.id == auID})?.state ?? .bypassed
+//            } else {
                 return compositeAUState
-            }
+//            }
         }
         
         return .bypassed

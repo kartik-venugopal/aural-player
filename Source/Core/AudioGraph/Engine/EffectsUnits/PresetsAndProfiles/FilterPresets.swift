@@ -14,12 +14,12 @@ import Foundation
 ///
 class FilterPresets: EffectsUnitPresets<FilterPreset> {
     
-    init(persistentState: FilterUnitPersistentState?) {
+    func initialize(persistentState: FilterUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedFilterPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {FilterPreset(persistentState: $0)}
         
-        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
+        super.initialize(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
     override var defaultPreset: FilterPreset {systemDefinedObject(named: SystemDefinedFilterPresetParams.passThrough.rawValue)!}

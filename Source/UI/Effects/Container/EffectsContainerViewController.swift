@@ -22,29 +22,29 @@ class EffectsContainerViewController: NSViewController {
 
     // The constituent sub-views, one for each effects unit
     
-    private let masterViewController: MasterUnitViewController = .init(for: audioGraph.masterUnit,
-                                                                       presets: audioGraph.masterUnit.presets)
+    private let masterViewController: MasterUnitViewController = .init(for: soundOrch.masterUnit,
+                                                                       presets: soundOrch.masterUnit.presets)
     
-    private let eqViewController: EQUnitViewController = .init(for: audioGraph.eqUnit,
-                                                               presets: audioGraph.eqUnit.presets)
+    private let eqViewController: EQUnitViewController = .init(for: soundOrch.eqUnit,
+                                                               presets: soundOrch.eqUnit.presets)
     
-    private let pitchViewController: PitchShiftUnitViewController = .init(for: audioGraph.pitchShiftUnit,
-                                                                          presets: audioGraph.pitchShiftUnit.presets)
+    private let pitchViewController: PitchShiftUnitViewController = .init(for: soundOrch.pitchShiftUnit,
+                                                                          presets: soundOrch.pitchShiftUnit.presets)
     
-    private let timeViewController: TimeStretchUnitViewController = .init(for: audioGraph.timeStretchUnit,
-                                                                          presets: audioGraph.timeStretchUnit.presets)
+    private let timeViewController: TimeStretchUnitViewController = .init(for: soundOrch.timeStretchUnit,
+                                                                          presets: soundOrch.timeStretchUnit.presets)
     
-    private let reverbViewController: ReverbUnitViewController = .init(for: audioGraph.reverbUnit,
-                                                                       presets: audioGraph.reverbUnit.presets)
+    private let reverbViewController: ReverbUnitViewController = .init(for: soundOrch.reverbUnit,
+                                                                       presets: soundOrch.reverbUnit.presets)
     
-    private let delayViewController: DelayUnitViewController = .init(for: audioGraph.delayUnit,
-                                                                     presets: audioGraph.delayUnit.presets)
+    private let delayViewController: DelayUnitViewController = .init(for: soundOrch.delayUnit,
+                                                                     presets: soundOrch.delayUnit.presets)
     
-    private let filterViewController: FilterUnitViewController = .init(for: audioGraph.filterUnit,
-                                                                       presets: audioGraph.filterUnit.presets)
+    private let filterViewController: FilterUnitViewController = .init(for: soundOrch.filterUnit,
+                                                                       presets: soundOrch.filterUnit.presets)
     
-//    private let replayGainViewController: ReplayGainUnitViewController = .init(for: audioGraph.replayGainUnit,
-//                                                                               presets: audioGraph.replayGainUnit.presets)
+//    private let replayGainViewController: ReplayGainUnitViewController = .init(for: soundOrch.replayGainUnit,
+//                                                                               presets: soundOrch.replayGainUnit.presets)
     
     private let auViewController: AudioUnitsViewController = AudioUnitsViewController()
     private let devicesViewController: DevicesViewController = DevicesViewController()
@@ -126,19 +126,19 @@ class EffectsContainerViewController: NSViewController {
             viewController.view.anchorToSuperview()
         }
 
-        fxUnitStateObserverRegistry.registerObserver(masterTabViewButton, forFXUnit: audioGraph.masterUnit)
-        fxUnitStateObserverRegistry.registerObserver(eqTabViewButton, forFXUnit: audioGraph.eqUnit)
-        fxUnitStateObserverRegistry.registerObserver(pitchTabViewButton, forFXUnit: audioGraph.pitchShiftUnit)
-        fxUnitStateObserverRegistry.registerObserver(timeTabViewButton, forFXUnit: audioGraph.timeStretchUnit)
-        fxUnitStateObserverRegistry.registerObserver(reverbTabViewButton, forFXUnit: audioGraph.reverbUnit)
-        fxUnitStateObserverRegistry.registerObserver(delayTabViewButton, forFXUnit: audioGraph.delayUnit)
-        fxUnitStateObserverRegistry.registerObserver(filterTabViewButton, forFXUnit: audioGraph.filterUnit)
-//        fxUnitStateObserverRegistry.registerObserver(replayGainTabViewButton, forFXUnit: audioGraph.replayGainUnit)
+        fxUnitStateObserverRegistry.registerObserver(masterTabViewButton, forFXUnit: soundOrch.masterUnit)
+        fxUnitStateObserverRegistry.registerObserver(eqTabViewButton, forFXUnit: soundOrch.eqUnit)
+        fxUnitStateObserverRegistry.registerObserver(pitchTabViewButton, forFXUnit: soundOrch.pitchShiftUnit)
+        fxUnitStateObserverRegistry.registerObserver(timeTabViewButton, forFXUnit: soundOrch.timeStretchUnit)
+        fxUnitStateObserverRegistry.registerObserver(reverbTabViewButton, forFXUnit: soundOrch.reverbUnit)
+        fxUnitStateObserverRegistry.registerObserver(delayTabViewButton, forFXUnit: soundOrch.delayUnit)
+        fxUnitStateObserverRegistry.registerObserver(filterTabViewButton, forFXUnit: soundOrch.filterUnit)
+//        fxUnitStateObserverRegistry.registerObserver(replayGainTabViewButton, forFXUnit: soundOrch.replayGainUnit)
         
         fxUnitStateObserverRegistry.registerAUCompositeStateObserver(auTabViewButton)
         
         auTabViewButton.stateFunction = {
-            audioGraph.audioUnits.first(where: {$0.state == .active || $0.state == .suppressed})?.state ?? .bypassed
+            soundOrch.audioUnits.first(where: {$0.state == .active || $0.state == .suppressed})?.state ?? .bypassed
         }
         
         devicesTabViewButton.stateFunction = {.bypassed}
@@ -253,39 +253,39 @@ extension EffectsContainerViewController: ColorSchemeObserver {
     
     private func updateTabButtons(forUnitState unitState: EffectsUnitState, newColor: NSColor) {
         
-        if audioGraph.masterUnit.state == unitState {
+        if soundOrch.masterUnit.state == unitState {
             masterTabViewButton.redraw()
         }
         
-        if audioGraph.eqUnit.state == unitState {
+        if soundOrch.eqUnit.state == unitState {
             eqTabViewButton.redraw()
         }
         
-        if audioGraph.pitchShiftUnit.state == unitState {
+        if soundOrch.pitchShiftUnit.state == unitState {
             pitchTabViewButton.redraw()
         }
         
-        if audioGraph.timeStretchUnit.state == unitState {
+        if soundOrch.timeStretchUnit.state == unitState {
             timeTabViewButton.redraw()
         }
         
-        if audioGraph.reverbUnit.state == unitState {
+        if soundOrch.reverbUnit.state == unitState {
             reverbTabViewButton.redraw()
         }
         
-        if audioGraph.delayUnit.state == unitState {
+        if soundOrch.delayUnit.state == unitState {
             delayTabViewButton.redraw()
         }
         
-        if audioGraph.filterUnit.state == unitState {
+        if soundOrch.filterUnit.state == unitState {
             filterTabViewButton.redraw()
         }
         
-//        if audioGraph.replayGainUnit.state == unitState {
+//        if soundOrch.replayGainUnit.state == unitState {
 //            replayGainTabViewButton.redraw()
 //        }
         
-        if audioGraph.audioUnitsState == unitState {
+        if soundOrch.audioUnitsState == unitState {
             auTabViewButton.redraw()
         }
     }

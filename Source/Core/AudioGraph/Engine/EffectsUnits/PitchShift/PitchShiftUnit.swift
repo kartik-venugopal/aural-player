@@ -16,19 +16,15 @@ import AVFoundation
 ///
 class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     
-    let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
-    let presets: PitchShiftPresets
+    private let node: AVAudioUnitTimePitch = .init()
+    let presets: PitchShiftPresets = .init()
     
     let minPitch: Float = -2400
     let maxPitch: Float = 2400
     private lazy var pitchRange: ClosedRange<Float> = minPitch...maxPitch
     
-    init(persistentState: PitchShiftUnitPersistentState?) {
-        
-        presets = PitchShiftPresets(persistentState: persistentState)
-        super.init(unitType: .pitch, unitState: persistentState?.state ?? AudioGraphDefaults.pitchShiftState, renderQuality: persistentState?.renderQuality)
-        
-        node.pitch = persistentState?.pitch ?? AudioGraphDefaults.pitchShift
+    init() {
+        super.init(unitType: .pitch)
     }
     
     override var avNodes: [AVAudioNode] {[node]}

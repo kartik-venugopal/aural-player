@@ -17,20 +17,14 @@ import DequeModule
 ///
 class FilterUnit: EffectsUnit, FilterUnitProtocol {
     
-    let node: FlexibleFilterNode
-    let presets: FilterPresets
+    private let node: FlexibleFilterNode = .init()
+    let presets: FilterPresets = .init()
     let maximumNumberOfBands: Int = 31
     
     override var avNodes: [AVAudioNode] {[node]}
     
-    init(persistentState: FilterUnitPersistentState?) {
-        
-        self.node = FlexibleFilterNode()
-        
-        presets = FilterPresets(persistentState: persistentState)
-        super.init(unitType: .filter, unitState: persistentState?.state ?? AudioGraphDefaults.filterState, renderQuality: persistentState?.renderQuality)
-        
-        node.addBands((persistentState?.bands ?? []).compactMap {FilterBand(persistentState: $0)})
+    init() {
+        super.init(unitType: .filter)
     }
     
     var bands: [FilterBand] {

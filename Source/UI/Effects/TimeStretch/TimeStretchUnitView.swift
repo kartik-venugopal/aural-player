@@ -33,10 +33,10 @@ class TimeStretchUnitView: NSView {
         
         super.awakeFromNib()
         
-        timeSlider.effectsUnit = audioGraph.timeStretchUnit
+//        timeSlider.effectsUnit = soundOrch.timeStretchUnit
         
-        fxUnitStateObserverRegistry.registerObserver(timeSlider, forFXUnit: audioGraph.timeStretchUnit)
-        fxUnitStateObserverRegistry.registerObserver(btnShiftPitch, forFXUnit: audioGraph.timeStretchUnit)
+//        fxUnitStateObserverRegistry.registerObserver(timeSlider, forFXUnit: soundOrch.timeStretchUnit)
+//        fxUnitStateObserverRegistry.registerObserver(btnShiftPitch, forFXUnit: soundOrch.timeStretchUnit)
         
         timeSlider.allowedValues = 0.25...4
         

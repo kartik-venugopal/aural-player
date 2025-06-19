@@ -14,6 +14,8 @@ class AudioUnitPresetsMap: PersistentModelObject {
     
     let map: CompositeKeyMap<OSType, AudioUnitPresets> = CompositeKeyMap()
     
+    init() {}
+    
     init(persistentState: AudioUnitPresetsPersistentState?) {
      
         for (type, mapForType) in persistentState?.presets ?? [:] {

@@ -30,7 +30,6 @@ typealias SessionCompletionHandler = (PlaybackSession) -> Void
 ///
 class AuralPlayerNode: AVAudioPlayerNode {
 
-    // This property will have no effect on macOS 10.12 or older systems.
     var completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack
     
     var completionCallbackQueue: DispatchQueue = .global(qos: .userInteractive)
@@ -52,14 +51,6 @@ class AuralPlayerNode: AVAudioPlayerNode {
     
     // The absolute minimum frame count when scheduling a segment (to prevent crashes in the playerNode).
     static let minFrames: AVAudioFrameCount = 1
-    
-    init(volume: Float, pan: Float) {
-        
-        super.init()
-        
-        self.volume = volume
-        self.pan = pan
-    }
     
     // Retrieves the current seek position, in seconds
     var seekPosition: Double {

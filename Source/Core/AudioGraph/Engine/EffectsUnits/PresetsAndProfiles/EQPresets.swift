@@ -65,12 +65,11 @@ class EQPresets: EffectsUnitPresets<EQPreset> {
                  globalGain: 0, systemDefined: true)
     ]
     
-    init(persistentState: EQUnitPersistentState?) {
-        
-        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {EQPreset(persistentState: $0)}
-        
-        super.init(systemDefinedObjects: Self.systemDefinedPresets, userDefinedObjects: userDefinedPresets)
-    }
+//    func initialize(persistentState: EQUnitPersistentState?) {
+//        
+//        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {EQPreset(persistentState: $0)}
+//        super.initialize(systemDefinedObjects: Self.systemDefinedPresets, userDefinedObjects: userDefinedPresets)
+//    }
     
     override var defaultPreset: EQPreset {Self.flatPreset}
 }

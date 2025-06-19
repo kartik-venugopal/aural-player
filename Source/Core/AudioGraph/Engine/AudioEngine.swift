@@ -51,54 +51,48 @@ class AudioEngine {
     
     lazy var messenger = Messenger(for: self)
     
-    init(persistentState: AudioGraphPersistentState?) {
+    init() {
         
         self.engine = AVAudioEngine()
         self.audioUnitsRegistry = AudioUnitsRegistry()
         
-        let volume = persistentState?.volume ?? AudioGraphDefaults.volume
-        let pan = persistentState?.pan ?? AudioGraphDefaults.pan
-        playerNode = AuralPlayerNode(volume: volume, pan: pan)
-        
-        let muted = persistentState?.muted ?? AudioGraphDefaults.muted
-        auxMixer = AVAudioMixerNode(muted: muted)
+        playerNode = AuralPlayerNode()
+        auxMixer = AVAudioMixerNode()
         
         outputNode = engine.outputNode
         mainMixerNode = engine.mainMixerNode
         
-        eqUnit = EQUnit(persistentState: persistentState?.eqUnit)
-        pitchShiftUnit = PitchShiftUnit(persistentState: persistentState?.pitchShiftUnit)
-        timeStretchUnit = TimeStretchUnit(persistentState: persistentState?.timeStretchUnit)
-        reverbUnit = ReverbUnit(persistentState: persistentState?.reverbUnit)
-        delayUnit = DelayUnit(persistentState: persistentState?.delayUnit)
-        filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)
+        eqUnit = EQUnit()
+        pitchShiftUnit = PitchShiftUnit()
+        timeStretchUnit = TimeStretchUnit()
+        reverbUnit = ReverbUnit()
+        delayUnit = DelayUnit()
+        filterUnit = FilterUnit()
 //        replayGainUnit = ReplayGainUnit(persistentState: persistentState?.replayGainUnit)
         
-        audioUnitPresets = AudioUnitPresetsMap(persistentState: persistentState?.audioUnitPresets)
+        audioUnitPresets = AudioUnitPresetsMap()
         audioUnits = []
         
-        for auState in persistentState?.audioUnits ?? [] {
-            
-            guard let componentType = auState.componentType,
-                  let componentSubType = auState.componentSubType,
-                  let component = audioUnitsManager.audioUnit(ofType: componentType,
-                                                              andSubType: componentSubType) else {continue}
-            
-            let presets = audioUnitPresets.getPresetsForAU(componentType: componentType, componentSubType: componentSubType)
-            audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState, presets: presets))
-        }
+//        for auState in persistentState?.audioUnits ?? [] {
+//            
+//            guard let componentType = auState.componentType,
+//                  let componentSubType = auState.componentSubType,
+//                  let component = audioUnitsManager.audioUnit(ofType: componentType,
+//                                                              andSubType: componentSubType) else {continue}
+//            
+//            let presets = audioUnitPresets.getPresetsForAU(componentType: componentType, componentSubType: componentSubType)
+//            audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState, presets: presets))
+//        }
         
 //        let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit, replayGainUnit]
         let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit]
-        masterUnit = MasterUnit(persistentState: persistentState?.masterUnit,
-                                nativeSlaveUnits: nativeSlaveUnits.compactMap {$0 as? EffectsUnit},
-                                audioUnits: audioUnits.compactMap {$0 as? HostedAudioUnit})
+        masterUnit = MasterUnit(nativeSlaveUnits: nativeSlaveUnits.compactMap {$0 as? EffectsUnit})
         
         self.permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
         self.removableNodes = audioUnits.flatMap {$0.avNodes}
         
-        setUpConnections()
-        messenger.subscribe(to: .Application.launched, handler: setUpMasterUnitStateObservation)
+//        setUpConnections()
+//        messenger.subscribe(to: .Application.launched, handler: setUpMasterUnitStateObservation)
     }
     
     // Connects all nodes in sequence.

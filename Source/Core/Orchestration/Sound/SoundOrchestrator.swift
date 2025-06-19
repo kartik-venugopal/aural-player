@@ -20,11 +20,10 @@ class SoundOrchestrator: SoundOrchestratorProtocol {
     
     init(persistentState: AudioGraphPersistentState?, soundPreferences: SoundPreferences) {
         
-        self.engine = AudioEngine(persistentState: persistentState)
+        self.engine = AudioEngine()
         self.deviceManager = DeviceManager(outputAudioUnit: engine.outputNode.audioUnit!)
         self.soundPreferences = soundPreferences
         
-//        audioGraph.tearDown()
 //        engine.start()
     }
     
@@ -99,5 +98,9 @@ class SoundOrchestrator: SoundOrchestratorProtocol {
     
     func toggleMuted() {
         muted.toggle()
+    }
+    
+    func tearDown() {
+        engine.stop()
     }
 }

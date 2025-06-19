@@ -27,19 +27,19 @@ class SpectrogramFFTData {
     
     func update(with fft: FFT) {
         
-        let alternateLogicForBand0: Bool = fft.bufferSize < audioGraph.visualizationAnalysisBufferSize
-        
-        for (index, band) in bands.enumerated() {
-            
-            if alternateLogicForBand0, index == 0 {
-                maxVal = (fft.normalizedMagnitudes[0] + fft.normalizedMagnitudes[1]) / 2
-                
-            } else {
-                vDSP_maxv(fft.normalizedMagnitudes.advanced(by: band.minIndex), 1, &maxVal, band.indexCount)
-            }
-            
-            band.maxVal = maxVal.clamped(to: fft.magnitudeRange)
-        }
+//        let alternateLogicForBand0: Bool = fft.bufferSize < soundOrch.visualizationAnalysisBufferSize
+//        
+//        for (index, band) in bands.enumerated() {
+//            
+//            if alternateLogicForBand0, index == 0 {
+//                maxVal = (fft.normalizedMagnitudes[0] + fft.normalizedMagnitudes[1]) / 2
+//                
+//            } else {
+//                vDSP_maxv(fft.normalizedMagnitudes.advanced(by: band.minIndex), 1, &maxVal, band.indexCount)
+//            }
+//            
+//            band.maxVal = maxVal.clamped(to: fft.magnitudeRange)
+//        }
     }
     
     var numberOfBands: Int = 10 {

@@ -18,18 +18,11 @@ import AVFoundation
 ///
 class EQUnit: EffectsUnit, EQUnitProtocol {
     
-    let node: FifteenBandEQNode
-    let presets: EQPresets
+    private let node: FifteenBandEQNode = .init()
+    let presets: EQPresets = .init()
     
-    init(persistentState: EQUnitPersistentState?) {
-        
-        node = FifteenBandEQNode()
-        
-        presets = EQPresets(persistentState: persistentState)
-        super.init(unitType: .eq, unitState: persistentState?.state ?? AudioGraphDefaults.eqState, renderQuality: persistentState?.renderQuality)
-
-        bands = persistentState?.bands ?? AudioGraphDefaults.eqBands
-        globalGain = persistentState?.globalGain ?? AudioGraphDefaults.eqGlobalGain
+    init() {
+        super.init(unitType: .eq)
     }
     
     override func stateChanged() {

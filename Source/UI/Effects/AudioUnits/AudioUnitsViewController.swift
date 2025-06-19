@@ -80,7 +80,7 @@ class AudioUnitsViewController: NSViewController {
     @IBAction func addAudioUnitAction(_ sender: Any) {
         
         guard let audioUnitComponent = btnAudioUnitsMenu.selectedItem?.representedObject as? AVAudioUnitComponent,
-              let result = audioGraph.addAudioUnit(ofType: audioUnitComponent.audioComponentDescription.componentType,
+              let result = soundOrch.addAudioUnit(ofType: audioUnitComponent.audioComponentDescription.componentType,
                                                    andSubType: audioUnitComponent.audioComponentDescription.componentSubType) else {return}
         
         let audioUnit = result.audioUnit
@@ -108,7 +108,7 @@ class AudioUnitsViewController: NSViewController {
         if selectedRow >= 0 {
 
             // Open the audio unit editor window with the new audio unit's custom view.
-            doEditAudioUnit(audioGraph.audioUnits[selectedRow])
+            doEditAudioUnit(soundOrch.audioUnits[selectedRow])
         }
     }
     
@@ -139,7 +139,7 @@ class AudioUnitsViewController: NSViewController {
         let selRows = tableView.selectedRowIndexes
         guard !selRows.isEmpty else {return}
         
-        for unit in audioGraph.removeAudioUnits(at: selRows) {
+        for unit in soundOrch.removeAudioUnits(at: selRows) {
             
             editorDialogs[unit.id]?.destroy()
             editorDialogs[unit.id]?.close()
@@ -155,7 +155,7 @@ class AudioUnitsViewController: NSViewController {
     
     private func updateSummary() {
         
-        let audioUnits = audioGraph.audioUnits
+        let audioUnits = soundOrch.audioUnits
         let numberOfAUs = audioUnits.count
         
         if numberOfAUs > 0 {
@@ -220,19 +220,19 @@ extension AudioUnitsViewController: ColorSchemeObserver {
     
     func activeControlColorChanged(_ newColor: NSColor) {
         
-        let rowsForActiveUnits: [Int] = tableView.allRowIndices.filter {audioGraph.audioUnits[$0].state == .active}
+        let rowsForActiveUnits: [Int] = tableView.allRowIndices.filter {soundOrch.audioUnits[$0].state == .active}
         tableView.reloadRows(rowsForActiveUnits, columns: [0])
     }
     
     func inactiveControlColorChanged(_ newColor: NSColor) {
         
-        let rowsForBypassedUnits: [Int] = tableView.allRowIndices.filter {audioGraph.audioUnits[$0].state == .bypassed}
+        let rowsForBypassedUnits: [Int] = tableView.allRowIndices.filter {soundOrch.audioUnits[$0].state == .bypassed}
         tableView.reloadRows(rowsForBypassedUnits, columns: [0])
     }
     
     func suppressedControlColorChanged(_ newColor: NSColor) {
         
-        let rowsForSuppressedUnits: [Int] = tableView.allRowIndices.filter {audioGraph.audioUnits[$0].state == .suppressed}
+        let rowsForSuppressedUnits: [Int] = tableView.allRowIndices.filter {soundOrch.audioUnits[$0].state == .suppressed}
         tableView.reloadRows(rowsForSuppressedUnits, columns: [0])
     }
     

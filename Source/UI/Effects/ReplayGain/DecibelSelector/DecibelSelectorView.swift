@@ -18,7 +18,7 @@ class DecibelSelectorView: NSView {
     @IBOutlet weak var lblDecibel: NSTextField!
     
     lazy var replayGainUnit: ReplayGainUnitProtocol! = nil
-//    lazy var replayGainUnit: ReplayGainUnitProtocol = audioGraph.replayGainUnit
+//    lazy var replayGainUnit: ReplayGainUnitProtocol = soundOrch.replayGainUnit
     
     ///
     /// Stepper value is 10x target value, so divide by 10.

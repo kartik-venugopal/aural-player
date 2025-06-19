@@ -38,7 +38,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         let persistentState: AudioGraphPersistentState? = persistentState.audioGraph
         
-        self.engine = AudioEngine(persistentState: persistentState)
+        self.engine = AudioEngine()
         self.deviceManager = DeviceManager(outputAudioUnit: engine.outputNode.audioUnit!)
         self.soundProfiles = SoundProfiles(persistentState: persistentState?.soundProfiles)
         

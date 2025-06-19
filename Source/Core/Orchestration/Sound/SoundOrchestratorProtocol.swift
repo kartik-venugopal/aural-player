@@ -28,6 +28,9 @@ protocol SoundOrchestratorProtocol {
     func registerUI(ui: SoundUI)
     
     func deregisterUI(ui: SoundUI)
+    
+    // Shuts down the audio graph, releasing all its resources
+    func tearDown()
 }
 
 extension SoundOrchestratorProtocol {

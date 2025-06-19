@@ -116,9 +116,9 @@ class NowPlayingInfoManager: NSObject {
         
         // Playback rate
         
-        let playbackRate: Double = player.isPlaying ? Double(audioGraph.timeStretchUnit.effectiveRate) : .zero
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
-        nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
+//        let playbackRate: Double = player.isPlaying ? Double(soundOrch.timeStretchUnit.effectiveRate) : .zero
+//        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
+//        nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         
         // Playback sequence scope
         
@@ -167,7 +167,7 @@ class NowPlayingInfoManager: NSObject {
         if preTrackChange {return}
         
         infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(player.state)
-        playbackRateChanged(audioGraph.timeStretchUnit.effectiveRate)
+//        playbackRateChanged(soundOrch.timeStretchUnit.effectiveRate)
     }
     
     private func playbackRateChanged(_ newRate: Float) {

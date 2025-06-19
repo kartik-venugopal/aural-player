@@ -58,7 +58,20 @@ class UserManagedObjects<O: UserManagedObject>: PresetsManagerProtocol {
     
     var defaultPreset: O? {nil}
     
+    init() {}
+    
     init(systemDefinedObjects: [O], userDefinedObjects: [O]) {
+        
+        systemDefinedObjects.forEach {
+            self.systemDefinedObjectsMap[$0.key] = $0
+        }
+        
+        userDefinedObjects.forEach {
+            self.userDefinedObjectsMap[$0.key] = $0
+        }
+    }
+    
+    func initialize(systemDefinedObjects: [O], userDefinedObjects: [O]) {
         
         systemDefinedObjects.forEach {
             self.systemDefinedObjectsMap[$0.key] = $0

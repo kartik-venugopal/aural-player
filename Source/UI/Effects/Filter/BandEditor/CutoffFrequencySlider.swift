@@ -39,8 +39,9 @@ class FilterCutoffFrequencySliderCell: CutoffFrequencySliderCell {
     
     var bandIndex: Int!
     
-    private var filterUnit: FilterUnitProtocol {
-        audioGraph.filterUnit
+    private var filterUnit: FilterUnitProtocol! {
+//        soundOrch.filterUnit
+        nil
     }
     
     override var controlStateColor: NSColor {

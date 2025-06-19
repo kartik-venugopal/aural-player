@@ -14,12 +14,12 @@ import Foundation
 ///
 class DelayPresets: EffectsUnitPresets<DelayPreset> {
     
-    init(persistentState: DelayUnitPersistentState?) {
+    func initialize(persistentState: DelayUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedDelayPresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {DelayPreset(persistentState: $0)}
         
-        super.init(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
+        super.initialize(systemDefinedObjects: systemDefinedPresets, userDefinedObjects: userDefinedPresets)
     }
     
     override var defaultPreset: DelayPreset {systemDefinedObject(named: SystemDefinedDelayPresetParams.oneSecond.rawValue)!}

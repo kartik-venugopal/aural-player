@@ -57,11 +57,9 @@ class DelayUnitView: NSView {
     
     func initialize(stateFunction: @escaping EffectsUnitStateFunction) {
         
-        let delayUnit = audioGraph.delayUnit
-        
-        sliders.forEach {
-            fxUnitStateObserverRegistry.registerObserver($0, forFXUnit: delayUnit)
-        }
+//        sliders.forEach {
+//            fxUnitStateObserverRegistry.registerObserver($0, forFXUnit: delayUnit)
+//        }
         
         (cutoffSlider.cell as? CutoffFrequencySliderCell)?.filterType = .lowPass
     }

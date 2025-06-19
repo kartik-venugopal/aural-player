@@ -45,7 +45,7 @@ extension AppDelegate {
             BlockOperation {
                 
                 player.tearDown()
-                audioGraph.tearDown()
+                soundOrch.tearDown()
             },
             
             // Metadata state

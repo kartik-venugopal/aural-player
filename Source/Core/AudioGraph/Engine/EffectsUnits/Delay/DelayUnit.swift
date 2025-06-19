@@ -18,18 +18,11 @@ import AVFoundation
 ///
 class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
-    let node: AVAudioUnitDelay = AVAudioUnitDelay()
-    let presets: DelayPresets
+    private let node: AVAudioUnitDelay = .init()
+    let presets: DelayPresets = .init()
     
-    init(persistentState: DelayUnitPersistentState?) {
-        
-        presets = DelayPresets(persistentState: persistentState)
-        super.init(unitType: .delay, unitState: persistentState?.state ?? AudioGraphDefaults.delayState, renderQuality: persistentState?.renderQuality)
-        
-        time = persistentState?.time ?? AudioGraphDefaults.delayTime
-        amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
-        feedback = persistentState?.feedback ?? AudioGraphDefaults.delayFeedback
-        lowPassCutoff = persistentState?.lowPassCutoff ?? AudioGraphDefaults.delayLowPassCutoff
+    init() {
+        super.init(unitType: .delay)
     }
     
     override var avNodes: [AVAudioNode] {[node]}

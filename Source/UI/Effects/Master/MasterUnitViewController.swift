@@ -31,15 +31,15 @@ class MasterUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var masterUnit: MasterUnitProtocol {audioGraph.masterUnit}
-    private var eqUnit: EQUnitProtocol {audioGraph.eqUnit}
-    private var pitchShiftUnit: PitchShiftUnitProtocol {audioGraph.pitchShiftUnit}
-    private var timeStretchUnit: TimeStretchUnitProtocol {audioGraph.timeStretchUnit}
-    private var reverbUnit: ReverbUnitProtocol {audioGraph.reverbUnit}
-    private var delayUnit: DelayUnitProtocol {audioGraph.delayUnit}
-    private var filterUnit: FilterUnitProtocol {audioGraph.filterUnit}
+    private var masterUnit: MasterUnitProtocol {soundOrch.masterUnit}
+    private var eqUnit: EQUnitProtocol {soundOrch.eqUnit}
+    private var pitchShiftUnit: PitchShiftUnitProtocol {soundOrch.pitchShiftUnit}
+    private var timeStretchUnit: TimeStretchUnitProtocol {soundOrch.timeStretchUnit}
+    private var reverbUnit: ReverbUnitProtocol {soundOrch.reverbUnit}
+    private var delayUnit: DelayUnitProtocol {soundOrch.delayUnit}
+    private var filterUnit: FilterUnitProtocol {soundOrch.filterUnit}
     
-    private let soundProfiles: SoundProfiles = audioGraph.soundProfiles
+    private let soundProfiles: SoundProfiles = soundOrch.soundProfiles
     
     private let soundPreferences: SoundPreferences = preferences.soundPreferences
     private let playbackPreferences: PlaybackPreferences = preferences.playbackPreferences
@@ -140,7 +140,7 @@ class MasterUnitViewController: EffectsUnitViewController {
         
         guard let playingTrack = playQueue.currentTrack else {return}
         
-        let soundProfiles = audioGraph.soundProfiles
+        let soundProfiles = soundOrch.soundProfiles
         
         if soundProfiles.hasFor(playingTrack) {
             

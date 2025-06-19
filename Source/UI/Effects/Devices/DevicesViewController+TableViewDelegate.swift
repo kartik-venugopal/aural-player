@@ -15,11 +15,11 @@ extension DevicesViewController: NSTableViewDataSource, NSTableViewDelegate {
     private static let tableRowHeight: CGFloat = 24
     
     private var devices: [AudioDevice] {
-        audioGraph.availableDevices
+        soundOrch.availableDevices
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        audioGraph.numberOfDevices
+        soundOrch.numberOfDevices
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {Self.tableRowHeight}
@@ -85,7 +85,7 @@ extension DevicesViewController: NSTableViewDataSource, NSTableViewDelegate {
         let row = tableView.selectedRow
         guard row >= 0 else {return}
         
-        audioGraph.outputDevice = devices[row]
+        soundOrch.outputDevice = devices[row]
     }
 }
 

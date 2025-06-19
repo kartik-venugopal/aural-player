@@ -68,8 +68,9 @@ class FilterBandTriStateBypassButton: NSButton, TintableFXUnitStateObserver {
         image = .imgSwitch.withSymbolConfiguration(.init(pointSize: 12, weight: .heavy))
     }
     
-    private var filterUnit: FilterUnitProtocol {
-        audioGraph.filterUnit
+    private var filterUnit: FilterUnitProtocol! {
+//        soundOrch.filterUnit
+        nil
     }
     
     func unitStateChanged(to newState: EffectsUnitState) {

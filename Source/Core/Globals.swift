@@ -193,7 +193,7 @@ var persistentStateOnExit: AppPersistentState {
     
     persistentState.appVersion = appVersion
     
-    persistentState.audioGraph = _audioGraph.persistentState
+    persistentState.audioGraph = soundOrch.persistentState
     persistentState.playQueue = playQueue.persistentState
     
 //    persistentState.library = library.persistentState

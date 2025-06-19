@@ -26,7 +26,7 @@ class DelayUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    var delayUnit: DelayUnitProtocol = audioGraph.delayUnit
+    var delayUnit: DelayUnitProtocol!
     
     // ------------------------------------------------------------------------
     

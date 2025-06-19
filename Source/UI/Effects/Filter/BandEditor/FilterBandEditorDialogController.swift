@@ -20,7 +20,7 @@ class FilterBandEditorDialogController: NSWindowController {
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var bandView: FilterBandView!
     
-    private var filterUnit: FilterUnitProtocol = audioGraph.filterUnit
+    private var filterUnit: FilterUnitProtocol!
     
     var bandIndex: Int! {
         

@@ -31,7 +31,7 @@ class DevicesViewController: NSViewController {
     
     private lazy var labels: [VALabel] = [lblPan, lblBalance, lblPanLeft, lblPanRight]
     
-    private lazy var soundProfiles: SoundProfiles = audioGraph.soundProfiles
+    private lazy var soundProfiles: SoundProfiles! = nil
     private lazy var messenger: Messenger = Messenger(for: self)
     
     var selectionChangeIsInternal: Bool = true
@@ -66,7 +66,7 @@ class DevicesViewController: NSViewController {
         
 //        deviceListUpdated()
         doMarkingSelectionChangeAsInternal {
-            self.tableView.selectRow(audioGraph.indexOfOutputDevice)
+//            self.tableView.selectRow(soundOrch.indexOfOutputDevice)
         }
     }
     
@@ -87,8 +87,8 @@ class DevicesViewController: NSViewController {
         
         soundOrch.panLeft()
         
-//        panSlider.floatValue = audioGraph.panLeft()
-//        lblPan.stringValue = audioGraph.formattedPan
+//        panSlider.floatValue = soundOrch.panLeft()
+//        lblPan.stringValue = soundOrch.formattedPan
         
         messenger.publish(.Effects.showEffectsUnitTab, payload: EffectsUnitType.devices)
     }
@@ -98,8 +98,8 @@ class DevicesViewController: NSViewController {
         
         soundOrch.panRight()
         
-//        panSlider.floatValue = audioGraph.panRight()
-//        lblPan.stringValue = audioGraph.formattedPan
+//        panSlider.floatValue = soundOrch.panRight()
+//        lblPan.stringValue = soundOrch.formattedPan
         
         messenger.publish(.Effects.showEffectsUnitTab, payload: EffectsUnitType.devices)
     }
@@ -109,8 +109,8 @@ class DevicesViewController: NSViewController {
         // Apply sound profile if there is one for the new track and the preferences allow it
         guard let theNewTrack = notification.endTrack, soundProfiles.hasFor(theNewTrack) else {return}
         
-        panSlider.floatValue = audioGraph.scaledPan
-        lblPan.stringValue = audioGraph.formattedPan
+//        panSlider.floatValue = soundOrch.scaledPan
+//        lblPan.stringValue = soundOrch.formattedPan
     }
     
     // ---------------------------------------------------------------------------------------------------------
@@ -122,14 +122,14 @@ class DevicesViewController: NSViewController {
         doMarkingSelectionChangeAsInternal {
             
             self.tableView.reloadData()
-            self.tableView.selectRow(audioGraph.indexOfOutputDevice)
+//            self.tableView.selectRow(soundOrch.indexOfOutputDevice)
         }
     }
     
     private func defaultDeviceChanged() {
         
         doMarkingSelectionChangeAsInternal {
-            self.tableView.selectRow(audioGraph.indexOfOutputDevice)
+//            self.tableView.selectRow(soundOrch.indexOfOutputDevice)
         }
     }
     

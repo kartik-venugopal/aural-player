@@ -27,7 +27,7 @@ class PitchShiftUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var pitchShiftUnit: PitchShiftUnitProtocol = audioGraph.pitchShiftUnit
+    private var pitchShiftUnit: PitchShiftUnitProtocol!
     
     // ------------------------------------------------------------------------
     

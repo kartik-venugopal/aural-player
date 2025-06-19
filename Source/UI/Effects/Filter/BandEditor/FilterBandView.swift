@@ -41,7 +41,7 @@ class FilterBandView: NSView {
     
     // MARK: Services, utilities, helpers, and properties
     
-    private var filterUnit: FilterUnitProtocol = audioGraph.filterUnit
+    private var filterUnit: FilterUnitProtocol = soundOrch.filterUnit
     
     private(set) var band: FilterBand = .bandPassBand(minFreq: SoundConstants.audibleRangeMin,
                                                       maxFreq: SoundConstants.audibleRangeMax) {

@@ -22,12 +22,6 @@ extension AVAudioUnitComponent {
 
 extension AVAudioMixerNode {
     
-    convenience init(muted: Bool) {
-        
-        self.init()
-        self.volume = muted ? 0 : 1
-    }
-    
     var muted: Bool {
         
         get {volume == 0}

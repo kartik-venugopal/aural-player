@@ -28,7 +28,7 @@ class FilterUnitView: NSView {
     
     private static let noTabsShown: ClosedRange<Int> = (-1)...(-1)
     
-    var filterUnit: FilterUnitProtocol = audioGraph.filterUnit
+    var filterUnit: FilterUnitProtocol!
     
     // ------------------------------------------------------------------------
     

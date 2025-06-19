@@ -48,14 +48,6 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var rememberSettingsMenuItem: ToggleMenuItem!
     
-    // Delegate that alters the audio graph
-    private let soundProfiles: SoundProfiles = audioGraph.soundProfiles
-    
-    lazy var masterUnit: MasterUnitProtocol = audioGraph.masterUnit
-    lazy var eqUnit: EQUnitProtocol = audioGraph.eqUnit
-    lazy var pitchShiftUnit: PitchShiftUnitProtocol = audioGraph.pitchShiftUnit
-    lazy var timeStretchUnit: TimeStretchUnitProtocol = audioGraph.timeStretchUnit
-    
     let soundPreferences: SoundPreferences = preferences.soundPreferences
     
     lazy var effectsPresetsManager: EffectsPresetsManagerWindowController = .instance
@@ -84,43 +76,43 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         
         // Audio output devices menu
-        if menu == devicesMenu {
-            
-            // Recreate the menu each time
-            
-            devicesMenu.removeAllItems()
-            
-            let outputDeviceName: String = audioGraph.outputDevice.name
-            
-            // Add menu items for each available device
-            for device in audioGraph.availableDevices {
-                
-                let newItem = devicesMenu.addItem(withTitle: device.name,
-                                                  action: #selector(self.outputDeviceAction(_:)),
-                                                  target: self,
-                                                  image: device.icon.image,
-                                                  representedObject: device)
-            
-                // Select this item if it represents the current output device
-                newItem.onIf(outputDeviceName == newItem.title)
-            }
-            
-        } else {
-            
-            masterBypassMenuItem.onIf(masterUnit.isActive)
-            
-            rememberSettingsMenuItem.showIf(!soundPreferences.rememberEffectsSettingsForAllTracks)
-            
-            if let playingTrack = player.playingTrack {
-                rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
-            }
-        }
+//        if menu == devicesMenu {
+//            
+//            // Recreate the menu each time
+//            
+//            devicesMenu.removeAllItems()
+//            
+//            let outputDeviceName: String = soundOrch.outputDevice.name
+//            
+//            // Add menu items for each available device
+//            for device in soundOrch.availableDevices {
+//                
+//                let newItem = devicesMenu.addItem(withTitle: device.name,
+//                                                  action: #selector(self.outputDeviceAction(_:)),
+//                                                  target: self,
+//                                                  image: device.icon.image,
+//                                                  representedObject: device)
+//            
+//                // Select this item if it represents the current output device
+//                newItem.onIf(outputDeviceName == newItem.title)
+//            }
+//            
+//        } else {
+//            
+//            masterBypassMenuItem.onIf(masterUnit.isActive)
+//            
+//            rememberSettingsMenuItem.showIf(!soundPreferences.rememberEffectsSettingsForAllTracks)
+//            
+//            if let playingTrack = player.playingTrack {
+//                rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
+//            }
+//        }
     }
     
     @IBAction func outputDeviceAction(_ sender: NSMenuItem) {
         
         if let outputDevice = sender.representedObject as? AudioDevice {
-            audioGraph.outputDevice = outputDevice
+//            soundOrch.outputDevice = outputDevice
         }
     }
     
@@ -158,7 +150,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {
         
-        masterUnit.toggleState()
+//        masterUnit.toggleState()
         messenger.publish(.Effects.MasterUnit.allEffectsToggled)
     }
     

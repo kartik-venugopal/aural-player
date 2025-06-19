@@ -11,136 +11,136 @@ import Cocoa
 
 class EffectsPresetsManagerViewController: NSViewController {
     
-    private let masterPresetsManagerViewController: MasterPresetsManagerViewController = .create(for: audioGraph.masterUnit,
-                                                                                                 presets: audioGraph.masterUnit.presets)
-    
-    private let eqPresetsManagerViewController: EQPresetsManagerViewController = .create(for: audioGraph.eqUnit,
-                                                                                         presets: audioGraph.eqUnit.presets)
-    
-    private let pitchPresetsManagerViewController: PitchShiftPresetsManagerViewController = .create(for: audioGraph.pitchShiftUnit,
-                                                                                                    presets: audioGraph.pitchShiftUnit.presets)
-    
-    private let timePresetsManagerViewController: TimeStretchPresetsManagerViewController = .create(for: audioGraph.timeStretchUnit,
-                                                                                                    presets: audioGraph.timeStretchUnit.presets)
-    
-    private let reverbPresetsManagerViewController: ReverbPresetsManagerViewController = .create(for: audioGraph.reverbUnit,
-                                                                                                 presets: audioGraph.reverbUnit.presets)
-    
-    private let delayPresetsManagerViewController: DelayPresetsManagerViewController = .create(for: audioGraph.delayUnit,
-                                                                                               presets: audioGraph.delayUnit.presets)
-    
-    private let filterPresetsManagerViewController: FilterPresetsManagerViewController = .create(for: audioGraph.filterUnit,
-                                                                                                 presets: audioGraph.filterUnit.presets)
-    
-    // TODO: Replay Gain Presets VC !!!
-    
-    // Tab view and its buttons
-    
-    @IBOutlet weak var tabView: NSTabView!
-    
-    @IBOutlet weak var btnDelete: NSButton!
-    @IBOutlet weak var btnApply: NSButton!
-    @IBOutlet weak var btnRename: NSButton!
-    
-    private var viewControllers: [NSViewController] = []
-    
-    private lazy var messenger = Messenger(for: self)
-    
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        viewControllers = [masterPresetsManagerViewController, eqPresetsManagerViewController, pitchPresetsManagerViewController, timePresetsManagerViewController, reverbPresetsManagerViewController, delayPresetsManagerViewController, filterPresetsManagerViewController]
-        
-        addSubViews()
-        messenger.subscribe(to: .PresetsManager.selectionChanged, handler: managerSelectionChanged(numberOfSelectedRows:))
-    }
-    
-    override func destroy() {
-        
-        viewControllers.forEach {$0.destroy()}
-        messenger.unsubscribeFromAll()
-    }
-    
-    override func viewDidAppear() {
-        
-        super.viewDidAppear()
-        
-        [btnApply, btnRename, btnDelete].forEach {$0.disable()}
-        tabView.selectTabViewItem(at: 0)
-        
-        for unitType: EffectsUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
-            messenger.publish(.PresetsManager.Effects.reload, payload: unitType)
-        }
-    }
-    
-    private func addSubViews() {
-        
-        for (index, viewController) in viewControllers.enumerated() {
-            
-            tabView.tabViewItem(at: index).view?.addSubview(viewController.view)
-            viewController.view.anchorToSuperview()
-        }
-    }
-    
-    // Switches the tab group to a particular tab
-    @IBAction func switchToTabAction(_ sender: NSToolbarItem) {
-
-        // Toolbar Item tag is the tab index
-        tabView.selectTabViewItem(at: sender.tag)
-        
-        // Reset button states when switching to a new tab.
-        updateButtonStates(numberOfSelectedRows: 0)
-    }
-    
-    @IBAction func renamePresetAction(_ sender: AnyObject) {
-        displayedViewController.renameSelectedPreset()
-    }
-    
-    @IBAction func deletePresetsAction(_ sender: AnyObject) {
-        displayedViewController.deleteSelectedPresets()
-    }
-    
-    @IBAction func applyPresetAction(_ sender: AnyObject) {
-        displayedViewController.applySelectedPreset()
-    }
-    
-    private func updateButtonStates(numberOfSelectedRows: Int) {
-        
-        btnDelete.enableIf(numberOfSelectedRows > 0)
-        [btnApply, btnRename].forEach {$0.enableIf(numberOfSelectedRows == 1)}
-    }
-    
-    private var displayedViewController: EffectsPresetsManagerGenericViewController {
-        
-        switch tabView.selectedIndex {
-            
-        case 0: return masterPresetsManagerViewController
-            
-        case 1: return eqPresetsManagerViewController
-            
-        case 2: return pitchPresetsManagerViewController
-            
-        case 3: return timePresetsManagerViewController
-            
-        case 4: return reverbPresetsManagerViewController
-            
-        case 5: return delayPresetsManagerViewController
-            
-        case 6: return filterPresetsManagerViewController
-            
-        default: return masterPresetsManagerViewController
-            
-        }
-    }
-    
-    private var effectsUnit: EffectsUnitType {
-        displayedViewController.unitType
-    }
-    
-    // MARK: Message handling
-    
-    func managerSelectionChanged(numberOfSelectedRows: Int) {
-        updateButtonStates(numberOfSelectedRows: numberOfSelectedRows)
-    }
+//    private let masterPresetsManagerViewController: MasterPresetsManagerViewController = .create(for: soundOrch.masterUnit,
+//                                                                                                 presets: soundOrch.masterUnit.presets)
+//    
+//    private let eqPresetsManagerViewController: EQPresetsManagerViewController = .create(for: soundOrch.eqUnit,
+//                                                                                         presets: soundOrch.eqUnit.presets)
+//    
+//    private let pitchPresetsManagerViewController: PitchShiftPresetsManagerViewController = .create(for: soundOrch.pitchShiftUnit,
+//                                                                                                    presets: soundOrch.pitchShiftUnit.presets)
+//    
+//    private let timePresetsManagerViewController: TimeStretchPresetsManagerViewController = .create(for: soundOrch.timeStretchUnit,
+//                                                                                                    presets: soundOrch.timeStretchUnit.presets)
+//    
+//    private let reverbPresetsManagerViewController: ReverbPresetsManagerViewController = .create(for: soundOrch.reverbUnit,
+//                                                                                                 presets: soundOrch.reverbUnit.presets)
+//    
+//    private let delayPresetsManagerViewController: DelayPresetsManagerViewController = .create(for: soundOrch.delayUnit,
+//                                                                                               presets: soundOrch.delayUnit.presets)
+//    
+//    private let filterPresetsManagerViewController: FilterPresetsManagerViewController = .create(for: soundOrch.filterUnit,
+//                                                                                                 presets: soundOrch.filterUnit.presets)
+//    
+//    // TODO: Replay Gain Presets VC !!!
+//    
+//    // Tab view and its buttons
+//    
+//    @IBOutlet weak var tabView: NSTabView!
+//    
+//    @IBOutlet weak var btnDelete: NSButton!
+//    @IBOutlet weak var btnApply: NSButton!
+//    @IBOutlet weak var btnRename: NSButton!
+//    
+//    private var viewControllers: [NSViewController] = []
+//    
+//    private lazy var messenger = Messenger(for: self)
+//    
+//    override func viewDidLoad() {
+//        
+//        super.viewDidLoad()
+//        
+//        viewControllers = [masterPresetsManagerViewController, eqPresetsManagerViewController, pitchPresetsManagerViewController, timePresetsManagerViewController, reverbPresetsManagerViewController, delayPresetsManagerViewController, filterPresetsManagerViewController]
+//        
+//        addSubViews()
+//        messenger.subscribe(to: .PresetsManager.selectionChanged, handler: managerSelectionChanged(numberOfSelectedRows:))
+//    }
+//    
+//    override func destroy() {
+//        
+//        viewControllers.forEach {$0.destroy()}
+//        messenger.unsubscribeFromAll()
+//    }
+//    
+//    override func viewDidAppear() {
+//        
+//        super.viewDidAppear()
+//        
+//        [btnApply, btnRename, btnDelete].forEach {$0.disable()}
+//        tabView.selectTabViewItem(at: 0)
+//        
+//        for unitType: EffectsUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
+//            messenger.publish(.PresetsManager.Effects.reload, payload: unitType)
+//        }
+//    }
+//    
+//    private func addSubViews() {
+//        
+//        for (index, viewController) in viewControllers.enumerated() {
+//            
+//            tabView.tabViewItem(at: index).view?.addSubview(viewController.view)
+//            viewController.view.anchorToSuperview()
+//        }
+//    }
+//    
+//    // Switches the tab group to a particular tab
+//    @IBAction func switchToTabAction(_ sender: NSToolbarItem) {
+//
+//        // Toolbar Item tag is the tab index
+//        tabView.selectTabViewItem(at: sender.tag)
+//        
+//        // Reset button states when switching to a new tab.
+//        updateButtonStates(numberOfSelectedRows: 0)
+//    }
+//    
+//    @IBAction func renamePresetAction(_ sender: AnyObject) {
+//        displayedViewController.renameSelectedPreset()
+//    }
+//    
+//    @IBAction func deletePresetsAction(_ sender: AnyObject) {
+//        displayedViewController.deleteSelectedPresets()
+//    }
+//    
+//    @IBAction func applyPresetAction(_ sender: AnyObject) {
+//        displayedViewController.applySelectedPreset()
+//    }
+//    
+//    private func updateButtonStates(numberOfSelectedRows: Int) {
+//        
+//        btnDelete.enableIf(numberOfSelectedRows > 0)
+//        [btnApply, btnRename].forEach {$0.enableIf(numberOfSelectedRows == 1)}
+//    }
+//    
+//    private var displayedViewController: EffectsPresetsManagerGenericViewController {
+//        
+//        switch tabView.selectedIndex {
+//            
+//        case 0: return masterPresetsManagerViewController
+//            
+//        case 1: return eqPresetsManagerViewController
+//            
+//        case 2: return pitchPresetsManagerViewController
+//            
+//        case 3: return timePresetsManagerViewController
+//            
+//        case 4: return reverbPresetsManagerViewController
+//            
+//        case 5: return delayPresetsManagerViewController
+//            
+//        case 6: return filterPresetsManagerViewController
+//            
+//        default: return masterPresetsManagerViewController
+//            
+//        }
+//    }
+//    
+//    private var effectsUnit: EffectsUnitType {
+//        displayedViewController.unitType
+//    }
+//    
+//    // MARK: Message handling
+//    
+//    func managerSelectionChanged(numberOfSelectedRows: Int) {
+//        updateButtonStates(numberOfSelectedRows: numberOfSelectedRows)
+//    }
 }

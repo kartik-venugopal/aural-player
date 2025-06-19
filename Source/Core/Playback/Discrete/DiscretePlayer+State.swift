@@ -12,9 +12,7 @@ import Foundation
 
 class DiscretePlayer: PlayerProtocol {
     
-    let audioGraph: AudioGraphProtocol
     let playerNode: AuralPlayerNode
-    let playQueue: PlayQueueProtocol
     
     // Helper used for actual scheduling and playback
     var scheduler: PlaybackSchedulerProtocol!
@@ -31,11 +29,9 @@ class DiscretePlayer: PlayerProtocol {
     
     private(set) lazy var messenger = Messenger(for: self)
     
-    init(audioGraph: AudioGraphProtocol, playQueue: PlayQueueProtocol) {
+    init(playerNode: AuralPlayerNode) {
         
-        self.audioGraph = audioGraph
-        self.playerNode = audioGraph.playerNode
-        self.playQueue = playQueue
+        self.playerNode = playerNode
         
         self.avfScheduler = AVFScheduler(playerNode: playerNode)
         self.ffmpegScheduler = FFmpegScheduler(playerNode: playerNode)
@@ -94,7 +90,7 @@ class DiscretePlayer: PlayerProtocol {
     
     var playerPosition: TimeInterval {
         
-        if let seekPos = cachedSeekPosition {return seekPos}
+        if let cachedSeekPosition {return cachedSeekPosition}
         
         guard state.isPlayingOrPaused, let session = PlaybackSession.currentSession else {return 0}
         

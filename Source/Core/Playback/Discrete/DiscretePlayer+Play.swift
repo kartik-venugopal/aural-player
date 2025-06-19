@@ -118,7 +118,7 @@ extension DiscretePlayer {
         }
         
         // Disconnect player from audio graph and reconnect with the file's processing format
-        audioGraph.reconnectPlayerNode(withFormat: audioFormat)
+//        soundOrch.reconnectPlayerNode(withFormat: audioFormat)
         
         let session = PlaybackSession.start(track)
         self.scheduler = track.isNativelySupported ? avfScheduler : ffmpegScheduler
@@ -141,7 +141,7 @@ extension DiscretePlayer {
     func pause() {
         
         scheduler.pause()
-        audioGraph.clearSoundTails()
+//        soundOrch.clearSoundTails()
         
         state = .paused
     }
@@ -196,7 +196,7 @@ extension DiscretePlayer {
         
         scheduler?.stop()
         playerNode.reset()
-        audioGraph.clearSoundTails()
+//        soundOrch.clearSoundTails()
         
         state = .stopped
     }

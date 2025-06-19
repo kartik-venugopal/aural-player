@@ -31,7 +31,7 @@ class FilterUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    var filterUnit: FilterUnitProtocol = audioGraph.filterUnit
+    var filterUnit: FilterUnitProtocol!
     
     // ------------------------------------------------------------------------
     

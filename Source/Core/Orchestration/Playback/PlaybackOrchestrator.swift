@@ -25,11 +25,13 @@ class PlaybackOrchestrator: PlaybackOrchestratorProtocol {
                                                                               playQueue: playQueue,
                                                                               preferences: preferences.playbackPreferences)
     
+    lazy var trackPlaybackCompletedChain: TrackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain)
+    
     var ui: PlaybackUI?
     
-    init(player: PlayerProtocol, playQueue: PlayQueueProtocol, playbackPreferences: PlaybackPreferences) {
+    init(playerNode: AuralPlayerNode, playQueue: PlayQueueProtocol, playbackPreferences: PlaybackPreferences) {
         
-        self.player = player
+        self.player = DiscretePlayer(playerNode: playerNode)
         self.playQueue = playQueue
         self.playbackPreferences = playbackPreferences
     }

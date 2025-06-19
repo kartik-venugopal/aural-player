@@ -27,11 +27,11 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
     
     func setUp() {
         
-        normalDeviceBufferSize = audioGraph.outputDeviceBufferSize
-        audioGraph.setUpForVisualizationAnalysis()
-        
-        fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate),
-                  bufferSize: audioGraph.outputDeviceBufferSize)
+//        normalDeviceBufferSize = soundOrch.outputDeviceBufferSize
+//        soundOrch.setUpForVisualizationAnalysis()
+//        
+//        fft.setUp(sampleRate: Float(soundOrch.outputDeviceSampleRate),
+//                  bufferSize: soundOrch.outputDeviceBufferSize)
     }
     
     func destroy() {
@@ -41,21 +41,21 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
     // MARK: Client (analysis) functions -------------------------
     
     func startAnalysis() {
-        audioGraph.registerRenderObserver(self)
+//        soundOrch.registerRenderObserver(self)
     }
     
     func pauseAnalysis() {
-        audioGraph.pauseRenderObserver(self)
+//        soundOrch.pauseRenderObserver(self)
     }
     
     func resumeAnalysis() {
-        audioGraph.resumeRenderObserver(self)
+//        soundOrch.resumeRenderObserver(self)
     }
     
     func stopAnalysis() {
 
-        audioGraph.removeRenderObserver(self)
-        audioGraph.outputDeviceBufferSize = normalDeviceBufferSize
+//        soundOrch.removeRenderObserver(self)
+//        soundOrch.outputDeviceBufferSize = normalDeviceBufferSize
     }
     
     // MARK: AudioGraphRenderObserverProtocol functions -------------------
@@ -70,13 +70,13 @@ class Visualizer: AudioGraphRenderObserverProtocol, Destroyable {
         
         normalDeviceBufferSize = newDeviceBufferSize
         
-        if !audioGraph.isSetUpForVisualizationAnalysis {
-            
-            audioGraph.setUpForVisualizationAnalysis()
-            
-            fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate),
-                      bufferSize: audioGraph.outputDeviceBufferSize)
-        }
+//        if !soundOrch.isSetUpForVisualizationAnalysis {
+//            
+//            soundOrch.setUpForVisualizationAnalysis()
+//            
+//            fft.setUp(sampleRate: Float(soundOrch.outputDeviceSampleRate),
+//                      bufferSize: soundOrch.outputDeviceBufferSize)
+//        }
     }
     
     // TODO

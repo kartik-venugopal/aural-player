@@ -86,7 +86,7 @@ class PlayerViewController: NSViewController {
     lazy var autoHidingVolumeLabel: AutoHidingView = AutoHidingView(lblVolume, Self.feedbackLabelAutoHideIntervalSeconds)
     
     // Timer that periodically updates the seek position slider and label
-    lazy var seekTimer: RepeatingTaskExecutor = RepeatingTaskExecutor(intervalMillis: (1000 / (2 * audioGraph.timeStretchUnit.effectiveRate)).roundedInt,
+    lazy var seekTimer: RepeatingTaskExecutor = RepeatingTaskExecutor(intervalMillis: (1000 / (2 * soundOrch.timeStretchUnit.effectiveRate)).roundedInt,
                                                                       task: {[weak self] in
                                                                         self?.updateSeekPosition()},
                                                                       queue: .main)

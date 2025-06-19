@@ -18,20 +18,15 @@ import AVFoundation
 ///
 class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     
-    let node: VariableRateNode = VariableRateNode()
-    let presets: TimeStretchPresets
+    private let node: VariableRateNode = .init()
+    let presets: TimeStretchPresets = .init()
     
     let minRate: Float = 1.0/4
     let maxRate: Float = 4
     private lazy var rateRange: ClosedRange<Float> = minRate...maxRate
     
-    init(persistentState: TimeStretchUnitPersistentState?) {
-        
-        presets = TimeStretchPresets(persistentState: persistentState)
-        super.init(unitType: .time, unitState: persistentState?.state ?? AudioGraphDefaults.timeStretchState, renderQuality: persistentState?.renderQuality)
-        
-        rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
-        shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeStretchShiftPitch
+    init() {
+        super.init(unitType: .time)
     }
     
     override var avNodes: [AVAudioNode] {node.avNodes}

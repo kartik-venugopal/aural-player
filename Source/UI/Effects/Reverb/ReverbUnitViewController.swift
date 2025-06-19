@@ -26,7 +26,7 @@ class ReverbUnitViewController: EffectsUnitViewController {
     
     // MARK: Services, utilities, helpers, and properties
     
-    var reverbUnit: ReverbUnitProtocol = audioGraph.reverbUnit
+    var reverbUnit: ReverbUnitProtocol!
     
     // ------------------------------------------------------------------------
     
