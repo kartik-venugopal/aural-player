@@ -2,7 +2,7 @@
 
 ![App demo](/Documentation/aural4-modes.png?raw=true "App demo")
 
-## Project archived - It't time to say goodbye!
+## Project archived - It's time to say goodbye!
 
 I will no longer be actively working on this project, so it's time to say thank you and goodbye! This means no bug fixes, no new features, no new releases.
 
